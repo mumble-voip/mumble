@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 procptr32_t posptr, rotptr;
 
@@ -45,8 +45,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"left4dead.exe", L"client.dll"))
 		return false;
 
-	posptr = pModule32 + 0x596E30;
-	rotptr = pModule32 + 0x596E3C;
+	posptr = pModule + 0x596E30;
+	rotptr = pModule + 0x596E3C;
 
 	float pos[3];
 	float rot[3];

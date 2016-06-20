@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 procptr32_t posptr;
 procptr32_t frtptr;
@@ -99,7 +99,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state;
 	bool ok;
 
-	ok = peekProc(pModule32 + 0x290557, state, 1); // Magical state value
+	ok = peekProc(pModule + 0x290557, state); // Magical state value
 	if (! ok)
 		return false;
 
@@ -114,9 +114,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float top_corrector[3];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((procptr32_t) posptr, pos_corrector, 12) &&
-	     peekProc((procptr32_t) frtptr, front_corrector, 12) &&
-	     peekProc((procptr32_t) topptr, top_corrector, 12);
+	ok = peekProc(posptr, pos_corrector, 12) &&
+	     peekProc(frtptr, front_corrector, 12) &&
+	     peekProc(topptr, top_corrector, 12);
 
 	if (! ok)
 		return false;
@@ -147,10 +147,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Read server name
-	procptr32_t cbase = peekProc<procptr32_t> ((procptr32_t) pModule32 + 0x00290550);
-	procptr32_t cptr0 = peekProc<procptr32_t> ((procptr32_t) cbase + 0x30);
-	procptr32_t cptr1 = peekProc<procptr32_t> ((procptr32_t) cptr0 + 0x73C);
-	procptr32_t cptr2 = peekProc<procptr32_t> ((procptr32_t) cptr1 + 0x244);
+	procptr32_t cbase = peekProc<procptr32_t> (pModule + 0x00290550);
+	procptr32_t cptr0 = peekProc<procptr32_t> (cbase + 0x30);
+	procptr32_t cptr1 = peekProc<procptr32_t> (cptr0 + 0x73C);
+	procptr32_t cptr2 = peekProc<procptr32_t> (cptr1 + 0x244);
 
 
 	wchar_t wservername[60];
@@ -179,7 +179,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UnrealTournament.exe", L"Engine.dll"))
 		return false;
 
-	procptr32_t base = pModule32 + 0x290584;
+	procptr32_t base = pModule + 0x290584;
 	posptr = base;
 	frtptr = base + 0x0C;
 	topptr = base + 0x18;

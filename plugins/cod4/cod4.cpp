@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
@@ -30,7 +30,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x0074E380		byte	Magical state value
 	*/
-	ok = peekProc((procptr32_t) 0x0074E380, &state, 1); // Magical state value
+	ok = peekProc(0x0074E380, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	/*
@@ -45,12 +45,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((procptr32_t) 0x0072AFD0, avatar_pos+2, 4) &&	//Z
-	     peekProc((procptr32_t) 0x0072AFE0, avatar_pos, 4) &&	//X
-	     peekProc((procptr32_t) 0x0072AFF0, avatar_pos+1, 4) && //Y
-	     peekProc((procptr32_t) 0x0072AF3C, &viewHor, 4) && //Hor
-	     peekProc((procptr32_t) 0x0072AF38, &viewVer, 4) && //Ver
-	     peekProc((procptr32_t) 0x00956D88, ccontext, 128);
+	ok = peekProc(0x0072AFD0, avatar_pos+2, 4) &&	//Z
+	     peekProc(0x0072AFE0, avatar_pos, 4) &&	//X
+	     peekProc(0x0072AFF0, avatar_pos+1, 4) && //Y
+	     peekProc(0x0072AF3C, &viewHor, 4) && //Hor
+	     peekProc(0x0072AF38, &viewVer, 4) && //Ver
+	     peekProc(0x00956D88, ccontext, 128);
 
 	if (! ok)
 		return false;

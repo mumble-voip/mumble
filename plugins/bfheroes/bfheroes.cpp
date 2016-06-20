@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 procptr32_t posptr, faceptr, topptr, stateptr;
 
@@ -15,7 +15,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char logincheck;
 	bool ok;
 
-	ok = peekProc((procptr32_t) 0x00A24D6C, &logincheck, 1);
+	ok = peekProc(0x00A24D6C, &logincheck, 1);
 	if (! ok)
 		return false;
 
@@ -51,7 +51,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"BFHeroes.exe", L"BFAudio.dll"))
 		return false;
 
-	procptr32_t cacheaddr = pModule32 + 0x4745c;
+	procptr32_t cacheaddr = pModule + 0x4745c;
 	procptr32_t cache = peekProc<procptr32_t>(cacheaddr);
 
 	posptr = peekProc<procptr32_t>(cache + 0xc0);

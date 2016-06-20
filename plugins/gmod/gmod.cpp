@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
@@ -129,11 +129,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Remember addresses for later
 	// position tuple: x,y,z, float
 	// client.dll+0x6856B8
-	posptr = pModule32 + 0x6856B8;
+	posptr = pModule + 0x6856B8;
 	// orientation tuple: v,h,? float
 	// v: up = -90°, down = 90°; h (rotation): -180 - 180°
 	// client.dll+0x5B5914
-	rotptr = pModule32 + 0x5B5914;
+	rotptr = pModule + 0x5B5914;
 	// spawn state: client.dll+0x?????? - 0 when at main menu, 2 when not spawned, 15 to 14 when spawned, byte
 	// This could not be verified/found by Kissaki
 	stateptr = mod_engine + 0x375565;

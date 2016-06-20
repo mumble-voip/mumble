@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 /* 
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
@@ -54,7 +54,7 @@
 	TODO: Find Avatar position, front, top vectors, protect against version change (find a random pointer to check), distinguish spectator and normal mode
 */
 
-static procptr32_t camfrontptr = (procptr32_t) 0x141bc20;
+static procptr32_t camfrontptr = 0x141bc20;
 static procptr32_t camtopptr = camfrontptr + 0xC;
 static procptr32_t camptr = camfrontptr + 0x18;
 static procptr32_t hostipportptr;
@@ -77,7 +77,7 @@ static bool calcout(float *cam, float *camfront, float *camtop, float *ocam, flo
 static bool refreshPointers(void) {
 	hostipportptr = NULL;
 
-	hostipportptr = pModule32 + 0xB8C57;
+	hostipportptr = pModule + 0xB8C57;
 
 	return true;
 }
@@ -92,8 +92,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	ok = peekProc(camfrontptr, camfront, 12) &&
 		 peekProc(camtopptr, camtop, 12) &&
-		 peekProc(hostipportptr, hostipport, 22) &&
-		 peekProc(camptr, cam, 12);
+		 peekProc(hostipportptr, hostipport) &&
+		 peekProc(camptr, cam);
 
 	if (!ok) 
 		return false;

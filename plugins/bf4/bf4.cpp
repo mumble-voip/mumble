@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h" // Include standard plugin header.
+#include "../mumble_plugin_win32_x64.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -16,7 +16,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     BYTE squad, squad_leader, squad_state;
 
     // Server ID pointers
-    procptr64_t serverid_base = peekProc<procptr64_t>(pModule64 + 0x02210658);
+    procptr64_t serverid_base = peekProc<procptr64_t>(pModule + 0x02210658);
     if (!serverid_base) return false;
     procptr64_t serverid_offset_0 = peekProc<procptr64_t>(serverid_base + 0x18);
     if (!serverid_offset_0) return false;
@@ -26,7 +26,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     if (!serverid_offset) return false;
 
     // Squad pointers
-    procptr64_t squad_base = peekProc<procptr64_t>(pModule64 + 0x02210718);
+    procptr64_t squad_base = peekProc<procptr64_t>(pModule + 0x02210718);
     if (!squad_base) return false;
     procptr64_t squad_offset_0 = peekProc<procptr64_t>(squad_base + 0xD8);
     if (!squad_offset_0) return false;
@@ -36,17 +36,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     if (!squad_offset_2) return false;
 
     // Peekproc and assign game addresses to our containers, so we can retrieve positional data
-    ok = peekProc(pModule64 + 0x21CAFF0, &state, 1) && // Magical state value: 0 when in-game and 1 when in menu/dead.
-            peekProc(pModule64 + 0x21C6D40, avatar_pos, 12) && // Avatar Position values (X, Y and Z).
-            peekProc(pModule64 + 0x21CAF80, camera_pos, 12) && // Camera Position values (X, Y and Z).
-            peekProc(pModule64 + 0x21CAF60, avatar_top, 12) && // Avatar Top Vector values (X, Y and Z).
-            peekProc(pModule64 + 0x21CAF70, avatar_front, 12) && // Avatar Front Vector values (X, Y and Z).
-            peekProc(serverid_offset, serverid, 37) && // Server ID (36 characters).
-            peekProc(pModule64 + 0x21B80C0, host, 22) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
-            peekProc(pModule64 + 0x24AFAE5, team, 3) && // Team value: US (United States); RU (Russia); CH (China).
-            peekProc(squad_offset_2 + 0x230, squad, 2) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
-            peekProc(squad_offset_2 + 0x234, squad_leader, 1) && // Squad leader value: 0 (False); 1 (True).
-            peekProc(squad_offset_2 + 0x235, squad_state, 1); // Squad state value: 0 (Public); 1 (Private).
+    ok = peekProc(pModule + 0x21CAFF0, &state, 1) && // Magical state value: 0 when in-game and 1 when in menu/dead.
+            peekProc(pModule + 0x21C6D40, avatar_pos, 12) && // Avatar Position values (X, Y and Z).
+            peekProc(pModule + 0x21CAF80, camera_pos, 12) && // Camera Position values (X, Y and Z).
+            peekProc(pModule + 0x21CAF60, avatar_top, 12) && // Avatar Top Vector values (X, Y and Z).
+            peekProc(pModule + 0x21CAF70, avatar_front, 12) && // Avatar Front Vector values (X, Y and Z).
+            peekProc(serverid_offset, serverid) && // Server ID (36 characters).
+            peekProc(pModule + 0x21B80C0, host) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
+            peekProc(pModule + 0x24AFAE5, team) && // Team value: US (United States); RU (Russia); CH (China).
+            peekProc(squad_offset_2 + 0x230, squad) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
+            peekProc(squad_offset_2 + 0x234, squad_leader) && // Squad leader value: 0 (False); 1 (True).
+            peekProc(squad_offset_2 + 0x235, squad_state); // Squad state value: 0 (Public); 1 (Private).
 
     // This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
     if (! ok) {

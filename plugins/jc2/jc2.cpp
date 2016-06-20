@@ -35,7 +35,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 const unsigned int off_character_manager = 0xD8FB24;
 const unsigned int off_local_player = 0x3570;
@@ -65,7 +65,7 @@ typedef struct {
 static int setuppointers() {
 	procptr32_t character_manager, local_player, character, camera_manager;
 
-	if (!peekProc(pModule32 + off_character_manager, &character_manager, 4) || !character_manager)
+	if (!peekProc(pModule + off_character_manager, &character_manager, 4) || !character_manager)
 		return false;
 
 	if (!peekProc(character_manager + off_local_player, &local_player, 4) || !local_player)
@@ -76,7 +76,7 @@ static int setuppointers() {
 
 	char_matrix_ptr = character + off_char_matrix;
 
-	if (!peekProc(pModule32 + off_camera_manager, &camera_manager, 4) || !camera_manager)
+	if (!peekProc(pModule + off_camera_manager, &camera_manager, 4) || !camera_manager)
 		return false;
 
 	cam_matrix_ptr = camera_manager + off_cam_matrix;

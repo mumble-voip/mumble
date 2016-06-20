@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 using namespace std;
 
 
@@ -13,14 +13,14 @@ bool ptr_chain_valid = false;
 procptr32_t pmodule_bf2, pmodule_renddx9;
 
 // Magic ptrs
-procptr32_t const login_ptr = (procptr32_t) 0x30058642;
-procptr32_t const state_ptr = (procptr32_t) 0x00A1D0A8;
+procptr32_t const login_ptr = 0x30058642;
+procptr32_t const state_ptr = 0x00A1D0A8;
 
 // Vector ptrs
 procptr32_t pos_ptr, face_ptr, top_ptr;
 
 // Context ptrs
-procptr32_t const ipport_ptr = (procptr32_t) 0x009A80B8;
+procptr32_t const ipport_ptr = 0x009A80B8;
 
 // Identity ptrs
 procptr32_t commander_ptr, squad_leader_ptr, squad_state_ptr, team_state_ptr;
@@ -31,7 +31,7 @@ inline bool resolve_ptrs() {
 	// Resolve all pointer chains to the values we want to fetch
 	//
 
-	procptr32_t base_bf2audio = pModule32 + 0x4645c;
+	procptr32_t base_bf2audio = pModule + 0x4645c;
 	procptr32_t base_bf2audio_2 = peekProc<procptr32_t>(base_bf2audio);
 	if (!base_bf2audio_2) return false;
 

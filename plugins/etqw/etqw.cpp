@@ -36,7 +36,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
@@ -64,7 +64,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x013F9E1C		float	Vertical view
 			0x013E8D18		byte	Magic value (32 ingame / 0 spectating)
 	*/
-	ok = peekProc((procptr32_t) 0x00801BA4, &menustate, 1);
+	ok = peekProc(0x00801BA4, &menustate, 1);
 	if (! ok)
 		return false;
 	if (menustate == 0)
@@ -75,7 +75,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(pos3ptr, avatar_pos+2, 4) && //Z
 	     peekProc(rot1ptr, &viewHor, 4) && //Hor
 	     peekProc(rot2ptr, &viewVer, 4) && //Ver
-	     peekProc((procptr32_t) 0x0122E0B8, ccontext, 128);
+	     peekProc(0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -133,11 +133,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"etqw.exe", L"gamex86.dll"))
 		return false;
 
-	pos1ptr = pModule32 + 0x74EABC;
-	pos2ptr = pModule32 + 0x74EAB4;
-	pos3ptr = pModule32 + 0x74EAB8;
-	rot1ptr = pModule32 + 0x75D2B4;
-	rot2ptr = pModule32 + 0x75D30C;
+	pos1ptr = pModule + 0x74EABC;
+	pos2ptr = pModule + 0x74EAB4;
+	pos3ptr = pModule + 0x74EAB8;
+	rot1ptr = pModule + 0x75D2B4;
+	rot2ptr = pModule + 0x75D30C;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;

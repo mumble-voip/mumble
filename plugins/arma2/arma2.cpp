@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 procptr32_t posptr, frontptr, topptr;
 
@@ -123,7 +123,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	   if (!pModule)
 	*/
 
-	procptr32_t ptr1 = peekProc<procptr32_t>((procptr32_t) 0x00C500FC);
+	procptr32_t ptr1 = peekProc<procptr32_t>(0x00C500FC);
 
 	procptr32_t ptr2 = peekProc<procptr32_t>(ptr1 + 0x88);
 

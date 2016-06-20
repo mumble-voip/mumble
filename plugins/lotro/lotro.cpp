@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	for (int i=0;i<3;i++)
@@ -66,11 +66,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc((procptr32_t) 0x01272D34, o, 12) &&
-	     peekProc((procptr32_t) 0x01272D2C, l, 2) &&
-	     peekProc((procptr32_t) 0x01272D28, &r, 1) &&
-	     peekProc((procptr32_t) 0x01272D20, &i, 1) &&
-	     peekProc((procptr32_t)(pModule32 + 0x00A138A4), &hPtr, 4);
+	ok = peekProc(0x01272D34, o, 12) &&
+	     peekProc(0x01272D2C, l, 2) &&
+	     peekProc(0x01272D28, &r, 1) &&
+	     peekProc(0x01272D20, &i, 1) &&
+	     peekProc(pModule + 0x00A138A4, &hPtr, 4);
 
 	if (! ok)
 		return false;

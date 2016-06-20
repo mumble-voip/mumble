@@ -35,7 +35,7 @@
    
 */ 
 
-#include "../mumble_plugin_win32.h"  
+#include "../mumble_plugin_win32_x86.h"  
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &/*context*/, std::wstring &/*identity*/) {
 	for (int i=0;i<3;i++)
@@ -51,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	/*
 		value is <     >
 	*/
-	ok = peekProc((procptr32_t) 0xB378564, &state, 1); // Magical state value
+	ok = peekProc(0xB378564, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	
@@ -59,9 +59,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((procptr32_t) 0x1243BE84, &pos_corrector, 12) &&
-	        peekProc((procptr32_t) 0x1243BEA8, &front_corrector, 12) &&
-	        peekProc((procptr32_t) 0x1243BE9C, &top_corrector, 12);
+	ok = peekProc(0x1243BE84, &pos_corrector, 12) &&
+	        peekProc(0x1243BEA8, &front_corrector, 12) &&
+	        peekProc(0x1243BE9C, &top_corrector, 12);
 	
 	if (! ok)
 		return false;

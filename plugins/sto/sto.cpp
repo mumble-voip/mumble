@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 static procptr32_t identptr, contextptr, posptr;
 
@@ -26,9 +26,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char contextblock[0x80];
 	float posblock[64];
 
-	if (! peekProc(identptr, identblock, 0x200) ||
-	        ! peekProc(contextptr, contextblock, 0x80) ||
-	        ! peekProc(posptr, posblock, 64))
+	if (! peekProc(identptr, identblock) ||
+	        ! peekProc(contextptr, contextblock) ||
+	        ! peekProc(posptr, posblock))
 		return false;
 
 	std::string ident = std::string(identblock+0x188, strnlen(identblock + 0x188, 0x78)) + std::string("@") + std::string(identblock, strnlen(identblock, 0x80));
@@ -76,16 +76,16 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	char version[17];
-	peekProc(pModule32 + 0x1616080, version, 17);
+	peekProc(pModule + 0x1616080, version);
 	version[16]=0;
 
 	if (memcmp(version, "ST.0.20100217c.3", sizeof(version)) == 0) {
 #ifdef PLUGIN_DEBUG
 		printf("STO: WANTLINK %s\n", version);
 #endif
-		contextptr = pModule32 + 0x16b2cd4;
+		contextptr = pModule + 0x16b2cd4;
 		identptr = contextptr + 0x444;
-		posptr = pModule32 + 0x18c2340;
+		posptr = pModule + 0x18c2340;
 
 		return true;
 	} else {

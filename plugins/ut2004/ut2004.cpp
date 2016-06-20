@@ -35,7 +35,7 @@
 */
 
 ////
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
@@ -99,7 +99,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UT2004.exe", L"Engine.dll"))
 		return false;
 
-	procptr32_t ptraddress = pModule32 + 0x4A44FC;
+	procptr32_t ptraddress = pModule + 0x4A44FC;
 	procptr32_t ptr2 = peekProc<procptr32_t>(ptraddress);
 	procptr32_t ptr3 = peekProc<procptr32_t>(ptr2 + 0xCC);
 	procptr32_t baseptr = ptr3 + 0x1C8;

@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 /*
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
@@ -73,14 +73,14 @@
 
 */
 
-static procptr32_t camptr = (procptr32_t) 0xa30274;
-static procptr32_t posptr = (procptr32_t) 0xa302a4;
-static procptr32_t camfrontptr = (procptr32_t) 0xbf46b8;
-static procptr32_t frontptr_ = (procptr32_t) 0xd55610;
+static procptr32_t camptr = 0xa30274;
+static procptr32_t posptr = 0xa302a4;
+static procptr32_t camfrontptr = 0xbf46b8;
+static procptr32_t frontptr_ = 0xd55610;
 static procptr32_t frontptr;
 
-static procptr32_t locationptr = (procptr32_t) 0xa3fa08;
-static procptr32_t areaptr = (procptr32_t) 0xa31158;
+static procptr32_t locationptr = 0xa3fa08;
+static procptr32_t areaptr = 0xa31158;
 
 static char prev_location;
 static int prev_areaid;
@@ -141,7 +141,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(posptr, pos, 12) &&
 		 peekProc(camfrontptr, camfront, 12) &&
 		 peekProc(locationptr, &location, 1) &&
-		 peekProc(areaptr, &areaid, 1);
+		 peekProc(areaptr, &areaid, 4);
 
 	if (!ok) // First we check, if the game is even running or if we should unlink because it's not / it's broken
 		return false;
@@ -152,7 +152,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
 	}
 	else { // If we're inside the game, try to peekProc the last value we need or unlink (again, in case something went wrong)
-		if (!peekProc(frontptr, front, 12))
+		if (!peekProc(frontptr, front))
 			return false;
 	}
 

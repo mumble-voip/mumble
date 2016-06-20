@@ -36,19 +36,19 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 static bool ptr_chain_valid = false;
 
 // Magic ptrs
-static procptr32_t const state_ptr = (procptr32_t) 0x238ABDC;
+static procptr32_t const state_ptr = 0x238ABDC;
 
 // Vector ptrs
-static procptr32_t const avatar_pos_ptr = (procptr32_t) 0x0238AB70;
-static procptr32_t const avatar_front_ptr = (procptr32_t) 0x0238ABA0;
-static procptr32_t const avatar_top_ptr = (procptr32_t) 0x0238AB90;
+static procptr32_t const avatar_pos_ptr = 0x0238AB70;
+static procptr32_t const avatar_front_ptr = 0x0238ABA0;
+static procptr32_t const avatar_top_ptr = 0x0238AB90;
 
 // Context ptrs
-static procptr32_t const ipport_ptr = (procptr32_t) 0x0235DB90;
+static procptr32_t const ipport_ptr = 0x0235DB90;
 
 // Identity ptrs
 static procptr32_t team_state_ptr, squad_state_ptr, squad_lead_state_ptr;
@@ -100,7 +100,7 @@ inline bool resolve_ptrs() {
         Team state:  BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x31C                    BYTE        1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
     */
 
-    procptr32_t base_bf3 = peekProc<procptr32_t>(pModule32 + base_offset);
+    procptr32_t base_bf3 = peekProc<procptr32_t>(pModule + base_offset);
     if (!base_bf3)
         return false;
 

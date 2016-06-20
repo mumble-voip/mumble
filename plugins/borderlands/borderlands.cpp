@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 procptr32_t posptr, frontptr, topptr, contextptraddress, stateaddress, loginaddress;
 
@@ -134,27 +134,27 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Trying to assess which version of Borderlands is running.
 	char version[6];
-	if (!peekProc((procptr32_t) 0x01f16ce8, &version, sizeof(version))) {
+	if (!peekProc(0x01f16ce8, &version, sizeof(version))) {
 		generic_unlock();
 		return false;
 	}
 
 	procptr32_t ptraddress;
 	if (strncmp("the cl", version, sizeof(version)) == 0) { // retail version
-		ptraddress = (procptr32_t) 0x01f73744;
-		stateaddress = (procptr32_t) 0x01f9bb18;
-		contextptraddress = (procptr32_t) 0x01fd7398;
-		loginaddress = (procptr32_t) 0x01fd83a8;
+		ptraddress = 0x01f73744;
+		stateaddress = 0x01f9bb18;
+		contextptraddress = 0x01fd7398;
+		loginaddress = 0x01fd83a8;
 	} else if (strncmp("Tir-ku", version, sizeof(version)) == 0) { // steam version
-		ptraddress = (procptr32_t) 0x01f705c4;
-		stateaddress = (procptr32_t) 0x01f98998;
-		contextptraddress = (procptr32_t) 0x01fd4218;
-		loginaddress = (procptr32_t) 0x01fd5220;
+		ptraddress = 0x01f705c4;
+		stateaddress = 0x01f98998;
+		contextptraddress = 0x01fd4218;
+		loginaddress = 0x01fd5220;
 	} else if (strncmp("german", version, sizeof(version)) == 0) { // german version
-		ptraddress = (procptr32_t) 0x01f72744;
-		stateaddress = (procptr32_t) 0x01f9ab18;
-		contextptraddress = (procptr32_t) 0x01fd6398;
-		loginaddress = (procptr32_t) 0x01fd73a8;
+		ptraddress = 0x01f72744;
+		stateaddress = 0x01f9ab18;
+		contextptraddress = 0x01fd6398;
+		loginaddress = 0x01fd73a8;
 	} else { // unknown version
 		generic_unlock();
 		return false;

@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 procptr32_t posptr, faceptr, topptr;
 
@@ -16,7 +16,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char logincheck;
 	bool ok;
 
-	ok = peekProc((procptr32_t) 0x00A1D908, &logincheck, 1);
+	ok = peekProc(0x00A1D908, &logincheck, 1);
 	if (! ok)
 		return false;
 
@@ -29,14 +29,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
 		usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
 	*/
-	ok = peekProc((procptr32_t) 0x00B47968, &state, 1); // Magical state value
+	ok = peekProc(0x00B47968, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12) &&
-	     peekProc((procptr32_t) 0x00B527B8, ccontext, 128);
+	     peekProc(0x00B527B8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -66,7 +66,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"BF2142.exe", L"BF2142Audio.dll"))
 		return false;
 
-	procptr32_t cacheaddr = pModule32 + 0x4745c;
+	procptr32_t cacheaddr = pModule + 0x4745c;
 	procptr32_t cache = peekProc<procptr32_t>(cacheaddr);
 
 	posptr = peekProc<procptr32_t>(cache + 0xc0);

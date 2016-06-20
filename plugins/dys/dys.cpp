@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
@@ -142,14 +142,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule32 + 0x4A3330;
-	rotptr = pModule32 + 0x454E04;
-	stateptr = pModule32 + 0x4518A0;
+	posptr = pModule + 0x4A3330;
+	rotptr = pModule + 0x454E04;
+	stateptr = pModule + 0x4518A0;
 	hostptr = mod_engine + 0x3C2A84;
 
 	//Gamecheck
 	char sMagic[14];
-	if (!peekProc(pModule32 + 0x463726, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
+	if (!peekProc(pModule + 0x463726, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
