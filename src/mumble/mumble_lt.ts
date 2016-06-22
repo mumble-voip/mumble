@@ -2734,12 +2734,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>Sukurkite naują liudijimą, skirtą tvirtam atpažinimui</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Dabar Mumble sukurs tvirtą liudijimą, skirtą atpažinimui serveriuose.&lt;/p&gt;&lt;p&gt;Jei norite, galite pateikti papildomą informaciją, kuria bus papildytas jūsų liudijimas, kuris bus pateikiamas serveriams, kuomet prisijungsite. Jeigu pateiksite teisingą el. pašto adresą, vėliau galėsite atsinaujinti į LĮ išduotą el. pašto liudijimą, kuris pateikia tvirtą identifikavimą.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2749,7 +2749,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>El. paštas</translation>
     </message>
     <message>
         <location/>
