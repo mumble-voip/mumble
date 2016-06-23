@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h" // Include standard plugin header.
+#include "../mumble_plugin_win32_x86.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -21,16 +21,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE team;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
-			peekProc((BYTE *) pModule + 0x1041C68, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
-			peekProc((BYTE *) pModule + 0x0EB8950, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y, respectively).
-			peekProc((BYTE *) pModule + 0x0E6093C, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y, respectively).
-			peekProc((BYTE *) pModule + 0x0EC5B50, avatar_front_corrector, 12) && // Avatar front values (X, Z and Y, respectively).
-			peekProc((BYTE *) pModule + 0x0EC5B68, avatar_top_corrector, 12) && // Avatar top values (X, Z and Y, respectively).
-			peekProc((BYTE *) pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
-			peekProc((BYTE *) pModule + 0x106E24B, servername) && // Server name.
-			peekProc((BYTE *) pModule + 0x12DE8D8, map) && // Map name.
-			peekProc((BYTE *) pModule + 0x106CE6C, team); // Team value: 0 when in a FFA game (no team); 1 when in Red team; 2 when in Blue team; 3 when in Spectators.
+	ok = peekProc(pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
+			peekProc(pModule + 0x1041C68, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
+			peekProc(pModule + 0x0EB8950, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y, respectively).
+			peekProc(pModule + 0x0E6093C, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y, respectively).
+			peekProc(pModule + 0x0EC5B50, avatar_front_corrector, 12) && // Avatar front values (X, Z and Y, respectively).
+			peekProc(pModule + 0x0EC5B68, avatar_top_corrector, 12) && // Avatar top values (X, Z and Y, respectively).
+			peekProc(pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
+			peekProc(pModule + 0x106E24B, servername) && // Server name.
+			peekProc(pModule + 0x12DE8D8, map) && // Map name.
+			peekProc(pModule + 0x106CE6C, team); // Team value: 0 when in a FFA game (no team); 1 when in Red team; 2 when in Blue team; 3 when in Spectators.
 
 	if (! ok) {
 		return false;
@@ -125,11 +125,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_top[1] = avatar_top_corrector[2];
 	avatar_top[2] = avatar_top_corrector[1];
 
+	// Scale to meters
 	for (int i=0;i<3;i++) {
-		camera_front[i] = avatar_front[i]; // Sync camera front vector with avatar one
-		camera_top[i] = avatar_top[i]; // Sync camera top vector with avatar one
-		avatar_pos[i]/=70.0f; // Scale avatar position values to meters
-		camera_pos[i]/=70.0f; // Scale camera position values to meters
+		camera_front[i] = avatar_front[i];
+		camera_top[i] = avatar_top[i];
+		avatar_pos[i]/=70.0f;
+		camera_pos[i]/=70.0f;
 	}
 
 	return true;
