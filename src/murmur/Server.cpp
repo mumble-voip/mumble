@@ -786,7 +786,7 @@ void Server::run() {
 					continue;
 				}
 
-				QReadLocker rl(&qrwlUsers);
+				QReadLocker rl(&qrwlVoiceThread);
 
 				quint32 *ping = reinterpret_cast<quint32 *>(encrypt);
 
@@ -820,23 +820,23 @@ void Server::run() {
 				} else {
 					// Unknown peer
 					foreach(ServerUser *usr, qhHostUsers.value(ha)) {
-						if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypt, buffer, len)) {
+						if (checkDecrypt(usr, encrypt, buffer, len)) { // checkDecrypt takes the User's qrwlCrypt lock.
 							// Every time we relock, reverify users' existance.
 							// The main thread might delete the user while the lock isn't held.
 							unsigned int uiSession = usr->uiSession;
 							rl.unlock();
-							qrwlUsers.lockForWrite();
+							qrwlVoiceThread.lockForWrite();
 							if (qhUsers.contains(uiSession)) {
 								u = usr;
 								u->sUdpSocket = sock;
 								memcpy(& u->saiUdpAddress, &from, sizeof(from));
 								qhHostUsers[from].remove(u);
 								qhPeerUsers.insert(key, u);
-								qrwlUsers.unlock();
-								rl.relock();
-								if (! qhUsers.contains(uiSession))
-									u = NULL;
 							}
+							qrwlVoiceThread.unlock();
+							rl.relock();
+							if (u != NULL && !qhUsers.contains(uiSession))
+								u = NULL;
 							break;
 						}
 					}
@@ -855,7 +855,7 @@ void Server::run() {
 						if (bOpus)
 							break;
 					case MessageHandler::UDPVoiceOpus: {
-							u->bUdp = true;
+							u->aiUdpFlag = 1;
 							processMsg(u, buffer, len);
 							break;
 						}
@@ -879,6 +879,8 @@ void Server::run() {
 }
 
 bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
+	QMutexLocker l(&u->qmCrypt);
+
 	if (u->csCrypt.isValid() && u->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypt), reinterpret_cast<unsigned char *>(plain), len))
 		return true;
 
@@ -892,14 +894,23 @@ bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsig
 }
 
 void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force) {
-	if ((u->bUdp || force) && (u->sUdpSocket != INVALID_SOCKET) && u->csCrypt.isValid()) {
+	if ((u->aiUdpFlag == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, len+4+16);
 		char *buffer = reinterpret_cast<char *>(((reinterpret_cast<quint64>(ebuffer) + 8) & ~7) + 4);
 #else
 		STACKVAR(char, buffer, len+4);
 #endif
-		u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len);
+		{
+			QMutexLocker wl(&u->qmCrypt);
+
+			if (!u->csCrypt.isValid()) {
+				return;
+			}
+
+			u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer),
+							   len);
+		}
 #ifdef Q_OS_WIN
 		DWORD dwFlow = 0;
 		if (Meta::hQoS)
@@ -972,11 +983,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress || u->bSelfMute)
 		return;
 
-	User *p;
-	BandwidthRecord *bw = & u->bwr;
-	Channel *c = u->cChannel;
 	QByteArray qba, qba_npos;
-	unsigned int counter;
 	char buffer[UDP_PACKET_SIZE];
 	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, UDP_PACKET_SIZE-1);
@@ -984,20 +991,22 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
 
-	// IP + UDP + Crypt + Data
-	int packetsize = 20 + 8 + 4 + len;
-
 	// Check the voice data rate limit.
-	if (! bw->addFrame(packetsize, iMaxBandwidth/8)) {
-		// Suppress packet.
-		return;
-	}
+	{
+		BandwidthRecord *bw = &u->bwr;
 
-	// Read the sequence number.
-	pdi >> counter;
+		// IP + UDP + Crypt + Data
+		const int packetsize = 20 + 8 + 4 + len;
+
+		if (! bw->addFrame(packetsize, iMaxBandwidth / 8)) {
+			// Suppress packet.
+			 return;
+		}
+	}
 
 	// Skip to the end of the voice data.
 	if ((type >> 5) != MessageHandler::UDPVoiceOpus) {
+		unsigned int counter;
 		do {
 			counter = pdi.next8();
 			pdi.skip(counter & 0x7f);
@@ -1023,8 +1032,10 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		sendMessage(u, buffer, len, qba);
 		return;
 	} else if (target == 0) { // Normal speech
+		Channel *c = u->cChannel;
+
 		buffer[0] = static_cast<char>(type | 0);
-		foreach(p, c->qlUsers) {
+		foreach(User *p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
 			SENDTO;
 		}
@@ -1037,7 +1048,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 			foreach(Channel *l, chans) {
 				if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
-					foreach(p, l->qlUsers) {
+					foreach(User *p, l->qlUsers) {
 						ServerUser *pDst = static_cast<ServerUser *>(p);
 						SENDTO;
 					}
@@ -1066,7 +1077,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 						if (!link && !dochildren && ! group) {
 							// Common case
 							if (ChanACL::hasPermission(u, wc, ChanACL::Whisper, &acCache)) {
-								foreach(p, wc->qlUsers) {
+								foreach(User *p, wc->qlUsers) {
 									channel.insert(static_cast<ServerUser *>(p));
 								}
 							}
@@ -1082,7 +1093,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 							const QString &qsg = redirect.isEmpty() ? wtc.qsGroup : redirect;
 							foreach(Channel *tc, channels) {
 								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, &acCache)) {
-									foreach(p, tc->qlUsers) {
+									foreach(User *p, tc->qlUsers) {
 										ServerUser *su = static_cast<ServerUser *>(p);
 										if (! group || Group::isMember(tc, tc, qsg, su)) {
 											channel.insert(su);
@@ -1095,20 +1106,24 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				}
 			}
 
-			foreach(unsigned int id, wt.qlSessions) {
-				ServerUser *pDst = qhUsers.value(id);
-				if (pDst && ChanACL::hasPermission(u, pDst->cChannel, ChanACL::Whisper, &acCache) && ! channel.contains(pDst))
-					direct.insert(pDst);
+			{
+				QMutexLocker qml(&qmCache);
+
+				foreach(unsigned int id, wt.qlSessions) {
+					ServerUser *pDst = qhUsers.value(id);
+					if (pDst && ChanACL::hasPermission(u, pDst->cChannel, ChanACL::Whisper, &acCache) && !channel.contains(pDst))
+						direct.insert(pDst);
+				}
 			}
 
 			int uiSession = u->uiSession;
-			qrwlUsers.unlock();
-			qrwlUsers.lockForWrite();
+			qrwlVoiceThread.unlock();
+			qrwlVoiceThread.lockForWrite();
 
 			if (qhUsers.contains(uiSession))
 				u->qmTargetCache.insert(target, ServerUser::TargetCache(channel, direct));
-			qrwlUsers.unlock();
-			qrwlUsers.lockForRead();
+			qrwlVoiceThread.unlock();
+			qrwlVoiceThread.lockForRead();
 			if (! qhUsers.contains(uiSession))
 				return;
 		}
@@ -1207,7 +1222,7 @@ void Server::newClient() {
 		HostAddress(sock->localAddress()).toSockaddr(& u->saiTcpLocalAddress);
 
 		{
-			QWriteLocker wl(&qrwlUsers);
+			QWriteLocker wl(&qrwlVoiceThread);
 			qhUsers.insert(u->uiSession, u);
 			qhHostUsers[ha].insert(u);
 		}
@@ -1383,7 +1398,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	Channel *old = u->cChannel;
 
 	{
-		QWriteLocker wl(&qrwlUsers);
+		QWriteLocker wl(&qrwlVoiceThread);
 
 		qhUsers.remove(u->uiSession);
 		qhHostUsers[u->haAddress].remove(u);
@@ -1427,9 +1442,9 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 		if (l < 2)
 			return;
 
-		QReadLocker rl(&qrwlUsers);
+		QReadLocker rl(&qrwlVoiceThread);
 
-		u->bUdp = false;
+		u->aiUdpFlag = 0;
 
 		const char *buffer = qbaMsg.constData();
 
@@ -1483,14 +1498,14 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 void Server::checkTimeout() {
 	QList<ServerUser *> qlClose;
 
-	qrwlUsers.lockForRead();
+	qrwlVoiceThread.lockForRead();
 	foreach(ServerUser *u, qhUsers) {
 		if (u->activityTime() > (iTimeout * 1000)) {
 			log(u, "Timeout");
 			qlClose.append(u);
 		}
 	}
-	qrwlUsers.unlock();
+	qrwlVoiceThread.unlock();
 	foreach(ServerUser *u, qlClose)
 		u->disconnectSocket(true);
 }
@@ -1551,14 +1566,20 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	if (dest == NULL)
 		dest = chan->cParent;
 
-	chan->unlink(NULL);
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		chan->unlink(NULL);
+	}
 
 	foreach(c, chan->qlChannels) {
 		removeChannel(c, dest);
 	}
 
 	foreach(p, chan->qlUsers) {
-		chan->removeUser(p);
+		{
+			QWriteLocker wl(&qrwlVoiceThread);
+			chan->removeUser(p);
+		}
 
 		Channel *target = dest;
 		while (target->cParent && ! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter))
@@ -1580,7 +1601,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	emit channelRemoved(chan);
 
 	if (chan->cParent) {
-		QWriteLocker wl(&qrwlUsers);
+		QWriteLocker wl(&qrwlVoiceThread);
 		chan->cParent->removeChannel(chan);
 	}
 
@@ -1636,7 +1657,7 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	Channel *old = p->cChannel;
 
 	{
-		QWriteLocker wl(&qrwlUsers);
+		QWriteLocker wl(&qrwlVoiceThread);
 		c->addUser(p);
 
 		bool mayspeak = ChanACL::hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak, NULL);
@@ -1766,7 +1787,7 @@ void Server::clearACLCache(User *p) {
 	}
 
 	{
-		QWriteLocker lock(&qrwlUsers);
+		QWriteLocker lock(&qrwlVoiceThread);
 
 		foreach(ServerUser *u, qhUsers)
 			u->qmTargetCache.clear();

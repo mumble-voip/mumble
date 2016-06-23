@@ -1255,7 +1255,10 @@ QByteArray Server::getUserTexture(int id) {
 }
 
 void Server::addLink(Channel *c, Channel *l) {
-	c->link(l);
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		c->link(l);
+	}
 
 	if (c->bTemporary || l->bTemporary)
 		return;
@@ -1275,7 +1278,10 @@ void Server::addLink(Channel *c, Channel *l) {
 }
 
 void Server::removeLink(Channel *c, Channel *l) {
-	c->unlink(l);
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		c->unlink(l);
+	}
 
 	if (c->bTemporary || l->bTemporary)
 		return;
@@ -1576,8 +1582,10 @@ void Server::readLinks() {
 
 		Channel *c = qhChannels.value(cid);
 		Channel *l = qhChannels.value(lid);
-		if (c && l)
+		if (c && l) {
+			QWriteLocker wl(&qrwlVoiceThread);
 			c->link(l);
+		}
 	}
 }
 

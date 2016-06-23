@@ -194,13 +194,17 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	// Setup UDP encryption
-	uSource->csCrypt.genKey();
+	{
+		QMutexLocker l(&uSource->qmCrypt);
 
-	MumbleProto::CryptSetup mpcrypt;
-	mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_BLOCK_SIZE));
-	mpcrypt.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
-	mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
-	sendMessage(uSource, mpcrypt);
+		uSource->csCrypt.genKey();
+
+		MumbleProto::CryptSetup mpcrypt;
+		mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_BLOCK_SIZE));
+		mpcrypt.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
+		mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
+		sendMessage(uSource, mpcrypt);
+	}
 
 	bool fake_celt_support = false;
 	if (msg.celt_versions_size() > 0) {
@@ -275,7 +279,11 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	userEnterChannel(uSource, lc, mpus);
 
-	uSource->sState = ServerUser::Authenticated;
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->sState = ServerUser::Authenticated;
+	}
+
 	mpus.set_session(uSource->uiSession);
 	mpus.set_name(u8(uSource->qsName));
 	if (uSource->iId >= 0) {
@@ -472,7 +480,7 @@ void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
 	int len = static_cast<int>(str.length());
 	if (len < 1)
 		return;
-	QReadLocker rl(&qrwlUsers);
+	QReadLocker rl(&qrwlVoiceThread);
 	processMsg(uSource, str.data(), len);
 }
 
@@ -614,26 +622,33 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		bBroadcast = true;
 	}
 
-	if (msg.has_self_deaf()) {
-		uSource->bSelfDeaf = msg.self_deaf();
-		if (uSource->bSelfDeaf)
-			msg.set_self_mute(true);
-		bBroadcast = true;
-	}
+	// Writing to bSelfMute, bSelfDeaf and ssContext
+	// requires holding a write lock on qrwlVoiceThread.
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
 
-	if (msg.has_self_mute()) {
-		uSource->bSelfMute = msg.self_mute();
-		if (! uSource->bSelfMute) {
-			msg.set_self_deaf(false);
-			uSource->bSelfDeaf = false;
+		if (msg.has_self_deaf()) {
+			uSource->bSelfDeaf = msg.self_deaf();
+			if (uSource->bSelfDeaf)
+				msg.set_self_mute(true);
+			bBroadcast = true;
 		}
-		bBroadcast = true;
-	}
 
-	if (msg.has_plugin_context()) {
-		uSource->ssContext = msg.plugin_context();
-		// Make sure to clear this from the packet so we don't broadcast it
-		msg.clear_plugin_context();
+		if (msg.has_self_mute()) {
+			uSource->bSelfMute = msg.self_mute();
+			if (! uSource->bSelfMute) {
+				msg.set_self_deaf(false);
+				uSource->bSelfDeaf = false;
+			}
+			bBroadcast = true;
+		}
+
+		if (msg.has_plugin_context()) {
+			uSource->ssContext = msg.plugin_context();
+
+			// Make sure to clear this from the packet so we don't broadcast it
+			msg.clear_plugin_context();
+		}
 	}
 
 	if (msg.has_plugin_identity()) {
@@ -656,6 +671,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 
 	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress() || msg.has_priority_speaker()) {
+		// Writing to bDeaf, bMute and bSuppress requires
+		// holding a write lock on qrwlVoiceThread.
+		QWriteLocker wl(&qrwlVoiceThread);
+
 		if (msg.has_deaf()) {
 			pDstServerUser->bDeaf = msg.deaf();
 			if (pDstServerUser->bDeaf)
@@ -1034,8 +1053,11 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			        QString(* c->cParent),
 			        QString(*p)));
 
-			c->cParent->removeChannel(c);
-			p->addChannel(c);
+			{
+				QWriteLocker wl(&qrwlVoiceThread);
+				c->cParent->removeChannel(c);
+				p->addChannel(c);
+			}
 		}
 		if (! qsName.isNull()) {
 			log(uSource, QString("Renamed channel %1 to %2").arg(QString(*c),
@@ -1299,67 +1321,76 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		Group *g;
 		ChanACL *a;
 
-		QHash<QString, QSet<int> > hOldTemp;
+		{
+			QWriteLocker wl(&qrwlVoiceThread);
 
-		foreach(g, c->qhGroups) {
-			hOldTemp.insert(g->qsName, g->qsTemporary);
-			delete g;
-		}
+			QHash<QString, QSet<int> > hOldTemp;
 
-		foreach(a, c->qlACL)
-			delete a;
+			foreach(g, c->qhGroups) {
+				hOldTemp.insert(g->qsName, g->qsTemporary);
+				delete g;
+			}
 
-		c->qhGroups.clear();
-		c->qlACL.clear();
+			foreach(a, c->qlACL)
+				delete a;
 
-		c->bInheritACL = msg.inherit_acls();
+			c->qhGroups.clear();
+			c->qlACL.clear();
 
-		for (int i=0;i<msg.groups_size(); ++i) {
-			const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
-			g = new Group(c, u8(group.name()));
-			g->bInherit = group.inherit();
-			g->bInheritable = group.inheritable();
-			for (int j=0;j<group.add_size();++j)
-				if (!getUserName(group.add(j)).isEmpty())
-					g->qsAdd << group.add(j);
-			for (int j=0;j<group.remove_size();++j)
-				if (!getUserName(group.remove(j)).isEmpty())
-					g->qsRemove << group.remove(j);
-			g->qsTemporary = hOldTemp.value(g->qsName);
-		}
+			c->bInheritACL = msg.inherit_acls();
 
-		for (int i=0;i<msg.acls_size(); ++i) {
-			const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
-			if (mpacl.has_user_id() && getUserName(mpacl.user_id()).isEmpty())
-				continue;
+			for (int i = 0; i < msg.groups_size(); ++i) {
+				const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
+				g = new Group(c, u8(group.name()));
+				g->bInherit = group.inherit();
+				g->bInheritable = group.inheritable();
+				for (int j = 0; j < group.add_size(); ++j)
+					if (!getUserName(group.add(j)).isEmpty())
+						g->qsAdd << group.add(j);
+				for (int j = 0; j < group.remove_size(); ++j)
+					if (!getUserName(group.remove(j)).isEmpty())
+						g->qsRemove << group.remove(j);
+				g->qsTemporary = hOldTemp.value(g->qsName);
+			}
 
-			a = new ChanACL(c);
-			a->bApplyHere=mpacl.apply_here();
-			a->bApplySubs=mpacl.apply_subs();
-			if (mpacl.has_user_id())
-				a->iUserId=mpacl.user_id();
-			else
-				a->qsGroup=u8(mpacl.group());
-			a->pDeny=static_cast<ChanACL::Permissions>(mpacl.deny())  & ChanACL::All;
-			a->pAllow=static_cast<ChanACL::Permissions>(mpacl.grant()) & ChanACL::All;
+			for (int i = 0; i < msg.acls_size(); ++i) {
+				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
+				if (mpacl.has_user_id() && getUserName(mpacl.user_id()).isEmpty())
+					continue;
+
+				a = new ChanACL(c);
+				a->bApplyHere = mpacl.apply_here();
+				a->bApplySubs = mpacl.apply_subs();
+				if (mpacl.has_user_id())
+					a->iUserId = mpacl.user_id();
+				else
+					a->qsGroup = u8(mpacl.group());
+				a->pDeny = static_cast<ChanACL::Permissions>(mpacl.deny()) & ChanACL::All;
+				a->pAllow = static_cast<ChanACL::Permissions>(mpacl.grant()) & ChanACL::All;
+			}
 		}
 
 		clearACLCache();
 
 		if (! hasPermission(uSource, c, ChanACL::Write) && ((uSource->iId >= 0) || !uSource->qsHash.isEmpty())) {
-			a = new ChanACL(c);
-			a->bApplyHere=true;
-			a->bApplySubs=false;
-			if (uSource->iId >= 0)
-				a->iUserId=uSource->iId;
-			else
-				a->qsGroup=QLatin1Char('$') + uSource->qsHash;
-			a->iUserId=uSource->iId;
-			a->pDeny=ChanACL::None;
-			a->pAllow=ChanACL::Write | ChanACL::Traverse;
+			{
+				QWriteLocker wl(&qrwlVoiceThread);
+
+				a = new ChanACL(c);
+				a->bApplyHere = true;
+				a->bApplySubs = false;
+				if (uSource->iId >= 0)
+					a->iUserId = uSource->iId;
+				else
+					a->qsGroup = QLatin1Char('$') + uSource->qsHash;
+				a->iUserId = uSource->iId;
+				a->pDeny = ChanACL::None;
+				a->pAllow = ChanACL::Write | ChanACL::Traverse;
+			}
 
 			clearACLCache();
 		}
+
 
 		updateChannel(c);
 		log(uSource, QString("Updated ACL in channel %1").arg(*c));
@@ -1397,6 +1428,9 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 
 void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
+
+	QMutexLocker l(&uSource->qmCrypt);
+
 	CryptState &cs=uSource->csCrypt;
 
 	cs.uiRemoteGood = msg.good();
@@ -1425,6 +1459,9 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
+
+	QMutexLocker l(&uSource->qmCrypt);
+
 	if (! msg.has_client_nonce()) {
 		log(uSource, "Requested crypt-nonce resync");
 		msg.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
@@ -1550,7 +1587,7 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 	if ((target < 1) || (target >= 0x1f))
 		return;
 
-	QWriteLocker lock(&qrwlUsers);
+	QWriteLocker lock(&qrwlVoiceThread);
 
 	uSource->qmTargetCache.remove(target);
 
@@ -1602,7 +1639,6 @@ void Server::msgCodecVersion(ServerUser *, MumbleProto::CodecVersion &) {
 void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 	VICTIM_SETUP;
-	const CryptState &cs = pDstServerUser->csCrypt;
 	const BandwidthRecord &bwr = pDstServerUser->bwr;
 	const QList<QSslCertificate> &certs = pDstServerUser->peerCertificateChain();
 
@@ -1632,6 +1668,9 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 
 	if (local) {
 		MumbleProto::UserStats_Stats *mpusss;
+
+		QMutexLocker l(&pDstServerUser->qmCrypt);
+		const CryptState &cs = pDstServerUser->csCrypt;
 
 		mpusss = msg.mutable_from_client();
 		mpusss->set_good(cs.uiGood);
