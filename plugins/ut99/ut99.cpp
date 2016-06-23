@@ -114,9 +114,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float top_corrector[3];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(posptr, pos_corrector, 12) &&
-	     peekProc(frtptr, front_corrector, 12) &&
-	     peekProc(topptr, top_corrector, 12);
+	ok = peekProc(posptr, pos_corrector) &&
+	     peekProc(frtptr, front_corrector) &&
+	     peekProc(topptr, top_corrector);
 
 	if (! ok)
 		return false;

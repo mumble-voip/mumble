@@ -137,9 +137,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char location;
 	int areaid;
 
-	ok = peekProc(camptr, cam, 12) &&
-		 peekProc(posptr, pos, 12) &&
-		 peekProc(camfrontptr, camfront, 12) &&
+	ok = peekProc(camptr, cam) &&
+		 peekProc(posptr, pos) &&
+		 peekProc(camfrontptr, camfront) &&
 		 peekProc(locationptr, &location, 1) &&
 		 peekProc(areaptr, &areaid, 4);
 
