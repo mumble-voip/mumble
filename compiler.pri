@@ -4,6 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(qt.pri)
+include(uname.pri)
  
 CONFIG *= warn_on
 
@@ -232,7 +233,7 @@ unix {
 	}
 }
 
-freebsd {
+contains(UNAME, FreeBSD) {
 	QMAKE_CFLAGS *= -isystem /usr/local/include
 	QMAKE_CXXFLAGS *= -isystem /usr/local/include
 	QMAKE_LIBDIR *= /usr/lib
