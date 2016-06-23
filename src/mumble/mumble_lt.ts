@@ -873,7 +873,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"/>
+        <translation>Signalo reikšmės aukščiau šios ribos yra traktuojamos kaip balsas</translation>
     </message>
     <message>
         <location/>
@@ -888,12 +888,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"/>
+        <translation>Glaudinimo kokybė (didžiausioji siuntimo sparta)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tai nustato glaudinimo kokybę.&lt;/b&gt;&lt;br /&gt;Tai apibrėžia kokią siuntimo spartą programai Mumble yra leidžiama naudoti išsiunčiamam garsui.</translation>
     </message>
     <message>
         <location/>
@@ -948,7 +948,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>Esama kalbos atpažinimo tikimybė</translation>
     </message>
     <message>
         <location/>
@@ -978,7 +978,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation type="unfinished"/>
+        <translation>Signalo reikšmės žemiau šios ribos yra traktuojamos kaip tyla</translation>
     </message>
     <message>
         <location/>
@@ -1088,7 +1088,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioInput.cpp" line="+531"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"/>
+        <translation>Didžiausia serverio tinklo siuntimo sparta yra tik %1 kbit/s. Garso kokybė automatiškai sureguliuota į %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
@@ -1401,7 +1401,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation type="unfinished"/>
+        <translation>Paketų praradimas</translation>
     </message>
     <message>
         <location/>
@@ -1669,7 +1669,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>How close the current input level is to ideal</source>
-        <translation type="unfinished"/>
+        <translation>Ant kiek esamas įvesties lygis yra artimas tobulam</translation>
     </message>
     <message>
         <location/>
@@ -1684,7 +1684,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation type="unfinished"/>
+        <translation>Signalo ir triukšmo santykis iš mikrofono</translation>
     </message>
     <message>
         <location/>
@@ -1699,7 +1699,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Probability of speech</source>
-        <translation type="unfinished"/>
+        <translation>Kalbos tikimybė</translation>
     </message>
     <message>
         <location/>
@@ -1739,7 +1739,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>Esama kalbos atpažinimo tikimybė</translation>
     </message>
     <message>
         <location/>
@@ -1754,7 +1754,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation type="unfinished"/>
+        <translation>Įvesties signalo ir triukšmo apytikrio apskaičiavimo galios spektras</translation>
     </message>
     <message>
         <location/>
@@ -3116,7 +3116,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
         <location line="-617"/>
         <location line="+617"/>
         <source>Enter username</source>
-        <translation type="unfinished"/>
+        <translation>Įrašykite naudotojo vardą</translation>
     </message>
     <message>
         <location line="-617"/>
@@ -3147,7 +3147,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation type="unfinished"/>
+        <translation>Adresai</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3178,7 +3178,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation type="unfinished"/>
+        <translation>Siuntimo sparta</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4548,7 +4548,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Prisijungti prie kanalo</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4999,17 +4999,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>Good</source>
-        <translation type="unfinished"/>
+        <translation>Gerai</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>Pavėluota</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>Prarasta</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5019,7 +5019,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Garso siuntimo sparta&lt;/h2&gt;&lt;p&gt;Didžiausia %1 kbit/s&lt;br /&gt;Esama %2 kbit/s&lt;br /&gt;Kodekas: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5329,7 +5329,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Sends a text message to another user.</source>
-        <translation type="unfinished"/>
+        <translation>Siunčia tekstinę žinutę kitam naudotojui.</translation>
     </message>
     <message>
         <location/>
@@ -5671,7 +5671,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation type="unfinished"/>
+        <translation>Siunčia tekstinę žinutę visiems naudotojams kanale.</translation>
     </message>
     <message>
         <location/>
@@ -6311,7 +6311,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"/>
+        <translation>Siųsti ž&amp;inutę</translation>
     </message>
     <message>
         <location/>
@@ -6341,7 +6341,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Prisijungti prie kanalo</translation>
     </message>
     <message>
         <location/>
@@ -6476,7 +6476,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Perjungti kanalo filtrą (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6494,7 +6494,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Filtruojant, slėpti kanalą</translation>
     </message>
     <message>
         <location/>
@@ -7529,7 +7529,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"/>
+        <translation>Žinutė per ilga.</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
@@ -7971,7 +7971,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"/>
+        <translation>CELT versijos</translation>
     </message>
     <message>
         <location/>
@@ -7986,7 +7986,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Pings received</source>
-        <translation type="unfinished"/>
+        <translation>Gauta ping</translation>
     </message>
     <message>
         <location/>
@@ -8011,17 +8011,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished"/>
+        <translation>Gerai</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>Pavėluota</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>Prarasta</translation>
     </message>
     <message>
         <location/>
@@ -8031,17 +8031,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"/>
+        <translation>Nuo kliento</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"/>
+        <translation>Klientui</translation>
     </message>
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"/>
+        <translation>Ryšio laikas</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+108"/>
@@ -8084,12 +8084,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"/>
+        <translation>Palaikoma</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"/>
+        <translation>Nepalaikoma</translation>
     </message>
     <message>
         <location line="-123"/>
@@ -8099,12 +8099,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"/>
+        <translation>%1 prisijungęs (%2 neveiklus)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished"/>
+        <translation>%1 prisijungęs</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -8115,13 +8115,13 @@ An access token is a text string, which can be used as a password for very simpl
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"/>
+        <translation>Siuntimo sparta</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"/>
+        <translation>Siuntimo sparta</translation>
     </message>
     <message>
         <location/>
@@ -8316,7 +8316,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"/>
+        <translation>Įjungus filtravimą, kanalas bus paslėptas</translation>
     </message>
     <message>
         <location line="+18"/>
