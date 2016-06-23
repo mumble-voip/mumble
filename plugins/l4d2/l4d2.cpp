@@ -3,10 +3,10 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h" // Include standard plugin header.
+#include "../mumble_plugin_win32_x86.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-BYTE *serverid_steamclient, *player_engine; // BYTE values to contain modules addresses
+procptr32_t serverid_steamclient, player_engine; // BYTE values to contain modules addresses
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
@@ -23,16 +23,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE state;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x06ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
-			peekProc((BYTE *) pModule + 0x06B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x0774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x0774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x0774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
-			peekProc((BYTE *) serverid_steamclient, serverid) && // Unique server Steam ID.
-			peekProc((BYTE *) pModule + 0x0772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
-			peekProc((BYTE *) pModule + 0x0772D2C, servername) && // Server name.
-			peekProc((BYTE *) pModule + 0x0772C28, map) && // Map name.
-			peekProc((BYTE *) player_engine, player); // Player nickname.
+	ok = peekProc(pModule + 0x06ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
+			peekProc(pModule + 0x06B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(pModule + 0x0774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(pModule + 0x0774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
+			peekProc(pModule + 0x0774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
+			peekProc(serverid_steamclient, serverid) && // Unique server Steam ID.
+			peekProc(pModule + 0x0772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
+			peekProc(pModule + 0x0772D2C, servername) && // Server name.
+			peekProc(pModule + 0x0772C28, map) && // Map name.
+			peekProc(player_engine, player); // Player nickname.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
@@ -148,14 +148,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	BYTE *steamclient=getModuleAddr(L"steamclient.dll"); // Link "steamclient.dll" module
+	procptr32_t steamclient=getModuleAddr(L"steamclient.dll"); // Link "steamclient.dll" module
 	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
 	if (!steamclient)
 		return false;
 
 	serverid_steamclient = steamclient + 0x09888ED; // Module + Server ID offset
 
-	BYTE *engine=getModuleAddr(L"engine.dll"); // // Link "engine.dll" module
+	procptr32_t engine=getModuleAddr(L"engine.dll"); // // Link "engine.dll" module
 	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
 	if (!engine)
 		return false;

@@ -34,14 +34,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
-BYTE *posptr;
-BYTE *rotptr;
-BYTE *stateptr;
-BYTE *hostptr;
+procptr32_t posptr, rotptr, stateptr, hostptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float v = rot[0];
@@ -125,7 +122,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	BYTE *mod_engine=getModuleAddr(L"engine.dll");
+	procptr32_t mod_engine=getModuleAddr(L"engine.dll");
 	if (!mod_engine)
 		return false;
 
@@ -142,7 +139,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	stateptr = mod_engine + 0x375565;
 	// ID string; Game name "garrysmod"
 	// engine.dll+0x6622DC
-	BYTE *idptr = mod_engine + 0x6622DC;
+	procptr32_t idptr = mod_engine + 0x6622DC;
 	// host string: String in form "ip:port".
 	// engine.dll+0x49176C
 	hostptr = mod_engine + 0x49176C;
