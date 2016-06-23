@@ -37,15 +37,11 @@
 //
 
 ////
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
-BYTE *pos0ptr;
-BYTE *pos1ptr;
-BYTE *pos2ptr;
-BYTE *faceptr;
-BYTE *topptr;
+procptr32_t pos0ptr, pos1ptr, pos2ptr, faceptr, topptr;
 //BYTE *stateptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
@@ -59,7 +55,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	ok = peekProc((BYTE *) 0x01DEAFD9, &state, 1);
+	ok = peekProc(0x01DEAFD9, &state, 1);
 	if (! ok)
 		return false;
 
@@ -128,8 +124,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UT3.exe", L"wrap_oal.dll"))
 		return false;
 
-	BYTE *ptraddress = pModule + 0x8A740;
-	BYTE *baseptr = peekProc<BYTE *>(ptraddress);
+	BYTE ptraddress = pModule + 0x8A740;
+	BYTE baseptr = peekProc<procptr32_t>(ptraddress);
 
 	pos0ptr = baseptr;
 	pos1ptr = baseptr + 0x4;

@@ -34,10 +34,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
-BYTE *faceptr;
-BYTE *topptr;
+procptr32_t faceptr, topptr;
 //BYTE *stateptr;
 //BYTE *contextptr;
 
@@ -59,7 +58,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	//peekProc(contextptr, ccontext, 128);
 
-	ok = peekProc((BYTE *) 0x00976274, avatar_pos, 12) &&
+	ok = peekProc(0x00976274, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12);
 
@@ -88,8 +87,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"BF1942.exe"))
 		return false;
 
-	BYTE *ptr1 = peekProc<BYTE *>((BYTE *) 0x009A9468);
-	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x98);
+	procptr32_t ptr1 = peekProc<procptr32_t>(0x009A9468);
+	procptr32_t ptr2 = peekProc<procptr32_t>(ptr1 + 0x98);
 
 	faceptr = ptr2 + 0x5C;
 	topptr = ptr2 + 0x4C;

@@ -34,14 +34,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
-BYTE *posptr;
-BYTE *rotptr;
-BYTE *stateptr;
-BYTE *hostptr;
+procptr32_t posptr, rotptr, stateptr, hostptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -131,7 +128,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	BYTE *mod_engine=getModuleAddr(L"engine.dll");
+	procptr32_t mod_engine=getModuleAddr(L"engine.dll");
 	if (!mod_engine)
 		return false;
 
@@ -170,7 +167,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Insurgency pModule build 4044. No identity support yet.");
+	return std::wstring(L"Supports Insurgency: Modern Infantry Combat build 4044. No identity support yet.");
 }
 
 static std::wstring description(L"Insurgency: Modern Infantry Combat (Build 4044)");

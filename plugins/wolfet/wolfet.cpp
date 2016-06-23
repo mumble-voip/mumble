@@ -47,7 +47,7 @@
         Increasing when turning left.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	float viewHor, viewVer;
@@ -57,7 +57,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
-	ok = peekProc((BYTE *) 0x013E8DFC, &team, 1);
+	ok = peekProc(0x013E8DFC, &team, 1);
 	if (!ok)
 		return false;
 
@@ -65,9 +65,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (team == 0 || team == 3)
 		return true;
 
-	ok = peekProc((BYTE *) 0x013E8CF4, avatar_pos, 12) &&   // X, Y, Z
-		peekProc((BYTE *) 0x013F9E20, &viewHor, 4) &&      // Hor-Angle
-		peekProc((BYTE *) 0x013F9E1C, &viewVer, 4);        // Ver-Angle
+	ok = peekProc(0x013E8CF4, avatar_pos, 12) &&   // X, Y, Z
+		peekProc(0x013F9E20, &viewHor, 4) &&      // Hor-Angle
+		peekProc(0x013F9E1C, &viewVer, 4);        // Ver-Angle
 
 	if (!ok)
 		return false;
@@ -91,8 +91,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Context - concatenated server-ip, mapname and team value
 	char hostip[32];
 	char mapname[40];
-	ok = peekProc((BYTE *) 0x009FFD30, hostip, sizeof(hostip)) &&
-		peekProc((BYTE *) 0x010B4908, mapname, sizeof(hostip));
+	ok = peekProc(0x009FFD30, hostip, sizeof(hostip)) &&
+		peekProc(0x010B4908, mapname, sizeof(hostip));
 	hostip[sizeof(hostip)-1] = '\0';
 	mapname[sizeof(mapname)-1] = '\0';
 	// Context in JSON format, {} with fields ipport (server hostname), map, and team (: int)

@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h" // Include standard plugin header.
+#include "../mumble_plugin_win32_x64.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -19,22 +19,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state, in_game, player[50], vehicle[50], location[50], street[50];
 
 	// Avatar pointer
-	BYTE *avatar_base = peekProc<BYTE *>(pModule + 0x01B3D3F0);
+	procptr64_t avatar_base = peekProc<procptr64_t>(pModule + 0x01B3D3F0);
 	if (!avatar_base) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x267FD50, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
-			peekProc((BYTE *) pModule + 0x1B6D757, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
-			peekProc((BYTE *) pModule + 0x1EC2830, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x1BFEDA0, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc((BYTE *) avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
-			peekProc((BYTE *) avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x1C00860, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x1ED0E30, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x268A4EC, player) && // Player nickname.
-			peekProc((BYTE *) pModule + 0x2282400, vehicle) && // Vehicle name if in a vehicle, empty if not.
-			peekProc((BYTE *) pModule + 0x2281DDB, location) && // Location name.
-			peekProc((BYTE *) pModule + 0x227EBA0, street); // Street name if on a street, empty if not.
+	ok = peekProc(pModule + 0x267FD50, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
+			peekProc(pModule + 0x1B6D757, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
+			peekProc(pModule + 0x1EC2830, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(pModule + 0x1BFEDA0, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
+			peekProc(avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
+			peekProc(pModule + 0x1C00860, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
+			peekProc(pModule + 0x1ED0E30, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
+			peekProc(pModule + 0x268A4EC, player) && // Player nickname.
+			peekProc(pModule + 0x2282400, vehicle) && // Vehicle name if in a vehicle, empty if not.
+			peekProc(pModule + 0x2281DDB, location) && // Location name.
+			peekProc(pModule + 0x227EBA0, street); // Street name if on a street, empty if not.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
