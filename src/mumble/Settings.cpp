@@ -15,6 +15,10 @@
 
 #include "../../overlay/overlay.h"
 
+#ifdef Q_OS_WIN
+# include "../../overlay/overlay_launcherfilter.h"
+#endif
+
 bool Shortcut::isServerSpecific() const {
 	if (qvData.canConvert<ShortcutTarget>()) {
 		const ShortcutTarget &sc = qvariant_cast<ShortcutTarget> (qvData);
@@ -130,6 +134,17 @@ OverlaySettings::OverlaySettings() {
 	bTime = false;
 
 	bUseWhitelist = false;
+
+	bEnableLauncherFilter = true;
+
+	const int nlaunchers = sizeof(overlayLaunchers)/sizeof(overlayLaunchers[0]);
+	for (int i = 0; i < nlaunchers; i++) {
+		const char *launcher = overlayLaunchers[i];
+		if (launcher == NULL) {
+			break;
+		}
+		qslLauncherFilterList << QString::fromUtf8(launcher);
+	}
 }
 
 void OverlaySettings::setPreset(const OverlayPresets preset) {
@@ -565,6 +580,9 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	SAVELOAD(bUseWhitelist, "usewhitelist");
 	SAVELOAD(qslBlacklist, "blacklist");
 	SAVELOAD(qslWhitelist, "whitelist");
+
+	SAVELOAD(bEnableLauncherFilter, "enablelauncherfilter");
+	SAVELOAD(qslLauncherFilterList, "launchers");
 }
 
 void Settings::load() {
@@ -882,6 +900,9 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	settings_ptr->setValue(QLatin1String("usewhitelist"), bUseWhitelist);
 	settings_ptr->setValue(QLatin1String("blacklist"), qslBlacklist);
 	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);
+
+	settings_ptr->setValue(QLatin1String("enablelauncherfilter"), bEnableLauncherFilter);
+	settings_ptr->setValue(QLatin1String("launchers"), qslLauncherFilterList);
 }
 
 void Settings::save() {

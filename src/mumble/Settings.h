@@ -123,6 +123,9 @@ struct OverlaySettings {
 	QStringList qslBlacklist;
 	QStringList qslWhitelist;
 
+	bool bEnableLauncherFilter;
+	QStringList qslLauncherFilterList;
+
 	OverlaySettings();
 	void setPreset(const OverlayPresets preset = AvatarAndName);
 

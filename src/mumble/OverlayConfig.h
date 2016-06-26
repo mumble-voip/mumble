@@ -68,6 +68,9 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qpbLoadPreset_clicked();
 		void on_qpbSavePreset_clicked();
 		void resizeScene(bool force=false);
+		void on_qcbEnableLauncherFilter_stateChanged(int state);
+		void on_qpbAddLauncher_clicked();
+		void on_qpbRemoveLauncher_clicked();
 	public:
 		OverlayConfig(Settings &st);
 		virtual QString title() const Q_DECL_OVERRIDE;
