@@ -124,8 +124,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UT3.exe", L"wrap_oal.dll"))
 		return false;
 
-	BYTE ptraddress = pModule + 0x8A740;
-	BYTE baseptr = peekProc<procptr32_t>(ptraddress);
+	procptr32_t ptraddress = pModule + 0x8A740;
+	procptr32_t baseptr = peekProc<procptr32_t>(ptraddress);
 
 	pos0ptr = baseptr;
 	pos1ptr = baseptr + 0x4;
