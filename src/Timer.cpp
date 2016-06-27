@@ -5,14 +5,6 @@
 
 #include "murmur_pch.h"
 
-// Ensure boost_system is header only.
-#define BOOST_ERROR_CODE_HEADER_ONLY
-// Ensure boost_chrono is header only.
-#define BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
-#define BOOST_CHRONO_HEADER_ONLY
-
-#include <boost/chrono.hpp>
-
 #include "Timer.h"
 
 Timer::Timer(bool start) {
@@ -52,10 +44,37 @@ bool Timer::operator>(const Timer &other) const {
 	return uiStart < other.uiStart;
 }
 
+#if defined(Q_OS_WIN)
+#include <windows.h>
+
 quint64 Timer::now() {
-	using namespace boost::chrono;
-	time_point<steady_clock> now = steady_clock::now();
-	time_point<steady_clock>::duration epochDuration = now.time_since_epoch();
-	microseconds epochDurationUsec = duration_cast<microseconds>(epochDuration);
-	return static_cast<quint64>(epochDurationUsec.count());
+	static double scale = 0;
+
+	if (scale == 0) {
+		LARGE_INTEGER freq;
+		QueryPerformanceFrequency(&freq);
+		scale = 1000000. / freq.QuadPart;
+	}
+
+	LARGE_INTEGER li;
+	QueryPerformanceCounter(&li);
+	quint64 e = li.QuadPart;
+
+	return static_cast<quint64>(e * scale);
 }
+#elif defined(Q_OS_UNIX)
+#include <sys/time.h>
+quint64 Timer::now() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	quint64 e= tv.tv_sec * 1000000LL;
+	e += tv.tv_usec;
+	return e;
+}
+#else
+quint64 Timer::now() {
+	static QTime ticker;
+	quint64 elapsed = ticker.elapsed();
+	return elapsed * 1000LL;
+}
+#endif
