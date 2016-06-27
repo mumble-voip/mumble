@@ -60,7 +60,7 @@ ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 QString ViewCert::prettifyDigest(QString digest) {
 	QString pretty_digest = digest.toUpper();
 	int step = 2;
-	QChar separator = QChar::fromAscii(':');
+	QChar separator = QChar::fromLatin1(':');
 	for (int i = step; i < pretty_digest.size(); i += step + 1) {
 		pretty_digest.insert(i, separator);
 	}
