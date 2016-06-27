@@ -699,7 +699,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Sprachchatprogramm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1137,17 +1137,17 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Echounterdrückung</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Gemischte Echounterdrückung</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Mehrkanal Echounterdrückung</translation>
     </message>
 </context>
 <context>
@@ -8309,7 +8309,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source> dB</source>
-        <translation type="unfinished"/>
+        <translation> dB</translation>
     </message>
     <message>
         <location/>
