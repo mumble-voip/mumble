@@ -204,6 +204,14 @@ unix {
 	QMAKE_OBJECTIVE_CFLAGS   *= -Wall -Wextra
 	QMAKE_OBJECTIVE_CXXFLAGS *= -Wall -Wextra
 
+	# Always enable warnings-as-errors
+	# if we're inside a Mumble build environment.
+	# Can be disabled with CONFIG+=no-warnings-as-errors.
+	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
+	!isEmpty(MUMBLE_PREFIX):!CONFIG(no-warnings-as-errors) {
+		CONFIG += warnings-as-errors
+	}
+
 	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS	         *= -Werror
 		QMAKE_CXXFLAGS	         *= -Werror
