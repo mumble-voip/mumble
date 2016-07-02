@@ -3157,7 +3157,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation type="unfinished"/>
+        <translation>Paketų praradimas</translation>
     </message>
     <message>
         <location line="+3"/>
