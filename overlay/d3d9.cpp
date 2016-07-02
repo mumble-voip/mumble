@@ -114,7 +114,7 @@ void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 	ods("D3D9: Blit %d %d %d %d", x, y, w, h);
 	#endif
 
-	if (! texTexture || !a_ucTexture)
+	if (! texTexture || !a_ucTexture || uiLeft == uiRight)
 		return;
 
 	D3DLOCKED_RECT lr;
