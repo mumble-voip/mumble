@@ -5,11 +5,55 @@
 
 #include "../mumble_plugin_win32_x64.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
+#include <algorithm> // Include algorithm header for the game version detector
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 	}
+
+	// Memory addresses
+	char game_name[20];
+	procptr64_t state_address, in_game_address, avatar_pos_address, camera_pos_address, avatar_base_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
+
+#define VERSION_EQ(buf, strlit) \
+	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
+
+	// Steam version
+	if (peekProc(pModule + 0x17BE288, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x267FD50;
+		in_game_address = pModule + 0x1B6D757;
+		avatar_pos_address = pModule + 0x1EFBC00;
+		camera_pos_address = pModule + 0x1BFEDA0;
+		avatar_base_address = pModule + 0x1B3D3F0;
+		camera_front_address = pModule + 0x1C00860;
+		camera_top_address = pModule + 0x1ED0E30;
+		player_address = pModule + 0x268A4EC;
+		vehicle_address = pModule + 0x2282400;
+		location_address = pModule + 0x2281DDB;
+		street_address = pModule + 0x227EBA0;
+	// Retail version
+	} else if (peekProc(pModule + 0x17BB1F8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x267CA00;
+		in_game_address = pModule + 0x1B69A56;
+		avatar_pos_address = pModule + 0x1EF8A00;
+		camera_pos_address = pModule + 0x1BFBDF0;
+		avatar_base_address = pModule + 0x01B3A3D0;
+		camera_front_address = pModule + 0x1BFD890;
+		camera_top_address = pModule + 0x1ECDBA0;
+		player_address = pModule + 0x26870FC;
+		vehicle_address = pModule + 0x227F200;
+		location_address = pModule + 0x227EBDB;
+		street_address = pModule + 0x227B9A0;
+	// Unknown version
+	} else {
+		generic_unlock();
+		return false;
+	}
+
+	// Avatar pointer
+	procptr64_t avatar_base = peekProc<procptr64_t>(avatar_base_address);
+	if (!avatar_base) return false;
 
 	// Boolean value to check if game addresses retrieval is successful
 	bool ok;
@@ -18,23 +62,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Char values for extra features
 	char state, in_game, player[50], vehicle[50], location[50], street[50];
 
-	// Avatar pointer
-	procptr64_t avatar_base = peekProc<procptr64_t>(pModule + 0x01B3D3F0);
-	if (!avatar_base) return false;
-
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + 0x267FD50, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
-			peekProc(pModule + 0x1B6D757, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
-			peekProc(pModule + 0x1EC2830, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc(pModule + 0x1BFEDA0, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+	ok = peekProc(state_address, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
+			peekProc(in_game_address, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
+			peekProc(avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
 			peekProc(avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
 			peekProc(avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
-			peekProc(pModule + 0x1C00860, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
-			peekProc(pModule + 0x1ED0E30, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
-			peekProc(pModule + 0x268A4EC, player) && // Player nickname.
-			peekProc(pModule + 0x2282400, vehicle) && // Vehicle name if in a vehicle, empty if not.
-			peekProc(pModule + 0x2281DDB, location) && // Location name.
-			peekProc(pModule + 0x227EBA0, street); // Street name if on a street, empty if not.
+			peekProc(camera_front_address, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
+			peekProc(camera_top_address, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
+			peekProc(player_address, player) && // Player nickname.
+			peekProc(vehicle_address, vehicle) && // Vehicle name if in a vehicle, empty if not.
+			peekProc(location_address, location) && // Location name.
+			peekProc(street_address, street); // Street name if on a street, empty if not.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
