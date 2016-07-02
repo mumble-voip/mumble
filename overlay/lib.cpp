@@ -298,8 +298,10 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 					uiTop = omMsg.oma.y;
 					uiRight = omMsg.oma.x + omMsg.oma.w;
 					uiBottom = omMsg.oma.y + omMsg.oma.h;
-					if (a_ucTexture)
+					if (a_ucTexture) {
 						setRect();
+						blit(0, 0, uiWidth, uiHeight);
+					}
 				}
 				break;
 			default:
