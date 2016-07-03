@@ -20,13 +20,13 @@ static QStringList processQSslCertificateInfo(QStringList in) {
 	}
 	return list;
 }
-#endif
-
+#else
 static QStringList processQSslCertificateInfo(QString in) {
 	QStringList out;
 	out << decode_utf8_qssl_string(in);
 	return out;
 }
+#endif
 
 static void addQSslCertificateInfo(QStringList &l, const QString &label, const QStringList &items) {
 	foreach (const QString &item, items) {
