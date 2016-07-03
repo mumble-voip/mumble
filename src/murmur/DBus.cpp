@@ -378,7 +378,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
-		server->addChannel(cChannel, name);
+		nc = server->addChannel(cChannel, name);
 	}
 
 	server->updateChannel(nc);
