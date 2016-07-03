@@ -4206,7 +4206,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"/>
+        <translation> eilučių</translation>
     </message>
 </context>
 <context>
@@ -4554,7 +4554,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Perjungti perdangą</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6915,7 +6915,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+266"/>
         <source>Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Perdanga</translation>
     </message>
     <message>
         <location line="+85"/>
@@ -6951,12 +6951,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Įjungti perdangą.</translation>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Įjungti perdangą</translation>
     </message>
     <message>
         <location/>
@@ -7026,12 +7026,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti perdangoje kadrų skaitiklį</translation>
     </message>
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti kadr./s skaitiklį</translation>
     </message>
     <message>
         <location/>
@@ -7101,17 +7101,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>Kadr./s ir laikrodžio rodymas</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti perdangoje laikrodį, rodantį dabartinį vietinį laiką (sistemos laiką).</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti laikrodį</translation>
     </message>
 </context>
 <context>
@@ -7199,7 +7199,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojo kanalo pavadinimas, jeigu naudotojas yra už jūsų dabartinio kanalo ribų</translation>
     </message>
     <message>
         <location/>
@@ -7229,7 +7229,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Overlay Editor</source>
-        <translation type="unfinished"/>
+        <translation>Perdangos redaktorius</translation>
     </message>
 </context>
 <context>
