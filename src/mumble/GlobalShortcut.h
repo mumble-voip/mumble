@@ -248,7 +248,7 @@ class GlobalShortcutEngine : public QThread {
 		void resetMap();
 		void remap();
 		virtual void needRemap();
-		void run();
+		void run() Q_DECL_OVERRIDE;
 
 		bool handleButton(const QVariant &, bool);
 		static void add(GlobalShortcut *);
