@@ -319,9 +319,30 @@ static HardHook hhPresent;
 static HardHook hhPresentEx;
 static HardHook hhSwapPresent;
 
-static void doPresent(IDirect3DDevice9 *idd) {
+/// Present the overlay.
+///
+/// If called via IDirect3DDevice9::present() or IDirect3DDevice9Ex::present(),
+/// idd will be non-NULL and ids ill be NULL.
+///
+/// If called via IDirect3DSwapChain9::present(), both idd and ids will be
+/// non-NULL.
+///
+/// The doPresent function expects the following assumptions to be valid:
+///
+/// - Only one swap chain used at the same time.
+/// - Windowed? IDirect3D9SwapChain::present() is used. ("Additional swap chain" is used)
+/// - Full screen? IDirect3D9Device::present() is used. (Implicit swap chain for IDirect3D9Device is used)
+///
+/// It's either/or.
+///
+/// If doPresent is called multiple times per frame (say, for different swap chains),
+/// the overlay will break badly when DevState::draw() is called. FPS counting will be off,
+/// different render targets with different sizes will cause a size-renegotiation with Mumble
+/// every frame, etc.
+static void doPresent(IDirect3DDevice9 *idd, IDirect3DSwapChain9 *ids) {
 	DevMapType::iterator it = devMap.find(idd);
 	DevState *ds = it != devMap.end() ? it->second : NULL;
+	HRESULT hres;
 
 	if (ds && ds->pSB) {
 		if (ds->dwMyThread != 0) {
@@ -329,16 +350,31 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		}
 		Stash<DWORD> stashThread(&(ds->dwMyThread), GetCurrentThreadId());
 
+		// Get the back buffer.
+		// If we're called via IDirect3DSwapChain9, acquire it via the swap chain object.
+		// Otherwise, acquire it via the device itself.
 		IDirect3DSurface9 *pTarget = NULL;
-		IDirect3DSurface9 *pRenderTarget = NULL;
-		HRESULT hres = idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
-		if (FAILED(hres)) {
-			if (hres == D3DERR_INVALIDCALL) {
-				ods("D3D9: IDirect3DDevice9::GetBackBuffer failed. BackBuffer index equals or exceeds the total number of back buffers");
-			} else {
-				ods("D3D9: IDirect3DDevice9::GetBackBuffer failed");
+		if (ids) {
+			hres = ids->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
+			if (FAILED(hres)) {
+				if (hres == D3DERR_INVALIDCALL) {
+					ods("D3D9: IDirect3DSwapChain9::GetBackBuffer failed. BackBuffer index equals or exceeds the total number of back buffers");
+				} else {
+					ods("D3D9: IDirect3DSwapChain9::GetBackBuffer failed");
+				}
+			}
+		} else {
+			hres = idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
+			if (FAILED(hres)) {
+				if (hres == D3DERR_INVALIDCALL) {
+					ods("D3D9: IDirect3DDevice9::GetBackBuffer failed. BackBuffer index equals or exceeds the total number of back buffers");
+				} else {
+					ods("D3D9: IDirect3DDevice9::GetBackBuffer failed");
+				}
 			}
 		}
+
+		IDirect3DSurface9 *pRenderTarget = NULL;
 		hres = idd->GetRenderTarget(0, &pRenderTarget);
 		if (FAILED(hres)) {
 			if (hres == D3DERR_NOTFOUND) {
@@ -368,6 +404,44 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			}
 		}
 
+		// If we're called via IDirect3DSwapChain9::present(), we have to
+		// get the size of the back buffer and manually set the viewport size
+		// to match it.
+		//
+		// Although the call to IDirect3DDevice9::SetRenderTarget() above is
+		// documented as updating the device's viewport:
+		//
+		//     "Setting a new render target will cause the viewport (see Viewports
+		//      and Clipping (Direct3D 9)) to be set to the full size of the new
+		//      render target."
+		//
+		//  (via https://msdn.microsoft.com/en-us/library/windows/desktop/bb174455(v=vs.85).aspx)
+		//
+		// ...this doesn't happen. At least for some programs such as Final Fantasy XIV
+		// and Battle.net Launcher. For these programs, we get a viewport of 1x1.
+		//
+		// The viewport we set here is used in the call below to DevState::draw()
+		// as the full size of the screen/window.
+		if (ids) {
+			D3DPRESENT_PARAMETERS pp;
+			hres = ids->GetPresentParameters(&pp);
+			if (FAILED(hres)) {
+				ods("D3D9: IDirect3DSwapChain9::GetPresentParameters failed");
+			} else {
+				if (pp.BackBufferWidth != 0 && pp.BackBufferHeight != 0) {
+					D3DVIEWPORT9 vp;
+					vp.X = 0;
+					vp.Y = 0;
+					vp.Width = pp.BackBufferWidth;
+					vp.Height = pp.BackBufferHeight;
+					vp.MinZ = 0.0f;
+					vp.MaxZ = 1.0f;
+
+					idd->SetViewport(&vp);
+				}
+			}
+		}
+
 		idd->BeginScene();
 		ds->draw();
 		idd->EndScene();
@@ -393,7 +467,7 @@ static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 *ids, CONST RECT *pSo
 	IDirect3DDevice9 *idd = NULL;
 	ids->GetDevice(&idd);
 	if (idd) {
-		doPresent(idd);
+		doPresent(idd, ids);
 		idd->Release();
 	}
 
@@ -414,7 +488,7 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 *idd, CONST RECT *pSourceRec
 	ods("D3D9: Device Present");
 	#endif
 
-	doPresent(idd);
+	doPresent(idd, NULL);
 
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
@@ -433,7 +507,7 @@ static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex *idd, CONST RECT *pSourc
 	ods("D3D9: Device Present Ex");
 	#endif
 
-	doPresent(idd);
+	doPresent(idd, NULL);
 
 	PresentExType oPresentEx = (PresentExType) hhPresentEx.call;
 	hhPresentEx.restore();
