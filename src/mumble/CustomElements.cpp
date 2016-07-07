@@ -160,8 +160,11 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 			}
 			return true;
 		}
-		if (kev->key() == Qt::Key_Tab) {
+		if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
 			emit tabPressed();
+			return true;
+		} else if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::ShiftModifier) {
+			emit shiftTabPressed();
 			return true;
 		} else if (kev->key() == Qt::Key_Space && kev->modifiers() == Qt::ControlModifier) {
 			emit ctrlSpacePressed();
