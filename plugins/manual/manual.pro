@@ -23,11 +23,11 @@ FORMS		+= manual.ui
 # building for win32-static.
 win32:CONFIG(qt_dynamic_lookup) {
     CONFIG(debug, debug|release) {
-        LIBPATH *= ../../debug
+        QMAKE_LIBDIR *= ../../debug
     }
 
     CONFIG(release, debug|release) {
-        LIBPATH *= ../../release
+        QMAKE_LIBDIR *= ../../release
     }
 
     LIBS *= -lmumble_app
