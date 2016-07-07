@@ -8,8 +8,6 @@
 #include "WASAPI.h"
 #include "WASAPINotificationClient.h"
 #include "Global.h"
-#include "Timer.h"
-#include "User.h"
 
 
 // Now that Win7 is published, which includes public versions of these
