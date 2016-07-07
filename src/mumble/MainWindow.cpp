@@ -1776,6 +1776,13 @@ void MainWindow::on_qteChat_tabPressed() {
 	qteChat->completeAtCursor();
 }
 
+/// Handles Shift-Tab for qteChat, which allows
+/// users to move focus to the previous widget in
+/// MainWindow.
+void MainWindow::on_qteChat_shiftTabPressed() {
+	focusPreviousChild();
+}
+
 /**
  * Controlls ctrl space username completion and selection for the chatbar.
  * @see ChatbarLineEdit::completeAtCursor()
