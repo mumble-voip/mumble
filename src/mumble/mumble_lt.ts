@@ -4,22 +4,22 @@
     <message>
         <location filename="ACLEditor.cpp" line="+127"/>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>Drausti</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>Leisti</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>Leisti %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>Drausti %1</translation>
     </message>
     <message>
         <location line="-84"/>
@@ -41,7 +41,7 @@
     <message>
         <location line="-164"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Keisti %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -71,12 +71,12 @@
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Pavadinimas</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>Čia įrašykite kanalo pavadinimą.</translation>
     </message>
     <message>
         <location/>
@@ -91,22 +91,22 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>Čia įrašykite kanalo slaptažodį.</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>Pažymėkite, kad sukurtumėte laikiną kanalą.</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>Laikinas</translation>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>Kanalo pozicionavimo priemonės reikšmė</translation>
     </message>
     <message>
         <location/>
@@ -114,12 +114,13 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Pozicija&lt;/b&gt;&lt;br/&gt;
+Ši reikšmė leidžia jums keisti būdą, kuriuo Mumble išdėsto kanalus medyje. Kanalas su aukštesne &lt;i&gt;pozicijos&lt;/i&gt; reikšme bus visada išdėstytas žemiau to, kurio reikšmė yra žemesnė, ir atvirkščiai. Jeigu dviejų kanalų &lt;i&gt;pozicijų&lt;/i&gt; reikšmės vienodos, tuomet jie bus išdėstyti abėcėlės tvarka pagal savo pavadinimą.</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Pozicija</translation>
     </message>
     <message>
         <location/>
@@ -411,13 +412,14 @@ Add a new group.</source>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Pavadinimas&lt;/b&gt;&lt;br /&gt;Šiame lauke įrašykite kanalo pavadinimą. Pavadinime turi būti laikomasi serverio, prie kurio esate prisijungę, priskirtų apribojimų.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Laikinas&lt;/b&gt;&lt;br /&gt;
+Jei pažymėta, sukurtas kanalas bus pažymėtas kaip laikinas. Tai reiškia, kad kai paskutinis žaidėjas išeis iš kanalo, serveris automatiškai kanalą ištrins.</translation>
     </message>
     <message>
         <location/>
@@ -3270,7 +3272,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
         <location/>
         <location filename="ConnectDialog.cpp" line="-786"/>
         <source>&amp;Edit...</source>
-        <translation>R&amp;edaguoti...</translation>
+        <translation>&amp;Taisyti...</translation>
     </message>
     <message>
         <location/>
@@ -3309,7 +3311,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation type="unfinished"/>
+        <translation>Taisyti serverį</translation>
     </message>
     <message>
         <location/>
@@ -5449,7 +5451,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"/>
+        <translation>K&amp;eisti</translation>
     </message>
     <message>
         <location/>
@@ -5831,7 +5833,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%3 perkėlė naudotoją %1 į %2.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -5887,7 +5889,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>Atmesta: Laikiname kanale operacija nėra leidžiama.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6176,7 +6178,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-79"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 jus perkėlė į %1.</translation>
     </message>
     <message>
         <location line="+20"/>
