@@ -302,7 +302,8 @@ CONFIG(no-xinput2) {
 }
 
 CONFIG(no-bundled-speex) {
-  PKGCONFIG	*= speex speexdsp
+  must_pkgconfig(speex)
+  must_pkgconfnig(speexdsp)
 }
 
 !CONFIG(no-bundled-speex) {
@@ -352,7 +353,7 @@ CONFIG(no-vorbis-recording) {
 }
 
 unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
-  PKGCONFIG *= opus
+  must_pkgconfig(opus)
   DEFINES *= USE_OPUS
 } else {
   !CONFIG(no-opus) {
@@ -447,7 +448,7 @@ unix {
 
   CONFIG *= link_pkgconfig
 
-  PKGCONFIG *= sndfile
+  must_pkgconfig(sndfile)
 
   macx {
     TARGET = Mumble
@@ -489,7 +490,7 @@ unix {
   } else {
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
-    PKGCONFIG *= x11
+    must_pkgconfig(x11)
     LIBS *= -lrt -lXi
 
     # For MumbleSSL::qsslSanityCheck()
@@ -515,7 +516,7 @@ unix {
 
 alsa {
 	DEFINES *= USE_ALSA
-	PKGCONFIG *= alsa
+	must_pkgconfig(alsa)
 	HEADERS *= ALSAAudio.h
 	SOURCES *= ALSAAudio.cpp
 }
@@ -529,14 +530,14 @@ oss {
 
 pulseaudio {
 	DEFINES *= USE_PULSEAUDIO
-	PKGCONFIG *= libpulse
+	must_pkgconfig(libpulse)
 	HEADERS *= PulseAudio.h
 	SOURCES *= PulseAudio.cpp
 }
 
 portaudio {
 	DEFINES *= USE_PORTAUDIO
-	PKGCONFIG *= portaudio-2.0
+	must_pkgconfig(portaudio-2.0)
 	HEADERS *= PAAudio.h
 	SOURCES *= PAAudio.cpp
 }
@@ -568,7 +569,8 @@ bonjour {
 	}
 	unix:!macx {
 		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
-			PKGCONFIG *= avahi-compat-libdns_sd avahi-client
+			must_pkgconfig(avahai-compat-libdns_sd)
+			must_pkgconfig(avahi-client)
 		} else {
 			LIBS *= -ldns_sd
 		}
@@ -586,7 +588,7 @@ speechd {
 	DEFINES *= USE_SPEECHD
 	system(pkg-config --atleast-version=0.8 speech-dispatcher) {
 		DEFINES *= USE_SPEECHD_PKGCONFIG
-		PKGCONFIG *= speech-dispatcher
+		must_pkgconfig(speech-dispatcher)
 	} else {
 		LIBS *= -lspeechd
 		INCLUDEPATH	*= /usr/include/speech-dispatcher
