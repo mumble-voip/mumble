@@ -6,6 +6,7 @@
 include(../compiler.pri)
 include(../qt.pri)
 include(../rcc.pri)
+include(../pkgconfig.pri)
 
 VERSION		= 1.3.0
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h
@@ -51,12 +52,12 @@ unix {
 
 	CONFIG *= link_pkgconfig
 
-	PKGCONFIG *= protobuf
+	must_pkgconfig(protobuf)
 
 	contains(UNAME, FreeBSD) {
 		LIBS *= -lcrypto -lssl
 	} else {
-		PKGCONFIG *= openssl
+		must_pkgconfig(openssl)
 	}
 }
 

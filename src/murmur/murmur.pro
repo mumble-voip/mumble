@@ -163,7 +163,8 @@ grpc {
 
 	unix {
 		QMAKE_CXXFLAGS *= -std=c++11
-		PKGCONFIG += grpc grpc++
+		must_pkgconfig(grpc)
+		must_pkgconfig(grpc++)
 	}
 }
 
@@ -185,7 +186,8 @@ bonjour {
 	}
 	unix:!macx {
 		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
-			PKGCONFIG *= avahi-compat-libdns_sd avahi-client
+			must_pkgconfig(avahi-compat-libdns_sd)
+			must_pkgconfig(avahi-client)
 		} else {
 			LIBS *= -ldns_sd
 		}
