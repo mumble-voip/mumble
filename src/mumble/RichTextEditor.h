@@ -50,10 +50,14 @@ class RichTextEditor : public QTabWidget, Ui::RichTextEditor {
 		bool bReadOnly;
 		void richToPlain();
 		QColor qcColor;
+		bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 	public:
 		RichTextEditor(QWidget *p = NULL);
 		QString text();
 		bool isModified() const;
+	signals:
+		/// The accept signal is emitted when Ctrl-Enter is pressed inside the RichTextEditor.
+		void accept();
 	public slots:
 		void setText(const QString &text, bool readonly = false);
 		void updateColor(const QColor &);

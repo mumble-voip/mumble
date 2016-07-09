@@ -184,6 +184,9 @@ RichTextEditor::RichTextEditor(QWidget *p) : QTabWidget(p) {
 	updateActions();
 
 	qteRichText->setFocus();
+
+	qteRichText->installEventFilter(this);
+	qptePlainText->installEventFilter(this);
 }
 
 bool RichTextEditor::isModified() const {
@@ -613,6 +616,20 @@ QString RichTextEditor::text() {
 
 	bChanged = false;
 	return qptePlainText->toPlainText();
+}
+
+bool RichTextEditor::eventFilter(QObject *obj, QEvent *evt) {
+	if (obj != qptePlainText && obj != qteRichText)
+		return false;
+	if (evt->type() == QEvent::KeyPress) {
+		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(evt);
+		if (((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return)) &&
+		        (keyEvent->modifiers() == Qt::ControlModifier)) {
+			emit accept();
+			return true;
+		}
+	}
+	return false;
 }
 
 bool RichTextImage::isValidImage(const QByteArray &ba, QByteArray &fmt) {
