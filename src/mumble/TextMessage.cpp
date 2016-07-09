@@ -12,8 +12,9 @@ TextMessage::TextMessage(QWidget *p, QString title, bool bChannel) : QDialog(p) 
 	if (!bChannel)
 		qcbTreeMessage->setHidden(true);
 	setWindowTitle(title);
-	rteMessage->installEventFilter(this);
 	bTreeMessage = false;
+
+	QObject::connect(rteMessage, SIGNAL(accept()), this, SLOT(accept()));
 }
 
 void TextMessage::on_qcbTreeMessage_stateChanged(int s) {
@@ -60,18 +61,3 @@ QString TextMessage::autoFormat(QString qsPlain) {
 QString TextMessage::message() {
 	return rteMessage->text();
 }
-
-bool TextMessage::eventFilter(QObject *obj, QEvent *evt) {
-	if (obj != rteMessage)
-		return false;
-	if (evt->type() == QEvent::KeyPress) {
-		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(evt);
-		if (((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return)) &&
-		        (keyEvent->modifiers() == Qt::NoModifier)) {
-			accept();
-			return true;
-		}
-	}
-	return false;
-}
-
