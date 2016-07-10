@@ -303,7 +303,7 @@ CONFIG(no-xinput2) {
 
 CONFIG(no-bundled-speex) {
   must_pkgconfig(speex)
-  must_pkgconfnig(speexdsp)
+  must_pkgconfig(speexdsp)
 }
 
 !CONFIG(no-bundled-speex) {
@@ -569,7 +569,7 @@ bonjour {
 	}
 	unix:!macx {
 		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
-			must_pkgconfig(avahai-compat-libdns_sd)
+			must_pkgconfig(avahi-compat-libdns_sd)
 			must_pkgconfig(avahi-client)
 		} else {
 			LIBS *= -ldns_sd
