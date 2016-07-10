@@ -1513,7 +1513,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Jei pažymėta, Mumble slopins tik tas programas, kurios naudoja tą patį išvesties šaltinį kaip ir Mumble</translation>
     </message>
     <message>
         <location/>
@@ -2494,12 +2494,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation type="unfinished"/>
+        <translation>Pasirinkite failą į kurį eksportuoti liudijimą</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation type="unfinished"/>
+        <translation>Pasirinkite failą iš kurio importuoti liudijimą</translation>
     </message>
     <message>
         <location line="+86"/>
@@ -2598,7 +2598,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble gali importuoti liudijimus, kurie yra saugomi PKCS #12 formatu. Tai yra formatas, kuris naudojamas eksportuojant raktą iš Mumble, o taip pat eksportuojant raktus iš Firefox, Internet Explorer, Opera ir t.t.&lt;/p&gt;&lt;p&gt;Jeigu failas yra apsaugotas slaptažodžiu, norint importuoti liudijimą, jums prireiks slaptažodžio.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2681,7 +2681,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Jūs jau turite programoje Mumble saugomą liudijimą ir jūs ruošiatės jį pakeisti.&lt;/p&gt;
+&lt;p&gt;Jeigu jūs naujinate į liudijimą, kurį jums išdavė patikima LĮ, ir el. pašto adresai sutampa su jūsų dabartiniu liudijimu, tuomet tai yra visiškai saugu, ir serveriai, prie kurių jungsitės automatiškai atpažins jūsų el. paštui skirtą stiprų liudijimą.
+&lt;/p&gt;
+&lt;p&gt;Jeigu tai nėra anksčiau paminėtas atvejis, tuomet jūs daugiau nebūsite atpažįstami jokio serverio, kuriame ankščiau buvote patvirtinę savo tapatybę. Jeigu jūs dar iki šiol nebuvote užsiregistravę jokiame serveryje, tuomet jums nėra dėl ko rūpintis.
+&lt;/p&gt;
+&lt;p&gt;
+Ar tikrai norite pakeisti savo liudijimą?
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2706,7 +2714,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation type="unfinished"/>
+        <translation>Padarykite atsarginę savo liudijimo kopiją</translation>
     </message>
     <message>
         <location/>
@@ -2776,12 +2784,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>Pabaiga</translation>
     </message>
     <message>
         <location/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation type="unfinished"/>
+        <translation>Liudijimu grįstas atpažinimas yra paruoštas naudoti</translation>
     </message>
     <message>
         <location/>
@@ -2810,7 +2818,8 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Jeigu kada nors prarasite savo esamą liudijimą (kas gali nutikti tuo atveju, jeigu jūsų kompiuteris patirs aparatinės įrangos gedimą arba jūs savo kompiuteryje iš naujo įdiegsite programinę įrangą), tuomet jūs daugiau nebegalėsite jokiame serveryje, kuriame esate užsiregistravę, patvirtinti savo tapatybės. Štai kodėl yra &lt;b&gt;privaloma&lt;/b&gt;, kad jūs sukurtumėte atsarginę savo liudijimo kopiją. Mes primygtinai rekomenduojame, kad šią atsarginę kopiją laikytumėte keičiamajame įrenginyje, tokiame kaip USB atmintukas.&lt;/p&gt;
+&lt;p&gt;Turėkite omenyje, kad šis failas nebus užšifruotas, taigi, jeigu koks nors asmuo gaus prie jo prieigą, jis galės apsimesti jumis, todėl kaip reikiant pasirūpinkite šiuo failu.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2843,7 +2852,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation type="unfinished"/>
+        <translation>Kurti kanalą</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2943,7 +2952,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation type="unfinished"/>
+        <translation>Perkelti</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3915,7 +3924,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Text Message</source>
-        <translation type="unfinished"/>
+        <translation>Tekstinė žinutė</translation>
     </message>
     <message>
         <location line="-13"/>
@@ -4093,12 +4102,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.ui"/>
         <source>Messages</source>
-        <translation type="unfinished"/>
+        <translation>Žinutės</translation>
     </message>
     <message>
         <location/>
         <source>Message</source>
-        <translation type="unfinished"/>
+        <translation>Žinutė</translation>
     </message>
     <message>
         <location/>
@@ -4343,13 +4352,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"/>
+        <translation>Tai keičia elgseną, perkeliant kanalus.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Tai nustato kanalų tempimo elgseną; tai gali būti naudojama, kad būtų neleistas atsitiktinis tempimas. &lt;i&gt;Perkelti&lt;/i&gt; perkelia kanalą, neklausiant. &lt;i&gt;Nieko nedaryti&lt;/i&gt; nieko nedaro ir parodo klaidos žinutę. &lt;i&gt;Klausti&lt;/i&gt; naudoja žinutės langelį, kad patvirtintų, ar jūs tikrai norėjote perkelti kanalą.</translation>
     </message>
     <message>
         <location/>
@@ -4364,7 +4373,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Channel Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Kanalų tempimas</translation>
     </message>
     <message>
         <location/>
@@ -4439,7 +4448,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti meniu juostoje kontekstinį meniu</translation>
     </message>
     <message>
         <location/>
@@ -4459,7 +4468,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"/>
+        <translation>Prideda į meniu juostą naudotojo ir kanalo kontekstinius meniu</translation>
     </message>
     <message>
         <location/>
@@ -4469,7 +4478,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"/>
+        <translation>Kanalų medis</translation>
     </message>
     <message>
         <location/>
@@ -4479,7 +4488,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"/>
+        <translation>Filtras automatiškai slepia tuščius kanalus</translation>
     </message>
     <message>
         <location/>
@@ -4821,7 +4830,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+61"/>
         <source>View comment on user %1</source>
-        <translation type="unfinished"/>
+        <translation>Rodomas naudotojo %1 komentaras</translation>
     </message>
     <message>
         <location line="+72"/>
@@ -5078,7 +5087,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+71"/>
         <source>Sending message to channel %1</source>
-        <translation type="unfinished"/>
+        <translation>Siunčiama žinutė į kanalą %1</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -5828,7 +5837,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojas %1 perkeltas į %2.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6213,12 +6222,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="UserModel.cpp" line="+1413"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Jūs esate nusistatę kanalų tempimą į &quot;Nieko nedaryti&quot;, taigi, kanalas nebuvo perkeltas.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished"/>
+        <translation>Nežinoma kanalų tempimo veiksena ties UserModel::dropMimeData.</translation>
     </message>
     <message>
         <location filename="main.cpp" line="-349"/>
@@ -6348,7 +6357,7 @@ Valid actions are:
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished"/>
+        <translation>Žiūrėti komentarą</translation>
     </message>
     <message>
         <location/>
@@ -6555,12 +6564,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Atsijungus, prisijungti iš naujo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Atsijungus, prisijungti iš naujo&lt;/b&gt;.&lt;br /&gt;Tai padarys, kad Mumble, nutrūkus ryšiui su serveriu, automatiškai po 10 sekundžių bandytų prisijungti iš naujo.</translation>
     </message>
     <message>
         <location/>
@@ -6766,12 +6775,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Paleidžiant Mumble, iš naujo prisijungti prie paskutinio naudoto serverio</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"/>
+        <translation>Paleidus programą, iš naujo prisijungti prie paskutinio serverio</translation>
     </message>
     <message>
         <location/>
@@ -6900,7 +6909,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayConfig.cpp" line="+99"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"/>
+        <translation>Norėdami perkelti naudotojus, tempkite raudoną taškelį.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7445,7 +7454,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Pavadinimas</translation>
     </message>
     <message>
         <location/>
@@ -7614,7 +7623,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Tekstas</translation>
     </message>
 </context>
 <context>
@@ -8333,7 +8342,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+732"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"/>
+        <translation>Ar tikrai norite tempti šį kanalą?</translation>
     </message>
     <message>
         <location line="+94"/>
