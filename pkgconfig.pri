@@ -19,6 +19,7 @@ defineTest(must_pkgconfig) {
 	pkg = $$1
 	system(pkg-config --exists $$pkg) {
 		PKGCONFIG *= $$pkg
+		export(PKGCONFIG)
 	} else {
 		error(pkg-config could not find package $$pkg)
 	}
