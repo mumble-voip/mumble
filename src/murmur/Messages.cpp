@@ -547,8 +547,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		bool changed = false;
 		comment = u8(msg.comment());
 		if (uSource != pDstServerUser) {
-			if (! hasPermission(uSource, root, ChanACL::Move)) {
-				PERM_DENIED(uSource, root, ChanACL::Move);
+			if (! hasPermission(uSource, root, ChanACL::ResetCommentTexture)) {
+				PERM_DENIED(uSource, root, ChanACL::ResetCommentTexture);
 				return;
 			}
 			if (comment.length() > 0) {

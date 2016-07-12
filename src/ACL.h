@@ -35,11 +35,12 @@ class ChanACL : public QObject {
 			// Root channel only
 			Kick = 0x10000,
 			Ban = 0x20000,
-			Register = 0x40000,
-			SelfRegister = 0x80000,
+			ResetCommentTexture = 0x40000,
+			Register = 0x80000,
+			SelfRegister = 0x100000,
 
 			Cached = 0x8000000,
-			All = 0xf07ff
+			All = 0x1F07FF
 		};
 
 		Q_DECLARE_FLAGS(Permissions, Perm)

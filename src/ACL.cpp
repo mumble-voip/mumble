@@ -97,13 +97,15 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 						granted |= Kick;
 					if (acl->pAllow & Ban)
 						granted |= Ban;
+					if (acl->pAllow & ResetCommentTexture)
+						granted |= ResetCommentTexture;
 					if (acl->pAllow & Register)
 						granted |= Register;
 					if (acl->pAllow & SelfRegister)
 						granted |= SelfRegister;
 				}
 				if ((ch==chan && acl->bApplyHere) || (ch!=chan && acl->bApplySubs)) {
-					granted |= (acl->pAllow & ~(Kick|Ban|Register|SelfRegister|Cached));
+					granted |= (acl->pAllow & ~(Kick|Ban|ResetCommentTexture|Register|SelfRegister|Cached));
 					granted &= ~acl->pDeny;
 				}
 			}
@@ -117,7 +119,7 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 	if (granted & Write) {
 		granted |= Traverse|Enter|MuteDeafen|Move|MakeChannel|LinkChannel|TextMessage|MakeTempChannel;
 		if (chan->iId == 0)
-			granted |= Kick|Ban|Register|SelfRegister;
+			granted |= Kick|Ban|ResetCommentTexture|Register|SelfRegister;
 	}
 
 	if (cache) {
@@ -178,6 +180,8 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents the permission to forcibly remove users from the server.");
 		case Ban:
 			return tr("This represents the permission to permanently remove users from the server.");
+		case ResetCommentTexture:
+			return tr("This represents the permission to reset the avatar or the comment from a user.");
 		case Register:
 			return tr("This represents the permission to register and unregister users on the server.");
 		case SelfRegister:
@@ -229,6 +233,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Kick");
 		case Ban:
 			return tr("Ban");
+		case ResetCommentTexture:
+			return tr("Reset Comment and Avatar");
 		case Register:
 			return tr("Register User");
 		case SelfRegister:
