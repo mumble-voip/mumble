@@ -547,8 +547,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		bool changed = false;
 		comment = u8(msg.comment());
 		if (uSource != pDstServerUser) {
-			if (! hasPermission(uSource, root, ChanACL::ResetCommentTexture)) {
-				PERM_DENIED(uSource, root, ChanACL::ResetCommentTexture);
+			if (! hasPermission(uSource, root, ChanACL::ResetComment)) {
+				PERM_DENIED(uSource, root, ChanACL::ResetComment);
 				return;
 			}
 			if (comment.length() > 0) {
@@ -572,8 +572,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 		if (uSource != pDstServerUser) {
-			if (! hasPermission(uSource, root, ChanACL::Move)) {
-				PERM_DENIED(uSource, root, ChanACL::Move);
+			if (! hasPermission(uSource, root, ChanACL::ResetTexture)) {
+				PERM_DENIED(uSource, root, ChanACL::ResetTexture);
 				return;
 			}
 			if (msg.texture().length() > 0) {
