@@ -59,6 +59,7 @@ class ChatbarTextEdit : public QTextEdit {
 		unsigned int completeAtCursor();
 	signals:
 		void tabPressed(void);
+		void backtabPressed(void);
 		void ctrlSpacePressed(void);
 		void entered(QString);
 	public slots:
