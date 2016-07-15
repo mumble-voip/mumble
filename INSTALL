@@ -179,3 +179,9 @@ CONFIG+=no-qssldiffiehellmanparameters
 CONFIG+=no-xboxinput (Mumble, Win32)
  Don't build in support for global shortcuts
  from Xbox controllers via the XInput DLL.
+
+CONFIG+=g15-emulator (Mumble, Win32)
+ Build the g15helper executable in emulator
+ mode. This will cause an emulated G15 window
+ to appear on screen. Allows the use of Mumble's
+ G15 support without owning the physical hardware.
