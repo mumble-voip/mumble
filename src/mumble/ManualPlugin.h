@@ -3,8 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MANUAL_H_
-#define MUMBLE_MANUAL_H_
+#ifndef MUMBLE_MUMBLE_MANUALPLUGIN_H_
+#define MUMBLE_MUMBLE_MANUALPLUGIN_H_
 
 #include <QtCore/QtGlobal>
 #if QT_VERSION >= 0x050000
