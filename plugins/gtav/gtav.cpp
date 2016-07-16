@@ -20,7 +20,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
 
 	// Steam version
-	if (peekProc(pModule + 0x17BE288, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+	if (peekProc(pModule + 0x17C6330, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
 		state_address = pModule + 0x268C370;
 		in_game_address = pModule + 0x1B76454;
 		avatar_pos_address = pModule + 0x1F05230;
@@ -33,7 +33,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		location_address = pModule + 0x228D79B;
 		street_address = pModule + 0x228A550;
 	// Retail version
-	} else if (peekProc(pModule + 0x17BB1F8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+	} else if (peekProc(pModule + 0x17C3280, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
 		state_address = pModule + 0x2688DB0;
 		in_game_address = pModule + 0x1B73ED4;
 		avatar_pos_address = pModule + 0x1F01E40;
