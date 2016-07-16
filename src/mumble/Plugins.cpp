@@ -16,11 +16,6 @@
 #include "WebFetch.h"
 #include "MumbleApplication.h"
 
-#ifdef Q_OS_WIN
-// from os_win.cpp
-extern HWND MumbleHWNDForQWidget(QWidget *w);
-#endif
-
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);
 }
@@ -36,6 +31,7 @@ struct PluginInfo {
 	QString shortname;
 	MumblePlugin *p;
 	MumblePlugin2 *p2;
+	MumblePluginQt *pqt;
 	PluginInfo();
 };
 
@@ -44,6 +40,7 @@ PluginInfo::PluginInfo() {
 	enabled = false;
 	p = NULL;
 	p2 = NULL;
+	pqt = NULL;
 }
 
 struct PluginFetchMeta {
@@ -124,12 +121,10 @@ void PluginConfig::on_qpbConfig_clicked() {
 	if (! pi)
 		return;
 
-	if (pi->p->config) {
-#ifdef Q_OS_WIN
-		pi->p->config(MumbleHWNDForQWidget(this));
-#else
-		pi->p->config(reinterpret_cast<HWND>(this));
-#endif
+	if (pi->pqt && pi->pqt->config) {
+		pi->pqt->config(this);
+	} else if (pi->p->config) {
+		pi->p->config(0);
 	} else {
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no configure function."), QMessageBox::Ok, QMessageBox::NoButton);
 	}
@@ -145,12 +140,10 @@ void PluginConfig::on_qpbAbout_clicked() {
 	if (! pi)
 		return;
 
-	if (pi->p->about) {
-#ifdef Q_OS_WIN
-		pi->p->about(MumbleHWNDForQWidget(this));
-#else
-		pi->p->about(reinterpret_cast<HWND>(this));
-#endif
+	if (pi->pqt && pi->pqt->about) {
+		pi->pqt->about(this);
+	} else if (pi->p->about) {
+		pi->p->about(0);
 	} else {
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no about function."), QMessageBox::Ok, QMessageBox::NoButton);
 	}
@@ -183,8 +176,23 @@ void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QT
 
 	PluginInfo *pi=pluginForItem(current);
 	if (pi) {
-		qpbAbout->setEnabled(pi->p->about != NULL);
-		qpbConfig->setEnabled(pi->p->config != NULL);
+		bool showAbout = false;
+		if (pi->p->about) {
+			showAbout = true;
+		}
+		if (pi->pqt && pi->pqt->about) {
+			showAbout = true;
+		}
+		qpbAbout->setEnabled(showAbout);
+
+		bool showConfig = false;
+		if (pi->p->config) {
+			showConfig = true;
+		}
+		if (pi->pqt && pi->pqt->config) {
+			showConfig = true;
+		}
+		qpbConfig->setEnabled(showConfig);
 	} else {
 		qpbAbout->setEnabled(false);
 		qpbConfig->setEnabled(false);
@@ -308,6 +316,14 @@ void Plugins::rescanPlugins() {
 							pi->p2 = mpf2();
 							if (pi->p2->magic != MUMBLE_PLUGIN_MAGIC_2) {
 								pi->p2 = NULL;
+							}
+						}
+
+						mumblePluginQtFunc mpfqt = reinterpret_cast<mumblePluginQtFunc>(pi->lib.resolve("getMumblePluginQt"));
+						if (mpfqt) {
+							pi->pqt = mpfqt();
+							if (pi->pqt->magic != MUMBLE_PLUGIN_MAGIC_QT) {
+								pi->pqt = NULL;
 							}
 						}
 
