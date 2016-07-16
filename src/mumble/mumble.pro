@@ -284,6 +284,13 @@ isEmpty(QMAKE_LRELEASE) {
   }
 }
 
+!CONFIG(no-manual-plugin) {
+  SOURCES *= manual.cpp
+  HEADERS *= manual.h
+  FORMS *= manual.ui
+  DEFINES *= USE_MANUAL_PLUGIN
+}
+
 unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
   CONFIG	*= no-bundled-speex
 }

@@ -14,8 +14,6 @@
 #endif
 
 #include <QPointer>
-#include <math.h>
-#include <float.h>
 #include "manual.h"
 #include "ui_manual.h"
 
@@ -27,7 +25,7 @@ typedef WId HWND;
 #define DLL_PUBLIC __declspec(dllexport)
 #endif
 
-#include "../mumble_plugin.h"
+#include "../../plugins/mumble_plugin.h"
 
 static QPointer<Manual> mDlg = NULL;
 static bool bLinkable = false;
