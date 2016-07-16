@@ -503,6 +503,53 @@ void MainWindow::changeEvent(QEvent *e) {
 	}
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *e) {
+	// Pressing F6 switches between the main
+	// window's main widgets, making it easier
+	// to navigate Mumble's MainWindow with only
+	// a keyboard.
+	if (e->key() == Qt::Key_F6) {
+		focusNextMainWidget();
+	} else {
+		QMainWindow::keyPressEvent(e);
+	}
+}
+
+/// focusNextMainWidget switches the focus to the next main
+/// widget of the MainWindow.
+///
+/// This is used to implement behavior where pressing F6
+/// switches between major elements of an application.
+/// This behavior is for example seen in Windows's (File) Explorer.
+///
+/// The main widgets are qteLog (the log view), qteChat (chat input bar)
+/// and qtvUsers (users tree view).
+void MainWindow::focusNextMainWidget() {
+	QWidget *mainFocusWidgets[] = {
+		qteLog,
+		qteChat,
+		qtvUsers,
+	};
+	const int numMainFocusWidgets = sizeof(mainFocusWidgets)/sizeof(mainFocusWidgets[0]);
+
+	int currentMainFocusWidgetIndex = -1;
+
+	QWidget *w = focusWidget();
+	for (int i = 0; i < numMainFocusWidgets; i++) {
+		QWidget *mainFocusWidget = mainFocusWidgets[i];
+		if (w == mainFocusWidget || w->isAncestorOf(mainFocusWidget)) {
+			currentMainFocusWidgetIndex = i;
+			break;
+		}
+	}
+
+	Q_ASSERT(currentMainFocusWidgetIndex != -1);
+
+	int nextMainFocusWidgetIndex = (currentMainFocusWidgetIndex + 1) % numMainFocusWidgets;
+	QWidget *nextMainFocusWidget = mainFocusWidgets[nextMainFocusWidgetIndex];
+	nextMainFocusWidget->setFocus();
+}
+
 void MainWindow::updateTrayIcon() {
 	ClientUser *p=ClientUser::get(g.uiSession);
 

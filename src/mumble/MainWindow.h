@@ -116,6 +116,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void setShowDockTitleBars(bool doShow);
 		void updateTrayIcon();
+		void focusNextMainWidget();
 		void updateTransmitModeComboBox();
 		QPair<QByteArray, QImage> openImageFile();
 		
@@ -168,6 +169,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void hideEvent(QHideEvent *e) Q_DECL_OVERRIDE;
 		void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
 		void changeEvent(QEvent* e) Q_DECL_OVERRIDE;
+		void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
 
 		QMenu *createPopupMenu() Q_DECL_OVERRIDE;
 
