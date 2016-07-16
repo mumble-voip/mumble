@@ -43,6 +43,8 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 
 GlobalShortcutWin::GlobalShortcutWin()
 	: pDI(NULL)
+	, hhMouse(NULL)
+	, hhKeyboard(NULL)
 #ifdef USE_GKEY
 	, gkey(NULL)
 #endif
@@ -96,13 +98,6 @@ void GlobalShortcutWin::run() {
 	while (! g.mw)
 		this->yieldCurrentThread();
 
-	if (bHook) {
-		HMODULE hSelf;
-		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
-		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
-		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
-	}
-
 #ifdef USE_GKEY
 	if (g.s.bEnableGKey) {
 		gkey = new GKeyLibrary();
@@ -135,8 +130,12 @@ void GlobalShortcutWin::run() {
 #endif
 
 	if (bHook) {
-		UnhookWindowsHookEx(hhKeyboard);
-		UnhookWindowsHookEx(hhMouse);
+		if (hhMouse != NULL) {
+			UnhookWindowsHookEx(hhMouse);
+		}
+		if (hhKeyboard != NULL) {
+			UnhookWindowsHookEx(hhKeyboard);
+		}
 	}
 
 	foreach(InputDevice *id, qhInputDevices) {
@@ -689,6 +688,40 @@ void GlobalShortcutWin::timeTicked() {
 		}
 	}
 #endif
+
+	// Initialize winhooks.
+	//
+	// We do this here, because at this point, we've just run our
+	// first timeTicked() slot. The GlobalShortcut_win thread's event
+	// loop has nothing else to do at this point, so there is nothing
+	// that blocks the callbacks of the hooks.
+	//
+	// That is, if we initialize here, our callbacks *can* be called
+	// immediately after initialization, which gives the best results
+	// as far as interactivity and user experience goes. The initialization
+	// cannot be "felt".
+	//
+	// Let me explain...
+	//
+	// Originally, this code lived in the body of run, ::run(), just
+	// before exec() was called.
+	//
+	// It turns out that if our hooks are initialized there, it can take
+	// a short while before the mouse and keyboard callbacks can be processed.
+	//
+	// During this time, where the mouse callback is not able to be called,
+	// the mouse in Windows becomes laggy. It makes the whole computer feel
+	// like it has locked up -- because input "stops".
+	//
+	// As explained above, initializing the hooks here yields a much superior
+	// experience, where this initialization has no observable effect on the
+	// behavior of the system's mouse input.
+	if (bHook && hhMouse == NULL && hhKeyboard == NULL) {
+		HMODULE hSelf;
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
+		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
+	}
 }
 
 QString GlobalShortcutWin::buttonName(const QVariant &v) {
