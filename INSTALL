@@ -185,3 +185,7 @@ CONFIG+=g15-emulator (Mumble, Win32)
  mode. This will cause an emulated G15 window
  to appear on screen. Allows the use of Mumble's
  G15 support without owning the physical hardware.
+
+CONFIG+=no-manual-plugin (Mumble)
+ Don't include the built-in 'manual' positional
+ audio plugin.

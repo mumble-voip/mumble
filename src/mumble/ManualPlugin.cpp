@@ -8,19 +8,14 @@
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #if QT_VERSION >= 0x050000
-# if defined(Q_OS_WIN)
-#   include <qpa/qplatformnativeinterface.h>
-# endif
 # include <QtWidgets/QMessageBox>
 #else
 # include <QMessageBox>
 #endif
 
 #include <QPointer>
-#include <math.h>
-#include <float.h>
-#include "manual.h"
-#include "ui_manual.h"
+#include "ManualPlugin.h"
+#include "ui_ManualPlugin.h"
 
 #ifdef Q_OS_UNIX
 #define __cdecl
@@ -30,7 +25,7 @@ typedef WId HWND;
 #define DLL_PUBLIC __declspec(dllexport)
 #endif
 
-#include "../mumble_plugin.h"
+#include "../../plugins/mumble_plugin.h"
 
 static QPointer<Manual> mDlg = NULL;
 static bool bLinkable = false;
@@ -52,27 +47,6 @@ static struct {
 	{0,0,0}, {0,0,0}, {0,0,0},
 	std::string(), std::wstring()
 };
-
-#ifdef Q_OS_WIN
-static QWidget *QWidgetForHWND(HWND hwnd) {
-#if QT_VERSION >= 0x050000
-	QList<QWidget *> windows = qApp->topLevelWidgets();
-	foreach (QWidget *w, windows) {
-		QWindow *window = w->windowHandle();
-		if (window == NULL || window->handle() == 0) {
-			continue;
-		}
-		HWND whwnd = static_cast<HWND>(qApp->platformNativeInterface()->nativeResourceForWindow("handle", window));
-		if (whwnd == hwnd) {
-			return w;
-		}
-	}
-	return NULL;
-#else
-	return QWidget::find(hwnd);
-#endif
-}
-#endif
 
 Manual::Manual(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -243,22 +217,16 @@ static void unlock() {
 	bLinkable = false;
 }
 
-static void config(HWND h) {
+static void config(void *ptr) {
+	QWidget *w = reinterpret_cast<QWidget *>(ptr);
+
 	if (mDlg) {
-#if defined(Q_OS_WIN)
-		mDlg->setParent(QWidgetForHWND(h), Qt::Dialog);
-#else
-		mDlg->setParent(reinterpret_cast<QWidget *>(h), Qt::Dialog);
-#endif
+		mDlg->setParent(w, Qt::Dialog);
 #if QT_VERSION < 0x050000
 		mDlg->qpbUnhinge->setEnabled(true);
 #endif
 	} else {
-#if defined(Q_OS_WIN)
-		mDlg = new Manual(QWidgetForHWND(h));
-#else
-		mDlg = new Manual(reinterpret_cast<QWidget *>(h));
-#endif
+		mDlg = new Manual(w);
 	}
 
 #if QT_VERSION >= 0x050000
@@ -298,13 +266,11 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Manual placement plugin");
 static std::wstring shortname(L"Manual placement");
 
-static void about(HWND h) {
+static void about(void *ptr) {
+	QWidget *w = reinterpret_cast<QWidget *>(ptr);
+
 	QMessageBox::about(
-#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
-		QWidgetForHWND(h),
-#else
-		reinterpret_cast<QWidget *>(h),
-#endif
+		w,
 		QString::fromStdWString(description),
 		QString::fromStdWString(longdesc())
 	);
@@ -314,14 +280,24 @@ static MumblePlugin manual = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
-	config,
+	NULL, // About is handled by MublePluginQt
+	NULL, // Config is handled by MumblePluginQt
 	trylock,
 	unlock,
 	longdesc,
 	fetch
 };
 
-extern "C" DLL_PUBLIC MumblePlugin *getMumblePlugin() {
+static MumblePluginQt manualqt = {
+	MUMBLE_PLUGIN_MAGIC_QT,
+	about,
+	config
+};
+
+MumblePlugin *ManualPlugin_getMumblePlugin() {
 	return &manual;
+}
+
+MumblePluginQt *ManualPlugin_getMumblePluginQt() {
+	return &manualqt;
 }

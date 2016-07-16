@@ -45,7 +45,7 @@ CONFIG(static) {
 
     CONFIG -= static
     CONFIG += shared qt_static mumble_dll
-    DEFINES += USE_MUMBLE_DLL QT_SHARED
+    DEFINES += USE_MUMBLE_DLL
     isEqual(QT_MAJOR_VERSION, 5) {
       # Qt 5 uses an auto-generated .cpp file for importing plugins.
       # However, it is only automatically enabled for TEMPLATE = app.
@@ -53,32 +53,7 @@ CONFIG(static) {
       # This means we'll have to explicitly ask Qt to generate and build the
       # plugin importer.
       CONFIG += force_import_plugins
-
-      # Pretend we're inside a Qt build to get the Qt headers to dllexport correctly.
-      # This is achievable in Qt 4 by defining QT_SHARED, but in Qt 5 we have to
-      # hack our way around it. Even QT_SHARED will give us dllimport unless Qt thinks
-      # it's doing a Qt build.
-      DEFINES += QT_BUILD_CORE_LIB QT_BUILD_GUI_LIB QT_BUILD_WIDGETS_LIB QT_BUILD_NETWORK_LIB QT_BUILD_XML_LIB QT_BUILD_SQL_LIB QT_BUILD_SVG_LIB
     }
-
-    DEF_FILE = $${DESTDIR}/$${TARGET}.def
-
-    QMAKE_LFLAGS += /DEF:$${DEF_FILE}
-    QMAKE_LFLAGS += /ignore:4102 # export of deleting destructor
-    QMAKE_LFLAGS += /ignore:4197 # specified multiple times
-
-    CONFIG(debug, debug|release) {
-      DEF_KIND = debug
-    }
-
-    CONFIG(release, debug|release) {
-      DEF_KIND = release
-    }
-
-    gendef.commands = $$PYTHON ../../scripts/gen-mumble_app-qt-def.py $${DEF_KIND} $$[QT_INSTALL_LIBS] $${DEF_FILE}
-    QMAKE_EXTRA_TARGETS *= gendef
-    PRE_TARGETDEPS *= gendef
-    QMAKE_DISTCLEAN *= $${DEF_FILE}
   }
 
   DEFINES *= USE_STATIC
@@ -282,6 +257,13 @@ isEmpty(QMAKE_LRELEASE) {
   } else {
     QMAKE_LRELEASE = $$QMAKE_LRELEASE_PATH
   }
+}
+
+!CONFIG(no-manual-plugin) {
+  SOURCES *= ManualPlugin.cpp
+  HEADERS *= ManualPlugin.h
+  FORMS *= ManualPlugin.ui
+  DEFINES *= USE_MANUAL_PLUGIN
 }
 
 unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
