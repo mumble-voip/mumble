@@ -14,8 +14,8 @@
 #endif
 
 #include <QPointer>
-#include "manual.h"
-#include "ui_manual.h"
+#include "ManualPlugin.h"
+#include "ui_ManualPlugin.h"
 
 #ifdef Q_OS_UNIX
 #define __cdecl

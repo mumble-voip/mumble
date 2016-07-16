@@ -16,7 +16,7 @@
 #include "WebFetch.h"
 #include "MumbleApplication.h"
 
-#include "manual.h"
+#include "ManualPlugin.h"
 
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);

@@ -12,7 +12,7 @@
 # include <QGraphicsScene>
 #endif
 
-#include "ui_manual.h"
+#include "ui_ManualPlugin.h"
 
 #include "../../plugins/mumble_plugin.h"
 

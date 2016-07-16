@@ -285,9 +285,9 @@ isEmpty(QMAKE_LRELEASE) {
 }
 
 !CONFIG(no-manual-plugin) {
-  SOURCES *= manual.cpp
-  HEADERS *= manual.h
-  FORMS *= manual.ui
+  SOURCES *= ManualPlugin.cpp
+  HEADERS *= ManualPlugin.h
+  FORMS *= ManualPlugin.ui
   DEFINES *= USE_MANUAL_PLUGIN
 }
 
