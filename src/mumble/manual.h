@@ -14,6 +14,8 @@
 
 #include "ui_manual.h"
 
+#include "../../plugins/mumble_plugin.h"
+
 class Manual : public QDialog, public Ui::Manual {
 		Q_OBJECT
 	public:
@@ -41,5 +43,8 @@ class Manual : public QDialog, public Ui::Manual {
 		void changeEvent(QEvent *e);
 		void updateTopAndFront(int orientation, int azimut);
 };
+
+MumblePlugin *ManualPlugin_getMumblePlugin();
+MumblePluginQt *ManualPlugin_getMumblePluginQt();
 
 #endif

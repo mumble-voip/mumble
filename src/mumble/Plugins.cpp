@@ -16,6 +16,8 @@
 #include "WebFetch.h"
 #include "MumbleApplication.h"
 
+#include "manual.h"
+
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);
 }
@@ -337,6 +339,21 @@ void Plugins::rescanPlugins() {
 			}
 			delete pi;
 		}
+	}
+
+	// Handle built-in plugins
+	{
+#if defined(USE_MANUAL_PLUGIN)
+		// Manual plugin
+		PluginInfo *pi = new PluginInfo();
+		pi->filename = QLatin1String("manual.builtin");
+		pi->p = ManualPlugin_getMumblePlugin();
+		pi->pqt = ManualPlugin_getMumblePluginQt();
+		pi->description = QString::fromStdWString(pi->p->description);
+		pi->shortname = QString::fromStdWString(pi->p->shortname);
+		pi->enabled = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
+		qlPlugins << pi;
+#endif
 	}
 }
 

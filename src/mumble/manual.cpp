@@ -294,10 +294,10 @@ static MumblePluginQt manualqt = {
 	config
 };
 
-extern "C" DLL_PUBLIC MumblePlugin *getMumblePlugin() {
+MumblePlugin *ManualPlugin_getMumblePlugin() {
 	return &manual;
 }
 
-extern "C" DLL_PUBLIC MumblePluginQt *getMumblePluginQt() {
+MumblePluginQt *ManualPlugin_getMumblePluginQt() {
 	return &manualqt;
 }
