@@ -481,9 +481,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// blacklist, we need a more structured aproach.
 	{
 		if (id->vendor_id == 0x262A) {
-			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x)",
-			         qPrintable(id->name), qPrintable(id->vguid.toString()), qPrintable(id->vguidproduct.toString()),
-			         id->vendor_id, id->product_id);
+			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x, TYPE: 0x%.8x)",
+			         qPrintable(id->name),
+			         qPrintable(id->vguid.toString()),
+			         qPrintable(id->vguidproduct.toString()),
+			         id->vendor_id,
+			         id->product_id,
+			         pdidi->dwDevType);
 			delete id;
 			return DIENUM_CONTINUE;
 		}
