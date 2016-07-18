@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Audio Tuning Wizard</string>
   </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ClassicStyle</enum>
+  </property>
   <widget class="CompletablePage" name="qwpIntro">
    <property name="title">
     <string>Introduction</string>
