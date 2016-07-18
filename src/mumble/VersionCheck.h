@@ -14,8 +14,6 @@ class VersionCheck : public QObject {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(VersionCheck)
-	protected:
-		bool bSilent;
 	public slots:
 		void fetched(QByteArray data, QUrl url);
 	public:
