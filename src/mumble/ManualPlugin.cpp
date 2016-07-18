@@ -17,6 +17,8 @@
 #include "ManualPlugin.h"
 #include "ui_ManualPlugin.h"
 
+#include <float.h>
+
 #ifdef Q_OS_UNIX
 #define __cdecl
 typedef WId HWND;

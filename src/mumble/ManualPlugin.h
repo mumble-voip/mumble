@@ -19,6 +19,10 @@
 
 #include "ui_ManualPlugin.h"
 
+#ifdef Q_OS_UNIX
+typedef WId HWND;
+#endif
+
 #include "../../plugins/mumble_plugin.h"
 
 class Manual : public QDialog, public Ui::Manual {
