@@ -15,6 +15,7 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <windows.h>
+#include <tlhelp32.h>
 #include <math.h>
 #include <map>
 #include <vector>

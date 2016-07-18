@@ -473,26 +473,32 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 	return retval;
 }
 
+static bool isParentProcessAllowed();
 static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p);
 static bool createSharedDataMap();
 
 static void dllmainProcAttach(char *procname) {
 	Mutex::init();
 
-	char *p = strrchr(procname, '\\');
-	if (!p) {
-		// No blacklisting if the file has no path
-	} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
+	if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
 		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
 		bBlackListed = TRUE;
 		bMumble = TRUE;
 	} else {
-		if (dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
+		if (!isParentProcessAllowed()) {
+			ods("Lib: Process %s is disallowed because its parent was not on the list of allowed launchers.");
+			bBlackListed = TRUE;
+			return;
+		} else {
+			ods("Lib: Proces %s passed the launcher filter.");
+		}
+
+		char *p = strrchr(procname, '\\');
+		if (p && dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
 			ods("Lib: Process %s is blacklisted - no overlay injection.", procname);
 			return;
 		}
 	}
-
 
 	OSVERSIONINFOEX ovi;
 	memset(&ovi, 0, sizeof(ovi));
@@ -520,6 +526,135 @@ static void dllmainProcAttach(char *procname) {
 		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
 	}
+}
+
+static bool findParentProcessForChild(DWORD child, PROCESSENTRY32 *parent) {
+	DWORD parentpid = 0;
+	HANDLE hSnap = NULL;
+	bool done = false;
+
+	PROCESSENTRY32 pe;
+	pe.dwSize = sizeof(pe);
+
+	// Find our parent's process ID.
+	{
+		BOOL ok = FALSE;
+
+		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (hSnap == INVALID_HANDLE_VALUE) {
+			return false;
+		}
+		ok = Process32First(hSnap, &pe);
+		while (ok) {
+			if (pe.th32ProcessID == child) {
+				parentpid = pe.th32ParentProcessID;
+				break;
+			}
+			ok = Process32Next(hSnap, &pe);
+		}
+		CloseHandle(hSnap);
+	}
+
+	if (parentpid == 0) {
+		return false;
+	}
+
+	// Find our parent's name.
+	{
+		BOOL ok = FALSE;
+
+		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (hSnap == INVALID_HANDLE_VALUE) {
+			return false;
+		}
+		ok = Process32First(hSnap, &pe);
+		while (ok) {
+			if (pe.th32ProcessID == parentpid) {
+				memcpy(parent, &pe, sizeof(pe));
+				ok = FALSE;
+				done = true;
+				break;
+			}
+			ok = Process32Next(hSnap, &pe);
+		}
+		CloseHandle(hSnap);
+	}
+
+	return done;
+}
+
+static bool findParentProcess(PROCESSENTRY32 *parent) {
+	DWORD ourpid = GetCurrentProcessId();
+	return findParentProcessForChild(ourpid, parent);
+}
+
+// Checks whether the parent process is an allowed
+// launcher per the overlay launcher filter.
+static bool isParentProcessAllowed() {
+	PROCESSENTRY32 parent;
+
+	if (!findParentProcess(&parent)) {
+		ods("isParentProcessAllowed: Unable to find parent. Process is allowed.");
+		return true;
+	}
+
+	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
+
+	bool enablelauncherfilter = false;
+	HKEY key = NULL;
+
+	char *buffer = new char[buffsize];
+
+	// check if the launcher filter is enabled.
+	DWORD tmpsize = buffsize - 1;
+	bool success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
+	          (RegQueryValueExA(key, "enablelauncherfilter", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
+
+	if (success) {
+		buffer[tmpsize] = '\0';
+		enablelauncherfilter = (_stricmp(buffer, "true") == 0);
+		// reset tmpsize to the buffers size (minus 1 char for str-termination), as it was changed by RegQuery
+		tmpsize = buffsize - 1;
+
+		// read the launcher list
+		DWORD ret;
+		while ((ret = RegQueryValueExA(key, "launchers", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
+			// Increase the buffsize according to the required size RegQuery wrote into tmpsize, so we can read the whole value
+			delete []buffer;
+			buffsize = tmpsize + 1;
+			buffer = new char[buffsize];
+		}
+
+		success = (ret == ERROR_SUCCESS);
+	}
+
+	if (!enablelauncherfilter) {
+		ods("isParentProcessAllowed: Launcher filter is not enabled. Process is allowed.");
+		return true;
+	}
+
+	if (key)
+		RegCloseKey(key);
+
+	if (success) {
+		buffer[tmpsize] = '\0';
+		unsigned int pos = 0;
+
+		if (enablelauncherfilter) {
+			// check if the process is an allowed launcher.
+			while (pos < buffsize && buffer[pos] != 0) {
+				if (_stricmp(parent.szExeFile, buffer + pos) == 0) {
+					ods("isParentProcessAllowed: Parent EXE file (%s) found in the launchers list. Process is allowed.", parent.szExeFile);
+					return true;
+				}
+				pos += static_cast<unsigned int>(strlen(buffer + pos)) + 1;
+			}
+		}
+	} else {
+		ods("Lib: no launchers found in the registry");
+	}
+
+	return false;
 }
 
 // Is the process black(listed)?
