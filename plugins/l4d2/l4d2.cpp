@@ -23,15 +23,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE state;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + 0x06ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
-			peekProc(pModule + 0x06B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc(pModule + 0x0774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc(pModule + 0x0774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
-			peekProc(pModule + 0x0774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
+	ok = peekProc(pModule + 0x6ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
+			peekProc(pModule + 0x6B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(pModule + 0x774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(pModule + 0x774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
+			peekProc(pModule + 0x774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
 			peekProc(serverid_steamclient, serverid) && // Unique server Steam ID.
-			peekProc(pModule + 0x0772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
-			peekProc(pModule + 0x0772D2C, servername) && // Server name.
-			peekProc(pModule + 0x0772C28, map) && // Map name.
+			peekProc(pModule + 0x772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
+			peekProc(pModule + 0x772D2C, servername) && // Server name.
+			peekProc(pModule + 0x772C28, map) && // Map name.
 			peekProc(player_engine, player); // Player nickname.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
@@ -69,8 +69,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
 	escape(host);
 	if (strcmp(host, "") != 0 && strstr(host, "loopback") == NULL) { // Only include host (IP:Port) if it is not empty and does not include the string "loopback" (which means it's a local server).
-		oidentity << std::endl;
-		oidentity << "\"Host\": \"" << host << "\","; // Set host address in identity.
+		oidentity << std::endl << "\"Host\": \"" << host << "\","; // Set host address in identity.
 	} else {
 		oidentity << std::endl << "\"Host\": null,";
 	}
@@ -79,8 +78,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	servername[sizeof(servername)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
 	escape(servername);
 	if (strcmp(servername, "") != 0) {
-		oidentity << std::endl;
-		oidentity << "\"Server name\": \"" << servername << "\","; // Set server name in identity.
+		oidentity << std::endl << "\"Server name\": \"" << servername << "\","; // Set server name in identity.
 	} else {
 		oidentity << std::endl << "\"Server name\": null,";
 	}
@@ -89,8 +87,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	map[sizeof(map)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
 	escape(map);
 	if (strcmp(map, "") != 0) {
-		oidentity << std::endl;
-		oidentity << "\"Map\": \"" << map << "\","; // Set map name in identity.
+		oidentity << std::endl << "\"Map\": \"" << map << "\","; // Set map name in identity.
 	} else {
 		oidentity << std::endl << "\"Map\": null,";
 	}
@@ -99,8 +96,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	player[sizeof(player)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
 	escape(player);
 	if (strcmp(player, "") != 0) {
-		oidentity << std::endl;
-		oidentity << "\"Player\": \"" << player << "\","; // Set player nickname in identity.
+		oidentity << std::endl << "\"Player\": \"" << player << "\""; // Set player nickname in identity.
 	} else {
 		oidentity << std::endl << "\"Player\": null";
 	}
@@ -153,14 +149,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (!steamclient)
 		return false;
 
-	serverid_steamclient = steamclient + 0x09888ED; // Module + Server ID offset
+	serverid_steamclient = steamclient + 0x94D9ED; // Module + Server ID offset
 
 	procptr32_t engine=getModuleAddr(L"engine.dll"); // // Link "engine.dll" module
 	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
 	if (!engine)
 		return false;
 
-	player_engine = engine + 0x06795D1; // Module + Player offset
+	player_engine = engine + 0x6795D1; // Module + Player offset
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
