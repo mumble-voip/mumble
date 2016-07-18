@@ -51,7 +51,7 @@ static inline PTR_TYPE_CONCRETE getModuleAddr(DWORD pid, const wchar_t *modname)
 	MODULEENTRY32 me;
 	PTR_TYPE_CONCRETE addr = NULL;
 	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
+	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE|TH32CS_SNAPMODULE32, pid);
 	if (hSnap != INVALID_HANDLE_VALUE) {
 		BOOL ok = Module32First(hSnap, &me);
 
