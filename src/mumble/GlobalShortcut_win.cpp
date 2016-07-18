@@ -400,6 +400,14 @@ BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINST
 	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(lpddoi->tszName));
 	id->qhNames[lpddoi->dwType] = name;
 
+	if (g.s.bDirectInputVerboseLogging) {
+		qWarning("GlobalShortcutWin: EnumObjects: device %s %s object 0x%.8x %s",
+		         qPrintable(QUuid(id->guid).toString()),
+		         qPrintable(id->name),
+		         lpddoi->dwType,
+		         qPrintable(name));
+	}
+
 	return DIENUM_CONTINUE;
 }
 
