@@ -515,7 +515,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			}
 
-			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
+			if (validListener) {
 				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1], aop->fPos[2] - g.p->fCameraPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
 				if (len > 0.0f) {
