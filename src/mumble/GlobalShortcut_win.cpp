@@ -400,6 +400,14 @@ BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINST
 	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(lpddoi->tszName));
 	id->qhNames[lpddoi->dwType] = name;
 
+	if (g.s.bDirectInputVerboseLogging) {
+		qWarning("GlobalShortcutWin: EnumObjects: device %s %s object 0x%.8x %s",
+		         qPrintable(QUuid(id->guid).toString()),
+		         qPrintable(id->name),
+		         lpddoi->dwType,
+		         qPrintable(name));
+	}
+
 	return DIENUM_CONTINUE;
 }
 
@@ -473,9 +481,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// blacklist, we need a more structured aproach.
 	{
 		if (id->vendor_id == 0x262A) {
-			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x)",
-			         qPrintable(id->name), qPrintable(id->vguid.toString()), qPrintable(id->vguidproduct.toString()),
-			         id->vendor_id, id->product_id);
+			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x, TYPE: 0x%.8x)",
+			         qPrintable(id->name),
+			         qPrintable(id->vguid.toString()),
+			         qPrintable(id->vguidproduct.toString()),
+			         id->vendor_id,
+			         id->product_id,
+			         pdidi->dwDevType);
 			delete id;
 			return DIENUM_CONTINUE;
 		}
@@ -535,7 +547,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		if (FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
 			qFatal("GlobalShortcutWin: SetProperty: %lx", hr);
 
-		qWarning("Adding device %s %s %s:%d", qPrintable(QUuid(id->guid).toString()),qPrintable(name),qPrintable(sname),id->qhNames.count());
+		qWarning("Adding device %s %s %s:%d type 0x%.8x",
+		         qPrintable(QUuid(id->guid).toString()),
+		         qPrintable(name),
+		         qPrintable(sname),
+		         id->qhNames.count(),
+		         pdidi->dwDevType);
+
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
 		id->pDID->Release();
