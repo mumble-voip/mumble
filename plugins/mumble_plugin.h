@@ -40,7 +40,7 @@
 
 #define MUMBLE_PLUGIN_VERSION 2
 
-bool bSpectator = false;
+extern bool bSpectator;
 
 typedef struct _MumblePlugin {
 	unsigned int magic;

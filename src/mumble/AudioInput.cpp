@@ -24,6 +24,8 @@
 #include "opus.h"
 #endif
 
+bool bSpectator = false;
+
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
 // is called from global initialization.
