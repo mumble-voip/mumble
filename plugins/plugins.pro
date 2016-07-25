@@ -6,7 +6,7 @@
 TEMPLATE = subdirs
 
 CONFIG += debug_and_release
-SUBDIRS = link manual
+SUBDIRS = link
 DIST = plugins.pri
 
 win32 {

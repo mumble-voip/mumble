@@ -1,5 +1,10 @@
-#ifndef MUMBLE_MANUAL_H_
-#define MUMBLE_MANUAL_H_
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+#ifndef MUMBLE_MUMBLE_MANUALPLUGIN_H_
+#define MUMBLE_MUMBLE_MANUALPLUGIN_H_
 
 #include <QtCore/QtGlobal>
 #if QT_VERSION >= 0x050000
@@ -12,7 +17,13 @@
 # include <QGraphicsScene>
 #endif
 
-#include "ui_manual.h"
+#include "ui_ManualPlugin.h"
+
+#ifdef Q_OS_UNIX
+typedef WId HWND;
+#endif
+
+#include "../../plugins/mumble_plugin.h"
 
 class Manual : public QDialog, public Ui::Manual {
 		Q_OBJECT
@@ -41,5 +52,8 @@ class Manual : public QDialog, public Ui::Manual {
 		void changeEvent(QEvent *e);
 		void updateTopAndFront(int orientation, int azimut);
 };
+
+MumblePlugin *ManualPlugin_getMumblePlugin();
+MumblePluginQt *ManualPlugin_getMumblePluginQt();
 
 #endif

@@ -21,11 +21,11 @@ win32 {
 }
 
 CONFIG(debug, debug|release) {
-  LIBPATH	+= ../../debug
+  QMAKE_LIBDIR += ../../debug
   DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  LIBPATH	+= ../../release
+  QMAKE_LIBDIR += ../../release
   DESTDIR	= ../../release
 }

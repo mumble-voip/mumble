@@ -275,6 +275,9 @@ void GlobalShortcutMac::forwardEvent(void *evt) {
 		case NSMouseMoved:
 			sel = @selector(mouseMoved:);
 			break;
+		default:
+			// Ignore the rest. We only care about mouse events.
+			break;
 	}
 
 	if (sel) {

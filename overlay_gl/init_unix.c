@@ -219,7 +219,7 @@ static int find_odlsym() {
 				strtab = (const char *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr);
 				break;
 			case DT_SYMTAB:
-				symtab = (Elf64_Sym *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr);
+				symtab = (Elf_Sym *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr);
 				break;
 		}
 		dyn++;

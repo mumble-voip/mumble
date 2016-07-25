@@ -493,18 +493,19 @@ Contains the list of members inherited by the current channel. Untick &lt;i&gt;I
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Maximum Users</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Maximum number of users allowed in the channel</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;?
+This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</translation>
     </message>
 </context>
 <context>
@@ -697,7 +698,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -805,72 +806,72 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</translation>
     </message>
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation type="unfinished"/>
+        <translation>Browse for on audio file</translation>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation type="unfinished"/>
+        <translation>Browse for off audio file</translation>
     </message>
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Off</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>On</translation>
     </message>
     <message>
         <location/>
         <source>Preview the audio cues</source>
-        <translation type="unfinished"/>
+        <translation>Preview the audio cues</translation>
     </message>
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>Use SNR based speech detection</translation>
     </message>
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"/>
+        <translation>Signal to Noise</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</translation>
     </message>
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation type="unfinished"/>
+        <translation>Amplitude</translation>
     </message>
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation type="unfinished"/>
+        <translation>Voice &amp; Hold</translation>
     </message>
     <message>
         <location/>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished"/>
+        <translation>How long to keep transmitting after silence</translation>
     </message>
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Silence Below</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</translation>
     </message>
     <message>
         <location/>

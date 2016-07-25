@@ -8,9 +8,6 @@
       <Component Id="link.dll">
         <File Source="$(var.SourceDir)\release\plugins\link.dll" KeyPath="yes" />
       </Component>
-      <Component Id="manual.dll">
-        <File Source="$(var.SourceDir)\release\plugins\manual.dll" KeyPath="yes" />
-      </Component>
       <Component Id="aoc.dll">
         <File Source="$(var.SourceDir)\release\plugins\aoc.dll" KeyPath="yes" />
       </Component>
@@ -150,7 +147,6 @@
 
     <ComponentGroup Id="Plugins">
       <ComponentRef Id="link.dll" />
-      <ComponentRef Id="manual.dll" />
       <ComponentRef Id="aoc.dll" />
       <ComponentRef Id="arma2.dll" />
       <ComponentRef Id="bf1942.dll" />

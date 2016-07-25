@@ -4,6 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(qt.pri)
+include(uname.pri)
  
 CONFIG *= warn_on
 
@@ -203,6 +204,14 @@ unix {
 	QMAKE_OBJECTIVE_CFLAGS   *= -Wall -Wextra
 	QMAKE_OBJECTIVE_CXXFLAGS *= -Wall -Wextra
 
+	# Always enable warnings-as-errors
+	# if we're inside a Mumble build environment.
+	# Can be disabled with CONFIG+=no-warnings-as-errors.
+	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
+	!isEmpty(MUMBLE_PREFIX):!CONFIG(no-warnings-as-errors) {
+		CONFIG += warnings-as-errors
+	}
+
 	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS	         *= -Werror
 		QMAKE_CXXFLAGS	         *= -Werror
@@ -232,7 +241,7 @@ unix {
 	}
 }
 
-freebsd {
+contains(UNAME, FreeBSD) {
 	QMAKE_CFLAGS *= -isystem /usr/local/include
 	QMAKE_CXXFLAGS *= -isystem /usr/local/include
 	QMAKE_LIBDIR *= /usr/lib

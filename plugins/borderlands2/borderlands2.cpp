@@ -35,12 +35,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */ 
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 #include <algorithm>
 
-VOID *vects_ptr;
-VOID *state_ptr;
-VOID *character_name_ptr_loc;
+procptr32_t vects_ptr;
+procptr32_t state_ptr;
+procptr32_t character_name_ptr_loc;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &identity)
 {
@@ -80,9 +80,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 
 	// Extract the character name
-	BYTE *ptr1 = peekProc<BYTE*>(character_name_ptr_loc);
-	BYTE *ptr2 = peekProc<BYTE*>(ptr1 + 0xC);
-	BYTE *character_name_ptr = ptr2 + 0x80;
+	procptr32_t ptr1 = peekProc<procptr32_t>(character_name_ptr_loc);
+	procptr32_t ptr2 = peekProc<procptr32_t>(ptr1 + 0xC);
+	procptr32_t character_name_ptr = ptr2 + 0x80;
 
 	char character_name[16]; // The game limits us to 15 char names
 	ok = peekProc(character_name_ptr, character_name);

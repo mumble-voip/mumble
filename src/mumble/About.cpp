@@ -28,9 +28,9 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	for(int i = 0; !licenses3rdParties[i].isEmpty(); ++i)
 	{
 		qtb3rdPartyLicense->append(QString::fromLatin1("<h3>%1 (<a href=\"%2\">%2</a>)</h3><pre>%3</pre>")
-				.arg(QString::fromLatin1(licenses3rdParties[i].name))
-				.arg(QString::fromLatin1(licenses3rdParties[i].url))
-				.arg(QString::fromLatin1(licenses3rdParties[i].license)));
+				.arg(Qt::escape(QString::fromLatin1(licenses3rdParties[i].name)))
+				.arg(Qt::escape(QString::fromLatin1(licenses3rdParties[i].url)))
+				.arg(Qt::escape(QString::fromLatin1(licenses3rdParties[i].license))));
 	}
 
 	qtb3rdPartyLicense->moveCursor(QTextCursor::Start);

@@ -24,7 +24,7 @@ load(resources)
 
 win32 {
 	WINPWD = $$shell_path($${PWD})
-	RCC_DEPENDS = $$escape_expand(\")$${WINPWD}\scripts\rcc-depends.py$$escape_expand(\")
+	RCC_DEPENDS = $$escape_expand(\")$${WINPWD}\\scripts\\rcc-depends.py$$escape_expand(\")
 	rcc.depend_command = python $${RCC_DEPENDS} ${QMAKE_FILE_IN}
 } else {
 	RCC_DEPENDS = $$escape_expand(\")$${PWD}/scripts/rcc-depends.py$$escape_expand(\")

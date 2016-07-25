@@ -1,8 +1,0 @@
-LIBS -= -lQtCore -lQtGui
-LIBS -= -lQtCored -lQtGuid
-LIBS -= -lQt5Core -lQt5Gui -lQt5Widgets
-LIBS -= -lQt5Cored -lQt5Guid -lQt5Widgetsd
-
-macx {
-	LIBS += -undefined dynamic_lookup
-}

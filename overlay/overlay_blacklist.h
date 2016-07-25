@@ -45,7 +45,16 @@ static const char *overlayBlacklist[] = {
 	"EpicGamesLauncher.exe", // Epic, Unreal Tournament launcher
 	"dwm.exe", // Windows Desktop Window Manager
 	"MouseKeyboardCenter.exe",
-	"outlook.exe",
+
+	// Microsoft Office
+	"outlook.exe", // Outlook
+	"winword.exe", // Word
+	"excel.exe", // Excel
+	"powerpnt.exe", // PowerPoint
+	"onenote.exe", // OneNote
+	"mspub.exe", // Publisher
+	"msaccess.exe", // Access
+
 	NULL
 };
 

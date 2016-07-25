@@ -178,10 +178,10 @@ bool AudioInput::isTransmitting() const {
 #define IN_MIXER_FLOAT(channels) \
 static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
   const float * RESTRICT input = reinterpret_cast<const float *>(ipt); \
-  register const float m = 1.0f / static_cast<float>(channels); \
+  const float m = 1.0f / static_cast<float>(channels); \
   Q_UNUSED(N); \
   for(unsigned int i=0;i<nsamp;++i) {\
-	  register float v= 0.0f; \
+	  float v= 0.0f; \
 	  for(unsigned int j=0;j<channels;++j) \
 	  	v += input[i*channels+j]; \
 	  buffer[i] = v * m; \
@@ -191,10 +191,10 @@ static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTR
 #define IN_MIXER_SHORT(channels) \
 static void inMixerShort##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
   const short * RESTRICT input = reinterpret_cast<const short *>(ipt); \
-  register const float m = 1.0f / (32768.f * static_cast<float>(channels)); \
+  const float m = 1.0f / (32768.f * static_cast<float>(channels)); \
   Q_UNUSED(N); \
   for(unsigned int i=0;i<nsamp;++i) {\
-	  register float v= 0.0f; \
+	  float v= 0.0f; \
 	  for(unsigned int j=0;j<channels;++j) \
 	  	v += static_cast<float>(input[i*channels+j]); \
 	  buffer[i] = v * m; \

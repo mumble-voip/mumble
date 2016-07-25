@@ -50,7 +50,7 @@ CONFIG(debug, debug|release) {
 
 # Override fxc binary for the x86 build.
 CONFIG(force-x86-toolchain) {
-  FXC = "\"$$(DXSDK_DIR)\Utilities\bin\x86\fxc.exe\""
+  FXC = "\"$$(DXSDK_DIR)\\Utilities\\bin\\x86\\fxc.exe\""
 } else {
   FXC = fxc.exe
 }

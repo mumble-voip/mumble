@@ -12,6 +12,6 @@ SOURCES = main.cpp
 LIBS = -lprotoc
 CONFIG -= qt
 CONFIG += c++11
-PKGCONFIG += protobuf
+must_pkgconfig(protobuf)
 
 include(../../symbols.pri)

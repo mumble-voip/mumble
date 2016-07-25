@@ -3,11 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
-static BYTE *identptr;
-static BYTE *contextptr;
-static BYTE *posptr;
+static procptr32_t identptr, contextptr, posptr;
 
 static void inline u8(std::wstring &dst, const std::string &src) {
 	if (src.length() > static_cast<size_t>(std::numeric_limits<int>::max())) {
