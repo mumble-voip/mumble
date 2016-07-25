@@ -633,9 +633,7 @@ int main(int argc, char **argv) {
 		qApp->postEvent(g.mw, oue);
 #endif
 	} else {
-#ifndef PLUTOVR_BUILD
 		g.mw->on_qaServerConnect_triggered(true);
-#endif
 	}
 
 	if (! g.bQuit)
