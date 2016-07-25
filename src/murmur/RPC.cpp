@@ -53,9 +53,13 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 		mpus.set_name(u8(name));
 	}
 
-	pUser->bDeaf = deaf;
-	pUser->bMute = mute;
-	pUser->bSuppress = suppressed;
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		pUser->bDeaf = deaf;
+		pUser->bMute = mute;
+		pUser->bSuppress = suppressed;
+	}
+
 	pUser->bPrioritySpeaker = prioritySpeaker;
 	pUser->qsName = name;
 	hashAssign(pUser->qsComment, pUser->qbaCommentHash, comment);
@@ -127,8 +131,13 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 				err = QLatin1String("channel cannot be nested in the given parent");
 				return false;
 			}
-			channel->cParent->removeChannel(channel);
-			parent->addChannel(channel);
+
+			{
+				QWriteLocker wl(&qrwlVoiceThread);
+				channel->cParent->removeChannel(channel);
+				parent->addChannel(channel);
+			}
+
 			mpcs.set_parent(parent->iId);
 
 			changed = true;
@@ -229,8 +238,11 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 			return false;
 		}
 
-		cChannel->cParent->removeChannel(cChannel);
-		cParent->addChannel(cChannel);
+		{
+			QWriteLocker wl(&qrwlVoiceThread);
+			cChannel->cParent->removeChannel(cChannel);
+			cParent->addChannel(cChannel);
+		}
 
 		mpcs.set_parent(cParent->iId);
 
@@ -394,22 +406,26 @@ void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const Q
 	if (! cChannel)
 		cChannel = qhChannels.value(0);
 
-	Group *g;
-	foreach(g, cChannel->qhGroups) {
-		g->qsTemporary.remove(userid);
-		if (sessionId != 0)
-			g->qsTemporary.remove(- sessionId);
-	}
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
 
-	QString gname;
-	foreach(gname, groups) {
-		g = cChannel->qhGroups.value(gname);
-		if (! g) {
-			g = new Group(cChannel, gname);
+		Group *g;
+		foreach(g, cChannel->qhGroups) {
+			g->qsTemporary.remove(userid);
+			if (sessionId != 0)
+				g->qsTemporary.remove(- sessionId);
 		}
-		g->qsTemporary.insert(userid);
-		if (sessionId != 0)
-			g->qsTemporary.insert(- sessionId);
+
+		QString gname;
+		foreach(gname, groups) {
+			g = cChannel->qhGroups.value(gname);
+			if (! g) {
+				g = new Group(cChannel, gname);
+			}
+			g->qsTemporary.insert(userid);
+			if (sessionId != 0)
+				g->qsTemporary.insert(- sessionId);
+		}
 	}
 
 	User *p = qhUsers.value(userid);
@@ -428,16 +444,20 @@ void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 
 	qlChans.append(cChannel);
 
-	while (!qlChans.isEmpty()) {
-		Channel *chan = qlChans.takeLast();
-		Group *g;
-		foreach(g, chan->qhGroups) {
-			g->qsTemporary.remove(user->iId);
-			g->qsTemporary.remove(- static_cast<int>(user->uiSession));
-		}
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
 
-		if (recurse)
-			qlChans << chan->qlChannels;
+		while (!qlChans.isEmpty()) {
+			Channel *chan = qlChans.takeLast();
+			Group *g;
+			foreach(g, chan->qhGroups) {
+				g->qsTemporary.remove(user->iId);
+				g->qsTemporary.remove(-static_cast<int>(user->uiSession));
+			}
+
+			if (recurse)
+				qlChans << chan->qlChannels;
+		}
 	}
 
 	clearACLCache(user);

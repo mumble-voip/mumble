@@ -12,8 +12,6 @@
 #include "WebFetch.h"
 
 VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) {
-	bSilent = autocheck;
-
 	QUrl url;
 	url.setPath(focus ? QLatin1String("/v1/banner") : QLatin1String("/v1/version-check"));
 
@@ -184,7 +182,7 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 			g.mw->msgBox(QString::fromUtf8(a));
 #endif
 		}
-	} else if (bSilent) {
+	} else {
 		g.mw->msgBox(tr("Mumble failed to retrieve version information from the central server."));
 	}
 

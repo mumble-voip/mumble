@@ -109,7 +109,7 @@ void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 
 	ods("D3D10: Blit %d %d %d %d", x, y, w, h);
 
-	if (! pTexture || ! pSRView)
+	if (! pTexture || ! pSRView || uiLeft == uiRight)
 		return;
 
 	D3D10_MAPPED_TEXTURE2D mappedTex;

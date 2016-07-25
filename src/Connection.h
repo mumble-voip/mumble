@@ -67,6 +67,10 @@ class Connection : public QObject {
 		qint64 activityTime() const;
 		void resetActivityTime();
 
+#ifdef MURMUR
+		/// qmCrypt locks access to csCrypt.
+		QMutex qmCrypt;
+#endif
 		CryptState csCrypt;
 
 		QList<QSslCertificate> peerCertificateChain() const;

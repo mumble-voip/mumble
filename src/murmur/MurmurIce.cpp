@@ -72,7 +72,7 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.udpPing = u->dUDPPingAvg;
 	mp.tcpPing = u->dTCPPingAvg;
 
-	mp.tcponly = ! u->bUdp;
+	mp.tcponly = u->aiUdpFlag.load() == 0;
 
 	::Murmur::NetAddress addr(16, 0);
 	const Q_IPV6ADDR &a = u->haAddress.qip6;
@@ -1611,11 +1611,16 @@ static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroup
 		return;
 	}
 
-	::Group *g = channel->qhGroups.value(qsgroup);
-	if (! g)
-		g = new ::Group(channel, qsgroup);
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
 
-	g->qsTemporary.insert(- session);
+		::Group *g = channel->qhGroups.value(qsgroup);
+		if (! g)
+			g = new ::Group(channel, qsgroup);
+
+		g->qsTemporary.insert(- session);
+	}
+
 	server->clearACLCache(user);
 
 	cb->ice_response();
@@ -1632,11 +1637,16 @@ static void impl_Server_removeUserFromGroup(const ::Murmur::AMD_Server_removeUse
 		return;
 	}
 
-	::Group *g = channel->qhGroups.value(qsgroup);
-	if (! g)
-		g = new ::Group(channel, qsgroup);
+	{
+		QWriteLocker qrwl(&server->qrwlVoiceThread);
 
-	g->qsTemporary.remove(- session);
+		::Group *g = channel->qhGroups.value(qsgroup);
+		if (!g)
+			g = new ::Group(channel, qsgroup);
+
+		g->qsTemporary.remove(-session);
+	}
+
 	server->clearACLCache(user);
 
 	cb->ice_response();
@@ -1648,10 +1658,15 @@ static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirect
 
 	QString qssource = u8(source);
 	QString qstarget = u8(target);
-	if (qstarget.isEmpty())
-		user->qmWhisperRedirect.remove(qssource);
-	else
-		user->qmWhisperRedirect.insert(qssource, qstarget);
+
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+
+		if (qstarget.isEmpty())
+			user->qmWhisperRedirect.remove(qssource);
+		else
+			user->qmWhisperRedirect.insert(qssource, qstarget);
+	}
 
 	server->clearACLCache(user);
 

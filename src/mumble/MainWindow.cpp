@@ -503,6 +503,53 @@ void MainWindow::changeEvent(QEvent *e) {
 	}
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *e) {
+	// Pressing F6 switches between the main
+	// window's main widgets, making it easier
+	// to navigate Mumble's MainWindow with only
+	// a keyboard.
+	if (e->key() == Qt::Key_F6) {
+		focusNextMainWidget();
+	} else {
+		QMainWindow::keyPressEvent(e);
+	}
+}
+
+/// focusNextMainWidget switches the focus to the next main
+/// widget of the MainWindow.
+///
+/// This is used to implement behavior where pressing F6
+/// switches between major elements of an application.
+/// This behavior is for example seen in Windows's (File) Explorer.
+///
+/// The main widgets are qteLog (the log view), qteChat (chat input bar)
+/// and qtvUsers (users tree view).
+void MainWindow::focusNextMainWidget() {
+	QWidget *mainFocusWidgets[] = {
+		qteLog,
+		qteChat,
+		qtvUsers,
+	};
+	const int numMainFocusWidgets = sizeof(mainFocusWidgets)/sizeof(mainFocusWidgets[0]);
+
+	int currentMainFocusWidgetIndex = -1;
+
+	QWidget *w = focusWidget();
+	for (int i = 0; i < numMainFocusWidgets; i++) {
+		QWidget *mainFocusWidget = mainFocusWidgets[i];
+		if (w == mainFocusWidget || w->isAncestorOf(mainFocusWidget)) {
+			currentMainFocusWidgetIndex = i;
+			break;
+		}
+	}
+
+	Q_ASSERT(currentMainFocusWidgetIndex != -1);
+
+	int nextMainFocusWidgetIndex = (currentMainFocusWidgetIndex + 1) % numMainFocusWidgets;
+	QWidget *nextMainFocusWidget = mainFocusWidgets[nextMainFocusWidgetIndex];
+	nextMainFocusWidget->setFocus();
+}
+
 void MainWindow::updateTrayIcon() {
 	ClientUser *p=ClientUser::get(g.uiSession);
 
@@ -1776,6 +1823,13 @@ void MainWindow::on_qteChat_tabPressed() {
 	qteChat->completeAtCursor();
 }
 
+/// Handles Backtab/Shift-Tab for qteChat, which allows
+/// users to move focus to the previous widget in
+/// MainWindow.
+void MainWindow::on_qteChat_backtabPressed() {
+	focusPreviousChild();
+}
+
 /**
  * Controlls ctrl space username completion and selection for the chatbar.
  * @see ChatbarLineEdit::completeAtCursor()
@@ -2800,8 +2854,12 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		if (! g.sh->qscCert.isEmpty()) {
 			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
-			if (! Database::getDigest(host, port).isNull()) {
+			QString actual_digest = QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex());
+			QString digests_section = tr("<li>Server certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(actual_digest));
+			QString expected_digest = Database::getDigest(host, port);
+			if (! expected_digest.isNull()) {
 				basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
+				digests_section.append(tr("<li>Expected certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(expected_digest)));
 			} else {
 				basereason = tr("Server presented a certificate which failed verification.");
 			}
@@ -2810,9 +2868,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				qsl << QString::fromLatin1("<li>%1</li>").arg(Qt::escape(e.errorString()));
 
 			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
-			                tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
+			                tr("<p>%1</p><ul>%2</ul><p>The specific errors with this certificate are:</p><ol>%3</ol>"
 			                   "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
-			                  ).arg(basereason).arg(qsl.join(QString())), QMessageBox::Yes | QMessageBox::No, this);
+			                  ).arg(basereason).arg(digests_section).arg(qsl.join(QString())), QMessageBox::Yes | QMessageBox::No, this);
 
 			qmb.setDefaultButton(QMessageBox::No);
 			qmb.setEscapeButton(QMessageBox::No);

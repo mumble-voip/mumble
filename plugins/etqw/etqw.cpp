@@ -36,15 +36,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 using namespace std;
 
-BYTE *pos1ptr;
-BYTE *pos2ptr;
-BYTE *pos3ptr;
-BYTE *rot1ptr;
-BYTE *rot2ptr;
+procptr32_t pos1ptr, pos2ptr, pos3ptr, rot1ptr, rot2ptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	char menustate;
@@ -68,7 +64,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x013F9E1C		float	Vertical view
 			0x013E8D18		byte	Magic value (32 ingame / 0 spectating)
 	*/
-	ok = peekProc((BYTE *) 0x00801BA4, &menustate, 1);
+	ok = peekProc(0x00801BA4, &menustate, 1);
 	if (! ok)
 		return false;
 	if (menustate == 0)
@@ -79,7 +75,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(pos3ptr, avatar_pos+2, 4) && //Z
 	     peekProc(rot1ptr, &viewHor, 4) && //Hor
 	     peekProc(rot2ptr, &viewVer, 4) && //Ver
-	     peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
+	     peekProc(0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;

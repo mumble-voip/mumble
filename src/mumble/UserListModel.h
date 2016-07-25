@@ -42,7 +42,7 @@ class UserListModel : public QAbstractTableModel {
 		bool setData(const QModelIndex &dataIndex, const QVariant &value, int role) Q_DECL_OVERRIDE;
 		Qt::ItemFlags flags(const QModelIndex &flagIndex) const Q_DECL_OVERRIDE;
 	
-		bool removeRows(int row, int count, const QModelIndex &parentIndex = QModelIndex());
+		bool removeRows(int row, int count, const QModelIndex &parentIndex = QModelIndex()) Q_DECL_OVERRIDE;
 	
 		/// Function for removing all rows in a selection
 		void removeRowsInSelection(const QItemSelection &selection);

@@ -140,7 +140,7 @@ void D11State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 
 	ods("D3D11: Blit %d %d %d %d", x, y, w, h);
 
-	if (! pTexture || ! pSRView)
+	if (! pTexture || ! pSRView || uiLeft == uiRight)
 		return;
 
 	D3D11_MAPPED_SUBRESOURCE mappedTex;

@@ -22,6 +22,93 @@
 #include "OSInfo.h"
 #include "Version.h"
 
+#if defined(Q_OS_WIN)
+/// Query for a Windows 10-style displayable version.
+///
+/// This returns a string of the kind:
+///
+///    Windows 10 Pro x86 1607 14390.0
+///
+/// which is:
+///
+///    $ProductName $Arch $Version $Build.$Ubr
+///
+/// Of note, $Version is formatted as YYMM.
+/// So, 1607 is a Windows 10 update released in July 2016.
+///
+/// This function can be called on non-Windows 10 OSes.
+/// On those, this functions fails to query some of the
+/// registry keys used for building the version string
+/// to be returned. Because of that, it is safe to call
+/// this function, and if it returns an empty/null string,
+/// a legacy version string can be displayed.
+static QString win10DisplayableVersion() {
+	HKEY key = 0;
+	LONG err = 0;
+	DWORD len = 0;
+	wchar_t buf[64];
+	DWORD dw = 0;
+
+	QString productName;
+	QString releaseId;
+	QString currentBuild;
+	QString ubr;
+	QString arch;
+
+	err = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", NULL, KEY_READ, &key);
+	if (err != ERROR_SUCCESS) {
+		RegCloseKey(key);
+		return QString();
+	}
+
+	len = sizeof(buf);
+	err = RegQueryValueEx(key, L"ProductName", NULL, NULL, reinterpret_cast<LPBYTE>(&buf[0]), &len);
+	if (err != ERROR_SUCCESS) {
+		RegCloseKey(key);
+		return QString();
+	}
+	productName = QString::fromWCharArray(buf, static_cast<int>(len / sizeof(buf[0])));
+
+	len = sizeof(buf);
+	err = RegQueryValueEx(key, L"ReleaseId", NULL, NULL, reinterpret_cast<LPBYTE>(&buf[0]), &len);
+	if (err != ERROR_SUCCESS) {
+		RegCloseKey(key);
+		return QString();
+	}
+	releaseId = QString::fromWCharArray(buf, static_cast<int>(len / sizeof(buf[0])));
+
+	len = sizeof(buf);
+	err = RegQueryValueEx(key, L"CurrentBuild", NULL, NULL, reinterpret_cast<LPBYTE>(&buf[0]), &len);
+	if (err != ERROR_SUCCESS) {
+		RegCloseKey(key);
+		return QString();
+	}
+	currentBuild = QString::fromWCharArray(buf, static_cast<int>(len / sizeof(buf[0])));
+
+	len = sizeof(dw);
+	err = RegQueryValueEx(key, L"UBR", NULL, NULL, reinterpret_cast<LPBYTE>(&dw), &len);
+	if (err != ERROR_SUCCESS) {
+		RegCloseKey(key);
+		return QString();
+	}
+	ubr = QString::number(static_cast<ulong>(dw), 10);
+
+	RegCloseKey(key);
+
+	_SYSTEM_INFO si;
+	GetNativeSystemInfo(&si);
+	if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64) {
+		arch = QLatin1String("x64");
+	} else if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_INTEL) {
+		arch = QLatin1String("x86");
+	} else {
+		arch = QLatin1String("(unknown arch)");
+	}
+
+	return QString::fromLatin1("%1 %2 %3 %4.%5").arg(productName, arch, releaseId, currentBuild, ubr);
+}
+#endif
+
 QString OSInfo::getMacHash(const QList<QHostAddress> &qlBind) {
 	QString first, second, third;
 	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
@@ -153,6 +240,16 @@ QString OSInfo::getOSVersion() {
 QString OSInfo::getOSDisplayableVersion() {
 #if defined(Q_OS_WIN)
 	QString osdispver;
+
+	// Try to query for a Windows 10-style
+	// displayable version. If this call
+	// returns a non-empty string, we're
+	// on Windows 10 or greater and should
+	// show that string.
+	osdispver = win10DisplayableVersion();
+	if (!osdispver.isEmpty()) {
+		return osdispver;
+	}
 
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));

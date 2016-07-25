@@ -30,6 +30,7 @@ class ViewCert : public QDialog {
 		void on_Chain_currentRowChanged(int);
 	public:
 		ViewCert(QList<QSslCertificate> c, QWidget *p);
+		static QString prettifyDigest(QString);
 };
 
 #endif

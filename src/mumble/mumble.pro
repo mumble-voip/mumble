@@ -45,7 +45,7 @@ CONFIG(static) {
 
     CONFIG -= static
     CONFIG += shared qt_static mumble_dll
-    DEFINES += USE_MUMBLE_DLL QT_SHARED
+    DEFINES += USE_MUMBLE_DLL
     isEqual(QT_MAJOR_VERSION, 5) {
       # Qt 5 uses an auto-generated .cpp file for importing plugins.
       # However, it is only automatically enabled for TEMPLATE = app.
@@ -53,32 +53,7 @@ CONFIG(static) {
       # This means we'll have to explicitly ask Qt to generate and build the
       # plugin importer.
       CONFIG += force_import_plugins
-
-      # Pretend we're inside a Qt build to get the Qt headers to dllexport correctly.
-      # This is achievable in Qt 4 by defining QT_SHARED, but in Qt 5 we have to
-      # hack our way around it. Even QT_SHARED will give us dllimport unless Qt thinks
-      # it's doing a Qt build.
-      DEFINES += QT_BUILD_CORE_LIB QT_BUILD_GUI_LIB QT_BUILD_WIDGETS_LIB QT_BUILD_NETWORK_LIB QT_BUILD_XML_LIB QT_BUILD_SQL_LIB QT_BUILD_SVG_LIB
     }
-
-    DEF_FILE = $${DESTDIR}/$${TARGET}.def
-
-    QMAKE_LFLAGS += /DEF:$${DEF_FILE}
-    QMAKE_LFLAGS += /ignore:4102 # export of deleting destructor
-    QMAKE_LFLAGS += /ignore:4197 # specified multiple times
-
-    CONFIG(debug, debug|release) {
-      DEF_KIND = debug
-    }
-
-    CONFIG(release, debug|release) {
-      DEF_KIND = release
-    }
-
-    gendef.commands = $$PYTHON ../../scripts/gen-mumble_app-qt-def.py $${DEF_KIND} $$[QT_INSTALL_LIBS] $${DEF_FILE}
-    QMAKE_EXTRA_TARGETS *= gendef
-    PRE_TARGETDEPS *= gendef
-    QMAKE_DISTCLEAN *= $${DEF_FILE}
   }
 
   DEFINES *= USE_STATIC
@@ -284,6 +259,13 @@ isEmpty(QMAKE_LRELEASE) {
   }
 }
 
+!CONFIG(no-manual-plugin) {
+  SOURCES *= ManualPlugin.cpp
+  HEADERS *= ManualPlugin.h
+  FORMS *= ManualPlugin.ui
+  DEFINES *= USE_MANUAL_PLUGIN
+}
+
 unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
   CONFIG	*= no-bundled-speex
 }
@@ -302,7 +284,8 @@ CONFIG(no-xinput2) {
 }
 
 CONFIG(no-bundled-speex) {
-  PKGCONFIG	*= speex speexdsp
+  must_pkgconfig(speex)
+  must_pkgconfig(speexdsp)
 }
 
 !CONFIG(no-bundled-speex) {
@@ -339,8 +322,7 @@ CONFIG(sbcelt) {
 !win32:!macx:!CONFIG(no-dbus) {
   CONFIG		*= dbus
 }
-
-!freebsd:!CONFIG(no-g15) {
+!contains(UNAME, FreeBSD):!CONFIG(no-g15) {
   CONFIG *= g15
 }
 
@@ -353,7 +335,7 @@ CONFIG(no-vorbis-recording) {
 }
 
 unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
-  PKGCONFIG *= opus
+  must_pkgconfig(opus)
   DEFINES *= USE_OPUS
 } else {
   !CONFIG(no-opus) {
@@ -448,7 +430,7 @@ unix {
 
   CONFIG *= link_pkgconfig
 
-  PKGCONFIG *= sndfile
+  must_pkgconfig(sndfile)
 
   macx {
     TARGET = Mumble
@@ -490,7 +472,7 @@ unix {
   } else {
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
-    PKGCONFIG *= x11
+    must_pkgconfig(x11)
     LIBS *= -lrt -lXi
 
     # For MumbleSSL::qsslSanityCheck()
@@ -516,7 +498,7 @@ unix {
 
 alsa {
 	DEFINES *= USE_ALSA
-	PKGCONFIG *= alsa
+	must_pkgconfig(alsa)
 	HEADERS *= ALSAAudio.h
 	SOURCES *= ALSAAudio.cpp
 }
@@ -530,14 +512,14 @@ oss {
 
 pulseaudio {
 	DEFINES *= USE_PULSEAUDIO
-	PKGCONFIG *= libpulse
+	must_pkgconfig(libpulse)
 	HEADERS *= PulseAudio.h
 	SOURCES *= PulseAudio.cpp
 }
 
 portaudio {
 	DEFINES *= USE_PORTAUDIO
-	PKGCONFIG *= portaudio-2.0
+	must_pkgconfig(portaudio-2.0)
 	HEADERS *= PAAudio.h
 	SOURCES *= PAAudio.cpp
 }
@@ -569,7 +551,8 @@ bonjour {
 	}
 	unix:!macx {
 		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
-			PKGCONFIG *= avahi-compat-libdns_sd avahi-client
+			must_pkgconfig(avahi-compat-libdns_sd)
+			must_pkgconfig(avahi-client)
 		} else {
 			LIBS *= -ldns_sd
 		}
@@ -587,7 +570,7 @@ speechd {
 	DEFINES *= USE_SPEECHD
 	system(pkg-config --atleast-version=0.8 speech-dispatcher) {
 		DEFINES *= USE_SPEECHD_PKGCONFIG
-		PKGCONFIG *= speech-dispatcher
+		must_pkgconfig(speech-dispatcher)
 	} else {
 		LIBS *= -lspeechd
 		INCLUDEPATH	*= /usr/include/speech-dispatcher
@@ -614,7 +597,7 @@ g15 {
 		SOURCES *= G15LCDEngine_helper.cpp
 		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
 	}
-	unix:!macx:!freebsd {
+	unix:!macx:!contains(UNAME, FreeBSD) {
 		SOURCES *= G15LCDEngine_unix.cpp
 		HEADERS *= G15LCDEngine_unix.h
 		LIBS *= -lg15daemon_client

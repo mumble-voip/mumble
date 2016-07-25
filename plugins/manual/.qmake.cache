@@ -1,2 +1,0 @@
-QMAKEFEATURES=$$_PRO_FILE_PWD_/features/
-QMAKE_TARGET_BUNDLE_PREFIX=net.sourceforge.mumble

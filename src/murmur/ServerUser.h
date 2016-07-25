@@ -32,6 +32,7 @@ struct BandwidthRecord {
 	Timer tIdleControl;
 	unsigned short a_iBW[N_BANDWIDTH_SLOTS];
 	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
+	mutable QMutex qmMutex;
 
 	BandwidthRecord();
 	bool addFrame(int size, int maxpersec);
@@ -81,7 +82,16 @@ class ServerUser : public Connection, public User {
 		QStringList qslEmail;
 
 		HostAddress haAddress;
-		bool bUdp;
+
+		/// Holds whether the user is using TCP
+		/// or UDP for voice packets.
+		///
+		/// If the flag is 0, the user is using
+		/// TCP.
+		///
+		/// If the flag is 1, the user is using
+		/// UDP.
+		QAtomicInt aiUdpFlag;
 
 		QList<int> qlCodecs;
 		bool bOpus;

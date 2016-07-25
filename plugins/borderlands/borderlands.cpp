@@ -34,18 +34,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
-BYTE *posptr;
-BYTE *frontptr;
-BYTE *topptr;
-BYTE *contextptraddress;
-BYTE *stateaddress;
-BYTE *loginaddress;
+procptr32_t posptr, frontptr, topptr, contextptraddress, stateaddress, loginaddress;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	static bool loggedin = false;
-	static BYTE *contextptr;
+	static procptr32_t contextptr;
 	bool ok;
 
 	// Zeroing the floats
@@ -61,9 +56,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (login == 0) {
 		loggedin = false;
 	} else if (!loggedin) {
-		BYTE *ptr1 = peekProc<BYTE *>(contextptraddress);
-		BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
-		BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
+		procptr32_t ptr1 = peekProc<procptr32_t >(contextptraddress);
+		procptr32_t ptr2 = peekProc<procptr32_t >(ptr1 + 0x28c);
+		procptr32_t ptr3 = peekProc<procptr32_t >(ptr2 + 0x210);
 		if (ptr3 != 0) loggedin = true; //pointer set
 		contextptr = ptr3 + 0x2c;
 	}
@@ -139,33 +134,33 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Trying to assess which version of Borderlands is running.
 	char version[6];
-	if (!peekProc((BYTE *) 0x01f16ce8, &version, sizeof(version))) {
+	if (!peekProc(0x01f16ce8, &version, sizeof(version))) {
 		generic_unlock();
 		return false;
 	}
 
-	BYTE *ptraddress;
+	procptr32_t ptraddress;
 	if (strncmp("the cl", version, sizeof(version)) == 0) { // retail version
-		ptraddress = (BYTE *) 0x01f73744;
-		stateaddress = (BYTE *) 0x01f9bb18;
-		contextptraddress = (BYTE *) 0x01fd7398;
-		loginaddress = (BYTE *) 0x01fd83a8;
+		ptraddress = 0x01f73744;
+		stateaddress = 0x01f9bb18;
+		contextptraddress = 0x01fd7398;
+		loginaddress = 0x01fd83a8;
 	} else if (strncmp("Tir-ku", version, sizeof(version)) == 0) { // steam version
-		ptraddress = (BYTE *) 0x01f705c4;
-		stateaddress = (BYTE *) 0x01f98998;
-		contextptraddress = (BYTE *) 0x01fd4218;
-		loginaddress = (BYTE *) 0x01fd5220;
+		ptraddress = 0x01f705c4;
+		stateaddress = 0x01f98998;
+		contextptraddress = 0x01fd4218;
+		loginaddress = 0x01fd5220;
 	} else if (strncmp("german", version, sizeof(version)) == 0) { // german version
-		ptraddress = (BYTE *) 0x01f72744;
-		stateaddress = (BYTE *) 0x01f9ab18;
-		contextptraddress = (BYTE *) 0x01fd6398;
-		loginaddress = (BYTE *) 0x01fd73a8;
+		ptraddress = 0x01f72744;
+		stateaddress = 0x01f9ab18;
+		contextptraddress = 0x01fd6398;
+		loginaddress = 0x01fd73a8;
 	} else { // unknown version
 		generic_unlock();
 		return false;
 	}
 
-	BYTE *ptr1 = peekProc<BYTE *>(ptraddress);
+	procptr32_t ptr1 = peekProc<procptr32_t>(ptraddress);
 	if (ptr1 == 0) {
 		generic_unlock();
 		return false;

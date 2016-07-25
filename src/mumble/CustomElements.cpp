@@ -163,6 +163,9 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 		if (kev->key() == Qt::Key_Tab) {
 			emit tabPressed();
 			return true;
+		} else if (kev->key() == Qt::Key_Backtab) {
+			emit backtabPressed();
+			return true;
 		} else if (kev->key() == Qt::Key_Space && kev->modifiers() == Qt::ControlModifier) {
 			emit ctrlSpacePressed();
 			return true;

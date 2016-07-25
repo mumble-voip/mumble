@@ -103,24 +103,26 @@ void OverlayClient::updateFPS() {
 		const BasepointPixmap &pm = OverlayTextLine(
 		            QString(QLatin1String("%1")).arg(iroundf(framesPerSecond + 0.5f)),
 		            g.s.os.qfFps).createPixmap(g.s.os.qcFps);
+		qgpiFPS->setVisible(true);
 		qgpiFPS->setPixmap(pm);
 		// offset to use basepoint
 		//TODO: settings are providing a top left anchor, so shift down by ascent
 		qgpiFPS->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
 		qgpiFPS->updateRender();
 	} else {
-		qgpiFPS->setPixmap(QPixmap());
+		qgpiFPS->setVisible(false);
 	}
 }
 
 void OverlayClient::updateTime() {
 	if (g.s.os.bTime) {
 		const BasepointPixmap &pm = OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
+		qgpiTime->setVisible(true);
 		qgpiTime->setPixmap(pm);
 		qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
 		qgpiTime->updateRender();
 	} else {
-		qgpiTime->setPixmap(QPixmap());
+		qgpiTime->setVisible(false);
 	}
 }
 

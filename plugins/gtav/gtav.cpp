@@ -3,13 +3,57 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h" // Include standard plugin header.
+#include "../mumble_plugin_win32_x64.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
+#include <algorithm> // Include algorithm header for the game version detector
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 	}
+
+	// Memory addresses
+	char game_name[20];
+	procptr64_t state_address, in_game_address, avatar_pos_address, camera_pos_address, avatar_base_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
+
+#define VERSION_EQ(buf, strlit) \
+	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
+
+	// Steam version
+	if (peekProc(pModule + 0x17C6330, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x268C370;
+		in_game_address = pModule + 0x1B76454;
+		avatar_pos_address = pModule + 0x1F05230;
+		camera_pos_address = pModule + 0x1C08080;
+		avatar_base_address = pModule + 0x1B463D0;
+		camera_front_address = pModule + 0x1C09B40;
+		camera_top_address = pModule + 0x1EDA440;
+		player_address = pModule + 0x2696B0C;
+		vehicle_address = pModule + 0x228DDC0;
+		location_address = pModule + 0x228D79B;
+		street_address = pModule + 0x228A550;
+	// Retail version
+	} else if (peekProc(pModule + 0x17C3280, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x2688DB0;
+		in_game_address = pModule + 0x1B73ED4;
+		avatar_pos_address = pModule + 0x1F01E40;
+		camera_pos_address = pModule + 0x1C06950;
+		avatar_base_address = pModule + 0x1B433D0;
+		camera_front_address = pModule + 0x1C06960;
+		camera_top_address = pModule + 0x1ED6FF0;
+		player_address = pModule + 0x26934AC;
+		vehicle_address = pModule + 0x228A9A0;
+		location_address = pModule + 0x228A38B;
+		street_address = pModule + 0x22870C0;
+	// Unknown version
+	} else {
+		generic_unlock();
+		return false;
+	}
+
+	// Avatar pointer
+	procptr64_t avatar_base = peekProc<procptr64_t>(avatar_base_address);
+	if (!avatar_base) return false;
 
 	// Boolean value to check if game addresses retrieval is successful
 	bool ok;
@@ -18,23 +62,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Char values for extra features
 	char state, in_game, player[50], vehicle[50], location[50], street[50];
 
-	// Avatar pointer
-	BYTE *avatar_base = peekProc<BYTE *>(pModule + 0x01B3D3F0);
-	if (!avatar_base) return false;
-
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x267FD50, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
-			peekProc((BYTE *) pModule + 0x1B6D757, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
-			peekProc((BYTE *) pModule + 0x1EC2830, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x1BFEDA0, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc((BYTE *) avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
-			peekProc((BYTE *) avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x1C00860, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x1ED0E30, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
-			peekProc((BYTE *) pModule + 0x268A4EC, player) && // Player nickname.
-			peekProc((BYTE *) pModule + 0x2282400, vehicle) && // Vehicle name if in a vehicle, empty if not.
-			peekProc((BYTE *) pModule + 0x2281DDB, location) && // Location name.
-			peekProc((BYTE *) pModule + 0x227EBA0, street); // Street name if on a street, empty if not.
+	ok = peekProc(state_address, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
+			peekProc(in_game_address, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
+			peekProc(avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
+			peekProc(avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
+			peekProc(camera_front_address, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
+			peekProc(camera_top_address, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
+			peekProc(player_address, player) && // Player nickname.
+			peekProc(vehicle_address, vehicle) && // Vehicle name if in a vehicle, empty if not.
+			peekProc(location_address, location) && // Location name.
+			peekProc(street_address, street); // Street name if on a street, empty if not.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
@@ -165,10 +205,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto V version 1.34 with identity support."); // Plugin long description
+	return std::wstring(L"Supports Grand Theft Auto V version 1.35 with identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Grand Theft Auto V (v1.34)"); // Plugin short description
+static std::wstring description(L"Grand Theft Auto V (v1.35)"); // Plugin short description
 static std::wstring shortname(L"Grand Theft Auto V"); // Plugin short name
 
 static int trylock1() {

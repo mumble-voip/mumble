@@ -43,6 +43,8 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 
 GlobalShortcutWin::GlobalShortcutWin()
 	: pDI(NULL)
+	, hhMouse(NULL)
+	, hhKeyboard(NULL)
 #ifdef USE_GKEY
 	, gkey(NULL)
 #endif
@@ -96,13 +98,6 @@ void GlobalShortcutWin::run() {
 	while (! g.mw)
 		this->yieldCurrentThread();
 
-	if (bHook) {
-		HMODULE hSelf;
-		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
-		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
-		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
-	}
-
 #ifdef USE_GKEY
 	if (g.s.bEnableGKey) {
 		gkey = new GKeyLibrary();
@@ -135,8 +130,12 @@ void GlobalShortcutWin::run() {
 #endif
 
 	if (bHook) {
-		UnhookWindowsHookEx(hhKeyboard);
-		UnhookWindowsHookEx(hhMouse);
+		if (hhMouse != NULL) {
+			UnhookWindowsHookEx(hhMouse);
+		}
+		if (hhKeyboard != NULL) {
+			UnhookWindowsHookEx(hhKeyboard);
+		}
 	}
 
 	foreach(InputDevice *id, qhInputDevices) {
@@ -401,6 +400,14 @@ BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINST
 	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(lpddoi->tszName));
 	id->qhNames[lpddoi->dwType] = name;
 
+	if (g.s.bDirectInputVerboseLogging) {
+		qWarning("GlobalShortcutWin: EnumObjects: device %s %s object 0x%.8x %s",
+		         qPrintable(QUuid(id->guid).toString()),
+		         qPrintable(id->name),
+		         lpddoi->dwType,
+		         qPrintable(name));
+	}
+
 	return DIENUM_CONTINUE;
 }
 
@@ -474,9 +481,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// blacklist, we need a more structured aproach.
 	{
 		if (id->vendor_id == 0x262A) {
-			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x)",
-			         qPrintable(id->name), qPrintable(id->vguid.toString()), qPrintable(id->vguidproduct.toString()),
-			         id->vendor_id, id->product_id);
+			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x, TYPE: 0x%.8x)",
+			         qPrintable(id->name),
+			         qPrintable(id->vguid.toString()),
+			         qPrintable(id->vguidproduct.toString()),
+			         id->vendor_id,
+			         id->product_id,
+			         pdidi->dwDevType);
 			delete id;
 			return DIENUM_CONTINUE;
 		}
@@ -536,7 +547,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		if (FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
 			qFatal("GlobalShortcutWin: SetProperty: %lx", hr);
 
-		qWarning("Adding device %s %s %s:%d", qPrintable(QUuid(id->guid).toString()),qPrintable(name),qPrintable(sname),id->qhNames.count());
+		qWarning("Adding device %s %s %s:%d type 0x%.8x",
+		         qPrintable(QUuid(id->guid).toString()),
+		         qPrintable(name),
+		         qPrintable(sname),
+		         id->qhNames.count(),
+		         pdidi->dwDevType);
+
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
 		id->pDID->Release();
@@ -689,6 +706,40 @@ void GlobalShortcutWin::timeTicked() {
 		}
 	}
 #endif
+
+	// Initialize winhooks.
+	//
+	// We do this here, because at this point, we've just run our
+	// first timeTicked() slot. The GlobalShortcut_win thread's event
+	// loop has nothing else to do at this point, so there is nothing
+	// that blocks the callbacks of the hooks.
+	//
+	// That is, if we initialize here, our callbacks *can* be called
+	// immediately after initialization, which gives the best results
+	// as far as interactivity and user experience goes. The initialization
+	// cannot be "felt".
+	//
+	// Let me explain...
+	//
+	// Originally, this code lived in the body of run, ::run(), just
+	// before exec() was called.
+	//
+	// It turns out that if our hooks are initialized there, it can take
+	// a short while before the mouse and keyboard callbacks can be processed.
+	//
+	// During this time, where the mouse callback is not able to be called,
+	// the mouse in Windows becomes laggy. It makes the whole computer feel
+	// like it has locked up -- because input "stops".
+	//
+	// As explained above, initializing the hooks here yields a much superior
+	// experience, where this initialization has no observable effect on the
+	// behavior of the system's mouse input.
+	if (bHook && hhMouse == NULL && hhKeyboard == NULL) {
+		HMODULE hSelf;
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
+		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
+	}
 }
 
 QString GlobalShortcutWin::buttonName(const QVariant &v) {

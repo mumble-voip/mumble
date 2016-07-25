@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 /*
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
@@ -73,17 +73,17 @@
 
 */
 
-static BYTE *camptr = (BYTE *) 0xa30274;
-static BYTE *posptr = (BYTE *) 0xa302a4;
-static BYTE *camfrontptr = (BYTE *) 0xbf46b8;
-static BYTE *frontptr_ = (BYTE *) 0xd55610;
-static BYTE *frontptr;
+static procptr32_t camptr = 0xa30274;
+static procptr32_t posptr = 0xa302a4;
+static procptr32_t camfrontptr = 0xbf46b8;
+static procptr32_t frontptr_ = 0xd55610;
+static procptr32_t frontptr;
 
-static BYTE *locationptr = (BYTE *) 0xa3fa08;
-static BYTE *areaptr = (BYTE *) 0xa31158;
+static procptr32_t locationptr = 0xa3fa08;
+static procptr32_t areaptr = 0xa31158;
 
 static char prev_location;
-static int  prev_areaid;
+static int prev_areaid;
 
 static bool calcout(float *pos, float *front, float *cam, float *camfront, float *opos, float *ofront, float *ocam, float *ocamfront) {
 
@@ -114,13 +114,13 @@ static bool refreshPointers(void)
 {
 	frontptr = NULL;
 
-	frontptr = peekProc<BYTE *>(frontptr_);
+	frontptr = peekProc<procptr32_t>(frontptr_);
 	if (!frontptr)
 		return false;
-	frontptr = peekProc<BYTE *>(frontptr + 0x8);
+	frontptr = peekProc<procptr32_t>(frontptr + 0x8);
 	if (!frontptr)
 		return false;
-	frontptr = peekProc<BYTE *>(frontptr);
+	frontptr = peekProc<procptr32_t>(frontptr);
 	if (!frontptr)
 		return false;
 	frontptr = frontptr + 0x1c;
@@ -145,7 +145,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (!ok) // First we check, if the game is even running or if we should unlink because it's not / it's broken
 		return false;
-	
+
 	ok = refreshPointers(); // yes, we need to do this pretty often since the pointer gets wiped and changed evey time you leave a world instance (that means on loading screens etc)
 	if (!ok) { // Next we check, if we're inside the game or in menus/in a loading screen
 		context.clear();
