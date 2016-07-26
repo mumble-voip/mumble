@@ -140,7 +140,7 @@ void InitializePlutoSettings()
 // how to call this from the c# side?
 // need to be in a dll?
 // rpc?
-public void PlutoSettingsUpdated()
+void PlutoSettingsUpdated()
 {
 	QString temp = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
 	if (g.s.qsWASAPIInput != temp)
