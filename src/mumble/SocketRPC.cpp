@@ -13,6 +13,10 @@
 #include "MainWindow.h"
 #include "ServerHandler.h"
 
+#ifdef PLUTOVR_BUILD
+extern void PlutoSettingsUpdated();
+#endif
+
 SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(NULL) {
 	qlsSocket->setParent(this);
 
