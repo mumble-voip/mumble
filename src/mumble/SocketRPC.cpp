@@ -105,7 +105,6 @@ void SocketRPCClient::processXml() {
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("self")) {
 			iter = qmRequest.find(QLatin1String("mute"));
-			qWarning() << "YO RA!!!! - we made it to mute!!!";
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
 				if (set != g.s.bMute) {
@@ -137,6 +136,12 @@ void SocketRPCClient::processXml() {
 					g.mw->qaAudioDeaf->trigger();
 				}
 			}
+#ifdef PLUTOVR_BUILD
+			iter = qmRequest.find(QLatin1String("sup"));
+			if (iter != qmRequest.constEnd()) {
+				qWarning() << "YO RA!!! - we made it to sup";
+			}
+#endif
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("url")) {
 			if (g.sh && g.sh->isRunning() && g.uiSession) {
