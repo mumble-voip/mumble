@@ -138,7 +138,6 @@ void InitializePlutoSettings()
 
 extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
 {
-	qWarning() << "YO RA!!! We made it to PlutoSettingsUpdated()!!!";
 	QString temp = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
 	if (g.s.qsWASAPIInput != temp)
 	{

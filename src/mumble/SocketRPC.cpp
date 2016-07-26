@@ -145,7 +145,6 @@ void SocketRPCClient::processXml() {
 #ifdef PLUTOVR_BUILD
 			iter = qmRequest.find(QLatin1String("sup"));
 			if (iter != qmRequest.constEnd()) {
-				qWarning() << "YO RA!!! - we made it to sup";
 				::PlutoSettingsUpdated();
 			}
 #endif
