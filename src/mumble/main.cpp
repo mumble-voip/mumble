@@ -136,11 +136,18 @@ void InitializePlutoSettings()
 	g.s.bMinimalView = false;
 }
 
-void UpdatePlutoSettings()
+extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
 {
-	#pragma message("SCOTTRA_TODO $$$ - IMPLEMENT")
-	// call function to set g.s.* to values from plutoSettings
-	// call whatever functions are called by the AudioConfigDialog when you change any values/settings
+	QString temp = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
+	if (g.s.qsWASAPIInput != temp)
+	{
+		g.s.qsWASAPIInput = temp;
+	}
+	temp = QString::fromWCharArray(plutoSettings->audioOutputDeviceId);
+	if (g.s.qsWASAPIOutput != temp)
+	{
+		g.s.qsWASAPIOutput = temp;
+	}
 }
 #endif
 
@@ -633,9 +640,7 @@ int main(int argc, char **argv) {
 		qApp->postEvent(g.mw, oue);
 #endif
 	} else {
-#ifndef PLUTOVR_BUILD
 		g.mw->on_qaServerConnect_triggered(true);
-#endif
 	}
 
 	if (! g.bQuit)
