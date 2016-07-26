@@ -105,6 +105,7 @@ void SocketRPCClient::processXml() {
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("self")) {
 			iter = qmRequest.find(QLatin1String("mute"));
+			qWarning << "YO RA!!!! - we made it to mute!!!";
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
 				if (set != g.s.bMute) {

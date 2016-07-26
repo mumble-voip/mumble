@@ -136,11 +136,24 @@ void InitializePlutoSettings()
 	g.s.bMinimalView = false;
 }
 
-void UpdatePlutoSettings()
+// SCOTTRA_TBD?????
+// how to call this from the c# side?
+// need to be in a dll?
+// rpc?
+public void PlutoSettingsUpdated()
 {
-	#pragma message("SCOTTRA_TODO $$$ - IMPLEMENT")
-	// call function to set g.s.* to values from plutoSettings
-	// call whatever functions are called by the AudioConfigDialog when you change any values/settings
+	QString temp = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
+	if (g.s.qsWASAPIInput != temp)
+	{
+		g.s.qsWASAPIInput = temp;
+	}
+	temp = QString::fromWCharArray(plutoSettings->audioOutputDeviceId);
+	if (g.s.qsWASAPIOutput != temp)
+	{
+		g.s.qsWASAPIOutput = temp;
+	}
+	// TODO $$$$$ - ?????
+	// call whatever functions are called by the AudioConfigDialog when you change any values/settings?
 }
 #endif
 
