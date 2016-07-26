@@ -140,6 +140,7 @@ void SocketRPCClient::processXml() {
 			iter = qmRequest.find(QLatin1String("sup"));
 			if (iter != qmRequest.constEnd()) {
 				qWarning() << "YO RA!!! - we made it to sup";
+				::PlutoSettingsUpdated();
 			}
 #endif
 			ack = true;

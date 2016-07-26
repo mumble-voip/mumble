@@ -136,12 +136,9 @@ void InitializePlutoSettings()
 	g.s.bMinimalView = false;
 }
 
-// SCOTTRA_TBD?????
-// how to call this from the c# side?
-// need to be in a dll?
-// rpc?
-void PlutoSettingsUpdated()
+extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
 {
+	qWarning() << "YO RA!!! We made it to PlutoSettingsUpdated()!!!";
 	QString temp = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
 	if (g.s.qsWASAPIInput != temp)
 	{
