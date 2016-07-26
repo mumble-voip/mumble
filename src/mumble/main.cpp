@@ -148,8 +148,6 @@ extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
 	{
 		g.s.qsWASAPIOutput = temp;
 	}
-	// TODO $$$$$ - ?????
-	// call whatever functions are called by the AudioConfigDialog when you change any values/settings?
 }
 #endif
 
