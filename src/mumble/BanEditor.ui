@@ -151,9 +151,6 @@
         <property name="toolTip">
          <string>Reason for the ban</string>
         </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
         <property name="placeholderText">
          <string>No reason</string>
         </property>
