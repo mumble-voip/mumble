@@ -3739,7 +3739,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="+565"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kann zurzeit nur Maustasten und Zusatztasten auf der Tastatur (Alt, Strg, Cmd, usw.) für systemweite Tastenkürzel verwenden.&lt;/p&gt;&lt;p&gt;Für eine größere Flexibilität können Sie Mumble als vertrautes Bedienhilfenprogramm im Privatsphärenreiter der Systemeinstellungen Ihres Mac&apos;s aktivieren.&lt;/p&gt;&lt;p&gt;Öffnen Sie dazu in Ihren Systemeinstellungen das Sicherheitsfenster und wechseln zum Privatsphärenreiter. Gehen Sie nun in der Navigation (links) auf den Punkt Bedienungshilfen und fügen Mumble in die erscheinende Liste der vertrauenswürdigen Programme hinzu.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -8314,7 +8314,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie den Schieberegler oder das Eingabefeld um die Lautstärke des Benutzers zu verändern. Je lauter Sie den Ton stellen, desto stärker ist ein Hintergrundrauschen zu hören.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Vorsicht!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Zu laute Geräusche können Ihrem Gehör dauerhaften Schaden zufügen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
