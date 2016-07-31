@@ -396,12 +396,12 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
 
-	if (!valid || (s.width() > qr.width()) || (s.height() > qr.height())) {
+	if (!valid || !s.isValid() || (s.width() > qr.width()) || (s.height() > qr.height())) {
 		qtd.setPlainText(html);
 		qtd.adjustSize();
 		s = qtd.size();
 
-		if ((s.width() > qr.width()) || (s.height() > qr.height())) {
+		if (!s.isValid() || (s.width() > qr.width()) || (s.height() > qr.height())) {
 			QString errorMessage = tr("[[ Text object too large to display ]]");
 			if (tc) {
 				tc->insertText(errorMessage);
