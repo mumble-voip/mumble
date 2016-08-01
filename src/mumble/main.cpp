@@ -38,7 +38,7 @@
 
 #ifdef PLUTOVR_BUILD
 
-struct PlutoDefaultSettings 
+struct PlutoDefaultSettings
 {
 	wchar_t audioInputDeviceId[256];
 	wchar_t audioOutputDeviceId[256];
@@ -128,7 +128,7 @@ void InitializePlutoSettings()
 	g.s.bReconnect = false;
 	g.s.bHideInTray = true;
 	g.s.disablePublicList = true;
-	g.s.disableConnectDialogEditing = true;
+	g.s.disableConnectDialogEditing = false;
 	g.s.bSuppressIdentity = true;
 	g.s.bEcho = true;
 	g.s.bEchoMulti = true;
