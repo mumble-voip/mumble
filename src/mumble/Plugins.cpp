@@ -473,7 +473,7 @@ void Plugins::on_Timer_timeout() {
 		iPluginTry = 0;
 
 	std::multimap<std::wstring, unsigned long long int> pids;
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
 	PROCESSENTRY32 pe;
 
 	pe.dwSize = sizeof(pe);
@@ -486,6 +486,34 @@ void Plugins::on_Timer_timeout() {
 			ok = Process32Next(hSnap, &pe);
 		}
 		CloseHandle(hSnap);
+	}
+#elif defined(Q_OS_LINUX)
+	QDir d(QLatin1String("/proc"));
+	QStringList entries = d.entryList();
+	bool ok;
+	foreach (const QString &entry, entries) {
+		// Check if the entry is a PID
+		// by checking whether it's a number.
+		// If it is not, skip it.
+		unsigned long long int pid = static_cast<unsigned long long int>(entry.toLongLong(&ok, 10));
+		if (!ok) {
+			continue;
+		}
+
+		QString exe = QFile::symLinkTarget(QString(QLatin1String("/proc/%1/exe")).arg(entry));
+		QFileInfo fi(exe);
+		QString firstPart = fi.baseName();
+		QString completeSuffix = fi.completeSuffix();
+		QString baseName;
+		if (completeSuffix.isEmpty()) {
+			baseName = firstPart;
+		} else {
+			baseName = firstPart + QLatin1String(".") + completeSuffix;
+		}
+
+		if (!baseName.isEmpty()) {
+			pids.insert(std::pair<std::wstring, unsigned long long int>(baseName.toStdWString(), pid));
+		}
 	}
 #endif
 
