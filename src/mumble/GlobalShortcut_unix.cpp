@@ -280,7 +280,7 @@ void GlobalShortcutX::inputReadyRead(int) {
 #define test_bit(bit, array)    (array[bit/8] & (1<<(bit%8)))
 
 // The /dev/input directory changed
-void GlobalShortcutX::directoryChanged(const QString &dir) {
+void GlobalShortcutX::directoryChanged(const QString &) {
 #ifdef Q_OS_LINUX
 	if (!g.s.bEnableEvdev) {
 		return;
