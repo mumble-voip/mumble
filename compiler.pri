@@ -106,6 +106,15 @@ win32 {
 		QMAKE_LFLAGS *= /VERBOSE:LIB
 	}
 
+	# Increase the verbosity of the linker.
+	# For now, only increases the verbosity
+	# of searching for libraries.
+	# This is useful when diagnosing libraries
+	# that use a wrong runtime library DLL.
+	CONFIG(verbose-linker) {
+		QMAKE_LFLAGS *= /VERBOSE:LIB
+	}
+
 	# Increase PCH heap to 150MB: https://msdn.microsoft.com/en-us/library/bdscwf1c.aspx
 	QMAKE_CFLAGS *= -Zm200
 	QMAKE_CXXFLAGS *= -Zm200
