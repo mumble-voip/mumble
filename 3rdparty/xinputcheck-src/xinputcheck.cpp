@@ -76,11 +76,17 @@ SDL_IsXInputDevice(const GUID* pGuidProductFromDirectInput)
     static GUID IID_ValveStreamingGamepad = { MAKELONG(0x28DE, 0x11FF), 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } };
     static GUID IID_X360WiredGamepad = { MAKELONG(0x045E, 0x02A1), 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } };
     static GUID IID_X360WirelessGamepad = { MAKELONG(0x045E, 0x028E), 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } };
+    static GUID IID_XOneWiredGamepad = { MAKELONG(0x045E, 0x02FF), 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } };
+    static GUID IID_XOneWirelessGamepad = { MAKELONG(0x045E, 0x02DD), 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } };
+    static GUID IID_XOneBluetoothGamepad = { MAKELONG(0x045E, 0x02E0), 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } };
 
     static const GUID *s_XInputProductGUID[] = {
         &IID_ValveStreamingGamepad,
-        &IID_X360WiredGamepad,   /* Microsoft's wired X360 controller for Windows. */
-        &IID_X360WirelessGamepad /* Microsoft's wireless X360 controller for Windows. */
+        &IID_X360WiredGamepad,     /* Microsoft's wired X360 controller for Windows. */
+        &IID_X360WirelessGamepad,  /* Microsoft's wireless X360 controller for Windows. */
+        &IID_XOneWiredGamepad,     /* Microsoft's wired Xbox One controller for Windows. */
+        &IID_XOneWirelessGamepad,  /* Microsoft's wireless Xbox One controller for Windows. */
+        &IID_XOneBluetoothGamepad  /* Microsoft's Bluetooth Xbox One controller for Windows. */
     };
 
     size_t iDevice;
