@@ -138,15 +138,29 @@ void InitializePlutoSettings()
 
 extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
 {
+	if (0.0f != plutoSettings->fVADmin && plutoSettings->fVADmin != g.s.fVADmin)
+	{
+			g.s.fVADmin = plutoSettings->fVADmin;
+	}
+	if (0.0f != plutoSettings->fVADmax && plutoSettings->fVADmax != g.s.fVADmax)
+	{
+			g.s.fVADmax = plutoSettings->fVADmax;
+	}
+
 	QString temp = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
 	if (g.s.qsWASAPIInput != temp)
 	{
+		Audio::stop();
 		g.s.qsWASAPIInput = temp;
+		Audio::start();
 	}
+
 	temp = QString::fromWCharArray(plutoSettings->audioOutputDeviceId);
 	if (g.s.qsWASAPIOutput != temp)
 	{
+		Audio::stop();
 		g.s.qsWASAPIOutput = temp;
+		Audio::start();
 	}
 }
 #endif
