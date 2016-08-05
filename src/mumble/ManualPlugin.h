@@ -19,11 +19,9 @@
 
 #include "ui_ManualPlugin.h"
 
-#ifdef Q_OS_UNIX
-typedef WId HWND;
-#endif
 
-#include "../../plugins/mumble_plugin.h"
+typedef struct _MumblePlugin MumblePlugin;
+typedef struct _MumblePluginQt MumblePluginQt;
 
 class Manual : public QDialog, public Ui::Manual {
 		Q_OBJECT
