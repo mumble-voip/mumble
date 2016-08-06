@@ -547,12 +547,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		if (FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
 			qFatal("GlobalShortcutWin: SetProperty: %lx", hr);
 
-		qWarning("Adding device %s %s %s:%d type 0x%.8x",
+		qWarning("Adding device %s %s %s:%d type 0x%.8x guid product %s",
 		         qPrintable(QUuid(id->guid).toString()),
 		         qPrintable(name),
 		         qPrintable(sname),
 		         id->qhNames.count(),
-		         pdidi->dwDevType);
+		         pdidi->dwDevType,
+		         qPrintable(id->vguidproduct.toString()));
 
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
