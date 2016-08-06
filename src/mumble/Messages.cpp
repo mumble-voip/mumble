@@ -682,6 +682,8 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		target += tr("(Tree) ");
 	} else if (msg.channel_id_size() > 0) {
 		target += tr("(Channel) ");
+	} else if (msg.session_size() > 0) {
+		target += tr("(Private) ");
 	}
 
 	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
