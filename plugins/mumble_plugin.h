@@ -24,7 +24,7 @@
 #elif _MSC_VER == 1600 && defined(_M_IX86)
 # define MUMBLE_PLUGIN_MAGIC    0xd63ab7f0
 # define MUMBLE_PLUGIN_MAGIC_2  0xd63ab7ff
-# define MMUBLE_PLUGIN_MAGIC_QT 0xd63ab70f
+# define MUMBLE_PLUGIN_MAGIC_QT 0xd63ab70f
 // Visual Studio 2013 x86
 #elif _MSC_VER == 1800 && defined(_M_IX86)
 # define MUMBLE_PLUGIN_MAGIC    0xd63ab7c0
