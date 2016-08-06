@@ -3,9 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#define __cdecl
-typedef unsigned long HWND;
-
 #include "../mumble_plugin.h"
 
 #include <stdio.h>
