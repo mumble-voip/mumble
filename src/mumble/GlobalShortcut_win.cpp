@@ -712,7 +712,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 #ifdef USE_XBOXINPUT
 	if (g.s.bEnableXboxInput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
 		uint32_t idx = (type >> 24) & 0xff;
-		uint32_t button = (type & 0x00ffffffff);
+		uint32_t button = (type & 0x00ffffff);
 
 		// Translate from our own button index mapping to
 		// the actual Xbox controller button names.
