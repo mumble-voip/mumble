@@ -19,14 +19,6 @@
 
 #include <float.h>
 
-#ifdef Q_OS_UNIX
-#define __cdecl
-typedef WId HWND;
-#define DLL_PUBLIC __attribute__((visibility("default")))
-#else
-#define DLL_PUBLIC __declspec(dllexport)
-#endif
-
 #include "../../plugins/mumble_plugin.h"
 
 static QPointer<Manual> mDlg = NULL;
