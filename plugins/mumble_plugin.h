@@ -50,8 +50,8 @@ typedef struct _MumblePlugin {
 	unsigned int magic;
 	const std::wstring &description;
 	const std::wstring &shortname;
-	void (MUMBLE_PLUGIN_CALLING_CONVENTION *about)(HWND);
-	void (MUMBLE_PLUGIN_CALLING_CONVENTION *config)(HWND);
+	void (MUMBLE_PLUGIN_CALLING_CONVENTION *about)(void *);
+	void (MUMBLE_PLUGIN_CALLING_CONVENTION *config)(void *);
 	int (MUMBLE_PLUGIN_CALLING_CONVENTION *trylock)();
 	void (MUMBLE_PLUGIN_CALLING_CONVENTION *unlock)();
 	const std::wstring(MUMBLE_PLUGIN_CALLING_CONVENTION *longdesc)();
@@ -107,8 +107,8 @@ typedef MumblePluginQt *(MUMBLE_PLUGIN_CALLING_CONVENTION *mumblePluginQtFunc)()
  * name of the plugin shown in the GUI, while shortname is used for TTS.
  *
  * The individual functions are:
- * about(HWND parent) - Player clicked the about button over plugin
- * config(HWND parent) - Player clicked the config button
+ * about(void *parent) - Player clicked the about button over plugin
+ * config(void *parent) - Player clicked the config button
  * trylock() - Search system for likely process and try to lock on.
  *      The parameter is a set of process names and associated PIDs.
  *		Return 1 if succeeded, else 0. Note that once a plugin is locked on,
