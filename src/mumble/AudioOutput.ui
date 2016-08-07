@@ -31,7 +31,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="qcbSystem">
+       <widget class="MUComboBox" name="qcbSystem">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -73,7 +73,7 @@
        </widget>
       </item>
       <item row="0" column="4">
-       <widget class="QComboBox" name="qcbDevice">
+       <widget class="MUComboBox" name="qcbDevice">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
           <horstretch>1</horstretch>
@@ -87,7 +87,7 @@
          <string>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</string>
         </property>
         <property name="sizeAdjustPolicy">
-         <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+         <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
         </property>
         <property name="minimumContentsLength">
          <number>16</number>
@@ -687,7 +687,7 @@
        </widget>
       </item>
       <item row="0" column="1" colspan="2">
-       <widget class="QComboBox" name="qcbLoopback">
+       <widget class="MUComboBox" name="qcbLoopback">
         <property name="toolTip">
          <string>Desired loopback mode</string>
         </property>
@@ -730,6 +730,13 @@
   <tabstop>qsPacketDelay</tabstop>
   <tabstop>qsPacketLoss</tabstop>
  </tabstops>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
