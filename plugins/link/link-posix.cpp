@@ -18,7 +18,7 @@
 #include <fcntl.h>
 #include <time.h>
 
-static std::wstring wsPluginName;
+static std::wstring wsPluginName(L"Link");
 static std::wstring wsDescription;
 static char memname[256];
 
