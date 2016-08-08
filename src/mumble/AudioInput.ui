@@ -31,7 +31,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="qcbSystem">
+       <widget class="MUComboBox" name="qcbSystem">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -73,7 +73,7 @@
        </widget>
       </item>
       <item row="0" column="4">
-       <widget class="QComboBox" name="qcbDevice">
+       <widget class="MUComboBox" name="qcbDevice">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
           <horstretch>1</horstretch>
@@ -87,7 +87,7 @@
          <string>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</string>
         </property>
         <property name="sizeAdjustPolicy">
-         <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+         <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
         </property>
         <property name="minimumContentsLength">
          <number>16</number>
@@ -121,7 +121,7 @@
        </widget>
       </item>
       <item row="1" column="4">
-       <widget class="QComboBox" name="qcbEcho">
+       <widget class="MUComboBox" name="qcbEcho">
         <property name="toolTip">
          <string>Cancel echo from speakers</string>
         </property>
@@ -171,7 +171,7 @@
        </widget>
       </item>
       <item row="0" column="1" colspan="2">
-       <widget class="QComboBox" name="qcbTransmit">
+       <widget class="MUComboBox" name="qcbTransmit">
         <property name="toolTip">
          <string>When to transmit your speech</string>
         </property>
@@ -815,7 +815,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="qcbIdleAction">
+         <widget class="MUComboBox" name="qcbIdleAction">
           <item>
            <property name="text">
             <string>nothing</string>
@@ -879,6 +879,11 @@
    <extends>QWidget</extends>
    <header>AudioStats.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

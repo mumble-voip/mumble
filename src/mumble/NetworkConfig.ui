@@ -111,7 +111,7 @@
        </widget>
       </item>
       <item row="0" column="1" colspan="3">
-       <widget class="QComboBox" name="qcbType">
+       <widget class="MUComboBox" name="qcbType">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -361,6 +361,13 @@ Prevents the client from downloading images embedded into chat messages with the
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
