@@ -18,6 +18,7 @@
 
 #include "ConfigDialog.h"
 #include "Timer.h"
+#include "MUComboBox.h"
 
 #include "ui_GlobalShortcut.h"
 #include "ui_GlobalShortcutTarget.h"
@@ -82,7 +83,7 @@ class ShortcutKeyWidget : public QLineEdit {
  *
  * @see GlobalShortcutEngine
  */
-class ShortcutActionWidget : public QComboBox {
+class ShortcutActionWidget : public MUComboBox {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ShortcutActionWidget)
@@ -93,7 +94,7 @@ class ShortcutActionWidget : public QComboBox {
 		void setIndex(int);
 };
 
-class ShortcutToggleWidget : public QComboBox {
+class ShortcutToggleWidget : public MUComboBox {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ShortcutToggleWidget)

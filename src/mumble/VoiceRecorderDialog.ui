@@ -149,7 +149,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="qcbFormat"/>
+       <widget class="MUComboBox" name="qcbFormat"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="qlTargetDirectory">
@@ -189,6 +189,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="mumble_tango.qrc"/>
  </resources>

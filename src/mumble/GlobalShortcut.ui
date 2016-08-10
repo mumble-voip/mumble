@@ -28,13 +28,6 @@
       </property>
       <item>
        <widget class="QWidget" name="qwMacWarning" native="true">
-        <property name="styleSheet">
-         <string notr="true">#qwMacWarning {
-  background-color: #FFFEDC;
-  border-radius: 5px;
-  border: 1px solid #B5B59E;
-}</string>
-        </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
           <widget class="QLabel" name="label">

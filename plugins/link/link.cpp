@@ -45,8 +45,8 @@ struct LinkedMem {
 };
 #endif
 
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from linked game", L"Mumble Link Plugin", MB_OK);
+static void about(void *h) {
+	::MessageBox(reinterpret_cast<HWND>(h), L"Reads audio position information from linked game", L"Mumble Link Plugin", MB_OK);
 }
 
 static HANDLE hMapObject = NULL;

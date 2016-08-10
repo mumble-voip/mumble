@@ -105,7 +105,7 @@ void ShortcutKeyWidget::displayKeys(bool last) {
 	emit keySet(keys.count() > 0, last);
 }
 
-ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
+ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : MUComboBox(p) {
 	int idx = 0;
 
 	insertItem(idx, tr("Unassigned"));
@@ -148,7 +148,7 @@ unsigned int ShortcutActionWidget::index() const {
 	return itemData(currentIndex()).toUInt();
 }
 
-ShortcutToggleWidget::ShortcutToggleWidget(QWidget *p) : QComboBox(p) {
+ShortcutToggleWidget::ShortcutToggleWidget(QWidget *p) : MUComboBox(p) {
 	int idx = 0;
 
 	insertItem(idx, tr("Off"));

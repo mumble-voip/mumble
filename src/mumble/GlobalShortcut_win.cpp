@@ -441,7 +441,10 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	if (XInputCheck_IsGuidProductXInputDevice(&id->guidproduct)) {
 		cbgsw->nxboxinput += 1;
 
-		qWarning("GlobalShortcutWin: excluded XInput device '%s' (%s) from DirectInput", qPrintable(id->name), qPrintable(id->vguid.toString()));
+		qWarning("GlobalShortcutWin: excluded XInput device '%s' (guid %s guid product %s) from DirectInput",
+		         qPrintable(id->name),
+		         qPrintable(id->vguid.toString()),
+		         qPrintable(id->vguidproduct.toString()));
 		delete id;
 		return DIENUM_CONTINUE;
 	}
@@ -547,12 +550,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		if (FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
 			qFatal("GlobalShortcutWin: SetProperty: %lx", hr);
 
-		qWarning("Adding device %s %s %s:%d type 0x%.8x",
+		qWarning("Adding device %s %s %s:%d type 0x%.8x guid product %s",
 		         qPrintable(QUuid(id->guid).toString()),
 		         qPrintable(name),
 		         qPrintable(sname),
 		         id->qhNames.count(),
-		         pdidi->dwDevType);
+		         pdidi->dwDevType,
+		         qPrintable(id->vguidproduct.toString()));
 
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
@@ -779,7 +783,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 #ifdef USE_XBOXINPUT
 	if (g.s.bEnableXboxInput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
 		uint32_t idx = (type >> 24) & 0xff;
-		uint32_t button = (type & 0x00ffffffff);
+		uint32_t button = (type & 0x00ffffff);
 
 		// Translate from our own button index mapping to
 		// the actual Xbox controller button names.

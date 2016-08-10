@@ -3,9 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#define __cdecl
-typedef unsigned long HWND;
-
 #include "../mumble_plugin.h"
 
 #include <stdio.h>
@@ -21,7 +18,7 @@ typedef unsigned long HWND;
 #include <fcntl.h>
 #include <time.h>
 
-static std::wstring wsPluginName;
+static std::wstring wsPluginName(L"Link");
 static std::wstring wsDescription;
 static char memname[256];
 
