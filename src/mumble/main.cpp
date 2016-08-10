@@ -612,10 +612,12 @@ int main(int argc, char **argv) {
 			if (CertWizard::validateCert(kp))
 				g.s.kpCertificate = kp;
 		}
+#ifndef PLUTOVR_BUILD
 		if (! CertWizard::validateCert(g.s.kpCertificate)) {
 			CertWizard *cw = new CertWizard(g.mw);
 			cw->exec();
 			delete cw;
+#endif
 
 			if (! CertWizard::validateCert(g.s.kpCertificate)) {
 				g.s.kpCertificate = CertWizard::generateNewCert();
@@ -624,7 +626,9 @@ int main(int argc, char **argv) {
 					qf.close();
 				}
 			}
+#ifndef PLUTOVR_BUILD
 		}
+#endif
 	}
 
 	if (QDateTime::currentDateTime().daysTo(g.s.kpCertificate.first.first().expiryDate()) < 14)
