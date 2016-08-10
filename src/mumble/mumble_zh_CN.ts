@@ -1056,7 +1056,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>音乐</translation>
     </message>
     <message>
         <location/>

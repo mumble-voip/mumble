@@ -89,7 +89,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QComboBox" name="qcbInput">
+        <widget class="MUComboBox" name="qcbInput">
          <property name="toolTip">
           <string>Input method for audio</string>
          </property>
@@ -109,7 +109,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="qcbInputDevice">
+        <widget class="MUComboBox" name="qcbInputDevice">
          <property name="toolTip">
           <string>Input device to use</string>
          </property>
@@ -161,7 +161,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QComboBox" name="qcbOutput">
+        <widget class="MUComboBox" name="qcbOutput">
          <property name="toolTip">
           <string>Output method for audio</string>
          </property>
@@ -181,7 +181,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="qcbOutputDevice">
+        <widget class="MUComboBox" name="qcbOutputDevice">
          <property name="toolTip">
           <string>Output device to use</string>
          </property>
@@ -862,6 +862,11 @@ Mumble is under continuous development, and the development team wants to focus 
    <class>ShortcutKeyWidget</class>
    <extends>QLineEdit</extends>
    <header>GlobalShortcut.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

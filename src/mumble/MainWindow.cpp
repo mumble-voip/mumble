@@ -314,8 +314,8 @@ void MainWindow::setupGui()  {
 	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
 
 	// QtCreator and uic.exe do not allow adding arbitrary widgets
-	// such as a QComboBox to a QToolbar, even though they are supported.
-	qcbTransmitMode = new QComboBox(qtIconToolbar);
+	// such as a MUComboBox to a QToolbar, even though they are supported.
+	qcbTransmitMode = new MUComboBox(qtIconToolbar);
 	qcbTransmitMode->setObjectName(QLatin1String("qcbTransmitMode"));
 	qcbTransmitMode->addItem(tr("Continuous"));
 	qcbTransmitMode->addItem(tr("Voice Activity"));

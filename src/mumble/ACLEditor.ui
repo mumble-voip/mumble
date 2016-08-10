@@ -171,7 +171,7 @@ When checked the channel created will be marked as temporary. This means when th
          </property>
          <layout class="QHBoxLayout">
           <item>
-           <widget class="QComboBox" name="qcbGroupList">
+           <widget class="MUComboBox" name="qcbGroupList">
             <property name="sizePolicy">
              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -337,7 +337,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
            </widget>
           </item>
           <item row="2" column="0" colspan="2">
-           <widget class="QComboBox" name="qcbGroupAdd">
+           <widget class="MUComboBox" name="qcbGroupAdd">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -354,10 +354,10 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
              <bool>true</bool>
             </property>
             <property name="insertPolicy">
-             <enum>QComboBox::NoInsert</enum>
+             <enum>MUComboBox::NoInsert</enum>
             </property>
             <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+             <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
             </property>
            </widget>
           </item>
@@ -369,7 +369,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
            </widget>
           </item>
           <item row="2" column="3" colspan="2">
-           <widget class="QComboBox" name="qcbGroupRemove">
+           <widget class="MUComboBox" name="qcbGroupRemove">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -386,10 +386,10 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
              <bool>true</bool>
             </property>
             <property name="insertPolicy">
-             <enum>QComboBox::NoInsert</enum>
+             <enum>MUComboBox::NoInsert</enum>
             </property>
             <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+             <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
             </property>
            </widget>
           </item>
@@ -603,7 +603,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QComboBox" name="qcbACLGroup">
+             <widget class="MUComboBox" name="qcbACLGroup">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -632,7 +632,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QComboBox" name="qcbACLUser">
+             <widget class="MUComboBox" name="qcbACLUser">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -649,7 +649,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
                <bool>true</bool>
               </property>
               <property name="sizeAdjustPolicy">
-               <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+               <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
               </property>
              </widget>
             </item>
@@ -687,6 +687,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
    <extends>QWidget</extends>
    <header>RichTextEditor.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

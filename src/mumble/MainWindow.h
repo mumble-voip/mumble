@@ -11,12 +11,10 @@
 # include <QtCore/QPointer>
 # include <QtWidgets/QMainWindow>
 # include <QtWidgets/QSystemTrayIcon>
-# include <QtWidgets/QComboBox>
 #else
 # include <QtCore/QWeakPointer>
 # include <QtGui/QMainWindow>
 # include <QtGui/QSystemTrayIcon>
-# include <QtGui/QComboBox>
 #endif
 
 #include <QtNetwork/QAbstractSocket>
@@ -26,6 +24,7 @@
 #include "Mumble.pb.h"
 #include "Usage.h"
 #include "UserLocalVolumeDialog.h"
+#include "MUComboBox.h"
 
 #include "ui_MainWindow.h"
 
@@ -149,7 +148,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		PTTButtonWidget *qwPTTButtonWidget;
 
-		QComboBox *qcbTransmitMode;
+		MUComboBox *qcbTransmitMode;
 		QAction *qaTransmitMode;
 		QAction *qaTransmitModeSeparator;
 

@@ -130,7 +130,8 @@ HEADERS *= BanEditor.h \
     ApplicationPalette.h \
     ThemeInfo.h \
     Themes.h \
-    OverlayPositionableItem.h
+    OverlayPositionableItem.h \
+    widgets/MUComboBox.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -194,7 +195,8 @@ SOURCES *= BanEditor.cpp \
     ../../3rdparty/smallft-src/smallft.cpp \
     ThemeInfo.cpp \
     Themes.cpp \
-    OverlayPositionableItem.cpp
+    OverlayPositionableItem.cpp \
+    widgets/MUComboBox.cpp
 
 DIST		*= ../../icons/mumble.ico licenses.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
@@ -234,6 +236,7 @@ include(translations.pri)
 PRECOMPILED_HEADER = mumble_pch.hpp
 INCLUDEPATH *= ../../3rdparty/qqbonjour-src
 INCLUDEPATH *= ../../3rdparty/smallft-src
+INCLUDEPATH *= widgets
 
 CONFIG(static) {
   # Ensure that static Mumble.app on Mac OS X

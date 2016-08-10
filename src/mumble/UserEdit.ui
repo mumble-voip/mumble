@@ -90,7 +90,7 @@
        </widget>
       </item>
       <item row="2" column="5">
-       <widget class="QComboBox" name="qcbInactive">
+       <widget class="MUComboBox" name="qcbInactive">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -226,4 +226,11 @@
    </hints>
   </connection>
  </connections>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
 </ui>

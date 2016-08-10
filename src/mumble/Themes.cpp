@@ -118,5 +118,5 @@ QVector<QDir> Themes::getSearchDirectories() {
 }
 
 QString Themes::getDefaultStylesheet() {
-	return QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}p{margin:0;}");
+	return QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}p{margin:0;}#qwMacWarning{background-color:#FFFEDC;border-radius:5px;border:1px solid #B5B59E;}");
 }

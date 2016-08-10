@@ -21,7 +21,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="3" column="0" colspan="2">
-       <widget class="QComboBox" name="qcbLanguage">
+       <widget class="MUComboBox" name="qcbLanguage">
         <property name="toolTip">
          <string>Language to use (requires restart)</string>
         </property>
@@ -38,7 +38,7 @@
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QComboBox" name="qcbTheme">
+       <widget class="MUComboBox" name="qcbTheme">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -181,7 +181,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="qcbAlwaysOnTop">
+       <widget class="MUComboBox" name="qcbAlwaysOnTop">
         <property name="toolTip">
          <string>This setting controls when the application will be always on top.</string>
         </property>
@@ -250,7 +250,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="qcbChannelDrag">
+       <widget class="MUComboBox" name="qcbChannelDrag">
         <property name="toolTip">
          <string>This changes the behavior when moving channels.</string>
         </property>
@@ -267,7 +267,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="qcbExpand">
+       <widget class="MUComboBox" name="qcbExpand">
         <property name="toolTip">
          <string>When to automatically expand channels</string>
         </property>
@@ -520,6 +520,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
