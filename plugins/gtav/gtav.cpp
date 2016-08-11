@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_x64.h" // Include standard plugin header.
+#include "../mumble_plugin_win32_64bit.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 #include <algorithm> // Include algorithm header for the game version detector
 
