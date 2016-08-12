@@ -27,7 +27,7 @@ static PTR_TYPE_CONCRETE pModule;
 
 static inline std::string readAll(std::string fn) {
 	std::ifstream ifs;
-	ifs.open(fn, std::ifstream::binary);
+	ifs.open(fn.c_str(), std::ifstream::binary);
 
 	std::string content;
 
@@ -154,7 +154,7 @@ static inline PTR_TYPE_CONCRETE getModuleAddr(std::string modname) {
 
 static inline bool peekProc(PTR_TYPE base, void *dest, size_t len) {
 	struct iovec in;
-	in.iov_base = (void *) base; // Address from target process
+	in.iov_base = reinterpret_cast<void *>(base); // Address from target process
 	in.iov_len = len; // Length
 
 	struct iovec out;
@@ -169,7 +169,7 @@ static inline bool peekProc(PTR_TYPE base, void *dest, size_t len) {
 template<class T>
 bool peekProc(PTR_TYPE base, T &dest) {
 	struct iovec in;
-	in.iov_base = (void *) base; // Address from target process
+	in.iov_base = reinterpret_cast<void *>(base); // Address from target process
 	in.iov_len = sizeof(T); // Length
 
 	struct iovec out;
