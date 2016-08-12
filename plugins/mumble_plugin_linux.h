@@ -27,7 +27,7 @@ static PTR_TYPE_CONCRETE pModule;
 
 static inline std::string readAll(std::string fn) {
 	std::ifstream ifs;
-	ifs.open(fn, std::ifstream::binary);
+	ifs.open(fn.c_str(), std::ifstream::binary);
 
 	std::string content;
 
