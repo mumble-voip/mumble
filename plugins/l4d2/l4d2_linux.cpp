@@ -144,14 +144,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	procptr32_t steamclient = getModuleAddr("steamclient.so"); // Retrieve "steamclient.so" module's memory address
+	procptr32_t steamclient = getModuleAddr(L"steamclient.so"); // Retrieve "steamclient.so" module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
 	if (steamclient == 0)
 		return false;
 
 	serverid_steamclient = steamclient + 0x118E965; // Module + Server ID offset
 
-	procptr32_t server = getModuleAddr("server.so"); // Retrieve "server.so" module's memory address
+	procptr32_t server = getModuleAddr(L"server.so"); // Retrieve "server.so" module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
 	if (server == 0)
 		return false;
