@@ -15,6 +15,14 @@
 # define MUMBLE_PLUGIN_CALLING_CONVENTION
 #endif
 
+#if defined(__GNUC__)
+# define MUMBLE_PLUGIN_EXPORT __attribute__((visibility("default")))
+#elif defined(_MSC_VER)
+# define MUMBLE_PLUGIN_EXPORT __declspec(dllexport)
+#else
+# error No MUMBLE_PLUGIN_EXPORT definition available
+#endif
+
 // Visual Studio 2008 x86
 #if _MSC_VER == 1500 && defined(_M_IX86)
 # define MUMBLE_PLUGIN_MAGIC     0xd63ab7ef
