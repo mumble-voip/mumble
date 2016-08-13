@@ -195,6 +195,6 @@ static MumblePlugin linkplug = {
 	fetch
 };
 
-extern "C" __attribute__((visibility("default"))) MumblePlugin *getMumblePlugin() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &linkplug;
 }
