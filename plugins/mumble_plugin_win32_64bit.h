@@ -6,9 +6,15 @@
 #ifndef MUMBLE_MUMBLE_PLUGIN_WIN32_64BIT_H_
 #define MUMBLE_MUMBLE_PLUGIN_WIN32_64BIT_H_
 
+#if defined(__linux__)
+ #include "mumble_plugin_linux_64bit.h"
+#else
+
 typedef unsigned long long procptr64_t;
 
 #define PTR_TYPE procptr64_t
 #include "mumble_plugin_win32_ptr_type.h"
+
+#endif
 
 #endif

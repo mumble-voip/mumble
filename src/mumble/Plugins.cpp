@@ -511,6 +511,27 @@ void Plugins::on_Timer_timeout() {
 			baseName = firstPart + QLatin1String(".") + completeSuffix;
 		}
 
+		if (baseName == QLatin1String("wine-preloader") || baseName == QLatin1String("wine64-preloader")) {
+			QFile f(QString(QLatin1String("/proc/%1/cmdline")).arg(entry));
+			if (f.open(QIODevice::ReadOnly)) {
+				QByteArray cmdline = f.readAll();
+				f.close();
+
+				int nul = cmdline.indexOf('\0');
+				if (nul != -1) {
+					cmdline.truncate(nul);
+				}
+
+				QString exe = QString::fromUtf8(cmdline);
+				if (exe.contains(QLatin1String("\\"))) {
+					int lastBackslash = exe.lastIndexOf(QLatin1String("\\"));
+					if (exe.count() > lastBackslash + 1) {
+						baseName = exe.mid(lastBackslash + 1);
+					}
+				}
+			}
+		}
+
 		if (!baseName.isEmpty()) {
 			pids.insert(std::pair<std::wstring, unsigned long long int>(baseName.toStdWString(), pid));
 		}
