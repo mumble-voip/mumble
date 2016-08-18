@@ -88,7 +88,7 @@ void UserLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int value) {
 
 void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *button) {
 	if (button == qbbUserLocalVolume->button(QDialogButtonBox::Reset)) {
-		qsUserLocalVolume->setValue(m_originalVolumeAdjustmentDecibel);
+		qsUserLocalVolume->setValue(0);
 	}
 	if (button == qbbUserLocalVolume->button(QDialogButtonBox::Ok)) {
 		ClientUser *user = ClientUser::get(m_clientSession);
