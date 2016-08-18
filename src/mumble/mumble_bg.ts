@@ -610,7 +610,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Настройване</translation>
     </message>
     <message>
         <location/>
@@ -2497,7 +2497,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished"/>
+        <translation>Удостоверяване към сървъри без да се използва парола</translation>
     </message>
     <message>
         <location/>
@@ -2761,7 +2761,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"/>
+        <translation>Автоматично създаване на удостоверение</translation>
     </message>
     <message>
         <location/>
@@ -3244,7 +3244,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <location filename="ConnectDialog.cpp" line="-7"/>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Добавяне на нов...</translation>
     </message>
     <message>
         <location/>
@@ -5538,7 +5538,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Configure Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Настройване на програмата</translation>
     </message>
     <message>
         <location/>
@@ -5548,7 +5548,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Помощник за звука</translation>
     </message>
     <message>
         <location/>
@@ -5563,7 +5563,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Какво е това?</translation>
     </message>
     <message>
         <location/>
@@ -6251,7 +6251,7 @@ Valid actions are:
     <message>
         <location line="+220"/>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Добре дошли в Мъмбъл.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -6286,7 +6286,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Помощник за удостоверения</translation>
     </message>
     <message>
         <location/>
