@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_plugin_win32.h"
+#include "mumble_plugin.h"
 
 #ifndef NULL_DESC
 #define NULL_DESC L"Retracted plugin"
@@ -33,12 +33,12 @@ static MumblePlugin nullplug = {
 	NULL,
 	NULL,
 	trylock,
-	generic_unlock,
+	NULL,
 	longdesc,
 	fetch
 };
 
-extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &nullplug;
 }
 
