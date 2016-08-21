@@ -196,8 +196,9 @@ FARPROC WINAPI delayHook(unsigned dliNotify, PDelayLoadInfo pdli) {
 	return 0;
 }
 
+decltype(__pfnDliNotifyHook2) __pfnDliNotifyHook2 = delayHook;
+
 void os_init() {
-	__pfnDliNotifyHook2 = delayHook;
 	__cpuid(cpuinfo, 1);
 
 #define MMXSSE 0x02800000
