@@ -109,6 +109,10 @@ win32 {
 	QMAKE_CXXFLAGS_RELEASE -= -Zc:strictStrings
 	QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
 	QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
+	# The mkspec update for MSVC2015 puts the flag directly in
+	# CFLAGS and CXXFLAGS, so try there, too.
+	QMAKE_CFLAGS -= -Zc:strictStrings
+	QMAKE_CXXFLAGS -= -Zc:strictStrings
 
 	# Explicitly set the subsystem versions to
 	# 5.01 (XP) for x86 and 6.00 (Vista) for x64.
