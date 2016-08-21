@@ -40,7 +40,6 @@
 #include "overlay11.vs.h"
 #include "overlay11.ps.h"
 #include <d3d11.h>
-#include <d3dx11.h>
 #include <time.h>
 
 D3D11Data *d3d11 = NULL;
@@ -55,9 +54,22 @@ typedef HRESULT(__stdcall *D3D11CreateDeviceAndSwapChainType)(IDXGIAdapter *, D3
 typedef ULONG(__stdcall *AddRefType)(ID3D11Device *);
 typedef ULONG(__stdcall *ReleaseType)(ID3D11Device *);
 
+struct SimpleVec3 {
+	FLOAT x;
+	FLOAT y;
+	FLOAT z;
+	SimpleVec3(FLOAT _x, FLOAT _y, FLOAT _z) : x(_x), y(_y), z(_z) {}
+};
+
+struct SimpleVec2 {
+	FLOAT x;
+	FLOAT y;
+	SimpleVec2(FLOAT _x, FLOAT _y) : x(_x), y(_y) {}
+};
+
 struct SimpleVertex {
-	D3DXVECTOR3 Pos;
-	D3DXVECTOR2 Tex;
+	SimpleVec3 Pos;
+	SimpleVec2 Tex;
 };
 
 static const int VERTEXBUFFER_SIZE = 4 * sizeof(SimpleVertex);
@@ -187,10 +199,10 @@ void D11State::setRect() {
 
 	// Create vertex buffer
 	SimpleVertex vertices[] = {
-		{ D3DXVECTOR3(left, top, 0.5f), D3DXVECTOR2(texl, text) },
-		{ D3DXVECTOR3(right, top, 0.5f), D3DXVECTOR2(texr, text) },
-		{ D3DXVECTOR3(right, bottom, 0.5f), D3DXVECTOR2(texr, texb) },
-		{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(texl, texb) },
+		{ SimpleVec3(left, top, 0.5f), SimpleVec2(texl, text) },
+		{ SimpleVec3(right, top, 0.5f), SimpleVec2(texr, text) },
+		{ SimpleVec3(right, bottom, 0.5f), SimpleVec2(texr, texb) },
+		{ SimpleVec3(left, bottom, 0.5f), SimpleVec2(texl, texb) },
 	};
 
 	// map/unmap to temporarily deny GPU access to the resource pVertexBuffer

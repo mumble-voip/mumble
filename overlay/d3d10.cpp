@@ -6,7 +6,6 @@
 #include "lib.h"
 #include "overlay.hex"
 #include <d3d10.h>
-#include <d3dx10.h>
 #include <time.h>
 
 D3D10Data *d3d10 = NULL;
@@ -27,9 +26,22 @@ typedef ULONG(__stdcall *ReleaseType)(ID3D10Device *);
 
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
+struct SimpleVec3 {
+	FLOAT x;
+	FLOAT y;
+	FLOAT z;
+	SimpleVec3(FLOAT _x, FLOAT _y, FLOAT _z) : x(_x), y(_y), z(_z) {}
+};
+
+struct SimpleVec2 {
+	FLOAT x;
+	FLOAT y;
+	SimpleVec2(FLOAT _x, FLOAT _y) : x(_x), y(_y) {}
+};
+
 struct SimpleVertex {
-	D3DXVECTOR3 Pos;
-	D3DXVECTOR2 Tex;
+	SimpleVec3 Pos;
+	SimpleVec2 Tex;
 };
 
 class D10State: protected Pipe {
@@ -156,10 +168,10 @@ void D10State::setRect() {
 
 	// Create vertex buffer
 	SimpleVertex vertices[] = {
-		{ D3DXVECTOR3(left, top, 0.5f), D3DXVECTOR2(texl, text) },
-		{ D3DXVECTOR3(right, top, 0.5f), D3DXVECTOR2(texr, text) },
-		{ D3DXVECTOR3(right, bottom, 0.5f), D3DXVECTOR2(texr, texb) },
-		{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(texl, texb) },
+		{ SimpleVec3(left, top, 0.5f), SimpleVec2(texl, text) },
+		{ SimpleVec3(right, top, 0.5f), SimpleVec2(texr, text) },
+		{ SimpleVec3(right, bottom, 0.5f), SimpleVec2(texr, texb) },
+		{ SimpleVec3(left, bottom, 0.5f), SimpleVec2(texl, texb) },
 	};
 
 	void *pData = NULL;
