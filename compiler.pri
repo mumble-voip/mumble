@@ -66,6 +66,14 @@ win32 {
 		QMAKE_CXXFLAGS_RELEASE *= /analyze
 	}
 
+	# Always enable warnings-as-errors
+	# if we're inside a Mumble build environment.
+	# Can be disabled with CONFIG+=no-warnings-as-errors.
+	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
+	!isEmpty(MUMBLE_PREFIX):!CONFIG(no-warnings-as-errors) {
+		CONFIG += warnings-as-errors
+	}
+
 	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
