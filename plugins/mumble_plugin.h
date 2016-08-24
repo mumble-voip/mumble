@@ -43,6 +43,16 @@
 # define MUMBLE_PLUGIN_MAGIC    0x9f3ed4c0
 # define MUMBLE_PLUGIN_MAGIC_2  0x9f3ed4cf
 # define MUMBLE_PLUGIN_MAGIC_QT 0x9f3ed4ca
+// Visual Studio 2015 x86
+#elif _MSC_VER == 1900 && defined(_M_IX86)
+# define MUMBLE_PLUGIN_MAGIC    0xa9b8c7c0
+# define MUMBLE_PLUGIN_MAGIC_2  0xa9b8c7cf
+# define MUMBLE_PLUGIN_MAGIC_QT 0xa9b8c7ca
+// Visual Studio 2015 x64
+#elif _MSC_VER == 1900 && defined(_M_X64)
+# define MUMBLE_PLUGIN_MAGIC    0x1f2e3dc0
+# define MUMBLE_PLUGIN_MAGIC_2  0x1f2e3dcf
+# define MUMBLE_PLUGIN_MAGIC_QT 0x1f2e3dca
 // Generic plugin magic values for platforms
 // where we do not officially plugins other
 // than "link".
