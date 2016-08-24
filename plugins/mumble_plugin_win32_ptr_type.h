@@ -19,6 +19,7 @@
 #include <math.h>
 #include <sstream>
 #include <iostream>
+#include <stdint.h>
 
 #include "mumble_plugin.h"
 
@@ -49,7 +50,7 @@ static inline DWORD getProcess(const wchar_t *exename) {
 
 static inline PTR_TYPE_CONCRETE getModuleAddr(DWORD pid, const wchar_t *modname) {
 	MODULEENTRY32 me;
-	PTR_TYPE_CONCRETE addr = NULL;
+	PTR_TYPE_CONCRETE ret = NULL;
 	me.dwSize = sizeof(me);
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE|TH32CS_SNAPMODULE32, pid);
 	if (hSnap != INVALID_HANDLE_VALUE) {
@@ -57,14 +58,15 @@ static inline PTR_TYPE_CONCRETE getModuleAddr(DWORD pid, const wchar_t *modname)
 
 		while (ok) {
 			if (wcscmp(me.szModule, modname)==0) {
-				addr = reinterpret_cast<PTR_TYPE_CONCRETE>(me.modBaseAddr);
+				uintptr_t addr = reinterpret_cast<uintptr_t>(me.modBaseAddr);
+				ret = static_cast<PTR_TYPE_CONCRETE>(addr);
 				break;
 			}
 			ok = Module32Next(hSnap, &me);
 		}
 		CloseHandle(hSnap);
 	}
-	return addr;
+	return ret;
 }
 
 static inline PTR_TYPE_CONCRETE getModuleAddr(const wchar_t *modname) {
@@ -73,14 +75,16 @@ static inline PTR_TYPE_CONCRETE getModuleAddr(const wchar_t *modname) {
 
 static inline bool peekProc(PTR_TYPE base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(base), dest, len, &r);
+	uintptr_t addr = static_cast<uintptr_t>(base);
+	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(addr), dest, len, &r);
 	return (ok && (r == len));
 }
 
 template<class T>
 bool peekProc(PTR_TYPE base, T &dest) {
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(base), reinterpret_cast<VOID *>(& dest), sizeof(T), &r);
+	uintptr_t addr = static_cast<uintptr_t>(base);
+	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(addr), reinterpret_cast<VOID *>(& dest), sizeof(T), &r);
 	return (ok && (r == sizeof(T)));
 }
 
