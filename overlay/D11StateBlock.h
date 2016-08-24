@@ -40,8 +40,6 @@
 // File contains the D11StateBlock class and a function D11CreateStateBlock.
 
 #include <d3d11.h>
-#include <d3dx10math.h>
-#include <d3dx11.h>
 
 class D11StateBlock;
 
