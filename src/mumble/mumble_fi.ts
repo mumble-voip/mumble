@@ -4,7 +4,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="+127"/>
         <source>Deny</source>
-        <translation>Estä</translation>
+        <translation>Kiellä %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -698,7 +698,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii maksimissaan numeron s
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Puheohjelma pelaajille&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1142,7 +1142,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Sekoitettu Kaiunpoisto</translation>
     </message>
     <message>
         <location/>
@@ -3693,7 +3693,7 @@ missään sijainnissa.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="+565"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumblea voi tällä hetkellä käyttää vain hiiren painikkeilla ja näppäimistön muokkausnäppäimillä (Alt, Ctrl, Cmd, etc.) maailmanlaajuisen pikanäppäimet.&lt;/p&gt;&lt;p&gt;Jos haluat enemmän joustavuutta, voit lisätä Mumblen Macin järjestelmäasetuksissa turvallisuus ja yksityisyys osiossa, luottettujen ohjelmien joukkoon  .&lt;/p&gt;&lt;p&gt;Turvallisuus ja yksityisyys asetuksissa valitse Tietosuoja-välilehti, Sen jälkeen Valitse Saavutettavuus (alhaalla) luettelossa vasemmalla. Lopuksi, lisää Mumble luetettujen ohjelmien listaan.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -8260,7 +8260,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Käytä liukusäädintä tai tekstikenttää muuttaaksesi käyttäjän äänenvoimakkuutta.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Huomio!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Liian suuri äänenvoimakkuus voi vaurioittaa kuuloa pysyvästi. Se voi myös lisätä taustamelua.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
