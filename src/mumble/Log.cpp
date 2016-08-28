@@ -413,22 +413,39 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 		}
 	}
 
+	if (!valid) {
+		QString errorImageMessage = tr("[[ No valid image ]]");
+		if (tc) {
+			tc->insertText(errorImageMessage);
+			return QString();
+		} else {
+			return errorImageMessage;
+		}
+	}
+
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
 
-	if (!valid || !s.isValid() || (s.width() > qr.width()) || (s.height() > qr.height())) {
-		qtd.setPlainText(html);
-		qtd.adjustSize();
-		s = qtd.size();
+	if (!s.isValid()) {
+		QString errorInvalidSizeMessage = tr("[[ Invalid size ]]");
+		if (tc) {
+			tc->insertText(errorInvalidSizeMessage);
+			return QString();
+		} else {
+			return errorInvalidSizeMessage;
+		}
+	}
 
-		if (!s.isValid() || (s.width() > qr.width()) || (s.height() > qr.height())) {
-			QString errorMessage = tr("[[ Text object too large to display ]]");
-			if (tc) {
-				tc->insertText(errorMessage);
-				return QString();
-			} else {
-				return errorMessage;
-			}
+	int messageSize = s.width() * s.height();
+	int allowedSize = 2048 * 2048;
+
+	if (messageSize > allowedSize) {
+		QString errorSizeMessage = tr("[[ Text object too large to display ]]");
+		if (tc) {
+			tc->insertText(errorSizeMessage);
+			return QString();
+		} else {
+			return errorSizeMessage;
 		}
 	}
 
