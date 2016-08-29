@@ -75,27 +75,6 @@ DXGI support for Mumble's Windows Overlay
 	Copyright (C) 2011, Kissaki <kissaki@gmx.de>
 	Copyright (C) 2011, Nye Liu <nyet@nyet.org>
 
-Mumble's "Age of Chivalry" Plugin
-
-	plugins/aoc/aoc.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
-Mumble's "Arma 2" Plugin
-
-	plugins/arma2/arma2.cpp
-
-	Copyright (C) 2005-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
-Mumble's "Battlefield 1942" Plugin
-
-	plugins/bf1942/bf1942.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
 Mumble's "Battlefield 3" Plugin
 
 	plugins/bf3/bf3.cpp
@@ -104,13 +83,6 @@ Mumble's "Battlefield 3" Plugin
 	Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 	Copyright (C) 2011, Ryan Austin <ryan@gameforcecenters.com>
 	Copyright (C) 2012, Bojan Hartmann <bogie@bawki.de>
-
-Mumble's "Battlefield: Bad Company 2" Plugin
-
-	plugins/bfbc2/bfbc2.cpp
-
-	Copyright (C) 2010-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
 Mumble's "Blacklight" Plugin
 
@@ -141,22 +113,6 @@ Mumble's "Breach" Plugin
 	Copyright (C) 2011, Mark-Willem Jansen <rawnar@users.sourceforge.net>
 	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
-Mumble's "Call of Duty: Modern Warfare 2" Plugin
-
-	plugins/codmw2/codmw2.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
-Mumble's "Call of Duty: Modern Warfare 2 Special Ops" Plugin
-
-	plugins/codmw2so/codmw2so.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
 Mumble's "Counter-Strike" Plugin
 
 	plugins/cs/cs.cpp
@@ -165,40 +121,11 @@ Mumble's "Counter-Strike" Plugin
 	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
 	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
-Mumble's "Dystopia" Plugin
-
-	plugins/dys/dys.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
-Mumble's "Enemy Territory: Quake Wars" Plugin
-
-	plugins/etqw/etqw.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
-Mumble's "Garry's Mod" Plugin
-
-	plugins/gmod/gmod.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
 Mumble's "Grand Theft Auto IV" Plugin
 
 	plugins/gtaiv/gtaiv.cpp
 
 	Copyright (C) 2011, Mike <mike@flomp.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
-Mumble's "Insurgency" Plugin
-
-	plugins/insurgency/insurgency.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
 	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
 Mumble's "Just Cause 2" Plugin
@@ -235,26 +162,12 @@ Mumble's "Sub Rosa" Plugin
 	Copyright (C) 2012, Lukas Orsvärn <lucas.orsv@gmail.com>
 	Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
-Mumble's "Unreal Tournament 3" Plugin
-
-	plugins/ut3/ut3.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
-Mumble's "Unreal Tournament 2004" Plugin
-
-	plugins/ut2004/ut2004.cpp
-
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-
 Mumble's "Unreal Tournament" Plugin
 
 	plugins/ut99/ut99.cpp
 
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2012, Moritz Schneeweiss
 
 All rights reserved.
 
