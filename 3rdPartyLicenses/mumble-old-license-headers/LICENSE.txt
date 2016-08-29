@@ -166,8 +166,8 @@ Mumble's "Unreal Tournament" Plugin
 
 	plugins/ut99/ut99.cpp
 
-	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
-	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2012, Moritz Schneeweiss
 
 All rights reserved.
 
