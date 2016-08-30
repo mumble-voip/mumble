@@ -326,7 +326,7 @@ ServerDB::ServerDB() {
 			}
 			SQLQUERY("CREATE TABLE `%1servers`(`server_id` SERIAL PRIMARY KEY)");
 
-			SQLQUERY("CREATE TABLE `%1slog`(`server_id` INTEGER NOT NULL, `msg` TEXT, `msgtime` TIMESTAMP)");
+			SQLQUERY("CREATE TABLE `%1slog`(`server_id` INTEGER NOT NULL, `msg` TEXT, `msgtime` TIMESTAMP DEFAULT now())");
 			SQLQUERY("CREATE INDEX `%1slog_time` ON `%1slog`(`msgtime`)");
 			SQLQUERY("ALTER TABLE `%1slog` ADD CONSTRAINT `%1slog_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
@@ -343,7 +343,7 @@ ServerDB::ServerDB() {
 			SQLQUERY("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLQUERY("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 
-			SQLQUERY("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `lastchannel` INTEGER, `texture` BYTEA, `last_active` TIMESTAMP)");
+			SQLQUERY("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` BYTEA, `last_active` TIMESTAMP)");
 			SQLQUERY("CREATE INDEX `%1users_channel` ON `%1users`(`server_id`, `lastchannel`)");
 			SQLQUERY("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
 			SQLQUERY("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
@@ -2068,7 +2068,7 @@ void Server::dblog(const QString &str) const {
 		}
 	}
 
-	SQLPREP("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) VALUES(?,?, now())");
+	SQLPREP("INSERT INTO `%1slog` (`server_id`, `msg`) VALUES(?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(str);
 	SQLEXEC();
