@@ -644,16 +644,6 @@ bool ServerDB::query(QSqlQuery &query, const QString &str, bool fatal, bool warn
 		if (query.exec(q)) {
 			return true;
 		} else {
-			db->close();
-			if (! db->open()) {
-				qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db->lastError().text()));
-			}
-			query = QSqlQuery();
-			if (query.exec(q)) {
-				qWarning("SQL Connection lost, reconnection OK");
-				return true;
-			}	
-			
 			if (fatal) {
 				*db = QSqlDatabase();
 				qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
