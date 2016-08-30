@@ -839,28 +839,21 @@ int Server::registerUser(const QMap<int, QString> &info) {
 		id = res;
 	}
 	
-	int rows = 0;
-	
-	SQLPREP("SELECT COUNT(*) AS rows FROM `%1users` WHERE `server_id` = ? AND `name` = ?");
-	query.addBindValue(iServerNum);
-	query.addBindValue(name);
-	SQLEXEC();
-	if (query.next()) {
-		rows = query.value(0).toInt();
-		
-		if(rows > 0) {
-			SQLPREP("UPDATE `%1users` SET `user_id` = ? WHERE `server_id` = ? AND `name` = ?");
-			query.addBindValue(id);
-			query.addBindValue(iServerNum);
-			query.addBindValue(name);
-			SQLEXEC();
-		} else {
-			SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?,?,?)");
-			query.addBindValue(iServerNum);
-			query.addBindValue(id);
-			query.addBindValue(name);
-			SQLEXEC();
-		}
+	if (Meta::mp.qsDBDriver == "QPSQL") {
+		SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (:server_id,:user_id,:name) ON CONFLICT (`server_id`, `name`) DO UPDATE SET `user_id` = :u_user_id WHERE `%1users`.`server_id` = :u_server_id AND `%1users`.`name` = :u_name");
+		query.bindValue(":server_id", iServerNum);
+		query.bindValue(":user_id", id);
+		query.bindValue(":name", name);
+		query.bindValue(":u_server_id", iServerNum);
+		query.bindValue(":u_user_id", id);
+		query.bindValue(":u_name", name);
+		SQLEXEC();
+	} else {
+		SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?,?,?)");
+		query.addBindValue(iServerNum);
+		query.addBindValue(id);
+		query.addBindValue(name);
+		SQLEXEC();
 	}
 	
 	qhUserNameCache.remove(id);
@@ -1030,31 +1023,25 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 			int lchan=readLastChannel(res);
 			if (lchan < 0)
 				lchan = 0;
-			
-			int rows = 0;
-			
-			SQLPREP("SELECT COUNT(*) AS rows FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
-			query.addBindValue(iServerNum);
-			query.addBindValue(res);
-			SQLEXEC();
-			if (query.next()) {
-				rows = query.value(0).toInt();
-				
-				if(rows > 0) {
-					SQLPREP("UPDATE `%1users` SET `name` = ?, `lastchannel` = ? WHERE `server_id` = ? AND `user_id` = ?");
-					query.addBindValue(name);
-					query.addBindValue(lchan);
-					query.addBindValue(iServerNum);
-					query.addBindValue(res);
-					SQLEXEC();
-				} else {
-					SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (?,?,?,?)");
-					query.addBindValue(iServerNum);
-					query.addBindValue(res);
-					query.addBindValue(name);
-					query.addBindValue(lchan);
-					SQLEXEC();
-				}
+
+			if (Meta::mp.qsDBDriver == "QPSQL") {
+				SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (:server_id,:user_id,:name,:lastchannel) ON CONFLICT (`server_id`, `user_id`) DO UPDATE SET `name` = :u_name, `lastchannel` = :u_lastchannel WHERE `%1users`.`server_id` = :u_server_id AND `%1users`.`user_id` = :u_user_id");
+				query.bindValue(":server_id", iServerNum);
+				query.bindValue(":user_id", res);
+				query.bindValue(":name", name);
+				query.bindValue(":lastchannel", lchan);
+				query.bindValue(":u_server_id", iServerNum);
+				query.bindValue(":u_user_id", res);
+				query.bindValue(":u_name", name);
+				query.bindValue(":u_lastchannel", lchan);
+				SQLEXEC();
+			} else {
+				SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (?,?,?,?)");
+				query.addBindValue(iServerNum);
+				query.addBindValue(res);
+				query.addBindValue(name);
+				query.addBindValue(lchan);
+				SQLEXEC();
 			}
 		}
 		if (res >= 0) {
@@ -1173,59 +1160,43 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		}
 	}
 	if (! certhash.isEmpty() && (res > 0)) {
-		int rows = 0;
-			
-		SQLPREP("SELECT COUNT(*) AS rows FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
-		query.addBindValue(iServerNum);
-		query.addBindValue(res);
-		query.addBindValue(ServerDB::User_Hash);
-		SQLEXEC();
-		if (query.next()) {
-			rows = query.value(0).toInt();
-			
-			if(rows > 0) {
-				SQLPREP("UPDATE `%1user_info` SET `value` = ? WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
-				query.addBindValue(certhash);
-				query.addBindValue(iServerNum);
-				query.addBindValue(res);
-				query.addBindValue(ServerDB::User_Hash);
-				SQLEXEC();
-			} else {
-				SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
-				query.addBindValue(iServerNum);
-				query.addBindValue(res);
-				query.addBindValue(ServerDB::User_Hash);
-				query.addBindValue(certhash);
-				SQLEXEC();
-			}
+		if (Meta::mp.qsDBDriver == "QPSQL") {
+			SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (:server_id, :user_id, :key, :value) ON CONFLICT (`server_id`, `user_id`, `key`) DO UPDATE SET `value` = :u_value WHERE `%1user_info`.`server_id` = :u_server_id AND `%1user_info`.`user_id` = :u_user_id AND `%1user_info`.`key` = :u_key");
+			query.bindValue(":server_id", iServerNum);
+			query.bindValue(":user_id", res);
+			query.bindValue(":key", ServerDB::User_Hash);
+			query.bindValue(":value", certhash);
+			query.bindValue(":u_server_id", iServerNum);
+			query.bindValue(":u_user_id", res);
+			query.bindValue(":u_key", ServerDB::User_Hash);
+			query.bindValue(":u_value", certhash);
+			SQLEXEC();
+		} else {
+			SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
+			query.addBindValue(iServerNum);
+			query.addBindValue(res);
+			query.addBindValue(ServerDB::User_Hash);
+			query.addBindValue(certhash);
+			SQLEXEC();
 		}
 		
 		if (! emails.isEmpty()) {
-			rows = 0;
-			
-			SQLPREP("SELECT COUNT(*) AS rows FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
-			query.addBindValue(iServerNum);
-			query.addBindValue(res);
-			query.addBindValue(ServerDB::User_Email);
-			SQLEXEC();
-			if (query.next()) {
-				rows = query.value(0).toInt();
-				
-				if(rows > 0) {
-					SQLPREP("UPDATE `%1user_info` SET `value` = ? WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
-					query.addBindValue(emails.at(0));
-					query.addBindValue(iServerNum);
-					query.addBindValue(res);
-					query.addBindValue(ServerDB::User_Email);
-					SQLEXEC();
-				} else {
-					SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
-					query.addBindValue(iServerNum);
-					query.addBindValue(res);
-					query.addBindValue(ServerDB::User_Email);
-					query.addBindValue(emails.at(0));
-					SQLEXEC();
-				}
+			if (Meta::mp.qsDBDriver == "QPSQL") {
+				query.bindValue(":server_id", iServerNum);
+				query.bindValue(":user_id", res);
+				query.bindValue(":key", ServerDB::User_Email);
+				query.bindValue(":value", emails.at(0));
+				query.bindValue(":u_server_id", iServerNum);
+				query.bindValue(":u_user_id", res);
+				query.bindValue(":u_key", ServerDB::User_Email);
+				query.bindValue(":u_value", emails.at(0));
+				SQLEXEC();
+			} else {
+				query.addBindValue(iServerNum);
+				query.addBindValue(res);
+				query.addBindValue(ServerDB::User_Email);
+				query.addBindValue(emails.at(0));
+				SQLEXEC();
 			}
 		}
 	}
@@ -1302,36 +1273,33 @@ bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 		info.remove(ServerDB::User_Name);
 	}
 	if (! info.isEmpty()) {
-		int rows = 0;
 		QMap<int, QString>::const_iterator i;
-		
-		for (i=info.constBegin(); i != info.constEnd(); ++i) {
-			rows = 0;
-			
-			SQLPREP("SELECT COUNT(*) AS rows FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
-			query.addBindValue(iServerNum);
-			query.addBindValue(id);
-			query.addBindValue(i.key());
-			SQLEXEC();
-			if (query.next()) {
-				rows = query.value(0).toInt();
-				
-				if(rows > 0) {
-					SQLPREP("UPDATE `%1user_info` SET `value` = ? WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
-					query.addBindValue(i.value());
-					query.addBindValue(iServerNum);
-					query.addBindValue(id);
-					query.addBindValue(i.key());
-					SQLEXEC();
-				} else {
-					SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?,?,?,?)");
-					query.addBindValue(iServerNum);
-					query.addBindValue(id);
-					query.addBindValue(i.key());
-					query.addBindValue(i.value());
-					SQLEXEC();
-				}
-			}
+		QVariantList serverids, userids, keys, values;
+
+		for (i = info.constBegin(); i != info.constEnd(); ++i) {
+			serverids << iServerNum;
+			userids << id;
+			keys << i.key();
+			values << i.value();
+		}
+		if (Meta::mp.qsDBDriver == "QPSQL") {
+			SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (:server_id, :user_id, :key, :value) ON CONFLICT (`server_id`, `user_id`, `key`) DO UPDATE SET `value` = :u_value WHERE `%1user_info`.`server_id` = :u_server_id AND `%1user_info`.`user_id` = :u_user_id AND `%1user_info`.`key` = :u_key");
+			query.bindValue(":server_id", serverids);
+			query.bindValue(":user_id", userids);
+			query.bindValue(":key", keys);
+			query.bindValue(":value", values);
+			query.bindValue(":u_server_id", serverids);
+			query.bindValue(":u_user_id", userids);
+			query.bindValue(":u_key", keys);
+			query.bindValue(":u_value", values);
+			SQLEXECBATCH();
+		} else {
+			SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?,?,?,?)");
+			query.addBindValue(serverids);
+			query.addBindValue(userids);
+			query.addBindValue(keys);
+			query.addBindValue(values);
+			SQLEXECBATCH();
 		}
 	}
 
@@ -1378,7 +1346,7 @@ void ServerDB::writeSUPW(int srvnum, const QString &pwHash, const QString &saltH
 	query.addBindValue(srvnum);
 	query.addBindValue(0);
 	SQLEXEC();
-	if (!query.next()) {
+	if (! query.next()) {
 		SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?, ?, ?)");
 		query.addBindValue(srvnum);
 		query.addBindValue(0);
@@ -1627,67 +1595,61 @@ void Server::updateChannel(const Channel *c) {
 	SQLEXEC();
 
 	// Update channel description information
-	int rows = 0;
-			
-	SQLPREP("SELECT COUNT(*) AS rows FROM `%1channel_info` WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
-	query.addBindValue(iServerNum);
-	query.addBindValue(c->iId);
-	query.addBindValue(ServerDB::Channel_Description);
-	SQLEXEC();
-	if (query.next()) {
-		rows = query.value(0).toInt();
-		
-		if(rows > 0) {
-			SQLPREP("UPDATE `%1channel_info` SET `value` = ? WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
-			query.addBindValue(c->qsDesc);
-			query.addBindValue(iServerNum);
-			query.addBindValue(c->iId);
-			query.addBindValue(ServerDB::Channel_Description);
-			SQLEXEC();
-		} else {
-			SQLPREP("INSERT INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
-			query.addBindValue(iServerNum);
-			query.addBindValue(c->iId);
-			query.addBindValue(ServerDB::Channel_Description);
-			query.addBindValue(c->qsDesc);
-			SQLEXEC();
-		}
+	if (Meta::mp.qsDBDriver == "QPSQL") {
+		SQLPREP("INSERT INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (:server_id, :channel_id, :key, :value) ON CONFLICT (`server_id`, `channel_id`, `key`) DO UPDATE SET `value` = :u_value WHERE `%1channel_info`.`server_id` = :u_server_id AND `%1channel_info`.`channel_id` = :u_channel_id AND `%1channel_info`.`key` = :u_key");
+		query.bindValue(":server_id", iServerNum);
+		query.bindValue(":channel_id", c->iId);
+		query.bindValue(":key", ServerDB::Channel_Description);
+		query.bindValue(":value", c->qsDesc);
+		query.bindValue(":u_server_id", iServerNum);
+		query.bindValue(":u_channel_id", c->iId);
+		query.bindValue(":u_key", ServerDB::Channel_Description);
+		query.bindValue(":u_value", c->qsDesc);
+		SQLEXEC();
+	} else {
+		SQLPREP("REPLACE INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
+		query.addBindValue(iServerNum);
+		query.addBindValue(c->iId);
+		query.addBindValue(ServerDB::Channel_Description);
+		query.addBindValue(c->qsDesc);
+		SQLEXEC();
 	}
-	
 	// Update channel position information
-	rows = 0;
-			
-	SQLPREP("SELECT COUNT(*) AS rows FROM `%1channel_info` WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
-	query.addBindValue(iServerNum);
-	query.addBindValue(c->iId);
-	query.addBindValue(ServerDB::Channel_Position);
-	SQLEXEC();
-	if (query.next()) {
-		rows = query.value(0).toInt();
-		
-		if(rows > 0) {
-			SQLPREP("UPDATE `%1channel_info` SET `value` = ? WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
-			query.addBindValue(QVariant(c->iPosition).toString());
-			query.addBindValue(iServerNum);
-			query.addBindValue(c->iId);
-			query.addBindValue(ServerDB::Channel_Position);
-			SQLEXEC();
-		} else {
-			SQLPREP("INSERT INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
-			query.addBindValue(iServerNum);
-			query.addBindValue(c->iId);
-			query.addBindValue(ServerDB::Channel_Position);
-			query.addBindValue(QVariant(c->iPosition).toString());
-			SQLEXEC();
-		}
+	if (Meta::mp.qsDBDriver == "QPSQL") {
+		query.bindValue(":server_id", iServerNum);
+		query.bindValue(":channel_id", c->iId);
+		query.bindValue(":key", ServerDB::Channel_Position);
+		query.bindValue(":value", QVariant(c->iPosition).toString());
+		query.bindValue(":u_server_id", iServerNum);
+		query.bindValue(":u_channel_id", c->iId);
+		query.bindValue(":u_key", ServerDB::Channel_Position);
+		query.bindValue(":u_value", QVariant(c->iPosition).toString());
+		SQLEXEC();
+	} else {
+		query.addBindValue(iServerNum);
+		query.addBindValue(c->iId);
+		query.addBindValue(ServerDB::Channel_Position);
+		query.addBindValue(QVariant(c->iPosition).toString());
+		SQLEXEC();
 	}
-
-	// Update channel maximum users
-	query.addBindValue(iServerNum);
-	query.addBindValue(c->iId);
-	query.addBindValue(ServerDB::Channel_Max_Users);
-	query.addBindValue(QVariant(c->uiMaxUsers).toString());
-	SQLEXEC();
+	// Update channel maximum channels
+	if (Meta::mp.qsDBDriver == "QPSQL") {
+		query.bindValue(":server_id", iServerNum);
+		query.bindValue(":channel_id", c->iId);
+		query.bindValue(":key", ServerDB::Channel_Max_Users);
+		query.bindValue(":value", QVariant(c->uiMaxUsers).toString());
+		query.bindValue(":u_server_id", iServerNum);
+		query.bindValue(":u_channel_id", c->iId);
+		query.bindValue(":u_key", ServerDB::Channel_Max_Users);
+		query.bindValue(":u_value", QVariant(c->uiMaxUsers).toString());
+		SQLEXEC();
+	} else {
+		query.addBindValue(iServerNum);
+		query.addBindValue(c->iId);
+		query.addBindValue(ServerDB::Channel_Max_Users);
+		query.addBindValue(QVariant(c->uiMaxUsers).toString());
+		SQLEXEC();
+	}
 
 	SQLPREP("DELETE FROM `%1groups` WHERE `server_id` = ? AND `channel_id` = ?");
 	query.addBindValue(iServerNum);
@@ -2133,32 +2095,23 @@ void ServerDB::setConf(int server_id, const QString &k, const QVariant &value) {
 		SQLPREP("DELETE FROM `%1config` WHERE `server_id` = ? AND `key` = ?");
 		query.addBindValue(server_id);
 		query.addBindValue(key);
-		SQLEXEC();
 	} else {
-		int rows = 0;
-			
-		SQLPREP("SELECT COUNT(*) AS rows FROM `%1config` WHERE `server_id` = ? AND `key` = ?");
-		query.addBindValue(server_id);
-		query.addBindValue(key);
-		SQLEXEC();
-		if (query.next()) {
-			rows = query.value(0).toInt();
-			
-			if(rows > 0) {
-				SQLPREP("UPDATE `%1config` SET `value` = ? WHERE `server_id` = ? AND `key` = ?");
-				query.addBindValue(value.toString());
-				query.addBindValue(server_id);
-				query.addBindValue(key);
-				SQLEXEC();
-			} else {
-				SQLPREP("INSERT INTO `%1config` (`server_id`, `key`, `value`) VALUES (?,?,?)");
-				query.addBindValue(server_id);
-				query.addBindValue(key);
-				query.addBindValue(value.toString());
-				SQLEXEC();
-			}
+		if (Meta::mp.qsDBDriver == "QPSQL") {
+			SQLPREP("INSERT INTO `%1config` (`server_id`, `key`, `value`) VALUES (:server_id, :key, :value) ON CONFLICT (`server_id`, `key`) DO UPDATE SET `value` = :u_value WHERE `%1config`.`server_id` = :u_server_id AND `%1config`.`key` = :u_key");
+			query.bindValue(":server_id", server_id);
+			query.bindValue(":key", key);
+			query.bindValue(":value", value.toString());
+			query.bindValue(":u_server_id", server_id);
+			query.bindValue(":u_key", key);
+			query.bindValue(":u_value", value.toString());
+		} else {
+			SQLPREP("REPLACE INTO `%1config` (`server_id`, `key`, `value`) VALUES (?,?,?)");
+			query.addBindValue(server_id);
+			query.addBindValue(key);
+			query.addBindValue(value.toString());
 		}
 	}
+	SQLEXEC();
 }
 
 
