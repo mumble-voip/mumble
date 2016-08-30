@@ -28,22 +28,22 @@
 
 
 class TransactionHolder {
-	public:
-		QSqlQuery *qsqQuery;
-		TransactionHolder() {
-			ServerDB::db->transaction();
-			qsqQuery = new QSqlQuery();
-		}
+public:
+	QSqlQuery *qsqQuery;
+	TransactionHolder() {
+		ServerDB::db->transaction();
+		qsqQuery = new QSqlQuery();
+	}
 
-		~TransactionHolder() {
-			qsqQuery->clear();
-			delete qsqQuery;
-			ServerDB::db->commit();
-		}
-		TransactionHolder(const TransactionHolder & other) {
-			ServerDB::db->transaction();
-			qsqQuery = other.qsqQuery ? new QSqlQuery(*other.qsqQuery) : 0;
-		}
+	~TransactionHolder() {
+		qsqQuery->clear();
+		delete qsqQuery;
+		ServerDB::db->commit();
+	}
+	TransactionHolder(const TransactionHolder & other) {
+		ServerDB::db->transaction();
+		qsqQuery = other.qsqQuery ? new QSqlQuery(*other.qsqQuery) : 0;
+	}
 };
 
 QSqlDatabase *ServerDB::db = NULL;
@@ -54,32 +54,32 @@ void ServerDB::loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query) {
 	if (!Meta::mp.legacyPasswordHash) {
 		if (Meta::mp.kdfIterations <= 0) {
 			// Configuration doesn't specify an override, load from db
-			
+
 			SQLDO("SELECT `value` FROM `%1meta` WHERE `keystring` = 'pbkdf2_iterations'");
 			if (query.next()) {
 				Meta::mp.kdfIterations = query.value(0).toInt();
 			}
-			
+
 			if (Meta::mp.kdfIterations <= 0) {
 				// Didn't get a valid iteration count from DB, overwrite
 				Meta::mp.kdfIterations = PBKDF2::benchmark();
-				
+
 				qWarning() << "Performed initial PBKDF2 benchmark. Will use " << Meta::mp.kdfIterations << " iterations as default";
-				
+
 				SQLPREP("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('pbkdf2_iterations',?)");
 				query.addBindValue(Meta::mp.kdfIterations);
 				SQLEXEC();
 			}
 		}
-		
+
 		if (Meta::mp.kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
 			qWarning() << "Configured default PBKDF2 iteration count of " << Meta::mp.kdfIterations << " is below minimum recommended value of " << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT << " and could be insecure.";
 		}
-	}	
+	}
 }
 
 ServerDB::ServerDB() {
-	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
+	if (!QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
 	if (db) {
@@ -1371,28 +1371,28 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 }
 
 void ServerDB::writeSUPW(int srvnum, const QString &pwHash, const QString &saltHash, const QVariant &kdfIterations) {
-        TransactionHolder th;
-        QSqlQuery &query = *th.qsqQuery;
+	TransactionHolder th;
+	QSqlQuery &query = *th.qsqQuery;
 
-        SQLPREP("SELECT `user_id` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
-        query.addBindValue(srvnum);
-        query.addBindValue(0);
-        SQLEXEC();
-        if (! query.next()) {
-                SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?, ?, ?)");
-                query.addBindValue(srvnum);
-                query.addBindValue(0);
-                query.addBindValue(QLatin1String("SuperUser"));
-                SQLEXEC();
-        }
+	SQLPREP("SELECT `user_id` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
+	query.addBindValue(srvnum);
+	query.addBindValue(0);
+	SQLEXEC();
+	if (!query.next()) {
+		SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?, ?, ?)");
+		query.addBindValue(srvnum);
+		query.addBindValue(0);
+		query.addBindValue(QLatin1String("SuperUser"));
+		SQLEXEC();
+	}
 
-        SQLPREP("UPDATE `%1users` SET `pw`=?, `salt`=?, `kdfiterations`=? WHERE `server_id` = ? AND `user_id`=?");
-        query.addBindValue(pwHash);
-        query.addBindValue(saltHash);
-        query.addBindValue(kdfIterations);
-        query.addBindValue(srvnum);
-        query.addBindValue(0);
-        SQLEXEC();
+	SQLPREP("UPDATE `%1users` SET `pw`=?, `salt`=?, `kdfiterations`=? WHERE `server_id` = ? AND `user_id`=?");
+	query.addBindValue(pwHash);
+	query.addBindValue(saltHash);
+	query.addBindValue(kdfIterations);
+	query.addBindValue(srvnum);
+	query.addBindValue(0);
+	SQLEXEC();
 }
 
 
