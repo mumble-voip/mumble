@@ -473,7 +473,7 @@ ServerDB::ServerDB() {
 		} else {
 			qWarning("Importing old data...");
 
-			if (Meta::mp.qsDBDriver != "QSQLITE" && Meta::mp.qsDBDriver != "QPSQL")
+			if (Meta::mp.qsDBDriver == "QMYSQL")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 0;");
 			SQLDO("INSERT INTO `%1servers` (`server_id`) SELECT `server_id` FROM `%1servers%2`");
 			SQLDO("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) SELECT `server_id`, `msg`, `msgtime` FROM `%1slog%2`");
@@ -549,7 +549,7 @@ ServerDB::ServerDB() {
 				SQLDO("INSERT INTO `%1channel_info` SELECT * FROM `%1channel_info%2`");
 			}
 
-			if (Meta::mp.qsDBDriver != "QSQLITE" && Meta::mp.qsDBDriver != "QPSQL")
+			if (Meta::mp.qsDBDriver == "QMYSQL")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 1;");
 
 			qWarning("Removing old tables...");
