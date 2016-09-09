@@ -13,7 +13,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 
 	// Avatar pointers
-	procptr32_t avatar_base = peekProc<procptr32_t>(pModule + 0x016FD5B4);
+	procptr32_t avatar_base = peekProc<procptr32_t>(pModule + 0x17199C4);
 	if (!avatar_base) return false;
 	procptr32_t avatar_offset_0 = peekProc<procptr32_t>(avatar_base + 0x448);
 	if (!avatar_offset_0) return false;
@@ -26,10 +26,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc(avatar_offset + 0x0, avatar_pos, 12) && // Avatar Position values (X, Y and Z).
-			peekProc(pModule + 0x016FD7F0, camera_pos, 12) && // Camera Position values (X, Y and Z).
+			peekProc(pModule + 0x1719C00, camera_pos, 12) && // Camera Position values (X, Y and Z).
 			peekProc(avatar_offset + 0xC, avatar_front, 12) && // Avatar Front values (X, Y and Z).
-			peekProc(pModule + 0x016FD7D8, camera_front, 12) && // Camera Front Vector values (X, Y and Z).
-			peekProc(pModule + 0x016FD7E4, camera_top, 12); // Camera Top Vector values (X, Y and Z).
+			peekProc(pModule + 0x1719BE8, camera_front, 12) && // Camera Front Vector values (X, Y and Z).
+			peekProc(pModule + 0x1719BF4, camera_top, 12); // Camera Top Vector values (X, Y and Z).
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
