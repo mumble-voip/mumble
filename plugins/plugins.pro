@@ -14,5 +14,5 @@ win32 {
 }
 
 linux {
-	SUBDIRS += l4d2
+	SUBDIRS += l4d2 rl
 }
