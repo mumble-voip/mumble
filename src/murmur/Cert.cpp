@@ -85,6 +85,10 @@ void Server::initializeCert() {
 		qskKey = QSslKey(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass);
 		if (qskKey.isNull())
 			qskKey = QSslKey(key, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, pass);
+#if QT_VERSION >= 0x050000
+		if (qskKey.isNull())
+			qskKey = QSslKey(key, QSsl::Ec, QSsl::Pem, QSsl::PrivateKey, pass);
+#endif
 	}
 
 	// If we still can't load the key, try loading any keys from the certificate
@@ -92,6 +96,10 @@ void Server::initializeCert() {
 		qskKey = QSslKey(crt, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass);
 		if (qskKey.isNull())
 			qskKey = QSslKey(crt, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, pass);
+#if QT_VERSION >= 0x050000
+		if (qskKey.isNull())
+			qskKey = QSslKey(crt, QSsl::Ec, QSsl::Pem, QSsl::PrivateKey, pass);
+#endif
 	}
 
 	// If have a key, walk the list of certs, find the one for our key,

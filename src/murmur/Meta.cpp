@@ -407,11 +407,19 @@ void MetaParams::read(QString fname) {
 			qskKey = QSslKey(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
 			if (qskKey.isNull())
 				qskKey = QSslKey(key, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+#if QT_VERSION >= 0x050000
+			if (qskKey.isNull())
+				qskKey = QSslKey(key, QSsl::Ec, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+#endif
 		}
 		if (qskKey.isNull() && ! crt.isEmpty()) {
 			qskKey = QSslKey(crt, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
 			if (qskKey.isNull())
 				qskKey = QSslKey(crt, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+#if QT_VERSION >= 0x050000
+			if (qskKey.isNull())
+				qskKey = QSslKey(crt, QSsl::Ec, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+#endif
 			if (! qskKey.isNull())
 				qCritical("Using private key found in certificate file.");
 		}
