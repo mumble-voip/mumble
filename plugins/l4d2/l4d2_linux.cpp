@@ -3,10 +3,10 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_x86.h" // Include standard plugin header.
+#include "../mumble_plugin_linux_32bit.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-procptr32_t serverid_steamclient, player_engine; // BYTE values to contain modules addresses
+procptr32_t serverid_steamclient, player_server; // Variables to contain modules addresses
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
@@ -20,19 +20,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Char values for extra features
 	char serverid[22], host[22], servername[50], map[30], player[33];
 	// State
-	BYTE state;
+	unsigned char state;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + 0x6ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
-			peekProc(pModule + 0x6B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc(pModule + 0x774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc(pModule + 0x774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
-			peekProc(pModule + 0x774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
+	ok = peekProc(pModule + 0xE0A24C, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
+			peekProc(pModule + 0xE773FC, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(pModule + 0xED8700, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(pModule + 0xE3C138, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
+			peekProc(pModule + 0xE3C150, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
 			peekProc(serverid_steamclient, serverid) && // Unique server Steam ID.
-			peekProc(pModule + 0x772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
-			peekProc(pModule + 0x772D2C, servername) && // Server name.
-			peekProc(pModule + 0x772C28, map) && // Map name.
-			peekProc(player_engine, player); // Player nickname.
+			peekProc(pModule + 0xE356D0, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
+			peekProc(pModule + 0xE358D8, servername) && // Server name.
+			peekProc(pModule + 0xE09E9D, map) && // Map name.
+			peekProc(player_server, player); // Player nickname.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
@@ -140,23 +140,23 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
-	if (! initialize(pids, L"left4dead2.exe", L"client.dll")) { // Link the game executable
+	if (! initialize(pids, L"hl2_linux", L"client.so")) { // Retrieve "client.so" module's memory address
 		return false;
 	}
 
-	procptr32_t steamclient=getModuleAddr(L"steamclient.dll"); // Link "steamclient.dll" module
+	procptr32_t steamclient = getModuleAddr(L"steamclient.so"); // Retrieve "steamclient.so" module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
-	if (!steamclient)
+	if (steamclient == 0)
 		return false;
 
-	serverid_steamclient = steamclient + 0x94D9ED; // Module + Server ID offset
+	serverid_steamclient = steamclient + 0x118E965; // Module + Server ID offset
 
-	procptr32_t engine=getModuleAddr(L"engine.dll"); // // Link "engine.dll" module
+	procptr32_t server = getModuleAddr(L"server.so"); // Retrieve "server.so" module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
-	if (!engine)
+	if (server == 0)
 		return false;
 
-	player_engine = engine + 0x6795D1; // Module + Player offset
+	player_server = server + 0xF340E4; // Module + Player offset
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
@@ -200,10 +200,10 @@ static MumblePlugin2 l4d2plug2 = {
 	trylock
 };
 
-extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &l4d2plug;
 }
 
-extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
 	return &l4d2plug2;
 }

@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#include "../mumble_plugin_win32_64bit.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -16,28 +16,28 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-memory-editing/578228-wow-7-0-3-22522-release-info-dump-thread-post3584506.html#post3584506
 
 	// Avatar pointer
-	procptr32_t avatar_offset = peekProc<procptr32_t>(pModule + 0xDE545C); // "LocalPlayer" in the thread.
+	procptr64_t avatar_offset = peekProc<procptr64_t>(pModule + 0x169BCB0); // "LocalPlayer" in the thread.
 	if (!avatar_offset) return false;
 
 	// Camera pointer
-	procptr32_t camera_base = peekProc<procptr32_t>(pModule + 0xEB9F1C); // "CameraStruct" in the thread.
+	procptr64_t camera_base = peekProc<procptr64_t>(pModule + 0x179A518); // "CameraStruct" in the thread.
 	if (!camera_base) return false;
-	procptr32_t camera_offset = peekProc<procptr32_t>(camera_base + 0x3264); // "CameraOffset" in the thread.
+	procptr64_t camera_offset = peekProc<procptr64_t>(camera_base + 0x3338); // "CameraOffset" in the thread.
 	if (!camera_offset) return false;
 
 	// Realm pointer
-	procptr32_t realm_offset = peekProc<procptr32_t>(pModule + 0xF3AD7C); // Not available in the thread.
+	procptr64_t realm_offset = peekProc<procptr64_t>(pModule + 0x1825C68); // Not available in the thread.
 	if (!realm_offset) return false;
 
 	// Memory addresses
-	procptr32_t state_address = 0xE5BB19; // "GameState" in the thread.
-	procptr32_t avatar_pos_address = 0xAF8; // "UnitOrigin" in the thread.
-	procptr32_t camera_pos_address = 0x08; // "CameraOrigin" in the thread.
-	procptr32_t camera_front_address = 0x14; // "CameraMatrix" in the thread.
-	procptr32_t camera_top_address = 0x2C; // "CameraMatrix" + 0x18.
-	procptr32_t avatar_heading_address = 0xB08; // "UnitAngle" in the thread.
-	procptr32_t realm_address = 0x384; // Not available in the thread.
-	procptr32_t player_address = 0xF3B088; // Not available in the thread.
+	procptr64_t state_address = 0x173C66E; // "GameState" in the thread.
+	procptr64_t avatar_pos_address = 0x15A8; // "UnitOrigin" in the thread.
+	procptr64_t camera_pos_address = 0x10; // "CameraOrigin" in the thread.
+	procptr64_t camera_front_address = 0x1C; // "CameraMatrix" in the thread.
+	procptr64_t camera_top_address = 0x34; // "CameraMatrix" + 0x18.
+	procptr64_t avatar_heading_address = 0x15B8; // "UnitAngle" in the thread.
+	procptr64_t realm_address = 0x430; // Not available in the thread.
+	procptr64_t player_address = 0x1825FC0; // Not available in the thread.
 
 	// Boolean value to check if game addresses retrieval is successful
 	bool ok;
@@ -135,7 +135,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
-	if (! initialize(pids, L"Wow.exe")) { // Retrieve game executable's memory address
+	if (! initialize(pids, L"Wow-64.exe")) { // Retrieve game executable's memory address
 		return false;
 	}
 
@@ -153,10 +153,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft (x86) with context and identity support."); // Plugin long description
+	return std::wstring(L"Supports World of Warcraft (x64) with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"World of Warcraft (x86) version 7.0.3.22566"); // Plugin short description
+static std::wstring description(L"World of Warcraft (x64) version 7.0.3.22566"); // Plugin short description
 static std::wstring shortname(L"World of Warcraft"); // Plugin short name
 
 static int trylock1() {

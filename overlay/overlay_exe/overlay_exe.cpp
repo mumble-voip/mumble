@@ -150,8 +150,8 @@ int main(int argc, char **argv) {
 		}
 
 		try {
-			unsigned long passedInHandle = std::stoul(handleStr);
-			parent = reinterpret_cast<HANDLE>(passedInHandle & 0xFFFFFFFFUL);
+			unsigned long long passedInHandle = std::stoull(handleStr);
+			parent = reinterpret_cast<HANDLE>(passedInHandle & 0xFFFFFFFFULL);
 		} catch(std::exception &) {
 			return OVERLAY_HELPER_ERROR_EXE_INVALID_HANDLE_ARGUMENT;
 		}

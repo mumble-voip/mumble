@@ -4691,7 +4691,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation>Viska/Skrik</translation>
+        <translation>Viska/Skrika</translation>
     </message>
     <message>
         <location line="+75"/>
