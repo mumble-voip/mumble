@@ -546,6 +546,7 @@ int main(int argc, char **argv) {
 	qWarning().nospace() << " vsVAD " << g.s.vsVAD << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmax %1").arg(g.s.fVADmax));
 	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmin %1").arg(g.s.fVADmin));
+	g.l.log(Log::Information, MainWindow::tr("path %1").arg(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/Themes")));
 	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " iQuality " << g.s.iQuality << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
