@@ -5,13 +5,6 @@
 
 include(../plugins.pri)
 
-TARGET = rl
-
-win32 {
-	SOURCES = rl_win32.cpp
-	LIBS += -luser32
-}
-
-linux {
-	SOURCES = rl_linux.cpp
-}
+TARGET		= wow_x64
+SOURCES		= wow_x64.cpp
+LIBS		+= -luser32

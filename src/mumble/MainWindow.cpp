@@ -231,6 +231,10 @@ void MainWindow::createActions() {
 	gsSendTextMessage=new GlobalShortcut(this, idx++, tr("Send Text Message", "Global Shortcut"), true, QVariant(QString()));
 	gsSendTextMessage->setObjectName(QLatin1String("gsSendTextMessage"));
 
+	gsSendClipboardTextMessage=new GlobalShortcut(this, idx++, tr("Send Clipboard Text Message", "Global Shortcut"));
+	gsSendClipboardTextMessage->setObjectName(QLatin1String("gsSendClipboardTextMessage"));
+	gsSendClipboardTextMessage->qsWhatsThis = tr("This will send your Clipboard content to the channel you are currently in.", "Global Shortcut");
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -2693,6 +2697,16 @@ void MainWindow::on_gsSendTextMessage_triggered(bool down, QVariant scdata) {
 	Channel *c = ClientUser::get(g.uiSession)->cChannel;
 	g.sh->sendChannelTextMessage(c->iId, qsText, false);
 	g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+}
+
+void MainWindow::on_gsSendClipboardTextMessage_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	// call sendChatbarMessage() instead of on_gsSendTextMessage_triggered() to handle
+	// formatting of the content in the clipboard, i.e., href.  
+	sendChatbarMessage(QApplication::clipboard()->text());
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {

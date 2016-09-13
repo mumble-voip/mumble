@@ -190,6 +190,7 @@ struct Settings {
 	bool bOnlyAttenuateSameOutput;
 	bool bAttenuateLoopbacks;
 	int iOutputDelay;
+	bool bUseOpusMusicEncoding;
 
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;

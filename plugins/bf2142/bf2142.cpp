@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_x86.h"
+#include "../mumble_plugin_win32_32bit.h"
 
 procptr32_t posptr, faceptr, topptr;
 
@@ -114,10 +114,10 @@ static MumblePlugin2 bf2142plug2 = {
 	trylock
 };
 
-extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bf2142plug;
 }
 
-extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
 	return &bf2142plug2;
 }

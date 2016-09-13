@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_x86.h"
+#include "../mumble_plugin_win32_32bit.h"
 
 procptr32_t posptr, frontptr, topptr;
 
@@ -138,10 +138,10 @@ static MumblePlugin2 breachplug2 = {
 	trylock
 };
 
-extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &breachplug;
 }
 
-extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
 	return &breachplug2;
 }

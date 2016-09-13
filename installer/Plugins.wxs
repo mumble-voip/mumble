@@ -143,6 +143,9 @@
       <Component Id="wow.dll">
         <File Source="$(var.SourceDir)\release\plugins\wow.dll" KeyPath="yes" />
       </Component>
+      <Component Id="wow_x64.dll">
+        <File Source="$(var.SourceDir)\release\plugins\wow_x64.dll" KeyPath="yes" />
+      </Component>
     </DirectoryRef>
 
     <ComponentGroup Id="Plugins">
@@ -192,6 +195,7 @@
       <ComponentRef Id="ut3.dll" />
       <ComponentRef Id="wolfet.dll" />
       <ComponentRef Id="wow.dll" />
+      <ComponentRef Id="wow_x64.dll" />
     </ComponentGroup>
   </Fragment>
 </Wix>

@@ -85,7 +85,14 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	iFrameSize = SAMPLE_RATE / 100;
 
 #ifdef USE_OPUS
-	opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
+	if (!g.s.bUseOpusMusicEncoding) {
+		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
+		qWarning("AudioInput: Opus encoder set for VOIP");
+	} else {
+		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, NULL);
+		qWarning("AudioInput: Opus encoder set for Music");
+	}
+
 	opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
 #endif
 

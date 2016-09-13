@@ -29,7 +29,7 @@ QMAKE_CXXFLAGS_RELEASE	*= -MT
 QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
 LIBS *= -ldxguid -luuid -lole32 -luser32 -ladvapi32
-LIBS *= -ld3d9 -ld3d10 -ld3d11 -ld3dcompiler -ld3dx9 -ld3dx10 -ld3dx11 -ldxgi
+LIBS *= -ld3d9 -ld3d10 -ld3d11 -ld3dcompiler -ldxgi
 
 CONFIG(force-x86_64-toolchain) {
   DEFINES += USE_MINHOOK

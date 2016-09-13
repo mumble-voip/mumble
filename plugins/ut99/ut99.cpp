@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_x86.h"
+#include "../mumble_plugin_win32_32bit.h"
 
 procptr32_t posptr;
 procptr32_t frtptr;
@@ -227,10 +227,10 @@ static MumblePlugin2 ut99plug2 = {
 	trylock
 };
 
-extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &ut99plug;
 }
 
-extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
 	return &ut99plug2;
 }

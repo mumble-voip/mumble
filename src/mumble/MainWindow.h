@@ -77,7 +77,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
 		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
 		GlobalShortcut *gsCycleTransmitMode;
-		GlobalShortcut *gsSendTextMessage;
+		GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
@@ -256,6 +256,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void removeTarget(ShortcutTarget *);
 		void on_gsCycleTransmitMode_triggered(bool, QVariant);
 		void on_gsSendTextMessage_triggered(bool, QVariant);
+		void on_gsSendClipboardTextMessage_triggered(bool, QVariant);
 		void on_Reconnect_timeout();
 		void on_Icon_messageClicked();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
