@@ -134,7 +134,7 @@ void InitializePlutoSettings()
 	g.s.bEchoMulti = true;
 	g.s.bHideFrame = false;
 	g.s.bMinimalView = false;
-	g.s.themeName = QString::fromStdString("project-omega");
+	g.s.themeName = QString::fromStdString("pluto-omega");
 	g.s.themeStyleName = QString::fromStdString("activate_omega-lite");
 }
 
