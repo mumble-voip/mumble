@@ -2991,13 +2991,13 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
 #ifdef PLUTOVR_BUILD
-		qmTray->addAction(qmConfig);
+		qmTray->addAction(qaConfigDialog);
 #endif
 	} else {
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
 #ifdef PLUTOVR_BUILD
-		qmTray->addAction(qmConfig);
+		qmTray->addAction(qaConfigDialog);
 #endif
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
