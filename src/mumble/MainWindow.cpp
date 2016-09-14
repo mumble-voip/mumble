@@ -2998,7 +2998,7 @@ void MainWindow::trayAboutToShow() {
 #ifndef PLUTOVR_BUILD
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
-#ifdef PLUTOVR_BUILD
+#else
 		qmTray->addAction(qaConfigDialog);
 #endif
 		qmTray->addSeparator();
