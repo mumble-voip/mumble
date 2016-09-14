@@ -134,6 +134,8 @@ void InitializePlutoSettings()
 	g.s.bEchoMulti = true;
 	g.s.bHideFrame = false;
 	g.s.bMinimalView = false;
+	g.s.themeName = QString::fromStdString("project-omega");
+	g.s.themeStyle = QString::fromStdString("activate_omega-lite.qss");
 }
 
 extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
@@ -547,6 +549,8 @@ int main(int argc, char **argv) {
 	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmax %1").arg(g.s.fVADmax));
 	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmin %1").arg(g.s.fVADmin));
 	g.l->log(Log::Information, MainWindow::tr("path %1").arg(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/Themes")));
+	g.l->log(Log::Information, MainWindow::tr("g.s.themeName %1").arg(g.s.themeName));
+	g.l->log(Log::Information, MainWindow::tr("g.s.themeStyle %1").arg(g.s.themeStyle));
 	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " iQuality " << g.s.iQuality << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
