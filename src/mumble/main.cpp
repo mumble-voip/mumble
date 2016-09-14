@@ -134,8 +134,8 @@ void InitializePlutoSettings()
 	g.s.bEchoMulti = true;
 	g.s.bHideFrame = false;
 	g.s.bMinimalView = false;
-	// g.s.themeName = QString::fromStdString("project-omega");
-	// g.s.themeStyleName = QString::fromStdString("activate_omega-lite.qss");
+	g.s.themeName = QString::fromStdString("project-omega");
+	g.s.themeStyleName = QString::fromStdString("activate_omega-lite");
 }
 
 extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
