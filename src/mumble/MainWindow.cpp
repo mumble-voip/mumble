@@ -2993,6 +2993,8 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaAudioMute);
 #else
 		qmTray->addAction(qaConfigDialog);
+		qmTray->addAction(qaServerInformation);
+		qmTray->addAction(qaAudioStats);
 #endif
 	} else {
 #ifndef PLUTOVR_BUILD
@@ -3000,6 +3002,8 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaAudioDeaf);
 #else
 		qmTray->addAction(qaConfigDialog);
+		qmTray->addAction(qaServerInformation);
+		qmTray->addAction(qaAudioStats);
 #endif
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
