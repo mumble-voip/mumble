@@ -455,7 +455,7 @@
      <activeon>skin:actions/audio-input-microphone-muted.svg</activeon>skin:actions/audio-input-microphone.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Mute Self</string>
+    <string>&amp;Mute Self Nanus</string>
    </property>
    <property name="toolTip">
     <string>Mute yourself</string>
