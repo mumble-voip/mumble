@@ -37,7 +37,6 @@
 #include "UserLockFile.h"
 
 #ifdef PLUTOVR_BUILD
-
 struct PlutoDefaultSettings
 {
 	wchar_t audioInputDeviceId[256];
@@ -134,17 +133,19 @@ void InitializePlutoSettings()
 	g.s.bEchoMulti = true;
 	g.s.bHideFrame = false;
 	g.s.bMinimalView = false;
+	g.s.themeName = QString::fromStdString("pluto-omega");
+	g.s.themeStyleName = QString::fromStdString("activate_omega-lite");
 }
 
 extern "C" _declspec(dllexport) void PlutoSettingsUpdated()
 {
 	if (0.0f != plutoSettings->fVADmin && plutoSettings->fVADmin != g.s.fVADmin)
 	{
-			g.s.fVADmin = plutoSettings->fVADmin;
+		g.s.fVADmin = plutoSettings->fVADmin;
 	}
 	if (0.0f != plutoSettings->fVADmax && plutoSettings->fVADmax != g.s.fVADmax)
 	{
-			g.s.fVADmax = plutoSettings->fVADmax;
+		g.s.fVADmax = plutoSettings->fVADmax;
 	}
 
 	QString temp = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
@@ -544,8 +545,6 @@ int main(int argc, char **argv) {
 
 #ifdef PLUTOVR_BUILD
 	qWarning().nospace() << " vsVAD " << g.s.vsVAD << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
-	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmax %1").arg(g.s.fVADmax));
-	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmin %1").arg(g.s.fVADmin));
 	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " iQuality " << g.s.iQuality << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
@@ -560,6 +559,9 @@ int main(int argc, char **argv) {
 	qWarning().nospace() << " bHideFrame " << g.s.bHideFrame << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " bMinimalView " << g.s.bMinimalView << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " bPositionalHeadphone " << g.s.bPositionalHeadphone << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " theme path " << MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/Themes") << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " themeName " << g.s.themeName << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " themeStyleName " << g.s.themeStyleName << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 #endif
 
 	// Plugins
