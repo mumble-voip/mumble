@@ -2988,14 +2988,16 @@ void MainWindow::trayAboutToShow() {
 	if (top) {
 		qmTray->addAction(qaQuit);
 		qmTray->addSeparator();
-		// qmTray->addAction(qaAudioDeaf);
-		// qmTray->addAction(qaAudioMute);
-#ifdef PLUTOVR_BUILD
+#ifndef PLUTOVR_BUILD
+		qmTray->addAction(qaAudioDeaf);
+		qmTray->addAction(qaAudioMute);
+#else
 		qmTray->addAction(qaConfigDialog);
 #endif
 	} else {
-		// qmTray->addAction(qaAudioMute);
-		// qmTray->addAction(qaAudioDeaf);
+#ifndef PLUTOVR_BUILD
+		qmTray->addAction(qaAudioMute);
+		qmTray->addAction(qaAudioDeaf);
 #ifdef PLUTOVR_BUILD
 		qmTray->addAction(qaConfigDialog);
 #endif
