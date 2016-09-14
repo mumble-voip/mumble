@@ -13,6 +13,12 @@
 #include "MainWindow.h"
 #include "ServerHandler.h"
 
+#ifdef PLUTOVR_BUILD
+extern "C" {
+	void PlutoSettingsUpdated();
+}
+#endif
+
 SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(NULL) {
 	qlsSocket->setParent(this);
 
@@ -136,6 +142,12 @@ void SocketRPCClient::processXml() {
 					g.mw->qaAudioDeaf->trigger();
 				}
 			}
+#ifdef PLUTOVR_BUILD
+			iter = qmRequest.find(QLatin1String("sup"));
+			if (iter != qmRequest.constEnd()) {
+				::PlutoSettingsUpdated();
+			}
+#endif
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("url")) {
 			if (g.sh && g.sh->isRunning() && g.uiSession) {

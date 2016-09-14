@@ -2385,6 +2385,7 @@ void MainWindow::on_qaConfigCert_triggered() {
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {
+	qWarning().nospace() << " Running audio wizard!! " << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	AudioWizard *aw = new AudioWizard(this);
 	aw->exec();
 	delete aw;
@@ -2987,11 +2988,23 @@ void MainWindow::trayAboutToShow() {
 	if (top) {
 		qmTray->addAction(qaQuit);
 		qmTray->addSeparator();
+#ifndef PLUTOVR_BUILD
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
+#else
+		qmTray->addAction(qaConfigDialog);
+		qmTray->addAction(qaServerInformation);
+		qmTray->addAction(qaAudioStats);
+#endif
 	} else {
+#ifndef PLUTOVR_BUILD
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
+#else
+		qmTray->addAction(qaConfigDialog);
+		qmTray->addAction(qaServerInformation);
+		qmTray->addAction(qaAudioStats);
+#endif
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
 	}
