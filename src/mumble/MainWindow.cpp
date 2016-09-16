@@ -2995,6 +2995,7 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaConfigDialog);
 		qmTray->addAction(qaServerInformation);
 		qmTray->addAction(qaAudioStats);
+		qaQuit->setText(QString::fromUtf8("Quit Pluto Voice Chat"));
 #endif
 	} else {
 #ifndef PLUTOVR_BUILD
@@ -3004,6 +3005,7 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaConfigDialog);
 		qmTray->addAction(qaServerInformation);
 		qmTray->addAction(qaAudioStats);
+		qaQuit->setText(QString::fromUtf8("Quit Pluto Voice Chat"));
 #endif
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
