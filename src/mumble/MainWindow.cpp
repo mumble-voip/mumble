@@ -333,7 +333,7 @@ void MainWindow::setupGui()  {
 
 	updateTransmitModeComboBox();
 
-#ifndef Q_OS_MAC
+#if QT_VERSION < 0x050000 && !defined(Q_OS_MAC)
 	setupView(false);
 #endif
 
