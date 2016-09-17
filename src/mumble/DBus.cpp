@@ -61,6 +61,18 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 	QDBusConnection::sessionBus().send(msg.createReply(QString::fromLatin1(u.toEncoded())));
 }
 
+void MumbleDBus::getTalkingUsers(const QDBusMessage &msg) {
+	if (!g.sh || !g.sh->isRunning() || ! g.uiSession) {
+		QDBusConnection::sessionBus().send(msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
+		return;
+	}
+	QStringList names;
+	foreach(ClientUser *cu, ClientUser::getTalking()) {
+		names.append(cu->qsName);
+	}
+	QDBusConnection::sessionBus().send(msg.createReply(names));
+}
+
 void MumbleDBus::focus() {
 	g.mw->show();
 	g.mw->raise();
