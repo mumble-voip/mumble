@@ -22,6 +22,7 @@ class MumbleDBus : public QDBusAbstractAdaptor {
 	public slots:
 		void openUrl(const QString &url, const QDBusMessage &);
 		void getCurrentUrl(const QDBusMessage &);
+		void getTalkingUsers(const QDBusMessage &);
 		void focus();
 		void setSelfMuted(bool mute);
 		void setSelfDeaf(bool deafen);
