@@ -1,5 +1,27 @@
+2016-08-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    9b76777  Bump version to 1.2.17.
+
+2016-08-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    700a2d0  3rdparty/xinputcheck-src: add Xbox One controller (w/ 3.5 mm
+	     jack).
+    b0f377b  GlobalShortcut_win: fix XboxInput button mask in buttonName().
+    c116105  3rdparty/xinputcheck-src: add Xbox One S wireless
+	     (non-Bluetooth) and Xbox One Elite wireless.
+
+2016-08-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    bee6bd5  3rdparty/xinputcheck-src: add Xbox One controller GUIDs to
+	     avoid device list querying for Xbox One controllers.
+
+2016-07-31
+  Nascher <kevin@nascher.org>
+    cadbd57  Log: check for QSizeF::isValid() in Log::validHtml().
+
 2016-05-05
   Mikkel Krautz <mikkel@krautz.dk>
+    3be91dc  Update changelog.
     1471f24  overlay: sync overlay_blacklist.h with master branch.
     6d37604  Use mumble.info instead of mumble.hive.no in publist
 	     registration and crash reporting.
@@ -13,6 +35,20 @@
   Mikkel Krautz <mikkel@krautz.dk>
     c33e5a9  GlobalShortcut_win: only poll XboxInput if there are XInput
 	     devices present.
+
+2016-04-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    3527a53  Log_unix: use plain log message for KDE notifications.
+
+2016-04-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    6d671c6  PulseAudio: fall back to default device if chosen device is no
+	     longer present.
+
+2016-04-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    30adc3d  Log_unix: always send plain text notifications via
+	     org.freedesktop.Notifications.
 
 2016-03-05
   Mikkel Krautz <mikkel@krautz.dk>
