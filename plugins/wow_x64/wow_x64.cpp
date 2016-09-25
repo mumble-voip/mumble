@@ -13,31 +13,31 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// To update visit http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-memory-editing
 	// and look for a thread called "[WoW] [Version] Release Info Dump Thread".
-	// http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-memory-editing/578228-wow-7-0-3-22522-release-info-dump-thread-post3584506.html#post3584506
+	// http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-memory-editing/585582-wow-7-0-3-22624-release-info-dump-thread.html#post3615091
 
 	// Avatar pointer
-	procptr64_t avatar_offset = peekProc<procptr64_t>(pModule + 0x169BCB0); // "LocalPlayer" in the thread.
+	procptr64_t avatar_offset = peekProc<procptr64_t>(pModule + 0x169DF10); // "LocalPlayer" in the thread.
 	if (!avatar_offset) return false;
 
 	// Camera pointer
-	procptr64_t camera_base = peekProc<procptr64_t>(pModule + 0x179A518); // "CameraStruct" in the thread.
+	procptr64_t camera_base = peekProc<procptr64_t>(pModule + 0x179C778); // "CameraStruct" in the thread.
 	if (!camera_base) return false;
 	procptr64_t camera_offset = peekProc<procptr64_t>(camera_base + 0x3338); // "CameraOffset" in the thread.
 	if (!camera_offset) return false;
 
 	// Realm pointer
-	procptr64_t realm_offset = peekProc<procptr64_t>(pModule + 0x1825C68); // Not available in the thread.
+	procptr64_t realm_offset = peekProc<procptr64_t>(pModule + 0x1827EC8); // Not available in the thread.
 	if (!realm_offset) return false;
 
 	// Memory addresses
-	procptr64_t state_address = 0x173C66E; // "GameState" in the thread.
+	procptr64_t state_address = 0x173E8CE; // "GameState" in the thread.
 	procptr64_t avatar_pos_address = 0x15A8; // "UnitOrigin" in the thread.
 	procptr64_t camera_pos_address = 0x10; // "CameraOrigin" in the thread.
 	procptr64_t camera_front_address = 0x1C; // "CameraMatrix" in the thread.
 	procptr64_t camera_top_address = 0x34; // "CameraMatrix" + 0x18.
 	procptr64_t avatar_heading_address = 0x15B8; // "UnitAngle" in the thread.
 	procptr64_t realm_address = 0x430; // Not available in the thread.
-	procptr64_t player_address = 0x1825FC0; // Not available in the thread.
+	procptr64_t player_address = 0x1828220; // Not available in the thread.
 
 	// Boolean value to check if game addresses retrieval is successful
 	bool ok;
@@ -156,7 +156,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports World of Warcraft (x64) with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"World of Warcraft (x64) version 7.0.3.22566"); // Plugin short description
+static std::wstring description(L"World of Warcraft (x64) version 7.0.3.22624"); // Plugin short description
 static std::wstring shortname(L"World of Warcraft"); // Plugin short name
 
 static int trylock1() {
