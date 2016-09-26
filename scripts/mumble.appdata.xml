@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+  <id type="desktop">mumble.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>BSD-3-Clause</project_license>
+  <title>Mumble</title>
+  <summary>Voice Chat Software</summary>
+  <description>
+    <p>Mumble is an open source, low-latency, high quality voice chat software primarily intended for use while gaming.</p>
+  </description>
+  <url type="homepage">https://wiki.mumble.info</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://screenshots.debian.net/screenshots/000/001/906/large.png</image>
+    </screenshot>
+  </screenshots>
+</application>
