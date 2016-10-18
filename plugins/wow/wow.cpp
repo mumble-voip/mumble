@@ -156,7 +156,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports World of Warcraft (x86) with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"World of Warcraft (x86) version 7.0.3.22624"); // Plugin short description
+static std::wstring description(L"World of Warcraft (x86) version 7.0.3.22810"); // Plugin short description
 static std::wstring shortname(L"World of Warcraft"); // Plugin short name
 
 static int trylock1() {
