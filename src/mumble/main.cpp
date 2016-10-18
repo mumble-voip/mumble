@@ -119,7 +119,7 @@ void InitializePlutoSettings()
 	g.s.iQuality = 72000;
 	g.s.iMinLoudness = 2250;
 	g.s.fVolume = 1;
-	g.s.fOtherVolume = 0.95;
+	g.s.fOtherVolume = 0.35;
 	g.s.iNoiseSuppress = -30;
 	g.s.bUpdateCheck = false;
 	g.s.bPluginCheck = false;
