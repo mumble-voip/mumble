@@ -333,7 +333,9 @@ void MainWindow::setupGui()  {
 
 	updateTransmitModeComboBox();
 
-#if QT_VERSION < 0x050000 && !defined(Q_OS_MAC)
+// For Qt >= 5, enable this call (only) for Windows.
+// For Qt < 5, enable for anything but macOS.
+#if (QT_VERSION >= 0x050000 && defined(Q_OS_WIN)) || (QT_VERSION < 0x050000 && !defined(Q_OS_MAC))
 	setupView(false);
 #endif
 

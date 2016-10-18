@@ -495,7 +495,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Gehienezko Erabiltzaileak</translation>
     </message>
     <message>
         <location/>
@@ -5248,7 +5248,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Open the server connection dialog</source>
-        <translation type="unfinished"/>
+        <translation>Ireki zerbitzari zerrenda</translation>
     </message>
     <message>
         <location/>
@@ -5490,7 +5490,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Zeure burua isildu</translation>
+        <translation>Isildu zure burua</translation>
     </message>
     <message>
         <location/>
@@ -5640,7 +5640,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Check for &amp;Updates</source>
-        <translation>%Eguneratze-ak bilatu</translation>
+        <translation>&amp;Eguneraketak bilatu</translation>
     </message>
     <message>
         <location/>
@@ -5730,7 +5730,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Registered &amp;Users</source>
-        <translation>%Erabiltzaile erregistratuak</translation>
+        <translation>&amp;Erabiltzaile erregistratuak</translation>
     </message>
     <message>
         <location/>
@@ -6305,7 +6305,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation>%Ziurtagiri Laguntzailea</translation>
+        <translation>&amp;Ziurtagiri Laguntzailea</translation>
     </message>
     <message>
         <location/>
@@ -7010,7 +7010,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"/>
+        <translation>Segunduko fotograma kontagailu bat erakusten du</translation>
     </message>
     <message>
         <location/>
@@ -7642,7 +7642,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation>Internet Publikoa</translation>
+        <translation>Publikoak</translation>
     </message>
     <message>
         <location line="+7"/>

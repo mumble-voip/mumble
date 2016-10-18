@@ -6,7 +6,7 @@
 #include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-procptr32_t serverid_steamclient, player_engine; // BYTE values to contain modules addresses
+procptr32_t serverid_steamclient, playerid_engine, player_server; // Variables to contain modules addresses
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
@@ -18,7 +18,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
 	float avatar_pos_corrector[3], camera_pos_corrector[3], avatar_front_corrector[3], avatar_top_corrector[3];
 	// Char values for extra features
-	char serverid[22], host[22], servername[50], map[30], player[33];
+	char serverid[22], host[22], servername[50], map[30], player[33], playerid[22];
 	// State
 	BYTE state;
 
@@ -32,7 +32,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			peekProc(pModule + 0x772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
 			peekProc(pModule + 0x772D2C, servername) && // Server name.
 			peekProc(pModule + 0x772C28, map) && // Map name.
-			peekProc(player_engine, player); // Player nickname.
+			peekProc(player_server, player) && // Player nickname.
+			peekProc(playerid_engine, playerid); // Unique player Steam ID.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
@@ -92,13 +93,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		oidentity << std::endl << "\"Map\": null,";
 	}
 
-	// Player
+	// Player nickname
 	player[sizeof(player)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
 	escape(player);
 	if (strcmp(player, "") != 0) {
-		oidentity << std::endl << "\"Player\": \"" << player << "\""; // Set player nickname in identity.
+		oidentity << std::endl << "\"Player\": \"" << player << "\","; // Set player nickname in identity.
 	} else {
-		oidentity << std::endl << "\"Player\": null";
+		oidentity << std::endl << "\"Player\": null,";
+	}
+
+	// Player ID
+	playerid[sizeof(playerid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
+	escape(playerid);
+	if (strcmp(playerid, "") != 0) {
+		oidentity << std::endl << "\"Player ID\": \"" << playerid << "\""; // Set player ID in identity.
+	} else {
+		oidentity << std::endl << "\"Player ID\": null";
 	}
 
 	oidentity << std::endl << "}";
@@ -140,23 +150,33 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
-	if (! initialize(pids, L"left4dead2.exe", L"client.dll")) { // Link the game executable
+	if (! initialize(pids, L"left4dead2.exe", L"client.dll")) { // Retrieve "client.dll" module's memory address
 		return false;
 	}
 
-	procptr32_t steamclient=getModuleAddr(L"steamclient.dll"); // Link "steamclient.dll" module
-	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
+	// Server ID
+	procptr32_t steamclient = getModuleAddr(L"steamclient.dll"); // Retrieve "steamclient.dll" module's memory address
+	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!steamclient)
 		return false;
 
-	serverid_steamclient = steamclient + 0x94D9ED; // Module + Server ID offset
+	serverid_steamclient = steamclient + 0x95E56D; // Module + Server ID offset
 
-	procptr32_t engine=getModuleAddr(L"engine.dll"); // // Link "engine.dll" module
-	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
+	// Player name
+	procptr32_t server = getModuleAddr(L"server.dll"); // Retrieve "server.dll" module's memory address
+	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
+	if (!server)
+		return false;
+
+	player_server = server + 0x7F87BC; // Module + Player offset
+
+	// Player ID
+	procptr32_t engine = getModuleAddr(L"engine.dll"); // Retrieve "engine.dll" module's memory address
+	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!engine)
 		return false;
 
-	player_engine = engine + 0x6795D1; // Module + Player offset
+	playerid_engine = engine + 0x4EBF88; // Module + Player ID offset
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
