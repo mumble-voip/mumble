@@ -14,6 +14,9 @@
       <Component Id="arma2.dll">
         <File Source="$(var.SourceDir)\release\plugins\arma2.dll" KeyPath="yes" />
       </Component>
+      <Component Id="bf1.dll">
+        <File Source="$(var.SourceDir)\release\plugins\bf1.dll" KeyPath="yes" />
+      </Component>
       <Component Id="bf1942.dll">
         <File Source="$(var.SourceDir)\release\plugins\bf1942.dll" KeyPath="yes" />
       </Component>
