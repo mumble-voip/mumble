@@ -155,6 +155,7 @@
       <ComponentRef Id="link.dll" />
       <ComponentRef Id="aoc.dll" />
       <ComponentRef Id="arma2.dll" />
+      <ComponentRef Id="bf1.dll" />
       <ComponentRef Id="bf1942.dll" />
       <ComponentRef Id="bf2.dll" />
       <ComponentRef Id="bf2142.dll" />
