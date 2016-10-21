@@ -585,7 +585,7 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	url.setHost(host);
 	if (port != DEFAULT_MUMBLE_PORT)
 		url.setPort(port);
-	url.setPath(channel);
+	url.setPath(channel, QUrl::StrictMode);
 
 #if QT_VERSION >= 0x050000
 	QUrlQuery query;

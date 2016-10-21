@@ -32,6 +32,7 @@
 #include "ServerHandler.h"
 #include "TextMessage.h"
 #include "Tokens.h"
+#include "URLHandler.h"
 #include "User.h"
 #include "UserEdit.h"
 #include "UserInformation.h"
@@ -851,7 +852,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	unsigned short port = static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT));
 	QString user = url.userName();
 	QString pw = url.password();
-	qsDesiredChannel = url.path();
+	qsDesiredChannel = url.path(QUrl::FullyEncoded);
 	QString name;
 
 #if QT_VERSION >= 0x050000
@@ -905,37 +906,27 @@ void MainWindow::openUrl(const QUrl &url) {
  * @see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
  */
 void MainWindow::findDesiredChannel() {
-	bool found = false;
-	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
-	Channel *chan = Channel::get(0);
-	QString str = QString();
-	while (chan && qlChans.count() > 0) {
-		QString elem = qlChans.takeFirst().toLower();
-		if (elem.isEmpty())
-			continue;
-		if (str.isNull())
-			str = elem;
-		else
-			str = str + QLatin1String("/") + elem;
-		foreach(Channel *c, chan->qlChannels) {
-			if (c->qsName.toLower() == str) {
-				str = QString();
-				found = true;
-				chan = c;
-				break;
-			}
+	if (qsDesiredChannel.isNull()) {
+		if (g.uiSession) {
+			qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
 		}
+		return;
 	}
-	if (found) {
+
+	bool bIsExactMatch = false;
+	Channel *chan = ChannelUrlPathHandler::searchChannelByPath(qsDesiredChannel, bIsExactMatch);
+
+	if (!bIsExactMatch) {
+		g.l->log(Log::Information, tr("The targeted channel could not be found."));
+	}
+
+	if (chan) {
 		if (chan != ClientUser::get(g.uiSession)->cChannel) {
 			g.sh->joinChannel(g.uiSession, chan->iId);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
-	} else {
-		g.l->log(Log::Information, tr("The targeted channel could not be found."));
-		if (g.uiSession) {
-			qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
-		}
+	} else if (g.uiSession) {
+		qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
 	}
 	updateMenuPermissions();
 }
@@ -2098,12 +2089,7 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 		return;
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	// walk back up the channel list to build the URL.
-	while (c->cParent != NULL) {
-		channel.prepend(c->qsName);
-		channel.prepend(QLatin1String("/"));
-		c = c->cParent;
-	}
+	channel = ChannelUrlPathHandler::getUrlPathForChannel(c);
 
 	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
 }
