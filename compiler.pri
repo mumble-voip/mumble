@@ -105,6 +105,31 @@ unix {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 		QMAKE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 	}
+
+	# Note: Mumble and Murmur 1.2.x wasn't developed in C++11 mode,
+	# and has not seen sufficient testing. Use this CONFIG option at
+	# your own risk.
+	CONFIG(c++11) {
+		QMAKE_CXXFLAGS *= -std=c++11
+
+		# Debian seems to put C++11 variants of shared libraries
+		# in /usr/lib/$triple/c++11.
+		#
+		# At least, that is the case for ZeroC Ice.
+		#
+		# The expectation is that this is a general convention,
+		# so add it to our library search path in C++11 mode.
+		MULTIARCH_TRIPLE = $$system($${QMAKE_CXX} -print-multiarch)
+		!isEmpty(MULTIARCH_TRIPLE) {
+			QMAKE_LIBDIR *= /usr/lib/$${MULTIARCH_TRIPLE}/c++11
+		}
+	} else {
+		# If C++11 support hasn't been explicitly enabled,
+		# force C++03 mode. If we don't do this, newer
+		# compilers (such as G++ 6) will default to C++11
+		# without us being aware.
+		QMAKE_CXXFLAGS *= -std=c++03
+	}
 }
 
 unix:!macx {
