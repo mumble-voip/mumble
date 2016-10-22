@@ -226,6 +226,33 @@ unix {
 		QMAKE_OBJECTIVE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 		QMAKE_OBJECTIVE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 	}
+
+	CONFIG(c++11) {
+		# Qt 5 will pass the expected compiler flags
+		# needed for C++11 mode when CONFIG includes c++11.
+		# But Qt 4 won't, so we add it manually.
+		lessThan(QT_MAJOR_VERSION, 5) {
+			QMAKE_CXXFLAGS *= -std=c++11
+		}
+
+		# Debian seems to put C++11 variants of shared libraries
+		# in /usr/lib/$triple/c++11.
+		#
+		# At least, that is the case for ZeroC Ice.
+		#
+		# The expectation is that this is a general convention,
+		# so add it to our library search path in C++11 mode.
+		MULTIARCH_TRIPLE = $$system($${QMAKE_CXX} -print-multiarch)
+		!isEmpty(MULTIARCH_TRIPLE) {
+			QMAKE_LIBDIR *= /usr/lib/$${MULTIARCH_TRIPLE}/c++11
+		}
+	} else {
+		# If C++11 support hasn't been explicitly enabled,
+		# force C++03 mode. If we don't do this, newer
+		# compilers (such as G++ 6) will default to C++11
+		# without us being aware.
+		QMAKE_CXXFLAGS *= -std=c++03
+	}
 }
 
 contains(UNAME, FreeBSD) {
