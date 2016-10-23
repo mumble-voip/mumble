@@ -57,8 +57,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Begin context
-	host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(host);
+	escape(host, sizeof(host));
 	std::ostringstream ocontext;
 	ocontext << " {";
 	if (strcmp(host, "") != 0 && strstr(host, "loopback") == NULL) { // Only include host (IP:Port) if it is not empty and does not include the string "loopback" (which means it's a local server).
@@ -76,8 +75,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	oidentity << "{";
 
 	// Map
-	map[sizeof(map)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(map);
+	escape(map, sizeof(map));
 	if (strcmp(map, "") != 0) {
 		oidentity << std::endl;
 		oidentity << "\"Map\": \"" << map << "\","; // Set map name in identity.

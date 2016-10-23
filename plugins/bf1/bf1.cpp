@@ -88,8 +88,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	std::ostringstream ocontext;
 
 	// Server name
-	server_name[sizeof(server_name)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(server_name);
+	escape(server_name, sizeof(server_name));
 	if (strcmp(server_name, "") != 0) {
 		ocontext << " {\"Server name\": \"" << server_name << "\"}"; // Set context with server name.
 	}
@@ -102,8 +101,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	oidentity << "{";
 
 	// Team
-	team[sizeof(team)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(team);
+	escape(team, sizeof(server_name));
 	if (strcmp(team, "") != 0) {
 		oidentity << std::endl << "\"Team\": \"" << team << "\","; // Set team name in identity.
 	}

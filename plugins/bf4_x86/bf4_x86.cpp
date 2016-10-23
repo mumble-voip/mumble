@@ -62,22 +62,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         return true; // This tells Mumble to ignore all vectors.
     }
 
-    serverid[sizeof(serverid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-    escape(serverid);
+    escape(serverid, sizeof(serverid));
     std::ostringstream ocontext;
     ocontext << " {\"Server ID\": \"" << serverid << "\"}"; // Set context with server ID
     context = ocontext.str();
 
     std::wostringstream oidentity;
     oidentity << "{";
-    host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-    escape(host);
+    escape(host, sizeof(host));
     // Only include host (IP:port) if it is not empty and does not include the string "bot" (which means it's a local server).
     if (strcmp(host, "") != 0 && strstr(host, "bot") == NULL) {
         oidentity << std::endl << "\"Host\": \"" << host << "\",";
     }
 
-    team[sizeof(team)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string Team(team);
     if (!Team.empty()) {
         oidentity << std::endl;

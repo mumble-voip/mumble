@@ -95,7 +95,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	std::ostringstream ocontext;
 
 	// Host
-	host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
 	escape(host);
 	if (strcmp(host, "") != 0 && strstr(host, "127.0.0.1") == NULL) { // Set host string as empty if "127.0.0.1" is found in it.
 		ocontext << " {\"Host\": \"" << host << "\"}"; // Set context with IP address and port
@@ -109,8 +108,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	oidentity << "{";
 
 	// Player
-	player[sizeof(player)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(player);
+	escape(player, sizeof(player));
 	if (strcmp(player, "") != 0) {
 		oidentity << std::endl;
 		oidentity << "\"Player\": \"" << player << "\","; // Set player nickname in identity.
@@ -119,8 +117,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Vehicle
-	vehicle[sizeof(vehicle)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(vehicle);
+	escape(vehicle, sizeof(vehicle));
 	if (strcmp(vehicle, "") != 0) {
 		oidentity << std::endl;
 		oidentity << "\"Vehicle\": \"" << vehicle << "\","; // Set vehicle name in identity.
@@ -129,8 +126,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Location
-	location[sizeof(location)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(location);
+	escape(location, sizeof(location));
 	if (strcmp(location, "") != 0) {
 		oidentity << std::endl;
 		oidentity << "\"Location\": \"" << location << "\","; // Set location name in identity.
@@ -139,8 +135,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Street
-	street[sizeof(street)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(street);
+	escape(street, sizeof(street));
 	if (strcmp(street, "") != 0) {
 		oidentity << std::endl;
 		oidentity << "\"Street\": \"" << street << "\""; // Set street name in identity.
