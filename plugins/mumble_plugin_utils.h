@@ -17,7 +17,14 @@
 // allows the string to be safely used
 // when constructing JSON documents via
 // string concatenation.
-static void escape(char *str) {
+//
+// Finally, escape ensures that the given
+// string is NUL-terminated by always
+// setting the last byte of the input
+// string to the value 0.
+static void escape(char *str, size_t size) {
+    // Ensure the input string is properly NUL-terminated.
+    str[size-1] = 0;
     char *c = str;
 
     while (*c != '\0') {
