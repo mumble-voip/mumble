@@ -75,8 +75,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	std::ostringstream ocontext;
 
 	// Realm
-	realm[sizeof(realm)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(realm);
+	escape(realm, sizeof(realm));
 	if (strcmp(realm, "") != 0) { // Set Realm string only if not empty
 		ocontext << " {\"Realm\": \"" << realm << "\"}"; // Set context with Realm's name
 	}
@@ -89,8 +88,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	oidentity << "{";
 
 	// Player
-	player[sizeof(player)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(player);
+	escape(player, sizeof(player));
 	if (strcmp(player, "") != 0) {
 		oidentity << std::endl;
 		oidentity << "\"Player\": \"" << player << "\""; // Set player nickname in identity.
@@ -156,7 +154,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports World of Warcraft (x86) with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"World of Warcraft (x86) version 7.0.3.22624"); // Plugin short description
+static std::wstring description(L"World of Warcraft (x86) version 7.0.3.22810"); // Plugin short description
 static std::wstring shortname(L"World of Warcraft"); // Plugin short name
 
 static int trylock1() {

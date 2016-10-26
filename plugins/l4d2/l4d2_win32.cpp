@@ -52,8 +52,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Begin context
-	serverid[sizeof(serverid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(serverid);
+	escape(serverid, sizeof(serverid));
 	std::ostringstream ocontext;
 	if (strcmp(serverid, "") != 0) {
 		ocontext << " {\"Server ID\": \"" << serverid << "\"}"; // Set context with IP address and port
@@ -67,8 +66,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	oidentity << "{";
 
 	// Host
-	host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(host);
+	escape(host, sizeof(host));
 	if (strcmp(host, "") != 0 && strstr(host, "loopback") == NULL) { // Only include host (IP:Port) if it is not empty and does not include the string "loopback" (which means it's a local server).
 		oidentity << std::endl << "\"Host\": \"" << host << "\","; // Set host address in identity.
 	} else {
@@ -76,8 +74,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Server name
-	servername[sizeof(servername)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(servername);
+	escape(servername, sizeof(servername));
 	if (strcmp(servername, "") != 0) {
 		oidentity << std::endl << "\"Server name\": \"" << servername << "\","; // Set server name in identity.
 	} else {
@@ -85,8 +82,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Map
-	map[sizeof(map)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(map);
+	escape(map, sizeof(map));
 	if (strcmp(map, "") != 0) {
 		oidentity << std::endl << "\"Map\": \"" << map << "\","; // Set map name in identity.
 	} else {
@@ -94,8 +90,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Player nickname
-	player[sizeof(player)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(player);
+	escape(player, sizeof(player));
 	if (strcmp(player, "") != 0) {
 		oidentity << std::endl << "\"Player\": \"" << player << "\","; // Set player nickname in identity.
 	} else {
@@ -103,8 +98,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Player ID
-	playerid[sizeof(playerid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-	escape(playerid);
+	escape(playerid, sizeof(playerid));
 	if (strcmp(playerid, "") != 0) {
 		oidentity << std::endl << "\"Player ID\": \"" << playerid << "\""; // Set player ID in identity.
 	} else {
