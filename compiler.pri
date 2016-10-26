@@ -248,10 +248,18 @@ unix {
 		}
 	} else {
 		# If C++11 support hasn't been explicitly enabled,
-		# force C++03 mode. If we don't do this, newer
+		# force C++98/C++03 mode. If we don't do this, newer
 		# compilers (such as G++ 6) will default to C++11
 		# without us being aware.
-		QMAKE_CXXFLAGS *= -std=c++03
+		#
+		# The flag passed below might seem archaic. And it is.
+		# But GCC treats -std=c++98, -std=c++03 and -ansi to
+		# mean the same thing. (See the GCC man page in Debian,
+		# or https://gcc.gnu.org/onlinedocs/gcc/Standards.html)
+		# We use the -std=c++98 variant to be compatible with
+		# older compilers such as CentOS 5's default compiler,
+		# GCC 4.1.
+		QMAKE_CXXFLAGS *= -std=c++98
 	}
 }
 
