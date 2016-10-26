@@ -124,7 +124,8 @@ void InitializePlutoSettings()
 	g.s.bUpdateCheck = false;
 	g.s.bPluginCheck = false;
 	g.s.bQoS = false;
-	g.s.bReconnect = false;
+	g.s.bReconnect = true;
+	g.s.bAutoConnect = false;
 	g.s.bHideInTray = true;
 	g.s.disablePublicList = true;
 	g.s.disableConnectDialogEditing = false;
