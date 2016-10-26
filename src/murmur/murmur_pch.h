@@ -26,6 +26,8 @@
 #include <QtDBus/QtDBus>
 #endif
 
+#include "QAtomicIntCompat.h"
+
 #ifdef Q_OS_WIN
 #include <QtGui/QtGui>
 #if QT_VERSION >= 0x050000
