@@ -14,9 +14,6 @@
       <Component Id="arma2.dll">
         <File Source="$(var.SourceDir)\release\plugins\arma2.dll" KeyPath="yes" />
       </Component>
-      <Component Id="bf1.dll">
-        <File Source="$(var.SourceDir)\release\plugins\bf1.dll" KeyPath="yes" />
-      </Component>
       <Component Id="bf1942.dll">
         <File Source="$(var.SourceDir)\release\plugins\bf1942.dll" KeyPath="yes" />
       </Component>
@@ -34,9 +31,6 @@
       </Component>
       <Component Id="bfheroes.dll">
         <File Source="$(var.SourceDir)\release\plugins\bfheroes.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="bf4.dll">
-        <File Source="$(var.SourceDir)\release\plugins\bf4.dll" KeyPath="yes" />
       </Component>
       <Component Id="bf4_x86.dll">
         <File Source="$(var.SourceDir)\release\plugins\bf4_x86.dll" KeyPath="yes" />
@@ -88,9 +82,6 @@
       </Component>
       <Component Id="gtaiv.dll">
         <File Source="$(var.SourceDir)\release\plugins\gtaiv.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="gtav.dll">
-        <File Source="$(var.SourceDir)\release\plugins\gtav.dll" KeyPath="yes" />
       </Component>
       <Component Id="gw.dll">
         <File Source="$(var.SourceDir)\release\plugins\gw.dll" KeyPath="yes" />
@@ -146,23 +137,33 @@
       <Component Id="wow.dll">
         <File Source="$(var.SourceDir)\release\plugins\wow.dll" KeyPath="yes" />
       </Component>
-      <Component Id="wow_x64.dll">
-        <File Source="$(var.SourceDir)\release\plugins\wow_x64.dll" KeyPath="yes" />
-      </Component>
+
+      <?if $(sys.BUILDARCH) = "x64" ?>
+        <Component Id="bf1.dll">
+          <File Source="$(var.SourceDir)\release\plugins\bf1.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="bf4.dll">
+          <File Source="$(var.SourceDir)\release\plugins\bf4.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="gtav.dll">
+          <File Source="$(var.SourceDir)\release\plugins\gtav.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="wow_x64.dll">
+          <File Source="$(var.SourceDir)\release\plugins\wow_x64.dll" KeyPath="yes" />
+        </Component>
+      <?endif ?>
     </DirectoryRef>
 
     <ComponentGroup Id="Plugins">
       <ComponentRef Id="link.dll" />
       <ComponentRef Id="aoc.dll" />
       <ComponentRef Id="arma2.dll" />
-      <ComponentRef Id="bf1.dll" />
       <ComponentRef Id="bf1942.dll" />
       <ComponentRef Id="bf2.dll" />
       <ComponentRef Id="bf2142.dll" />
       <ComponentRef Id="bf3.dll" />
       <ComponentRef Id="bfbc2.dll" />
       <ComponentRef Id="bfheroes.dll" />
-      <ComponentRef Id="bf4.dll" />
       <ComponentRef Id="bf4_x86.dll" />
       <ComponentRef Id="borderlands.dll" />
       <ComponentRef Id="borderlands2.dll" />
@@ -180,7 +181,6 @@
       <ComponentRef Id="etqw.dll" />
       <ComponentRef Id="gmod.dll" />
       <ComponentRef Id="gtaiv.dll" />
-      <ComponentRef Id="gtav.dll" />
       <ComponentRef Id="gw.dll" />
       <ComponentRef Id="hl2dm.dll" />
       <ComponentRef Id="insurgency.dll" />
@@ -199,7 +199,13 @@
       <ComponentRef Id="ut3.dll" />
       <ComponentRef Id="wolfet.dll" />
       <ComponentRef Id="wow.dll" />
-      <ComponentRef Id="wow_x64.dll" />
+
+      <?if $(sys.BUILDARCH) = "x64" ?>
+        <ComponentRef Id="bf1.dll" />
+        <ComponentRef Id="bf4.dll" />
+        <ComponentRef Id="gtav.dll" />
+        <ComponentRef Id="wow_x64.dll" />
+      <?endif ?>
     </ComponentGroup>
   </Fragment>
 </Wix>
