@@ -3,102 +3,173 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-procptr32_t posptr, rotptr;
+static procptr32_t steamclient, engine; // Variables to contain modules addresses
 
-static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
-	float h = rot[0];
-	float v = rot[1];
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+	for (int i=0;i<3;i++) {
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
+	}
 
-	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
+	// Boolean value to check if game addresses retrieval is successful
+	bool ok;
+	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
+	float avatar_pos_corrector[3], camera_pos_corrector[3], camera_front_corrector[3], camera_top_corrector[3];
+	// Char values for extra features
+	char serverid[22], host[22], map[30], playerid[22];
+	// State
+	bool state;
+
+	// State pointers
+	procptr32_t state_base = peekProc<procptr32_t>(pModule + 0x5A7354);
+	if (state_base == 0) return false;
+	procptr32_t state_offset = peekProc<procptr32_t>(state_base + 0x5C);
+	if (state_offset == 0) return false;
+
+	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
+	ok = peekProc(state_offset + 0x8, state) && // Magical state value: 0 when not playing and 1 when in-game.
+			peekProc(pModule + 0x512264, avatar_pos_corrector) && // Avatar position values (X, Z and Y).
+			peekProc(pModule + 0x5943B0, camera_pos_corrector) && // Camera position values (X, Z and Y).
+			peekProc(pModule + 0x594410, camera_front_corrector) && // Front vector values (X, Z and Y).
+			peekProc(pModule + 0x594440, camera_top_corrector) && // Top vector values (X, Z and Y).
+			peekProc(steamclient + 0x95E56D, serverid) && // Unique server Steam ID.
+			peekProc(engine + 0x61F5D8, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server and "loopback" when on a local server.
+			peekProc(pModule + 0x5A7A29, map) && // Map name.
+			peekProc(engine + 0x40CF00, playerid); // Unique player Steam ID.
+
+	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
+	if (! ok)
 		return false;
 
-	h *= static_cast<float>(M_PI / 180.0f);
-	v *= static_cast<float>(M_PI / 180.0f);
+	// State
+	if (!state) { // If not in-game
+		context.clear(); // Clear context
+		identity.clear(); // Clear identity
 
-	// Seems L4D is in inches. INCHES?!?
-	opos[0] = pos[0] / 39.37f;
-	opos[1] = pos[2] / 39.37f;
-	opos[2] = pos[1] / 39.37f;
+		// Set vectors values to 0.
+		for (int i=0;i<3;i++) {
+			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
+		}
 
-	front[0] = cos(v) * cos(h);
-	front[1] = -sin(h);
-	front[2] = sin(v) * cos(h);
+		return true; // This tells Mumble to ignore all vectors.
+	}
 
-	h -= static_cast<float>(M_PI / 2.0f);
+	// Begin context
+	escape(serverid, sizeof(serverid));
+	escape(host, sizeof(host));
+	std::ostringstream ocontext;
+	if (strcmp(serverid, "") != 0) {
+		ocontext << " {\"Server ID\": \"" << serverid << "\"}"; // Set context with server ID
+	} else {
+		ocontext << " {\"Host\": \"" << host << "\"}"; // Set context with IP address and port
+	}
 
-	top[0] = cos(v) * cos(h);
-	top[1] = -sin(h);
-	top[2] = sin(v) * cos(h);
+	context = ocontext.str();
+	// End context
+
+	// Begin identity
+	std::wostringstream oidentity;
+	oidentity << "{";
+
+	// Host
+	if (strcmp(host, "") != 0 && strstr(host, "loopback") == NULL) { // Only include host (IP:Port) if it is not empty and does not include the string "loopback" (which means it's a local server).
+		oidentity << std::endl << "\"Host\": \"" << host << "\","; // Set host address in identity.
+	} else {
+		oidentity << std::endl << "\"Host\": null,";
+	}
+
+	// Map
+	escape(map, sizeof(map));
+	if (strcmp(map, "") != 0) {
+		oidentity << std::endl << "\"Map\": \"" << map << "\","; // Set map name in identity.
+	} else {
+		oidentity << std::endl << "\"Map\": null,";
+	}
+
+	// Player ID
+	escape(playerid, sizeof(playerid));
+	if (strcmp(playerid, "") != 0) {
+		oidentity << std::endl << "\"Player ID\": \"" << playerid << "\""; // Set player ID in identity.
+	} else {
+		oidentity << std::endl << "\"Player ID\": null";
+	}
+
+	oidentity << std::endl << "}";
+	identity = oidentity.str();
+	// End identity
+
 	/*
-		printf("Poll\n");
-		printf("%f %f %f : %f %f\n",pos[0],pos[1],pos[2], rot[0], rot[1]);
-		printf("%f %f %f :: %.2f %.2f %.2f :: %.2f %.2f %.2f\n", opos[0], opos[1], opos[2], front[0], front[1], front[2], top[0], top[1], top[2]);
+	Mumble | Game
+	X      | X
+	Y      | Z
+	Z      | Y
 	*/
+	avatar_pos[0] = avatar_pos_corrector[0];
+	avatar_pos[1] = avatar_pos_corrector[2];
+	avatar_pos[2] = avatar_pos_corrector[1];
+
+	camera_pos[0] = camera_pos_corrector[0];
+	camera_pos[1] = camera_pos_corrector[2];
+	camera_pos[2] = camera_pos_corrector[1];
+
+	camera_front[0] = camera_front_corrector[0];
+	camera_front[1] = camera_front_corrector[2];
+	camera_front[2] = camera_front_corrector[1];
+
+	camera_top[0] = camera_top_corrector[0];
+	camera_top[1] = camera_top_corrector[2];
+	camera_top[2] = camera_top_corrector[1];
+
+	// Convert from inches to meters and sync avatar vectors with camera ones
+	for (int i=0;i<3;i++) {
+		avatar_pos[i]/=39.37f;
+		camera_pos[i]/=39.37f;
+		avatar_front[i] = camera_front[i];
+		avatar_top[i] = camera_top[i];
+	}
+
 	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = rotptr = NULL;
 
-	if (! initialize(pids, L"left4dead.exe", L"client.dll"))
+	if (! initialize(pids, L"left4dead.exe", L"client.dll")) { // Retrieve "client.dll" module's memory address
+		return false;
+	}
+
+	// Server ID
+	steamclient = getModuleAddr(L"steamclient.dll"); // Retrieve "steamclient.dll" module's memory address
+	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
+	if (steamclient == 0)
 		return false;
 
-	posptr = pModule + 0x596E30;
-	rotptr = pModule + 0x596E3C;
+	// Host & Player ID
+	engine = getModuleAddr(L"engine.dll"); // Retrieve "engine.dll" module's memory address
+	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
+	if (engine == 0)
+		return false;
 
-	float pos[3];
-	float rot[3];
+	// Check if we can get meaningful data from it
+	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
+	std::wstring sidentity;
+	std::string scontext;
 
-	bool ok = peekProc(posptr, pos, 12) &&
-	          peekProc(rotptr, rot, 12);
-
-	if (ok) {
-		float opos[3], top[3], front[3];
-		return calcout(pos, rot, opos, top, front);
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+		return true;
+	} else {
+		generic_unlock();
+		return false;
 	}
-
-	generic_unlock();
-
-	return false;
-}
-
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	for (int i=0;i<3;i++)
-		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
-
-	float ipos[3], rot[3];
-	bool ok;
-
-	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12);
-
-	if (ok) {
-		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
-		if (res) {
-			for (int i=0;i<3;++i) {
-				camera_pos[i] = avatar_pos[i];
-				camera_front[i] = avatar_front[i];
-				camera_top[i] = avatar_top[i];
-
-				// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
-				context = std::string("server/map/blah");
-				identity = std::wstring(L"STEAM_1:2:3456789");
-			}
-			return res;
-		}
-	}
-
-	return false;
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D version 4440 only. Supports no fancy stuff.");
+	return std::wstring(L"Supports Left 4 Dead version 1.0.3.1 with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Left 4 Dead (Build 4440)");
-static std::wstring shortname(L"Left 4 Dead");
+static std::wstring description(L"Left 4 Dead (v1.0.3.1)"); // Plugin short description
+static std::wstring shortname(L"Left 4 Dead"); // Plugin short name
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
