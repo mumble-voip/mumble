@@ -79,7 +79,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	bool ok;
 	BYTE logincheck;
-	ok = peekProc(login_ptr, &logincheck, 1);
+	ok = peekProc(login_ptr, logincheck);
 	if (! ok)
 		return false;
 
@@ -87,7 +87,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	BYTE state;
-	ok = peekProc(state_ptr , &state, 1); // Magical state value
+	ok = peekProc(state_ptr , state); // Magical state value
 	if (! ok)
 		return false;
 
@@ -109,14 +109,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE is_in_squad;
 	BYTE is_opfor;
 
-	ok = peekProc(pos_ptr, avatar_pos, 12) &&
-	     peekProc(face_ptr, avatar_front, 12) &&
-	     peekProc(top_ptr, avatar_top, 12) &&
-	     peekProc(ipport_ptr, ccontext, 128) &&
-	     peekProc(commander_ptr, &is_commander, 1) &&
-	     peekProc(squad_leader_ptr, &is_squad_leader, 1) &&
-	     peekProc(squad_state_ptr, &is_in_squad, 1) &&
-	     peekProc(team_state_ptr, &is_opfor, 1);
+	ok = peekProc(pos_ptr, avatar_pos) &&
+	     peekProc(face_ptr, avatar_front) &&
+	     peekProc(top_ptr, avatar_top) &&
+	     peekProc(ipport_ptr, ccontext) &&
+	     peekProc(commander_ptr, is_commander) &&
+	     peekProc(squad_leader_ptr, is_squad_leader) &&
+	     peekProc(squad_state_ptr, is_in_squad) &&
+	     peekProc(team_state_ptr, is_opfor);
 
 	if (! ok)
 		return false;

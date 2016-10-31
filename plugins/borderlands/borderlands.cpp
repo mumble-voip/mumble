@@ -76,9 +76,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float pos_corrector[3];
 	float front_corrector[3];
 	float top_corrector[3];
-	ok = peekProc(posptr, &pos_corrector, 12) &&
-	     peekProc(frontptr, &front_corrector, 12) &&
-	     peekProc(topptr, &top_corrector, 12);
+	ok = peekProc(posptr, pos_corrector) &&
+	     peekProc(frontptr, front_corrector) &&
+	     peekProc(topptr, top_corrector);
 	if (! ok)
 		return false;
 
