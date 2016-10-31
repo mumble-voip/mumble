@@ -65,18 +65,18 @@ typedef struct {
 static int setuppointers() {
 	procptr32_t character_manager, local_player, character, camera_manager;
 
-	if (!peekProc(pModule + off_character_manager, &character_manager, 4) || !character_manager)
+	if (!peekProc(pModule + off_character_manager, character_manager) || !character_manager)
 		return false;
 
-	if (!peekProc(character_manager + off_local_player, &local_player, 4) || !local_player)
+	if (!peekProc(character_manager + off_local_player, local_player) || !local_player)
 		return false;
 
-	if (!peekProc(local_player + off_character, &character, 4) || !character)
+	if (!peekProc(local_player + off_character, character) || !character)
 		return false;
 
 	char_matrix_ptr = character + off_char_matrix;
 
-	if (!peekProc(pModule + off_camera_manager, &camera_manager, 4) || !camera_manager)
+	if (!peekProc(pModule + off_camera_manager, camera_manager) || !camera_manager)
 		return false;
 
 	cam_matrix_ptr = camera_manager + off_cam_matrix;

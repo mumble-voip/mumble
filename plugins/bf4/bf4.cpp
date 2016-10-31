@@ -36,11 +36,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     if (!squad_offset_2) return false;
 
     // Peekproc and assign game addresses to our containers, so we can retrieve positional data
-    ok = peekProc(pModule + 0x21CAFF0, &state, 1) && // Magical state value: 0 when in-game and 1 when in menu/dead.
-            peekProc(pModule + 0x21C6D40, avatar_pos, 12) && // Avatar Position values (X, Y and Z).
-            peekProc(pModule + 0x21CAF80, camera_pos, 12) && // Camera Position values (X, Y and Z).
-            peekProc(pModule + 0x21CAF60, avatar_top, 12) && // Avatar Top Vector values (X, Y and Z).
-            peekProc(pModule + 0x21CAF70, avatar_front, 12) && // Avatar Front Vector values (X, Y and Z).
+    ok = peekProc(pModule + 0x21CAFF0, state) && // Magical state value: 0 when in-game and 1 when in menu/dead.
+            peekProc(pModule + 0x21C6D40, avatar_pos) && // Avatar Position values (X, Y and Z).
+            peekProc(pModule + 0x21CAF80, camera_pos) && // Camera Position values (X, Y and Z).
+            peekProc(pModule + 0x21CAF60, avatar_top) && // Avatar Top Vector values (X, Y and Z).
+            peekProc(pModule + 0x21CAF70, avatar_front) && // Avatar Front Vector values (X, Y and Z).
             peekProc(serverid_offset, serverid) && // Server ID (36 characters).
             peekProc(pModule + 0x21B80C0, host) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
             peekProc(pModule + 0x24AFAE5, team) && // Team value: US (United States); RU (Russia); CH (China).

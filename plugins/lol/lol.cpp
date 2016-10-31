@@ -113,12 +113,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!peekProc<procptr32_t>(gameptr))
 		return false;
 
-	ok = peekProc(camfrontptr, camera_front, 12) &&
-		 peekProc(camptr, cam, 12) &&
-		 peekProc(posptr, ipos, 12) &&
-		 peekProc(afrontptr, avatar_front, 12) &&
+	ok = peekProc(camfrontptr, camera_front) &&
+		 peekProc(camptr, cam) &&
+		 peekProc(posptr, ipos) &&
+		 peekProc(afrontptr, avatar_front) &&
 		 peekProc(hostipptr, hostip) &&
-		 peekProc(hostportptr, &hostport, 4);
+		 peekProc(hostportptr, hostport);
 
 	if (!ok) 
 		return false;

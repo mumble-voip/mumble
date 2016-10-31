@@ -62,14 +62,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x009270F0		byte	Magical state value
 	*/
 
-	ok = peekProc(0x019713F0, &specops, 1); // Magical state value
+	ok = peekProc(0x019713F0, specops); // Magical state value
 	if (! ok)
 		return false;
 
 	if (specops != 2)
 		return false; // 2 value indicates you are playing Special Ops, 1 indicates SP, 0 indicates at three-way selection menu
 
-	ok = peekProc(0x009270F0, &state, 1); // Magical state value
+	ok = peekProc(0x009270F0, state); // Magical state value
 	if (! ok)
 		return false;
 
@@ -85,11 +85,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc(0x00783A64, avatar_pos+2, 4) &&	//Z
-	     peekProc(0x00783A68, avatar_pos, 4) &&	//X
-	     peekProc(0x00783A6C, avatar_pos+1, 4) && //Y
-	     peekProc(0x00783A34, &viewHor, 4) && //Hor
-	     peekProc(0x00783A30, &viewVer, 4); //Ver
+	ok = peekProc(0x00783A64, avatar_pos[2]) &&	//Z
+	     peekProc(0x00783A68, avatar_pos[0]) &&	//X
+	     peekProc(0x00783A6C, avatar_pos[1]) && //Y
+	     peekProc(0x00783A34, viewHor) && //Hor
+	     peekProc(0x00783A30, viewVer); //Ver
 
 	if (! ok)
 		return false;

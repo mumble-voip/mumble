@@ -27,7 +27,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x0098FD2C		byte	Magical state value
 	*/
-	ok = peekProc(0x0098FD2C, &state, 1); // Magical state value
+	ok = peekProc(0x0098FD2C, state); // Magical state value
 	if (! ok)
 		return false;
 	/*
@@ -42,11 +42,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc(0x008DE23C, avatar_pos+2, 4) &&	//Z
-	     peekProc(0x008DE234, avatar_pos, 4) &&	//X
-	     peekProc(0x008DE238, avatar_pos+1, 4) && //Y
-	     peekProc(0x008DE244, &viewHor, 4) && //Hor
-	     peekProc(0x008DE240, &viewVer, 4); //Ver
+	ok = peekProc(0x008DE23C, avatar_pos[2]) &&	//Z
+	     peekProc(0x008DE234, avatar_pos[0]) &&	//X
+	     peekProc(0x008DE238, avatar_pos[1]) && //Y
+	     peekProc(0x008DE244, viewHor) && //Hor
+	     peekProc(0x008DE240, viewVer); //Ver
 
 	if (! ok)
 		return false;
