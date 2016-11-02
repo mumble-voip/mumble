@@ -76,12 +76,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	                        |                   270     T spawn
 	*/
 
-	ok = peekProc(pModule + 0x11D470, avatar_pos, 12) &&
-	     peekProc(pModule + 0x11D47C, &fViewHor, 4) &&
-	     peekProc(pModule + 0x11D480, &fViewVer, 4) &&
-	     peekProc(pModule + 0xFC228, &bConnected, 1) &&
-	     peekProc(pModule + 0xFBC2C, &cPlayerState, 1) &&
-	     peekProc(pEngine + 0x697E60, cHostAddr, 40);
+	ok = peekProc(pModule + 0x11D470, avatar_pos) &&
+	     peekProc(pModule + 0x11D47C, fViewHor) &&
+	     peekProc(pModule + 0x11D480, fViewVer) &&
+	     peekProc(pModule + 0xFC228, bConnected) &&
+	     peekProc(pModule + 0xFBC2C, cPlayerState) &&
+	     peekProc(pEngine + 0x697E60, cHostAddr);
 	if (!ok)
 		return false;
 

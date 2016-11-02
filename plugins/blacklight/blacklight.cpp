@@ -90,8 +90,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char hostipport[sizeof(prev_hostipport)];
 
-	ok = peekProc(camfrontptr, camfront, 12) &&
-		 peekProc(camtopptr, camtop, 12) &&
+	ok = peekProc(camfrontptr, camfront) &&
+		 peekProc(camtopptr, camtop) &&
 		 peekProc(hostipportptr, hostipport) &&
 		 peekProc(camptr, cam);
 
