@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Valor por defecto do servidor</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -235,7 +235,7 @@ Este valor permíteche cambiar o xeito no que Mumble coloca as canles na árbore
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"/>
+        <translation>Esto move a entrada cara arriba na lista. As entradas evalúanse en orde, esto podería cambiar os permisos efectivos dos usuarios. Non se pode mover unha entrada por riba de unha entrada herdada, se realmente o precisas terás que duplicar a entrada herdada.</translation>
     </message>
     <message>
         <location/>
@@ -245,12 +245,12 @@ Este valor permíteche cambiar o xeito no que Mumble coloca as canles na árbore
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>Mover entrada cara abaixo</translation>
     </message>
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation type="unfinished"/>
+        <translation>Esto move a entrada cara abaixo na lista. As entradas son evaluadas en orde, esto podería cambiar os permisos dos usuarios.</translation>
     </message>
     <message>
         <location/>
@@ -296,108 +296,109 @@ Este valor permíteche cambiar o xeito no que Mumble coloca as canles na árbore
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"/>
+        <translation>A entrada debería afectar a este canle.</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Esto fai que a entrada afecte a esta canle.</translation>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation type="unfinished"/>
+        <translation>Afecta a este canle.</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>A entrada debería afectar ós sub-canales.</translation>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>Engadir un novo grupo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Engadir&lt;/b&gt;&lt;br/&gt;
+Engadir un novo grupo.</translation>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>Membros herdados</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Contén a lista de membros engadidos ó grupo por esta canle.</translation>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>Contén a lista de membros dos cales non serán herdados os grupos os que pertencen dende a canle pai.</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"/>
+        <translation>Contén a lista de membros herdados por outras canles.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Introduce o nome do usuario que desexas engadir ó grupo e fai click en Engadir.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Introduce o nome do usuario que desexas eliminar do grupo e fai click en Engadir.</translation>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation type="unfinished"/>
+        <translation>Excluir</translation>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation type="unfinished"/>
+        <translation>Membros excluídos</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Esto fai que a entrada se aplique ás sub-canles desta canle.</translation>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>Afecta ás sub-canles</translation>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>Permisos</translation>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>Usuario/Grupo</translation>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Grupos ós que esta entrada afecta</translation>
     </message>
     <message>
         <location/>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>ID Usuario</translation>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Usuario ó que afecta esta entrada</translation>
     </message>
     <message>
         <location/>
@@ -407,12 +408,12 @@ Add a new group.</source>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Propiedades</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br /&gt;Introduce o nome da canle neste campo. O nome debe cumplir cas restricción impostas polo servidor o que estás conectado.</translation>
     </message>
     <message>
         <location/>
@@ -482,17 +483,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>ID da canle.</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Número Máximo de Usuarios</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Número máximo de usuarios permitidos na canle</translation>
     </message>
     <message>
         <location/>
@@ -506,12 +507,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Tarxeta ALSA por defecto</translation>
     </message>
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallou a apertura do dispositivo ALSA: %1</translation>
     </message>
 </context>
 <context>
@@ -519,12 +520,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Tarxeta ALSA por defecto</translation>
     </message>
     <message>
         <location line="+328"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Fallou a apertura do dispositivo ALSA: %1</translation>
     </message>
 </context>
 <context>
@@ -532,7 +533,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (versión %2)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -555,7 +556,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation type="unfinished"/>
+        <translation>ASIO</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
@@ -565,12 +566,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>Selección de dispositivo</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Dispositivo</translation>
     </message>
     <message>
         <location/>
@@ -585,7 +586,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation type="unfinished"/>
+        <translation>Consultar el dispositivo seleccionado</translation>
     </message>
     <message>
         <location/>
@@ -595,12 +596,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Consulta</translation>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation type="unfinished"/>
+        <translation>Configurar o dispositivo seleccionado</translation>
     </message>
     <message>
         <location/>
@@ -610,22 +611,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Configurar</translation>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation type="unfinished"/>
+        <translation>Capacidades</translation>
     </message>
     <message>
         <location/>
         <source>Driver name</source>
-        <translation type="unfinished"/>
+        <translation>Nome do driver</translation>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>Tamaño do buffer</translation>
     </message>
     <message>
         <location/>
@@ -635,27 +636,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation type="unfinished"/>
+        <translation>Configurar canles de entrada</translation>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>Canles</translation>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation type="unfinished"/>
+        <translation>Micrófono</translation>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation type="unfinished"/>
+        <translation>&lt;-</translation>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation type="unfinished"/>
+        <translation>-&gt;</translation>
     </message>
     <message>
         <location/>
@@ -665,7 +666,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Speakers</source>
-        <translation type="unfinished"/>
+        <translation>Altofalantes</translation>
     </message>
 </context>
 <context>
@@ -686,7 +687,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Acerca de Mumble</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -696,12 +697,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+12"/>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Acerca de Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Licencia</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -711,7 +712,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -719,22 +720,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>Interfaz</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>Sistema</translation>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Método de entrada para o audio</translation>
     </message>
     <message>
         <location/>
@@ -744,12 +745,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Dispositivo</translation>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Dispositivo de entrada para o audio</translation>
     </message>
     <message>
         <location/>
@@ -759,17 +760,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished"/>
+        <translation>Transmisión</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Transmitir</translation>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"/>
+        <translation>Cando transmitir a súa voz</translation>
     </message>
     <message>
         <location/>
@@ -814,12 +815,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Off</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>On</translation>
     </message>
     <message>
         <location/>
@@ -844,7 +845,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation type="unfinished"/>
+        <translation>Amplitude</translation>
     </message>
     <message>
         <location/>
@@ -879,17 +880,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Compression</source>
-        <translation type="unfinished"/>
+        <translation>Compresión</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Calidade</translation>
     </message>
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"/>
+        <translation>Calidade da compresión (pico ancho de banda)</translation>
     </message>
     <message>
         <location/>
@@ -899,7 +900,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation type="unfinished"/>
+        <translation>Audio por paquete</translation>
     </message>
     <message>
         <location/>
@@ -919,17 +920,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation type="unfinished"/>
+        <translation>Procesado de Audio</translation>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation type="unfinished"/>
+        <translation>Supresión de Ruido</translation>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation type="unfinished"/>
+        <translation>Supresión de ruido</translation>
     </message>
     <message>
         <location/>
@@ -1014,22 +1015,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"/>
+        <translation>R&amp;eset</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Buscar...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"/>
+        <translation>B&amp;uscar...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Previsualizar</translation>
     </message>
     <message>
         <location/>
@@ -1049,7 +1050,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Misc</translation>
     </message>
     <message>
         <location/>
