@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Valor por defecto del servidor</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Número Máximo de Usuarios</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Número máximo de usuarios permitidos en el canal</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Número Máximo de Usuarios&lt;/b&gt;&lt;br /&gt;
+Este valor permite fijar el número máximo de usuarios permitidos en el canal. Si el valor es superior a cero, solo dicho número de usuarios podrán ingresar en el canal. Si el valor es cero, el número máximo de usuarios en el canal está definido por el número de usuarios máximo por defecto del servidor.</translation>
     </message>
 </context>
 <context>
@@ -697,7 +698,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de chat de voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1135,17 +1136,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Cancelación de Eco</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Cancelación de eco mixta</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Cancelación de eco multicanal</translation>
     </message>
 </context>
 <context>
@@ -1513,37 +1514,37 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Opciones Avanzadas de Atenuación</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Si está marcada, Mumble sólo atenuará aplicaciones que compartan el dispositivo de salida con Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Atenuar únicamente las aplicaciones que compartan dispositivo de salida con Mumble&lt;/b&gt;&lt;br /&gt;Si esta marcada, las aplicaciones que usen un dispositivo de salida distinto a Mumble no se atenuarán.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Atenuar únicamente aplicaciones que empleen el mismo dispositivo de salida.</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Si está marcada, los módulos de loopback de PulseAudio se atenuarán</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Atenuar los módulos de loopback de Pulseaudio&lt;/b&gt;&lt;br /&gt;Si los módulos de loopback estan enlazados con el dispositivo de salida de Mumble, también serán atenuados.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Atenuar módulos de loopback de PulseAudio</translation>
     </message>
 </context>
 <context>
@@ -3692,7 +3693,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="+565"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Actualmente, Mumble solo puede usar para los métodos abreviados globales botones del ratón y teclas modificadoras del teclado (Alt, Ctrl, Cmd, etc.).&lt;/p&gt;&lt;p&gt;Si desea más flexibilidad, puede añadir Mumble como programa de confianza en la sección de Seguridad y Privacidad de las Preferencias del Sistema Mac.&lt;p&gt;&lt;/p&gt; En el panel de preferencias de Seguridad y Privacidad, cambia a la pestaña de Privacidad. Elige Accesibilidad (en la parte baja) de la lista a la izquierda. FInalmente, añade a Mumble a la lista de programas de confianza para la accesibilidad&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -4022,7 +4023,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Nombre de usuario modificado</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4285,7 +4286,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Buscar&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4521,17 +4522,17 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Tema para el estilo de la interfaz de usuario</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Configura el tema de la interfaz de usuario de Mumble&lt;/b&gt;&lt;br /&gt;Mumble buscará temas en ciertos directorios y los mostrará en esta lista. El tema seleccionado será empleado para personalizar la apariencia visual de Mumble. Esto incluye colores, iconos y más.</translation>
     </message>
 </context>
 <context>
@@ -4761,7 +4762,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <location line="+76"/>
         <location line="+1486"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Modo de Transmision ajustado a Continuo</translation>
     </message>
     <message>
         <location line="-1392"/>
@@ -4788,47 +4789,47 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="-344"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Versión&lt;/h2&gt;&lt;p&gt;Protocolo %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;No hay información de compilación o versión de S.O. disponible.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>La conexión está encriptada y autenticada mediante %1 y empleando %2 como mecanismo de intercambio de clave (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>La conexión está encriptada mediante %1 , con %2 para la autenticación de mensajes y %3 como mecanismo de intercambio de clave (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>La conexión es segura mediante la suite de cifrado que OpenSSL identifica como %1</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;La conexión proporciona perfect formard secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;La conexión no proporciona perfect forward secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;La conexión usa %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms de latencia media (%5 desviación)&lt;/p&gt;&lt;p&gt;Anfitrión remoto %6 (puerto %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Voice channel is sent over control channel</source>
-        <translation type="unfinished"/>
+        <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
     <message>
         <location line="+274"/>
@@ -4951,7 +4952,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Enviar Mensaje de Texto</translation>
     </message>
     <message>
         <location line="+89"/>
@@ -4971,7 +4972,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="+47"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Vista Mínima -- %1</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -4981,17 +4982,17 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="+233"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Guardar Imagen como...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Guardar Imagen</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>No se pudo guardar la imagen: %1</translation>
     </message>
     <message>
         <location line="+382"/>
@@ -5013,7 +5014,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="-1327"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Usuarios conectados: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -5156,12 +5157,12 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Algunas opciones tendrán efecto despues de reiniciar Mumble. Reiniciar Mumble ahora?</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -6089,7 +6090,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 renombrado como %2 por %3.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6232,12 +6233,12 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+269"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 renombrado a %2</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 dejó el canal y se desconectó.</translation>
     </message>
     <message>
         <location line="+127"/>
@@ -6273,7 +6274,22 @@ Valid options are:
                 Suppress loading of identity files (i.e., certificates.)
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Uso: mumble [opciones] [&lt;url&gt;]
+
+&lt;url&gt; especifica una URL a la que conectarse tras la configuración inicial en vez de mostrar
+la ventana de conexión, y tiene la siguiente forma:
+mumble://[&lt;usuario&gt;[:&lt;contraseña&gt;]@]&lt;anfitrión&gt;[:&lt;puerto&gt;][/&lt;canal&gt;[/&lt;subcanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+El parámetro de consulta de versión debe ser establecido para invocar la
+versión correcta del cliente. Actualmente, tiene el valor por defecto 1.2.0.
+
+Las opciones válidas son:
+-h, --help    Muestra este texto de ayuda y sale.
+-m, --multiple
+Permite que se inicien múltiples instancias del cliente.
+-n, --noidentity
+Evita la carga de archivos de identidad (es decir, certificados.)
+</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -6302,7 +6318,22 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Uso: mumble rpc &lt;acciones&gt; [opciones]
+
+Es posible controlar de forma remota una instancia de Mumble usando
+el comando &apos;mumble rpc&apos;
+
+Las acciones válidas son:
+mute
+Mute self
+unmute
+Unmute self
+deaf
+Deafen self
+undeaf
+Undeafen self
+
+</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -6548,17 +6579,17 @@ en el menu contextual del canal.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Ajuste Local de Volumen</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Ajustar de modo local el volumen de voz del usuario.</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Abre un diálogo con una barra de volumen. Usa esto para otros usuarios en la misma sala.</translation>
     </message>
 </context>
 <context>
@@ -7550,12 +7581,12 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     <message>
         <location filename="main.cpp" line="+120"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Falló el reinicio de mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble falló al intentar reiniciarse. Por favor reinicia manualmente.</translation>
     </message>
 </context>
 <context>
@@ -8214,27 +8245,27 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Volumen local para otros usuarios</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ajusta el volumen de otros usuarios de forma local&lt;/b&gt;&lt;br /&gt;Mumble permite ajustar el volumen de otros usuarios de forma local.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+46"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Ajustando volumen local en %1</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source> dB</source>
-        <translation type="unfinished"/>
+        <translation> dB</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usa el slider o el texto para cambiar el volumen del usuario&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Atención!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Aumentar demasiado el volumen de un usuario puede dañar tu capacidad auditiva. También podría incrementar el ruido de fondo del usuario&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
