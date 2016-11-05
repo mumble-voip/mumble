@@ -147,6 +147,12 @@ void SocketRPCClient::processXml() {
 			if (iter != qmRequest.constEnd()) {
 				::PlutoSettingsUpdated();
 			}
+			iter = qmRequest.find(QLatin1String("disconnect"));
+			if (iter != qmRequest.constEnd()) {
+				ServerHandlerPtr = g.sh;
+				if (sh)
+					sh->disconnect();
+			}
 #endif
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("url")) {
