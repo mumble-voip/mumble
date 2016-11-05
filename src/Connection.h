@@ -79,6 +79,10 @@ class Connection : public QObject {
 		QString sessionProtocolString() const;
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;
+		/// Look up the local address of this Connection.
+		QHostAddress localAddress() const;
+		/// Look up the local port of this Connection.
+		quint16 localPort() const;
 		bool bDisconnectedEmitted;
 
 		void setToS();
