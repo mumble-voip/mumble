@@ -149,7 +149,7 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("disconnect"));
 			if (iter != qmRequest.constEnd()) {
-				ServerHandlerPtr = g.sh;
+				ServerHandlerPtr sh = g.sh;
 				if (sh)
 					sh->disconnect();
 			}
