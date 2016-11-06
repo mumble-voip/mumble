@@ -344,6 +344,7 @@ Settings::Settings() {
 	bAutoConnect = false;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
+	iMaxInFlightTCPPings = 2;
 
 	iMaxImageSize = ciDefaultMaxImageSize;
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
@@ -644,6 +645,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsServicePrefix, "net/serviceprefix");
+	SAVELOAD(iMaxInFlightTCPPings, "net/maxinflighttcppings");
 
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
@@ -956,6 +958,7 @@ void Settings::save() {
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsServicePrefix, "net/serviceprefix");
+	SAVELOAD(iMaxInFlightTCPPings, "net/maxinflighttcppings");
 
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");

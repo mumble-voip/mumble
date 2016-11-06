@@ -69,6 +69,7 @@ ServerHandler::ServerHandler() {
 	bUdp = true;
 	tConnectionTimeoutTimer = NULL;
 	uiVersion = 0;
+	iInFlightTCPPings = 0;
 
 	// Historically, the qWarning line below initialized OpenSSL for us.
 	// It used to have this comment:
@@ -392,6 +393,11 @@ void ServerHandler::sendPing() {
 	if (!connection)
 		return;
 
+	if (g.s.iMaxInFlightTCPPings >= 0 && iInFlightTCPPings >= g.s.iMaxInFlightTCPPings) {
+		serverConnectionClosed(QAbstractSocket::UnknownSocketError, tr("Server is not responding to TCP pings"));
+		return;
+	}
+
 	CryptState &cs = connection->csCrypt;
 
 	quint64 t = tTimestamp.elapsed();
@@ -426,6 +432,8 @@ void ServerHandler::sendPing() {
 	mpp.set_tcp_packets(static_cast<int>(boost::accumulators::count(accTCP)));
 
 	sendMessage(mpp);
+
+	iInFlightTCPPings += 1;
 }
 
 void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
@@ -453,6 +461,11 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
 			ConnectionPtr connection(cConnection);
 			if (!connection) return;
+
+			// Reset in-flight TCP ping counter to 0.
+			// We've received a ping. That means the
+			// connection is still OK.
+			iInFlightTCPPings = 0;
 
 			CryptState &cs = connection->csCrypt;
 			cs.uiRemoteGood = msg.good();
@@ -531,6 +544,8 @@ void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState st
 void ServerHandler::serverConnectionConnected() {
 	ConnectionPtr connection(cConnection);
 	if (!connection) return;
+
+	iInFlightTCPPings = 0;
 
 	tConnectionTimeoutTimer->stop();
 
