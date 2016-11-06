@@ -227,14 +227,44 @@ unix {
 		QMAKE_OBJECTIVE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 	}
 
-	CONFIG(c++11) {
-		# Qt 5 will pass the expected compiler flags
-		# needed for C++11 mode when CONFIG includes c++11.
-		# But Qt 4 won't, so we add it manually.
-		lessThan(QT_MAJOR_VERSION, 5) {
-			QMAKE_CXXFLAGS *= -std=c++11
-		}
+	# Allow CONFIG(c++11) to enable C++11 mode
+	# when building against Qt 4.
+	lessThan(QT_MAJOR_VERSION, 5):CONFIG(c++11) {
+		QMAKE_CXXFLAGS *= -std=c++11
+	}
 
+	# Detect Qt >= 5.7. Qt 5.7 and above
+	# require C++11 at the very least.
+	#
+	# The syntax of qmake isn't very
+	# expressive, so this check is done
+	# in two parts.
+	#
+	# First, we check if the major version
+	# is greater than 5, since that definitely
+	# means >= 5.7.
+	greaterThan(QT_MAJOR_VERSION, 5) {
+		CONFIG += qt_5_7_or_later
+	}
+	# Instead, if we're using Qt 5, check
+	# that the minor version is greater
+	# than 6 to check for >= 5.7.
+	equals(QT_MAJOR_VERSION, 5) {
+		greaterThan(QT_MINOR_VERSION, 6) {
+			CONFIG += qt_5_7_or_later
+		}
+	}
+
+	# Check for modern C++ support. Qt 5.7 is the first Qt release to
+	# require C++11, so we use that as a signal here as well. The reason
+	# for that is to ensure that we don't fall back to -std=c++98 in the
+	# future if our QT_CONFIG checks below stop working for some reason.
+	# For example if 'c++17' is added as a valid entry  for QT_CONFIG in the
+	# future, the check below would fail, because we only consider c++11,
+	# c++14 and c++1z to mean "modern C++". The Qt 5.7 check works around
+	# such a possibility, because we know that Qt 5.7 requires at least
+	# C++11 support to build and run.
+	CONFIG(qt_5_7_or_later)|contains(QT_CONFIG, c++11)|contains(QT_CONFIG, c++14)|contains(QT_CONFIG, c++1z) {
 		# Debian seems to put C++11 variants of shared libraries
 		# in /usr/lib/$triple/c++11.
 		#
@@ -247,7 +277,7 @@ unix {
 			QMAKE_LIBDIR *= /usr/lib/$${MULTIARCH_TRIPLE}/c++11
 		}
 	} else {
-		# If C++11 support hasn't been explicitly enabled,
+		# If modern C++ support hasn't been explicitly enabled,
 		# force C++98/C++03 mode. If we don't do this, newer
 		# compilers (such as G++ 6) will default to C++11
 		# without us being aware.
