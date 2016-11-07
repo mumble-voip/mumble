@@ -14,6 +14,7 @@
 #include "ServerHandler.h"
 
 #ifdef PLUTOVR_BUILD
+#include "Log.h"
 extern "C" {
 	void PlutoSettingsUpdated();
 }
