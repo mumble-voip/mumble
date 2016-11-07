@@ -149,6 +149,7 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("disconnect"));
 			if (iter != qmRequest.constEnd()) {
+	g.l->log(Log::Information, MainWindow::tr("Recieved disconnect RPC!"));
 				ServerHandlerPtr sh = g.sh;
 				if (sh)
 					sh->disconnect();
