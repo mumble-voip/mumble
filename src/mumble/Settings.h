@@ -290,6 +290,18 @@ struct Settings {
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
 
+	/// iMaxInFlightTCPPings specifies the maximum
+	/// number of ping messages that the client has
+	/// sent, but not yet recieved a response for
+	/// from the server. This value is checked when
+	/// the client sends its next ping message. If
+	/// the maximum is reached, the connection will
+	/// be closed.
+	/// If this setting is assigned a value of 0 or
+	/// a negative number, the TCP ping check is
+	/// disabled.
+	int iMaxInFlightTCPPings;
+
 	/// The service prefix that the WebFetch class will use
 	/// when it constructs its fully-qualified URL. If this
 	/// is empty, no prefix is used.

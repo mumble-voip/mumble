@@ -931,11 +931,8 @@ void MainWindow::findDesiredChannel() {
 			g.sh->joinChannel(g.uiSession, chan->iId);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
-	} else {
-		g.l->log(Log::Information, tr("The targeted channel could not be found."));
-		if (g.uiSession) {
-			qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
-		}
+	} else if (g.uiSession) {
+		qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
 	}
 	updateMenuPermissions();
 }

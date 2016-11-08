@@ -73,6 +73,7 @@ class ServerHandler : public QThread {
 		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageHandler::UDPMessageType type);
 	public:
 		Timer tTimestamp;
+		int iInFlightTCPPings;
 		QTimer *tConnectionTimeoutTimer;
 		QList<QSslError> qlErrors;
 		QList<QSslCertificate> qscCert;
