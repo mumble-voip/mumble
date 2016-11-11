@@ -102,4 +102,20 @@ unix {
 		QMAKE_CXXFLAGS += -std=c++98
 		QMAKE_LFLAGS += -std=c++98
 	}
+
+
+	# Debian seems to put C++11 variants of shared libraries
+	# in /usr/lib/$triple/c++11.
+	#
+	# At least, that's the case for ZeroC Ice.
+	#
+	# The expectation is that this is a general convention,
+	# so add it to our library search path in C++11, C++14
+	# and C++1z mode.
+	CONFIG(c++11)|CONFIG(c++14)|CONFIG(c++1z) {
+		MULTIARCH_TRIPLE = $$system($${QMAKE_CC} -print-multiarch)
+		!isEmpty(MULTIARCH_TRIPLE) {
+			QMAKE_LIBDIR *= /usr/lib/$${MULTIARCH_TRIPLE}/c++11
+		}
+	}
 }
