@@ -5,6 +5,27 @@
 
 include(../../../compiler.pri)
 
+# Ice 3.6 C++11 check
+!CONFIG(no-ice-cpp11-check):unix {
+	include(ice_config.pri)
+
+	# TODO:
+	# strip -std=c++XX from QMAKE_CXXFLAGS
+	# include INCLUDEPATHS and QMAKE_LIBS in the compiler flags
+	# ... this is pretty tough to do inside a .pro file, since
+	# qmake has not expanded everything yet :(
+	OUTPUT=$$system($${QMAKE_CXX} ${QMAKE_CXXFLAGS} ${QMAKE_LFLAGS} -lIce -lIceUtil -std=c++11 Ice36Cpp11Test.cpp -o /dev/null 2>&1)
+	!contains($$OUTPUT, "error:") {
+		CONFIG += ice-cpp11
+	}
+	CONFIG(ice-cpp11) {
+		# XXX: correct?
+		!CONFIG(c++11)|!CONFIG(c++14)|!CONFIG(c++1z) {
+			error(Ice libraries on the system require C++11)
+		}
+	}
+}
+
 SLICEFILES = ../Murmur.ice
 
 slice.output = ${QMAKE_FILE_BASE}.cpp
