@@ -1652,7 +1652,7 @@ void Server::updateChannel(const Channel *c) {
 	SQLEXEC();
 
 	foreach(g, c->qhGroups) {
-		int id;
+		int id = 0;
 		int pid;
 		
 		if (Meta::mp.qsDBDriver == "QPSQL") {
@@ -1664,8 +1664,11 @@ void Server::updateChannel(const Channel *c) {
 			query.addBindValue(g->bInheritable ? 1 : 0);
 			SQLEXEC();
 			
-			if (query.next())
+			if (query.next()) {
 				id = query.value(0).toInt();
+			} else {
+				qFatal("ServerDB: internal query failure: PostgreSQL query did not return the inserted group's group_id");
+			}
 		} else {
 			SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES (?,?,?,?,?)");
 			query.addBindValue(iServerNum);
