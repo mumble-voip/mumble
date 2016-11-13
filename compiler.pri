@@ -5,6 +5,7 @@
 
 include(qt.pri)
 include(uname.pri)
+include(cplusplus.pri)
  
 CONFIG *= warn_on
 
