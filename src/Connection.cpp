@@ -213,6 +213,14 @@ quint16 Connection::peerPort() const {
 	return qtsSocket->peerPort();
 }
 
+QHostAddress Connection::localAddress() const {
+	return qtsSocket->localAddress();
+}
+
+quint16 Connection::localPort() const {
+	return qtsSocket->localPort();
+}
+
 QList<QSslCertificate> Connection::peerCertificateChain() const {
 	const QSslCertificate cert = qtsSocket->peerCertificate();
 	if (cert.isNull())

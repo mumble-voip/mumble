@@ -67,6 +67,7 @@ class ServerHandler : public QThread {
 #endif
 
 		QHostAddress qhaRemote;
+		QHostAddress qhaLocal;
 		QUdpSocket *qusUdp;
 		QMutex qmUdp;
 

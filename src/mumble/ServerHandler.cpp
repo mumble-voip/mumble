@@ -600,12 +600,21 @@ void ServerHandler::serverConnectionConnected() {
 		QMutexLocker qml(&qmUdp);
 
 		qhaRemote = connection->peerAddress();
+		qhaLocal = connection->localAddress();
+		if (qhaLocal.isNull()) {
+			qFatal("ServerHandler: qhaLocal is unexpectedly a null addr");
+		}
 
 		qusUdp = new QUdpSocket(this);
-		if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol)
-			qusUdp->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
-		else
-			qusUdp->bind(QHostAddress(QHostAddress::Any), 0);
+		if (g.s.bUdpForceTcpAddr) {
+			qusUdp->bind(qhaLocal);
+		} else {
+			if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol) {
+				qusUdp->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
+			} else {
+				qusUdp->bind(QHostAddress(QHostAddress::Any), 0);
+			}
+		}
 
 		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 
