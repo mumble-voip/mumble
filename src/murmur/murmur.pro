@@ -204,8 +204,7 @@ bonjour {
 	# could break the build in the future, with newer versions of Qt,
 	# if the API of QSslDiffieHellmanParameters changes when it is
 	# upstreamed.
-	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
-	!isEmpty(MUMBLE_PREFIX) {
+	CONFIG(buildenv) {
 		DEFINES += USE_QSSLDIFFIEHELLMANPARAMETERS
 	}
 }
