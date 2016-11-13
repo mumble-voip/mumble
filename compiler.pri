@@ -265,8 +265,8 @@ unix {
 }
 
 contains(UNAME, FreeBSD) {
-	QMAKE_CFLAGS *= -isystem /usr/local/include
-	QMAKE_CXXFLAGS *= -isystem /usr/local/include
+	QMAKE_CFLAGS *= "-I/usr/local/include" "-isystem /usr/local/include"
+	QMAKE_CXXFLAGS *= "-I/usr/local/include" "-isystem /usr/local/include"
 	QMAKE_LIBDIR *= /usr/lib
 	QMAKE_LIBDIR *= /usr/local/lib
 }
@@ -280,8 +280,8 @@ unix:!macx {
 		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 		for(inc, $$list($$SYSTEM_INCLUDES)) {
-			QMAKE_CFLAGS += -isystem $$inc
-			QMAKE_CXXFLAGS += -isystem $$inc
+			QMAKE_CFLAGS *= "-I$$inc" "-isystem $$inc"
+			QMAKE_CXXFLAGS += "-I$$inc" "-isystem $$inc"
 		}
 	}
 
@@ -330,10 +330,10 @@ macx {
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 	for(inc, $$list($$SYSTEM_INCLUDES)) {
-		QMAKE_CFLAGS += -isystem $$inc
-		QMAKE_CXXFLAGS += -isystem $$inc
-		QMAKE_OBJECTIVE_CFLAGS += -isystem $$inc
-		QMAKE_OBJECTIVE_CXXFLAGS += -isystem $$inc
+		QMAKE_CFLAGS += "-I$$inc" "-isystem $$inc"
+		QMAKE_CXXFLAGS += "-I$$inc" "-isystem $$inc"
+		QMAKE_OBJECTIVE_CFLAGS += "-I$$inc" "-isystem $$inc"
+		QMAKE_OBJECTIVE_CXXFLAGS += "-I$$inc" "-isystem $$inc"
 	}
 
 	!CONFIG(universal) {
