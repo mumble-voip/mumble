@@ -71,8 +71,7 @@ win32 {
 	# Always enable warnings-as-errors
 	# if we're inside a Mumble build environment.
 	# Can be disabled with CONFIG+=no-warnings-as-errors.
-	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
-	!isEmpty(MUMBLE_PREFIX):!CONFIG(no-warnings-as-errors) {
+	CONFIG(buildenv):!CONFIG(no-warnings-as-errors) {
 		CONFIG += warnings-as-errors
 	}
 
@@ -196,8 +195,7 @@ unix {
 	# Always enable warnings-as-errors
 	# if we're inside a Mumble build environment.
 	# Can be disabled with CONFIG+=no-warnings-as-errors.
-	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
-	!isEmpty(MUMBLE_PREFIX):!CONFIG(no-warnings-as-errors) {
+	CONFIG(buildenv):!CONFIG(no-warnings-as-errors) {
 		CONFIG += warnings-as-errors
 	}
 
@@ -275,8 +273,7 @@ contains(UNAME, FreeBSD) {
 unix:!macx {
 	# If we're building in a Mumble build environment,
 	# add its include and lib dirs to the build configuration.
-	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
-	!isEmpty(MUMBLE_PREFIX) {
+	CONFIG(buildenv) {
 		SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$[QT_INSTALL_HEADERS]
 		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
