@@ -50,6 +50,16 @@ private:
 	
 	/// Returns default style-sheet used for fall-backs
 	static QString getDefaultStylesheet();
+
+	/// userStylesheetPath returns the absolute path to the
+	/// user.qss file.
+	static QString userStylesheetPath();
+
+	/// readStylesheet fills stylesheetContent with the content
+	/// of the file at stylesheetFn, if available.
+	/// If a the file is is available, the function returns true.
+	/// If no file is available, it returns false.
+	static bool readStylesheet(const QString &stylesheetFn, QString &stylesheetContent);
 };
 
 #endif // MUMBLE_MUMBLE_THEMES_H_
