@@ -21,6 +21,10 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qteLicense->setReadOnly(true);
 	qteLicense->setPlainText(QLatin1String(licenseMumble));
 
+	QTextEdit *qteAuthors = new QTextEdit(qtwTab);
+	qteAuthors->setReadOnly(true);
+	qteAuthors->setPlainText(QString::fromUtf8(authorsMumble));
+
 	QTextBrowser *qtb3rdPartyLicense = new QTextBrowser(qtwTab);
 	qtb3rdPartyLicense->setReadOnly(true);
 	qtb3rdPartyLicense->setOpenExternalLinks(true);
@@ -56,6 +60,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 
 	qtwTab->addTab(about, tr("&About Mumble"));
 	qtwTab->addTab(qteLicense, tr("&License"));
+	qtwTab->addTab(qteAuthors, tr("A&uthors"));
 	qtwTab->addTab(qtb3rdPartyLicense, tr("3rd &party licenses"));
 
 	QPushButton *okButton = new QPushButton(tr("OK"), this);

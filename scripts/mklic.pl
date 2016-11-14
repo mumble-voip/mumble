@@ -68,6 +68,9 @@ print $F "\n";
 print $F licenseFileToVar("licenseMumble", "../LICENSE");
 print $F "\n\n";
 
+print $F licenseFileToVar("authorsMumble", "../AUTHORS");
+print $F "\n\n";
+
 # List of 3rd party licenses  [<variableName>, <pathToLicenseFile>, <DisplayName>, <URL>]
 my @thirdPartyLicenses = (
     ["licenseCELT", "../3rdparty/celt-0.11.0-src/COPYING", "CELT", "http://www.celt-codec.org/"],
