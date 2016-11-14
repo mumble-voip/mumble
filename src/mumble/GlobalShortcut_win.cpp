@@ -229,9 +229,45 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		}
 
 		QList<QVariant> ql;
+
+		// Convert the low-level key event to
+		// a DirectInput key ID.
 		unsigned int keyid = static_cast<unsigned int>((key->scanCode << 8) | 0x4);
-		if (key->flags & LLKHF_EXTENDED)
+		if (key->flags & LLKHF_EXTENDED) {
 			keyid |= 0x8000U;
+		}
+
+		// NumLock and Pause need special handling.
+		// For those keys, the method above of setting
+		// bit 15 high when the LLKHF_EXTENDED flag is
+		// set on the low-level key event does not work.
+		//
+		// When we receive a low-level Windows
+		// Pause key event, the extended flag isn't
+		// set, but DirectInput expects it to be.
+		//
+		// The opposite is true for NumLock key,
+		// where the extended flag for the low-level
+		// Windows event is set, but DirectInput expects
+		// it not to be.
+		//
+		// Without this fix-up, we would emit Pause as
+		// NumLock, and NumLock as pause. That was
+		// problematic, because at the same time,
+		// DirectInput would emit the correct key.
+		// This meant that when pressing one of Pause
+		// and NumLock, shortcut actions for both keys
+		// would be triggered.
+		//
+		// Originally reported in mumble-voip/mumble#1353
+		if (key->vkCode == VK_PAUSE) {
+			// Always set the extended bit for Pause.
+			keyid |= 0x8000U;
+		} else if (key->vkCode == VK_NUMLOCK) {
+			// Never set the extended bit for NumLock.
+			keyid &= ~0x8000U;
+		}
+
 		ql << keyid;
 		ql << QVariant(QUuid(GUID_SysKeyboard));
 		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
