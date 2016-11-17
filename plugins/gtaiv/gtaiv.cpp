@@ -51,10 +51,10 @@ static int setuppointers() {
 	if (!peekProc(base_address + 0x11A7008 + (playerid * 4), &playerptr, 4) || !playerptr)
 		return false;
 
-	if (!peekProc(playerptr + 0x58C, charptr) || !charptr)
+	if (!peekProc(playerptr + 0x58C, &charptr, 4) || !charptr)
 		return false;
 
-	if (!peekProc(charptr + 0x20, cvecptr) || !cvecptr)
+	if (!peekProc(charptr + 0x20, &cvecptr, 4) || !cvecptr)
 		return false;
 
 	return true;
@@ -84,12 +84,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float camtop_corrector[3];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(cvecptr + 0x30, pos_corrector) &&
-	     peekProc(cvecptr + 0x20, top_corrector) &&
-	     peekProc(cvecptr + 0x10, front_corrector) &&
-	     peekProc(displayptr + 0x30, campos_corrector) &&
-	     peekProc(displayptr + 0x10, camtop_corrector) &&
-	     peekProc(displayptr + 0x20, camfront_corrector);
+	ok = peekProc(cvecptr + 0x30, &pos_corrector, 12) &&
+	     peekProc(cvecptr + 0x20, &top_corrector, 12) &&
+	     peekProc(cvecptr + 0x10, &front_corrector, 12) &&
+	     peekProc(displayptr + 0x30, &campos_corrector, 12) &&
+	     peekProc(displayptr + 0x10, &camtop_corrector, 12) &&
+	     peekProc(displayptr + 0x20, &camfront_corrector, 12);
 
 	if (!ok)
 		return false;
@@ -135,7 +135,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	base_address = pModule - 0x400000;
 
-	if (!peekProc(base_address + 0x10F47F0, viewportptr) || !viewportptr)
+	if (!peekProc(base_address + 0x10F47F0, &viewportptr, 4) || !viewportptr)
 		return false;
 
 	displayptr = viewportptr + 0x50;

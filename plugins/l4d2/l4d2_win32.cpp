@@ -23,11 +23,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE state;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + 0x6ACBD5, state) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
-			peekProc(pModule + 0x6B9E1C, avatar_pos_corrector) && // Avatar Position values (X, Z and Y).
-			peekProc(pModule + 0x774B98, camera_pos_corrector) && // Camera Position values (X, Z and Y).
-			peekProc(pModule + 0x774BF8, avatar_front_corrector) && // Front vector values (X, Z and Y).
-			peekProc(pModule + 0x774C28, avatar_top_corrector) && // Top vector values (Z, X and Y).
+	ok = peekProc(pModule + 0x6ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
+			peekProc(pModule + 0x6B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(pModule + 0x774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(pModule + 0x774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
+			peekProc(pModule + 0x774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
 			peekProc(serverid_steamclient, serverid) && // Unique server Steam ID.
 			peekProc(pModule + 0x772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
 			peekProc(pModule + 0x772D2C, servername) && // Server name.

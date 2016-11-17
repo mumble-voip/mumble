@@ -54,9 +54,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them
 
 	// coordinate systems is already left handed so no change needed
-	ok = peekProc(posptr, avatar_pos) &&
-	     peekProc(frontptr, avatar_front) &&
-	     peekProc(topptr, avatar_top);
+	ok = peekProc(posptr, avatar_pos, 12) &&
+	     peekProc(frontptr, avatar_front, 12) &&
+	     peekProc(topptr, avatar_top, 12);
 	if (! ok)
 		return false;
 

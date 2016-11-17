@@ -21,7 +21,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	ok = peekProc(0x01DEAFD9, state);
+	ok = peekProc(0x01DEAFD9, &state, 1);
 	if (! ok)
 		return false;
 
@@ -39,11 +39,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	//Convert to left-handed coordinate system
 
-	ok = peekProc(pos2ptr, avatar_pos) &&	//X
-	     peekProc(pos1ptr, avatar_pos[1]) &&	//Y
-	     peekProc(pos0ptr, avatar_pos[2]) &&  //Z
-	     peekProc(faceptr, face_corrector) &&
-	     peekProc(topptr, top_corrector);
+	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
+	     peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+	     peekProc(faceptr, &face_corrector, 12) &&
+	     peekProc(topptr, &top_corrector, 12);
 
 	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 

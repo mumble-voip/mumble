@@ -59,9 +59,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(0x1243BE84, pos_corrector) &&
-	        peekProc(0x1243BEA8, front_corrector) &&
-	        peekProc(0x1243BE9C, top_corrector);
+	ok = peekProc(0x1243BE84, &pos_corrector, 12) &&
+	        peekProc(0x1243BEA8, &front_corrector, 12) &&
+	        peekProc(0x1243BE9C, &top_corrector, 12);
 	
 	if (! ok)
 		return false;

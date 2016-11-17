@@ -48,10 +48,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	string sHost;
 	ostringstream new_context;
 
-	ok = peekProc(posptr, ipos)
-	     && peekProc(rotptr, rot)
+	ok = peekProc(posptr, ipos, 12)
+	     && peekProc(rotptr, rot, 12)
 	     //&& peekProc(stateptr, &state, 1)
-	     && peekProc(hostptr, chHostStr)
+	     && peekProc(hostptr, chHostStr, 40)
 	     ;
 	if (!ok)
 		return false;
@@ -116,7 +116,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Gamecheck
 	const char ID[] = "garrysmod";
 	char sMagic[18];
-	if (!peekProc(idptr, sMagic) || strncmp(ID, sMagic, sizeof(ID))!=0)
+	if (!peekProc(idptr, sMagic, sizeof(ID)) || strncmp(ID, sMagic, sizeof(ID))!=0)
 		return false;
 
 	// Check if we can get meaningful data from it

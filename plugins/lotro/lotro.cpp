@@ -66,16 +66,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc(0x01272D34, o) &&
-	     peekProc(0x01272D2C, l) &&
-	     peekProc(0x01272D28, r) &&
-	     peekProc(0x01272D20, i) &&
-	     peekProc(pModule + 0x00A138A4, hPtr);
+	ok = peekProc(0x01272D34, o, 12) &&
+	     peekProc(0x01272D2C, l, 2) &&
+	     peekProc(0x01272D28, &r, 1) &&
+	     peekProc(0x01272D20, &i, 1) &&
+	     peekProc(pModule + 0x00A138A4, &hPtr, 4);
 
 	if (! ok)
 		return false;
 
-	ok = peekProc((procptr32_t)(hPtr  + 0x0000046F), h);
+	ok = peekProc((procptr32_t)(hPtr  + 0x0000046F), &h, 4);
 
 	if (! ok)
 		return false;

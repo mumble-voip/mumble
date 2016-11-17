@@ -146,13 +146,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         ptr_chain_valid = true;
     }
 
-    ok = peekProc(avatar_pos_ptr, avatar_pos) &&
-        peekProc(avatar_front_ptr, avatar_front) &&
-        peekProc(avatar_top_ptr, avatar_top) &&
-        peekProc(squad_state_ptr,squad_state) &&
-        peekProc(squad_lead_state_ptr, is_squadleader) &&
-        peekProc(team_state_ptr,team_state) &&
-        peekProc(ipport_ptr,ccontext);
+    ok = peekProc(avatar_pos_ptr, avatar_pos, 12) &&
+        peekProc(avatar_front_ptr, avatar_front, 12) &&
+        peekProc(avatar_top_ptr, avatar_top, 12) &&
+        peekProc(squad_state_ptr,&squad_state,1) &&
+        peekProc(squad_lead_state_ptr, &is_squadleader,1) &&
+        peekProc(team_state_ptr,&team_state,1) &&
+        peekProc(ipport_ptr,ccontext,128);
 
     if (! ok)
         return false;

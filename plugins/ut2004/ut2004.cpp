@@ -27,11 +27,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	   Y-Value is increasing when going up
 				  decreasing when going down
 	*/
-	ok = peekProc(pos2ptr, avatar_pos) &&	//X
-	     peekProc(pos1ptr, avatar_pos[1]) &&	//Y
-	     peekProc(pos0ptr, avatar_pos[2]) &&  //Z
-	     peekProc(faceptr, face_corrector) &&
-	     peekProc(topptr, top_corrector);
+	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
+	     peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+	     peekProc(faceptr, &face_corrector, 12) &&
+	     peekProc(topptr, &top_corrector, 12);
 	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)

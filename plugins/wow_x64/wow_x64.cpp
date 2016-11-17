@@ -47,12 +47,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state, player[50], realm[50];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + state_address, state) && // Magical state value: 1 when in-game, 0 when not.
-			peekProc(avatar_offset + avatar_pos_address, avatar_pos_corrector) && // Avatar Position values (Z, -X and Y).
-			peekProc(camera_offset + camera_pos_address, camera_pos_corrector) && // Camera Position values (Z, -X and Y).
+	ok = peekProc(pModule + state_address, &state, 1) && // Magical state value: 1 when in-game, 0 when not.
+			peekProc(avatar_offset + avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (Z, -X and Y).
+			peekProc(camera_offset + camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (Z, -X and Y).
 			peekProc(avatar_offset + avatar_heading_address, avatar_heading) && // Avatar heading.
-			peekProc(camera_offset + camera_front_address, camera_front_corrector) && // Camera Front Vector values (Z, -X and Y).
-			peekProc(camera_offset + camera_top_address, camera_top_corrector) && // Camera Top Vector values (Z, -X and Y).
+			peekProc(camera_offset + camera_front_address, camera_front_corrector, 12) && // Camera Front Vector values (Z, -X and Y).
+			peekProc(camera_offset + camera_top_address, camera_top_corrector, 12) && // Camera Top Vector values (Z, -X and Y).
 			peekProc(realm_offset + realm_address, realm) && // Realm name.
 			peekProc(pModule + player_address, player); // Player nickname.
 

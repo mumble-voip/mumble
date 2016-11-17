@@ -63,14 +63,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state, in_game, player[50], vehicle[50], location[50], street[50];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(state_address, state) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
-			peekProc(in_game_address, in_game) && // 0 when loading or not in-game, 1 when in-game.
-			peekProc(avatar_pos_address, avatar_pos_corrector) && // Avatar Position values (X, Z and Y).
-			peekProc(camera_pos_address, camera_pos_corrector) && // Camera Position values (X, Z and Y).
-			peekProc(avatar_base + 0x70, avatar_front_corrector) && // Avatar Front Vector values (X, Z and Y).
-			peekProc(avatar_base + 0x80, avatar_top_corrector) && // Avatar Top Vector values (X, Z and Y).
-			peekProc(camera_front_address, camera_front_corrector) && // Camera Front Vector values (X, Z and Y).
-			peekProc(camera_top_address, camera_top_corrector) && // Camera Top Vector values (X, Z and Y).
+	ok = peekProc(state_address, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
+			peekProc(in_game_address, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
+			peekProc(avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
+			peekProc(avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
+			peekProc(camera_front_address, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
+			peekProc(camera_top_address, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
 			peekProc(player_address, player) && // Player nickname.
 			peekProc(vehicle_address, vehicle) && // Vehicle name if in a vehicle, empty if not.
 			peekProc(location_address, location) && // Location name.

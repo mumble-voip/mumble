@@ -140,8 +140,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(camptr, cam) &&
 		 peekProc(posptr, pos) &&
 		 peekProc(camfrontptr, camfront) &&
-		 peekProc(locationptr, location) &&
-		 peekProc(areaptr, areaid);
+		 peekProc(locationptr, &location, 1) &&
+		 peekProc(areaptr, &areaid, 4);
 
 	if (!ok) // First we check, if the game is even running or if we should unlink because it's not / it's broken
 		return false;
