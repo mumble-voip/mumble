@@ -53,7 +53,17 @@ void Themes::applyFallback() {
 	skinPaths << QLatin1String(":/");
 	QDir::setSearchPaths(QLatin1String("skin"), skinPaths);
 	
-	qApp->setStyleSheet(getDefaultStylesheet());
+	QString userStylesheetFn = userStylesheetPath();
+	QString userStylesheetContent;
+	if (readStylesheet(userStylesheetFn, userStylesheetContent)) {
+		qWarning("Themes: allowing user stylesheet at '%s' to override fallback stylesheet", qPrintable(userStylesheetFn));
+	}
+
+	qApp->setStyleSheet(
+		getDefaultStylesheet() +
+		QLatin1String("\n") +
+		userStylesheetContent
+	);
 }
 
 bool Themes::applyConfigured() {
@@ -78,9 +88,21 @@ bool Themes::applyConfigured() {
 	skinPaths << qssFile.path();
 	skinPaths << QLatin1String(":/"); // Some skins might want to fall-back on our built-in resources
 	QDir::setSearchPaths(QLatin1String("skin"), skinPaths);
+
+	QString themeQss = QString::fromUtf8(file.readAll());
+
+	QString userStylesheetFn = userStylesheetPath();
+	QString userStylesheetContent;
+	if (readStylesheet(userStylesheetFn, userStylesheetContent)) {
+		qWarning("Themes: allowing user stylesheet at '%s' to override the chosen theme", qPrintable(userStylesheetFn));
+	}
 	
-	qApp->setStyleSheet(QString::fromUtf8(file.readAll()));
-	
+	qApp->setStyleSheet(
+		themeQss +
+		QLatin1String("\n") +
+		userStylesheetContent
+	);
+
 	return true;
 }
 
@@ -115,6 +137,21 @@ QVector<QDir> Themes::getSearchDirectories() {
 	themeSearchDirectories << getUserThemesDirectory();
 	
 	return themeSearchDirectories;
+}
+
+QString Themes::userStylesheetPath() {
+	return g.qdBasePath.absolutePath() + QLatin1String("/user.qss");
+}
+
+bool Themes::readStylesheet(const QString &stylesheetFn, QString &stylesheetContent) {
+	QFile file(stylesheetFn);
+	if (!file.open(QFile::ReadOnly)) {
+		stylesheetContent = QString();
+		return false;
+	}
+
+	stylesheetContent = QString::fromUtf8(file.readAll());
+	return true;
 }
 
 QString Themes::getDefaultStylesheet() {
