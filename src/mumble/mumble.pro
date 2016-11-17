@@ -309,15 +309,15 @@ CONFIG(sbcelt) {
   CONFIG(no-bundled-celt) {
     INCLUDEPATH	*= /usr/include/celt
     unix {
-      QMAKE_CFLAGS *= "-isystem /usr/include/celt"
-      QMAKE_CXXFLAGS *= "-isystem /usr/include/celt"
+      QMAKE_CFLAGS *= "-I/usr/include/celt" "-isystem /usr/include/celt"
+      QMAKE_CXXFLAGS *= "-I/usr/include/celt" "-isystem /usr/include/celt"
     }
   }
   !CONFIG(no-bundled-celt) {
     INCLUDEPATH *= ../../3rdparty/celt-0.7.0-src/libcelt
     unix {
-      QMAKE_CFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
-      QMAKE_CXXFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
+      QMAKE_CFLAGS *= "-I../../3rdparty/celt-0.7.0-src/libcelt" "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
+      QMAKE_CXXFLAGS *= "-I../../3rdparty/celt-0.7.0-src/libcelt" "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
     }
   }
 }
@@ -350,8 +350,10 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
     DEFINES *= USE_OPUS
     LIBS *= -lopus
     unix {
-      QMAKE_CFLAGS *= "-isystem  ../../3rdparty/opus-src/celt" "-isystem ../../3rdparty/opus-src/include"
-      QMAKE_CXXFLAGS *= "-isystem  ../../3rdparty/opus-src/celt" "-isystem ../../3rdparty/opus-src/include"
+      QMAKE_CFLAGS *= "-I../../3rdparty/opus-src/celt" "-isystem  ../../3rdparty/opus-src/celt"
+      QMAKE_CFLAGS *= "-I../../3rdparty/opus-src/include" "-isystem ../../3rdparty/opus-src/include"
+      QMAKE_CXXFLAGS *= "-I../../3rdparty/opus-src/celt" "-isystem  ../../3rdparty/opus-src/celt"
+      QMAKE_CXXFLAGS *= "-I../../3rdparty/opus-src/include" "-isystem ../../3rdparty/opus-src/include"
     }
   }
 }

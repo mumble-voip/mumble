@@ -5,6 +5,7 @@
 
 include(qt.pri)
 include(uname.pri)
+include(buildenv.pri)
 include(cplusplus.pri)
  
 CONFIG *= warn_on
@@ -70,8 +71,7 @@ win32 {
 	# Always enable warnings-as-errors
 	# if we're inside a Mumble build environment.
 	# Can be disabled with CONFIG+=no-warnings-as-errors.
-	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
-	!isEmpty(MUMBLE_PREFIX):!CONFIG(no-warnings-as-errors) {
+	CONFIG(buildenv):!CONFIG(no-warnings-as-errors) {
 		CONFIG += warnings-as-errors
 	}
 
@@ -195,8 +195,7 @@ unix {
 	# Always enable warnings-as-errors
 	# if we're inside a Mumble build environment.
 	# Can be disabled with CONFIG+=no-warnings-as-errors.
-	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
-	!isEmpty(MUMBLE_PREFIX):!CONFIG(no-warnings-as-errors) {
+	CONFIG(buildenv):!CONFIG(no-warnings-as-errors) {
 		CONFIG += warnings-as-errors
 	}
 
@@ -230,8 +229,8 @@ unix {
 }
 
 contains(UNAME, FreeBSD) {
-	QMAKE_CFLAGS *= -isystem /usr/local/include
-	QMAKE_CXXFLAGS *= -isystem /usr/local/include
+	QMAKE_CFLAGS *= "-I/usr/local/include" "-isystem /usr/local/include"
+	QMAKE_CXXFLAGS *= "-I/usr/local/include" "-isystem /usr/local/include"
 	QMAKE_LIBDIR *= /usr/lib
 	QMAKE_LIBDIR *= /usr/local/lib
 }
@@ -239,14 +238,13 @@ contains(UNAME, FreeBSD) {
 unix:!macx {
 	# If we're building in a Mumble build environment,
 	# add its include and lib dirs to the build configuration.
-	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
-	!isEmpty(MUMBLE_PREFIX) {
+	CONFIG(buildenv) {
 		SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$[QT_INSTALL_HEADERS]
 		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 		for(inc, $$list($$SYSTEM_INCLUDES)) {
-			QMAKE_CFLAGS += -isystem $$inc
-			QMAKE_CXXFLAGS += -isystem $$inc
+			QMAKE_CFLAGS *= "-I$$inc" "-isystem $$inc"
+			QMAKE_CXXFLAGS += "-I$$inc" "-isystem $$inc"
 		}
 	}
 
@@ -295,10 +293,10 @@ macx {
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 	for(inc, $$list($$SYSTEM_INCLUDES)) {
-		QMAKE_CFLAGS += -isystem $$inc
-		QMAKE_CXXFLAGS += -isystem $$inc
-		QMAKE_OBJECTIVE_CFLAGS += -isystem $$inc
-		QMAKE_OBJECTIVE_CXXFLAGS += -isystem $$inc
+		QMAKE_CFLAGS += "-I$$inc" "-isystem $$inc"
+		QMAKE_CXXFLAGS += "-I$$inc" "-isystem $$inc"
+		QMAKE_OBJECTIVE_CFLAGS += "-I$$inc" "-isystem $$inc"
+		QMAKE_OBJECTIVE_CXXFLAGS += "-I$$inc" "-isystem $$inc"
 	}
 
 	!CONFIG(universal) {

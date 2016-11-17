@@ -65,9 +65,8 @@ SUBDIRS *= src/mumble_proto
   }
 
   macx {
-    MUMBLE_PREFIX = $$(MUMBLE_PREFIX)
-    isEmpty(MUMBLE_PREFIX) {
-      error("Missing $MUMBLE_PREFIX environment variable");
+    !CONFIG(buildenv) {
+      error("Not inside a Mumble buildenv ($MUMBLE_PREFIX environment variable is missing)");
     }
     SUBDIRS *= 3rdparty/mach-override-build
     SUBDIRS *= overlay_gl

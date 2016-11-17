@@ -115,7 +115,18 @@ unix {
 	CONFIG(c++11)|CONFIG(c++14)|CONFIG(c++1z) {
 		MULTIARCH_TRIPLE = $$system($${QMAKE_CC} -print-multiarch)
 		!isEmpty(MULTIARCH_TRIPLE) {
-			QMAKE_LIBDIR *= /usr/lib/$${MULTIARCH_TRIPLE}/c++11
+			# Don't add the Debian-specfic c++11 libdir when using
+			# a Mumble buildenv.
+			#
+			# Adding this directory to QMAKE_LIBDIR this early in
+			# the build process will  cause Mumble to prefer this
+			# lib dir to the buildenv's own.
+			# The easiest way to fix this is to simply avoid adding
+			# this dir when building using a Mumble buildenv, since
+			# it is irrelevant for us in that setting.
+			!CONFIG(buildenv) {
+				QMAKE_LIBDIR *= /usr/lib/$${MULTIARCH_TRIPLE}/c++11
+			}
 		}
 	}
 }
