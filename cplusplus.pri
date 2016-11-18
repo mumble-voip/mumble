@@ -33,35 +33,10 @@
 # First, auto-populate CONFIG with the latest C++ standard
 # that Qt has detected support for.
 !CONFIG(c++03):!CONFIG(c++11):!CONFIG(c++14):!CONFIG(c++1z) {
-	# For the c++1z and c++14 cases below, we also
-	# add the prior "modern" standards to CONFIG.
-	#
-	# This is because Qt 5.6 (and maybe earlier
-	# versions) use the presence of CONFIG(c++11)
-	# to mean "modern C++".
-	#
-	# For example, Qt 5.6's
-	# mkspecs/features/qt_module_headers.prf
-	# file will automatically add -std=c++98 to
-	# CXXFLAGS if CONFIG(c++11) isn't set.
-	#
-	# The result is that if we ONLY put c++1z in
-	# CONFIG, that check will cause us to have
-	# *both* -std=c++98 *and* -std=gnu++1z in
-	# CXXFLAGS when building on Qt 5.6, which
-	# is bad.
-	#
-	# In order to be compatible with such checks,
-	# ensure that we have all prior "modern"
-	# C++ standards in CONFIG, to please Qt.
 	contains(QT_CONFIG, c++1z) {
 		CONFIG *= c++1z
-		# Add prior modern standards...
-		CONFIG *= c++11 c++14
 	} else:contains(QT_CONFIG, c++14) {
 		CONFIG *= c++14
-		# Add prior modern standards...
-		CONFIG *= c++11
 	} else:contains(QT_CONFIG, c++11) {
 		CONFIG *= c++11
 	}
@@ -70,6 +45,35 @@
 # CONFIG with c++03.
 !CONFIG(c++03):!CONFIG(c++11):!CONFIG(c++14):!CONFIG(c++1z) {
 	CONFIG += c++03
+}
+
+# If CONFIG(c++1z) or CONFIG(c++14) is set, we
+# also add the prior "modern" standards to
+# CONFIG.
+#
+# This is because Qt 5.6 (and maybe earlier
+# versions) use the presence of CONFIG(c++11)
+# to mean "modern C++".
+#
+# For example, Qt 5.6's
+# mkspecs/features/qt_module_headers.prf
+# file will automatically add -std=c++98 to
+# CXXFLAGS if CONFIG(c++11) isn't set.
+#
+# The result is that if we ONLY put c++1z in
+# CONFIG, that check will cause us to have
+# *both* -std=c++98 *and* -std=gnu++1z in
+# CXXFLAGS when building on Qt 5.6, which
+# is bad.
+#
+# In order to be compatible with such checks,
+# ensure that we have all prior "modern"
+# C++ standards in CONFIG, to please Qt.
+CONFIG(c++1z) {
+	CONFIG *= c++11 c++14
+}
+CONFIG(c++14) {
+	CONFIG *= c++11
 }
 
 # Unix-specific handling of modern C++ features.
