@@ -15,7 +15,7 @@
 #include "Version.h"
 #include "License.h"
 
-AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
+AboutDialog::AboutDialog(QWidget *p, AboutDialogOptions options) : QDialog(p) {
 	setWindowTitle(tr("About Murmur"));
 	setMinimumSize(QSize(400, 300));
 
@@ -67,6 +67,16 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qtwTab->addTab(qteLicense, tr("&License"));
 	qtwTab->addTab(qteAuthors, tr("A&uthors"));
 	qtwTab->addTab(qtb3rdPartyLicense, tr("&Third-party licenses"));
+
+	if (options == AboutDialogOptionsShowAbout) {
+		qtwTab->setCurrentWidget(about);
+	} else if (options == AboutDialogOptionsShowLicense) {
+		qtwTab->setCurrentWidget(qteLicense);
+	} else if (options == AboutDialogOptionsShowAuthors) {
+		qtwTab->setCurrentWidget(qteAuthors);
+	} else if (options == AboutDialogOptionsShowThirdPartyLicenses) {
+		qtwTab->setCurrentWidget(qtb3rdPartyLicense);
+	}
 
 	QPushButton *okButton = new QPushButton(tr("OK"), this);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
