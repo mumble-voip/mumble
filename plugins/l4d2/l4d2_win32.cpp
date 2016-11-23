@@ -6,7 +6,30 @@
 #include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-procptr32_t serverid_steamclient, playerid_engine, player_server; // Variables to contain modules addresses
+// Variables to contain modules addresses
+procptr32_t serverid_steamclient = 0;
+procptr32_t player_server = 0;
+procptr32_t playerid_engine = 0;
+
+
+// Memory addresses
+const procptr32_t state_address        = 0x6ACBD5;
+const procptr32_t avatar_pos_address   = 0x6B9E1C;
+const procptr32_t camera_pos_address   = 0x774B98;
+const procptr32_t avatar_front_address = 0x774BF8;
+const procptr32_t avatar_top_address   = 0x774C28;
+const procptr32_t host_address         = 0x772B24;
+const procptr32_t servername_address   = 0x772D2C;
+const procptr32_t map_address          = 0x772C28;
+const procptr32_t serverid_steamclient_offset = 0x95E56D;
+const procptr32_t player_server_offset        = 0x7F87BC;
+const procptr32_t playerid_engine_offset      = 0x4EBF88;
+//Module Names
+const wchar_t * exe_name         = L"left4dead2.exe";
+const wchar_t * client_name      = L"client.dll";
+const wchar_t * steamclient_name = L"steamclient.dll";
+const wchar_t * server_name      = L"server.dll";
+const wchar_t * engine_name      = L"engine.dll";
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
@@ -20,18 +43,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Char values for extra features
 	char serverid[22], host[22], servername[50], map[30], player[33], playerid[22];
 	// State
-	BYTE state;
+	unsigned char state;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + 0x6ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
-			peekProc(pModule + 0x6B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc(pModule + 0x774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc(pModule + 0x774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
-			peekProc(pModule + 0x774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
+	ok = peekProc(pModule + state_address, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
+			peekProc(pModule + avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(pModule + camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(pModule + avatar_front_address, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
+			peekProc(pModule + avatar_top_address, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
 			peekProc(serverid_steamclient, serverid) && // Unique server Steam ID.
-			peekProc(pModule + 0x772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
-			peekProc(pModule + 0x772D2C, servername) && // Server name.
-			peekProc(pModule + 0x772C28, map) && // Map name.
+			peekProc(pModule + host_address, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
+			peekProc(pModule + servername_address, servername) && // Server name.
+			peekProc(pModule + map_address, map) && // Map name.
 			peekProc(player_server, player) && // Player nickname.
 			peekProc(playerid_engine, playerid); // Unique player Steam ID.
 
@@ -144,33 +167,33 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
-	if (! initialize(pids, L"left4dead2.exe", L"client.dll")) { // Retrieve "client.dll" module's memory address
+	if (! initialize(pids, exe_name, client_name)) { // Retrieve "client_name" module's memory address
 		return false;
 	}
 
 	// Server ID
-	procptr32_t steamclient = getModuleAddr(L"steamclient.dll"); // Retrieve "steamclient.dll" module's memory address
+	procptr32_t steamclient = getModuleAddr(steamclient_name); // Retrieve module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!steamclient)
 		return false;
 
-	serverid_steamclient = steamclient + 0x95E56D; // Module + Server ID offset
+	serverid_steamclient = steamclient + serverid_steamclient_offset; // Module + Server ID offset
 
 	// Player name
-	procptr32_t server = getModuleAddr(L"server.dll"); // Retrieve "server.dll" module's memory address
+	procptr32_t server = getModuleAddr(server_name); // Retrieve module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!server)
 		return false;
 
-	player_server = server + 0x7F87BC; // Module + Player offset
+	player_server = server + player_server_offset; // Module + Player offset
 
 	// Player ID
-	procptr32_t engine = getModuleAddr(L"engine.dll"); // Retrieve "engine.dll" module's memory address
+	procptr32_t engine = getModuleAddr(engine_name); // Retrieve module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!engine)
 		return false;
 
-	playerid_engine = engine + 0x4EBF88; // Module + Player ID offset
+	playerid_engine = engine + playerid_engine_offset; // Module + Player ID offset
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
