@@ -35,6 +35,7 @@
 #include "ApplicationPalette.h"
 #include "Themes.h"
 #include "UserLockFile.h"
+#include "License.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -136,6 +137,12 @@ int main(int argc, char **argv) {
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
+					"  --license\n"
+					"                Show the Mumble license.\n"
+					"  --authors\n"
+					"                Show the Mumble authors.\n"
+					"  --third-party-licenses\n"
+					"                Show licenses for third-party software used by Mumble.\n"
 					"\n"
 				);
 				QString rpcHelpBanner = MainWindow::tr(
@@ -176,6 +183,15 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				suppressIdentity = true;
 				g.s.bSuppressIdentity = true;
+			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
+				printf("%s\n", qPrintable(License::license()));
+				return 0;
+			} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
+				printf("%s\n", qPrintable(License::authors()));
+				return 0;
+			} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
+				printf("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+				return 0;
 			} else if (args.at(i) == QLatin1String("rpc")) {
 				bRpcMode = true;
 				if (args.count() - 1 > i) {
