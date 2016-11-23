@@ -3,7 +3,12 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+#ifdef WIN32
 #include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#else
+#include "../mumble_plugin_linux_32bit.h" // Include standard plugin header.
+#endif
+
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 // Variables to contain modules addresses
@@ -11,7 +16,7 @@ procptr32_t serverid_steamclient = 0;
 procptr32_t player_server = 0;
 procptr32_t playerid_engine = 0;
 
-
+#ifdef WIN32
 // Memory addresses
 const procptr32_t state_address        = 0x6ACBD5;
 const procptr32_t avatar_pos_address   = 0x6B9E1C;
@@ -30,6 +35,26 @@ const wchar_t * client_name      = L"client.dll";
 const wchar_t * steamclient_name = L"steamclient.dll";
 const wchar_t * server_name      = L"server.dll";
 const wchar_t * engine_name      = L"engine.dll";
+#else
+// Memory addresses
+const procptr32_t state_address        = 0xE0A24C;
+const procptr32_t avatar_pos_address   = 0xE773FC;
+const procptr32_t camera_pos_address   = 0xED8700;
+const procptr32_t avatar_front_address = 0xE3C138;
+const procptr32_t avatar_top_address   = 0xE3C150;
+const procptr32_t host_address         = 0xE356D0;
+const procptr32_t servername_address   = 0xE358D8;
+const procptr32_t map_address          = 0xE09E9D;
+const procptr32_t serverid_steamclient_offset = 0x1216CA5;
+const procptr32_t player_server_offset        = 0xF340E4;
+const procptr32_t playerid_engine_offset      = 0xA62C60;
+//Module Names
+const wchar_t * exe_name         = L"hl2_linux";
+const wchar_t * client_name      = L"client.so";
+const wchar_t * steamclient_name = L"steamclient.so";
+const wchar_t * server_name      = L"server.so";
+const wchar_t * engine_name      = L"engine.so";
+#endif
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
