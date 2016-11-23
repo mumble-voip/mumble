@@ -7,6 +7,7 @@
 
 #ifdef Q_OS_WIN
 #include "Tray.h"
+#include "About.h"
 #endif
 
 #include "Server.h"
@@ -292,11 +293,29 @@ int main(int argc, char **argv) {
 			detach = false;
 			qFatal("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
 		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowLicense);
+			ad.exec();
+			return 0;
+#else
 			qFatal("%s\n", qPrintable(License::license()));
+#endif
 		} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowAuthors);
+			ad.exec();
+			return 0;
+#else
 			qFatal("%s\n", qPrintable(License::authors()));
+#endif
 		} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowThirdPartyLicenses);
+			ad.exec();
+			return 0;
+#else
 			qFatal("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+#endif
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
