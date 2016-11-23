@@ -9,7 +9,7 @@
 
 #include "Global.h"
 #include "MainWindow.h"
-#include "licenses.h"
+#include "License.h"
 
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("About Mumble"));
@@ -17,34 +17,34 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QTabWidget *qtwTab = new QTabWidget(this);
 	QVBoxLayout *vblMain = new QVBoxLayout(this);
 
-	QTextEdit *qteLicense=new QTextEdit(qtwTab);
+	QTextEdit *qteLicense = new QTextEdit(qtwTab);
 	qteLicense->setReadOnly(true);
-	qteLicense->setPlainText(QLatin1String(licenseMumble));
+	qteLicense->setPlainText(License::license());
 
 	QTextEdit *qteAuthors = new QTextEdit(qtwTab);
 	qteAuthors->setReadOnly(true);
-	qteAuthors->setPlainText(QString::fromUtf8(authorsMumble));
+	qteAuthors->setPlainText(License::authors());
 
 	QTextBrowser *qtb3rdPartyLicense = new QTextBrowser(qtwTab);
 	qtb3rdPartyLicense->setReadOnly(true);
 	qtb3rdPartyLicense->setOpenExternalLinks(true);
 
-	for(int i = 0; !licenses3rdParties[i].isEmpty(); ++i)
-	{
+	QList<LicenseInfo> thirdPartyLicenses = License::thirdPartyLicenses();
+	foreach(LicenseInfo li, thirdPartyLicenses) {
 		qtb3rdPartyLicense->append(QString::fromLatin1("<h3>%1 (<a href=\"%2\">%2</a>)</h3><pre>%3</pre>")
-				.arg(Qt::escape(QString::fromLatin1(licenses3rdParties[i].name)))
-				.arg(Qt::escape(QString::fromLatin1(licenses3rdParties[i].url)))
-				.arg(Qt::escape(QString::fromLatin1(licenses3rdParties[i].license))));
+				.arg(Qt::escape(li.name))
+				.arg(Qt::escape(li.url))
+				.arg(Qt::escape(li.license)));
 	}
 
 	qtb3rdPartyLicense->moveCursor(QTextCursor::Start);
 
-	QWidget *about=new QWidget(qtwTab);
+	QWidget *about = new QWidget(qtwTab);
 
-	QLabel *icon=new QLabel(about);
+	QLabel *icon = new QLabel(about);
 	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(128, 128))));
 
-	QLabel *text=new QLabel(about);
+	QLabel *text = new QLabel(about);
 	text->setOpenExternalLinks(true);
 	text->setText(tr(
 		"<h3>Mumble (%1)</h3>"
@@ -54,7 +54,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	).arg(QLatin1String(MUMBLE_RELEASE))
 	 .arg(QLatin1String("http://www.mumble.info/"))
 	 .arg(QLatin1String("Copyright 2005-2016 The Mumble Developers")));
-	QHBoxLayout *qhbl=new QHBoxLayout(about);
+	QHBoxLayout *qhbl = new QHBoxLayout(about);
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
 
