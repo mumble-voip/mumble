@@ -26,11 +26,13 @@ class Tray : public QObject {
 		QSystemTrayIcon *qsti;
 		QMenu *qm;
 		QAction *qaQuit;
+		QAction *qaAbout;
 		QAction *qaShowLog;
 		QStringList qlLog;
 		LogEmitter *le;
 	public slots:
 		void on_Tray_activated(QSystemTrayIcon::ActivationReason);
+		void on_About_triggered();
 		void on_Quit_triggered();
 		void on_ShowLog_triggered();
 		void addLogMessage(const QString &);

@@ -7,6 +7,7 @@
 
 #include "Tray.h"
 
+#include "About.h"
 #include "Meta.h"
 #include "Server.h"
 #include "Version.h"
@@ -22,6 +23,9 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	qaQuit->setShortcut(tr("Ctrl+Q", "Quit"));
 	qaQuit->setObjectName(QLatin1String("Quit"));
 
+	qaAbout = new QAction(tr("&About Murmur"), this);
+	qaAbout->setObjectName(QLatin1String("About"));
+
 	qaShowLog = new QAction(tr("&Show Log"), this);
 	qaShowLog->setShortcut(tr("Ctrl+L", "Quit"));
 	qaShowLog->setObjectName(QLatin1String("ShowLog"));
@@ -31,6 +35,7 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	qm = new QMenu(tr("Murmur"), NULL);
 	qm->addAction(qaShowLog);
 	qm->addSeparator();
+	qm->addAction(qaAbout);
 	qm->addAction(qaQuit);
 	qsti->setContextMenu(qm);
 
@@ -51,6 +56,11 @@ void Tray::on_Quit_triggered() {
 	if (QMessageBox::question(NULL, tr("Murmur"), tr("Are you sure you want to quit Murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
 		qApp->quit();
 	}
+}
+
+void Tray::on_About_triggered() {
+	AboutDialog ad(NULL);
+	ad.exec();
 }
 
 void Tray::on_ShowLog_triggered() {
