@@ -12,48 +12,48 @@
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 // Variables to contain modules addresses
-procptr32_t serverid_steamclient = 0;
-procptr32_t player_server = 0;
-procptr32_t playerid_engine = 0;
+procptr32_t steamclient = 0;
+procptr32_t server = 0;
+procptr32_t engine = 0;
 
 #ifdef WIN32
-// Memory addresses
-const procptr32_t state_address        = 0x6ACBD5;
-const procptr32_t avatar_pos_address   = 0x6B9E1C;
-const procptr32_t camera_pos_address   = 0x774B98;
-const procptr32_t avatar_front_address = 0x774BF8;
-const procptr32_t avatar_top_address   = 0x774C28;
-const procptr32_t host_address         = 0x772B24;
-const procptr32_t servername_address   = 0x772D2C;
-const procptr32_t map_address          = 0x772C28;
-const procptr32_t serverid_steamclient_offset = 0x95E56D;
-const procptr32_t player_server_offset        = 0x7F87BC;
-const procptr32_t playerid_engine_offset      = 0x4EBF88;
-//Module Names
-const wchar_t * exe_name         = L"left4dead2.exe";
-const wchar_t * client_name      = L"client.dll";
-const wchar_t * steamclient_name = L"steamclient.dll";
-const wchar_t * server_name      = L"server.dll";
-const wchar_t * engine_name      = L"engine.dll";
+// Memory offsets
+const procptr32_t state_offset					= 0x6ACBD5;
+const procptr32_t avatar_pos_offset				= 0x6B9E1C;
+const procptr32_t camera_pos_offset				= 0x774B98;
+const procptr32_t avatar_front_offset			= 0x774BF8;
+const procptr32_t avatar_top_offset				= 0x774C28;
+const procptr32_t host_offset					= 0x772B24;
+const procptr32_t servername_offset				= 0x772D2C;
+const procptr32_t map_offset					= 0x772C28;
+const procptr32_t serverid_steamclient_offset	= 0x95E56D;
+const procptr32_t player_server_offset			= 0x7F87BC;
+const procptr32_t playerid_engine_offset		= 0x4EBF88;
+// Module names
+const wchar_t *exe_name							= L"left4dead2.exe";
+const wchar_t *client_name						= L"client.dll";
+const wchar_t *steamclient_name					= L"steamclient.dll";
+const wchar_t *server_name						= L"server.dll";
+const wchar_t *engine_name						= L"engine.dll";
 #else
-// Memory addresses
-const procptr32_t state_address        = 0xE0A24C;
-const procptr32_t avatar_pos_address   = 0xE773FC;
-const procptr32_t camera_pos_address   = 0xED8700;
-const procptr32_t avatar_front_address = 0xE3C138;
-const procptr32_t avatar_top_address   = 0xE3C150;
-const procptr32_t host_address         = 0xE356D0;
-const procptr32_t servername_address   = 0xE358D8;
-const procptr32_t map_address          = 0xE09E9D;
-const procptr32_t serverid_steamclient_offset = 0x1216CA5;
-const procptr32_t player_server_offset        = 0xF340E4;
-const procptr32_t playerid_engine_offset      = 0xA62C60;
-//Module Names
-const wchar_t * exe_name         = L"hl2_linux";
-const wchar_t * client_name      = L"client.so";
-const wchar_t * steamclient_name = L"steamclient.so";
-const wchar_t * server_name      = L"server.so";
-const wchar_t * engine_name      = L"engine.so";
+// Memory offsets
+const procptr32_t state_offset					= 0xE0A24C;
+const procptr32_t avatar_pos_offset				= 0xE773FC;
+const procptr32_t camera_pos_offset				= 0xED8700;
+const procptr32_t avatar_front_offset			= 0xE3C138;
+const procptr32_t avatar_top_offset				= 0xE3C150;
+const procptr32_t host_offset					= 0xE356D0;
+const procptr32_t servername_offset				= 0xE358D8;
+const procptr32_t map_offset					= 0xE09E9D;
+const procptr32_t serverid_steamclient_offset	= 0x1216CA5;
+const procptr32_t player_server_offset			= 0xF340E4;
+const procptr32_t playerid_engine_offset		= 0xA62C60;
+// Module names
+const wchar_t *exe_name							= L"hl2_linux";
+const wchar_t *client_name						= L"client.so";
+const wchar_t *steamclient_name					= L"steamclient.so";
+const wchar_t *server_name						= L"server.so";
+const wchar_t *engine_name						= L"engine.so";
 #endif
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -71,17 +71,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	unsigned char state;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + state_address, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
-			peekProc(pModule + avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
-			peekProc(pModule + camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc(pModule + avatar_front_address, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
-			peekProc(pModule + avatar_top_address, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
-			peekProc(serverid_steamclient, serverid) && // Unique server Steam ID.
-			peekProc(pModule + host_address, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
-			peekProc(pModule + servername_address, servername) && // Server name.
-			peekProc(pModule + map_address, map) && // Map name.
-			peekProc(player_server, player) && // Player nickname.
-			peekProc(playerid_engine, playerid); // Unique player Steam ID.
+	ok = peekProc(pModule + state_offset, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
+			peekProc(pModule + avatar_pos_offset, avatar_pos_corrector, 12)		&& // Avatar Position values (X, Z and Y).
+			peekProc(pModule + camera_pos_offset, camera_pos_corrector, 12)		&& // Camera Position values (X, Z and Y).
+			peekProc(pModule + avatar_front_offset, avatar_front_corrector, 12)	&& // Front vector values (X, Z and Y).
+			peekProc(pModule + avatar_top_offset, avatar_top_corrector, 12)		&& // Top vector values (Z, X and Y).
+			peekProc(steamclient + serverid_steamclient_offset, serverid)		&& // Unique server Steam ID.
+			peekProc(pModule + host_offset, host)								&& // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
+			peekProc(pModule + servername_offset, servername)					&& // Server name.
+			peekProc(pModule + map_offset, map)									&& // Map name.
+			peekProc(server + player_server_offset, player)						&& // Player nickname.
+			peekProc(engine + playerid_engine_offset, playerid);				   // Unique player Steam ID.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
@@ -197,28 +197,22 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 
 	// Server ID
-	procptr32_t steamclient = getModuleAddr(steamclient_name); // Retrieve module's memory address
+	steamclient = getModuleAddr(steamclient_name); // Retrieve "steamclient_name" module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!steamclient)
 		return false;
 
-	serverid_steamclient = steamclient + serverid_steamclient_offset; // Module + Server ID offset
-
 	// Player name
-	procptr32_t server = getModuleAddr(server_name); // Retrieve module's memory address
+	server = getModuleAddr(server_name); // Retrieve "server_name" module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!server)
 		return false;
 
-	player_server = server + player_server_offset; // Module + Player offset
-
 	// Player ID
-	procptr32_t engine = getModuleAddr(engine_name); // Retrieve module's memory address
+	engine = getModuleAddr(engine_name); // Retrieve "engine_name" module's memory address
 	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
 	if (!engine)
 		return false;
-
-	playerid_engine = engine + playerid_engine_offset; // Module + Player ID offset
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
