@@ -5,8 +5,16 @@
 
 # This .pri detects whether Mumble is being built in a
 # Mumble buildenv, and if so, sets the buildenv CONFIG.
+#
+# It also adds USE_BUILDENV as a preprocessor define
+# such that code can detect the presence of a buildenv
+# at build time.
 
 MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
 !isEmpty(MUMBLE_PREFIX) {
 	CONFIG += buildenv
+}
+
+CONFIG(buildenv) {
+	DEFINES += USE_BUILDENV
 }
