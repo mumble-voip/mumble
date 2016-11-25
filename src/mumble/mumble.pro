@@ -198,7 +198,7 @@ SOURCES *= BanEditor.cpp \
     OverlayPositionableItem.cpp \
     widgets/MUComboBox.cpp
 
-DIST		*= ../../icons/mumble.ico licenses.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
+DIST		*= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \

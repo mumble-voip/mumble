@@ -3,16 +3,21 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
+#include "murmur_pch.h"
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QApplication>
+#else
+# include <QtGui/QApplication>
+#endif
 
 #include "About.h"
-
-#include "Global.h"
-#include "MainWindow.h"
+#include "Version.h"
 #include "License.h"
 
-AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
-	setWindowTitle(tr("About Mumble"));
+AboutDialog::AboutDialog(QWidget *p, AboutDialogOptions options) : QDialog(p) {
+	setWindowTitle(tr("About Murmur"));
+	setMinimumSize(QSize(400, 300));
 
 	QTabWidget *qtwTab = new QTabWidget(this);
 	QVBoxLayout *vblMain = new QVBoxLayout(this);
@@ -42,14 +47,14 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QWidget *about = new QWidget(qtwTab);
 
 	QLabel *icon = new QLabel(about);
-	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(128, 128))));
+	QIcon windowIcon = QApplication::windowIcon();
+	icon->setPixmap(windowIcon.pixmap(windowIcon.actualSize(QSize(128, 128))));
 
 	QLabel *text = new QLabel(about);
 	text->setOpenExternalLinks(true);
 	text->setText(tr(
-		"<h3>Mumble (%1)</h3>"
+		"<h3>Murmur (%1)</h3>"
 		"<p>%3</p>"
-		"<p><b>A voice-chat utility for gamers</b></p>"
 		"<p><tt><a href=\"%2\">%2</a></tt></p>"
 	).arg(QLatin1String(MUMBLE_RELEASE))
 	 .arg(QLatin1String("http://www.mumble.info/"))
@@ -58,10 +63,20 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
 
-	qtwTab->addTab(about, tr("&About Mumble"));
+	qtwTab->addTab(about, tr("&About Murmur"));
 	qtwTab->addTab(qteLicense, tr("&License"));
 	qtwTab->addTab(qteAuthors, tr("A&uthors"));
-	qtwTab->addTab(qtb3rdPartyLicense, tr("3rd &party licenses"));
+	qtwTab->addTab(qtb3rdPartyLicense, tr("&Third-party licenses"));
+
+	if (options == AboutDialogOptionsShowAbout) {
+		qtwTab->setCurrentWidget(about);
+	} else if (options == AboutDialogOptionsShowLicense) {
+		qtwTab->setCurrentWidget(qteLicense);
+	} else if (options == AboutDialogOptionsShowAuthors) {
+		qtwTab->setCurrentWidget(qteAuthors);
+	} else if (options == AboutDialogOptionsShowThirdPartyLicenses) {
+		qtwTab->setCurrentWidget(qtb3rdPartyLicense);
+	}
 
 	QPushButton *okButton = new QPushButton(tr("OK"), this);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));

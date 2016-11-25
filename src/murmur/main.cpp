@@ -7,6 +7,7 @@
 
 #ifdef Q_OS_WIN
 #include "Tray.h"
+#include "About.h"
 #endif
 
 #include "Server.h"
@@ -15,6 +16,7 @@
 #include "Meta.h"
 #include "Version.h"
 #include "SSL.h"
+#include "License.h"
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"
@@ -290,29 +292,58 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-version") || (arg == "--version")) {
 			detach = false;
 			qFatal("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
+		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowLicense);
+			ad.exec();
+			return 0;
+#else
+			qFatal("%s\n", qPrintable(License::license()));
+#endif
+		} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowAuthors);
+			ad.exec();
+			return 0;
+#else
+			qFatal("%s\n", qPrintable(License::authors()));
+#endif
+		} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowThirdPartyLicenses);
+			ad.exec();
+			return 0;
+#else
+			qFatal("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+#endif
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-			       "  -ini <inifile>   Specify ini file to use.\n"
-			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
+			       "  -ini <inifile>         Specify ini file to use.\n"
+			       "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-			       "  -readsupw [srv]  Reads password for server srv from standard input.\n"
+			       "  -readsupw [srv]        Reads password for server srv from standard input.\n"
 #endif
-			       "  -disablesu [srv] Disable password for 'SuperUser' account on server srv.\n"
+			       "  -disablesu [srv]       Disable password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-			       "  -limits          Tests and shows how many file descriptors and threads can be created.\n"
-			       "                   The purpose of this option is to test how many clients Murmur can handle.\n"
-			       "                   Murmur will exit after this test.\n"
+			       "  -limits                Tests and shows how many file descriptors and threads can be created.\n"
+			       "                         The purpose of this option is to test how many clients Murmur can handle.\n"
+			       "                         Murmur will exit after this test.\n"
 #endif
-			       "  -v               Add verbose output.\n"
+			       "  -v                     Add verbose output.\n"
 #ifdef Q_OS_UNIX
-			       "  -fg              Don't detach from console.\n"
+			       "  -fg                    Don't detach from console.\n"
 #else
-			       "  -fg              Don't write to the log file.\n"
+			       "  -fg                    Don't write to the log file.\n"
 #endif
-			       "  -wipessl         Remove SSL certificates from database.\n"
-			       "  -wipelogs        Remove all log entries from database.\n"
-			       "  -version         Show version information.\n"
+			       "  -wipessl               Remove SSL certificates from database.\n"
+			       "  -wipelogs              Remove all log entries from database.\n"
+			       "  -version               Show version information.\n"
+			       "\n"
+			       "  -license               Show Murmur's license.\n"
+			       "  -authors               Show Murmur's authors.\n"
+			       "  -third-party-licenses  Show licenses for third-party software used by Murmur.\n"
+			       "\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", qPrintable(args.at(0)));
 #ifdef Q_OS_UNIX
