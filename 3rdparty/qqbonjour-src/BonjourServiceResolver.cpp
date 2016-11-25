@@ -80,9 +80,11 @@ void BonjourServiceResolver::bonjourSocketReadyRead(int sockfd) {
 		return;
 
 	DNSServiceErrorType err = DNSServiceProcessResult(rr->dnssref);
-	if (err != kDNSServiceErr_NoError)
+	if (err != kDNSServiceErr_NoError) {
 		emit error(rr->record, err);
-
+		qmResolvers.remove(DNSServiceRefSockFD(rr->dnssref));
+		delete rr;
+	}
 }
 
 
@@ -95,6 +97,7 @@ void BonjourServiceResolver::bonjourResolveReply(DNSServiceRef, DNSServiceFlags 
 
 	if (errorCode != kDNSServiceErr_NoError) {
 		emit rr->bsr->error(rr->record, errorCode);
+		delete rr;
 		return;
 	}
 	rr->bonjourPort = qFromBigEndian<quint16>(port);
