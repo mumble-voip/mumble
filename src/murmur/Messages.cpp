@@ -863,8 +863,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 		}
 
-		QRegExp re2("\\w");
-		if (re2.indexIn(qsName) == -1) {
+		if (qsName.length() == 0) {
 			PERM_DENIED_TYPE(ChannelName);
 			return;
 		}
