@@ -117,7 +117,7 @@ unix {
 	# so add it to our library search path in C++11, C++14
 	# and C++1z mode.
 	CONFIG(c++11)|CONFIG(c++14)|CONFIG(c++1z) {
-		MULTIARCH_TRIPLE = $$system($${QMAKE_CC} -print-multiarch)
+		MULTIARCH_TRIPLE = $$system($${QMAKE_CC} -print-multiarch 2>/dev/null)
 		!isEmpty(MULTIARCH_TRIPLE) {
 			# Don't add the Debian-specfic c++11 libdir when using
 			# a Mumble buildenv.
