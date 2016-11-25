@@ -6,10 +6,17 @@
 #import <AppKit/AppKit.h>
 
 @interface CompatApp : NSObject
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1070
-<NSFileManagerDelegate>
-#endif
 @end
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+@interface CompatApp (NSApplicationDelegateExtension) <NSApplicationDelegate>
+@end
+#endif
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+@interface CompatApp (NSFileManagerDelegateExtension) <NSFileManagerDelegate>
+@end
+#endif
 
 @implementation CompatApp
 
