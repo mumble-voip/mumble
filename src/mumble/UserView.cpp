@@ -28,6 +28,12 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	QVariant data = m->data(idxc1);
 	QList<QVariant> ql = data.toList();
 
+	// Allow a UserView's BackgroundRole to override the current theme's default color.
+	QVariant bg = index.data(Qt::BackgroundRole);
+	if (bg.isValid()) {
+		painter->fillRect(option.rect, bg.value<QBrush>());
+	}
+
 	painter->save();
 
 	QStyleOptionViewItemV4 o = option;
