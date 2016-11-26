@@ -7,6 +7,7 @@
 #define MUMBLE_CONNECTION_H_
 
 #include <QtCore/QtGlobal>
+#include <Qtcore/QMutex>
 #if QT_VERSION >= 0x040700
 #include <QtCore/QElapsedTimer>
 #else

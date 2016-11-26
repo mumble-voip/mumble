@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_OVERLAY_WIN_H_
 #define MUMBLE_MUMBLE_OVERLAY_WIN_H_
 
+#include <windows.h>
+
 #include <QString>
 #include <QStringList>
 #include <QProcess>

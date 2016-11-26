@@ -9,6 +9,10 @@
 #include <QApplication>
 #include <QUrl>
 
+#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
+# include <QAbstractNativeEventFilter>
+#endif
+
 /**
  * @brief Implements custom system shutdown behavior as well as event filtering.
  */
