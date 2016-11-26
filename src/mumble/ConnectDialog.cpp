@@ -53,6 +53,22 @@ void PingStats::reset() {
 	init();
 }
 
+ServerViewDelegate::ServerViewDelegate(QObject *p) : QStyledItemDelegate(p) {
+}
+
+ServerViewDelegate::~ServerViewDelegate() {
+}
+
+void ServerViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+	// Allow a ServerItem's BackgroundRole to override the current theme's default color.
+	QVariant bg = index.data(Qt::BackgroundRole);
+	if (bg.isValid()) {
+		painter->fillRect(option.rect, bg.value<QBrush>());
+	}
+
+	QStyledItemDelegate::paint(painter, option, index);
+}
+
 ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siFavorite = new ServerItem(tr("Favorite"), ServerItem::FavoriteType);
 	addTopLevelItem(siFavorite);
@@ -837,6 +853,8 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	
 	qpbAdd->setHidden(g.s.disableConnectDialogEditing);
 	qpbEdit->setHidden(g.s.disableConnectDialogEditing);
+
+	qtwServers->setItemDelegate(new ServerViewDelegate());
 
 	// Hide ping and user count if we are not allowed to ping.
 	if (!bAllowPing) {
