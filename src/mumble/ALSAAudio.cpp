@@ -506,6 +506,9 @@ void ALSAAudioOutput::run() {
 
 	while (bRunning && bOk) {
 		ALSA_RECOVER(pcm_handle, snd_pcm_wait(pcm_handle, 20));
+		if (err == 0) { // snd_pcm_wait timed out...
+			continue;
+		}
 
 		snd_pcm_sframes_t avail = 0;
 		ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
