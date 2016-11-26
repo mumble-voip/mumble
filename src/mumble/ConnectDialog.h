@@ -74,6 +74,16 @@ public:
 
 class ServerItem;
 
+class ServerViewDelegate : public QStyledItemDelegate {
+	Q_OBJECT
+	Q_DISABLE_COPY(ServerViewDelegate)
+public:
+	ServerViewDelegate(QObject *p = NULL);
+	~ServerViewDelegate();
+
+	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+};
+
 class ServerView : public QTreeWidget {
 		Q_OBJECT
 		Q_DISABLE_COPY(ServerView)
