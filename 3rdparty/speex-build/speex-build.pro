@@ -28,7 +28,14 @@ CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
 CONFIG += no_include_pwd
+
+# Enable no_batch, which disables nmake's inference rules.
+# We have to do this because we use files from two VPATHs
+# below, and nmake is unable to figure out how to handle
+# that.
+CONFIG += no_batch
 VPATH	= ../speex-src/libspeex ../speexdsp-src/libspeexdsp
+
 TARGET = speex
 DEFINES += NDEBUG HAVE_CONFIG_H
 INCLUDEPATH = ../speex-src/include ../speex-src/libspeex ../speexdsp-src/include ../speexdsp-src/libspeexdsp
