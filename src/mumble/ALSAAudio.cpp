@@ -16,6 +16,16 @@
 
 #define NBLOCKS 8
 
+static int mumble_snd_pcm_recover(snd_pcm_t *pcm, int err, int silent) {
+	int ret = snd_pcm_recover(pcm, err, silent);
+	if (ret != 0) {
+		int pret = snd_pcm_prepare(pcm);
+		qWarning("ALSAAudio: %s: %s", snd_strerror(ret), snd_strerror(pret));
+	}
+
+	return 0;
+}
+
 class ALSAEnumerator {
 	public:
 		QHash<QString,QString> qhInput;
@@ -282,7 +292,7 @@ ALSAAudioInput::~ALSAAudioInput() {
 #define ALSA_ERRBAIL(x) if (!bOk) {} else if ((err=static_cast<int>(x)) < 0) { bOk = false; qWarning("ALSAAudio: %s: %s", #x, snd_strerror(err));}
 #define ALSA_ERRCHECK(x) if (!bOk) {} else if ((err=static_cast<int>(x)) < 0) {qWarning("ALSAAudio: Non-critical: %s: %s", #x, snd_strerror(err));}
 #define ALSA_RECOVER(pcm, x) if (bOk && (err=static_cast<int>(x)) < 0) { qWarning("ALSAAudio: Attempting recovery of %s", snd_strerror(err)); \
-                                                         ALSA_ERRBAIL(snd_pcm_recover(pcm, err, true));}
+                                                         ALSA_ERRBAIL(mumble_snd_pcm_recover(pcm, err, true));}
 
 void ALSAAudioInput::run() {
 	QMutexLocker qml(&qmALSA);
