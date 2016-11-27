@@ -478,7 +478,10 @@ unix {
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
     must_pkgconfig(x11)
-    LIBS *= -lrt -lXi
+    linux {
+      LIBS *= -lrt
+    }
+    LIBS *= -lXi
 
     # For MumbleSSL::qsslSanityCheck()
     contains(UNAME, Linux) {

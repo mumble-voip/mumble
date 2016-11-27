@@ -15,7 +15,7 @@ win32 {
 unix {
 	SOURCES		= link-posix.cpp
 
-        !macx {
+        linux {
 		LIBS          += -lrt
 	}
 }
