@@ -622,6 +622,9 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");
 
+	SAVELOAD(qsSndioInput, "sndio/input");
+	SAVELOAD(qsSndioOutput, "sndio/output");
+
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");
 
@@ -936,6 +939,9 @@ void Settings::save() {
 
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");
+
+	SAVELOAD(qsSndioInput, "sndio/input");
+	SAVELOAD(qsSndioOutput, "sndio/output");
 
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");

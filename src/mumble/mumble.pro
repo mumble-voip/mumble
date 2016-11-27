@@ -499,6 +499,18 @@ unix {
       CONFIG *= alsa
     }
 
+    # Enable sndio by default on OpenBSD
+    !CONFIG(no-sndio):contains(UNAME, OpenBSD) {
+      CONFIG *= sndio
+    }
+
+    CONFIG(sndio) {
+      HEADERS *= SndioAudio.h
+      SOURCES *= SndioAudio.cpp
+      DEFINES *= USE_SNDIO
+      LIBS *= -lsndio
+    }
+
     !CONFIG(no-speechd) {
       CONFIG *= speechd
     } else {

@@ -196,6 +196,7 @@ struct Settings {
 	QString qsPulseAudioInput, qsPulseAudioOutput;
 	QString qsOSSInput, qsOSSOutput;
 	int iPortAudioInput, iPortAudioOutput;
+	QString qsSndioInput, qsSndioOutput;
 
 	bool bASIOEnable;
 	QString qsASIOclass;
