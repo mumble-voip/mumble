@@ -607,7 +607,7 @@ void ServerHandler::serverConnectionConnected() {
 
 		qusUdp = new QUdpSocket(this);
 		if (g.s.bUdpForceTcpAddr) {
-			qusUdp->bind(qhaLocal);
+			qusUdp->bind(qhaLocal, 0);
 		} else {
 			if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol) {
 				qusUdp->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
