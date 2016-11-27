@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+<file alias="flags/ac.svg">../../../icons/flags/ac.svg</file>
+<file alias="flags/rs.svg">../../../icons/flags/rs.svg</file>
+<file alias="flags/pt.svg">../../../icons/flags/pt.svg</file>
+</qresource>
+</RCC>

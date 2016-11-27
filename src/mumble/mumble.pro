@@ -199,7 +199,10 @@ SOURCES *= BanEditor.cpp \
     widgets/MUComboBox.cpp
 
 DIST		*= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
-RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
+RESOURCES	*= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
+# Add the various mumble_flags_XX.qrc files to RESOURCES...
+include(flags/mumble_flags.pri)
+
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \
     ConnectDialog.ui \
