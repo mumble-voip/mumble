@@ -8,4 +8,4 @@ SOURCES = SpeexMark.cpp
 HEADERS = Timer.h
 INCLUDEPATH = ../src ../speex-src/include
 LIBS += -lspeex
-QMAKE_LIBDIR += ../../release
+QMAKE_LIBDIR = ../../release $$QMAKE_LIBDIR
