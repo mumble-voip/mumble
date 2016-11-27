@@ -62,6 +62,10 @@ SUBDIRS *= src/mumble_proto
     }
   }
 
+  contains(UNAME, OpenBSD) {
+    CONFIG *= no-overlay
+  }
+
   unix:!macx:!CONFIG(no-overlay) {
     SUBDIRS *= overlay_gl
   }

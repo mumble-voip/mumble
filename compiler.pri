@@ -228,7 +228,7 @@ unix {
 	}
 }
 
-contains(UNAME, FreeBSD) {
+contains(UNAME, FreeBSD)|contains(UNAME, OpenBSD) {
 	QMAKE_CFLAGS *= "-I/usr/local/include" "-isystem /usr/local/include"
 	QMAKE_CXXFLAGS *= "-I/usr/local/include" "-isystem /usr/local/include"
 	QMAKE_LIBDIR *= /usr/lib
