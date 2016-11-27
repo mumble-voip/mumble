@@ -388,9 +388,9 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 
 void AudioInputDialog::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
-
-	if (ai.get() == NULL || ! ai->sppPreprocess)
+	if (!ai || !ai->sppPreprocess) {
 		return;
+	}
 
 	abSpeech->iBelow = qsTransmitMin->value();
 	abSpeech->iAbove = qsTransmitMax->value();
