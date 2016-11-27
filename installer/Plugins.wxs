@@ -77,6 +77,9 @@
       <Component Id="etqw.dll">
         <File Source="$(var.SourceDir)\release\plugins\etqw.dll" KeyPath="yes" />
       </Component>
+      <Component Id="ffxiv.dll">
+        <File Source="$(var.SourceDir)\release\plugins\ffxiv.dll" KeyPath="yes" />
+      </Component>
       <Component Id="gmod.dll">
         <File Source="$(var.SourceDir)\release\plugins\gmod.dll" KeyPath="yes" />
       </Component>
@@ -179,6 +182,7 @@
       <ComponentRef Id="dods.dll" />
       <ComponentRef Id="dys.dll" />
       <ComponentRef Id="etqw.dll" />
+      <ComponentRef Id="ffxiv.dll" />
       <ComponentRef Id="gmod.dll" />
       <ComponentRef Id="gtaiv.dll" />
       <ComponentRef Id="gw.dll" />
