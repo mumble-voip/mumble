@@ -58,12 +58,12 @@ macx {
 }
 
 CONFIG(debug, debug|release) {
-	QMAKE_LIBDIR *= ../debug$(DESTDIR_ADD)
+	QMAKE_LIBDIR = ../debug$(DESTDIR_ADD) $$QMAKE_LIBDIR
 	DESTDIR = ../debug$(DESTDIR_ADD)
 }
 
 CONFIG(release, debug|release) {
-	QMAKE_LIBDIR *= ../release$(DESTDIR_ADD)
+	QMAKE_LIBDIR = ../release$(DESTDIR_ADD) $$QMAKE_LIBDIR
 	DESTDIR = ../release$(DESTDIR_ADD)
 }
 

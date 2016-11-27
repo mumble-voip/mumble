@@ -70,11 +70,11 @@ isEqual(QT_MAJOR_VERSION, 4) {
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  QMAKE_LIBDIR += ../../debug
+  QMAKE_LIBDIR = ../../debug $$QMAKE_LIBDIR
   DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  QMAKE_LIBDIR += ../../release
+  QMAKE_LIBDIR = ../../release $$QMAKE_LIBDIR
   DESTDIR	= ../../release
 }

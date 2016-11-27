@@ -39,12 +39,12 @@ CONFIG(force-x86_64-toolchain) {
 
 CONFIG(release, debug|release) {
   DESTDIR = ../release
-  QMAKE_LIBDIR += ../release
+  QMAKE_LIBDIR = ../release $$QMAKE_LIBDIR
 }
 
 CONFIG(debug, debug|release) {
   DESTDIR = ../debug
-  QMAKE_LIBDIR += ../debug
+  QMAKE_LIBDIR = ../debug $$QMAKE_LIBDIR
   DEFINES *= DEBUG
 }
 
