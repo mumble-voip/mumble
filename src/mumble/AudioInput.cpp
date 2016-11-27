@@ -521,7 +521,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 		return;
 	}
 
-	ai.reset();
+	ai.clear();
 
 	Audio::stopInput();
 	Audio::startInput();
