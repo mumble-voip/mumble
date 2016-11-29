@@ -148,6 +148,9 @@
         <Component Id="bf4.dll">
           <File Source="$(var.SourceDir)\release\plugins\bf4.dll" KeyPath="yes" />
         </Component>
+        <Component Id="ffxiv_x64.dll">
+          <File Source="$(var.SourceDir)\release\plugins\ffxiv_x64.dll" KeyPath="yes" />
+        </Component>
         <Component Id="gtav.dll">
           <File Source="$(var.SourceDir)\release\plugins\gtav.dll" KeyPath="yes" />
         </Component>
@@ -207,6 +210,7 @@
       <?if $(sys.BUILDARCH) = "x64" ?>
         <ComponentRef Id="bf1.dll" />
         <ComponentRef Id="bf4.dll" />
+        <ComponentRef Id="ffxiv_x64.dll" />
         <ComponentRef Id="gtav.dll" />
         <ComponentRef Id="wow_x64.dll" />
       <?endif ?>
