@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Numatytoji serverio reikšmė</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -5772,7 +5772,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Pri&amp;eigos raktai</translation>
     </message>
     <message>
         <location/>
@@ -7851,17 +7851,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
-        <translation type="unfinished"/>
+        <translation>Tuščias prieigos raktas</translation>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Prieigos raktai</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"/>
+        <translation>Esamame serveryje esančių prieigos raktų sąrašas</translation>
     </message>
     <message>
         <location/>
@@ -7869,12 +7869,15 @@ To upgrade these files to their latest versions, click the button below.</source
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tai yra redaguojamas prisijungtame serveryje esančių prieigos raktų sąrašas.&lt;/b&gt;
+&lt;br /&gt;
+Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažodis ir kuri yra skirta lengvam prieigos tvarkymui kanaluose. Mumble prisimins jūsų naudotus prieigos raktus ir kitą kartą jums vėl prisijungus prie serverio, išsiųs juos iš naujo, taigi, tokiu būdu jums nereikės kas kartą juos įvedinėti.
+</translation>
     </message>
     <message>
         <location/>
         <source>Add a token</source>
-        <translation type="unfinished"/>
+        <translation>Pridėti prieigos raktą</translation>
     </message>
     <message>
         <location/>
@@ -7884,7 +7887,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Remove a token</source>
-        <translation type="unfinished"/>
+        <translation>Šalinti prieigos raktą</translation>
     </message>
     <message>
         <location/>
