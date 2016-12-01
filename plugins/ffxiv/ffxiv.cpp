@@ -3,16 +3,44 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+#ifdef FFXIV_USE_x64
+#include "../mumble_plugin_win32_64bit.h" // Include standard plugin header.
+#else
 #include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#endif
+
 #include "../mumble_plugin_utils.h"       // Include plugin header for special functions, like "escape".
 #include <cmath>
 
 // Offset values can be obtained from:
 //   http://xivapp.com/api/structures?patchVersion=latest&platform=x86
+//   http://xivapp.com/api/structures?patchVersion=latest&platform=x64
 // Y is North/South, South is increasing values
 // X is East/West, West is increasing values
 // Heading is in radians, 0 faces south
 
+#ifdef FFXIV_USE_x64
+// Memory offsets
+const procptr64_t camera_ptr              = 0x1673350;
+const procptr64_t avatar_ptr              = 0x1674950;
+const procptr64_t state_offset            = 0x1641990;
+const procptr64_t map_id_offset           = 0x16409E8;
+// Avatar struct offsets
+const procptr64_t identity_offset         = 48;  // Name
+const procptr64_t avatar_pos_offset       = 176; // X, Z, Y
+const procptr64_t avatar_azimuth_offset   = 192; // Heading (-pi to pi)
+// Camera struct offsets
+const procptr64_t camera_is_free_offset   = 272; // 0: First person mode; 1: 3rd person
+const procptr64_t camera_pos_offset       = 80;  // X, Z, Y
+const procptr64_t camera_azimuth_offset   = 304; // (-pi to pi)
+const procptr64_t camera_elevation_offset = 308; // (-pi to pi)
+// Module names
+const wchar_t *exe_name                 = L"ffxiv_dx11.exe";
+// Plugin long description
+static const std::wstring longdesc() {return std::wstring(L"Supports Final Fantasy XIV X64 version 2016.11.11.0000.0000 with context and identity support.");}
+// Plugin short description
+static std::wstring description(L"Final Fantasy XIV X64 (2016.11.11.0000.0000)");
+#else
 // Memory offsets
 const procptr32_t camera_ptr              = 0x1045C40;
 const procptr32_t avatar_ptr              = 0x10468EC;
@@ -29,6 +57,13 @@ const procptr32_t camera_azimuth_offset   = 288; // (-pi to pi)
 const procptr32_t camera_elevation_offset = 292; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv.exe";
+// Plugin long description
+static const std::wstring longdesc() {return std::wstring(L"Supports Final Fantasy XIV version 2016.11.11.0000.0000 with context and identity support.");}
+// Plugin short description
+static std::wstring description(L"Final Fantasy XIV (2016.11.11.0000.0000)");
+#endif
+// Plugin short name
+static std::wstring shortname(L"Final Fantasy XIV");
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
@@ -45,13 +80,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// State
 	unsigned char state, camera_is_free;
 
-	// Avatar pointer
+	// Retrieve Avatar and Camera addresses
+#ifdef FFXIV_USE_x64
+	procptr64_t avatar_address = peekProc<procptr64_t>(pModule + avatar_ptr);
+	procptr64_t camera_address = peekProc<procptr64_t>(pModule + camera_ptr);
+#else
 	procptr32_t avatar_address = peekProc<procptr32_t>(pModule + avatar_ptr);
-	if (!avatar_address) return false;
-
-	// Camera pointer
 	procptr32_t camera_address = peekProc<procptr32_t>(pModule + camera_ptr);
-	if (!camera_address) return false;
+#endif
+	if (!avatar_address || !camera_address) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc(pModule + state_offset, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
@@ -164,13 +201,6 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 }
-
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Final Fantasy XIV version 2016.11.11.0000.0000 with context and identity support."); // Plugin long description
-}
-
-static std::wstring description(L"Final Fantasy XIV (2016.11.11.0000.0000)"); // Plugin short description
-static std::wstring shortname(L"Final Fantasy XIV"); // Plugin short name
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
