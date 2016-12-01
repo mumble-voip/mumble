@@ -88,6 +88,7 @@ LoopUser::LoopUser() {
 	tsState = Settings::Passive;
 	cChannel = NULL;
 	qtTicker.start();
+	qtLastFetch.start();
 }
 
 void LoopUser::addFrame(const QByteArray &packet) {
