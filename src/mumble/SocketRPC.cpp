@@ -120,6 +120,17 @@ void SocketRPCClient::processXml() {
 					g.mw->qaAudioMute->trigger();
 				}
 			}
+			iter = qmRequest.find(QLatin1String("togglemute"));
+			if (iter != qmRequest.constEnd()) {
+				bool set = iter.value().toBool();
+				if (set == g.s.bMute) {
+					g.mw->qaAudioMute->setChecked(set);
+					g.mw->qaAudioMute->trigger();
+				} else {
+					g.mw->qaAudioMute->setChecked(! set);
+					g.mw->qaAudioMute->trigger();
+				}
+			}
 			iter = qmRequest.find(QLatin1String("deaf"));
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
@@ -133,6 +144,17 @@ void SocketRPCClient::processXml() {
 				bool set = iter.value().toBool();
 				if (set == g.s.bDeaf) {
 					g.mw->qaAudioDeaf->setChecked(set);
+					g.mw->qaAudioDeaf->trigger();
+				}
+			}
+			iter = qmRequest.find(QLatin1String("toggledeaf"));
+			if (iter != qmRequest.constEnd()) {
+				bool set = iter.value().toBool();
+				if (set == g.s.bDeaf) {
+					g.mw->qaAudioDeaf->setChecked(set);
+					g.mw->qaAudioDeaf->trigger();
+				} else {
+					g.mw->qaAudioDeaf->setChecked(! set);
 					g.mw->qaAudioDeaf->trigger();
 				}
 			}
