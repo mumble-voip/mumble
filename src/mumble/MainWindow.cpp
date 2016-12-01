@@ -503,10 +503,19 @@ void MainWindow::showEvent(QShowEvent *e) {
 
 void MainWindow::changeEvent(QEvent *e) {
 	QWidget::changeEvent(e);
+
+#ifdef Q_OS_MAC
+	// On modern macOS/Qt combinations, the code below causes Mumble's
+	// MainWindow to not be interactive after returning from being minimized.
+	// (See issue mumble-voip/mumble#2171)
+	// So, let's not do it on macOS.
+
+#else
 	if (isMinimized() && g.s.bHideInTray) {
 		// Workaround http://qt-project.org/forums/viewthread/4423/P15/#50676
 		QTimer::singleShot(0, this, SLOT(hide()));
 	}
+#endif
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {
