@@ -160,10 +160,14 @@ int main(int argc, char **argv) {
 					"                Mute self\n"
 					"  unmute\n"
 					"                Unmute self\n"
+					"  togglemute\n"
+					"                Toggle self-mute status\n"
 					"  deaf\n"
 					"                Deafen self\n"
 					"  undeaf\n"
 					"                Undeafen self\n"
+					"  toggledeaf\n"
+					"                Toggle self-deafen stauts\n"
 					"\n"
 				);
 
