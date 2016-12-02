@@ -33,5 +33,7 @@
 	<string>NSApplication</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>LSAppNapIsDisabled</key>
+	<true />
 </dict>
 </plist>
