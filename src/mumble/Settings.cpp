@@ -476,6 +476,29 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 #define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var).toInt())
 #define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), static_cast<int>(var)).toInt())
 
+// Workaround for mumble-voip/mumble#2638.
+//
+// Qt previously expected to be able to write
+// NUL bytes in strings in plists. This is no
+// longer possible, which causes Qt to write
+// incomplete stings to the preferences plist.
+// These are of the form "@Variant(", and, for
+// Mumble, typically happen for float values.
+//
+// We detect this bad value and avoid loading
+// it. This causes such settings to fall back
+// to their defaults, instead of being set to
+// a zero value.
+#ifdef Q_OS_MAC
+ #undef SAVELOAD
+ #define SAVELOAD(var, name) \
+	do { \
+		if (settings_ptr->value(QLatin1String(name)).toString() != QLatin1String("@Variant(")) { \
+			var = qvariant_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var)); \
+		} \
+	} while (0)
+#endif
+
 void OverlaySettings::load() {
 	load(g.qs);
 }
