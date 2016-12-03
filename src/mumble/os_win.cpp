@@ -5,10 +5,6 @@
 
 #include "mumble_pch.hpp"
 
-#if QT_VERSION >= 0x050000
-# include <qpa/qplatformnativeinterface.h>
-#endif
-
 #include <windows.h>
 #include <tlhelp32.h>
 #include <dbghelp.h>
@@ -35,6 +31,8 @@ static int cpuinfo[4];
 
 bool bIsWin7 = false;
 bool bIsVistaSP1 = false;
+
+HWND mumble_mw_hwnd = 0;
 
 static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	char c;
@@ -312,22 +310,4 @@ DWORD WinVerifySslCert(const QByteArray& cert) {
 	CertFreeCertificateContext(certContext);
 
 	return errorStatus;
-}
-
-HWND MumbleHWNDForQWidget(QWidget *widget) {
-#if QT_VERSION >= 0x050000
-	QWindow *window = widget->windowHandle();
-	if (window == NULL) {
-		QWidget *npw = widget->nativeParentWidget();
-		if (npw != NULL) {
-			window = npw->windowHandle();
-		}
-	}
-	if (window != NULL && window->handle() != 0) {
-		return static_cast<HWND>(qApp->platformNativeInterface()->nativeResourceForWindow("handle", window));
-	}
-	return 0;
-#else
-	return widget->winId();
-#endif
 }

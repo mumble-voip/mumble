@@ -64,7 +64,6 @@ QT		*= network sql xml svg
 isEqual(QT_MAJOR_VERSION, 5) {
   QT *= widgets
   # Allow native widget access.
-  win32:QT *= gui-private
   macx:QT *= gui-private
 }
 

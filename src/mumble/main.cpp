@@ -411,6 +411,13 @@ int main(int argc, char **argv) {
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
 
+#ifdef Q_OS_WIN
+	// Set mumble_mw_hwnd in os_win.cpp.
+	// Used by APIs in ASIOInput, DirectSound and GlobalShortcut_win that require a HWND.
+	extern HWND mumble_mw_hwnd;
+	mumble_mw_hwnd = GetForegroundWindow();
+#endif
+
 #ifdef USE_DBUS
 	new MumbleDBus(g.mw);
 	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), g.mw);
