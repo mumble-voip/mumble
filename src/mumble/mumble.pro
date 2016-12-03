@@ -666,13 +666,13 @@ CONFIG(no-update) {
 
 CONFIG(static_qt_plugins) {
   DEFINES += USE_STATIC_QT_PLUGINS
-  QTPLUGIN += qtaccessiblewidgets qico qsvg qsvgicon
+  QTPLUGIN += qico qsvg qsvgicon
 
-  # The accessiblewidgets plugin is not needed for Qt 5.4 and greater,
-  # where it is integrated into the QtWidgets library.
-  # See QTBUG-43007 for more information.
-  isEqual(QT_MAJOR_VERSION, 5):greaterThan(QT_MINOR_VERSION, 3) {
-    QTPLUGIN -= qtaccessiblewidgets
+  # The accessiblewidgets plugin is only needed for Qt 5 versions below 5.4.
+  # In Qt 5.4, it was integrated into the QtWidgets library.
+  # See QTBUG-43007 and Qt commit 4255ba40ab073a for more information.
+  isEqual(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 4) {
+    QTPLUGIN *= qtaccessiblewidgets
   }
 
   macx {
