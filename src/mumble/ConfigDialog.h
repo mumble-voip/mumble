@@ -25,14 +25,6 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 	public:
 		ConfigDialog(QWidget *p = NULL);
 		~ConfigDialog() Q_DECL_OVERRIDE;
-#ifdef Q_OS_MAC
-	protected:
-		void setupMacToolbar(bool expert);
-		void removeMacToolbar();
-	public:
-		void updateExpert(bool expert);
-		void on_widgetSelected(ConfigWidget *);
-#endif
 	public slots:
 		void on_pageButtonBox_clicked(QAbstractButton *);
 		void on_dialogButtonBox_clicked(QAbstractButton *);
