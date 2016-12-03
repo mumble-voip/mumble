@@ -666,27 +666,35 @@ CONFIG(no-update) {
 
 CONFIG(static_qt_plugins) {
   DEFINES += USE_STATIC_QT_PLUGINS
-  QTPLUGIN += qsvg qsvgicon
 
-  # The accessiblewidgets plugin is only needed for Qt 5 versions below 5.4.
-  # In Qt 5.4, it was integrated into the QtWidgets library.
-  # See QTBUG-43007 and Qt commit 4255ba40ab073a for more information.
-  isEqual(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 4) {
-    QTPLUGIN *= qtaccessiblewidgets
-  }
+  # Since Qt 5.3, qt.prf will automatically populate QT_PLUGINS for static builds
+  # for TEMPLATE=app.
+  #
+  # On Windows, in CONFIG(static), we don't use TEMPLATE=app, so we still need this
+  # code there. But for macOS, we don't need it anymore.
+  !contains(TEMPLATE, .*app)|lessThan(QT_VERSION_INT, 50300) {
+    QTPLUGIN += qsvg qsvgicon
 
-  macx {
-    isEqual(QT_MAJOR_VERSION, 5) {
-      QTPLUGIN += qicns qcocoa
-    } else {
-      QTPLUGIN += qicnsicon
+    # The accessiblewidgets plugin is only needed for Qt 5 versions below 5.4.
+    # In Qt 5.4, it was integrated into the QtWidgets library.
+    # See QTBUG-43007 and Qt commit 4255ba40ab073a for more information.
+    isEqual(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 4) {
+      QTPLUGIN *= qtaccessiblewidgets
     }
-  }
 
-  win32 {
-    QTPLUGIN *= qico
-    isEqual(QT_MAJOR_VERSION, 5) {
-      QTPLUGIN += qwindows
+    macx {
+      isEqual(QT_MAJOR_VERSION, 5) {
+        QTPLUGIN += qicns qcocoa
+      } else {
+        QTPLUGIN += qicnsicon
+      }
+    }
+
+    win32 {
+      QTPLUGIN *= qico
+      isEqual(QT_MAJOR_VERSION, 5) {
+        QTPLUGIN += qwindows
+      }
     }
   }
 
