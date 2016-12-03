@@ -445,7 +445,7 @@ unix {
 
     LIBS += -framework Security -framework SecurityInterface -framework ApplicationServices
 
-    HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h AppNap.h
+    HEADERS *= GlobalShortcut_macx.h AppNap.h
     SOURCES *= SharedMemory_unix.cpp
     OBJECTIVE_SOURCES *= TextToSpeech_macx.mm GlobalShortcut_macx.mm os_macx.mm Log_macx.mm AppNap.mm
 
