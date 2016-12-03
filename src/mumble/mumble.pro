@@ -666,7 +666,7 @@ CONFIG(no-update) {
 
 CONFIG(static_qt_plugins) {
   DEFINES += USE_STATIC_QT_PLUGINS
-  QTPLUGIN += qico qsvg qsvgicon
+  QTPLUGIN += qsvg qsvgicon
 
   # The accessiblewidgets plugin is only needed for Qt 5 versions below 5.4.
   # In Qt 5.4, it was integrated into the QtWidgets library.
@@ -684,6 +684,7 @@ CONFIG(static_qt_plugins) {
   }
 
   win32 {
+    QTPLUGIN *= qico
     isEqual(QT_MAJOR_VERSION, 5) {
       QTPLUGIN += qwindows
     }
