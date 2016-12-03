@@ -63,8 +63,6 @@ CONFIG(static) {
 QT		*= network sql xml svg
 isEqual(QT_MAJOR_VERSION, 5) {
   QT *= widgets
-  # Allow native widget access.
-  macx:QT *= gui-private
 }
 
 HEADERS *= BanEditor.h \
@@ -450,13 +448,6 @@ unix {
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h AppNap.h
     SOURCES *= SharedMemory_unix.cpp
     OBJECTIVE_SOURCES *= TextToSpeech_macx.mm GlobalShortcut_macx.mm os_macx.mm Log_macx.mm AppNap.mm
-
-    !CONFIG(no-cocoa) {
-        DEFINES *= USE_COCOA
-        # Native feeling config dialog.
-        OBJECTIVE_SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm
-        HEADERS += ConfigDialog_macx.h
-    }
 
     !CONFIG(universal) {
       # Link against libxar so we can inspect Mac OS X installer packages.

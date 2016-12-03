@@ -53,10 +53,6 @@
 #include "AppNap.h"
 #endif
 
-#ifdef USE_COCOA
-#include "ConfigDialog_macx.h"
-#endif
-
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
 }
@@ -302,7 +298,7 @@ void MainWindow::setupGui()  {
 
 	setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
 
-#ifdef USE_COCOA
+#ifdef Q_OS_MAC
 	// Workaround for QTBUG-3116 -- using a unified toolbar on Mac OS X
 	// and using restoreGeometry before the window has updated its frameStrut
 	// causes the MainWindow to jump around on screen on launch.  Workaround
@@ -358,7 +354,7 @@ void MainWindow::setupGui()  {
 
 	updateTrayIcon();
 
-#ifdef USE_COCOA
+#ifdef Q_OS_MAC
 	setWindowOpacity(1.0f);
 #if QT_VERSION < 0x040700
 	// Process pending events.  This is done to force the unified
@@ -2340,15 +2336,6 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 
 void MainWindow::on_qaConfigDialog_triggered() {
 	QDialog *dlg = NULL;
-#ifdef USE_COCOA
-	// To fit in with Mumble skins, we'll only use the Mac OS X
-	// config dialog when we're using the Aqua skin with no external
-	// stylesheet set.  Also, the Mac dialog doesn't work when embedded
-	// inside the interactive overlay, so there we always force a regular
-	// ConfigDialog.
-	if (! g.ocIntercept && !Themes::getConfiguredStyle(g.s))
-		dlg = new ConfigDialogMac(this);
-#endif
 	if (! dlg)
 		dlg = new ConfigDialog(this);
 
