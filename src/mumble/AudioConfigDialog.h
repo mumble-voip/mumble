@@ -28,7 +28,6 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 	public slots:
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 		void updateBitrate();
 		void continuePlayback();
 
@@ -62,7 +61,6 @@ class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
 	public slots:
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 		void on_qsDelay_valueChanged(int v);
 		void on_qsJitter_valueChanged(int v);
 		void on_qsVolume_valueChanged(int v);

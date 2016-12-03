@@ -217,15 +217,6 @@ void LookConfig::accept() const {
 	g.mw->setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
 }
 
-bool LookConfig::expert(bool b) {
-	qcbExpand->setVisible(b);
-	qliExpand->setVisible(b);
-	qcbUsersTop->setVisible(b);
-	qcbStateInTray->setVisible(b);
-	qcbShowContextMenuInMenuBar->setVisible(b);
-	return true;
-}
-
 void LookConfig::themeDirectoryChanged() {
 	qWarning() << "Theme directory changed";
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());

@@ -44,7 +44,6 @@ ConfigDialogMac::ConfigDialogMac(QWidget *p) : QDialog(p) {
 	s = g.s;
 
 	/* Hide widgets we don't use on the Cocoa config dialog. */
-	qcbExpert->hide();
 	qlwIcons->hide();
 
 	unsigned int idx = 0;
@@ -85,7 +84,8 @@ ConfigDialogMac::ConfigDialogMac(QWidget *p) : QDialog(p) {
 }
 
 void ConfigDialogMac::delayedInit() {
-	updateExpert(g.s.bExpert);
+	removeMacToolbar();
+	setupMacToolbar();
 
 	if (! g.s.qbaConfigGeometry.isEmpty())
 		restoreGeometry(g.s.qbaConfigGeometry);
@@ -144,7 +144,6 @@ void ConfigDialogMac::on_pageButtonBox_clicked(QAbstractButton *b) {
 	switch (pageButtonBox->standardButton(b)) {
 		case QDialogButtonBox::RestoreDefaults: {
 				Settings def;
-				def.bExpert = g.s.bExpert;
 				conf->load(def);
 				break;
 			}
@@ -168,7 +167,7 @@ void ConfigDialogMac::on_dialogButtonBox_clicked(QAbstractButton *b) {
 	}
 }
 
-void ConfigDialogMac::setupMacToolbar(bool expert) {
+void ConfigDialogMac::setupMacToolbar() {
 	this->winId();
 	NSWindow *window = qt_mac_window_for(this);
 
@@ -189,8 +188,7 @@ void ConfigDialogMac::setupMacToolbar(bool expert) {
 	// the delegate when removing the Mac toolbar. (See ::removeMacToolbar)
 	ConfigDialogDelegate *delegate = [[ConfigDialogDelegate alloc] initWithConfigDialog:this
 	                                                               andToolbar:toolbar
-	                                                               andWidgetMap:&qmWidgets
-	                                                               inExpertMode:expert];
+	                                                               andWidgetMap:&qmWidgets];
 	[toolbar setDelegate:delegate];
 	[window setToolbar:toolbar];
 
@@ -216,29 +214,6 @@ void ConfigDialogMac::on_widgetSelected(ConfigWidget *cw) {
 	}
 }
 
-void ConfigDialogMac::updateExpert(bool b) {
-	removeMacToolbar();
-	setupMacToolbar(b);
-
-	ConfigWidget *cw = qobject_cast<ConfigWidget *>(qswPages->currentWidget());
-	if (! cw) {
-		QScrollArea *qsa = qobject_cast<QScrollArea *>(qswPages->currentWidget());
-		if (qsa)
-			cw = qobject_cast<ConfigWidget *>(qsa->widget());
-	}
-
-	if (cw) {
-		// Did our current widget become invisible when we switched to expert mode?
-		if (! cw->expert(b))
-			cw = qmWidgets.value(0);
-
-		on_widgetSelected(cw);
-		NSWindow *window = qt_mac_window_for(this);
-		ConfigDialogDelegate *delegate = [[window toolbar] delegate];
-		[delegate selectItem: cw];
-	}
-}
-
 void ConfigDialogMac::apply() {
 	Audio::stop();
 
@@ -256,10 +231,6 @@ void ConfigDialogMac::apply() {
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
 
-	NSWindow *window = qt_mac_window_for(this);
-	ConfigDialogDelegate *delegate = [[window toolbar] delegate];
-	g.s.bExpert = [delegate expertMode];
-
 	Audio::start();
 }
 
@@ -271,7 +242,3 @@ void ConfigDialogMac::accept() {
 
 void ConfigDialogMac::on_qlwIcons_currentItemChanged(QListWidgetItem *, QListWidgetItem *) {
 }
-
-void ConfigDialogMac::on_qcbExpert_clicked(bool) {
-}
-

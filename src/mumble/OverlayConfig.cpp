@@ -326,18 +326,6 @@ void OverlayConfig::load(const Settings &r) {
 	update();
 }
 
-bool OverlayConfig::expert(bool show_expert) {
-	int idx = qtwSetup->indexOf(qwExceptions);
-
-#ifdef Q_OS_LINUX
-	Q_UNUSED(show_expert);
-	qtwSetup->setTabEnabled(idx, false);
-#else
-	qtwSetup->setTabEnabled(idx, show_expert);
-#endif
-	return true;
-}
-
 QString OverlayConfig::title() const {
 	return tr("Overlay");
 }

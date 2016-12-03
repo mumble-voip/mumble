@@ -28,7 +28,6 @@ class LCDConfig : public ConfigWidget, public Ui::LCDConfig {
 		void accept() const Q_DECL_OVERRIDE;
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 };
 
 class LCDEngine : public QObject {

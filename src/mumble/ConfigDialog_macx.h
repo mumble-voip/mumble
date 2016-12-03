@@ -26,17 +26,15 @@ class ConfigDialogMac : public QDialog, public Ui::ConfigDialog {
 		ConfigDialogMac(QWidget *p = NULL);
 		~ConfigDialogMac() Q_DECL_OVERRIDE;
 	protected:
-		void setupMacToolbar(bool expert);
+		void setupMacToolbar();
 		void removeMacToolbar();
 	public:
-		void updateExpert(bool expert);
 		void on_widgetSelected(ConfigWidget *);
 	public slots:
 		void delayedInit();
 		void on_pageButtonBox_clicked(QAbstractButton *);
 		void on_dialogButtonBox_clicked(QAbstractButton *);
 		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-		void on_qcbExpert_clicked(bool);
 		void apply();
 		void accept() Q_DECL_OVERRIDE;
 };

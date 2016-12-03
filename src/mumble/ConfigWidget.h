@@ -39,7 +39,6 @@ class ConfigWidget : public QWidget {
 		virtual void accept() const;
 		virtual void save() const = 0;
 		virtual void load(const Settings &r) = 0;
-		virtual bool expert(bool) = 0;
 };
 
 typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);

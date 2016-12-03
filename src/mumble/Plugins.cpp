@@ -99,10 +99,6 @@ void PluginConfig::save() const {
 	}
 }
 
-bool PluginConfig::expert(bool) {
-	return false;
-}
-
 PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
 	if (i) {
 		foreach(PluginInfo *pi, g.p->qlPlugins) {
