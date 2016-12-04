@@ -15,6 +15,8 @@
 #include "Database.h"
 #include "Log.h"
 #include "Plugins.h"
+#include "LogEmitter.h"
+#include "DeveloperConsole.h"
 #include "Global.h"
 #include "LCD.h"
 #ifdef USE_BONJOUR
@@ -36,7 +38,6 @@
 #include "Themes.h"
 #include "UserLockFile.h"
 #include "License.h"
-#include "LogEmitter.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -106,6 +107,7 @@ int main(int argc, char **argv) {
 	qsrand(QDateTime::currentDateTime().toTime_t());
 
 	g.le = QSharedPointer<LogEmitter>(new LogEmitter());
+	g.c = new DeveloperConsole();
 
 	os_init();
 
@@ -561,6 +563,7 @@ int main(int argc, char **argv) {
 
 	delete g.o;
 
+	delete g.c;
 	g.le.clear();
 
 	DeferInit::run_destroyers();

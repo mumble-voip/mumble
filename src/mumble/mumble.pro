@@ -128,7 +128,8 @@ HEADERS *= BanEditor.h \
     ThemeInfo.h \
     Themes.h \
     OverlayPositionableItem.h \
-    widgets/MUComboBox.h
+    widgets/MUComboBox.h \
+    DeveloperConsole.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -193,7 +194,8 @@ SOURCES *= BanEditor.cpp \
     ThemeInfo.cpp \
     Themes.cpp \
     OverlayPositionableItem.cpp \
-    widgets/MUComboBox.cpp
+    widgets/MUComboBox.cpp \
+    DeveloperConsole.cpp
 
 DIST		*= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
