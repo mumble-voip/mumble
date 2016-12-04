@@ -15,6 +15,8 @@
 #include "Database.h"
 #include "Log.h"
 #include "Plugins.h"
+#include "LogEmitter.h"
+#include "DeveloperConsole.h"
 #include "Global.h"
 #include "LCD.h"
 #ifdef USE_BONJOUR
@@ -104,9 +106,10 @@ int main(int argc, char **argv) {
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	g.le = QSharedPointer<LogEmitter>(new LogEmitter());
+	g.c = new DeveloperConsole();
+
 	os_init();
-#endif
 
 	bool bAllowMultiple = false;
 	bool suppressIdentity = false;
@@ -559,6 +562,9 @@ int main(int argc, char **argv) {
 #endif
 
 	delete g.o;
+
+	delete g.c;
+	g.le.clear();
 
 	DeferInit::run_destroyers();
 

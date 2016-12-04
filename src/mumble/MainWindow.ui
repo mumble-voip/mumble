@@ -68,6 +68,12 @@
     <addaction name="separator"/>
     <addaction name="qaHelpVersionCheck"/>
    </widget>
+   <widget class="QMenu" name="qmDeveloper">
+    <property name="title">
+     <string>&amp;Developer</string>
+    </property>
+    <addaction name="qaDeveloperConsole"/>
+   </widget>
    <widget class="QMenu" name="qmServer">
     <property name="title">
      <string>S&amp;erver</string>
@@ -93,6 +99,7 @@
    <addaction name="qmServer"/>
    <addaction name="qmSelf"/>
    <addaction name="qmConfig"/>
+   <addaction name="qmDeveloper"/>
    <addaction name="qmHelp"/>
   </widget>
   <widget class="QDockWidget" name="qdwLog">
@@ -585,6 +592,17 @@ the channel's context menu.</string>
    </property>
    <property name="whatsThis">
     <string>This will guide you through the process of configuring your audio hardware.</string>
+   </property>
+  </action>
+  <action name="qaDeveloperConsole">
+   <property name="text">
+    <string>Developer &amp;Console</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the Developer Console</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows the Mumble Developer Console, where Mumble's log output can be inspected.</string>
    </property>
   </action>
   <action name="qaHelpWhatsThis">

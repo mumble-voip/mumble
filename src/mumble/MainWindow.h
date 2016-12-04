@@ -233,6 +233,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaConfigMinimal_triggered();
 		void on_qaConfigCert_triggered();
 		void on_qaAudioWizard_triggered();
+		void on_qaDeveloperConsole_triggered();
 		void on_qaHelpWhatsThis_triggered();
 		void on_qaHelpAbout_triggered();
 		void on_qaHelpAboutQt_triggered();

@@ -30,6 +30,8 @@ class LCD;
 class BonjourClient;
 class OverlayClient;
 class CELTCodec;
+class LogEmitter;
+class DeveloperConsole;
 
 class QNetworkAccessManager;
 
@@ -51,6 +53,8 @@ public:
 	LCD *lcd;
 	BonjourClient *bc;
 	QNetworkAccessManager *nam;
+	QSharedPointer<LogEmitter> le;
+	DeveloperConsole *c;
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;

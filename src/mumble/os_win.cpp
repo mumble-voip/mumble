@@ -13,6 +13,7 @@
 
 #include "Global.h"
 #include "Version.h"
+#include "LogEmitter.h"
 
 extern "C" {
 	void __cpuid(int a[4], int b);
@@ -26,6 +27,8 @@ static FILE *fConsole = NULL;
 
 static wchar_t wcComment[PATH_MAX] = L"";
 static MINIDUMP_USER_STREAM musComment;
+
+static QSharedPointer<LogEmitter> le;
 
 static int cpuinfo[4];
 
@@ -49,9 +52,12 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 		default:
 			c='X';
 	}
-	fprintf(fConsole, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), qPrintable(msg));
+	QString date = QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
+	QString fmsg = QString::fromLatin1("<%1>%2 %3").arg(c).arg(date).arg(msg);
+	fprintf(fConsole, "%s\n", qPrintable(fmsg));
 	fflush(fConsole);
-	OutputDebugStringA(qPrintable(msg));
+	OutputDebugStringA(qPrintable(fmsg));
+	le->addLogEntry(fmsg);
 	if (type == QtFatalMsg) {
 		::MessageBoxA(NULL, qPrintable(msg), "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
@@ -230,6 +236,11 @@ void os_init() {
 	SetHeapOptions();
 	enableCrashOnCrashes();
 	mumble_speex_init();
+
+	// Make a copy of the global LogEmitter, such that
+	// os_win.cpp doesn't have to consider the deletion
+	// of the Global object and its LogEmitter object.
+	le = g.le;
 
 #ifdef QT_NO_DEBUG
 	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));

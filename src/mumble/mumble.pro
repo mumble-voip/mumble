@@ -128,7 +128,8 @@ HEADERS *= BanEditor.h \
     ThemeInfo.h \
     Themes.h \
     OverlayPositionableItem.h \
-    widgets/MUComboBox.h
+    widgets/MUComboBox.h \
+    DeveloperConsole.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -193,7 +194,8 @@ SOURCES *= BanEditor.cpp \
     ThemeInfo.cpp \
     Themes.cpp \
     OverlayPositionableItem.cpp \
-    widgets/MUComboBox.cpp
+    widgets/MUComboBox.cpp \
+    DeveloperConsole.cpp
 
 DIST		*= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
@@ -469,7 +471,7 @@ unix {
     HEADERS += CoreAudio.h
   } else {
     HEADERS *= GlobalShortcut_unix.h
-    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
+    SOURCES *= os_unix.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
     must_pkgconfig(x11)
     linux {
       LIBS *= -lrt
