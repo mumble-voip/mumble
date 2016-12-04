@@ -34,6 +34,7 @@ POSSIBILITY OF SUCH DAMAGE.
 /*#define FIXED_POINT           1 */
 
 #define OPUS_BUILD            1
+#define DLL_EXPORT            1
 
 #if defined(_M_IX86) || defined(_M_X64)
 /* Can always compile SSE intrinsics (no special compiler flags necessary) */
