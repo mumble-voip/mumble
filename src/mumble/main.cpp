@@ -36,6 +36,7 @@
 #include "Themes.h"
 #include "UserLockFile.h"
 #include "License.h"
+#include "LogEmitter.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -103,6 +104,8 @@ int main(int argc, char **argv) {
 	Global::g_global_struct = new Global();
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
+
+	g.le = QSharedPointer<LogEmitter>(new LogEmitter());
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	os_init();
@@ -559,6 +562,8 @@ int main(int argc, char **argv) {
 #endif
 
 	delete g.o;
+
+	g.le.clear();
 
 	DeferInit::run_destroyers();
 

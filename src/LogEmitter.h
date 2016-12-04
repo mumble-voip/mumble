@@ -6,6 +6,9 @@
 #ifndef MUMBLE_LOGEMITTER_H_
 #define MUMBLE_LOGEMITTER_H_
 
+#include <QtCore/QObject>
+#include <QtCore/QString>
+
 class LogEmitter : public QObject {
 	private:
 		Q_OBJECT
