@@ -31,13 +31,6 @@
 
 #define UDP_PACKET_SIZE 1024
 
-LogEmitter::LogEmitter(QObject *p) : QObject(p) {
-};
-
-void LogEmitter::addLogEntry(const QString &msg) {
-	emit newLogEntry(msg);
-};
-
 ExecEvent::ExecEvent(boost::function<void ()> f) : QEvent(static_cast<QEvent::Type>(EXEC_QEVENT)) {
 	func = f;
 }

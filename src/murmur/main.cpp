@@ -17,6 +17,7 @@
 #include "Version.h"
 #include "SSL.h"
 #include "License.h"
+#include "LogEmitter.h"
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"

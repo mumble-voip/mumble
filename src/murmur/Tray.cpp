@@ -11,6 +11,7 @@
 #include "Meta.h"
 #include "Server.h"
 #include "Version.h"
+#include "LogEmitter.h"
 
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	le = logger;

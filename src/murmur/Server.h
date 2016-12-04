@@ -51,17 +51,6 @@ struct TextMessage {
 	QString qsText;
 };
 
-class LogEmitter : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(LogEmitter)
-	signals:
-		void newLogEntry(const QString &msg);
-	public:
-		LogEmitter(QObject *parent = NULL);
-		void addLogEntry(const QString &msg);
-};
-
 class SslServer : public QTcpServer {
 	private:
 		Q_OBJECT;
