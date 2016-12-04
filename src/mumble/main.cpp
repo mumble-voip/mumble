@@ -107,9 +107,7 @@ int main(int argc, char **argv) {
 
 	g.le = QSharedPointer<LogEmitter>(new LogEmitter());
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	os_init();
-#endif
 
 	bool bAllowMultiple = false;
 	bool suppressIdentity = false;
