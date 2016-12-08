@@ -473,7 +473,7 @@ unix {
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= os_unix.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
     must_pkgconfig(x11)
-    linux {
+    linux* {
       LIBS *= -lrt
     }
     LIBS *= -lXi
