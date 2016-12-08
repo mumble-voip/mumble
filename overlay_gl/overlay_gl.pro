@@ -21,7 +21,7 @@ unix:!macx {
 	TARGET = mumble$(TARGET_ADD)
 
 	DEFINES += TARGET_UNIX
-	linux {
+	linux* {
 		LIBS *= -lrt -ldl
 	}
 	QMAKE_CFLAGS *= -fvisibility=hidden $(CFLAGS_ADD)
