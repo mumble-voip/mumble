@@ -18,7 +18,6 @@ DeveloperConsole::DeveloperConsole(QObject *parent)
 
 DeveloperConsole::~DeveloperConsole() {
 	QMainWindow *mw = m_window.data();
-	m_window.clear();
 	delete mw;
 }
 
