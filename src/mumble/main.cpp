@@ -153,6 +153,10 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
+#if defined(Q_OS_MAC) && defined(USE_BUILDENV)
+	a.setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
+
 	#ifdef USE_SBCELT
 	{
 		// For now, force Mumble to use sbcelt-helper from the same directory as the 'mumble' executable.
