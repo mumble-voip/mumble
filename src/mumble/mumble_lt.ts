@@ -2248,7 +2248,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Taisyti uždraudimus</translation>
     </message>
     <message>
         <location/>
@@ -2303,7 +2303,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"/>
+        <translation>Užraudimų sąrašas</translation>
     </message>
     <message>
         <location/>
@@ -2338,7 +2338,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"/>
+        <translation>Uždraudimo priežastis</translation>
     </message>
     <message>
         <location/>
@@ -2348,12 +2348,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"/>
+        <translation>Uždraudimo pabaigos data</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"/>
+        <translation>Uždraudimo pabaigos data. Jeigu nustatysite tokią pačią pradžios ir pabaigos datą, tuomet uždraudimas bus nuolatinis (jo galiojimas nesibaigs).</translation>
     </message>
     <message>
         <location/>
@@ -2368,27 +2368,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"/>
+        <translation>Uždrausti naudotojai</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra sąrašas su uždraustais naudotojais.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Naudokite šį mygtuką, jeigu norite pridėti naują uždraudimą.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"/>
+        <translation>Naudokite šį mygtuką, jeigu norite atnaujinti uždraudimo informaciją.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Naudokite šį mygtuką, jeigu norite pašalinti naudotoją iš uždraudimų sąrašo.</translation>
     </message>
     <message>
         <location/>
@@ -2398,7 +2398,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Šis mygtukas išvalo visus laukus. Naudokite jį, jeigu norite pridėti naują uždraudimą.</translation>
     </message>
     <message>
         <location/>
@@ -2408,7 +2408,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+202"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Uždraudimų sąrašas - %n uždraudimas</numerusform><numerusform>Uždraudimų sąrašas - %n uždraudimai</numerusform><numerusform>Uždraudimų sąrašas - %n uždraudimų</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2522,7 +2522,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation>Atpažinimas liudijimu</translation>
+        <translation>Tapatybės nustatymas liudijimu</translation>
     </message>
     <message>
         <location/>
@@ -2684,7 +2684,7 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;p&gt;Jūs jau turite programoje Mumble saugomą liudijimą ir jūs ruošiatės jį pakeisti.&lt;/p&gt;
 &lt;p&gt;Jeigu jūs naujinate į liudijimą, kurį jums išdavė patikima LĮ, ir el. pašto adresai sutampa su jūsų dabartiniu liudijimu, tuomet tai yra visiškai saugu, ir serveriai, prie kurių jungsitės automatiškai atpažins jūsų el. paštui skirtą stiprų liudijimą.
 &lt;/p&gt;
-&lt;p&gt;Jeigu tai nėra anksčiau paminėtas atvejis, tuomet jūs daugiau nebūsite atpažįstami jokio serverio, kuriame ankščiau buvote patvirtinę savo tapatybę. Jeigu jūs dar iki šiol nebuvote užsiregistravę jokiame serveryje, tuomet jums nėra dėl ko rūpintis.
+&lt;p&gt;Jeigu tai nėra anksčiau paminėtas atvejis, tuomet jūs daugiau nebūsite atpažįstami jokio serverio, kuriame ankščiau buvote nustatę savo tapatybę. Jeigu jūs dar iki šiol nebuvote užsiregistravę jokiame serveryje, tuomet jums nėra dėl ko rūpintis.
 &lt;/p&gt;
 &lt;p&gt;
 Ar tikrai norite pakeisti savo liudijimą?
@@ -2744,12 +2744,12 @@ Ar tikrai norite pakeisti savo liudijimą?
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Sukurkite naują liudijimą, skirtą tvirtam atpažinimui</translation>
+        <translation>Sukurkite naują liudijimą, skirtą tvirtam tapatybės nustatymui</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Dabar Mumble sukurs tvirtą liudijimą, skirtą atpažinimui serveriuose.&lt;/p&gt;&lt;p&gt;Jei norite, galite pateikti papildomą informaciją, kuria bus papildytas jūsų liudijimas, kuris bus pateikiamas serveriams, kuomet prisijungsite. Jeigu pateiksite teisingą el. pašto adresą, vėliau galėsite atsinaujinti į LĮ išduotą el. pašto liudijimą, kuris pateikia tvirtą identifikavimą.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Dabar Mumble sukurs tvirtą liudijimą, skirtą tapatybės nustatymui serveriuose.&lt;/p&gt;&lt;p&gt;Jei norite, galite pateikti papildomą informaciją, kuria bus papildytas jūsų liudijimas, kuris bus pateikiamas serveriams, kuomet prisijungsite. Jeigu pateiksite teisingą el. pašto adresą, vėliau galėsite atsinaujinti į LĮ išduotą el. pašto liudijimą, kuris pateikia tvirtą identifikavimą.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2818,7 +2818,7 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Jeigu kada nors prarasite savo esamą liudijimą (kas gali nutikti tuo atveju, jeigu jūsų kompiuteris patirs aparatinės įrangos gedimą arba jūs savo kompiuteryje iš naujo įdiegsite programinę įrangą), tuomet jūs daugiau nebegalėsite jokiame serveryje, kuriame esate užsiregistravę, patvirtinti savo tapatybės. Štai kodėl yra &lt;b&gt;privaloma&lt;/b&gt;, kad jūs sukurtumėte atsarginę savo liudijimo kopiją. Mes primygtinai rekomenduojame, kad šią atsarginę kopiją laikytumėte keičiamajame įrenginyje, tokiame kaip USB atmintukas.&lt;/p&gt;
+        <translation>&lt;p&gt;Jeigu kada nors prarasite savo esamą liudijimą (kas gali nutikti tuo atveju, jeigu jūsų kompiuteris patirs aparatinės įrangos gedimą arba jūs savo kompiuteryje iš naujo įdiegsite programinę įrangą), tuomet jūs daugiau nebegalėsite jokiame serveryje, kuriame esate užsiregistravę, patvirtinti savo tapatybę. Štai kodėl yra &lt;b&gt;privaloma&lt;/b&gt;, kad jūs sukurtumėte atsarginę savo liudijimo kopiją. Mes primygtinai rekomenduojame, kad šią atsarginę kopiją laikytumėte keičiamajame įrenginyje, tokiame kaip USB atmintukas.&lt;/p&gt;
 &lt;p&gt;Turėkite omenyje, kad šis failas nebus užšifruotas, taigi, jeigu koks nors asmuo gaus prie jo prieigą, jis galės apsimesti jumis, todėl kaip reikiant pasirūpinkite šiuo failu.&lt;/p&gt;</translation>
     </message>
 </context>
@@ -2962,12 +2962,12 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation type="unfinished"/>
+        <translation>Išmesti</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation type="unfinished"/>
+        <translation>Uždrausti</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3944,12 +3944,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojas išmestas (jūs išmestas arba jus išmetė)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojas išmestas</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4775,12 +4775,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>Ryšys yra užšifruotas bei tapatybė nustatyta, naudojant %1 ir ryšys naudoja %2 kaip rakto mainų mechanizmą (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>Ryšys yra užšifruotas, naudojant %1, su %2, skirtu žinučių tapatybės nustatymui ir %3 kaip rakto mainų mechanizmu (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -4820,12 +4820,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation type="unfinished"/>
+        <translation>Išmetamas naudotojas %1</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Banning user %1</source>
-        <translation type="unfinished"/>
+        <translation>Uždraudžiamas naudotojas %1</translation>
     </message>
     <message>
         <location line="+61"/>
@@ -4948,7 +4948,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+47"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Minimalus rodinys -- %1</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -4990,7 +4990,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1327"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Prisijungusių naudotojų: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -5310,7 +5310,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Išmesti</translation>
     </message>
     <message>
         <location/>
@@ -5320,7 +5320,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Ban</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Uždrausti</translation>
     </message>
     <message>
         <location/>
@@ -5410,12 +5410,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick user (with reason)</source>
-        <translation type="unfinished"/>
+        <translation>Išmesti naudotoją (su priežastimi)</translation>
     </message>
     <message>
         <location/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"/>
+        <translation>Išmesti pasirinktą naudotoją iš serverio. Jūsų bus paprašyta nurodyti priežastį.</translation>
     </message>
     <message>
         <location/>
@@ -5430,12 +5430,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick and ban user (with reason)</source>
-        <translation type="unfinished"/>
+        <translation>Išmesti ir uždrausti naudotoją (su priežastimi)</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"/>
+        <translation>Išmesti pasirinktą naudotoją iš serverio ir jį uždrausti. Jūsų bus paprašyta nurodyti priežastį.</translation>
     </message>
     <message>
         <location/>
@@ -6167,22 +6167,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+176"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 išmetė jus iš serverio: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 išmetė naudotoją %3 iš serverio: %2.</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 išmetė jus iš serverio ir uždraudė jus: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 išmetė naudotoją %3 iš serverio ir jį uždraudė: %2.</translation>
     </message>
     <message>
         <location line="-79"/>
@@ -6467,17 +6467,17 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Uždraudimų sąrašas</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"/>
+        <translation>Taisyti uždraudimų serveryje sąrašą</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Tai leidžia jums serveryje taisyti IP uždraudimų sąrašą.</translation>
     </message>
     <message>
         <location/>
