@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Forvalgt tjenerverdi</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -164,12 +164,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>Arvbar</translation>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>Gruppen ble nedarvet fra opphavskanalen</translation>
     </message>
     <message>
         <location/>
@@ -327,7 +327,7 @@ Legg til en ny gruppe</translation>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>Arvede medlemmer</translation>
     </message>
     <message>
         <location/>
@@ -999,7 +999,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished"/>
+        <translation>Eksklusivt modus</translation>
     </message>
     <message>
         <location/>
@@ -1009,12 +1009,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"/>
+        <translation>Eksklusiv</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tilbakestill</translation>
     </message>
     <message>
         <location/>
@@ -1024,7 +1024,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Surf…</translation>
     </message>
     <message>
         <location/>
@@ -1124,22 +1124,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"/>
+        <translation>etter</translation>
     </message>
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Ekko-kansellering</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Blandet ekko-kansellering</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Multikanals ekko-kansellering</translation>
     </message>
 </context>
 <context>
@@ -4909,27 +4909,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+63"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <location line="+233"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Lagre bilde som…</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Lagre bildefil</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kunne ikke lagre bilde: %1</translation>
     </message>
     <message>
         <location line="+382"/>
         <source>Change your comment</source>
-        <translation type="unfinished"/>
+        <translation>Endre din kommentar</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -5089,7 +5089,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Omstart av Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5186,7 +5186,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Sett opp</translation>
     </message>
     <message>
         <location/>
@@ -5453,7 +5453,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tilbakestill</translation>
     </message>
     <message>
         <location/>
@@ -5533,12 +5533,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Settings</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Innstillinger</translation>
     </message>
     <message>
         <location/>
         <source>Configure Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Sett opp Mumble</translation>
     </message>
     <message>
         <location/>
@@ -5548,12 +5548,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lydveiviser</translation>
     </message>
     <message>
         <location/>
         <source>Start the audio configuration wizard</source>
-        <translation type="unfinished"/>
+        <translation>Start lydoppsettsveiviseren</translation>
     </message>
     <message>
         <location/>
@@ -5563,7 +5563,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Hva er dette?</translation>
     </message>
     <message>
         <location/>
@@ -5578,12 +5578,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Om</translation>
     </message>
     <message>
         <location/>
         <source>Information about Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Informasjon om Mumble</translation>
     </message>
     <message>
         <location/>
@@ -5608,27 +5608,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"/>
+        <translation>Om &amp;Qt</translation>
     </message>
     <message>
         <location/>
         <source>Information about Qt</source>
-        <translation type="unfinished"/>
+        <translation>Informasjon om Qt</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation type="unfinished"/>
+        <translation>Viser en liten dialog med informasjon om Qt.</translation>
     </message>
     <message>
         <location/>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"/>
+        <translation>Se etter &amp;oppdateringer</translation>
     </message>
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Se etter ny Mumble-versjon</translation>
     </message>
     <message>
         <location/>
@@ -5658,7 +5658,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Register user on server</source>
-        <translation type="unfinished"/>
+        <translation>Registrer bruker på tjener</translation>
     </message>
     <message>
         <location/>
@@ -5668,12 +5668,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Add &amp;Friend</source>
-        <translation type="unfinished"/>
+        <translation>Legg til &amp;venn</translation>
     </message>
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"/>
+        <translation>Legger til en bruker som din venn.</translation>
     </message>
     <message>
         <location/>
@@ -5683,7 +5683,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Remove Friend</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Fjern venn</translation>
     </message>
     <message>
         <location/>
@@ -5698,7 +5698,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Oppdater venn</translation>
     </message>
     <message>
         <location/>
@@ -5713,7 +5713,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"/>
+        <translation>Registrerte &amp;brukere</translation>
     </message>
     <message>
         <location/>
@@ -5824,7 +5824,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-17"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble: %1</translation>
     </message>
     <message>
         <location line="+42"/>
@@ -5869,17 +5869,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Ugyldig brukernavn: %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"/>
+        <translation>Ugyldig brukernavn.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"/>
+        <translation>Kanalen er full.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5894,7 +5894,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+40"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 tilkoblet.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5909,22 +5909,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+11"/>
         <source>Recording started</source>
-        <translation type="unfinished"/>
+        <translation>Opptak startet</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation type="unfinished"/>
+        <translation>Opptak stoppet</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1 begynte å ta opp.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1 sluttet å ta opp.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -6010,12 +6010,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Du flyttet %1 til %2.</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"/>
+        <translation>%1 tar opp</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -6032,7 +6032,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"/>
+        <translation>Tjener</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6047,7 +6047,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
@@ -7893,7 +7893,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"/>
+        <translation>Inaktiv i</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
@@ -7906,32 +7906,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"/>
+        <translation>Brukerinformasjon</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"/>
+        <translation>Tilkoblingsinformasjon</translation>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>Versjon</translation>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"/>
+        <translation>OS</translation>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation type="unfinished"/>
+        <translation>IP-adresse</translation>
     </message>
     <message>
         <location/>
@@ -7941,22 +7941,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Details...</source>
-        <translation type="unfinished"/>
+        <translation>Detaljer…</translation>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Svartidsstatistikk</translation>
     </message>
     <message>
         <location/>
         <source>Pings received</source>
-        <translation type="unfinished"/>
+        <translation>Svartidspakker mottatt</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"/>
+        <translation>Gjennomsnittlig svartid</translation>
     </message>
     <message>
         <location/>
@@ -7976,17 +7976,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished"/>
+        <translation>God</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>Sen</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>Tapt</translation>
     </message>
     <message>
         <location/>
@@ -7996,17 +7996,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"/>
+        <translation>Fra klient</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"/>
+        <translation>Til klient</translation>
     </message>
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"/>
+        <translation>Tilkoblingstid</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+108"/>
@@ -8021,17 +8021,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation type="unfinished"/>
+        <translation>%1t</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished"/>
+        <translation>%1m</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -8080,13 +8080,13 @@ An access token is a text string, which can be used as a password for very simpl
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"/>
+        <translation>Båndbredde</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"/>
+        <translation>Båndbredde</translation>
     </message>
     <message>
         <location/>
@@ -8099,7 +8099,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"/>
+        <translation>Kallenavn</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8109,17 +8109,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"/>
+        <translation>Siste kanal</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"/>
+        <translation>Sist sett: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Aldri</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8181,12 +8181,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation type="unfinished"/>
+        <translation>Snakker ikke.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"/>
+        <translation>Dette er en kanal på tjeneren. Ikonet indikerer kanalstatus.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8286,12 +8286,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Navn</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Flags</source>
-        <translation type="unfinished"/>
+        <translation>Flagg</translation>
     </message>
     <message>
         <location line="+732"/>
@@ -8354,17 +8354,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+6"/>
         <source>Certificate chain</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikatskjede</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>%1 %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 %2</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikatsdetaljer</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -8387,7 +8387,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <location line="+37"/>
         <source>Country: %1</source>
-        <translation type="unfinished"/>
+        <translation>Land: %1</translation>
     </message>
     <message>
         <location line="-36"/>
@@ -8404,12 +8404,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="-36"/>
         <source>Valid from: %1</source>
-        <translation type="unfinished"/>
+        <translation>Gyldig fra: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Valid to: %1</source>
-        <translation type="unfinished"/>
+        <translation>Gyldig til: %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8635,7 +8635,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="WASAPI.cpp" line="+253"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>Forvalgt enhet</translation>
     </message>
 </context>
 <context>
