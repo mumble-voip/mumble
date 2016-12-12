@@ -1,3 +1,31 @@
+2016-12-12
+  Mikkel Krautz <mikkel@krautz.dk>
+    f6cd2e6  Revert db940d1bad5929c1; backport cplusplus.pri from master
+	     instead.
+
+2016-12-09
+  Mikkel Krautz <mikkel@krautz.dk>
+    fdc936c  Add Qt::AA_UseHighDpiPixmaps on macOS when inside a buildenv.
+    860fbc6  Port buildenv.pri to 1.2.x.
+
+2016-12-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    d254f6c  Settings: add workaround for macOS "@Variant(" bug.
+    8901db1  src/mumble/mumble.plist: add LSAppNapIsDisabled=true to
+	     mumble.plist.
+    65d6c5d  src/mumble/mumble.plist: set NSHighResolutionCapable to true.
+
+2016-10-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    c18f40c  Merge PR #2587: compiler.pri: explicitly default to C++03 on
+	     Unix-like systems.
+    db940d1  compiler.pri: explicitly default to C++03 on Unix-like
+	     systems.
+
+2016-09-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    e6134a9  Update changelog.
+
 2016-08-13
   Mikkel Krautz <mikkel@krautz.dk>
     9b76777  Bump version to 1.2.17.
