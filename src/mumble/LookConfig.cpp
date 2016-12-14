@@ -194,7 +194,7 @@ void LookConfig::save() const {
 
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
-	s.ceUserDrag=static_cast<Settings::UserDrag>(qcbUserDrag->currentIndex());
+	s.ceUserDrag=static_cast<Settings::ChannelDrag>(qcbUserDrag->currentIndex());
 	
 	if (qcbUsersTop->isChecked() != s.bUserTop) {
 		s.bUserTop = qcbUsersTop->isChecked();
