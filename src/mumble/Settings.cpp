@@ -279,6 +279,7 @@ Settings::Settings() {
 
 	ceExpand = ChannelsWithUsers;
 	ceChannelDrag = Ask;
+	ceUserDrag = Move;
 	bMinimalView = false;
 	bHideFrame = false;
 	aotbAlwaysOnTop = OnTopNever;
@@ -461,6 +462,7 @@ BOOST_TYPEOF_REGISTER_TYPE(Settings::OverlayShow)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelExpand)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelDrag)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::UserDrag)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ServerShow)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::WindowLayout)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::AlwaysOnTopBehaviour)
@@ -681,6 +683,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(themeStyleName, "ui/themestyle");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
+	LOADENUM(ceUserDrag, "ui/userdrag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bMinimalView, "ui/minimalview");
@@ -995,6 +998,7 @@ void Settings::save() {
 	SAVELOAD(themeStyleName, "ui/themestyle");
 	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(ceChannelDrag, "ui/drag");
+	SAVELOAD(ceUserDrag, "ui/userdrag");
 	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bMinimalView, "ui/minimalview");

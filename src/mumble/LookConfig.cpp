@@ -56,6 +56,10 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbChannelDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
 	qcbChannelDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
 	
+	qcbUserDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
+	qcbUserDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
+	qcbUserDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
+	
 	QDir userThemeDirectory = Themes::getUserThemesDirectory();
 	if (userThemeDirectory.exists()) {
 		m_themeDirectoryWatcher = new QFileSystemWatcher(this);
@@ -118,6 +122,7 @@ void LookConfig::reloadThemes(const boost::optional<ThemeInfo::StyleInfo> config
 void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbLanguage, 0);
 	loadComboBox(qcbChannelDrag, 0);
+	loadComboBox(qcbUserDrag, 0);
 
 	// Load Layout checkbox state
 	switch (r.wlWindowLayout) {
@@ -149,6 +154,7 @@ void LookConfig::load(const Settings &r) {
 
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
+	loadComboBox(qcbUserDrag, r.ceUserDrag);
 	loadCheckBox(qcbUsersTop, r.bUserTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbHideTray, r.bHideInTray);
@@ -188,6 +194,7 @@ void LookConfig::save() const {
 
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
+	s.ceUserDrag=static_cast<Settings::UserDrag>(qcbUserDrag->currentIndex());
 	
 	if (qcbUsersTop->isChecked() != s.bUserTop) {
 		s.bUserTop = qcbUsersTop->isChecked();
