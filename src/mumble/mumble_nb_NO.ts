@@ -796,7 +796,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dobbelttrykkstid&lt;/b&gt;&lt;br /&gt;Hvis du brukker trykk-for-å-snakke -tasten to ganger under tidsavgrensningen vil den låses. Forsendelse vil fortsette til du trykker igjen for å låse opp tasten igjen.</translation>
     </message>
     <message>
         <location/>
@@ -921,7 +921,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette viser toppnivået for brukt utgående båndbredde.&lt;/b&gt;&lt;br /&gt; Dvs, akkurat i det tidspunktet der du sendte ut mest data. Lydbitraten er den maksimale bitraten (siden vi bruker VBR) for lyddataen alene. Posisjon er bitraten brukt for posisjonsbasert informasjon. Overskudd er vår innramming og IP-pakke hodene (IP og UDP er 75% av overskuddsdataen).</translation>
     </message>
     <message>
         <location/>
@@ -1282,7 +1282,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"/>
+        <translation>Minimumsdistanse for lydutregninger. Lydstyrken på andre brukeres tale vil ikke senkes til de er ihvertfall denne avstanden unna deg.</translation>
     </message>
     <message>
         <location/>
@@ -1788,7 +1788,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"/>
+        <translation>Bitraten for lyd i siste komprimerte ramme (20 ms), den vil hoppe opp og ned ettersom VBR justerer kvaliteten. Toppnivået for bitrate kan justeres i innstillingsdialogen.</translation>
     </message>
 </context>
 <context>
@@ -1891,7 +1891,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette er utdatametoden til bruk for lyd.&lt;/b&gt;&lt;br/&gt;Du vil mest sannsynlig ønske å bruke DirectSound.</translation>
     </message>
     <message>
         <location/>
@@ -1922,7 +1922,12 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Dette er lydjusteringsveiviseren i Mumble. Hjelper deg å korrigere inngangsnivåene på ditt lydkort og å sette opp rette parameter for lydbehandling i Mumble.
+&lt;/p&gt;
+&lt;p&gt;
+Merk at mens denne veiviseren er aktiv vil lyd aktivt bli bli tilbakekoblet nøytralt lokalt for at du skal kunne prøvelytte, og ingen lyd vil bli sendt til tjeneren.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1958,7 +1963,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"/>
+        <translation>Dette angir mengden data som skal hurtiglagres i utdatahurtiglageret. Eksperimenter med forskjellige verdier og sett til den laveste verdien som ikke forårsaker rask jitter i lyden.</translation>
     </message>
     <message>
         <location/>
@@ -2031,7 +2036,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"/>
+        <translation>Nå, snakk så mykt som du kan, som om du snakket sent på kvelden og ikke ville forstyrre noen. Juster glidebryteren nedenfor slik at bjelken går inn i en grønn sone når du snakker, men holder seg i det blå feltet når du er stille.</translation>
     </message>
     <message>
         <location/>
@@ -2739,7 +2744,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er din e-postadresse. Det anbefales sterkt at du oppgir en gyldig e-postadresse. Dette vil la deg oppgradere til et sterkt sertifikat uten identitetsbekreftelsesproblemer.</translation>
     </message>
     <message>
         <location/>
@@ -3499,7 +3504,7 @@ Hva tjeneren er beskrevet som. Dette er hva tjeneren vil bli navngitt som i din 
     <message>
         <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation type="unfinished"/>
+        <translation>Åpning av valgt DirectSound-inngang mislyktes. Inget mikrofonopptak vil bli gjort.</translation>
     </message>
     <message>
         <location line="-83"/>
@@ -3624,7 +3629,7 @@ på noen av de mulige plasseringene.</translation>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kun valgtaster fra tastatur eller mus (Alt, Ctrl, Cmd, osv.) kan brukes for snarveier som gjelder for hele systemet.&lt;/p&gt;&lt;p&gt;Hvis du ønsker mer fleksibilitet kan du endre &lt;span style=&quot; font-style:italic;&quot;&gt;Tilgang for hjelpeenheter&lt;/span&gt; i systemets tilgjengelighetsinnstillinger. Merk at denne endringen har potensiale til å la skadelig programvare se hva som skrives på ditt tastatur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3647,7 +3652,7 @@ på noen av de mulige plasseringene.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="+565"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kun valgtaster fra tastatur eller mus (Alt, Ctrl, Cmd, osv.) kan brukes for snarveier som gjelder for hele systemet. &lt;/p&gt;&lt;p&gt;Hvis du ønsker mer fleksibilitet kan du legge til Mumble som et betrodd hjelpefunksjons-program i Sikkerhet &amp; Personvern på din Macs systeminnstillinger.&lt;/p&gt;&lt;p&gt;I sikkerhet og personvernsfanen, endre til personvernsfanen. Velg så Tilgjengelighet (nært bunnen) i listen på venstresiden. Til sist, legg til Mumble i listen over betrodde tilgjengelighetsprogrammer.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -3663,7 +3668,7 @@ på noen av de mulige plasseringene.</translation>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette er tastatursnarveien for hele systemet.&lt;/b&gt;&lt;br /&gt;Klikk i dette feltet og trykk på ønsket knapp/kombinasjon for å tilknytte ny snarvei. Dobbeltklikk for å tømme.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3721,7 +3726,7 @@ på noen av de mulige plasseringene.</translation>
     <message>
         <location/>
         <source>Modifiers</source>
-        <translation type="unfinished"/>
+        <translation>Valgtaster</translation>
     </message>
     <message>
         <location/>
@@ -4345,7 +4350,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Channel Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Kanaldraging</translation>
     </message>
     <message>
         <location/>
@@ -5135,7 +5140,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Denne tjeneren kjører en gammel krypteringsstandard som ikke lenger støttes.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5217,7 +5222,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation type="unfinished"/>
+        <translation>Dette viser nylig aktivitet. Tilkobling til tjenere, feil og informasjonsmeldinger vil alle vises her.&lt;br /&gt;For å bestemme akkurat hvilke meldinger som skal vises her, bruk &lt;b&gt;Innstillings&lt;/b&gt;-kommandoen fra menyen.</translation>
     </message>
     <message>
         <location/>
@@ -5367,12 +5372,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er sludrefeltet&lt;br /&gt;Hvis du skriver inn tekst her og trykker enter vil teksten bli sendt til valgt bruker. Hvis ingenting er valgt vil meldingen sendes til din nåværende kanal.</translation>
     </message>
     <message>
         <location/>
         <source>Chatbar</source>
-        <translation type="unfinished"/>
+        <translation>Sludrefelt</translation>
     </message>
     <message>
         <location/>
@@ -5427,7 +5432,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Lokal demping eller fjern demping av bruker. Bruk dette på andre brukere i samme rom.</translation>
     </message>
     <message>
         <location/>
@@ -5444,7 +5449,7 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished"/>
+        <translation>&amp;Fjern lenking</translation>
     </message>
     <message>
         <location/>
@@ -5484,7 +5489,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Demp deg selv</translation>
     </message>
     <message>
         <location/>
@@ -5499,7 +5504,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Gjør deg selv døv</translation>
     </message>
     <message>
         <location/>
@@ -5900,7 +5905,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"/>
+        <translation>Grensen for tillegg av underkanaler er nådd.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5995,7 +6000,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Du fikk din demping og døvhet fjernet av %1.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6544,7 +6549,7 @@ kanalens kontekstmeny.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Koble til igjen ved frakobling&lt;/b&gt;.&lt;br /&gt;Mumble vil automatisk prøve å koble til igjen 10 sekunder etter at din tjenerforbindelse feiler.</translation>
     </message>
     <message>
         <location/>
@@ -6629,7 +6634,7 @@ kanalens kontekstmeny.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Typen mellomtjener Mumble kobler til gjennom.&lt;/b&gt;&lt;br /&gt; for alle utgående tilkoblinger. Merk: Mellomtjenertunnelering tvinger Mumble til å bruke TCP kompabilitetsmodus, slik at all taledata blir sendt gjennom kontrollkanalen.</translation>
     </message>
     <message>
         <location/>
@@ -6664,7 +6669,7 @@ kanalens kontekstmeny.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Brukernavn for identitetsbekreftelse til mellomtjener.&lt;/b&gt;&lt;br /&gt;Angir brukernavnet brukt til bekreftelse ovenfor mellomtjeneren. I fall den ikke bruker identitetsbekreftelse, eller du ønsker å koble til anonymt, la dette feltet stå tomt.</translation>
     </message>
     <message>
         <location/>
@@ -6679,7 +6684,7 @@ kanalens kontekstmeny.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Passord for identitetsbekreftelse til mellomtjener.&lt;/b&gt;&lt;br /&gt;Angir passordet brukt til bekreftelse ovenfor mellomtjeneren. I fall den ikke bruker identitetsbekreftelse, eller du ønsker å koble til anonymt, la dette feltet stå tomt.</translation>
     </message>
     <message>
         <location/>
@@ -6695,7 +6700,8 @@ kanalens kontekstmeny.</translation>
         <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Skru av billednedlasting&lt;/b&gt;&lt;br/&gt;
+Forhindrer klienten fraå laste ned bilder som er innebygd i sludremeldinger med img-oppmerking.</translation>
     </message>
     <message>
         <location/>
@@ -6730,7 +6736,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Dette vil se etter nye versjoner av Mumble hver gang du starter programmet, og laste dem ned automatisk.</translation>
     </message>
     <message>
         <location/>
@@ -7207,12 +7213,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"/>
+        <translation>Avgrensningsramme, automatisk krympet til minimumstørrelse for alle synlige elementer</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"/>
+        <translation>Avgrensningsramme</translation>
     </message>
     <message>
         <location/>
@@ -7376,12 +7382,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation type="unfinished"/>
+        <translation>Dette tillater programtillegg for støttede spill å innhente din posisjon inne i spillet og oversende den i hver talepakke. Dette lar andre brukere høre stemmen din inne i spillet fra der din karakter befinner seg relativt til seg selv.</translation>
     </message>
     <message>
         <location/>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"/>
+        <translation>Lenke til spill og forsendelsesposisjon</translation>
     </message>
     <message>
         <location/>
@@ -7391,7 +7397,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation type="unfinished"/>
+        <translation>Dette skanner og gjeninnlaster programtillegg. Bruk dette hvis du akkurat la til eller endret et programtillegg i programtilleggsmappa.</translation>
     </message>
     <message>
         <location/>
@@ -7406,7 +7412,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>This shows a small information message about the plugin.</source>
-        <translation type="unfinished"/>
+        <translation>Dette viser en liten informasjonsmelding om programtillegget.</translation>
     </message>
     <message>
         <location/>
@@ -7846,7 +7852,11 @@ To upgrade these files to their latest versions, click the button below.</source
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette er en redigerbar liste over tilgangssymbol på den tilkoblede tjeneren.&lt;/b&gt;
+&lt;br /&gt;
+Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig enkl tilgangsbehandling på kanaler. Mumble vil huske symbolene du har brukt og sende til tjenere igjen neste gang du kobler til, slik at du ikke må skrive dem inn hver gang.
+
+</translation>
     </message>
     <message>
         <location/>
@@ -8457,7 +8467,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Digest (SHA-1): %1</source>
-        <translation type="unfinished"/>
+        <translation>Digest (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+13"/>
