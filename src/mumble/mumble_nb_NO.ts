@@ -473,7 +473,7 @@ Inneholder en liste over medlemmer arvet av den nåværende kanalen. Fravelg &lt
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"/>
+        <translation>Dette kontrollerer hvilken gruppe brukere denne regelen gjelder for.&lt;br /&gt;Vær oppmerksom på at gruppen blir evaluert i sammenheng med kanalen som reglen er brukt i. F.eks. gir forvalgt ACL på rot-kanalen &lt;i&gt;Skrive&lt;/i&gt;-rettigheter til &lt;i&gt;admin&lt;/i&gt;-gruppen. Denne regelen, hvis den er arvet fra en kanal, vil gi en bruker skrive-rettigheter om den er medlem i &lt;i&gt;admin&lt;/i&gt;-gruppen i den kanalen, også selvom brukeren ikke tilhører &lt;i&gt;admin&lt;/i&gt;-gruppen i den kanalen den opprinnelige ACL-en er satt.&lt;br /&gt;Hvis et gruppenavn starter med et &apos;!&apos;, blir gruppens medlemskap opphevet, og hvis det starter med &apos;~&apos;, blir gruppen evaluert i kanalen dens ACL er definert i, i stedet for at kanalen dens ACL er aktiv i.&lt;br /&gt;Hvis et gruppenavn starter med en &apos;#&apos;, blir det lest som et tilgangssymbol. Brukere må ha skrevet inn det som står etter &apos;#&apos;, i deres liste over tilgangssymboler for å samsvare. Dette kan brukes til meget simpel adgangskodebasert adgang til kanaler, for brukere som ikke er identitetsbekreftet.&lt;br /&gt;Hvis et gruppenavn starter med &apos;$&apos;, vil det kun samsvare med brukere, hvis sertifikat-sjekksum samsvarer med det som kommer etter &apos;$&apos;.&lt;br /&gt;Noen få spesielle forutdefinerte grupper er:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Alle vil samsvare.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle identitetsbekreftede brukere vil samsvare.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Brukere som i øyeblikket er i en underkanal med minimum &lt;i&gt;a&lt;/i&gt; felles opphav, og mellom &lt;i&gt;b&lt;/i&gt; og &lt;i&gt;c&lt;/i&gt; kanaler nedover i rekken. Se nettstedet for mere omfattende dokumentasjon om dette.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Brukere som i øyeblikket er i kanalen vil samsvare (en fordel for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Brukere utenfor kanalen vil samsvare (en fordel for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Merk at en oppføring gjelder for enten én bruker eller en gruppe, men aldri begge.</translation>
     </message>
     <message>
         <location/>
@@ -871,7 +871,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette setter utløserfunksjonsverdier for stemmeoppdaging.&lt;/b&gt;&lt;br /&gt;Bruk dette sammen med lydstatistikk-vinduet for å manuelt justere dem. Inndataverdier som &quot;Stille under&quot; teller alltid som stillhet. Verdier over &quot;Tale over&quot; teller alltid som tale. Verdier imellom vil telle som tale hvis du allerede snakker, men vil ikke utløse ny oppdagelse.</translation>
     </message>
     <message>
         <location/>
@@ -951,7 +951,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Maksimal forsterkning av opptak&lt;/b&gt;&lt;br /&gt;Mumble normaliserer innspillings-lydstyrken før komprimering, og dette har innvirkning på hvor mye Mumble forsterker.&lt;br /&gt;Det egentlige nivået blir hele tiden oppdatert basert på det nåværende talemønster, men det vil aldri komme over nivået angitt her.&lt;br /&gt;Hvis &lt;i&gt;Mikrofon lydstyrke&lt;/i&gt;-nivået ligger omkring 100%, skal du sannsynligvis sette denne til 2.0 eller deromkring, men hvis du som de fleste folk ikke er i stand til at oppnå 100%, skal du sette denne til noe mye høyere.&lt;br /&gt;Ideelt sett skal du sette den til &lt;i&gt;Mikrofon lydstyrke * forsterkningsfaktor &gt;= 100&lt;/i&gt;, selv når du snakker lavt.&lt;br /&gt;&lt;br /&gt;Merk at det ikke gjør noe hvis du setter denne til maksimum, men Mumble vil begynne å plukke opp andre samtaler, hvis du lar det justere dette nivået automatisk.</translation>
     </message>
     <message>
         <location/>
@@ -966,7 +966,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"/>
+        <translation>Å skru på dette vil kansellere ekko fra høytalerne dine. Miksing har liten innvirkning på CPU bruk, men fungerer bare bra hvis høytalerne dine har samme lydstyrke og hver av dem er like langt unna mikrofonen. Multikanals ekko-kansellering gir mye bede resultater, men til en høyere CPU-pris.</translation>
     </message>
     <message>
         <location/>
@@ -1126,7 +1126,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>mute</source>
-        <translation>demp</translation>
+        <translation>stum</translation>
     </message>
     <message>
         <location/>
@@ -1272,7 +1272,8 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette setter minimum sikkerhetsmargin for jitterhurtiglageret.&lt;/b&gt;&lt;br /&gt;All innkommende lyd hurtiglagres, og jitterhurtiglageret prøver kontinuerlig å redusere seg selv til det minimum som er bærekraftig på ditt nettverk, slik at forsinkelsen kan være så lav som mulig.
+Hvis begynnelsen på setninger du hører har mye jitter, øk denne verdien.</translation>
     </message>
     <message>
         <location/>
@@ -1293,7 +1294,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette skrur på ett av testmodusene for nøytal tilbakekobling.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ingen&lt;/i&gt; - Nøytral tilbakekobling avskrudd&lt;br /&gt;&lt;i&gt;Lokal&lt;/i&gt; - Emuler en lokal tjener.&lt;br /&gt;&lt;i&gt;Tjener&lt;/i&gt; - Forespør nøytral tilbakekobling fra tjener.&lt;br /&gt;Merk at når nøytral tilbakekobling er påskrudd, vil brukere ikke lenger høre stemmen din. Denne innstillingen blir ikke lagret ved programslutt.</translation>
     </message>
     <message>
         <location/>
@@ -1405,7 +1406,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Setter variasjon i pakkeforsinkelse for nøytral tilbakekoblingstesting.&lt;/b&gt;&lt;br /&gt;De fleste lydveier inneholder en del variabel forsinkelse. For eksempel hvis du setter dette til 15ms, vil det emulere et nettverk med 20-35 ms spørringsforsinkelse eller et med 80-95ms forsinkelse. De fleste tilkoblinger for konsumenter har en forsinkelse på omentrent 5ms.</translation>
     </message>
     <message>
         <location/>
@@ -1420,7 +1421,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette setter pakketap for nøytralt tilbakekoblingsmodus&lt;/b&gt;&lt;br /&gt;Forholdet på pakker som går tapt. Om ikke din utgående båndbredde er helt i taket eller det er noe galt med din nettverkstilkobling, vil dette være 0%</translation>
     </message>
     <message>
         <location/>
@@ -1510,7 +1511,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation>Send lydstyrken på andre mens du snakker som Prioritert taler.</translation>
+        <translation>Senk lydstyrken på andre mens du snakker som Prioritert taler.</translation>
     </message>
     <message>
         <location/>
@@ -1525,27 +1526,27 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Bare senk lydnivået på programmer som bruker samme utgang som Mumble&lt;/b&gt;&lt;br /&gt;Programmer som bruker en annen utgang enn Mumble vil ikke bli få sitt lydnivå endret.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation>Bare demp lydstyrken på programmer som bruker den samme utgangsenheten</translation>
+        <translation>Bare senk lydstyrken på programmer som bruker den samme utgangsenheten</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation>Hvis valgt vil PulseAudio sine nøytrale tilbakekoblingsmoduler bli dempet</translation>
+        <translation>Hvis valgt vil PulseAudio sine nøytrale tilbakekoblingsmoduler få sitt lydnivå senket</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Senk lydnivået på PulseAudio moduler med nøytral tilbakekobling&lt;/b&gt;&lt;br /&gt;Hvis de er lenket til Mumbles utgangsenhet/sink, vil også de få sitt lydnivå senket.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation>Demp PulseAudio sine nøytrale tilbakekoblingsmoduler</translation>
+        <translation>Senk lydnivået på PulseAudio nøytrale tilbakekoblingsmoduler</translation>
     </message>
 </context>
 <context>
@@ -1642,7 +1643,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation type="unfinished"/>
+        <translation>Dette viser toppnivå for effekt i siste ramme (20 ms) og er samme måling som du vanligvis finner vist i &quot;inngangseffekt&quot;. Se bort fra dette og se på &lt;b&gt;Mikrofoneffekt&lt;/b&gt; i steden for, som er mye jevnere og ikke tar hensyn til toppnivået til transienter.</translation>
     </message>
     <message>
         <location/>
@@ -1653,7 +1654,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Dette viser toppnivået til effekten av høytalerne i forrige ramme (20 ms). Om du bruker en kringlydskanals-samplingsmetode (som ASIO) med høyttaleroppsett konfigurert, vil dette være 0. Hvis du har et slikt oppsett konfigurert, og dette fremdeles viser 0 mens du spiller lyd fra andre programmer, fungerer ikke oppsettet ditt.</translation>
     </message>
     <message>
         <location/>
@@ -1663,7 +1664,15 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;Toppnivå for effekt i siste ramme (20 ms) (etter behandling).
+Dette er toppnivåene for forskjellige fall:
+-96dB ideell, teoretisk
+-60dB flott, studio
+-20dB bra, vanlig.
+
+Når du snakker på vanlig konsumentutstyr bør nivået ligge mellom -5 and -10dB.
+
+Når du bruker lydkansellering og du ser at det stiger til mer enn -15dB har du feil i systemet som irriterer brukere ved å legge til ekko.&quot;</translation>
     </message>
     <message>
         <location/>
@@ -1683,7 +1692,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation type="unfinished"/>
+        <translation>Dette viser hvor nært ditt nåværende inngangsvolum er til idealet. For å justere mikrofonnivået, åpne programmet du bruker til lydstyrkejustering og se på verdien her mens du snakker&lt;br /&gt;&lt;b&gt;Snakk høyt, som når en noob får inn et grisetreff.&lt;/b&gt;&lt;br /&gt;Juster volumet til verdien er nært 100%, men forsikre deg om at den ikke går over. Hvis den gjør det, får du antagelig klipping i deler av talen din, som forverrer lydkvaliteten.</translation>
     </message>
     <message>
         <location/>
@@ -1698,7 +1707,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation type="unfinished"/>
+        <translation>Signal-til-støy-forhold (SNR) for mikrofonen i siste ramme (20 ms). Det viser hvor mye klarere tale er i forhold til støyen.&lt;br /&gt;Hvis denne verdien er under 1.0, er det mer støy enn tale i signalet, så kvaliteten er redusert.&lt;br /&gt;Det er ingen øvre grense for denne verdien, men ikke forvent å se mye over 40-50 uten et lydstudio.</translation>
     </message>
     <message>
         <location/>
@@ -1713,12 +1722,12 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation type="unfinished"/>
+        <translation>Sannsynligheten for at siste ramme (20 ms) var tale og ikke miljøstøy.&lt;br /&gt;Forsendelse av stemmeaktivitet avhenger av at dette er rett. Trekset er at midten av setningen alltid blir oppdaget som tale; problemet er at pauser mellom or og starten av setningen. Det er vanskelig å skille et sukk fra et ord som starter med &apos;h&apos;.&lt;br /&gt;Hvis dette er i fet skrift, betyr det at Mumble sender nå (hvis du er tilkoblet).</translation>
     </message>
     <message>
         <location/>
         <source>Configuration feedback</source>
-        <translation type="unfinished"/>
+        <translation>Tilbakemelding om oppsett</translation>
     </message>
     <message>
         <location/>
@@ -1768,7 +1777,8 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation type="unfinished"/>
+        <translation>Dette viser
+effektspektrumet til nåværende inngangssignal (rød linje) og&lt;br /&gt; gjeldende støyoverslag (innfylt blått).&lt;br /&gt; Alle amplituder er ganget med 30 for å vise den interessante delen (overskuddet av signal over støy i hvert frekvensband).&lt;br /&gt;Av interesse hvis du prøver å finjustere støy ut av dine opptak. Under gode forhold vil det bare være en liten antydning til små bevegelser av blått på bunnen. Hvis dette beveger seg mer enn halvveis opp på grafen har du et veldig bråkete miljø eller et problem med din mikrofon. </translation>
     </message>
     <message>
         <location/>
@@ -1783,7 +1793,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"/>
+        <translation>Dette viser vektingen af ekkokanselleringen, der tiden øker nedover og frekvens økes mot høyre.&lt;br /&gt;Ideelt sett skulle dette være svart, hvilket ville indikert at det overhodet ikke er noe ekko. Du bør være i stand til at se vektingen oppdateres i sanntid.&lt;br /&gt;Legg merke til at så lenge du ikke har noe som kan være ekko, vil du ikke se noe nyttig data her. Spill av noe musikk og tingene skulle vil begynne å stabilisere seg.&lt;br /&gt;Du kan velge å se den rette eller innbilte delen av frekvens-områdets vekt, eller alternativt den beregnede absolutte verdi og fase. Den mest brukbare av disse, vil være den absolutte verdi, som er amplituden av ekkoet, og som viser deg hvor mye av utgangssignalet, som blir fjernet på det tidspunktet. De andre visningstilstandene er mest brukbare for folk som gjerne vil justere ekkokansellerings-algoritmene.&lt;br /&gt;Merk: Hvis hele bildet svinger enormt i modulus-tilstand, vil det mislykkes ekkokanselleringen å finne noen sammenheng overhodet mellem de to inngangskildene (høyttalere og mikrofon). Enten har du en meget lang forsinkelse på ekkoet, eller så er en av inngangskildene satt opp feil.</translation>
     </message>
     <message>
         <location/>
@@ -1953,7 +1963,13 @@ To keep latency to an absolute minimum, it's important to buffer as little audio
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+For å holde forsinkelsen til et absolutt minimum, er det viktig å hurtiglagre så lite lyd som mulig på lydkortet. Dog oppgir mange lydkort at de krever mye mindre lager enn de fungerer med, så den eneste måten er prøving og feiling.
+&lt;/p&gt;
+&lt;p&gt;
+Du bør høre et lydklipp. Endre glidebryteren nedenfor til laveste verdi som &lt;b&gt;ingen&lt;/b&gt; forstyrrelser eller jitter i lydsignalet. Merk at lokalt ekko er avskrudd under testen.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1974,7 +1990,13 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Åpne ditt lydkontrolpanel og gå inn under innstillingene for opptak. Forsikre deg om at mikrofonen er valgt som aktiv inngang med maksimal opptaksstyrke. Hvis der er mulighet for å aktivere &quot;Mikrofon boost&quot;, så forsikre deg om at denne er huket av.
+&lt;/p&gt;
+&lt;p&gt;
+Snakk høyt, som når du er irritert eller opprømt. Senk lydstyrken i lydkontrollpanelet til den grønne stolpen nedenfor er så høy som mulig i den blå og grønne, men &lt;b&gt;ikke&lt;/b&gt; i det røde området når du snakker.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1995,7 +2017,13 @@ Mumble supports positional audio for some games, and will position the voice of 
 The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Mumble støtter posisjonsbasert lyd for noen spill, og vil posisjonere stemmen til andre brukere relativt til deres posisjon i spillet. Avhengig av deres posisjon, vil lydnivået på stemmen deres endres mellom høyttalerne for å simulere retning og distanse til den andre brukeren. Slik posisjonering avhenger av at ditt høyttaleroppsett er rett i operativsystemet ditt, så en test gjøres her.
+&lt;/p&gt;
+&lt;p&gt;
+Grafen nedenfor viser posisjonen på deg &lt;font color=&quot;red&quot;&gt;deg&lt;/font&gt;, dine &lt;font color=&quot;yellow&quot;&gt;høyttalere&lt;/font&gt; og en &lt;font color=&quot;green&quot;&gt;flyttbar lydkilde&lt;/font&gt; som hvis sett fra oven. Du bør også høre at lyden flytter seg mellom kanalene.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2011,7 +2039,13 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren't deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Gratulerer. Du er nå klar til å nyte en rikere lydopplevelse med Mumble.
+&lt;/p&gt;
+&lt;p&gt;
+Mumble er i stadig utvikling og utviklingslaget ønsker å fokusere på funksjoner som best hjelper de fleste brukerne. For å få til dette støtter Mumble innsending av anonym statistikk om ditt oppsett til utviklerne. Denne statistikken er essensiell for videre utvikling, og sørger også for at noen av funksjonene du bruker ikke blir foreldet.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2031,7 +2065,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation type="unfinished"/>
+        <translation>Justering av maskinvare-lydnivået til mikrofon til optimale innstilllinger</translation>
     </message>
     <message>
         <location/>
@@ -2067,7 +2101,10 @@ Mumble is under continuous development, and the development team wants to focus 
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished"/>
+        <translation>Si noe mens du opererer glidebryteren slik at disse avgrensningene observeres.
+Det første du sier. Grønt (Helt sikkert tale)
+Vanlig snakking. Gult (Kan være tale)
+Ingen snakking. Rødt (Definitivt ikke tale)</translation>
     </message>
     <message>
         <location/>
@@ -2162,7 +2199,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"/>
+        <translation>Senkning av lydnivået på andre programmer mens brukere snakker til deg. Så snart noen begynner å snakker til deg i Mumble vil lyden av alle andre programmer (som lydavspillere) få sitt lydnivå senket slik at du kan høre dem bedre.</translation>
     </message>
     <message>
         <location/>
@@ -2196,7 +2233,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Åpne ditt lydkontrollpanel og gå inn under innstillingene for opptak. Forsikre deg om at mikrofonen er valgt som det aktive inngang og med maksimal opptaksstyrke. Hvis der er mulighet for at aktivere &quot;Mikrofon boost&quot;, så huk av denne.
+&lt;/p&gt;
+&lt;p&gt; Snakk høyt, som når du er irritert eller opprømt. Senk lydstyrken i lydkontrollpanelet til den grønne stolpen nedenfor er så høy som mulig i den blå og grønne, men &lt;b&gt;ikke&lt;/b&gt; i det kryssete området når du snakker. &lt;/p&gt; 
+</translation>
     </message>
     <message>
         <location/>
@@ -2208,12 +2249,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>Si noe mens du opererer glidebryteren slik at disse avgrensningene observeres.
+Det første du sier. Tomt (Helt sikkert tale)
+Vanlig snakking. Stripet (Kan være tale)
+Ingen snakking. Krysset (Definitivt ikke tale)</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>&quot;&lt;b&gt;Lav mengde båndbredde&lt;/b&gt;. Å bruke mindre vil føre med seg høy forsinkelse og dårlig kvalitet. Bare velg dette hvis din tilkobling ikke kan takle andre innstillinger (16kbit/s, 60ms per pakke)</translation>
     </message>
     <message>
         <location/>
@@ -2241,7 +2285,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Mask</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Masker</translation>
     </message>
     <message>
         <location/>
@@ -2664,7 +2708,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Du har allerede et sertifikat lagret i Mumble og du er i ferd med å erstatte det.&lt;/p&gt;
+&lt;p&gt;Hvis du oppgraderer til et sertifikat utstedt deg av en tiltrodd CA (sertifikatsmyndighet) og e-posten samsvarer med ditt gjeldende sertifikat, er dette helt trygt, og tjenerne du kobler til vil automatisk gjenkjenne det sterke sertifikatet for din e-postadresse.
+&lt;/p&gt;
+&lt;p&gt;Hvis dette ikke er tilfelle, vil du ikke lenger bli gjenkjent av noen tjener du tidligere har identifisert deg mot. Hvis du ikke har blitt registrert på noen tjener enda, er ikke dette noe du trenger å uroe deg over.
+&lt;/p&gt;
+&lt;p&gt;
+Er du sikker på at du vil erstatte ditt sertifikat?
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2724,7 +2776,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble vil nå opprette et sterkt sertifikat for identitetsbekreftelse til tjenere.&lt;/p&gt;&lt;p&gt;Hvis du ønsker kan du oppgi ytterligere informasjon som skal lagres i ditt sertifikat, som vil bli presentert ovenfor tjenerne du kobler til. Hvis du oppgir en gyldig e-postadresse, kan du oppgradere til en CA(sertifikasjonsmyndighets)-utstedt sertifikat senere, som gir sterk identifikasjon.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2783,13 +2835,18 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble bruker sertifikater for indetitetsbekreftelse ovenfor tjenere. Bruk av sertifikater unngår bruk av passord, som betyr at du ikke må oppgi et passord fra brukersiden. Det gir også veldig enkel brukerregistrering.&lt;/p&gt;
+&lt;p&gt;
+Det anbefales &lt;b&gt;sterkt&lt;/b&gt;at du &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;oppretter et betrodd sertifikat&lt;/a&gt;.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Hvis du noensinne mister ditt nåværende sertifikat, hvilket vil skje om harddisken på din maskin blir ødelagt eller hvis du reinstallerer ditt operativsystem, vil du ikke lenger kunne identitetsbekrefte deg ovenfor tjenere du er registrert på. Det er derfor &lt;b&gt;påkrevd&lt;/b&gt; at du tar en sikkerhetskopi av ditt sertifikat. Vi anbefaler sterkt at du lagrer denne sikkerhetskopien på et flyttbart medium, som en USB-minnepinne.&lt;/p&gt;
+&lt;p&gt;Merk at denne filen ikke er kryptert, slik at alle som får tilgang til den vil kunne opptre som deg, så ta godt vare på den.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2802,7 +2859,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Traverse</source>
-        <translation type="unfinished"/>
+        <translation>Overgang</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2817,7 +2874,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>Demp/gjør døv</translation>
+        <translation>Gjør stum/døv</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2842,52 +2899,52 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Dette representerer total tilgang til kanalen, inkludert muligheten til å endre gruppe- og ACL -informasjon. Dette privilegiet impliserer alle andre privilegier.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>Dette representerer tilgang til overgang av kanalen. Hvis en bruker nektes denne retten, vil vedkommende ikke kunne nå denne kanalen eller noen av kanalene under den, uavhenging av andre tilgangsrettigheter i underkanalene.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation type="unfinished"/>
+        <translation>Muligheten til å ta del i kanalen. Hvis du har en hierarkisk kanalstruktur, kan det hende du vil gi alle overgangsrettigheter, men håndheve inngang i rot-kanalen av ditt hierarki. </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Muligheten til å snakke i en kanal. Brukere uten dette privilegiet vil bli undertrykt av brukeren (ses som stum), og vil ikke kunne snakke før de får sin stumhet fjernet av noen med tilstrekkelige rettigheter.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation type="unfinished"/>
+        <translation>Tilgangen til å hviske til denne kanalen fra utsiden. Fungerer akkurat som &lt;i&gt;snakke&lt;/i&gt;-privilegiet, men har innvirkning på pakker sagt med hviske-knappen aktuert. Dette kan også brukes til å kringkaste til et kanalhierarki uten å lenke.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"/>
+        <translation>Muligheten til å gjøre andre brukere døve og stumme. Når først gjort stum vil en bruker forbli stum til vedkommende får sin stumhet fjernet av en annen priviligert bruker eller kobler til igjen på tjeneren.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"/>
+        <translation>Muligheten til å flytte en bruker til en annen kanal eller sparke ut vedkommende fra tjeneren. Brukere må normalt ha tilgang til en kanal for å bli flyttet dit. Flytteren kan også ha flyttingstilgang til målkanalen. Brukeren kan da bli flyttet til kanaler den ikke normalt har mulighet til å ta del i.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished"/>
+        <translation>Tilgang til opprettelse av underkanaler vil føre med seg administratorrettigheter til den opprettede underkanalen.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation type="unfinished"/>
+        <translation>Tilgang til opprettelse av midlertidige underkanaler vil føre med seg administratorrettigheter til den opprettede underkanalen. Midlertidige kanaler er ikke lagret, og forsvinner når den siste brukeren forlater den.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation type="unfinished"/>
+        <translation>Bruk av muligheten til å lenke sammen kanaler gjør at brukere i de sammenlenkede kanalene hører hverandre, såfremt taleren har &lt;i&gt;tale&lt;/i&gt;-privilegie i lytterens kanal. Du trenger lenkeprivilegie i begge kanaler for å opprette en lenke, men bare i hver av dem for å fjerne den.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2994,7 +3051,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation>Dempet (tjener)</translation>
+        <translation>Stum (tjener)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3009,12 +3066,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Lokal demping</translation>
+        <translation>Lokal stumhet</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>Dempet (selv)</translation>
+        <translation>Stum (selv)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3032,7 +3089,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished"/>
+        <translation>Denne knappen vil godta gjeldende innstillinger og gå tilbake til programmet.&lt;br /&gt;Innstillingene vil lagres til disk når du forlater programmet.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3042,7 +3099,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished"/>
+        <translation>Denne knappen vil avslå alle endringer og returnere til programmet.&lt;br /&gt;Innstillingene vil bli satt til sine tidligere posisjoner.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3678,7 +3735,7 @@ på noen av de mulige plasseringene.</translation>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette skjuler tastetrykk fra andre programmer.&lt;/b&gt;&lt;br /&gt;Å skru på dette vil gjemme knappen (eller den siste knappen i en kombinasjonssnarvei) fra andre programmer. Merk at ikke alle knapper kan undertrykkes.</translation>
     </message>
 </context>
 <context>
@@ -3815,7 +3872,12 @@ på noen av de mulige plasseringene.</translation>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Liste over tilgjengelige LCD-enheter på ditt system. Opplistet etter navn, men også med størrelsen på skjermen. Mumble støtter forsendelse av data til flere LCD-enheter samtidig&lt;/p&gt;
+&lt;h3&gt;Størrelse:&lt;/h3&gt;
+&lt;p&gt;
+Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for grafiske LCD-paneler) eller i tegn (for segmentbaserte LCD-er).&lt;/p&gt;
+&lt;h3&gt;Påskrudd:&lt;/h3&gt;
+&lt;p&gt;Dette bestemmer hvorvidt Mumble skal tegne på en gitt LCD-enhet.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3842,7 +3904,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Dette valget bestemmer minimumsbredden på en kolonne i brukervisning.&lt;/p&gt;
+&lt;p&gt;Hvis for mange folk snakker samtidig, vil brukervisningen dele seg selv inn i kolonner. Du kan bruke dette valget for å velge et kompromiss mellom antallet brukere vist på en LCD, og bredden på brukernavn.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -3890,7 +3954,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"/>
+        <translation>Andre selv-stumhet/døvhet</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3930,22 +3994,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation>Du dempet deg selv</translation>
+        <translation>Du gjorde deg selv stum</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User muted (you)</source>
-        <translation>Bruker dempet (deg)</translation>
+        <translation>Bruker gjort stum (deg)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation>Bruker dempet (av deg)</translation>
+        <translation>Bruker gjort stum (av deg)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation>Bruker dempet (andre)</translation>
+        <translation>Bruker gjort stum (andre)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3960,7 +4024,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation>Du fjernet demping av deg selv</translation>
+        <translation>Du fjernet stumhet fra av deg selv</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4335,7 +4399,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Dette angir opprørselen ved kanaldraging; det kan brukes til å forhindre utilsiktet draging. &lt;i&gt;Flytt&lt;/i&gt; flytter kanalen uten forespørsel. &lt;i&gt;Gjør ingenting&lt;/i&gt; gjør ingenting og skriver en feilmelding. &lt;i&gt;Spør&lt;/i&gt; bruker en meldingsboks til å bekrefte at du virkelig ønsket å flytte kanalen.</translation>
     </message>
     <message>
         <location/>
@@ -4370,7 +4434,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Hvis satt vil minimering av hovedvinduet til Mumble forårsake gjemming og gjøre det kun tilgjengelig fra systemkurven. Ellers vil det minimeres som vindu ellers.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4420,7 +4484,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"/>
+        <translation>Denne innstillingen har kontrollerer hvilke situasjoner programmet vil forbli i forgrunnen. Hvis du velger &lt;i&gt;Aldri&lt;/i&gt; vil programmet ikke forbli i forgrunnen. &lt;i&gt;Alltid&lt;/i&gt; beholder alltid programmet i forgrunnen. &lt;i&gt;I minimert tilstand&lt;/i&gt; / &lt;i&gt;I normal tilstand&lt;/i&gt; beholder programmet i forgrunnen hvis minimering er aktivert / deaktivert.</translation>
     </message>
     <message>
         <location/>
@@ -4494,7 +4558,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="+145"/>
         <location line="+2561"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Rot</translation>
     </message>
     <message>
         <location line="-2507"/>
@@ -4530,7 +4594,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>Trykk-for-å-dempe</translation>
+        <translation>Trykk-for-å-gjøre-stum</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4610,19 +4674,19 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-247"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Demp deg selv</translation>
+        <translation>Gjør deg selv stum</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Velg selv-dempningsstatus</translation>
+        <translation>Velg egen stumhetssatus.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dette vil sette eller veksle din dempede status. Hvis du skrur dette av, vil du også kunne dempe deg selv.</translation>
+        <translation>Dette vil sette eller veksle din stumhetssatus. Hvis du skrur dette av, vil du også kunne skru av at man kan gjøre seg selv stum.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4640,7 +4704,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dette vil velge eller veksle din døvhetsstatus. Hvis du skrur det på, vil du også kunne dempe deg selv.</translation>
+        <translation>Dette vil velge eller veksle din døvhetsstatus. Hvis du skrur det på, vil du også skru på at man kan gjøre seg selv stum.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4767,12 +4831,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Denne tilkoblingen gir perfekt sikkerhetsvidreformidling&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;&lt;p&gt;Denne tilkoblingen gir ikke perfekt sikkerhetsvidreformidling&lt;/p&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4792,7 +4856,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Du er i ferd med å registrere %1 på tjeneren. Denne handlingen kan ikke angres, brukernavnet kan ikke endret, og som registrert bruker vil, %1 ha tilgang til tjeneren selv om du endrer tjenerpassordet.&lt;/p&gt;&lt;p&gt;Fra nå av vil %1 bli identitetsbekreftet med sertifikatet som er i bruk nå.&lt;/p&gt;&lt;p&gt;Er du sikker på at du ønsker å registrere %1?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -5080,22 +5144,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation>Dempning og døvhet fjernet.</translation>
+        <translation>Stum. og døv-het fjernet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>Dempning fjernet.</translation>
+        <translation>Stumhet fjernet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>Dempet.</translation>
+        <translation>Stum.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation>Dempet og gjort døv.</translation>
+        <translation>Gjort stum og døv.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5135,7 +5199,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1.&lt;br /&gt;De spesifikke feilene med sertifikatet er: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Ønsker du å akseptere dette sertifikatet uansett?&lt;br /&gt;(Det vil bli lagret slik at du ikke vil bli spurt igjen.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -5185,7 +5249,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"/>
+        <translation>Feil sertifikat eller passord for registrert bruker. Hvis du er sikker
+på at denne brukeren er beskyttet med et passord, prøv igjen.
+Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5292,7 +5358,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>&amp;Demp</translation>
+        <translation>&amp;Gjør stum</translation>
     </message>
     <message>
         <location/>
@@ -5307,7 +5373,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation>&amp;Lokal demping</translation>
+        <translation>&amp;Lokal stumhet</translation>
     </message>
     <message>
         <location/>
@@ -5382,7 +5448,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation type="unfinished"/>
+        <translation>Viser en dialog over registrerte brukere, og tillater også hurtigtilkobling.</translation>
     </message>
     <message>
         <location/>
@@ -5397,12 +5463,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute user</source>
-        <translation>Demp bruker</translation>
+        <translation>Gjør bruker stum</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Demp eller fjern demping av bruker på tjener. Fjerning av demping på en bruker vil også fjerne døvhet for vedkommende.</translation>
+        <translation>Gjør eller fjern stumhet fra bruker på tjener. Fjerning av stumhet fra bruker vil også fjerne døvhet for vedkommende.</translation>
     </message>
     <message>
         <location/>
@@ -5422,17 +5488,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation>Gjør eller fjern døvhet fra bruker på tjeneren. Å gjøre noen døv vil også dempe dem.</translation>
+        <translation>Gjør eller fjern døvhet fra bruker på tjeneren. Å gjøre noen døv vil også gjøre vedkommende stum.</translation>
     </message>
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation>Demp bruker lokalt</translation>
+        <translation>Gjør bruker stum lokalt</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Lokal demping eller fjern demping av bruker. Bruk dette på andre brukere i samme rom.</translation>
+        <translation>Legg til eller fjern lokal stumhet fra bruker. Bruk dette på andre brukere i samme rom.</translation>
     </message>
     <message>
         <location/>
@@ -5443,7 +5509,7 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Dette lenker din nåværende kanal til valgt kanal. Hvis brukere i en kanal har tilgang til å snakke i den andre kanalen, kan de forskjellige brukerne nå høre hverandre. Dette er en permanent lenke, og vil vare til den manuelt blir fjernet eller tjeneren blir startet om. Se snarveier for trykk-for-å-lenke.</translation>
     </message>
     <message>
         <location/>
@@ -5484,22 +5550,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation type="unfinished"/>
+        <translation>Dette vil tilbakestille lyd for-behandleren, inkludert lydkansellering, automatisk forsterkningsjustering og aktivitetsoppdagelse. Hvis noe plutselig forverrer lydmiljøet (som at noen mister mikrofonen) og det var midlertidig, bruk dette for å forhindre at for-behandleren skal rejustere seg.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>&amp;Demp deg selv</translation>
+        <translation>&amp;Gjør deg selv stum</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Demp deg selv</translation>
+        <translation>Gjør deg selv stum</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Demp eller fjern demping fra deg selv. Når du er dempet vil du ikke sende noe data til tjeneren. Å fjerne demping mens du er døv vil også fjerne døvheten.</translation>
+        <translation>Gjør deg selv stum eller fjern stumhet fra deg selv. Når du er stum vil du ikke sende noe data til tjeneren. Å fjerne stumhet mens du er døv vil også fjerne døvheten.</translation>
     </message>
     <message>
         <location/>
@@ -5514,7 +5580,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation type="unfinished"/>
+        <translation>Legg til eller fjern døvhet for deg selv. Når gjort døv, vil du ikke høre noe. Å gjøre deg selv døv gjør deg også stum.</translation>
     </message>
     <message>
         <location/>
@@ -5529,7 +5595,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation type="unfinished"/>
+        <translation>Skru på eller av tekst-til-tale -motoren. Bare meldinger ment for TTT i oppsettsdialogen vil bli uttalt.</translation>
     </message>
     <message>
         <location/>
@@ -5594,7 +5660,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation type="unfinished"/>
+        <translation>Klikk for å tre inn i &quot;Hva er dette?&quot;-modus. Din peker vil forvandles til et spørsmålstegn. Klikk på vilkårlig knapp, menyvalg eller område for å få en beskrivelse av hva noe er.</translation>
     </message>
     <message>
         <location/>
@@ -5774,12 +5840,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="Messages.cpp" line="+330"/>
         <source>You muted and deafened %1.</source>
-        <translation>Du demped og gjorde %1 døv.</translation>
+        <translation>Du gjorde %1 stum og døv.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Du fjernet demping og døvhet fra %1.</translation>
+        <translation>Du fjernet stumhet og døvhet fra %1.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5794,12 +5860,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%1 dempet og gjort døv av %2.</translation>
+        <translation>%1 gjort stum og døv av %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%1 fikk sin demping og døvhet fjernet av %2.</translation>
+        <translation>%1 fikk sin stumhet og døvhet fjernet av %2.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5829,7 +5895,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 er nå dempet og døv.</translation>
+        <translation>%1 er nå stum og døv.</translation>
     </message>
     <message>
         <location line="-218"/>
@@ -5920,12 +5986,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation>%1 er nå dempet.</translation>
+        <translation>%1 er nå stum.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 har nå fått sin demping fjernet.</translation>
+        <translation>%1 har nå fått sin stumhet fjernet.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -6000,12 +6066,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation>Du fikk din demping og døvhet fjernet av %1.</translation>
+        <translation>Du fikk din stum- og døv-het fjernet av %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation>Du ble dempet av %1.</translation>
+        <translation>Du ble gjort stum av %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6098,12 +6164,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-515"/>
         <source>You were unmuted by %1.</source>
-        <translation>Du fikk din demping fjernet av %1.</translation>
+        <translation>Du fikk din stumhet fjernet av %1.</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation>Du dempet %1.</translation>
+        <translation>Du gjorde %1 stum.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6113,12 +6179,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation>Du fjernet demping av %1.</translation>
+        <translation>Du fjernet %1 sin stumhet.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation>%1 dempet av %2.</translation>
+        <translation>%1 gjort stum av %2.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6128,7 +6194,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation>%2 fjernet demping av %1.</translation>
+        <translation>%2 opphevet %1 sin stumhet.</translation>
     </message>
     <message>
         <location line="+418"/>
@@ -6139,7 +6205,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="-484"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>Du ble dempet og ble gjort døv av %1.</translation>
+        <translation>Du ble gjort stum og døv av %1.</translation>
     </message>
     <message>
         <location line="+176"/>
@@ -6225,7 +6291,23 @@ Valid options are:
                 Suppress loading of identity files (i.e., certificates.)
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Bruk: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; oppgir en nettadresse å koble til ved oppstart istedenfor visning
+av tilkoblingsvinduet, og har følgende form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+Versjonsspørringsparameteret har blitt satt for å påkalle
+gjeldende klientversjon. Den har for tiden 1.2.0. som forvalg.
+
+Gyldige valg er:
+  -h, --help    Viser hjelpeteksten og avslutter.
+  -m, --multiple
+                Tillater flerfoldige utgaver av klienten å startes.
+  -n, --noidentity
+                Undertrykk innlasting av identitetsfiler (altså sertifikater.)
+
+</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -6254,12 +6336,27 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Bruk: mumble rpc &lt;action&gt; [options]
+
+Det er mulig å fjernstyre en kjørende utgave av Mumble ved bruk av
+&apos;mumble rpc&apos;-kommandoen.
+
+Gyldige valg er:
+  mute
+                Gjør det selv stum
+  unmute
+                Fjern stumhet fra deg selv
+  deaf
+                Gjør deg selv døv
+  undeaf
+                Fjern døvhet fra deg selv
+
+</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Invocation</source>
-        <translation type="unfinished"/>
+        <translation>Påkallelse</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6523,7 +6620,7 @@ kanalens kontekstmeny.</translation>
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"/>
+        <translation>Oppdateringer er påkrevde når du bruker øyeblikksutgaver.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
@@ -6539,7 +6636,7 @@ kanalens kontekstmeny.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Skru på TCP kompabilitetsmodus&lt;/b&gt;.&lt;br /&gt;Dette får Mumble til å kommunisere bare ved bruk av TCP mot tjeneren. Dette øker overskuddet og forårsaker pakketap som igjen gir merkbare stopp i kommunikasjonen, så de bør bare brukes hvis du ikke kan bruke forvalget (som bruker UDP for tale og TCP for kontrollsignal).</translation>
     </message>
     <message>
         <location/>
@@ -6624,7 +6721,7 @@ kanalens kontekstmeny.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dette undertrykker identitetsinformasjon fra klienten.&lt;/b&gt;&lt;p&gt;Klienten vil ikke identifisere seg med et sertifikat selv om det er definert, og vil ikke mellomlagre passord for tilkoblinger. Dette er i hovedsak et test-valg og blir ikke lagret.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6954,7 +7051,7 @@ Forhindrer klienten fraå laste ned bilder som er innebygd i sludremeldinger med
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Endringer i forgrunnslag trer kun i effekt i det et program startes. Start programmer på ny etter å ha gjort endringer for å se dem.</translation>
     </message>
     <message>
         <location/>
@@ -7010,7 +7107,9 @@ Klikk på knappen nedenfor for å installere forgrunnslaget.</translation>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"/>
+        <translation>Forgrunnslag utdatert.
+
+Trykk på knappen nedefor for å oppgradere.</translation>
     </message>
     <message>
         <location/>
@@ -7203,12 +7302,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>Dempet eller gjort døv</translation>
+        <translation>Gjort stum eller døv</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation>Dempningsstatus</translation>
+        <translation>Døvhetsstatus</translation>
     </message>
     <message>
         <location/>
@@ -7729,7 +7828,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Rot</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -7763,7 +7862,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Rot</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8185,7 +8284,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bruk glidebryteren eller tekstboksen for å endre lydstyrken på brukeren.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Advarsel!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Økning av lydstyrken av en bruker kan skade hørselen din permanent. Det kan også øke bakgrunnstøten til brukeren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -8254,22 +8353,22 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation>Dempet (manuelt dempet av deg selv)</translation>
+        <translation>Døv (manuelt gjort døv av eget grep)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation>Dempet (manuelt dempet av en adminitrator)</translation>
+        <translation>Døv (manuelt gjort døv av en administrator)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>Dempet (får ikke snakke i gjeldende kanal)</translation>
+        <translation>Døv (får ikke snakke i gjeldende kanal)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Dempet (dempet av deg, bare på din maskin)</translation>
+        <translation>Døv (gjort døv av deg, bare på din maskin)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8353,7 +8452,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation>Klarte ikke å starte opp blodeggs-installasjonskandidat.</translation>
+        <translation>Klarte ikke å starte opp øyeblikks-installasjonskandidat.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -8363,7 +8462,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation>Laster ned nytt blodeggs-installasjonskandidat fra %1 til %2</translation>
+        <translation>Laster ned nytt øyeblikks-installasjonskandidat fra %1 til %2</translation>
     </message>
     <message>
         <location line="+14"/>
