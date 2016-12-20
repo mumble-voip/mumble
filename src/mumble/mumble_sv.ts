@@ -921,7 +921,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Detta visar höjdpunkten för använd utgående bandbredd.&lt;/b&gt;&lt;br /&gt;Detta visar höjdpunkten för mängden bandbredd utsänd från dig. Ljudbitraten är den högsta bitraten (som vi kallar VBR) för själva ljuddatan. Positionen är bitraten som används för platsinformation. Totalt är våran inramning IP-paketet (IP och UDP är 75% av detta totalt).</translation>
+        <translation>&lt;b&gt;Detta visar höjdpunkten för använd utgående bandbredd.&lt;/b&gt;&lt;br /&gt;Detta visar höjdpunkten för mängden bandbredd utsänd från dig. Ljudbitraten är den högsta bitraten (som vi använder VBR) för själva ljuddatan. Positionen är bitraten som används för platsinformation. Totalt är våran inramning IP-paketet (IP och UDP är 75% av detta totalt).</translation>
     </message>
     <message>
         <location/>
