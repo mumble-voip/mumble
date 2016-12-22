@@ -2384,6 +2384,7 @@ void MainWindow::on_qaConfigCert_triggered() {
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {
+	qWarning().nospace() << " Running audio wizard!! " << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	AudioWizard *aw = new AudioWizard(this);
 	aw->exec();
 	delete aw;

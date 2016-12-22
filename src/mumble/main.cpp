@@ -39,6 +39,114 @@
 #include "UserLockFile.h"
 #include "License.h"
 
+#ifdef PLUTOVR_BUILD
+
+struct PlutoDefaultSettings 
+{
+	wchar_t audioInputDeviceId[256];
+	wchar_t audioOutputDeviceId[256];
+	float fVADmax;
+	float fVADmin;
+};
+
+static HANDLE settingsMapHandle = NULL;
+static PlutoDefaultSettings* plutoSettings = NULL;
+
+void InitializePlutoSettingsMap()
+{
+	settingsMapHandle = OpenFileMapping(FILE_MAP_ALL_ACCESS, false, L"PlutoSettings");
+	if (NULL == settingsMapHandle)
+	{
+		qWarning("SCOTTRA - This is BAD!!!!");
+		return;
+	}
+
+	plutoSettings = static_cast<PlutoDefaultSettings*>(MapViewOfFile(settingsMapHandle, FILE_MAP_ALL_ACCESS, 0, 0, 0));
+	if (NULL == plutoSettings)
+	{
+		CloseHandle(settingsMapHandle);
+		settingsMapHandle = NULL;
+		return;
+	}
+}
+
+void TeardownPlutoSettingsMap()
+{
+	if (plutoSettings)
+	{
+		UnmapViewOfFile(plutoSettings);
+		plutoSettings = NULL;
+	}
+	if (settingsMapHandle)
+	{
+		CloseHandle(settingsMapHandle);
+		settingsMapHandle = NULL;
+	}
+}
+
+void InitializePlutoSettings()
+{
+	qWarning("Initializing Pluto Default Settings");
+	if (plutoSettings)
+	{
+		if (0.0f != plutoSettings->fVADmin && 0.80f == g.s.fVADmin)
+		{
+				g.s.fVADmin = plutoSettings->fVADmin;
+		}
+		if (0.0f != plutoSettings->fVADmax && 0.98f == g.s.fVADmax)
+		{
+				g.s.fVADmax = plutoSettings->fVADmax;
+		}
+		g.s.qsWASAPIInput = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
+		g.s.qsWASAPIOutput = QString::fromWCharArray(plutoSettings->audioOutputDeviceId);
+	}
+
+	if (0.80f == g.s.fVADmin)
+	{
+		g.s.fVADmin = 0.443403;
+	}
+
+	if (0.98f == g.s.fVADmax)
+	{
+		g.s.fVADmax = 0.636799f;
+	}
+
+	g.s.bPositionalAudio = true;
+	g.s.bPositionalHeadphone = true;
+	g.s.fAudioMinDistance = 1.0f;
+	g.s.fAudioMaxDistance = 15.0f;
+	g.s.fAudioMaxDistVolume = 0.0f;
+	g.s.fAudioBloom = 0.75f;
+	g.s.bTransmitPosition = true;
+	g.s.bTTS = false;
+	g.s.bAskOnQuit = false;
+	g.s.iQuality = 72000;
+	g.s.iMinLoudness = 2250;
+	g.s.fVolume = 1;
+	g.s.fOtherVolume = 0.95;
+	g.s.iNoiseSuppress = -30;
+	g.s.bUpdateCheck = false;
+	g.s.bPluginCheck = false;
+	g.s.bQoS = false;
+	g.s.bReconnect = false;
+	g.s.bHideInTray = true;
+	g.s.disablePublicList = true;
+	g.s.disableConnectDialogEditing = true;
+	g.s.bSuppressIdentity = true;
+	g.s.bEcho = true;
+	g.s.bEchoMulti = true;
+	g.s.bHideFrame = false;
+	g.s.bMinimalView = false;
+}
+
+void UpdatePlutoSettings()
+{
+	#pragma message("SCOTTRA_TODO $$$ - IMPLEMENT")
+	// call function to set g.s.* to values from plutoSettings
+	// call whatever functions are called by the AudioConfigDialog when you change any values/settings
+}
+#endif
+
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 Q_IMPORT_PLUGIN(qico)
@@ -110,6 +218,10 @@ int main(int argc, char **argv) {
 	g.c = new DeveloperConsole();
 
 	os_init();
+
+#ifdef PLUTOVR_BUILD
+	InitializePlutoSettingsMap();
+#endif
 
 	bool bAllowMultiple = false;
 	bool suppressIdentity = false;
@@ -316,6 +428,10 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
+#ifdef PLUTOVR_BUILD
+	InitializePlutoSettings();
+#endif
+
 	// Check whether we need to enable accessibility features
 #ifdef Q_OS_WIN
 	// Only windows for now. Could not find any information on how to query this for osx or linux
@@ -412,7 +528,11 @@ int main(int argc, char **argv) {
 
 	// Main Window
 	g.mw=new MainWindow(NULL);
+#ifdef PLUTOVR_BUILD
+	g.mw->hide();
+#else
 	g.mw->show();
+#endif
 
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.
@@ -430,6 +550,26 @@ int main(int argc, char **argv) {
 	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
 
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
+
+#ifdef PLUTOVR_BUILD
+	qWarning().nospace() << " vsVAD " << g.s.vsVAD << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmax %1").arg(g.s.fVADmax));
+	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmin %1").arg(g.s.fVADmin));
+	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " iQuality " << g.s.iQuality << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bAskOnQuit " << g.s.bAskOnQuit << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " iMinLoudness " << g.s.iMinLoudness << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bTTS " << g.s.bTTS << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fVolume " << g.s.fVolume << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fOtherVolume " << g.s.fOtherVolume << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " iNoiseSuppress " << g.s.iNoiseSuppress << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bEcho " << g.s.bEcho << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bEchoMulti " << g.s.bEchoMulti << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bHideFrame " << g.s.bHideFrame << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bMinimalView " << g.s.bMinimalView << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bPositionalHeadphone " << g.s.bPositionalHeadphone << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+#endif
 
 	// Plugins
 	g.p = new Plugins(NULL);
@@ -456,11 +596,14 @@ int main(int argc, char **argv) {
 		}
 	}
 
+#ifndef PLUTOVR_BUILD
 	if (runaudiowizard) {
+		qWarning().nospace() << " Running audio wizard " << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 		AudioWizard *aw = new AudioWizard(g.mw);
 		aw->exec();
 		delete aw;
 	}
+#endif
 
 	g.s.uiUpdateCounter = 2;
 
@@ -520,7 +663,9 @@ int main(int argc, char **argv) {
 		qApp->postEvent(g.mw, oue);
 #endif
 	} else {
+#ifndef PLUTOVR_BUILD
 		g.mw->on_qaServerConnect_triggered(true);
+#endif
 	}
 
 	if (! g.bQuit)
