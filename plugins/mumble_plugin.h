@@ -64,6 +64,8 @@
 
 #define MUMBLE_PLUGIN_VERSION 2
 
+extern bool bSpectator;
+
 typedef struct _MumblePlugin {
 	unsigned int magic;
 	const std::wstring &description;

@@ -14,6 +14,7 @@
 #include "User.h"
 #include "PacketDataStream.h"
 #include "Plugins.h"
+#include "../../plugins/mumble_plugin.h"
 #include "Message.h"
 #include "Global.h"
 #include "NetworkConfig.h"
@@ -22,6 +23,8 @@
 #ifdef USE_OPUS
 #include "opus.h"
 #endif
+
+bool bSpectator = false;
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
@@ -956,7 +959,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		}
 	}
 
-	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch()) {
+	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch() && ! bSpectator) {
 		pds << g.p->fPosition[0];
 		pds << g.p->fPosition[1];
 		pds << g.p->fPosition[2];

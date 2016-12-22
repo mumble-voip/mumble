@@ -44,16 +44,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	if (state && spec) { // If in-game as spectator
-		// Set to 0 avatar and camera values.
-		for (int i=0;i<3;i++) {
-			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
-		}
-		// Set team to SPEC.
-		std::wostringstream oidentity;
-		oidentity << "{\"team\": \"SPEC\"}";
-		identity = oidentity.str();
-
-		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+                bSpectator = true; // Tell Mumble that the player is spectating.
 	}
 
 	// Begin context
@@ -83,19 +74,23 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		oidentity << std::endl << "\"Map\": null,";
 	}
 
-	// Team
-	if (team >= 0 && team <= 3) {
-		if (team == 0)
-			oidentity << std::endl << "\"Team\": \"FFA\""; // If team value is 0, set "FFA" as team in identity.
-		if (team == 1)
-			oidentity << std::endl << "\"Team\": \"Red\""; // If team value is 1, set "Red" as team in identity.
-		if (team == 2)
-			oidentity << std::endl << "\"Team\": \"Blue\""; // If team value is 2, set "Blue" as team in identity.
-		if (team == 3)
-			oidentity << std::endl << "\"Team\": \"Spectators\""; // If team value is 3, set "Spectators" as team in identity.
-	} else {
-		oidentity << std::endl << "\"Team\": null";
-	}
+        // Team
+	if (! spec) {
+		if (team >= 0 && team <= 3) {
+			if (team == 0)
+				oidentity << std::endl << "\"Team\": \"FFA\""; // If team value is 0, set "FFA" as team in identity.
+			if (team == 1)
+				oidentity << std::endl << "\"Team\": \"Red\""; // If team value is 1, set "Red" as team in identity.
+			if (team == 2)
+				oidentity << std::endl << "\"Team\": \"Blue\""; // If team value is 2, set "Blue" as team in identity.
+			if (team == 3)
+				oidentity << std::endl << "\"Team\": \"Spectators\""; // If team value is 3, set "Spectators" as team in identity.
+			} else {
+				oidentity << std::endl << "\"Team\": null";
+			}
+		} else {
+			oidentity << std::endl << "\"Team\": \"Spectators\"";
+		}
 
 	oidentity << std::endl << "}";
 	identity = oidentity.str();
