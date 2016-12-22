@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>預設伺服器參數</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -51,22 +51,22 @@
     <message>
         <location line="+46"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>這會繼承 %1  權限。 如果該權限設為兩者皆可，即視為拒絕。&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>頻道必須擁有名稱</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>這會撤消 %1  權限。 如果該權限設為兩者皆可，即視為拒絕。&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>會話</translation>
     </message>
     <message>
         <location/>
@@ -76,12 +76,12 @@
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>在此輸入頻道名稱</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>描述</translation>
     </message>
     <message>
         <location/>
@@ -91,22 +91,22 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>在此輸入頻道密碼</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>按此新增臨時頻道。</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>臨時</translation>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>頻道位置預設值</translation>
     </message>
     <message>
         <location/>
@@ -119,27 +119,27 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>位置</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>&amp;群組</translation>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>群組</translation>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>群組列表</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>移除所選的群組</translation>
     </message>
     <message>
         <location/>
@@ -149,72 +149,72 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"/>
+        <translation>成員從上級繼承</translation>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation type="unfinished"/>
+        <translation>繼承</translation>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>將群組繼承至子頻道</translation>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>可繼承</translation>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>群組從上級頻道繼承</translation>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation type="unfinished"/>
+        <translation>繼承</translation>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>成員</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>加入</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>將成員加入至群組</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>將成員從群組移除</translation>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;訪問控制列表</translation>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation type="unfinished"/>
+        <translation>啟用訪問控制列表</translation>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>項目列表</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"/>
+        <translation>繼續上級的訪問控制列表？</translation>
     </message>
     <message>
         <location/>
@@ -224,12 +224,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"/>
+        <translation>繼續訪問控制列表</translation>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>向上移動</translation>
     </message>
     <message>
         <location/>
@@ -239,12 +239,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>&amp;向上</translation>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>向下移動</translation>
     </message>
     <message>
         <location/>
@@ -254,12 +254,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>&amp;向下</translation>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation type="unfinished"/>
+        <translation>新增項目</translation>
     </message>
     <message>
         <location/>
@@ -274,7 +274,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation type="unfinished"/>
+        <translation>移除項目</translation>
     </message>
     <message>
         <location/>
@@ -289,7 +289,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>背景</translation>
     </message>
     <message>
         <location/>
