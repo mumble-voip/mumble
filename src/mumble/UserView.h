@@ -62,6 +62,7 @@ class UserView : public QTreeView {
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();
 		void updateChannel(const QModelIndex &index);
+		void modifySelections(const QItemSelection &selected, const QItemSelection &deselected);
 };
 
 #endif

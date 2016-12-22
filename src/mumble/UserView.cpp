@@ -366,6 +366,29 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	}
 }
 
+void UserView::modifySelections(const QItemSelection &selected, const QItemSelection &deselected) {
+	// These args are selection deltas instead of entire selections, so ignore them
+	(void) selected;
+	(void) deselected;
+
+	QModelIndexList indices = selectionModel()->selectedIndexes();
+
+	// Ignore single selections
+	if (indices.size() <= 1) {
+		return;
+	}
+
+	// Block selection model signals to prevent infinite recursion.
+	selectionModel()->blockSignals(true);
+	foreach (const QModelIndex& idx, indices) {
+		bool isChannel = static_cast<ModelItem *>(idx.internalPointer())->cChan != NULL;
+		if (isChannel) {
+			selectionModel()->select(idx, QItemSelectionModel::Deselect);
+		}
+	}
+	selectionModel()->blockSignals(false);
+}
+
 #if QT_VERSION >= 0x050000
 void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &)
 #else

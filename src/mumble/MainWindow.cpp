@@ -314,6 +314,10 @@ void MainWindow::setupGui()  {
 	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
 	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
 
+	// Deselect channels in multiselection
+	connect(qtvUsers->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
+	        qtvUsers, SLOT(modifySelections(const QItemSelection&, const QItemSelection&)));
+
 	// QtCreator and uic.exe do not allow adding arbitrary widgets
 	// such as a MUComboBox to a QToolbar, even though they are supported.
 	qcbTransmitMode = new MUComboBox(qtIconToolbar);

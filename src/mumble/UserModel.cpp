@@ -1341,163 +1341,171 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 	QByteArray qba = md->data(mimeTypes().at(0));
 	QDataStream ds(qba);
 
-	bool isChannel;
-	int iId = -1;
-	unsigned int uiSession = 0;
-	ds >> isChannel;
+	// Check if there's more than one entry.  Assume uiSession and iId are same size.
+	bool isMultiSelect = static_cast<unsigned int>(qba.size()) > (sizeof(bool) + sizeof( ((ClientUser*)0)->uiSession) );
 
-	if (isChannel)
-		ds >> iId;
-	else
-		ds >> uiSession;
+	while (! ds.atEnd()) {
+		bool isChannel;
+		int iId = -1;
+		unsigned int uiSession = 0;
+		ds >> isChannel;
 
-	Channel *c;
-	if (! p.isValid()) {
-		c = Channel::get(0);
-	} else {
-		c = getChannel(p);
-	}
+		if (isChannel)
+			ds >> iId;
+		else
+			ds >> uiSession;
 
-	if (! c)
-		return false;
-
-	expandAll(c);
-
-	if (! isChannel) {
-		// User dropped somewhere
-		MumbleProto::UserState mpus;
-		mpus.set_session(uiSession);
-		mpus.set_channel_id(c->iId);
-		g.sh->sendMessage(mpus);
-	} else if (c->iId != iId) {
-		// Channel dropped somewhere (not on itself)
-		int ret;
-		switch (g.s.ceChannelDrag) {
-			case Settings::Ask:
-				ret=QMessageBox::question(g.mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this channel?"), QMessageBox::Yes, QMessageBox::No);
-
-				if (ret == QMessageBox::No)
-					return false;
-				break;
-			case Settings::DoNothing:
-				g.l->log(Log::Information, MainWindow::tr("You have Channel Dragging set to \"Do Nothing\" so the channel wasn't moved."));
-				return false;
-				break;
-			case Settings::Move:
-				break;
-			default:
-				g.l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in UserModel::dropMimeData."));
-				return false;
-				break;
+		Channel *c;
+		if (! p.isValid()) {
+			c = Channel::get(0);
+		} else {
+			c = getChannel(p);
 		}
 
-		long long inewpos = 0;
-		Channel *dropped = Channel::c_qhChannels.value(iId);
-
-		if (! dropped)
+		if (! c)
 			return false;
 
-		if (p.isValid()) {
-			ModelItem *pi = static_cast<ModelItem *>(p.internalPointer());
-			if (pi->pUser)
-				pi = pi->parent;
+		expandAll(c);
 
-			int ifirst = 0;
-			int ilast = pi->rows() - 1;
+		if (! isChannel) {
+			// User dropped somewhere
+			MumbleProto::UserState mpus;
+			mpus.set_session(uiSession);
+			mpus.set_channel_id(c->iId);
+			g.sh->sendMessage(mpus);
+		} else if (isMultiSelect) {
+			// Ignore channels in multiselection (only move users)
+			continue;
+		} else if (c->iId != iId) {
+			// Channel dropped somewhere (not on itself)
+			int ret;
+			switch (g.s.ceChannelDrag) {
+				case Settings::Ask:
+					ret=QMessageBox::question(g.mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this channel?"), QMessageBox::Yes, QMessageBox::No);
 
-			if (ilast > 0) {
-				while (pi->userAt(ifirst) && ifirst < ilast) ifirst++;
-				while (pi->userAt(ilast) && ilast > 0) ilast--;
+					if (ret == QMessageBox::No)
+						return false;
+					break;
+				case Settings::DoNothing:
+					g.l->log(Log::Information, MainWindow::tr("You have Channel Dragging set to \"Do Nothing\" so the channel wasn't moved."));
+					return false;
+					break;
+				case Settings::Move:
+					break;
+				default:
+					g.l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in UserModel::dropMimeData."));
+					return false;
+					break;
 			}
 
-			if (row == -1 && column == -1) {
-				// Dropped on item
-				if (getUser(p)) {
-					// Dropped on player
-					if (ilast > 0) {
-						if (pi->bUsersTop) {
-							if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
-								if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
-								inewpos = pi->channelAt(ifirst)->iPosition;
+			long long inewpos = 0;
+			Channel *dropped = Channel::c_qhChannels.value(iId);
+
+			if (! dropped)
+				return false;
+
+			if (p.isValid()) {
+				ModelItem *pi = static_cast<ModelItem *>(p.internalPointer());
+				if (pi->pUser)
+					pi = pi->parent;
+
+				int ifirst = 0;
+				int ilast = pi->rows() - 1;
+
+				if (ilast > 0) {
+					while (pi->userAt(ifirst) && ifirst < ilast) ifirst++;
+					while (pi->userAt(ilast) && ilast > 0) ilast--;
+				}
+
+				if (row == -1 && column == -1) {
+					// Dropped on item
+					if (getUser(p)) {
+						// Dropped on player
+						if (ilast > 0) {
+							if (pi->bUsersTop) {
+								if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
+									if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
+									inewpos = pi->channelAt(ifirst)->iPosition;
+								} else {
+									inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
+								}
 							} else {
-								inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
-							}
-						} else {
-							if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
-								if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
-								inewpos = pi->channelAt(ilast)->iPosition;
-							} else {
-								inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
+								if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
+									if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
+									inewpos = pi->channelAt(ilast)->iPosition;
+								} else {
+									inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
+								}
 							}
 						}
-					}
-				}
-			} else {
-				// Dropped between items
-				if (ilast == 0) {
-					// No channels in there yet
-				} else if (row <= ifirst) {
-					if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
-						if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
-						inewpos = pi->channelAt(ifirst)->iPosition;
-					} else {
-						inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
-					}
-				} else if (row > ilast) {
-					if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
-						if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
-						inewpos = pi->channelAt(ilast)->iPosition;
-					} else {
-						inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
 					}
 				} else {
-					// Dropped between channels
-					Channel *lower = pi->channelAt(row);
-					Channel *upper = pi->channelAt(row - 1);
-
-					if (lower->iPosition == upper->iPosition && NAMECMPCHANNEL(lower, dropped) && NAMECMPCHANNEL(dropped, upper)) {
-						inewpos = upper->iPosition;
-					} else if (lower->iPosition > upper->iPosition && NAMECMPCHANNEL(lower, dropped)) {
-						inewpos = lower->iPosition;
-					} else if (lower->iPosition > upper->iPosition && NAMECMPCHANNEL(dropped, upper)) {
-						inewpos = upper->iPosition;
-					} else if (lower == dropped || upper == dropped) {
-						return true;
-					} else if (abs(lower->iPosition) - abs(upper->iPosition) > 1) {
-						inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition))/2;
+					// Dropped between items
+					if (ilast == 0) {
+						// No channels in there yet
+					} else if (row <= ifirst) {
+						if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
+							if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
+							inewpos = pi->channelAt(ifirst)->iPosition;
+						} else {
+							inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
+						}
+					} else if (row > ilast) {
+						if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
+							if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
+							inewpos = pi->channelAt(ilast)->iPosition;
+						} else {
+							inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
+						}
 					} else {
-						// Not enough space, other channels have to be moved
-						if (static_cast<long long>(pi->channelAt(ilast)->iPosition) + 40 > INT_MAX) {
-							QMessageBox::critical(g.mw, QLatin1String("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
-							return false;
-						}
-						for (int i = row; i <= ilast; i++) {
-							Channel *tmp = pi->channelAt(i);
-							if (tmp != dropped) {
-								MumbleProto::ChannelState mpcs;
-								mpcs.set_channel_id(tmp->iId);
-								mpcs.set_position(tmp->iPosition + 40);
-								g.sh->sendMessage(mpcs);
+						// Dropped between channels
+						Channel *lower = pi->channelAt(row);
+						Channel *upper = pi->channelAt(row - 1);
 
+						if (lower->iPosition == upper->iPosition && NAMECMPCHANNEL(lower, dropped) && NAMECMPCHANNEL(dropped, upper)) {
+							inewpos = upper->iPosition;
+						} else if (lower->iPosition > upper->iPosition && NAMECMPCHANNEL(lower, dropped)) {
+							inewpos = lower->iPosition;
+						} else if (lower->iPosition > upper->iPosition && NAMECMPCHANNEL(dropped, upper)) {
+							inewpos = upper->iPosition;
+						} else if (lower == dropped || upper == dropped) {
+							return true;
+						} else if (abs(lower->iPosition) - abs(upper->iPosition) > 1) {
+							inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition))/2;
+						} else {
+							// Not enough space, other channels have to be moved
+							if (static_cast<long long>(pi->channelAt(ilast)->iPosition) + 40 > INT_MAX) {
+								QMessageBox::critical(g.mw, QLatin1String("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
+								return false;
 							}
+							for (int i = row; i <= ilast; i++) {
+								Channel *tmp = pi->channelAt(i);
+								if (tmp != dropped) {
+									MumbleProto::ChannelState mpcs;
+									mpcs.set_channel_id(tmp->iId);
+									mpcs.set_position(tmp->iPosition + 40);
+									g.sh->sendMessage(mpcs);
+
+								}
+							}
+							inewpos = upper->iPosition + 20;
 						}
-						inewpos = upper->iPosition + 20;
 					}
 				}
 			}
-		}
 
-		if (inewpos > INT_MAX || inewpos < INT_MIN) {
-			QMessageBox::critical(g.mw, QLatin1String("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
-			return false;
-		}
+			if (inewpos > INT_MAX || inewpos < INT_MIN) {
+				QMessageBox::critical(g.mw, QLatin1String("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
+				return false;
+			}
 
-		MumbleProto::ChannelState mpcs;
-		mpcs.set_channel_id(iId);
-		if (dropped->parent() != c)
-			mpcs.set_parent(c->iId);
-		mpcs.set_position(static_cast<int>(inewpos));
-		g.sh->sendMessage(mpcs);
+			MumbleProto::ChannelState mpcs;
+			mpcs.set_channel_id(iId);
+			if (dropped->parent() != c)
+				mpcs.set_parent(c->iId);
+			mpcs.set_position(static_cast<int>(inewpos));
+			g.sh->sendMessage(mpcs);
+		}
 	}
 
 	return true;
