@@ -1379,10 +1379,6 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 				break;
 			case Settings::Move:
 				break;
-			default:
-				g.l->log(Log::CriticalError, MainWindow::tr("Unknown User Drag mode in UserModel::dropMimeData."));
-				return false;
-				break;
 		}
 		MumbleProto::UserState mpus;
 		mpus.set_session(uiSession);
