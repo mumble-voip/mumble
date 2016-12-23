@@ -252,6 +252,7 @@ struct Settings {
 	WindowLayout wlWindowLayout;
 	ChannelExpand ceExpand;
 	ChannelDrag ceChannelDrag;
+	ChannelDrag ceUserDrag;
 	bool bMinimalView;
 	bool bHideFrame;
 	enum AlwaysOnTopBehaviour { OnTopNever, OnTopAlways, OnTopInMinimal, OnTopInNormal };

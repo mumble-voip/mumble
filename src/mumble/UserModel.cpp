@@ -1365,6 +1365,21 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 
 	if (! isChannel) {
 		// User dropped somewhere
+		int ret;
+		switch (g.s.ceUserDrag) {
+			case Settings::Ask:
+				ret=QMessageBox::question(g.mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this user?"), QMessageBox::Yes, QMessageBox::No);
+
+				if (ret == QMessageBox::No)
+					return false;
+				break;
+			case Settings::DoNothing:
+				g.l->log(Log::Information, MainWindow::tr("You have User Dragging set to \"Do Nothing\" so the user wasn't moved."));
+				return false;
+				break;
+			case Settings::Move:
+				break;
+		}
 		MumbleProto::UserState mpus;
 		mpus.set_session(uiSession);
 		mpus.set_channel_id(c->iId);
