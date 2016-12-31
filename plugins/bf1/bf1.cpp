@@ -16,7 +16,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE squad, squad_leader;
 
 	// State pointers
-	procptr64_t state_base = peekProc<procptr64_t>(pModule + 0x3319598);
+	procptr64_t state_base = peekProc<procptr64_t>(pModule + 0x3358C18);
 	if (!state_base) return false;
 	procptr64_t state_offset_0 = peekProc<procptr64_t>(state_base + 0x5F0);
 	if (!state_offset_0) return false;
@@ -28,27 +28,27 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!state_offset_3) return false;
 
 	// Camera pointer
-	procptr64_t camera_base = peekProc<procptr64_t>(pModule + 0x35B3730);
+	procptr64_t camera_base = peekProc<procptr64_t>(pModule + 0x360B6A8);
 	if (!camera_base) return false;
 
 	// Server name pointers
-	procptr64_t server_name_base = peekProc<procptr64_t>(pModule + 0x35EA740);
+	procptr64_t server_name_base = peekProc<procptr64_t>(pModule + 0x36427D0);
 	if (!server_name_base) return false;
 	procptr64_t server_name_offset = peekProc<procptr64_t>(server_name_base + 0x80);
 	if (!server_name_offset) return false;
 
 	// Team pointers
-	procptr64_t team_base = peekProc<procptr64_t>(pModule + 0x35FB780);
+	procptr64_t team_base = peekProc<procptr64_t>(pModule + 0x364DCB0);
 	if (!team_base) return false;
-	procptr64_t team_offset_0 = peekProc<procptr64_t>(team_base + 0x7D0);
+	procptr64_t team_offset_0 = peekProc<procptr64_t>(team_base + 0x20);
 	if (!team_offset_0) return false;
-	procptr64_t team_offset_1 = peekProc<procptr64_t>(team_offset_0 + 0x440);
+	procptr64_t team_offset_1 = peekProc<procptr64_t>(team_offset_0 + 0x648);
 	if (!team_offset_1) return false;
-	procptr64_t team_offset_2 = peekProc<procptr64_t>(team_offset_1 + 0x138);
+	procptr64_t team_offset_2 = peekProc<procptr64_t>(team_offset_1 + 0xF8);
 	if (!team_offset_2) return false;
 
 	// Squad pointers
-	procptr64_t squad_base = peekProc<procptr64_t>(pModule + 0x31016D0);
+	procptr64_t squad_base = peekProc<procptr64_t>(pModule + 0x3140D50);
 	if (!squad_base) return false;
 	procptr64_t squad_offset_0 = peekProc<procptr64_t>(squad_base + 0x30);
 	if (!squad_offset_0) return false;
@@ -61,14 +61,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc(state_offset_3 + 0x50, &state, 1) && // Magical state value: 1 when in-game and 0 when not spawned or playing.
-			peekProc(pModule + 0x35D2C60, avatar_pos, 12) && // Avatar position values (X, Y and Z).
+			peekProc(pModule + 0x362BEA0, avatar_pos, 12) && // Avatar position values (X, Y and Z).
 			peekProc(camera_base + 0x2B0, camera_pos, 12) && // Camera position values (X, Y and Z).
 			peekProc(camera_base + 0x260, camera_front, 12) && // Avatar front vector values (X, Y and Z).
 			peekProc(camera_base + 0x250, camera_top, 12) && // Avatar top vector values (X, Y and Z).
 			peekProc(server_name_offset, server_name) && // Server name.
 			peekProc(team_offset_2 + 0x13, team) && // Team name.
 			peekProc(squad_offset_3 + 0x240, squad) && // Squad value: 0 (not in a squad), 1 (Apples), 2 (Butter), 3 (Charlie)... 26 (Zebra).
-			peekProc(squad_offset_3 + 0xDCC, squad_leader); // Squad leader value: 0 (False), 1 (True).
+			peekProc(squad_offset_3 + 0x244, squad_leader); // Squad leader value: 0 (False), 1 (True).
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (!ok) {
@@ -221,7 +221,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Battlefield 1 with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Battlefield 1 version 1.0.9.53998"); // Plugin short description
+static std::wstring description(L"Battlefield 1 version 1.0.47.30570"); // Plugin short description
 static std::wstring shortname(L"Battlefield 1"); // Plugin short name
 
 static int trylock1() {
