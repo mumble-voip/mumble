@@ -56,12 +56,12 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>A csatornának nevet kell addni</translation>
+        <translation>A csatornának nevet kell adni</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Ez vonja meg a jogot ettől: %1. Ha egy jogosultságnál mindkettő ki van pipálva, akkor le van tiltva.&lt;br /&gt;%2</translation>
+        <translation>Ez megvonja a jogot ettől: %1. Ha egy jogosultságnál mindkettő ki van pipálva, akkor le van tiltva.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -215,7 +215,7 @@ Ezzel az értékkel módosíthatja azt a sorrendet, ahogy a Mumble egy faszerkez
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Hozzáférést szabályzó lista (ACL) öröklése szülőtől?</translation>
+        <translation>Öröklődjön a hozzáférést szabályzó lista (ACL) a szülőtől?</translation>
     </message>
     <message>
         <location/>
@@ -398,7 +398,7 @@ Hozzáad egy új csoportot.</translation>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Felhasználó, amire ez a bejegyzés vonatkozik</translation>
+        <translation>Felhasználó, akire ez a bejegyzés vonatkozik</translation>
     </message>
     <message>
         <location/>
@@ -688,27 +688,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Névjegy: Mumble</translation>
+        <translation>Mumble névjegye</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Hang-chat alkalmazás játékosok számára&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Névjegy: Mumble</translation>
+        <translation>Mumble &amp;Névjegye</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;Licence</translation>
+        <translation>&amp;Licenc</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"/>
+        <translation>3. &amp;féltől szárm. licencek</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1021,42 +1021,42 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tallózás</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"/>
+        <translation>T&amp;allózás</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Meghallgat</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Meghallgat&lt;/b&gt;&lt;br/&gt;Lejátssza a &lt;i&gt;be&lt;/i&gt; hangot, majd a &lt;i&gt;ki&lt;/i&gt; hangot.</translation>
     </message>
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"/>
+        <translation>Megjelenít egy mindig előtérben levő ablakot egy beszéd nyomógombbal.</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"/>
+        <translation>Beszéd gomb ablak megjelenítése</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Egyéb</translation>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Hallható jelzés az adás kezdetekor vagy végekor</translation>
     </message>
     <message>
         <location/>
@@ -1066,7 +1066,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"/>
+        <translation>Hangjelzés</translation>
     </message>
     <message>
         <location/>
@@ -1131,17 +1131,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Visszhangmentesítés</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Kevert visszhangmentesítés</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Többcsatornás visszhangmentesítés</translation>
     </message>
 </context>
 <context>
@@ -1198,7 +1198,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s (Audio %2, Pozíció %4, Legfeljebb %3)</translation>
     </message>
 </context>
 <context>
@@ -1474,37 +1474,37 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"/>
+        <translation>Kizárólagos mód, nem ajánlott</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Eszköz használata kizárólagos módban.&lt;/b&gt;&lt;br /&gt;Más alkalmazás nem használhatja az eszközt.</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"/>
+        <translation>Kizárólagos</translation>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Kiemelt beszélő</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>Ha kipipálva, a Mumble lehalkít mindenki mást amíg ön a &quot;Kiemelt beszélő&quot; állapotban beszél.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Mások lehalkítása amíg ön Kiemelt Beszélőként beszél. &lt;/b&gt;&lt;br /&gt;A Mumble támogatja más felhasználók hangerejének csökkentését, amíg ön &lt;i&gt;Kiemelt Beszélő&lt;/i&gt; annak érdekében, hogy ne zavarják meg. Pipálja ki az aktiváláshoz.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"/>
+        <translation>Mások lehalkítása amíg a Kiemelt Beszélő beszél.</translation>
     </message>
     <message>
         <location/>
@@ -2304,7 +2304,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"/>
+        <translation>Tiltólista</translation>
     </message>
     <message>
         <location/>
@@ -2374,7 +2374,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>Egy lista kitiltott felhasználókról.</translation>
     </message>
     <message>
         <location/>
@@ -2389,7 +2389,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Használja ezt a gombot, felhasználók a listáról történő eltávolításához.</translation>
     </message>
     <message>
         <location/>
@@ -2409,7 +2409,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+202"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Tiltólista (%n Kitiltva)</numerusform><numerusform>Tiltólista (%n Kitiltva)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2427,7 +2427,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation>Kibocsájtó</translation>
+        <translation>Kibocsátó</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3014,7 +3014,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation type="unfinished"/>
+        <translation>Kiemelt beszélő</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3925,7 +3925,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation>Más (magát) némítva/hangszóró ki</translation>
+        <translation>Más némította önmagát/ teljesen kikapcsolta a hangot</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3965,7 +3965,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>Ön némította magát</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3995,17 +3995,17 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation type="unfinished"/>
+        <translation>Ön kikapcsolta a némítását</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-deafened</source>
-        <translation type="unfinished"/>
+        <translation>Saját hang teljesen kikapcsolva</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation type="unfinished"/>
+        <translation>Saját hang bekapcsolva</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4514,12 +4514,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>A témákkal testre szabhatja a felhasználói felület stílusát.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Beállítja, melyik témát használja a Mumble a felhasználói felület stílusának meghatározására&lt;/b&gt;&lt;br /&gt; A Mumble a témákat erre a célra fenntartott mappákból sorolja fel ebben a listában. Az ön által választott téma határozza meg a Mumble vizuális megjelenését, tehát a színeket, ikonokat, stb...</translation>
     </message>
 </context>
 <context>
@@ -4644,13 +4644,13 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <location line="-247"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Önmaga némítása</translation>
+        <translation>Saját beszéd némítása</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Saját magát lenémítja.</translation>
+        <translation>Saját beszéd némítása</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4662,7 +4662,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Saját hangszórók ki</translation>
+        <translation>Saját hang teljes kikapcsolása</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5523,12 +5523,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>&amp;Saját maga némítása</translation>
+        <translation>Saját beszéd &amp;némítása</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Lenémítja saját magát</translation>
+        <translation>Saját beszéd némítása</translation>
     </message>
     <message>
         <location/>
@@ -5538,12 +5538,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation>&amp;Hangszóró ki</translation>
+        <translation>&amp;Hang ki</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation>Saját hangszórókat kikapcsolja</translation>
+        <translation>Saját hang teljes kikapcsolása</translation>
     </message>
     <message>
         <location/>
@@ -5678,7 +5678,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Check for &amp;Updates</source>
-        <translation>&amp;Frissítéseket keres</translation>
+        <translation>&amp;Frissítések keresése</translation>
     </message>
     <message>
         <location/>
@@ -5783,12 +5783,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Access Tokens</source>
-        <translation>&amp;Elérési tokenek</translation>
+        <translation>&amp;Kulcsok</translation>
     </message>
     <message>
         <location/>
         <source>Add or remove text-based access tokens</source>
-        <translation>Hozzáad vagy eltávolít szöveg alapú hozzáférési tokeneket</translation>
+        <translation>Szöveges jelszavak hozzáadása vagy eltávolítása</translation>
     </message>
     <message>
         <location/>
@@ -6386,7 +6386,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation>S&amp;aját</translation>
+        <translation>F&amp;elhasználó</translation>
     </message>
     <message>
         <location/>
@@ -6411,22 +6411,22 @@ Valid actions are:
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation>&amp;Avatár módosítása</translation>
+        <translation>&amp;Profilkép módosítása</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation>Az ön avatár képét módosítja ezen a szerveren</translation>
+        <translation>Az ön profilképét módosítja ezen a szerveren</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation>Avatár &amp;eltávolítása</translation>
+        <translation>Profilkép &amp;eltávolítása</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation>Eltávolítja a jelenleg beállított avatár képet.</translation>
+        <translation>Eltávolítja a jelenleg beállított profilképet.</translation>
     </message>
     <message>
         <location/>
@@ -6476,17 +6476,17 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tiltólista</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"/>
+        <translation>Szerver tiltólistájának szerkesztése</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Lehetővé teszi a szerveroldali IP-tiltólista szerkesztését.</translation>
     </message>
     <message>
         <location/>
@@ -6750,7 +6750,7 @@ Megakadályozza a klienst, hogy olyan képeket töltsön le, amelyek a csevegés
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation>Keresni fogja a Mumble új verzióit minden alkalommal, amikor elindítja a programot és ha van elérhető frissítés értesíti önt.</translation>
+        <translation>Keresni fogja a Mumble új verzióit minden alkalommal, amikor elindítja a programot, és ha van elérhető frissítés, értesíti önt.</translation>
     </message>
     <message>
         <location/>
@@ -6866,7 +6866,7 @@ Megakadályozza a klienst, hogy olyan képeket töltsön le, amelyek a csevegés
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"/>
+        <translation>Ön mindig látható</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -7230,7 +7230,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofon vagy hangszórók kikapcsolva</translation>
     </message>
     <message>
         <location/>
@@ -7532,7 +7532,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>A Mumble nem tudott magától újraindulni. Kérjük indítsa újra manuálisan.</translation>
     </message>
 </context>
 <context>
@@ -7565,7 +7565,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation>&amp;Kövér</translation>
+        <translation>&amp;Félkövér</translation>
     </message>
     <message>
         <location/>
@@ -7615,7 +7615,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation>Kép beillesztése</translation>
+        <translation>Kép beszúrása</translation>
     </message>
 </context>
 <context>
@@ -7623,7 +7623,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation>Kapcsolat hozzáadása</translation>
+        <translation>Link beszúrása</translation>
     </message>
     <message>
         <location/>
@@ -7861,17 +7861,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
-        <translation>Üres token</translation>
+        <translation>Üres kulcs</translation>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation>Mumble - Hozzáférési token</translation>
+        <translation>Mumble - kulcsok</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation>Az aktuális szerver hozzáférési token-listája</translation>
+        <translation>Az aktuális szerver kulcsainak listája</translation>
     </message>
     <message>
         <location/>
@@ -7879,14 +7879,15 @@ To upgrade these files to their latest versions, click the button below.</source
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation>&lt;b&gt;Ez egy szerkeszthető listája a hozzáférési tokeneknek, amelyek a kapcsolatban levő szerveren vannak.&lt;/b&gt;
+        <translation>&lt;b&gt;Ez egy szerkeszthető kulcslista, amelyek a kapcsolatban levő szerveren vannak.&lt;/b&gt;
 &lt;br /&gt;
-A hozzáférési token egy szöveges karaktersorozat, amely jelszóként használható a csatornák hozzáféréseinek nagyon egyszerű kezeléshez. A Mumble megjegyzi az ön által használt tokeneket és a legközelebbi kapcsolódáskor újraküldi őket a szervernek, így önnek nem kell mindig újra beírnia.</translation>
+A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csatornák hozzáféréseinek nagyon egyszerű kezeléshez. A Mumble megjegyzi az ön által használt kulcsokat és a legközelebbi kapcsolódáskor újraküldi őket a szervernek, így önnek nem kell mindig újra beírnia.
+</translation>
     </message>
     <message>
         <location/>
         <source>Add a token</source>
-        <translation>Token hozzáadása</translation>
+        <translation>Kulcs hozzáadása</translation>
     </message>
     <message>
         <location/>
@@ -7896,7 +7897,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
     <message>
         <location/>
         <source>Remove a token</source>
-        <translation>Token eltávolítása</translation>
+        <translation>Kulcs eltávolítása</translation>
     </message>
     <message>
         <location/>
@@ -8294,12 +8295,12 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Némítva (némítva saját kezűleg, csak a saját gépen)</translation>
+        <translation>Némítva (Ön némította, csak az ön gépén)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation>Hangszórók ki (saját maga)</translation>
+        <translation>Hang teljesen kikapcsolva (saját kezűleg)</translation>
     </message>
     <message>
         <location line="+1"/>
