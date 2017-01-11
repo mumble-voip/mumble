@@ -791,7 +791,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Hvis du trykker to ganger på trykk-for-å-snakk -knappen innenfor denne tidsrammen, vil den bli låst.</translation>
+        <translation>Hvis du trykker to ganger på trykk-for-å-snakke -knappen innenfor denne tidsrammen, vil den bli låst.</translation>
     </message>
     <message>
         <location/>
@@ -1991,7 +1991,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Åpne ditt lydkontrolpanel og gå inn under innstillingene for opptak. Forsikre deg om at mikrofonen er valgt som aktiv inngang med maksimal opptaksstyrke. Hvis der er mulighet for å aktivere &quot;Mikrofon boost&quot;, så forsikre deg om at denne er huket av.
+Åpne ditt lydkontrolpanel og gå inn under innstillingene for opptak. Forsikre deg om at mikrofonen er valgt som aktiv inngang med maksimal opptaksstyrke. Hvis der er mulighet for å aktivere &quot;Mikrofon-boost&quot;, så forsikre deg om at denne er huket av.
 &lt;/p&gt;
 &lt;p&gt;
 Snakk høyt, som når du er irritert eller opprømt. Senk lydstyrken i lydkontrollpanelet til den grønne stolpen nedenfor er så høy som mulig i den blå og grønne, men &lt;b&gt;ikke&lt;/b&gt; i det røde området når du snakker.
@@ -2234,7 +2234,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Åpne ditt lydkontrollpanel og gå inn under innstillingene for opptak. Forsikre deg om at mikrofonen er valgt som det aktive inngang og med maksimal opptaksstyrke. Hvis der er mulighet for at aktivere &quot;Mikrofon boost&quot;, så huk av denne.
+Åpne ditt lydkontrollpanel og gå inn under innstillingene for opptak. Forsikre deg om at mikrofonen er valgt som det aktive inngang og med maksimal opptaksstyrke. Hvis der er mulighet for at aktivere &quot;Mikrofon-boost&quot;, så huk av denne.
 &lt;/p&gt;
 &lt;p&gt; Snakk høyt, som når du er irritert eller opprømt. Senk lydstyrken i lydkontrollpanelet til den grønne stolpen nedenfor er så høy som mulig i den blå og grønne, men &lt;b&gt;ikke&lt;/b&gt; i det kryssete området når du snakker. &lt;/p&gt; 
 </translation>
@@ -2914,7 +2914,7 @@ Det anbefales &lt;b&gt;sterkt&lt;/b&gt;at du &lt;a href=&quot;http://mumble.info
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Muligheten til å snakke i en kanal. Brukere uten dette privilegiet vil bli undertrykt av brukeren (ses som stum), og vil ikke kunne snakke før de får sin stumhet fjernet av noen med tilstrekkelige rettigheter.</translation>
+        <translation>Muligheten til å snakke i en kanal. Brukere uten dette privilegiet vil bli undertrykt av brukeren (ses som stum), og vil ikke kunne snakke før de får sin stumhet opphevet av noen med tilstrekkelige rettigheter.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2924,7 +2924,7 @@ Det anbefales &lt;b&gt;sterkt&lt;/b&gt;at du &lt;a href=&quot;http://mumble.info
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Muligheten til å gjøre andre brukere døve og stumme. Når først gjort stum vil en bruker forbli stum til vedkommende får sin stumhet fjernet av en annen priviligert bruker eller kobler til igjen på tjeneren.</translation>
+        <translation>Muligheten til å gjøre andre brukere døve og stumme. Når først gjort stum vil en bruker forbli stum til vedkommende får sin stumhet opphevet av en annen priviligert bruker eller kobler til igjen på tjeneren.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4024,7 +4024,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation>Du fjernet stumhet fra av deg selv</translation>
+        <translation>Du opphevet egen stumhet</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4034,7 +4034,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation>Du fjernet døvhet fra deg selv</translation>
+        <translation>Du opphevet egen døvhet</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5144,12 +5144,12 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation>Stum. og døv-het fjernet.</translation>
+        <translation>Stum. og døv-het opphevet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>Stumhet fjernet.</translation>
+        <translation>Stumhet opphevet.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5169,7 +5169,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>Døvhet fjernet.</translation>
+        <translation>Døvhet opphevet.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -5509,7 +5509,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Dette lenker din nåværende kanal til valgt kanal. Hvis brukere i en kanal har tilgang til å snakke i den andre kanalen, kan de forskjellige brukerne nå høre hverandre. Dette er en permanent lenke, og vil vare til den manuelt blir fjernet eller tjeneren blir startet om. Se snarveier for trykk-for-å-lenke.</translation>
+        <translation>Dette lenker din nåværende kanal til valgt kanal. Hvis brukere i en kanal har tilgang til å snakke i den andre kanalen, kan de forskjellige brukerne nå høre hverandre. Dette er en permanent lenke, og vil vare til den manuelt blir opphevet eller tjeneren blir startet om. Se snarveier for trykk-for-å-lenke.</translation>
     </message>
     <message>
         <location/>
@@ -5845,12 +5845,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Du fjernet stumhet og døvhet fra %1.</translation>
+        <translation>Du opphevet stumhet og døvhet fra %1.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation>Du fjernet døvhet fra %1.</translation>
+        <translation>Du opphevet døvhet fra %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5865,12 +5865,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%1 fikk sin stumhet og døvhet fjernet av %2.</translation>
+        <translation>%1 fikk sin stumhet og døvhet opphevet av %2.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>%1 undeafened by %2.</source>
-        <translation>%1 fikk sin døvhet fjernet av %2.</translation>
+        <translation>%1 fikk sin døvhet opphevet av %2.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5991,7 +5991,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 har nå fått sin stumhet fjernet.</translation>
+        <translation>%1 har nå fått sin stumhet opphevet.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -6066,7 +6066,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation>Du fikk din stum- og døv-het fjernet av %1.</translation>
+        <translation>Du fikk din stum- og døv-het opphevet av %1.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6076,7 +6076,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation>Du fikk din demping fjernet av %1.</translation>
+        <translation>Du fikk din demping opphevet av %1.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -6087,12 +6087,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation>Undertrykking ble fjernet for deg.</translation>
+        <translation>Undertrykking av deg ble opphevet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation>Du fikk din undertrykking fjernet av %1.</translation>
+        <translation>Du fikk din undertrykking opphevet av %1.</translation>
     </message>
     <message>
         <location line="+83"/>
@@ -6164,7 +6164,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="-515"/>
         <source>You were unmuted by %1.</source>
-        <translation>Du fikk din stumhet fjernet av %1.</translation>
+        <translation>Du fikk din stumhet opphevet av %1.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -6174,12 +6174,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+16"/>
         <source>You unsuppressed %1.</source>
-        <translation>Du fjernet undertrykking av %1.</translation>
+        <translation>Du opphevet undertrykking av %1.</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation>Du fjernet %1 sin stumhet.</translation>
+        <translation>Du opphevet forstumming av %1.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -6189,7 +6189,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     <message>
         <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation>%2 fikk sin undertrykking fjernet av %1.</translation>
+        <translation>%2 fikk sin undertrykking opphevet av %1.</translation>
     </message>
     <message>
         <location line="-14"/>
@@ -8353,22 +8353,22 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation>Døv (manuelt gjort døv av eget grep)</translation>
+        <translation>Stum (manuelt gjort stum av eget grep)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation>Døv (manuelt gjort døv av en administrator)</translation>
+        <translation>Stum (manuelt gjort stum av en administrator)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>Døv (får ikke snakke i gjeldende kanal)</translation>
+        <translation>Stum (får ikke snakke i gjeldende kanal)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Døv (gjort døv av deg, bare på din maskin)</translation>
+        <translation>Stum (gjort stum av deg, bare på din maskin)</translation>
     </message>
     <message>
         <location line="+2"/>
