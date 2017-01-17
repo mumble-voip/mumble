@@ -398,7 +398,7 @@ Hozzáad egy új csoportot.</translation>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Felhasználó, akire ez a bejegyzés vonatkozik</translation>
+        <translation>Akire ez a bejegyzés vonatkozik</translation>
     </message>
     <message>
         <location/>
@@ -3940,7 +3940,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation>Felhasználó csatlakozott a szerverhez</translation>
+        <translation>Valaki csatlakozott a szerverhez</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3980,17 +3980,17 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation>Felhasználó némítva (más)</translation>
+        <translation>Felhasználó némítva (más által)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation>Felhasználó csatornához csatlakozott</translation>
+        <translation>Valaki csatlakozott a csatornához</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation>Felhasználó elhagyta a csatornát</translation>
+        <translation>Valaki elhagyta a csatornát</translation>
     </message>
     <message>
         <location line="+3"/>
