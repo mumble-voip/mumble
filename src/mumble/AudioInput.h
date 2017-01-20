@@ -153,7 +153,16 @@ class AudioInput : public QThread {
 		static int getNetworkBandwidth(int bitrate, int frames);
 		static void setMaxBandwidth(int bitspersec);
 
+		/// Construct an AudioInput.
+		///
+		/// This constructor is only ever called by Audio::startInput(), and is guaranteed
+		/// to be called on the application's main thread.
 		AudioInput();
+
+		/// Destroy an AudioInput.
+		///
+		/// This destructor is only ever called by Audio::stopInput() and Audio::stop(),
+		/// and is guaranteed to be called on the application's main thread.
 		~AudioInput() Q_DECL_OVERRIDE;
 		void run() Q_DECL_OVERRIDE = 0;
 		virtual bool isAlive() const;

@@ -92,7 +92,16 @@ class AudioOutput : public QThread {
 	public:
 		void wipe();
 
+                /// Construct an AudioOutput.
+                ///
+                /// This constructor is only ever called by Audio::startOutput(), and is guaranteed
+                /// to be called on the application's main thread.
 		AudioOutput();
+
+                /// Destroy an AudioOutput.
+                ///
+                /// This destructor is only ever called by Audio::stopOutput() and Audio::stop(),
+                /// and is guaranteed to be called on the application's main thread.
 		~AudioOutput() Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
