@@ -1216,6 +1216,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerBanList);
 	qmServer->addSeparator();
+	qmServer->addAction(qaHide);
 	qmServer->addAction(qaQuit);
 
 	qaServerBanList->setEnabled(g.pPermissions & (ChanACL::Ban | ChanACL::Write));
@@ -1791,6 +1792,10 @@ void MainWindow::on_qaUserInformation_triggered() {
 		return;
 
 	g.sh->requestUserStats(p->uiSession, false);
+}
+
+void MainWindow::on_qaHide_triggered() {
+	hide();
 }
 
 void MainWindow::on_qaQuit_triggered() {
