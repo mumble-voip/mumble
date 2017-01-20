@@ -3,6 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+syntax = "proto2";
+
 package MumbleProto;
 
 option optimize_for = SPEED;
