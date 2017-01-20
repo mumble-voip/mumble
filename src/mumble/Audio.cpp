@@ -200,13 +200,15 @@ void Audio::startOutput(const QString &output) {
 }
 
 void Audio::stopOutput() {
-	QWeakPointer<AudioOutput> weak_ao = g.ao.toWeakRef();
+	AudioOutputPtr ao = g.ao;
 
-	g.ao.clear();
+	g.ao.reset();
 
-	while (weak_ao) {
+	while (ao.get() && ! ao.unique()) {
 		QThread::yieldCurrentThread();
 	}
+
+	ao.reset();
 }
 
 void Audio::startInput(const QString &input) {
@@ -216,13 +218,15 @@ void Audio::startInput(const QString &input) {
 }
 
 void Audio::stopInput() {
-	QWeakPointer<AudioInput> weak_ai = g.ai.toWeakRef();
+	AudioInputPtr ai = g.ai;
 
-	g.ai.clear();
+	g.ai.reset();
 
-	while (weak_ai) {
+	while (ai.get() && ! ai.unique()) {
 		QThread::yieldCurrentThread();
 	}
+
+	ai.reset();
 }
 
 void Audio::start(const QString &input, const QString &output) {
@@ -231,13 +235,16 @@ void Audio::start(const QString &input, const QString &output) {
 }
 
 void Audio::stop() {
-	QWeakPointer<AudioInput> weak_ai = g.ai.toWeakRef();
-	QWeakPointer<AudioOutput> weak_ao = g.ao.toWeakRef();
+	AudioInputPtr ai = g.ai;
+	AudioOutputPtr ao = g.ao;
 
-	g.ao.clear();
-	g.ai.clear();
+	g.ao.reset();
+	g.ai.reset();
 
-	while (weak_ai && weak_ao) {
+	while ((ai.get() && ! ai.unique()) || (ao.get() && ! ao.unique())) {
 		QThread::yieldCurrentThread();
 	}
+
+	ai.reset();
+	ao.reset();
 }

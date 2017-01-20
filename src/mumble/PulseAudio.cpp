@@ -170,8 +170,8 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 
 	AudioInputPtr ai = g.ai;
 	AudioOutputPtr ao = g.ao;
-	AudioInput *raw_ai = ai.data();
-	AudioOutput *raw_ao = ao.data();
+	AudioInput *raw_ai = ai.get();
+	AudioOutput *raw_ao = ao.get();
 	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(raw_ai);
 	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(raw_ao);
 
@@ -474,7 +474,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	}
 
 	AudioInputPtr ai = g.ai;
-	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(ai.data());
+	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(ai.get());
 	if (! pai) {
 		if (length > 0) {
 			pa_stream_drop(s);
@@ -525,7 +525,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	Q_ASSERT(s == pas->pasOutput);
 
 	AudioOutputPtr ao = g.ao;
-	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(ao.data());
+	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(ao.get());
 
 	unsigned char buffer[bytes];
 

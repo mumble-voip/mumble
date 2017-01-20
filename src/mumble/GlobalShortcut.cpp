@@ -849,9 +849,8 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 
 	if (down) {
 		AudioInputPtr ai = g.ai;
-		if (ai) {
+		if (ai.get())
 			ai->tIdle.restart();
-		}
 	}
 
 	int idx = qlButtonList.indexOf(button);
