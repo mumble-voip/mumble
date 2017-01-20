@@ -31,20 +31,20 @@ bool CryptState::isValid() const {
 }
 
 void CryptState::genKey() {
-	RAND_bytes(raw_key, AES_BLOCK_SIZE);
+	RAND_bytes(raw_key, AES_KEY_SIZE_BYTES);
 	RAND_bytes(encrypt_iv, AES_BLOCK_SIZE);
 	RAND_bytes(decrypt_iv, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, 128, &encrypt_key);
-	AES_set_decrypt_key(raw_key, 128, &decrypt_key);
+	AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
+	AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 	bInit = true;
 }
 
 void CryptState::setKey(const unsigned char *rkey, const unsigned char *eiv, const unsigned char *div) {
-	memcpy(raw_key, rkey, AES_BLOCK_SIZE);
+	memcpy(raw_key, rkey, AES_KEY_SIZE_BYTES);
 	memcpy(encrypt_iv, eiv, AES_BLOCK_SIZE);
 	memcpy(decrypt_iv, div, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, 128, &encrypt_key);
-	AES_set_decrypt_key(raw_key, 128, &decrypt_key);
+	AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
+	AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 	bInit = true;
 }
 

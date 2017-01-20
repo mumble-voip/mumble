@@ -8,13 +8,16 @@
 
 #include <openssl/aes.h>
 
+#define AES_KEY_SIZE_BITS   128
+#define AES_KEY_SIZE_BYTES  (AES_KEY_SIZE_BITS/8)
+
 #include "Timer.h"
 
 class CryptState {
 	private:
 		Q_DISABLE_COPY(CryptState)
 	public:
-		unsigned char raw_key[AES_BLOCK_SIZE];
+		unsigned char raw_key[AES_KEY_SIZE_BYTES];
 		unsigned char encrypt_iv[AES_BLOCK_SIZE];
 		unsigned char decrypt_iv[AES_BLOCK_SIZE];
 		unsigned char decrypt_history[0x100];

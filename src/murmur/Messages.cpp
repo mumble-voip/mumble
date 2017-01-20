@@ -15,6 +15,7 @@
 #include "Server.h"
 #include "ServerUser.h"
 #include "Version.h"
+#include "CryptState.h"
 
 #define MSG_SETUP(st) \
 	if (uSource->sState != st) { \
@@ -200,7 +201,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		uSource->csCrypt.genKey();
 
 		MumbleProto::CryptSetup mpcrypt;
-		mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_BLOCK_SIZE));
+		mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_KEY_SIZE_BYTES));
 		mpcrypt.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
 		mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
 		sendMessage(uSource, mpcrypt);
