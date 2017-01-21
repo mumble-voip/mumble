@@ -5,13 +5,6 @@ Mumble's AudioConfigDialog
 	Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 	Copyright (C) 2008, Andreas Messer <andi@bupfen.de>
 
-Support for GKey in Mumble
-
-	src/mumble/GKey.cpp
-	src/mumble/GKey.h
-
-	Copyright (C) 2015, Jordan J Klassen <forivall@gmail.com>
-
 Mumble's PortAudio support
 
 	src/mumble/PAAudio.cpp, src/mumble/PAAudio.h
