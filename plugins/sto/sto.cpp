@@ -3,7 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#include <limits> // Include limits header for the "u8" function.
 
 static procptr32_t identptr, contextptr, posptr;
 
@@ -70,7 +71,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	identptr = contextptr = posptr = NULL;
+	identptr = contextptr = posptr = 0;
 
 	if (! initialize(pids, L"GameClient.exe"))
 		return false;

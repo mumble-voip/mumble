@@ -75,7 +75,7 @@ static bool calcout(float *cam, float *camfront, float *camtop, float *ocam, flo
 }
 
 static bool refreshPointers(void) {
-	hostipportptr = NULL;
+	hostipportptr = 0;
 
 	hostipportptr = pModule + 0xB8C57;
 

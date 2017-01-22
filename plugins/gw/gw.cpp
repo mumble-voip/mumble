@@ -112,7 +112,7 @@ static bool calcout(float *pos, float *front, float *cam, float *camfront, float
 
 static bool refreshPointers(void)
 {
-	frontptr = NULL;
+	frontptr = 0;
 
 	frontptr = peekProc<procptr32_t>(frontptr_);
 	if (!frontptr)
