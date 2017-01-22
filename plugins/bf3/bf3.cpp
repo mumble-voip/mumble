@@ -71,7 +71,7 @@ enum state_values {
 };
 
 inline bool resolve_ptrs() {
-    team_state_ptr = squad_state_ptr = squad_lead_state_ptr = NULL;
+	team_state_ptr = squad_state_ptr = squad_lead_state_ptr = 0;
 
     /*
       Analysis for future patches:

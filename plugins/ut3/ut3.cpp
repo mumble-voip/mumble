@@ -85,7 +85,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	pos0ptr = pos1ptr = pos2ptr = faceptr = NULL;
+	pos0ptr = pos1ptr = pos2ptr = faceptr = 0;
 
 	if (! initialize(pids, L"UT3.exe", L"wrap_oal.dll"))
 		return false;

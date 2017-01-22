@@ -84,7 +84,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Team
-	if (team >= 0 && team <= 3) {
+	if (team <= 3) {
 		if (team == 0)
 			oidentity << std::endl << "\"Team\": \"FFA\""; // If team value is 0, set "FFA" as team in identity.
 		if (team == 1)

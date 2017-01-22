@@ -127,7 +127,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = frontptr = topptr = contextptraddress = stateaddress = loginaddress = NULL;
+	posptr = frontptr = topptr = contextptraddress = stateaddress = loginaddress = 0;
 
 	if (!initialize(pids, L"Borderlands.exe"))
 		return false;

@@ -75,7 +75,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = frontptr = topptr = NULL;
+	posptr = frontptr = topptr = 0;
 
 	if (! initialize(pids, L"Breach.exe", L"fmodex.dll"))
 		return false;

@@ -26,7 +26,7 @@ procptr32_t const ipport_ptr = 0x009A80B8;
 procptr32_t commander_ptr, squad_leader_ptr, squad_state_ptr, team_state_ptr;
 
 inline bool resolve_ptrs() {
-	pos_ptr = face_ptr = top_ptr = commander_ptr = squad_leader_ptr = squad_state_ptr = team_state_ptr = NULL;
+	pos_ptr = face_ptr = top_ptr = commander_ptr = squad_leader_ptr = squad_state_ptr = team_state_ptr = 0;
 	//
 	// Resolve all pointer chains to the values we want to fetch
 	//

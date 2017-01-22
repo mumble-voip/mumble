@@ -81,7 +81,7 @@ static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 }
 
 static bool refreshPointers(void) {
-	posptr = afrontptr = tmpptr = NULL;
+	posptr = afrontptr = tmpptr = 0;
 	
 	// Avatar front vector pointer
 	tmpptr = peekProc<procptr32_t>(gameptr);
