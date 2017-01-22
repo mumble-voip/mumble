@@ -36,6 +36,20 @@ win32 {
 	}
 } else {
 	PYTHON = $$(MUMBLE_PYTHON)
+	# If the MUMBLE_PYTHON environment variable wasn't set,
+	# determine if the 'which' tool is available. We need it
+	# to determine which python binary on the system to use.
+	# If 'which' isn't available, error out.
+	isEmpty(PYTHON) {
+		# Calling 'which which' is intentional.
+		# If which is available, it will print the path to it.
+		# If it isn't available, it will not print anything.
+		WHICH=$$system(which which 2>/dev/null)
+		isEmpty(WHICH) {
+			message("The 'which' command is not available on the system. Unble to search for Python installations. Assuming 'python'... If this is not correct, please point the MUMBLE_PYTHON environment variable at a working Python 2 or Python 3 binary.")
+			PYTHON=python
+		}
+	}
 	isEmpty(PYTHON) {
 		PYTHON=$$system(which python 2>/dev/null)
 	}
