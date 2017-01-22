@@ -485,15 +485,19 @@ void AudioWizard::on_Ticker_timeout() {
 
 	if (! qgsScene) {
 		unsigned int nspeaker = 0;
+		// Note: when updating these, make sure the colors in AudioWizard.ui match up.
+		const QColor skyBlueColor(QLatin1String("#56b4e9"));
+		const QColor bluishGreenColor(QLatin1String("#009e73"));
+		const QColor vermillionColor(QLatin1String("#d55e00"));
 		const float *spos = ao->getSpeakerPos(nspeaker);
 		if ((nspeaker > 0) && spos) {
 			qgsScene = new QGraphicsScene(QRectF(-4.0f, -4.0f, 8.0f, 8.0f), this);
-			qgsScene->addEllipse(QRectF(-0.12f, -0.12f, 0.24f, 0.24f), QPen(Qt::black), QBrush(Qt::darkRed));
+			qgsScene->addEllipse(QRectF(-0.12f, -0.12f, 0.24f, 0.24f), QPen(Qt::black), QBrush(skyBlueColor));
 			for (unsigned int i=0;i<nspeaker;++i) {
 				if ((spos[3*i] != 0.0f) || (spos[3*i+1] != 0.0f) || (spos[3*i+2] != 0.0f))
-					qgsScene->addEllipse(QRectF(spos[3*i] - 0.1f, spos[3*i+2] - 0.1f, 0.2f, 0.2f), QPen(Qt::black), QBrush(Qt::yellow));
+					qgsScene->addEllipse(QRectF(spos[3*i] - 0.1f, spos[3*i+2] - 0.1f, 0.2f, 0.2f), QPen(Qt::black), QBrush(vermillionColor));
 			}
-			qgiSource = qgsScene->addEllipse(QRectF(-.15f, -.15f, 0.3f, 0.3f), QPen(Qt::black), QBrush(Qt::green));
+			qgiSource = qgsScene->addEllipse(QRectF(-.15f, -.15f, 0.3f, 0.3f), QPen(Qt::black), QBrush(bluishGreenColor));
 			qgvView->setScene(qgsScene);
 			qgvView->fitInView(-4.0f, -4.0f, 8.0f, 8.0f, Qt::KeepAspectRatio);
 		}
