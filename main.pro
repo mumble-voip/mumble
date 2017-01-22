@@ -66,7 +66,7 @@ SUBDIRS *= src/mumble_proto
     CONFIG *= no-overlay
   }
 
-  unix:!macx:!CONFIG(no-overlay) {
+  !CONFIG(no-overlay) {
     SUBDIRS *= overlay_gl
   }
 

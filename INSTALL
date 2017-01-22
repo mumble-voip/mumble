@@ -157,7 +157,7 @@ CONFIG+=grpc (Murmur, Linux)
 CONFIG+=no-bonjour
  Don't build support for Bonjour.
 
-CONFIG+=no-overlay (Mumble, Linux)
+CONFIG+=no-overlay (Mumble)
  Don't build the overlay library.
 
 CONFIG+=no-xinput2 (Mumble, Linux)
