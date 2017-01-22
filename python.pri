@@ -29,18 +29,19 @@
 # variable to specify an absolute path to a Python binary to use.
 # Setting this environment variable overrides any querying.
 
-win32 {
-	PYTHON = $$(MUMBLE_PYTHON)
-	isEmpty(PYTHON) {
+include(qt.pri)
+
+PYTHON = $$(MUMBLE_PYTHON)
+
+# If the MUMBLE_PYTHON environment variable isn't set
+isEmpty(PYTHON) {
+	# If we're on Qt 4 on win32, or we're building from Windows, use "python"
+	equals(QMAKE_HOST.os, "Windows")|equals(QMAKE_VERSION_INT_MAJOR, 4):win32 {
 		PYTHON=python
-	}
-} else {
-	PYTHON = $$(MUMBLE_PYTHON)
-	# If the MUMBLE_PYTHON environment variable wasn't set,
-	# determine if the 'which' tool is available. We need it
-	# to determine which python binary on the system to use.
-	# If 'which' isn't available, error out.
-	isEmpty(PYTHON) {
+	} else {
+		# Determine if the 'which' tool is available. We need it
+		# to determine which python binary on the system to use.
+		# If 'which' isn't available, error out.
 		# Calling 'which which' is intentional.
 		# If which is available, it will print the path to it.
 		# If it isn't available, it will not print anything.
@@ -49,38 +50,38 @@ win32 {
 			message("The 'which' command is not available on the system. Unable to search for Python installations. Assuming 'python'... If this is not correct, please point the MUMBLE_PYTHON environment variable at a working Python 2 or Python 3 binary.")
 			PYTHON=python
 		}
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python2 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python2.7 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python3 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python3.0 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python3.1 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python3.2 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python3.3 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python3.4 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		PYTHON=$$system(which python3.5 2>/dev/null)
-	}
-	isEmpty(PYTHON) {
-		error("Unable to find the system's Python binary. Some scripts invoked during the Mumble build use Python. You can manually specify it via the MUMBLE_PYTHON environment variable (either 2 or 3).")
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python2 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python2.7 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python3 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python3.0 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python3.1 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python3.2 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python3.3 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python3.4 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			PYTHON=$$system(which python3.5 2>/dev/null)
+		}
+		isEmpty(PYTHON) {
+			error("Unable to find the system's Python binary. Some scripts invoked during the Mumble build use Python. You can manually specify it via the MUMBLE_PYTHON environment variable (either 2 or 3).")
+		}
 	}
 }
