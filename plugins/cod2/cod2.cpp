@@ -34,10 +34,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // If this magic value is 4 we are spectating, so switch of PA
 
 	ok = peekProc(0x01516608, avatar_pos+2, 4) &&	//Z
-	     peekProc(0x0151660C, avatar_pos, 4) &&	//X
-	     peekProc(0x01516610, avatar_pos+1, 4) && //Y
-	     peekProc(0x0151A114, &viewHor, 4) && //Hor
-	     peekProc(0x0151A110, &viewVer, 4); //Ver
+			peekProc(0x0151660C, avatar_pos, 4) &&	//X
+			peekProc(0x01516610, avatar_pos+1, 4) && //Y
+			peekProc(0x0151A114, &viewHor, 4) && //Hor
+			peekProc(0x0151A110, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;

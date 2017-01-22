@@ -110,19 +110,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE is_opfor;
 
 	ok = peekProc(pos_ptr, avatar_pos, 12) &&
-	     peekProc(face_ptr, avatar_front, 12) &&
-	     peekProc(top_ptr, avatar_top, 12) &&
-	     peekProc(ipport_ptr, ccontext, 128) &&
-	     peekProc(commander_ptr, &is_commander, 1) &&
-	     peekProc(squad_leader_ptr, &is_squad_leader, 1) &&
-	     peekProc(squad_state_ptr, &is_in_squad, 1) &&
-	     peekProc(team_state_ptr, &is_opfor, 1);
+			peekProc(face_ptr, avatar_front, 12) &&
+			peekProc(top_ptr, avatar_top, 12) &&
+			peekProc(ipport_ptr, ccontext, 128) &&
+			peekProc(commander_ptr, &is_commander, 1) &&
+			peekProc(squad_leader_ptr, &is_squad_leader, 1) &&
+			peekProc(squad_state_ptr, &is_in_squad, 1) &&
+			peekProc(team_state_ptr, &is_opfor, 1);
 
 	if (! ok)
 		return false;
 
 	/*
-	    Get context string; in this plugin this will be an
+		Get context string; in this plugin this will be an
 		ip:port (char 128 bytes) string
 	*/
 	ccontext[127] = 0;
@@ -140,11 +140,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		*/
 		wostringstream oidentity;
 		oidentity << "{"
-		<< "\"commander\":" << (is_commander ? "true" : "false") << ","
-		<< "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
-		<< "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
-		<< "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
-		<< "}";
+				  << "\"commander\":" << (is_commander ? "true" : "false") << ","
+				  << "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
+				  << "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
+				  << "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
+				  << "}";
 
 		identity = oidentity.str();
 	}

@@ -45,7 +45,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		vehicle_address = pModule + 0x228A9A0;
 		location_address = pModule + 0x228A38B;
 		street_address = pModule + 0x22870C0;
-	// Unknown version
+		// Unknown version
 	} else {
 		generic_unlock();
 		return false;

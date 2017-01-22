@@ -29,15 +29,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	   ok = peekProc((BYTE *) 0x, &state, 1); // Magical state value
 	   if (! ok)
-	 	return false;
+		return false;
 
 	   if (state == 0)
-	          return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+			  return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	*/
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
-	     peekProc(frontptr, avatar_front, 12) &&
-	     peekProc(topptr, avatar_top, 12);
+			peekProc(frontptr, avatar_front, 12) &&
+			peekProc(topptr, avatar_top, 12);
 
 	if (avatar_pos[1] > 999000000.0)
 		return false;

@@ -32,12 +32,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (is_steam) {
 		ok = peekProc(0x01571E90, avatar_pos, 12) &&
-		     peekProc(0x01571E80, avatar_front, 12) &&
-		     peekProc(0x01571E70, avatar_top, 12);
+				peekProc(0x01571E80, avatar_front, 12) &&
+				peekProc(0x01571E70, avatar_top, 12);
 	} else {
 		ok = peekProc(0x01579600, avatar_pos, 12) &&
-		     peekProc(0x015795F0, avatar_front, 12) &&
-		     peekProc(0x015795E0, avatar_top, 12);
+				peekProc(0x015795F0, avatar_front, 12) &&
+				peekProc(0x015795E0, avatar_top, 12);
 	}
 
 	if (! ok)
@@ -48,8 +48,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true;
 
 	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
+		Get context string; in this plugin this will be an
+		ip:port (char 256 bytes) string
 
 	ccontext[127] = 0;
 	context = std::string(ccontext);

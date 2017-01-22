@@ -7,19 +7,19 @@
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
-   are met: 
+   are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -45,7 +45,7 @@
 		2) Camera position (?)
 		3) Avatar position
 	Camera front vector function:				46 BF 00 89 15 (disassemble, then go up a few times in disassembly)
-	Unit front vector function:					89 1E 8B 5F 04 89 5E 04 8B 7F 08 89 7E 08 8B 7D 10 8D 71 28 
+	Unit front vector function:					89 1E 8B 5F 04 89 5E 04 8B 7F 08 89 7E 08 8B 7D 10 8D 71 28
 		To find the right front vector pointer, you'll need to make a pointer scan for the address that gets updated only when >you< move, using different characters in different locations. It should leave you with only two possible pointers after just 2 scans.
 	Location function:							8D 14 DB 8D 34 90 8D 4E 14 (target instruction is the one above the one you find)
 	Area function:								A3 58 11 A3 00 E8 B8 02 00 00 BA 37 00 00 00 8B CE
@@ -67,8 +67,8 @@
 		26 or 27: Town
 		0 when logged in / in character select / in loading screen
 		1 when not logged in (in login screen)
-	
-	Area Pointer: 
+
+	Area Pointer:
 		This is a 4-byte decimal stating which area we are in. Note however, that some missions have the same area assigned as cities, therefore we need our Location Pointer to distinguish where we are exactly to specify context properly.
 
 */
@@ -138,10 +138,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	int areaid;
 
 	ok = peekProc(camptr, cam) &&
-		 peekProc(posptr, pos) &&
-		 peekProc(camfrontptr, camfront) &&
-		 peekProc(locationptr, &location, 1) &&
-		 peekProc(areaptr, &areaid, 4);
+			peekProc(posptr, pos) &&
+			peekProc(camfrontptr, camfront) &&
+			peekProc(locationptr, &location, 1) &&
+			peekProc(areaptr, &areaid, 4);
 
 	if (!ok) // First we check, if the game is even running or if we should unlink because it's not / it's broken
 		return false;

@@ -34,16 +34,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
-	     peekProc(faceptr, avatar_front, 12) &&
-	     peekProc(topptr, avatar_top, 12) &&
-	     peekProc(0x00B527B8, ccontext, 128);
+			peekProc(faceptr, avatar_front, 12) &&
+			peekProc(topptr, avatar_top, 12) &&
+			peekProc(0x00B527B8, ccontext, 128);
 
 	if (! ok)
 		return false;
 
 	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
+		Get context string; in this plugin this will be an
+		ip:port (char 256 bytes) string
 	*/
 	ccontext[127] = 0;
 	context = std::string(ccontext);

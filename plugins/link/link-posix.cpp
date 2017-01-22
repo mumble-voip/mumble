@@ -93,8 +93,8 @@ static const std::wstring longdesc() {
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
-                 float *camera_pos, float *camera_front, float *camera_top,
-                 std::string &context, std::wstring &identity) {
+				 float *camera_pos, float *camera_front, float *camera_top,
+				 std::string &context, std::wstring &identity) {
 
 	if (lm->ui32count != last_count) {
 		last_tick = GetTickCount();
@@ -164,7 +164,7 @@ static void load_plugin() {
 	}
 
 	lm = static_cast<struct LinkedMem*>(
-	         mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
+				mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
 
 	if ((lm != lm_invalid) && bCreated)
 		memset(lm, 0, sizeof(struct LinkedMem));
