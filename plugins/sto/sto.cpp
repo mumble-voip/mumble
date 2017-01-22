@@ -28,8 +28,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float posblock[64];
 
 	if (! peekProc(identptr, identblock) ||
-	        ! peekProc(contextptr, contextblock) ||
-	        ! peekProc(posptr, posblock))
+	    ! peekProc(contextptr, contextblock) ||
+	    ! peekProc(posptr, posblock))
 		return false;
 
 	std::string ident = std::string(identblock+0x188, strnlen(identblock + 0x188, 0x78)) + std::string("@") + std::string(identblock, strnlen(identblock, 0x80));

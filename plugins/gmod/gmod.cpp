@@ -63,9 +63,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	<< "<game>gmod</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
+	            << "<game>gmod</game>"
+	            << "<hostport>" << sHost << "</hostport>"
+	            << "</context>";
 	context = new_context.str();
 /*
 	// Check to see if you are spawned

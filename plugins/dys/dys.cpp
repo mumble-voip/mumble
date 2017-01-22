@@ -63,15 +63,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	<< "<game>dys</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
+	            << "<game>dys</game>"
+	            << "<hostport>" << sHost << "</hostport>"
+	            << "</context>";
 	context = new_context.str();
 
 	/* TODO
 	new_identity << "<identity>"
-			<< "<name>" << "SAS" << "</name>"
-		     << "</identity>";
+	             << "<name>" << "SAS" << "</name>"
+	             << "</identity>";
 	identity = new_identity.str(); */
 
 	// Check to see if you are spawned
@@ -106,7 +106,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		position tuple:		client.dll+0x423990  (x,y,z, float)
 		orientation tuple:	client.dll+0x423924  (v,h float)
 		ID string:			client.dll+0x3c948e = "DysObjective@@" (14 characters, text)
-	    spawn state:        client.dll+0x3c6270  (0 when at main menu, 2 when not spawned, 6 when spawned, byte)
+		spawn state:        client.dll+0x3c6270  (0 when at main menu, 2 when not spawned, 6 when spawned, byte)
 		host string:		engine.dll+0x3909c4 (ip:port zero-terminated string)
 	*/
 

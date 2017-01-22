@@ -7,10 +7,10 @@
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
-   are met: 
+   are met:
 
    - Redistributions of source code must retain the above copyright notice,
      this list of conditions and the following disclaimer.
@@ -120,7 +120,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(hostipptr, hostip) &&
 		 peekProc(hostportptr, &hostport, 4);
 
-	if (!ok) 
+	if (!ok)
 		return false;
 
 	// Ensure strings are zero terminated

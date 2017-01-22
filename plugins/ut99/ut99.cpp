@@ -166,8 +166,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	std::ostringstream contextss;
 	contextss << "{"
-	<< "\"servername\":\"" << servername << "\""
-	<< "}";
+	          << "\"servername\":\"" << servername << "\""
+	          << "}";
 
 	context = contextss.str();
 

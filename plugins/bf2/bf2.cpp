@@ -123,7 +123,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	/*
 	    Get context string; in this plugin this will be an
-		ip:port (char 128 bytes) string
+	    ip:port (char 128 bytes) string
 	*/
 	ccontext[127] = 0;
 	if (ccontext[0] != '0') {
@@ -140,11 +140,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		*/
 		wostringstream oidentity;
 		oidentity << "{"
-		<< "\"commander\":" << (is_commander ? "true" : "false") << ","
-		<< "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
-		<< "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
-		<< "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
-		<< "}";
+		          << "\"commander\":" << (is_commander ? "true" : "false") << ","
+		          << "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
+		          << "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
+		          << "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
+		          << "}";
 
 		identity = oidentity.str();
 	}
