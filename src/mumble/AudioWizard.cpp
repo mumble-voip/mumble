@@ -152,6 +152,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	qgsScene = NULL;
 	qgiSource = NULL;
 	aosSource = NULL;
+	qgvView->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 	qgvView->scale(1.0f, -1.0f);
 	qgvView->viewport()->installEventFilter(this);
 
@@ -179,8 +180,8 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	iMaxPeak = 0;
 	iTicks = 0;
 
-	qpTalkingOn = QPixmap::fromImage(QImage(QLatin1String("skin:talking_on.svg")).scaled(64,64));
-	qpTalkingOff = QPixmap::fromImage(QImage(QLatin1String("skin:talking_off.svg")).scaled(64,64));
+	qpTalkingOn = QPixmap::fromImage(QImage(QLatin1String("skin:talking_on.svg"))).scaledToHeight(64, Qt::SmoothTransformation);
+	qpTalkingOff = QPixmap::fromImage(QImage(QLatin1String("skin:talking_off.svg"))).scaledToHeight(64, Qt::SmoothTransformation);
 
 	bInit = false;
 
