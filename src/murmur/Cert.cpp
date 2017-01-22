@@ -112,7 +112,7 @@ void Server::initializeCert() {
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 	if (! dhparams.isEmpty()) {
-		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters(dhparams);
+		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters::fromEncoded(dhparams);
 		if (qdhp.isValid()) {
 			qsdhpDHParams = qdhp;
 		} else {
@@ -242,7 +242,7 @@ void Server::initializeCert() {
 		}
 
 		QByteArray pemdh(pem, len);
-		QSslDiffieHellmanParameters qdhp(pemdh);
+		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters::fromEncoded(pemdh);
 		if (!qdhp.isValid()) {
 			qFatal("QSslDiffieHellmanParameters: unable to import generated Diffie-HellmanParameters: %s", qdhp.errorString().toStdString().c_str());
 		}
