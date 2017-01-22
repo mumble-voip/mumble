@@ -207,6 +207,17 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="qaHide">
+   <property name="text">
+    <string>&amp;Hide Mumble</string>
+   </property>
+   <property name="toolTip">
+    <string>Hides the main Mumble window.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</string>
+   </property>
+  </action>
   <action name="qaServerConnect">
    <property name="icon">
     <iconset>
