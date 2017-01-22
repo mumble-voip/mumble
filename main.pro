@@ -52,14 +52,15 @@ SUBDIRS *= src/mumble_proto
     SUBDIRS *= plugins
   }
 
-  win32 {
+  win32:!CONFIG(no-overlay) {
     SUBDIRS *= overlay
     SUBDIRS *= overlay/overlay_exe
     SUBDIRS *= overlay_winx64
     SUBDIRS *= overlay_winx64/overlay_exe_winx64
-    !CONFIG(no-g15) {
-      SUBDIRS *= g15helper
-    }
+  }
+
+  win32:!CONFIG(no-g15) {
+    SUBDIRS *= g15helper
   }
 
   contains(UNAME, OpenBSD) {
