@@ -46,7 +46,7 @@ win32 {
 		# If it isn't available, it will not print anything.
 		WHICH=$$system(which which 2>/dev/null)
 		isEmpty(WHICH) {
-			message("The 'which' command is not available on the system. Unble to search for Python installations. Assuming 'python'... If this is not correct, please point the MUMBLE_PYTHON environment variable at a working Python 2 or Python 3 binary.")
+			message("The 'which' command is not available on the system. Unable to search for Python installations. Assuming 'python'... If this is not correct, please point the MUMBLE_PYTHON environment variable at a working Python 2 or Python 3 binary.")
 			PYTHON=python
 		}
 	}
