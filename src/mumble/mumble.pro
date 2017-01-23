@@ -643,9 +643,6 @@ CONFIG(no-update) {
 		}
 	}
 	GENQRC = $$PYTHON ../../scripts/generate-mumble_qt-qrc.py
-	win32 {
-		GENQRC = $$PYTHON ..\\..\\scripts\\generate-mumble_qt-qrc.py
-	}
 	!system($$GENQRC mumble_qt_auto.qrc $$[QT_INSTALL_TRANSLATIONS] $$QT_TRANSLATIONS_FALLBACK_DIR) {
 		error(Failed to run generate-mumble_qt-qrc.py script)
 	}
