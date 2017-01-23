@@ -5,7 +5,7 @@
 
 #include <winver.h>
 
-IDI_ICON1               ICON    DISCARDABLE     "..\\..\\icons\\mumble.ico"
+IDI_ICON1               ICON    DISCARDABLE     "../../icons/mumble.ico"
 
 #ifndef DEBUG
 #define VER_DEBUG                   0L
