@@ -990,7 +990,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation>Naudoti amplitude pagrįsta kalbos aptikimą</translation>
+        <translation>Naudoti amplitude pagrįstą kalbos aptikimą</translation>
     </message>
     <message>
         <location/>
@@ -1000,7 +1000,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished"/>
+        <translation>Išskirtinė veiksena</translation>
     </message>
     <message>
         <location/>
@@ -1869,7 +1869,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished"/>
+        <translation>Tai įjungia aido malšinimą, kas savo ruožtu padeda naudojant tiek garsiakalbius, tiek ausines.</translation>
     </message>
     <message>
         <location/>
@@ -3524,7 +3524,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="DirectSound.cpp" line="+176"/>
         <source>Default DirectSound Voice Input</source>
-        <translation type="unfinished"/>
+        <translation>Numatytoji DirectSound balso įvestis</translation>
     </message>
     <message>
         <location line="+451"/>
@@ -3534,7 +3534,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="-83"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
-        <translation type="unfinished"/>
+        <translation>Pasirinktos DirectSound įvesties atvėrimas nepavyko. Bus naudojamas numatytasis įrenginys.</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -3552,7 +3552,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+243"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
-        <translation type="unfinished"/>
+        <translation>Pasirinktos DirectSound išvesties atvėrimas nepavyko. Bus naudojamas numatytasis įrenginys.</translation>
     </message>
     <message>
         <location line="+73"/>
@@ -3904,12 +3904,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="unfinished"/>
+        <translation>Prisijungta prie serverio</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation>Serveris atsijungė</translation>
+        <translation>Atsijungta nuo serverio</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4177,17 +4177,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Šnabždesys</translation>
     </message>
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"/>
+        <translation>Jei pažymėta, jūs girdėsite šnabždesius tik iš naudotojų, kurie yra pridėti į jūsų draugų sąrašą.</translation>
     </message>
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation type="unfinished"/>
+        <translation>Priimti šnabždesius tik iš draugų</translation>
     </message>
     <message>
         <location/>
@@ -4202,12 +4202,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"/>
+        <translation>Pokalbių žurnalas</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"/>
+        <translation>Didžiausias pokalbio ilgis</translation>
     </message>
     <message>
         <location/>
@@ -5168,7 +5168,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Server connection failed: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Prisijungimas prie serverio nepavyko: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6520,12 +6520,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Vietinio garsio reguliavimas</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Vietos mastu reguliuoti naudotojo kalbos garsį.</translation>
     </message>
     <message>
         <location/>
@@ -8181,7 +8181,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Kitų naudotojų vietinis garsis</translation>
     </message>
     <message>
         <location/>
@@ -8191,7 +8191,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+46"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Vietinio garsio reguliavimas naudotojui %1</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
@@ -8201,7 +8201,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Naudokite slinktuką arba tekstinį langelį, kad pakeistumėte naudotojo garsį.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Dėmesio!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Per didelis naudotojo garsio padidinimas gali visiems laikams pažeisti jūsų klausą. Be to, jis taip pat gali padidinti naudotojo foninį triukšmą.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -8214,23 +8214,23 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     <message>
         <location line="+1"/>
         <source>Talking to your channel.</source>
-        <translation type="unfinished"/>
+        <translation>Kalba jūsų kanalui.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Šaukia tiesiogiai jūsų kanalui.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Whispering directly to you.</source>
-        <translation type="unfinished"/>
+        <translation>Šnabžda tiesiogiai jums.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation type="unfinished"/>
+        <translation>Nekalba.</translation>
     </message>
     <message>
         <location line="+8"/>
