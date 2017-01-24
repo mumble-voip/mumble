@@ -349,6 +349,7 @@ int main(int argc, char **argv) {
 			       "default locations.", qPrintable(args.at(0)));
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
+			detach = false;
 			Meta::mp.read(inifile);
 			unixhandler.setuid();
 			unixhandler.finalcap();
