@@ -200,13 +200,30 @@ void Audio::startOutput(const QString &output) {
 }
 
 void Audio::stopOutput() {
-	QWeakPointer<AudioOutput> weak_ao = g.ao.toWeakRef();
+	// Take a copy of the global AudioOutput shared pointer
+	// to keep a reference around.
+	AudioOutputPtr ao = g.ao;
 
-	g.ao.clear();
+	// Reset the global AudioOutput shared pointer to the null pointer.
+	g.ao.reset();
 
-	while (weak_ao) {
+	// Wait until our copy of the AudioOutput shared pointer (ao)
+	// is the only one left.
+	while (ao.get() && ! ao.unique()) {
 		QThread::yieldCurrentThread();
 	}
+
+	// Reset our copy of the AudioOutput shared pointer.
+	// This causes the AudioOutput destructor to be called
+	// right here in this function, on the main thread.
+	// Our audio backends expect this to happen.
+	//
+	// One such example is PulseAudioInput, whose destructor
+	// takes the PulseAudio mainloop lock. If the destructor
+	// is called inside one of the PulseAudio callbacks that
+	// take copies of g.ai, the destructor will try to also
+	// take the mainloop lock, causing an abort().
+	ao.reset();
 }
 
 void Audio::startInput(const QString &input) {
@@ -216,13 +233,30 @@ void Audio::startInput(const QString &input) {
 }
 
 void Audio::stopInput() {
-	QWeakPointer<AudioInput> weak_ai = g.ai.toWeakRef();
+	// Take a copy of the global AudioInput shared pointer
+	// to keep a reference around.
+	AudioInputPtr ai = g.ai;
 
-	g.ai.clear();
+	// Reset the global AudioInput shared pointer to the null pointer.
+	g.ai.reset();
 
-	while (weak_ai) {
+	// Wait until our copy of the AudioInput shared pointer (ai)
+	// is the only one left.
+	while (ai.get() && ! ai.unique()) {
 		QThread::yieldCurrentThread();
 	}
+
+	// Reset our copy of the AudioInput shared pointer.
+	// This causes the AudioInput destructor to be called
+	// right here in this function, on the main thread.
+	// Our audio backends expect this to happen.
+	//
+	// One such example is PulseAudioInput, whose destructor
+	// takes the PulseAudio mainloop lock. If the destructor
+	// is called inside one of the PulseAudio callbacks that
+	// take copies of g.ai, the destructor will try to also
+	// take the mainloop lock, causing an abort().
+	ai.reset();
 }
 
 void Audio::start(const QString &input, const QString &output) {
@@ -231,13 +265,34 @@ void Audio::start(const QString &input, const QString &output) {
 }
 
 void Audio::stop() {
-	QWeakPointer<AudioInput> weak_ai = g.ai.toWeakRef();
-	QWeakPointer<AudioOutput> weak_ao = g.ao.toWeakRef();
+	// Take copies of the global AudioInput and AudioOutput
+	// shared pointers to keep a reference to each of them
+	// around.
+	AudioInputPtr ai = g.ai;
+	AudioOutputPtr ao = g.ao;
 
-	g.ao.clear();
-	g.ai.clear();
+	// Reset the global AudioInput and AudioOutput shared pointers
+	// to the null pointer.
+	g.ao.reset();
+	g.ai.reset();
 
-	while (weak_ai && weak_ao) {
+	// Wait until our copies of the AudioInput and AudioOutput shared pointers
+	// (ai and ao) are the only ones left.
+	while ((ai.get() && ! ai.unique()) || (ao.get() && ! ao.unique())) {
 		QThread::yieldCurrentThread();
 	}
+
+	// Reset our copies of the AudioInput and AudioOutput
+	// shared pointers.
+	// This causes the AudioInput and AudioOutput destructors
+	// to be called right here in this function, on the main
+	// thread. Our audio backends expect this to happen.
+	//
+	// One such example is PulseAudioInput, whose destructor
+	// takes the PulseAudio mainloop lock. If the destructor
+	// is called inside one of the PulseAudio callbacks that
+	// take copies of g.ai, the destructor will try to also
+	// take the mainloop lock, causing an abort().
+	ai.reset();
+	ao.reset();
 }

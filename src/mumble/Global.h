@@ -8,7 +8,6 @@
 
 #include <boost/shared_ptr.hpp>
 #include <QtCore/QDir>
-#include <QtCore/QSharedPointer>
 
 #include "ACL.h"
 #include "Settings.h"
@@ -43,8 +42,8 @@ public:
 	MainWindow *mw;
 	Settings s;
 	boost::shared_ptr<ServerHandler> sh;
-	QSharedPointer<AudioInput> ai;
-	QSharedPointer<AudioOutput> ao;
+	boost::shared_ptr<AudioInput> ai;
+	boost::shared_ptr<AudioOutput> ao;
 	Database *db;
 	Log *l;
 	Plugins *p;

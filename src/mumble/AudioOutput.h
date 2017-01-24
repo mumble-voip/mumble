@@ -6,9 +6,9 @@
 #ifndef MUMBLE_MUMBLE_AUDIOOUTPUT_H_
 #define MUMBLE_MUMBLE_AUDIOOUTPUT_H_
 
+#include <boost/shared_ptr.hpp>
 #include <QtCore/QObject>
 #include <QtCore/QThread>
-#include <QtCore/QSharedPointer>
 
 // AudioOutput depends on User being valid. This means it's important
 // to removeBuffer from here BEFORE MainWindow gets any UserLeft
@@ -45,7 +45,7 @@ class ClientUser;
 class AudioOutputUser;
 class AudioOutputSample;
 
-typedef QSharedPointer<AudioOutput> AudioOutputPtr;
+typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
 class AudioOutputRegistrar {
 	private:
@@ -92,7 +92,16 @@ class AudioOutput : public QThread {
 	public:
 		void wipe();
 
+                /// Construct an AudioOutput.
+                ///
+                /// This constructor is only ever called by Audio::startOutput(), and is guaranteed
+                /// to be called on the application's main thread.
 		AudioOutput();
+
+                /// Destroy an AudioOutput.
+                ///
+                /// This destructor is only ever called by Audio::stopOutput() and Audio::stop(),
+                /// and is guaranteed to be called on the application's main thread.
 		~AudioOutput() Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
