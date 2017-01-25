@@ -87,8 +87,8 @@
 #include <winsock2.h>
 #include <qos2.h>
 #include <wintrust.h>
-#include <Softpub.h>
-#include <Dbt.h>
+#include <softpub.h>
+#include <dbt.h>
 #include <delayimp.h>
 #include <shlobj.h>
 #include <tlhelp32.h>
