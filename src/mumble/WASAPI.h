@@ -19,7 +19,7 @@
 #include <functiondiscoverykeys.h>
 #include <propidl.h>
 #include <initguid.h>
-#include <Audiopolicy.h>
+#include <audiopolicy.h>
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
