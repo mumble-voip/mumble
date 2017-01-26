@@ -40,10 +40,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//Convert to left-handed coordinate system
 
 	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
-	     peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
-	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
-	     peekProc(faceptr, &face_corrector, 12) &&
-	     peekProc(topptr, &top_corrector, 12);
+			peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+			peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+			peekProc(faceptr, &face_corrector, 12) &&
+			peekProc(topptr, &top_corrector, 12);
 
 	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 

@@ -14,13 +14,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -43,19 +43,19 @@ procptr32_t pEngine;
 
 /*  DESCRIPTION             ADDRESS             TYPE    VALUE
 
-    * Client based addresses
-    Connected to server:    client.dll+0xFC228  byte    (0 - not; 1 - connected)
-    Position tuple:         client.dll+0x11D470 float   (x, y, z in inches)
-    Orientation tuple:      client.dll+0x11D47C float   (v, h in degrees)
-    Check string:           client.dll+0xE46F5  char    ("CSSpectatorGUI@@" | 16 bytes)
-    Player state:           client.dll+0xFBC2C  byte    (0 - died; 1 - stand; 2 - duck; 3 - walk; 4 - run; 5 - crouchmove; 6 - fall)
-    Team state:             client.dll+0xFC94C  byte    (0 - Spectator; 1 - Terrorist; 2 - Counter-Terrorist)
-    ALT+TAB:                client.dll+0xFD05C  byte    (0 - tabbed; 1 - ingame)
-    Map string:             client.dll+0x11DCE4 str     ("maps/de_nuke.bsp")
+	* Client based addresses
+	Connected to server:    client.dll+0xFC228  byte    (0 - not; 1 - connected)
+	Position tuple:         client.dll+0x11D470 float   (x, y, z in inches)
+	Orientation tuple:      client.dll+0x11D47C float   (v, h in degrees)
+	Check string:           client.dll+0xE46F5  char    ("CSSpectatorGUI@@" | 16 bytes)
+	Player state:           client.dll+0xFBC2C  byte    (0 - died; 1 - stand; 2 - duck; 3 - walk; 4 - run; 5 - crouchmove; 6 - fall)
+	Team state:             client.dll+0xFC94C  byte    (0 - Spectator; 1 - Terrorist; 2 - Counter-Terrorist)
+	ALT+TAB:                client.dll+0xFD05C  byte    (0 - tabbed; 1 - ingame)
+	Map string:             client.dll+0x11DCE4 str     ("maps/de_nuke.bsp")
 
-    * Engine based addresses
-    IP:Port string          hw.dll+0x697E60     str     (ip:port)
-    ALT+TAB:                hw.dll+0x7486B4     byte    (0 - tabbed; 1 - ingame)
+	* Engine based addresses
+	IP:Port string          hw.dll+0x697E60     str     (ip:port)
+	ALT+TAB:                hw.dll+0x7486B4     byte    (0 - tabbed; 1 - ingame)
 */
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, string &context, wstring &) {
@@ -69,19 +69,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float	fViewHor, fViewVer;
 
 	/*  Dust2
-	    INC         DEC     | Ver               Hor
+		INC         DEC     | Ver               Hor
 	X - long        B       | 0     center      0/360   long
 	Y - CT spawn    T spawn | -89   lookup      90      CT spawn
 	Z - up          down    | 89    lookdown    180     B
-	                        |                   270     T spawn
+							|                   270     T spawn
 	*/
 
 	ok = peekProc(pModule + 0x11D470, avatar_pos, 12) &&
-	     peekProc(pModule + 0x11D47C, &fViewHor, 4) &&
-	     peekProc(pModule + 0x11D480, &fViewVer, 4) &&
-	     peekProc(pModule + 0xFC228, &bConnected, 1) &&
-	     peekProc(pModule + 0xFBC2C, &cPlayerState, 1) &&
-	     peekProc(pEngine + 0x697E60, cHostAddr, 40);
+			peekProc(pModule + 0x11D47C, &fViewHor, 4) &&
+			peekProc(pModule + 0x11D480, &fViewVer, 4) &&
+			peekProc(pModule + 0xFC228, &bConnected, 1) &&
+			peekProc(pModule + 0xFBC2C, &cPlayerState, 1) &&
+			peekProc(pEngine + 0x697E60, cHostAddr, 40);
 	if (!ok)
 		return false;
 

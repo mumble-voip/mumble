@@ -14,13 +14,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -86,10 +86,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
 	ok = peekProc(0x00783A64, avatar_pos+2, 4) &&	//Z
-	     peekProc(0x00783A68, avatar_pos, 4) &&	//X
-	     peekProc(0x00783A6C, avatar_pos+1, 4) && //Y
-	     peekProc(0x00783A34, &viewHor, 4) && //Hor
-	     peekProc(0x00783A30, &viewVer, 4); //Ver
+			peekProc(0x00783A68, avatar_pos, 4) &&	//X
+			peekProc(0x00783A6C, avatar_pos+1, 4) && //Y
+			peekProc(0x00783A34, &viewHor, 4) && //Hor
+			peekProc(0x00783A30, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;

@@ -46,18 +46,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
 	ok = peekProc(0x0072AFD0, avatar_pos+2, 4) &&	//Z
-	     peekProc(0x0072AFE0, avatar_pos, 4) &&	//X
-	     peekProc(0x0072AFF0, avatar_pos+1, 4) && //Y
-	     peekProc(0x0072AF3C, &viewHor, 4) && //Hor
-	     peekProc(0x0072AF38, &viewVer, 4) && //Ver
-	     peekProc(0x00956D88, ccontext, 128);
+			peekProc(0x0072AFE0, avatar_pos, 4) &&	//X
+			peekProc(0x0072AFF0, avatar_pos+1, 4) && //Y
+			peekProc(0x0072AF3C, &viewHor, 4) && //Hor
+			peekProc(0x0072AF38, &viewVer, 4) && //Ver
+			peekProc(0x00956D88, ccontext, 128);
 
 	if (! ok)
 		return false;
 
 	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
+		Get context string; in this plugin this will be an
+		ip:port (char 256 bytes) string
 	*/
 
 	ccontext[127] = 0;

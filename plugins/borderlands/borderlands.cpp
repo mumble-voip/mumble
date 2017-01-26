@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -77,8 +77,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float front_corrector[3];
 	float top_corrector[3];
 	ok = peekProc(posptr, &pos_corrector, 12) &&
-	     peekProc(frontptr, &front_corrector, 12) &&
-	     peekProc(topptr, &top_corrector, 12);
+			peekProc(frontptr, &front_corrector, 12) &&
+			peekProc(topptr, &top_corrector, 12);
 	if (! ok)
 		return false;
 

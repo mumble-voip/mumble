@@ -38,11 +38,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true;
 
 	ok = peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
-	     peekProc(pos2ptr, avatar_pos, 4) &&	//X
-	     peekProc(pos3ptr, avatar_pos+2, 4) && //Z
-	     peekProc(rot1ptr, &viewHor, 4) && //Hor
-	     peekProc(rot2ptr, &viewVer, 4) && //Ver
-	     peekProc(0x0122E0B8, ccontext, 128);
+			peekProc(pos2ptr, avatar_pos, 4) &&	//X
+			peekProc(pos3ptr, avatar_pos+2, 4) && //Z
+			peekProc(rot1ptr, &viewHor, 4) && //Hor
+			peekProc(rot2ptr, &viewVer, 4) && //Ver
+			peekProc(0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
