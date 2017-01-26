@@ -83,9 +83,9 @@
 #endif
 
 #include <winsock2.h>
+#include <qos2.h>
 #include <windows.h>
 #include <shellapi.h>
-#include <qos2.h>
 #include <wintrust.h>
 #include <softpub.h>
 #include <dbt.h>
