@@ -94,6 +94,15 @@ win32 {
 	QMAKE_CFLAGS *= -Zm200
 	QMAKE_CXXFLAGS *= -Zm200
 
+	# Disable C4091 for x86 builds. We build against the v140_xp toolset, which uses
+	# a modified Windows 7 SDK which is compatible with Windows XP. Many system headers
+	# emit C4091, typically because of erroneous typedefs. For example 'GPFIDL_FLAGS' in
+	# shlobj.h, and an anonymous enum that includes KSPROPERTY_ONESHOT_RECONNECT in ksmedia.h.
+	equals(MUMBLE_ARCH, x86) {
+		QMAKE_CFLAGS *= -wd4091
+		QMAKE_CXXFLAGS *= -wd4091
+	}
+
 	QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
 	QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
 
