@@ -70,7 +70,7 @@
       <Component Id="msvcp140.dll">
         <File Source="$(var.RedistDirVC14)\msvcp140.dll" KeyPath="yes" />
       </Component>
-      <Component Id="msvcr140.dll">
+      <Component Id="vcruntime140.dll">
         <File Source="$(var.RedistDirVC14)\vcruntime140.dll" KeyPath="yes" />
       </Component>
       <?endif ?>
