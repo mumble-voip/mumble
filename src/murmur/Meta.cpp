@@ -449,7 +449,7 @@ void MetaParams::read(QString fname) {
 	}
 
 	if (! dhparams.isEmpty()) {
-		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters(dhparams);
+		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters::fromEncoded(dhparams);
 		if (qdhp.isValid()) {
 			qbaDHParams = dhparams;
 		} else {

@@ -199,14 +199,7 @@ bonjour {
 #
 # Can be disabled with no-qssldiffiehellmanparameters.
 !CONFIG(no-qssldiffiehellmanparameters):exists($$[QT_INSTALL_HEADERS]/QtNetwork/QSslDiffieHellmanParameters) {
-	# ...but only if we're inside a Mumble build environment for now.
-	# If someone decides to put a Mumble snapshot into a distro, this
-	# could break the build in the future, with newer versions of Qt,
-	# if the API of QSslDiffieHellmanParameters changes when it is
-	# upstreamed.
-	CONFIG(buildenv) {
-		DEFINES += USE_QSSLDIFFIEHELLMANPARAMETERS
-	}
+	DEFINES += USE_QSSLDIFFIEHELLMANPARAMETERS
 }
 
 include(../../symbols.pri)
