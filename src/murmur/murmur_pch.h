@@ -18,6 +18,11 @@
 #undef TYPE_BOOL
 #endif
 
+#ifdef __MINGW32__
+#include <ws2tcpip.h>
+#include <mswsock.h>
+#endif
+
 #include <QtCore/QtCore>
 #include <QtNetwork/QtNetwork>
 #include <QtSql/QtSql>
