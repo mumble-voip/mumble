@@ -96,6 +96,12 @@ void LogTextBrowser::animationFrameUpdated(const QRect &) {
 	// Need to send event or else the image will not be redrawn.
 	QEvent *e = new QEvent(QEvent::FontChange);
 	QApplication::postEvent(this, e);
+
+//TODO: Can we improve performance by invalidating only the element?
+//      And only if it is visible?
+//	doc->setModified(true); // Only this did not work
+//	doc->markContentsDirty()
+	// Get text block, ->setRevision()
 }
 
 
