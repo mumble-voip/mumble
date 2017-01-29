@@ -63,15 +63,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	<< "<game>insurgency</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
+	            << "<game>insurgency</game>"
+	            << "<hostport>" << sHost << "</hostport>"
+	            << "</context>";
 	context = new_context.str();
 
 	/* TODO
 	new_identity << "<identity>"
-			<< "<name>" << "SAS" << "</name>"
-		     << "</identity>";
+	             << "<name>" << "SAS" << "</name>"
+	             << "</identity>";
 	identity = new_identity.str(); */
 
 	// Check to see if you are spawned

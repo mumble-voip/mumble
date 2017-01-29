@@ -7,10 +7,10 @@
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
-   are met: 
+   are met:
 
    - Redistributions of source code must retain the above copyright notice,
      this list of conditions and the following disclaimer.
@@ -91,11 +91,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char hostipport[sizeof(prev_hostipport)];
 
 	ok = peekProc(camfrontptr, camfront, 12) &&
-		 peekProc(camtopptr, camtop, 12) &&
-		 peekProc(hostipportptr, hostipport) &&
-		 peekProc(camptr, cam);
+	     peekProc(camtopptr, camtop, 12) &&
+	     peekProc(hostipportptr, hostipport) &&
+	     peekProc(camptr, cam);
 
-	if (!ok) 
+	if (!ok)
 		return false;
 	
 	hostipport[sizeof(hostipport) - 1] = '\0';

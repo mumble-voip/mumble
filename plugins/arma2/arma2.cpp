@@ -27,12 +27,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	/*
 		value is 0 when one is not in a game, 4 when one is
 
-	   ok = peekProc((BYTE *) 0x, &state, 1); // Magical state value
-	   if (! ok)
-	 	return false;
+	ok = peekProc((BYTE *) 0x, &state, 1); // Magical state value
+	if (! ok)
+		return false;
 
-	   if (state == 0)
-	          return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	if (state == 0)
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	*/
 
 	ok = peekProc(posptr, avatar_pos, 12) &&

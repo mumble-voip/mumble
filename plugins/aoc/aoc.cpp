@@ -63,15 +63,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	<< "<game>aoc</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
+	            << "<game>aoc</game>"
+	            << "<hostport>" << sHost << "</hostport>"
+	            << "</context>";
 	context = new_context.str();
 
 	/* TODO
 	new_identity << "<identity>"
-			<< "<name>" << "SAS" << "</name>"
-		     << "</identity>";
+	             << "<name>" << "SAS" << "</name>"
+	             << "</identity>";
 	identity = new_identity.str(); */
 
 	// Check to see if you are spawned
@@ -103,13 +103,13 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Check if we really have AOC running
 	/*
-		position tuple:		client.dll+0x748e14  (x,y,z, float)
-		orientation tuple:	client.dll+0x73dc9c  (v,h float)
-		ID string:			client.dll+0x7071e8 = "ageofchivalry" (13 characters, text)
+		position tuple:     client.dll+0x748e14  (x,y,z, float)
+		orientation tuple:  client.dll+0x73dc9c  (v,h float)
+		ID string:          client.dll+0x7071e8 = "ageofchivalry" (13 characters, text)
 		spawn state:        client.dll+0x6d4334  (0 when at main menu, 1 when at team selection, 2 when not spawned,
 		                                          between 6 and 7 when spawned)
-	    context offsets:    engine.dll + 0x3bf69f = (ip:port)
-							server.dll + 0x71a0a4 = (team info, 3 Mason, 1 Agathia)
+		context offsets:    engine.dll + 0x3bf69f = (ip:port)
+		                    server.dll + 0x71a0a4 = (team info, 3 Mason, 1 Agathia)
 	*/
 
 	// Remember addresses for later
