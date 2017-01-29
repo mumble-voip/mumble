@@ -47,6 +47,13 @@ void LogTextBrowser::mouseMoveEvent(QMouseEvent *e) {
 	QTextCursor cursor = cursorForPosition(e->pos());
 	QTextCharFormat fmt = cursor.charFormat();
 
+	// Work around imprecise cursor image identification
+	// Apparently, the cursor is shifted half the characters width to the right on the image
+	// element. This is in contrast to hyperlinks for example, which have correct edge detection.
+	// For the image, we get the right half (plus the left half of the next character) for the
+	// image, and have to move the cursor forward to also detect on the left half of the image
+	// (plus the right half of the previous character).
+	// I do not know why we have to use NextCharacter and not PreviousCharacter.
 	if (fmt.objectType() == QTextFormat::NoObject) {
 		cursor.movePosition(QTextCursor::NextCharacter);
 		fmt = cursor.charFormat();
