@@ -384,6 +384,17 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 					if (qlEchoFrames.isEmpty()) {
 						iJitterSeq = 0;
 						iMinBuffered = 1000;
+					} else if (qlEchoFrames.count() >= 100) {
+						// Declare buffer bankruptcy. More than 1 second of buffered echo frames.
+
+						foreach(short *buf, qlEchoFrames)
+							delete [] buf;
+						qlEchoFrames.clear();
+
+						iJitterSeq = 0;
+						iMinBuffered = 1000;
+
+						qWarning("AudioInput: echo buffer overrun: resetting echo canceller state");
 					} else {
 						// Compensate for drift between the microphone and the echo source
 						iMinBuffered = qMin(iMinBuffered, qlEchoFrames.count());
