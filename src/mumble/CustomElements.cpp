@@ -44,42 +44,39 @@ void LogTextBrowser::scrollLogToBottom() {
 }
 
 void LogTextBrowser::mouseMoveEvent(QMouseEvent *e) {
-	do {
-		QTextCursor cursor = cursorForPosition(e->pos());
-		QTextCharFormat fmt = cursor.charFormat();
-		if (fmt.objectType() == QTextFormat::NoObject) {
-			cursor.movePosition(QTextCursor::NextCharacter);
-			fmt = cursor.charFormat();
-		}
-		if (!fmt.isImageFormat()) {
-			if (qmActiveAnimation) {
-				qmActiveAnimation->setPaused(true);
-				qmActiveAnimation = 0;
-			}
-			break;
-		}
+	QTextCursor cursor = cursorForPosition(e->pos());
+	QTextCharFormat fmt = cursor.charFormat();
+
+	if (fmt.objectType() == QTextFormat::NoObject) {
+		cursor.movePosition(QTextCursor::NextCharacter);
+		fmt = cursor.charFormat();
+	}
+
+	QMovie *movie = NULL;
+	if (fmt.isImageFormat()) {
 		QString name = fmt.toImageFormat().name();
 		LogDocument *doc = qobject_cast<LogDocument *>(document());
-		QMovie *movie = doc->qhAnimations.value(name);
-		if (!movie) {
-			if (qmActiveAnimation) {
-				qmActiveAnimation->setPaused(true);
-				qmActiveAnimation = 0;
-			}
-			break;
-		}
-		if (movie == qmActiveAnimation) {
-			break;
-		}
-		if (qmActiveAnimation) {
-			qmActiveAnimation->setPaused(true);
-			qmActiveAnimation = 0;
-		}
-		movie->setPaused(false);
-		qmActiveAnimation = movie;
-	} while(false);
+		movie = doc->qhAnimations.value(name);
+	}
+	setPlayingAnimation(movie);
 
 	QTextBrowser::mouseMoveEvent(e);
+}
+
+void LogTextBrowser::setPlayingAnimation(QMovie *movie) {
+	if (movie == qmActiveAnimation) {
+		return;
+	}
+
+	if (qmActiveAnimation) {
+		qmActiveAnimation->setPaused(true);
+		qmActiveAnimation = 0;
+	}
+
+	if (movie) {
+		movie->setPaused(false);
+		qmActiveAnimation = movie;
+	}
 }
 
 void LogTextBrowser::animationFrameUpdated(const QRect &) {

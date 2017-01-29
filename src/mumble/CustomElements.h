@@ -30,6 +30,7 @@ class LogTextBrowser : public QTextBrowser {
 		void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 		bool event(QEvent *e) Q_DECL_OVERRIDE;
 		void mouseMoveEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+		void setPlayingAnimation(QMovie *movie=NULL);
 	public:
 		LogTextBrowser(QWidget *p = NULL);
 
