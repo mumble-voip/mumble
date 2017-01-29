@@ -9,7 +9,7 @@
 #include <QtCore/QDate>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextDocument>
-#include <QMovie>
+#include <QtGui/QMovie>
 
 #include "ConfigDialog.h"
 #include "ui_Log.h"

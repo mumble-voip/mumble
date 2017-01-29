@@ -12,13 +12,13 @@
 # include <QtWidgets/QLabel>
 # include <QtWidgets/QTextBrowser>
 # include <QtWidgets/QTextEdit>
+# include <QtGui/QMovie>
 #else
 # include <QtGui/QLabel>
 # include <QtGui/QTextBrowser>
 # include <QtGui/QTextEdit>
 #endif
 
-#include <QMovie>
 
 class LogTextBrowser : public QTextBrowser {
 	private:
