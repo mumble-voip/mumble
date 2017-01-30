@@ -5,7 +5,7 @@ Git repository, found at
 
 at commit
 
-    c0cbf73db93c87ac85a96c58905f88b4e342bb6f
+    0aad7f9f7969f0187e4f50d12fdc113541a34ac3 (tag 2.2.7)
 
 using the script found in the Mumble source tree
 found at
