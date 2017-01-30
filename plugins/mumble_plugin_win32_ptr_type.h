@@ -13,7 +13,11 @@
 #define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
-#define NOMINMAX
+// Define "NOMINMAX" only if it isn't already.
+// MinGW defines it by default, which results in a redefinition warning.
+#ifndef NOMINMAX
+# define NOMINMAX
+#endif
 #include <windows.h>
 #include <tlhelp32.h>
 #include <math.h>
