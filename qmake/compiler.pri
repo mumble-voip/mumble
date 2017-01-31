@@ -24,6 +24,11 @@ QMAKE_RESOURCE_FLAGS += -compress 9
 # QMAKE_TARGET.arch doesn't suffice any longer, and
 # we define MUMBLE_ARCH to be used in its place.
 MUMBLE_ARCH = $$QMAKE_TARGET.arch
+# When using Qt 5, use QT_ARCH instead of QMAKE_TARGET.
+# It also works for cross-builds.
+isEqual(QT_MAJOR_VERSION, 5) {
+	MUMBLE_ARCH = $$QT_ARCH
+}
 
 win32 {
 	# Define the CONFIG options 'force-x86-toolchain' and
