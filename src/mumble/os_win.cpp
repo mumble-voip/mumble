@@ -20,12 +20,12 @@ extern "C" {
 	void mumble_speex_init();
 };
 
-#define PATH_MAX 1024
+#define DUMP_BUFFER_SIZE 1024
 
-static wchar_t wcCrashDumpPath[PATH_MAX];
+static wchar_t wcCrashDumpPath[DUMP_BUFFER_SIZE];
 static FILE *fConsole = NULL;
 
-static wchar_t wcComment[PATH_MAX] = L"";
+static wchar_t wcComment[DUMP_BUFFER_SIZE] = L"";
 static MINIDUMP_USER_STREAM musComment;
 
 static QSharedPointer<LogEmitter> le;
@@ -269,7 +269,7 @@ void os_init() {
 
 	QString comment = QString::fromLatin1("%1\n%2\n%3").arg(QString::fromLatin1(MUMBLE_RELEASE), QString::fromLatin1(MUMTEXT(MUMBLE_VERSION_STRING)), hash);
 
-	wcscpy_s(wcComment, PATH_MAX, comment.toStdWString().c_str());
+	wcscpy_s(wcComment, DUMP_BUFFER_SIZE, comment.toStdWString().c_str());
 	musComment.Type = CommentStreamW;
 	musComment.Buffer = wcComment;
 	musComment.BufferSize = static_cast<ULONG>(wcslen(wcComment) * sizeof(wchar_t));
@@ -279,7 +279,7 @@ void os_init() {
 	QFileInfo fi(dump);
 	QDir::root().mkpath(fi.absolutePath());
 
-	if (wcscpy_s(wcCrashDumpPath, PATH_MAX, dump.toStdWString().c_str()) == 0)
+	if (wcscpy_s(wcCrashDumpPath, DUMP_BUFFER_SIZE, dump.toStdWString().c_str()) == 0)
 		SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
 
 #endif
