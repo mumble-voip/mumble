@@ -227,6 +227,24 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
      </widget>
     </item>
     <item row="3" column="0" colspan="3">
+     <widget class="QLabel" name="qlPasswordNotice">
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:#ff0000;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="3">
      <widget class="CertView" name="cvImport">
       <property name="toolTip">
        <string>Certificate to import</string>
