@@ -70,6 +70,11 @@ class SslServer : public QTcpServer {
 		static bool hasDualStackSupport();
 };
 
+// Use a lower priority for ExecEvents. This allows Murmur
+// to make forward progress on normal server duties, while
+// being bombarded by RPC events.
+#define EXEC_EVENT_PRIORITY (Qt::LowEventPriority - 1)
+
 #define EXEC_QEVENT (QEvent::User + 959)
 
 class ExecEvent : public QEvent {

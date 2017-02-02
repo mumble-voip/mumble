@@ -29,7 +29,7 @@ void ::Murmur::ServerI::isRunning_async(const ::Murmur::AMD_Server_isRunningPtr 
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_isRunning, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::start_async(const ::Murmur::AMD_Server_startPtr &cb, const ::Ice::Current &current) {
@@ -59,7 +59,7 @@ void ::Murmur::ServerI::start_async(const ::Murmur::AMD_Server_startPtr &cb, con
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_start, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::stop_async(const ::Murmur::AMD_Server_stopPtr &cb, const ::Ice::Current &current) {
@@ -89,7 +89,7 @@ void ::Murmur::ServerI::stop_async(const ::Murmur::AMD_Server_stopPtr &cb, const
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_stop, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::delete_async(const ::Murmur::AMD_Server_deletePtr &cb, const ::Ice::Current &current) {
@@ -119,7 +119,7 @@ void ::Murmur::ServerI::delete_async(const ::Murmur::AMD_Server_deletePtr &cb, c
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_delete, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::Ice::Current &current) {
@@ -149,7 +149,7 @@ void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::I
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_id, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallbackPtr &cb,  const ::Murmur::ServerCallbackPrx& p1, const ::Ice::Current &current) {
@@ -179,7 +179,7 @@ void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallback
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCallbackPtr &cb,  const ::Murmur::ServerCallbackPrx& p1, const ::Ice::Current &current) {
@@ -209,7 +209,7 @@ void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCa
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAuthenticatorPtr &cb,  const ::Murmur::ServerAuthenticatorPrx& p1, const ::Ice::Current &current) {
@@ -239,7 +239,7 @@ void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAut
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setAuthenticator, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
@@ -269,7 +269,7 @@ void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getConf, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPtr &cb, const ::Ice::Current &current) {
@@ -299,7 +299,7 @@ void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPt
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getAllConf, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,  const ::std::string& p1,  const ::std::string& p2, const ::Ice::Current &current) {
@@ -329,7 +329,7 @@ void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setConf, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_setSuperuserPasswordPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
@@ -359,7 +359,7 @@ void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_se
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setSuperuserPassword, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2, const ::Ice::Current &current) {
@@ -389,7 +389,7 @@ void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb,  
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getLog, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getLogLen_async(const ::Murmur::AMD_Server_getLogLenPtr &cb, const ::Ice::Current &current) {
@@ -419,7 +419,7 @@ void ::Murmur::ServerI::getLogLen_async(const ::Murmur::AMD_Server_getLogLenPtr 
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getLogLen, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getUsers_async(const ::Murmur::AMD_Server_getUsersPtr &cb, const ::Ice::Current &current) {
@@ -449,7 +449,7 @@ void ::Murmur::ServerI::getUsers_async(const ::Murmur::AMD_Server_getUsersPtr &c
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUsers, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannelsPtr &cb, const ::Ice::Current &current) {
@@ -479,7 +479,7 @@ void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannels
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getChannels, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getCertificateListPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -509,7 +509,7 @@ void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getC
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getCertificateList, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb, const ::Ice::Current &current) {
@@ -539,7 +539,7 @@ void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getTree, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getBans_async(const ::Murmur::AMD_Server_getBansPtr &cb, const ::Ice::Current &current) {
@@ -569,7 +569,7 @@ void ::Murmur::ServerI::getBans_async(const ::Murmur::AMD_Server_getBansPtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getBans, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,  const ::Murmur::BanList& p1, const ::Ice::Current &current) {
@@ -599,7 +599,7 @@ void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setBans, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &cb,  ::Ice::Int p1,  const ::std::string& p2, const ::Ice::Current &current) {
@@ -629,7 +629,7 @@ void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &c
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_kickUser, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -659,7 +659,7 @@ void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &c
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getState, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &cb,  const ::Murmur::User& p1, const ::Ice::Current &current) {
@@ -689,7 +689,7 @@ void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &c
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setState, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessagePtr &cb,  ::Ice::Int p1,  const ::std::string& p2, const ::Ice::Current &current) {
@@ -719,7 +719,7 @@ void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessage
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_sendMessage, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermissionPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  ::Ice::Int p3, const ::Ice::Current &current) {
@@ -749,7 +749,7 @@ void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermis
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_hasPermission, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_effectivePermissionsPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2, const ::Ice::Current &current) {
@@ -779,7 +779,7 @@ void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_ef
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_effectivePermissions, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addContextCallbackPtr &cb,  ::Ice::Int p1,  const ::std::string& p2,  const ::std::string& p3,  const ::Murmur::ServerContextCallbackPrx& p4,  ::Ice::Int p5, const ::Ice::Current &current) {
@@ -809,7 +809,7 @@ void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addC
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addContextCallback, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4, p5));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_removeContextCallbackPtr &cb,  const ::Murmur::ServerContextCallbackPrx& p1, const ::Ice::Current &current) {
@@ -839,7 +839,7 @@ void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_r
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeContextCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChannelStatePtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -869,7 +869,7 @@ void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChan
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getChannelState, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChannelStatePtr &cb,  const ::Murmur::Channel& p1, const ::Ice::Current &current) {
@@ -899,7 +899,7 @@ void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChan
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setChannelState, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeChannelPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -929,7 +929,7 @@ void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeCha
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeChannel, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPtr &cb,  const ::std::string& p1,  ::Ice::Int p2, const ::Ice::Current &current) {
@@ -959,7 +959,7 @@ void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPt
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addChannel, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_sendMessageChannelPtr &cb,  ::Ice::Int p1,  bool p2,  const ::std::string& p3, const ::Ice::Current &current) {
@@ -989,7 +989,7 @@ void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_send
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_sendMessageChannel, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -1019,7 +1019,7 @@ void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb,  
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getACL, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb,  ::Ice::Int p1,  const ::Murmur::ACLList& p2,  const ::Murmur::GroupList& p3,  bool p4, const ::Ice::Current &current) {
@@ -1049,7 +1049,7 @@ void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb,  
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setACL, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserToGroupPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  const ::std::string& p3, const ::Ice::Current &current) {
@@ -1079,7 +1079,7 @@ void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserT
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addUserToGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_removeUserFromGroupPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  const ::std::string& p3, const ::Ice::Current &current) {
@@ -1109,7 +1109,7 @@ void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_rem
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeUserFromGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_redirectWhisperGroupPtr &cb,  ::Ice::Int p1,  const ::std::string& p2,  const ::std::string& p3, const ::Ice::Current &current) {
@@ -1139,7 +1139,7 @@ void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_re
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_redirectWhisperGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNamesPtr &cb,  const ::Murmur::IdList& p1, const ::Ice::Current &current) {
@@ -1169,7 +1169,7 @@ void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNam
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUserNames, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPtr &cb,  const ::Murmur::NameList& p1, const ::Ice::Current &current) {
@@ -1199,7 +1199,7 @@ void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPt
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUserIds, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUserPtr &cb,  const ::Murmur::UserInfoMap& p1, const ::Ice::Current &current) {
@@ -1229,7 +1229,7 @@ void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUs
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_registerUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregisterUserPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -1259,7 +1259,7 @@ void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregist
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_unregisterUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr &cb,  ::Ice::Int p1,  const ::Murmur::UserInfoMap& p2, const ::Ice::Current &current) {
@@ -1289,7 +1289,7 @@ void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_upda
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_updateRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegistrationPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -1319,7 +1319,7 @@ void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegi
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getRegisteredUsersPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
@@ -1349,7 +1349,7 @@ void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getR
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getRegisteredUsers, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPasswordPtr &cb,  const ::std::string& p1,  const ::std::string& p2, const ::Ice::Current &current) {
@@ -1379,7 +1379,7 @@ void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPa
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_verifyPassword, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -1409,7 +1409,7 @@ void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePt
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getTexture, cb, QString::fromStdString(current.id.name).toInt(), p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePtr &cb,  ::Ice::Int p1,  const ::Murmur::Texture& p2, const ::Ice::Current &current) {
@@ -1439,7 +1439,7 @@ void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePt
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setTexture, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::getUptime_async(const ::Murmur::AMD_Server_getUptimePtr &cb, const ::Ice::Current &current) {
@@ -1469,7 +1469,7 @@ void ::Murmur::ServerI::getUptime_async(const ::Murmur::AMD_Server_getUptimePtr 
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUptime, cb, QString::fromStdString(current.id.name).toInt()));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::ServerI::updateCertificate_async(const ::Murmur::AMD_Server_updateCertificatePtr &cb,  const ::std::string& p1,  const ::std::string& p2,  const ::std::string& p3, const ::Ice::Current &current) {
@@ -1499,7 +1499,7 @@ void ::Murmur::ServerI::updateCertificate_async(const ::Murmur::AMD_Server_updat
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_updateCertificate, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
@@ -1529,7 +1529,7 @@ void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getServer, cb, current.adapter, p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::newServer_async(const ::Murmur::AMD_Meta_newServerPtr &cb, const ::Ice::Current &current) {
@@ -1559,7 +1559,7 @@ void ::Murmur::MetaI::newServer_async(const ::Murmur::AMD_Meta_newServerPtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_newServer, cb, current.adapter));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedServersPtr &cb, const ::Ice::Current &current) {
@@ -1589,7 +1589,7 @@ void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedS
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getBootedServers, cb, current.adapter));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServersPtr &cb, const ::Ice::Current &current) {
@@ -1619,7 +1619,7 @@ void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServers
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getAllServers, cb, current.adapter));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultConfPtr &cb, const ::Ice::Current &current) {
@@ -1649,7 +1649,7 @@ void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultCo
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getDefaultConf, cb, current.adapter));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &cb, const ::Ice::Current &current) {
@@ -1679,7 +1679,7 @@ void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &c
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getVersion, cb, current.adapter));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr &cb,  const ::Murmur::MetaCallbackPrx& p1, const ::Ice::Current &current) {
@@ -1709,7 +1709,7 @@ void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr 
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_addCallback, cb, current.adapter, p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallbackPtr &cb,  const ::Murmur::MetaCallbackPrx& p1, const ::Ice::Current &current) {
@@ -1739,7 +1739,7 @@ void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallba
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_removeCallback, cb, current.adapter, p1));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr &cb, const ::Ice::Current &current) {
@@ -1769,7 +1769,7 @@ void ::Murmur::MetaI::getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr &cb,
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getUptime, cb, current.adapter));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceChecksumsPtr &cb, const ::Ice::Current &current) {
@@ -1799,7 +1799,7 @@ void ::Murmur::MetaI::getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceC
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getSliceChecksums, cb, current.adapter));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 
 void ::Murmur::MetaI::getSlice_async(const ::Murmur::AMD_Meta_getSlicePtr& cb, const Ice::Current&) {

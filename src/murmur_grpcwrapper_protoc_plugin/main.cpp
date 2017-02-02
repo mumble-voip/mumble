@@ -33,7 +33,7 @@ public:
 	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
 		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+		QCoreApplication::instance()->postEvent(rpc, ie, EXEC_EVENT_PRIORITY);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
@@ -63,7 +63,7 @@ public:
 	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
 		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+		QCoreApplication::instance()->postEvent(rpc, ie, EXEC_EVENT_PRRIORITY);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
@@ -77,7 +77,7 @@ private:
 
 	void callbackAction(::boost::function<void($service$_$method$ *, bool)> cb, bool ok) {
 		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+		QCoreApplication::instance()->postEvent(rpc, ie, EXEC_EVENT_PRIORITY);
 	}
 };
 )";
@@ -101,7 +101,7 @@ public:
 	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
 		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+		QCoreApplication::instance()->postEvent(rpc, ie, EXEC_EVENT_PRIORITY);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
@@ -163,7 +163,7 @@ public:
 	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
 		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+		QCoreApplication::instance()->postEvent(rpc, ie, EXEC_EVENT_PRIORITY);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
@@ -177,7 +177,7 @@ private:
 
 	void callbackAction(::boost::function<void($service$_$method$ *, bool)> cb, bool ok) {
 		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+		QCoreApplication::instance()->postEvent(rpc, ie, EXEC_EVENT_PRIORITY);
 	}
 };
 )";
