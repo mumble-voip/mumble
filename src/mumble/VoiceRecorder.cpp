@@ -70,11 +70,13 @@ QString VoiceRecorder::sanitizeFilenameOrPathComponent(const QString &str) const
 	// and http://msdn.microsoft.com/en-us/library/aa365247(VS.85).aspx
 
 	// Make sure name doesn't end in "."
-	if (res.at(res.length() - 1) == QLatin1Char('.'))
-		if (res.length() == 255) // Prevents possible infinite recursion later on
+	if (res.at(res.length() - 1) == QLatin1Char('.')) {
+		if (res.length() == 255) { // Prevents possible infinite recursion later on
 			res[254] = QLatin1Char('_');
-		else
+		} else {
 			res = res.append(QLatin1Char('_'));
+		}
+	}
 
 	// Replace < > : " / \ | ? * as well as chr(0) to chr(31)
 	res = res.replace(QRegExp(QLatin1String("[<>:\"/\\\\|\\?\\*\\x00-\\x1F]")), QLatin1String("_"));
