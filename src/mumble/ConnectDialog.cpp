@@ -437,6 +437,8 @@ QVariant ServerItem::data(int column, int role) const {
 						return loadIcon(QLatin1String("skin:places/network-workgroup.svg"));
 					else if (! qsCountryCode.isEmpty())
 						return loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode));
+					else if (! qsContinentCode.isEmpty())
+						return loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qsContinentCode));
 					else
 						return loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 			}
