@@ -61,7 +61,7 @@ bool SslServer::hasDualStackSupport() {
 	SOCKET s = ::WSASocket(AF_INET6, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
 #endif
 
-	if (s != -1) { // Equals INVALID_SOCKET
+	if (s != INVALID_SOCKET) { // INVALID_SOCKET equals to ~0
 		const int ipv6only = 0;
 		if (setsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<const char*>(&ipv6only), sizeof(ipv6only)) == 0) {
 			result = true;
