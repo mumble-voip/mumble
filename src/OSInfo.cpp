@@ -71,7 +71,7 @@ static QString win10DisplayableVersion() {
 	QString ubr;
 	QString arch;
 
-	err = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", NULL, KEY_READ, &key);
+	err = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &key);
 	if (err != ERROR_SUCCESS) {
 		RegCloseKey(key);
 		return QString();
@@ -194,7 +194,7 @@ QString OSInfo::getOSVersion() {
 		return QString();
 	}
 
-	os.sprintf("%d.%d.%d.%d", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber, (ovi.wProductType == VER_NT_WORKSTATION) ? 1 : 0);
+	os.sprintf("%lu.%lu.%lu.%lu", static_cast<unsigned long>(ovi.dwMajorVersion), static_cast<unsigned long>(ovi.dwMinorVersion), static_cast<unsigned long>(ovi.dwBuildNumber), (ovi.wProductType == VER_NT_WORKSTATION) ? 1UL : 0UL);
 #elif defined(Q_OS_MAC)
 	SInt32 major, minor, bugfix;
 	OSErr err = Gestalt(gestaltSystemVersionMajor, &major);
@@ -461,7 +461,7 @@ QString OSInfo::getOSDisplayableVersion() {
 	}
 
 	QString osv;
-	osv.sprintf(" - %d.%d.%d", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber);
+	osv.sprintf(" - %lu.%lu.%lu", static_cast<unsigned long>(ovi.dwMajorVersion), static_cast<unsigned long>(ovi.dwMinorVersion), static_cast<unsigned long>(ovi.dwBuildNumber));
 	osdispver.append(osv);
 
 	return osdispver;
