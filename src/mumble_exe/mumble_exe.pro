@@ -15,13 +15,15 @@ win32 {
   RC_FILE = ../mumble/mumble.rc
   LIBS *= -luser32 -lshlwapi
 
-  CONFIG(release, debug|release) {
-    QMAKE_CXXFLAGS_RELEASE -= -MD
-    QMAKE_CXXFLAGS += -MT
-  }
-  CONFIG(debug, debug|release) {
-    QMAKE_CXXFLAGS_DEBUG -= -MDd
-    QMAKE_CXXFLAGS += -MTd
+  win32-msvc* {
+    CONFIG(release, debug|release) {
+      QMAKE_CXXFLAGS_RELEASE -= -MD
+      QMAKE_CXXFLAGS += -MT
+    }
+    CONFIG(debug, debug|release) {
+      QMAKE_CXXFLAGS_DEBUG -= -MDd
+      QMAKE_CXXFLAGS += -MTd
+    }
   }
 }
 
