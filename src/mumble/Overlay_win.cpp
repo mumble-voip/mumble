@@ -192,6 +192,8 @@ static const char *processErrorString(QProcess::ProcessError processError) {
 			return "an error occurred when attempting to write to the process";
 		case QProcess::ReadError:
 			return "an error occurred when attempting to read from the process";
+		case QProcess::UnknownError:
+			return "an unknown error occurred";
 	}
 
 	return "unknown";
