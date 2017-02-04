@@ -60,6 +60,11 @@ namespace boost {
 extern void os_init();
 extern char *os_lang;
 
+#ifdef Q_OS_WIN
+// from os_win.cpp
+extern HWND mumble_mw_hwnd;
+#endif // Q_OS_WIN
+
 #if defined(Q_OS_WIN) && !defined(QT_NO_DEBUG)
 extern "C" _declspec(dllexport) int main(int argc, char **argv) {
 #else
@@ -417,7 +422,6 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.
 	// Used by APIs in ASIOInput, DirectSound and GlobalShortcut_win that require a HWND.
-	extern HWND mumble_mw_hwnd;
 	mumble_mw_hwnd = GetForegroundWindow();
 #endif
 
