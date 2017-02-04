@@ -13,10 +13,14 @@ include(pkgconfig.pri)
 # This file can't include compiler.pri: it can
 # only be included once per .pro file.
 
-win32 {
+win32-msvc* {
 	INCLUDEPATH *= "$$OPENSSL_PATH/include"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib"
 	LIBS *= -lgdi32 -llibeay32
+}
+
+win32-g++ {
+	LIBS *= -lssl -lcrypto -lgdi32
 }
 
 unix {
