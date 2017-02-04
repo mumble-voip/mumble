@@ -35,20 +35,11 @@ static QString getenvQString(QString name) {
 
 	// Resize buf to fit the value and put it there.
 	buf.resize(static_cast<int>(requiredSize * sizeof(wchar_t)));
-	_wgetenv_s(&requiredSize, reinterpret_cast<wchar_t *>(buf.data()), requiredSize * sizeof(wchar_t), wname);
-
-	// Find the length of the buffer without
-	// counting NUL elements.
-	const wchar_t *wbuf = reinterpret_cast<const wchar_t *>(buf.constData());
-	size_t len = 0;
-	for (len = 0; len < requiredSize; len++) {
-		if (wbuf[len] == 0) {
-			break;
-		}
-	}
+	_wgetenv_s(&requiredSize, reinterpret_cast<wchar_t *>(buf.data()), requiredSize, wname);
 
 	// Convert the value to QString and return it.
-	return QString::fromWCharArray(wbuf, static_cast<int>(len));
+	const wchar_t *wbuf = reinterpret_cast<const wchar_t *>(buf.constData());
+	return QString::fromWCharArray(wbuf);
 #else
 	QByteArray nameU8 = name.toUtf8();
 	char *val = ::getenv(nameU8.constData());
