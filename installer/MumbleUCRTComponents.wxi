@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+<!-- This file is auto-generated via gen-ucrt.py. Please don't touch by hand -->
+
+<Component Id="api_ms_win_core_console_l1_1_0.dll">
+  <File Id="api_ms_win_core_console_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-console-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_datetime_l1_1_0.dll">
+  <File Id="api_ms_win_core_datetime_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-datetime-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_debug_l1_1_0.dll">
+  <File Id="api_ms_win_core_debug_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-debug-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_errorhandling_l1_1_0.dll">
+  <File Id="api_ms_win_core_errorhandling_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-errorhandling-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_file_l1_1_0.dll">
+  <File Id="api_ms_win_core_file_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-file-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_file_l1_2_0.dll">
+  <File Id="api_ms_win_core_file_l1_2_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-file-l1-2-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_file_l2_1_0.dll">
+  <File Id="api_ms_win_core_file_l2_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-file-l2-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_handle_l1_1_0.dll">
+  <File Id="api_ms_win_core_handle_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-handle-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_heap_l1_1_0.dll">
+  <File Id="api_ms_win_core_heap_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-heap-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_interlocked_l1_1_0.dll">
+  <File Id="api_ms_win_core_interlocked_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-interlocked-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_libraryloader_l1_1_0.dll">
+  <File Id="api_ms_win_core_libraryloader_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-libraryloader-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_localization_l1_2_0.dll">
+  <File Id="api_ms_win_core_localization_l1_2_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-localization-l1-2-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_memory_l1_1_0.dll">
+  <File Id="api_ms_win_core_memory_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-memory-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_namedpipe_l1_1_0.dll">
+  <File Id="api_ms_win_core_namedpipe_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-namedpipe-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_processenvironment_l1_1_0.dll">
+  <File Id="api_ms_win_core_processenvironment_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-processenvironment-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_processthreads_l1_1_0.dll">
+  <File Id="api_ms_win_core_processthreads_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-processthreads-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_processthreads_l1_1_1.dll">
+  <File Id="api_ms_win_core_processthreads_l1_1_1.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-processthreads-l1-1-1.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_profile_l1_1_0.dll">
+  <File Id="api_ms_win_core_profile_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-profile-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_rtlsupport_l1_1_0.dll">
+  <File Id="api_ms_win_core_rtlsupport_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-rtlsupport-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_string_l1_1_0.dll">
+  <File Id="api_ms_win_core_string_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-string-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_synch_l1_1_0.dll">
+  <File Id="api_ms_win_core_synch_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-synch-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_synch_l1_2_0.dll">
+  <File Id="api_ms_win_core_synch_l1_2_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-synch-l1-2-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_sysinfo_l1_1_0.dll">
+  <File Id="api_ms_win_core_sysinfo_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-sysinfo-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_timezone_l1_1_0.dll">
+  <File Id="api_ms_win_core_timezone_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-timezone-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_core_util_l1_1_0.dll">
+  <File Id="api_ms_win_core_util_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-core-util-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_conio_l1_1_0.dll">
+  <File Id="api_ms_win_crt_conio_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-conio-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_convert_l1_1_0.dll">
+  <File Id="api_ms_win_crt_convert_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-convert-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_environment_l1_1_0.dll">
+  <File Id="api_ms_win_crt_environment_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-environment-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_filesystem_l1_1_0.dll">
+  <File Id="api_ms_win_crt_filesystem_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-filesystem-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_heap_l1_1_0.dll">
+  <File Id="api_ms_win_crt_heap_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-heap-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_locale_l1_1_0.dll">
+  <File Id="api_ms_win_crt_locale_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-locale-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_math_l1_1_0.dll">
+  <File Id="api_ms_win_crt_math_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-math-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_multibyte_l1_1_0.dll">
+  <File Id="api_ms_win_crt_multibyte_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-multibyte-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_private_l1_1_0.dll">
+  <File Id="api_ms_win_crt_private_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-private-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_process_l1_1_0.dll">
+  <File Id="api_ms_win_crt_process_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-process-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_runtime_l1_1_0.dll">
+  <File Id="api_ms_win_crt_runtime_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-runtime-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_stdio_l1_1_0.dll">
+  <File Id="api_ms_win_crt_stdio_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-stdio-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_string_l1_1_0.dll">
+  <File Id="api_ms_win_crt_string_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-string-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_time_l1_1_0.dll">
+  <File Id="api_ms_win_crt_time_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-time-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="api_ms_win_crt_utility_l1_1_0.dll">
+  <File Id="api_ms_win_crt_utility_l1_1_0.dll" Source="$(var.RedistDirUCRT)\api-ms-win-crt-utility-l1-1-0.dll" KeyPath="yes" />
+</Component>
+<Component Id="ucrtbase.dll">
+  <File Id="ucrtbase.dll" Source="$(var.RedistDirUCRT)\ucrtbase.dll" KeyPath="yes" />
+</Component>
+
+</Include>

@@ -92,6 +92,7 @@
   
   <!-- Don't embed VCRedist files if MumbleNoEmbedVCRedist env var is set. -->
   <?ifndef env.MumbleNoEmbedVCRedist ?>
+     <!-- VC CRT -->
      <?ifndef env.MumbleRedistDirVC14 ?>
        <?if $(sys.BUILDARCH) = "x86" ?>
          <?define RedistDirVC14 = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT" ?>
@@ -100,6 +101,17 @@
        <?endif ?>
      <?else ?>
        <?define RedistDirVC14 = "$(env.MumbleRedistDirVC14)" ?>
+     <?endif ?>
+
+     <!-- Universal CRT -->
+     <?ifndef env.MumbleRedistDirUCRT ?>
+       <?if $(sys.BUILDARCH) = "x86" ?>
+         <?define RedistDirUCRT = "C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86" ?>
+       <?elseif $(sys.BUILDARCH) = "x64" ?>
+         <?define RedistDirUCRT = "C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x64" ?>
+       <?endif ?>
+     <?else ?>
+       <?define RedistDirUCRT = "$(env.MumbleRedistDirUCRT)" ?>
      <?endif ?>
   <?endif ?>
 

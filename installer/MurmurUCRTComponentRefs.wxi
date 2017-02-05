@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+<!-- This file is auto-generated via gen-ucrt.py. Please don't touch by hand -->
+
+<ComponentRef Id="Murmur_api_ms_win_core_console_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_datetime_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_debug_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_errorhandling_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_file_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_file_l1_2_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_file_l2_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_handle_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_heap_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_interlocked_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_libraryloader_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_localization_l1_2_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_memory_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_namedpipe_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_processenvironment_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_processthreads_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_processthreads_l1_1_1.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_profile_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_rtlsupport_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_string_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_synch_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_synch_l1_2_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_sysinfo_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_timezone_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_core_util_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_conio_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_convert_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_environment_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_filesystem_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_heap_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_locale_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_math_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_multibyte_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_private_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_process_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_runtime_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_stdio_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_string_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_time_l1_1_0.dll" />
+<ComponentRef Id="Murmur_api_ms_win_crt_utility_l1_1_0.dll" />
+<ComponentRef Id="Murmur_ucrtbase.dll" />
+
+</Include>
