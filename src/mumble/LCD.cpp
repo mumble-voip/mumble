@@ -189,7 +189,7 @@ LCD::LCD() : QObject() {
 	}
 	qiLogo = QIcon(QLatin1String("skin:mumble.svg")).pixmap(48,48).toImage().convertToFormat(QImage::Format_MonoLSB);
 
-#if QT_VERSION >= 0x050600
+#if QT_VERSION >= 0x050600 && QT_VERSION <= 0x050601
 	// Don't invert the logo image when using Qt 5.6.
 	// See mumble-voip/mumble#2429
 #else
@@ -250,7 +250,7 @@ void LCD::updateUserView() {
 		QPainter painter(img);
 		painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing, false);
 
-#if QT_VERSION >= 0x050600
+#if QT_VERSION >= 0x050600 && QT_VERSION <= 0x050601
 		// Use Qt::white instead of Qt::color1 on Qt 5.6.
 		// See mumble-voip/mumble#2429
 		painter.setPen(Qt::white);
