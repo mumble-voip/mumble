@@ -86,14 +86,14 @@ GKeyLibrary::GKeyLibrary()
 	DWORD type = 0;
 	WCHAR wcLocation[510];
 	DWORD len = 510;
-	if (RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, NULL, KEY_READ, &key) == ERROR_SUCCESS) {
+	if (RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, 0, KEY_READ, &key) == ERROR_SUCCESS) {
 		LONG err = RegQueryValueEx(key, L"", NULL, &type, reinterpret_cast<LPBYTE>(wcLocation), &len);
 		if (err == ERROR_SUCCESS && type == REG_SZ) {
 			QString qsLocation = QString::fromUtf16(reinterpret_cast<ushort *>(wcLocation), len / 2);
-			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %d", qPrintable(qsLocation), len);
+			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %lu", qPrintable(qsLocation), static_cast<unsigned long>(len));
 			alternatives << qsLocation;
 		} else {
-			qWarning("GKeyLibrary: Error looking up ServerBinary (Error: 0x%x, Type: 0x%x, len: %d)", err, type, len);
+			qWarning("GKeyLibrary: Error looking up ServerBinary (Error: 0x%lx, Type: 0x%lx, len: %lu)", static_cast<unsigned long>(err), static_cast<unsigned long>(type), static_cast<unsigned long>(len));
 		}
 	}
 
