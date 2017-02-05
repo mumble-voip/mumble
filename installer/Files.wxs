@@ -75,6 +75,10 @@
       </Component>
       <?endif ?>
 
+      <?ifdef RedistDirUCRT ?>
+       <?include "MumbleUCRTComponents.wxi" ?>
+      <?endif ?>
+
       <Component Id="dbghelp.dll">
         <File Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
       </Component>
@@ -142,6 +146,9 @@
         <Component Id="Murmur_vcruntime140.dll">
           <File Id="Murmur_vcruntime140.dll" Source="$(var.RedistDirVC14)\vcruntime140.dll" KeyPath="yes" />
         </Component>
+        <?endif ?>
+        <?ifdef RedistDirUCRT ?>
+          <?include "MurmurUCRTComponents.wxi" ?>
         <?endif ?>
         <Component Id="Murmur_dbghelp.dll">
           <File Id="Murmur_dbghelp.dll" Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
