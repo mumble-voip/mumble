@@ -545,7 +545,7 @@ void DXAudioInput::run() {
 				else
 					dwReadyBytes = dwReadPosition - dwLastReadPos;
 
-				if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
+				if (static_cast<size_t>(dwReadyBytes) < sizeof(short) * iFrameSize) {
 					double msecleft = 20.0 - (dwReadyBytes * 20.0) / (sizeof(short) * iFrameSize);
 
 					if (didsleep)
@@ -560,7 +560,7 @@ void DXAudioInput::run() {
 					didsleep = true;
 					firstsleep = false;
 				}
-			} while (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize);
+			} while (static_cast<size_t>(dwReadyBytes) < sizeof(short) * iFrameSize);
 
 			// Desynchonized?
 			if (dwReadyBytes > (dwBufferSize / 2)) {
@@ -568,7 +568,7 @@ void DXAudioInput::run() {
 				dwLastReadPos = dwReadPosition;
 			} else if (bRunning) {
 				if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, sizeof(short) * iFrameSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
-					qWarning("DXAudioInput: Lock from %ld (%d bytes) failed: hr=0x%08lx",dwLastReadPos, sizeof(short) * iFrameSize, hr);
+					qWarning("DXAudioInput: Lock from %lu (%zu bytes) failed: hr=0x%08lx", static_cast<unsigned long>(dwLastReadPos), sizeof(short) * iFrameSize, hr);
 					bRunning = false;
 					break;
 				}
