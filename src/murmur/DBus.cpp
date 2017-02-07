@@ -151,7 +151,7 @@ void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<QList<LogEntry> >();
 }
 
-QDBusConnection MurmurDBus::qdbc(QLatin1String("mainbus"));
+QDBusConnection *MurmurDBus::qdbc = NULL;
 
 MurmurDBus::MurmurDBus(Server *srv) : QDBusAbstractAdaptor(srv) {
 	server = srv;
@@ -166,7 +166,7 @@ void MurmurDBus::removeAuthenticator() {
 
 
 void MurmurDBus::idToNameSlot(QString &name, int id) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<QString> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getUserName",id);
 	if (reply.isValid())
 		name = reply.value();
@@ -177,7 +177,7 @@ void MurmurDBus::idToNameSlot(QString &name, int id) {
 }
 
 void MurmurDBus::idToTextureSlot(QByteArray &qba, int id) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<QByteArray> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getUserTexture",id);
 	if (reply.isValid()) {
 		qba = reply.value();
@@ -185,7 +185,7 @@ void MurmurDBus::idToTextureSlot(QByteArray &qba, int id) {
 }
 
 void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getUserId",name);
 	if (reply.isValid())
 		id = reply.value();
@@ -196,7 +196,7 @@ void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
 }
 
 void MurmurDBus::registerUserSlot(int &res, const QMap<int, QString> &info) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "registerPlayer", info.value(ServerDB::User_Name));
 	if (reply.isValid()) {
 		res = reply.value();
@@ -206,14 +206,14 @@ void MurmurDBus::registerUserSlot(int &res, const QMap<int, QString> &info) {
 }
 
 void MurmurDBus::unregisterUserSlot(int &res, int id) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "unregisterPlayer", id);
 	if (reply.isValid())
 		res = reply.value();
 }
 
 void MurmurDBus::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<RegisteredPlayer> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegistration", id);
 	if (reply.isValid()) {
 		const RegisteredPlayer &r = reply.value();
@@ -225,7 +225,7 @@ void MurmurDBus::getRegistrationSlot(int &res, int id, QMap<int, QString> &info)
 }
 
 void  MurmurDBus::getRegisteredUsersSlot(const QString &filter, QMap<int, QString > &m) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<QList<RegisteredPlayer> > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegisteredPlayers", filter);
 	if (reply.isValid()) {
 		const QList<RegisteredPlayer> &r = reply.value();
@@ -237,19 +237,19 @@ void  MurmurDBus::getRegisteredUsersSlot(const QString &filter, QMap<int, QStrin
 
 void MurmurDBus::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	if (info.contains(ServerDB::User_Name)) {
-		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setName",id, info.value(ServerDB::User_Name));
 		if (reply.isValid())
 			res = reply.value();
 	}
 	if (info.contains(ServerDB::User_Password)) {
-		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setPW",id, info.value(ServerDB::User_Password));
 		if (reply.isValid())
 			res = reply.value();
 	}
 	if (info.contains(ServerDB::User_Email)) {
-		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setEmail",id, info.value(ServerDB::User_Email));
 		if (reply.isValid())
 			res = reply.value();
@@ -257,14 +257,14 @@ void MurmurDBus::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 }
 
 void MurmurDBus::setTextureSlot(int &res, int id, const QByteArray &texture) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setTexture",id, texture);
 	if (reply.isValid())
 		res = reply.value();
 }
 
 void MurmurDBus::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &, const QString &, bool, const QString &pw) {
-	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),*qdbc);
 	QDBusMessage msg = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "authenticate",uname,pw);
 	QDBusError err = msg;
 	if (! err.isValid()) {
@@ -298,7 +298,7 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, int sessionId, const
 #define PLAYER_SETUP_VAR(var) \
   ServerUser *pUser = server->qhUsers.value(var); \
   if (! pUser) { \
-    qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.session", "Invalid session id")); \
+    qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.session", "Invalid session id")); \
     return; \
   }
 
@@ -307,7 +307,7 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, int sessionId, const
 #define CHANNEL_SETUP_VAR2(dst,var) \
   Channel *dst = server->qhChannels.value(var); \
   if (! dst) { \
-    qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id")); \
+    qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id")); \
     return; \
   }
 
@@ -394,7 +394,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(id);
 	if (!cChannel->cParent) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
 		return;
 	}
 
@@ -418,7 +418,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 	}
 
 	if (! server->setChannelState(cChannel, cParent, nci.name, newset)) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Moving channel to subchannel"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Moving channel to subchannel"));
 		return;
 	}
 }
@@ -553,14 +553,14 @@ void MurmurDBus::registerPlayer(const QString &name, const QDBusMessage &msg, in
 	info.insert(ServerDB::User_Name, name);
 	id = server->registerUser(info);
 	if (id < 0) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
 		return;
 	}
 }
 
 void MurmurDBus::unregisterPlayer(int id, const QDBusMessage &msg) {
 	if (! server->unregisterUser(id)) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 }
@@ -568,7 +568,7 @@ void MurmurDBus::unregisterPlayer(int id, const QDBusMessage &msg) {
 void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlayer &user) {
 	QMap<int, QString> info = server->getRegistration(id);
 	if (info.isEmpty()) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 
@@ -599,14 +599,14 @@ void MurmurDBus::updateRegistration(const RegisteredPlayer &user, const QDBusMes
 		info.insert(ServerDB::User_Password, user.pw);
 
 	if (info.isEmpty() || !server->setInfo(user.id, info)) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 }
 
 void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture) {
 	if (! server->isUserId(id)) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 	texture = server->getUserTexture(id);
@@ -614,11 +614,11 @@ void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture
 
 void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessage &msg) {
 	if (! server->isUserId(id)) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 	if (! server->setTexture(id, texture)) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.texture", "Invalid texture"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.texture", "Invalid texture"));
 		return;
 	}
 }
@@ -642,7 +642,7 @@ void MurmurDBus::verifyPassword(int id, const QString &pw, const QDBusMessage &m
 	getPlayerNames(ids, msg, names);
 
 	if ((names.count() != 1) || (names.at(0).isEmpty())) {
-		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 
@@ -665,7 +665,7 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 	qsAuthPath = path.path();
 	qsAuthService = msg.service();
 
-	QDBusConnectionInterface *interface = qdbc.interface();
+	QDBusConnectionInterface *interface = qdbc->interface();
 	QDBusReply<QStringList> names = interface->registeredServiceNames();
 	if (names.isValid()) {
 		foreach(const QString &name, names.value()) {
@@ -785,8 +785,8 @@ MetaDBus::MetaDBus(Meta *m) : QDBusAbstractAdaptor(m) {
 
 void MetaDBus::started(Server *s) {
 	new MurmurDBus(s);
-	if (MurmurDBus::qdbc.isConnected())
-		MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(s->iServerNum), s);
+	if (MurmurDBus::qdbc->isConnected())
+		MurmurDBus::qdbc->registerObject(QString::fromLatin1("/%1").arg(s->iServerNum), s);
 
 	emit started(s->iServerNum);
 }
@@ -797,17 +797,17 @@ void MetaDBus::stopped(Server *s) {
 
 void MetaDBus::start(int server_id, const QDBusMessage &msg) {
 	if (meta->qhServers.contains(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server already booted"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server already booted"));
 	} else if (! ServerDB::serverExists(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else if (! meta->boot(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.bootfail", "Booting server failed"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.bootfail", "Booting server failed"));
 	}
 }
 
 void MetaDBus::stop(int server_id, const QDBusMessage &msg) {
 	if (! meta->qhServers.contains(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server not booted"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server not booted"));
 	} else {
 		meta->kill(server_id);
 	}
@@ -819,9 +819,9 @@ void MetaDBus::newServer(int &server_id) {
 
 void MetaDBus::deleteServer(int server_id, const QDBusMessage &msg) {
 	if (meta->qhServers.contains(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server is running"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server is running"));
 	} else if (! ServerDB::serverExists(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		ServerDB::deleteServer(server_id);
 	}
@@ -841,10 +841,10 @@ void MetaDBus::isBooted(int server_id, bool &booted) {
 
 void MetaDBus::getConf(int server_id, const QString &key, const QDBusMessage &msg, QString &value) {
 	if (! ServerDB::serverExists(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		if (key == "key" || key == "passphrase")
-			MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.writeonly", "Requested read of write-only field."));
+			MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.writeonly", "Requested read of write-only field."));
 		else
 			value = ServerDB::getConf(server_id, key).toString();
 	}
@@ -852,7 +852,7 @@ void MetaDBus::getConf(int server_id, const QString &key, const QDBusMessage &ms
 
 void MetaDBus::setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &msg) {
 	if (! ServerDB::serverExists(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		ServerDB::setConf(server_id, key, value);
 		Server *s = meta->qhServers.value(server_id);
@@ -863,7 +863,7 @@ void MetaDBus::setConf(int server_id, const QString &key, const QString &value, 
 
 void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &values) {
 	if (! ServerDB::serverExists(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		values = ServerDB::getAllConf(server_id);
 
@@ -874,7 +874,7 @@ void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &val
 
 void MetaDBus::getLog(int server_id, int min_offset, int max_offset, const QDBusMessage &msg, QList<LogEntry> &entries) {
 	if (! ServerDB::serverExists(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		entries.clear();
 		QList<ServerDB::LogRecord> dblog = ServerDB::getLog(server_id, min_offset, max_offset);
@@ -893,7 +893,7 @@ void MetaDBus::getDefaultConf(ConfigMap &values) {
 
 void MetaDBus::setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &msg) {
 	if (! ServerDB::serverExists(server_id)) {
-		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+		MurmurDBus::qdbc->send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		ServerDB::setSUPW(server_id, pw);
 	}

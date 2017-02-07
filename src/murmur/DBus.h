@@ -115,7 +115,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		QString qsAuthPath;
 		void removeAuthenticator();
 	public:
-		static QDBusConnection qdbc;
+		static QDBusConnection *qdbc;
 
 		MurmurDBus(Server *srv);
 		static void registerTypes();
