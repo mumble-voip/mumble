@@ -978,6 +978,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		return;
 
 	QByteArray qba, qba_npos;
+	unsigned int counter;
 	char buffer[UDP_PACKET_SIZE];
 	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, UDP_PACKET_SIZE-1);
@@ -998,9 +999,11 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		}
 	}
 
+	// Read the sequence number.
+	pdi >> counter;
+
 	// Skip to the end of the voice data.
 	if ((type >> 5) != MessageHandler::UDPVoiceOpus) {
-		unsigned int counter;
 		do {
 			counter = pdi.next8();
 			pdi.skip(counter & 0x7f);
