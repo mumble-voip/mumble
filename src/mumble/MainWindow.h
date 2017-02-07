@@ -69,7 +69,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QMenu *qmUser;
 		QMenu *qmChannel;
 		QMenu *qmTray;
-		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
+		QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 		QMap<unsigned int, UserLocalVolumeDialog *> qmUserVolTracker;
 
