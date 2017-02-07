@@ -511,32 +511,33 @@ int main(int argc, char **argv) {
 
 	if (! Meta::mp.qsDBus.isEmpty()) {
 		if (Meta::mp.qsDBus == "session")
-			MurmurDBus::qdbc = QDBusConnection::sessionBus();
+			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
 		else if (Meta::mp.qsDBus == "system")
-			MurmurDBus::qdbc = QDBusConnection::systemBus();
+			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::systemBus());
 		else {
 			// QtDBus is not quite finished yet.
 			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-			MurmurDBus::qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
-			if (! MurmurDBus::qdbc.isConnected()) {
+			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
+			if (! MurmurDBus::qdbc->isConnected()) {
 				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
 				qWarning("%s",qPrintable(qdbs->lastError().name()));
 				qWarning("%d",qdbs->isConnected());
 				qWarning("%s",qPrintable(qdbs->address()));
-				MurmurDBus::qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
+				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
 			}
 		}
-		if (! MurmurDBus::qdbc.isConnected()) {
+		if (! MurmurDBus::qdbc->isConnected()) {
 			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
-		}
-	}
-	new MetaDBus(meta);
-	if (MurmurDBus::qdbc.isConnected()) {
-		if (! MurmurDBus::qdbc.registerObject("/", meta) || ! MurmurDBus::qdbc.registerService(Meta::mp.qsDBusService)) {
-			QDBusError e=MurmurDBus::qdbc.lastError();
-			qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
 		} else {
-			qWarning("DBus registration succeeded");
+			new MetaDBus(meta);
+			if (MurmurDBus::qdbc->isConnected()) {
+				if (! MurmurDBus::qdbc->registerObject("/", meta) || ! MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
+					QDBusError e=MurmurDBus::qdbc->lastError();
+					qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
+				} else {
+					qWarning("DBus registration succeeded");
+				}
+			}
 		}
 	}
 #endif
@@ -566,6 +567,11 @@ int main(int argc, char **argv) {
 	meta->killAll();
 
 	qWarning("Shutting down");
+
+#ifdef USE_DBUS
+	delete MurmurDBus::qdbc;
+	MurmurDBus::qdbc = NULL;
+#endif
 
 #ifdef USE_ICE
 	IceStop();
