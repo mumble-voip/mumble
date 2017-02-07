@@ -377,7 +377,12 @@ win32 {
   }
 
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
-  LIBS		*= -logg -lvorbis -lvorbisfile -lFLAC -lsndfile
+  win32-g++ {
+    LIBS *= -lsndfile -lvorbis -lvorbisfile -lvorbisenc -logg -lFLAC
+  }
+  win32-msvc* {
+    LIBS *= -lsndfile -lvorbis -lvorbisfile -logg -lFLAC
+  }
   LIBS		*= -ldelayimp -delayload:shell32.dll
 
   DEFINES	*= WIN32
