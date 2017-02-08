@@ -22,9 +22,9 @@ TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += staticlib
-VPATH	= ../minhook-src
+VPATH	= ../$$SOURCEDIR
 TARGET = minhook
-INCLUDEPATH = ../minhook-src/src ../minhook-src/src/HDE ../minhook-src/include
+INCLUDEPATH *= ../$$SOURCEDIR/src ../$$SOURCEDIR/src/hde ../$$SOURCEDIR/include
 DEFINES += WIN32 _WINDOWS _USRDLL MINHOOK_EXPORTS
 
 !CONFIG(third-party-warnings) {
@@ -41,8 +41,8 @@ QMAKE_CXXFLAGS_RELEASE *= -MT
 QMAKE_CXXFLAGS_DEBUG *= -MTd
 
 SOURCES *= \
-  src/HDE/hde64.c \
-  src/HDE/hde32.c \
+  src/hde/hde64.c \
+  src/hde/hde32.c \
   src/buffer.c \
   src/hook.c \
   src/trampoline.c
