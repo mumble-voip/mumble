@@ -1966,9 +1966,10 @@ QVariant Server::getConf(const QString &key, QVariant def) {
 	return ServerDB::getConf(iServerNum, key, def);
 }
 
-QVariant ServerDB::getConf(int server_id, const QString &key, QVariant def) {
+QVariant ServerDB::getConf(int server_id, const QString &k, QVariant def) {
 	TransactionHolder th;
 
+    const QString &key = k.toLower();
 	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT `value` FROM `%1config` WHERE `server_id` = ? AND `key` = ?");
 	query.addBindValue(server_id);
@@ -2081,7 +2082,7 @@ int ServerDB::getLogLen(int server_id) {
 void ServerDB::setConf(int server_id, const QString &k, const QVariant &value) {
 	TransactionHolder th;
 
-	const QString &key = (k == "serverpassword") ? "password" : k;
+    const QString &key = (k == "serverpassword") ? "password" : k.toLower();
 
 	QSqlQuery &query = *th.qsqQuery;
 	if (value.isNull() || value.toString().trimmed().isEmpty()) {
