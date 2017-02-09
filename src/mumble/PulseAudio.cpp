@@ -295,7 +295,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			buff.minreq = iBlockLen;
 			buff.maxlength = -1;
 			buff.prebuf = -1;
-			buff.fragsize = iBlockLen;
+			buff.fragsize = iBlockLen * (g.s.iInputDelay + 1);
 
 			qsInputCache = idev;
 

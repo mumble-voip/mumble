@@ -305,6 +305,7 @@ Settings::Settings() {
 	ssFilter = ShowReachable;
 
 	iOutputDelay = 5;
+	iInputDelay = 0;
 
 	bASIOEnable = true;
 
@@ -598,6 +599,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+	SAVELOAD(iInputDelay, "audio/inputdelay");
 
 	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
@@ -914,6 +916,7 @@ void Settings::save() {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+	SAVELOAD(iInputDelay, "audio/inputdelay");
 
 	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
