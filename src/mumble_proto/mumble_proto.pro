@@ -15,7 +15,7 @@ pbh.CONFIG *= no_link explicit_dependencies target_predeps
 pbh.variable_out = HEADERS
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc
-pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
+pb.commands = protoc --cpp_out=. -I. -I.. -I${QMAKE_FILE_IN_PATH} ${QMAKE_FILE_NAME}
 pb.input = PROTOBUF
 pb.CONFIG *= no_link explicit_dependencies
 pb.variable_out = SOURCES
