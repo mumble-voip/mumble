@@ -4,44 +4,44 @@
     <message>
         <location filename="ACLEditor.cpp" line="+127"/>
         <source>Deny</source>
-        <translation>Tilt</translation>
+        <translation>Tiltás</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Enged</translation>
+        <translation>Engedélyezés</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Enged: %1</translation>
+        <translation>%1 engedélyezése</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation>Tilt: %1</translation>
+        <translation>%1 tiltása</translation>
     </message>
     <message>
         <location line="-84"/>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Csatorna hozzáadása</translation>
+        <translation>Mumble - csatorna hozzáadása</translation>
     </message>
     <message>
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Alapértelmezett kiszolgáló érték</translation>
     </message>
     <message>
         <location line="-28"/>
         <location line="+176"/>
         <source>Failed: Invalid channel</source>
-        <translation>Hiba: Érvénytelen csatorna</translation>
+        <translation>Sikertelen: érvénytelen csatorna</translation>
     </message>
     <message>
         <location line="-164"/>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - Szerkesztés: %1</translation>
+        <translation>Mumble - %1 szerkesztése</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -51,7 +51,7 @@
     <message>
         <location line="+46"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Ez biztosítja a jogot ehhez: %1. Ha egy jogosultságnál mindkettő ki van pipálva, akkor le van tiltva.&lt;br /&gt;%2</translation>
+        <translation>Ez biztosítja a(z) %1 jogosultságot. Ha egy jogosultság egyszerre engedélyezett és tiltott, akkor tiltva van.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -61,7 +61,7 @@
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Ez megvonja a jogot ettől: %1. Ha egy jogosultságnál mindkettő ki van pipálva, akkor le van tiltva.&lt;br /&gt;%2</translation>
+        <translation>Ez megvonja a(z) %1 jogosultságot. Ha egy jogosultság egyszerre engedélyezett és tiltott, akkor tiltva van.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -76,7 +76,7 @@
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Adja meg a csatorna nevét.</translation>
+        <translation>Itt adja meg a csatorna nevét.</translation>
     </message>
     <message>
         <location/>
@@ -91,17 +91,17 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Adja meg a csatorna jelszavát.</translation>
+        <translation>Itt adja meg a csatorna jelszavát.</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Jelölje ki ideiglenes csatorna létrehozásához.</translation>
+        <translation>Jelölje be átmeneti csatorna létrehozásához.</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation>Ideiglenes</translation>
+        <translation>Átmeneti</translation>
     </message>
     <message>
         <location/>
