@@ -36,16 +36,6 @@
     <?define QtDir = "$(env.MumbleQtDir)" ?>
   <?endif ?>
   
-  <?ifndef env.MumbleDebugToolsDir ?>
-    <?if $(sys.BUILDARCH) = "x86" ?>
-      <?define DebugToolsDir = "C:\Program Files (x86)\Debugging Tools for Windows (x86)" ?>
-    <?elseif $(sys.BUILDARCH) = "x64" ?>
-      <?define DebugToolsDir = "C:\Program Files\Debugging Tools for Windows (x64)" ?>
-    <?endif ?>
-  <?else ?>
-    <?define DebugToolsDir = "$(env.MumbleDebugToolsDir)" ?>
-  <?endif ?>
-  
   <?ifndef env.MumbleSndFileDir ?>
     <?ifndef env.MumbleNoSndFile ?>
       <?define SndFileDir = "\Program Files (x86)\Mega-Nerd\libsndfile\bin" ?>

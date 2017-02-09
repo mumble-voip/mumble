@@ -141,8 +141,6 @@
         <?include "MumbleUCRTComponentRefs.wxi" ?>
       <?endif ?>
 
-      <ComponentRef Id="dbghelp.dll" />
-
       <Feature Id="MumbleDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)" InstallDefault="followParent" AllowAdvertise="no">
         <ComponentRef Id="MumbleDesktopShortcutComponent" />
       </Feature>
@@ -161,7 +159,6 @@
         <?ifdef RedistDirUCRT ?>
           <?include "MurmurUCRTComponentRefs.wxi" ?>
         <?endif ?>
-        <ComponentRef Id="Murmur_dbghelp.dll" />
       <?endif ?>
 
       <Feature Id="MurmurDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)"  InstallDefault="followParent" AllowAdvertise="no">
