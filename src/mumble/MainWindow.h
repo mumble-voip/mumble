@@ -90,6 +90,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		MumbleProto::Reject_RejectType rtLast;
 		bool bRetryServer;
 		QString qsDesiredChannel;
+		QString randomReason();
 
 		bool bSuppressAskOnQuit;
 		/// Restart the client after shutdown
