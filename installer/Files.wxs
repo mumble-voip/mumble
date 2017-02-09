@@ -79,10 +79,6 @@
        <?include "MumbleUCRTComponents.wxi" ?>
       <?endif ?>
 
-      <Component Id="dbghelp.dll">
-        <File Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
-      </Component>
-
     <?ifdef VersionSubDir ?>
       </DirectoryRef>
     <?else ?>
@@ -150,9 +146,6 @@
         <?ifdef RedistDirUCRT ?>
           <?include "MurmurUCRTComponents.wxi" ?>
         <?endif ?>
-        <Component Id="Murmur_dbghelp.dll">
-          <File Id="Murmur_dbghelp.dll" Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
-        </Component>
       <?endif ?>
 
       <Component Id="licence.txt" Guid="$(var.LicenseTextGuid)">
