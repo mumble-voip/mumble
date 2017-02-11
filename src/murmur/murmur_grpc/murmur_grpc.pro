@@ -4,6 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(../../../compiler.pri)
+include(../../../protoc.pri)
 
 GRPC *= ../MurmurRPC.proto
 
@@ -15,7 +16,7 @@ grpc_pbh.CONFIG *= no_link explicit_dependencies target_predeps
 grpc_pbh.variable_out = HEADERS
 
 grpc_pb.output = ${QMAKE_FILE_BASE}.pb.cc
-grpc_pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
+grpc_pb.commands = $${PROTOC} --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
 grpc_pb.input = GRPC
 grpc_pb.CONFIG *= no_link explicit_dependencies
 grpc_pb.variable_out = SOURCES
@@ -28,7 +29,7 @@ grpch.CONFIG *= no_link explicit_dependencies target_predeps
 
 grpc.output = ${QMAKE_FILE_BASE}.grpc.pb.cc
 grpc.depends = ${QMAKE_FILE_BASE}.pb.h
-grpc.commands = protoc --grpc_out=. --plugin=protoc-gen-grpc=$$system(which grpc_cpp_plugin) -I. -I.. ${QMAKE_FILE_NAME}
+grpc.commands = $${PROTOC} --grpc_out=. --plugin=protoc-gen-grpc=$$system(which grpc_cpp_plugin) -I. -I.. ${QMAKE_FILE_NAME}
 grpc.input = GRPC
 grpc.CONFIG *= no_link explicit_dependencies
 grpc.variable_out = SOURCES
