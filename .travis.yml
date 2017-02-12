@@ -1,0 +1,10 @@
+sudo: required # Required for apt-get build-dep
+language: cpp
+compiler: gcc
+
+before_install:
+    - sudo apt-get -qq update
+    - sudo apt-get build-dep -qq mumble
+
+script:
+    - qmake CONFIG+="release g15-emulator qt4-legacy-compat" -recursive && make -j2
