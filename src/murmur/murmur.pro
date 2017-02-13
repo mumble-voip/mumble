@@ -4,6 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(../mumble.pri)
+include(../../protoc.pri)
 
 DEFINES *= MURMUR
 TEMPLATE	=app
@@ -156,7 +157,7 @@ grpc {
 
 	GRPC_WRAPPER = MurmurRPC.proto
 	grpc_wrapper.output = MurmurRPC.proto.Wrapper.cpp
-	grpc_wrapper.commands = protoc --plugin=${DESTDIR}protoc-gen-murmur-grpcwrapper -I. --murmur-grpcwrapper_out=. MurmurRPC.proto
+	grpc_wrapper.commands = $${PROTOC} --plugin=${DESTDIR}protoc-gen-murmur-grpcwrapper -I. --murmur-grpcwrapper_out=. MurmurRPC.proto
 	grpc_wrapper.input = GRPC_WRAPPER
 	grpc_wrapper.variable_out =
 	QMAKE_EXTRA_COMPILERS += grpc_wrapper
