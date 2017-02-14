@@ -15,6 +15,7 @@
         <file alias="muted_server.svg">../../icons/muted_server.svg</file>
         <file alias="muted_local.svg">../../icons/muted_local.svg</file>
         <file alias="muted_suppressed.svg">../../icons/muted_suppressed.svg</file>
+        <file alias="muted_pushtomute.svg">../../icons/muted_pushtomute.svg</file>
         <file alias="authenticated.svg">../../icons/authenticated.svg</file>
         <file alias="channel.svg">../../icons/channel.svg</file>
         <file alias="channel_active.svg">../../icons/channel_active.svg</file>

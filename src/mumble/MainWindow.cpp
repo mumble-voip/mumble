@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
 	qiIconMuteServer.addFile(QLatin1String("skin:muted_server.svg"));
 	qiIconMuteSuppressed.addFile(QLatin1String("skin:muted_suppressed.svg"));
+	qiIconMutePushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
 	qiIconDeafSelf.addFile(QLatin1String("skin:deafened_self.svg"));
 	qiIconDeafServer.addFile(QLatin1String("skin:deafened_server.svg"));
 	qiTalkingOff.addFile(QLatin1String("skin:talking_off.svg"));
@@ -574,6 +575,8 @@ void MainWindow::updateTrayIcon() {
 	} else if (p && p->bMute) {
 		qstiIcon->setIcon(qiIconMuteServer);
 	} else if (p && p->bSuppress) {
+		qstiIcon->setIcon(qiIconMuteSuppressed);
+	} else if (g.s.bStateInTray && g.bPushToMute) {
 		qstiIcon->setIcon(qiIconMuteSuppressed);
 	} else if (p && g.s.bStateInTray) {
 		switch (p->tsState) {
@@ -2462,6 +2465,7 @@ void MainWindow::pttReleased() {
 
 void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	g.bPushToMute = down;
+	updateTrayIcon();
 }
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
