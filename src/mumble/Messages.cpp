@@ -584,7 +584,7 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 
 			ServerHandlerPtr sh = g.sh;
 			if (sh)
-				c->bFiltered = Database::isChannelFiltered(sh->qbaDigest, c->iId);
+				c->filteredVisibility = Database::getChannelFilteredVisibility(sh->qbaDigest, c->iId);
 
 		} else {
 			qWarning("Server attempted state change on nonexistent channel");
@@ -658,11 +658,12 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 	Channel *c = Channel::get(msg.channel_id());
 	if (c && (c->iId != 0)) {
-		if (c->bFiltered) {
+		if (c->filteredVisibility != Channel::FILTERED_VISIBILITY_NORMAL) {
 			ServerHandlerPtr sh = g.sh;
-			if (sh)
-				Database::setChannelFiltered(sh->qbaDigest, c->iId, false);
-			c->bFiltered = false;
+			if (sh) {
+				Database::setChannelFilteredVisibility(sh->qbaDigest, c->iId, Channel::FILTERED_VISIBILITY_NORMAL);
+			}
+			c->filteredVisibility = Channel::FILTERED_VISIBILITY_NORMAL;
 		}
 		pmModel->removeChannel(c);
 	}

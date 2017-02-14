@@ -145,6 +145,7 @@ Database::Database() {
 	//Note: A previous snapshot version created a table called 'hidden'
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `filtered_channels` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `server_cert_digest` TEXT NOT NULL, `channel_id` INTEGER NOT NULL)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `filtered_channels_entry` ON `filtered_channels`(`server_cert_digest`, `channel_id`)"));
+	query.exec(QLatin1String("ALTER TABLE `filtered_channels` ADD COLUMN `visibility` INTEGER DEFAULT ") + QString::number(Channel::FILTERED_VISIBILITY_NEVER)); // Upgrade path, failing this query is not noteworthy
 
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
@@ -281,30 +282,34 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 	execQueryAndLogFailure(query);
 }
 
-bool Database::isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id) {
+Channel::FilteredVisibility Database::getChannelFilteredVisibility(const QByteArray &server_cert_digest, const int channel_id) {
 	QSqlQuery query;
 	
-	query.prepare(QLatin1String("SELECT `channel_id` FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+	query.prepare(QLatin1String("SELECT `visibility` FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
 	query.addBindValue(server_cert_digest);
 	query.addBindValue(channel_id);
 	execQueryAndLogFailure(query);
 
 	while (query.next()) {
-		return true;
+		return static_cast<Channel::FilteredVisibility>(query.value(0).toInt());
 	}
-	return false;
+	
+	return Channel::FILTERED_VISIBILITY_NORMAL;
 }
 
-void Database::setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, const bool hidden) {
+void Database::setChannelFilteredVisibility(const QByteArray &server_cert_digest, const int channel_id, Channel::FilteredVisibility visibility) {
 	QSqlQuery query;
 	
-	if (hidden)
-		query.prepare(QLatin1String("INSERT INTO `filtered_channels` (`server_cert_digest`, `channel_id`) VALUES (?, ?)"));
-	else
+	if (visibility != Channel::FILTERED_VISIBILITY_NORMAL) {
+		query.prepare(QLatin1String("INSERT OR REPLACE INTO `filtered_channels` (`server_cert_digest`, `channel_id`, `visibility`) VALUES (?, ?, ?)"));
+	} else {
 		query.prepare(QLatin1String("DELETE FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
-
+	}
 	query.addBindValue(server_cert_digest);
 	query.addBindValue(channel_id);
+	if (visibility != Channel::FILTERED_VISIBILITY_NORMAL) {
+		query.addBindValue(static_cast<int>(visibility));
+	}
 
 	execQueryAndLogFailure(query);
 }

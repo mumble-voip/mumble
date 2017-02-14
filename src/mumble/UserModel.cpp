@@ -209,7 +209,11 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiFriend=QIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 	qiComment=QIcon(QLatin1String("skin:comment.svg"));
 	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
-	qiFilter=QIcon(QLatin1String("skin:filter.svg"));
+	//qiFilterVisibilityNever=QIcon(QLatin1String("skin:filter_visibility_never.svg"));//FIXME: <<
+	qiFilterVisibilityNever = QIcon(QLatin1String("skin:filter_off.svg")); // Fallback
+	//qiFilterVisibilityAlways=QIcon(QLatin1String("skin:filter_visibility_always.svg")); //FIXME: <<
+	qiFilterVisibilityAlways = QIcon(QLatin1String("skin:filter_on.svg")); // Fallback 
+	
 
 	ModelItem::bUsersTop = g.s.bUserTop;
 
@@ -425,9 +429,11 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				if (! c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 
-				if (c->bFiltered)
-					l << (qiFilter);
-
+				if (c->filteredVisibility == Channel::FILTERED_VISIBILITY_NEVER) {
+					l << (qiFilterVisibilityNever);
+				} else if (c->filteredVisibility == Channel::FILTERED_VISIBILITY_ALWAYS) {
+					l << (qiFilterVisibilityAlways);
+				}
 				return l;
 			case Qt::FontRole:
 				if (g.uiSession) {
@@ -1286,17 +1292,19 @@ void UserModel::userStateChanged() {
 	updateOverlay();
 }
 
-void UserModel::toggleChannelFiltered(Channel *c) {
+void UserModel::updateChannelFilteredVisibility(Channel *c, Channel::FilteredVisibility newVisibility) {
 	QModelIndex idx;
 	if(c) {
-		c->bFiltered = !c->bFiltered;
-
 		ServerHandlerPtr sh = g.sh;
-		Database::setChannelFiltered(sh->qbaDigest, c->iId, c->bFiltered);
+		Database::setChannelFilteredVisibility(sh->qbaDigest, c->iId, newVisibility);
+		c->filteredVisibility = newVisibility;
 		idx = index(c);
 	}
+	notifyDataChanged(idx, idx);
+}
 
-	emit dataChanged(idx, idx);
+void UserModel::notifyDataChanged(QModelIndex topLeft, QModelIndex bottomRight) {
+	emit dataChanged(topLeft, bottomRight);
 
 	updateOverlay();
 }

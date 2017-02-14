@@ -27,8 +27,8 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 		cParent->addChannel(this);
 #ifdef MUMBLE
 	uiPermissions = 0;
-	bFiltered = false;
-#endif
+	filteredVisibility = FILTERED_VISIBILITY_NORMAL;
+#endif // MUMBLE
 }
 
 Channel::~Channel() {
@@ -70,7 +70,58 @@ void Channel::remove(Channel *c) {
 	QWriteLocker lock(&c_qrwlChannels);
 	c_qhChannels.remove(c->iId);
 }
-#endif
+
+bool Channel::isAlwaysVisibleWhenFiltering() const {
+	if (filteredVisibility == Channel::FILTERED_VISIBILITY_ALWAYS) {
+		return true;
+	}
+	
+	foreach (Channel *channel, qlChannels) {
+		if (channel->isAlwaysVisibleWhenFiltering()) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+bool Channel::isNeverVisibleWhenFiltering() const {
+	const Channel *channel = this;
+	while (channel != NULL) {
+		if (channel->filteredVisibility == Channel::FILTERED_VISIBILITY_NEVER) {
+			return true;
+		}
+		channel = channel->cParent;
+	}
+	return false;
+}
+
+#endif // MUMBLE
+
+bool Channel::hasAnyUsersInOrBelow() const {
+	if (!qlUsers.isEmpty()) {
+		return true;
+	}
+	
+	foreach (const Channel *channel, qlChannels) {
+		if (channel->hasAnyUsersInOrBelow()) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+bool Channel::isUserInOrBelow(const User *user) const {
+	const Channel *channel = user->cChannel;
+	while (channel != NULL) {
+		if (channel == this) {
+			return true;
+		}
+		channel = channel->cParent;
+	}
+	return false;
+}
 
 bool Channel::lessThan(const Channel *first, const Channel *second) {
 	if ((first->iPosition != second->iPosition) && (first->cParent == second->cParent))
@@ -186,7 +237,7 @@ size_t Channel::getLevel() const {
 }
 
 size_t Channel::getDepth() const {
-	if(qlChannels.empty()) {
+	if (qlChannels.empty()) {
 		return 0;
 	}
 
