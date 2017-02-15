@@ -4799,12 +4799,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation>La connection est cryptée et authentifiée avec %1 et utilise %2 comme méchanisme d&apos;échange de clés (%3)</translation>
+        <translation>La connection est chiffrée et authentifiée avec %1 et utilise %2 comme méchanisme d&apos;échange de clés (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation>La connexion est cryptée via %1, avec %2 en tant que message d&apos;authentification et %3 comme mécanisme d&apos;échange de clé (%4)</translation>
+        <translation>La connexion est chiffrée via %1, avec %2 en tant que message d&apos;authentification et %3 comme mécanisme d&apos;échange de clé (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5187,7 +5187,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Ce serveur utilise un standard ancien du cryptage et n&apos;est plus supporté par les versions modernes de Mumble.</translation>
+        <translation>Ce serveur utilise un standard ancien de chiffrement et n&apos;est plus supporté par les versions modernes de Mumble.</translation>
     </message>
     <message>
         <location line="+6"/>
