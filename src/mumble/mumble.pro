@@ -655,6 +655,11 @@ CONFIG(no-update) {
 
 CONFIG(static_qt_plugins) {
   DEFINES += USE_STATIC_QT_PLUGINS
+  
+  # If QSQLite is a plugin we need to import it in order to use the database
+  exists($$[QT_INSTALL_PLUGINS]/sqldrivers/*qsqlite*) {
+      QTPLUGIN += qsqlite
+  }
 
   # Since Qt 5.3, qt.prf will automatically populate QT_PLUGINS for static builds
   # for TEMPLATE=app.
