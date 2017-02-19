@@ -5,6 +5,7 @@
 
 include(../mumble.pri)
 include(../../python.pri)
+include(../../lrelease.pri)
 
 DEFINES		*= MUMBLE
 TEMPLATE	= app
@@ -251,16 +252,6 @@ CONFIG(static) {
   macx {
     QMAKE_LFLAGS -= -Wl,-dead_strip
     QMAKE_LFLAGS += -Wl,-all_load
-  }
-}
-
-isEmpty(QMAKE_LRELEASE) {
-  QMAKE_QMAKE_BASE = $$basename(QMAKE_QMAKE)
-  QMAKE_LRELEASE_PATH = $$dirname(QMAKE_QMAKE)/$$replace(QMAKE_QMAKE_BASE,qmake,lrelease)
-  isEqual(QT_MAJOR_VERSION, 5) {
-    QMAKE_LRELEASE = $$shell_path($$QMAKE_LRELEASE_PATH)
-  } else {
-    QMAKE_LRELEASE = $$QMAKE_LRELEASE_PATH
   }
 }
 
