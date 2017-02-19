@@ -229,7 +229,19 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 		CFRelease(bundle);
 
 #elif defined(Q_OS_WIN)
-	HICON icon = ExtractIcon(qWinAppInst(), identifier.toStdWString().c_str(), 0);
+	// qWinAppInst(), whose return value we used to pass
+	// to ExtractIcon below, was removed in Qt 5.8.
+	//
+	// It was removed via
+	// https://github.com/qt/qtbase/commit/64507c7165e42c2a5029353d8f97a0d841fa6b01
+	//
+	// In both Qt 4 and Qt 5, the qWinAppInst() implementation
+	// simply calls GetModuleHandle(0).
+	//
+	// To sidestep the removal of the function, we simply
+	// call through to GetModuleHandle() directly.
+	HINSTANCE qWinAppInstValue = GetModuleHandle(NULL);
+	HICON icon = ExtractIcon(qWinAppInstValue, identifier.toStdWString().c_str(), 0);
 	if (icon) {
 #if QT_VERSION >= 0x050000
 		extern QPixmap qt_pixmapFromWinHICON(HICON icon);
