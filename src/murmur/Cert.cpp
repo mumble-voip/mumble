@@ -70,6 +70,18 @@ bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	return false;
 }
 
+QSslKey Server::privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass) {
+	QSslKey key;
+	key = QSslKey(buf, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass);
+	if (key.isNull())
+		key = QSslKey(buf, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, pass);
+#if QT_VERSION >= 0x050000
+	if (key.isNull())
+		key = QSslKey(buf, QSsl::Ec, QSsl::Pem, QSsl::PrivateKey, pass);
+#endif
+	return key;
+}
+
 void Server::initializeCert() {
 	QByteArray crt, key, pass, dhparams;
 
