@@ -404,14 +404,10 @@ void MetaParams::read(QString fname) {
 
 	if (! key.isEmpty() || ! crt.isEmpty()) {
 		if (! key.isEmpty()) {
-			qskKey = QSslKey(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
-			if (qskKey.isNull())
-				qskKey = QSslKey(key, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+			qskKey = Server::privateKeyFromPEM(key, qbaPassPhrase);
 		}
 		if (qskKey.isNull() && ! crt.isEmpty()) {
-			qskKey = QSslKey(crt, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
-			if (qskKey.isNull())
-				qskKey = QSslKey(crt, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+			qskKey = Server::privateKeyFromPEM(crt, qbaPassPhrase);
 			if (! qskKey.isNull())
 				qCritical("Using private key found in certificate file.");
 		}

@@ -70,6 +70,18 @@ bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	return false;
 }
 
+QSslKey Server::privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass) {
+	QSslKey key;
+	key = QSslKey(buf, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass);
+	if (key.isNull())
+		key = QSslKey(buf, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, pass);
+#if QT_VERSION >= 0x050000
+	if (key.isNull())
+		key = QSslKey(buf, QSsl::Ec, QSsl::Pem, QSsl::PrivateKey, pass);
+#endif
+	return key;
+}
+
 void Server::initializeCert() {
 	QByteArray crt, key, pass, dhparams;
 
@@ -80,18 +92,14 @@ void Server::initializeCert() {
 
 	QList<QSslCertificate> ql;
 
-	// Attempt to load key as an RSA key or a DSA key
+	// Attempt to load the private key.
 	if (! key.isEmpty()) {
-		qskKey = QSslKey(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass);
-		if (qskKey.isNull())
-			qskKey = QSslKey(key, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, pass);
+		qskKey = Server::privateKeyFromPEM(key, pass);
 	}
 
 	// If we still can't load the key, try loading any keys from the certificate
 	if (qskKey.isNull() && ! crt.isEmpty()) {
-		qskKey = QSslKey(crt, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass);
-		if (qskKey.isNull())
-			qskKey = QSslKey(crt, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, pass);
+		qskKey = Server::privateKeyFromPEM(crt);
 	}
 
 	// If have a key, walk the list of certs, find the one for our key,

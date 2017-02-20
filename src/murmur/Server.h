@@ -169,6 +169,11 @@ class Server : public QThread {
 		// Certificate stuff, implemented partially in Cert.cpp
 	public:
 		static bool isKeyForCert(const QSslKey &key, const QSslCertificate &cert);
+		/// Attempt to load a private key in PEM format from |buf|.
+		/// If |passphrase| is non-empty, it will be used for decrypting the private key in |buf|.
+		/// If a valid RSA, DSA or EC key is found, it is returned.
+		/// If no valid private key is found, a null QSslKey is returned.
+		static QSslKey privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass = QByteArray());
 		void initializeCert();
 		const QString getDigest() const;
 
