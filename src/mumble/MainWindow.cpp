@@ -45,6 +45,7 @@
 #include "Settings.h"
 #include "Themes.h"
 #include "SSLCipherInfo.h"
+#include "CryptographicHash.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -2884,15 +2885,52 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		if (! g.sh->qscCert.isEmpty()) {
 			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
-			QString actual_digest = QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex());
-			QString digests_section = tr("<li>Server certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(actual_digest));
-			QString expected_digest = Database::getDigest(host, port);
-			if (! expected_digest.isNull()) {
+
+			QString stored_digest = Database::getDigest(host, port);
+			QString expected_digest;
+			CryptographicHash::Algorithm algo;
+			CryptographicHash::Algorithm preferred_algo = CryptographicHash::Sha256;
+			bool has_stored_digest = false;
+
+			if (g.s.bCertPinningAllowLegacySHA1Pins && stored_digest.size() == 40) { // Non-prefixed SHA1
+				has_stored_digest = true;
+
+				algo = CryptographicHash::Sha1;
+
+				expected_digest = stored_digest;
+			} else if (stored_digest.startsWith(CryptographicHash::shortAlgorithmName(CryptographicHash::Sha256))) {
+				has_stored_digest = true;
+
+				algo = CryptographicHash::Sha256;
+
+				stored_digest.remove(QString::fromLatin1("%1:").arg(CryptographicHash::shortAlgorithmName(CryptographicHash::Sha256)));
+				expected_digest = stored_digest;
+			} else {
+				stored_digest = QString();
+				has_stored_digest = false;
+
+				// We didn't find a stored hash.
+				// Please use the preferred hashing algorithm when displaying stuff to the user.
+				algo = preferred_algo;
+			}
+
+			QString actual_digest = QString::fromLatin1(CryptographicHash::hash(c.toDer(), algo).toHex());
+			QString digests_section = tr("<li>Server certificate digest (%1):\t%2</li>").arg(CryptographicHash::humanReadableAlgorithmName(algo), ViewCert::prettifyDigest(actual_digest));
+
+			// If the stored digest wasn't in the preferred hash format,
+			// include the preferred hash as well, for good measure.
+			if (algo != preferred_algo) {
+				QString preferred_digest = QString::fromLatin1(CryptographicHash::hash(c.toDer(), preferred_algo).toHex());
+				digests_section.append(tr("<li>Server certificate digest (%1):\t%2</li>").arg(CryptographicHash::humanReadableAlgorithmName(preferred_algo), ViewCert::prettifyDigest(preferred_digest)));
+			}
+
+			if (has_stored_digest) {
 				basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
-				digests_section.append(tr("<li>Expected certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(expected_digest)));
+				digests_section.append(tr("<li>Expected certificate digest (%1):\t%2</li>").arg(CryptographicHash::humanReadableAlgorithmName(algo), ViewCert::prettifyDigest(expected_digest)));
 			} else {
 				basereason = tr("Server presented a certificate which failed verification.");
 			}
+
 			QStringList qsl;
 			foreach(QSslError e, g.sh->qlErrors)
 				qsl << QString::fromLatin1("<li>%1</li>").arg(Qt::escape(e.errorString()));
@@ -2914,7 +2952,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 					vc.exec();
 					continue;
 				} else if (res == QMessageBox::Yes) {
-					Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+					QString short_algo_name = CryptographicHash::shortAlgorithmName(preferred_algo);
+					QString new_digest = QString::fromLatin1(CryptographicHash::hash(c.toDer(), preferred_algo).toHex());
+					Database::setDigest(host, port, QString::fromLatin1("%1:%2").arg(short_algo_name, new_digest));
 					qaServerDisconnect->setEnabled(true);
 					on_Reconnect_timeout();
 				}
