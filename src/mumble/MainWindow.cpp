@@ -1173,7 +1173,7 @@ void MainWindow::on_qaSelfComment_triggered() {
 		g.sh->sendMessage(mpus);
 
 		if (! msg.isEmpty())
-			Database::setBlob(sha1(msg), msg.toUtf8());
+			Database::setBlob(namedSha256(msg), msg.toUtf8());
 	}
 	delete texm;
 }
