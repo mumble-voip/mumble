@@ -10,6 +10,8 @@
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QString>
 
+#include "CryptographicHash.h"
+
 /**
   Protobuf packet type enumeration for message handler generation.
 
@@ -81,6 +83,27 @@ inline QByteArray sha1(const QByteArray &blob) {
 
 inline QByteArray sha1(const QString &str) {
 	return QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Sha1);
+}
+
+/// namedSha256 returns a named SHA-256 hash of blob in
+/// the form of "sha256:<hash-value>".
+inline QByteArray namedSha256(const QByteArray &blob) {
+	CryptographicHash::Algorithm algo = CryptographicHash::Sha256;
+
+	QByteArray ret;
+	ret.append(CryptographicHash::shortAlgorithmName(algo).toLatin1());
+	ret.append(":");
+
+	QByteArray hash = CryptographicHash::hash(blob, algo);
+	ret.append(hash);
+
+	return ret;
+}
+
+/// namedSha256 returns a named SHA-256 hash of str in
+/// the form of "sha256:<hash-value>".
+inline QByteArray namedSha256(const QString &str) {
+	return namedSha256(str.toUtf8());
 }
 
 #endif
