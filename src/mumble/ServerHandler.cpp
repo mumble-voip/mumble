@@ -22,6 +22,7 @@
 #include "SSL.h"
 #include "User.h"
 #include "Net.h"
+#include "CryptographicHash.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -382,9 +383,57 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 #endif
 
 	bStrong = false;
-	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, usPort)))
+
+	bool pin_ok = false;
+	CryptographicHash::Algorithm preferred_algo = CryptographicHash::Sha256;
+	CryptographicHash::Algorithm algo;
+	{
+		// Cert pining check.
+		QString stored_digest = Database::getDigest(qsHostName, usPort);
+		QString expected_digest;
+		QString actual_digest;
+		bool has_stored_digest = false;
+
+		if (g.s.bCertPinningAllowLegacySHA1Pins && stored_digest.size() == 40) { // Non-prefixed SHA1
+			has_stored_digest = true;
+
+			algo = CryptographicHash::Sha1;
+
+			expected_digest = stored_digest;
+		} else if (stored_digest.startsWith(CryptographicHash::shortAlgorithmName(CryptographicHash::Sha256))) {
+			has_stored_digest = true;
+
+			algo = CryptographicHash::Sha256;
+
+			stored_digest.remove(QString::fromLatin1("%1:").arg(CryptographicHash::shortAlgorithmName(CryptographicHash::Sha256)));
+			expected_digest = stored_digest;
+		} else {
+			stored_digest = QString();
+			has_stored_digest = false;
+
+			// We didn't find a stored hash.
+			// Please use the preferred hashing algorithm when displaying stuff to the user.
+			algo = preferred_algo;
+		}
+
+		if (has_stored_digest && qscCert.size() > 0) {
+			actual_digest = QString::fromLatin1(CryptographicHash::hash(qscCert.at(0).toDer(), algo).toHex());
+			if (actual_digest == expected_digest) {
+				pin_ok = true;
+			}
+		}
+	}
+
+	if (pin_ok) {
 		connection->proceedAnyway();
-	else
+
+		// Update the digest if it isn't in our preferred format.
+		if (algo != preferred_algo && qscCert.size() > 0) {
+			QString short_algo_name = CryptographicHash::shortAlgorithmName(preferred_algo);
+			QString new_digest = QString::fromLatin1(CryptographicHash::hash(qscCert.at(0).toDer(), preferred_algo).toHex());
+			Database::setDigest(qsHostName, usPort, QString::fromLatin1("%1:%2").arg(short_algo_name, new_digest));
+		}
+	} else
 		qlErrors = newErrors;
 }
 

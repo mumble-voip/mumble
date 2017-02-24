@@ -354,6 +354,9 @@ Settings::Settings() {
 	bSuppressIdentity = false;
 	qsSslCiphers = MumbleSSL::defaultOpenSSLCipherString();
 
+	// Network settings - Cert pinning
+	bCertPinningAllowLegacySHA1Pins = true;
+
 	bShowTransmitModeComboBox = false;
 
 	// Accessibility
@@ -676,6 +679,9 @@ void Settings::load(QSettings* settings_ptr) {
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
 
+	// Network settings - Cert pinning
+	SAVELOAD(bCertPinningAllowLegacySHA1Pins, "net/certpin/allowsha1");
+
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(themeName, "ui/theme");
@@ -990,6 +996,9 @@ void Settings::save() {
 
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
+
+	// Network settings - Cert pinning
+	SAVELOAD(bCertPinningAllowLegacySHA1Pins, "net/certpin/allowsha1");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");

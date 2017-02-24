@@ -321,6 +321,21 @@ struct Settings {
 	// Network settings - SSL
 	QString qsSslCiphers;
 
+	// Network settings - Cert pinning
+
+	/// Allow Mumble to verify servers it connects to against
+	/// legacy SHA1 certificate pins in its database.
+	///
+	/// If this setting is enabled, Mumble will be allowed to verify
+	/// servers that use self-signed certificates against SHA1 hashes
+	/// stored in its certificate pin database.
+	/// If not, a stored SHA1 pin will simply be ignored -- as if it
+	/// doesn't exist.
+	///
+	/// After connecting once, the SHA1 hash will be updated with a
+	/// more modern hash -- currently SHA256.
+	bool bCertPinningAllowLegacySHA1Pins;
+
 	static const int ciDefaultMaxImageSize = 50 * 1024; // Restrict to 50KiB as a default
 	int iMaxImageSize;
 	int iMaxImageWidth;
