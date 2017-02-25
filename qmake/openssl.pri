@@ -23,6 +23,7 @@ unix {
 	contains(UNAME, FreeBSD) {
 		LIBS *= -lcrypto -lssl
 	} else {
+		CONFIG *= link_pkgconfig
 		must_pkgconfig(openssl)
 	}
 }
