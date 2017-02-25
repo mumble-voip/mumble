@@ -131,9 +131,18 @@ class Server : public QThread {
 		QVariant qvSuggestPositional;
 		QVariant qvSuggestPushToTalk;
 
-		QList<QSslCertificate> qlCA;
 		QSslCertificate qscCert;
 		QSslKey qskKey;
+
+		/// qlIntermediates contains the certificates
+		/// from this virtual server's certificate PEM
+		// bundle that do not match the virtual server's
+		// private key.
+		///
+		/// Simply put: it contains any certificates
+		/// that aren't the main certificate, or "leaf"
+		/// certificate.
+		QList<QSslCertificate> qlIntermediates;
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		QSslDiffieHellmanParameters qsdhpDHParams;
 #endif

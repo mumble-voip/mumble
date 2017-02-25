@@ -115,7 +115,7 @@ void Server::initializeCert() {
 				ql.removeAt(i);
 			}
 		}
-		qlCA = ql;
+		qlIntermediates = ql;
 	}
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)

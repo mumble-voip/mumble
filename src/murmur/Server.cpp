@@ -1198,7 +1198,7 @@ void Server::newClient() {
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
 		sock->addCaCertificate(qscCert);
-		sock->addCaCertificates(qlCA);
+		sock->addCaCertificates(qlIntermediates);
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		QSslConfiguration cfg = sock->sslConfiguration();
