@@ -14,8 +14,8 @@ CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
 INCLUDEPATH	+= $$PWD . ../mumble_proto
 VPATH		+= $$PWD
-HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h HTMLFilter.h User.h Net.h OSInfo.h Timer.h SSL.h Version.h SSLCipherInfo.h SSLCipherInfoTable.h licenses.h License.h LogEmitter.h
-SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp HTMLFilter.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp SSLCipherInfo.cpp License.cpp LogEmitter.cpp
+HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h HTMLFilter.h User.h Net.h OSInfo.h Timer.h SSL.h Version.h SSLCipherInfo.h SSLCipherInfoTable.h licenses.h License.h LogEmitter.h CryptographicHash.h
+SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp HTMLFilter.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp SSLCipherInfo.cpp License.cpp LogEmitter.cpp CryptographicHash.cpp
 LIBS		*= -lmumble_proto
 # Note: Protobuf generates into its own directory so we can mark it as a
 #       system include folder for unix. Otherwise the generated code creates
