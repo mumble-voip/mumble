@@ -160,6 +160,11 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 	qrwlOutputs.lockForRead();
 	AudioOutputSpeech *aop = qobject_cast<AudioOutputSpeech *>(qmOutputs.value(user));
 
+	if (!UDPMessageTypeIsValidVoicePacket(type)) {
+		qWarning("AudioOutput: ignored frame with invalid message type 0x%x in addFrameToBuffer().", static_cast<unsigned char>(type));
+		return;
+	}
+
 	if (! aop || (aop->umtType != type)) {
 		qrwlOutputs.unlock();
 

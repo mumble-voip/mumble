@@ -54,6 +54,21 @@ class MessageHandler {
 #undef MUMBLE_MH_MSG
 };
 
+/// UDPMessageTypeIsValidVoicePacket checks whether the given
+/// UDPMessageType is a valid voice packet.
+inline bool UDPMessageTypeIsValidVoicePacket(MessageHandler::UDPMessageType umt) {
+	switch (umt) {
+		case MessageHandler::UDPVoiceCELTAlpha:
+		case MessageHandler::UDPVoiceSpeex:
+		case MessageHandler::UDPVoiceCELTBeta:
+		case MessageHandler::UDPVoiceOpus:
+			return true;
+		case MessageHandler::UDPPing:
+			return false;
+	}
+	return false;
+}
+
 inline QString u8(const ::std::string &str) {
 	return QString::fromUtf8(str.data(), static_cast<int>(str.length()));
 }
