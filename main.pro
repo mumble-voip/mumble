@@ -101,6 +101,12 @@ SUBDIRS *= src/mumble_proto
   SUBDIRS *= src/murmur
 }
 
+!CONFIG(no-mutter) {
+  !CONFIG(no-ice) {
+    SUBDIRS *= src/mutter
+  }
+}
+
 DIST=LICENSE INSTALL README README.Linux CHANGES
 
 include(scripts/scripts.pro)
