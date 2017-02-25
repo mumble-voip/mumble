@@ -1197,8 +1197,21 @@ void Server::newClient() {
 
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
+
+		// Treat the leaf certificate as a root.
+		// This shouldn't strictly be necessary,
+		// and is a left-over from early on.
+		// Perhaps it is necessary for self-signed
+		// certs?
 		sock->addCaCertificate(qscCert);
-		sock->addCaCertificates(qlCA);
+
+		// Add CA certificates specified via
+		// murmur.ini's sslCA option.
+		sock->addCaCertificates(Meta::mp.qlCA);
+
+		// Add intermediate CAs found in the PEM
+		// bundle used for this server's certificate.
+		sock->addCaCertificates(qlIntermediates);
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		QSslConfiguration cfg = sock->sslConfiguration();
