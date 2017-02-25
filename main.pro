@@ -101,6 +101,10 @@ SUBDIRS *= src/mumble_proto
   SUBDIRS *= src/murmur
 }
 
+CONFIG(tests) {
+  SUBDIRS *= src/tests
+}
+
 DIST=LICENSE INSTALL README README.Linux CHANGES
 
 include(scripts/scripts.pro)
