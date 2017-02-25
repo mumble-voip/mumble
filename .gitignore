@@ -33,11 +33,7 @@ src/murmur/MurmurRPC.proto.Wrapper.cpp
 winpaths_custom.pri
 mocinclude.opt
 src/mumble/mumble_qt_auto.qrc
-src/mumble/mumble_plugin_import.cpp
-src/mumble/mumble_app_plugin_import.cpp
-src/murmur/murmurd_plugin_import.cpp
-src/murmur/murmur_plugin_import.cpp
-g15helper/mumble-g15-helper_plugin_import.cpp
+*_plugin_import.cpp
 doxygen/
 .qmake.cache
 .qmake.stash
