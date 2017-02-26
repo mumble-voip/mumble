@@ -85,6 +85,7 @@ extern QFile *qfLog;
 
 int UnixMurmur::iHupFd[2];
 int UnixMurmur::iTermFd[2];
+int UnixMurmur::iUsr1Fd[2];
 
 UnixMurmur::UnixMurmur() {
 	bRoot = true;
@@ -99,13 +100,18 @@ UnixMurmur::UnixMurmur() {
 	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, iTermFd))
 		qFatal("Couldn't create TERM socketpair");
 
+	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, iUsr1Fd))
+		qFatal("Couldn't create USR1 socketpair");
+
 	qsnHup = new QSocketNotifier(iHupFd[1], QSocketNotifier::Read, this);
 	qsnTerm = new QSocketNotifier(iTermFd[1], QSocketNotifier::Read, this);
+	qsnUsr1 = new QSocketNotifier(iUsr1Fd[1], QSocketNotifier::Read, this);
 
 	connect(qsnHup, SIGNAL(activated(int)), this, SLOT(handleSigHup()));
 	connect(qsnTerm, SIGNAL(activated(int)), this, SLOT(handleSigTerm()));
+	connect(qsnUsr1, SIGNAL(activated(int)), this, SLOT(handleSigUsr1()));
 
-	struct sigaction hup, term;
+	struct sigaction hup, term, usr1;
 
 	hup.sa_handler = hupSignalHandler;
 	sigemptyset(&hup.sa_mask);
@@ -121,20 +127,31 @@ UnixMurmur::UnixMurmur() {
 	if (sigaction(SIGTERM, &term, NULL))
 		qFatal("Failed to install SIGTERM handler");
 
+	usr1.sa_handler = usr1SignalHandler;
+	sigemptyset(&usr1.sa_mask);
+	usr1.sa_flags = SA_RESTART;
+
+	if (sigaction(SIGUSR1, &usr1, NULL))
+		qFatal("Failed to install SIGUSR1 handler");
+
 	umask(S_IRWXO);
 }
 
 UnixMurmur::~UnixMurmur() {
 	delete qsnHup;
 	delete qsnTerm;
+	delete qsnUsr1;
 
 	qsnHup = NULL;
 	qsnTerm = NULL;
+	qsnUsr1 = NULL;
 
 	close(iHupFd[0]);
 	close(iHupFd[1]);
 	close(iTermFd[0]);
 	close(iTermFd[1]);
+	close(iUsr1Fd[0]);
+	close(iUsr1Fd[1]);
 }
 
 void UnixMurmur::hupSignalHandler(int) {
@@ -146,6 +163,12 @@ void UnixMurmur::hupSignalHandler(int) {
 void UnixMurmur::termSignalHandler(int) {
 	char a = 1;
 	ssize_t len = ::write(iTermFd[0], &a, sizeof(a));
+	Q_UNUSED(len);
+}
+
+void UnixMurmur::usr1SignalHandler(int) {
+	char a = 1;
+	ssize_t len = ::write(iUsr1Fd[0], &a, sizeof(a));
 	Q_UNUSED(len);
 }
 
@@ -197,6 +220,17 @@ void UnixMurmur::handleSigTerm() {
 	QCoreApplication::instance()->quit();
 
 	qsnTerm->setEnabled(true);
+}
+
+void UnixMurmur::handleSigUsr1() {
+	qsnUsr1->setEnabled(false);
+	char tmp;
+	ssize_t len = ::read(iUsr1Fd[1], &tmp, sizeof(tmp));
+	Q_UNUSED(len);
+
+	qWarning("Received USR1 signal... Ignoring...");
+
+	qsnUsr1->setEnabled(true);
 }
 
 void UnixMurmur::setuid() {

@@ -32,14 +32,16 @@ class UnixMurmur : public QObject {
 		Q_DISABLE_COPY(UnixMurmur)
 	protected:
 		bool bRoot;
-		static int iHupFd[2], iTermFd[2];
-		QSocketNotifier *qsnHup, *qsnTerm;
+		static int iHupFd[2], iTermFd[2], iUsr1Fd[2];
+		QSocketNotifier *qsnHup, *qsnTerm, *qsnUsr1;
 
 		static void hupSignalHandler(int);
 		static void termSignalHandler(int);
+		static void usr1SignalHandler(int);
 	public slots:
 		void handleSigHup();
 		void handleSigTerm();
+		void handleSigUsr1();
 	public:
 		bool logToSyslog;
 
