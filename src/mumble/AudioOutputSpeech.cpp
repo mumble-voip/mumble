@@ -301,7 +301,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, iFrameSize * sizeof(float));
 					}
 #endif
-				} else {
+				} else if (umtType == MessageHandler::UDPVoiceSpeex) {
 					if (qba.isEmpty()) {
 						speex_decode(dsSpeex, NULL, pOut);
 					} else {
@@ -310,6 +310,8 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					}
 					for (unsigned int i=0;i<iFrameSize;++i)
 						pOut[i] *= (1.0f / 32767.f);
+				} else {
+					qWarning("AudioOutputSpeech: encountered unknown message type %li in needSamples().", static_cast<long>(umtType));
 				}
 
 				bool update = true;
