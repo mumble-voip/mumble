@@ -14,7 +14,7 @@
    height="520"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47pre2 r22153"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="rec.svg">
   <defs
      id="defs4">
@@ -103,13 +103,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="73.187312"
+     inkscape:cx="-165.74126"
      inkscape:cy="254.97196"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="2048"
-     inkscape:window-height="1100"
+     inkscape:window-width="1920"
+     inkscape:window-height="996"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
@@ -121,7 +121,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -139,7 +139,7 @@
        sodipodi:cy="576.64789"
        sodipodi:rx="250"
        sodipodi:ry="250"
-       d="m 645.71429,576.64789 c 0,138.07119 -111.92881,250 -250,250 -138.07118,0 -250,-111.92881 -250,-250 0,-138.07119 111.92882,-250 250,-250 138.07119,0 250,111.92881 250,250 z" />
+       d="m 645.71429,576.64789 a 250,250 0 0 1 -250,250 250,250 0 0 1 -250,-250 250,250 0 0 1 250,-250 250,250 0 0 1 250,250 z" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -155,7 +155,7 @@
        sodipodi:cy="592.36218"
        sodipodi:rx="288.57144"
        sodipodi:ry="291.42856"
-       d="m 680,592.36218 c 0,160.95155 -129.19784,291.42856 -288.57144,291.42856 -159.37361,0 -288.57144,-130.47701 -288.57144,-291.42856 0,-160.95155 129.19783,-291.42856 288.57144,-291.42856 C 550.80216,300.93362 680,431.41063 680,592.36218 z"
+       d="M 680,592.36218 A 288.57144,291.42856 0 0 1 391.42856,883.79074 288.57144,291.42856 0 0 1 102.85712,592.36218 288.57144,291.42856 0 0 1 391.42856,300.93362 288.57144,291.42856 0 0 1 680,592.36218 Z"
        transform="matrix(0.87537496,0,0,0.86679293,53.542651,63.377381)" />
   </g>
   <g

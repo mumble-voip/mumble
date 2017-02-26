@@ -14,8 +14,8 @@
    width="400"
    height="400"
    id="svg2"
-   inkscape:version="0.47 r22583"
-   sodipodi:docname="demo3.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="default_avatar.svg">
   <metadata
      id="metadata110">
     <rdf:RDF>
@@ -37,26 +37,19 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="969"
+     inkscape:window-width="1920"
+     inkscape:window-height="996"
      id="namedview108"
      showgrid="false"
      inkscape:zoom="0.59"
-     inkscape:cx="-229.2554"
+     inkscape:cx="-796.20455"
      inkscape:cy="305.95918"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2" />
   <defs
      id="defs4">
-    <inkscape:perspective
-       sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 400 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="800 : 400 : 1"
-       inkscape:persp3d-origin="400 : 266.66667 : 1"
-       id="perspective112" />
     <linearGradient
        id="linearGradient3772">
       <stop
@@ -156,27 +149,6 @@
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1,0,0,1.0111111,0,-6.042129)" />
     <radialGradient
-       cx="317.55103"
-       cy="344.60709"
-       r="257.14285"
-       fx="317.55103"
-       fy="344.60709"
-       id="radialGradient3794-2"
-       xlink:href="#linearGradient3788-4"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1,0,0,1.0111111,0,-6.042129)" />
-    <linearGradient
-       id="linearGradient3788-4">
-      <stop
-         id="stop3790-5"
-         style="stop-color:#ffeeaa;stop-opacity:1"
-         offset="0" />
-      <stop
-         id="stop3792-5"
-         style="stop-color:#ffeeaa;stop-opacity:0"
-         offset="1" />
-    </linearGradient>
-    <radialGradient
        cx="608.16327"
        cy="685.8316"
        r="257.14285"
@@ -236,16 +208,6 @@
        xlink:href="#linearGradient3702"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(2.6524635,-0.03482834,0.03898838,2.9692836,-176.25361,-341.59711)" />
-    <radialGradient
-       cx="91.210907"
-       cy="129.03079"
-       r="53.178013"
-       fx="91.210907"
-       fy="129.03079"
-       id="radialGradient3708-7"
-       xlink:href="#linearGradient3702-4"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(2.6524635,-0.03482834,0.03898838,2.9692836,-176.25361,-341.59711)" />
     <linearGradient
        id="linearGradient3702-4">
       <stop
@@ -277,16 +239,6 @@
        xlink:href="#linearGradient3772"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
-    <radialGradient
-       cx="63.134533"
-       cy="117.13688"
-       r="20.708128"
-       fx="63.134533"
-       fy="117.13688"
-       id="radialGradient3778-8"
-       xlink:href="#linearGradient3772-2"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
     <linearGradient
        id="linearGradient3772-2">
       <stop
@@ -306,16 +258,6 @@
        fy="117.13688"
        id="radialGradient3797"
        xlink:href="#linearGradient3772-2"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
-    <radialGradient
-       cx="63.134533"
-       cy="117.13688"
-       r="20.708128"
-       fx="63.134533"
-       fy="117.13688"
-       id="radialGradient3778-1"
-       xlink:href="#linearGradient3772-7"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
     <linearGradient
@@ -339,16 +281,6 @@
        xlink:href="#linearGradient3772-7"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
-    <radialGradient
-       cx="63.134533"
-       cy="117.13688"
-       r="20.708128"
-       fx="63.134533"
-       fy="117.13688"
-       id="radialGradient3835-7"
-       xlink:href="#linearGradient3772-7-6"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
     <linearGradient
        id="linearGradient3772-7-6">
       <stop
@@ -368,16 +300,6 @@
        fy="117.13688"
        id="radialGradient3873"
        xlink:href="#linearGradient3772-7-6"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
-    <radialGradient
-       cx="63.134533"
-       cy="117.13688"
-       r="20.708128"
-       fx="63.134533"
-       fy="117.13688"
-       id="radialGradient3873-3"
-       xlink:href="#linearGradient3772-7-6-2"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.97201783,-0.07410325,0.12651484,1.3906244,-13.052916,-41.078056)" />
     <linearGradient
