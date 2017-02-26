@@ -3,9 +3,12 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-TEMPLATE = subdirs
-
-SUBDIRS += \
-	TestCrypt \
-	TestCryptographicHash \
-	TestPacketDataStream
+TEMPLATE = app
+QT = core network testlib
+CONFIG += testcase
+CONFIG += qt thread warn_on
+CONFIG -= app_bundle
+LANGUAGE = C++
+TARGET = TestPacketDataStream
+SOURCES = TestPacketDataStream.cpp
+INCLUDEPATH += ../.. ../../murmur ../../mumble
