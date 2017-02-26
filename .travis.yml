@@ -7,4 +7,4 @@ before_install:
     - sudo apt-get build-dep -qq mumble
 
 script:
-    - qmake CONFIG+="release g15-emulator qt4-legacy-compat" -recursive && make -j2
+    - qmake CONFIG+="release tests g15-emulator qt4-legacy-compat" -recursive && make -j2 && make check
