@@ -100,6 +100,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 #ifdef USE_BONJOUR
 	bsRegistration = NULL;
 #endif
+	bUsingMetaCert = false;
 
 #ifdef Q_OS_UNIX
 	aiNotify[0] = aiNotify[1] = -1;
