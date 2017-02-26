@@ -131,6 +131,7 @@ class Server : public QThread {
 		QVariant qvSuggestPositional;
 		QVariant qvSuggestPushToTalk;
 
+		bool bUsingMetaCert;
 		QSslCertificate qscCert;
 		QSslKey qskKey;
 

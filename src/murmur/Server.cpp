@@ -100,6 +100,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 #ifdef USE_BONJOUR
 	bsRegistration = NULL;
 #endif
+	bUsingMetaCert = false;
 
 #ifdef Q_OS_UNIX
 	aiNotify[0] = aiNotify[1] = -1;
@@ -1212,6 +1213,8 @@ void Server::newClient() {
 		// Add intermediate CAs found in the PEM
 		// bundle used for this server's certificate.
 		sock->addCaCertificates(qlIntermediates);
+
+		sock->setCiphers(Meta::mp.qlCiphers);
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		QSslConfiguration cfg = sock->sslConfiguration();

@@ -104,6 +104,8 @@ void Server::update() {
 	calist << qscCert;
 	ssl.setCaCertificates(calist);
 
+	ssl.setCiphers(Meta::mp.qlCiphers);
+
 	qnr.setSslConfiguration(ssl);
 
 	QNetworkReply *rep = qnamNetwork->post(qnr, doc.toString().toUtf8());

@@ -159,6 +159,10 @@ void Server::initializeCert() {
 		qscCert = Meta::mp.qscCert;
 		qskKey = Meta::mp.qskKey;
 		qlIntermediates = Meta::mp.qlIntermediates;
+
+		if (!qscCert.isNull() && !qskKey.isNull()) {
+			bUsingMetaCert = true;
+		}
 	}
 
 	// If we still don't have a certificate by now, try to load the one from Meta
@@ -166,9 +170,14 @@ void Server::initializeCert() {
 		if (! key.isEmpty() || ! crt.isEmpty()) {
 			log("Certificate specified, but failed to load.");
 		}
+
 		qskKey = Meta::mp.qskKey;
 		qscCert = Meta::mp.qscCert;
 		qlIntermediates = Meta::mp.qlIntermediates;
+
+		if (!qscCert.isNull() && !qskKey.isNull()) {
+			bUsingMetaCert = true;
+		}
 
 		// If loading from Meta doesn't work, build+sign a new one
 		if (qscCert.isNull() || qskKey.isNull()) {

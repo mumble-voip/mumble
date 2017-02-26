@@ -90,11 +90,18 @@ MetaParams::~MetaParams() {
  *	@param T Conversion target type (type of 'defaultValue', auto inducable)
  *	@param name qsSettings variable name
  *	@param defaultValue Default value for 'name'
+ *	@param settings The QSettings object to read from. If null, the Meta's qsSettings will be used.
  *	@return Setting if valid, default if not or setting not set.
  */
 template <class T>
-T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue) {
-	QVariant cfgVariable = qsSettings->value(name, defaultValue);
+T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue, QSettings *settings) {
+	// Use qsSettings unless a specific QSettings instance
+	// is requested.
+	if (settings == NULL) {
+		settings = qsSettings;
+	}
+
+	QVariant cfgVariable = settings->value(name, defaultValue);
 
 	if (!cfgVariable.convert(QVariant(defaultValue).type())) { // Bit convoluted as canConvert<T>() only does a static check without considering whether say a string like "blub" is actually a valid double (which convert does).
 		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of" << defaultValue << ".";
@@ -105,6 +112,8 @@ T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue
 }
 
 void MetaParams::read(QString fname) {
+	qmConfig.clear();
+
 	if (fname.isEmpty()) {
 		QStringList datapaths;
 
@@ -144,15 +153,15 @@ void MetaParams::read(QString fname) {
 				QFileInfo fi(p, "murmur.ini");
 				if (fi.exists() && fi.isReadable()) {
 					qdBasePath = QDir(p);
-					fname = fi.absoluteFilePath();
+					qsAbsSettingsFilePath = fi.absoluteFilePath();
 					break;
 				}
 			}
 		}
-		if (fname.isEmpty()) {
+		if (qsAbsSettingsFilePath.isEmpty()) {
 			QDir::root().mkpath(qdBasePath.absolutePath());
 			qdBasePath = QDir(datapaths.at(0));
-			fname = qdBasePath.absolutePath() + QLatin1String("/murmur.ini");
+			qsAbsSettingsFilePath = qdBasePath.absolutePath() + QLatin1String("/murmur.ini");
 		}
 	} else {
 		QFile f(fname);
@@ -160,11 +169,11 @@ void MetaParams::read(QString fname) {
 			qFatal("Specified ini file %s could not be opened", qPrintable(fname));
 		}
 		qdBasePath = QFileInfo(f).absoluteDir();
-		fname = QFileInfo(f).absoluteFilePath();
+		qsAbsSettingsFilePath = QFileInfo(f).absoluteFilePath();
 		f.close();
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
-	qsSettings = new QSettings(fname, QSettings::IniFormat);
+	qsSettings = new QSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
 #if QT_VERSION >= 0x040500
 	qsSettings->setIniCodec("UTF-8");
 #endif
@@ -458,49 +467,44 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	if (! QSslSocket::supportsSsl()) {
-		qFatal("Qt without SSL Support");
-	}
-
 	{
 		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
 		if (ciphers.isEmpty()) {
 			qFatal("Invalid sslCiphers option. Either the cipher string is invalid or none of the ciphers are available: \"%s\"", qPrintable(qsCiphers));
 		}
 
+#if !defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		// If the version of Qt we're building against doesn't support
 		// QSslDiffieHellmanParameters, then we must filter out Diffie-
 		// Hellman cipher suites in order to guarantee that we do not
 		// use Qt's default Diffie-Hellman parameters.
-		QList<QSslCipher> filtered;
-#if !defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-		foreach (QSslCipher c, ciphers) {
-			if (c.keyExchangeMethod() == QLatin1String("DH")) {
-				continue;
+		{
+			QList<QSslCipher> filtered;
+			foreach (QSslCipher c, ciphers) {
+				if (c.keyExchangeMethod() == QLatin1String("DH")) {
+					continue;
+				}
+				filtered << c;
 			}
-			filtered << c;
-		}
-		if (ciphers.size() != filtered.size()) {
-			qWarning("Warning: all cipher suites in sslCiphers using Diffie-Hellman key exchange "
-			         "have been removed. Qt %s does not support custom Diffie-Hellman parameters.",
-				 qVersion());
+			if (ciphers.size() != filtered.size()) {
+				qWarning("Warning: all cipher suites in sslCiphers using Diffie-Hellman key exchange "
+				         "have been removed. Qt %s does not support custom Diffie-Hellman parameters.",
+				         qVersion());
+			}
+
+			qlCiphers = filtered;
 		}
 #else
-		filtered = ciphers;
+		qlCiphers = ciphers;
 #endif
 
-		QSslSocket::setDefaultCiphers(filtered);
-
 		QStringList pref;
-		foreach (QSslCipher c, filtered) {
+		foreach (QSslCipher c, qlCiphers) {
 			pref << c.name();
 		}
 		qWarning("Meta: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
-	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
-
-	qmConfig.clear();
 	QStringList hosts;
 	foreach(const QHostAddress &qha, qlBind) {
 		hosts << qha.toString();

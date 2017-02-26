@@ -109,6 +109,10 @@ public:
 	/// sslCA option.
 	QList<QSslCertificate> qlCA;
 
+	/// qlCiphers contains the list of supported
+	/// cipher suites.
+	QList<QSslCipher> qlCiphers;
+
 	QByteArray qbaDHParams;
 	QByteArray qbaPassPhrase;
 	QString qsCiphers;
@@ -125,6 +129,9 @@ public:
 	QVariant qvSuggestPositional;
 	QVariant qvSuggestPushToTalk;
 
+	/// qsAbsSettingsFilePath is the absolute path to
+	/// the murmur.ini used by this Meta instance.
+	QString qsAbsSettingsFilePath;
 	QSettings *qsSettings;
 
 	MetaParams();
@@ -133,7 +140,7 @@ public:
 
 private:
 	template <class T>
-	T typeCheckedFromSettings(const QString &name, const T &variable);
+	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = NULL);
 };
 
 class Meta : public QObject {
