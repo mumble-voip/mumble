@@ -1559,31 +1559,7 @@ static void impl_Server_updateCertificate(const ::Murmur::AMD_Server_updateCerti
 
 	// Ensure that the private key is usable with the given
 	// certificate.
-	//
-	// Right now, we only support RSA keys in Murmur.
-	//
-	// To determine if the private key matches the certificate,
-	// we acquire the public key from the certificate and check
-	// that the modulus (n) and the public exponent (e) match
-	// those of the private key.
-	QSslKey pubKey = cert.publicKey();
-
-	if (privKey.algorithm() != QSsl::Rsa || pubKey.algorithm() != QSsl::Rsa) {
-		ERR_clear_error();
-		cb->ice_exception(InvalidInputDataException());
-		return;
-	}
-
-	RSA *privRSA = reinterpret_cast<RSA *>(privKey.handle());
-	RSA *pubRSA = reinterpret_cast<RSA *>(pubKey.handle());
-
-	if (BN_cmp(pubRSA->n, privRSA->n) != 0) {
-		ERR_clear_error();
-		cb->ice_exception(InvalidInputDataException());
-		return;
-	}
-
-	if (BN_cmp(pubRSA->e, privRSA->e) != 0) {
+	if (!::Server::isKeyForCert(privKey, cert)) {
 		ERR_clear_error();
 		cb->ice_exception(InvalidInputDataException());
 		return;
