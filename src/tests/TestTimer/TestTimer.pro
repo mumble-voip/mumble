@@ -3,10 +3,14 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-TEMPLATE = subdirs
-
-SUBDIRS += \
-	TestCrypt \
-	TestCryptographicHash \
-	TestPacketDataStream \
-	TestTimer
+TEMPLATE = app
+QT = core testlib
+CONFIG += testcase
+CONFIG += qt warn_on
+CONFIG -= app_bundle
+LANGUAGE = C++
+TARGET = TestTimer
+SOURCES = TestTimer.cpp Timer.cpp
+HEADERS = Timer.h
+VPATH += ../..
+INCLUDEPATH += ../.. ../../murmur ../../mumble
