@@ -473,31 +473,33 @@ void MetaParams::read(QString fname) {
 			qFatal("Invalid sslCiphers option. Either the cipher string is invalid or none of the ciphers are available: \"%s\"", qPrintable(qsCiphers));
 		}
 
+#if !defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		// If the version of Qt we're building against doesn't support
 		// QSslDiffieHellmanParameters, then we must filter out Diffie-
 		// Hellman cipher suites in order to guarantee that we do not
 		// use Qt's default Diffie-Hellman parameters.
-		QList<QSslCipher> filtered;
-#if !defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-		foreach (QSslCipher c, ciphers) {
-			if (c.keyExchangeMethod() == QLatin1String("DH")) {
-				continue;
+		{
+			QList<QSslCipher> filtered;
+			foreach (QSslCipher c, ciphers) {
+				if (c.keyExchangeMethod() == QLatin1String("DH")) {
+					continue;
+				}
+				filtered << c;
 			}
-			filtered << c;
-		}
-		if (ciphers.size() != filtered.size()) {
-			qWarning("Warning: all cipher suites in sslCiphers using Diffie-Hellman key exchange "
-			         "have been removed. Qt %s does not support custom Diffie-Hellman parameters.",
-				 qVersion());
+			if (ciphers.size() != filtered.size()) {
+				qWarning("Warning: all cipher suites in sslCiphers using Diffie-Hellman key exchange "
+				         "have been removed. Qt %s does not support custom Diffie-Hellman parameters.",
+				         qVersion());
+			}
+
+			qlCiphers = filtered;
 		}
 #else
-		filtered = ciphers;
+		qlCiphers = ciphers;
 #endif
 
-		QSslSocket::setDefaultCiphers(filtered);
-
 		QStringList pref;
-		foreach (QSslCipher c, filtered) {
+		foreach (QSslCipher c, qlCiphers) {
 			pref << c.name();
 		}
 		qWarning("Meta: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));

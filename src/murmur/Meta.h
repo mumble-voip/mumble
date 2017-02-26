@@ -109,6 +109,10 @@ public:
 	/// sslCA option.
 	QList<QSslCertificate> qlCA;
 
+	/// qlCiphers contains the list of supported
+	/// cipher suites.
+	QList<QSslCipher> qlCiphers;
+
 	QByteArray qbaDHParams;
 	QByteArray qbaPassPhrase;
 	QString qsCiphers;
