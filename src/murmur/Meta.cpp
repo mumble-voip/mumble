@@ -467,10 +467,6 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	if (! QSslSocket::supportsSsl()) {
-		qFatal("Qt without SSL Support");
-	}
-
 	{
 		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
 		if (ciphers.isEmpty()) {
@@ -506,8 +502,6 @@ void MetaParams::read(QString fname) {
 		}
 		qWarning("Meta: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
-
-	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
 
 	QStringList hosts;
 	foreach(const QHostAddress &qha, qlBind) {

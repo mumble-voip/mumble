@@ -365,6 +365,12 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	if (QSslSocket::supportsSsl()) {
+		qWarning("SSL: OpenSSL version is '%s'", SSLeay_version(SSLEAY_VERSION));
+	} else {
+		qFatal("SSL: this version of Murmur is built against Qt without SSL Support. Aborting.");
+	}
+
 #ifdef Q_OS_UNIX
 	inifile = unixhandler.trySystemIniFiles(inifile);
 #endif
