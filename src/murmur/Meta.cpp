@@ -90,11 +90,18 @@ MetaParams::~MetaParams() {
  *	@param T Conversion target type (type of 'defaultValue', auto inducable)
  *	@param name qsSettings variable name
  *	@param defaultValue Default value for 'name'
+ *	@param settings The QSettings object to read from. If null, the Meta's qsSettings will be used.
  *	@return Setting if valid, default if not or setting not set.
  */
 template <class T>
-T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue) {
-	QVariant cfgVariable = qsSettings->value(name, defaultValue);
+T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue, QSettings *settings) {
+	// Use qsSettings unless a specific QSettings instance
+	// is requested.
+	if (settings == NULL) {
+		settings = qsSettings;
+	}
+
+	QVariant cfgVariable = settings->value(name, defaultValue);
 
 	if (!cfgVariable.convert(QVariant(defaultValue).type())) { // Bit convoluted as canConvert<T>() only does a static check without considering whether say a string like "blub" is actually a valid double (which convert does).
 		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of" << defaultValue << ".";
