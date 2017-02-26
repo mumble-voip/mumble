@@ -112,6 +112,8 @@ T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue
 }
 
 void MetaParams::read(QString fname) {
+	qmConfig.clear();
+
 	if (fname.isEmpty()) {
 		QStringList datapaths;
 
@@ -507,7 +509,6 @@ void MetaParams::read(QString fname) {
 
 	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
 
-	qmConfig.clear();
 	QStringList hosts;
 	foreach(const QHostAddress &qha, qlBind) {
 		hosts << qha.toString();
