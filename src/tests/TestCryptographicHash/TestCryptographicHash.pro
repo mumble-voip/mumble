@@ -7,8 +7,9 @@ include(../../../compiler.pri)
 include(../../../qmake/openssl.pri)
 
 TEMPLATE = app
+QT = core testlib
 CONFIG += testcase
-CONFIG += qt warn_on qtestlib
+CONFIG += qt warn_on
 CONFIG -= app_bundle
 LANGUAGE = C++
 TARGET = TestCryptographicHash
