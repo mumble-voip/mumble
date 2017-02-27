@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Certificates</class>
  <widget class="QWizard" name="Certificates">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -233,14 +236,14 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <italic>true</italic>
        </font>
       </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
       <property name="styleSheet">
        <string notr="true">color:#ff0000;</string>
       </property>
       <property name="text">
        <string/>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
       </property>
      </widget>
     </item>

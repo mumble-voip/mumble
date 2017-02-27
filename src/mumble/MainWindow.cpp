@@ -431,6 +431,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning() && g.s.bAskOnQuit && !bSuppressAskOnQuit) {
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
+		mb.setWindowModality(Qt::WindowModal);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
 		QPushButton *qpbCancel = mb.addButton(tr("Cancel"), QMessageBox::RejectRole);
@@ -1377,6 +1378,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s<br />Codec: %3</p>").arg(g.iMaxBandwidth / 1000.0,0,'f',1).arg(g.iAudioBandwidth / 1000.0,0,'f',1).arg(currentCodec());
 
 	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsVersion + qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
+	qmb.setWindowModality(Qt::WindowModal);
 	qmb.setDefaultButton(QMessageBox::Ok);
 	qmb.setEscapeButton(QMessageBox::Ok);
 

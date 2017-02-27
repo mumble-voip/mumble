@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>AudioWizard</class>
  <widget class="QWizard" name="AudioWizard">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -503,7 +506,16 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <item row="5" column="0" colspan="2">
      <widget class="QWidget" name="qwVAD" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_6">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
