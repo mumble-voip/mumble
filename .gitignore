@@ -34,6 +34,7 @@ winpaths_custom.pri
 mocinclude.opt
 src/mumble/mumble_qt_auto.qrc
 *_plugin_import.cpp
+target_wrapper.bat
 doxygen/
 .qmake.cache
 .qmake.stash
