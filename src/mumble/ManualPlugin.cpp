@@ -216,16 +216,11 @@ static void config(void *ptr) {
 
 	if (mDlg) {
 		mDlg->setParent(w, Qt::Dialog);
-#if QT_VERSION < 0x050000
 		mDlg->qpbUnhinge->setEnabled(true);
-#endif
 	} else {
 		mDlg = new Manual(w);
 	}
 
-#if QT_VERSION >= 0x050000
-	mDlg->qpbUnhinge->setEnabled(false);
-#endif
 	mDlg->show();
 }
 
