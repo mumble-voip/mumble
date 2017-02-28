@@ -1,10 +1,15 @@
 sudo: required # Required for apt-get build-dep
+dist: trusty
 language: cpp
 compiler: gcc
 
+env:
+  matrix:
+    - MUMBLE_QT=qt4
+    - MUMBLE_QT=qt5
+
 before_install:
-    - sudo apt-get -qq update
-    - sudo apt-get build-dep -qq mumble
+    - ./scripts/travis-ci/before_install.bash
 
 script:
-    - qmake CONFIG+="release tests g15-emulator qt4-legacy-compat" -recursive && make -j2 && make check
+    - ./scripts/travis-ci/script.bash
