@@ -228,7 +228,15 @@ void UnixMurmur::handleSigUsr1() {
 	ssize_t len = ::read(iUsr1Fd[1], &tmp, sizeof(tmp));
 	Q_UNUSED(len);
 
-	qWarning("Received USR1 signal... Ignoring...");
+	if (meta) {
+		qWarning("UnixMurmur: Trying to reload SSL settings...");
+		bool ok = meta->reloadSSLSettings();
+		if (ok) {
+			qWarning("UnixMurmur: Done reloading SSL settings.");
+		} else {
+			qWarning("UnixMurmur: Failed to reload SSL settings. Server state is intact and fully operational. No configuration changes were made.");
+		}
+	}
 
 	qsnUsr1->setEnabled(true);
 }

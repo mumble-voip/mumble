@@ -138,6 +138,12 @@ public:
 	~MetaParams();
 	void read(QString fname = QString("murmur.ini"));
 
+	/// Attempt to load SSL settings from murmur.ini.
+	/// Returns true if successful. Returns false if
+	/// the operation failed. On failure, the MetaParams
+	/// object is left 100% intact.
+	bool loadSSLSettings();
+
 private:
 	template <class T>
 	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = NULL);
@@ -161,6 +167,13 @@ class Meta : public QObject {
 
 		Meta();
 		~Meta();
+
+		/// reloadSSLSettings reloads Murmur's MetaParams's
+		/// SSL settings, and updates the certificate and
+		/// private key for all virtual servers that use the
+		/// Meta server's certificate and private key.
+		bool reloadSSLSettings();
+
 		void bootAll();
 		bool boot(int);
 		bool banCheck(const QHostAddress &);
