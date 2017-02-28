@@ -9,8 +9,16 @@ include(../../../qmake/openssl.pri)
 TEMPLATE = app
 QT = core testlib
 CONFIG += testcase
-CONFIG += qt warn_on
+CONFIG += warn_on
 CONFIG -= app_bundle
+
+# We build this test with 'gui' in QT,
+# but we include the QtGui headers from
+# murmur_pch.h. Define QT_NO_OPENGL to
+# avoid build errors about a missing GLES/gles2.h
+# header.
+DEFINES += QT_NO_OPENGL
+
 LANGUAGE = C++
 TARGET = TestCryptographicHash
 SOURCES = TestCryptographicHash.cpp CryptographicHash.cpp
