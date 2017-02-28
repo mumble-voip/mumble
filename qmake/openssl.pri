@@ -16,7 +16,7 @@ include(../pkgconfig.pri)
 win32 {
 	INCLUDEPATH *= "$$OPENSSL_PATH/include"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib"
-	LIBS *= -llibeay32
+	LIBS *= -lgdi32 -llibeay32
 }
 
 unix {
