@@ -8,5 +8,6 @@ TEMPLATE = subdirs
 SUBDIRS += \
 	TestCrypt \
 	TestCryptographicHash \
+	TestCryptographicRandom \
 	TestPacketDataStream \
 	TestTimer
