@@ -12,6 +12,14 @@ CONFIG += testcase
 CONFIG += qt warn_on
 CONFIG -= app_bundle
 LANGUAGE = C++
+
+# We build this test with 'gui' in QT,
+# but we include the QtGui headers from
+# murmur_pch.h. Define QT_NO_OPENGL to
+# avoid build errors about a missing GLES/gles2.h
+# header.
+DEFINES += QT_NO_OPENGL
+
 TARGET = TestCryptographicRandom
 SOURCES = TestCryptographicRandom.cpp CryptographicRandom.cpp arc4random_uniform.cpp
 HEADERS = CryptographicHash.h
