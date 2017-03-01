@@ -91,6 +91,7 @@ my @thirdPartyLicenses = (
     ["licenseQQBonjour", "../3rdparty/qqbonjour-src/LICENSE", "QQBonjour", "https://doc.qt.io/archives/qq/qq23-bonjour.html"],
     ["licenseSmallFT", "../3rdparty/smallft-src/LICENSE", "smallft", "https://www.xiph.org"],
     ["licenseOldStyleLicenseHeaders", "../3rdPartyLicenses/mumble-old-license-headers/LICENSE.txt", "Old-style Mumble license headers", "https://www.mumble.info"],
+    ["licenseArc4RandomUniform", "../3rdparty/arc4random-src/LICENSE", "arc4random_uniform", "https://www.openbsd.org"],
 
 );
 
