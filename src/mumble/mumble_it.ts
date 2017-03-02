@@ -713,7 +713,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location line="+1"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Autori</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -906,7 +906,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;Questo imposterà la qualità della compressione.&lt;/b&gt;&lt;br /&gt;Determina quanta banda Mumble sarà autorizzato ad usare per l&apos;audio in uscita.</translation>
+        <translation>&lt;b&gt;Imposta la qualità della compressione.&lt;/b&gt;&lt;br /&gt;Determina quanta banda Mumble sarà autorizzato ad usare per l&apos;audio in uscita.</translation>
     </message>
     <message>
         <location/>
@@ -946,7 +946,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Questo imposta la quantità di rumore da eliminare.&lt;b&gt;&lt;br /&gt;Più alto sarà questo valore e più rumore di sottofondo sarà eliminato.</translation>
+        <translation>&lt;b&gt;Imposta la quantità di rumore da eliminare.&lt;b&gt;&lt;br /&gt;Più alto sarà questo valore e più rumore di sottofondo verrà eliminato.</translation>
     </message>
     <message>
         <location/>
@@ -956,7 +956,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Massima amplificazione dell&apos;ingresso.&lt;/b&gt;&lt;br /&gt; Mumble normalizza il volume in ingresso prima della compressione, e questo imposta quanto gli è consentito amplificarlo.&lt;br /&gt;Il livello effettivo è continuamente aggiornato in base ai suoni ricevuti, ma non potrà mai andare al di sopra del livello indicato qui.&lt;br /&gt;Se il livello del &lt;i&gt;Volume del microfono&lt;/i&gt; nelle statistiche audio si aggira intorno al 100%, probabilmente vorrai impostare questo parametro a 2.0 o piú, ma se , come la maggior parte delle persone, non riesci a raggiungere il 100%, imposta un livello anche molto più alto.&lt;br /&gt;Idealmente, dovresti impostarlo in modo che &lt;i&gt;Volume del microfono x Fattore di amplificazione&gt;= 100&lt;/i&gt;, anche quando stai parlando piano.&lt;br /&gt;&lt;br /&gt;Si noti che non vi è nulla di male nel mettere questa impostazione al massimo, ma Mumble inizierà raccogliendo le altre conversazioni se lasciato per l&apos;auto-tune a quel livello.</translation>
+        <translation>&lt;b&gt;Massima amplificazione dell&apos;ingresso.&lt;/b&gt;&lt;br /&gt; Mumble normalizza il volume in ingresso prima della compressione, e questo imposta quanto gli è consentito amplificarlo.&lt;br /&gt;Il livello effettivo è continuamente aggiornato in base ai suoni ricevuti, ma non potrà mai andare al di sopra del livello indicato qui.&lt;br /&gt;Se il livello del &lt;i&gt;Volume del microfono&lt;/i&gt; nelle statistiche audio si aggira intorno al 100%, probabilmente vorrai impostare questo parametro a 2.0 o più, ma se , come la maggior parte delle persone, non riesci a raggiungere il 100%, imposta un livello anche molto più alto.&lt;br /&gt;Idealmente, dovresti impostarlo in modo che &lt;i&gt;Volume del microfono x Fattore di amplificazione&gt;= 100&lt;/i&gt;, anche quando stai parlando piano.&lt;br /&gt;&lt;br /&gt;Si noti che non vi è nulla di male nel mettere questa impostazione al massimo, ma Mumble inizierà raccogliendo le altre conversazioni se lasciato per l&apos;auto-tune a quel livello.</translation>
     </message>
     <message>
         <location/>
@@ -981,7 +981,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Questo imposta l&apos;individuazione del discorso con il rapporto segnale/rumore.&lt;/b&gt;&lt;br /&gt;In questa modalità, l&apos;ingresso è analizzato per trovare qualcosa di simile a un chiaro segnale, e la chiarezza del segnale viene utilizzata per attivare il rilevamento del discorso.</translation>
+        <translation>&lt;b&gt;Imposta l&apos;individuazione del discorso con il rapporto segnale/rumore.&lt;/b&gt;&lt;br /&gt;In questa modalità, l&apos;ingresso è analizzato per trovare qualcosa di simile a un chiaro segnale, e la chiarezza del segnale viene utilizzata per attivare il rilevamento del discorso.</translation>
     </message>
     <message>
         <location/>
@@ -1277,7 +1277,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Imposta il margine  minimo di sicurezza per il jitter del buffer.&lt;/b&gt;&lt;br /&gt;Tutto l&apos;audio in ingresso è messo nel buffer, ed il jitter del buffer cerca continuamente di tenere il buffer al minimo sostenibile dalla tua rete, in modo da avere una latenza quanto piú bassa possibile. Imposta la dimensione minima del buffer da utilizzare. Se all&apos;inizio delle frasi c&apos;è un rumore distorto, aumenta questo valore.</translation>
+        <translation>&lt;b&gt;Imposta il margine  minimo di sicurezza per il jitter del buffer.&lt;/b&gt;&lt;br /&gt;Tutto l&apos;audio in ingresso è messo nel buffer, ed il jitter del buffer cerca continuamente di tenere il buffer al minimo sostenibile dalla tua rete, in modo da avere una latenza quanto più bassa possibile. Imposta la dimensione minima del buffer da utilizzare. Se all&apos;inizio delle frasi c&apos;è un rumore distorto, aumenta questo valore.</translation>
     </message>
     <message>
         <location/>
@@ -1292,7 +1292,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Questo imposta la massima distanza per il calcolo del suono. Quando saranno piú distanti il volume dei discorsi degli altri utenti non diminuirà piú.</translation>
+        <translation>Imposta la massima distanza per il calcolo del suono. Quando saranno più distanti il volume dei discorsi degli altri utenti non diminuirà più.</translation>
     </message>
     <message>
         <location/>
@@ -1409,7 +1409,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;Questo imposta lala varizione nella latenza del pacchetto per il test di loopback locale. &lt;/b&gt;&lt;br /&gt; La maggior parte dei percorsi dell&apos;audio contengono della latenza variabile. Questo permette di impostare questa variazione per la modalità di test di loopback. Ad esempio, se si imposta questo a 15ms, verrà emulata una rete con 20-35ms di latenza oppure con 80-95ms di latenza. La maggior parte delle connessioni di rete domestiche ha una variazione di circa 5ms.</translation>
+        <translation>&lt;b&gt;Imposta la variazione nella latenza del pacchetto per il test di loopback locale. &lt;/b&gt;&lt;br /&gt; La maggior parte dei percorsi dell&apos;audio contengono della latenza variabile. Questo permette di impostare questa variazione per la modalità di test di loopback. Ad esempio, se si imposta questo a 15ms, verrà emulata una rete con 20-35ms di latenza oppure con 80-95ms di latenza. La maggior parte delle connessioni di rete domestiche ha una variazione di circa 5ms.</translation>
     </message>
     <message>
         <location/>
@@ -1880,7 +1880,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation>Questo abilita l&apos;eliminazione dell&apos;eco per il suono in uscita, che aiuta sia con gli altoparlanti che con le cuffie.</translation>
+        <translation>Abilita l&apos;eliminazione del riverbero per il suono in uscita, che aiuta sia con gli altoparlanti che con le cuffie.</translation>
     </message>
     <message>
         <location/>
@@ -1973,7 +1973,7 @@ Dovresti sentire un esempio di voce.Imposta il cursore sottostante al minor valo
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Imposta la quantità di pre-buffer da mettere nel buffer in uscita. Prova con diversi valori e imposta quello  piú basso che non causa distorsioni nel suono.</translation>
+        <translation>Imposta la quantità di pre-buffer da mettere nel buffer in uscita. Prova con diversi valori e imposta quello  più basso che non causa distorsioni nel suono.</translation>
     </message>
     <message>
         <location/>
@@ -2521,7 +2521,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile importare. Password mancante o tipo di file incompatibile.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -3613,7 +3613,7 @@ delle possibili posizioni.</translation>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Console Sviluppatore</translation>
     </message>
 </context>
 <context>
@@ -4052,12 +4052,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+119"/>
         <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Nessuna immagine valida ]]</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Dimensione non valida ]]</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4569,17 +4569,17 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Trascinamento Utente</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"/>
+        <translation>Imposta l&apos;azione da compiere al trascinamento di utenti.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Imposta il comportamento del trascinamento utenti, può essere utilizzato per evitare il trascinamento accidentale. &lt;i&gt;Sposta&lt;/i&gt; l&apos;utente viene spostato senza chiedere conferma. &lt;i&gt;Non fare nulla&lt;/i&gt; non sposta e visualizza un messaggio di errore. &lt;i&gt;Chiedi&lt;/i&gt; mostra una finestra di dialogo per chiedere conferma.</translation>
     </message>
 </context>
 <context>
@@ -4918,7 +4918,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+112"/>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Digest certificato previsto (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4928,7 +4928,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Gli errori specifici con questo certificato sono:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Vuoi comunque accettare questo certificato?&lt;br /&gt;(Verrà anche salvato, così non ti verrà più chiesto.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -5015,13 +5015,13 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <location line="+3"/>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Invia Appunti come Messaggio di Testo</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Invierà il contenuto dei tuoi Appunti come messaggio di testo al canale in cui sei al momento.</translation>
     </message>
     <message>
         <location line="+88"/>
@@ -5246,7 +5246,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+5"/>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Digest certificato server (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6187,7 +6187,7 @@ certificato ed il nome utente.</translation>
     <message>
         <location line="+2"/>
         <source>(Private) </source>
-        <translation type="unfinished"/>
+        <translation>(Privato)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6323,7 +6323,7 @@ certificato ed il nome utente.</translation>
     <message>
         <location filename="UserModel.cpp" line="+1377"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Hai impostato &quot;Non Fare Nulla&quot; su Trascinamento Utente quindi l&apos;utente non è stato spostato.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6369,7 +6369,30 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilizzo: mumble [opzioni] [&lt;url&gt;]
+
+&lt;url&gt;Specifica un URL a cui connettersi dopo l&apos;avvio, invece
+di visualizzare
+la finestra di connessione, ed ha la seguente forma:
+mumble://[&lt;nomeutente&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;porta&gt;][/&lt;canale&gt;[/&lt;sottocanale&gt;...]][?version=&lt;x.y.z&gt;]
+
+I parametri di versione devono essere messi nel giusto ordine per
+richiamare la giusta versione del client.
+Il valore attuale di default è 1.2.0.
+
+Opzioni valide:
+-h, --help    Visualizza questo messaggio di aiuto ed esce.
+-m, --multiple
+Permette di avviare più di un&apos;istanza del programma contemporaneamente.
+-n, --noidentity
+Impedisce il caricamento di file di identificazione (es. certificati)
+--license
+Mostra la licenza di Mumble.
+--authors
+Mostra gli autori di Mumble.
+--third-party-licenses
+Mostra le licenze dei software di terze parti utilizzati da Mumble.
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6393,7 +6416,24 @@ Valid actions are:
                 Toggle self-deafen stauts
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilizzo: mumble rpc &lt;azione&gt; [opzioni]
+
+È possibile controllare da remoto un&apos;istanza di Mumble già avviata utilizzando il comando &quot;mumble rpc&quot;.
+
+Le azioni valide sono:
+mute
+Mute self
+unmute
+Unmute self
+togglemute
+Toggle self-mute status
+deaf
+Deafen self
+undeaf
+Undeafen self
+toggledeaf
+Toggle self-deafen status
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6654,37 +6694,37 @@ contestuale del canale.</translation>
     <message>
         <location/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Sviluppatore</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Nascondi Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Nasconde la finestra principale di Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation>Nasconde la finestra principale di Mumble. Ripristinala premendo sull&apos;icona in Tray o aprendo Mumble nuovamente.</translation>
     </message>
     <message>
         <location/>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Console Sviluppatore</translation>
     </message>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Mostra la Console Sviluppatore</translation>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Mostra la Console Sviluppatore di Mumble, dove l&apos;output del log di Mumble può venir ispezionato.</translation>
     </message>
 </context>
 <context>
@@ -6692,92 +6732,92 @@ contestuale del canale.</translation>
     <message>
         <location filename="ManualPlugin.ui"/>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Audio Posizionale Mumble Manuale</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Posizione</translation>
     </message>
     <message>
         <location/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location/>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <location/>
         <source>Heading</source>
-        <translation type="unfinished"/>
+        <translation>Direzione</translation>
     </message>
     <message>
         <location/>
         <source>Azimuth</source>
-        <translation type="unfinished"/>
+        <translation>Azimut</translation>
     </message>
     <message>
         <location/>
         <source>Elevation</source>
-        <translation type="unfinished"/>
+        <translation>Elevazione</translation>
     </message>
     <message>
         <location/>
         <source>°</source>
-        <translation type="unfinished"/>
+        <translation>°</translation>
     </message>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Meta data</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Contesto</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Identità</translation>
     </message>
     <message>
         <location/>
         <source>Set</source>
-        <translation type="unfinished"/>
+        <translation>Imposta</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Stato</translation>
     </message>
     <message>
         <location/>
         <source>Linked</source>
-        <translation type="unfinished"/>
+        <translation>Collegato</translation>
     </message>
     <message>
         <location/>
         <source>Activated</source>
-        <translation type="unfinished"/>
+        <translation>Attivato</translation>
     </message>
     <message>
         <location/>
         <source>Unhinge</source>
-        <translation type="unfinished"/>
+        <translation>Scollega</translation>
     </message>
 </context>
 <context>
@@ -7883,7 +7923,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     <message>
         <location filename="ServerHandler.cpp" line="+397"/>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>Il server non risponde ai ping TCP</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -8602,7 +8642,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <location line="+722"/>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"/>
+        <translation>Sei sicuro di voler trascinare questo utente?</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -8676,36 +8716,36 @@ Un token di accesso è una stringa di testo, che può essere usata come password
         <location line="+36"/>
         <location line="+40"/>
         <source>Common Name</source>
-        <translation type="unfinished"/>
+        <translation>Nome Comune</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>Organizzazione</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Subunit</source>
-        <translation type="unfinished"/>
+        <translation>Sotto-unità</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+40"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Paese</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Locality</source>
-        <translation type="unfinished"/>
+        <translation>Località</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Stato</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -8745,7 +8785,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <location line="+2"/>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"/>
+        <translation>Digest (SHA-256): %1</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -8765,7 +8805,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <location line="+3"/>
         <source>Unit Name</source>
-        <translation type="unfinished"/>
+        <translation>Nome Unità</translation>
     </message>
 </context>
 <context>
