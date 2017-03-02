@@ -10,4 +10,5 @@ SUBDIRS += \
 	TestCryptographicHash \
 	TestCryptographicRandom \
 	TestPacketDataStream \
+	TestPasswordGenerator \
 	TestTimer
