@@ -17,6 +17,7 @@
 #include "ServerUser.h"
 #include "User.h"
 #include "PBKDF2.h"
+#include "PasswordGenerator.h"
 
 #define SQLQUERY(x) ServerDB::query(query, QLatin1String(x), true)
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
@@ -725,13 +726,8 @@ void Server::initialize() {
 		query.addBindValue(QLatin1String("SuperUser"));
 		SQLEXEC();
 
-		int length = qrand() % 8 + 8;
-		QString pw;
-		pw.reserve(length);
-
-		while (length--)
-			pw.append(QChar(qrand() % 94 + 33));
-
+		const int passwordLength = 12;
+		QString pw = PasswordGenerator::generatePassword(passwordLength);
 		ServerDB::setSUPW(iServerNum, pw);
 		log(QString("Password for 'SuperUser' set to '%2'").arg(pw));
 	}
