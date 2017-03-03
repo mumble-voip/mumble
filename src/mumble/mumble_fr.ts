@@ -713,7 +713,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <location line="+1"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>A&amp;uteurs</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2521,7 +2521,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Import impossible. Mot de passe manquant ou type de fichier invalide.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -3613,7 +3613,7 @@ of the possible locations.</source>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Console Développeur</translation>
     </message>
 </context>
 <context>
@@ -4051,12 +4051,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+119"/>
         <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Pas d&apos;image valide ]]</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Taille invalide ]]</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4568,17 +4568,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Faire glisser l&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"/>
+        <translation>Change le comportement lors du déplacement des utilisateurs.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Définit le comportement en cas de déplacement d&apos;un utilisateur ; peut être utilisé pour prévenir un déplacement accidentel. &lt;i&gt;Déplacer&lt;/i&gt; déplace l&apos;utilisateur sans rien demander. &lt;i&gt;Ne rien faire&lt;/i&gt; n&apos;effectue aucune opération et affiche un message d&apos;erreur. &lt;i&gt;Demander&lt;/i&gt; affiche une fenêtre de confirmation pour confirmer le déplacement de l&apos;utilisateur.</translation>
     </message>
 </context>
 <context>
@@ -4917,7 +4917,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+112"/>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Un hash de certificat était attendu (SHA-1) :	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4927,7 +4927,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes : &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et la question ne vous sera pas posée à nouveau.)&lt;p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -5014,13 +5014,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Envoyer le contenu du presse-papier</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Ceci enverra le contenu de votre presse-papier au salon dans lequel vous vous trouvez actuellement.</translation>
     </message>
     <message>
         <location line="+88"/>
@@ -5245,7 +5245,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Hash du certificat du serveur (SHA-1) :	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6185,7 +6185,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+2"/>
         <source>(Private) </source>
-        <translation type="unfinished"/>
+        <translation>(Privé)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6321,7 +6321,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location filename="UserModel.cpp" line="+1377"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Votre option « Faire glisser l&apos;utilisateur » est définie sur « Ne rien faire », l&apos;utilisateur n&apos;a donc pas été déplacé.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6367,7 +6367,27 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilisation : mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; spécifie une URL à laquelle une connexion sera établie après le démarrage au lieu de l&apos;affichage de la fenêtre de connexion sous la forme suivante :
+mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;sous-salon&gt;...]][?version=&lt;x.y.z&gt;]
+
+Le paramètre de demande de version doit être réglé afin d&apos;invoquer la version correcte du client. Actuellement, la valeur par défaut est 1.2.0.
+
+Les options valides sont :
+  -h, --help    Afficher ce message d&apos;aide et quitter.
+  -m, --multiple
+                Autoriser le démarrage de multiples instances du client.
+  -n, --noidentity
+                Supprimer le chargement des fichiers d&apos;identité (par exemple des certificats).
+  --license
+                Afficher la license de Mumble.
+  --authors
+                Afficher les auteurs de Mumble.
+  --third-party-licenses
+                Afficher les licenses des programmes tiers utilisés par Mumble.
+
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6391,7 +6411,26 @@ Valid actions are:
                 Toggle self-deafen stauts
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilisation: mumble rpc &lt;action&gt; [options]
+
+Il est possible de prendre le contrôle à distance d&apos;une instance de
+Mumble en utilisant la commande &apos;mumble rpc&apos;
+
+Les actions valides sont :
+  mute
+                Se rendre muet
+  unmute
+                Se rendre la voix
+  togglemute
+                Inverser son status vocal
+  deaf
+                Se rendre sourd
+  undeaf
+                Se rendre l&apos;ouïe
+  toggledeaf
+                Inverser son status auditif
+
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6652,37 +6691,38 @@ pour filtrage depuis le menu du canal.</translation>
     <message>
         <location/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Développeur</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Cac&amp;her Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Cache la fenêtre principale de Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation>Cache la fenêtre principale de Mumble. Restaurez-la en cliquant sur l&apos;icône dans la barre des tâches ou en relançant Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Console Développeur</translation>
     </message>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Affiche la console développeur</translation>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.
+Affiche la console développeur Mumble où les logs peuvent être consultés.</translation>
     </message>
 </context>
 <context>
@@ -6690,92 +6730,92 @@ pour filtrage depuis le menu du canal.</translation>
     <message>
         <location filename="ManualPlugin.ui"/>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Positionnement audio manuel</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Position</translation>
     </message>
     <message>
         <location/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location/>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <location/>
         <source>Heading</source>
-        <translation type="unfinished"/>
+        <translation>Cap</translation>
     </message>
     <message>
         <location/>
         <source>Azimuth</source>
-        <translation type="unfinished"/>
+        <translation>Azimut</translation>
     </message>
     <message>
         <location/>
         <source>Elevation</source>
-        <translation type="unfinished"/>
+        <translation>Altitude</translation>
     </message>
     <message>
         <location/>
         <source>°</source>
-        <translation type="unfinished"/>
+        <translation>°</translation>
     </message>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Méta données</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Contexte</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Identité</translation>
     </message>
     <message>
         <location/>
         <source>Set</source>
-        <translation type="unfinished"/>
+        <translation>Définir</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>État</translation>
     </message>
     <message>
         <location/>
         <source>Linked</source>
-        <translation type="unfinished"/>
+        <translation>Lié</translation>
     </message>
     <message>
         <location/>
         <source>Activated</source>
-        <translation type="unfinished"/>
+        <translation>Activé</translation>
     </message>
     <message>
         <location/>
         <source>Unhinge</source>
-        <translation type="unfinished"/>
+        <translation>Détacher</translation>
     </message>
 </context>
 <context>
@@ -7881,7 +7921,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     <message>
         <location filename="ServerHandler.cpp" line="+397"/>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>Le serveur ne répond pas aux pings</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -8600,7 +8640,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+722"/>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"/>
+        <translation>Êtes-vous sûr de vouloir déplacer cet utilisateur ?</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -8674,36 +8714,36 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <location line="+36"/>
         <location line="+40"/>
         <source>Common Name</source>
-        <translation type="unfinished"/>
+        <translation>Nom courant</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>Organisation</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Subunit</source>
-        <translation type="unfinished"/>
+        <translation>Nom d&apos;unité</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+40"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Pays</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Locality</source>
-        <translation type="unfinished"/>
+        <translation>Localité</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>État</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -8743,7 +8783,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+2"/>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"/>
+        <translation>Hash (SHA-256): %1</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -8763,7 +8803,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+3"/>
         <source>Unit Name</source>
-        <translation type="unfinished"/>
+        <translation>Nom d&apos;unité</translation>
     </message>
 </context>
 <context>
