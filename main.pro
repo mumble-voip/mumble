@@ -105,6 +105,10 @@ CONFIG(tests) {
   SUBDIRS *= src/tests
 }
 
+win32:!CONFIG(no-installer) {
+  SUBDIRS *= installer
+}
+
 DIST=LICENSE INSTALL README README.Linux CHANGES
 
 include(scripts/scripts.pro)
