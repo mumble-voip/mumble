@@ -85,6 +85,15 @@ QSslKey Server::privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass)
 void Server::initializeCert() {
 	QByteArray crt, key, pass, dhparams;
 
+	// Clear all exising SSL settings
+	// for this server.
+	qscCert.clear();
+	qlIntermediates.clear();
+	qskKey.clear();
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+	qsdhpDHParams = QSslDiffieHellmanParameters();
+#endif
+
 	crt = getConf("certificate", QString()).toByteArray();
 	key = getConf("key", QString()).toByteArray();
 	pass = getConf("passphrase", QByteArray()).toByteArray();
