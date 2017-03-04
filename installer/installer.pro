@@ -23,6 +23,6 @@ baketranslations.target = baketranslations
 baketranslations.commands = perl build_installer.pl
 
 installer.target = installer
-installer.depends = wix baketranslations
+installer.depends = murmurini wix baketranslations
 
 QMAKE_EXTRA_TARGETS = murmurini wix baketranslations installer
