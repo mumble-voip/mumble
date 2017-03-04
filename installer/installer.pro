@@ -14,7 +14,7 @@ equals(MUMBLE_ARCH, x86_64) {
 }
 
 mumurini.target = murmurini
-murmurini.commands = cd ..\scripts && mkini-win32.bat
+murmurini.commands = cd ..\\scripts && mkini-win32.bat
 
 wix.target = wix
 wix.commands = msbuild /p:Configuration=Release;Platform=$$WIX_ARCH MumbleInstall.sln /t:Clean,Build
