@@ -25,7 +25,7 @@
 
   <!-- Defaults for values that aren't given by environment variables -->
   <?ifndef env.MumbleSourceDir ?>
-    <?define SourceDir = "\dev\mumble" ?>
+    <?define SourceDir = ".." ?>
   <?else ?>
     <?define SourceDir = "$(env.MumbleSourceDir)" ?>
   <?endif ?>
