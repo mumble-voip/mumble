@@ -113,14 +113,16 @@
       <ComponentRef Id="celt0.0.7.0.dll" />
       <ComponentRef Id="celt0.0.11.0.dll" />
       <ComponentRef Id="opus.dll" />
-      <?ifdef SSE ?>
-        <ComponentRef Id="celt0.0.7.0.sse.dll" />
-        <ComponentRef Id="celt0.0.11.0.sse.dll" />
-      <?endif ?>
-      <?ifdef SSE2 ?>
-        <ComponentRef Id="celt0.0.7.0.sse2.dll" />
-        <ComponentRef Id="celt0.0.11.0.sse2.dll" />
-        <ComponentRef Id="opus.sse2.dll" />
+      <?if $(sys.BUILDARCH) = "x86" ?>
+        <?ifdef SSE ?>
+          <ComponentRef Id="celt0.0.7.0.sse.dll" />
+          <ComponentRef Id="celt0.0.11.0.sse.dll" />
+        <?endif ?>
+        <?ifdef SSE2 ?>
+          <ComponentRef Id="celt0.0.7.0.sse2.dll" />
+          <ComponentRef Id="celt0.0.11.0.sse2.dll" />
+          <ComponentRef Id="opus.sse2.dll" />
+        <?endif ?>
       <?endif ?>
       <ComponentRef Id="mumble_app.dll" />
       <ComponentRef Id="mumble.exe" />
