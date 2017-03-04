@@ -5,8 +5,19 @@
 
 TEMPLATE = aux
 
+MUMBLE_ARCH = $$QMAKE_TARGET.arch
+equals(MUMBLE_ARCH, x86) {
+	WIX_ARCH = x86
+}
+equals(MUMBLE_ARCH, x86_64) {
+	WIX_ARCH = x64
+}
+
+mumurini.target = murmurini
+murmurini.commands = cd ..\scripts && mkini-win32.bat
+
 wix.target = wix
-wix.commands = msbuild /p:Configuration=Release;Platform=x86 MumbleInstall.sln /t:Clean,Build
+wix.commands = msbuild /p:Configuration=Release;Platform=$$WIX_ARCH MumbleInstall.sln /t:Clean,Build
 
 baketranslations.target = baketranslations
 baketranslations.commands = perl build_installer.pl
@@ -14,4 +25,4 @@ baketranslations.commands = perl build_installer.pl
 installer.target = installer
 installer.depends = wix baketranslations
 
-QMAKE_EXTRA_TARGETS = wix baketranslations installer
+QMAKE_EXTRA_TARGETS = murmurini wix baketranslations installer
