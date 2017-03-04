@@ -18,9 +18,11 @@ murmurini.commands = cd ..\\scripts && mkini-win32.bat
 
 wix.target = wix
 wix.commands = msbuild /p:Configuration=Release;Platform=$$WIX_ARCH MumbleInstall.sln /t:Clean,Build
+wix.depends = murmurini
 
 baketranslations.target = baketranslations
 baketranslations.commands = perl build_installer.pl
+baketranslations.depends = wix
 
 installer.target = installer
 installer.depends = murmurini wix baketranslations
