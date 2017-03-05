@@ -62,7 +62,7 @@ void Connection::setToS() {
 		return;
 
 	dwFlow = 0;
-	if (! QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), NULL, QOSTrafficTypeAudioVideo, QOS_NON_ADAPTIVE_FLOW, &dwFlow))
+	if (! QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), NULL, QOSTrafficTypeAudioVideo, QOS_NON_ADAPTIVE_FLOW, reinterpret_cast<PQOS_FLOWID>(&dwFlow)))
 		qWarning("Connection: Failed to add flow to QOS");
 #elif defined(Q_OS_UNIX)
 	int val = 0xa0;
