@@ -3,8 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_OVERLAY_LAUNCHERFILTER_H_
-#define MUMBLE_OVERLAY_LAUNCHERFILTER_H_
+#ifndef MUMBLE_OVERLAY_LAUNCHERS_H_
+#define MUMBLE_OVERLAY_LAUNCHERS_H_
 
 static const char *overlayLaunchers[] = {
 	"Steam.exe", // Steam

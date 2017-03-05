@@ -22,6 +22,8 @@
 #include "GlobalShortcut.h"
 
 #ifdef Q_OS_WIN
+#include "../../overlay/overlay_launchers.h"
+#include "../../overlay/overlay_whitelist.h"
 #include "../../overlay/overlay_blacklist.h"
 #endif
 
@@ -297,48 +299,122 @@ void OverlayConfig::load(const Settings &r) {
 	qcbShowTime->setChecked(s.os.bTime);
 	qgpFps->setEnabled(s.os.bEnable);
 
-	qlwBlacklist->clear();
-	qlwWhitelist->clear();
+	// Launchers
+	{
+		qlwLaunchers->clear();
 
-	qrbWhitelist->setChecked(s.os.bUseWhitelist);
-	qswBlackWhiteList->setCurrentWidget(s.os.bUseWhitelist ? qwWhite : qwBlack);
-
-	foreach(QString str, s.os.qslWhitelist) {
-		OverlayAppInfo oai = applicationInfoForId(str);
-		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwWhitelist);
-		qlwiApplication->setData(Qt::UserRole, QVariant(str));
-	}
-
-	QStringList builtinBlacklist;
+		QStringList builtinLaunchers;
 #ifdef Q_OS_WIN
-	int i = 0;
-	while (overlayBlacklist[i]) {
-		QString str = QLatin1String(overlayBlacklist[i]);
-		builtinBlacklist << str;
-		++i;
-	}
-#endif
-	foreach (QString str, builtinBlacklist) {
-		OverlayAppInfo oai = applicationInfoForId(str);
-		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwBlacklist);
-		qlwiApplication->setFlags(qlwiApplication->flags() & ~Qt::ItemIsEnabled);
-	}
-
-	foreach(QString str, s.os.qslBlacklist) {
-		if (builtinBlacklist.contains(str)) {
-			continue;
+		int i = 0;
+		while (overlayLaunchers[i]) {
+			QString str = QLatin1String(overlayLaunchers[i]);
+			builtinLaunchers << str;
+			++i;
 		}
-		OverlayAppInfo oai = applicationInfoForId(str);
-		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwBlacklist);
-		qlwiApplication->setData(Qt::UserRole, QVariant(str));
+#endif
+		foreach (QString str, builtinLaunchers) {
+			OverlayAppInfo oai = applicationInfoForId(str);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwLaunchers);
+
+			// Use italic for 'default' items.
+			QFont font = qlwiApplication->font();
+			font.setItalic(true);
+			qlwiApplication->setFont(font);
+
+			qlwiApplication->setFlags(qlwiApplication->flags() | Qt::ItemIsUserCheckable);
+			qlwiApplication->setCheckState(Qt::Unchecked);
+		}
+
+		foreach(QString str, s.os.qslLauncherFilterList) {
+			OverlayAppInfo oai = applicationInfoForId(str);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwLaunchers);
+
+			// Use italic for 'default' items.
+			QFont font = qlwiApplication->font();
+			font.setItalic(true);
+			qlwiApplication->setFont(font);
+
+			qlwiApplication->setFlags(qlwiApplication->flags() | Qt::ItemIsUserCheckable);
+			qlwiApplication->setCheckState(Qt::Unchecked);
+		}
 	}
 
-	qcbEnableLauncherFilter->setChecked(s.os.bEnableLauncherFilter);
-	qlwLaunchers->clear();
-	foreach(QString str, s.os.qslLauncherFilterList) {
-		OverlayAppInfo oai = applicationInfoForId(str);
-		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwLaunchers);
-		qlwiApplication->setData(Qt::UserRole, QVariant(str));
+	// Paths
+	{
+		qlwPaths->clear();
+
+		foreach(QString str, s.os.qslPathList) {
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(QIcon(), str, qlwPaths);
+		}
+	}
+
+	// Whitelist
+	{
+		qlwWhitelist->clear();
+
+		QStringList builtinWhitelist;
+#ifdef Q_OS_WIN
+		int i = 0;
+		while (overlayWhitelist[i]) {
+			QString str = QLatin1String(overlayWhitelist[i]);
+			builtinWhitelist << str;
+			++i;
+		}
+#endif
+		foreach (QString str, builtinWhitelist) {
+			OverlayAppInfo oai = applicationInfoForId(str);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwWhitelist);
+
+			// Use italic for 'default' items.
+			QFont font = qlwiApplication->font();
+			font.setItalic(true);
+			qlwiApplication->setFont(font);
+
+			qlwiApplication->setFlags(qlwiApplication->flags() | Qt::ItemIsUserCheckable);
+			qlwiApplication->setCheckState(Qt::Unchecked);
+		}
+
+		foreach(QString str, s.os.qslWhitelist) {
+			OverlayAppInfo oai = applicationInfoForId(str);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwWhitelist);
+			qlwiApplication->setData(Qt::UserRole, QVariant(str));
+		}
+	}
+
+	// Blacklist
+	{
+		qlwBlacklist->clear();
+
+		QStringList builtinBlacklist;
+#ifdef Q_OS_WIN
+		int i = 0;
+		while (overlayBlacklist[i]) {
+			QString str = QLatin1String(overlayBlacklist[i]);
+			builtinBlacklist << str;
+			++i;
+		}
+#endif
+		foreach (QString str, builtinBlacklist) {
+			OverlayAppInfo oai = applicationInfoForId(str);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwBlacklist);
+
+			// Use italic for 'default' items.
+			QFont font = qlwiApplication->font();
+			font.setItalic(true);
+			qlwiApplication->setFont(font);
+
+			qlwiApplication->setFlags(qlwiApplication->flags() | Qt::ItemIsUserCheckable);
+			qlwiApplication->setCheckState(Qt::Unchecked);
+		}
+
+		foreach(QString str, s.os.qslBlacklist) {
+			if (builtinBlacklist.contains(str)) {
+				continue;
+			}
+			OverlayAppInfo oai = applicationInfoForId(str);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwBlacklist);
+			qlwiApplication->setData(Qt::UserRole, QVariant(str));
+		}
 	}
 
 	initDisplay();
@@ -388,10 +464,6 @@ void OverlayConfig::save() const {
 		QVariant qvUserData = qlwWhitelist->item(i)->data(Qt::UserRole);
 		s.os.qslWhitelist << qvUserData.toString();
 	}
-
-	s.os.bUseWhitelist = qrbWhitelist->isChecked();
-
-	s.os.bEnableLauncherFilter = qcbEnableLauncherFilter->isChecked();
 
 	s.os.qslLauncherFilterList.clear();
 	for (int i=0;i<qlwLaunchers->count();++i) {
@@ -450,7 +522,30 @@ void OverlayConfig::resizeScene(bool force) {
 	qgpiTimeLive->updateRender();
 }
 
-void OverlayConfig::on_qpbAdd_clicked() {
+void OverlayConfig::on_qpbLaunchersAdd_clicked() {
+	QString file = QInputDialog::getText(this, tr("Add launcher"), tr("Add a launcher executable to the Overlay Launcher Filter..."));
+
+	if (! file.isEmpty()) {
+		QString qsAppIdentifier = applicationIdentifierForPath(file);
+		QStringList qslIdentifiers;
+		for (int i = 0; i < qlwLaunchers->count(); i++)
+			qslIdentifiers << qlwLaunchers->item(i)->data(Qt::UserRole).toString();
+		if (! qslIdentifiers.contains(qsAppIdentifier)) {
+			OverlayAppInfo oai = applicationInfoForId(qsAppIdentifier);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwLaunchers);
+			qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
+			qlwLaunchers->setCurrentItem(qlwiApplication);
+		}
+	}
+}
+
+void OverlayConfig::on_qpbLaunchersRemove_clicked() {
+	int row = qlwLaunchers->currentRow();
+	if (row != -1)
+		delete qlwLaunchers->takeItem(row);
+}
+
+void OverlayConfig::on_qpbBlacklistAdd_clicked() {
 #if defined(Q_OS_WIN)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
 #elif defined(Q_OS_MAC)
@@ -461,7 +556,7 @@ void OverlayConfig::on_qpbAdd_clicked() {
 
 	if (! file.isEmpty()) {
 		QString qsAppIdentifier = applicationIdentifierForPath(file);
-		QListWidget *sel = qrbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+		QListWidget *sel = qlwBlacklist;
 		QStringList qslIdentifiers;
 		for (int i = 0; i < sel->count(); i++)
 			qslIdentifiers << sel->item(i)->data(Qt::UserRole).toString();
@@ -474,16 +569,44 @@ void OverlayConfig::on_qpbAdd_clicked() {
 	}
 }
 
-void OverlayConfig::on_qpbRemove_clicked() {
-	QListWidget *sel = qrbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+void OverlayConfig::on_qpbBlacklistRemove_clicked() {
+	QListWidget *sel = qlwBlacklist;
 	int row = sel->currentRow();
 	if (row != -1)
 		delete sel->takeItem(row);
 }
 
-void OverlayConfig::on_qrbBlacklist_toggled(bool checked) {
-	qswBlackWhiteList->setCurrentWidget(checked ? qwBlack : qwWhite);
+void OverlayConfig::on_qpbWhitelistAdd_clicked() {
+#if defined(Q_OS_WIN)
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
+#elif defined(Q_OS_MAC)
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose application"), QString(), QLatin1String("*.app"));
+#else
+	QString file = QString();
+#endif
+
+	if (! file.isEmpty()) {
+		QString qsAppIdentifier = applicationIdentifierForPath(file);
+		QListWidget *sel = qlwWhitelist;
+		QStringList qslIdentifiers;
+		for (int i = 0; i < sel->count(); i++)
+			qslIdentifiers << sel->item(i)->data(Qt::UserRole).toString();
+		if (! qslIdentifiers.contains(qsAppIdentifier)) {
+			OverlayAppInfo oai = applicationInfoForId(qsAppIdentifier);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, sel);
+			qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
+			sel->setCurrentItem(qlwiApplication);
+		}
+	}
 }
+
+void OverlayConfig::on_qpbWhitelistRemove_clicked() {
+	QListWidget *sel = qlwWhitelist;
+	int row = sel->currentRow();
+	if (row != -1)
+		delete sel->takeItem(row);
+}
+
 
 void OverlayConfig::on_qcbEnable_stateChanged(int state) {
 	qgpFps->setEnabled(state == Qt::Checked);
@@ -601,34 +724,4 @@ void OverlayConfig::on_qpbSavePreset_clicked() {
 	qs.remove(QLatin1String("enablelauncherfilter"));
 	qs.remove(QLatin1String("launchers"));
 	qs.endGroup();
-}
-
-void OverlayConfig::on_qcbEnableLauncherFilter_stateChanged(int state) {
-	qlLauncherFilterDescription->setEnabled(state == Qt::Checked);
-	qlwLaunchers->setEnabled(state == Qt::Checked);
-	qpbAddLauncher->setEnabled(state == Qt::Checked);
-	qpbRemoveLauncher->setEnabled(state == Qt::Checked);
-}
-
-void OverlayConfig::on_qpbAddLauncher_clicked() {
-	QString file = QInputDialog::getText(this, tr("Add launcher"), tr("Add a launcher executable to the Overlay Launcher Filter..."));
-
-	if (! file.isEmpty()) {
-		QString qsAppIdentifier = applicationIdentifierForPath(file);
-		QStringList qslIdentifiers;
-		for (int i = 0; i < qlwLaunchers->count(); i++)
-			qslIdentifiers << qlwLaunchers->item(i)->data(Qt::UserRole).toString();
-		if (! qslIdentifiers.contains(qsAppIdentifier)) {
-			OverlayAppInfo oai = applicationInfoForId(qsAppIdentifier);
-			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwLaunchers);
-			qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
-			qlwLaunchers->setCurrentItem(qlwiApplication);
-		}
-	}
-}
-
-void OverlayConfig::on_qpbRemoveLauncher_clicked() {
-	int row = qlwLaunchers->currentRow();
-	if (row != -1)
-		delete qlwLaunchers->takeItem(row);
 }
