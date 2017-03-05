@@ -41,6 +41,7 @@ MetaParams::MetaParams() {
 	bRememberChan = true;
 	qsWelcomeText = QString();
 	qsDatabase = QString();
+	iSQLiteWAL = 0;
 	iDBPort = 0;
 	qsDBusService = "net.sourceforge.mumble.murmur";
 	qsDBDriver = "QSQLITE";
@@ -294,6 +295,7 @@ void MetaParams::read(QString fname) {
 	bForceExternalAuth = typeCheckedFromSettings("forceExternalAuth", bForceExternalAuth);
 
 	qsDatabase = typeCheckedFromSettings("database", qsDatabase);
+	iSQLiteWAL = typeCheckedFromSettings("sqlite_wal", iSQLiteWAL);
 
 	qsDBDriver = typeCheckedFromSettings("dbDriver", qsDBDriver);
 	qsDBUserName = typeCheckedFromSettings("dbUsername", qsDBUserName);

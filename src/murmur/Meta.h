@@ -56,6 +56,7 @@ public:
 	int iBanTime;
 
 	QString qsDatabase;
+	int iSQLiteWAL;
 	QString qsDBDriver;
 	QString qsDBUserName;
 	QString qsDBPassword;
