@@ -22,6 +22,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		sudo apt-key adv --keyserver x-hkp://keys.gnupg.net --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB
 		sudo apt-get -qq update
 		sudo apt-get install \
+			wine \
 			mxe-${MUMBLE_HOST_DEB}.static-qtbase \
 			mxe-${MUMBLE_HOST_DEB}.static-qtsvg \
 			mxe-${MUMBLE_HOST_DEB}.static-qttools \
@@ -34,11 +35,13 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			mxe-${MUMBLE_HOST_DEB}.static-vorbis \
 			mxe-${MUMBLE_HOST_DEB}.static-libsndfile
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
+		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
 		echo "deb http://pkg.mxe.cc/repos/apt/debian jessie	 main" | sudo tee /etc/apt/sources.list.d/mxeapt.list
 		sudo apt-key adv --keyserver x-hkp://keys.gnupg.net --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB
 		sudo apt-get -qq update
 		sudo apt-get install \
+			wine \
 			mxe-${MUMBLE_HOST_DEB}.static-qtbase \
 			mxe-${MUMBLE_HOST_DEB}.static-qtsvg \
 			mxe-${MUMBLE_HOST_DEB}.static-qttools \
