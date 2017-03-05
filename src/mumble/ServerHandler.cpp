@@ -35,6 +35,8 @@ static HANDLE loadQoS() {
 
 	HRESULT hr = E_FAIL;
 
+// We don't support delay-loading QoS on MinGW. Only enable it for MSVC.
+#ifdef _MSC_VER
 	__try {
 		hr = __HrLoadAllImportsForDll("qwave.dll");
 	}
@@ -42,6 +44,7 @@ static HANDLE loadQoS() {
 	__except(EXCEPTION_EXECUTE_HANDLER) {
 		hr = E_FAIL;
 	}
+#endif
 
 	if (! SUCCEEDED(hr)) {
 		qWarning("ServerHandler: Failed to load qWave.dll, no QoS available");
