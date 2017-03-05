@@ -9,9 +9,8 @@ clone_folder: C:\MumbleBuild\mumble
 
 environment:
     MUMBLE_BUILDSCRIPT: 1.3.x/mumble-win64-static.cmd
-    MUMBLE_ENVIRONMENT_VERSION: win64-static-no-ltcg-1.3.x-2017-02-02-ec94ddb-790
-    MUMBLE_ENVIRONMENT_SOURCE:
-        secure: PCLhmhoHWRRXfxd7m1hlfWZXmTxP55BicfSaxWPJjeI=
+    MUMBLE_ENVIRONMENT_VERSION: win64-static-no-ltcg-1.3.x-2017-03-04-1ddd966-811
+    MUMBLE_ENVIRONMENT_SOURCE: https://s3.amazonaws.com/mumble-appveyor-buildenvs
     APPVEYOR_CACHE_ENTRY_ZIP_ARGS: -t7z -mx0  # Do not compress cache. Env. is already a 7z.
 
 install:
