@@ -365,144 +365,8 @@ void MetaParams::read(QString fname) {
 	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
 	bAllowPing = typeCheckedFromSettings("allowping", bAllowPing);
 
-	qsCiphers = typeCheckedFromSettings("sslCiphers", qsCiphers);
-
-	QString qsSSLCert = qsSettings->value("sslCert").toString();
-	QString qsSSLKey = qsSettings->value("sslKey").toString();
-	QString qsSSLCA = qsSettings->value("sslCA").toString();
-	QString qsSSLDHParams = qsSettings->value("sslDHParams").toString();
-
-	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
-
-	if (! qsSSLCA.isEmpty()) {
-		QFile pem(qsSSLCA);
-		if (pem.open(QIODevice::ReadOnly)) {
-			QByteArray qba = pem.readAll();
-			pem.close();
-			QList<QSslCertificate> ql = QSslCertificate::fromData(qba);
-			if (ql.isEmpty()) {
-				qCritical("Failed to parse any CA certificates from %s", qPrintable(qsSSLCA));
-			} else {
-				qlCA = ql;
-			}
-		} else {
-			qCritical("Failed to read %s", qPrintable(qsSSLCA));
-		}
-	}
-
-	QByteArray crt, key, dhparams;
-
-	if (! qsSSLCert.isEmpty()) {
-		QFile pem(qsSSLCert);
-		if (pem.open(QIODevice::ReadOnly)) {
-			crt = pem.readAll();
-			pem.close();
-		} else {
-			qCritical("Failed to read %s", qPrintable(qsSSLCert));
-		}
-	}
-	if (! qsSSLKey.isEmpty()) {
-		QFile pem(qsSSLKey);
-		if (pem.open(QIODevice::ReadOnly)) {
-			key = pem.readAll();
-			pem.close();
-		} else {
-			qCritical("Failed to read %s", qPrintable(qsSSLKey));
-		}
-	}
-
-	if (! key.isEmpty() || ! crt.isEmpty()) {
-		if (! key.isEmpty()) {
-			qskKey = Server::privateKeyFromPEM(key, qbaPassPhrase);
-		}
-		if (qskKey.isNull() && ! crt.isEmpty()) {
-			qskKey = Server::privateKeyFromPEM(crt, qbaPassPhrase);
-			if (! qskKey.isNull())
-				qCritical("Using private key found in certificate file.");
-		}
-		if (qskKey.isNull())
-			qFatal("No private key found in certificate or key file.");
-
-		QList<QSslCertificate> ql = QSslCertificate::fromData(crt);
-		ql << QSslCertificate::fromData(key);
-		for (int i=0;i<ql.size(); ++i) {
-			const QSslCertificate &c = ql.at(i);
-			if (Server::isKeyForCert(qskKey, c)) {
-				qscCert = c;
-				ql.removeAt(i);
-				break;
-			}
-		}
-		if (qscCert.isNull()) {
-			qFatal("Failed to find certificate matching private key.");
-		}
-		if (ql.size() > 0) {
-			qlIntermediates = ql;
-			qCritical("Adding %d intermediate certificates from certificate file.", ql.size());
-		}
-	}
-
-#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-	if (! qsSSLDHParams.isEmpty()) {
-		QFile pem(qsSSLDHParams);
-		if (pem.open(QIODevice::ReadOnly)) {
-			dhparams = pem.readAll();
-			pem.close();
-		} else {
-			qCritical("Failed to read %s", qPrintable(qsSSLDHParams));
-		}
-	}
-
-	if (! dhparams.isEmpty()) {
-		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters::fromEncoded(dhparams);
-		if (qdhp.isValid()) {
-			qbaDHParams = dhparams;
-		} else {
-			qFatal("Unable to use specified Diffie-Hellman parameters: %s", qPrintable(qdhp.errorString()));
-		}
-	}
-#else
-	if (! qsSSLDHParams.isEmpty()) {
-		qFatal("This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur will not start unless you remove the option from your murmur.ini file.");
-	}
-#endif
-
-	{
-		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
-		if (ciphers.isEmpty()) {
-			qFatal("Invalid sslCiphers option. Either the cipher string is invalid or none of the ciphers are available: \"%s\"", qPrintable(qsCiphers));
-		}
-
-#if !defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-		// If the version of Qt we're building against doesn't support
-		// QSslDiffieHellmanParameters, then we must filter out Diffie-
-		// Hellman cipher suites in order to guarantee that we do not
-		// use Qt's default Diffie-Hellman parameters.
-		{
-			QList<QSslCipher> filtered;
-			foreach (QSslCipher c, ciphers) {
-				if (c.keyExchangeMethod() == QLatin1String("DH")) {
-					continue;
-				}
-				filtered << c;
-			}
-			if (ciphers.size() != filtered.size()) {
-				qWarning("Warning: all cipher suites in sslCiphers using Diffie-Hellman key exchange "
-				         "have been removed. Qt %s does not support custom Diffie-Hellman parameters.",
-				         qVersion());
-			}
-
-			qlCiphers = filtered;
-		}
-#else
-		qlCiphers = ciphers;
-#endif
-
-		QStringList pref;
-		foreach (QSslCipher c, qlCiphers) {
-			pref << c.name();
-		}
-		qWarning("Meta: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
+	if (!loadSSLSettings()) {
+		qFatal("MetaParams: Failed to load SSL settings. See previous errors.");
 	}
 
 	QStringList hosts;
@@ -544,6 +408,188 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
 }
 
+bool MetaParams::loadSSLSettings() {
+	QSettings updatedSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
+#if QT_VERSION >= 0x040500
+	updatedSettings.setIniCodec("UTF-8");
+#endif
+
+	QString tmpCiphersStr = typeCheckedFromSettings("sslCiphers", qsCiphers);
+
+	QString qsSSLCert = qsSettings->value("sslCert").toString();
+	QString qsSSLKey = qsSettings->value("sslKey").toString();
+	QString qsSSLCA = qsSettings->value("sslCA").toString();
+	QString qsSSLDHParams = qsSettings->value("sslDHParams").toString();
+
+	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
+
+	QSslCertificate tmpCert;
+	QList<QSslCertificate> tmpCA;
+	QList<QSslCertificate> tmpIntermediates;
+	QSslKey tmpKey;
+	QByteArray tmpDHParams;
+	QList<QSslCipher> tmpCiphers;
+
+
+	if (! qsSSLCA.isEmpty()) {
+		QFile pem(qsSSLCA);
+		if (pem.open(QIODevice::ReadOnly)) {
+			QByteArray qba = pem.readAll();
+			pem.close();
+			QList<QSslCertificate> ql = QSslCertificate::fromData(qba);
+			if (ql.isEmpty()) {
+				qCritical("MetaParams: Failed to parse any CA certificates from %s", qPrintable(qsSSLCA));
+				return false;
+			} else {
+				tmpCA = ql;
+			}
+		} else {
+			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLCA));
+			return false;
+		}
+	}
+
+	QByteArray crt, key;
+
+	if (! qsSSLCert.isEmpty()) {
+		QFile pem(qsSSLCert);
+		if (pem.open(QIODevice::ReadOnly)) {
+			crt = pem.readAll();
+			pem.close();
+		} else {
+			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLCert));
+			return false;
+		}
+	}
+	if (! qsSSLKey.isEmpty()) {
+		QFile pem(qsSSLKey);
+		if (pem.open(QIODevice::ReadOnly)) {
+			key = pem.readAll();
+			pem.close();
+		} else {
+			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLKey));
+			return false;
+		}
+	}
+
+	if (! key.isEmpty() || ! crt.isEmpty()) {
+		if (! key.isEmpty()) {
+			tmpKey = Server::privateKeyFromPEM(key, qbaPassPhrase);
+		}
+		if (tmpKey.isNull() && ! crt.isEmpty()) {
+			tmpKey = Server::privateKeyFromPEM(crt, qbaPassPhrase);
+			if (! tmpKey.isNull())
+				qCritical("MetaParams: Using private key found in certificate file.");
+		}
+		if (tmpKey.isNull()) {
+			qCritical("MetaParams: No private key found in certificate or key file.");
+			return false;
+		}
+
+		QList<QSslCertificate> ql = QSslCertificate::fromData(crt);
+		ql << QSslCertificate::fromData(key);
+		for (int i=0;i<ql.size(); ++i) {
+			const QSslCertificate &c = ql.at(i);
+			if (Server::isKeyForCert(tmpKey, c)) {
+				tmpCert = c;
+				ql.removeAt(i);
+				break;
+			}
+		}
+		if (tmpCert.isNull()) {
+			qCritical("MetaParams: Failed to find certificate matching private key.");
+			return false;
+		}
+		if (ql.size() > 0) {
+			tmpIntermediates = ql;
+			qCritical("MetaParams: Adding %d intermediate certificates from certificate file.", ql.size());
+		}
+	}
+
+	QByteArray dhparams;
+
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+	if (! qsSSLDHParams.isEmpty()) {
+		QFile pem(qsSSLDHParams);
+		if (pem.open(QIODevice::ReadOnly)) {
+			dhparams = pem.readAll();
+			pem.close();
+		} else {
+			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLDHParams));
+		}
+	}
+
+	if (! dhparams.isEmpty()) {
+		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters::fromEncoded(dhparams);
+		if (qdhp.isValid()) {
+			tmpDHParams = dhparams;
+		} else {
+			qCritical("MetaParams: Unable to use specified Diffie-Hellman parameters: %s", qPrintable(qdhp.errorString()));
+			return false;
+		}
+	}
+#else
+	if (! qsSSLDHParams.isEmpty()) {
+		qCritical("MetaParams: This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur will not start unless you remove the option from your murmur.ini file.");
+		return false;
+	}
+#endif
+
+	{
+		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(tmpCiphersStr);
+		if (ciphers.isEmpty()) {
+			qCritical("MetaParams: Invalid sslCiphers option. Either the cipher string is invalid or none of the ciphers are available: \"%s\"", qPrintable(qsCiphers));
+			return false;
+		}
+
+#if !defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+		// If the version of Qt we're building against doesn't support
+		// QSslDiffieHellmanParameters, then we must filter out Diffie-
+		// Hellman cipher suites in order to guarantee that we do not
+		// use Qt's default Diffie-Hellman parameters.
+		{
+			QList<QSslCipher> filtered;
+			foreach (QSslCipher c, ciphers) {
+				if (c.keyExchangeMethod() == QLatin1String("DH")) {
+					continue;
+				}
+				filtered << c;
+			}
+			if (ciphers.size() != filtered.size()) {
+				qWarning("MetaParams: Warning: all cipher suites in sslCiphers using Diffie-Hellman key exchange "
+				         "have been removed. Qt %s does not support custom Diffie-Hellman parameters.",
+				         qVersion());
+			}
+
+			tmpCiphers = filtered;
+		}
+#else
+		tmpCiphers = ciphers;
+#endif
+
+		QStringList pref;
+		foreach (QSslCipher c, tmpCiphers) {
+			pref << c.name();
+		}
+		qWarning("MetaParams: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
+	}
+
+	qscCert = tmpCert;
+	qlCA = tmpCA;
+	qlIntermediates = tmpIntermediates;
+	qskKey = tmpKey;
+	qbaDHParams = tmpDHParams;
+	qsCiphers = tmpCiphersStr;
+	qlCiphers = tmpCiphers;
+
+	qmConfig.insert(QLatin1String("certificate"), qscCert.toPem());
+	qmConfig.insert(QLatin1String("key"), qskKey.toPem());
+	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
+	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
+
+	return true;
+}
+
 Meta::Meta() {
 #ifdef Q_OS_WIN
 	QOS_VERSION qvVer;
@@ -572,6 +618,27 @@ Meta::~Meta() {
 		Connection::setQoS(NULL);
 	}
 #endif
+}
+
+bool Meta::reloadSSLSettings() {
+	// Reload SSL settings.
+	if (!Meta::mp.loadSSLSettings()) {
+		return false;
+	}
+
+	// Re-initialize certificates for all
+	// virtual servers using the Meta server's
+	// certificate and private key.
+	foreach (Server *s, qhServers) {
+		if (s->bUsingMetaCert) {
+			s->log("Reloading certificates...");
+			s->initializeCert();
+		} else {
+			s->log("Not reloading certificates; server does not use Meta certificate");
+		}
+	}
+
+	return true;
 }
 
 void Meta::getOSInfo() {
