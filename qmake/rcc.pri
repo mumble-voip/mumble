@@ -25,5 +25,5 @@ CONFIG(release, debug|release) {
 
 load(resources)
 
-RCC_DEPENDS = $$escape_expand(\")$${PWD}/scripts/rcc-depends.py$$escape_expand(\")
+RCC_DEPENDS = $$escape_expand(\")$${PWD}/../scripts/rcc-depends.py$$escape_expand(\")
 rcc.depend_command = $${PYTHON} $${RCC_DEPENDS} ${QMAKE_FILE_IN}
