@@ -84,6 +84,8 @@
 #include <algorithm>
 
 #ifdef Q_OS_WIN
+#include "../qos2_mingw.h"
+
 #include <winsock2.h>
 #include <qos2.h>
 #include <windows.h>
