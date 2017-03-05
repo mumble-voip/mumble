@@ -6,7 +6,7 @@
 # Tiny stub program that we splice together into our
 # main app bundle for architectures that we don't support.
 
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 include(../common.pri)
 
 TEMPLATE = app
@@ -39,4 +39,4 @@ CONFIG(release, debug|release) {
   DESTDIR       = ../../release
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

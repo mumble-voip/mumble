@@ -14,4 +14,4 @@ CONFIG -= qt
 CONFIG += c++11
 must_pkgconfig(protobuf)
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

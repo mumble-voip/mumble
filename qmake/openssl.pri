@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../pkgconfig.pri)
+include(pkgconfig.pri)
 
 # Include this file to portably link
 # against OpenSSL.

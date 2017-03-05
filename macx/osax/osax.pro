@@ -6,7 +6,7 @@
 # Mumble Overlay scripting addition
 # (for injection into running processes)
 
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 CONFIG += x86_64 x86 debug_and_release
 CONFIG(universal) {
@@ -43,4 +43,4 @@ CONFIG(release, debug|release) {
   DESTDIR       = ../../release
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

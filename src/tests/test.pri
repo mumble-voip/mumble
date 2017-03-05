@@ -5,7 +5,7 @@
 
 # Common include file for tests.
 
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 TEMPLATE = app
 QT = core testlib

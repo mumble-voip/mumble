@@ -3,8 +3,8 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../../../compiler.pri)
-include(../../../protoc.pri)
+include(../../../qmake/compiler.pri)
+include(../../../qmake/protoc.pri)
 
 GRPC *= ../MurmurRPC.proto
 
@@ -60,4 +60,4 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../../../release
 }
 
-include(../../../symbols.pri)
+include(../../../qmake/symbols.pri)

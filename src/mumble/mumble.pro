@@ -4,8 +4,8 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(../mumble.pri)
-include(../../python.pri)
-include(../../lrelease.pri)
+include(../../qmake/python.pri)
+include(../../qmake/lrelease.pri)
 
 DEFINES		*= MUMBLE
 TEMPLATE	= app
@@ -696,4 +696,4 @@ lrel.variable_out = rcc.depends
 
 QMAKE_EXTRA_COMPILERS *= lrel
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

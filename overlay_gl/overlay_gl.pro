@@ -5,7 +5,7 @@
 
 # Overlay payload for Unix-like systems and OS X.
 
-include(../compiler.pri)
+include(../qmake/compiler.pri)
 
 TEMPLATE = lib
 CONFIG -= qt gui
@@ -67,4 +67,4 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../release$(DESTDIR_ADD)
 }
 
-include(../symbols.pri)
+include(../qmake/symbols.pri)

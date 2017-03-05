@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../../../compiler.pri)
+include(../../../qmake/compiler.pri)
 
 SLICEFILES = ../Murmur.ice
 
@@ -77,4 +77,4 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../../../release
 }
 
-include(../../../symbols.pri)
+include(../../../qmake/symbols.pri)

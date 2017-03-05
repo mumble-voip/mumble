@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 TEMPLATE	=app
 CONFIG  += qt warn_on release console

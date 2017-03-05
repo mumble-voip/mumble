@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
@@ -281,4 +281,4 @@ macx:!CONFIG(static) {
 	ALL_DEPS += libname
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)
