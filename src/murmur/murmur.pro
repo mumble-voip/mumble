@@ -4,7 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(../mumble.pri)
-include(../../protoc.pri)
+include(../../qmake/protoc.pri)
 
 DEFINES *= MURMUR
 TEMPLATE	=app
@@ -203,4 +203,4 @@ bonjour {
 	DEFINES += USE_QSSLDIFFIEHELLMANPARAMETERS
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

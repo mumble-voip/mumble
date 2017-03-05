@@ -8,7 +8,7 @@
 win32:!CONFIG(g15-emulator) {
   CONFIG += force-x86-toolchain
 }
-include (../compiler.pri)
+include (../qmake/compiler.pri)
 
 TEMPLATE = app
 CONFIG *= debug_and_release warn_on
@@ -98,4 +98,4 @@ CONFIG(debug, debug|release) {
   DESTDIR = ../debug/
 }
 
-include(../symbols.pri)
+include(../qmake/symbols.pri)

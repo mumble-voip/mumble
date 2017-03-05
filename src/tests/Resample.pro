@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 TEMPLATE = app
 CONFIG += qt thread warn_on release qtestlib no_keywords console
 CONFIG -= app_bundle

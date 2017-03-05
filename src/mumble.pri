@@ -3,10 +3,10 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../compiler.pri)
-include(../qt.pri)
-include(../rcc.pri)
-include(../pkgconfig.pri)
+include(../qmake/compiler.pri)
+include(../qmake/qt.pri)
+include(../qmake/rcc.pri)
+include(../qmake/pkgconfig.pri)
 
 VERSION		= 1.3.0
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h

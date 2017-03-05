@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 !exists(../speex-src/COPYING) | !exists(../speexdsp-src/COPYING) {
 	message("The speex-src/ or speexdsp-src/ directories were not found. You need to do one of the following:")

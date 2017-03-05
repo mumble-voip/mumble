@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../compiler.pri)
+include(../qmake/compiler.pri)
 
 TEMPLATE	= lib
 CONFIG		+= plugin debug_and_release warn_on
@@ -29,4 +29,4 @@ CONFIG(release, debug|release) {
   DESTDIR       = ../../release/plugins
 }
 
-include(../symbols.pri)
+include(../qmake/symbols.pri)
