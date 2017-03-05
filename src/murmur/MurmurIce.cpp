@@ -7,6 +7,8 @@
 
 #include "MurmurIce.h"
 
+#include <limits>
+
 #include <Ice/Ice.h>
 #include <Ice/SliceChecksums.h>
 #include <IceUtil/IceUtil.h>
@@ -64,6 +66,23 @@ static std::string iceString(const QString &s) {
 	return iceRemoveNul(u8(s));
 }
 
+/// Convert the bytes in std::string to base64 using the
+/// base64 alphabet from RFC 2045.
+///
+/// The size of the string may not exceed sizeof(int).
+/// If the function is passed a string bigger than that,
+/// it will return an empty string.
+static std::string iceBase64(const std::string &s) {
+	if (s.size() > std::numeric_limits<int>::max()) {
+		return std::string();
+	}
+
+	QByteArray ba(s.data(), static_cast<int>(s.size()));
+	QByteArray ba64 = ba.toBase64();
+
+	return std::string(ba64.data(), static_cast<size_t>(ba.size()));
+}
+
 static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
 	le.timestamp = r.first;
 	le.txt = iceString(r.second);
@@ -91,7 +110,7 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.os = iceString(u->qsOS);
 	mp.osversion = iceString(u->qsOSVersion);
 	mp.identity = iceString(u->qsIdentity);
-	mp.context = u->ssContext;
+	mp.context = iceBase64(u->ssContext);
 	mp.idlesecs = u->bwr.idleSeconds();
 	mp.udpPing = u->dUDPPingAvg;
 	mp.tcpPing = u->dTCPPingAvg;
