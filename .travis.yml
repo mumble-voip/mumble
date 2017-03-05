@@ -5,8 +5,13 @@ compiler: gcc
 
 env:
   matrix:
-    - MUMBLE_QT=qt4
-    - MUMBLE_QT=qt5
+    - MUMBLE_QT=qt4 MUMBLE_HOST=x86_64-linux-gnu
+    - MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-linux-gnu
+    - MUMBLE_QT=qt5 MUMBLE_HOST=i686-w64-mingw32
+    - MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
+  allow_failures:
+    - env: MUMBLE_QT=qt5 MUMBLE_HOST=i686-w64-mingw32
+    - env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
 
 before_install:
     - ./scripts/travis-ci/before_install.bash
