@@ -714,7 +714,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location line="+1"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>A&amp;utoren</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3658,7 +3658,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Entwicklerkonsole</translation>
     </message>
 </context>
 <context>
@@ -4095,12 +4095,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+119"/>
         <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Kein gültiges Bild ]]</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Ungültige Größe ]]</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -6233,7 +6233,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+2"/>
         <source>(Private) </source>
-        <translation type="unfinished"/>
+        <translation>(Privat) </translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6699,7 +6699,7 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     <message>
         <location/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Entwickler</translation>
     </message>
     <message>
         <location/>
@@ -6719,12 +6719,12 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     <message>
         <location/>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
+        <translation>Entwickler&amp;konsole</translation>
     </message>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Entwicklerkonsole anzeigen</translation>
     </message>
     <message>
         <location/>
@@ -6742,27 +6742,27 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Position</translation>
     </message>
     <message>
         <location/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location/>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <location/>
@@ -6782,27 +6782,27 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     <message>
         <location/>
         <source>°</source>
-        <translation type="unfinished"/>
+        <translation>°</translation>
     </message>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Metadaten</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Kontext</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Identität</translation>
     </message>
     <message>
         <location/>
         <source>Set</source>
-        <translation type="unfinished"/>
+        <translation>Festlegen</translation>
     </message>
     <message>
         <location/>
@@ -6817,7 +6817,7 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     <message>
         <location/>
         <source>Activated</source>
-        <translation type="unfinished"/>
+        <translation>Aktiviert</translation>
     </message>
     <message>
         <location/>
@@ -8730,18 +8730,18 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location line="-39"/>
         <location line="+40"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>Organisation</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Subunit</source>
-        <translation type="unfinished"/>
+        <translation>Untereinheit</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+40"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Land</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -8753,7 +8753,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location line="-39"/>
         <location line="+40"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Staat</translation>
     </message>
     <message>
         <location line="-39"/>
