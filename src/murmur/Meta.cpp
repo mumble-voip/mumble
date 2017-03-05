@@ -206,28 +206,42 @@ void MetaParams::read(QString fname) {
 	if (qlBind.isEmpty()) {
 		bool hasipv6 = false;
 		bool hasipv4 = false;
+		int nif = 0;
 
-		foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
-			if (!(qni.flags() & QNetworkInterface::IsUp))
-				continue;
-			if (!(qni.flags() & QNetworkInterface::IsRunning))
-				continue;
-			if (qni.flags() & QNetworkInterface::IsLoopBack)
-				continue;
+		QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+		if (interfaces.isEmpty()) {
+			qWarning("Meta: Unable to acquire list of network interfaces.");
+		} else {
+			foreach(const QNetworkInterface &qni, interfaces) {
+				if (!(qni.flags() & QNetworkInterface::IsUp))
+					continue;
+				if (!(qni.flags() & QNetworkInterface::IsRunning))
+					continue;
+				if (qni.flags() & QNetworkInterface::IsLoopBack)
+					continue;
 
-			foreach(const QNetworkAddressEntry &qna, qni.addressEntries()) {
-				const QHostAddress &qha = qna.ip();
-				switch (qha.protocol()) {
-					case QAbstractSocket::IPv4Protocol:
-						hasipv4 = true;
-						break;
-					case QAbstractSocket::IPv6Protocol:
-						hasipv6 = true;
-						break;
-					default:
-						break;
+				foreach(const QNetworkAddressEntry &qna, qni.addressEntries()) {
+					const QHostAddress &qha = qna.ip();
+					switch (qha.protocol()) {
+						case QAbstractSocket::IPv4Protocol:
+							hasipv4 = true;
+							break;
+						case QAbstractSocket::IPv6Protocol:
+							hasipv6 = true;
+							break;
+						default:
+							break;
+					}
 				}
+
+				++nif;
 			}
+		}
+
+		if (nif == 0) {
+			qWarning("Meta: Could not determine IPv4/IPv6 support via network interfaces, assuming support for both.");
+			hasipv6 = true;
+			hasipv4 = true;
 		}
 
 #if QT_VERSION >= 0x050000
