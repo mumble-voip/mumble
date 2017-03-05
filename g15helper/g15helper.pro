@@ -40,7 +40,10 @@ CONFIG(g15-emulator) {
 
   win32 {
     RC_FILE = g15helper.rc
-    QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+
+    win32-msvc* {
+      QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+    }
   }
 } else {
   CONFIG -= qt
@@ -52,7 +55,10 @@ CONFIG(g15-emulator) {
     QMAKE_LIBDIR *= "$$G15SDK_PATH/Lib/x86"
     INCLUDEPATH *= "$$G15SDK_PATH/Src"
     DEFINES *= WIN32
-    QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+
+    win32-msvc* {
+      QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+    }
 
     CONFIG(release, debug|release) {
       QMAKE_CFLAGS_RELEASE -= -MD
