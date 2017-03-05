@@ -389,7 +389,7 @@
          </widget>
          <widget class="QWidget" name="qwExceptions">
           <attribute name="title">
-           <string>Overlay exceptions</string>
+           <string>Overlay Exceptions</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_16">
            <item>
