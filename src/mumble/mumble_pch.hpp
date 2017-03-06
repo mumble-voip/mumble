@@ -13,7 +13,7 @@
 #define QT_USE_FAST_OPERATOR_PLUS
 
 #define NOMINMAX
-#define _WINSOCKAPI_
+#define WIN32_LEAN_AND_MEAN
 
 #define BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
 
@@ -74,18 +74,10 @@
 #include <algorithm>
 
 #ifdef Q_OS_WIN
-// Qt 5's qnetworksession.h undefs 'interface' (as defined in ObjBase.h on Windows).
-// This causes Windows headers that use COM interfaces to break. Internally, it's
-// just defined as 'struct', so we'll do that here as well to make things work again
-// without too much hassle.
-#ifndef interface
-#define interface struct
-#endif
-
-#include <windows.h>
-#include <shellapi.h>
 #include <winsock2.h>
 #include <qos2.h>
+#include <windows.h>
+#include <shellapi.h>
 #include <wintrust.h>
 #include <softpub.h>
 #include <dbt.h>
@@ -94,6 +86,7 @@
 #include <tlhelp32.h>
 #include <psapi.h>
 #include <math.h>
+#include <mmreg.h>
 
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
 
