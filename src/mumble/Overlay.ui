@@ -353,6 +353,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="qpbLaunchersRemove">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="text">
                     <string>Remove</string>
                    </property>
@@ -385,6 +388,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="qpbWhitelistRemove">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="text">
                     <string>Remove</string>
                    </property>
@@ -417,6 +423,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="qpbPathsRemove">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="text">
                     <string>Remove</string>
                    </property>
@@ -449,6 +458,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="qpbBlacklistRemove">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="text">
                     <string>Remove</string>
                    </property>

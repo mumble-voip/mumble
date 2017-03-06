@@ -128,8 +128,6 @@ OverlaySettings::OverlaySettings() {
 	bFps = false;
 	qrfTime = QRectF(0.0f, 0.0, -1, 0.023438f);
 	bTime = false;
-
-	bUseWhitelist = false;
 }
 
 void OverlaySettings::setPreset(const OverlayPresets preset) {
@@ -887,7 +885,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	settings_ptr->setValue(QLatin1String("launchers"), qslLaunchers);
 	settings_ptr->setValue(QLatin1String("launchersexclude"), qslBlacklistExclude);
 	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);
-	settings_ptr->setValue(QLatin1String("whitelistexclude"), qslWhiteListExclude);
+	settings_ptr->setValue(QLatin1String("whitelistexclude"), qslWhitelistExclude);
 	settings_ptr->setValue(QLatin1String("paths"), qslPaths);
 	settings_ptr->setValue(QLatin1String("pathsexclude"), qslPathsExclude);
 	settings_ptr->setValue(QLatin1String("blacklist"), qslBlacklist);

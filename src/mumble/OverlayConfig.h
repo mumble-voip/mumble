@@ -58,12 +58,19 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qpbInstall_clicked();
 		void on_qpbUninstall_clicked();
 
+		void on_qlwLaunchers_itemSelectionChanged();
 		void on_qpbLaunchersAdd_clicked();
 		void on_qpbLaunchersRemove_clicked();
 
+		void on_qlwWhitelist_itemSelectionChanged();
 		void on_qpbWhitelistAdd_clicked();
 		void on_qpbWhitelistRemove_clicked();
 
+		void on_qlwPaths_itemSelectionChanged();
+		void on_qpbPathsAdd_clicked();
+		void on_qpbPathsRemove_clicked();
+
+		void on_qlwBlacklist_itemSelectionChanged();
 		void on_qpbBlacklistAdd_clicked();
 		void on_qpbBlacklistRemove_clicked();
 
