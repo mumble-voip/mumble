@@ -74,14 +74,6 @@
 #include <algorithm>
 
 #ifdef Q_OS_WIN
-// Qt 5's qnetworksession.h undefs 'interface' (as defined in ObjBase.h on Windows).
-// This causes Windows headers that use COM interfaces to break. Internally, it's
-// just defined as 'struct', so we'll do that here as well to make things work again
-// without too much hassle.
-#ifndef interface
-#define interface struct
-#endif
-
 #include <winsock2.h>
 #include <qos2.h>
 #include <windows.h>
