@@ -29,6 +29,7 @@ static const char *overlayBlacklist[] = {
 	"blender.exe",
 	"googleearth.exe",
 	"XBMC.exe", // http://xbmc.org/
+	"kodi.exe", // https://kodi.tv/
 	"BOXEE.exe", // http://www.boxee.tv/
 	"hammer.exe", // VALVE Hammer Editor
 	"hlmv.exe", // Half-Life Model Viewer
