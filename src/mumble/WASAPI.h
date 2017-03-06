@@ -10,7 +10,6 @@
 #include <QtCore/QUuid>
 
 #include <windows.h>
-#include <initguid.h>
 #include <mmreg.h>
 #include <strsafe.h>
 #include <mmdeviceapi.h>

@@ -370,7 +370,7 @@ win32 {
     RC_FILE = mumble.rc
   }
   HEADERS	*= GlobalShortcut_win.h Overlay_win.h TaskList.h UserLockFile.h
-  SOURCES	*= GlobalShortcut_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
+  SOURCES	*= GlobalShortcut_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp WinGUIDs.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
 
   !CONFIG(qtspeech) {
     SOURCES *= TextToSpeech_win.cpp
