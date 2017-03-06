@@ -128,6 +128,8 @@ OverlaySettings::OverlaySettings() {
 	bFps = false;
 	qrfTime = QRectF(0.0f, 0.0, -1, 0.023438f);
 	bTime = false;
+
+	iOverlayExcludeMode = 0; // Launcher
 }
 
 void OverlaySettings::setPreset(const OverlayPresets preset) {
@@ -560,6 +562,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	LOADFLAG(qaMutedDeafened, "mutedalign");
 	LOADFLAG(qaAvatar, "avataralign");
 
+	SAVELOAD(iOverlayExcludeMode, "mode");
 	SAVELOAD(qslLaunchers, "launchers");
 	SAVELOAD(qslLaunchersExclude, "launchersexclude");
 	SAVELOAD(qslWhitelist, "whitelist");
@@ -882,6 +885,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVEFLAG(qaMutedDeafened, "mutedalign");
 	SAVEFLAG(qaAvatar, "avataralign");
 
+	SAVELOAD(iOverlayExcludeMode, "mode");
 	settings_ptr->setValue(QLatin1String("launchers"), qslLaunchers);
 	settings_ptr->setValue(QLatin1String("launchersexclude"), qslBlacklistExclude);
 	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);

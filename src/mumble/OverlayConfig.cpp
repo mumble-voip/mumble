@@ -185,6 +185,31 @@ OverlayConfig::OverlayConfig(Settings &st) :
 	// actions they perform are the same. The distinction is only there to inform
 	// users as to what's actually going on.
 	connect(qpbUpgrade, SIGNAL(clicked()), this, SLOT(on_qpbInstall_clicked()));
+
+	//updateOverlayExceptionModeState();
+}
+
+void OverlayConfig::updateOverlayExceptionModeState() {
+	int idx = qcbOverlayExceptionMode->currentIndex();
+	qWarning("idx = %i", idx);
+	if (idx == 0) { // Launcher filter
+		qwLaunchers->setHidden(false);
+		qwWhitelist->setHidden(false);
+		qwPaths->setHidden(false);
+		qwBlacklist->setHidden(false);
+	} else if (idx == 1) { // Whitelist
+		qwLaunchers->setHidden(true);
+		qwWhitelist->setHidden(false);
+		qwPaths->setHidden(true);
+		qwBlacklist->setHidden(true);
+	} else if (idx == 2) { // Blacklist
+		qwLaunchers->setHidden(true);
+		qwWhitelist->setHidden(true);
+		qwPaths->setHidden(true);
+		qwBlacklist->setHidden(false);
+	} else {
+		qWarning("FAILS!");
+	}
 }
 
 OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
@@ -301,6 +326,8 @@ void OverlayConfig::load(const Settings &r) {
 	qcbShowFps->setChecked(s.os.bFps);
 	qcbShowTime->setChecked(s.os.bTime);
 	qgpFps->setEnabled(s.os.bEnable);
+
+	qcbOverlayExceptionMode->setCurrentIndex(s.os.iOverlayExcludeMode);
 
 	// Launchers
 	{
@@ -477,6 +504,8 @@ void OverlayConfig::save() const {
 
 	// Directly save overlay config
 
+	s.os.iOverlayExcludeMode = qcbOverlayExceptionMode->currentIndex();
+
 	// Launchers
 	{
 		s.os.qslLaunchers.clear();
@@ -643,6 +672,10 @@ void OverlayConfig::on_qlwLaunchers_itemSelectionChanged() {
 	} else {
 		qpbLaunchersRemove->setEnabled(true);
 	}
+}
+
+void OverlayConfig::on_qcbOverlayExceptionMode_currentIndexChanged(int) {
+	updateOverlayExceptionModeState();
 }
 
 void OverlayConfig::on_qpbLaunchersAdd_clicked() {
