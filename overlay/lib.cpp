@@ -614,77 +614,7 @@ static bool findParentProcess(PROCESSENTRY32 *parent) {
 	return findParentProcessForChild(ourpid, parent);
 }
 
-// Checks whether the parent process is an allowed
-// launcher per the overlay launcher filter.
-static bool isParentProcessAllowed() {
-	PROCESSENTRY32 parent;
-
-	if (!findParentProcess(&parent)) {
-		ods("isParentProcessAllowed: Unable to find parent. Process is allowed.");
-		return true;
-	}
-
-	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
-
-	bool enablelauncherfilter = false;
-	HKEY key = NULL;
-
-	char *buffer = new char[buffsize];
-
-	// check if the launcher filter is enabled.
-	DWORD tmpsize = buffsize - 1;
-	bool success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
-	          (RegQueryValueExA(key, "enablelauncherfilter", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
-
-	if (success) {
-		buffer[tmpsize] = '\0';
-		enablelauncherfilter = (_stricmp(buffer, "true") == 0);
-		// reset tmpsize to the buffers size (minus 1 char for str-termination), as it was changed by RegQuery
-		tmpsize = buffsize - 1;
-
-		// read the launcher list
-		DWORD ret;
-		while ((ret = RegQueryValueExA(key, "launchers", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
-			// Increase the buffsize according to the required size RegQuery wrote into tmpsize, so we can read the whole value
-			delete []buffer;
-			buffsize = tmpsize + 1;
-			buffer = new char[buffsize];
-		}
-
-		success = (ret == ERROR_SUCCESS);
-	}
-
-	if (!enablelauncherfilter) {
-		ods("isParentProcessAllowed: Launcher filter is not enabled. Process is allowed.");
-		return true;
-	}
-
-	if (key)
-		RegCloseKey(key);
-
-	if (success) {
-		buffer[tmpsize] = '\0';
-		unsigned int pos = 0;
-
-		if (enablelauncherfilter) {
-			// check if the process is an allowed launcher.
-			while (pos < buffsize && buffer[pos] != 0) {
-				if (_stricmp(parent.szExeFile, buffer + pos) == 0) {
-					ods("isParentProcessAllowed: Parent EXE file (%s) found in the launchers list. Process is allowed.", parent.szExeFile);
-					return true;
-				}
-				pos += static_cast<unsigned int>(strlen(buffer + pos)) + 1;
-			}
-		}
-	} else {
-		ods("Lib: no launchers found in the registry");
-	}
-
-	return false;
-}
-
 static void performEarlyExcludeChecks(const std::string &dir) {
-
 	// Check for "nooverlay" file.
 	std::string nooverlay = dir + "\\nooverlay";
 	HANDLE h = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
