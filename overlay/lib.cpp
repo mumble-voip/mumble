@@ -439,6 +439,8 @@ void __stdcall OverlayHelperProcessParentDeathThread(void *udata) {
 extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned int magic, HANDLE parent) {
 	int retval = 0;
 
+	OutputDebugStringA("in main");
+
 	if (GetOverlayMagicVersion() != magic) {
 		return OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH;
 	}

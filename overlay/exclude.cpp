@@ -16,27 +16,30 @@
 
 static std::vector<std::string> defaultBlacklistVector() {
 	std::vector<std::string> out;
-	size_t len = sizeof(overlayBlacklist)/sizeof(overlayBlacklist[0]);
-	for (size_t i = 0; i < len; i++) {
+	size_t i = 0;
+	while (overlayBlacklist[i] != NULL) {
 		out.push_back(std::string(overlayBlacklist[i]));
+		i++;
 	}
 	return out;
 }
 
 static std::vector<std::string> defaultWhitelistVector() {
 	std::vector<std::string> out;
-	size_t len = sizeof(overlayWhitelist)/sizeof(overlayWhitelist[0]);
-	for (size_t i = 0; i < len; i++) {
+	size_t i = 0;
+	while (overlayWhitelist[i] != NULL) {
 		out.push_back(std::string(overlayWhitelist[i]));
+		i++;
 	}
 	return out;
 }
 
 static std::vector<std::string> defaultLaunchersVector() {
 	std::vector<std::string> out;
-	size_t len = sizeof(overlayLaunchers)/sizeof(overlayLaunchers[0]);
-	for (size_t i = 0; i < len; i++) {
+	size_t i = 0;
+	while (overlayLaunchers[i] != NULL) {
 		out.push_back(std::string(overlayLaunchers[i]));
+		i++;
 	}
 	return out;
 }
