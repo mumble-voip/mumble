@@ -191,7 +191,6 @@ OverlayConfig::OverlayConfig(Settings &st) :
 
 void OverlayConfig::updateOverlayExceptionModeState() {
 	int idx = qcbOverlayExceptionMode->currentIndex();
-	qWarning("idx = %i", idx);
 	if (idx == 0) { // Launcher filter
 		qwLaunchers->setHidden(false);
 		qwWhitelist->setHidden(false);
