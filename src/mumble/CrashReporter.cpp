@@ -10,6 +10,7 @@
 #include "Global.h"
 #include "NetworkConfig.h"
 #include "OSInfo.h"
+#include "EnvUtils.h"
 
 CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("Mumble Crash Report"));
@@ -146,11 +147,10 @@ void CrashReporter::run() {
 			qsl << qtf.fileName();
 
 			QString app = QLatin1String("dxdiag.exe");
-			wchar_t *sr = NULL;
-			size_t srsize = 0;
-			if (_wdupenv_s(&sr, &srsize, L"SystemRoot") == 0) {
-				app = QDir::fromNativeSeparators(QString::fromWCharArray(sr)) + QLatin1String("/System32/dxdiag.exe");
-				free(sr);
+			QString systemRoot = EnvUtils::getenv(QLatin1String("SystemRoot"));
+
+			if (systemRoot.count() > 0) {
+				app = QDir::fromNativeSeparators(systemRoot + QLatin1String("/System32/dxdiag.exe"));
 			}
 
 			qp.start(app, qsl);
