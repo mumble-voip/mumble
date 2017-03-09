@@ -43,18 +43,28 @@ INCLUDEPATH = ../speex-src/include ../speex-src/libspeex ../speexdsp-src/include
 win32 {
   INCLUDEPATH += ../speex-build/win32
   DEFINES+=WIN32 _WINDOWS _USE_SSE _USE_MATH_DEFINES
+
+  win32-g++ {
+    # MinGW uses the config.h for Unix-like systems.
+    INCLUDEPATH += ../speex-build
+  }
+
+  win32-msvc* {
+    INCLUDEPATH += ../speex-build/win32
+
+    CONFIG(sse2) {
+      TARGET = speex.sse2
+      DEFINES += _USE_SSE2
+    } else {
+      QMAKE_CFLAGS_RELEASE -= -arch:SSE
+      QMAKE_CFLAGS_DEBUG -= -arch:SSE
+    }
+  }
+
   SOURCES	*= mumble_speex_init.c
 
   CONFIG -= static
   CONFIG += shared
-
-  CONFIG(sse2) {
-    TARGET = speex.sse2
-    DEFINES += _USE_SSE2
-  } else {
-    QMAKE_CFLAGS_RELEASE -= -arch:SSE
-    QMAKE_CFLAGS_DEBUG -= -arch:SSE
-  }
 
   DEFINES+=USE_SMALLFT
 
