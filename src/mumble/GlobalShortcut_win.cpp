@@ -22,7 +22,7 @@
 // from os_win.cpp
 extern HWND mumble_mw_hwnd;
 
-static uint qHash(const GUID &a) {
+uint qHash(const GUID &a) {
 	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
 	for (int i=0;i<8;i++)
 		val += a.Data4[i];
