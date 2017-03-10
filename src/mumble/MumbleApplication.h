@@ -51,7 +51,7 @@ class MumbleApplication : public QApplication {
 		bool event(QEvent *e) Q_DECL_OVERRIDE;
 #ifdef Q_OS_WIN
 # if QT_VERSION >= 0x050000
-		bool MumbleApplication::nativeEventFilter(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
+		bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
 # else
 		bool winEventFilter(MSG *msg, long *result) Q_DECL_OVERRIDE;
 # endif
