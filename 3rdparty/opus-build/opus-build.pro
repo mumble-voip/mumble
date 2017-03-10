@@ -76,7 +76,7 @@ INCLUDEPATH *= \
 ../$$SOURCEDIR/silk/x86 \
 ../$$SOURCEDIR/silk/float
 
-win32 {
+win32-msvc* {
   CONFIG *= opus-sse-sources
   CONFIG *= opus-sse2-sources
   CONFIG *= opus-sse41-sources
