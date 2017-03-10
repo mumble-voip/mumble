@@ -611,6 +611,9 @@ directsound {
 	HEADERS	*= DirectSound.h
 	SOURCES	*= DirectSound.cpp
 	LIBS	*= -ldsound
+	win32-g++ {
+		LIBS *= -lksuser
+	}
 }
 
 wasapi {
