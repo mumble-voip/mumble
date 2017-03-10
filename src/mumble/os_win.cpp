@@ -156,6 +156,8 @@ BOOL SetHeapOptions() {
 	return fRet;
 }
 
+// We only support delay-loading on MSVC, not on MinGW.
+#ifdef _MSC_VER
 FARPROC WINAPI delayHook(unsigned dliNotify, PDelayLoadInfo pdli) {
 	if (dliNotify != dliNotePreLoadLibrary)
 		return 0;
@@ -207,6 +209,7 @@ FARPROC WINAPI delayHook(unsigned dliNotify, PDelayLoadInfo pdli) {
 }
 
 decltype(__pfnDliNotifyHook2) __pfnDliNotifyHook2 = delayHook;
+#endif
 
 void os_init() {
 	__cpuid(cpuinfo, 1);
