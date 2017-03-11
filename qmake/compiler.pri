@@ -30,7 +30,15 @@ isEqual(QT_MAJOR_VERSION, 5) {
 	MUMBLE_ARCH = $$QT_ARCH
 }
 
-win32 {
+win32-g++ {
+	CONFIG(symbols) {
+		# Configure build to be able to properly debug release builds
+		QMAKE_CFLAGS *= -g
+		QMAKE_CXXFLAGS *= -g
+	}
+}
+
+win32-msvc* {
 	# Define the CONFIG options 'force-x86-toolchain' and
 	# 'force-x86_64-toolchain'. These can be used to force
 	# the target of a .pro file to be built for a specific
