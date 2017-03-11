@@ -833,6 +833,7 @@ void WASAPIOutput::run() {
 	bool lastspoke = false;
 	REFERENCE_TIME bufferDuration = (g.s.iOutputDelay > 1) ? (g.s.iOutputDelay + 1) * 100000 : 0;
 	bool exclusive = false;
+	bool mixed = false;
 
 	CoInitialize(NULL);
 
@@ -999,7 +1000,6 @@ void WASAPIOutput::run() {
 	iChannels = pwfx->nChannels;
 	initializeMixer(chanmasks);
 
-	bool mixed = false;
 	numFramesAvailable = 0;
 
 	while (bRunning && ! FAILED(hr)) {
