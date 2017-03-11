@@ -523,7 +523,14 @@ asio {
 	HEADERS *= ASIOInput.h
 	SOURCES	*= ASIOInput.cpp
 	FORMS *= ASIOInput.ui
-	INCLUDEPATH *= "$$ASIO_PATH/common" "$$ASIO_PATH/host" "$$ASIO_PATH/host/pc"
+
+	# If 3rdparty/asio exists, use that...
+	exists(../../3rdparty/asio) {
+		INCLUDEPATH *= ../../3rdparty/asio/common ../../3rdparty/asio/host ../../3rdparty/asio/host/pc
+	# Otherwise, fall back to the path from winpaths_*.pri.
+	} else {
+		INCLUDEPATH *= "$$ASIO_PATH/common" "$$ASIO_PATH/host" "$$ASIO_PATH/host/pc"
+	}
 }
 
 bonjour {
