@@ -409,6 +409,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 				hhookWnd = SetWindowsHookEx(WH_CBT, CallWndProc, hSelf, 0);
 				if (hhookWnd == NULL)
 					ods("Lib: Failed to insert WNDProc hook");
+				ods("Lib: Installed overlay hook");
 			}
 
 			sd->bHooked = true;
@@ -491,10 +492,15 @@ static void performEarlyExcludeChecks(const std::string &dir);
 static void performExcludeChecks(const std::string &absExeName, const std::string &exeName);
 static bool createSharedDataMap();
 
-static void dllmainProcAttach(char *procname) {
+static bool dllmainProcAttach(char *procname) {
 	Mutex::init();
 
-	iExcludeMode = ExcludeGetMode();
+	int mode = ExcludeGetMode();
+	if (mode == -1) {
+		ods("Lib: No setting for overlay exclusion mode. Using 'launcher' mode (0)");
+		mode = 0;
+	}
+	iExcludeMode = mode;
 	vLaunchers = ExcludeGetLaunchers();
 	vWhitelist = ExcludeGetWhitelist();
 	vPaths = ExcludeGetPaths();
@@ -519,13 +525,13 @@ static void dllmainProcAttach(char *procname) {
 		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
 		bEnableOverlay = FALSE;
 		bMumble = TRUE;
-	}
+	} else {
+		performEarlyExcludeChecks(dir);
+		performExcludeChecks(absExeName, exeName);
 
-	performEarlyExcludeChecks(dir);
-	performExcludeChecks(absExeName, exeName);
-
-	if (!bEnableOverlay || bMumble) {
-		return;
+		if (!bEnableOverlay) {
+			return false;
+		}
 	}
 
 	OSVERSIONINFOEX ovi;
@@ -540,11 +546,11 @@ static void dllmainProcAttach(char *procname) {
 	hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 	if (hHookMutex == NULL) {
 		ods("Lib: CreateMutex failed");
-		return;
+		return false;
 	}
 
 	if(!createSharedDataMap())
-		return;
+		return false;
 
 	if (! bMumble) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
@@ -554,6 +560,8 @@ static void dllmainProcAttach(char *procname) {
 		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
 	}
+
+	return true;
 }
 
 static bool findParentProcessForChild(DWORD child, PROCESSENTRY32 *parent) {
@@ -672,19 +680,24 @@ static void performExcludeChecks(const std::string &absExeName, const std::strin
 		PROCESSENTRY32 parent;
 		if (!findParentProcess(&parent)) {
 			// Unable to find parent. Process is allowed.
+			ods("Lib: Unable to find parent. Process allowed.");
 			bEnableOverlay = true;
 		}
 
 		std::string parentExeName(parent.szExeFile);
 		std::transform(parentExeName.begin(), parentExeName.end(), parentExeName.begin(), tolower);
 
+		ods("Lib: Parent is '%s'", parentExeName.c_str());
+
 		// The blacklist always wins.
 		// If an exe is in the blacklist, never show the overlay, ever.
 		if (isBlacklistedExe(exeName)) {
+			ods("Lib: '%s' is blacklisted. Overlay disabled.", exeName.c_str());
 			bEnableOverlay = false;
 		   return;
 		// If the process's exe name is whitelisted, allow the overlay to be shown.
 		} else if (isWhitelistedExe(exeName)) {
+			ods("Lib: '%s' is whitelisted. Overlay enabled.", exeName.c_str());
 			bEnableOverlay = true;
 		// If the exe is within a whitelisted path, allow the overlay to be shown.
 		// An example is:
@@ -692,14 +705,17 @@ static void performExcludeChecks(const std::string &absExeName, const std::strin
 		// absExeName: d:\games\World of Warcraft\Wow-64.exe
 		// The overlay would be shown in WoW (and any game that lives under d:\games)
 		 } else if (isWhitelistedPath(absExeName)) {
+			ods("Lib: '%s' is within a whitelisted path. Overlay enabled.", absExeName.c_str());
 		 	bEnableOverlay = true;
 		// If the direct parent is whitelisted, allow the process through.
 		// This allows us to whitelist Steam.exe, etc. -- and have the overlay
 		// show up in all Steam titles.
 		} else if (isWhitelistedParent(parentExeName)) {
+			ods("Lib: Parent '%s' of '%s' is whitelisted. Overlay enabled.", parentExeName.c_str(), exeName.c_str());
 			bEnableOverlay = true;
 		// If nothing matched, do not show the overlay.
 		} else {
+			ods("Lib: No matching overlay exclusion rule found. Overlay disabled.");
 			bEnableOverlay = false;
 		}
 	} else if (iExcludeMode == 1) {
@@ -803,10 +819,14 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	procname[ARRAY_NUM_ELEMENTS(procname) - 1] = '\0';
 
 	switch (fdwReason) {
-		case DLL_PROCESS_ATTACH:
+		case DLL_PROCESS_ATTACH: {
 			ods("Lib: ProcAttach: %s", procname);
-			dllmainProcAttach(procname);
+			bool shouldAttach = dllmainProcAttach(procname);
+			if (!shouldAttach) {
+				return FALSE;
+			}
 			break;
+		}
 		case DLL_PROCESS_DETACH:
 			ods("Lib: ProcDetach: %s", procname);
 			dllmainProcDetach();
