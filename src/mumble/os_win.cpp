@@ -11,6 +11,8 @@
 #include <emmintrin.h>
 #include <math.h>
 #include <float.h>
+#include <shobjidl.h>
+#include <shlobj.h>
 #include <share.h> // For share flags for _wfsopen
 
 #include "Global.h"
