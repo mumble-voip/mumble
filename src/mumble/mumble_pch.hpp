@@ -33,6 +33,7 @@
 // we need.
 #define _WIN32_WINNT 0x0601
 #define NTDDI_VERSION NTDDI_WIN7
+#include <ws2tcpip.h>
 #endif
 
 #include <QtCore/QtCore>
