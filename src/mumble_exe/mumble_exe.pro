@@ -33,7 +33,9 @@ SOURCES *= mumble_exe.cpp Overlay.cpp
   }
 }
 
-QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../mumble/mumble.appcompat.manifest)
+win32-msvc* {
+  QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../mumble/mumble.appcompat.manifest)
+}
 
 CONFIG(debug, debug|release) {
   CONFIG += console
