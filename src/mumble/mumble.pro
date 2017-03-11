@@ -625,7 +625,7 @@ wasapi {
 	DEFINES *= USE_WASAPI
 	HEADERS	*= WASAPI.h WASAPINotificationClient.h
 	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
-	LIBS	*= -lAVRT -delayload:AVRT.DLL
+	LIBS	*= -lavrt -delayload:avrt.DLL
 	win32-g++ {
 		LIBS *= -lboost_system-mt
 	}
