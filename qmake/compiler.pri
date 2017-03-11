@@ -31,6 +31,8 @@ isEqual(QT_MAJOR_VERSION, 5) {
 }
 
 win32-g++ {
+	DEFINES *= MINGW_HAS_SECURE_API
+
 	CONFIG(symbols) {
 		# Configure build to be able to properly debug release builds
 		QMAKE_CFLAGS *= -g
