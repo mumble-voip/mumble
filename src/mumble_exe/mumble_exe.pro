@@ -15,6 +15,11 @@ win32 {
   RC_FILE = ../mumble/mumble.rc
   LIBS *= -luser32 -lshlwapi
 
+  win32-g++ {
+    QMAKE_LFLAGS *= -municode
+    DEFINES *= _UNICODE
+  }
+  
   win32-msvc* {
     CONFIG(release, debug|release) {
       QMAKE_CXXFLAGS_RELEASE -= -MD
