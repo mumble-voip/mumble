@@ -887,7 +887,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 
 	SAVELOAD(iOverlayExcludeMode, "mode");
 	settings_ptr->setValue(QLatin1String("launchers"), qslLaunchers);
-	settings_ptr->setValue(QLatin1String("launchersexclude"), qslBlacklistExclude);
+	settings_ptr->setValue(QLatin1String("launchersexclude"), qslLaunchersExclude);
 	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);
 	settings_ptr->setValue(QLatin1String("whitelistexclude"), qslWhitelistExclude);
 	settings_ptr->setValue(QLatin1String("paths"), qslPaths);
