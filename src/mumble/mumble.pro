@@ -626,6 +626,9 @@ wasapi {
 	HEADERS	*= WASAPI.h WASAPINotificationClient.h
 	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
 	LIBS	*= -lAVRT -delayload:AVRT.DLL
+	win32-g++ {
+		LIBS *= -lboost_system-mt
+	}
 }
 
 g15 {

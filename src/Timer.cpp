@@ -18,7 +18,7 @@
 //  https://github.com/boostorg/system/blob/boost-1.56.0/include/boost/system/error_code.hpp#L514-L516
 // vs.
 //  https://github.com/boostorg/system/blob/boost-1.55.0/include/boost/system/error_code.hpp#L515-L517
-#if BOOST_VERSION >= 105600
+#if BOOST_VERSION >= 105600 && !defined(__MINGW32__)
 # define USE_BOOST_CHRONO
 #endif
 
