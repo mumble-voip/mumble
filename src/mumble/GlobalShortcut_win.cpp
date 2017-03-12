@@ -627,7 +627,7 @@ void GlobalShortcutWin::timeTicked() {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput->isValid() && nxboxinput > 0) {
+	if (g.s.bEnableXboxInput && xboxinput != NULL && xboxinput->isValid() && nxboxinput > 0) {
 		XboxInputState state;
 		for (uint32_t i = 0; i < XBOXINPUT_MAX_DEVICES; i++) {
 			if (xboxinput->GetState(i, &state) == 0) {
@@ -751,7 +751,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
+	if (g.s.bEnableXboxInput && xboxinput != NULL && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
 		uint32_t idx = (type >> 24) & 0xff;
 		uint32_t button = (type & 0x00ffffff);
 
