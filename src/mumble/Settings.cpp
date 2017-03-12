@@ -1064,6 +1064,7 @@ void Settings::save() {
 	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
 	SAVELOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
+	SAVELOAD(bEnableGKey, "shortcut/gkey");
 	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	SAVELOAD(bEnableWinHooks, "winhooks");
 	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
