@@ -233,6 +233,16 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbEnableDeveloperMenu">
+        <property name="whatsThis">
+         <string>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</string>
+        </property>
+        <property name="text">
+         <string>Enable Developer menu</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
