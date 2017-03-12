@@ -230,6 +230,7 @@ struct Settings {
 	bool bEnableXInput2;
 	bool bEnableGKey;
 	bool bEnableXboxInput;
+	bool bEnableWinHooks;
 	/// Enable verbose logging in GlobalShortcutWin's DirectInput backend.
 	bool bDirectInputVerboseLogging;
 	QList<Shortcut> qlShortcuts;
