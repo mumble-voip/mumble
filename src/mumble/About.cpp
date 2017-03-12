@@ -61,7 +61,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qtwTab->addTab(about, tr("&About Mumble"));
 	qtwTab->addTab(qteLicense, tr("&License"));
 	qtwTab->addTab(qteAuthors, tr("A&uthors"));
-	qtwTab->addTab(qtb3rdPartyLicense, tr("3rd &party licenses"));
+	qtwTab->addTab(qtb3rdPartyLicense, tr("&Third-Party Licenses"));
 
 	QPushButton *okButton = new QPushButton(tr("OK"), this);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
