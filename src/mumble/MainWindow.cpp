@@ -138,6 +138,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qmUser = new QMenu(tr("&User"), this);
 	qmChannel = new QMenu(tr("&Channel"), this);
 
+	qmDeveloper = new QMenu(tr("&Developer"), this);
+
 	createActions();
 	setupUi(this);
 	setupGui();
@@ -156,6 +158,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qmChannel_aboutToShow();
 	qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
+	qmDeveloper->addAction(qaDeveloperConsole);
 
 	setOnTop(g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
 	         (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
@@ -1037,6 +1040,22 @@ void MainWindow::setupView(bool toggle_minimize) {
 	} else {
 		menuBar()->removeAction(qmUser->menuAction());
 		menuBar()->removeAction(qmChannel->menuAction());
+	}
+
+	if (g.s.bEnableDeveloperMenu) {
+		bool found = false;
+		foreach(QAction *a, menuBar()->actions()) {
+			if (a == qmDeveloper->menuAction()) {
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			menuBar()->insertMenu(qmHelp->menuAction(), qmDeveloper);
+		}
+	} else {
+		menuBar()->removeAction(qmDeveloper->menuAction());
 	}
 
 	if (! showit) {
