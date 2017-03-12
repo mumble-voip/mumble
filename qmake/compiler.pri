@@ -208,7 +208,7 @@ win32-msvc* {
 	}
 }
 
-unix {
+unix|win32-g++ {
 	DEFINES *= RESTRICT=__restrict__
 	QMAKE_CFLAGS *= -fvisibility=hidden
 	QMAKE_CXXFLAGS *= -fvisibility=hidden
