@@ -6,7 +6,12 @@
 #include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
 #include <limits> // Include limits header for the "u8" function.
 
-static procptr32_t identptr, contextptr, posptr;
+// Memory offsets
+const procptr32_t position_offset	= 0x18C2340;
+const procptr32_t state_offset		= position_offset + 0xD0;
+const procptr32_t context_offset	= 0x16B2CD4;
+const procptr32_t identity_offset	= context_offset + 0x444;
+const procptr32_t version_offset	= 0x1616080;
 
 static void inline u8(std::wstring &dst, const std::string &src) {
 	if (src.length() > static_cast<size_t>(std::numeric_limits<int>::max())) {
@@ -23,71 +28,56 @@ static void inline u8(std::wstring &dst, const std::string &src) {
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	char identblock[0x200];
-	char contextblock[0x80];
-	float posblock[64];
+	for (int i=0;i<3;i++)
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	if (! peekProc(identptr, identblock) ||
-	    ! peekProc(contextptr, contextblock) ||
-	    ! peekProc(posptr, posblock))
+	// Boolean value to check if game addresses retrieval is successful
+	bool ok;
+	// Char values for extra features
+	char version[17], identity_block[0x200], context_block[0x80];
+	// State
+	unsigned char state;
+
+	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
+	ok = peekProc(pModule + state_offset, &state, 1)							&& // Magical state value: 1 when spawned.
+			peekProc(pModule + position_offset, avatar_pos, 12)					&& // Avatar Position values (X, Y and Z).
+			peekProc(pModule + position_offset + 0xC, camera_pos, 12)			&& // Camera Position values (X, Y and Z).
+			peekProc(pModule + position_offset + 0x3C, avatar_front, 12)		&& // Front vector values (X, Y and Z).
+			peekProc(pModule + position_offset + 0x48, camera_front, 12)		&& // Top vector values (X, Y and Z).
+			peekProc(pModule + context_offset, context_block)					&& // Context block.
+			peekProc(pModule + identity_offset, identity_block)					&& // Identity block.
+			peekProc(pModule + version_offset, version);						   // Game version
+
+	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
+	if (! ok)
 		return false;
 
-	std::string ident = std::string(identblock+0x188, strnlen(identblock + 0x188, 0x78)) + std::string("@") + std::string(identblock, strnlen(identblock, 0x80));
-	u8(identity, ident);
+	// Check if the version is supported by the plugin.
+	version[16] = 0;
+	if (memcmp(version, "ST.0.20100217c.3", sizeof(version)) != 0)
+		return false;
 
-#ifdef PLUGIN_DEBUG
-	printf("%ls\n", identity.c_str());
-#endif
+	// Assign context
+	context.assign(reinterpret_cast<char *>(context_block), 4);
 
-	context.assign(reinterpret_cast<char *>(contextblock), 4);
-#ifdef PLUGIN_DEBUG
-	DWORD *ctx = reinterpret_cast<DWORD *>(contextblock);
-	printf("%08x\n", *ctx);
-#endif
-
-#ifdef PLUGIN_DEBUG
-	printf("Avatar   %8.3f %8.3f %8.3f\n", posblock[0], posblock[1], posblock[2]);
-	printf("AvatarF  %8.3f %8.3f %8.3f\n", posblock[15], posblock[16], posblock[17]);
-	printf("Camera   %8.3f %8.3f %8.3f\n", posblock[3], posblock[4], posblock[5]);
-	printf("CameraF  %8.3f %8.3f %8.3f\n", posblock[18], posblock[19], posblock[20]);
-	printf("SpawnST  %d\n", * reinterpret_cast<DWORD *>(& posblock[52]));
-#endif
-	if (* reinterpret_cast<DWORD *>(& posblock[52]) == 1) {
-		for (int i=0;i<3;++i) {
-			avatar_pos[i] = posblock[i];
-			avatar_front[i] = posblock[i+15];
-			camera_pos[i] = posblock[i+3];
-			camera_front[i] = posblock[i+18];
-
-			avatar_top[i] = camera_top[i] = 0.0f;
-		}
-	} else {
-		for (int i=0;i<3;++i) {
-			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
-		}
-	}
+	// Assign identity
+	std::string identity_construct = std::string(identity_block+0x188, strnlen(identity_block + 0x188, 0x78)) + std::string("@") + std::string(identity_block, strnlen(identity_block, 0x80));
+	u8(identity, identity_construct);
 
 	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	identptr = contextptr = posptr = 0;
 
 	if (! initialize(pids, L"GameClient.exe"))
 		return false;
 
-	char version[17];
-	peekProc(pModule + 0x1616080, version);
-	version[16]=0;
+	// Check if we can get meaningful data from it
+	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
+	std::wstring sidentity;
+	std::string scontext;
 
-	if (memcmp(version, "ST.0.20100217c.3", sizeof(version)) == 0) {
-#ifdef PLUGIN_DEBUG
-		printf("STO: WANTLINK %s\n", version);
-#endif
-		contextptr = pModule + 0x16b2cd4;
-		identptr = contextptr + 0x444;
-		posptr = pModule + 0x18c2340;
-
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -96,10 +86,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Star Trek Online");
+	return std::wstring(L"Supports Star Trek Online version ST.0.20100208b.4 with context and identity support.");
 }
 
-static std::wstring description(L"Star Trek Online ST.0.20100208b.4");
+static std::wstring description(L"Star Trek Online (ST.0.20100208b.4)");
 static std::wstring shortname(L"Star Trek Online");
 
 static int trylock1() {
