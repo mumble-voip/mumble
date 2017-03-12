@@ -66,7 +66,7 @@ AboutDialog::AboutDialog(QWidget *p, AboutDialogOptions options) : QDialog(p) {
 	qtwTab->addTab(about, tr("&About Murmur"));
 	qtwTab->addTab(qteLicense, tr("&License"));
 	qtwTab->addTab(qteAuthors, tr("A&uthors"));
-	qtwTab->addTab(qtb3rdPartyLicense, tr("&Third-party licenses"));
+	qtwTab->addTab(qtb3rdPartyLicense, tr("&Third-Party Licenses"));
 
 	if (options == AboutDialogOptionsShowAbout) {
 		qtwTab->setCurrentWidget(about);
