@@ -606,7 +606,7 @@ void GlobalShortcutWin::timeTicked() {
 	}
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey->isValid()) {
+	if (g.s.bEnableGKey && gkey != NULL && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
 			QList<QVariant> ql;
 			ql << button;
@@ -734,7 +734,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	QString name=QLatin1String("Unknown");
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey->isValid()) {
+	if (g.s.bEnableGKey && gkey != NULL && gkey->isValid()) {
 		bool isGKey = false;
 		if (guid == GKeyLibrary::quMouse) {
 			isGKey = true;
