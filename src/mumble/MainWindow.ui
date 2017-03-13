@@ -68,12 +68,6 @@
     <addaction name="separator"/>
     <addaction name="qaHelpVersionCheck"/>
    </widget>
-   <widget class="QMenu" name="qmDeveloper">
-    <property name="title">
-     <string>&amp;Developer</string>
-    </property>
-    <addaction name="qaDeveloperConsole"/>
-   </widget>
    <widget class="QMenu" name="qmServer">
     <property name="title">
      <string>S&amp;erver</string>
@@ -99,7 +93,6 @@
    <addaction name="qmServer"/>
    <addaction name="qmSelf"/>
    <addaction name="qmConfig"/>
-   <addaction name="qmDeveloper"/>
    <addaction name="qmHelp"/>
   </widget>
   <widget class="QDockWidget" name="qdwLog">

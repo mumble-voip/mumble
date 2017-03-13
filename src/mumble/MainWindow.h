@@ -68,6 +68,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QSystemTrayIcon *qstiIcon;
 		QMenu *qmUser;
 		QMenu *qmChannel;
+		QMenu *qmDeveloper;
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
