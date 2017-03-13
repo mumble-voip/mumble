@@ -64,6 +64,14 @@ CONFIG(static) {
 QT		*= network sql xml svg
 isEqual(QT_MAJOR_VERSION, 5) {
   QT *= widgets
+
+  CONFIG(qtspeech) {
+    qtHaveModule(texttospeech) {
+      QT *= texttospeech
+    } else {
+      error("You enabled the 'qtspeech' CONFIG option, but the required 'texttospeech' module is not available on your system!")
+    }
+  }
 }
 
 HEADERS *= BanEditor.h \
@@ -197,6 +205,10 @@ SOURCES *= BanEditor.cpp \
     OverlayPositionableItem.cpp \
     widgets/MUComboBox.cpp \
     DeveloperConsole.cpp
+
+CONFIG(qtspeech) {
+  SOURCES *= TextToSpeech.cpp
+}
 
 DIST		*= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
@@ -358,7 +370,12 @@ win32 {
     RC_FILE = mumble.rc
   }
   HEADERS	*= GlobalShortcut_win.h Overlay_win.h TaskList.h UserLockFile.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
+  SOURCES	*= GlobalShortcut_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
+
+  !CONFIG(qtspeech) {
+    SOURCES *= TextToSpeech_win.cpp
+  }
+
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
   LIBS		*= -logg -lvorbis -lvorbisfile -lFLAC -lsndfile
   LIBS		*= -ldelayimp -delayload:shell32.dll
@@ -440,7 +457,11 @@ unix {
 
     HEADERS *= GlobalShortcut_macx.h AppNap.h
     SOURCES *= SharedMemory_unix.cpp
-    OBJECTIVE_SOURCES *= TextToSpeech_macx.mm GlobalShortcut_macx.mm os_macx.mm Log_macx.mm AppNap.mm
+    OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm Log_macx.mm AppNap.mm
+
+    !CONFIG(qtspeech) {
+      OBJECTIVE_SOURCES *= TextToSpeech_macx.mm
+    }
 
     !CONFIG(universal) {
       # Link against libxar so we can inspect Mac OS X installer packages.
@@ -462,7 +483,12 @@ unix {
     HEADERS += CoreAudio.h
   } else {
     HEADERS *= GlobalShortcut_unix.h
-    SOURCES *= os_unix.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
+    SOURCES *= os_unix.cpp GlobalShortcut_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
+    
+    !CONFIG(qtspeech) {
+      SOURCES *= TextToSpeech_unix.cpp
+    }
+    
     must_pkgconfig(x11)
     linux* {
       LIBS *= -lrt

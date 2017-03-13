@@ -189,3 +189,8 @@ CONFIG+=g15-emulator (Mumble, Win32)
 CONFIG+=no-manual-plugin (Mumble)
  Don't include the built-in 'manual' positional
  audio plugin.
+
+CONFIG+=qtspeech (Mumble)
+ Use Qt's text-to-speech system (part of the experimental
+ Qt Speech module), if available, instead of Mumble's own
+ OS-specific text-to-speech implementations.
