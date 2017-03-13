@@ -64,9 +64,11 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	}
 }
 
+#if QT_VERSION < 0x050000
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	mumbleMessageOutputQString(type, QString::fromUtf8(msg));
 }
+#endif
 
 #if QT_VERSION >= 0x050000
 static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
