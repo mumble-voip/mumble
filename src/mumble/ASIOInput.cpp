@@ -443,7 +443,7 @@ ASIOInput::ASIOInput() {
 							lBufSize += granSize;
 					}
 				}
-				qWarning("ASIOInput: Buffer mismatch mode. Wanted %d, got %d", wantBuf, lBufSize);
+				qWarning("ASIOInput: Buffer mismatch mode. Wanted %li, got %li", wantBuf, lBufSize);
 			}
 
 
