@@ -38,6 +38,8 @@ struct XboxInputState {
 	uint32_t  paddingReserved; // Required for XInputGetStateEx. Not required for XInputGetState. 
 };
 
+typedef uint32_t (WINAPI *XboxInputGetStateFunc)(uint32_t deviceIndex, XboxInputState *state);
+
 /// XboxInput is an XInput wrapper that dynamically loads an appropriate
 /// xinput*.dll on construction and provides access to its GetState(Ex)
 /// function.
@@ -58,15 +60,15 @@ class XboxInput {
 		/// Query the state of the Xbox controller at deviceIndex.
 		/// If the function succeeds, it returns 0 (Windows's ERROR_SUCCESS).
 		/// If no device is connected, it returns 0x48F (Windows's ERROR_DEVICE_NOT_CONNECTED).
-		uint32_t (WINAPI *GetState)(uint32_t deviceIndex, XboxInputState *state);
+		XboxInputGetStateFunc GetState;
 
 	protected:
 		/// m_getStateFunc represents XInputGetState from the XInput DLL.
-		uint32_t (WINAPI *m_getStateFunc)(uint32_t deviceIndex, XboxInputState *state);
+		XboxInputGetStateFunc m_getStateFunc;
 
 		/// m_getStateFuncEx represents XInputGetStateEx, which is optionally
 		/// available in the XInput DLL.
-		uint32_t (WINAPI *m_getStateExFunc)(uint32_t deviceIndex, XboxInputState *state);
+		XboxInputGetStateFunc m_getStateExFunc;
 
 		/// m_xinputlib is the handle to the XInput DLL as returned by
 		/// LoadLibrary.
