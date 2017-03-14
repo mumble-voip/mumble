@@ -45,7 +45,7 @@ void IceStop() {
 /// Remove all NUL bytes from |s|.
 static std::string iceRemoveNul(std::string s) {
 	std::vector<char> newstr;
-	for (int i = 0; i < s.size(); i++) {
+	for (size_t i = 0; i < s.size(); i++) {
 		char c = s.at(i);
 		if (c == 0) {
 			continue;
