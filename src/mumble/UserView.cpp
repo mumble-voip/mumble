@@ -36,7 +36,12 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 
 	painter->save();
 
+#if QT_VERSION >= 0x050000
+	QStyleOptionViewItem o = option;
+#else
 	QStyleOptionViewItemV4 o = option;
+#endif
+
 	initStyleOption(&o, index);
 
 	QStyle *style = o.widget->style();
