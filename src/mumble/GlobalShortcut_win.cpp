@@ -606,7 +606,7 @@ void GlobalShortcutWin::timeTicked() {
 	}
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey->isValid()) {
+	if (g.s.bEnableGKey && gkey != NULL && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
 			QList<QVariant> ql;
 			ql << button;
@@ -627,7 +627,7 @@ void GlobalShortcutWin::timeTicked() {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput->isValid() && nxboxinput > 0) {
+	if (g.s.bEnableXboxInput && xboxinput != NULL && xboxinput->isValid() && nxboxinput > 0) {
 		XboxInputState state;
 		for (uint32_t i = 0; i < XBOXINPUT_MAX_DEVICES; i++) {
 			if (xboxinput->GetState(i, &state) == 0) {
@@ -734,7 +734,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	QString name=QLatin1String("Unknown");
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey->isValid()) {
+	if (g.s.bEnableGKey && gkey != NULL && gkey->isValid()) {
 		bool isGKey = false;
 		if (guid == GKeyLibrary::quMouse) {
 			isGKey = true;
@@ -751,7 +751,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
+	if (g.s.bEnableXboxInput && xboxinput != NULL && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
 		uint32_t idx = (type >> 24) & 0xff;
 		uint32_t button = (type & 0x00ffffff);
 

@@ -513,6 +513,12 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 	qwWarningContainer->setVisible(false);
 
+#ifdef Q_OS_WIN
+	qgbWindowsShortcutEngines->setVisible(true);
+#else
+	qgbWindowsShortcutEngines->setVisible(false);
+#endif
+
 	qtwShortcuts->setColumnCount(canSuppress ? 4 : 3);
 	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
 
@@ -673,6 +679,10 @@ void GlobalShortcutConfig::load(const Settings &r) {
 		qwWarningContainer->setVisible(showWarning());
 	}
 
+	qcbEnableWinHooks->setChecked(r.bEnableWinHooks);
+	qcbEnableGKey->setChecked(r.bEnableGKey);
+	qcbEnableXboxInput->setChecked(r.bEnableXboxInput);
+
 	qcbEnableGlobalShortcuts->setCheckState(r.bShortcutEnable ? Qt::Checked : Qt::Unchecked);
 	on_qcbEnableGlobalShortcuts_stateChanged(qcbEnableGlobalShortcuts->checkState());
 	reload();
@@ -681,6 +691,19 @@ void GlobalShortcutConfig::load(const Settings &r) {
 void GlobalShortcutConfig::save() const {
 	s.qlShortcuts = qlShortcuts;
 	s.bShortcutEnable = qcbEnableGlobalShortcuts->checkState() == Qt::Checked;
+
+	bool oldWinHooks = s.bEnableWinHooks;
+	s.bEnableWinHooks = qcbEnableWinHooks->checkState() == Qt::Checked;
+
+	bool oldGKey = s.bEnableGKey;
+	s.bEnableGKey = qcbEnableGKey->checkState() == Qt::Checked;
+
+	bool oldXboxInput = s.bEnableXboxInput;
+	s.bEnableXboxInput = qcbEnableXboxInput->checkState() == Qt::Checked;
+
+	if (s.bEnableWinHooks != oldWinHooks || s.bEnableGKey != oldGKey || s.bEnableXboxInput != oldXboxInput) {
+		s.requireRestartToApply = true;
+	}
 }
 
 QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const {
