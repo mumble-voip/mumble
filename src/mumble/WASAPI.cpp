@@ -147,7 +147,7 @@ bool getAndCheckMixFormat(const char* sourceName,
 			return false;
 		}
 	} else {
-		qFatal("%s: %s unexpected sample format %d", sourceName, deviceName, sampleFormat);
+		qFatal("%s: %s unexpected sample format %lu", sourceName, deviceName, static_cast<unsigned long>(*sampleFormat));
 		return false;
 	}
 	
@@ -928,7 +928,7 @@ void WASAPIOutput::run() {
 			WAVEFORMATEX *closestFormat = NULL;
 			hr = pAudioClient->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pwfx, &closestFormat);
 			if (hr == S_FALSE) {
-				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %d kHz", closestFormat->nChannels, closestFormat->nSamplesPerSec);
+				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %lu kHz", closestFormat->nChannels, static_cast<unsigned long>(closestFormat->nSamplesPerSec));
 				CoTaskMemFree(pwfx);
 				
 				// Fall back to whatever the device offers.
