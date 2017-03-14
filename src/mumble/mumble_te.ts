@@ -4,22 +4,22 @@
     <message>
         <location filename="ACLEditor.cpp" line="+101"/>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>నిరాకరించు</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>అనుమతించు</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>అనుమతించు %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>నిరాకరించు %1</translation>
     </message>
     <message>
         <location line="-84"/>
