@@ -9,6 +9,7 @@
 
 Global *Global::g_global_struct;
 
+#ifndef Q_OS_WIN
 static void migrateDataDir() {
 #ifdef Q_OS_MAC
 	QString olddir = QDir::homePath() + QLatin1String("/Library/Preferences/Mumble");
@@ -16,7 +17,7 @@ static void migrateDataDir() {
 	QString newdir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 	QString newdir = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#endif
+#endif // QT_VERSION
 	QString linksTo = QFile::readLink(olddir);
 	if (!QFile::exists(newdir) && QFile::exists(olddir) && linksTo.isEmpty()) {
 		QDir d;
@@ -36,7 +37,7 @@ static void migrateDataDir() {
 	}
 
 	qWarning("Application data migration failed.");
-#endif
+#endif // Q_OS_MAC
 
 // Qt4 used another data directory on Unix-like systems, to ensure a seamless
 // transition we must first move the users data to the new directory.
@@ -59,9 +60,10 @@ static void migrateDataDir() {
 	}
 
 	qWarning("Application data migration failed.");
-#endif
-#endif
+#endif // QT_VERSION
+#endif // defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
 }
+#endif // Q_OS_WIN
 
 Global::Global() {
 	mw = 0;
