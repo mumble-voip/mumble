@@ -5,6 +5,7 @@
 
 include(../plugins.pri)
 
+DEFINES		+= "NULL_DESC=\"L\\\"Star Trek Online (Retracted due to lack of maintenance)\\\"\""
 TARGET		= sto
-SOURCES		= sto.cpp
+SOURCES		= ../null_plugin.cpp
 LIBS		+= -luser32
