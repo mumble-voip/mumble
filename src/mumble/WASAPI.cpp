@@ -353,7 +353,6 @@ void WASAPIInput::run() {
 	WAVEFORMATEXTENSIBLE wfe;
 	UINT32 bufferFrameCount;
 	UINT32 numFramesAvailable;
-	UINT32 numFramesLeft;
 	UINT32 micPacketLength = 0, echoPacketLength = 0;
 	UINT32 allocLength;
 	UINT64 devicePosition;
@@ -528,8 +527,6 @@ void WASAPIInput::run() {
 				if (FAILED(hr))
 					goto cleanup;
 
-				numFramesLeft = numFramesAvailable;
-
 				UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
 				if (nFrames > allocLength) {
 					delete [] sbuff;
@@ -560,7 +557,6 @@ void WASAPIInput::run() {
 			while ((micPacketLength > 0) || (echoPacketLength > 0)) {
 				if (echoPacketLength > 0) {
 					hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
-					numFramesLeft = numFramesAvailable;
 					if (FAILED(hr)) {
 						qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
 						goto cleanup;
@@ -581,7 +577,6 @@ void WASAPIInput::run() {
 					addEcho(tbuff, numFramesAvailable);
 				} else if (micPacketLength > 0) {
 					hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
-					numFramesLeft = numFramesAvailable;
 					if (FAILED(hr)) {
 						qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
 						goto cleanup;
