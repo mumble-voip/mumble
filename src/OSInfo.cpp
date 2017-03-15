@@ -239,7 +239,11 @@ QString OSInfo::getOSVersion() {
 #endif
 	if (os.isEmpty()) {
 		struct utsname un;
+#ifdef Q_OS_SOLARIS
+		if (uname(&un) >= 0) {
+#else
 		if (uname(&un) == 0) {
+#endif
 			os.sprintf("%s %s", un.sysname, un.release);
 		}
 	}
