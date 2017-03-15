@@ -86,7 +86,13 @@
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>గుర్తింపు పదము 
+
+
+
+
+
+</translation>
     </message>
     <message>
         <location/>
