@@ -231,7 +231,7 @@ Settings::Settings() {
 	fVolume = 1.0f;
 	fOtherVolume = 0.5f;
 	bAttenuateOthersOnTalk = false;
-	bAttenuateOthers = true;
+	bAttenuateOthers = false;
 	bAttenuateUsersOnPrioritySpeak = false;
 	bOnlyAttenuateSameOutput = false;
 	bAttenuateLoopbacks = false;
