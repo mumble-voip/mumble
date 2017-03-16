@@ -23,8 +23,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 		addPage(cwn(s), ++idx);
 	}
 
-	qcbExpert->setChecked(g.s.bExpert);
-	on_qcbExpert_clicked(g.s.bExpert);
+	updateListView();
 
 	QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
 	okButton->setToolTip(tr("Accept changes"));
@@ -107,7 +106,6 @@ void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 	switch (pageButtonBox->standardButton(b)) {
 		case QDialogButtonBox::RestoreDefaults: {
 				Settings def;
-				def.bExpert = g.s.bExpert;
 				conf->load(def);
 				break;
 			}
@@ -142,7 +140,7 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 	}
 }
 
-void ConfigDialog::on_qcbExpert_clicked(bool b) {
+void ConfigDialog::updateListView() {
 	QWidget *ccw = qmIconWidgets.value(qlwIcons->currentItem());
 	QListWidgetItem *sel = NULL;
 
@@ -153,19 +151,16 @@ void ConfigDialog::on_qcbExpert_clicked(bool b) {
 	int configNavbarWidth = 0;
 
 	foreach(ConfigWidget *cw, qmWidgets) {
-		bool showit = cw->expert(b);
 		configNavbarWidth = qMax(configNavbarWidth, qfm.width(cw->title()));
-		if (showit || b)  {
-			QListWidgetItem *i = new QListWidgetItem(qlwIcons);
-			i->setIcon(cw->icon());
-			i->setText(cw->title());
-			i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
+		QListWidgetItem *i = new QListWidgetItem(qlwIcons);
+		i->setIcon(cw->icon());
+		i->setText(cw->title());
+		i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-			qmIconWidgets.insert(i, cw);
-			if (cw == ccw)
-				sel = i;
-		}
+		qmIconWidgets.insert(i, cw);
+		if (cw == ccw)
+			sel = i;
 	}
 
 	// Add space for icon and some padding.
@@ -196,7 +191,6 @@ void ConfigDialog::apply() {
 
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
-	g.s.bExpert = qcbExpert->isChecked();
 
 	Audio::start();
 }

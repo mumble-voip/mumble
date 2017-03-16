@@ -33,7 +33,6 @@ class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 	public slots:
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 		void clearQuery();
 		void on_qcbDevice_activated(int index);
 		void on_qpbQuery_clicked();

@@ -97,10 +97,6 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 	}
 }
 
-bool LCDConfig::expert(bool) {
-	return false;
-}
-
 QString LCDConfig::title() const {
 	return tr("LCD");
 }

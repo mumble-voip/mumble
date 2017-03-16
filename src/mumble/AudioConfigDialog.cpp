@@ -188,21 +188,6 @@ void AudioInputDialog::save() const {
 	}
 }
 
-bool AudioInputDialog::expert(bool b) {
-	qgbInterfaces->setVisible(b);
-	qgbAudio->setVisible(b);
-	qliFrames->setVisible(b);
-	qsFrames->setVisible(b);
-	qlFrames->setVisible(b);
-	qswTransmit->setVisible(b);
-	qliIdle->setVisible(b);
-	qsbIdle->setVisible(b);
-	qcbIdleAction->setVisible(b);
-	qlIdle->setVisible(b);
-	qlIdle2->setVisible(b);
-	return true;
-}
-
 void AudioInputDialog::on_qsFrames_valueChanged(int v) {
 	qlFrames->setText(tr("%1 ms").arg((v==1) ? 10 : (v-1)*20));
 	updateBitrate();
@@ -512,10 +497,6 @@ void AudioOutputDialog::save() const {
 			aor->setDeviceChoice(qcbDevice->itemData(idx), s);
 		}
 	}
-}
-
-bool AudioOutputDialog::expert(bool b) {
-	return b;
 }
 
 void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
