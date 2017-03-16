@@ -24,29 +24,29 @@
     <message>
         <location line="-84"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>ముంబుల్- ఛానల్ ను జోడించు </translation>
     </message>
     <message>
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>సడలించు సర్వర్ విలువ</translation>
     </message>
     <message>
         <location line="-28"/>
         <location line="+176"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>విఫలమైనది: నిరుపయోగ ఛానల్</translation>
     </message>
     <message>
         <location line="-164"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>ముంబుల్-  %1 ను సవరించు </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation> ఐడి:%1</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -56,7 +56,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>ఛానల్ కు ఒక పేరు తప్పనిసరిగా ఉండాలి</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -66,27 +66,27 @@
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>కబురు</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation> నామము</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>ఛానల్  పేరును ఇక్కడ నమోదు చెయ్యండి.</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation> కధనం</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>గుర్తింపు పదము 
+        <translation>సాంకేతిక పదం
 
 
 
@@ -97,17 +97,17 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>ఛానల్ సాంకేతిక పదాన్ని ఇక్కడ నమోదు చెయ్యండి </translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>తాత్కాలిక ఛానల్ ను  రూపకల్పనచేయుటకు తనిఖీ.</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>అనిత్యమైన</translation>
     </message>
     <message>
         <location/>
@@ -125,32 +125,32 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation> స్థితి</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>&amp;బృందాలు</translation>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>బృందం</translation>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>వర్గాల జాబితా</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>ఎంచుకున్న సమూహాన్ని తొలగించు</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>తొలగించు</translation>
     </message>
     <message>
         <location/>
@@ -160,7 +160,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherit</source>
-        <translation type="unfinished"/>
+        <translation>వారసత్వంగా</translation>
     </message>
     <message>
         <location/>
@@ -170,7 +170,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>వారసత్వం</translation>
     </message>
     <message>
         <location/>
@@ -180,42 +180,42 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherited</source>
-        <translation type="unfinished"/>
+        <translation>సంక్రమించిన</translation>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>సభ్యులు</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>కలుపు</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>సమూహాంలో సభ్యులను చేర్చు</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>సమూహాం నుంచి సభ్యులను తొలగించు</translation>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ఎసిఎల్</translation>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation type="unfinished"/>
+        <translation> చురుకైన  ఎసిఎల్స్</translation>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>ప్రవేశాల జాబితా</translation>
     </message>
     <message>
         <location/>
@@ -235,7 +235,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation> ప్రవేశాన్ని పైకి తరలించు</translation>
     </message>
     <message>
         <location/>
@@ -245,12 +245,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>&amp;పైకి</translation>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>ప్రవేశాన్ని క్రిందికి తరలించు</translation>
     </message>
     <message>
         <location/>
@@ -260,12 +260,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>&amp;క్రిందికి</translation>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation type="unfinished"/>
+        <translation>కొత్త ప్రవేశాన్ని జోడించండి</translation>
     </message>
     <message>
         <location/>
@@ -275,53 +275,53 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;జోడించు</translation>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation type="unfinished"/>
+        <translation>ప్రవేశాన్ని తొలగించు</translation>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"/>
+        <translation>ఇది ప్రస్తుతం ఎంచుకున్న ప్రవేసాన్ని తొలగిస్తుంది</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;తొలగించు</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>అన్వయము</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"/>
+        <translation>ప్రవేశాన్ని ఈ ఛానల్ కు అనువర్తనం చేయాలి.</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"/>
+        <translation>ఇది  ప్రవేశాన్ని ఈ ఛానల్ కు అనువరిస్తుంది</translation>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation type="unfinished"/>
+        <translation>ఈ ఛానల్ కు వర్తిస్తుంది</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation> ప్రవేశాన్ని ఉప ఛానల్ కు దరఖాస్తు చేయాలి. </translation>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>కొత్త సమూహాన్ని జోడించండి</translation>
     </message>
     <message>
         <location/>
@@ -332,7 +332,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>వారసత్వ సభ్యులు</translation>
     </message>
     <message>
         <location/>
@@ -362,12 +362,12 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation type="unfinished"/>
+        <translation>తొలగించు</translation>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation type="unfinished"/>
+        <translation> తొలగించిన సభ్యులు</translation>
     </message>
     <message>
         <location/>
