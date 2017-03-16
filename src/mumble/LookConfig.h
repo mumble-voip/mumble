@@ -27,7 +27,6 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		void accept() const Q_DECL_OVERRIDE;
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 		void themeDirectoryChanged();
 	private:
 		/// Reload themes combobox and select given configuredStyle in it

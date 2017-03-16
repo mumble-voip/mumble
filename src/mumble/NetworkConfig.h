@@ -27,7 +27,6 @@ class NetworkConfig : public ConfigWidget, Ui::NetworkConfig {
 		void accept() const Q_DECL_OVERRIDE;
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 
 		void on_qcbType_currentIndexChanged(int v);
 };

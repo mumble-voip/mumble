@@ -28,7 +28,6 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		void accept() const Q_DECL_OVERRIDE;
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 
 		void on_qtwMessages_itemChanged(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);

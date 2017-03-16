@@ -136,19 +136,6 @@ void NetworkConfig::accept() const {
 	NetworkConfig::SetupProxy();
 }
 
-bool NetworkConfig::expert(bool b) {
-	qcbTcpMode->setVisible(b);
-	qcbQoS->setVisible(b);
-	qgbProxy->setVisible(b);
-	qcbUsage->setVisible(b);
-
-	qgbMisc->setVisible(b); // For now Misc only contains elements visible in expert mode
-	qcbImageDownload->setVisible(b);
-	qcbSuppressIdentity->setVisible(b);
-
-	return true;
-}
-
 void NetworkConfig::on_qcbType_currentIndexChanged(int v) {
 	Settings::ProxyType pt = static_cast<Settings::ProxyType>(v);
 

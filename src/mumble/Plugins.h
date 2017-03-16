@@ -34,7 +34,6 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 	public slots:
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
 		void on_qpbConfig_clicked();
 		void on_qpbAbout_clicked();
 		void on_qpbReload_clicked();
