@@ -239,7 +239,13 @@ QString OSInfo::getOSVersion() {
 #endif
 	if (os.isEmpty()) {
 		struct utsname un;
+#ifdef Q_OS_SOLARIS
+		// Solaris's uname() returns a non-negative number on success.
+		if (uname(&un) >= 0) {
+#else
+		// other UNIX-like systems return a 0 on success.
 		if (uname(&un) == 0) {
+#endif
 			os.sprintf("%s %s", un.sysname, un.release);
 		}
 	}
