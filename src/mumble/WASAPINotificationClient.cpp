@@ -8,7 +8,6 @@
 #include "Global.h"
 #include "MainWindow.h"
 
-#include <initguid.h>
 #include "WASAPINotificationClient.h"
 
 #include <QtCore/QMutexLocker>

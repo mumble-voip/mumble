@@ -17,9 +17,11 @@
 #include <audioclient.h>
 #include <ksmedia.h>
 #include <functiondiscoverykeys.h>
+#ifdef _INC_FUNCTIONDISCOVERYKEYS
+# undef _INC_FUNCTIONDISCOVERYKEYS
+#endif
 #include <functiondiscoverykeys_devpkey.h>
 #include <propidl.h>
-#include <initguid.h>
 #include <audiopolicy.h>
 
 #include "AudioInput.h"

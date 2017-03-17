@@ -26,6 +26,16 @@
 #undef TYPE_BOOL
 #endif
 
+#ifdef __MINGW32__
+// Our MinGW build targets Windows 7 for now.
+// Set up the appropriate Windows macros such that
+// MinGW's Windows headers expose all the functionality
+// we need.
+#define _WIN32_WINNT 0x0601
+#define NTDDI_VERSION NTDDI_WIN7
+#include <ws2tcpip.h>
+#endif
+
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #if QT_VERSION >= 0x050000
@@ -74,6 +84,8 @@
 #include <algorithm>
 
 #ifdef Q_OS_WIN
+#include "../qos2_mingw.h"
+
 #include <winsock2.h>
 #include <qos2.h>
 #include <windows.h>

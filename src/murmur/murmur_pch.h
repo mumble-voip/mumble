@@ -18,6 +18,12 @@
 #undef TYPE_BOOL
 #endif
 
+#ifdef __MINGW32__
+#define _WIN32_WINNT 0x0600
+#include <ws2tcpip.h>
+#include <mswsock.h>
+#endif
+
 #include <QtCore/QtCore>
 #include <QtNetwork/QtNetwork>
 #include <QtSql/QtSql>
@@ -34,6 +40,9 @@
 # include "Qt4Compat.h"
 # include <QtWidgets/QtWidgets>
 #endif
+
+#include "../qos2_mingw.h"
+
 #include <winsock2.h>
 #include <qos2.h>
 #include <windows.h>

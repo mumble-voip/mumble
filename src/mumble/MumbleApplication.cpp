@@ -10,45 +10,7 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 #include "Global.h"
-
-// getenvQString is a wrapper around _wgetenv_s (on Windows)
-// and getenv (on everything else).
-//
-// On Windows, it expects a Unicode environment -- so variables
-// are expected to be UTF16.
-// On everthing else, it expects the environment variables to be
-// UTF-8 encoded.
-static QString getenvQString(QString name) {
-#ifdef Q_OS_WIN
-	QByteArray buf;
-	size_t requiredSize = 0;
-
-	static_assert(sizeof(wchar_t) == sizeof(ushort), "expected 2-byte wchar_t");
-
-	const wchar_t *wname = reinterpret_cast<const wchar_t *>(name.utf16());
-
-	// Query the required buffer size (in elements).
-	_wgetenv_s(&requiredSize, 0, 0, wname);
-	if (requiredSize == 0) {
-		return QString();
-	}
-
-	// Resize buf to fit the value and put it there.
-	buf.resize(static_cast<int>(requiredSize * sizeof(wchar_t)));
-	_wgetenv_s(&requiredSize, reinterpret_cast<wchar_t *>(buf.data()), requiredSize, wname);
-
-	// Convert the value to QString and return it.
-	const wchar_t *wbuf = reinterpret_cast<const wchar_t *>(buf.constData());
-	return QString::fromWCharArray(wbuf);
-#else
-	QByteArray nameU8 = name.toUtf8();
-	char *val = ::getenv(nameU8.constData());
-	if (val == NULL) {
-		return QString();
-	}
-	return QString::fromUtf8(val);
-#endif
-}
+#include "EnvUtils.h"
 
 MumbleApplication *MumbleApplication::instance() {
 	return static_cast<MumbleApplication *>(QCoreApplication::instance());
@@ -64,7 +26,7 @@ MumbleApplication::MumbleApplication(int &pargc, char **pargv)
 }
 
 QString MumbleApplication::applicationVersionRootPath() {
-	QString versionRoot = getenvQString(QLatin1String("MUMBLE_VERSION_ROOT"));
+	QString versionRoot = EnvUtils::getenv(QLatin1String("MUMBLE_VERSION_ROOT"));
 	if (versionRoot.count() > 0) {
 		return versionRoot;
 	}

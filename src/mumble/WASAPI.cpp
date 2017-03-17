@@ -13,11 +13,13 @@
 // Now that Win7 is published, which includes public versions of these
 // interfaces, we simply inherit from those but use the "old" IIDs.
 
+DEFINE_GUID(IID_IVistaAudioSessionControl2, 0x33969B1DL, 0xD06F, 0x4281, 0xB8, 0x37, 0x7E, 0xAA, 0xFD, 0x21, 0xA9, 0xC0);
 MIDL_INTERFACE("33969B1D-D06F-4281-B837-7EAAFD21A9C0")
 IVistaAudioSessionControl2 :
 public IAudioSessionControl2 {
 };
 
+DEFINE_GUID(IID_IAudioSessionQuery, 0x94BE9D30L, 0x53AC, 0x4802, 0x82, 0x9C, 0xF1, 0x3E, 0x5A, 0xD3, 0x47, 0x75);
 MIDL_INTERFACE("94BE9D30-53AC-4802-829C-F13E5AD34775")
 IAudioSessionQuery :
 public IUnknown {
@@ -677,7 +679,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 		IAudioSessionEnumerator *pEnumerator = NULL;
 		IAudioSessionQuery *pMysticQuery = NULL;
 		if (! bIsWin7) {
-			if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(__uuidof(IAudioSessionQuery), (void **) &pMysticQuery))) {
+			if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(IID_IAudioSessionQuery, (void **) &pMysticQuery))) {
 				hr = pMysticQuery->GetQueryInterface(&pEnumerator);
 			}
 		} else {
@@ -757,7 +759,7 @@ bool WASAPIOutput::setVolumeForSessionControl(IAudioSessionControl *control, con
 	HRESULT hr;
 	IAudioSessionControl2 *pControl2 = NULL;
 
-	if (!SUCCEEDED(hr = control->QueryInterface(bIsWin7 ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))
+	if (!SUCCEEDED(hr = control->QueryInterface(bIsWin7 ? __uuidof(IAudioSessionControl2) : IID_IVistaAudioSessionControl2, (void **) &pControl2)))
 		return false;
 	
 	bool result = setVolumeForSessionControl2(pControl2, mumblePID, seen);
@@ -831,6 +833,7 @@ void WASAPIOutput::run() {
 	bool lastspoke = false;
 	REFERENCE_TIME bufferDuration = (g.s.iOutputDelay > 1) ? (g.s.iOutputDelay + 1) * 100000 : 0;
 	bool exclusive = false;
+	bool mixed = false;
 
 	CoInitialize(NULL);
 
@@ -997,7 +1000,6 @@ void WASAPIOutput::run() {
 	iChannels = pwfx->nChannels;
 	initializeMixer(chanmasks);
 
-	bool mixed = false;
 	numFramesAvailable = 0;
 
 	while (bRunning && ! FAILED(hr)) {

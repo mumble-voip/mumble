@@ -201,7 +201,7 @@ void DXAudioOutput::run() {
 	LPDIRECTSOUND8             pDS = NULL;
 	LPDIRECTSOUNDBUFFER       pDSBPrimary = NULL;
 	LPDIRECTSOUNDBUFFER       pDSBOutput = NULL;
-	LPDIRECTSOUNDNOTIFY8       pDSNotify = NULL;
+	LPDIRECTSOUNDNOTIFY       pDSNotify = NULL;
 
 	int iLastwriteblock;
 	LPVOID aptr1, aptr2;
@@ -457,7 +457,7 @@ DXAudioInput::~DXAudioInput() {
 void DXAudioInput::run() {
 	LPDIRECTSOUNDCAPTURE8      pDSCapture;
 	LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
-	LPDIRECTSOUNDNOTIFY8       pDSNotify;
+	LPDIRECTSOUNDNOTIFY        pDSNotify;
 
 	DWORD dwBufferSize;
 	bool bOk;

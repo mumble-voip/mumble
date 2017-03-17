@@ -36,7 +36,7 @@ CONFIG(packaged) {
 # Add OpenSSL dependency
 include(../qmake/openssl.pri)
 
-win32 {
+win32-msvc* {
 	INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src" protobuf
 	CONFIG(debug, debug|release) {
 		QMAKE_LIBDIR *= "$$PROTOBUF_PATH/vsprojects/Debug"
@@ -46,6 +46,11 @@ win32 {
 
 	LIBS *= -llibprotobuf -lcrypt32 -lws2_32
 	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
+}
+
+win32-g++ {
+	LIBS *= -lprotobuf -lcrypt32 -lws2_32
+	LIBS *= -ldelayimp -lqwave -delayload:qwave.dll
 }
 
 unix {

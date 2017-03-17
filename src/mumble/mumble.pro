@@ -138,7 +138,8 @@ HEADERS *= BanEditor.h \
     Themes.h \
     OverlayPositionableItem.h \
     widgets/MUComboBox.h \
-    DeveloperConsole.h
+    DeveloperConsole.h \
+    EnvUtils.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -204,7 +205,8 @@ SOURCES *= BanEditor.cpp \
     Themes.cpp \
     OverlayPositionableItem.cpp \
     widgets/MUComboBox.cpp \
-    DeveloperConsole.cpp
+    DeveloperConsole.cpp \
+    EnvUtils.cpp
 
 CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp
@@ -370,14 +372,19 @@ win32 {
     RC_FILE = mumble.rc
   }
   HEADERS	*= GlobalShortcut_win.h Overlay_win.h TaskList.h UserLockFile.h
-  SOURCES	*= GlobalShortcut_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
+  SOURCES	*= GlobalShortcut_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp WinGUIDs.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
 
   !CONFIG(qtspeech) {
     SOURCES *= TextToSpeech_win.cpp
   }
 
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
-  LIBS		*= -logg -lvorbis -lvorbisfile -lFLAC -lsndfile
+  win32-g++ {
+    LIBS *= -lsndfile -lvorbis -lvorbisfile -lvorbisenc -logg -lFLAC
+  }
+  win32-msvc* {
+    LIBS *= -lsndfile -lvorbis -lvorbisfile -logg -lFLAC
+  }
   LIBS		*= -ldelayimp -delayload:shell32.dll
 
   DEFINES	*= WIN32
@@ -419,7 +426,9 @@ win32 {
         QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
       }
     }
-    QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest mumble.appcompat.manifest)
+    win32-msvc* {
+      QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest mumble.appcompat.manifest)
+    }
   }
 }
 
@@ -609,13 +618,19 @@ directsound {
 	HEADERS	*= DirectSound.h
 	SOURCES	*= DirectSound.cpp
 	LIBS	*= -ldsound
+	win32-g++ {
+		LIBS *= -lksuser
+	}
 }
 
 wasapi {
 	DEFINES *= USE_WASAPI
 	HEADERS	*= WASAPI.h WASAPINotificationClient.h
 	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
-	LIBS	*= -lAVRT -delayload:AVRT.DLL
+	LIBS	*= -lavrt -delayload:avrt.DLL
+	win32-g++ {
+		LIBS *= -lboost_system-mt
+	}
 }
 
 g15 {

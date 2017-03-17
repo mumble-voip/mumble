@@ -24,8 +24,27 @@ QMAKE_RESOURCE_FLAGS += -compress 9
 # QMAKE_TARGET.arch doesn't suffice any longer, and
 # we define MUMBLE_ARCH to be used in its place.
 MUMBLE_ARCH = $$QMAKE_TARGET.arch
+# When using Qt 5, use QT_ARCH instead of QMAKE_TARGET.
+# It also works for cross-builds.
+isEqual(QT_MAJOR_VERSION, 5) {
+	MUMBLE_ARCH = $$QT_ARCH
+}
 
-win32 {
+win32-g++ {
+	DEFINES *= MINGW_HAS_SECURE_API
+
+	# Enable SSE
+	QMAKE_CFLAGS *= -msse -msse2
+	QMAKE_CXXFLAGS *= -msse -msse2
+
+	CONFIG(symbols) {
+		# Configure build to be able to properly debug release builds
+		QMAKE_CFLAGS *= -g
+		QMAKE_CXXFLAGS *= -g
+	}
+}
+
+win32-msvc* {
 	# Define the CONFIG options 'force-x86-toolchain' and
 	# 'force-x86_64-toolchain'. These can be used to force
 	# the target of a .pro file to be built for a specific
@@ -189,7 +208,7 @@ win32 {
 	}
 }
 
-unix {
+unix|win32-g++ {
 	DEFINES *= RESTRICT=__restrict__
 	QMAKE_CFLAGS *= -fvisibility=hidden
 	QMAKE_CXXFLAGS *= -fvisibility=hidden
