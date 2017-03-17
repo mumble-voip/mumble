@@ -118,6 +118,7 @@ int main(int argc, char **argv) {
 	// 'mumble.exe' instead. 
 	unsigned int magic = 0;
 	HANDLE parent = 0;
+#if 1
 	{
 		std::vector<std::wstring> args = GetCommandLineArgs();
 
@@ -160,6 +161,7 @@ int main(int argc, char **argv) {
 	if (magic != OVERLAY_MAGIC_NUMBER) {
 		return OVERLAY_HELPER_ERROR_EXE_MAGIC_MISMATCH;
 	}
+#endif
 
 	if (!ConfigureEnvironment()) {
 		return OVERLAY_HELPER_ERROR_EXE_CONFIGURE_ENVIRONMENT;
@@ -170,15 +172,21 @@ int main(int argc, char **argv) {
 		return OVERLAY_HELPER_ERROR_EXE_GET_DLL_PATH;
 	}
 
+	OutputDebugStringA("before loadlibrary");
+
 	HMODULE dll = LoadLibraryExW(absDLLPath.c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
 	if (!dll) {
 		return OVERLAY_HELPER_ERROR_EXE_LOAD_DLL;
 	}
 
+	OutputDebugStringA("after loadlibrary");
+
 	OverlayHelperProcessMain entryPoint = reinterpret_cast<OverlayHelperProcessMain>(GetProcAddress(dll, "OverlayHelperProcessMain"));
 	if (!entryPoint) {
 		return OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT;
 	}
+
+	OutputDebugStringA("before entrypoint");
 
 	return entryPoint(magic, parent);
 }

@@ -119,9 +119,18 @@ struct OverlaySettings {
 	Qt::Alignment qaMutedDeafened;
 	Qt::Alignment qaAvatar;
 
-	bool bUseWhitelist;
-	QStringList qslBlacklist;
+	/// 0 - Launcher filter
+	/// 1 - Whitelist
+	/// 2 - Blacklist
+	int iOverlayExcludeMode;
+	QStringList qslLaunchers;
+	QStringList qslLaunchersExclude;
 	QStringList qslWhitelist;
+	QStringList qslWhitelistExclude;
+	QStringList qslPaths;
+	QStringList qslPathsExclude;
+	QStringList qslBlacklist;
+	QStringList qslBlacklistExclude;
 
 	OverlaySettings();
 	void setPreset(const OverlayPresets preset = AvatarAndName);

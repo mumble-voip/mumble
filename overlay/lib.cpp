@@ -5,8 +5,13 @@
 
 #include "lib.h"
 
-#include "overlay_blacklist.h"
 #include "overlay_exe/overlay_exe.h"
+
+#include "exclude.h"
+
+#include <algorithm>
+#include <string>
+#include <vector>
 
 #undef max // for std::numeric_limits<T>::max()
 
@@ -18,12 +23,18 @@ BOOL bIsWin8 = FALSE;
 
 static BOOL bMumble = FALSE;
 static BOOL bDebug = FALSE;
-static BOOL bBlackListed = FALSE;
+static BOOL bEnableOverlay = TRUE;
 
 static HardHook hhLoad;
 static HardHook hhLoadW;
 
 static SharedData *sd = NULL;
+
+static int iExcludeMode = 0;
+static std::vector<std::string> vLaunchers;
+static std::vector<std::string> vWhitelist;
+static std::vector<std::string> vPaths;
+static std::vector<std::string> vBlacklist;
 
 CRITICAL_SECTION Mutex::cs;
 
@@ -55,9 +66,9 @@ void __cdecl ods(const char *format, ...) {
 }
 
 void __cdecl checkForWPF() {
-	if (!bBlackListed && (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll"))) {
+	if (bEnableOverlay && (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll"))) {
 		ods("Lib: Blacklisted for loading WPF library");
-		bBlackListed = TRUE;
+		bEnableOverlay = false;
 	}
 }
 
@@ -341,7 +352,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 
 	ods("Lib: Library %s loaded to %p", lpFileName, h);
 
-	if (! bBlackListed) {
+	if (bEnableOverlay) {
 		checkHooks();
 	}
 
@@ -361,7 +372,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 
 	checkForWPF();
 
-	if (! bBlackListed) {
+	if (bEnableOverlay) {
 		checkHooks();
 	}
 
@@ -398,6 +409,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 				hhookWnd = SetWindowsHookEx(WH_CBT, CallWndProc, hSelf, 0);
 				if (hhookWnd == NULL)
 					ods("Lib: Failed to insert WNDProc hook");
+				ods("Lib: Installed overlay hook");
 			}
 
 			sd->bHooked = true;
@@ -427,6 +439,8 @@ void __stdcall OverlayHelperProcessParentDeathThread(void *udata) {
 
 extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned int magic, HANDLE parent) {
 	int retval = 0;
+
+	OutputDebugStringA("in main");
 
 	if (GetOverlayMagicVersion() != magic) {
 		return OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH;
@@ -473,26 +487,52 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 	return retval;
 }
 
-static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p);
+static bool isParentProcessAllowed();
+static void performEarlyExcludeChecks(const std::string &dir);
+static void performExcludeChecks(const std::string &absExeName, const std::string &exeName);
 static bool createSharedDataMap();
 
-static void dllmainProcAttach(char *procname) {
+static bool dllmainProcAttach(char *procname) {
 	Mutex::init();
 
-	char *p = strrchr(procname, '\\');
-	if (!p) {
-		// No blacklisting if the file has no path
-	} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
-		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
-		bBlackListed = TRUE;
-		bMumble = TRUE;
-	} else {
-		if (dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
-			ods("Lib: Process %s is blacklisted - no overlay injection.", procname);
-			return;
-		}
+	int mode = ExcludeGetMode();
+	if (mode == -1) {
+		ods("Lib: No setting for overlay exclusion mode. Using 'launcher' mode (0)");
+		mode = 0;
+	}
+	iExcludeMode = mode;
+	vLaunchers = ExcludeGetLaunchers();
+	vWhitelist = ExcludeGetWhitelist();
+	vPaths = ExcludeGetPaths();
+	vBlacklist = ExcludeGetBlacklist();
+
+	// Absolute path of the executable.
+	std::string absExeName;
+	// The directory the executable resides in.
+	std::string dir;
+	// The basename of the executable.
+	std::string exeName;
+
+	{
+		char *p = strrchr(procname, '\\');
+
+		absExeName = std::string(procname);
+		dir = std::string(procname, p - procname);
+		exeName = std::string(p);
 	}
 
+	if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
+		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
+		bEnableOverlay = FALSE;
+		bMumble = TRUE;
+	} else {
+		performEarlyExcludeChecks(dir);
+		performExcludeChecks(absExeName, exeName);
+
+		if (!bEnableOverlay) {
+			return false;
+		}
+	}
 
 	OSVERSIONINFOEX ovi;
 	memset(&ovi, 0, sizeof(ovi));
@@ -506,11 +546,11 @@ static void dllmainProcAttach(char *procname) {
 	hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 	if (hHookMutex == NULL) {
 		ods("Lib: CreateMutex failed");
-		return;
+		return false;
 	}
 
 	if(!createSharedDataMap())
-		return;
+		return false;
 
 	if (! bMumble) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
@@ -520,141 +560,177 @@ static void dllmainProcAttach(char *procname) {
 		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
 	}
+
+	return true;
 }
 
-// Is the process black(listed)?
-static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p) {
-	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
+static bool findParentProcessForChild(DWORD child, PROCESSENTRY32 *parent) {
+	DWORD parentpid = 0;
+	HANDLE hSnap = NULL;
+	bool done = false;
 
-	bool usewhitelist = false;
-	HKEY key = NULL;
+	PROCESSENTRY32 pe;
+	pe.dwSize = sizeof(pe);
 
-	char *buffer = new char[buffsize];
+	// Find our parent's process ID.
+	{
+		BOOL ok = FALSE;
 
-	// check if we're using a whitelist or a blacklist
-	DWORD tmpsize = buffsize - 1;
-	bool success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
-	          (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
-
-	if (success) {
-		buffer[tmpsize] = '\0';
-		usewhitelist = (_stricmp(buffer, "true") == 0);
-		// reset tmpsize to the buffers size (minus 1 char for str-termination), as it was changed by RegQuery
-		tmpsize = buffsize - 1;
-
-		// read the whitelist or blacklist (depending on which one we use)
-		DWORD ret;
-		while ((ret = RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
-			// Increase the buffsize according to the required size RegQuery wrote into tmpsize, so we can read the whole value
-			delete []buffer;
-			buffsize = tmpsize + 1;
-			buffer = new char[buffsize];
+		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (hSnap == INVALID_HANDLE_VALUE) {
+			return false;
 		}
-
-		success = (ret == ERROR_SUCCESS);
+		ok = Process32First(hSnap, &pe);
+		while (ok) {
+			if (pe.th32ProcessID == child) {
+				parentpid = pe.th32ParentProcessID;
+				break;
+			}
+			ok = Process32Next(hSnap, &pe);
+		}
+		CloseHandle(hSnap);
 	}
 
-	if (key)
-		RegCloseKey(key);
-
-	if (success) {
-		buffer[tmpsize] = '\0';
-		unsigned int pos = 0;
-
-		if (usewhitelist) {
-			// check if process is whitelisted
-			bool onwhitelist = false;
-			while (pos < buffsize && buffer[pos] != 0) {
-				if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-					ods("Lib: Overlay enabled for whitelisted '%s'", buffer + pos);
-					onwhitelist = true;
-					break;
-				}
-				pos += static_cast<unsigned int>(strlen(buffer + pos)) + 1;
-			}
-
-			if (!onwhitelist) {
-				ods("Lib: No whitelist entry found for '%s', auto-blacklisted", procname);
-				bBlackListed = TRUE;
-				return true;
-			}
-		} else {
-			// check if process is blacklisted
-			while (pos < buffsize && buffer[pos] != 0) {
-				if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-					ods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
-					bBlackListed = TRUE;
-					return true;
-				}
-				pos += static_cast<unsigned int>(strlen(buffer + pos)) + 1;
-			}
-		}
-	} else {
-		ods("Lib: no blacklist/whitelist found in the registry");
+	if (parentpid == 0) {
+		return false;
 	}
 
-	// As a last resort, if we're using blacklisting, check the built-in blacklist.
-	//
-	// If the registry query failed this means we're guaranteed to check the
-	// built-in list.
-	//
-	// If the list in the registry is out of sync, for example because the built-
-	// in list in overlay_blacklist.h was updated got updated, we're also
-	// guaranteed that we include all built-in blacklisted items in our check.
-	if (!usewhitelist) {
-		ods("Lib: Overlay fallback to default blacklist");
-		int i = 0;
-		while (overlayBlacklist[i]) {
-			if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
-				ods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
-				bBlackListed = TRUE;
-				return true;
-			}
-			i++;
+	// Find our parent's name.
+	{
+		BOOL ok = FALSE;
+
+		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (hSnap == INVALID_HANDLE_VALUE) {
+			return false;
 		}
+		ok = Process32First(hSnap, &pe);
+		while (ok) {
+			if (pe.th32ProcessID == parentpid) {
+				memcpy(parent, &pe, sizeof(pe));
+				ok = FALSE;
+				done = true;
+				break;
+			}
+			ok = Process32Next(hSnap, &pe);
+		}
+		CloseHandle(hSnap);
 	}
 
-	// Make sure to always free/destroy buffer & heap
-	delete []buffer;
+	return done;
+}
 
-	// if the processname is already found to be blacklisted, we can stop here
-	if (bBlackListed)
-		return true;
+static bool findParentProcess(PROCESSENTRY32 *parent) {
+	DWORD ourpid = GetCurrentProcessId();
+	return findParentProcessForChild(ourpid, parent);
+}
 
-	// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
-	// Same buffersize as procname; which we copy from.
-	char fname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
-
-	size_t pathlength = static_cast<size_t>(p - procname);
-	p = fname + pathlength;
-	strncpy_s(fname, sizeof(fname), procname, pathlength + 1);
-
-
-	strcpy_s(p+1, PROCNAMEFILEPATH_EXTENDED_EXTLEN, "nooverlay");
-	HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+static void performEarlyExcludeChecks(const std::string &dir) {
+	// Check for "nooverlay" file.
+	std::string nooverlay = dir + "\\nooverlay";
+	HANDLE h = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
-		ods("Lib: Overlay disable %s found", fname);
-		bBlackListed = TRUE;
-		return true;
+		ods("Lib: Overlay disable %s found", nooverlay.c_str());
+		bEnableOverlay = FALSE;
+		return;
 	}
 
 	// check for "debugoverlay" file, which would enable overlay debugging
-	strcpy_s(p+1, PROCNAMEFILEPATH_EXTENDED_EXTLEN, "debugoverlay");
-	h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	std::string debugoverlay = dir + "\\debugoverlay";
+	h = CreateFile(debugoverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
-		ods("Lib: Overlay debug %s found", fname);
+		ods("Lib: Overlay debug %s found", debugoverlay.c_str());
 		bDebug = TRUE;
 	}
 
 	// check for blacklisting for loading WPF library
 	checkForWPF();
+}
 
-	if (bBlackListed)
-		return true;
+template <typename T> static inline bool vecContains(const std::vector<T> &v, T val) {
+	return std::find(v.begin(), v.end(), val) != v.end();
+}
 
+static bool isBlacklistedExe(const std::string &exeName) {
+	return vecContains(vBlacklist, exeName);
+}
+
+static bool isWhitelistedExe(const std::string &exeName) {
+	return vecContains(vWhitelist, exeName);
+}
+
+static bool isWhitelistedPath(const std::string &absExeName) {
+	for (size_t i = 0; i < vPaths.size(); i++) {
+		const std::string &path = vPaths.at(i);
+		if (absExeName.find(path) == 0) {
+			return true;
+		}
+	}
 	return false;
+}
+
+static bool isWhitelistedParent(const std::string &parentExeName) {
+	return vecContains(vLaunchers, parentExeName);
+}
+
+static void performExcludeChecks(const std::string &absExeName, const std::string &exeName) {
+	if (iExcludeMode == 0) { // Launcher filter
+
+		PROCESSENTRY32 parent;
+		if (!findParentProcess(&parent)) {
+			// Unable to find parent. Process is allowed.
+			ods("Lib: Unable to find parent. Process allowed.");
+			bEnableOverlay = true;
+		}
+
+		std::string parentExeName(parent.szExeFile);
+		std::transform(parentExeName.begin(), parentExeName.end(), parentExeName.begin(), tolower);
+
+		ods("Lib: Parent is '%s'", parentExeName.c_str());
+
+		// The blacklist always wins.
+		// If an exe is in the blacklist, never show the overlay, ever.
+		if (isBlacklistedExe(exeName)) {
+			ods("Lib: '%s' is blacklisted. Overlay disabled.", exeName.c_str());
+			bEnableOverlay = false;
+		   return;
+		// If the process's exe name is whitelisted, allow the overlay to be shown.
+		} else if (isWhitelistedExe(exeName)) {
+			ods("Lib: '%s' is whitelisted. Overlay enabled.", exeName.c_str());
+			bEnableOverlay = true;
+		// If the exe is within a whitelisted path, allow the overlay to be shown.
+		// An example is:
+		// Whitelisted path: d:\games
+		// absExeName: d:\games\World of Warcraft\Wow-64.exe
+		// The overlay would be shown in WoW (and any game that lives under d:\games)
+		 } else if (isWhitelistedPath(absExeName)) {
+			ods("Lib: '%s' is within a whitelisted path. Overlay enabled.", absExeName.c_str());
+		 	bEnableOverlay = true;
+		// If the direct parent is whitelisted, allow the process through.
+		// This allows us to whitelist Steam.exe, etc. -- and have the overlay
+		// show up in all Steam titles.
+		} else if (isWhitelistedParent(parentExeName)) {
+			ods("Lib: Parent '%s' of '%s' is whitelisted. Overlay enabled.", parentExeName.c_str(), exeName.c_str());
+			bEnableOverlay = true;
+		// If nothing matched, do not show the overlay.
+		} else {
+			ods("Lib: No matching overlay exclusion rule found. Overlay disabled.");
+			bEnableOverlay = false;
+		}
+	} else if (iExcludeMode == 1) {
+		if (isWhitelistedExe(exeName)) {
+			bEnableOverlay = true;
+		} else {
+			bEnableOverlay = false;
+		}
+	} else if (iExcludeMode == 2) { // Blacklist
+		if (isBlacklistedExe(exeName)) {
+			bEnableOverlay = false;
+		} else {
+			bEnableOverlay = true;
+		}
+	}
 }
 
 static bool createSharedDataMap() {
@@ -723,11 +799,11 @@ static void dllmainProcDetach() {
 
 static void dllmainThreadAttach() {
 	static bool bTriedHook = false;
-	if (!bBlackListed && sd && ! bTriedHook) {
+	if (bEnableOverlay && sd && ! bTriedHook) {
 		bTriedHook = true;
 		checkForWPF();
 
-		if (!bBlackListed) {
+		if (bEnableOverlay) {
 			ods("Lib: Checking for hooks, potentially injecting");
 			checkHooks();
 		}
@@ -743,10 +819,14 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	procname[ARRAY_NUM_ELEMENTS(procname) - 1] = '\0';
 
 	switch (fdwReason) {
-		case DLL_PROCESS_ATTACH:
+		case DLL_PROCESS_ATTACH: {
 			ods("Lib: ProcAttach: %s", procname);
-			dllmainProcAttach(procname);
+			bool shouldAttach = dllmainProcAttach(procname);
+			if (!shouldAttach) {
+				return FALSE;
+			}
 			break;
+		}
 		case DLL_PROCESS_DETACH:
 			ods("Lib: ProcDetach: %s", procname);
 			dllmainProcDetach();
