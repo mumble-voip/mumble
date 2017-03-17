@@ -46,7 +46,7 @@
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation> ఐడి:%1</translation>
+        <translation>గుర్తింపు:%1</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -377,32 +377,32 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation> ఉప ఛానల్స్ కు వర్తిస్తుంది</translation>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>ఉత్తరువులు</translation>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>వినియోగదారుడు/సమూహం</translation>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>సమూహం ఈ ప్రవేశానికి వర్తిస్తుంది</translation>
     </message>
     <message>
         <location/>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>సభ్యుడి గుర్తింపు</translation>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation> సభ్యుడు ఈ ప్రవేశానికి వర్తిస్తాడు</translation>
     </message>
     <message>
         <location/>
@@ -412,7 +412,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>&amp;గుణములు</translation>
     </message>
     <message>
         <location/>
@@ -487,17 +487,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>ఛానల్ యొక్క గుర్తింపు</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>అత్యున్నత వినియోగదారులు</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>అత్యున్నత సంఖ్యలో వినియోగదారులు ఛానల్ లో అనుమతించబడతారు</translation>
     </message>
     <message>
         <location/>
@@ -565,22 +565,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation> రూపము</translation>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation> పరికర ఎంపిక</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation> సాధనం</translation>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"/>
+        <translation>మైక్రోఫోన్ కోసం ఉపయోగించే  సాధనం</translation>
     </message>
     <message>
         <location/>
@@ -590,7 +590,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation type="unfinished"/>
+        <translation>సందేహ ఎంపిక  పరికరం</translation>
     </message>
     <message>
         <location/>
@@ -600,12 +600,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation type="unfinished"/>
+        <translation>&amp;సందేహం</translation>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation type="unfinished"/>
+        <translation>ఎంచుకున్న సాదనాన్ని అమర్చు</translation>
     </message>
     <message>
         <location/>
@@ -615,12 +615,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;అమర్చడం</translation>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation type="unfinished"/>
+        <translation>సామర్ధ్యములు</translation>
     </message>
     <message>
         <location/>
