@@ -9,9 +9,7 @@
 
 #include <QTextToSpeech>
 
-class TextToSpeechPrivate : public QObject {
-	Q_OBJECT
-
+class TextToSpeechPrivate {
 	public:
 		QTextToSpeech *m_tts;
 		QVector<QVoice> m_voices;
@@ -22,10 +20,12 @@ class TextToSpeechPrivate : public QObject {
 };
 
 TextToSpeechPrivate::TextToSpeechPrivate() {
-	m_tts = new QTextToSpeech(this);
+	m_tts = new QTextToSpeech();
 }
 
-TextToSpeechPrivate::~TextToSpeechPrivate() {}
+TextToSpeechPrivate::~TextToSpeechPrivate() {
+	delete m_tts;
+}
 
 void TextToSpeechPrivate::say(const QString &text) {
 	m_tts->say(text);
