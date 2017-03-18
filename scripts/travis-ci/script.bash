@@ -16,7 +16,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		mv ../ASIOSDK2.3 3rdparty/asio
 		PATH=$PATH:/usr/lib/mxe/usr/bin
 		export MUMBLE_PROTOC=/usr/lib/mxe/usr/x86_64-unknown-linux-gnu/bin/protoc
-		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors winpaths_custom g15-emulator no-overlay no-bonjour no-elevation no-ice"
+		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice"
 		make -j2
 		make check TESTRUNNER="wine"
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
@@ -25,7 +25,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		mv ../ASIOSDK2.3 3rdparty/asio
 		PATH=$PATH:/usr/lib/mxe/usr/bin
 		export MUMBLE_PROTOC=/usr/lib/mxe/usr/x86_64-unknown-linux-gnu/bin/protoc
-		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors winpaths_custom g15-emulator no-overlay no-bonjour no-elevation no-ice"
+		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice"
 		make -j2
 		make check TESTRUNNER="wine"
 	else
