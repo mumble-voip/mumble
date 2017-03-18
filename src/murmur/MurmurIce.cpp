@@ -73,7 +73,7 @@ static std::string iceString(const QString &s) {
 /// If the function is passed a string bigger than that,
 /// it will return an empty string.
 static std::string iceBase64(const std::string &s) {
-	if (s.size() > std::numeric_limits<int>::max()) {
+	if (s.size() > static_cast<size_t>(std::numeric_limits<int>::max())) {
 		return std::string();
 	}
 
