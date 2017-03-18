@@ -28,6 +28,11 @@ MUMBLE_ARCH = $$QMAKE_TARGET.arch
 # It also works for cross-builds.
 isEqual(QT_MAJOR_VERSION, 5) {
 	MUMBLE_ARCH = $$QT_ARCH
+	# QT_ARCH uses 'i386' instead of 'x86',
+	# so map that value back to what we expect.
+	equals(MUMBLE_ARCH, i386) {
+		MUMBLE_ARCH=x86
+	}
 }
 
 win32-g++ {
