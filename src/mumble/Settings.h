@@ -63,6 +63,8 @@ struct OverlaySettings {
 
 	enum OverlaySort { Alphabetical, LastStateChange };
 
+	enum OverlayExclusionMode { LauncherFilterExclusionMode, WhitelistExclusionMode, BlacklistExclusionMode };
+
 	bool bEnable;
 
 	QString qsStyle;
@@ -119,9 +121,15 @@ struct OverlaySettings {
 	Qt::Alignment qaMutedDeafened;
 	Qt::Alignment qaAvatar;
 
-	bool bUseWhitelist;
-	QStringList qslBlacklist;
+	OverlayExclusionMode oemOverlayExcludeMode;
+	QStringList qslLaunchers;
+	QStringList qslLaunchersExclude;
 	QStringList qslWhitelist;
+	QStringList qslWhitelistExclude;
+	QStringList qslPaths;
+	QStringList qslPathsExclude;
+	QStringList qslBlacklist;
+	QStringList qslBlacklistExclude;
 
 	OverlaySettings();
 	void setPreset(const OverlayPresets preset = AvatarAndName);
