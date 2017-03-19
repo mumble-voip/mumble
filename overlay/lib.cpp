@@ -474,6 +474,34 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 
 static bool createSharedDataMap();
 
+// Check for the presence of a "nooverlay" file in the directory of the
+// program we're injected into. If such a file exists, it's a hint that
+// we shouldn't inject into it.
+static void checkNoOverlayFile(const std::string &dir) {
+	std::string nooverlay = dir + "\\nooverlay";
+	HANDLE h = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (h != INVALID_HANDLE_VALUE) {
+		CloseHandle(h);
+		ods("Lib: Overlay disable %s found", dir.c_str());
+		bEnableOverlay = FALSE;
+		return;
+	}
+}
+
+// Check for the presence of a "debugoverlay" file in the directory of
+// the program we're injected into. If such a file exists, it's a hint
+// from the user that they want verbose debugging output from the overlay.
+static void checkDebugOverlayFile(const std::string &dir) {
+	// check for "debugoverlay" file, which would enable overlay debugging
+	std::string debugoverlay = dir + "\\debugoverlay";
+	HANDLE h = CreateFile(debugoverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (h != INVALID_HANDLE_VALUE) {
+		CloseHandle(h);
+		ods("Lib: Overlay debug %s found", debugoverlay.c_str());
+		bDebug = TRUE;
+	}
+}
+
 // Given the absolute path to the current process's executable via |procname|,
 // return the absolute path to the executable in |absExeName|, the directory
 // that the executable lives in in |dir| and the basename of the executable in
@@ -512,8 +540,10 @@ static bool dllmainProcAttach(char *procname) {
 		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
 		bEnableOverlay = FALSE;
 		bMumble = TRUE;
+	} else {
+		checkNoOverlayFile(dir);
+		checkDebugOverlayFile(dir);
 	}
-
 
 	OSVERSIONINFOEX ovi;
 	memset(&ovi, 0, sizeof(ovi));
