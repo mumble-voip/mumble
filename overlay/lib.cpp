@@ -474,11 +474,39 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 
 static bool createSharedDataMap();
 
+// Given the absolute path to the current process's executable via |procname|,
+// return the absolute path to the executable in |absExeName|, the directory
+// that the executable lives in in |dir| and the basename of the executable in
+// |exeName|.
+//
+// Returns true on success and fills out |absExeName|, |dir| and |exeName|.
+// Returns false on failure, and does not touch |absExeName|, |dir| and |exeName|.
+static bool parseProcName(char *procname, std::string &absExeName, std::string &dir, std::string &exeName) {
+	if (procname == NULL) {
+		return false;
+	}
+
+	char *p = strrchr(procname, '\\');
+	if (p == NULL) {
+		return false;
+	}
+
+	absExeName = std::string(procname);
+	dir = std::string(procname, p - procname);
+	exeName = std::string(p + 1);
+
+	return true;
+}
+
 static bool dllmainProcAttach(char *procname) {
 	Mutex::init();
 
-	char *p = strrchr(procname, '\\');
-	if (!p) {
+	std::string absExeName;
+	std::string dir;
+	std::string exeName;
+	bool ok = parseProcName(procname, absExeName, dir, exeName);
+
+	if (!ok) {
 		// No blacklisting if the file has no path
 	} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
 		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
