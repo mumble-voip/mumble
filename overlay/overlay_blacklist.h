@@ -16,6 +16,9 @@ static const char *overlayBlacklist[] = {
 	"chrome.exe",
 	"acrord32.exe",
 	"explorer.exe",
+	"sihost.exe",
+	"ApplicationFrameHost.exe",
+	"dllhost.exe",
 	"wmpnscfg.exe",
 	"firefox.exe",
 	"thunderbird.exe",
@@ -46,6 +49,10 @@ static const char *overlayBlacklist[] = {
 	"EpicGamesLauncher.exe", // Epic, Unreal Tournament launcher
 	"dwm.exe", // Windows Desktop Window Manager
 	"MouseKeyboardCenter.exe",
+	"RadeonSettings.exe",
+	"mstsc.exe", // Microsoft Remote Desktop Connection
+	"iCloudServices.exe"
+	"BethesdaNetLauncher.exe",
 
 	// Microsoft Office
 	"outlook.exe", // Outlook
