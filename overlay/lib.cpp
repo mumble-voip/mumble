@@ -18,7 +18,7 @@ BOOL bIsWin8 = FALSE;
 
 static BOOL bMumble = FALSE;
 static BOOL bDebug = FALSE;
-static BOOL bBlackListed = FALSE;
+static BOOL bEnableOverlay = TRUE;
 
 static HardHook hhLoad;
 static HardHook hhLoadW;
@@ -55,9 +55,9 @@ void __cdecl ods(const char *format, ...) {
 }
 
 void __cdecl checkForWPF() {
-	if (!bBlackListed && (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll"))) {
+	if (bEnableOverlay && (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll"))) {
 		ods("Lib: Blacklisted for loading WPF library");
-		bBlackListed = TRUE;
+		bEnableOverlay = FALSE;
 	}
 }
 
@@ -341,7 +341,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 
 	ods("Lib: Library %s loaded to %p", lpFileName, h);
 
-	if (! bBlackListed) {
+	if (bEnableOverlay) {
 		checkHooks();
 	}
 
@@ -361,7 +361,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 
 	checkForWPF();
 
-	if (! bBlackListed) {
+	if (bEnableOverlay) {
 		checkHooks();
 	}
 
@@ -484,7 +484,7 @@ static void dllmainProcAttach(char *procname) {
 		// No blacklisting if the file has no path
 	} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
 		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
-		bBlackListed = TRUE;
+		bEnableOverlay = FALSE;
 		bMumble = TRUE;
 	} else {
 		if (dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
@@ -575,7 +575,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 
 			if (!onwhitelist) {
 				ods("Lib: No whitelist entry found for '%s', auto-blacklisted", procname);
-				bBlackListed = TRUE;
+				bEnableOverlay = FALSE;
 				return true;
 			}
 		} else {
@@ -583,7 +583,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 			while (pos < buffsize && buffer[pos] != 0) {
 				if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
 					ods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
-					bBlackListed = TRUE;
+					bEnableOverlay = FALSE;
 					return true;
 				}
 				pos += static_cast<unsigned int>(strlen(buffer + pos)) + 1;
@@ -607,7 +607,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 		while (overlayBlacklist[i]) {
 			if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
 				ods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
-				bBlackListed = TRUE;
+				bEnableOverlay = FALSE;
 				return true;
 			}
 			i++;
@@ -618,7 +618,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 	delete []buffer;
 
 	// if the processname is already found to be blacklisted, we can stop here
-	if (bBlackListed)
+	if (!bEnableOverlay)
 		return true;
 
 	// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
@@ -635,7 +635,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
 		ods("Lib: Overlay disable %s found", fname);
-		bBlackListed = TRUE;
+		bEnableOverlay = FALSE;
 		return true;
 	}
 
@@ -651,7 +651,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 	// check for blacklisting for loading WPF library
 	checkForWPF();
 
-	if (bBlackListed)
+	if (!bEnableOverlay)
 		return true;
 
 	return false;
@@ -723,11 +723,11 @@ static void dllmainProcDetach() {
 
 static void dllmainThreadAttach() {
 	static bool bTriedHook = false;
-	if (!bBlackListed && sd && ! bTriedHook) {
+	if (bEnableOverlay && sd && ! bTriedHook) {
 		bTriedHook = true;
 		checkForWPF();
 
-		if (!bBlackListed) {
+		if (bEnableOverlay) {
 			ods("Lib: Checking for hooks, potentially injecting");
 			checkHooks();
 		}
