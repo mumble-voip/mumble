@@ -474,7 +474,7 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 
 static bool createSharedDataMap();
 
-static void dllmainProcAttach(char *procname) {
+static bool dllmainProcAttach(char *procname) {
 	Mutex::init();
 
 	char *p = strrchr(procname, '\\');
@@ -499,11 +499,11 @@ static void dllmainProcAttach(char *procname) {
 	hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 	if (hHookMutex == NULL) {
 		ods("Lib: CreateMutex failed");
-		return;
+		return false;
 	}
 
 	if(!createSharedDataMap())
-		return;
+		return false;
 
 	if (! bMumble) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
@@ -513,6 +513,8 @@ static void dllmainProcAttach(char *procname) {
 		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
 	}
+
+	return true;
 }
 
 static bool createSharedDataMap() {
@@ -593,6 +595,7 @@ static void dllmainThreadAttach() {
 }
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
+	BOOL status = TRUE;
 
 	char procname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
 	GetModuleFileNameA(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
@@ -601,10 +604,14 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	procname[ARRAY_NUM_ELEMENTS(procname) - 1] = '\0';
 
 	switch (fdwReason) {
-		case DLL_PROCESS_ATTACH:
+		case DLL_PROCESS_ATTACH: {
 			ods("Lib: ProcAttach: %s", procname);
-			dllmainProcAttach(procname);
+			bool shouldAttach = dllmainProcAttach(procname);
+			if (!shouldAttach) {
+				status = FALSE;
+			}
 			break;
+		}
 		case DLL_PROCESS_DETACH:
 			ods("Lib: ProcDetach: %s", procname);
 			dllmainProcDetach();
@@ -616,7 +623,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 		default:
 			break;
 	}
-	return TRUE;
+
+	return status;
 }
 
 bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
