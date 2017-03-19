@@ -13,6 +13,7 @@
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslKey>
+#include <QtNetwork/QSslCipher>
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
