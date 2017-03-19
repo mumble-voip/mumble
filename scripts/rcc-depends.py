@@ -28,10 +28,18 @@ def main():
 			for fileTag in fileTags:
 				textNode = fileTag.childNodes[0].wholeText
 				absPath = os.path.normpath(os.path.join(fnDir, textNode))
-				relPath = os.path.relpath(absPath)
-				output = relPath
 				if platform.system() == 'Windows':
+					try:
+						output = os.path.relpath(absPath)
+					except ValueError:
+						# In some cases, Qt lives on another drive than Mumble.
+						# This means that we can't create relative path from
+						# our absolute path.
+						# In those cases, use the absolute path instead.
+						output = absPath
 					output = output.replace('\\', '/')
+				else:
+					output = os.path.relpath(absPath)
 				print(output)
 
 if __name__ == '__main__':
