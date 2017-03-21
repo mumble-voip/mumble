@@ -22,6 +22,9 @@ CryptState::CryptState() {
 	for (int i=0;i<0x100;i++)
 		decrypt_history[i] = 0;
 	bInit = false;
+	memset(raw_key, 0, AES_KEY_SIZE_BYTES);
+	memset(encrypt_iv, 0, AES_BLOCK_SIZE);
+	memset(decrypt_iv, 0, AES_BLOCK_SIZE);
 	uiGood=uiLate=uiLost=uiResync=0;
 	uiRemoteGood=uiRemoteLate=uiRemoteLost=uiRemoteResync=0;
 }
