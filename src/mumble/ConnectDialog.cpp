@@ -1202,7 +1202,7 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos)
 			if (si->itType == ServerItem::FavoriteType) {
 				qmPopup->addAction(qaFavoriteEdit);
 				qmPopup->addAction(qaFavoriteRemove);
-			} else if (si) {
+			} else {
 				qmPopup->addAction(qaFavoriteAdd);
 			}
 		}
