@@ -112,7 +112,7 @@
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>ఛానల్ స్థానాల సదుపాయ యోగ్యత</translation>
     </message>
     <message>
         <location/>
