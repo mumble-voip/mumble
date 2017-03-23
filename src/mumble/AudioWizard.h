@@ -84,6 +84,7 @@ class AudioWizard: public QWizard, public Ui::AudioWizard {
 		void on_qrbQualityBalanced_clicked();
 		void on_qrbQualityLow_clicked();
 		void on_qrbQualityCustom_clicked();
+		void on_AudioWizard_finished(int);
 		void showPage(int);
 		void updateTriggerWidgets(bool);
 	public:

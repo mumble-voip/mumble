@@ -331,6 +331,7 @@ struct Settings {
 	int iMaxImageHeight;
 	KeyPair kpCertificate;
 	bool bSuppressIdentity;
+	bool bQuitWhenConfigCompleted;
 
 	bool bShowTransmitModeComboBox;
 

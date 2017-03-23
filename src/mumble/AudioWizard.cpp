@@ -640,3 +640,11 @@ void AudioWizard::on_qrbQualityCustom_clicked() {
 	g.s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
 	restartAudio();
 }
+
+void AudioWizard::on_AudioWizard_finished(int result) {
+	qInfo( "quit result %d", result);
+	if (g.s.bQuitWhenConfigCompleted) {
+		g.bQuit = true;
+		qApp->exit(0);
+	}
+}

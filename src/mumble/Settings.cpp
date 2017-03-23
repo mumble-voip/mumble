@@ -353,6 +353,7 @@ Settings::Settings() {
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
+	bQuitWhenConfigCompleted = false;
 	qsSslCiphers = MumbleSSL::defaultOpenSSLCipherString();
 
 	bShowTransmitModeComboBox = false;

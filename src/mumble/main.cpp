@@ -145,6 +145,8 @@ int main(int argc, char **argv) {
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
+					"  -q, --quit-when-config-completed\n"
+					"                Quit mumble when config was finished\n"
 					"  --license\n"
 					"                Show the Mumble license.\n"
 					"  --authors\n"
@@ -195,6 +197,8 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				suppressIdentity = true;
 				g.s.bSuppressIdentity = true;
+			} else if (args.at(i) == QLatin1String("-q") || args.at(i) == QLatin1String("--quit-when-config-completed")) {
+				g.s.bQuitWhenConfigCompleted = true;
 			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 				printf("%s\n", qPrintable(License::license()));
 				return 0;
