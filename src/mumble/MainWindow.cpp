@@ -721,6 +721,14 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 
 	QTextCursor cursor = qteLog->cursorForPosition(mpos);
 	QTextCharFormat fmt = cursor.charFormat();
+
+	// Work around imprecise cursor image identification
+	// Apparently, the cursor is shifted half the characters width to the right on the image
+	// element. This is in contrast to hyperlinks for example, which have correct edge detection.
+	// For the image, we get the right half (plus the left half of the next character) for the
+	// image, and have to move the cursor forward to also detect on the left half of the image
+	// (plus the right half of the previous character).
+	// It is unclear why we have to use NextCharacter instead of PreviousCharacter.
 	if (fmt.objectType() == QTextFormat::NoObject) {
 		cursor.movePosition(QTextCursor::NextCharacter);
 		fmt = cursor.charFormat();
