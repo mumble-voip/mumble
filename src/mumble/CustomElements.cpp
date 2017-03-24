@@ -13,7 +13,7 @@
 #include "Log.h"
 
 
-LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p), qmActiveAnimation(0) {}
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	scrollLogToBottom();
@@ -41,6 +41,67 @@ void LogTextBrowser::setLogScroll(int scroll_pos) {
 
 void LogTextBrowser::scrollLogToBottom() {
 	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+}
+
+void LogTextBrowser::mouseMoveEvent(QMouseEvent *e) {
+	QTextCursor cursor = cursorForPosition(e->pos());
+	QTextCharFormat fmt = cursor.charFormat();
+
+	// Work around imprecise cursor image identification
+	// Apparently, the cursor is shifted half the characters width to the right on the image
+	// element. This is in contrast to hyperlinks for example, which have correct edge detection.
+	// For the image, we get the right half (plus the left half of the next character) for the
+	// image, and have to move the cursor forward to also detect on the left half of the image
+	// (plus the right half of the previous character).
+	// I do not know why we have to use NextCharacter and not PreviousCharacter.
+	if (fmt.objectType() == QTextFormat::NoObject) {
+		cursor.movePosition(QTextCursor::NextCharacter);
+		fmt = cursor.charFormat();
+	}
+
+	QMovie *movie = NULL;
+	if (fmt.isImageFormat()) {
+		QString name = fmt.toImageFormat().name();
+		LogDocument *doc = qobject_cast<LogDocument *>(document());
+		movie = doc->qhAnimations.value(name);
+	}
+	setPlayingAnimation(movie);
+
+	QTextBrowser::mouseMoveEvent(e);
+}
+
+void LogTextBrowser::setPlayingAnimation(QMovie *movie) {
+	if (movie == qmActiveAnimation) {
+		return;
+	}
+
+	if (qmActiveAnimation) {
+		qmActiveAnimation->setPaused(true);
+		qmActiveAnimation = 0;
+	}
+
+	if (movie) {
+		movie->setPaused(false);
+		qmActiveAnimation = movie;
+	}
+}
+
+void LogTextBrowser::animationFrameUpdated(const QRect &) {
+	LogDocument *doc = qobject_cast<LogDocument *>(document());
+
+	QMovie *movie = qobject_cast<QMovie *>(sender());
+	QUrl name = QUrl(doc->qhAnimations.key(movie), QUrl::TolerantMode);
+	doc->addResource(QTextDocument::ImageResource, name, movie->currentImage());
+
+	// Need to send event or else the image will not be redrawn.
+	QEvent *e = new QEvent(QEvent::FontChange);
+	QApplication::postEvent(this, e);
+
+//TODO: Can we improve performance by invalidating only the element?
+//      And only if it is visible?
+//	doc->setModified(true); // Only this did not work
+//	doc->markContentsDirty()
+	// Get text block, ->setRevision()
 }
 
 
