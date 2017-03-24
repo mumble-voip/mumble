@@ -38,6 +38,7 @@ static NSString *Log_QString_to_NSString(const QString& string) {
 
 #endif
 
+#if QT_VERSION < 0x050800
 extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
 
 static bool growl_available() {
@@ -65,6 +66,7 @@ static bool growl_available() {
 	}
 	return isAvailable == 1;
 }
+#endif // QT_VERSION
 
 void Log::postNotification(MsgType mt, const QString &plain) {
 	QString title = msgName(mt);
@@ -83,11 +85,13 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 	} else
 #endif
 	{
+#if QT_VERSION < 0x050800
 		QString qsScript = QString::fromLatin1(
 			"tell application \"GrowlHelperApp\"\n"
 			"	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
 			"end tell\n").arg(title).arg(plain);
 		if (growl_available())
 			qt_mac_execute_apple_script(qsScript, NULL);
+#endif
 	}
 }
