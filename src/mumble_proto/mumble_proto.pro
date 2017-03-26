@@ -26,7 +26,8 @@ CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += staticlib
 
-INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src" protobuf
+# Add protobuf dependency
+include(../../qmake/protobuf.pri)
 
 QMAKE_EXTRA_COMPILERS *= pb pbh
 
