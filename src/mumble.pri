@@ -36,15 +36,11 @@ CONFIG(packaged) {
 # Add OpenSSL dependency
 include(../qmake/openssl.pri)
 
-win32-msvc* {
-	INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src" protobuf
-	CONFIG(debug, debug|release) {
-		QMAKE_LIBDIR *= "$$PROTOBUF_PATH/vsprojects/Debug"
-	} else {
-		QMAKE_LIBDIR *= "$$PROTOBUF_PATH/vsprojects/Release"
-	}
+# Add protobuf dependency
+include(../qmake/protobuf.pri)
 
-	LIBS *= -llibprotobuf -lcrypt32 -lws2_32
+win32-msvc* {
+	LIBS *= -lcrypt32 -lws2_32
 	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
 }
 
@@ -60,10 +56,6 @@ unix {
 
 	QMAKE_CFLAGS *= "-I../mumble_proto" "-isystem ../mumble_proto"
 	QMAKE_CXXFLAGS *= "-I../mumble_proto" "-isystem ../mumble_proto"
-
-	CONFIG *= link_pkgconfig
-
-	must_pkgconfig(protobuf)
 }
 
 # Make Q_DECL_OVERRIDE and Q_DECL_FINAL no-ops
