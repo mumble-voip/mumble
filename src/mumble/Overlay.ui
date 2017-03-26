@@ -307,92 +307,21 @@
          </widget>
          <widget class="QWidget" name="qwExceptions">
           <attribute name="title">
-           <string>Overlay exceptions</string>
+           <string>Overlay Exceptions</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_16">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QLabel" name="qlExcListType">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>To list exceptions, use a</string>
+                <string>Overlay Exception Mode</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="qrbBlacklist">
-               <property name="text">
-                <string>Blacklist</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
+              <widget class="QComboBox" name="qcbOverlayExclusionMode"/>
              </item>
-             <item>
-              <widget class="QRadioButton" name="qrbWhitelist">
-               <property name="text">
-                <string>Whitelist</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QStackedWidget" name="qswBlackWhiteList">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="currentIndex">
-              <number>1</number>
-             </property>
-             <widget class="QWidget" name="qwBlack">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <item>
-                <widget class="QLabel" name="qlBlackDesc">
-                 <property name="text">
-                  <string>Show the overlay in all applicable programs except</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QListWidget" name="qlwBlacklist"/>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QWidget" name="qwWhite">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_3">
-               <item>
-                <widget class="QLabel" name="qlWhiteDesc">
-                 <property name="text">
-                  <string>Show the overlay only in</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QListWidget" name="qlwWhitelist"/>
-               </item>
-              </layout>
-             </widget>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
               <spacer name="horizontalSpacer">
                <property name="orientation">
@@ -406,18 +335,163 @@
                </property>
               </spacer>
              </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QPushButton" name="qpbAdd">
-               <property name="text">
-                <string>Add...</string>
-               </property>
+              <widget class="QWidget" name="qwLaunchers" native="true">
+               <layout class="QVBoxLayout" name="qvblLaunchers">
+                <item>
+                 <widget class="QLabel" name="qlLaunchersLabel">
+                  <property name="text">
+                   <string>Allowed launchers</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="qlwLaunchers"/>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
+                  <item>
+                   <widget class="QPushButton" name="qpbLaunchersAdd">
+                    <property name="text">
+                     <string>Add</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="qpbLaunchersRemove">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Remove</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="qpbRemove">
-               <property name="text">
-                <string>Remove</string>
-               </property>
+              <widget class="QWidget" name="qwWhitelist" native="true">
+               <layout class="QVBoxLayout" name="qvblWhitelist">
+                <item>
+                 <widget class="QLabel" name="qlWhitelistLabel">
+                  <property name="text">
+                   <string>Allowed programs</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="qlwWhitelist"/>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <item>
+                   <widget class="QPushButton" name="qpbWhitelistAdd">
+                    <property name="text">
+                     <string>Add</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="qpbWhitelistRemove">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Remove</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="qwPaths" native="true">
+               <layout class="QVBoxLayout" name="qvblPaths">
+                <item>
+                 <widget class="QLabel" name="qlPathsLabel">
+                  <property name="text">
+                   <string>Allowed paths</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="qlwPaths"/>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <widget class="QPushButton" name="qpbPathsAdd">
+                    <property name="text">
+                     <string>Add</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="qpbPathsRemove">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Remove</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="qwBlacklist" native="true">
+               <layout class="QVBoxLayout" name="qvblBlacklist">
+                <item>
+                 <widget class="QLabel" name="qlvBlacklistLabel">
+                  <property name="text">
+                   <string>Blacklisted programs</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="qlwBlacklist"/>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <item>
+                   <widget class="QPushButton" name="qpbBlacklistAdd">
+                    <property name="text">
+                     <string>Add</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="qpbBlacklistRemove">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Remove</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>

@@ -129,7 +129,7 @@ OverlaySettings::OverlaySettings() {
 	qrfTime = QRectF(0.0f, 0.0, -1, 0.023438f);
 	bTime = false;
 
-	bUseWhitelist = false;
+	oemOverlayExcludeMode = OverlaySettings::LauncherFilterExclusionMode;
 }
 
 void OverlaySettings::setPreset(const OverlayPresets preset) {
@@ -564,9 +564,15 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	LOADFLAG(qaMutedDeafened, "mutedalign");
 	LOADFLAG(qaAvatar, "avataralign");
 
-	SAVELOAD(bUseWhitelist, "usewhitelist");
-	SAVELOAD(qslBlacklist, "blacklist");
+	LOADENUM(oemOverlayExcludeMode, "mode");
+	SAVELOAD(qslLaunchers, "launchers");
+	SAVELOAD(qslLaunchersExclude, "launchersexclude");
 	SAVELOAD(qslWhitelist, "whitelist");
+	SAVELOAD(qslWhitelistExclude, "whitelistexclude");
+	SAVELOAD(qslPaths, "paths");
+	SAVELOAD(qslPathsExclude, "pathsexclude");
+	SAVELOAD(qslBlacklist, "blacklist");
+	SAVELOAD(qslBlacklistExclude, "blacklistexclude");
 }
 
 void Settings::load() {
@@ -883,9 +889,15 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVEFLAG(qaMutedDeafened, "mutedalign");
 	SAVEFLAG(qaAvatar, "avataralign");
 
-	settings_ptr->setValue(QLatin1String("usewhitelist"), bUseWhitelist);
-	settings_ptr->setValue(QLatin1String("blacklist"), qslBlacklist);
+	SAVELOAD(oemOverlayExcludeMode, "mode");
+	settings_ptr->setValue(QLatin1String("launchers"), qslLaunchers);
+	settings_ptr->setValue(QLatin1String("launchersexclude"), qslLaunchersExclude);
 	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);
+	settings_ptr->setValue(QLatin1String("whitelistexclude"), qslWhitelistExclude);
+	settings_ptr->setValue(QLatin1String("paths"), qslPaths);
+	settings_ptr->setValue(QLatin1String("pathsexclude"), qslPathsExclude);
+	settings_ptr->setValue(QLatin1String("blacklist"), qslBlacklist);
+	settings_ptr->setValue(QLatin1String("blacklistexclude"), qslBlacklistExclude);
 }
 
 void Settings::save() {
