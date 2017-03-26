@@ -7,7 +7,10 @@
 #define MUMBLE_OVERLAY_WHITELIST_H_
 
 static const char *overlayWhitelist[] = {
-	"gw2.exe", // We can't whitelist the GW2 launcher
+	// We can't whitelist the GW2 launcher
+	"gw2.exe",
+	"gw2-64.exe",
+
 	NULL
 };
 
