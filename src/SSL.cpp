@@ -102,7 +102,7 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 
 	SSL_CTX *ctx = NULL;
 	SSL *ssl = NULL;
-	const SSL_METHOD *meth = NULL;
+	SSL_METHOD *meth = NULL;
 	int i = 0;
 
 	QByteArray csbuf = cipherString.toLatin1();
