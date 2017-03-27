@@ -33,18 +33,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		location_address = pModule + 0x23353CB;
 		street_address = pModule + 0x2332110;
 	// Retail version
-	} else if (peekProc(pModule + 0x17C3280, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
-		state_address = pModule + 0x2688DB0;
-		in_game_address = pModule + 0x1B73ED4;
-		avatar_pos_address = pModule + 0x1F01E40;
-		camera_pos_address = pModule + 0x1C06950;
-		avatar_base_address = pModule + 0x1B433D0;
-		camera_front_address = pModule + 0x1C06960;
-		camera_top_address = pModule + 0x1ED6FF0;
-		player_address = pModule + 0x26934AC;
-		vehicle_address = pModule + 0x228A9A0;
-		location_address = pModule + 0x228A38B;
-		street_address = pModule + 0x22870C0;
+	} else if (peekProc(pModule + 0x180D4D8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x2733490;
+		in_game_address = pModule + 0x1BC6687;
+		avatar_pos_address = pModule + 0x1F7EAA0;
+		camera_pos_address = pModule + 0x1C58630;
+		avatar_base_address = pModule + 0x1B956C0;
+		camera_front_address = pModule + 0x1C5A0F0;
+		camera_top_address = pModule + 0x1F7D9F0;
+		player_address = pModule + 0x273DBAC;
+		vehicle_address = pModule + 0x2331890;
+		location_address = pModule + 0x233125B;
+		street_address = pModule + 0x232DFA0;
 	// Unknown version
 	} else {
 		generic_unlock();
@@ -200,10 +200,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto V version 1.38 (Steam) and 1.36 (Retail) with identity support."); // Plugin long description
+	return std::wstring(L"Supports Grand Theft Auto V version 1.38 with identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Grand Theft Auto V (v1.38 [Steam] & v1.36 [Retail])"); // Plugin short description
+static std::wstring description(L"Grand Theft Auto V (v1.38)"); // Plugin short description
 static std::wstring shortname(L"Grand Theft Auto V"); // Plugin short name
 
 static int trylock1() {
