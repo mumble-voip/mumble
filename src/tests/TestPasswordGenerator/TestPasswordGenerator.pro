@@ -4,7 +4,6 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(../test.pri)
-include(../../../qmake/openssl.pri)
 
 TARGET = TestPasswordGenerator
 SOURCES = TestPasswordGenerator.cpp PasswordGenerator.cpp CryptographicRandom.cpp arc4random_uniform.cpp
