@@ -93,7 +93,7 @@ void TestPacketDataStream::string_data() {
 	QTest::addColumn<QString>("string");
 	QTest::newRow("Empty") << QString("");
 	QTest::newRow("Null") << QString();
-	QTest::newRow("Bærtur") << QString("Bærtur");
+	QTest::newRow("BÃ¦rtur") << QString("BÃ¦rtur");
 }
 
 void TestPacketDataStream::string() {
