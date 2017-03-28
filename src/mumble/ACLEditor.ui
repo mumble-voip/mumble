@@ -77,7 +77,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Channel positioning facility value</string>
+          <string>This is the sort order for the channel.</string>
          </property>
          <property name="whatsThis">
           <string>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
