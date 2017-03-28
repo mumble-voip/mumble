@@ -47,6 +47,13 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	else
 		exit 1
 	fi
+elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
+	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+	export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/openssl/lib/pkgconfig
+	export PATH=$PATH:/usr/local/opt/qt5/bin:/usr/local/bin
+	export MUMBLE_PREFIX=/usr/local
+	export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
+	qmake CONFIG+="release tests warnings-as-errors" && make -j2 && make check
 else
 	exit 1
 fi
