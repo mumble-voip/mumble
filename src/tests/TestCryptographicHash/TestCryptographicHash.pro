@@ -4,7 +4,6 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(../test.pri)
-include(../../../qmake/openssl.pri)
 
 TARGET = TestCryptographicHash
 SOURCES = TestCryptographicHash.cpp CryptographicHash.cpp

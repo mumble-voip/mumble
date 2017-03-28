@@ -26,3 +26,9 @@ LANGUAGE = C++
 
 VPATH *= ../..
 INCLUDEPATH *= ../.. ../../murmur ../../mumble
+
+# We have to depend on OpenSSL in all tests
+# for no-pch builds to work. Our PCH headers
+# include OpenSSL, and if the headers aren't
+# in the include path, the build will break.
+include(../../qmake/openssl.pri)
