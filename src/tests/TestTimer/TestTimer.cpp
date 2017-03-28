@@ -70,7 +70,18 @@ void TestTimer::atomicity() {
 		ttime += a.restart();
 	} while (t.elapsed() < 10);
 
-	QVERIFY(abs((long)(ttime - b.elapsed())) < 100);
+	quint64 elapsed = b.elapsed();
+
+	// Find the delta between the calculated elapsed time (ttime)
+	// and the elapsed time according to the Timer class (elapsed).
+	quint64 delta = 0;
+	if (elapsed > ttime) {
+		delta = elapsed - ttime;
+	} else if (ttime > elapsed) {
+		delta = ttime - elapsed;
+	}
+
+	QVERIFY(delta < 100);
 }
 
 void TestTimer::order() {
