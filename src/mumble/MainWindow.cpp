@@ -2497,17 +2497,21 @@ void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
 	if (down) {
-		float v = floorf(g.s.fVolume * 10.0f);
-		if (v < 20.0f)
-			g.s.fVolume = ++v / 10.0f;
+		int val = static_cast<int>(floorf(g.s.fVolume * 100.0f));
+		if (val < 200) {
+			val += 10;
+			g.s.fVolume = static_cast<float>(percentage) / 100.0f;
+		}
 	}
 }
 
 void MainWindow::on_VolumeDown_triggered(bool down, QVariant) {
 	if (down) {
-		float v = ceilf(g.s.fVolume * 10.0f);
-		if (v > 0.0f)
-			g.s.fVolume = --v / 10.0f;
+		int val = static_cast<int>(ceilf(g.s.fVolume * 100.0f));
+		if (val > 0) {
+			val -= 10;
+			g.s.fVolume = static_cast<float>(val) / 100.0f;
+		}
 	}
 }
 
