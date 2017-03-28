@@ -51,8 +51,9 @@ static const char *overlayBlacklist[] = {
 	"MouseKeyboardCenter.exe",
 	"RadeonSettings.exe",
 	"mstsc.exe", // Microsoft Remote Desktop Connection
-	"iCloudServices.exe"
+	"iCloudServices.exe",
 	"BethesdaNetLauncher.exe",
+	"GTAVLauncher.exe",
 
 	// Microsoft Office
 	"outlook.exe", // Outlook
