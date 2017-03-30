@@ -2500,7 +2500,7 @@ void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
 		int val = static_cast<int>(floorf(g.s.fVolume * 100.0f));
 		if (val < 200) {
 			val += 10;
-			g.s.fVolume = static_cast<float>(percentage) / 100.0f;
+			g.s.fVolume = static_cast<float>(val) / 100.0f;
 		}
 	}
 }
