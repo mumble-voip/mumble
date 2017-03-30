@@ -36,11 +36,14 @@ static void ExcludeCheckEnsureInitialized() {
 }
 
 /// Check whether the program at |absExeName|
-/// (with basename of |exeName|) is in the Mumble
-/// overlay program blacklist.
+/// (with basename of |exeName|) is blacklisted.
+///
+/// Note that programs that are added as launchers
+/// are also implicitly treated as being blacklisted.
 static bool isBlacklistedExe(const std::string &absExeName, const std::string &exeName) {
-	for (size_t i = 0; i < vBlacklist.size(); i++) {
-		std::string &val = vBlacklist.at(i);
+	std::vector<string> combinedBlacklist = vmerge(vBlacklist, vLaunchers);
+	for (size_t i = 0; i < combinedBlacklist.size(); i++) {
+		std::string &val = combinedBlacklist.at(i);
 		if (isAbsPath(val)) {
 			if (val == absExeName) {
 				return true;
