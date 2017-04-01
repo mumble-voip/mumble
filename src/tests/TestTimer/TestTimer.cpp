@@ -29,32 +29,37 @@ void TestTimer::accuracy() {
 	QVERIFY(abs((int)(t.elapsed() / 1000ULL - a.elapsed())) < 10);
 }
 
+// This tests that the timer implemented by the Timer
+// class is a high resolution timer. In this case, we
+// check that the output of the elapsed() method changes
+// at least every 5 microseconds.
 void TestTimer::resolution() {
-	QTime a;
 	Timer t;
 
-	a.restart();
 	t.restart();
 
-	quint64 achange = 0;
-	quint64 tchange = 0;
-
-	quint64 aelapsed = 0, telapsed = 0;
+	quint64 nchanges = 0;
+	quint64 lastElapsed = 0;
+	quint64 curElapsed  = 0;
 
 	do {
-		quint64 ae = a.elapsed();
-		quint64 te = t.elapsed();
-		if (ae != aelapsed)
-			achange++;
-		if (te != telapsed)
-			tchange++;
+		curElapsed = t.elapsed();
+		if (curElapsed != lastElapsed) {
+			nchanges++;
+		}
+		lastElapsed = curElapsed;
+	} while (curElapsed < 150000); // 150 ms
 
-		aelapsed = ae;
-		telapsed = te;
+	quint64 totalElapsed = t.elapsed();
+	double usecsPerChange = static_cast<double>(totalElapsed) / static_cast<double>(nchanges);
 
-	} while (achange < 10);
+	qWarning("Total elapsed time: %llu microseconds", static_cast<unsigned long long>(totalElapsed));
+	qWarning("Number of elapsed changes: %llu", static_cast<unsigned long long>(nchanges));
+	qWarning("Resolution: %.2f microseconds", usecsPerChange);
 
-	QVERIFY(tchange > (achange * 100));
+	if (usecsPerChange >= 5.0f) {
+		QFAIL("Insufficient timer resolution. Got >= 5 usec, expected < 5 usec resolution...");
+	}
 }
 
 void TestTimer::atomicity() {
