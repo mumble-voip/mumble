@@ -24,6 +24,24 @@ from xml.dom import minidom
 
 IETF_TLS_PARAMETERS_WWW = "https://www.ietf.org/assignments/tls-parameters/tls-parameters.xml"
 
+def integerFromIdent(ident):
+	'''
+		Parses a TLS cipher suite identifier from the IETF TLS cipher suite registry.
+		The cipher suite identifier is represented as a string of hex-encoded byte values
+		separated by commas.
+
+		This function consumes the byte sequence and converts it into an unsigned integer.
+	'''
+	hexVals = ident.split(',')
+	nbytes = len(hexVals)
+	if nbytes > 3:
+		raise Exception("unexpected amount of bytes")
+	outVal = 0
+	for idx, val in enumerate(hexVals):
+		intVal = int(val, base=16)
+		outVal |= ((intVal & 0xff) << (((nbytes - 1) - idx) * 8))
+	return outVal
+
 def rfcNameLut():
 	lut = {}
 
@@ -244,6 +262,7 @@ def main():
 		# XXX: should SRP be marked as forward_secret?
 
 		output.append({
+			'sort_order': integerFromIdent(ident),
 			'identifier': ident,
 			'openssl_name': osslname,
 			'rfc_name': rfcname,
@@ -266,6 +285,7 @@ def main():
 		for key in lut.keys():
 			if not key in added_ids:
 				output.append({
+					'sort_order': integerFromIdent(key),
 					'identifier': key,
 					'openssl_name': None,
 					'rfc_name': lut[key],
@@ -280,6 +300,7 @@ def main():
 					'export': None,
 					'forward_secret': None
 				})
+	sortedOutput = sorted(output, key=lambda meta: meta['sort_order'])
 
 	output_c = True
 	if output_c:
@@ -292,7 +313,7 @@ def main():
 		print('// will cause a preprocessor error. Oops!')
 		print('#error Please verify this file is correct')
 		print('static const SSLCipherInfo cipher_info_lookup_table[] = {')
-		for entry in output:
+		for entry in sortedOutput:
 			print('\t{')
 			print('\t\t// openssl_name')
 			print('\t\t{0},'.format(Cstr(entry["openssl_name"])))
@@ -309,7 +330,7 @@ def main():
 			print('\t},')
 		print('};')
 	else:
-		print(json.dumps(output, sort_keys=True, indent=4, separators=(',', ': ')))
+		print(json.dumps(sortedOutput, sort_keys=True, indent=4, separators=(',', ': ')))
 
 if __name__ == '__main__':
 	main()
