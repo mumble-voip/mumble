@@ -181,6 +181,8 @@ def main():
 			"DHE_RSA",
 			"ECDH_anon",
 			"DH_anon",
+			"DH_DSS",
+			"DH_RSA",
 			"ECDH_RSA",
 			"ECDH_ECDSA",
 			"RSA",
