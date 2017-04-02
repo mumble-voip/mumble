@@ -2497,17 +2497,21 @@ void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
 	if (down) {
-		float v = floorf(g.s.fVolume * 10.0f);
-		if (v < 20.0f)
-			g.s.fVolume = ++v / 10.0f;
+		float vol = g.s.fVolume + 0.1f;
+		if (vol > 2.0f) {
+			vol = 2.0f;
+		}
+		g.s.fVolume = vol;
 	}
 }
 
 void MainWindow::on_VolumeDown_triggered(bool down, QVariant) {
 	if (down) {
-		float v = ceilf(g.s.fVolume * 10.0f);
-		if (v > 0.0f)
-			g.s.fVolume = --v / 10.0f;
+		float vol = g.s.fVolume - 0.1f;
+		if (vol < 0.0f) {
+			vol = 0.0f;
+		}
+		g.s.fVolume = vol;
 	}
 }
 
