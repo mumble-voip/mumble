@@ -6,7 +6,7 @@
 
       #mumble on freenode
 
-Mumble is a voicechat program for gamers written on top of Qt and Speex.
+Mumble is a voicechat program for gamers written on top of Qt and Opus.
 
 There are two modules in Mumble; the client (mumble) and the server
 (murmur). The client works on Win32/64, Linux and Mac OS X, while the
