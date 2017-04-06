@@ -38,8 +38,9 @@ To build mumble and murmur, type
 qmake main.pro
 make release
 
-You may need to edit src/mumble/mumble.pro to reflect the installation paths you
-use for libraries.
+You may need to specify dependency installation paths. Please refer to the
+files in the qmake directory. (For windows, copy winpaths_default.pri to
+winpaths_custom.pri and adjust the copies contents.)
 After building, the binaries will be in the release/ directory.
 
 The qmake step supports a number of configurations options. To enable an
