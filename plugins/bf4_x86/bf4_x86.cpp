@@ -16,7 +16,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE squad, squad_leader, squad_state;
 
 	// Server ID pointers
-	procptr32_t serverid_base = peekProc<procptr32_t>(pModule + 0x01BEBC04);
+	procptr32_t serverid_base = peekProc<procptr32_t>(pModule + 0x1D39C64);
 	if (!serverid_base) return false;
 	procptr32_t serverid_offset_0 = peekProc<procptr32_t>(serverid_base + 0xC);
 	if (!serverid_offset_0) return false;
@@ -26,7 +26,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!serverid_offset) return false;
 
 	// Squad pointers
-	procptr32_t squad_base = peekProc<procptr32_t>(pModule + 0x01BEBC90);
+	procptr32_t squad_base = peekProc<procptr32_t>(pModule + 0x1D39D0C);
 	if (!squad_base) return false;
 	procptr32_t squad_offset_0 = peekProc<procptr32_t>(squad_base + 0x7C);
 	if (!squad_offset_0) return false;
@@ -34,14 +34,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!squad_offset_1) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + 0x1BB6AC2, &state, 1) && // Magical state value: 0 when in-game and 1 when in menu/dead.
-	     peekProc(pModule + 0x1BB3C30, avatar_pos, 12) && // Avatar Position values (X, Y and Z).
-	     peekProc(pModule + 0x1BB6A90, camera_pos, 12) && // Camera Position values (X, Y and Z).
-	     peekProc(pModule + 0x1BB6A70, avatar_top, 12) && // Avatar Top Vector values (X, Y and Z).
-	     peekProc(pModule + 0x1BB6A80, avatar_front, 12) && // Avatar Front Vector values (X, Y and Z).
+	ok = peekProc(pModule + 0x1D23B0E, &state, 1) && // Magical state value: 0 when in-game and 1 when in menu/dead.
+	     peekProc(pModule + 0x1CFD3C0, avatar_pos, 12) && // Avatar Position values (X, Y and Z).
+	     peekProc(pModule + 0x1D23CB0, camera_pos, 12) && // Camera Position values (X, Y and Z).
+	     peekProc(pModule + 0x1D23C90, avatar_top, 12) && // Avatar Top Vector values (X, Y and Z).
+	     peekProc(pModule + 0x1D23CA0, avatar_front, 12) && // Avatar Front Vector values (X, Y and Z).
 	     peekProc(serverid_offset, serverid) && // Server ID (36 characters).
-	     peekProc(pModule + 0x1BA8A10, host) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
-	     peekProc(pModule + 0x1C814B5, team) && // Team value: US (United States); RU (Russia); CH (China).
+	     peekProc(pModule + 0x1CF3A68, host) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
+	     peekProc(pModule + 0x1DCF695, team) && // Team value: US (United States); RU (Russia); CH (China).
 	     peekProc(squad_offset_1 + 0x15C, squad) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
 	     peekProc(squad_offset_1 + 0x160, squad_leader) && // Squad leader value: 0 (False); 1 (True).
 	     peekProc(squad_offset_1 + 0x161, squad_state); // Squad state value: 0 (Public); 1 (Private).
@@ -203,7 +203,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Battlefield 4 with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Battlefield 4 (x86) version 1.7.2.45672"); // Plugin short description
+static std::wstring description(L"Battlefield 4 (x86) version 1.8.2.48475"); // Plugin short description
 static std::wstring shortname(L"Battlefield 4"); // Plugin short name
 
 static int trylock1() {
