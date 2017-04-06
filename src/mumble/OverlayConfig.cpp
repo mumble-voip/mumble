@@ -790,10 +790,14 @@ void OverlayConfig::on_qpbPathsAdd_clicked() {
 	QString existingPath = QFileDialog::getExistingDirectory(this, tr("Choose path"));
 	QString dir = QDir::toNativeSeparators(existingPath);
 
-	if (! dir.isEmpty()) {
-		QListWidgetItem *qlwiPath = new QListWidgetItem(QIcon(), dir, qlwPaths);
+	QListWidget *sel = qlwPaths;
+	QStringList qslIdentifiers;
+	for (int i = 0; i < sel->count(); i++)
+		qslIdentifiers << sel->item(i)->data(Qt::UserRole).toString();
+	if (! dir.isEmpty() && ! qslIdentifiers.contains(dir)) {
+		QListWidgetItem *qlwiPath = new QListWidgetItem(QIcon(), dir, sel);
 		qlwiPath->setData(Qt::UserRole, QVariant(dir));
-		qlwPaths->setCurrentItem(qlwiPath);
+		sel->setCurrentItem(qlwiPath);
 	}
 }
 
