@@ -26,7 +26,21 @@ void TestTimer::accuracy() {
 	do {
 	} while (a.elapsed() < 1000);
 
-	QVERIFY(abs((int)(t.elapsed() / 1000ULL - a.elapsed())) < 10);
+	quint64 tElapsedMs = t.elapsed() / 1000ULL;
+	quint64 aElapsedMs = a.elapsed();
+
+	quint64 delta = 0;
+	if (tElapsedMs > aElapsedMs) {
+		delta = tElapsedMs - aElapsedMs;
+	} else if (aElapsedMs > tElapsedMs) {
+		delta = aElapsedMs - tElapsedMs;
+	}
+
+	qWarning("Timer elapsed time: %llu milliseconds", static_cast<unsigned long long>(tElapsedMs));
+	qWarning("QTime elapsed time: %llu milliseconds", static_cast<unsigned long long>(aElapsedMs));
+	qWarning("Delta: %llu milliseconds", static_cast<unsigned long long >(delta));
+
+	QVERIFY(delta < 10);
 }
 
 // This tests that the timer implemented by the Timer
