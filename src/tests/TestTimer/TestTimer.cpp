@@ -100,6 +100,10 @@ void TestTimer::atomicity() {
 		delta = ttime - elapsed;
 	}
 
+	qWarning("Timer class's elapsed time: %llu microseconds", static_cast<unsigned long long>(elapsed));
+	qWarning("Calculated elapsed time: %llu microseconds", static_cast<unsigned long long>(elapsed));
+	qWarning("Delta: %llu microseconds", static_cast<unsigned long long>(delta));
+
 	QVERIFY(delta < 100);
 }
 
