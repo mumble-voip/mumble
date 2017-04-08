@@ -17,6 +17,13 @@ class TestTimer : public QObject {
 		void order();
 };
 
+static quint64 delta64(quint64 a, quint64 b) {
+	if (a > b) {
+		return a - b;
+	}
+	return b - a;
+}
+
 void TestTimer::accuracy() {
 	QTime a;
 	Timer t;
@@ -29,12 +36,7 @@ void TestTimer::accuracy() {
 	quint64 tElapsedMs = t.elapsed() / 1000ULL;
 	quint64 aElapsedMs = a.elapsed();
 
-	quint64 delta = 0;
-	if (tElapsedMs > aElapsedMs) {
-		delta = tElapsedMs - aElapsedMs;
-	} else if (aElapsedMs > tElapsedMs) {
-		delta = aElapsedMs - tElapsedMs;
-	}
+	quint64 delta = delta64(tElapsedMs, aElapsedMs);
 
 	qWarning("Timer elapsed time: %llu milliseconds", static_cast<unsigned long long>(tElapsedMs));
 	qWarning("QTime elapsed time: %llu milliseconds", static_cast<unsigned long long>(aElapsedMs));
@@ -93,12 +95,7 @@ void TestTimer::atomicity() {
 
 	// Find the delta between the calculated elapsed time (ttime)
 	// and the elapsed time according to the Timer class (elapsed).
-	quint64 delta = 0;
-	if (elapsed > ttime) {
-		delta = elapsed - ttime;
-	} else if (ttime > elapsed) {
-		delta = ttime - elapsed;
-	}
+	quint64 delta = delta64(elapsed, ttime);
 
 	qWarning("Timer class's elapsed time: %llu microseconds", static_cast<unsigned long long>(elapsed));
 	qWarning("Calculated elapsed time: %llu microseconds", static_cast<unsigned long long>(elapsed));
