@@ -70,6 +70,7 @@ Global::Global() {
 	db = 0;
 	p = 0;
 	nam = 0;
+	c = 0;
 	uiSession = 0;
 	uiDoublePush = 1000000;
 	iPushToTalk = 0;
