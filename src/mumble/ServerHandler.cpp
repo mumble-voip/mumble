@@ -577,8 +577,11 @@ void ServerHandler::serverConnectionConnected() {
 		mpv.set_version(version);
 	}
 
-	mpv.set_os(u8(OSInfo::getOS()));
-	mpv.set_os_version(u8(OSInfo::getOSDisplayableVersion()));
+	if (!g.s.bHideOS) {
+		mpv.set_os(u8(OSInfo::getOS()));
+		mpv.set_os_version(u8(OSInfo::getOSDisplayableVersion()));
+	}
+
 	sendMessage(mpv);
 
 	MumbleProto::Authenticate mpa;
