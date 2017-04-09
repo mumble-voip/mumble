@@ -6,6 +6,7 @@
 #include "murmur_pch.h"
 
 #include "Net.h"
+#include "ByteSwap.h"
 
 HostAddress::HostAddress() {
 	addr[0] = addr[1] = 0ULL;
