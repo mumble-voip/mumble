@@ -3161,7 +3161,7 @@ void MainWindow::on_qteLog_highlighted(const QUrl &url) {
 	if (! url.isValid())
 		QToolTip::hideText();
 	else {
-		if (qApp->activeWindow() != NULL) {
+		if (isActiveWindow()) {
 			QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
 		}
 	}
