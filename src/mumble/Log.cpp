@@ -372,7 +372,11 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);
-	qtd.setDefaultStyleSheet(qApp->styleSheet());
+
+	// Ensure we are not using a stylesheet in our LogDocument.
+	// If a stylesheet is set, its styling will leak out into
+	// the HTML returned by the LogDocument's toHtml() method.
+	qtd.setDefaultStyleSheet(QLatin1String(""));
 
 	// Call documentLayout on our LogDocument to ensure
 	// it has a layout backing it. With a layout set on
