@@ -8,12 +8,6 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#define DIRECTSOUND_VERSION 0x1000
-
-#include <mmsystem.h>
-#include <dsound.h>
-#include <ks.h>
-#include <ksmedia.h>
 
 class DXAudioOutput : public AudioOutput {
 	private:
