@@ -333,6 +333,9 @@ struct Settings {
 	// Network settings - SSL
 	QString qsSslCiphers;
 
+	// Privacy settings
+	bool bHideOS;
+
 	static const int ciDefaultMaxImageSize = 50 * 1024; // Restrict to 50KiB as a default
 	int iMaxImageSize;
 	int iMaxImageWidth;

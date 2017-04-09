@@ -55,6 +55,7 @@ void NetworkConfig::load(const Settings &r) {
 	qlePassword->setText(r.qsProxyPassword);
 
 	loadCheckBox(qcbImageDownload, r.iMaxImageSize <= 0);
+	loadCheckBox(qcbHideOS, s.bHideOS);
 
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 	loadCheckBox(qcbPluginUpdate, r.bPluginCheck);
@@ -72,6 +73,7 @@ void NetworkConfig::save() const {
 	s.bReconnect = qcbAutoReconnect->isChecked();
 	s.bAutoConnect = qcbAutoConnect->isChecked();
 	s.bSuppressIdentity = qcbSuppressIdentity->isChecked();
+	s.bHideOS = qcbHideOS->isChecked();
 
 	s.ptProxyType = static_cast<Settings::ProxyType>(qcbType->currentIndex());
 	s.qsProxyHost = qleHostname->text();
