@@ -5,6 +5,13 @@
 
 #include "mumble_pch.hpp"
 
+#define DIRECTSOUND_VERSION 0x1000
+
+#include <mmsystem.h>
+#include <dsound.h>
+#include <ks.h>
+#include <ksmedia.h>
+
 #include "DirectSound.h"
 
 #include "MainWindow.h"
