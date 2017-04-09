@@ -304,14 +304,14 @@ Prevents the client from downloading images embedded into chat messages with the
       <item>
        <widget class="QCheckBox" name="qcbHideOS">
         <property name="toolTip">
-         <string>Prevent OS information being sent to the server</string>
+         <string>Prevent OS information being sent to Mumble servers and web servers</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Don't send OS information to the server&lt;/b&gt;&lt;br/&gt;
-Prevents the client from sending potentially identifying information about the operating system to the server.</string>
+         <string>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
+Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</string>
         </property>
         <property name="text">
-         <string>Do not send OS information to Mumble servers</string>
+         <string>Do not send OS information to Mumble servers and web servers</string>
         </property>
        </widget>
       </item>
