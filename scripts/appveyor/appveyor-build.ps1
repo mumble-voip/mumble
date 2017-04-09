@@ -19,7 +19,7 @@ $MUMBLE_SOURCE_DIR = Join-Path $MUMBLE_BUILD_DIR "mumble"
 $MUMBLE_BUILDENV_DIR = Join-Path $MUMBLE_BUILD_DIR $env:MUMBLE_ENVIRONMENT_VERSION
 $MUMBLE_BUILDSCRIPT = Join-Path $MUMBLE_BUILDENV_DIR "mumble-releng\buildscripts\$env:MUMBLE_BUILDSCRIPT"
 
-# We do not sign the appveyor CI builds so we mustn't disable
+# We do not sign the appveyor CI builds, so we must disable
 # uiaccess elevation. Also no intermediary signing is wanted.
 # Also use jom to use both cores we get on the builder.
 $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = "no-elevation"
