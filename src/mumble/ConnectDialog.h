@@ -32,6 +32,7 @@
 
 #include "BonjourRecord.h"
 #include "Net.h"
+#include "HostAddress.h"
 #include "Timer.h"
 
 struct FavoriteServer;

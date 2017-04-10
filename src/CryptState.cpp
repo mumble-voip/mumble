@@ -16,7 +16,7 @@
 
 #include "CryptState.h"
 
-#include "Net.h"
+#include "ByteSwap.h"
 
 CryptState::CryptState() {
 	for (int i=0;i<0x100;i++)

@@ -15,9 +15,9 @@
 #endif
 
 #include "Connection.h"
-#include "Net.h"
 #include "Timer.h"
 #include "User.h"
+#include "HostAddress.h"
 
 // Unfortunately, this needs to be "large enough" to hold
 // enough frames to account for both short-term and

@@ -10,7 +10,7 @@
 #include "Audio.h"
 #include "CELTCodec.h"
 #include "Global.h"
-#include "Net.h"
+#include "HostAddress.h"
 #include "ServerHandler.h"
 #include "ViewCert.h"
 

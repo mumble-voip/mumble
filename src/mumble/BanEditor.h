@@ -6,7 +6,7 @@
 #ifndef MUMBLE_MUMBLE_BANEDITOR_H_
 #define MUMBLE_MUMBLE_BANEDITOR_H_
 
-#include "Net.h"
+#include "Ban.h"
 
 #include "ui_BanEditor.h"
 

@@ -21,6 +21,7 @@
 #include "ServerUser.h"
 #include "ServerDB.h"
 #include "User.h"
+#include "Ban.h"
 
 using namespace std;
 using namespace Murmur;

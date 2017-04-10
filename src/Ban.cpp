@@ -5,8 +5,7 @@
 
 #include "murmur_pch.h"
 
-#include "Net.h"
-#include "HostAddress.h"
+#include "Ban.h"
 
 bool Ban::isExpired() const {
 	return (iDuration > 0) && static_cast<int>(iDuration - qdtStart.secsTo(QDateTime::currentDateTime().toUTC())) < 0;
