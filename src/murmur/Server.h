@@ -33,9 +33,10 @@
 #include "ACL.h"
 #include "Message.h"
 #include "Mumble.pb.h"
-#include "Net.h"
 #include "User.h"
 #include "Timer.h"
+#include "Net.h"
+#include "HostAddress.h"
 
 class BonjourServer;
 class Channel;

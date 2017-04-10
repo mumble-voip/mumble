@@ -22,6 +22,7 @@
 #include "SSL.h"
 #include "User.h"
 #include "Net.h"
+#include "HostAddress.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;

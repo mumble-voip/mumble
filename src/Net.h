@@ -10,44 +10,11 @@
 #include <QtCore/QString>
 #include <QtNetwork/Q_IPV6ADDR>
 
+#include "HostAddress.h"
+
 #ifndef DEFAULT_MUMBLE_PORT
 #define DEFAULT_MUMBLE_PORT 64738
 #endif
-
-struct HostAddress {
-	union {
-		Q_IPV6ADDR qip6;
-		quint16 shorts[8];
-		quint32 hash[4];
-		quint64 addr[2];
-	};
-
-	HostAddress();
-	HostAddress(const Q_IPV6ADDR &);
-	HostAddress(const std::string &);
-	HostAddress(const QHostAddress &);
-	HostAddress(const QByteArray &);
-	HostAddress(const struct sockaddr_storage &);
-
-	bool isV6() const;
-	bool isValid() const;
-
-	bool operator < (const HostAddress &) const;
-	bool operator == (const HostAddress &) const;
-
-	bool match(const HostAddress &, int bits) const;
-
-	QString toString() const;
-
-	std::string toStdString() const;
-	QHostAddress toAddress() const;
-	QByteArray toByteArray() const;
-	void toSockaddr(struct sockaddr_storage *dst) const;
-};
-
-Q_DECLARE_TYPEINFO(HostAddress, Q_MOVABLE_TYPE);
-
-quint32 qHash(const HostAddress &);
 
 struct Ban {
 	HostAddress haAddress;

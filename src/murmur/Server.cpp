@@ -19,6 +19,7 @@
 #include "ServerUser.h"
 #include "Version.h"
 #include "HTMLFilter.h"
+#include "HostAddress.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"
