@@ -35,8 +35,8 @@
 #include "Mumble.pb.h"
 #include "User.h"
 #include "Timer.h"
-#include "Net.h"
 #include "HostAddress.h"
+#include "Ban.h"
 
 class BonjourServer;
 class Channel;

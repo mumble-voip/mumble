@@ -9,7 +9,7 @@
 
 #include "Channel.h"
 #include "Global.h"
-#include "Net.h"
+#include "Ban.h"
 #include "ServerHandler.h"
 
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p)
