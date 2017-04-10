@@ -713,7 +713,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location line="+1"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>A&amp;utores</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2518,7 +2518,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Impossível importar. Senha perdida ou arquivo incompatível.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -3609,7 +3609,7 @@ dos locais possíveis.</translation>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Console de desenvolvimento</translation>
     </message>
 </context>
 <context>
@@ -4048,12 +4048,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+119"/>
         <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Imagem Inválida ]]</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Tamanho Inválido ]]</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4565,12 +4565,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Arrastando usuário</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"/>
+        <translation>Isso altera o comportamento ao mover usuários.</translation>
     </message>
     <message>
         <location/>
@@ -5011,13 +5011,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="+3"/>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Enviar mensagem de texto da área de transferência</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Isso enviará o conteúdo da área de transferência para o canal em que você está atualmente.</translation>
     </message>
     <message>
         <location line="+88"/>
@@ -6183,7 +6183,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+2"/>
         <source>(Private) </source>
-        <translation type="unfinished"/>
+        <translation>(Privado)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6650,12 +6650,12 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Desenvolvedor</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Esconder Mumble</translation>
     </message>
     <message>
         <location/>
@@ -6670,7 +6670,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Console de desenvolvimento</translation>
     </message>
     <message>
         <location/>
