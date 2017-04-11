@@ -145,7 +145,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
 
-		QList<QHostAddress> qlAddresses;
+		QList<qpAddress> qlAddressPorts;
 
 		ItemType itType;
 
@@ -245,7 +245,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QList<QString> qlDNSLookup;
 		QSet<QString> qsDNSActive;
 		QHash<QString, QSet<ServerItem *> > qhDNSWait;
-		QHash<QString, QList<QHostAddress> > qhDNSCache;
+		QHash<QString, QList<qpAddress> > qhDNSCache;
 
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
