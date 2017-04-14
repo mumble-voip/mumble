@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Certificate Management</string>
   </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ClassicStyle</enum>
+  </property>
   <widget class="QWizardPage" name="qwpWelcome">
    <property name="title">
     <string>Certificate Authentication</string>
