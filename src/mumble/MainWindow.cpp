@@ -512,7 +512,7 @@ void MainWindow::changeEvent(QEvent *e) {
 	// So, let's not do it on macOS.
 
 #else
-	if (isMinimized() && g.s.bHideInTray) {
+	if (isMinimized() && qstiIcon->isSystemTrayAvailable() && g.s.bHideInTray) {
 		// Workaround http://qt-project.org/forums/viewthread/4423/P15/#50676
 		QTimer::singleShot(0, this, SLOT(hide()));
 	}
