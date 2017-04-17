@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -71,7 +71,7 @@ static QString win10DisplayableVersion() {
 	QString ubr;
 	QString arch;
 
-	err = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", NULL, KEY_READ, &key);
+	err = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &key);
 	if (err != ERROR_SUCCESS) {
 		RegCloseKey(key);
 		return QString();
@@ -194,7 +194,7 @@ QString OSInfo::getOSVersion() {
 		return QString();
 	}
 
-	os.sprintf("%d.%d.%d.%d", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber, (ovi.wProductType == VER_NT_WORKSTATION) ? 1 : 0);
+	os.sprintf("%lu.%lu.%lu.%lu", static_cast<unsigned long>(ovi.dwMajorVersion), static_cast<unsigned long>(ovi.dwMinorVersion), static_cast<unsigned long>(ovi.dwBuildNumber), (ovi.wProductType == VER_NT_WORKSTATION) ? 1UL : 0UL);
 #elif defined(Q_OS_MAC)
 	SInt32 major, minor, bugfix;
 	OSErr err = Gestalt(gestaltSystemVersionMajor, &major);
@@ -239,7 +239,13 @@ QString OSInfo::getOSVersion() {
 #endif
 	if (os.isEmpty()) {
 		struct utsname un;
+#ifdef Q_OS_SOLARIS
+		// Solaris's uname() returns a non-negative number on success.
+		if (uname(&un) >= 0) {
+#else
+		// other UNIX-like systems return a 0 on success.
 		if (uname(&un) == 0) {
+#endif
 			os.sprintf("%s %s", un.sysname, un.release);
 		}
 	}
@@ -461,7 +467,7 @@ QString OSInfo::getOSDisplayableVersion() {
 	}
 
 	QString osv;
-	osv.sprintf(" - %d.%d.%d", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber);
+	osv.sprintf(" - %lu.%lu.%lu", static_cast<unsigned long>(ovi.dwMajorVersion), static_cast<unsigned long>(ovi.dwMinorVersion), static_cast<unsigned long>(ovi.dwBuildNumber));
 	osdispver.append(osv);
 
 	return osdispver;

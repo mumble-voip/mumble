@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -63,6 +63,8 @@ struct OverlaySettings {
 
 	enum OverlaySort { Alphabetical, LastStateChange };
 
+	enum OverlayExclusionMode { LauncherFilterExclusionMode, WhitelistExclusionMode, BlacklistExclusionMode };
+
 	bool bEnable;
 
 	QString qsStyle;
@@ -119,9 +121,15 @@ struct OverlaySettings {
 	Qt::Alignment qaMutedDeafened;
 	Qt::Alignment qaAvatar;
 
-	bool bUseWhitelist;
-	QStringList qslBlacklist;
+	OverlayExclusionMode oemOverlayExcludeMode;
+	QStringList qslLaunchers;
+	QStringList qslLaunchersExclude;
 	QStringList qslWhitelist;
+	QStringList qslWhitelistExclude;
+	QStringList qslPaths;
+	QStringList qslPathsExclude;
+	QStringList qslBlacklist;
+	QStringList qslBlacklistExclude;
 
 	OverlaySettings();
 	void setPreset(const OverlayPresets preset = AvatarAndName);
@@ -147,6 +155,8 @@ struct Settings {
 	quint64 uiDoublePush;
 	quint64 pttHold;
 
+	/// Removed. This was previously used to configure whether the Mumble
+	/// ConfigDialog should show advanced options or not.
 	bool bExpert;
 
 	bool bTxAudioCue;
@@ -230,6 +240,7 @@ struct Settings {
 	bool bEnableXInput2;
 	bool bEnableGKey;
 	bool bEnableXboxInput;
+	bool bEnableWinHooks;
 	/// Enable verbose logging in GlobalShortcutWin's DirectInput backend.
 	bool bDirectInputVerboseLogging;
 	QList<Shortcut> qlShortcuts;
@@ -252,11 +263,13 @@ struct Settings {
 	WindowLayout wlWindowLayout;
 	ChannelExpand ceExpand;
 	ChannelDrag ceChannelDrag;
+	ChannelDrag ceUserDrag;
 	bool bMinimalView;
 	bool bHideFrame;
 	enum AlwaysOnTopBehaviour { OnTopNever, OnTopAlways, OnTopInMinimal, OnTopInNormal };
 	AlwaysOnTopBehaviour aotbAlwaysOnTop;
 	bool bAskOnQuit;
+	bool bEnableDeveloperMenu;
 	bool bHideInTray;
 	bool bStateInTray;
 	bool bUsage;
@@ -289,6 +302,10 @@ struct Settings {
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
+	/// bUdpForceTcpAddr forces Mumble to bind its UDP
+	/// socket to the same address as its TCP
+	/// connection is using.
+	bool bUdpForceTcpAddr;
 
 	/// iMaxInFlightTCPPings specifies the maximum
 	/// number of ping messages that the client has
@@ -315,6 +332,9 @@ struct Settings {
 
 	// Network settings - SSL
 	QString qsSslCiphers;
+
+	// Privacy settings
+	bool bHideOS;
 
 	static const int ciDefaultMaxImageSize = 50 * 1024; // Restrict to 50KiB as a default
 	int iMaxImageSize;

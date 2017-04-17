@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -153,7 +153,16 @@ class AudioInput : public QThread {
 		static int getNetworkBandwidth(int bitrate, int frames);
 		static void setMaxBandwidth(int bitspersec);
 
+		/// Construct an AudioInput.
+		///
+		/// This constructor is only ever called by Audio::startInput(), and is guaranteed
+		/// to be called on the application's main thread.
 		AudioInput();
+
+		/// Destroy an AudioInput.
+		///
+		/// This destructor is only ever called by Audio::stopInput() and Audio::stop(),
+		/// and is guaranteed to be called on the application's main thread.
 		~AudioInput() Q_DECL_OVERRIDE;
 		void run() Q_DECL_OVERRIDE = 0;
 		virtual bool isAlive() const;

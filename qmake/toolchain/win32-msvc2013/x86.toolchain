@@ -1,0 +1,31 @@
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+# This file describes the x86 toolchain of
+# MSVC2013 compiler.
+#
+# This file can be included in a .pro file
+# to cause the target in that file to be
+# built for the x86 architecture, regardless
+# of the native architecture of the build
+# environment.
+
+QMAKE_CC = "\"$$(VCINSTALLDIR)bin\\cl.exe\""
+QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\\cl.exe\""
+QMAKE_LINK = \""$$(VCINSTALLDIR)\\bin\\link.exe\""
+QMAKE_LIB = \""$$(VCINSTALLDIR)\\bin\\lib.exe\""
+QMAKE_RC = \""$$(WindowsSdkDir)\\bin\\x86\\rc.exe\""
+
+INCLUDEPATH *= "$$(VCINSTALLDIR)\\include"
+INCLUDEPATH *= "$$(VCINSTALLDIR)\\atlmfc\\include"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\shared"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\um"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\winrt"
+INCLUDEPATH *= "$$(DXSDK_DIR)\\include"
+
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(VCINSTALLDIR)\\lib\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(VCINSTALLDIR)\\atlmfc\\lib\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(WindowsSdkDir)\\lib\\winv6.3\\um\\x86\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(DXSDK_DIR)\\lib\\x86\""

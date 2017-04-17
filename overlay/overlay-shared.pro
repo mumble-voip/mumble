@@ -1,9 +1,9 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include (../compiler.pri)
+include (../qmake/compiler.pri)
 
 VERSION = 1.3.0
 TARGET_EXT = .dll
@@ -13,8 +13,8 @@ CONFIG *= dll shared debug_and_release warn_on
 CONFIG -= embed_manifest_dll
 TARGET = mumble_ol
 RC_FILE = mumble_ol.rc
-SOURCES = lib.cpp d3d9.cpp dxgi.cpp d3d10.cpp d3d11.cpp ods.cpp opengl.cpp HardHook.cpp D11StateBlock.cpp
-HEADERS = lib.h ods.h HardHook.h overlay_blacklist.h D11StateBlock.h ../3rdparty/GL/glext.h
+SOURCES = ancestor.cpp lib.cpp olsettings.cpp excludecheck.cpp d3d9.cpp dxgi.cpp d3d10.cpp d3d11.cpp ods.cpp opengl.cpp HardHook.cpp D11StateBlock.cpp
+HEADERS = ancestor.h lib.h olsettings.h excludecheck.h ods.h HardHook.h overlay_blacklist.h D11StateBlock.h ../3rdparty/GL/glext.h
 EFFECTS = overlay.fx
 DX11_PIXEL_SHADERS = overlay11.ps
 DX11_VERTEX_SHADERS = overlay11.vs
@@ -39,18 +39,22 @@ CONFIG(force-x86_64-toolchain) {
 
 CONFIG(release, debug|release) {
   DESTDIR = ../release
-  QMAKE_LIBDIR += ../release
+  QMAKE_LIBDIR = ../release $$QMAKE_LIBDIR
 }
 
 CONFIG(debug, debug|release) {
   DESTDIR = ../debug
-  QMAKE_LIBDIR += ../debug
+  QMAKE_LIBDIR = ../debug $$QMAKE_LIBDIR
   DEFINES *= DEBUG
 }
 
 # Override fxc binary for the x86 build.
 CONFIG(force-x86-toolchain) {
-  FXC = "\"$$(DXSDK_DIR)\\Utilities\\bin\\x86\\fxc.exe\""
+  exists($$DXSDK_DIR) {
+    FXC = "\"$$(DXSDK_DIR)\\Utilities\\bin\\x86\\fxc.exe\""
+  } else {
+    FXC = fxc.exe
+  }
 } else {
   FXC = fxc.exe
 }

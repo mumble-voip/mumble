@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -51,6 +51,22 @@ void PingStats::init() {
 void PingStats::reset() {
 	delete asQuantile;
 	init();
+}
+
+ServerViewDelegate::ServerViewDelegate(QObject *p) : QStyledItemDelegate(p) {
+}
+
+ServerViewDelegate::~ServerViewDelegate() {
+}
+
+void ServerViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+	// Allow a ServerItem's BackgroundRole to override the current theme's default color.
+	QVariant bg = index.data(Qt::BackgroundRole);
+	if (bg.isValid()) {
+		painter->fillRect(option.rect, bg.value<QBrush>());
+	}
+
+	QStyledItemDelegate::paint(painter, option, index);
 }
 
 ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
@@ -419,8 +435,13 @@ QVariant ServerItem::data(int column, int role) const {
 						return loadIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 					else if (itType == LANType)
 						return loadIcon(QLatin1String("skin:places/network-workgroup.svg"));
-					else if (! qsCountryCode.isEmpty())
-						return loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode));
+					else if (! qsCountryCode.isEmpty()) {
+						QString flag = QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode);
+						if (!QFileInfo(flag).exists()) {
+							flag = QLatin1String("skin:categories/applications-internet.svg");
+						}
+						return loadIcon(flag);
+					}
 					else
 						return loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 			}
@@ -838,6 +859,8 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	qpbAdd->setHidden(g.s.disableConnectDialogEditing);
 	qpbEdit->setHidden(g.s.disableConnectDialogEditing);
 
+	qtwServers->setItemDelegate(new ServerViewDelegate());
+
 	// Hide ping and user count if we are not allowed to ping.
 	if (!bAllowPing) {
 		qtwServers->setColumnCount(1);
@@ -1179,7 +1202,7 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos)
 			if (si->itType == ServerItem::FavoriteType) {
 				qmPopup->addAction(qaFavoriteEdit);
 				qmPopup->addAction(qaFavoriteRemove);
-			} else if (si) {
+			} else {
 				qmPopup->addAction(qaFavoriteAdd);
 			}
 		}

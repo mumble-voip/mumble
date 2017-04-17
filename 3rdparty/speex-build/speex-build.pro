@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 !exists(../speex-src/COPYING) | !exists(../speexdsp-src/COPYING) {
 	message("The speex-src/ or speexdsp-src/ directories were not found. You need to do one of the following:")
@@ -28,7 +28,14 @@ CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
 CONFIG += no_include_pwd
+
+# Enable no_batch, which disables nmake's inference rules.
+# We have to do this because we use files from two VPATHs
+# below, and nmake is unable to figure out how to handle
+# that.
+CONFIG += no_batch
 VPATH	= ../speex-src/libspeex ../speexdsp-src/libspeexdsp
+
 TARGET = speex
 DEFINES += NDEBUG HAVE_CONFIG_H
 INCLUDEPATH = ../speex-src/include ../speex-src/libspeex ../speexdsp-src/include ../speexdsp-src/libspeexdsp
@@ -36,18 +43,28 @@ INCLUDEPATH = ../speex-src/include ../speex-src/libspeex ../speexdsp-src/include
 win32 {
   INCLUDEPATH += ../speex-build/win32
   DEFINES+=WIN32 _WINDOWS _USE_SSE _USE_MATH_DEFINES
+
+  win32-g++ {
+    # MinGW uses the config.h for Unix-like systems.
+    INCLUDEPATH += ../speex-build
+  }
+
+  win32-msvc* {
+    INCLUDEPATH += ../speex-build/win32
+
+    CONFIG(sse2) {
+      TARGET = speex.sse2
+      DEFINES += _USE_SSE2
+    } else {
+      QMAKE_CFLAGS_RELEASE -= -arch:SSE
+      QMAKE_CFLAGS_DEBUG -= -arch:SSE
+    }
+  }
+
   SOURCES	*= mumble_speex_init.c
 
   CONFIG -= static
   CONFIG += shared
-
-  CONFIG(sse2) {
-    TARGET = speex.sse2
-    DEFINES += _USE_SSE2
-  } else {
-    QMAKE_CFLAGS_RELEASE -= -arch:SSE
-    QMAKE_CFLAGS_DEBUG -= -arch:SSE
-  }
 
   DEFINES+=USE_SMALLFT
 

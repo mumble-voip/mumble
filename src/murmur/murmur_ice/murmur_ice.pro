@@ -1,9 +1,9 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../../../compiler.pri)
+include(../../../qmake/compiler.pri)
 
 SLICEFILES = ../Murmur.ice
 
@@ -43,8 +43,12 @@ win32 {
 }
 
 macx {
-	INCLUDEPATH *= $$(MUMBLE_PREFIX)/Ice-3.4.2/include/
-	slice.commands = $$(MUMBLE_PREFIX)/Ice-3.4.2/bin/slice2cpp --checksum -I$$(MUMBLE_PREFIX)/Ice-3.4.2/slice/ ../Murmur.ice
+	MUMBLE_ICE_PREFIX = $$(MUMBLE_ICE_PREFIX)
+	isEmpty(MUMBLE_ICE_PREFIX) {
+	    MUMBLE_ICE_PREFIX = $$(MUMBLE_PREFIX)/Ice-3.4.2
+	}
+	INCLUDEPATH *= $$MUMBLE_ICE_PREFIX/include/
+	slice.commands = $$MUMBLE_ICE_PREFIX/bin/slice2cpp --checksum -I$$MUMBLE_ICE_PREFIX/slice/ -I$$MUMBLE_ICE_PREFIX/share/slice/ ../Murmur.ice
 }
 
 CONFIG(ermine) {
@@ -77,4 +81,4 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../../../release
 }
 
-include(../../../symbols.pri)
+include(../../../qmake/symbols.pri)

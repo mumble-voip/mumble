@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -30,7 +30,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x0074E380		byte	Magical state value
 	*/
-	ok = peekProc(0x0074E380, state); // Magical state value
+	ok = peekProc(0x0074E380, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	/*
@@ -45,12 +45,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc(0x0072AFD0, avatar_pos[2]) &&	//Z
-	     peekProc(0x0072AFE0, avatar_pos[0]) &&	//X
-	     peekProc(0x0072AFF0, avatar_pos[1]) && //Y
-	     peekProc(0x0072AF3C, viewHor) && //Hor
-	     peekProc(0x0072AF38, viewVer) && //Ver
-	     peekProc(0x00956D88, ccontext);
+	ok = peekProc(0x0072AFD0, avatar_pos+2, 4) &&	//Z
+	     peekProc(0x0072AFE0, avatar_pos, 4) &&	//X
+	     peekProc(0x0072AFF0, avatar_pos+1, 4) && //Y
+	     peekProc(0x0072AF3C, &viewHor, 4) && //Hor
+	     peekProc(0x0072AF38, &viewVer, 4) && //Ver
+	     peekProc(0x00956D88, ccontext, 128);
 
 	if (! ok)
 		return false;

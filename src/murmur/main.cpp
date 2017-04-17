@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -7,6 +7,7 @@
 
 #ifdef Q_OS_WIN
 #include "Tray.h"
+#include "About.h"
 #endif
 
 #include "Server.h"
@@ -15,6 +16,8 @@
 #include "Meta.h"
 #include "Version.h"
 #include "SSL.h"
+#include "License.h"
+#include "LogEmitter.h"
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"
@@ -290,33 +293,63 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-version") || (arg == "--version")) {
 			detach = false;
 			qFatal("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
+		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowLicense);
+			ad.exec();
+			return 0;
+#else
+			qFatal("%s\n", qPrintable(License::license()));
+#endif
+		} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowAuthors);
+			ad.exec();
+			return 0;
+#else
+			qFatal("%s\n", qPrintable(License::authors()));
+#endif
+		} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
+#ifdef Q_OS_WIN
+			AboutDialog ad(NULL, AboutDialogOptionsShowThirdPartyLicenses);
+			ad.exec();
+			return 0;
+#else
+			qFatal("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+#endif
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-			       "  -ini <inifile>   Specify ini file to use.\n"
-			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
+			       "  -ini <inifile>         Specify ini file to use.\n"
+			       "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-			       "  -readsupw [srv]  Reads password for server srv from standard input.\n"
+			       "  -readsupw [srv]        Reads password for server srv from standard input.\n"
 #endif
-			       "  -disablesu [srv] Disable password for 'SuperUser' account on server srv.\n"
+			       "  -disablesu [srv]       Disable password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-			       "  -limits          Tests and shows how many file descriptors and threads can be created.\n"
-			       "                   The purpose of this option is to test how many clients Murmur can handle.\n"
-			       "                   Murmur will exit after this test.\n"
+			       "  -limits                Tests and shows how many file descriptors and threads can be created.\n"
+			       "                         The purpose of this option is to test how many clients Murmur can handle.\n"
+			       "                         Murmur will exit after this test.\n"
 #endif
-			       "  -v               Add verbose output.\n"
+			       "  -v                     Add verbose output.\n"
 #ifdef Q_OS_UNIX
-			       "  -fg              Don't detach from console.\n"
+			       "  -fg                    Don't detach from console.\n"
 #else
-			       "  -fg              Don't write to the log file.\n"
+			       "  -fg                    Don't write to the log file.\n"
 #endif
-			       "  -wipessl         Remove SSL certificates from database.\n"
-			       "  -wipelogs        Remove all log entries from database.\n"
-			       "  -version         Show version information.\n"
+			       "  -wipessl               Remove SSL certificates from database.\n"
+			       "  -wipelogs              Remove all log entries from database.\n"
+			       "  -version               Show version information.\n"
+			       "\n"
+			       "  -license               Show Murmur's license.\n"
+			       "  -authors               Show Murmur's authors.\n"
+			       "  -third-party-licenses  Show licenses for third-party software used by Murmur.\n"
+			       "\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", qPrintable(args.at(0)));
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
+			detach = false;
 			Meta::mp.read(inifile);
 			unixhandler.setuid();
 			unixhandler.finalcap();
@@ -330,6 +363,12 @@ int main(int argc, char **argv) {
 			detach = false;
 			qFatal("Password arguments must be last.");
 		}
+	}
+
+	if (QSslSocket::supportsSsl()) {
+		qWarning("SSL: OpenSSL version is '%s'", SSLeay_version(SSLEAY_VERSION));
+	} else {
+		qFatal("SSL: this version of Murmur is built against Qt without SSL Support. Aborting.");
 	}
 
 #ifdef Q_OS_UNIX
@@ -478,32 +517,33 @@ int main(int argc, char **argv) {
 
 	if (! Meta::mp.qsDBus.isEmpty()) {
 		if (Meta::mp.qsDBus == "session")
-			MurmurDBus::qdbc = QDBusConnection::sessionBus();
+			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
 		else if (Meta::mp.qsDBus == "system")
-			MurmurDBus::qdbc = QDBusConnection::systemBus();
+			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::systemBus());
 		else {
 			// QtDBus is not quite finished yet.
 			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-			MurmurDBus::qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
-			if (! MurmurDBus::qdbc.isConnected()) {
+			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
+			if (! MurmurDBus::qdbc->isConnected()) {
 				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
 				qWarning("%s",qPrintable(qdbs->lastError().name()));
 				qWarning("%d",qdbs->isConnected());
 				qWarning("%s",qPrintable(qdbs->address()));
-				MurmurDBus::qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
+				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
 			}
 		}
-		if (! MurmurDBus::qdbc.isConnected()) {
+		if (! MurmurDBus::qdbc->isConnected()) {
 			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
-		}
-	}
-	new MetaDBus(meta);
-	if (MurmurDBus::qdbc.isConnected()) {
-		if (! MurmurDBus::qdbc.registerObject("/", meta) || ! MurmurDBus::qdbc.registerService(Meta::mp.qsDBusService)) {
-			QDBusError e=MurmurDBus::qdbc.lastError();
-			qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
 		} else {
-			qWarning("DBus registration succeeded");
+			new MetaDBus(meta);
+			if (MurmurDBus::qdbc->isConnected()) {
+				if (! MurmurDBus::qdbc->registerObject("/", meta) || ! MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
+					QDBusError e=MurmurDBus::qdbc->lastError();
+					qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
+				} else {
+					qWarning("DBus registration succeeded");
+				}
+			}
 		}
 	}
 #endif
@@ -533,6 +573,11 @@ int main(int argc, char **argv) {
 	meta->killAll();
 
 	qWarning("Shutting down");
+
+#ifdef USE_DBUS
+	delete MurmurDBus::qdbc;
+	MurmurDBus::qdbc = NULL;
+#endif
 
 #ifdef USE_ICE
 	IceStop();

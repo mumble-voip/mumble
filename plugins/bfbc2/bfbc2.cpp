@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -23,7 +23,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Find out whether this is the steam version
 	char sMagic[6];
-	if (!peekProc(0x015715b4, sMagic)) {
+	if (!peekProc(0x015715b4, sMagic, 6)) {
 		generic_unlock();
 		return false;
 	}
@@ -31,13 +31,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	is_steam = (strncmp("Score:", sMagic, 6) == 0);
 
 	if (is_steam) {
-		ok = peekProc(0x01571E90, avatar_pos) &&
-		     peekProc(0x01571E80, avatar_front) &&
-		     peekProc(0x01571E70, avatar_top);
+		ok = peekProc(0x01571E90, avatar_pos, 12) &&
+		     peekProc(0x01571E80, avatar_front, 12) &&
+		     peekProc(0x01571E70, avatar_top, 12);
 	} else {
-		ok = peekProc(0x01579600, avatar_pos) &&
-		     peekProc(0x015795F0, avatar_front) &&
-		     peekProc(0x015795E0, avatar_top);
+		ok = peekProc(0x01579600, avatar_pos, 12) &&
+		     peekProc(0x015795F0, avatar_front, 12) &&
+		     peekProc(0x015795E0, avatar_top, 12);
 	}
 
 	if (! ok)

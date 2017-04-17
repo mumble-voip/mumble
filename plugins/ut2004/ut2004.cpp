@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -27,11 +27,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	   Y-Value is increasing when going up
 				  decreasing when going down
 	*/
-	ok = peekProc(pos2ptr, avatar_pos) &&	//X
-	     peekProc(pos1ptr, avatar_pos[1]) &&	//Y
-	     peekProc(pos0ptr, avatar_pos[2]) &&  //Z
-	     peekProc(faceptr, face_corrector) &&
-	     peekProc(topptr, top_corrector);
+	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
+	     peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+	     peekProc(faceptr, &face_corrector, 12) &&
+	     peekProc(topptr, &top_corrector, 12);
 	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)
@@ -62,7 +62,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	pos0ptr = pos1ptr = pos2ptr = faceptr = topptr = NULL;
+	pos0ptr = pos1ptr = pos2ptr = faceptr = topptr = 0;
 
 	if (! initialize(pids, L"UT2004.exe", L"Engine.dll"))
 		return false;

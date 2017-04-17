@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
@@ -43,13 +43,21 @@ QMAKE_CFLAGS -= -fPIE -pie
 
 win32 {
   DEFINES += WIN32 _WIN32
-  INCLUDEPATH += ../$$BUILDDIR/win32
 
-  CONFIG(sse2) {
-    TARGET_VERSION_EXT = .$${VERSION}.sse2
-  } else {
-    QMAKE_CFLAGS_RELEASE -= -arch:SSE
-    QMAKE_CFLAGS_DEBUG -= -arch:SSE
+  win32-g++ {
+    # MinGW uses the config.h for Unix-like systems.
+    INCLUDEPATH += ../$$BUILDDIR
+  }
+
+  win32-msvc* {
+    INCLUDEPATH += ../$$BUILDDIR/win32
+
+    CONFIG(sse2) {
+      TARGET_VERSION_EXT = .$${VERSION}.sse2
+    } else {
+      QMAKE_CFLAGS_RELEASE -= -arch:SSE
+      QMAKE_CFLAGS_DEBUG -= -arch:SSE
+    }
   }
 }
 
@@ -74,4 +82,4 @@ CONFIG(release, debug|release) {
   DESTDIR	= ../../release
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

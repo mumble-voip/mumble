@@ -1,0 +1,37 @@
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+# This file describes the x86-xp toolchain of
+# MSVC2015 compiler. This is a special toolchain
+# that is designed to be backwards compatible
+# with Windows XP.
+#
+# This file can be included in a .pro file
+# to cause the target in that file to be
+# built for the x86 architecture targetting
+# Windows XP, regardless of the native
+# architecture of the build environment.
+
+WIN7_XP_SDK_DIR="C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v7.1A"
+
+QMAKE_CC = "\"$$(VCINSTALLDIR)bin\\cl.exe\" /D_USING_V110_SDK71_"
+QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\\cl.exe\" /D_USING_V110_SDK71_"
+QMAKE_LINK = \""$$(VCINSTALLDIR)\\bin\\link.exe\""
+QMAKE_LIB = \""$$(VCINSTALLDIR)\\bin\\lib.exe\""
+QMAKE_RC = \""$${WIN7_XP_SDK_DIR}\\bin\\rc.exe\" /D_USING_V110_SDK71_"
+
+INCLUDEPATH *= "$$(DXSDK_DIR)\\include"
+INCLUDEPATH *= "$${WIN7_XP_SDK_DIR}\\include"
+INCLUDEPATH *= "$$(VCINSTALLDIR)\\include"
+INCLUDEPATH *= "$$(VCINSTALLDIR)\\atlmfc\\include"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\shared"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\um"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\winrt"
+
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(DXSDK_DIR)\\lib\\x86\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(VCINSTALLDIR)\\lib\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(VCINSTALLDIR)\\atlmfc\\lib\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(WindowsSdkDir)\\lib\\$$(WindowsSDKLibVersion)um\\x86\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(WindowsSdkDir)\\lib\\$$(WindowsSDKLibVersion)ucrt\\x86\""

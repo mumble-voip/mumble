@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -97,10 +97,6 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 	}
 }
 
-bool LCDConfig::expert(bool) {
-	return false;
-}
-
 QString LCDConfig::title() const {
 	return tr("LCD");
 }
@@ -189,7 +185,7 @@ LCD::LCD() : QObject() {
 	}
 	qiLogo = QIcon(QLatin1String("skin:mumble.svg")).pixmap(48,48).toImage().convertToFormat(QImage::Format_MonoLSB);
 
-#if QT_VERSION >= 0x050600
+#if QT_VERSION >= 0x050600 && QT_VERSION <= 0x050601
 	// Don't invert the logo image when using Qt 5.6.
 	// See mumble-voip/mumble#2429
 #else
@@ -250,7 +246,7 @@ void LCD::updateUserView() {
 		QPainter painter(img);
 		painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing, false);
 
-#if QT_VERSION >= 0x050600
+#if QT_VERSION >= 0x050600 && QT_VERSION <= 0x050601
 		// Use Qt::white instead of Qt::color1 on Qt 5.6.
 		// See mumble-voip/mumble#2429
 		painter.setPen(Qt::white);

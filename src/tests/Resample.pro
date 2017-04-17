@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 TEMPLATE = app
 CONFIG += qt thread warn_on release qtestlib no_keywords console
 CONFIG -= app_bundle
@@ -21,11 +21,11 @@ win32 {
 }
 
 CONFIG(debug, debug|release) {
-  QMAKE_LIBDIR += ../../debug
+  QMAKE_LIBDIR = ../../debug $$QMAKE_LIBDIR
   DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  QMAKE_LIBDIR += ../../release
+  QMAKE_LIBDIR = ../../release $$QMAKE_LIBDIR
   DESTDIR	= ../../release
 }

@@ -1,7 +1,9 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+include(qmake/compiler.pri)
 
 TEMPLATE = subdirs
 CONFIG *= ordered debug_and_release
@@ -37,7 +39,6 @@ SUBDIRS *= src/mumble_proto
 
   win32 {
     SUBDIRS *= 3rdparty/xinputcheck-build
-    SUBDIRS *= 3rdparty/minhook-build
   }
 
   SUBDIRS *= src/mumble
@@ -50,14 +51,20 @@ SUBDIRS *= src/mumble_proto
     SUBDIRS *= plugins
   }
 
-  win32 {
+  win32:!CONFIG(no-overlay) {
+    SUBDIRS *= 3rdparty/minhook-build
     SUBDIRS *= overlay
     SUBDIRS *= overlay/overlay_exe
     SUBDIRS *= overlay_winx64
     SUBDIRS *= overlay_winx64/overlay_exe_winx64
-    !CONFIG(no-g15) {
-      SUBDIRS *= g15helper
-    }
+  }
+
+  win32:!CONFIG(no-g15) {
+    SUBDIRS *= g15helper
+  }
+
+  contains(UNAME, OpenBSD) {
+    CONFIG *= no-overlay
   }
 
   unix:!macx:!CONFIG(no-overlay) {
@@ -65,9 +72,8 @@ SUBDIRS *= src/mumble_proto
   }
 
   macx {
-    MUMBLE_PREFIX = $$(MUMBLE_PREFIX)
-    isEmpty(MUMBLE_PREFIX) {
-      error("Missing $MUMBLE_PREFIX environment variable");
+    !CONFIG(buildenv) {
+      error("Not inside a Mumble buildenv ($MUMBLE_PREFIX environment variable is missing)");
     }
     SUBDIRS *= 3rdparty/mach-override-build
     SUBDIRS *= overlay_gl
@@ -93,6 +99,10 @@ SUBDIRS *= src/mumble_proto
     SUBDIRS *= src/murmur/murmur_grpc
   }
   SUBDIRS *= src/murmur
+}
+
+CONFIG(tests) {
+  SUBDIRS *= src/tests
 }
 
 DIST=LICENSE INSTALL README README.Linux CHANGES

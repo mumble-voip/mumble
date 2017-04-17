@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -15,9 +15,13 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #if QT_VERSION >= 0x050000
-# include <QtWidgets/QTreeWidget>
+# include <QtWidgets/QStyledItemDelegate>
+# include <QtWidgets/QTreeView>
+# include <QtWidgets/QTreeWidgetItem>
 #else
-# include <QtGui/QTreeWidget>
+# include <QtGui/QStyledItemDelegate>
+# include <QtGui/QTreeView>
+# include <QtGui/QTreeWidgetItem>
 #endif
 
 #include <QtNetwork/QHostInfo>
@@ -28,6 +32,7 @@
 
 #include "BonjourRecord.h"
 #include "Net.h"
+#include "HostAddress.h"
 #include "Timer.h"
 
 struct FavoriteServer;
@@ -73,6 +78,16 @@ public:
 };
 
 class ServerItem;
+
+class ServerViewDelegate : public QStyledItemDelegate {
+	Q_OBJECT
+	Q_DISABLE_COPY(ServerViewDelegate)
+public:
+	ServerViewDelegate(QObject *p = NULL);
+	~ServerViewDelegate();
+
+	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+};
 
 class ServerView : public QTreeWidget {
 		Q_OBJECT

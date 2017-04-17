@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -49,10 +49,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	wostringstream new_identity;
 	ostringstream new_context;
 
-	ok = peekProc(posptr, ipos) &&
-	     peekProc(rotptr, rot) &&
-	     peekProc(stateptr, state) &&
-	     peekProc(hostptr, chHostStr);
+	ok = peekProc(posptr, ipos, 12) &&
+	     peekProc(rotptr, rot, 12) &&
+	     peekProc(stateptr, &state, 1) &&
+	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
 
@@ -63,15 +63,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	<< "<game>dys</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
+	            << "<game>dys</game>"
+	            << "<hostport>" << sHost << "</hostport>"
+	            << "</context>";
 	context = new_context.str();
 
 	/* TODO
 	new_identity << "<identity>"
-			<< "<name>" << "SAS" << "</name>"
-		     << "</identity>";
+	             << "<name>" << "SAS" << "</name>"
+	             << "</identity>";
 	identity = new_identity.str(); */
 
 	// Check to see if you are spawned
@@ -92,7 +92,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = rotptr = NULL;
+	posptr = rotptr = 0;
 
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
@@ -106,7 +106,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		position tuple:		client.dll+0x423990  (x,y,z, float)
 		orientation tuple:	client.dll+0x423924  (v,h float)
 		ID string:			client.dll+0x3c948e = "DysObjective@@" (14 characters, text)
-	    spawn state:        client.dll+0x3c6270  (0 when at main menu, 2 when not spawned, 6 when spawned, byte)
+		spawn state:        client.dll+0x3c6270  (0 when at main menu, 2 when not spawned, 6 when spawned, byte)
 		host string:		engine.dll+0x3909c4 (ip:port zero-terminated string)
 	*/
 
@@ -118,7 +118,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	//Gamecheck
 	char sMagic[14];
-	if (!peekProc(pModule + 0x463726, sMagic) || strncmp("DysObjective@@", sMagic, 14)!=0)
+	if (!peekProc(pModule + 0x463726, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it

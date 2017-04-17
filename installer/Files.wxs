@@ -66,18 +66,18 @@
         </Component>
       <?endif ?>
 
-      <?ifdef RedistDirVC12 ?>
-      <Component Id="msvcp120.dll">
-        <File Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
+      <?ifdef RedistDirVC14 ?>
+      <Component Id="msvcp140.dll">
+        <File Source="$(var.RedistDirVC14)\msvcp140.dll" KeyPath="yes" />
       </Component>
-      <Component Id="msvcr120.dll">
-        <File Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
+      <Component Id="vcruntime140.dll">
+        <File Source="$(var.RedistDirVC14)\vcruntime140.dll" KeyPath="yes" />
       </Component>
       <?endif ?>
 
-      <Component Id="dbghelp.dll">
-        <File Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
-      </Component>
+      <?ifdef RedistDirUCRT ?>
+       <?include "MumbleUCRTComponents.wxi" ?>
+      <?endif ?>
 
     <?ifdef VersionSubDir ?>
       </DirectoryRef>
@@ -135,17 +135,17 @@
       </Component>
 
       <?ifdef VersionSubDir ?>
-        <?ifdef RedistDirVC12 ?>
-        <Component Id="Murmur_msvcp120.dll">
-          <File Id="Murmur_msvcp120.dll" Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
+        <?ifdef RedistDirVC14 ?>
+        <Component Id="Murmur_msvcp140.dll">
+          <File Id="Murmur_msvcp120.dll" Source="$(var.RedistDirVC14)\msvcp140.dll" KeyPath="yes" />
         </Component>
-        <Component Id="Murmur_msvcr120.dll">
-          <File Id="Murmur_msvcr120.dll" Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
+        <Component Id="Murmur_vcruntime140.dll">
+          <File Id="Murmur_vcruntime140.dll" Source="$(var.RedistDirVC14)\vcruntime140.dll" KeyPath="yes" />
         </Component>
         <?endif ?>
-        <Component Id="Murmur_dbghelp.dll">
-          <File Id="Murmur_dbghelp.dll" Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
-        </Component>
+        <?ifdef RedistDirUCRT ?>
+          <?include "MurmurUCRTComponents.wxi" ?>
+        <?endif ?>
       <?endif ?>
 
       <Component Id="licence.txt" Guid="$(var.LicenseTextGuid)">

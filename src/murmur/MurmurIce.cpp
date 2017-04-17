@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -6,6 +6,8 @@
 #include "murmur_pch.h"
 
 #include "MurmurIce.h"
+
+#include <limits>
 
 #include <Ice/Ice.h>
 #include <Ice/SliceChecksums.h>
@@ -19,6 +21,7 @@
 #include "ServerUser.h"
 #include "ServerDB.h"
 #include "User.h"
+#include "Ban.h"
 
 using namespace std;
 using namespace Murmur;
@@ -40,15 +43,56 @@ void IceStop() {
 	mi = NULL;
 }
 
+/// Remove all NUL bytes from |s|.
+static std::string iceRemoveNul(std::string s) {
+	std::vector<char> newstr;
+	for (size_t i = 0; i < s.size(); i++) {
+		char c = s.at(i);
+		if (c == 0) {
+			continue;
+		}
+		newstr.push_back(s.at(i));
+	}
+	return std::string(newstr.begin(), newstr.end());
+}
+
+/// Marshall the QString |s| to be safe for use on
+/// the wire in Ice messages, parameters
+/// and return values.
+///
+/// What happens under the hood is that the string
+/// is converted to UTF-8, and all NUL bytes are
+/// removed.
+static std::string iceString(const QString &s) {
+	return iceRemoveNul(u8(s));
+}
+
+/// Convert the bytes in std::string to base64 using the
+/// base64 alphabet from RFC 2045.
+///
+/// The size of the string may not exceed sizeof(int).
+/// If the function is passed a string bigger than that,
+/// it will return an empty string.
+static std::string iceBase64(const std::string &s) {
+	if (s.size() > static_cast<size_t>(std::numeric_limits<int>::max())) {
+		return std::string();
+	}
+
+	QByteArray ba(s.data(), static_cast<int>(s.size()));
+	QByteArray ba64 = ba.toBase64();
+
+	return std::string(ba64.data(), static_cast<size_t>(ba.size()));
+}
+
 static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
 	le.timestamp = r.first;
-	le.txt = u8(r.second);
+	le.txt = iceString(r.second);
 }
 
 static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.session = p->uiSession;
 	mp.userid = p->iId;
-	mp.name = u8(p->qsName);
+	mp.name = iceString(p->qsName);
 	mp.mute = p->bMute;
 	mp.deaf = p->bDeaf;
 	mp.suppress = p->bSuppress;
@@ -57,17 +101,17 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.selfMute = p->bSelfMute;
 	mp.selfDeaf = p->bSelfDeaf;
 	mp.channel = p->cChannel->iId;
-	mp.comment = u8(p->qsComment);
+	mp.comment = iceString(p->qsComment);
 
 	const ServerUser *u=static_cast<const ServerUser *>(p);
 	mp.onlinesecs = u->bwr.onlineSeconds();
 	mp.bytespersec = u->bwr.bandwidth();
 	mp.version = u->uiVersion;
-	mp.release = u8(u->qsRelease);
-	mp.os = u8(u->qsOS);
-	mp.osversion = u8(u->qsOSVersion);
-	mp.identity = u8(u->qsIdentity);
-	mp.context = u->ssContext;
+	mp.release = iceString(u->qsRelease);
+	mp.os = iceString(u->qsOS);
+	mp.osversion = iceString(u->qsOSVersion);
+	mp.identity = iceString(u->qsIdentity);
+	mp.context = iceBase64(u->ssContext);
 	mp.idlesecs = u->bwr.idleSeconds();
 	mp.udpPing = u->dUDPPingAvg;
 	mp.tcpPing = u->dTCPPingAvg;
@@ -84,9 +128,9 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 
 static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.id = c->iId;
-	mc.name = u8(c->qsName);
+	mc.name = iceString(c->qsName);
 	mc.parent = c->cParent ? c->cParent->iId : -1;
-	mc.description = u8(c->qsDesc);
+	mc.description = iceString(c->qsDesc);
 	mc.position = c->iPosition;
 	mc.links.clear();
 	foreach(::Channel *chn, c->qsPermLinks)
@@ -99,13 +143,13 @@ static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
 	ma.applySubs = acl->bApplySubs;
 	ma.inherited = false;
 	ma.userid = acl->iUserId;
-	ma.group = u8(acl->qsGroup);
+	ma.group = iceString(acl->qsGroup);
 	ma.allow = acl->pAllow;
 	ma.deny = acl->pDeny;
 }
 
 static void groupToGroup(const ::Group *g, Murmur::Group &mg) {
-	mg.name = u8(g->qsName);
+	mg.name = iceString(g->qsName);
 	mg.inherit = g->bInherit;
 	mg.inheritable = g->bInheritable;
 	mg.add.clear();
@@ -121,9 +165,9 @@ static void banToBan(const ::Ban &b, Murmur::Ban &mb) {
 
 	mb.address = addr;
 	mb.bits = b.iMask;
-	mb.name = u8(b.qsUsername);
-	mb.hash = u8(b.qsHash);
-	mb.reason = u8(b.qsReason);
+	mb.name = iceString(b.qsUsername);
+	mb.hash = iceString(b.qsHash);
+	mb.reason = iceString(b.qsReason);
 	mb.start = b.qdtStart.toLocalTime().toTime_t();
 	mb.duration = b.iDuration;
 }
@@ -146,7 +190,7 @@ static void banToBan(const ::Murmur::Ban &mb, ::Ban &b) {
 static void infoToInfo(const QMap<int, QString> &info, Murmur::UserInfoMap &im) {
 	QMap<int, QString>::const_iterator i;
 	for (i = info.constBegin(); i != info.constEnd(); ++i)
-		im[static_cast<Murmur::UserInfo>(i.key())] = u8(i.value());
+		im[static_cast<Murmur::UserInfo>(i.key())] = iceString(i.value());
 }
 
 static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) {
@@ -156,7 +200,7 @@ static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) 
 }
 
 static void textmessageToTextmessage(const ::TextMessage &tm, Murmur::TextMessage &tmdst) {
-	tmdst.text = u8(tm.qsText);
+	tmdst.text = iceString(tm.qsText);
 
 	foreach(unsigned int i, tm.qlSessions)
 		tmdst.sessions.push_back(i);
@@ -185,7 +229,7 @@ MurmurIce::MurmurIce() {
 
 	::Meta::mp.qsSettings->beginGroup("Ice");
 	foreach(const QString &v, ::Meta::mp.qsSettings->childKeys()) {
-		ipp->setProperty(u8(v), u8(::Meta::mp.qsSettings->value(v).toString()));
+		ipp->setProperty(iceString(v), iceString(::Meta::mp.qsSettings->value(v).toString()));
 	}
 	::Meta::mp.qsSettings->endGroup();
 
@@ -204,7 +248,7 @@ MurmurIce::MurmurIce() {
 		if (! meta->mp.qsIceSecretWrite.isEmpty()) {
 			::Ice::ImplicitContextPtr impl = communicator->getImplicitContext();
 			if (impl)
-				impl->put("secret", u8(meta->mp.qsIceSecretWrite));
+				impl->put("secret", iceString(meta->mp.qsIceSecretWrite));
 		}
 		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
@@ -350,7 +394,7 @@ void MurmurIce::removeServerUpdatingAuthenticator(const ::Server* server) {
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
-	ident.name = u8(QString::number(id));
+	ident.name = iceString(QString::number(id));
 
 	return ServerPrx::uncheckedCast(adapter->createProxy(ident));
 }
@@ -558,14 +602,14 @@ void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigne
 	userToUser(pSrc, mp);
 
 	try {
-		prx->contextAction(u8(action), mp, session, iChannel);
+		prx->contextAction(iceString(action), mp, session, iChannel);
 	} catch (...) {
 		s->log(QString("Ice ServerContextCallback %1 for session %2, action %3 failed").arg(QString::fromStdString(communicator->proxyToString(prx))).arg(pSrc->uiSession).arg(action));
 		removeServerContextCallback(s, pSrc->uiSession, action);
 
 		// Remove clientside entry
 		MumbleProto::ContextActionModify mpcam;
-		mpcam.set_action(u8(action));
+		mpcam.set_action(iceString(action));
 		mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
 		ServerUser *su = s->qhUsers.value(session);
 		if (su)
@@ -604,7 +648,7 @@ void MurmurIce::nameToIdSlot(int &id, const QString &name) {
 
 	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	try {
-		id = prx->nameToId(u8(name));
+		id = prx->nameToId(iceString(name));
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -630,7 +674,7 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, int sessionId, const 
 	}
 
 	try {
-		res = prx->authenticate(u8(uname), u8(pw), certs, u8(certhash), certstrong, newname, groups);
+		res = prx->authenticate(iceString(uname), iceString(pw), certs, iceString(certhash), certstrong, newname, groups);
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -705,7 +749,7 @@ void  MurmurIce::getRegisteredUsersSlot(const QString &filter, QMap<int, QString
 	::Murmur::NameMap lst;
 
 	try {
-		lst = prx->getRegisteredUsers(u8(filter));
+		lst = prx->getRegisteredUsers(iceString(filter));
 	} catch (...) {
 		badAuthenticator(server);
 		return;
@@ -892,7 +936,7 @@ static void impl_Server_getConf(const ::Murmur::AMD_Server_getConfPtr cb, int se
 	if (key == "key" || key == "passphrase")
 		cb->ice_exception(WriteOnlyException());
 	else
-		cb->ice_response(u8(ServerDB::getConf(server_id, u8(key)).toString()));
+		cb->ice_response(iceString(ServerDB::getConf(server_id, u8(key)).toString()));
 }
 
 #define ACCESS_Server_getAllConf_READ
@@ -906,7 +950,7 @@ static void impl_Server_getAllConf(const ::Murmur::AMD_Server_getAllConfPtr cb, 
 	for (i=values.constBegin();i != values.constEnd(); ++i) {
 		if (i.key() == "key" || i.key() == "passphrase")
 			continue;
-		cm[u8(i.key())] = u8(i.value());
+		cm[iceString(i.key())] = iceString(i.value());
 	}
 	cb->ice_response(cm);
 }
@@ -1147,7 +1191,7 @@ static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeCon
 				// Ask clients to remove the clientside callbacks
 				if (user) {
 					MumbleProto::ContextActionModify mpcam;
-					mpcam.set_action(u8(act));
+					mpcam.set_action(iceString(act));
 					mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
 					server->sendMessage(user, mpcam);
 				}
@@ -1375,7 +1419,7 @@ static void impl_Server_getUserNames(const ::Murmur::AMD_Server_getUserNamesPtr 
 	NEED_SERVER;
 	::Murmur::NameMap nm;
 	foreach(int userid, ids) {
-		nm[userid] = u8(server->getUserName(userid));
+		nm[userid] = iceString(server->getUserName(userid));
 	}
 	cb->ice_response(nm);
 }
@@ -1550,7 +1594,7 @@ static void impl_Server_updateCertificate(const ::Murmur::AMD_Server_updateCerti
 	}
 
 	// Verify that we can load the private key.
-	QSslKey privKey(privateKeyPem, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, passphraseBytes);
+	QSslKey privKey = ::Server::privateKeyFromPEM(privateKeyPem, passphraseBytes);
 	if (privKey.isNull()) {
 		ERR_clear_error();
 		cb->ice_exception(InvalidInputDataException());
@@ -1559,31 +1603,7 @@ static void impl_Server_updateCertificate(const ::Murmur::AMD_Server_updateCerti
 
 	// Ensure that the private key is usable with the given
 	// certificate.
-	//
-	// Right now, we only support RSA keys in Murmur.
-	//
-	// To determine if the private key matches the certificate,
-	// we acquire the public key from the certificate and check
-	// that the modulus (n) and the public exponent (e) match
-	// those of the private key.
-	QSslKey pubKey = cert.publicKey();
-
-	if (privKey.algorithm() != QSsl::Rsa || pubKey.algorithm() != QSsl::Rsa) {
-		ERR_clear_error();
-		cb->ice_exception(InvalidInputDataException());
-		return;
-	}
-
-	RSA *privRSA = reinterpret_cast<RSA *>(privKey.handle());
-	RSA *pubRSA = reinterpret_cast<RSA *>(pubKey.handle());
-
-	if (BN_cmp(pubRSA->n, privRSA->n) != 0) {
-		ERR_clear_error();
-		cb->ice_exception(InvalidInputDataException());
-		return;
-	}
-
-	if (BN_cmp(pubRSA->e, privRSA->e) != 0) {
+	if (!::Server::isKeyForCert(privKey, cert)) {
 		ERR_clear_error();
 		cb->ice_exception(InvalidInputDataException());
 		return;
@@ -1707,7 +1727,7 @@ static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr 
 	for (i=meta->mp.qmConfig.constBegin();i != meta->mp.qmConfig.constEnd(); ++i) {
 		if (i.key() == "key" || i.key() == "passphrase")
 			continue;
-		cm[u8(i.key())] = u8(i.value());
+		cm[iceString(i.key())] = iceString(i.value());
 	}
 	cb->ice_response(cm);
 }
@@ -1726,7 +1746,7 @@ static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, cons
 	int major, minor, patch;
 	QString txt;
 	::Meta::getVersion(major, minor, patch, txt);
-	cb->ice_response(major, minor, patch, u8(txt));
+	cb->ice_response(major, minor, patch, iceString(txt));
 }
 
 static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {

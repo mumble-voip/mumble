@@ -1,11 +1,11 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 # Overlay payload for Unix-like systems and OS X.
 
-include(../compiler.pri)
+include(../qmake/compiler.pri)
 
 TEMPLATE = lib
 CONFIG -= qt gui
@@ -21,7 +21,7 @@ unix:!macx {
 	TARGET = mumble$(TARGET_ADD)
 
 	DEFINES += TARGET_UNIX
-	linux {
+	linux* {
 		LIBS *= -lrt -ldl
 	}
 	QMAKE_CFLAGS *= -fvisibility=hidden $(CFLAGS_ADD)
@@ -58,13 +58,13 @@ macx {
 }
 
 CONFIG(debug, debug|release) {
-	QMAKE_LIBDIR *= ../debug$(DESTDIR_ADD)
+	QMAKE_LIBDIR = ../debug$(DESTDIR_ADD) $$QMAKE_LIBDIR
 	DESTDIR = ../debug$(DESTDIR_ADD)
 }
 
 CONFIG(release, debug|release) {
-	QMAKE_LIBDIR *= ../release$(DESTDIR_ADD)
+	QMAKE_LIBDIR = ../release$(DESTDIR_ADD) $$QMAKE_LIBDIR
 	DESTDIR = ../release$(DESTDIR_ADD)
 }
 
-include(../symbols.pri)
+include(../qmake/symbols.pri)

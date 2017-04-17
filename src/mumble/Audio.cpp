@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -88,6 +88,7 @@ LoopUser::LoopUser() {
 	tsState = Settings::Passive;
 	cChannel = NULL;
 	qtTicker.start();
+	qtLastFetch.start();
 }
 
 void LoopUser::addFrame(const QByteArray &packet) {
@@ -199,14 +200,29 @@ void Audio::startOutput(const QString &output) {
 }
 
 void Audio::stopOutput() {
+	// Take a copy of the global AudioOutput shared pointer
+	// to keep a reference around.
 	AudioOutputPtr ao = g.ao;
 
+	// Reset the global AudioOutput shared pointer to the null pointer.
 	g.ao.reset();
 
+	// Wait until our copy of the AudioOutput shared pointer (ao)
+	// is the only one left.
 	while (ao.get() && ! ao.unique()) {
 		QThread::yieldCurrentThread();
 	}
 
+	// Reset our copy of the AudioOutput shared pointer.
+	// This causes the AudioOutput destructor to be called
+	// right here in this function, on the main thread.
+	// Our audio backends expect this to happen.
+	//
+	// One such example is PulseAudioInput, whose destructor
+	// takes the PulseAudio mainloop lock. If the destructor
+	// is called inside one of the PulseAudio callbacks that
+	// take copies of g.ai, the destructor will try to also
+	// take the mainloop lock, causing an abort().
 	ao.reset();
 }
 
@@ -217,14 +233,29 @@ void Audio::startInput(const QString &input) {
 }
 
 void Audio::stopInput() {
+	// Take a copy of the global AudioInput shared pointer
+	// to keep a reference around.
 	AudioInputPtr ai = g.ai;
 
+	// Reset the global AudioInput shared pointer to the null pointer.
 	g.ai.reset();
 
+	// Wait until our copy of the AudioInput shared pointer (ai)
+	// is the only one left.
 	while (ai.get() && ! ai.unique()) {
 		QThread::yieldCurrentThread();
 	}
 
+	// Reset our copy of the AudioInput shared pointer.
+	// This causes the AudioInput destructor to be called
+	// right here in this function, on the main thread.
+	// Our audio backends expect this to happen.
+	//
+	// One such example is PulseAudioInput, whose destructor
+	// takes the PulseAudio mainloop lock. If the destructor
+	// is called inside one of the PulseAudio callbacks that
+	// take copies of g.ai, the destructor will try to also
+	// take the mainloop lock, causing an abort().
 	ai.reset();
 }
 
@@ -234,16 +265,34 @@ void Audio::start(const QString &input, const QString &output) {
 }
 
 void Audio::stop() {
+	// Take copies of the global AudioInput and AudioOutput
+	// shared pointers to keep a reference to each of them
+	// around.
 	AudioInputPtr ai = g.ai;
 	AudioOutputPtr ao = g.ao;
 
+	// Reset the global AudioInput and AudioOutput shared pointers
+	// to the null pointer.
 	g.ao.reset();
 	g.ai.reset();
 
+	// Wait until our copies of the AudioInput and AudioOutput shared pointers
+	// (ai and ao) are the only ones left.
 	while ((ai.get() && ! ai.unique()) || (ao.get() && ! ao.unique())) {
 		QThread::yieldCurrentThread();
 	}
 
+	// Reset our copies of the AudioInput and AudioOutput
+	// shared pointers.
+	// This causes the AudioInput and AudioOutput destructors
+	// to be called right here in this function, on the main
+	// thread. Our audio backends expect this to happen.
+	//
+	// One such example is PulseAudioInput, whose destructor
+	// takes the PulseAudio mainloop lock. If the destructor
+	// is called inside one of the PulseAudio callbacks that
+	// take copies of g.ai, the destructor will try to also
+	// take the mainloop lock, causing an abort().
 	ai.reset();
 	ao.reset();
 }

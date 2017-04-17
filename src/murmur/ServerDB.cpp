@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -17,6 +17,7 @@
 #include "ServerUser.h"
 #include "User.h"
 #include "PBKDF2.h"
+#include "PasswordGenerator.h"
 
 #define SQLQUERY(x) ServerDB::query(query, QLatin1String(x), true)
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
@@ -144,6 +145,51 @@ ServerDB::ServerDB() {
 	if (! found) {
 		QSqlError e = db->lastError();
 		qFatal("ServerDB: Failed initialization: %s",qPrintable(e.text()));
+	}
+
+	// Use SQLite in WAL mode if possible.
+	if (Meta::mp.qsDBDriver == "QSQLITE") {
+		if (Meta::mp.iSQLiteWAL == 0) {
+			qWarning("ServerDB: Using SQLite's default rollback journal.");
+		} else if (Meta::mp.iSQLiteWAL > 0 && Meta::mp.iSQLiteWAL <= 2) {
+			QSqlQuery query;
+
+			bool hasversion = false;
+			bool okversion = false;
+			QString version;
+			SQLDO("SELECT sqlite_version();");
+			if (query.next()) {
+				version = query.value(0).toString();
+			}
+
+			QStringList splitVersion = version.split(QLatin1String("."));
+			int major = 0, minor = 0;
+			if (splitVersion.count() >= 3) {
+				major = splitVersion.at(0).toInt();
+				minor = splitVersion.at(1).toInt();
+				hasversion = true;
+			}
+			if (major >= 3 || (major == 3 && minor >= 7)) {
+				okversion = true;
+			}
+
+			if (okversion) {
+				SQLDO("PRAGMA journal_mode=WAL;");
+				if (Meta::mp.iSQLiteWAL == 1) {
+					SQLDO("PRAGMA synchronous=NORMAL;");
+					qWarning("ServerDB: Configured SQLite for journal_mode=WAL, synchronous=NORMAL");
+				} else if (Meta::mp.iSQLiteWAL == 2) {
+					SQLDO("PRAGMA synchronous=FULL;");
+					qWarning("ServerDB: Configured SQLite for journal_mode=WAL, synchronous=FULL");
+				}
+			} else if (hasversion) {
+				qWarning("ServerDB: Unable to use SQLite in WAL mode due to incompatible SQLite version %i.%i", major, minor);
+			} else {
+				qWarning("ServerDB: Unable to use SQLite in WAL mode because the SQLite version could not be determined.");
+			}
+		} else {
+			qFatal("ServerDB: Invalid value '%i' for sqlite_wal. Please use 0 (no wal), 1 (wal), 2 (wal with synchronous=full)", Meta::mp.iSQLiteWAL);
+		}
 	}
 
 	TransactionHolder th;
@@ -725,13 +771,8 @@ void Server::initialize() {
 		query.addBindValue(QLatin1String("SuperUser"));
 		SQLEXEC();
 
-		int length = qrand() % 8 + 8;
-		QString pw;
-		pw.reserve(length);
-
-		while (length--)
-			pw.append(QChar(qrand() % 94 + 33));
-
+		const int passwordLength = 12;
+		QString pw = PasswordGenerator::generatePassword(passwordLength);
 		ServerDB::setSUPW(iServerNum, pw);
 		log(QString("Password for 'SuperUser' set to '%2'").arg(pw));
 	}
@@ -1652,7 +1693,7 @@ void Server::updateChannel(const Channel *c) {
 	SQLEXEC();
 
 	foreach(g, c->qhGroups) {
-		int id;
+		int id = 0;
 		int pid;
 		
 		if (Meta::mp.qsDBDriver == "QPSQL") {
@@ -1664,8 +1705,11 @@ void Server::updateChannel(const Channel *c) {
 			query.addBindValue(g->bInheritable ? 1 : 0);
 			SQLEXEC();
 			
-			if (query.next())
+			if (query.next()) {
 				id = query.value(0).toInt();
+			} else {
+				qFatal("ServerDB: internal query failure: PostgreSQL query did not return the inserted group's group_id");
+			}
 		} else {
 			SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES (?,?,?,?,?)");
 			query.addBindValue(iServerNum);

@@ -1,4 +1,4 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -6,7 +6,7 @@
 # Mumble Overlay scripting addition
 # (for injection into running processes)
 
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 CONFIG += x86_64 x86 debug_and_release
 CONFIG(universal) {
@@ -43,4 +43,4 @@ CONFIG(release, debug|release) {
   DESTDIR       = ../../release
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

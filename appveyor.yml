@@ -1,0 +1,29 @@
+version: 1.3.x-proofbuild-{build}
+
+image: Visual Studio 2015
+
+cache:
+    - C:\MumbleBuild\cache -> appveyor.yml
+
+clone_folder: C:\MumbleBuild\mumble
+
+environment:
+  global:
+    MUMBLE_BUILDSCRIPT: 1.3.x/mumble-win64-static.cmd
+    MUMBLE_ENVIRONMENT_VERSION: win64-static-no-ltcg-1.3.x-2017-03-04-1ddd966-811
+    MUMBLE_ENVIRONMENT_SOURCE: https://s3.amazonaws.com/mumble-appveyor-buildenvs
+    APPVEYOR_CACHE_ENTRY_ZIP_ARGS: -t7z -mx0  # Do not compress cache. Env. is already a 7z.
+
+  matrix:
+    - MUMBLE_QT: qt5
+      MUMBLE_HOST: x86_64-pc-windows-msvc
+    - MUMBLE_QT: qt5
+      MUMBLE_HOST: x86_64-pc-windows-msvc
+      MUMBLE_NO_PCH: 1
+
+install:
+  - "git submodule --quiet update --init --recursive"
+  - "powershell ./scripts/appveyor/appveyor-install-environment.ps1"
+
+build_script:
+  - "powershell ./scripts/appveyor/appveyor-build.ps1"

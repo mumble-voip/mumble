@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -65,18 +65,18 @@ typedef struct {
 static int setuppointers() {
 	procptr32_t character_manager, local_player, character, camera_manager;
 
-	if (!peekProc(pModule + off_character_manager, character_manager) || !character_manager)
+	if (!peekProc(pModule + off_character_manager, &character_manager, 4) || !character_manager)
 		return false;
 
-	if (!peekProc(character_manager + off_local_player, local_player) || !local_player)
+	if (!peekProc(character_manager + off_local_player, &local_player, 4) || !local_player)
 		return false;
 
-	if (!peekProc(local_player + off_character, character) || !character)
+	if (!peekProc(local_player + off_character, &character, 4) || !character)
 		return false;
 
 	char_matrix_ptr = character + off_char_matrix;
 
-	if (!peekProc(pModule + off_camera_manager, camera_manager) || !camera_manager)
+	if (!peekProc(pModule + off_camera_manager, &camera_manager, 4) || !camera_manager)
 		return false;
 
 	cam_matrix_ptr = camera_manager + off_cam_matrix;

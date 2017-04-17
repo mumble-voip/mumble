@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -48,22 +48,6 @@ static const std::wstring GetExecutableDirPath() {
 	return exe_path.append(L"\\");
 }
 
-// ConfigureEnvironment prepares mumble.exe's environment to
-// run mumble_app.dll.
-static bool ConfigureEnvironment() {
-	const std::wstring exe_path = GetExecutableDirPath();
-
-	// Remove the current directory from the DLL search path.
-	if (!SetDllDirectoryW(L""))
-		return false;
-
-	// Set mumble.exe's directory as the current working directory.
-	if (!SetCurrentDirectoryW(exe_path.c_str()))
-		return false;
-
-	return true;
-}
-
 // GetVersionedRootPath returns the versioned root path if
 // Mumble is configured to work with versioned paths.
 // If Mumble is not configured for versioned paths, this
@@ -80,6 +64,25 @@ static const std::wstring GetVersionedRootPath() {
 	}
 
 	return std::wstring();
+}
+
+// ConfigureEnvironment prepares mumble.exe's environment to
+// run mumble_app.dll.
+static bool ConfigureEnvironment() {
+	// Remove the current directory from the DLL search path.
+	if (!SetDllDirectoryW(L""))
+		return false;
+
+	// Set the versioned root as the working directory if one is available.
+	// If not, use the directory containing mumble.exe as the working directory.
+	std::wstring cwd = GetVersionedRootPath();
+	if (cwd.empty()) {
+		cwd = GetExecutableDirPath();
+	}
+	if (!SetCurrentDirectoryW(cwd.c_str()))
+		return false;
+
+	return true;
 }
 
 // GetAbsoluteMumbleAppDllPath returns the absolute path to

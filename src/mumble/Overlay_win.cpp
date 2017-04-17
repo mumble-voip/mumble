@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -46,8 +46,12 @@ static bool canRun64BitPrograms() {
 #endif
 }
 
-OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
-	m_active = false;
+OverlayPrivateWin::OverlayPrivateWin(QObject *p)
+	: OverlayPrivate(p)
+	, m_helper_enabled(true)
+	, m_helper64_enabled(true)
+	, m_mumble_handle(0)
+	, m_active(false) {
 
 	// Acquire a handle to ourselves and duplicate it. We duplicate it because
 	// want it to be inheritable by our helper processes, and the handle returned
@@ -192,6 +196,8 @@ static const char *processErrorString(QProcess::ProcessError processError) {
 			return "an error occurred when attempting to write to the process";
 		case QProcess::ReadError:
 			return "an error occurred when attempting to read from the process";
+		case QProcess::UnknownError:
+			return "an unknown error occurred";
 	}
 
 	return "unknown";

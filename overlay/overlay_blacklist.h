@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -16,6 +16,9 @@ static const char *overlayBlacklist[] = {
 	"chrome.exe",
 	"acrord32.exe",
 	"explorer.exe",
+	"sihost.exe",
+	"ApplicationFrameHost.exe",
+	"dllhost.exe",
 	"wmpnscfg.exe",
 	"firefox.exe",
 	"thunderbird.exe",
@@ -29,6 +32,7 @@ static const char *overlayBlacklist[] = {
 	"blender.exe",
 	"googleearth.exe",
 	"XBMC.exe", // http://xbmc.org/
+	"kodi.exe", // https://kodi.tv/
 	"BOXEE.exe", // http://www.boxee.tv/
 	"hammer.exe", // VALVE Hammer Editor
 	"hlmv.exe", // Half-Life Model Viewer
@@ -45,6 +49,11 @@ static const char *overlayBlacklist[] = {
 	"EpicGamesLauncher.exe", // Epic, Unreal Tournament launcher
 	"dwm.exe", // Windows Desktop Window Manager
 	"MouseKeyboardCenter.exe",
+	"RadeonSettings.exe",
+	"mstsc.exe", // Microsoft Remote Desktop Connection
+	"iCloudServices.exe",
+	"BethesdaNetLauncher.exe",
+	"GTAVLauncher.exe",
 
 	// Microsoft Office
 	"outlook.exe", // Outlook

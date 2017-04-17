@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -18,7 +18,7 @@
 //  https://github.com/boostorg/system/blob/boost-1.56.0/include/boost/system/error_code.hpp#L514-L516
 // vs.
 //  https://github.com/boostorg/system/blob/boost-1.55.0/include/boost/system/error_code.hpp#L515-L517
-#if BOOST_VERSION >= 105600
+#if BOOST_VERSION >= 105600 && !defined(__MINGW32__)
 # define USE_BOOST_CHRONO
 #endif
 

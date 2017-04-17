@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -914,9 +914,13 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	if (! terminator && iBufferedFrames < iAudioFrames)
 		return;
 
-	int flags = g.iTarget;
-	if (terminator)
+	int flags = 0;
+	if (g.iTarget > 0) {
+		flags = g.iTarget;
+	}
+	if (terminator && g.iPrevTarget > 0) {
 		flags = g.iPrevTarget;
+	}
 
 	if (g.s.lmLoopMode == Settings::Server)
 		flags = 0x1f; // Server loopback

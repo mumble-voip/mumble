@@ -200,6 +200,17 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="qaHide">
+   <property name="text">
+    <string>&amp;Hide Mumble</string>
+   </property>
+   <property name="toolTip">
+    <string>Hides the main Mumble window.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</string>
+   </property>
+  </action>
   <action name="qaServerConnect">
    <property name="icon">
     <iconset>
@@ -585,6 +596,17 @@ the channel's context menu.</string>
    </property>
    <property name="whatsThis">
     <string>This will guide you through the process of configuring your audio hardware.</string>
+   </property>
+  </action>
+  <action name="qaDeveloperConsole">
+   <property name="text">
+    <string>Developer &amp;Console</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the Developer Console</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows the Mumble Developer Console, where Mumble's log output can be inspected.</string>
    </property>
   </action>
   <action name="qaHelpWhatsThis">

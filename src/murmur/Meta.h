@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -13,6 +13,7 @@
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslKey>
+#include <QtNetwork/QSslCipher>
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
@@ -56,6 +57,7 @@ public:
 	int iBanTime;
 
 	QString qsDatabase;
+	int iSQLiteWAL;
 	QString qsDBDriver;
 	QString qsDBUserName;
 	QString qsDBPassword;
@@ -93,6 +95,26 @@ public:
 
 	QSslCertificate qscCert;
 	QSslKey qskKey;
+
+	/// qlIntermediates contains the certificates
+	/// from PEM bundle pointed to by murmur.ini's
+	/// sslCert option that do not match the key
+	/// pointed to by murmur.ini's sslKey option.
+	///
+	/// Simply put: it contains any certificates
+	/// that aren't the main certificate, or "leaf"
+	/// certificate.
+	QList<QSslCertificate> qlIntermediates;
+
+	/// qlCA contains all certificates read from
+	/// the PEM bundle pointed to by murmur.ini's
+	/// sslCA option.
+	QList<QSslCertificate> qlCA;
+
+	/// qlCiphers contains the list of supported
+	/// cipher suites.
+	QList<QSslCipher> qlCiphers;
+
 	QByteArray qbaDHParams;
 	QByteArray qbaPassPhrase;
 	QString qsCiphers;
@@ -109,15 +131,24 @@ public:
 	QVariant qvSuggestPositional;
 	QVariant qvSuggestPushToTalk;
 
+	/// qsAbsSettingsFilePath is the absolute path to
+	/// the murmur.ini used by this Meta instance.
+	QString qsAbsSettingsFilePath;
 	QSettings *qsSettings;
 
 	MetaParams();
 	~MetaParams();
 	void read(QString fname = QString("murmur.ini"));
 
+	/// Attempt to load SSL settings from murmur.ini.
+	/// Returns true if successful. Returns false if
+	/// the operation failed. On failure, the MetaParams
+	/// object is left 100% intact.
+	bool loadSSLSettings();
+
 private:
 	template <class T>
-	T typeCheckedFromSettings(const QString &name, const T &variable);
+	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = NULL);
 };
 
 class Meta : public QObject {
@@ -138,6 +169,13 @@ class Meta : public QObject {
 
 		Meta();
 		~Meta();
+
+		/// reloadSSLSettings reloads Murmur's MetaParams's
+		/// SSL settings, and updates the certificate and
+		/// private key for all virtual servers that use the
+		/// Meta server's certificate and private key.
+		bool reloadSSLSettings();
+
 		void bootAll();
 		bool boot(int);
 		bool banCheck(const QHostAddress &);

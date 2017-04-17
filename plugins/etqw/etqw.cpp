@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -31,18 +31,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x013F9E1C		float	Vertical view
 			0x013E8D18		byte	Magic value (32 ingame / 0 spectating)
 	*/
-	ok = peekProc(0x00801BA4, menustate);
+	ok = peekProc(0x00801BA4, &menustate, 1);
 	if (! ok)
 		return false;
 	if (menustate == 0)
 		return true;
 
-	ok = peekProc(pos1ptr, avatar_pos[1]) &&	//Y
-	     peekProc(pos2ptr, avatar_pos[0]) &&	//X
-	     peekProc(pos3ptr, avatar_pos[2]) && //Z
-	     peekProc(rot1ptr, viewHor) && //Hor
-	     peekProc(rot2ptr, viewVer) && //Ver
-	     peekProc(0x0122E0B8, ccontext);
+	ok = peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos2ptr, avatar_pos, 4) &&	//X
+	     peekProc(pos3ptr, avatar_pos+2, 4) && //Z
+	     peekProc(rot1ptr, &viewHor, 4) && //Hor
+	     peekProc(rot2ptr, &viewVer, 4) && //Ver
+	     peekProc(0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -95,7 +95,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	pos1ptr = pos2ptr = pos3ptr = rot1ptr = rot2ptr = NULL;
+	pos1ptr = pos2ptr = pos3ptr = rot1ptr = rot2ptr = 0;
 
 	if (! initialize(pids, L"etqw.exe", L"gamex86.dll"))
 		return false;

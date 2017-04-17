@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -39,10 +39,9 @@ class GlobalShortcut : public QObject {
 		QString qsWhatsThis;
 		QString name;
 		QVariant qvDefault;
-		bool bExpert;
 		int idx;
 
-		GlobalShortcut(QObject *parent, int index, QString qsName, bool expert = true, QVariant def = QVariant());
+		GlobalShortcut(QObject *parent, int index, QString qsName, QVariant def = QVariant());
 		~GlobalShortcut() Q_DECL_OVERRIDE;
 
 		bool active() const {
@@ -187,7 +186,6 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 	protected:
 		QList<Shortcut> qlShortcuts;
 		QTreeWidgetItem *itemForShortcut(const Shortcut &) const;
-		bool bExpert;
 		bool showWarning() const;
 		bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
 	public:
@@ -199,7 +197,6 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
 		void reload();
-		bool expert(bool) Q_DECL_OVERRIDE;
 		void commit();
 		void on_qcbEnableGlobalShortcuts_stateChanged(int);
 		void on_qpbAdd_clicked(bool);

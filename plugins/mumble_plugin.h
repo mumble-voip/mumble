@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -11,14 +11,18 @@
 
 #if defined(_MSC_VER)
 # define MUMBLE_PLUGIN_CALLING_CONVENTION __cdecl
+#elif defined(__MINGW32__)
+# define MUMBLE_PLUGIN_CALLING_CONVENTION __attribute__((cdecl))
 #else
 # define MUMBLE_PLUGIN_CALLING_CONVENTION
 #endif
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(__MINGW32__) // GCC on Unix-like systems
 # define MUMBLE_PLUGIN_EXPORT __attribute__((visibility("default")))
 #elif defined(_MSC_VER)
 # define MUMBLE_PLUGIN_EXPORT __declspec(dllexport)
+#elif defined(__MINGW32__)
+# define MUMBLE_PLUGIN_EXPORT __attribute__((dllexport))
 #else
 # error No MUMBLE_PLUGIN_EXPORT definition available
 #endif

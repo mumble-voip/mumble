@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -29,6 +29,8 @@ class LCD;
 class BonjourClient;
 class OverlayClient;
 class CELTCodec;
+class LogEmitter;
+class DeveloperConsole;
 
 class QNetworkAccessManager;
 
@@ -50,6 +52,8 @@ public:
 	LCD *lcd;
 	BonjourClient *bc;
 	QNetworkAccessManager *nam;
+	QSharedPointer<LogEmitter> le;
+	DeveloperConsole *c;
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;

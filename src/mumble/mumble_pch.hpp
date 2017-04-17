@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -13,7 +13,7 @@
 #define QT_USE_FAST_OPERATOR_PLUS
 
 #define NOMINMAX
-#define _WINSOCKAPI_
+#define WIN32_LEAN_AND_MEAN
 
 #define BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
 
@@ -24,6 +24,16 @@
 #undef nil
 #undef check
 #undef TYPE_BOOL
+#endif
+
+#ifdef __MINGW32__
+// Our MinGW build targets Windows 7 for now.
+// Set up the appropriate Windows macros such that
+// MinGW's Windows headers expose all the functionality
+// we need.
+#define _WIN32_WINNT 0x0601
+#define NTDDI_VERSION NTDDI_WIN7
+#include <ws2tcpip.h>
 #endif
 
 #include <QtCore/QtCore>
@@ -74,26 +84,21 @@
 #include <algorithm>
 
 #ifdef Q_OS_WIN
-// Qt 5's qnetworksession.h undefs 'interface' (as defined in ObjBase.h on Windows).
-// This causes Windows headers that use COM interfaces to break. Internally, it's
-// just defined as 'struct', so we'll do that here as well to make things work again
-// without too much hassle.
-#ifndef interface
-#define interface struct
-#endif
+#include "../qos2_mingw.h"
 
-#include <windows.h>
-#include <shellapi.h>
 #include <winsock2.h>
 #include <qos2.h>
+#include <windows.h>
+#include <shellapi.h>
 #include <wintrust.h>
-#include <Softpub.h>
-#include <Dbt.h>
+#include <softpub.h>
+#include <dbt.h>
 #include <delayimp.h>
 #include <shlobj.h>
 #include <tlhelp32.h>
 #include <psapi.h>
 #include <math.h>
+#include <mmreg.h>
 
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
 

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -15,6 +15,8 @@
 #include "Database.h"
 #include "Log.h"
 #include "Plugins.h"
+#include "LogEmitter.h"
+#include "DeveloperConsole.h"
 #include "Global.h"
 #include "LCD.h"
 #ifdef USE_BONJOUR
@@ -35,6 +37,7 @@
 #include "ApplicationPalette.h"
 #include "Themes.h"
 #include "UserLockFile.h"
+#include "License.h"
 
 #ifdef PLUTOVR_BUILD
 struct PlutoDefaultSettings
@@ -188,8 +191,13 @@ namespace boost {
 extern void os_init();
 extern char *os_lang;
 
+#ifdef Q_OS_WIN
+// from os_win.cpp
+extern HWND mumble_mw_hwnd;
+#endif // Q_OS_WIN
+
 #if defined(Q_OS_WIN) && !defined(QT_NO_DEBUG)
-extern "C" _declspec(dllexport) int main(int argc, char **argv) {
+extern "C" __declspec(dllexport) int main(int argc, char **argv) {
 #else
 int main(int argc, char **argv) {
 #endif
@@ -234,9 +242,10 @@ int main(int argc, char **argv) {
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	g.le = QSharedPointer<LogEmitter>(new LogEmitter());
+	g.c = new DeveloperConsole();
+
 	os_init();
-#endif
 
 #ifdef PLUTOVR_BUILD
 	InitializePlutoSettingsMap();
@@ -271,6 +280,12 @@ int main(int argc, char **argv) {
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
+					"  --license\n"
+					"                Show the Mumble license.\n"
+					"  --authors\n"
+					"                Show the Mumble authors.\n"
+					"  --third-party-licenses\n"
+					"                Show licenses for third-party software used by Mumble.\n"
 					"\n"
 				);
 				QString rpcHelpBanner = MainWindow::tr(
@@ -288,10 +303,14 @@ int main(int argc, char **argv) {
 					"                Mute self\n"
 					"  unmute\n"
 					"                Unmute self\n"
+					"  togglemute\n"
+					"                Toggle self-mute status\n"
 					"  deaf\n"
 					"                Deafen self\n"
 					"  undeaf\n"
 					"                Undeafen self\n"
+					"  toggledeaf\n"
+					"                Toggle self-deafen stauts\n"
 					"\n"
 				);
 
@@ -311,6 +330,15 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				suppressIdentity = true;
 				g.s.bSuppressIdentity = true;
+			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
+				printf("%s\n", qPrintable(License::license()));
+				return 0;
+			} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
+				printf("%s\n", qPrintable(License::authors()));
+				return 0;
+			} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
+				printf("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+				return 0;
 			} else if (args.at(i) == QLatin1String("rpc")) {
 				bRpcMode = true;
 				if (args.count() - 1 > i) {
@@ -534,6 +562,12 @@ int main(int argc, char **argv) {
 	g.mw->show();
 #endif
 
+#ifdef Q_OS_WIN
+	// Set mumble_mw_hwnd in os_win.cpp.
+	// Used by APIs in ASIOInput, DirectSound and GlobalShortcut_win that require a HWND.
+	mumble_mw_hwnd = GetForegroundWindow();
+#endif
+
 #ifdef USE_DBUS
 	new MumbleDBus(g.mw);
 	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), g.mw);
@@ -704,6 +738,9 @@ int main(int argc, char **argv) {
 
 	delete g.o;
 
+	delete g.c;
+	g.le.clear();
+
 	DeferInit::run_destroyers();
 
 	delete Global::g_global_struct;
@@ -779,7 +816,7 @@ int main(int argc, char **argv) {
 #if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
 extern void qWinMain(HINSTANCE, HINSTANCE, LPSTR, int, int &, QVector<char *> &);
 
-extern "C" _declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArg, int cmdShow) {
+extern "C" __declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArg, int cmdShow) {
 	Q_UNUSED(cmdArg);
 
 	QByteArray cmdParam = QString::fromWCharArray(GetCommandLine()).toLocal8Bit();

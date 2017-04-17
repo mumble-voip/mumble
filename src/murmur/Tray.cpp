@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -7,9 +7,11 @@
 
 #include "Tray.h"
 
+#include "About.h"
 #include "Meta.h"
 #include "Server.h"
 #include "Version.h"
+#include "LogEmitter.h"
 
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	le = logger;
@@ -22,6 +24,9 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	qaQuit->setShortcut(tr("Ctrl+Q", "Quit"));
 	qaQuit->setObjectName(QLatin1String("Quit"));
 
+	qaAbout = new QAction(tr("&About Murmur"), this);
+	qaAbout->setObjectName(QLatin1String("About"));
+
 	qaShowLog = new QAction(tr("&Show Log"), this);
 	qaShowLog->setShortcut(tr("Ctrl+L", "Quit"));
 	qaShowLog->setObjectName(QLatin1String("ShowLog"));
@@ -31,6 +36,7 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	qm = new QMenu(tr("Murmur"), NULL);
 	qm->addAction(qaShowLog);
 	qm->addSeparator();
+	qm->addAction(qaAbout);
 	qm->addAction(qaQuit);
 	qsti->setContextMenu(qm);
 
@@ -51,6 +57,11 @@ void Tray::on_Quit_triggered() {
 	if (QMessageBox::question(NULL, tr("Murmur"), tr("Are you sure you want to quit Murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
 		qApp->quit();
 	}
+}
+
+void Tray::on_About_triggered() {
+	AboutDialog ad(NULL);
+	ad.exec();
 }
 
 void Tray::on_ShowLog_triggered() {

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -7,6 +7,7 @@
 #define MUMBLE_CONNECTION_H_
 
 #include <QtCore/QtGlobal>
+#include <QtCore/QMutex>
 #if QT_VERSION >= 0x040700
 #include <QtCore/QElapsedTimer>
 #else
@@ -79,6 +80,10 @@ class Connection : public QObject {
 		QString sessionProtocolString() const;
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;
+		/// Look up the local address of this Connection.
+		QHostAddress localAddress() const;
+		/// Look up the local port of this Connection.
+		quint16 localPort() const;
 		bool bDisconnectedEmitted;
 
 		void setToS();

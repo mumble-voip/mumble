@@ -1,9 +1,9 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 TEMPLATE = app
 CONFIG -= qt
@@ -15,13 +15,20 @@ win32 {
   RC_FILE = ../mumble/mumble.rc
   LIBS *= -luser32 -lshlwapi
 
-  CONFIG(release, debug|release) {
-    QMAKE_CXXFLAGS_RELEASE -= -MD
-    QMAKE_CXXFLAGS += -MT
+  win32-g++ {
+    QMAKE_LFLAGS *= -municode
+    DEFINES *= _UNICODE
   }
-  CONFIG(debug, debug|release) {
-    QMAKE_CXXFLAGS_DEBUG -= -MDd
-    QMAKE_CXXFLAGS += -MTd
+  
+  win32-msvc* {
+    CONFIG(release, debug|release) {
+      QMAKE_CXXFLAGS_RELEASE -= -MD
+      QMAKE_CXXFLAGS += -MT
+    }
+    CONFIG(debug, debug|release) {
+      QMAKE_CXXFLAGS_DEBUG -= -MDd
+      QMAKE_CXXFLAGS += -MTd
+    }
   }
 }
 
@@ -33,7 +40,9 @@ SOURCES *= mumble_exe.cpp Overlay.cpp
   }
 }
 
-QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../mumble/mumble.appcompat.manifest)
+win32-msvc* {
+  QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../mumble/mumble.appcompat.manifest)
+}
 
 CONFIG(debug, debug|release) {
   CONFIG += console
@@ -46,4 +55,4 @@ CONFIG(release, debug|release) {
   DESTDIR	= ../../release
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -22,6 +22,7 @@
 #include "SSL.h"
 #include "User.h"
 #include "Net.h"
+#include "HostAddress.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -35,6 +36,8 @@ static HANDLE loadQoS() {
 
 	HRESULT hr = E_FAIL;
 
+// We don't support delay-loading QoS on MinGW. Only enable it for MSVC.
+#ifdef _MSC_VER
 	__try {
 		hr = __HrLoadAllImportsForDll("qwave.dll");
 	}
@@ -42,6 +45,7 @@ static HANDLE loadQoS() {
 	__except(EXCEPTION_EXECUTE_HANDLER) {
 		hr = E_FAIL;
 	}
+#endif
 
 	if (! SUCCEEDED(hr)) {
 		qWarning("ServerHandler: Failed to load qWave.dll, no QoS available");
@@ -574,8 +578,11 @@ void ServerHandler::serverConnectionConnected() {
 		mpv.set_version(version);
 	}
 
-	mpv.set_os(u8(OSInfo::getOS()));
-	mpv.set_os_version(u8(OSInfo::getOSDisplayableVersion()));
+	if (!g.s.bHideOS) {
+		mpv.set_os(u8(OSInfo::getOS()));
+		mpv.set_os_version(u8(OSInfo::getOSDisplayableVersion()));
+	}
+
 	sendMessage(mpv);
 
 	MumbleProto::Authenticate mpa;
@@ -600,12 +607,21 @@ void ServerHandler::serverConnectionConnected() {
 		QMutexLocker qml(&qmUdp);
 
 		qhaRemote = connection->peerAddress();
+		qhaLocal = connection->localAddress();
+		if (qhaLocal.isNull()) {
+			qFatal("ServerHandler: qhaLocal is unexpectedly a null addr");
+		}
 
 		qusUdp = new QUdpSocket(this);
-		if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol)
-			qusUdp->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
-		else
-			qusUdp->bind(QHostAddress(QHostAddress::Any), 0);
+		if (g.s.bUdpForceTcpAddr) {
+			qusUdp->bind(qhaLocal, 0);
+		} else {
+			if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol) {
+				qusUdp->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
+			} else {
+				qusUdp->bind(QHostAddress(QHostAddress::Any), 0);
+			}
+		}
 
 		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 
@@ -636,7 +652,7 @@ void ServerHandler::serverConnectionConnected() {
 				addr.sin_addr.s_addr = htonl(qhaRemote.toIPv4Address());
 
 				dwFlowUDP = 0;
-				if (! QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast<sockaddr *>(&addr), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlowUDP))
+				if (! QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast<sockaddr *>(&addr), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, reinterpret_cast<PQOS_FLOWID>(&dwFlowUDP)))
 					qWarning("ServerHandler: Failed to add UDP to QOS");
 			}
 #endif

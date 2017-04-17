@@ -1,9 +1,10 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
+include(../../qmake/protoc.pri)
 
 PROTOBUF	*= ../Mumble.proto
 
@@ -15,7 +16,7 @@ pbh.CONFIG *= no_link explicit_dependencies target_predeps
 pbh.variable_out = HEADERS
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc
-pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
+pb.commands = $${PROTOC} --cpp_out=. -I. -I.. -I${QMAKE_FILE_IN_PATH} ${QMAKE_FILE_NAME}
 pb.input = PROTOBUF
 pb.CONFIG *= no_link explicit_dependencies
 pb.variable_out = SOURCES
@@ -25,7 +26,8 @@ CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += staticlib
 
-INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src" protobuf
+# Add protobuf dependency
+include(../../qmake/protobuf.pri)
 
 QMAKE_EXTRA_COMPILERS *= pb pbh
 
@@ -44,4 +46,4 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../../release
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)
