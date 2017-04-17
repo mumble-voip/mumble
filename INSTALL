@@ -157,3 +157,7 @@ CONFIG+=no-xinput2 (Mumble, Linux)
 CONFIG+=no-xboxinput (Mumble, Win32)
  Don't build in support for global shortcuts
  from Xbox controllers via the XInput DLL.
+
+CONFIG+=dpkg-buildflags
+ Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS
+ from dpkg-buildflags to Mumble's build flags.
