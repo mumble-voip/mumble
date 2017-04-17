@@ -195,3 +195,7 @@ CONFIG+=qtspeech (Mumble)
  Use Qt's text-to-speech system (part of the experimental
  Qt Speech module), if available, instead of Mumble's own
  OS-specific text-to-speech implementations.
+
+CONFIG+=dpkg-buildflags
+ Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS
+ from dpkg-buildflags to Mumble's build flags.

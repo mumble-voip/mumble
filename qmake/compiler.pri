@@ -281,6 +281,13 @@ unix:!macx {
 		}
 	}
 
+	CONFIG(dpkg-buildflags) {
+		QMAKE_CFLAGS *= $$system(dpkg-buildflags --get CFLAGS)
+		QMAKE_CXXFLAGS *= $$system(dpkg-buildflags --get CXXFLAGS)
+		QMAKE_CPPFLAGS *= $$system(dpkg-buildflags --get CPPFLAGS)
+		QMAKE_LFLAGS *= $$system(dpkg-buildflags --get LDFLAGS)
+	}
+
 	CONFIG(debug, debug|release) {
 		QMAKE_CFLAGS *= -fstack-protector -fPIE
 		QMAKE_CXXFLAGS *= -fstack-protector -fPIE
