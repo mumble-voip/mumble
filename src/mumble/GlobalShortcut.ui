@@ -238,7 +238,7 @@
          <item>
           <widget class="QCheckBox" name="qcbEnableXboxInput">
            <property name="whatsThis">
-            <string>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;brt /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</string>
+            <string>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</string>
            </property>
            <property name="text">
             <string>Enable XInput</string>
