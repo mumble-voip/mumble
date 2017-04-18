@@ -3,81 +3,135 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-procptr32_t posptr, faceptr, topptr;
+// Variable to contain module's addresses
+procptr32_t RendDX9 = 0;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+	bool ok;
+	char server_name[100], soldier_name[100];
+	BYTE team_id, squad_id, is_commander, is_squad_leader, target_squad_id, on_voip, on_voip_com;
+
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	char ccontext[128];
-	char state;
-	char logincheck;
-	bool ok;
 
-	ok = peekProc(0x00A1D908, &logincheck, 1);
-	if (! ok)
+	// Server name pointers
+	// Doubles as an in-server state variable (NULL if not in a game)
+	procptr32_t server_offset_0 = peekProc<procptr32_t>(pModule + 0x61B5D8);
+	if (!server_offset_0) {
+		context.clear(); // Clear context
+		identity.clear(); // Clear identity
+
+		return true; // This tells Mumble to ignore all vectors.
+	}
+
+	procptr32_t server_offset_1 = peekProc<procptr32_t>(server_offset_0 + 0x108);
+	if (!server_offset_1) return false;
+
+	// Team ID pointers
+	procptr32_t team_offset_0 = peekProc<procptr32_t>(pModule + 0x624430);
+	if (!team_offset_0) return false;
+	procptr32_t team_offset_1 = peekProc<procptr32_t>(team_offset_0 + 0x1B4);
+	if (!team_offset_1) return false;
+
+	// Commander, SquadLeader, SquadID base pointers
+	procptr32_t role_offset_0 = peekProc<procptr32_t>(pModule + 0x685228);
+	if (!role_offset_0) return false;
+	procptr32_t role_offset_1 = peekProc<procptr32_t>(role_offset_0 + 0x6C);
+	if (!role_offset_1) return false;
+
+	// Tactical pointers
+	procptr32_t tactical_offset_0 = peekProc<procptr32_t>(pModule + 0x72D148);
+	if (!tactical_offset_0) return false;
+	procptr32_t tactical_offset_1 = peekProc<procptr32_t>(tactical_offset_0 + 0xE4);
+	if (!tactical_offset_1) return false;
+
+	// VoiP pointers
+	procptr32_t voip_offset_0 = peekProc<procptr32_t>(pModule + 0x620D30);
+	if (!voip_offset_0) return false;
+
+	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
+	ok = peekProc(pModule + 0x6697C8      , avatar_pos, 12) &&   // Avatar position values (X, Y and Z).
+	     peekProc(RendDX9 + 0x20E9F4      , camera_pos, 12) &&   // Camera position values (X, Y and Z).
+	     peekProc(RendDX9 + 0x2139D4      , camera_front, 12) && // Avatar front vector values (X, Y and Z).
+	     peekProc(RendDX9 + 0x2139C4      , camera_top, 12) &&   // Avatar top vector values (X, Y and Z).
+	     peekProc(server_offset_1         , server_name) &&      // Server name.
+	     peekProc(pModule + 0x6228B9      , soldier_name) &&     // Soldier name.
+	     peekProc(team_offset_1 + 0xA0    , team_id) &&          // Team ID (0 for PAC, 1 for EU).
+	     peekProc(role_offset_1 + 0x108   , squad_id);           // Squad ID (0 for none, 1-9 for squads).
+	     peekProc(role_offset_1 + 0x10C   , is_commander) &&     // Whether Commander.
+	     peekProc(role_offset_1 + 0x10D   , is_squad_leader) &&  // Whether Squad Leader.
+	     peekProc(tactical_offset_1 + 0xCC, target_squad_id) &&  // Commander's selected squad.
+	     peekProc(voip_offset_0 + 0xA1    , on_voip) &&          // Whether VoiP is active.
+	     peekProc(voip_offset_0 + 0xA0    , on_voip_com);        // Whether VoiP to/from commander is active.
+
+	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
+	if (!ok)
 		return false;
 
-	if (logincheck == 0)
-		return false;
 
-	/*
-		state value is:
-		0						while not in game
-		usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
-		usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
-	*/
-	ok = peekProc(0x00B47968, &state, 1); // Magical state value
-	if (! ok)
-		return false;
+	// Begin context
+	std::ostringstream ocontext;
 
-	ok = peekProc(posptr, avatar_pos, 12) &&
-	     peekProc(faceptr, avatar_front, 12) &&
-	     peekProc(topptr, avatar_top, 12) &&
-	     peekProc(0x00B527B8, ccontext, 128);
+	// Server name
+	escape(server_name, sizeof(server_name));
 
-	if (! ok)
-		return false;
+	if (strcmp(server_name, "") != 0)
+		ocontext << " {\"ipport\": \"" << server_name << "\"}";
 
-	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
-	*/
-	ccontext[127] = 0;
-	context = std::string(ccontext);
+	context = ocontext.str();
+	// End context
 
-	if (state == 0)
-		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	// Begin identity
+	std::wostringstream oidentity;
 
-	for (int i=0;i<3;i++) {
-		camera_pos[i] = avatar_pos[i];
-		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
+	// Soldier name
+	escape(soldier_name, sizeof(soldier_name));
+
+	oidentity << "{"
+	          << "\"ipport\": \"" << server_name << "\", "
+	          << "\"team_id\": " << team_id << ", "
+	          << "\"squad_id\": " << squad_id << ", "
+	          << "\"is_commander\": " << (is_commander ? "true" : "false") << ", "
+	          << "\"is_squad_leader\": " << (is_squad_leader ? "true" : "false") << ", "
+	          << "\"target_squad_id\": " << target_squad_id << ", "
+	          << "\"on_voip\": " << (on_voip ? "true" : "false") << ", "
+	          << "\"on_voip_com\": " << (on_voip_com ? "true" : "false") << ", "
+	          << "\"name\": \"" << soldier_name << "\""
+	          << "}";
+
+	identity = oidentity.str();
+	// End identity
+
+	// Copy camera direction vectors to avatar
+	for (int i=0; i<3; i++) {
+		avatar_front[i] = camera_front[i];
+		avatar_top[i] = camera_top[i];
 	}
 
 	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = faceptr = topptr = 0;
 
-	if (! initialize(pids, L"BF2142.exe", L"BF2142Audio.dll"))
+	if (!initialize(pids, L"BF2142.exe")) // Retrieve game executable's memory address
 		return false;
 
-	procptr32_t cacheaddr = pModule + 0x4745c;
-	procptr32_t cache = peekProc<procptr32_t>(cacheaddr);
+	RendDX9 = getModuleAddr(L"RendDX9.dll"); // Retrieve "RendDX9.dll" module's memory address
+	// This prevents the plugin from linking to the game in case something goes wrong during module's memory address retrieval.
+	if (!RendDX9)
+		return false;
 
-	posptr = peekProc<procptr32_t>(cache + 0xc0);
-	faceptr = peekProc<procptr32_t>(cache + 0xc4);
-	topptr = peekProc<procptr32_t>(cache + 0xc8);
-
+	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	std::wstring sidentity;
+	std::string scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -86,11 +140,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 2142 v1.50. No identity support yet.");
+	return std::wstring(L"Supports Battlefield 2142 version 1.51."); // Plugin long description
 }
 
-static std::wstring description(L"Battlefield 2142 v1.50");
-static std::wstring shortname(L"Battlefield 2142");
+static std::wstring description(L"Battlefield 2142 1.51"); // Plugin short description
+static std::wstring shortname(L"Battlefield 2142"); // Plugin short name
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
