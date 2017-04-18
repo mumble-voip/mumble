@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -120,6 +120,7 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 
 	qwpExport->setCommitPage(true);
 	qwpExport->setComplete(false);
+	qlPasswordNotice->setVisible(false);
 }
 
 int CertWizard::nextId() const {
@@ -305,6 +306,8 @@ void CertWizard::on_qleImportFile_textChanged(const QString &text) {
 		qlePassword->clear();
 		qlePassword->setEnabled(false);
 		qlPassword->setEnabled(false);
+		qlPasswordNotice->clear();
+		qlPasswordNotice->setVisible(false);
 		qwpImport->setComplete(false);
 		return;
 	}
@@ -318,17 +321,23 @@ void CertWizard::on_qleImportFile_textChanged(const QString &text) {
 		if (validateCert(imp)) {
 			qlePassword->setEnabled(false);
 			qlPassword->setEnabled(false);
+			qlPasswordNotice->clear();
+			qlPasswordNotice->setVisible(false);
 			cvImport->setCert(imp.first);
 			qwpImport->setComplete(true);
 			return;
 		} else {
 			qlePassword->setEnabled(true);
 			qlPassword->setEnabled(true);
+			qlPasswordNotice->setText(tr("Unable to import. Missing password or incompatible file type."));
+			qlPasswordNotice->setVisible(true);
 		}
 	} else {
 		qlePassword->clear();
 		qlePassword->setEnabled(false);
 		qlPassword->setEnabled(false);
+		qlPasswordNotice->clear();
+		qlPasswordNotice->setVisible(false);
 	}
 	cvImport->setCert(QList<QSslCertificate>());
 	qwpImport->setComplete(false);

@@ -132,12 +132,14 @@
         <ComponentRef Id="mumble_g15_helper.exe" />
       <?endif ?>
 
-      <?ifdef RedistDirVC12 ?>
-        <ComponentRef Id="msvcp120.dll" />
-        <ComponentRef Id="msvcr120.dll" />
+      <?ifdef RedistDirVC14 ?>
+        <ComponentRef Id="msvcp140.dll" />
+        <ComponentRef Id="vcruntime140.dll" />
       <?endif ?>
 
-      <ComponentRef Id="dbghelp.dll" />
+      <?ifdef RedistDirUCRT ?>
+        <?include "MumbleUCRTComponentRefs.wxi" ?>
+      <?endif ?>
 
       <Feature Id="MumbleDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)" InstallDefault="followParent" AllowAdvertise="no">
         <ComponentRef Id="MumbleDesktopShortcutComponent" />
@@ -150,11 +152,13 @@
       <ComponentRef Id="Murmur.ice" />
 
       <?ifdef VersionSubDir ?>
-        <?ifdef RedistDirVC12 ?>
-          <ComponentRef Id="Murmur_msvcp120.dll" />
-          <ComponentRef Id="Murmur_msvcr120.dll" />
+        <?ifdef RedistDirVC14 ?>
+          <ComponentRef Id="Murmur_msvcp140.dll" />
+          <ComponentRef Id="Murmur_vcruntime140.dll" />
         <?endif ?>
-        <ComponentRef Id="Murmur_dbghelp.dll" />
+        <?ifdef RedistDirUCRT ?>
+          <?include "MurmurUCRTComponentRefs.wxi" ?>
+        <?endif ?>
       <?endif ?>
 
       <Feature Id="MurmurDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)"  InstallDefault="followParent" AllowAdvertise="no">

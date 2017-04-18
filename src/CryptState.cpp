@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -16,12 +16,15 @@
 
 #include "CryptState.h"
 
-#include "Net.h"
+#include "ByteSwap.h"
 
 CryptState::CryptState() {
 	for (int i=0;i<0x100;i++)
 		decrypt_history[i] = 0;
 	bInit = false;
+	memset(raw_key, 0, AES_KEY_SIZE_BYTES);
+	memset(encrypt_iv, 0, AES_BLOCK_SIZE);
+	memset(decrypt_iv, 0, AES_BLOCK_SIZE);
 	uiGood=uiLate=uiLost=uiResync=0;
 	uiRemoteGood=uiRemoteLate=uiRemoteLost=uiRemoteResync=0;
 }
@@ -31,20 +34,20 @@ bool CryptState::isValid() const {
 }
 
 void CryptState::genKey() {
-	RAND_bytes(raw_key, AES_BLOCK_SIZE);
+	RAND_bytes(raw_key, AES_KEY_SIZE_BYTES);
 	RAND_bytes(encrypt_iv, AES_BLOCK_SIZE);
 	RAND_bytes(decrypt_iv, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, 128, &encrypt_key);
-	AES_set_decrypt_key(raw_key, 128, &decrypt_key);
+	AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
+	AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 	bInit = true;
 }
 
 void CryptState::setKey(const unsigned char *rkey, const unsigned char *eiv, const unsigned char *div) {
-	memcpy(raw_key, rkey, AES_BLOCK_SIZE);
+	memcpy(raw_key, rkey, AES_KEY_SIZE_BYTES);
 	memcpy(encrypt_iv, eiv, AES_BLOCK_SIZE);
 	memcpy(decrypt_iv, div, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, 128, &encrypt_key);
-	AES_set_decrypt_key(raw_key, 128, &decrypt_key);
+	AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
+	AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 	bInit = true;
 }
 

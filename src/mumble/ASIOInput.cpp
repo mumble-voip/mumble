@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -11,7 +11,7 @@
 #include "Global.h"
 
 // From os_win.cpp.
-extern HWND MumbleHWNDForQWidget(QWidget *w);
+extern HWND mumble_mw_hwnd;
 
 class ASIOAudioInputRegistrar : public AudioInputRegistrar {
 	public:
@@ -185,7 +185,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
-		if (iasio->init(MumbleHWNDForQWidget(this))) {
+		if (iasio->init(mumble_mw_hwnd)) {
 			SleepEx(10, false);
 			char buff[512];
 			memset(buff, 0, 512);
@@ -267,7 +267,7 @@ void ASIOConfig::on_qpbConfig_clicked() {
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
-		if (iasio->init(MumbleHWNDForQWidget(this))) {
+		if (iasio->init(mumble_mw_hwnd)) {
 			SleepEx(10, false);
 			iasio->controlPanel();
 			SleepEx(10, false);
@@ -368,10 +368,6 @@ void ASIOConfig::load(const Settings &r) {
 	qlwSpeaker->clear();
 }
 
-bool ASIOConfig::expert(bool) {
-	return false;
-}
-
 void ASIOConfig::clearQuery() {
 	bOk = false;
 	qlName->setText(QString());
@@ -443,7 +439,7 @@ ASIOInput::ASIOInput() {
 							lBufSize += granSize;
 					}
 				}
-				qWarning("ASIOInput: Buffer mismatch mode. Wanted %d, got %d", wantBuf, lBufSize);
+				qWarning("ASIOInput: Buffer mismatch mode. Wanted %li, got %li", wantBuf, lBufSize);
 			}
 
 

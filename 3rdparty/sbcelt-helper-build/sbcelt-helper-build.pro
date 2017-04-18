@@ -1,4 +1,4 @@
-include (../../compiler.pri)
+include (../../qmake/compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-helper-build,-src)
@@ -76,4 +76,4 @@ CONFIG(debug, debug|release) {
   DESTDIR = ../../debug/
 }
 
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -59,7 +59,19 @@ module Murmur
 		string osversion;
 		/** Plugin Identity. This will be the user's unique ID inside the current game. */
 		string identity;
-		/** Plugin context. This is a binary blob identifying the game and team the user is on. */
+		/**
+		   Base64-encoded Plugin context. This is a binary blob identifying the game and team the user is on.
+
+		   The used Base64 alphabet is the one specified in RFC 2045.
+
+		   Before Mumble 1.3.0, this string was not Base64-encoded. This could cause problems for some Ice
+		   implementations, such as the .NET implementation.
+
+		   If you need the exact string that is used by Mumble, you can get it by Base64-decoding this string.
+
+		   If you simply need to detect whether two users are in the same game world, string comparisons will
+		   continue to work as before.
+		 */
 		string context;
 		/** User comment. Shown as tooltip for this user. */
 		string comment;

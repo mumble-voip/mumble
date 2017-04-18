@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -54,9 +54,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them
 
 	// coordinate systems is already left handed so no change needed
-	ok = peekProc(posptr, avatar_pos) &&
-	     peekProc(frontptr, avatar_front) &&
-	     peekProc(topptr, avatar_top);
+	ok = peekProc(posptr, avatar_pos, 12) &&
+	     peekProc(frontptr, avatar_front, 12) &&
+	     peekProc(topptr, avatar_top, 12);
 	if (! ok)
 		return false;
 
@@ -75,7 +75,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = frontptr = topptr = NULL;
+	posptr = frontptr = topptr = 0;
 
 	if (! initialize(pids, L"Breach.exe", L"fmodex.dll"))
 		return false;

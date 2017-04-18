@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -55,6 +55,10 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbChannelDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
 	qcbChannelDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
 	qcbChannelDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
+	
+	qcbUserDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
+	qcbUserDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
+	qcbUserDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
 	
 	QDir userThemeDirectory = Themes::getUserThemesDirectory();
 	if (userThemeDirectory.exists()) {
@@ -118,6 +122,7 @@ void LookConfig::reloadThemes(const boost::optional<ThemeInfo::StyleInfo> config
 void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbLanguage, 0);
 	loadComboBox(qcbChannelDrag, 0);
+	loadComboBox(qcbUserDrag, 0);
 
 	// Load Layout checkbox state
 	switch (r.wlWindowLayout) {
@@ -149,8 +154,10 @@ void LookConfig::load(const Settings &r) {
 
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
+	loadComboBox(qcbUserDrag, r.ceUserDrag);
 	loadCheckBox(qcbUsersTop, r.bUserTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
+	loadCheckBox(qcbEnableDeveloperMenu, r.bEnableDeveloperMenu);
 	loadCheckBox(qcbHideTray, r.bHideInTray);
 	loadCheckBox(qcbStateInTray, r.bStateInTray);
 	loadCheckBox(qcbShowUserCount, r.bShowUserCount);
@@ -188,6 +195,7 @@ void LookConfig::save() const {
 
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
+	s.ceUserDrag=static_cast<Settings::ChannelDrag>(qcbUserDrag->currentIndex());
 	
 	if (qcbUsersTop->isChecked() != s.bUserTop) {
 		s.bUserTop = qcbUsersTop->isChecked();
@@ -196,6 +204,7 @@ void LookConfig::save() const {
 	
 	s.aotbAlwaysOnTop = static_cast<Settings::AlwaysOnTopBehaviour>(qcbAlwaysOnTop->currentIndex());
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
+	s.bEnableDeveloperMenu = qcbEnableDeveloperMenu->isChecked();
 	s.bHideInTray = qcbHideTray->isChecked();
 	s.bStateInTray = qcbStateInTray->isChecked();
 	s.bShowUserCount = qcbShowUserCount->isChecked();
@@ -215,15 +224,6 @@ void LookConfig::save() const {
 
 void LookConfig::accept() const {
 	g.mw->setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
-}
-
-bool LookConfig::expert(bool b) {
-	qcbExpand->setVisible(b);
-	qliExpand->setVisible(b);
-	qcbUsersTop->setVisible(b);
-	qcbStateInTray->setVisible(b);
-	qcbShowContextMenuInMenuBar->setVisible(b);
-	return true;
 }
 
 void LookConfig::themeDirectoryChanged() {

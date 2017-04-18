@@ -1,15 +1,18 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "mumble_pch.hpp"
+#include "LogEmitter.h"
 #include "Global.h"
 #include "Overlay.h"
 #include "MainWindow.h"
 
 char *os_lang = NULL;
 static FILE *fConsole = NULL;
+
+static QSharedPointer<LogEmitter> le;
 
 #define PATH_MAX 1024
 static char crashhandler_fn[PATH_MAX];
@@ -37,9 +40,13 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 #define LOG(f, msg) fprintf(f, "<%c>%s %s\n", c, \
 		qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), qPrintable(msg))
 
-	LOG(stderr, msg);
-	LOG(fConsole, msg);
+	QString date = QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
+	QString fmsg = QString::fromLatin1("<%1>%2 %3").arg(c).arg(date).arg(msg);
+	fprintf(stderr, "%s\n", qPrintable(fmsg));
+	fprintf(fConsole, "%s\n", qPrintable(fmsg));
 	fflush(fConsole);
+
+	le->addLogEntry(fmsg);
 
 	if (type == QtFatalMsg) {
 		CFStringRef csMsg = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%s\n\nThe error has been logged. Please submit your log file to the Mumble project if the problem persists."), qPrintable(msg));
@@ -129,6 +136,11 @@ void os_init() {
 
 	const char *home = getenv("HOME");
 	const char *logpath = "/Library/Logs/Mumble.log";
+
+	// Make a copy of the global LogEmitter, such that
+	// os_macx.mm doesn't have to consider the deletion
+	// of the Global object and its LogEmitter object.
+	le = g.le;
 
 	if (home) {
 		size_t len = strlen(home) + strlen(logpath) + 1;

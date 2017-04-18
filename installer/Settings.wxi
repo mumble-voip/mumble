@@ -36,16 +36,6 @@
     <?define QtDir = "$(env.MumbleQtDir)" ?>
   <?endif ?>
   
-  <?ifndef env.MumbleDebugToolsDir ?>
-    <?if $(sys.BUILDARCH) = "x86" ?>
-      <?define DebugToolsDir = "C:\Program Files (x86)\Debugging Tools for Windows (x86)" ?>
-    <?elseif $(sys.BUILDARCH) = "x64" ?>
-      <?define DebugToolsDir = "C:\Program Files\Debugging Tools for Windows (x64)" ?>
-    <?endif ?>
-  <?else ?>
-    <?define DebugToolsDir = "$(env.MumbleDebugToolsDir)" ?>
-  <?endif ?>
-  
   <?ifndef env.MumbleSndFileDir ?>
     <?ifndef env.MumbleNoSndFile ?>
       <?define SndFileDir = "\Program Files (x86)\Mega-Nerd\libsndfile\bin" ?>
@@ -92,14 +82,26 @@
   
   <!-- Don't embed VCRedist files if MumbleNoEmbedVCRedist env var is set. -->
   <?ifndef env.MumbleNoEmbedVCRedist ?>
-     <?ifndef env.MumbleRedistDirVC12 ?>
+     <!-- VC CRT -->
+     <?ifndef env.MumbleRedistDirVC14 ?>
        <?if $(sys.BUILDARCH) = "x86" ?>
-         <?define RedistDirVC12 = "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\redist\x86\Microsoft.VC120.CRT" ?>
+         <?define RedistDirVC14 = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT" ?>
        <?elseif $(sys.BUILDARCH) = "x64" ?>
-         <?define RedistDirVC12 = "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\redist\x64\Microsoft.VC120.CRT" ?>
+         <?define RedistDirVC14 = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x64\Microsoft.VC140.CRT" ?>
        <?endif ?>
      <?else ?>
-       <?define RedistDirVC12 = "$(env.MumbleRedistDirVC12)" ?>
+       <?define RedistDirVC14 = "$(env.MumbleRedistDirVC14)" ?>
+     <?endif ?>
+
+     <!-- Universal CRT -->
+     <?ifndef env.MumbleRedistDirUCRT ?>
+       <?if $(sys.BUILDARCH) = "x86" ?>
+         <?define RedistDirUCRT = "C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86" ?>
+       <?elseif $(sys.BUILDARCH) = "x64" ?>
+         <?define RedistDirUCRT = "C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x64" ?>
+       <?endif ?>
+     <?else ?>
+       <?define RedistDirUCRT = "$(env.MumbleRedistDirUCRT)" ?>
      <?endif ?>
   <?endif ?>
 

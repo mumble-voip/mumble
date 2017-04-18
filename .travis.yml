@@ -1,0 +1,44 @@
+sudo: required # Required for apt-get build-dep
+dist: trusty
+language: cpp
+compiler: gcc
+
+os:
+  - linux
+  - osx
+
+env:
+  - MUMBLE_QT=qt4 MUMBLE_HOST=x86_64-linux-gnu
+  - MUMBLE_QT=qt4 MUMBLE_HOST=x86_64-linux-gnu MUMBLE_NO_PCH=1
+  - MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-linux-gnu
+  - MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-linux-gnu MUMBLE_NO_PCH=1
+  - MUMBLE_QT=qt5 MUMBLE_HOST=i686-w64-mingw32
+  - MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
+  - MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-apple-darwin
+
+matrix:
+  exclude:
+    - os: linux
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-apple-darwin
+    - os: osx
+      env: MUMBLE_QT=qt4 MUMBLE_HOST=x86_64-linux-gnu
+    - os: osx
+      env: MUMBLE_QT=qt4 MUMBLE_HOST=x86_64-linux-gnu MUMBLE_NO_PCH=1
+    - os: osx
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-linux-gnu
+    - os: osx
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-linux-gnu MUMBLE_NO_PCH=1
+    - os: osx
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=i686-w64-mingw32
+    - os: osx
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
+
+  allow_failures:
+    - env: MUMBLE_QT=qt5 MUMBLE_HOST=i686-w64-mingw32
+    - env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
+
+before_install:
+    - ./scripts/travis-ci/before_install.bash
+
+script:
+    - ./scripts/travis-ci/script.bash

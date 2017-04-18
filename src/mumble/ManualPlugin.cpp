@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -48,7 +48,7 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	qgvPosition->viewport()->installEventFilter(this);
 	qgvPosition->scale(1.0f, 1.0f);
 	qgsScene = new QGraphicsScene(QRectF(-5.0f, -5.0f, 10.0f, 10.0f), this);
-	qgiPosition = qgsScene->addEllipse(QRectF(-0.5f, -0.5f, 1.0f, 1.0f), QPen(Qt::black), QBrush(Qt::red));
+	qgiPosition = qgsScene->addEllipse(QRectF(-0.5f, -0.5f, 1.0f, 1.0f), QApplication::palette().text().color(), QBrush(Qt::red));
 
 	qgvPosition->setScene(qgsScene);
 	qgvPosition->fitInView(-5.0f, -5.0f, 10.0f, 10.0f, Qt::KeepAspectRatio);
@@ -216,16 +216,11 @@ static void config(void *ptr) {
 
 	if (mDlg) {
 		mDlg->setParent(w, Qt::Dialog);
-#if QT_VERSION < 0x050000
 		mDlg->qpbUnhinge->setEnabled(true);
-#endif
 	} else {
 		mDlg = new Manual(w);
 	}
 
-#if QT_VERSION >= 0x050000
-	mDlg->qpbUnhinge->setEnabled(false);
-#endif
 	mDlg->show();
 }
 

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -21,12 +21,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE team;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(pModule + 0x0188248, state) && // Magical state value: 1 when in-game and 0 when in main menu.
-			peekProc(pModule + 0x1041C68, spec) && // Spectator state value: 1 when spectating and 0 when playing.
-			peekProc(pModule + 0x0EB8950, avatar_pos_corrector) && // Avatar Position values (X, Z and Y, respectively).
-			peekProc(pModule + 0x0E6093C, camera_pos_corrector) && // Camera Position values (X, Z and Y, respectively).
-			peekProc(pModule + 0x0EC5B50, avatar_front_corrector) && // Avatar front values (X, Z and Y, respectively).
-			peekProc(pModule + 0x0EC5B68, avatar_top_corrector) && // Avatar top values (X, Z and Y, respectively).
+	ok = peekProc(pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
+			peekProc(pModule + 0x1041CAC, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
+			peekProc(pModule + 0x0EB8950, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y, respectively).
+			peekProc(pModule + 0x0E6093C, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y, respectively).
+			peekProc(pModule + 0x0EC5B50, avatar_front_corrector, 12) && // Avatar front values (X, Z and Y, respectively).
+			peekProc(pModule + 0x0EC5B68, avatar_top_corrector, 12) && // Avatar top values (X, Z and Y, respectively).
 			peekProc(pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
 			peekProc(pModule + 0x106E24B, servername) && // Server name.
 			peekProc(pModule + 0x12DE8D8, map) && // Map name.
@@ -84,7 +84,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Team
-	if (team >= 0 && team <= 3) {
+	if (team <= 3) {
 		if (team == 0)
 			oidentity << std::endl << "\"Team\": \"FFA\""; // If team value is 0, set "FFA" as team in identity.
 		if (team == 1)

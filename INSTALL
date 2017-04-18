@@ -38,8 +38,9 @@ To build mumble and murmur, type
 qmake main.pro
 make release
 
-You may need to edit src/mumble/mumble.pro to reflect the installation paths you
-use for libraries.
+You may need to specify dependency installation paths. Please refer to the
+files in the qmake directory. (For windows, copy winpaths_default.pri to
+winpaths_custom.pri and adjust the copies contents.)
 After building, the binaries will be in the release/ directory.
 
 The qmake step supports a number of configurations options. To enable an
@@ -157,7 +158,7 @@ CONFIG+=grpc (Murmur, Linux)
 CONFIG+=no-bonjour
  Don't build support for Bonjour.
 
-CONFIG+=no-overlay (Mumble, Linux)
+CONFIG+=no-overlay (Mumble)
  Don't build the overlay library.
 
 CONFIG+=no-xinput2 (Mumble, Linux)
@@ -189,3 +190,12 @@ CONFIG+=g15-emulator (Mumble, Win32)
 CONFIG+=no-manual-plugin (Mumble)
  Don't include the built-in 'manual' positional
  audio plugin.
+
+CONFIG+=qtspeech (Mumble)
+ Use Qt's text-to-speech system (part of the experimental
+ Qt Speech module), if available, instead of Mumble's own
+ OS-specific text-to-speech implementations.
+
+CONFIG+=dpkg-buildflags
+ Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS
+ from dpkg-buildflags to Mumble's build flags.

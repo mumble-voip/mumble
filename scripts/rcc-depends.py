@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -28,10 +28,18 @@ def main():
 			for fileTag in fileTags:
 				textNode = fileTag.childNodes[0].wholeText
 				absPath = os.path.normpath(os.path.join(fnDir, textNode))
-				relPath = os.path.relpath(absPath)
-				output = relPath
 				if platform.system() == 'Windows':
+					try:
+						output = os.path.relpath(absPath)
+					except ValueError:
+						# In some cases, Qt lives on another drive than Mumble.
+						# This means that we can't create relative path from
+						# our absolute path.
+						# In those cases, use the absolute path instead.
+						output = absPath
 					output = output.replace('\\', '/')
+				else:
+					output = os.path.relpath(absPath)
 				print(output)
 
 if __name__ == '__main__':

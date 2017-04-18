@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -28,9 +28,20 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	QVariant data = m->data(idxc1);
 	QList<QVariant> ql = data.toList();
 
+	// Allow a UserView's BackgroundRole to override the current theme's default color.
+	QVariant bg = index.data(Qt::BackgroundRole);
+	if (bg.isValid()) {
+		painter->fillRect(option.rect, bg.value<QBrush>());
+	}
+
 	painter->save();
 
+#if QT_VERSION >= 0x050000
+	QStyleOptionViewItem o = option;
+#else
 	QStyleOptionViewItemV4 o = option;
+#endif
+
 	initStyleOption(&o, index);
 
 	QStyle *style = o.widget->style();

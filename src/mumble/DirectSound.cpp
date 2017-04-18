@@ -1,9 +1,16 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "mumble_pch.hpp"
+
+#define DIRECTSOUND_VERSION 0x1000
+
+#include <mmsystem.h>
+#include <dsound.h>
+#include <ks.h>
+#include <ksmedia.h>
 
 #include "DirectSound.h"
 
@@ -13,7 +20,7 @@
 #include "Global.h"
 
 // from os_win.cpp
-extern HWND MumbleHWNDForQWidget(QWidget *w);
+extern HWND mumble_mw_hwnd;
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
@@ -201,7 +208,7 @@ void DXAudioOutput::run() {
 	LPDIRECTSOUND8             pDS = NULL;
 	LPDIRECTSOUNDBUFFER       pDSBPrimary = NULL;
 	LPDIRECTSOUNDBUFFER       pDSBOutput = NULL;
-	LPDIRECTSOUNDNOTIFY8       pDSNotify = NULL;
+	LPDIRECTSOUNDNOTIFY       pDSNotify = NULL;
 
 	int iLastwriteblock;
 	LPVOID aptr1, aptr2;
@@ -236,7 +243,7 @@ void DXAudioOutput::run() {
 	if (! pDS && FAILED(hr = DirectSoundCreate8(&DSDEVID_DefaultVoicePlayback, &pDS, NULL))) {
 		qWarning("DXAudioOutput: DirectSoundCreate failed: hr=0x%08lx", hr);
 		goto cleanup;
-	} else if (FAILED(hr = pDS->SetCooperativeLevel(MumbleHWNDForQWidget(g.mw), DSSCL_PRIORITY))) {
+	} else if (FAILED(hr = pDS->SetCooperativeLevel(mumble_mw_hwnd, DSSCL_PRIORITY))) {
 		qWarning("DXAudioOutput: SetCooperativeLevel failed: hr=0x%08lx", hr);
 		goto cleanup;
 	} else if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBPrimary, NULL))) {
@@ -457,7 +464,7 @@ DXAudioInput::~DXAudioInput() {
 void DXAudioInput::run() {
 	LPDIRECTSOUNDCAPTURE8      pDSCapture;
 	LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
-	LPDIRECTSOUNDNOTIFY8       pDSNotify;
+	LPDIRECTSOUNDNOTIFY        pDSNotify;
 
 	DWORD dwBufferSize;
 	bool bOk;
@@ -545,7 +552,7 @@ void DXAudioInput::run() {
 				else
 					dwReadyBytes = dwReadPosition - dwLastReadPos;
 
-				if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
+				if (static_cast<size_t>(dwReadyBytes) < sizeof(short) * iFrameSize) {
 					double msecleft = 20.0 - (dwReadyBytes * 20.0) / (sizeof(short) * iFrameSize);
 
 					if (didsleep)
@@ -560,7 +567,7 @@ void DXAudioInput::run() {
 					didsleep = true;
 					firstsleep = false;
 				}
-			} while (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize);
+			} while (static_cast<size_t>(dwReadyBytes) < sizeof(short) * iFrameSize);
 
 			// Desynchonized?
 			if (dwReadyBytes > (dwBufferSize / 2)) {
@@ -568,7 +575,7 @@ void DXAudioInput::run() {
 				dwLastReadPos = dwReadPosition;
 			} else if (bRunning) {
 				if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, sizeof(short) * iFrameSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
-					qWarning("DXAudioInput: Lock from %ld (%d bytes) failed: hr=0x%08lx",dwLastReadPos, sizeof(short) * iFrameSize, hr);
+					qWarning("DXAudioInput: Lock from %lu (%zu bytes) failed: hr=0x%08lx", static_cast<unsigned long>(dwLastReadPos), sizeof(short) * iFrameSize, hr);
 					bRunning = false;
 					break;
 				}

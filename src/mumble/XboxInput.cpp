@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -45,11 +45,11 @@ XboxInput::XboxInput()
 		return;
 	}
 
-	*(reinterpret_cast<void **>(&m_getStateFunc)) = reinterpret_cast<void *>(GetProcAddress(m_xinputlib, "XInputGetState"));
+	m_getStateFunc = reinterpret_cast<XboxInputGetStateFunc>(GetProcAddress(m_xinputlib, "XInputGetState"));
 	// Undocumented XInputGetStateEx -- ordinal 100. It is available in XInput 1.3 and greater.
 	// It provides access to the state of the guide button.
 	// For reference, see SDL's XInput support: http://www.libsdl.org/tmp/SDL/src/core/windows/SDL_xinput.c
-	*(reinterpret_cast<void **>(&m_getStateExFunc)) = reinterpret_cast<void *>(GetProcAddress(m_xinputlib, (char *)100));
+	m_getStateExFunc = reinterpret_cast<XboxInputGetStateFunc>(GetProcAddress(m_xinputlib, (char *)100));
 
 	if (m_getStateExFunc != NULL) {
 		GetState = m_getStateExFunc;

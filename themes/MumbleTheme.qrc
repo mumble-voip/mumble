@@ -39,6 +39,7 @@
     <file alias="muted_self.svg">Mumble/muted_self.svg</file>
     <file alias="muted_server.svg">Mumble/muted_server.svg</file>
     <file alias="muted_suppressed.svg">Mumble/muted_suppressed.svg</file>
+    <file alias="muted_pushtomute.svg">Mumble/muted_pushtomute.svg</file>
     <file alias="overlay.mumblelay">Mumble/overlay.mumblelay</file>
     <file alias="priority_speaker.svg">Mumble/priority_speaker.svg</file>
     <file alias="self_comment.svg">Mumble/self_comment.svg</file>

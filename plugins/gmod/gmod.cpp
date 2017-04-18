@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -48,10 +48,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	string sHost;
 	ostringstream new_context;
 
-	ok = peekProc(posptr, ipos)
-	     && peekProc(rotptr, rot)
+	ok = peekProc(posptr, ipos, 12)
+	     && peekProc(rotptr, rot, 12)
 	     //&& peekProc(stateptr, &state, 1)
-	     && peekProc(hostptr, chHostStr)
+	     && peekProc(hostptr, chHostStr, 40)
 	     ;
 	if (!ok)
 		return false;
@@ -63,9 +63,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	<< "<game>gmod</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
+	            << "<game>gmod</game>"
+	            << "<hostport>" << sHost << "</hostport>"
+	            << "</context>";
 	context = new_context.str();
 /*
 	// Check to see if you are spawned
@@ -86,7 +86,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = rotptr = NULL;
+	posptr = rotptr = 0;
 
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
@@ -116,7 +116,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Gamecheck
 	const char ID[] = "garrysmod";
 	char sMagic[18];
-	if (!peekProc(idptr, sMagic) || strncmp(ID, sMagic, sizeof(ID))!=0)
+	if (!peekProc(idptr, sMagic, sizeof(ID)) || strncmp(ID, sMagic, sizeof(ID))!=0)
 		return false;
 
 	// Check if we can get meaningful data from it

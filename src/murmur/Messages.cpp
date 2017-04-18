@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -15,6 +15,7 @@
 #include "Server.h"
 #include "ServerUser.h"
 #include "Version.h"
+#include "CryptState.h"
 
 #define MSG_SETUP(st) \
 	if (uSource->sState != st) { \
@@ -200,7 +201,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		uSource->csCrypt.genKey();
 
 		MumbleProto::CryptSetup mpcrypt;
-		mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_BLOCK_SIZE));
+		mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_KEY_SIZE_BYTES));
 		mpcrypt.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
 		mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
 		sendMessage(uSource, mpcrypt);
@@ -863,8 +864,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 		}
 
-		QRegExp re2("\\w");
-		if (re2.indexIn(qsName) == -1) {
+		if (qsName.length() == 0) {
 			PERM_DENIED_TYPE(ChannelName);
 			return;
 		}

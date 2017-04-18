@@ -233,6 +233,16 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbEnableDeveloperMenu">
+        <property name="whatsThis">
+         <string>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</string>
+        </property>
+        <property name="text">
+         <string>Enable Developer menu</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -260,13 +270,30 @@
        </widget>
       </item>
       <item row="1" column="0">
+       <widget class="QLabel" name="qliUserDrag">
+        <property name="text">
+         <string>User Dragging</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="MUComboBox" name="qcbUserDrag">
+        <property name="toolTip">
+         <string>This changes the behavior when moving users.</string>
+        </property>
+        <property name="whatsThis">
+         <string>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <widget class="QLabel" name="qliExpand">
         <property name="text">
          <string>Expand</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="MUComboBox" name="qcbExpand">
         <property name="toolTip">
          <string>When to automatically expand channels</string>
@@ -276,7 +303,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="3" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbUsersTop">
         <property name="toolTip">
          <string>List users above subchannels (requires restart).</string>
@@ -289,7 +316,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
+      <item row="4" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbShowUserCount">
         <property name="toolTip">
          <string>Show number of users in each channel</string>
@@ -299,14 +326,14 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="2">
+      <item row="5" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbChatBarUseSelection">
         <property name="text">
          <string>Use selected item as the chat bar target</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="0" colspan="2">
+      <item row="6" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbFilterHidesEmptyChannels">
         <property name="text">
          <string>Filter automatically hides empty channels</string>

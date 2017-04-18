@@ -1,0 +1,41 @@
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+# This file describes the x64 toolchain of
+# MSVC2013 compiler.
+#
+# This file can be included in a .pro file
+# to cause the target in that file to be
+# built for the x64 architecture, regardless
+# of the native architecture of the build
+# environment.
+
+# Use the x86-based amd64 cross compiler by default.
+QMAKE_CC = "\"$$(VCINSTALLDIR)bin\\x86_amd64\\cl.exe\""
+QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\\x86_amd64\\cl.exe\""
+QMAKE_LINK = \""$$(VCINSTALLDIR)\\bin\\x86_amd64\\link.exe\""
+QMAKE_LIB = \""$$(VCINSTALLDIR)\\bin\\x86_amd64\\lib.exe\""
+
+# ...but use the native amd64 compiler if it is available.
+exists($$(VCINSTALLDIR)\\bin\\amd64) {
+	QMAKE_CC = "\"$$(VCINSTALLDIR)bin\\amd64\\cl.exe\""
+	QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\\amd64\\cl.exe\""
+	QMAKE_LINK = \""$$(VCINSTALLDIR)\\bin\\amd64\\link.exe\""
+	QMAKE_LIB = \""$$(VCINSTALLDIR)\\bin\\amd64\\lib.exe\""
+}
+
+QMAKE_RC = \""$$(WindowsSdkDir)\\bin\\x64\\rc.exe\""
+
+INCLUDEPATH *= "$$(VCINSTALLDIR)\\include"
+INCLUDEPATH *= "$$(VCINSTALLDIR)\\atlmfc\\include"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\shared"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\um"
+INCLUDEPATH *= "$$(WindowsSdkDir)\\include\\winrt"
+INCLUDEPATH *= "$$(DXSDK_DIR)\\include"
+
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(VCINSTALLDIR)\\lib\\amd64\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(VCINSTALLDIR)\\atlmfc\\lib\\amd64\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(WindowsSdkDir)\\lib\\winv6.3\\um\\x64\""
+QMAKE_LFLAGS *= "/LIBPATH:\"$$(DXSDK_DIR)\\lib\\x64\""

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -27,17 +27,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	/*
 		value is 0 when one is not in a game, 4 when one is
 
-	   ok = peekProc((BYTE *) 0x, &state, 1); // Magical state value
-	   if (! ok)
-	 	return false;
+	ok = peekProc((BYTE *) 0x, &state, 1); // Magical state value
+	if (! ok)
+		return false;
 
-	   if (state == 0)
-	          return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	if (state == 0)
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	*/
 
-	ok = peekProc(posptr, avatar_pos) &&
-	     peekProc(frontptr, avatar_front) &&
-	     peekProc(topptr, avatar_top);
+	ok = peekProc(posptr, avatar_pos, 12) &&
+	     peekProc(frontptr, avatar_front, 12) &&
+	     peekProc(topptr, avatar_top, 12);
 
 	if (avatar_pos[1] > 999000000.0)
 		return false;
@@ -74,7 +74,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = NULL;
+	posptr = 0;
 
 	if (! initialize(pids, L"arma2.exe"))
 		return false;

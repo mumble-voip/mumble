@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -20,31 +20,31 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
 
 	// Steam version
-	if (peekProc(pModule + 0x17C6330, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
-		state_address = pModule + 0x268C370;
-		in_game_address = pModule + 0x1B76454;
-		avatar_pos_address = pModule + 0x1F05230;
-		camera_pos_address = pModule + 0x1C08080;
-		avatar_base_address = pModule + 0x1B463D0;
-		camera_front_address = pModule + 0x1C09B40;
-		camera_top_address = pModule + 0x1EDA440;
-		player_address = pModule + 0x2696B0C;
-		vehicle_address = pModule + 0x228DDC0;
-		location_address = pModule + 0x228D79B;
-		street_address = pModule + 0x228A550;
+	if (peekProc(pModule + 0x18107F8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x27377E0;
+		in_game_address = pModule + 0x245F430;
+		avatar_pos_address = pModule + 0x1F82C30;
+		camera_pos_address = pModule + 0x1C5C560;
+		avatar_base_address = pModule + 0x1B99760;
+		camera_front_address = pModule + 0x1F81E20;
+		camera_top_address = pModule + 0x1F81E10;
+		player_address = pModule + 0x2741F7C;
+		vehicle_address = pModule + 0x2335A00;
+		location_address = pModule + 0x23353CB;
+		street_address = pModule + 0x2332110;
 	// Retail version
-	} else if (peekProc(pModule + 0x17C3280, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
-		state_address = pModule + 0x2688DB0;
-		in_game_address = pModule + 0x1B73ED4;
-		avatar_pos_address = pModule + 0x1F01E40;
-		camera_pos_address = pModule + 0x1C06950;
-		avatar_base_address = pModule + 0x1B433D0;
-		camera_front_address = pModule + 0x1C06960;
-		camera_top_address = pModule + 0x1ED6FF0;
-		player_address = pModule + 0x26934AC;
-		vehicle_address = pModule + 0x228A9A0;
-		location_address = pModule + 0x228A38B;
-		street_address = pModule + 0x22870C0;
+	} else if (peekProc(pModule + 0x180D4D8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x2733490;
+		in_game_address = pModule + 0x1BC6687;
+		avatar_pos_address = pModule + 0x1F7EAA0;
+		camera_pos_address = pModule + 0x1C58630;
+		avatar_base_address = pModule + 0x1B956C0;
+		camera_front_address = pModule + 0x1C5A0F0;
+		camera_top_address = pModule + 0x1F7D9F0;
+		player_address = pModule + 0x273DBAC;
+		vehicle_address = pModule + 0x2331890;
+		location_address = pModule + 0x233125B;
+		street_address = pModule + 0x232DFA0;
 	// Unknown version
 	} else {
 		generic_unlock();
@@ -63,14 +63,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state, in_game, player[50], vehicle[50], location[50], street[50];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(state_address, state) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
-			peekProc(in_game_address, in_game) && // 0 when loading or not in-game, 1 when in-game.
-			peekProc(avatar_pos_address, avatar_pos_corrector) && // Avatar Position values (X, Z and Y).
-			peekProc(camera_pos_address, camera_pos_corrector) && // Camera Position values (X, Z and Y).
-			peekProc(avatar_base + 0x70, avatar_front_corrector) && // Avatar Front Vector values (X, Z and Y).
-			peekProc(avatar_base + 0x80, avatar_top_corrector) && // Avatar Top Vector values (X, Z and Y).
-			peekProc(camera_front_address, camera_front_corrector) && // Camera Front Vector values (X, Z and Y).
-			peekProc(camera_top_address, camera_top_corrector) && // Camera Top Vector values (X, Z and Y).
+	ok = peekProc(state_address, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
+			peekProc(in_game_address, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
+			peekProc(avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc(camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc(avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
+			peekProc(avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
+			peekProc(camera_front_address, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
+			peekProc(camera_top_address, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
 			peekProc(player_address, player) && // Player nickname.
 			peekProc(vehicle_address, vehicle) && // Vehicle name if in a vehicle, empty if not.
 			peekProc(location_address, location) && // Location name.
@@ -200,10 +200,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto V version 1.35 with identity support."); // Plugin long description
+	return std::wstring(L"Supports Grand Theft Auto V version 1.38 with identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Grand Theft Auto V (v1.35)"); // Plugin short description
+static std::wstring description(L"Grand Theft Auto V (v1.38)"); // Plugin short description
 static std::wstring shortname(L"Grand Theft Auto V"); // Plugin short name
 
 static int trylock1() {

@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)

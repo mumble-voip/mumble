@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -49,10 +49,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	wostringstream new_identity;
 	ostringstream new_context;
 
-	ok = peekProc(posptr, ipos) &&
-	     peekProc(rotptr, rot) &&
-	     peekProc(stateptr, state) &&
-	     peekProc(hostptr, chHostStr);
+	ok = peekProc(posptr, ipos, 12) &&
+	     peekProc(rotptr, rot, 12) &&
+	     peekProc(stateptr, &state, 1) &&
+	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
 
@@ -63,15 +63,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	<< "<game>insurgency</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
+	            << "<game>insurgency</game>"
+	            << "<hostport>" << sHost << "</hostport>"
+	            << "</context>";
 	context = new_context.str();
 
 	/* TODO
 	new_identity << "<identity>"
-			<< "<name>" << "SAS" << "</name>"
-		     << "</identity>";
+	             << "<name>" << "SAS" << "</name>"
+	             << "</identity>";
 	identity = new_identity.str(); */
 
 	// Check to see if you are spawned
@@ -92,7 +92,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = rotptr = NULL;
+	posptr = rotptr = 0;
 
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
@@ -118,7 +118,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	//Gamecheck
 	char sMagic[14];
-	if (!peekProc(pModule + 0x46B512, sMagic) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
+	if (!peekProc(pModule + 0x46B512, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -195,21 +195,6 @@ void AudioInputDialog::save() const {
 	qWarning().nospace() << " bEcho " << g.s.bEcho << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " bEchoMulti " << g.s.bEchoMulti << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 #endif
-}
-
-bool AudioInputDialog::expert(bool b) {
-	qgbInterfaces->setVisible(b);
-	qgbAudio->setVisible(b);
-	qliFrames->setVisible(b);
-	qsFrames->setVisible(b);
-	qlFrames->setVisible(b);
-	qswTransmit->setVisible(b);
-	qliIdle->setVisible(b);
-	qsbIdle->setVisible(b);
-	qcbIdleAction->setVisible(b);
-	qlIdle->setVisible(b);
-	qlIdle2->setVisible(b);
-	return true;
 }
 
 void AudioInputDialog::on_qsFrames_valueChanged(int v) {
@@ -521,10 +506,6 @@ void AudioOutputDialog::save() const {
 			aor->setDeviceChoice(qcbDevice->itemData(idx), s);
 		}
 	}
-}
-
-bool AudioOutputDialog::expert(bool b) {
-	return b;
 }
 
 void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {

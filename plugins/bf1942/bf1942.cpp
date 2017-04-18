@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -27,9 +27,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	//peekProc(contextptr, ccontext, 128);
 
-	ok = peekProc(0x00976274, avatar_pos) &&
-	     peekProc(faceptr, avatar_front) &&
-	     peekProc(topptr, avatar_top);
+	ok = peekProc(0x00976274, avatar_pos, 12) &&
+	     peekProc(faceptr, avatar_front, 12) &&
+	     peekProc(topptr, avatar_top, 12);
 
 	if (! ok)
 		return false;
@@ -51,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	faceptr = topptr = NULL;
+	faceptr = topptr = 0;
 
 	if (! initialize(pids, L"BF1942.exe"))
 		return false;

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -76,12 +76,24 @@ static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.
 
 		QString qsBundleIdentifier = QString::fromUtf8([bundleId UTF8String]);
 
-		if (g.s.os.bUseWhitelist) {
-			if (g.s.os.qslWhitelist.contains(qsBundleIdentifier))
+		switch (g.s.os.oemOverlayExcludeMode) {
+			case OverlaySettings::LauncherFilterExclusionMode: {
+				qWarning("Overlay_macx: launcher filter mode not implemented on macOS, allowing everything");
 				overlayEnabled = YES;
-		} else {
-			if (! g.s.os.qslBlacklist.contains(qsBundleIdentifier))
-				overlayEnabled = YES;
+				break;
+			}
+			case OverlaySettings::WhitelistExclusionMode: {
+				if (g.s.os.qslWhitelist.contains(qsBundleIdentifier)) {
+					overlayEnabled = YES;
+				}
+				break;
+			}
+			case OverlaySettings::BlacklistExclusionMode: {
+				if (! g.s.os.qslBlacklist.contains(qsBundleIdentifier)) {
+					overlayEnabled = YES;
+				}
+				break;
+			}
 		}
 
 		if (overlayEnabled) {

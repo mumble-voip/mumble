@@ -1,9 +1,10 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(../../../compiler.pri)
+include(../../../qmake/compiler.pri)
+include(../../../qmake/protoc.pri)
 
 GRPC *= ../MurmurRPC.proto
 
@@ -15,7 +16,7 @@ grpc_pbh.CONFIG *= no_link explicit_dependencies target_predeps
 grpc_pbh.variable_out = HEADERS
 
 grpc_pb.output = ${QMAKE_FILE_BASE}.pb.cc
-grpc_pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
+grpc_pb.commands = $${PROTOC} --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
 grpc_pb.input = GRPC
 grpc_pb.CONFIG *= no_link explicit_dependencies
 grpc_pb.variable_out = SOURCES
@@ -28,7 +29,7 @@ grpch.CONFIG *= no_link explicit_dependencies target_predeps
 
 grpc.output = ${QMAKE_FILE_BASE}.grpc.pb.cc
 grpc.depends = ${QMAKE_FILE_BASE}.pb.h
-grpc.commands = protoc --grpc_out=. --plugin=protoc-gen-grpc=$$system(which grpc_cpp_plugin) -I. -I.. ${QMAKE_FILE_NAME}
+grpc.commands = $${PROTOC} --grpc_out=. --plugin=protoc-gen-grpc=$$system(which grpc_cpp_plugin) -I. -I.. ${QMAKE_FILE_NAME}
 grpc.input = GRPC
 grpc.CONFIG *= no_link explicit_dependencies
 grpc.variable_out = SOURCES
@@ -59,4 +60,4 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../../../release
 }
 
-include(../../../symbols.pri)
+include(../../../qmake/symbols.pri)

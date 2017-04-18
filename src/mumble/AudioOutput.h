@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -92,7 +92,16 @@ class AudioOutput : public QThread {
 	public:
 		void wipe();
 
+                /// Construct an AudioOutput.
+                ///
+                /// This constructor is only ever called by Audio::startOutput(), and is guaranteed
+                /// to be called on the application's main thread.
 		AudioOutput();
+
+                /// Destroy an AudioOutput.
+                ///
+                /// This destructor is only ever called by Audio::stopOutput() and Audio::stop(),
+                /// and is guaranteed to be called on the application's main thread.
 		~AudioOutput() Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -9,6 +9,7 @@
 
 Global *Global::g_global_struct;
 
+#ifndef Q_OS_WIN
 static void migrateDataDir() {
 #ifdef Q_OS_MAC
 	QString olddir = QDir::homePath() + QLatin1String("/Library/Preferences/Mumble");
@@ -16,7 +17,7 @@ static void migrateDataDir() {
 	QString newdir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 	QString newdir = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#endif
+#endif // QT_VERSION
 	QString linksTo = QFile::readLink(olddir);
 	if (!QFile::exists(newdir) && QFile::exists(olddir) && linksTo.isEmpty()) {
 		QDir d;
@@ -36,7 +37,7 @@ static void migrateDataDir() {
 	}
 
 	qWarning("Application data migration failed.");
-#endif
+#endif // Q_OS_MAC
 
 // Qt4 used another data directory on Unix-like systems, to ensure a seamless
 // transition we must first move the users data to the new directory.
@@ -59,15 +60,17 @@ static void migrateDataDir() {
 	}
 
 	qWarning("Application data migration failed.");
-#endif
-#endif
+#endif // QT_VERSION
+#endif // defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
 }
+#endif // Q_OS_WIN
 
 Global::Global() {
 	mw = 0;
 	db = 0;
 	p = 0;
 	nam = 0;
+	c = 0;
 	uiSession = 0;
 	uiDoublePush = 1000000;
 	iPushToTalk = 0;

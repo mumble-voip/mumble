@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -39,7 +39,6 @@ class ConfigWidget : public QWidget {
 		virtual void accept() const;
 		virtual void save() const = 0;
 		virtual void load(const Settings &r) = 0;
-		virtual bool expert(bool) = 0;
 };
 
 typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);

@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -6,10 +6,17 @@
 #import <AppKit/AppKit.h>
 
 @interface CompatApp : NSObject
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1070
-<NSFileManagerDelegate>
-#endif
 @end
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+@interface CompatApp (NSApplicationDelegateExtension) <NSApplicationDelegate>
+@end
+#endif
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+@interface CompatApp (NSFileManagerDelegateExtension) <NSFileManagerDelegate>
+@end
+#endif
 
 @implementation CompatApp
 

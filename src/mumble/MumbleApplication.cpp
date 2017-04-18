@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 #include "Global.h"
+#include "EnvUtils.h"
 
 MumbleApplication *MumbleApplication::instance() {
 	return static_cast<MumbleApplication *>(QCoreApplication::instance());
@@ -25,9 +26,9 @@ MumbleApplication::MumbleApplication(int &pargc, char **pargv)
 }
 
 QString MumbleApplication::applicationVersionRootPath() {
-	QByteArray versionRoot = qgetenv("MUMBLE_VERSION_ROOT");
+	QString versionRoot = EnvUtils::getenv(QLatin1String("MUMBLE_VERSION_ROOT"));
 	if (versionRoot.count() > 0) {
-		return QString::fromUtf8(versionRoot.constData());
+		return versionRoot;
 	}
 	return this->applicationDirPath();
 }

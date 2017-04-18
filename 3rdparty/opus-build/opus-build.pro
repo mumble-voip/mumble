@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../../qmake/compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
@@ -76,7 +76,7 @@ INCLUDEPATH *= \
 ../$$SOURCEDIR/silk/x86 \
 ../$$SOURCEDIR/silk/float
 
-win32 {
+win32-msvc* {
   CONFIG *= opus-sse-sources
   CONFIG *= opus-sse2-sources
   CONFIG *= opus-sse41-sources
@@ -272,13 +272,4 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../../release
 }
 
-macx:!CONFIG(static) {
-	libname.target = libname
-	libname.commands = cd ${DESTDIR} && install_name_tool -id `pwd`/${TARGET} ${TARGET}
-	libname.depends = ${DESTDIR}${TARGET}
-	libname.CONFIG = recursive
-	QMAKE_EXTRA_TARGETS *= libname
-	ALL_DEPS += libname
-}
-
-include(../../symbols.pri)
+include(../../qmake/symbols.pri)

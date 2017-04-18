@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -13,7 +13,11 @@
 #define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
-#define NOMINMAX
+// Define "NOMINMAX" only if it isn't already.
+// MinGW defines it by default, which results in a redefinition warning.
+#ifndef NOMINMAX
+# define NOMINMAX
+#endif
 #include <windows.h>
 #include <tlhelp32.h>
 #include <math.h>
@@ -50,7 +54,7 @@ static inline DWORD getProcess(const wchar_t *exename) {
 
 static inline PTR_TYPE_CONCRETE getModuleAddr(DWORD pid, const wchar_t *modname) {
 	MODULEENTRY32 me;
-	PTR_TYPE_CONCRETE ret = NULL;
+	PTR_TYPE_CONCRETE ret = 0;
 	me.dwSize = sizeof(me);
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE|TH32CS_SNAPMODULE32, pid);
 	if (hSnap != INVALID_HANDLE_VALUE) {
@@ -97,7 +101,7 @@ T peekProc(PTR_TYPE base) {
 
 static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
 	hProcess = NULL;
-	pModule = NULL;
+	pModule = 0;
 
 	if (! pids.empty()) {
 		std::multimap<std::wstring, unsigned long long int>::const_iterator iter = pids.find(std::wstring(procname));
@@ -122,7 +126,7 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 	hProcess=OpenProcess(PROCESS_VM_READ, false, dwPid);
 	if (!hProcess) {
 		dwPid = 0;
-		pModule = NULL;
+		pModule = 0;
 		return false;
 	}
 
@@ -133,7 +137,7 @@ static void generic_unlock() {
 	if (hProcess) {
 		CloseHandle(hProcess);
 		hProcess = NULL;
-		pModule = NULL;
+		pModule = 0;
 		dwPid = 0;
 	}
 }

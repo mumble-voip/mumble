@@ -1,4 +1,4 @@
-# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2017 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -8,7 +8,7 @@
 win32:!CONFIG(g15-emulator) {
   CONFIG += force-x86-toolchain
 }
-include (../compiler.pri)
+include (../qmake/compiler.pri)
 
 TEMPLATE = app
 CONFIG *= debug_and_release warn_on
@@ -40,7 +40,10 @@ CONFIG(g15-emulator) {
 
   win32 {
     RC_FILE = g15helper.rc
-    QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+
+    win32-msvc* {
+      QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+    }
   }
 } else {
   CONFIG -= qt
@@ -52,7 +55,10 @@ CONFIG(g15-emulator) {
     QMAKE_LIBDIR *= "$$G15SDK_PATH/Lib/x86"
     INCLUDEPATH *= "$$G15SDK_PATH/Src"
     DEFINES *= WIN32
-    QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+
+    win32-msvc* {
+      QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+    }
 
     CONFIG(release, debug|release) {
       QMAKE_CFLAGS_RELEASE -= -MD
@@ -98,4 +104,4 @@ CONFIG(debug, debug|release) {
   DESTDIR = ../debug/
 }
 
-include(../symbols.pri)
+include(../qmake/symbols.pri)

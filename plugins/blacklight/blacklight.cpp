@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -7,10 +7,10 @@
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
-   are met: 
+   are met:
 
    - Redistributions of source code must retain the above copyright notice,
      this list of conditions and the following disclaimer.
@@ -75,7 +75,7 @@ static bool calcout(float *cam, float *camfront, float *camtop, float *ocam, flo
 }
 
 static bool refreshPointers(void) {
-	hostipportptr = NULL;
+	hostipportptr = 0;
 
 	hostipportptr = pModule + 0xB8C57;
 
@@ -90,12 +90,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char hostipport[sizeof(prev_hostipport)];
 
-	ok = peekProc(camfrontptr, camfront) &&
-		 peekProc(camtopptr, camtop) &&
-		 peekProc(hostipportptr, hostipport) &&
-		 peekProc(camptr, cam);
+	ok = peekProc(camfrontptr, camfront, 12) &&
+	     peekProc(camtopptr, camtop, 12) &&
+	     peekProc(hostipportptr, hostipport) &&
+	     peekProc(camptr, cam);
 
-	if (!ok) 
+	if (!ok)
 		return false;
 	
 	hostipport[sizeof(hostipport) - 1] = '\0';

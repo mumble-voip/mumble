@@ -1,4 +1,4 @@
-// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Copyright 2005-2017 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -50,6 +50,16 @@ private:
 	
 	/// Returns default style-sheet used for fall-backs
 	static QString getDefaultStylesheet();
+
+	/// userStylesheetPath returns the absolute path to the
+	/// user.qss file.
+	static QString userStylesheetPath();
+
+	/// readStylesheet fills stylesheetContent with the content
+	/// of the file at stylesheetFn, if available.
+	/// If a the file is is available, the function returns true.
+	/// If no file is available, it returns false.
+	static bool readStylesheet(const QString &stylesheetFn, QString &stylesheetContent);
 };
 
 #endif // MUMBLE_MUMBLE_THEMES_H_

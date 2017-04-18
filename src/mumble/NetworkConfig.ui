@@ -296,6 +296,29 @@ Prevents the client from downloading images embedded into chat messages with the
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="qgbPrivacy">
+     <property name="title">
+      <string>Privacy</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QCheckBox" name="qcbHideOS">
+        <property name="toolTip">
+         <string>Prevent OS information being sent to Mumble servers and web servers</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
+Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</string>
+        </property>
+        <property name="text">
+         <string>Do not send OS information to Mumble servers and web servers</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="qgbServices">
      <property name="title">
       <string>Mumble services</string>

@@ -77,6 +77,9 @@
       <Component Id="etqw.dll">
         <File Source="$(var.SourceDir)\release\plugins\etqw.dll" KeyPath="yes" />
       </Component>
+      <Component Id="ffxiv.dll">
+        <File Source="$(var.SourceDir)\release\plugins\ffxiv.dll" KeyPath="yes" />
+      </Component>
       <Component Id="gmod.dll">
         <File Source="$(var.SourceDir)\release\plugins\gmod.dll" KeyPath="yes" />
       </Component>
@@ -145,6 +148,9 @@
         <Component Id="bf4.dll">
           <File Source="$(var.SourceDir)\release\plugins\bf4.dll" KeyPath="yes" />
         </Component>
+        <Component Id="ffxiv_x64.dll">
+          <File Source="$(var.SourceDir)\release\plugins\ffxiv_x64.dll" KeyPath="yes" />
+        </Component>
         <Component Id="gtav.dll">
           <File Source="$(var.SourceDir)\release\plugins\gtav.dll" KeyPath="yes" />
         </Component>
@@ -179,6 +185,7 @@
       <ComponentRef Id="dods.dll" />
       <ComponentRef Id="dys.dll" />
       <ComponentRef Id="etqw.dll" />
+      <ComponentRef Id="ffxiv.dll" />
       <ComponentRef Id="gmod.dll" />
       <ComponentRef Id="gtaiv.dll" />
       <ComponentRef Id="gw.dll" />
@@ -203,6 +210,7 @@
       <?if $(sys.BUILDARCH) = "x64" ?>
         <ComponentRef Id="bf1.dll" />
         <ComponentRef Id="bf4.dll" />
+        <ComponentRef Id="ffxiv_x64.dll" />
         <ComponentRef Id="gtav.dll" />
         <ComponentRef Id="wow_x64.dll" />
       <?endif ?>
