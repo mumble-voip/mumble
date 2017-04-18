@@ -121,6 +121,7 @@ void InitializePlutoSettings()
 	g.s.bAskOnQuit = false;
 	g.s.iQuality = 72000;
 	g.s.iMinLoudness = 2250;
+	g.s.iOutputDelay = 1;
 	g.s.fVolume = 1;
 	g.s.fOtherVolume = 0.35;
 	g.s.iNoiseSuppress = -30;
@@ -579,6 +580,7 @@ int main(int argc, char **argv) {
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
 #ifdef PLUTOVR_BUILD
+//	g.l->log(Log::Information, MainWindow::tr("g.s.iOutputDelay is %1").arg(g.s.iOutputDelay));
 	qWarning().nospace() << " vsVAD " << g.s.vsVAD << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
