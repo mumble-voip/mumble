@@ -20,6 +20,7 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
+#include "PathListWidget.h"
 
 #ifdef Q_OS_WIN
 #include "../../overlay/overlay_launchers.h"
@@ -147,6 +148,8 @@ OverlayConfig::OverlayConfig(Settings &st) :
 		qgtiInstructions(NULL),
 		fViewScale(1.0f) {
 	setupUi(this);
+
+	qlwPaths->setPathType(PathListWidget::FOLDER);
 
 	qcbOverlayExclusionMode->insertItem(static_cast<int>(OverlaySettings::LauncherFilterExclusionMode), tr("Launcher Filter"));
 	qcbOverlayExclusionMode->insertItem(static_cast<int>(OverlaySettings::WhitelistExclusionMode), tr("Whitelist"));
