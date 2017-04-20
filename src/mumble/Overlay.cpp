@@ -44,10 +44,12 @@ QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 		}
 	}
 
-	if (data)
+	if (data) {
 		CFRelease(data);
-	if (plist)
+	}
+	if (plist) {
 		CFRelease(plist);
+	}
 
 	return qsIdentifier;
 #else
@@ -85,21 +87,26 @@ OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 					CFStringGetCString(iconFileName, buf, 4096, kCFStringEncodingUTF8);
 					QString qsIconPath = QString::fromLatin1("%1/Contents/Resources/%2")
 					                     .arg(qsBundlePath, QString::fromUtf8(buf));
-					if (! QFile::exists(qsIconPath))
+					if (! QFile::exists(qsIconPath)) {
 						qsIconPath += QString::fromLatin1(".icns");
-					if (QFile::exists(qsIconPath))
+					}
+					if (QFile::exists(qsIconPath)) {
 						qiAppIcon = QIcon(qsIconPath);
+					}
 				}
 			}
 		}
 	}
 
-	if (bundleId)
+	if (bundleId) {
 		CFRelease(bundleId);
-	if (bundleUrl)
+	}
+	if (bundleUrl) {
 		CFRelease(bundleUrl);
-	if (bundle)
+	}
+	if (bundle) {
 		CFRelease(bundle);
+	}
 
 #elif defined(Q_OS_WIN)
 	// qWinAppInst(), whose return value we used to pass
