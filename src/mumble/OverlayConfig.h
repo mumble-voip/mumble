@@ -26,6 +26,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void refreshFpsDemo();
 		void refreshFpsLive();
 		void refreshTimeLive();
+		void addWhitelistPath(const QString & path);
 	protected:
 		QPixmap qpScreen;
 		QGraphicsPixmapItem *qgpiScreen;

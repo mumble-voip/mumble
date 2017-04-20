@@ -631,6 +631,20 @@ void OverlayConfig::on_qlwWhitelist_itemSelectionChanged() {
 	}
 }
 
+void OverlayConfig::addWhitelistPath(const QString &path) {
+	QString qsAppIdentifier = OverlayAppInfo::applicationIdentifierForPath(path);
+	QListWidget *sel = qlwWhitelist;
+	QStringList qslIdentifiers;
+	for (int i = 0; i < sel->count(); i++)
+		qslIdentifiers << sel->item(i)->data(Qt::UserRole).toString();
+	if (! qslIdentifiers.contains(qsAppIdentifier)) {
+		OverlayAppInfo oai = OverlayAppInfo::applicationInfoForId(qsAppIdentifier);
+		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, sel);
+		qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
+		sel->setCurrentItem(qlwiApplication);
+	}
+}
+
 void OverlayConfig::on_qpbWhitelistAdd_clicked() {
 #if defined(Q_OS_WIN)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
@@ -641,17 +655,7 @@ void OverlayConfig::on_qpbWhitelistAdd_clicked() {
 #endif
 
 	if (! file.isEmpty()) {
-		QString qsAppIdentifier = OverlayAppInfo::applicationIdentifierForPath(path);
-		QListWidget *sel = qlwWhitelist;
-		QStringList qslIdentifiers;
-		for (int i = 0; i < sel->count(); i++)
-			qslIdentifiers << sel->item(i)->data(Qt::UserRole).toString();
-		if (! qslIdentifiers.contains(qsAppIdentifier)) {
-			OverlayAppInfo oai = OverlayAppInfo::applicationInfoForId(qsAppIdentifier);
-			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, sel);
-			qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
-			sel->setCurrentItem(qlwiApplication);
-		}
+		addWhitelistPath(file);
 	}
 }
 
