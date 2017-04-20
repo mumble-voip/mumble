@@ -139,7 +139,8 @@ HEADERS *= BanEditor.h \
     OverlayPositionableItem.h \
     widgets/MUComboBox.h \
     DeveloperConsole.h \
-    EnvUtils.h
+    EnvUtils.h \
+    PathListWidget.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -206,7 +207,8 @@ SOURCES *= BanEditor.cpp \
     OverlayPositionableItem.cpp \
     widgets/MUComboBox.cpp \
     DeveloperConsole.cpp \
-    EnvUtils.cpp
+    EnvUtils.cpp \
+    PathListWidget.cpp
 
 CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp
