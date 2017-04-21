@@ -80,6 +80,9 @@ void ServerDB::loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query) {
 }
 
 ServerDB::ServerDB() {
+	if (Meta::mp.qsDBDriver != QLatin1String("QMYSQL") && Meta::mp.qsDBDriver != QLatin1String("QSQLITE")  && Meta::mp.qsDBDriver != QLatin1String("QPSQL")) {
+		qFatal("ServerDB: invalid DB driver specified: '%s'. Murmur only supports QSQLITE, QMYSQL, and QPSQL.", qPrintable(Meta::mp.qsDBDriver));
+	}
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
