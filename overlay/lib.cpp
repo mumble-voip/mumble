@@ -662,8 +662,6 @@ static void dllmainThreadAttach() {
 }
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-	BOOL status = TRUE;
-
 	char procname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
 	GetModuleFileNameA(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
 	// Fix for windows XP; on length nSize does not include null-termination
@@ -673,10 +671,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH: {
 			ods("Lib: ProcAttach: %s", procname);
-			bool shouldAttach = dllmainProcAttach(procname);
-			if (!shouldAttach) {
-				status = FALSE;
-			}
+			dllmainProcAttach(procname);
 			break;
 		}
 		case DLL_PROCESS_DETACH:
@@ -691,7 +686,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 			break;
 	}
 
-	return status;
+	return TRUE;
 }
 
 bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
