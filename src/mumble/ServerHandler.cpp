@@ -814,7 +814,7 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 	sendMessage(mpus);
 
 	if (! texture.isEmpty()) {
-		Database::setBlob(sha1(texture), texture);
+		Database::setBlob(namedSha256(texture), texture);
 	}
 }
 

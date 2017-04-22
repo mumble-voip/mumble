@@ -98,4 +98,19 @@ inline QByteArray sha1(const QString &str) {
 	return QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Sha1);
 }
 
+/// namedSha256 returns a named SHA-256 hash of blob in
+/// the form of "sha256:<hash-value>".
+inline QByteArray namedSha256(const QByteArray &blob) {
+	QByteArray ret("sha256:");
+	QByteArray hash = QCryptographicHash::hash(blob, QCryptographicHash::Sha256);
+	ret.append(hash);
+	return ret;
+}
+
+/// namedSha256 returns a named SHA-256 hash of str in
+/// the form of "sha256:<hash-value>".
+inline QByteArray namedSha256(const QString &str) {
+	return namedSha256(str.toUtf8());
+}
+
 #endif

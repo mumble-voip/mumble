@@ -528,7 +528,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (pDst->qbaTexture.isEmpty()) {
 			pDst->qbaTextureHash = QByteArray();
 		} else {
-			pDst->qbaTextureHash = sha1(pDst->qbaTexture);
+			pDst->qbaTextureHash = namedSha256(pDst->qbaTexture);
 			Database::setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
 		}
 		g.o->verifyTexture(pDst);
