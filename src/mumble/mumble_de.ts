@@ -2541,7 +2541,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Import. Fehlendes Passwort oder inkompatibler Dateityp.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -4614,7 +4614,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>User ziehen</translation>
     </message>
     <message>
         <location/>
@@ -6807,12 +6807,12 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Status</translation>
     </message>
     <message>
         <location/>
         <source>Linked</source>
-        <translation type="unfinished"/>
+        <translation>Verlinkt</translation>
     </message>
     <message>
         <location/>
@@ -7932,7 +7932,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location filename="ServerHandler.cpp" line="+397"/>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>Server antwortet nicht auf TCP Pings</translation>
     </message>
     <message>
         <location line="+84"/>
