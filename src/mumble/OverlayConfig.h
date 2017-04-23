@@ -26,6 +26,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void refreshFpsDemo();
 		void refreshFpsLive();
 		void refreshTimeLive();
+		void addWhitelistPath(const QString & path);
 	protected:
 		QPixmap qpScreen;
 		QGraphicsPixmapItem *qgpiScreen;
@@ -53,9 +54,6 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void showCertificates();
 
 		void updateOverlayExclusionModeState();
-
-		QString applicationIdentifierForPath(const QString &path);
-		OverlayAppInfo applicationInfoForId(const QString &identifier);
 	protected slots:
 		void on_qpbInstall_clicked();
 		void on_qpbUninstall_clicked();

@@ -28,9 +28,13 @@ class OverlayClient;
 class OverlayConfig;
 
 struct OverlayAppInfo {
+	static QString applicationIdentifierForPath(const QString &path);
+	static OverlayAppInfo applicationInfoForId(const QString &identifier);
+
 	QString qsDisplayName;
 	QIcon qiIcon;
 
+private:
 	OverlayAppInfo(QString name, QIcon icon = QIcon());
 };
 
