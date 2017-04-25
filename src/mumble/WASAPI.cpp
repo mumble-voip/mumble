@@ -288,7 +288,6 @@ WASAPIInput::~WASAPIInput() {
 static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFlow, ERole role) {
 	HRESULT hr;
 	IMMDeviceEnumerator *pEnumerator = NULL;
-	IMMDevice *pDevice = NULL;
 
 	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 	if (!pEnumerator || FAILED(hr)) {
@@ -296,6 +295,7 @@ static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFl
 		return NULL;
 	}
 
+	IMMDevice *pDevice = NULL;
 	// Try to find a device pointer for |name|.
 	if (!name.isEmpty()) {
 		STACKVAR(wchar_t, devname, name.length() + 1);
