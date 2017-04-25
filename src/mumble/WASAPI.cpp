@@ -1065,7 +1065,9 @@ cleanup:
 	if (pwfx)
 		CoTaskMemFree(pwfx);
 
-	setVolumes(pDevice, false);
+	if (pDevice) {
+		setVolumes(pDevice, false);
+	}
 
 	if (pAudioClient) {
 		pAudioClient->Stop();
