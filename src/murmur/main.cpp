@@ -205,6 +205,9 @@ int main(int argc, char **argv) {
 #endif
 
 #ifdef Q_OS_WIN
+	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
+	// should contain bin\\, and the path to the config is hardcoded as ..\etc
+
 	{
 		size_t reqSize;
 		_wgetenv_s(&reqSize, NULL, 0, L"PATH");
