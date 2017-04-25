@@ -210,14 +210,20 @@ int main(int argc, char **argv) {
 
 	{
 		size_t reqSize;
-		_wgetenv_s(&reqSize, NULL, 0, L"PATH");
-		if (reqSize > 0) {
+		if (_wgetenv_s(&reqSize, NULL, 0, L"PATH") != 0) {
+			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
+		} else if (reqSize > 0) {
 			STACKVAR(wchar_t, buff, reqSize+1);
-			_wgetenv_s(&reqSize, buff, reqSize, L"PATH");
-			QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
-			STACKVAR(wchar_t, buffout, path.length() + 1);
-			path.toWCharArray(buffout);
-			_wputenv_s(L"PATH", buffout);
+			if (_wgetenv_s(&reqSize, buff, reqSize, L"PATH") != 0) {
+				qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
+			} else {
+				QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
+				STACKVAR(wchar_t, buffout, path.length() + 1);
+				path.toWCharArray(buffout);
+				if (_wputenv_s(L"PATH", buffout) != 0) {
+					qWarning() << "Failed to set PATH. DBus bindings may not work.";
+				}
+			}
 		}
 	}
 #endif
