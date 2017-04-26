@@ -69,6 +69,21 @@ Remove all log entries from database.
 .TP
 .B \-version, \-\-version
 Show version information.
+.SH SIGNALS
+.TP
+.BR SIGHUP
+Perform a log rotation.
+This causes murmurd to re-open its log file.
+.TP
+.BR SIGUSR1
+Gracefully reload the TLS settings specified in murmur.ini without interrupting service.
+
+When this signal is received, Murmur will apply the new TLS settings (certificate,
+private key, and Diffie-Hellman parameters) to all virtual servers that use the TLS settings
+from murmur.ini.
+
+Virtual servers that have overridden the settings from murmur.ini will not
+be affected by this signal. Those servers can be updated using the updateCertificate RPC call.
 .SH SEE ALSO
 .BR mumble (1),
 .BR murmur\-user\-wrapper (1).
