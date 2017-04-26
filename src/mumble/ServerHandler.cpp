@@ -788,7 +788,10 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 		qir.setDevice(&qb);
 
 		QSize sz = qir.size();
-		sz.scale(600, 60, Qt::KeepAspectRatio);
+		const int TEX_MAX_WIDTH = 600;
+		const int TEX_MAX_HEIGHT = 60;
+		const int TEX_RGBA_SIZE = TEX_MAX_WIDTH*TEX_MAX_HEIGHT*4;
+		sz.scale(TEX_MAX_WIDTH, TEX_MAX_HEIGHT, Qt::KeepAspectRatio);
 		qir.setScaledSize(sz);
 
 		QImage tex = qir.read();
@@ -796,8 +799,8 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 			return;
 		}
 
-		raw = QByteArray(600*60*4, 0);
-		QImage img(reinterpret_cast<unsigned char *>(raw.data()), 600, 60, QImage::Format_ARGB32);
+		raw = QByteArray(TEX_RGBA_SIZE, 0);
+		QImage img(reinterpret_cast<unsigned char *>(raw.data()), TEX_MAX_WIDTH, TEX_MAX_HEIGHT, QImage::Format_ARGB32);
 
 		QPainter imgp(&img);
 		imgp.setRenderHint(QPainter::Antialiasing);
@@ -805,7 +808,7 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 		imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		imgp.drawImage(0, 0, tex);
 
-		texture = qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4));
+		texture = qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), TEX_RGBA_SIZE));
 	}
 
 	MumbleProto::UserState mpus;

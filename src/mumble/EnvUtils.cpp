@@ -17,14 +17,18 @@ QString EnvUtils::getenv(QString name) {
 	const wchar_t *wname = reinterpret_cast<const wchar_t *>(name.utf16());
 
 	// Query the required buffer size (in elements).
-	_wgetenv_s(&requiredSize, 0, 0, wname);
+	if (_wgetenv_s(&requiredSize, 0, 0, wname) != 0) {
+		return QString();
+	}
 	if (requiredSize == 0) {
 		return QString();
 	}
 
 	// Resize buf to fit the value and put it there.
 	buf.resize(static_cast<int>(requiredSize * sizeof(wchar_t)));
-	_wgetenv_s(&requiredSize, reinterpret_cast<wchar_t *>(buf.data()), requiredSize, wname);
+	if (_wgetenv_s(&requiredSize, reinterpret_cast<wchar_t *>(buf.data()), requiredSize, wname) != 0) {
+		return QString();
+	}
 
 	// Convert the value to QString and return it.
 	const wchar_t *wbuf = reinterpret_cast<const wchar_t *>(buf.constData());
