@@ -93,8 +93,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 #endif
 			urls = decodeMimeString(source->data(QLatin1String("text/uri-list"))).split(newline);
 		if (! urls.isEmpty())
-			uri = urls.at(0);
-		uri = urls.at(0).trimmed();
+			uri = urls.at(0).trimmed();
 	}
 
 	if (uri.isEmpty()) {
@@ -538,8 +537,6 @@ static bool unduplicateTags(QXmlStreamReader &reader, QXmlStreamWriter &writer) 
 						qlNames.takeLast();
 						qlAttributes.takeLast();
 						writer.writeCurrentToken(reader);
-					} else {
-						needclose = true;
 					}
 					needclose = true;
 				}

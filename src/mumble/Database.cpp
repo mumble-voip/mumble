@@ -220,7 +220,7 @@ bool Database::isLocalIgnored(const QString &hash) {
 	query.prepare(QLatin1String("SELECT `hash` FROM `ignored` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
-	while (query.next()) {
+	if (query.next()) {
 		return true;
 	}
 	return false;
@@ -243,7 +243,7 @@ bool Database::isLocalMuted(const QString &hash) {
 	query.prepare(QLatin1String("SELECT `hash` FROM `muted` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
-	while (query.next()) {
+	if (query.next()) {
 		return true;
 	}
 	return false;
@@ -289,7 +289,7 @@ bool Database::isChannelFiltered(const QByteArray &server_cert_digest, const int
 	query.addBindValue(channel_id);
 	execQueryAndLogFailure(query);
 
-	while (query.next()) {
+	if (query.next()) {
 		return true;
 	}
 	return false;

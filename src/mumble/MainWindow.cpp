@@ -2376,9 +2376,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
-	QDialog *dlg = NULL;
-	if (! dlg)
-		dlg = new ConfigDialog(this);
+	QDialog *dlg = new ConfigDialog(this);
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
