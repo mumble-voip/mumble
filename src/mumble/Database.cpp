@@ -220,10 +220,7 @@ bool Database::isLocalIgnored(const QString &hash) {
 	query.prepare(QLatin1String("SELECT `hash` FROM `ignored` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
-	while (query.next()) {
-		return true;
-	}
-	return false;
+	return query.next();
 }
 
 void Database::setLocalIgnored(const QString &hash, bool ignored) {
@@ -243,10 +240,7 @@ bool Database::isLocalMuted(const QString &hash) {
 	query.prepare(QLatin1String("SELECT `hash` FROM `muted` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
-	while (query.next()) {
-		return true;
-	}
-	return false;
+	return query.next();
 }
 
 void Database::setUserLocalVolume(const QString &hash, float volume) {
@@ -289,10 +283,7 @@ bool Database::isChannelFiltered(const QByteArray &server_cert_digest, const int
 	query.addBindValue(channel_id);
 	execQueryAndLogFailure(query);
 
-	while (query.next()) {
-		return true;
-	}
-	return false;
+	return query.next();
 }
 
 void Database::setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, const bool hidden) {

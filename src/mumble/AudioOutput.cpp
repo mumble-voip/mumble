@@ -503,12 +503,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					}
 
 					if (!recorder->isInMixDownMode()) {
-						if (aos) {
-							recorder->addBuffer(aos->p, recbuff, nsamp);
-						} else {
-							// this should be unreachable
-							Q_ASSERT(false);
-						}
+						recorder->addBuffer(aos->p, recbuff, nsamp);
 						recbuff = boost::shared_array<float>(new float[nsamp]);
 						memset(recbuff.get(), 0, sizeof(float) * nsamp);
 					}
