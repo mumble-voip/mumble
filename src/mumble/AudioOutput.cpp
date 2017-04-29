@@ -496,7 +496,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 			if (recorder) {
 				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
-				Q_ASSERT(aos != nullptr);
 
 				if (aos) {
 					for (unsigned int i = 0; i < nsamp; ++i) {
