@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
 	a.setWindowIcon(icon);
 #else
 #ifndef Q_OS_MAC
-	setenv("AVAHI_COMPAT_NOWARN", "1", 1);
+	EnvUtils::setenv(QLatin1String("AVAHI_COMPAT_NOWARN"), QLatin1String("1"));
 #endif
 	QCoreApplication a(argc, argv);
 	UnixMurmur unixhandler;
@@ -215,9 +215,7 @@ int main(int argc, char **argv) {
 			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
 		} else {
 			QString newPath = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(path);
-			STACKVAR(wchar_t, buffout, newPath.length() + 1);
-			newPath.toWCharArray(buffout);
-			if (_wputenv_s(L"PATH", buffout) != 0) {
+			if (!EnvUtils::setenv(QLatin1String("PATH"), newPath)) {
 				qWarning() << "Failed to set PATH. DBus bindings may not work.";
 			}
 		}
