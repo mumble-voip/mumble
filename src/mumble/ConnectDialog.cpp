@@ -13,6 +13,7 @@
 #include "BonjourServiceResolver.h"
 #endif
 
+#include <QFileInfo>
 #include "Channel.h"
 #include "Database.h"
 #include "Global.h"
