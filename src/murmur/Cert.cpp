@@ -10,6 +10,22 @@
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
+static BN_GENCB *mumble_BN_GENCB_new() {
+#if OPENSSL_VERSION >= 0x10100000L
+	return BN_GENCB_new();
+#else
+	return reinterpret_cast<BN_GENCB *>(malloc(sizeof(BN_GENCB)));
+#endif
+}
+
+static void mumble_BN_GENCB_free(BN_GENCB *cb) {
+#if OPENSSL_VERSION >= 0x10100000L
+	BN_GENCB_free(cb);
+#else
+	free(cb);
+#endif
+}
+
 static int add_ext(X509 * crt, int nid, char *value) {
 	X509_EXTENSION *ex;
 	X509V3_CTX ctx;
@@ -251,10 +267,9 @@ void Server::initializeCert() {
 		// for Murmur on Windows. We don't show the actual status,
 		// but we do it to keep Murmur on Windows responsive while
 		// generating the parameters.
-		BN_GENCB cb;
-		memset(&cb, 0, sizeof(BN_GENCB));
-		BN_GENCB_set(&cb, dh_progress, NULL);
-		if (DH_generate_parameters_ex(dh, 2048, 2, &cb) == 0) {
+		BN_GENCB *cb = mumble_BN_GENCB_new();
+		BN_GENCB_set(cb, dh_progress, NULL);
+		if (DH_generate_parameters_ex(dh, 2048, 2, cb) == 0) {
 			qFatal("DH_generate_parameters_ex failed: unable to generate Diffie-Hellman parameters for virtual server");
 		}
 
@@ -279,6 +294,7 @@ void Server::initializeCert() {
 		setConf("sslDHParams", pemdh);
 
 		BIO_free(mem);
+		mumble_BN_GENCB_free(cb);
 		DH_free(dh);
 	}
 #endif
