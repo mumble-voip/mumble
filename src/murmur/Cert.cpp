@@ -69,32 +69,50 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	EVP_PKEY_assign_RSA(pkey, rsa);
+	if (EVP_PKEY_assign_RSA(pkey, rsa) == 0) {
+		ok = false;
+		goto out;
+	}
 
-	X509_set_version(x509, 2);
+	if (X509_set_version(x509, 2) == 0) {
+		ok = false;
+		goto out;
+	}
 
 	serialNumber = X509_get_serialNumber(x509);
 	if (serialNumber == NULL) {
 		ok = false;
 		goto out;
 	}
-	ASN1_INTEGER_set(serialNumber, 1);
+	if (ASN1_INTEGER_set(serialNumber, 1) == 0) {
+		ok = false;
+		goto out;
+	}
 
 	notBefore = X509_get_notBefore(x509);
 	if (notBefore == NULL) {
 		ok = false;
 		goto out;
 	}
-	X509_gmtime_adj(notBefore, 0);
+	if (X509_gmtime_adj(notBefore, 0) == NULL) {
+		ok = false;
+		goto out;
+	}
 
 	notAfter = X509_get_notAfter(x509);
 	if (notAfter == NULL) {
 		ok = false;
 		goto out;
 	}
-	X509_gmtime_adj(notAfter, 60*60*24*365*20);
+	if (X509_gmtime_adj(notAfter, 60*60*24*365*20) == NULL) {
+		ok = false;
+		goto out;
+	}
 
-	X509_set_pubkey(x509, pkey);
+	if (X509_set_pubkey(x509, pkey) == 0) {
+		ok = false;
+		goto out;
+	}
 
 	X509_NAME *name=X509_get_subject_name(x509);
 
