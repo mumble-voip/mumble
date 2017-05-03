@@ -154,7 +154,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	if (ok) {
+	{
 		QByteArray crt;
 		int len = i2d_X509(x509, NULL);
 		if (len <= 0) {
@@ -172,10 +172,11 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		qscCert = QSslCertificate(crt, QSsl::Der);
 		if (qscCert.isNull()) {
 			ok = false;
+			goto out;
 		}
 	}
 
-	if (ok) {
+	{
 		QByteArray key;
 		int len = i2d_PrivateKey(pkey, NULL);
 		if (len <= 0) {
@@ -193,6 +194,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
 		if (qskKey.isNull()) {
 			ok = false;
+			goto out;
 		}
 	}
 
