@@ -42,12 +42,15 @@ static int add_ext(X509 * crt, int nid, char *value) {
 
 static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey &qskKey) {
 	bool ok = true;
+	X509 *x509 = NULL;
+	EVP_PKEY *pkey = NULL;
+	RSA *rsa = NULL;
 
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
 
-	X509 *x509 = X509_new();
-	EVP_PKEY *pkey = EVP_PKEY_new();
-	RSA *rsa = RSA_generate_key(2048,RSA_F4,NULL,NULL);
+	x509 = X509_new();
+	pkey = EVP_PKEY_new();
+	rsa = RSA_generate_key(2048,RSA_F4,NULL,NULL);
 	EVP_PKEY_assign_RSA(pkey, rsa);
 
 	X509_set_version(x509, 2);
