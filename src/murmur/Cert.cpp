@@ -49,8 +49,23 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
 
 	x509 = X509_new();
+	if (x509 == NULL) {
+		ok = false;
+		goto out;
+	}
+
 	pkey = EVP_PKEY_new();
+	if (pkey == NULL) {
+		ok = false;
+		goto out;
+	}
+
 	rsa = RSA_generate_key(2048,RSA_F4,NULL,NULL);
+	if (rsa == NULL) {
+		ok = false;
+		goto out;
+	}
+
 	EVP_PKEY_assign_RSA(pkey, rsa);
 
 	X509_set_version(x509, 2);
@@ -95,6 +110,16 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	}
 
 out:
+	if (rsa) {
+		RSA_free(rsa);
+	}
+	if (pkey) {
+		EVP_PKEY_free(pkey);
+	}
+	if (x509) {
+		X509_free(x509);
+	}
+
 	if (!ok) {
 		qscCert = QSslCertificate();
 		qskKey = QSslKey();
