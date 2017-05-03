@@ -94,6 +94,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		}
 	}
 
+out:
 	if (!ok) {
 		qscCert = QSslCertificate();
 		qskKey = QSslKey();
