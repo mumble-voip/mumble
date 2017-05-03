@@ -109,9 +109,18 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 
 	{
 		QByteArray crt;
-		crt.resize(i2d_X509(x509, NULL));
+		int len = i2d_X509(x509, NULL);
+		if (len <= 0) {
+			ok = false;
+			goto out;
+		}
+		crt.resize(len);
+
 		unsigned char *dptr=reinterpret_cast<unsigned char *>(crt.data());
-		i2d_X509(x509, &dptr);
+		if (i2d_X509(x509, &dptr) != len) {
+			ok = false;
+			goto out;
+		}
 
 		qscCert = QSslCertificate(crt, QSsl::Der);
 		if (qscCert.isNull()) {
@@ -121,9 +130,18 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 
 	{
 		QByteArray key;
-		key.resize(i2d_PrivateKey(pkey, NULL));
+		int len = i2d_PrivateKey(pkey, NULL);
+		if (len <= 0) {
+			ok = false;
+			goto out;
+		}
+		key.resize(len);
+
 		unsigned char *dptr=reinterpret_cast<unsigned char *>(key.data());
-		i2d_PrivateKey(pkey, &dptr);
+		if (i2d_PrivateKey(pkey, &dptr) != len) {
+			ok = false;
+			goto out;
+		}
 
 		qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
 		if (qskKey.isNull()) {
