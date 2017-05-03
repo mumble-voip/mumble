@@ -44,7 +44,10 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	EVP_PKEY *pkey = NULL;
 	RSA *rsa = NULL;
 
-	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
+	if (CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON) == -1) {
+		ok = false;
+		goto out;
+	}
 
 	x509 = X509_new();
 	if (x509 == NULL) {
