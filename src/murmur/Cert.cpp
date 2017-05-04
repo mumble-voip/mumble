@@ -27,15 +27,20 @@ static void mumble_BN_GENCB_free(BN_GENCB *cb) {
 }
 
 static int add_ext(X509 * crt, int nid, char *value) {
-	X509_EXTENSION *ex;
 	X509V3_CTX ctx;
 	X509V3_set_ctx_nodb(&ctx);
 	X509V3_set_ctx(&ctx, crt, crt, NULL, NULL, 0);
-	ex = X509V3_EXT_conf_nid(NULL, &ctx, nid, value);
-	if (!ex)
-		return 0;
 
-	X509_add_ext(crt, ex, -1);
+	X509_EXTENSION *ex = X509V3_EXT_conf_nid(NULL, &ctx, nid, value);
+	if (ex == NULL) {
+		return 0;
+	}
+
+	if (X509_add_ext(crt, ex, -1) == 0) {
+		X509_EXTENSION_free(ex);
+		return 0;
+	}
+
 	X509_EXTENSION_free(ex);
 	return 1;
 }
