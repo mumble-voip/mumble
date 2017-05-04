@@ -61,7 +61,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	}
 
 	pkey = EVP_PKEY_new();
-	if (pkey = NULL) {
+	if (pkey == NULL) {
 		ok = false;
 		goto out;
 	}
