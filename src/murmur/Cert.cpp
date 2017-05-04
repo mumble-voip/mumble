@@ -72,7 +72,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	rsa = RSA_generate_key(2048,RSA_F4,NULL,NULL);
+	rsa = RSA_generate_key(2048, RSA_F4, NULL, NULL);
 	if (rsa == NULL) {
 		ok = false;
 		goto out;
@@ -123,7 +123,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	X509_NAME *name=X509_get_subject_name(x509);
+	X509_NAME *name = X509_get_subject_name(x509);
 	if (name == NULL) {
 		ok = false;
 		goto out;
@@ -174,7 +174,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		}
 		crt.resize(len);
 
-		unsigned char *dptr=reinterpret_cast<unsigned char *>(crt.data());
+		unsigned char *dptr = reinterpret_cast<unsigned char *>(crt.data());
 		if (i2d_X509(x509, &dptr) != len) {
 			ok = false;
 			goto out;
