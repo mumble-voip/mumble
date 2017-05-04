@@ -50,6 +50,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	X509 *x509 = NULL;
 	EVP_PKEY *pkey = NULL;
 	RSA *rsa = NULL;
+	BIGNUM *e = NULL;
 	ASN1_INTEGER *serialNumber = NULL;
 	ASN1_TIME *notBefore = NULL;
 	ASN1_TIME *notAfter = NULL;
@@ -72,8 +73,23 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	rsa = RSA_generate_key(2048, RSA_F4, NULL, NULL);
+	rsa = RSA_new();
 	if (rsa == NULL) {
+		ok = false;
+		goto out;
+	}
+
+	e = BN_new();
+	if (e == NULL) {
+		ok = false;
+		goto out;
+	}
+	if (BN_set_word(e, 65537) == 0) {
+		ok = false;
+		goto out;
+	}
+
+	if (RSA_generate_key_ex(rsa, 2048, e, NULL) == 0) {
 		ok = false;
 		goto out;
 	}
@@ -210,6 +226,9 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 out:
 	if (rsa) {
 		RSA_free(rsa);
+	}
+	if (e) {
+		BN_free(e);
 	}
 	if (pkey) {
 		EVP_PKEY_free(pkey);
