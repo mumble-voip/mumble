@@ -21,6 +21,8 @@ class TextToSpeechPrivate {
 #ifdef USE_SPEECHD
 	protected:
 		SPDConnection *spd;
+		bool initialized;
+		void ensureInitialized();
 #endif
 	public:
 		TextToSpeechPrivate();
@@ -31,6 +33,22 @@ class TextToSpeechPrivate {
 
 #ifdef USE_SPEECHD
 TextToSpeechPrivate::TextToSpeechPrivate() {
+	initialized = false;
+	spd = NULL;
+}
+
+TextToSpeechPrivate::~TextToSpeechPrivate() {
+	if (spd) {
+		spd_close(spd);
+		spd = NULL;
+	}
+}
+
+void TextToSpeechPrivate::ensureInitialized() {
+	if (initialized) {
+		return;
+	}
+
 	spd = spd_open("Mumble", NULL, NULL, SPD_MODE_THREADED);
 	if (! spd) {
 		qWarning("TextToSpeech: Failed to contact speech dispatcher.");
@@ -56,21 +74,20 @@ TextToSpeechPrivate::TextToSpeechPrivate() {
 		if (spd_set_spelling(spd, SPD_SPELL_ON) != 0)
 			qWarning("TextToSpeech: Failed to set spelling mode.");
 	}
-}
 
-TextToSpeechPrivate::~TextToSpeechPrivate() {
-	if (spd) {
-		spd_close(spd);
-		spd = NULL;
-	}
+	initialized = true;
 }
 
 void TextToSpeechPrivate::say(const QString &txt) {
+	ensureInitialized();
+
 	if (spd)
 		spd_say(spd, SPD_MESSAGE, txt.toUtf8());
 }
 
 void TextToSpeechPrivate::setVolume(int vol) {
+	ensureInitialized();
+
 	if (spd)
 		spd_set_volume(spd, vol * 2 - 100);
 }
