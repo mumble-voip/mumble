@@ -51,6 +51,10 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	EVP_PKEY *pkey = NULL;
 	RSA *rsa = NULL;
 	BIGNUM *e = NULL;
+	ASN1_INTEGER *serialNumber = NULL;
+	ASN1_TIME *notBefore = NULL;
+	ASN1_TIME *notAfter = NULL;
+	X509_NAME *name = NULL;
 	unsigned char *commonName = NULL;
 
 	if (CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON) == -1) {
@@ -101,7 +105,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	ASN1_INTEGER *serialNumber = X509_get_serialNumber(x509);
+	serialNumber = X509_get_serialNumber(x509);
 	if (serialNumber == NULL) {
 		ok = false;
 		goto out;
@@ -111,7 +115,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	ASN1_TIME *notBefore = X509_get_notBefore(x509);
+	notBefore = X509_get_notBefore(x509);
 	if (notBefore == NULL) {
 		ok = false;
 		goto out;
@@ -121,7 +125,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	ASN1_TIME *notAfter = X509_get_notAfter(x509);
+	notAfter = X509_get_notAfter(x509);
 	if (notAfter == NULL) {
 		ok = false;
 		goto out;
@@ -136,7 +140,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	X509_NAME *name = X509_get_subject_name(x509);
+	name = X509_get_subject_name(x509);
 	if (name == NULL) {
 		ok = false;
 		goto out;
