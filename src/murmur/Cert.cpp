@@ -36,7 +36,7 @@ static int add_ext(X509 * crt, int nid, char *value) {
 		return 0;
 	}
 
-	if (X509_add_ext(crt, ex, -1) == NULL) {
+	if (X509_add_ext(crt, ex, -1) == 0) {
 		X509_EXTENSION_free(ex);
 		return 0;
 	}
