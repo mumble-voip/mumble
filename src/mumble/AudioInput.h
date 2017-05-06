@@ -142,6 +142,10 @@ class AudioInput : public QThread {
 		void doDeaf();
 		void doMute();
 	public:
+		typedef enum { ActivityStateIdle, ActivityStateReturnedFromIdle, ActivityStateActive } ActivityState;
+
+		ActivityState activityState;
+
 		bool bResetProcessor;
 
 		Timer tIdle;

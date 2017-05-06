@@ -78,6 +78,7 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 
 	umtType = MessageHandler::UDPVoiceCELTAlpha;
 
+	activityState = ActivityStateActive;
 	cCodec = NULL;
 	ceEncoder = NULL;
 
@@ -811,14 +812,24 @@ void AudioInput::encodeAudioFrame() {
 	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 
-		if (g.s.iaeIdleAction != Settings::Nothing && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {
-
+		if ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime) {
+			activityState = ActivityStateIdle;
+			tIdle.restart();
 			if (g.s.iaeIdleAction == Settings::Deafen && !g.s.bDeaf) {
-				tIdle.restart();
 				emit doDeaf();
 			} else if (g.s.iaeIdleAction == Settings::Mute && !g.s.bMute) {
-				tIdle.restart();
 				emit doMute();
+			}
+		}
+
+		if (activityState == ActivityStateReturnedFromIdle) {
+			activityState = ActivityStateActive;
+			if (g.s.iaeIdleAction != Settings::Nothing && g.s.bUndoIdleActionUponActivity) {
+				if (g.s.iaeIdleAction == Settings::Deafen && g.s.bDeaf) {
+					emit doDeaf();
+				} else if (g.s.iaeIdleAction == Settings::Mute && g.s.bMute) {
+					emit doMute();
+				}
 			}
 		}
 

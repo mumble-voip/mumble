@@ -244,6 +244,7 @@ Settings::Settings() {
 	// Idle auto actions
 	iIdleTime = 5 * 60;
 	iaeIdleAction = Nothing;
+	bUndoIdleActionUponActivity = false;
 
 	vsVAD = Amplitude;
 	fVADmin = 0.80f;
@@ -611,6 +612,7 @@ void Settings::load(QSettings* settings_ptr) {
 	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
 	LOADENUM(iaeIdleAction, "audio/idleaction");
+	SAVELOAD(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
 
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
@@ -938,6 +940,7 @@ void Settings::save() {
 	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
 	SAVELOAD(iaeIdleAction, "audio/idleaction");
+	SAVELOAD(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
 
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
