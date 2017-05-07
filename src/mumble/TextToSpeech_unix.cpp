@@ -21,6 +21,9 @@ class TextToSpeechPrivate {
 #ifdef USE_SPEECHD
 	protected:
 		SPDConnection *spd;
+		/// Used to store the requested volume of the TextToSpeech object
+		/// before speech-dispatcher has been initialized.
+		int volume;
 		bool initialized;
 		void ensureInitialized();
 #endif
@@ -34,6 +37,7 @@ class TextToSpeechPrivate {
 #ifdef USE_SPEECHD
 TextToSpeechPrivate::TextToSpeechPrivate() {
 	initialized = false;
+	volume = -1;
 	spd = NULL;
 }
 
@@ -76,6 +80,10 @@ void TextToSpeechPrivate::ensureInitialized() {
 	}
 
 	initialized = true;
+
+	if (volume != -1) {
+		setVolume(volume);
+	}
 }
 
 void TextToSpeechPrivate::say(const QString &txt) {
@@ -86,7 +94,10 @@ void TextToSpeechPrivate::say(const QString &txt) {
 }
 
 void TextToSpeechPrivate::setVolume(int vol) {
-	ensureInitialized();
+	if (!initialized) {
+		volume = vol;
+		return;
+	}
 
 	if (spd)
 		spd_set_volume(spd, vol * 2 - 100);
