@@ -45,6 +45,9 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	X509 *x509 = NULL;
 	EVP_PKEY *pkey = NULL;
 	RSA *rsa = NULL;
+	ASN1_INTEGER *serialNumber = NULL;
+	ASN1_TIME *notBefore = NULL;
+	ASN1_TIME *notAfter = NULL;
 
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
 
@@ -69,9 +72,28 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	EVP_PKEY_assign_RSA(pkey, rsa);
 
 	X509_set_version(x509, 2);
-	ASN1_INTEGER_set(X509_get_serialNumber(x509),1);
-	X509_gmtime_adj(X509_get_notBefore(x509),0);
-	X509_gmtime_adj(X509_get_notAfter(x509),60*60*24*365*20);
+
+	serialNumber = X509_get_serialNumber(x509);
+	if (serialNumber == NULL) {
+		ok = false;
+		goto out;
+	}
+	ASN1_INTEGER_set(serialNumber, 1);
+
+	notBefore = X509_get_notBefore(x509);
+	if (notBefore == NULL) {
+		ok = false;
+		goto out;
+	}
+	X509_gmtime_adj(notBefore, 0);
+
+	notAfter = X509_get_notAfter(x509);
+	if (notAfter == NULL) {
+		ok = false;
+		goto out;
+	}
+	X509_gmtime_adj(notAfter, 60*60*24*365*20);
+
 	X509_set_pubkey(x509, pkey);
 
 	X509_NAME *name=X509_get_subject_name(x509);
