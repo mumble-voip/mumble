@@ -24,7 +24,7 @@ DEFINES += QT_NO_OPENGL
 
 LANGUAGE = C++
 
-VPATH *= ../..
+VPATH *= ../.. ../../murmur ../../mumble
 INCLUDEPATH *= ../.. ../../murmur ../../mumble
 
 # We have to depend on OpenSSL in all tests
