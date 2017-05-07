@@ -25,6 +25,8 @@ static int add_ext(X509 * crt, int nid, char *value) {
 }
 
 static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey &qskKey) {
+	bool ok = true;
+
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
 
 	X509 *x509 = X509_new();
@@ -49,25 +51,36 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 
 	X509_sign(x509, pkey, EVP_sha1());
 
-	QByteArray crt;
-	crt.resize(i2d_X509(x509, NULL));
-	unsigned char *dptr=reinterpret_cast<unsigned char *>(crt.data());
-	i2d_X509(x509, &dptr);
+	{
+		QByteArray crt;
+		crt.resize(i2d_X509(x509, NULL));
+		unsigned char *dptr = reinterpret_cast<unsigned char *>(crt.data());
+		i2d_X509(x509, &dptr);
 
-	qscCert = QSslCertificate(crt, QSsl::Der);
-	if (qscCert.isNull())
-		return false;
+		qscCert = QSslCertificate(crt, QSsl::Der);
+		if (qscCert.isNull()) {
+			ok = false;
+		}
+	}
 
-	QByteArray key;
-	key.resize(i2d_PrivateKey(pkey, NULL));
-	dptr=reinterpret_cast<unsigned char *>(key.data());
-	i2d_PrivateKey(pkey, &dptr);
+	{
+		QByteArray key;
+		key.resize(i2d_PrivateKey(pkey, NULL));
+		unsigned char *dptr = reinterpret_cast<unsigned char *>(key.data());
+		i2d_PrivateKey(pkey, &dptr);
 
-	qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
-	if (qskKey.isNull())
-		return false;
+		qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
+		if (qskKey.isNull()) {
+			ok = false;
+		}
+	}
 
-	return true;
+	if (!ok) {
+		qscCert = QSslCertificate();
+		qskKey = QSslKey();
+	}
+
+	return ok;
 }
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
@@ -256,8 +269,6 @@ void Server::initializeCert() {
 
 			if (!selfSignedServerCert_SHA1_RSA_2048(qscCert, qskKey)) {
 				log("Certificate or key generation failed");
-				qscCert = QSslCertificate();
-				qskKey = QSslKey();
 			}
 
 			setConf("certificate", qscCert.toPem());
