@@ -34,6 +34,7 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	X509 *x509 = NULL;
 	EVP_PKEY *pkey = NULL;
 	RSA *rsa = NULL;
+	BIGNUM *e = NULL;
 	X509_NAME *name = NULL;
 	ASN1_INTEGER *serialNumber = NULL;
 	ASN1_TIME *notBefore = NULL;
@@ -57,8 +58,23 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 		goto out;
 	}
 
-	rsa = RSA_generate_key(2048,RSA_F4,NULL,NULL);
+	rsa = RSA_new();
 	if (rsa == NULL) {
+		ok = false;
+		goto out;
+	}
+
+	e = BN_new();
+	if (e == NULL) {
+		ok = false;
+		goto out;
+	}
+	if (BN_set_word(e, 65537) == 0) {
+		ok = false;
+		goto out;
+	}
+
+	if (RSA_generate_key_ex(rsa, 2048, e, NULL) == 0) {
 		ok = false;
 		goto out;
 	}
@@ -193,6 +209,9 @@ static bool selfSignedServerCert_SHA1_RSA_2048(QSslCertificate &qscCert, QSslKey
 	}
 
 out:
+	if (e) {
+		BN_free(e);
+	}
 	// We only need to free the pkey pointer,
 	// not the RSA pointer. We have assigned
 	// our RSA key to pkey, and it will be freed
