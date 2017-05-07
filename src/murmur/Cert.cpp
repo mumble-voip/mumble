@@ -10,6 +10,21 @@
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
+static int add_ext(X509 * crt, int nid, char *value) {
+	X509_EXTENSION *ex;
+	X509V3_CTX ctx;
+	X509V3_set_ctx_nodb(&ctx);
+	X509V3_set_ctx(&ctx, crt, crt, NULL, NULL, 0);
+	ex = X509V3_EXT_conf_nid(NULL, &ctx, nid, value);
+	if (!ex)
+		return 0;
+
+	X509_add_ext(crt, ex, -1);
+	X509_EXTENSION_free(ex);
+	return 1;
+}
+
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 static BN_GENCB *mumble_BN_GENCB_new() {
 #if OPENSSL_VERSION >= 0x10100000L
 	return BN_GENCB_new();
@@ -26,21 +41,6 @@ static void mumble_BN_GENCB_free(BN_GENCB *cb) {
 #endif
 }
 
-static int add_ext(X509 * crt, int nid, char *value) {
-	X509_EXTENSION *ex;
-	X509V3_CTX ctx;
-	X509V3_set_ctx_nodb(&ctx);
-	X509V3_set_ctx(&ctx, crt, crt, NULL, NULL, 0);
-	ex = X509V3_EXT_conf_nid(NULL, &ctx, nid, value);
-	if (!ex)
-		return 0;
-
-	X509_add_ext(crt, ex, -1);
-	X509_EXTENSION_free(ex);
-	return 1;
-}
-
-#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 // dh_progress is a status callback for DH_generate_parameters_ex.
 // We use it to run the event loop while generating DH params, in
 // order to keep the Murmur GUI on Windows responsive during the
