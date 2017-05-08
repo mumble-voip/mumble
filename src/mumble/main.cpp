@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
 					"  undeaf\n"
 					"                Undeafen self\n"
 					"  toggledeaf\n"
-					"                Toggle self-deafen stauts\n"
+					"                Toggle self-deafen status\n"
 					"\n"
 				);
 
