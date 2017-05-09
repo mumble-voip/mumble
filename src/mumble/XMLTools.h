@@ -28,6 +28,13 @@ class XMLTools : public QObject {
 		/* Iterate XML and remove close-followed-by-open.
 		 * For example, make "<b>bold with </b><b><i>italic</i></b>" into
 		 * "<b>bold with <i>italic</i></b>"
+		 *
+		 * If the input XML is or may not be valid, a "unduplicate" tag can be used as a root element,
+		 * which will be dropped and not written to writer.
+		 *
+		 * Input XML has to be valid XML.
+		 *
+		 * Works on b, i, u, and a elements.
 		 */
 		static bool unduplicateTags(QXmlStreamReader &reader, QXmlStreamWriter &writer);
 };

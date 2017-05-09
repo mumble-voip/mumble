@@ -380,6 +380,8 @@ void RichTextEditor::richToPlain() {
 
 	bool changed;
 	do {
+		// Make sure the XML has a root element (would be invalid XML otherwise)
+		// The "unduplicate" element will be dropped by XMLTools::unduplciateTags
 		qsOutput = QString::fromLatin1("<unduplicate>%1</unduplicate>").arg(qsOutput);
 
 		QXmlStreamReader r(qsOutput);
