@@ -713,7 +713,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     <message>
         <location line="+1"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>G&amp;eliştiriciler</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2520,7 +2520,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>İçe aktarım yapılamıyor. Eksik parola ya da uyumsuz dosya türü.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -3613,7 +3613,7 @@ veritabanını başlatamadı.</translation>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Geliştirici Konsolü</translation>
     </message>
 </context>
 <context>
@@ -4052,12 +4052,12 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+119"/>
         <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Geçerli resim yok ]]</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Geçersiz boyut ]]</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4569,17 +4569,17 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Kullanıcı Kaydırma</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"/>
+        <translation>Kullanıcıların kaydırılması sırasındaki davranışı değiştirir.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Bu, kullanıcı kaydırılması sırasındaki davranışı belirler; istenmeyen kaydırmalara mani olmak için kullanılabilir. &lt;i&gt;Kaydır&lt;/i&gt; kullanıcıları hiçbir teyit istemeden kaydırır. &lt;i&gt;Hiçbir şey yapma&lt;/i&gt;  hiçbir faaliyette bulunmaz ve bir hata mesajı gösterir. &lt;i&gt;Sor&lt;/i&gt; kullanıcıyı hakikaten kaydırmak isteyip istemediğinizi sorar.</translation>
     </message>
 </context>
 <context>
@@ -4918,7 +4918,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+112"/>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Beklenilen sertifika özeti (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4928,7 +4928,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Bu sertifikayla ilgili hatalar şunlardır:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Buna rağmen bu sertifikayı kabul etmek istiyor musunuz?&lt;br /&gt;(Sertifika saklanacaktır ve bu soru tekrar sorulmayacaktır.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -5015,13 +5015,13 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <location line="+3"/>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Panodaki Metin Mesajını Gönder</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Bu, panodaki içeriğinizi şimdi bağlantıda bulunduğunuz kanala gönderecektir.</translation>
     </message>
     <message>
         <location line="+88"/>
@@ -5246,7 +5246,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+5"/>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Sunucu sertifikası özeti (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6186,7 +6186,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location line="+2"/>
         <source>(Private) </source>
-        <translation type="unfinished"/>
+        <translation>(Özel)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6322,7 +6322,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location filename="UserModel.cpp" line="+1377"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Kullanıcı Kaydırmayı &quot;Hiçbir Şey Yapma&quot; olarak ayarladığınızdan kullanıcı taşınmadı.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6368,7 +6368,31 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Kullanım: mumble [seçenekler] [&lt;bağlantı&gt;]
+
+&lt;bağlantı&gt; başlangıçtan sonra bağlantı ekranı göstermek yerine
+bağlanılacak bir bağlantı belirtir ve şekli şudur:
+mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;altkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+Sürüm sorgu parametresi doğru istemci sürümünü almak için
+ayarlanmalıdır. Güncel olarak 1.2.0 değeri varsayılır.
+
+Geçerli seçenekler şunlardır:
+-h, --help Bu yardımı göster ve çık.
+-m, --multiple
+İstemcinin birden çok örneklemesinin başaltımasına izin ver.
+-n, --noidentity
+Kimlik dosyalarının (yani sertifikaların) yüklenmesine mani ol.
+--license
+Mumble lisansını göster.
+--authors
+Mumble geliştiricilerini göster.
+--third-party-licenses
+Mumble tarafından kullanılan üçüncü taraf yazılım lisanslarını göster.
+
+
+
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6392,7 +6416,25 @@ Valid actions are:
                 Toggle self-deafen stauts
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Kullanım: mumble rpc &lt;eylem&gt; [seçenekler]
+
+Mumble&apos;ın çalışmakta olan bir örneklemesini &apos;mumble rpc&apos; komutunu
+kullanarak uzaktan kontrol etmek mümkündür.
+
+Geçerli eylemler şunlardır:
+mute (sustur)
+Mute self (kendini sustur)
+unmute (susturmayı kaldır)
+Unmute self (kendini susturmayı kaldır)
+togglemute
+kendini susturma durumunu değiştir
+deaf (sağır et)
+Deafen self (kendini sağır et)
+undeaf (sağır etmeyi kaldır)
+Undeafen self (kendini sağır etmeyi kaldır)
+toggledeaf
+Kendini sağır etme durumunu değiştir
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6654,37 +6696,37 @@ ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <location/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Geliştirici</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Mumble&apos;ı Sakla</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Ana Mumble penceresini saklar.</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation> Ana Mumble penceresini saklar. Geri getirmek için sistem çekmecesi ikonuna tıklayın ya da Mumble&apos;ı tekrar başlatın.</translation>
     </message>
     <message>
         <location/>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
+        <translation>Geliştirici &amp;Konsolü</translation>
     </message>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Geliştirici Konsolünü Göster</translation>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble&apos;ın kütük çıktısının kontrol edilebileceği Mumble Geliştirici Konsolünü gösterir.</translation>
     </message>
 </context>
 <context>
@@ -6692,92 +6734,92 @@ ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <location filename="ManualPlugin.ui"/>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Elle Mumble Konumsal Ses</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Konum</translation>
     </message>
     <message>
         <location/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location/>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <location/>
         <source>Heading</source>
-        <translation type="unfinished"/>
+        <translation>Yön</translation>
     </message>
     <message>
         <location/>
         <source>Azimuth</source>
-        <translation type="unfinished"/>
+        <translation>Azimut</translation>
     </message>
     <message>
         <location/>
         <source>Elevation</source>
-        <translation type="unfinished"/>
+        <translation>Yükseklik</translation>
     </message>
     <message>
         <location/>
         <source>°</source>
-        <translation type="unfinished"/>
+        <translation>°</translation>
     </message>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Üst veriler</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Bağlam</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Kimlik</translation>
     </message>
     <message>
         <location/>
         <source>Set</source>
-        <translation type="unfinished"/>
+        <translation>Ayarla</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Durum</translation>
     </message>
     <message>
         <location/>
         <source>Linked</source>
-        <translation type="unfinished"/>
+        <translation>Bağlı</translation>
     </message>
     <message>
         <location/>
         <source>Activated</source>
-        <translation type="unfinished"/>
+        <translation>Etkinleştirilmiş</translation>
     </message>
     <message>
         <location/>
         <source>Unhinge</source>
-        <translation type="unfinished"/>
+        <translation>Ayır</translation>
     </message>
 </context>
 <context>
@@ -7883,7 +7925,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     <message>
         <location filename="ServerHandler.cpp" line="+397"/>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>Sunucu TCP pinglerine cevap vermemektedir</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -8602,7 +8644,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <location line="+722"/>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"/>
+        <translation>Bu kullanıcıyı kaydırmak istediğinizden emin misiniz?</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -8676,36 +8718,36 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
         <location line="+36"/>
         <location line="+40"/>
         <source>Common Name</source>
-        <translation type="unfinished"/>
+        <translation>Yaygın İsmi</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>Teşkilat</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Subunit</source>
-        <translation type="unfinished"/>
+        <translation>Alt birim</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+40"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Ülke</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Locality</source>
-        <translation type="unfinished"/>
+        <translation>İl, konum</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Eyalet</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -8745,7 +8787,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <location line="+2"/>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"/>
+        <translation>Özet (SHA-256): %1</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -8765,7 +8807,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <location line="+3"/>
         <source>Unit Name</source>
-        <translation type="unfinished"/>
+        <translation>Birim İsmi</translation>
     </message>
 </context>
 <context>
