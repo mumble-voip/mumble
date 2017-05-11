@@ -580,7 +580,7 @@ void MainWindow::updateTrayIcon() {
 	} else if (p && p->bSuppress) {
 		qstiIcon->setIcon(qiIconMuteSuppressed);
 	} else if (g.s.bStateInTray && g.bPushToMute) {
-		qstiIcon->setIcon(qiIconMuteSuppressed);
+		qstiIcon->setIcon(qiIconMutePushToMute);
 	} else if (p && g.s.bStateInTray) {
 		switch (p->tsState) {
 			case Settings::Talking:
