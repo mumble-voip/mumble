@@ -143,6 +143,7 @@ void AudioInputDialog::load(const Settings &r) {
 	// Idle auto actions
 	qsbIdle->setValue(r.iIdleTime / 60);
 	loadComboBox(qcbIdleAction, r.iaeIdleAction);
+	loadCheckBox(qcbUndoIdleAction, r.bUndoIdleActionUponActivity);
 
 	int echo = 0;
 	if (r.bEcho)
@@ -168,6 +169,7 @@ void AudioInputDialog::save() const {
 	// Idle auto actions
 	s.iIdleTime = qsbIdle->value() * 60;
 	s.iaeIdleAction = static_cast<Settings::IdleAction>(qcbIdleAction->currentIndex());
+	s.bUndoIdleActionUponActivity = qcbUndoIdleAction->isChecked();
 
 	s.bShowPTTButtonWindow = qcbPushWindow->isChecked();
 	s.bTxAudioCue = qcbPushClick->isChecked();
@@ -397,6 +399,7 @@ void AudioInputDialog::on_qcbIdleAction_currentIndexChanged(int v) {
 	qlIdle->setEnabled(enabled);
 	qlIdle2->setEnabled(enabled);
 	qsbIdle->setEnabled(enabled);
+	qcbUndoIdleAction->setEnabled(enabled);
 }
 
 AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {

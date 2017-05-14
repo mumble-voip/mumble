@@ -187,6 +187,7 @@ struct Settings {
 	// Idle auto actions
 	unsigned int iIdleTime;
 	IdleAction iaeIdleAction;
+	bool bUndoIdleActionUponActivity;
 
 	VADSource vsVAD;
 	float fVADmin, fVADmax;

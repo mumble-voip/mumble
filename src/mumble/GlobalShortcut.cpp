@@ -849,8 +849,14 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 
 	if (down) {
 		AudioInputPtr ai = g.ai;
-		if (ai.get())
+		if (ai.get()) {
+			// XXX: This is a data race: we write to ai->activityState
+			// (accessed by the AudioInput thread) from the main thread.
+			if (ai->activityState == AudioInput::ActivityStateIdle) {
+				ai->activityState = AudioInput::ActivityStateReturnedFromIdle;
+			}
 			ai->tIdle.restart();
+		}
 	}
 
 	int idx = qlButtonList.indexOf(button);
