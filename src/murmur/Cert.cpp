@@ -233,7 +233,7 @@ out:
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 static BN_GENCB *mumble_BN_GENCB_new() {
-#if OPENSSL_VERSION >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	return BN_GENCB_new();
 #else
 	return reinterpret_cast<BN_GENCB *>(malloc(sizeof(BN_GENCB)));
@@ -241,7 +241,7 @@ static BN_GENCB *mumble_BN_GENCB_new() {
 }
 
 static void mumble_BN_GENCB_free(BN_GENCB *cb) {
-#if OPENSSL_VERSION >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	BN_GENCB_free(cb);
 #else
 	free(cb);
