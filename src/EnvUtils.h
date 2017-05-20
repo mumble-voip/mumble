@@ -19,6 +19,8 @@ public:
 	// On everything else, it expects environment variables to use the
 	// locale-defined encoding. (From a Qt-perspective, we use toLocal8Bit/fromLocal8Bit.)
 	static QString getenv(QString name);
+
+	static bool setenv(QString name, QString value);
 };
 
 #endif

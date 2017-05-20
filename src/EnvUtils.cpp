@@ -42,3 +42,12 @@ QString EnvUtils::getenv(QString name) {
 	return QString::fromLocal8Bit(val);
 #endif
 }
+
+bool EnvUtils::setenv(QString name, QString value) {
+#ifdef Q_OS_WIN
+	return _wputenv_s(reinterpret_cast<const wchar_t *>(name.utf16()), reinterpret_cast<const wchar_t *>(value.utf16())) == 0;
+#else
+	const int OVERWRITE = 1;
+	return ::setenv(name.toLocal8Bit().constData(), value.toLocal8Bit().constData(), OVERWRITE) == 0;
+#endif
+}
