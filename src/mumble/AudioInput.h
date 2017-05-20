@@ -58,7 +58,7 @@ class AudioInput : public QThread {
 	protected:
 		typedef enum { CodecCELT, CodecSpeex } CodecFormat;
 		typedef enum { SampleShort, SampleFloat } SampleFormat;
-		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int);
+		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int, quint64);
 	private:
 		SpeexResamplerState *srsMic, *srsEcho;
 
@@ -69,7 +69,7 @@ class AudioInput : public QThread {
 
 		unsigned int iMicFilled, iEchoFilled;
 		inMixerFunc imfMic, imfEcho;
-		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf);
+		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask);
 		void resetAudioProcessor();
 
 		OpusEncoder *opusState;
@@ -89,6 +89,7 @@ class AudioInput : public QThread {
 		unsigned int iMicLength, iEchoLength;
 		unsigned int iMicSampleSize, iEchoSampleSize;
 		unsigned int iEchoMCLength, iEchoFrameSize;
+		quint64 uiMicChannelMask, uiEchoChannelMask;
 
 		bool bEchoMulti;
 		int	iFrameSize;

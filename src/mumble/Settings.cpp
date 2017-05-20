@@ -240,6 +240,7 @@ Settings::Settings() {
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
+	uiAudioInputChannelMask = 0xffffffffffffffffULL;
 
 	// Idle auto actions
 	iIdleTime = 5 * 60;
@@ -606,6 +607,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
+	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
 
@@ -934,6 +936,7 @@ void Settings::save() {
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
+	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
 

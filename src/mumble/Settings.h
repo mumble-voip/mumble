@@ -183,6 +183,7 @@ struct Settings {
 	QString qsTTSLanguage;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
+	quint64 uiAudioInputChannelMask;
 
 	// Idle auto actions
 	unsigned int iIdleTime;
