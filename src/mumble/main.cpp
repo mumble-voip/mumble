@@ -38,6 +38,7 @@
 #include "Themes.h"
 #include "UserLockFile.h"
 #include "License.h"
+#include "EnvUtils.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -78,7 +79,7 @@ int main(int argc, char **argv) {
 	SetDllDirectory(L"");
 #else
 #ifndef Q_OS_MAC
-	setenv("AVAHI_COMPAT_NOWARN", "1", 1);
+	EnvUtils::setenv(QLatin1String("AVAHI_COMPAT_NOWARN"), QLatin1String("1"));
 #endif
 #endif
 
@@ -103,7 +104,7 @@ int main(int argc, char **argv) {
 	{
 		QDir d(a.applicationVersionRootPath());
 		QString helper = d.absoluteFilePath(QString::fromLatin1("sbcelt-helper"));
-		setenv("SBCELT_HELPER_BINARY", helper.toUtf8().constData(), 1);
+		EnvUtils::setenv(QLatin1String("SBCELT_HELPER_BINARY"), helper.toUtf8().constData());
 	}
 #endif
 

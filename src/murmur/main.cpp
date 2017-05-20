@@ -18,6 +18,7 @@
 #include "SSL.h"
 #include "License.h"
 #include "LogEmitter.h"
+#include "EnvUtils.h"
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"
@@ -186,7 +187,7 @@ int main(int argc, char **argv) {
 	a.setWindowIcon(icon);
 #else
 #ifndef Q_OS_MAC
-	setenv("AVAHI_COMPAT_NOWARN", "1", 1);
+	EnvUtils::setenv(QLatin1String("AVAHI_COMPAT_NOWARN"), QLatin1String("1"));
 #endif
 	QCoreApplication a(argc, argv);
 	UnixMurmur unixhandler;
@@ -209,20 +210,13 @@ int main(int argc, char **argv) {
 	// should contain bin\\, and the path to the config is hardcoded as ..\etc
 
 	{
-		size_t reqSize;
-		if (_wgetenv_s(&reqSize, NULL, 0, L"PATH") != 0) {
+		QString path = EnvUtils::getenv(QLatin1String("PATH"));
+		if (path.isEmpty()) {
 			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
-		} else if (reqSize > 0) {
-			STACKVAR(wchar_t, buff, reqSize+1);
-			if (_wgetenv_s(&reqSize, buff, reqSize, L"PATH") != 0) {
-				qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
-			} else {
-				QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
-				STACKVAR(wchar_t, buffout, path.length() + 1);
-				path.toWCharArray(buffout);
-				if (_wputenv_s(L"PATH", buffout) != 0) {
-					qWarning() << "Failed to set PATH. DBus bindings may not work.";
-				}
+		} else {
+			QString newPath = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(path);
+			if (!EnvUtils::setenv(QLatin1String("PATH"), newPath)) {
+				qWarning() << "Failed to set PATH. DBus bindings may not work.";
 			}
 		}
 	}

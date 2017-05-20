@@ -10,14 +10,17 @@
 
 class EnvUtils {
 public:
-	// getEnvVariable is a wrapper around _wgetenv_s (on Windows)
+	// getenv is a wrapper around _wgetenv_s (on Windows)
 	// and getenv (on everything else).
 	//
 	// On Windows, it expects a Unicode environment -- so variables
 	// are expected to be UTF16.
-	// On everything else, it expects the environment variables to be
-	// UTF-8 encoded.
+	//
+	// On everything else, it expects environment variables to use the
+	// locale-defined encoding. (From a Qt-perspective, we use toLocal8Bit/fromLocal8Bit.)
 	static QString getenv(QString name);
+
+	static bool setenv(QString name, QString value);
 };
 
 #endif
