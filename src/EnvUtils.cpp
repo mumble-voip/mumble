@@ -34,11 +34,11 @@ QString EnvUtils::getenv(QString name) {
 	const wchar_t *wbuf = reinterpret_cast<const wchar_t *>(buf.constData());
 	return QString::fromWCharArray(wbuf);
 #else
-	QByteArray nameU8 = name.toUtf8();
-	char *val = ::getenv(nameU8.constData());
+	QByteArray name8bit = name.toLocal8Bit();
+	char *val = ::getenv(name8bit.constData());
 	if (val == NULL) {
 		return QString();
 	}
-	return QString::fromUtf8(val);
+	return QString::fromLocal8Bit(val);
 #endif
 }

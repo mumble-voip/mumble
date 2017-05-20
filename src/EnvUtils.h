@@ -15,8 +15,9 @@ public:
 	//
 	// On Windows, it expects a Unicode environment -- so variables
 	// are expected to be UTF16.
-	// On everything else, it expects the environment variables to be
-	// UTF-8 encoded.
+	//
+	// On everything else, it expects environment variables to use the
+	// locale-defined encoding. (From a Qt-perspective, we use toLocal8Bit/fromLocal8Bit.)
 	static QString getenv(QString name);
 };
 
