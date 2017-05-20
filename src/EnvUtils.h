@@ -10,7 +10,7 @@
 
 class EnvUtils {
 public:
-	// getEnvVariable is a wrapper around _wgetenv_s (on Windows)
+	// getenv is a wrapper around _wgetenv_s (on Windows)
 	// and getenv (on everything else).
 	//
 	// On Windows, it expects a Unicode environment -- so variables
