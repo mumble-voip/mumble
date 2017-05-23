@@ -184,10 +184,11 @@ bool AudioInput::isTransmitting() const {
 };
 
 #define IN_MIXER_FLOAT(channels) \
-static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
+static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N, quint64 mask) { \
   const float * RESTRICT input = reinterpret_cast<const float *>(ipt); \
   const float m = 1.0f / static_cast<float>(channels); \
   Q_UNUSED(N); \
+  Q_UNUSED(mask); \
   for(unsigned int i=0;i<nsamp;++i) {\
 	  float v= 0.0f; \
 	  for(unsigned int j=0;j<channels;++j) \
@@ -197,16 +198,63 @@ static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTR
 }
 
 #define IN_MIXER_SHORT(channels) \
-static void inMixerShort##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
+static void inMixerShort##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N, quint64 mask) { \
   const short * RESTRICT input = reinterpret_cast<const short *>(ipt); \
   const float m = 1.0f / (32768.f * static_cast<float>(channels)); \
   Q_UNUSED(N); \
+  Q_UNUSED(mask); \
   for(unsigned int i=0;i<nsamp;++i) {\
 	  float v= 0.0f; \
 	  for(unsigned int j=0;j<channels;++j) \
 	  	v += static_cast<float>(input[i*channels+j]); \
 	  buffer[i] = v * m; \
   } \
+}
+
+static void inMixerFloatMask(float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N, quint64 mask) { \
+	const float * RESTRICT input = reinterpret_cast<const float *>(ipt);
+
+	unsigned int chancount = 0;
+	STACKVAR(unsigned int, chanindex, N);
+	for (unsigned int j = 0; j < N; ++j) {
+		if ((mask & (1ULL << j)) == 0) {
+			continue;
+		}
+		chanindex[chancount] = j; // Use chancount as index into chanindex.
+		++chancount;
+	}
+
+	const float m = 1.0f / static_cast<float>(chancount);
+	for(unsigned int i = 0; i < nsamp; ++i) {
+		float v = 0.0f;
+		for(unsigned int j = 0; j < chancount; ++j) {
+			v += input[i * N + chanindex[j]];
+		}
+		buffer[i] = v * m;
+	}
+}
+
+static void inMixerShortMask(float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N, quint64 mask) {
+	const short * RESTRICT input = reinterpret_cast<const short *>(ipt);
+
+	unsigned int chancount = 0;
+	STACKVAR(unsigned int, chanindex, N);
+	for (unsigned int j = 0; j < N; ++j) {
+		if ((mask & (1ULL << j)) == 0) {
+			continue;
+		}
+		chanindex[chancount] = j; // Use chancount as index into chanindex.
+		++chancount;
+	}
+
+	const float m = 1.0f / static_cast<float>(chancount);
+	for(unsigned int i = 0; i < nsamp; ++i) {
+		float v = 0.0f;
+		for(unsigned int j = 0; j < chancount; ++j) {
+			v += static_cast<float>(input[i * N + chanindex[j]]);
+		}
+		buffer[i] = v * m;
+	}
 }
 
 IN_MIXER_FLOAT(1)
@@ -229,8 +277,18 @@ IN_MIXER_SHORT(7)
 IN_MIXER_SHORT(8)
 IN_MIXER_SHORT(N)
 
-AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf) {
+AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 chanmask) {
 	inMixerFunc r = NULL;
+
+	if (chanmask != 0xffffffffffffffffULL) {
+		if (sf == SampleFloat) {
+			r = inMixerFloatMask;
+		} else if (sf == SampleShort) {
+			r = inMixerShortMask;
+		}
+		return r;
+	}
+
 	if (sf == SampleFloat) {
 		switch (nchan) {
 			case 1:
@@ -327,8 +385,13 @@ void AudioInput::initializeMixer() {
 		pfEchoInput = NULL;
 	}
 
-	imfMic = chooseMixer(iMicChannels, eMicFormat);
-	imfEcho = chooseMixer(iEchoChannels, eEchoFormat);
+	uiMicChannelMask = g.s.uiAudioInputChannelMask;
+
+	// There is no channel mask setting for the echo canceller, so allow all channels.
+	uiEchoChannelMask = 0xffffffffffffffffULL;
+
+	imfMic = chooseMixer(iMicChannels, eMicFormat, uiMicChannelMask);
+	imfEcho = chooseMixer(iEchoChannels, eEchoFormat, uiEchoChannelMask);
 
 	iMicSampleSize = static_cast<int>(iMicChannels * ((eMicFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	iEchoSampleSize = static_cast<int>(iEchoChannels * ((eEchoFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
@@ -336,6 +399,9 @@ void AudioInput::initializeMixer() {
 	bResetProcessor = true;
 
 	qWarning("AudioInput: Initialized mixer for %d channel %d hz mic and %d channel %d hz echo", iMicChannels, iMicFreq, iEchoChannels, iEchoFreq);
+	if (uiMicChannelMask != 0xffffffffffffffffULL) {
+		qWarning("AudioInput: using mic channel mask 0x%llx", static_cast<unsigned long long>(uiMicChannelMask));
+	}
 }
 
 void AudioInput::addMic(const void *data, unsigned int nsamp) {
@@ -344,7 +410,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 		const unsigned int left = qMin(nsamp, iMicLength - iMicFilled);
 
 		// Append mix into pfMicInput frame buffer (converts 16bit pcm->float if necessary)
-		imfMic(pfMicInput + iMicFilled, data, left, iMicChannels);
+		imfMic(pfMicInput + iMicFilled, data, left, iMicChannels, uiMicChannelMask);
 
 		iMicFilled += left;
 		nsamp -= left;
@@ -430,7 +496,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 			}
 		} else {
 			// Mix echo channels (converts 16bit PCM -> float if needed)
-			imfEcho(pfEchoInput + iEchoFilled, data, left, iEchoChannels);
+			imfEcho(pfEchoInput + iEchoFilled, data, left, iEchoChannels, uiEchoChannelMask);
 		}
 
 		iEchoFilled += left;
