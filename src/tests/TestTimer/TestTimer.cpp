@@ -18,7 +18,7 @@ class TestTimer : public QObject {
 // This tests that the timer implemented by the Timer
 // class is a high resolution timer. In this case, we
 // check that the output of the elapsed() method changes
-// at least every 5 microseconds.
+// at least every 100 microseconds.
 void TestTimer::resolution() {
 	Timer t;
 
@@ -43,8 +43,8 @@ void TestTimer::resolution() {
 	qWarning("Number of elapsed changes: %llu", static_cast<unsigned long long>(nchanges));
 	qWarning("Resolution: %.2f microseconds", usecsPerChange);
 
-	if (usecsPerChange >= 5.0f) {
-		QFAIL("Insufficient timer resolution. Got >= 5 usec, expected < 5 usec resolution...");
+	if (usecsPerChange >= 100.0f) {
+		QFAIL("Insufficient timer resolution. Got >= 100 usec, expected < 100 usec resolution...");
 	}
 }
 
