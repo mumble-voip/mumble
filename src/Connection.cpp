@@ -71,6 +71,10 @@ void Connection::setToS() {
 		if (setsockopt(static_cast<int>(qtsSocket->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 			qWarning("Connection: Failed to set TOS for TCP Socket");
 	}
+	val = 1;
+	if (setsockopt(qtsSocket->socketDescriptor(), SOL_SOCKET, SO_KEEPALIVE, &val, sizeof(val)) < 0) {
+		qWarning("Connection: Failed to set keepalive bit");
+	}
 #if defined(SO_PRIORITY)
 	socklen_t optlen = sizeof(val);
 	if (getsockopt(static_cast<int>(qtsSocket->socketDescriptor()), SOL_SOCKET, SO_PRIORITY, &val, &optlen) == 0) {
