@@ -13,7 +13,6 @@
 class MumbleSSL {
 	public:
 		static void initialize();
-		static void qsslSanityCheck();
 		static QString defaultOpenSSLCipherString();
 		static QList<QSslCipher> ciphersFromOpenSSLCipherString(QString cipherString);
 		static void addSystemCA();
