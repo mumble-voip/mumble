@@ -40,7 +40,7 @@ void MumbleSSL::initialize() {
 	//
 	// If we're in a situation where two version of
 	// OpenSSL's libraries are loaded into our process,
-	// we abort immediately. Things WILL go wrong.
+	// we throw a warning.
 	MumbleSSL::qsslSanityCheck();
 }
 
@@ -74,21 +74,14 @@ void MumbleSSL::qsslSanityCheck() {
 		lm = lm->l_next;
 	}
 
-	bool ok = true;
 	if (libcrypto.size() == 0 || libssl.size() == 0) {
 		qFatal("SSL library query failed: %i libcrypto's and %i libssl's found.", libcrypto.size(), libssl.size());
 	}
 	if (libssl.size() > 1) {
-		qCritical("Found multiple libssl.so copies in binary: %s", qPrintable(libssl.join(QLatin1String(", "))));
-		ok = false;
+		qWarning("Found multiple libssl.so copies in binary: %s", qPrintable(libssl.join(QLatin1String(", "))));
 	}
 	if (libcrypto.size() > 1) {
-		qCritical("Found multiple libcrypto.so copies in binary: %s", qPrintable(libcrypto.join(QLatin1String(", "))));
-		ok = false;
-	}
-
-	if (!ok) {
-		qFatal("Aborting due to previous errors");
+		qWarning("Found multiple libcrypto.so copies in binary: %s", qPrintable(libcrypto.join(QLatin1String(", "))));
 	}
 #endif
 }
