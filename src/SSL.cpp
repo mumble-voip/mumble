@@ -16,7 +16,12 @@
 #include "Version.h"
 
 void MumbleSSL::initialize() {
-	// Let Qt initialize OpenSSL...
+	// Initialize our copy of OpenSSL.
+	SSL_library_init(); // Safe to discard return value, per OpenSSL man pages.
+	SSL_load_error_strings();
+
+	// Let Qt initialize its copy of OpenSSL, if it's different than
+	// Mumble's.
 	QSslSocket::supportsSsl();
 
 	// Check that we aren't in a situation where
