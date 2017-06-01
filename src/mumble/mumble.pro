@@ -506,11 +506,6 @@ unix {
     }
     LIBS *= -lXi
 
-    # For MumbleSSL::qsslSanityCheck()
-    contains(UNAME, Linux) {
-      LIBS *= -ldl
-    }
-
     !CONFIG(no-oss) {
       CONFIG  *= oss
     }
