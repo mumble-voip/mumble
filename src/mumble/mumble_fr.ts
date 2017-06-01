@@ -5255,7 +5255,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+34"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Ce serveur utilise un standard ancien du cryptage et n&apos;est plus supporté par les versions modernes de Mumble.</translation>
+        <translation>Ce serveur utilise un standard ancien de chiffrement et n&apos;est plus supporté par les versions modernes de Mumble.</translation>
     </message>
     <message>
         <location line="+6"/>
