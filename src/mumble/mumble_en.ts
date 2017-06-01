@@ -5296,6 +5296,21 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
+        <source>&amp;Hide Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Hides the main Mumble window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>&amp;Connect</source>
         <translation type="unfinished"></translation>
     </message>
