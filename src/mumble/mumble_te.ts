@@ -51,7 +51,7 @@
     <message>
         <location line="+46"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>ఇది% 1 హక్కును మంజూరు చేస్తుంది. ఒక విశేషణం అనుమతి మరియు తిరస్కరించబడినట్లయితే, అది ఖండించబడింది. &lt;br /&gt;% 2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -155,7 +155,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"/>
+        <translation>తల్లితండ్రి నుంచి వారసత్వ జాబితసంక్య</translation>
     </message>
     <message>
         <location/>
@@ -175,7 +175,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>గ్రూప్ వజ్ ఇణెరిటెడ్ బై పెరెంట్ పెరెంట్</translation>
     </message>
     <message>
         <location/>
@@ -220,12 +220,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"/>
+        <translation>తల్లిదండ్రుల ACL వారసత్వంగా ఉందా?</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"/>
+        <translation>ఈ వస్తువుకు ACL యొక్క మాతృ ఛానళ్ల గొలుసును వర్తింపజేయాలా లేదో అన్నది. పేరెంట్లో &quot;ఉప-ఛానళ్లకు వర్తింపజేయడం&quot; గా గుర్తించబడిన ఆ ఎంట్రీలు మాత్రమే వారసత్వంగా పొందుతాయి.</translation>
     </message>
     <message>
         <location/>
@@ -240,7 +240,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"/>
+        <translation>ఇది జాబితాలో ఎంట్రీని కదిలిస్తుంది. ఎంట్రీలు క్రమంలో మూల్యాంకనం చేయబడినప్పుడు, ఇది వినియోగదారుల యొక్క ప్రభావవంతమైన అనుమతులను మార్చవచ్చు. మీరు వారసత్వంగా ఎంట్రీని నకిలీ చేయవలసి ఉండాల్సిన అవసరం ఉంటే, మీరు ఒక వారసత్వ ప్రవేశం పైన ప్రవేశించలేరు.</translation>
     </message>
     <message>
         <location/>
@@ -255,7 +255,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation type="unfinished"/>
+        <translation>ఇది జాబితాలో ఎంట్రీని డౌన్కిస్తుంది. ఎంట్రీలు క్రమంలో మూల్యాంకనం చేయబడినప్పుడు, ఇది వినియోగదారుల యొక్క ప్రభావవంతమైన అనుమతులను మార్చవచ్చు.</translation>
     </message>
     <message>
         <location/>
@@ -270,7 +270,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation type="unfinished"/>
+        <translation>ఇది క్రొత్త ఎంట్రీని జతచేస్తుంది, ప్రారంభంలో ఏ అనుమతి లేకుండా మరియు అన్నింటికి వర్తింపచేస్తుంది.</translation>
     </message>
     <message>
         <location/>
@@ -337,27 +337,27 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"/>
+        <translation>ఈ ఛానెల్ ద్వారా సమూహానికి జోడించిన సభ్యుల జాబితాను కలిగి ఉంటుంది.</translation>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>పేరెంట్ ఛానల్ నుండి వారసత్వంగా తీసుకోబడని సభ్యుల జాబితాను కలిగి ఉంటుంది.</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"/>
+        <translation>ఇతర మార్గాల ద్వారా వారసత్వంగా పొందిన సభ్యుల జాబితాను కలిగి ఉంటుంది.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>మీరు గుంపుకు జోడించదలచిన వినియోగదారు పేరును టైప్ చేసి, జోడించు క్లిక్ చేయండి.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>మీరు గుంపు నుండి తొలగించాలనుకుంటున్న వినియోగదారు పేరును టైప్ చేసి, జోడించు క్లిక్ చేయండి.</translation>
     </message>
     <message>
         <location/>
@@ -372,7 +372,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation type="unfinished"/>
+        <translation>ఇది ఈ ఛానెల్ యొక్క ఉప-చానళ్లకు ఎంట్రీ వర్తిస్తుంది.</translation>
     </message>
     <message>
         <location/>
@@ -407,7 +407,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation type="unfinished"/>
+        <translation>ఈ ఎంట్రీ వర్తించే వినియోగదారుని ఇది నియంత్రిస్తుంది. వినియోగదారు పేరును టైప్ చేసి, మ్యాచ్ కోసం సర్వర్ను ప్రశ్నించడానికి ఎంటర్ నొక్కండి.</translation>
     </message>
     <message>
         <location/>
@@ -610,7 +610,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"/>
+        <translation>ఇది ఎంచుకున్న పరికరాన్ని ఆకృతీకరిస్తుంది. అనేక ASIO డ్రైవర్లు తీవ్రంగా బగ్గీగా ఉన్నాయని తెలుసుకోండి మరియు వాటిని విచారణ లేదా వ్యవస్థ యొక్క క్రాష్కు కారణం కావచ్చు.</translation>
     </message>
     <message>
         <location/>
@@ -894,7 +894,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation type="unfinished"/>
+        <translation>&amp;స్వచత</translation>
     </message>
     <message>
         <location/>
@@ -1300,7 +1300,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>వినికిడి</translation>
     </message>
     <message>
         <location/>
@@ -1366,7 +1366,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"/>
+        <translation>కనిస దూరం</translation>
     </message>
     <message>
         <location/>
