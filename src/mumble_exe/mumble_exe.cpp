@@ -98,8 +98,8 @@ static bool ConfigureEnvironment() {
 	//  5. CWD
 	//  6. %PATH% (seemingly)...
 	//
-	// But the application doesn't run -- since it doesn't every try to load
-	// ucrtbase.dll in the directory containing mumble_app.dll -- as it should,
+	// But the application doesn't run, since it doesn't even try to load
+	// ucrtbase.dll in the directory containing mumble_app.dll as it should,
 	// because we've loaded mumble_app.dll with LOAD_WITH_ALTERED_SEARCH_PATH.
 	//
 	// Our workaround is to use the mumble_app.dll's directory as the working
