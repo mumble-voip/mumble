@@ -18,6 +18,7 @@
 #include "Global.h"
 #include "ServerHandler.h"
 #include "WebFetch.h"
+#include "ServerResolver.h"
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;
@@ -1399,7 +1400,9 @@ void ConnectDialog::timeTick() {
 			qlDNSLookup.append(host);
 
 			qsDNSActive.insert(host);
-			QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));
+			ServerResolver *sr = new ServerResolver();
+			QObject::connect(sr, SIGNAL(resolved()), this, SLOT(lookedUp()));
+			sr->resolve(host, 64738); // XXX: get port
 			break;
 		}
 	}
@@ -1532,24 +1535,31 @@ void ConnectDialog::stopDns(ServerItem *si) {
 	}
 }
 
-void ConnectDialog::lookedUp(QHostInfo info) {
-	QString host = info.hostName().toLower();
+void ConnectDialog::lookedUp() {
+	ServerResolver *sr = qobject_cast<ServerResolver *>(QObject::sender());
+	sr->deleteLater();
+
+	QString host = sr->hostname().toLower();
+
 	qsDNSActive.remove(host);
 
-	if (info.error() != QHostInfo::NoError)
+	if (sr->records().size() == 0) { // XXX: error
 		return;
+	}
 
 	QSet<qpAddress> qs;
+	foreach (ServerResolverRecord record, sr->records()) {
+		foreach(const HostAddress &ha, record.addresses()) {
+			qs.insert(qpAddress(ha, sr->port()));
+		}
+	}
 
 	foreach(ServerItem *si, qhDNSWait[host]) {
-		QList<qpAddress> addresses;
-		foreach(const QHostAddress &qha, info.addresses()) {
-			qpAddress addr(HostAddress(qha), si->usPort);
-			addresses.append(addr);
-			qs.insert(addr);
+		foreach (const qpAddress &addr, qs) {
 			qhPings[addr].insert(si);
 		}
-		si->qlAddressPorts = addresses;
+
+		si->qlAddressPorts = qs.toList();
 
 		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);

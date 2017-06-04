@@ -288,7 +288,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void fetched(QByteArray xmlData, QUrl, QMap<QString, QString>);
 
 		void udpReply();
-		void lookedUp(QHostInfo);
+		void lookedUp();
 		void timeTick();
 
 		void on_qaFavoriteAdd_triggered();
