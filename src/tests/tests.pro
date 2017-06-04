@@ -12,4 +12,5 @@ SUBDIRS += \
 	TestPacketDataStream \
 	TestPasswordGenerator \
 	TestTimer \
-	TestXMLTools
+	TestXMLTools \
+	TestServerResolver
