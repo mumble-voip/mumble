@@ -14,4 +14,5 @@ SUBDIRS += \
 	TestTimer \
 	TestXMLTools \
 	TestUnresolvedServerAddress \
-	TestServerAddress
+	TestServerAddress \
+	TestServerResolver
