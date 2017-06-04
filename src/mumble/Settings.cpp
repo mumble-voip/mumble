@@ -643,6 +643,7 @@ void Settings::load(QSettings* settings_ptr) {
 
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
+	SAVELOAD(qsWASAPIRole, "wasapi/role");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
@@ -972,6 +973,7 @@ void Settings::save() {
 
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
+	SAVELOAD(qsWASAPIRole, "wasapi/role");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
