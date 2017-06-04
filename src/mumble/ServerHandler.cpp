@@ -259,7 +259,7 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 void ServerHandler::run() {
 	qbaDigest = QByteArray();
 	bStrong = true;
-	QSslSocket *qtsSock = new QSslSocket(this);
+	qtsSock = new QSslSocket(this);
 
 	if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
 		qtsSock->setPrivateKey(g.s.kpCertificate.second);
