@@ -32,6 +32,7 @@
 #include "Timer.h"
 #include "Message.h"
 #include "Mumble.pb.h"
+#include "HostAddress.h"
 
 class Connection;
 class Message;
@@ -84,6 +85,8 @@ class ServerHandler : public QThread {
 		QByteArray qbaDigest;
 		boost::shared_ptr<VoiceRecorder> recorder;
 		QSslSocket *qtsSock;
+		QList<qpAddress> qlAddressPorts;
+		qpAddress qpaTargetServer;
 
 		unsigned int uiVersion;
 		QString qsRelease;
@@ -142,6 +145,7 @@ class ServerHandler : public QThread {
 		void serverConnectionClosed(QAbstractSocket::SocketError, const QString &);
 		void setSslErrors(const QList<QSslError> &);
 		void udpReady();
+		void hostnameResolved();
 	public slots:
 		void sendPing();
 };

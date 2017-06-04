@@ -23,6 +23,8 @@
 #include "User.h"
 #include "Net.h"
 #include "HostAddress.h"
+#include "ServerResolver.h"
+#include "ServerResolverRecord.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -256,8 +258,49 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 	}
 }
 
+void ServerHandler::hostnameResolved() {
+	ServerResolver *sr = qobject_cast<ServerResolver *>(QObject::sender());
+	QList<ServerResolverRecord> records = sr->records();
+
+	// Exit the ServerHandler thread's event loop with an
+	// error code in case our hostname lookup failed.
+	if (records.isEmpty()) {
+		exit(-1);
+	}
+
+	// Create the list of target host:port pairs
+	// that the ServerHandler should try to connect to.
+	QList<qpAddress> ql;
+	foreach (ServerResolverRecord record, records) {
+		foreach (HostAddress addr, record.addresses()) {
+			ql.append(qpAddress(addr, record.port()));
+		}
+	}
+	qlAddressPorts = ql;
+
+	// Exit the event loop with 'success' status code,
+	// to continue connecting to the server.
+	exit(0);
+}
+
 void ServerHandler::run() {
+	// Resolve the hostname...
+	{
+		ServerResolver *sr = new ServerResolver();
+		QObject::connect(sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
+		sr->resolve(qsHostName, usPort);
+		int ret = exec();
+		if (ret < 0) {
+			qWarning("ServerHandler: failed to resolve hostname");
+			return;
+		}
+	}
+
+	QList<qpAddress> targetAddresses(qlAddressPorts);
+	bool shouldTryNextTargetServer = true;
 	do {
+		qpaTargetServer = qlAddressPorts.takeFirst();
+
 		qbaDigest = QByteArray();
 		bStrong = true;
 		qtsSock = new QSslSocket(this);
@@ -297,7 +340,7 @@ void ServerHandler::run() {
 	#else
 		qtsSock->setProtocol(QSsl::TlsV1);
 	#endif
-		qtsSock->connectToHost(qsHostName, usPort);
+		qtsSock->connectToHost(qpaTargetServer.first.toAddress(), qpaTargetServer.second);
 
 		tTimestamp.restart();
 
@@ -315,7 +358,12 @@ void ServerHandler::run() {
 		qsOS = QString();
 		qsOSVersion = QString();
 
-		exec();
+		int ret = exec();
+		if (ret == -2) {
+			shouldTryNextTargetServer = true;
+		} else {
+			shouldTryNextTargetServer = false;
+		}
 
 		if (qusUdp) {
 			QMutexLocker qml(&qmUdp);
@@ -343,7 +391,7 @@ void ServerHandler::run() {
 			msleep(100);
 		}
 		delete qtsSock;
-	} while (false);
+	} while (shouldTryNextTargetServer && !qlAddressPorts.isEmpty());
 }
 
 #ifdef Q_OS_WIN
@@ -529,6 +577,20 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
+
+	// Try next server in the list if possible.
+	// Otherwise, emit disconnect and exit with
+	// a normal status code.
+	if (!qlAddressPorts.isEmpty()) {
+		if (err == QAbstractSocket::ConnectionRefusedError || err == QAbstractSocket::SocketTimeoutError) {
+			qWarning("ServerHandler: connection attempt to %s:%i failed: %s (%li); trying next server....",
+						qPrintable(qpaTargetServer.first.toString()), qpaTargetServer.second,
+						qPrintable(reason), static_cast<long>(err));
+			exit(-2);
+			return;
+		}
+	}
+
 	emit disconnected(err, reason);
 	exit(0);
 }
