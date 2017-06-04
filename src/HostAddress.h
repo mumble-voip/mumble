@@ -47,4 +47,8 @@ Q_DECLARE_TYPEINFO(HostAddress, Q_MOVABLE_TYPE);
 
 quint32 qHash(const HostAddress &);
 
+/// qpAddress combines a HostAddress with a port to represent
+/// a full server address.
+typedef QPair<HostAddress, unsigned short> qpAddress;
+
 #endif

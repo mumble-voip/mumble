@@ -38,8 +38,6 @@
 struct FavoriteServer;
 class QUdpSocket;
 
-typedef QPair<HostAddress, unsigned short> qpAddress;
-
 struct PublicInfo {
 	QString qsName;
 	QUrl quUrl;
