@@ -127,8 +127,15 @@ win32-msvc* {
 		QMAKE_CXXFLAGS *= -wd4091
 	}
 
-	QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
-	QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
+	!CONFIG(noopt) {
+		QMAKE_CFLAGS_RELEASE -= -Ox
+		QMAKE_CXXFLAGS_RELEASE -= -Ox
+		QMAKE_CFLAGS_RELEASE -= /fp:fast
+		QMAKE_CXXFLAGS_RELEASE -= /fp:fast
+	} else {
+		QMAKE_CFLAGS_RELEASE *= -Od
+		QMAKE_CXXFLAGS_RELEASE *= -Od
+	}
 
 	equals(MUMBLE_ARCH, x86) {
 		QMAKE_LFLAGS_RELEASE -= /SafeSEH
