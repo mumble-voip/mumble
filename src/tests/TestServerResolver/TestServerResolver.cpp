@@ -29,8 +29,13 @@ void TestServerResolver::simpleSrv() {
 	quint16 port = 64738;
 
 	r.resolve(hostname, port);
-	
-	QVERIFY(spy.wait());
+
+	// Equivalent to QSignalSpy::wait() in Qt 5.
+	{
+		QTestEventLoop loop;
+		loop.enterLoop(5);
+	}
+
 	QCOMPARE(spy.count(), 1);
 
 	QList<ServerResolverRecord> records = r.records();
@@ -72,7 +77,12 @@ void TestServerResolver::simpleA() {
 
 	r.resolve(hostname, port);
 
-	QVERIFY(spy.wait());
+	// Equivalent to QSignalSpy::wait() in Qt 5.
+	{
+		QTestEventLoop loop;
+		loop.enterLoop(5);
+	}
+
 	QCOMPARE(spy.count(), 1);
 
 	QList<ServerResolverRecord> records = r.records();
@@ -106,7 +116,12 @@ void TestServerResolver::simpleAAAA() {
 
 	r.resolve(hostname, port);
 
-	QVERIFY(spy.wait());
+	// Equivalent to QSignalSpy::wait() in Qt 5.
+	{
+		QTestEventLoop loop;
+		loop.enterLoop(5);
+	}
+
 	QCOMPARE(spy.count(), 1);
 
 	QList<ServerResolverRecord> records = r.records();
