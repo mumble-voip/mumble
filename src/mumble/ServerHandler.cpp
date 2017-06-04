@@ -397,6 +397,10 @@ void ServerHandler::sendPing() {
 	if (!connection)
 		return;
 
+	if (qtsSock->state() != QAbstractSocket::ConnectedState) {
+		return;
+	}
+
 	if (g.s.iMaxInFlightTCPPings >= 0 && iInFlightTCPPings >= g.s.iMaxInFlightTCPPings) {
 		serverConnectionClosed(QAbstractSocket::UnknownSocketError, tr("Server is not responding to TCP pings"));
 		return;
