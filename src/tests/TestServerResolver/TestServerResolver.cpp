@@ -39,7 +39,9 @@ void TestServerResolver::simpleSrv() {
 	ServerResolverRecord record = records.at(0);
 	QCOMPARE(record.hostname(), hostname);
 	QCOMPARE(record.port(), port);
-	QCOMPARE(record.addresses().size(), 2);
+	// Allow 1 or 2 results. The answer depends on whether
+	// the system supports IPv4, IPv6, or both.
+	QVERIFY(record.addresses().size() == 1 || record.addresses().size() == 2);
 	QCOMPARE(record.priority(), 65545); // priority=1, weight=10 -> 1 * 65535 + 10
 
 	bool hasipv4 = false;
@@ -56,7 +58,9 @@ void TestServerResolver::simpleSrv() {
 			hasipv6 = true;
 		}
 	}
-	QVERIFY(hasipv4 && hasipv6);
+
+	// Require either an IPv4 match, or an IPv6 match.
+	QVERIFY(hasipv4 || hasipv6);
 }
 
 void TestServerResolver::simpleA() {
@@ -72,6 +76,14 @@ void TestServerResolver::simpleA() {
 	QCOMPARE(spy.count(), 1);
 
 	QList<ServerResolverRecord> records = r.records();
+	// Since not all systems have IPv4 support, we have to
+	// skip this test if we get no matches. Not ideal, but
+	// at least we get some test coverage on IPv4 systems.
+	if (records.size() == 0) {
+		qWarning("Skipping test: No results returned. Assuming non-IPv4 system.");
+		return;
+	}
+
 	QCOMPARE(records.size(), 1);
 
 	ServerResolverRecord record = records.at(0);
@@ -98,6 +110,14 @@ void TestServerResolver::simpleAAAA() {
 	QCOMPARE(spy.count(), 1);
 
 	QList<ServerResolverRecord> records = r.records();
+	// Since not all systems have IPv6 support, we have to
+	// skip this test if we get no matches. Not ideal, but
+	// at least we get some test coverage on IPv6 systems.
+	if (records.size() == 0) {
+		qWarning("Skipping test: No results returned. Assuming non-IPv6 system.");
+		return;
+	}
+
 	QCOMPARE(records.size(), 1);
 
 	ServerResolverRecord record = records.at(0);
