@@ -3,15 +3,10 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-TEMPLATE = subdirs
+include(../test.pri)
 
-SUBDIRS += \
-	TestCrypt \
-	TestCryptographicHash \
-	TestCryptographicRandom \
-	TestPacketDataStream \
-	TestPasswordGenerator \
-	TestTimer \
-	TestXMLTools \
-	TestUnresolvedServerAddress \
-	TestServerAddress
+QT += network
+
+TARGET = TestServerAddress
+SOURCES = TestServerAddress.cpp ServerAddress.cpp HostAddress.cpp
+HEADERS = ServerAddress.h HostAddresss.h
