@@ -34,11 +34,10 @@
 #include "Net.h"
 #include "HostAddress.h"
 #include "Timer.h"
+#include "ServerAddress.h"
 
 struct FavoriteServer;
 class QUdpSocket;
-
-typedef QPair<HostAddress, unsigned short> qpAddress;
 
 struct PublicInfo {
 	QString qsName;
@@ -247,8 +246,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QHash<QString, QSet<ServerItem *> > qhDNSWait;
 		QHash<QString, QList<QHostAddress> > qhDNSCache;
 
-		QHash<qpAddress, quint64> qhPingRand;
-		QHash<qpAddress, QSet<ServerItem *> > qhPings;
+		QHash<ServerAddress, quint64> qhPingRand;
+		QHash<ServerAddress, QSet<ServerItem *> > qhPings;
 
 		QMap<QPair<QString, unsigned short>, unsigned int> qmPingCache;
 
