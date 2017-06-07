@@ -559,22 +559,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>از طرف</translation>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>انتخاب دستگاه</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>دستگاه</translation>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"/>
+        <translation>دستگاهی که برای میکروفن استفاده شود</translation>
     </message>
     <message>
         <location/>
@@ -614,7 +614,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation type="unfinished"/>
+        <translation>توانایی‌ها</translation>
     </message>
     <message>
         <location/>
@@ -639,12 +639,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>کانال‌ها</translation>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation type="unfinished"/>
+        <translation>میکروفُن</translation>
     </message>
     <message>
         <location/>
@@ -685,7 +685,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="About.cpp" line="+15"/>
         <source>About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>درباره Mumble</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -695,12 +695,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+12"/>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;درباره Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation type="unfinished"/>
+        <translation>&amp;مجوزها</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -715,7 +715,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>خُب</translation>
     </message>
 </context>
 <context>
@@ -763,7 +763,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished"/>
+        <translation>انتقال</translation>
     </message>
     <message>
         <location/>
@@ -773,7 +773,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"/>
+        <translation>هنگامه انتقال گفتگو</translation>
     </message>
     <message>
         <location/>
@@ -818,12 +818,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>خاموش</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>روشن</translation>
     </message>
     <message>
         <location/>
@@ -838,7 +838,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"/>
+        <translation>سیگنال به نویز</translation>
     </message>
     <message>
         <location/>
@@ -848,7 +848,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation type="unfinished"/>
+        <translation>بلندی</translation>
     </message>
     <message>
         <location/>
@@ -863,7 +863,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>سکوتِ زیرِ</translation>
     </message>
     <message>
         <location/>
@@ -883,7 +883,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Compression</source>
-        <translation type="unfinished"/>
+        <translation>فشردگی</translation>
     </message>
     <message>
         <location/>
@@ -908,7 +908,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished"/>
+        <translation>چند فریم صوتی در هر بسته ارسال شود</translation>
     </message>
     <message>
         <location/>
@@ -1254,7 +1254,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>خروجی صدا</translation>
     </message>
     <message>
         <location/>
@@ -1294,7 +1294,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>حجم صدا</translation>
     </message>
     <message>
         <location/>
