@@ -296,7 +296,18 @@ void ServerHandler::run() {
 #else
 	qtsSock->setProtocol(QSsl::TlsV1);
 #endif
-	qtsSock->connectToHostEncrypted(qsHostName, usPort);
+
+	// Perform a DNS SRV lookup
+	qdlSrvLookup = new QDnsLookup(this);
+	connect(qdlSrvLookup, SIGNAL(finished()), this, SLOT(handleSrvRecords()));
+	qdlSrvLookup->setType(QDnsLookup::SRV);
+	// RFC2782 requires "_protocol" in the name of SRV records.
+	// Mumble uses both TCP and UDP and routing the two channels to different servers would make absolutely no sense.
+	// Since finding the mumble server is the only purpose of this record and the "_protocol" has no technical effect at all,
+	// we can just choose "_tcp" and everything will work.
+	qdlSrvLookup->setName(QStringLiteral("_mumble._tcp.") + qsHostName);
+	iCurrentSrvRecord = -1;
+	qdlSrvLookup->lookup();
 
 	tTimestamp.restart();
 
@@ -342,6 +353,29 @@ void ServerHandler::run() {
 		msleep(100);
 	}
 	delete qtsSock;
+}
+
+void ServerHandler::handleSrvRecords() {
+	if (qdlSrvLookup->error() != QDnsLookup::NoError) {
+		// There is no SRV record, so we can connect directly.
+		qtsSock->connectToHostEncrypted(qsHostName, usPort);
+		delete qdlSrvLookup;
+		return;
+	}
+
+	// start trying to connect to mumble servers
+	tryNextSrvRecord();
+}
+
+bool ServerHandler::tryNextSrvRecord() {
+	iCurrentSrvRecord++;
+	QList<QDnsServiceRecord>& records = qdlSrvLookup->serviceRecords();
+	if (records.size() <= iCurrentSrvRecord)
+		// out of records to try :/
+		return false;
+
+	qtsSock->connectToHostEncrypted(records[iCurrentSrvRecord].name(), records[iCurrentSrvRecord].port());
+	return true;
 }
 
 #ifdef Q_OS_WIN
@@ -531,6 +565,10 @@ void ServerHandler::serverConnectionTimeoutOnConnect() {
 	ConnectionPtr connection(cConnection);
 	if (connection)
 		connection->disconnectSocket(true);
+
+	// Try all the SRV records
+	if (tryNextSrvRecord())
+		return;
 
 	serverConnectionClosed(QAbstractSocket::SocketTimeoutError, tr("Connection timed out"));
 }
