@@ -18,6 +18,7 @@
 #include "Global.h"
 #include "ServerHandler.h"
 #include "WebFetch.h"
+#include "ServerResolver.h"
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;
@@ -329,7 +330,7 @@ ServerItem::ServerItem(const ServerItem *si) {
 	qsUrl = si->qsUrl;
 	qsBonjourHost = si->qsBonjourHost;
 	brRecord = si->brRecord;
-	qlAddresses = si->qlAddresses;
+	qlAddressPorts = si->qlAddressPorts;
 	bCA = si->bCA;
 
 	uiVersion = si->uiVersion;
@@ -458,8 +459,9 @@ QVariant ServerItem::data(int column, int role) const {
 			}
 		} else if (role == Qt::ToolTipRole) {
 			QStringList qsl;
-			foreach(const QHostAddress &qha, qlAddresses)
-				qsl << Qt::escape(qha.toString());
+			foreach(const qpAddress &addr, qlAddressPorts) {
+				qsl << Qt::escape(addr.first.toString() + QLatin1String(":") + QString::number(static_cast<unsigned long>(addr.second)));
+			}
 
 			double ploss = 100.0;
 
@@ -1006,7 +1008,7 @@ ConnectDialog::~ConnectDialog() {
 
 void ConnectDialog::accept() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || (bAllowHostLookup && si->qlAddresses.isEmpty()) || si->qsHostname.isEmpty()) {
+	if (! si || (bAllowHostLookup && si->qlAddressPorts.isEmpty()) || si->qsHostname.isEmpty()) {
 		qWarning() << "Invalid server";
 		return;
 	}
@@ -1118,7 +1120,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 		if ((cde->qsHostname != host) || (cde->usPort != si->usPort)) {
 			stopDns(si);
 
-			si->qlAddresses.clear();
+			si->qlAddressPorts.clear();
 			si->reset();
 
 			si->usPort = cde->usPort;
@@ -1235,7 +1237,7 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 		qpbEdit->setEnabled(false);
 	}
 	
-	bool bOk = !si->qlAddresses.isEmpty();
+	bool bOk = !si->qlAddressPorts.isEmpty();
 	if (!bAllowHostLookup) {
 		bOk = true;
 	}
@@ -1377,7 +1379,7 @@ void ConnectDialog::timeTick() {
 			qtwServers->setCurrentItem(items.at(0));
 			if (g.s.bAutoConnect && bAutoConnect) {
 				siAutoConnect = static_cast<ServerItem *>(items.at(0));
-				if (! siAutoConnect->qlAddresses.isEmpty()) {
+				if (! siAutoConnect->qlAddressPorts.isEmpty()) {
 					accept();
 					return;
 				} else if (!bAllowHostLookup) {
@@ -1398,7 +1400,9 @@ void ConnectDialog::timeTick() {
 			qlDNSLookup.append(host);
 
 			qsDNSActive.insert(host);
-			QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));
+			ServerResolver *sr = new ServerResolver();
+			QObject::connect(sr, SIGNAL(resolved()), this, SLOT(lookedUp()));
+			sr->resolve(host, 64738); // XXX: get port
 			break;
 		}
 	}
@@ -1416,7 +1420,7 @@ void ConnectDialog::timeTick() {
 	if (si) {
 		QString host = si->qsHostname.toLower();
 
-		if (si->qlAddresses.isEmpty()) {
+		if (si->qlAddressPorts.isEmpty()) {
 			if (! host.isEmpty()) {
 				qlDNSLookup.removeAll(host);
 				qlDNSLookup.prepend(host);
@@ -1447,7 +1451,7 @@ void ConnectDialog::timeTick() {
 				expanded = expanded && p->isExpanded();
 				p = p->siParent;
 			}
-		} while (si->qlAddresses.isEmpty() || ! expanded);
+		} while (si->qlAddressPorts.isEmpty() || ! expanded);
 	}
 
 	if (si == current)
@@ -1455,8 +1459,8 @@ void ConnectDialog::timeTick() {
 	if (si == hover)
 		tHover.restart();
 
-	foreach(const QHostAddress &host, si->qlAddresses)
-		sendPing(host, si->usPort);
+	foreach(const qpAddress &addr, si->qlAddressPorts)
+		sendPing(addr.first.toAddress(), addr.second);
 }
 
 
@@ -1467,20 +1471,21 @@ void ConnectDialog::startDns(ServerItem *si) {
 
 	QString host = si->qsHostname.toLower();
 
-	if (si->qlAddresses.isEmpty()) {
+	if (si->qlAddressPorts.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
-		if (! qha.isNull())
-			si->qlAddresses.append(qha);
-		else
-			si->qlAddresses = qhDNSCache.value(host);
+		if (! qha.isNull()) {
+			si->qlAddressPorts.append(qpAddress(HostAddress(qha), si->usPort));
+		} else {
+			si->qlAddressPorts = qhDNSCache.value(host);
+		}
 	}
 
 	if (qtwServers->currentItem() == si)
-		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(! si->qlAddresses.isEmpty());
+		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(! si->qlAddressPorts.isEmpty());
 
-	if (! si->qlAddresses.isEmpty()) {
-		foreach(const QHostAddress &qha, si->qlAddresses) {
-			qhPings[qpAddress(HostAddress(qha), si->usPort)].insert(si);
+	if (! si->qlAddressPorts.isEmpty()) {
+		foreach(const qpAddress &addr, si->qlAddressPorts) {
+			qhPings[addr].insert(si);
 		}
 		return;
 	}
@@ -1509,8 +1514,7 @@ void ConnectDialog::stopDns(ServerItem *si) {
 		return;
 	}
 
-	foreach(const QHostAddress &qha, si->qlAddresses) {
-		qpAddress addr(HostAddress(qha), si->usPort);
+	foreach(const qpAddress &addr, si->qlAddressPorts) {
 		if (qhPings.contains(addr)) {
 			qhPings[addr].remove(si);
 			if (qhPings[addr].isEmpty()) {
@@ -1531,25 +1535,31 @@ void ConnectDialog::stopDns(ServerItem *si) {
 	}
 }
 
-void ConnectDialog::lookedUp(QHostInfo info) {
-	QString host = info.hostName().toLower();
+void ConnectDialog::lookedUp() {
+	ServerResolver *sr = qobject_cast<ServerResolver *>(QObject::sender());
+	sr->deleteLater();
+
+	QString host = sr->hostname().toLower();
+
 	qsDNSActive.remove(host);
 
-	if (info.error() != QHostInfo::NoError)
+	if (sr->records().size() == 0) { // XXX: error
 		return;
-
-	qlDNSLookup.removeAll(host);
-	qhDNSCache.insert(host, info.addresses());
+	}
 
 	QSet<qpAddress> qs;
+	foreach (ServerResolverRecord record, sr->records()) {
+		foreach(const HostAddress &ha, record.addresses()) {
+			qs.insert(qpAddress(ha, sr->port()));
+		}
+	}
 
 	foreach(ServerItem *si, qhDNSWait[host]) {
-		si->qlAddresses = info.addresses();
-		foreach(const QHostAddress &qha, info.addresses()) {
-			qpAddress addr(HostAddress(qha), si->usPort);
-			qs.insert(addr);
+		foreach (const qpAddress &addr, qs) {
 			qhPings[addr].insert(si);
 		}
+
+		si->qlAddressPorts = qs.toList();
 
 		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);
@@ -1558,6 +1568,8 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 		}
 	}
 
+	qlDNSLookup.removeAll(host);
+	qhDNSCache.insert(host, qs.toList());
 	qhDNSWait.remove(host);
 
 	if (bAllowPing) {

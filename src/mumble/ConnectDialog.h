@@ -38,8 +38,6 @@
 struct FavoriteServer;
 class QUdpSocket;
 
-typedef QPair<HostAddress, unsigned short> qpAddress;
-
 struct PublicInfo {
 	QString qsName;
 	QUrl quUrl;
@@ -145,7 +143,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
 
-		QList<QHostAddress> qlAddresses;
+		QList<qpAddress> qlAddressPorts;
 
 		ItemType itType;
 
@@ -245,7 +243,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QList<QString> qlDNSLookup;
 		QSet<QString> qsDNSActive;
 		QHash<QString, QSet<ServerItem *> > qhDNSWait;
-		QHash<QString, QList<QHostAddress> > qhDNSCache;
+		QHash<QString, QList<qpAddress> > qhDNSCache;
 
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
@@ -288,7 +286,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void fetched(QByteArray xmlData, QUrl, QMap<QString, QString>);
 
 		void udpReply();
-		void lookedUp(QHostInfo);
+		void lookedUp();
 		void timeTick();
 
 		void on_qaFavoriteAdd_triggered();

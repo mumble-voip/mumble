@@ -14,9 +14,19 @@ CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
 INCLUDEPATH	+= $$PWD . ../mumble_proto
 VPATH		+= $$PWD
-HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h HTMLFilter.h User.h Net.h OSInfo.h Timer.h SSL.h Version.h SSLCipherInfo.h SSLCipherInfoTable.h licenses.h License.h LogEmitter.h CryptographicHash.h CryptographicRandom.h PasswordGenerator.h ByteSwap.h HostAddress.cpp Ban.h EnvUtils.h
-SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp HTMLFilter.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp SSL.cpp Version.cpp SSLCipherInfo.cpp License.cpp LogEmitter.cpp CryptographicHash.cpp CryptographicRandom.cpp PasswordGenerator.cpp HostAddress.cpp Ban.cpp EnvUtils.cpp
+HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h HTMLFilter.h User.h Net.h OSInfo.h Timer.h SSL.h Version.h SSLCipherInfo.h SSLCipherInfoTable.h licenses.h License.h LogEmitter.h CryptographicHash.h CryptographicRandom.h PasswordGenerator.h ByteSwap.h HostAddress.cpp Ban.h EnvUtils.h ServerResolver.h ServerResolverRecord.h
+SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp HTMLFilter.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp SSL.cpp Version.cpp SSLCipherInfo.cpp License.cpp LogEmitter.cpp CryptographicHash.cpp CryptographicRandom.cpp PasswordGenerator.cpp HostAddress.cpp Ban.cpp EnvUtils.cpp ServerResolver_qt5.cpp ServerResolverRecord.cpp
 LIBS		*= -lmumble_proto
+
+equals(QT_MAJOR_VERSION, 4) {
+	CONFIG *= no-srv
+}
+
+CONFIG(no-srv) {
+	DEFINES += USE_NO_SRV
+	SOURCES -= ServerResolver_qt5.cpp
+	SOURCES *= ServerResolver_nosrv.cpp
+}
 
 # Add arc4random_uniform
 INCLUDEPATH *= ../../3rdparty/arc4random-src
