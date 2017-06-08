@@ -34,6 +34,12 @@
 
     <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallValidate' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
 
+    <Upgrade Id="$(var.Old64BitProductUpgradeCode)">
+      <!-- 64 bit installers had a seperate upgrade code during the beta. As we do not actually want both versions
+           to be installed at the same time this allows detecting the old 64 bit version and upgrading from it -->
+      <UpgradeVersion Minimum="1.3.0" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="yes" OnlyDetect="no" Property="REMOVEOLD64BITPRODUCT" />
+    </Upgrade>
+
     <Media Id="1" Cabinet="$(var.ProductName).cab" EmbedCab="yes" CompressionLevel="high" />
 
     <UIRef Id="MumbleUI_FeatureTree" />
