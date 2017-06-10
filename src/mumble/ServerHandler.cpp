@@ -260,6 +260,7 @@ void ServerHandler::run() {
 	qbaDigest = QByteArray();
 	bStrong = true;
 	qtsSock = new QSslSocket(this);
+	qtsSock->setPeerVerifyName(qsHostName);
 
 	if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
 		qtsSock->setPrivateKey(g.s.kpCertificate.second);
