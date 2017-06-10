@@ -34,11 +34,11 @@
 #include "Net.h"
 #include "HostAddress.h"
 #include "Timer.h"
+#include "UnresolvedServerAddress.h"
+#include "ServerAddress.h"
 
 struct FavoriteServer;
 class QUdpSocket;
-
-typedef QPair<HostAddress, unsigned short> qpAddress;
 
 struct PublicInfo {
 	QString qsName;
@@ -145,7 +145,9 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
 
-		QList<QHostAddress> qlAddresses;
+		/// Contains the resolved addresses for
+		/// this ServerItem.
+		QList<ServerAddress> qlAddresses;
 
 		ItemType itType;
 
@@ -242,15 +244,15 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		ServerItem *siAutoConnect;
 
-		QList<QString> qlDNSLookup;
-		QSet<QString> qsDNSActive;
-		QHash<QString, QSet<ServerItem *> > qhDNSWait;
-		QHash<QString, QList<QHostAddress> > qhDNSCache;
+		QList<UnresolvedServerAddress> qlDNSLookup;
+		QSet<UnresolvedServerAddress> qsDNSActive;
+		QHash<UnresolvedServerAddress, QSet<ServerItem *> > qhDNSWait;
+		QHash<UnresolvedServerAddress, QList<ServerAddress> > qhDNSCache;
 
-		QHash<qpAddress, quint64> qhPingRand;
-		QHash<qpAddress, QSet<ServerItem *> > qhPings;
+		QHash<ServerAddress, quint64> qhPingRand;
+		QHash<ServerAddress, QSet<ServerItem *> > qhPings;
 
-		QMap<QPair<QString, unsigned short>, unsigned int> qmPingCache;
+		QMap<UnresolvedServerAddress, unsigned int> qmPingCache;
 
 		bool bIPv4;
 		bool bIPv6;
@@ -288,7 +290,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void fetched(QByteArray xmlData, QUrl, QMap<QString, QString>);
 
 		void udpReply();
-		void lookedUp(QHostInfo);
+		void lookedUp();
 		void timeTick();
 
 		void on_qaFavoriteAdd_triggered();
