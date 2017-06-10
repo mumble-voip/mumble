@@ -3,14 +3,8 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-TEMPLATE = subdirs
+include(../test.pri)
 
-SUBDIRS += \
-	TestCrypt \
-	TestCryptographicHash \
-	TestCryptographicRandom \
-	TestPacketDataStream \
-	TestPasswordGenerator \
-	TestTimer \
-	TestXMLTools \
-	TestUnresolvedServerAddress
+TARGET = TestUnresolvedServerAddress
+SOURCES = TestUnresolvedServerAddress.cpp UnresolvedServerAddress.cpp
+HEADERS = UnresolvedServerAddress.h
