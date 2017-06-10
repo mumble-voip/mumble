@@ -18,6 +18,7 @@
 #include "Global.h"
 #include "ServerHandler.h"
 #include "WebFetch.h"
+#include "ServerResolver.h"
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;
@@ -1391,15 +1392,18 @@ void ConnectDialog::timeTick() {
 
 	if (bAllowHostLookup) {
 		// Start DNS Lookup of first unknown hostname
-		foreach(const QString &host, qlDNSLookup) {
-			if (qsDNSActive.contains(host))
+		foreach(const UnresolvedServerAddress &unresolved, qlDNSLookup) {
+			if (qsDNSActive.contains(unresolved)) {
 				continue;
+			}
 
-			qlDNSLookup.removeAll(host);
-			qlDNSLookup.append(host);
+			qlDNSLookup.removeAll(unresolved);
+			qlDNSLookup.append(unresolved);
 
-			qsDNSActive.insert(host);
-			QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));
+			qsDNSActive.insert(unresolved);
+			ServerResolver *sr = new ServerResolver();
+			QObject::connect(sr, SIGNAL(resolved()), this, SLOT(lookedUp()));
+			sr->resolve(unresolved.hostname, unresolved.port);
 			break;
 		}
 	}
@@ -1415,12 +1419,14 @@ void ConnectDialog::timeTick() {
 		si = hover;
 
 	if (si) {
-		QString host = si->qsHostname.toLower();
+		QString hostname = si->qsHostname.toLower();
+		unsigned short port = si->usPort;
+		UnresolvedServerAddress unresolved(hostname, port);
 
 		if (si->qlAddresses.isEmpty()) {
-			if (! host.isEmpty()) {
-				qlDNSLookup.removeAll(host);
-				qlDNSLookup.prepend(host);
+			if (! hostname.isEmpty()) {
+				qlDNSLookup.removeAll(unresolved);
+				qlDNSLookup.prepend(unresolved);
 			}
 			si = NULL;
 		}
@@ -1467,8 +1473,9 @@ void ConnectDialog::startDns(ServerItem *si) {
 		return;
 	}
 
-	QString host = si->qsHostname.toLower();
+	QString hostname = si->qsHostname.toLower();
 	unsigned short port = si->usPort;
+	UnresolvedServerAddress unresolved(hostname, port);
 
 	if (si->qlAddresses.isEmpty()) {
 		// Determine if qsHostname is an IP address
@@ -1479,7 +1486,7 @@ void ConnectDialog::startDns(ServerItem *si) {
 		if (hostnameIsIPAddress) {
 			si->qlAddresses.append(ServerAddress(HostAddress(qha), port));
 		} else {
-			si->qlAddresses = qhDNSCache.value(host);
+			si->qlAddresses = qhDNSCache.value(unresolved);
 		}
 	}
 
@@ -1503,13 +1510,13 @@ void ConnectDialog::startDns(ServerItem *si) {
 	}
 #endif
 
-	if (! qhDNSWait.contains(host)) {
+	if (! qhDNSWait.contains(unresolved)) {
 		if (si->itType == ServerItem::PublicType)
-			qlDNSLookup.append(host);
+			qlDNSLookup.append(unresolved);
 		else
-			qlDNSLookup.prepend(host);
+			qlDNSLookup.prepend(unresolved);
 	}
-	qhDNSWait[host].insert(si);
+	qhDNSWait[unresolved].insert(si);
 }
 
 void ConnectDialog::stopDns(ServerItem *si) {
@@ -1527,35 +1534,47 @@ void ConnectDialog::stopDns(ServerItem *si) {
 		}
 	}
 
-	QString host = si->qsHostname.toLower();
+	QString hostname = si->qsHostname.toLower();
+	unsigned short port = si->usPort;
+	UnresolvedServerAddress unresolved(hostname, port);
 
-	if (qhDNSWait.contains(host)) {
-		qhDNSWait[host].remove(si);
-		if (qhDNSWait[host].isEmpty()) {
-			qhDNSWait.remove(host);
-			qlDNSLookup.removeAll(host);
+	if (qhDNSWait.contains(unresolved)) {
+		qhDNSWait[unresolved].remove(si);
+		if (qhDNSWait[unresolved].isEmpty()) {
+			qhDNSWait.remove(unresolved);
+			qlDNSLookup.removeAll(unresolved);
 		}
 	}
 }
 
-void ConnectDialog::lookedUp(QHostInfo info) {
-	QString host = info.hostName().toLower();
-	qsDNSActive.remove(host);
+void ConnectDialog::lookedUp() {
+	ServerResolver *sr = qobject_cast<ServerResolver *>(QObject::sender());
+	sr->deleteLater();
 
-	if (info.error() != QHostInfo::NoError)
+	QString hostname = sr->hostname().toLower();
+	unsigned short port = sr->port();
+	UnresolvedServerAddress unresolved(hostname, port);
+
+	qsDNSActive.remove(unresolved);
+
+	// An error occurred, or no records were found.
+	if (sr->records().size() == 0) {
 		return;
+	}
 
 	QSet<ServerAddress> qs;
+	foreach (ServerResolverRecord record, sr->records()) {
+		foreach(const HostAddress &ha, record.addresses()) {
+			qs.insert(ServerAddress(ha, sr->port()));
+		}
+	}
 
-	foreach(ServerItem *si, qhDNSWait[host]) {
-		QList<ServerAddress> addresses;
-		foreach(const QHostAddress &qha, info.addresses()) {
-			ServerAddress addr(HostAddress(qha), si->usPort);
-			addresses.append(addr);
-			qs.insert(addr);
+	foreach(ServerItem *si, qhDNSWait[unresolved]) {
+		foreach (const ServerAddress &addr, qs) {
 			qhPings[addr].insert(si);
 		}
-		si->qlAddresses = addresses;
+
+		si->qlAddresses = qs.toList();
 
 		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);
@@ -1564,9 +1583,9 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 		}
 	}
 
-	qlDNSLookup.removeAll(host);
-	qhDNSCache.insert(host, qs.toList());
-	qhDNSWait.remove(host);
+	qlDNSLookup.removeAll(unresolved);
+	qhDNSCache.insert(unresolved, qs.toList());
+	qhDNSWait.remove(unresolved);
 
 	if (bAllowPing) {
 		foreach(const ServerAddress &addr, qs) {
