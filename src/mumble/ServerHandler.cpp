@@ -297,7 +297,7 @@ void ServerHandler::run() {
 #else
 	qtsSock->setProtocol(QSsl::TlsV1);
 #endif
-	qtsSock->connectToHostEncrypted(qsHostName, usPort);
+	qtsSock->connectToHost(qsHostName, usPort);
 
 	tTimestamp.restart();
 
@@ -547,6 +547,9 @@ void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState st
 		connect(tConnectionTimeoutTimer, SIGNAL(timeout()), this, SLOT(serverConnectionTimeoutOnConnect()));
 		tConnectionTimeoutTimer->setSingleShot(true);
 		tConnectionTimeoutTimer->start(30000);
+	} else if (state == QAbstractSocket::ConnectedState) {
+		// Start TLS handshake
+		qtsSock->startClientEncryption();
 	}
 }
 
