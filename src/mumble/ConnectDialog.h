@@ -244,10 +244,10 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		ServerItem *siAutoConnect;
 
-		QList<QString> qlDNSLookup;
-		QSet<QString> qsDNSActive;
-		QHash<QString, QSet<ServerItem *> > qhDNSWait;
-		QHash<QString, QList<ServerAddress> > qhDNSCache;
+		QList<UnresolvedServerAddress> qlDNSLookup;
+		QSet<UnresolvedServerAddress> qsDNSActive;
+		QHash<UnresolvedServerAddress, QSet<ServerItem *> > qhDNSWait;
+		QHash<UnresolvedServerAddress, QList<ServerAddress> > qhDNSCache;
 
 		QHash<ServerAddress, quint64> qhPingRand;
 		QHash<ServerAddress, QSet<ServerItem *> > qhPings;
@@ -290,7 +290,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void fetched(QByteArray xmlData, QUrl, QMap<QString, QString>);
 
 		void udpReply();
-		void lookedUp(QHostInfo);
+		void lookedUp();
 		void timeTick();
 
 		void on_qaFavoriteAdd_triggered();
