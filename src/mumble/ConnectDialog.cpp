@@ -992,7 +992,7 @@ ConnectDialog::~ConnectDialog() {
 
 	foreach(ServerItem *si, qlItems) {
 		if (si->uiPing)
-			qmPingCache.insert(QPair<QString, unsigned short>(si->qsHostname, si->usPort), si->uiPing);
+			qmPingCache.insert(UnresolvedServerAddress(si->qsHostname, si->usPort), si->uiPing);
 
 		if (si->itType != ServerItem::FavoriteType)
 			continue;
@@ -1633,7 +1633,7 @@ void ConnectDialog::udpReply() {
 					si->uiBandwidth = qFromBigEndian(ping[5]);
 
 					if (! si->uiPingSort)
-						si->uiPingSort = qmPingCache.value(QPair<QString, unsigned short>(si->qsHostname, si->usPort));
+						si->uiPingSort = qmPingCache.value(UnresolvedServerAddress(si->qsHostname, si->usPort));
 
 					si->setDatas(static_cast<double>(elapsed), users, maxusers);
 					si->hideCheck();

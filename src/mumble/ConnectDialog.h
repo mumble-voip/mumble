@@ -34,6 +34,7 @@
 #include "Net.h"
 #include "HostAddress.h"
 #include "Timer.h"
+#include "UnresolvedServerAddress.h"
 #include "ServerAddress.h"
 
 struct FavoriteServer;
@@ -251,7 +252,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QHash<ServerAddress, quint64> qhPingRand;
 		QHash<ServerAddress, QSet<ServerItem *> > qhPings;
 
-		QMap<QPair<QString, unsigned short>, unsigned int> qmPingCache;
+		QMap<UnresolvedServerAddress, unsigned int> qmPingCache;
 
 		bool bIPv4;
 		bool bIPv6;
