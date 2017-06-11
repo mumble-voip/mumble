@@ -358,6 +358,9 @@ Settings::Settings() {
 	qsSslCiphers = MumbleSSL::defaultOpenSSLCipherString();
 	bHideOS = false;
 
+	// Network settings - Cert pinning
+	bCertPinningAllowLegacySHA1Pins = true;
+
 	bShowTransmitModeComboBox = false;
 
 	// Accessibility
@@ -690,6 +693,9 @@ void Settings::load(QSettings* settings_ptr) {
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
 
+	// Network settings - Cert pinning
+	SAVELOAD(bCertPinningAllowLegacySHA1Pins, "net/certpin/allowsha1");
+
 	// Privacy settings
 	SAVELOAD(bHideOS, "privacy/hideos");
 
@@ -1018,6 +1024,9 @@ void Settings::save() {
 
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
+
+	// Network settings - Cert pinning
+	SAVELOAD(bCertPinningAllowLegacySHA1Pins, "net/certpin/allowsha1");
 
 	// Privacy settings
 	SAVELOAD(bHideOS, "privacy/hideos");

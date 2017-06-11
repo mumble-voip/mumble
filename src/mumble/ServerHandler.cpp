@@ -25,6 +25,8 @@
 #include "HostAddress.h"
 #include "ServerResolver.h"
 #include "ServerResolverRecord.h"
+#include "CryptographicHash.h"
+#include "CertificatePinEvaluator.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -436,9 +438,24 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 #endif
 
 	bStrong = false;
-	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, usPort)))
+
+	QString storedHash = Database::getDigest(qsHostName, usPort);
+	QSslCertificate cert = qscCert.at(0);
+
+	CertificatePinEvaluator cpe;
+	CertificatePinEvaluatorResult cper = cpe.evaluate(cert, storedHash);
+
+	if (cper.isOK()) {
 		connection->proceedAnyway();
-	else
+
+		// Update the digest if it isn't in our preferred format.
+		CryptographicHash::Algorithm preferred_algo = cper.preferredAlgorithm();
+		if (cper.usedAlgorithm() != preferred_algo) {
+			QString short_algo_name = CryptographicHash::shortAlgorithmName(preferred_algo);
+			QString new_digest = QString::fromLatin1(CryptographicHash::hash(cert.toDer(), preferred_algo).toHex());
+			Database::setDigest(qsHostName, usPort, QString::fromLatin1("%1:%2").arg(short_algo_name, new_digest));
+		}
+	} else
 		qlErrors = newErrors;
 }
 
