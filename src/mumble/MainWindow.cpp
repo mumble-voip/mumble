@@ -46,7 +46,7 @@
 #include "Themes.h"
 #include "SSLCipherInfo.h"
 #include "CryptographicHash.h"
-#include "CertPinEvaluator.h"
+#include "CertificatePinEvaluator.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -2921,7 +2921,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			CertificatePinEvaluator cpe;
 			cpe.setPreferredAlgorithm(CryptographicHash::Sha256);
 			cpe.setAllowLegacySHA1Pins(g.s.bCertPinningAllowLegacySHA1Pins);
-			CertificatePinEvaluator cper = cpe.evaluate(c, storedCertPinHash);
+			CertificatePinEvaluatorResult cper = cpe.evaluate(c, storedCertPinHash);
 
 			QString digests_section = tr("<li>Server certificate digest (%1):\t%2</li>").arg(CryptographicHash::humanReadableAlgorithmName(cper.usedAlgorithm()), ViewCert::prettifyDigest(cper.digest()));
 
