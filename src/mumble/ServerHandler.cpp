@@ -23,6 +23,8 @@
 #include "User.h"
 #include "Net.h"
 #include "HostAddress.h"
+#include "ServerResolver.h"
+#include "ServerResolverRecord.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -256,92 +258,140 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 	}
 }
 
-void ServerHandler::run() {
-	qbaDigest = QByteArray();
-	bStrong = true;
-	QSslSocket *qtsSock = new QSslSocket(this);
+void ServerHandler::hostnameResolved() {
+	ServerResolver *sr = qobject_cast<ServerResolver *>(QObject::sender());
+	QList<ServerResolverRecord> records = sr->records();
 
-	if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
-		qtsSock->setPrivateKey(g.s.kpCertificate.second);
-		qtsSock->setLocalCertificate(g.s.kpCertificate.first.at(0));
-		QList<QSslCertificate> certs = qtsSock->caCertificates();
-		certs << g.s.kpCertificate.first;
-		qtsSock->setCaCertificates(certs);
+	// Exit the ServerHandler thread's event loop with an
+	// error code in case our hostname lookup failed.
+	if (records.isEmpty()) {
+		exit(-1);
 	}
 
-	{
-		ConnectionPtr connection(new Connection(this, qtsSock));
-		cConnection = connection;
-
-		qlErrors.clear();
-		qscCert.clear();
-
-		connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
-		connect(qtsSock, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(serverConnectionStateChanged(QAbstractSocket::SocketState)));
-		connect(connection.get(), SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this, SLOT(serverConnectionClosed(QAbstractSocket::SocketError, const QString &)));
-		connect(connection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
-		connect(connection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
-	}
-	bUdp = false;
-
-
-#if QT_VERSION >= 0x050500
-	qtsSock->setProtocol(QSsl::TlsV1_0OrLater);
-#elif QT_VERSION >= 0x050400
-	// In Qt 5.4, QSsl::SecureProtocols is equivalent
-	// to "TLSv1.0 or later", which we require.
-	qtsSock->setProtocol(QSsl::SecureProtocols);
-#elif QT_VERSION >= 0x050000
-	qtsSock->setProtocol(QSsl::TlsV1_0);
-#else
-	qtsSock->setProtocol(QSsl::TlsV1);
-#endif
-	qtsSock->connectToHostEncrypted(qsHostName, usPort);
-
-	tTimestamp.restart();
-
-	// Setup ping timer;
-	QTimer *ticker = new QTimer(this);
-	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
-	ticker->start(5000);
-
-	g.mw->rtLast = MumbleProto::Reject_RejectType_None;
-
-	accUDP = accTCP = accClean;
-
-	uiVersion = 0;
-	qsRelease = QString();
-	qsOS = QString();
-	qsOSVersion = QString();
-
-	exec();
-
-	if (qusUdp) {
-		QMutexLocker qml(&qmUdp);
-
-#ifdef Q_OS_WIN
-		if (hQoS != NULL) {
-			if (! QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0))
-				qWarning("ServerHandler: Failed to remove UDP from QoS");
-			dwFlowUDP = 0;
+	// Create the list of target host:port pairs
+	// that the ServerHandler should try to connect to.
+	QList<ServerAddress> ql;
+	foreach (ServerResolverRecord record, records) {
+		foreach (HostAddress addr, record.addresses()) {
+			ql.append(ServerAddress(addr, record.port()));
 		}
-#endif
-		delete qusUdp;
-		qusUdp = NULL;
+	}
+	qlAddresses = ql;
+
+	// Exit the event loop with 'success' status code,
+	// to continue connecting to the server.
+	exit(0);
+}
+
+void ServerHandler::run() {
+	// Resolve the hostname...
+	{
+		ServerResolver *sr = new ServerResolver();
+		QObject::connect(sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
+		sr->resolve(qsHostName, usPort);
+		int ret = exec();
+		if (ret < 0) {
+			qWarning("ServerHandler: failed to resolve hostname");
+			return;
+		}
 	}
 
-	ticker->stop();
+	QList<ServerAddress> targetAddresses(qlAddresses);
+	bool shouldTryNextTargetServer = true;
+	do {
+		saTargetServer = qlAddresses.takeFirst();
 
-	ConnectionPtr cptr(cConnection);
-	if (cptr) {
-		cptr->disconnectSocket(true);
-	}
+		qbaDigest = QByteArray();
+		bStrong = true;
+		qtsSock = new QSslSocket(this);
 
-	cConnection.reset();
-	while (! cptr.unique()) {
-		msleep(100);
-	}
-	delete qtsSock;
+		if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
+			qtsSock->setPrivateKey(g.s.kpCertificate.second);
+			qtsSock->setLocalCertificate(g.s.kpCertificate.first.at(0));
+			QList<QSslCertificate> certs = qtsSock->caCertificates();
+			certs << g.s.kpCertificate.first;
+			qtsSock->setCaCertificates(certs);
+		}
+
+		{
+			ConnectionPtr connection(new Connection(this, qtsSock));
+			cConnection = connection;
+
+			qlErrors.clear();
+			qscCert.clear();
+
+			connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
+			connect(qtsSock, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(serverConnectionStateChanged(QAbstractSocket::SocketState)));
+			connect(connection.get(), SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this, SLOT(serverConnectionClosed(QAbstractSocket::SocketError, const QString &)));
+			connect(connection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
+			connect(connection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
+		}
+		bUdp = false;
+
+
+	#if QT_VERSION >= 0x050500
+		qtsSock->setProtocol(QSsl::TlsV1_0OrLater);
+	#elif QT_VERSION >= 0x050400
+		// In Qt 5.4, QSsl::SecureProtocols is equivalent
+		// to "TLSv1.0 or later", which we require.
+		qtsSock->setProtocol(QSsl::SecureProtocols);
+	#elif QT_VERSION >= 0x050000
+		qtsSock->setProtocol(QSsl::TlsV1_0);
+	#else
+		qtsSock->setProtocol(QSsl::TlsV1);
+	#endif
+		qtsSock->connectToHost(saTargetServer.host.toAddress(), saTargetServer.port);
+
+		tTimestamp.restart();
+
+		// Setup ping timer;
+		QTimer *ticker = new QTimer(this);
+		connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
+		ticker->start(5000);
+
+		g.mw->rtLast = MumbleProto::Reject_RejectType_None;
+
+		accUDP = accTCP = accClean;
+
+		uiVersion = 0;
+		qsRelease = QString();
+		qsOS = QString();
+		qsOSVersion = QString();
+
+		int ret = exec();
+		if (ret == -2) {
+			shouldTryNextTargetServer = true;
+		} else {
+			shouldTryNextTargetServer = false;
+		}
+
+		if (qusUdp) {
+			QMutexLocker qml(&qmUdp);
+
+	#ifdef Q_OS_WIN
+			if (hQoS != NULL) {
+				if (! QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0))
+					qWarning("ServerHandler: Failed to remove UDP from QoS");
+				dwFlowUDP = 0;
+			}
+	#endif
+			delete qusUdp;
+			qusUdp = NULL;
+		}
+
+		ticker->stop();
+
+		ConnectionPtr cptr(cConnection);
+		if (cptr) {
+			cptr->disconnectSocket(true);
+		}
+
+		cConnection.reset();
+		while (! cptr.unique()) {
+			msleep(100);
+		}
+		delete qtsSock;
+	} while (shouldTryNextTargetServer && !qlAddresses.isEmpty());
 }
 
 #ifdef Q_OS_WIN
@@ -396,6 +446,10 @@ void ServerHandler::sendPing() {
 	ConnectionPtr connection(cConnection);
 	if (!connection)
 		return;
+
+	if (qtsSock->state() != QAbstractSocket::ConnectedState) {
+		return;
+	}
 
 	if (g.s.iMaxInFlightTCPPings >= 0 && iInFlightTCPPings >= g.s.iMaxInFlightTCPPings) {
 		serverConnectionClosed(QAbstractSocket::UnknownSocketError, tr("Server is not responding to TCP pings"));
@@ -523,6 +577,20 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
+
+	// Try next server in the list if possible.
+	// Otherwise, emit disconnect and exit with
+	// a normal status code.
+	if (!qlAddresses.isEmpty()) {
+		if (err == QAbstractSocket::ConnectionRefusedError || err == QAbstractSocket::SocketTimeoutError) {
+			qWarning("ServerHandler: connection attempt to %s:%i failed: %s (%li); trying next server....",
+						qPrintable(saTargetServer.host.toString()), static_cast<int>(saTargetServer.port),
+						qPrintable(reason), static_cast<long>(err));
+			exit(-2);
+			return;
+		}
+	}
+
 	emit disconnected(err, reason);
 	exit(0);
 }
@@ -542,6 +610,9 @@ void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState st
 		connect(tConnectionTimeoutTimer, SIGNAL(timeout()), this, SLOT(serverConnectionTimeoutOnConnect()));
 		tConnectionTimeoutTimer->setSingleShot(true);
 		tConnectionTimeoutTimer->start(30000);
+	} else if (state == QAbstractSocket::ConnectedState) {
+		// Start TLS handshake
+		qtsSock->startClientEncryption();
 	}
 }
 
