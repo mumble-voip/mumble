@@ -69,7 +69,7 @@ CryptographicHash::Algorithm CertificatePinEvaluator::preferredAlgorithm() {
 	return m_preferredAlgorithm;
 }
 
-CertPinEvaluatorResult CertificatePinEvaluator::evaluate(const QSslCertificate &cert, QString storedHash) {
+CertificatePinEvaluatorResult CertificatePinEvaluator::evaluate(const QSslCertificate &cert, QString storedHash) {
 	QString stored_digest = storedHash;
 	QString expected_digest;
 	QString actual_digest;
@@ -107,5 +107,5 @@ CertPinEvaluatorResult CertificatePinEvaluator::evaluate(const QSslCertificate &
 		}
 	}
 
-	return CertPinEvaluatorResult(pin_ok, preferred_algo, algo, actual_digest, expected_digest);
+	return CertificatePinEvaluatorResult(pin_ok, preferred_algo, algo, actual_digest, expected_digest);
 }
