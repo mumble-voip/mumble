@@ -2918,10 +2918,10 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 			QString storedCertPinHash = Database::getDigest(host, port);
 
-			CertPinEvaluator cpe;
+			CertificatePinEvaluator cpe;
 			cpe.setPreferredAlgorithm(CryptographicHash::Sha256);
 			cpe.setAllowLegacySHA1Pins(g.s.bCertPinningAllowLegacySHA1Pins);
-			CertPinEvaluatorResult cper = cpe.evaluate(c, storedCertPinHash);
+			CertificatePinEvaluator cper = cpe.evaluate(c, storedCertPinHash);
 
 			QString digests_section = tr("<li>Server certificate digest (%1):\t%2</li>").arg(CryptographicHash::humanReadableAlgorithmName(cper.usedAlgorithm()), ViewCert::prettifyDigest(cper.digest()));
 
