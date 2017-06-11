@@ -10,11 +10,11 @@
 
 #include "CryptographicHash.h"
 
-class CertPinEvaluatorResult {
+class CertificatePinEvaluatorResult {
 	public:
-		friend class CertPinEvaluator;
+		friend class CertificatePinEvaluator;
 
-		~CertPinEvaluatorResult();
+		~CertificatePinEvaluatorResult();
 
 		/// Whether the stored pin matched the passed-in certificate.
 		bool isOK();
@@ -32,8 +32,8 @@ class CertPinEvaluatorResult {
 		QString expectedDigest();
 
 	private:
-		CertPinEvaluatorResult();
-		CertPinEvaluatorResult(bool ok, CryptographicHash::Algorithm preferred, CryptographicHash::Algorithm used, QString digest, QString expectedDigest);
+		CertificatePinEvaluatorResult();
+		CertificatePinEvaluatorResult(bool ok, CryptographicHash::Algorithm preferred, CryptographicHash::Algorithm used, QString digest, QString expectedDigest);
 
 		bool m_ok;
 		CryptographicHash::Algorithm m_preferredAlgorithm;
@@ -42,10 +42,10 @@ class CertPinEvaluatorResult {
 		QString m_expectedDigest;
 };
 
-class CertPinEvaluator {
+class CertificatePinEvaluator {
 	public:
-		CertPinEvaluator();
-		~CertPinEvaluator();
+		CertificatePinEvaluator();
+		~CertificatePinEvaluator();
 
 		void setAllowLegacySHA1Pins(bool allow);
 		bool allowLegacySHA1Pins();
@@ -53,7 +53,7 @@ class CertPinEvaluator {
 		void setPreferredAlgorithm(CryptographicHash::Algorithm algo);
 		CryptographicHash::Algorithm preferredAlgorithm();
 
-		CertPinEvaluatorResult evaluate(const QSslCertificate &cert, QString storedHash);
+		CertificatePinEvaluatorResult evaluate(const QSslCertificate &cert, QString storedHash);
 
 	private:
 		bool m_allowLegacySHA1Pins;
