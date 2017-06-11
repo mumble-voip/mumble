@@ -6,8 +6,6 @@
 #include "CertificatePinEvaluator.h"
 
 #include "CryptographicHash.h"
-#include "Database.h"
-#include "Global.h"
 
 CertificatePinEvaluatorResult::CertificatePinEvaluatorResult() {
 }

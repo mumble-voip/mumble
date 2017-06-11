@@ -3,10 +3,10 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MUMBLE_CERTPINEVALUATOR_H_
-#define MUMBLE_MUMBLE_CERTPINEVALUATOR_H_
+#ifndef MUMBLE_CERTPINEVALUATOR_H_
+#define MUMBLE_CERTPINEVALUATOR_H_
 
-#include "mumble_pch.hpp"
+#include "murmur_pch.h"
 
 #include "CryptographicHash.h"
 
