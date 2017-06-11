@@ -3,16 +3,16 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "CertPinEvaluator.h"
+#include "CertificatePinEvaluator.h"
 
 #include "CryptographicHash.h"
 #include "Database.h"
 #include "Global.h"
 
-CertPinEvaluatorResult::CertPinEvaluatorResult() {
+CertificatePinEvaluatorResult::CertificatePinEvaluatorResult() {
 }
 
-CertPinEvaluatorResult::CertPinEvaluatorResult(bool ok, CryptographicHash::Algorithm preferred, CryptographicHash::Algorithm used, QString digest, QString expectedDigest) {
+CertificatePinEvaluatorResult::CertificatePinEvaluatorResult(bool ok, CryptographicHash::Algorithm preferred, CryptographicHash::Algorithm used, QString digest, QString expectedDigest) {
 	m_ok = ok;
 
 	m_preferredAlgorithm = preferred;
@@ -22,54 +22,54 @@ CertPinEvaluatorResult::CertPinEvaluatorResult(bool ok, CryptographicHash::Algor
 	m_expectedDigest = expectedDigest;
 }
 
-CertPinEvaluatorResult::~CertPinEvaluatorResult() {
+CertificatePinEvaluatorResult::~CertificatePinEvaluatorResult() {
 }
 
-bool CertPinEvaluatorResult::isOK() {
+bool CertificatePinEvaluatorResult::isOK() {
 	return m_ok;
 }
 
-CryptographicHash::Algorithm CertPinEvaluatorResult::preferredAlgorithm() {
+CryptographicHash::Algorithm CertificatePinEvaluatorResult::preferredAlgorithm() {
 	return m_preferredAlgorithm;
 }
 
-CryptographicHash::Algorithm CertPinEvaluatorResult::usedAlgorithm() {
+CryptographicHash::Algorithm CertificatePinEvaluatorResult::usedAlgorithm() {
 	return m_usedAlgorithm;
 }
 
-QString CertPinEvaluatorResult::digest() {
+QString CertificatePinEvaluatorResult::digest() {
 	return m_digest;
 }
 
-QString CertPinEvaluatorResult::expectedDigest() {
+QString CertificatePinEvaluatorResult::expectedDigest() {
 	return m_expectedDigest;
 }
 
-CertPinEvaluator::CertPinEvaluator()
+CertificatePinEvaluator::CertificatePinEvaluator()
 	: m_preferredAlgorithm(CryptographicHash::Sha256)
 	, m_allowLegacySHA1Pins(false) {
 }
 
-CertPinEvaluator::~CertPinEvaluator() {
+CertificatePinEvaluator::~CertificatePinEvaluator() {
 }
 
-void CertPinEvaluator::setAllowLegacySHA1Pins(bool allow) {
+void CertificatePinEvaluator::setAllowLegacySHA1Pins(bool allow) {
 	m_allowLegacySHA1Pins = allow;
 }
 
-bool CertPinEvaluator::allowLegacySHA1Pins() {
+bool CertificatePinEvaluator::allowLegacySHA1Pins() {
 	return m_allowLegacySHA1Pins;
 }
 
-void CertPinEvaluator::setPreferredAlgorithm(CryptographicHash::Algorithm algo) {
+void CertificatePinEvaluator::setPreferredAlgorithm(CryptographicHash::Algorithm algo) {
 	m_preferredAlgorithm = algo;
 }
 
-CryptographicHash::Algorithm CertPinEvaluator::preferredAlgorithm() {
+CryptographicHash::Algorithm CertificatePinEvaluator::preferredAlgorithm() {
 	return m_preferredAlgorithm;
 }
 
-CertPinEvaluatorResult CertPinEvaluator::evaluate(const QSslCertificate &cert, QString storedHash) {
+CertPinEvaluatorResult CertificatePinEvaluator::evaluate(const QSslCertificate &cert, QString storedHash) {
 	QString stored_digest = storedHash;
 	QString expected_digest;
 	QString actual_digest;
