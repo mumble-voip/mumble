@@ -800,7 +800,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"/>
+        <translation>Atstatyti garsinį orientyrą į numatytąjį</translation>
     </message>
     <message>
         <location/>
@@ -830,7 +830,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Preview the audio cues</source>
-        <translation type="unfinished"/>
+        <translation>Garsinių orientyrų peržiūra</translation>
     </message>
     <message>
         <location/>
@@ -945,7 +945,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished"/>
+        <translation>Didžiausias įvesties garso stiprinimas</translation>
     </message>
     <message>
         <location/>
@@ -1060,17 +1060,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Girdimas garso orientyras, kai perdavimas pradedamas ar sustabdomas</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tai įjungia garsinius perdavimo orientyrus.&lt;/b&gt;&lt;br /&gt;Tai nustačius, pradedant ir sustabdant perdavimą, girdėsite trumpą garsinį pyptelėjimą.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"/>
+        <translation>Garsinis orientyras</translation>
     </message>
     <message>
         <location/>
@@ -1100,37 +1100,37 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"/>
+        <translation>Didžiausias stiprinimas</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"/>
+        <translation>Veiksmas, esant neveiklumui</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"/>
+        <translation>minučių</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"/>
+        <translation>nieko nedaryti</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"/>
+        <translation>apkurtinti</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"/>
+        <translation>nutildyti</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"/>
+        <translation>po</translation>
     </message>
     <message>
         <location/>
@@ -1276,7 +1276,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation type="unfinished"/>
+        <translation>Mažiausias atstumas iki naudotojo prieš tai, kai garso garsis sumažės</translation>
     </message>
     <message>
         <location/>
@@ -1362,27 +1362,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Mažiausias atstumas</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Didžiausias atstumas</translation>
     </message>
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation type="unfinished"/>
+        <translation>Didžiausias atstumas, kurį viršijus, kalbos garsis nemažės</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"/>
+        <translation>Mažiausias garsis</translation>
     </message>
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"/>
+        <translation>Koks turėtų būti garsis didžiausiame atstume?</translation>
     </message>
     <message>
         <location/>
@@ -1478,7 +1478,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"/>
+        <translation>Išskirtinė veiksena, nerekomenduojama.</translation>
     </message>
     <message>
         <location/>
@@ -2982,12 +2982,12 @@ Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;htt
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation type="unfinished"/>
+        <translation>Registruoti naudotoją</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation type="unfinished"/>
+        <translation>Registruoti save</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -3937,7 +3937,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"/>
+        <translation>Leidimas atmestas</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4323,7 +4323,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Jei nustatyta, jums išeinant ir vis dar tebesant prisijungus, bus klausiama patvirtinimo.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4414,7 +4414,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"/>
+        <translation>Klausti išeinant, kai tebeesama prisijungta</translation>
     </message>
     <message>
         <location/>
@@ -5941,12 +5941,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+42"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>Jums buvo uždraustas leidimas %1, kanale %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3 buvo uždraustas leidimas %1, kanale %2.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5956,12 +5956,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"/>
+        <translation>Atmesta: Neteisingas kanalo pavadinimas.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"/>
+        <translation>Atmesta: Teksto žinutė yra per ilga.</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -6001,7 +6001,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished"/>
+        <translation>Leidimas atmestas.</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -6275,7 +6275,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+158"/>
         <source>Denied: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Atmesta: %1.</translation>
     </message>
     <message>
         <location line="+269"/>
@@ -8059,12 +8059,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"/>
+        <translation>Jei pažymėta, žinutė bus rekursyviai išsiųsta į visus pokanalius</translation>
     </message>
     <message>
         <location/>
         <source>Send recursively to subchannels</source>
-        <translation type="unfinished"/>
+        <translation>Siųsti rekursyviai į pokanalius</translation>
     </message>
 </context>
 <context>
