@@ -713,7 +713,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii maksimissaan numeron s
     <message>
         <location line="+1"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tekijät</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2520,7 +2520,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Tuonti epäonnistui. Salasana puuttuu tai tiedostomuoto ei ole tuettu.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -3612,7 +3612,7 @@ missään sijainnissa.</translation>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Kehittäjäkonsoli</translation>
     </message>
 </context>
 <context>
@@ -4051,12 +4051,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+119"/>
         <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Ei kelpaavaa kuvaa ]]</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Väärä koko ]]</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4568,17 +4568,17 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjän siirto</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä muuttaa sitä, miten käyttäjien siirto käyttäytyy.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Määrää käyttäjien vetämisen tapahtuman. Voidaan hyödyntää käyttäjien vahinkosiirtämisen välttämiseen. &lt;i&gt;Siirrä&lt;/i&gt; siirtää käyttäjän välittömästi. &lt;i&gt;Älä tee mitään&lt;/i&gt; ei tee mitään tapahtuman yhteydessä ja antaa virheilmoituksen. &lt;i&gt;Kysy&lt;/i&gt; varmistaa tapahtuman yhteydessä halutaanko käyttäjä siirtää.</translation>
     </message>
 </context>
 <context>
@@ -4917,7 +4917,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+112"/>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Odotettava sertifikaatti digest (SHA-1):	%11</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4927,7 +4927,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>%1 %2 Virheitä sertifikaatissa oli: %3 Haluatko hyväksyä sertifikaatin tästä huolimatta? (Sertifikaatti tullaan tallentamaan, jolloin sinulta ei kysytä tätä uudelleen).</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -5014,13 +5014,13 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+3"/>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Lähetä leikepöydän teksti viestinä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Tämä lähettää leikepöydän sisällön kanavalle, jolla olet tällä hetkellä.</translation>
     </message>
     <message>
         <location line="+88"/>
@@ -5245,7 +5245,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+5"/>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimen sertifikaatti digest (SHA-1):	%11</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6186,7 +6186,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+2"/>
         <source>(Private) </source>
-        <translation type="unfinished"/>
+        <translation>(Yksityinen)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6322,7 +6322,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location filename="UserModel.cpp" line="+1377"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjän vetäminen -asetuksesi on asetettu muotoon &quot;Älä tee mitään&quot;, joten käyttäjää ei liikutettu.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6651,37 +6651,37 @@ kanavien alivalikosta.</translation>
     <message>
         <location/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kehittäjä</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Piilota Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Piilottaa Mumblen päänäkymän.</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation>Piilottaa Mumblen ikkunan. Palauta se klikkaamalla iconia tehtäväpalkissasi tai käynnistämällä mumble uudelleen.</translation>
     </message>
     <message>
         <location/>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kehittäjäkonsoli</translation>
     </message>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Näytä kehittäjäkonsoli</translation>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää Mumblen kehittäjäkonsolin, mistä lokitietoja voi selata.</translation>
     </message>
 </context>
 <context>
@@ -6689,92 +6689,92 @@ kanavien alivalikosta.</translation>
     <message>
         <location filename="ManualPlugin.ui"/>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Manuaalinen sijainninmukainen audio</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Paikka</translation>
     </message>
     <message>
         <location/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location/>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <location/>
         <source>Heading</source>
-        <translation type="unfinished"/>
+        <translation>Suunta</translation>
     </message>
     <message>
         <location/>
         <source>Azimuth</source>
-        <translation type="unfinished"/>
+        <translation>Sivukulma</translation>
     </message>
     <message>
         <location/>
         <source>Elevation</source>
-        <translation type="unfinished"/>
+        <translation>Korkeus</translation>
     </message>
     <message>
         <location/>
         <source>°</source>
-        <translation type="unfinished"/>
+        <translation>°</translation>
     </message>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Metatieto</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Konteksti</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Identiteetti</translation>
     </message>
     <message>
         <location/>
         <source>Set</source>
-        <translation type="unfinished"/>
+        <translation>Joukko</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Tila</translation>
     </message>
     <message>
         <location/>
         <source>Linked</source>
-        <translation type="unfinished"/>
+        <translation>Linkitetyt</translation>
     </message>
     <message>
         <location/>
         <source>Activated</source>
-        <translation type="unfinished"/>
+        <translation>Aktivoidut</translation>
     </message>
     <message>
         <location/>
         <source>Unhinge</source>
-        <translation type="unfinished"/>
+        <translation>Vapauta</translation>
     </message>
 </context>
 <context>
@@ -7879,7 +7879,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
     <message>
         <location filename="ServerHandler.cpp" line="+397"/>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>Palvelin ei vastaa TCP-pingeihin</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -8598,7 +8598,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location line="+722"/>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"/>
+        <translation>Haluatko varmasti siirtää tämän käyttäjän?</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -8672,36 +8672,36 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
         <location line="+36"/>
         <location line="+40"/>
         <source>Common Name</source>
-        <translation type="unfinished"/>
+        <translation>Yleisnimi</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>Organisaatio</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Subunit</source>
-        <translation type="unfinished"/>
+        <translation>Yksikkö</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+40"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Maa</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Locality</source>
-        <translation type="unfinished"/>
+        <translation>Sijainti</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Osavaltio</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -8741,7 +8741,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location line="+2"/>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"/>
+        <translation>Digest (SHA-256): %1</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -8761,7 +8761,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location line="+3"/>
         <source>Unit Name</source>
-        <translation type="unfinished"/>
+        <translation>Yksikön nimi</translation>
     </message>
 </context>
 <context>
