@@ -17,24 +17,37 @@ QString EnvUtils::getenv(QString name) {
 	const wchar_t *wname = reinterpret_cast<const wchar_t *>(name.utf16());
 
 	// Query the required buffer size (in elements).
-	_wgetenv_s(&requiredSize, 0, 0, wname);
+	if (_wgetenv_s(&requiredSize, 0, 0, wname) != 0) {
+		return QString();
+	}
 	if (requiredSize == 0) {
 		return QString();
 	}
 
 	// Resize buf to fit the value and put it there.
 	buf.resize(static_cast<int>(requiredSize * sizeof(wchar_t)));
-	_wgetenv_s(&requiredSize, reinterpret_cast<wchar_t *>(buf.data()), requiredSize, wname);
+	if (_wgetenv_s(&requiredSize, reinterpret_cast<wchar_t *>(buf.data()), requiredSize, wname) != 0) {
+		return QString();
+	}
 
 	// Convert the value to QString and return it.
 	const wchar_t *wbuf = reinterpret_cast<const wchar_t *>(buf.constData());
 	return QString::fromWCharArray(wbuf);
 #else
-	QByteArray nameU8 = name.toUtf8();
-	char *val = ::getenv(nameU8.constData());
+	QByteArray name8bit = name.toLocal8Bit();
+	char *val = ::getenv(name8bit.constData());
 	if (val == NULL) {
 		return QString();
 	}
-	return QString::fromUtf8(val);
+	return QString::fromLocal8Bit(val);
+#endif
+}
+
+bool EnvUtils::setenv(QString name, QString value) {
+#ifdef Q_OS_WIN
+	return _wputenv_s(reinterpret_cast<const wchar_t *>(name.utf16()), reinterpret_cast<const wchar_t *>(value.utf16())) == 0;
+#else
+	const int OVERWRITE = 1;
+	return ::setenv(name.toLocal8Bit().constData(), value.toLocal8Bit().constData(), OVERWRITE) == 0;
 #endif
 }

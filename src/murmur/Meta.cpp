@@ -14,6 +14,7 @@
 #include "OSInfo.h"
 #include "Version.h"
 #include "SSL.h"
+#include "EnvUtils.h"
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 # include <QSslDiffieHellmanParameters>
@@ -125,16 +126,8 @@ void MetaParams::read(QString fname) {
 		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
 
-		size_t reqSize;
-		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-		if (reqSize > 0) {
-			STACKVAR(wchar_t, buff, reqSize+1);
-			_wgetenv_s(&reqSize, buff, reqSize, L"APPDATA");
-
-			QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
-
-			datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
-		}
+		QDir appdir = QDir(QDir::fromNativeSeparators(EnvUtils::getenv(QLatin1String("APPDATA"))));
+		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
 #else
 		datapaths << QDir::homePath() + QLatin1String("/.murmurd");
 		datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");

@@ -580,7 +580,7 @@ void MainWindow::updateTrayIcon() {
 	} else if (p && p->bSuppress) {
 		qstiIcon->setIcon(qiIconMuteSuppressed);
 	} else if (g.s.bStateInTray && g.bPushToMute) {
-		qstiIcon->setIcon(qiIconMuteSuppressed);
+		qstiIcon->setIcon(qiIconMutePushToMute);
 	} else if (p && g.s.bStateInTray) {
 		switch (p->tsState) {
 			case Settings::Talking:
@@ -2376,9 +2376,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
-	QDialog *dlg = NULL;
-	if (! dlg)
-		dlg = new ConfigDialog(this);
+	QDialog *dlg = new ConfigDialog(this);
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);

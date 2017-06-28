@@ -105,6 +105,8 @@ extern "C" {
 #include <dns_sd.h>
 #endif
 
+#include <openssl/opensslv.h>
+#include <openssl/bn.h>
 #include <openssl/aes.h>
 #include <openssl/rand.h>
 #include <openssl/pem.h>

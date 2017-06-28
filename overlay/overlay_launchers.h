@@ -13,6 +13,8 @@ static const char *overlayLaunchers[] = {
 	"GalaxyClient.exe", // GOG Galaxy
 	"UbisoftGameLauncher.exe", // Uplay
 	"UbisoftGameLauncher64.exe", // Uplay
+	"itch.exe", // itch.io
+	"LaunchPad.exe", // Daybreak Games LaunchPad
 
 	"evelauncher.exe", // EVE Online launcher
 	"ffxivlauncher.exe", // Final Fantasy XIV Launcher

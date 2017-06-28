@@ -786,6 +786,16 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="4">
+       <widget class="QCheckBox" name="qcbUndoIdleAction">
+        <property name="toolTip">
+         <string>The idle action will be reversed upon any key or mouse button input</string>
+        </property>
+        <property name="text">
+         <string>Undo Idle action upon activity</string>
+        </property>
+       </widget>
+      </item>
       <item row="3" column="4">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>

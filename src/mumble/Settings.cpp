@@ -240,10 +240,12 @@ Settings::Settings() {
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
+	uiAudioInputChannelMask = 0xffffffffffffffffULL;
 
 	// Idle auto actions
 	iIdleTime = 5 * 60;
 	iaeIdleAction = Nothing;
+	bUndoIdleActionUponActivity = false;
 
 	vsVAD = Amplitude;
 	fVADmin = 0.80f;
@@ -605,12 +607,14 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
+	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
 
 	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
 	LOADENUM(iaeIdleAction, "audio/idleaction");
+	SAVELOAD(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
 
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
@@ -639,6 +643,7 @@ void Settings::load(QSettings* settings_ptr) {
 
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
+	SAVELOAD(qsWASAPIRole, "wasapi/role");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
@@ -932,12 +937,14 @@ void Settings::save() {
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
+	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
 
 	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
 	SAVELOAD(iaeIdleAction, "audio/idleaction");
+	SAVELOAD(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
 
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
@@ -966,6 +973,7 @@ void Settings::save() {
 
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
+	SAVELOAD(qsWASAPIRole, "wasapi/role");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");

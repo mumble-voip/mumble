@@ -11,4 +11,8 @@ SUBDIRS += \
 	TestCryptographicRandom \
 	TestPacketDataStream \
 	TestPasswordGenerator \
-	TestTimer
+	TestTimer \
+	TestXMLTools \
+	TestUnresolvedServerAddress \
+	TestServerAddress \
+	TestServerResolver

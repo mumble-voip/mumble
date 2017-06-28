@@ -12,43 +12,13 @@ class TestTimer : public QObject {
 		Q_OBJECT
 	private slots:
 		void resolution();
-		void accuracy();
-		void atomicity();
 		void order();
 };
-
-static quint64 delta64(quint64 a, quint64 b) {
-	if (a > b) {
-		return a - b;
-	}
-	return b - a;
-}
-
-void TestTimer::accuracy() {
-	QTime a;
-	Timer t;
-
-	a.restart();
-	t.restart();
-	do {
-	} while (a.elapsed() < 1000);
-
-	quint64 tElapsedMs = t.elapsed() / 1000ULL;
-	quint64 aElapsedMs = a.elapsed();
-
-	quint64 delta = delta64(tElapsedMs, aElapsedMs);
-
-	qWarning("Timer elapsed time: %llu milliseconds", static_cast<unsigned long long>(tElapsedMs));
-	qWarning("QTime elapsed time: %llu milliseconds", static_cast<unsigned long long>(aElapsedMs));
-	qWarning("Delta: %llu milliseconds", static_cast<unsigned long long >(delta));
-
-	QVERIFY(delta < 10);
-}
 
 // This tests that the timer implemented by the Timer
 // class is a high resolution timer. In this case, we
 // check that the output of the elapsed() method changes
-// at least every 5 microseconds.
+// at least every 100 microseconds.
 void TestTimer::resolution() {
 	Timer t;
 
@@ -73,35 +43,9 @@ void TestTimer::resolution() {
 	qWarning("Number of elapsed changes: %llu", static_cast<unsigned long long>(nchanges));
 	qWarning("Resolution: %.2f microseconds", usecsPerChange);
 
-	if (usecsPerChange >= 5.0f) {
-		QFAIL("Insufficient timer resolution. Got >= 5 usec, expected < 5 usec resolution...");
+	if (usecsPerChange >= 100.0f) {
+		QFAIL("Insufficient timer resolution. Got >= 100 usec, expected < 100 usec resolution...");
 	}
-}
-
-void TestTimer::atomicity() {
-	QTime t;
-	Timer a, b;
-
-	a = b;
-
-	quint64 ttime = 0;
-
-	t.restart();
-	do {
-		ttime += a.restart();
-	} while (t.elapsed() < 10);
-
-	quint64 elapsed = b.elapsed();
-
-	// Find the delta between the calculated elapsed time (ttime)
-	// and the elapsed time according to the Timer class (elapsed).
-	quint64 delta = delta64(elapsed, ttime);
-
-	qWarning("Timer class's elapsed time: %llu microseconds", static_cast<unsigned long long>(elapsed));
-	qWarning("Calculated elapsed time: %llu microseconds", static_cast<unsigned long long>(elapsed));
-	qWarning("Delta: %llu microseconds", static_cast<unsigned long long>(delta));
-
-	QVERIFY(delta < 100);
 }
 
 void TestTimer::order() {

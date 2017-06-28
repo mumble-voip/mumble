@@ -708,7 +708,7 @@ maksymalna liczba użytkowników wynosi tyle co domyślny limit serwera.</transl
     <message>
         <location line="+1"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Autorzy</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2486,7 +2486,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Nie można zaimportować. Brak hasła lub niezgodny typ pliku.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -3560,7 +3560,7 @@ of the possible locations.</source>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Konsola programisty</translation>
     </message>
 </context>
 <context>
@@ -3998,12 +3998,12 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location line="+119"/>
         <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Nieprawidłowy obraz ]]</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Nieprawidłowy rozmiar ]]</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4359,7 +4359,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Zmienia zachowanie przeciągania kanałów -  może zostać użyte, by zapobiec przypadkowemu przeciąganiu. &lt;i&gt;Przenieś&lt;/i&gt; przenosi kanał bez powiadomienia. &lt;i&gt;Nic nie rób&lt;/i&gt; nic nie robi i wyświetla wiadomość z błędem. &lt;i&gt;Pytaj&lt;/i&gt; używa powiadomienia tekstowego, by upewnić się czy na pewno chciałeś przenieść kanał.</translation>
+        <translation>Zmienia zachowanie przeciągania kanałów -  może zostać użyte, by zapobiec przypadkowemu przeciąganiu. &lt;i&gt;Przenieś&lt;/i&gt; przenosi kanał bez powiadomienia. &lt;i&gt;Nic nie rób&lt;/i&gt; nic nie robi i wyświetla wiadomość z błędem. &lt;i&gt;Pytaj&lt;/i&gt; używa powiadomienia tekstowego, by upewnić się, czy na pewno chciałeś przenieść kanał.</translation>
     </message>
     <message>
         <location/>
@@ -4514,17 +4514,17 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Przeciąganie użytkowników</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"/>
+        <translation>Zmienia zachowanie podczas przenoszenia użytkowników.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Zmienia zachowanie przeciągania użytkowników -  może zostać użyte, by zapobiec przypadkowemu przeciąganiu. &lt;i&gt;Przenieś&lt;/i&gt; przenosi użytkownika bez powiadomienia. &lt;i&gt;Nic nie rób&lt;/i&gt; nic nie robi i wyświetla wiadomość z błędem. &lt;i&gt;Pytaj&lt;/i&gt; używa powiadomienia tekstowego, by upewnić się, czy na pewno chciałeś przenieść użytkownika.</translation>
     </message>
 </context>
 <context>
@@ -4863,7 +4863,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location line="+112"/>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Oczekiwany odcisk certyfikatu (SHA-1):⇥%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4873,7 +4873,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Błędy certyfikatu:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Czy mimo to chcesz go zaakceptować?&lt;br /&gt;(Mumble więcej cię o to nie zapyta.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -4960,13 +4960,13 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <location line="+3"/>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Wyślij wiadomość ze schowka</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Spowoduje to przesłanie zawartości twojego schowka do kanału, na którym się znajdujesz.</translation>
     </message>
     <message>
         <location line="+88"/>
@@ -5191,7 +5191,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location line="+5"/>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Odcisk certyfikatu serwera (SHA-1):⇥%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6131,7 +6131,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <location line="+2"/>
         <source>(Private) </source>
-        <translation type="unfinished"/>
+        <translation>(Prywatne) </translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6267,7 +6267,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <location filename="UserModel.cpp" line="+1377"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Masz wyłączone przeciąganie użytkowników, więc użytkownik nie został przeniesiony.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6312,7 +6312,27 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Użycie: mumble [opcje] [&lt;url&gt;]
+
+&lt;url&gt; Określa URL do nawiązania połączenia po uruchomieniu aplikacji, zamiast wyświetlania
+okna połączenia, ma następującą składnię: mumble://[&lt;nazwa_użytkownika&gt;[:&lt;hasło&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanał&gt;[/&lt;podkanał&gt;...]][?wersja=&lt;x.y.z&gt;]
+
+Parametr z wersją Mumble musi zostać podany w celu uruchomienia
+poprawnej wersji klienta. Aktualnie domyślną wartością jest 1.2.0.
+
+Dostępne opcje:
+-h, --help Wyświetla to okno pomocy i zamyka aplikację.
+-m, --multiple
+Pozwala na uruchomienie kilku instancji programu.
+-n, --noidentity
+Powstrzymuje ładowanie plików identyfikacyjnych (np. certyfikatów).
+--license
+Pokazuje licencję Mumble.
+--authors
+Pokazuje autorów Mumble.
+--third-party-licenses
+Pokazuje licencje na oprogramowanie firm trzecich używane przez Mumble.
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6336,7 +6356,29 @@ Valid actions are:
                 Toggle self-deafen stauts
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Użycie: mumble rpc &lt;akcja&lt; [opcje]
+
+Możliwe jest zdalne sterowanie uruchomioną instancją Mumble poprzez użycie
+komendy &apos;mumble rpc&apos;.
+
+Dostępne akcje:
+mute
+Wyciszenie siebie
+unmute
+Wyłączenie wyciszenia siebie
+togglemute
+Przełączenie wyciszenia siebie
+deaf
+Ogłuszenie siebie
+undeaf
+Wyłączenie ogłuszenia siebie
+toggledeaf
+Przełączenie ogłuszenia siebie
+
+
+
+
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6597,37 +6639,37 @@ kanały mają być filtrowane.</translation>
     <message>
         <location/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Programista</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Ukryj &amp;Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Ukrywa główne okno Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation>Ukrywa okno główne Mumble. Przywróć poprzez kliknięcie ikony w zasobniku systemowym albo ponowne uruchomienie Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
+        <translation>Konsola &amp;programisty</translation>
     </message>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż konsolę programisty</translation>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Pokazuje konsolę programisty Mumble, gdzie może być sprawdzone wyjście dziennika Mumble.</translation>
     </message>
 </context>
 <context>
@@ -6635,92 +6677,92 @@ kanały mają być filtrowane.</translation>
     <message>
         <location filename="ManualPlugin.ui"/>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Ręczne pozycjonowanie dźwięku Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Pozycja</translation>
     </message>
     <message>
         <location/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location/>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <location/>
         <source>Heading</source>
-        <translation type="unfinished"/>
+        <translation>Kurs</translation>
     </message>
     <message>
         <location/>
         <source>Azimuth</source>
-        <translation type="unfinished"/>
+        <translation>Azymut</translation>
     </message>
     <message>
         <location/>
         <source>Elevation</source>
-        <translation type="unfinished"/>
+        <translation>Wysokość</translation>
     </message>
     <message>
         <location/>
         <source>°</source>
-        <translation type="unfinished"/>
+        <translation>°</translation>
     </message>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Metadane</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Kontekst</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Tożsamość</translation>
     </message>
     <message>
         <location/>
         <source>Set</source>
-        <translation type="unfinished"/>
+        <translation>Ustaw</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Stan</translation>
     </message>
     <message>
         <location/>
         <source>Linked</source>
-        <translation type="unfinished"/>
+        <translation>Powiązane</translation>
     </message>
     <message>
         <location/>
         <source>Activated</source>
-        <translation type="unfinished"/>
+        <translation>Aktywowane</translation>
     </message>
     <message>
         <location/>
         <source>Unhinge</source>
-        <translation type="unfinished"/>
+        <translation>Odczep</translation>
     </message>
 </context>
 <context>
@@ -7307,7 +7349,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation>Wyświetlanie FPS i Zegara</translation>
+        <translation>Wyświetlanie FPS i zegara</translation>
     </message>
     <message>
         <location/>
@@ -7826,7 +7868,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
     <message>
         <location filename="ServerHandler.cpp" line="+397"/>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>Serwer nie reaguje na pingi TCP</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -8542,7 +8584,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+722"/>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"/>
+        <translation>Czy jesteś pewien, że chcesz przeciągnąć tego użytkownika?</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -8616,36 +8658,36 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+36"/>
         <location line="+40"/>
         <source>Common Name</source>
-        <translation type="unfinished"/>
+        <translation>Nazwa pospolita</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>Organizacja</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Subunit</source>
-        <translation type="unfinished"/>
+        <translation>Podjednostka</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+40"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Kraj</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Locality</source>
-        <translation type="unfinished"/>
+        <translation>Lokalizacja</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Stan</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -8685,7 +8727,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+2"/>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"/>
+        <translation>Odcisk (SHA-256): %1</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -8705,7 +8747,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+3"/>
         <source>Unit Name</source>
-        <translation type="unfinished"/>
+        <translation>Nazwa jednostki</translation>
     </message>
 </context>
 <context>

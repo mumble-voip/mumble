@@ -15,6 +15,7 @@ SoundFile::SoundFile(const QString &fname) {
 	siInfo.samplerate = 0;
 	siInfo.sections = 0;
 	siInfo.seekable = 0;
+	siInfo.format = 0;
 
 	sfFile = NULL;
 

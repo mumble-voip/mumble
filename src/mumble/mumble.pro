@@ -139,7 +139,8 @@ HEADERS *= BanEditor.h \
     OverlayPositionableItem.h \
     widgets/MUComboBox.h \
     DeveloperConsole.h \
-    EnvUtils.h
+    PathListWidget.h \
+    XMLTools.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -206,7 +207,8 @@ SOURCES *= BanEditor.cpp \
     OverlayPositionableItem.cpp \
     widgets/MUComboBox.cpp \
     DeveloperConsole.cpp \
-    EnvUtils.cpp
+    PathListWidget.cpp \
+    XMLTools.cpp
 
 CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp
@@ -503,11 +505,6 @@ unix {
       LIBS *= -lrt
     }
     LIBS *= -lXi
-
-    # For MumbleSSL::qsslSanityCheck()
-    contains(UNAME, Linux) {
-      LIBS *= -ldl
-    }
 
     !CONFIG(no-oss) {
       CONFIG  *= oss

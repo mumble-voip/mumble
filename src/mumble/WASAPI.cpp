@@ -26,6 +26,19 @@ public IUnknown {
 	virtual HRESULT STDMETHODCALLTYPE GetQueryInterface(IAudioSessionEnumerator **) = 0;
 };
 
+/// Convert the configured 'wasapi/role' to an ERole.
+static ERole WASAPIRoleFromSettings() {
+	QString role = g.s.qsWASAPIRole.toLower().trimmed();
+
+	if (role == QLatin1String("console")) {
+		return eConsole;
+	} else if (role == QLatin1String("multimedia")) {
+		return eMultimedia;
+	}
+
+	return eCommunications;
+}
+
 class WASAPIInputRegistrar : public AudioInputRegistrar {
 	public:
 		WASAPIInputRegistrar();
@@ -288,7 +301,6 @@ WASAPIInput::~WASAPIInput() {
 static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFlow, ERole role) {
 	HRESULT hr;
 	IMMDeviceEnumerator *pEnumerator = NULL;
-	IMMDevice *pDevice = NULL;
 
 	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 	if (!pEnumerator || FAILED(hr)) {
@@ -296,6 +308,7 @@ static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFl
 		return NULL;
 	}
 
+	IMMDevice *pDevice = NULL;
 	// Try to find a device pointer for |name|.
 	if (!name.isEmpty()) {
 		STACKVAR(wchar_t, devname, name.length() + 1);
@@ -380,13 +393,13 @@ void WASAPIInput::run() {
 	}
 
 	// Open mic device.
-	pMicDevice = openNamedOrDefaultDevice(g.s.qsWASAPIInput, eCapture, eCommunications);
+	pMicDevice = openNamedOrDefaultDevice(g.s.qsWASAPIInput, eCapture, WASAPIRoleFromSettings());
 	if (!pMicDevice)
 		goto cleanup;
 
 	// Open echo capture device.
 	if (doecho) {
-		pEchoDevice = openNamedOrDefaultDevice(g.s.qsWASAPIOutput, eRender, eCommunications);
+		pEchoDevice = openNamedOrDefaultDevice(g.s.qsWASAPIOutput, eRender, WASAPIRoleFromSettings());
 		if (!pEchoDevice)
 			doecho = false;
 	}
@@ -845,7 +858,7 @@ void WASAPIOutput::run() {
 	}
 
 	// Open the output device.
-	pDevice = openNamedOrDefaultDevice(g.s.qsWASAPIOutput, eRender, eCommunications);
+	pDevice = openNamedOrDefaultDevice(g.s.qsWASAPIOutput, eRender, WASAPIRoleFromSettings());
 	if (!pDevice)
 		goto cleanup;
 
@@ -1065,7 +1078,9 @@ cleanup:
 	if (pwfx)
 		CoTaskMemFree(pwfx);
 
-	setVolumes(pDevice, false);
+	if (pDevice) {
+		setVolumes(pDevice, false);
+	}
 
 	if (pAudioClient) {
 		pAudioClient->Stop();

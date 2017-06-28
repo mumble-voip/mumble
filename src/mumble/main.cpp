@@ -38,6 +38,7 @@
 #include "Themes.h"
 #include "UserLockFile.h"
 #include "License.h"
+#include "EnvUtils.h"
 
 #ifdef PLUTOVR_BUILD
 struct PlutoDefaultSettings
@@ -210,7 +211,7 @@ int main(int argc, char **argv) {
 	SetDllDirectory(L"");
 #else
 #ifndef Q_OS_MAC
-	setenv("AVAHI_COMPAT_NOWARN", "1", 1);
+	EnvUtils::setenv(QLatin1String("AVAHI_COMPAT_NOWARN"), QLatin1String("1"));
 #endif
 #endif
 
@@ -235,7 +236,7 @@ int main(int argc, char **argv) {
 	{
 		QDir d(a.applicationVersionRootPath());
 		QString helper = d.absoluteFilePath(QString::fromLatin1("sbcelt-helper"));
-		setenv("SBCELT_HELPER_BINARY", helper.toUtf8().constData(), 1);
+		EnvUtils::setenv(QLatin1String("SBCELT_HELPER_BINARY"), helper.toUtf8().constData());
 	}
 #endif
 
@@ -311,7 +312,7 @@ int main(int argc, char **argv) {
 					"  undeaf\n"
 					"                Undeafen self\n"
 					"  toggledeaf\n"
-					"                Toggle self-deafen stauts\n"
+					"                Toggle self-deafen status\n"
 					"\n"
 				);
 
@@ -377,14 +378,20 @@ int main(int argc, char **argv) {
 
 	{
 		size_t reqSize;
-		_wgetenv_s(&reqSize, NULL, 0, L"PATH");
-		if (reqSize > 0) {
+		if (_wgetenv_s(&reqSize, NULL, 0, L"PATH") != 0)) {
+			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
+		} else if (reqSize > 0) {
 			STACKVAR(wchar_t, buff, reqSize+1);
-			_wgetenv_s(&reqSize, buff, reqSize, L"PATH");
-			QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(MumbleApplication::instance()->applicationVersionRootPath())).arg(QString::fromWCharArray(buff));
-			STACKVAR(wchar_t, buffout, path.length() + 1);
-			path.toWCharArray(buffout);
-			_wputenv_s(L"PATH", buffout);
+			if (_wgetenv_s(&reqSize, buff, reqSize, L"PATH") != 0) {
+				qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
+			} else {
+				QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(MumbleApplication::instance()->applicationVersionRootPath())).arg(QString::fromWCharArray(buff));
+				STACKVAR(wchar_t, buffout, path.length() + 1);
+				path.toWCharArray(buffout);
+				if (_wputenv_s(L"PATH", buffout) != 0) {
+					qWarning() << "Failed to set PATH. DBus bindings may not work.";
+				}
+			}
 		}
 	}
 #endif

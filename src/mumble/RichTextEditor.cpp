@@ -10,6 +10,7 @@
 #include "Global.h"
 #include "Log.h"
 #include "MainWindow.h"
+#include "XMLTools.h"
 
 RichTextHtmlEdit::RichTextHtmlEdit(QWidget *p) : QTextEdit(p) {
 	m_document = new LogDocument(this);
@@ -93,8 +94,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 #endif
 			urls = decodeMimeString(source->data(QLatin1String("text/uri-list"))).split(newline);
 		if (! urls.isEmpty())
-			uri = urls.at(0);
-		uri = urls.at(0).trimmed();
+			uri = urls.at(0).trimmed();
 	}
 
 	if (uri.isEmpty()) {
@@ -357,206 +357,6 @@ void RichTextEditor::updateActions() {
 	updateColor(qteRichText->textColor());
 }
 
-/* Recursively parse and output XHTML.
- * This will drop <head>, <html> etc, take the contents of <body> and strip out unnecesarry styles.
- * It will also change <span style=""> into matching <b>, <i> or <u>.
- */
-
-static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int &paragraphs, const QMap<QString, QString> &opstyle = QMap<QString, QString>(), const int close = 0, bool ignore = true) {
-	while (! reader.atEnd()) {
-		QXmlStreamReader::TokenType tt = reader.readNext();
-
-		QXmlStreamAttributes a = reader.attributes();
-		QMap<QString, QString> style;
-		QMap<QString, QString> pstyle = opstyle;
-
-		QStringRef styleref = a.value(QLatin1String("style"));
-		if (!styleref.isNull()) {
-			QString stylestring = styleref.toString();
-			QStringList styles = stylestring.split(QLatin1String(";"), QString::SkipEmptyParts);
-			foreach(QString s, styles) {
-				s = s.simplified();
-				int idx = s.indexOf(QLatin1Char(':'));
-				QString key = (idx > 0) ? s.left(idx).simplified() : s;
-				QString val = (idx > 0) ? s.mid(idx+1).simplified() : QString();
-
-				if (! pstyle.contains(key) || (pstyle.value(key) != val)) {
-					style.insert(key,val);
-					pstyle.insert(key,val);
-				}
-			}
-		}
-
-		switch (tt) {
-			case QXmlStreamReader::StartElement: {
-					QString name = reader.name().toString();
-					int rclose = 1;
-					if (name == QLatin1String("body")) {
-						rclose = 0;
-						ignore = false;
-					} else if (name == QLatin1String("span")) {
-						// Substitute style with <b>, <i> and <u>
-
-						rclose = 0;
-						if (style.value(QLatin1String("font-weight")) == QLatin1String("600")) {
-							writer.writeStartElement(QLatin1String("b"));
-							rclose++;
-							style.remove(QLatin1String("font-weight"));
-						}
-						if (style.value(QLatin1String("font-style")) == QLatin1String("italic")) {
-							writer.writeStartElement(QLatin1String("i"));
-							rclose++;
-							style.remove(QLatin1String("font-style"));
-						}
-						if (style.value(QLatin1String("text-decoration")) == QLatin1String("underline")) {
-							writer.writeStartElement(QLatin1String("u"));
-							rclose++;
-							style.remove(QLatin1String("text-decoration"));
-						}
-						if (! style.isEmpty()) {
-							rclose++;
-							writer.writeStartElement(name);
-
-							QStringList qsl;
-							QMap<QString, QString>::const_iterator i;
-							for (i=style.constBegin(); i != style.constEnd(); ++i) {
-								if (! i.value().isEmpty())
-									qsl << QString::fromLatin1("%1:%2").arg(i.key(), i.value());
-								else
-									qsl << i.key();
-							}
-
-							writer.writeAttribute(QLatin1String("style"), qsl.join(QLatin1String("; ")));
-						}
-					} else if (name == QLatin1String("p")) {
-						paragraphs++;
-						if (paragraphs == 1) {
-							// Ignore first paragraph. If it is styled empty drop its contents (e.g. <br />) too.
-							if (style.value(QLatin1String("-qt-paragraph-type")) == QLatin1String("empty")) {
-								reader.skipCurrentElement();
-								continue;
-							}
-							rclose = 0;
-						}
-						else {
-							rclose = 1;
-							writer.writeStartElement(name);
-
-							if (! style.isEmpty()) {
-								QStringList qsl;
-								QMap<QString, QString>::const_iterator i;
-								for (i=style.constBegin(); i != style.constEnd(); ++i) {
-									if (! i.value().isEmpty())
-										qsl << QString::fromLatin1("%1:%2").arg(i.key(), i.value());
-									else
-										qsl << i.key();
-								}
-
-								writer.writeAttribute(QLatin1String("style"), qsl.join(QLatin1String("; ")));
-							}
-						}
-					} else if (name == QLatin1String("a")) {
-						// Set pstyle to include implicit blue underline.
-						rclose = 1;
-						writer.writeCurrentToken(reader);
-						pstyle.insert(QLatin1String("text-decoration"), QLatin1String("underline"));
-						pstyle.insert(QLatin1String("color"), QLatin1String("#0000ff"));
-					} else if (! ignore) {
-						rclose = 1;
-						writer.writeCurrentToken(reader);
-					}
-
-					recurseParse(reader, writer, paragraphs, pstyle, rclose, ignore);
-					break;
-				}
-			case QXmlStreamReader::EndElement:
-				if (!ignore)
-					for (int i=0;i<close;++i)
-						writer.writeEndElement();
-				return;
-			case QXmlStreamReader::Characters:
-				if (! ignore)
-					writer.writeCharacters(reader.text().toString());
-				break;
-			default:
-				break;
-		}
-	}
-}
-
-/* Iterate XML and remove close-followed-by-open.
- * For example, make "<b>bold with </b><b><i>italic</i></b>" into
- * "<b>bold with <i>italic</i></b>"
- */
-
-static bool unduplicateTags(QXmlStreamReader &reader, QXmlStreamWriter &writer) {
-	bool changed = false;
-	bool needclose = false;
-
-	QStringList qslConcat;
-	qslConcat << QLatin1String("b");
-	qslConcat << QLatin1String("i");
-	qslConcat << QLatin1String("u");
-	qslConcat << QLatin1String("a");
-
-	QList<QString> qlNames;
-	QList<QXmlStreamAttributes> qlAttributes;
-
-	while (! reader.atEnd()) {
-		QXmlStreamReader::TokenType tt = reader.readNext();
-		QString name = reader.name().toString();
-		switch (tt) {
-			case QXmlStreamReader::StartDocument:
-			case QXmlStreamReader::EndDocument:
-				break;
-			case QXmlStreamReader::StartElement: {
-					QXmlStreamAttributes a = reader.attributes();
-
-					if (name == QLatin1String("unduplicate"))
-						break;
-
-					if (needclose) {
-						needclose = false;
-
-						if ((a == qlAttributes.last()) && (name == qlNames.last()) && (qslConcat.contains(name))) {
-							changed = true;
-							break;
-						}
-						qlNames.takeLast();
-						qlAttributes.takeLast();
-						writer.writeEndElement();
-					}
-					writer.writeCurrentToken(reader);
-					qlNames.append(name);
-					qlAttributes.append(a);
-				}
-				break;
-			case QXmlStreamReader::EndElement: {
-					if (name == QLatin1String("unduplicate"))
-						break;
-					if (needclose) {
-						qlNames.takeLast();
-						qlAttributes.takeLast();
-						writer.writeCurrentToken(reader);
-					} else {
-						needclose = true;
-					}
-					needclose = true;
-				}
-				break;
-			default:
-				if (needclose) {
-					writer.writeEndElement();
-					needclose = false;
-				}
-				writer.writeCurrentToken(reader);
-		}
-	}
-	if (needclose)
-		writer.writeEndElement();
-	return changed;
-}
-
 void RichTextEditor::richToPlain() {
 	QXmlStreamReader reader(qteRichText->toHtml());
 
@@ -574,18 +374,20 @@ void RichTextEditor::richToPlain() {
 	def.insert(QLatin1String("-qt-block-indent"), QLatin1String("0"));
 	def.insert(QLatin1String("text-indent"), QLatin1String("0px"));
 
-	recurseParse(reader, writer, paragraphs, def);
+	XMLTools::recurseParse(reader, writer, paragraphs, def);
 
 	qsOutput = qsOutput.trimmed();
 
 	bool changed;
 	do {
+		// Make sure the XML has a root element (would be invalid XML otherwise)
+		// The "unduplicate" element will be dropped by XMLTools::unduplciateTags
 		qsOutput = QString::fromLatin1("<unduplicate>%1</unduplicate>").arg(qsOutput);
 
 		QXmlStreamReader r(qsOutput);
 		qsOutput = QString();
 		QXmlStreamWriter w(&qsOutput);
-		changed = unduplicateTags(r, w);
+		changed = XMLTools::unduplicateTags(r, w);
 		qsOutput = qsOutput.trimmed();
 	} while (changed);
 
