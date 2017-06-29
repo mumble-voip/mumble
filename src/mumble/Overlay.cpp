@@ -21,6 +21,120 @@
 #include "User.h"
 #include "WebFetch.h"
 
+QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
+#ifdef Q_OS_MAC
+	QString qsIdentifier;
+	CFDictionaryRef plist = NULL;
+	CFDataRef data = NULL;
+
+	QFile qfAppBundle(QString::fromLatin1("%1/Contents/Info.plist").arg(path));
+	if (qfAppBundle.exists()) {
+		qfAppBundle.open(QIODevice::ReadOnly);
+		QByteArray qbaPlistData = qfAppBundle.readAll();
+
+		data = CFDataCreateWithBytesNoCopy(NULL, reinterpret_cast<UInt8 *>(qbaPlistData.data()), qbaPlistData.count(), kCFAllocatorNull);
+		plist = static_cast<CFDictionaryRef>(CFPropertyListCreateFromXMLData(NULL, data, kCFPropertyListImmutable, NULL));
+		if (plist) {
+			CFStringRef ident = static_cast<CFStringRef>(CFDictionaryGetValue(plist, CFSTR("CFBundleIdentifier")));
+			if (ident) {
+				char buf[4096];
+				CFStringGetCString(ident, buf, 4096, kCFStringEncodingUTF8);
+				qsIdentifier = QString::fromUtf8(buf);
+			}
+		}
+	}
+
+	if (data) {
+		CFRelease(data);
+	}
+	if (plist) {
+		CFRelease(plist);
+	}
+
+	return qsIdentifier;
+#else
+	return QDir::toNativeSeparators(path);
+#endif
+}
+
+OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
+	QString qsAppName(identifier);
+	QIcon qiAppIcon;
+#if defined(Q_OS_MAC)
+	CFStringRef bundleId = NULL;
+	CFURLRef bundleUrl = NULL;
+	CFBundleRef bundle = NULL;
+	OSStatus err = noErr;
+	char buf[4096];
+
+	bundleId = CFStringCreateWithCharacters(kCFAllocatorDefault, reinterpret_cast<const UniChar *>(identifier.unicode()), identifier.length());
+	err = LSFindApplicationForInfo(kLSUnknownCreator, bundleId, NULL, NULL, &bundleUrl);
+	if (err == noErr) {
+		// Figure out the bundle name of the application.
+		CFStringRef absBundlePath = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
+		CFStringGetCString(absBundlePath, buf, 4096, kCFStringEncodingUTF8);
+		QString qsBundlePath = QString::fromUtf8(buf);
+		CFRelease(absBundlePath);
+		qsAppName = QFileInfo(qsBundlePath).bundleName();
+
+		// Load the bundle's icon.
+		bundle = CFBundleCreate(NULL, bundleUrl);
+		if (bundle) {
+			CFDictionaryRef info = CFBundleGetInfoDictionary(bundle);
+			if (info) {
+				CFStringRef iconFileName = reinterpret_cast<CFStringRef>(CFDictionaryGetValue(info, CFSTR("CFBundleIconFile")));
+				if (iconFileName) {
+					CFStringGetCString(iconFileName, buf, 4096, kCFStringEncodingUTF8);
+					QString qsIconPath = QString::fromLatin1("%1/Contents/Resources/%2")
+					                     .arg(qsBundlePath, QString::fromUtf8(buf));
+					if (! QFile::exists(qsIconPath)) {
+						qsIconPath += QString::fromLatin1(".icns");
+					}
+					if (QFile::exists(qsIconPath)) {
+						qiAppIcon = QIcon(qsIconPath);
+					}
+				}
+			}
+		}
+	}
+
+	if (bundleId) {
+		CFRelease(bundleId);
+	}
+	if (bundleUrl) {
+		CFRelease(bundleUrl);
+	}
+	if (bundle) {
+		CFRelease(bundle);
+	}
+
+#elif defined(Q_OS_WIN)
+	// qWinAppInst(), whose return value we used to pass
+	// to ExtractIcon below, was removed in Qt 5.8.
+	//
+	// It was removed via
+	// https://github.com/qt/qtbase/commit/64507c7165e42c2a5029353d8f97a0d841fa6b01
+	//
+	// In both Qt 4 and Qt 5, the qWinAppInst() implementation
+	// simply calls GetModuleHandle(0).
+	//
+	// To sidestep the removal of the function, we simply
+	// call through to GetModuleHandle() directly.
+	HINSTANCE qWinAppInstValue = GetModuleHandle(NULL);
+	HICON icon = ExtractIcon(qWinAppInstValue, identifier.toStdWString().c_str(), 0);
+	if (icon) {
+#if QT_VERSION >= 0x050000
+		extern QPixmap qt_pixmapFromWinHICON(HICON icon);
+		qiAppIcon = QIcon(qt_pixmapFromWinHICON(icon));
+#else
+		qiAppIcon = QIcon(QPixmap::fromWinHICON(icon));
+#endif
+		DestroyIcon(icon);
+	}
+#endif
+	return OverlayAppInfo(qsAppName, qiAppIcon);
+}
+
 OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
 	qsDisplayName = name;
 	qiIcon = icon;

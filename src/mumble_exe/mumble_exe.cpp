@@ -75,6 +75,38 @@ static bool ConfigureEnvironment() {
 
 	// Set the versioned root as the working directory if one is available.
 	// If not, use the directory containing mumble.exe as the working directory.
+	//
+	// We use the versioned root as the working directory because of an odd
+	// interaction between the UCRT's forward exports and LoadLibraryEx.
+	// Most likely a bug in older Windows versions (Windows 10 is unaffected).
+	//
+	// In Mumble, mumble_app.dll is loaded via
+	//
+	//    LoadLibraryEx(..., ..., LOAD_WITH_ALTERED_SEARCH_PATH).
+	//
+	// This works on Windows 10, but is broken on Windows 7. On Windows 7, it
+	// seems like the forward exports from api-win-ms*.dll to ucrtbase.dll cause
+	// ucrtbase.dll to be loaded WITHOUT LOAD_WITH_ALTERED_SEARCH_PATH, but instead
+	// using Standard Search Order For Desktop Applications.
+	//
+	// It looks for ucrtbase.dll in the following locations:
+	//
+	//  1. Next to the .exe
+	//  2. 32-bit system directory
+	//  3. 16-bit system directory
+	//  4. Windows folder
+	//  5. CWD
+	//  6. %PATH% (seemingly)...
+	//
+	// But the application doesn't run, since it doesn't even try to load
+	// ucrtbase.dll in the directory containing mumble_app.dll as it should,
+	// because we've loaded mumble_app.dll with LOAD_WITH_ALTERED_SEARCH_PATH.
+	//
+	// Our workaround is to use the mumble_app.dll's directory as the working
+	// directory. This causes the program to successfully load, even when
+	// ucrtbase.dll is loaded using the Standard Search Order For Desktop.
+	//
+	// See https://github.com/mumble-voip/mumble/issues/2837 for more information.
 	std::wstring cwd = GetVersionedRootPath();
 	if (cwd.empty()) {
 		cwd = GetExecutableDirPath();

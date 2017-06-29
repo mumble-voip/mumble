@@ -183,10 +183,12 @@ struct Settings {
 	QString qsTTSLanguage;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
+	quint64 uiAudioInputChannelMask;
 
 	// Idle auto actions
 	unsigned int iIdleTime;
 	IdleAction iaeIdleAction;
+	bool bUndoIdleActionUponActivity;
 
 	VADSource vsVAD;
 	float fVADmin, fVADmax;
@@ -213,7 +215,30 @@ struct Settings {
 	QList<QVariant> qlASIOspeaker;
 
 	QString qsCoreAudioInput, qsCoreAudioOutput;
+
 	QString qsWASAPIInput, qsWASAPIOutput;
+	/// qsWASAPIRole is configured via 'wasapi/role'.
+	/// It is a string explaining Mumble's purpose for opening
+	/// the audio device. This can be used to force Windows
+	/// to not treat Mumble as a communications program
+	/// (the default).
+	///
+	/// The default is "communications". When this is set,
+	/// Windows treats Mumble as a telephony app, including
+	/// potential audio ducking.
+	///
+	/// Other values include:
+	///
+	///   "console", which should be used for games, system
+	///              notification sounds, and voice commands.
+	///
+	///   "multimedia", which should be used for music, movies,
+	///                 narration, and live music recording.
+	///
+	/// This is practically a direct mapping of the ERole enum
+	/// from Windows: https://msdn.microsoft.com/en-us/library/windows/desktop/dd370842
+	QString qsWASAPIRole;
+
 	QByteArray qbaDXInput, qbaDXOutput;
 
 	bool bExclusiveInput, bExclusiveOutput;

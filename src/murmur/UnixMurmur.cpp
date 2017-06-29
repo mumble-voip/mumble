@@ -8,6 +8,7 @@
 #include "UnixMurmur.h"
 
 #include "Meta.h"
+#include "EnvUtils.h"
 
 QMutex *LimitTest::qm;
 QWaitCondition *LimitTest::qw;
@@ -274,7 +275,7 @@ void UnixMurmur::setuid() {
 			// QDir::homePath is broken. It only looks at $HOME
 			// instead of getpwuid() so we have to set our home
 			// ourselves
-			::setenv("HOME", qPrintable(Meta::mp.qsHome), 1);
+			EnvUtils::setenv(QLatin1String("HOME"), qPrintable(Meta::mp.qsHome));
 		}
 #endif
 	} else if (bRoot) {

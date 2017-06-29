@@ -357,7 +357,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QListWidget" name="qlwLaunchers"/>
+                 <widget class="PathListWidget" name="qlwLaunchers" native="true"/>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -394,7 +394,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QListWidget" name="qlwWhitelist"/>
+                 <widget class="PathListWidget" name="qlwWhitelist" native="true"/>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -431,7 +431,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QListWidget" name="qlwPaths"/>
+                 <widget class="PathListWidget" name="qlwPaths" native="true"/>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -468,7 +468,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QListWidget" name="qlwBlacklist"/>
+                 <widget class="PathListWidget" name="qlwBlacklist" native="true"/>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -702,6 +702,13 @@ To upgrade these files to their latest versions, click the button below.</string
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PathListWidget</class>
+   <extends>QListWidget</extends>
+   <header>PathListWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="mumble.qrc"/>
  </resources>

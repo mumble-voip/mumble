@@ -132,6 +132,8 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice)
 	pOrigStateBlock = NULL;
 	pMyStateBlock = NULL;
 	pRTV = NULL;
+	pVertexShader = NULL;
+	pPixelShader = NULL;
 	pVertexLayout = NULL;
 	pVertexBuffer = NULL;
 	pIndexBuffer = NULL;

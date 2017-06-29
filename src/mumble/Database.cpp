@@ -220,10 +220,7 @@ bool Database::isLocalIgnored(const QString &hash) {
 	query.prepare(QLatin1String("SELECT `hash` FROM `ignored` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
-	while (query.next()) {
-		return true;
-	}
-	return false;
+	return query.next();
 }
 
 void Database::setLocalIgnored(const QString &hash, bool ignored) {
@@ -243,10 +240,7 @@ bool Database::isLocalMuted(const QString &hash) {
 	query.prepare(QLatin1String("SELECT `hash` FROM `muted` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
-	while (query.next()) {
-		return true;
-	}
-	return false;
+	return query.next();
 }
 
 void Database::setUserLocalVolume(const QString &hash, float volume) {
@@ -289,10 +283,7 @@ bool Database::isChannelFiltered(const QByteArray &server_cert_digest, const int
 	query.addBindValue(channel_id);
 	execQueryAndLogFailure(query);
 
-	while (query.next()) {
-		return true;
-	}
-	return false;
+	return query.next();
 }
 
 void Database::setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, const bool hidden) {
@@ -309,21 +300,21 @@ void Database::setChannelFiltered(const QByteArray &server_cert_digest, const in
 	execQueryAndLogFailure(query);
 }
 
-QMap<QPair<QString, unsigned short>, unsigned int> Database::getPingCache() {
+QMap<UnresolvedServerAddress, unsigned int> Database::getPingCache() {
 	QSqlQuery query;
-	QMap<QPair<QString, unsigned short>, unsigned int> map;
+	QMap<UnresolvedServerAddress, unsigned int> map;
 
 	query.prepare(QLatin1String("SELECT `hostname`, `port`, `ping` FROM `pingcache`"));
 	execQueryAndLogFailure(query);
 	while (query.next()) {
-		map.insert(QPair<QString, unsigned short>(query.value(0).toString(), static_cast<unsigned short>(query.value(1).toUInt())), query.value(2).toUInt());
+		map.insert(UnresolvedServerAddress(query.value(0).toString(), static_cast<unsigned short>(query.value(1).toUInt())), query.value(2).toUInt());
 	}
 	return map;
 }
 
-void Database::setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &map) {
+void Database::setPingCache(const QMap<UnresolvedServerAddress, unsigned int> &map) {
 	QSqlQuery query;
-	QMap<QPair<QString, unsigned short>, unsigned int>::const_iterator i;
+	QMap<UnresolvedServerAddress, unsigned int>::const_iterator i;
 
 	QSqlDatabase::database().transaction();
 
@@ -332,8 +323,8 @@ void Database::setPingCache(const QMap<QPair<QString, unsigned short>, unsigned 
 
 	query.prepare(QLatin1String("REPLACE INTO `pingcache` (`hostname`, `port`, `ping`) VALUES (?,?,?)"));
 	for (i = map.constBegin(); i != map.constEnd(); ++i) {
-		query.addBindValue(i.key().first);
-		query.addBindValue(i.key().second);
+		query.addBindValue(i.key().hostname);
+		query.addBindValue(i.key().port);
 		query.addBindValue(i.value());
 		execQueryAndLogFailure(query);
 	}

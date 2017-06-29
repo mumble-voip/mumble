@@ -23,10 +23,10 @@ procptr32_t pos_ptr, face_ptr, top_ptr;
 procptr32_t const ipport_ptr = 0x009A80B8;
 
 // Identity ptrs
-procptr32_t commander_ptr, squad_leader_ptr, squad_state_ptr, team_state_ptr;
+procptr32_t commander_ptr, squad_leader_ptr, squad_state_ptr, team_state_ptr, voip_ptr, voip_com_ptr, target_squad_ptr;
 
 inline bool resolve_ptrs() {
-	pos_ptr = face_ptr = top_ptr = commander_ptr = squad_leader_ptr = squad_state_ptr = team_state_ptr = 0;
+	pos_ptr = face_ptr = top_ptr = commander_ptr = squad_leader_ptr = squad_state_ptr = team_state_ptr = voip_ptr = voip_com_ptr = target_squad_ptr = 0;
 	//
 	// Resolve all pointer chains to the values we want to fetch
 	//
@@ -42,19 +42,22 @@ inline bool resolve_ptrs() {
 
 	/*
 	Magic:
-		Logincheck : 0x30058642										BYTE		0 means not logged in
-		state : 0x00A1D0A8											BYTE		0 while not in game
-																				usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
-																				usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
+		Logincheck:         0x30058642                                   BYTE      0 means not logged in
+		state:              0x00A1D0A8                                   BYTE      0 while not in game
+		                                                                           usually 1, never 0 if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
+		                                                                           usually 3, never 0 if you load into a server; this value will switch to 3 the instant you click "Join Game"
 
 	Context:
-		IP:Port of server: 0x009A80B8								char[128]	ip:port of the server
+		IP:Port of server:  0x009A80B8                                   char[128] ip:port of the server
 
 	Identity:
-		Commander: RendDX9.dll+00244AE0 +0x60 -> + 0x110			BYTE		0 means not commander
-		Squad leader state: RendDX9.dll+00244AE0 + 0x60 -> + 0x111	BYTE		0 is not squad leader
-		Squad state: RendDX9.dll+00244AE0 + 0x60 -> 10C				BYTE		0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
-		Team state: BF2.exe+0058734C + 0x239						BYTE		0 is blufor (US team, for example), 1 is opfor (Insurgents)
+		Commander:          RendDX9.dll+00244AE0 -> 60 -> 110            BYTE      0 means not commander
+		Squad leader state: RendDX9.dll+00244AE0 -> 60 -> 111            BYTE      0 is not squad leader
+		Squad state:        RendDX9.dll+00244AE0 -> 60 -> 10C            BYTE      0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
+		Team state:         BF2.exe+0058734C -> 239                      BYTE      0 is blufor (US team, for example), 1 is opfor (Insurgents)
+		VoiP state:         BF2.exe+005A4DA0 -> 61                       BYTE      1 is VoiP active (held down)
+		Com. VoiP state:    BF2.exe+005A4DA0 -> 4E                       BYTE      1 is VoiP on commander channel active (held down)
+		Target squad state: RendDX9.dll+00266D84 -> C0 -> C0 -> 40 -> AC BYTE      1 is Alpha squad, 2 Bravo... selected on commander screen
 	*/
 	procptr32_t base_renddx9 = peekProc<procptr32_t>(pmodule_renddx9 + 0x00244AE0);
 	if (!base_renddx9) return false;
@@ -70,6 +73,24 @@ inline bool resolve_ptrs() {
 	if (!base_bf2) return false;
 
 	team_state_ptr = base_bf2 + 0x239;
+
+	procptr32_t base_voip = peekProc<procptr32_t>(pmodule_bf2 + 0x005A4DA0);
+	if (!base_voip) return false;
+
+	voip_ptr = base_voip + 0x61;
+	voip_com_ptr = base_voip + 0x4E;
+
+	procptr32_t base_target_squad = peekProc<procptr32_t>(pmodule_renddx9 + 0x00266D84);
+	if (!base_target_squad) return false;
+	procptr32_t base_target_squad_2 = peekProc<procptr32_t>(base_target_squad + 0xC0);
+	if (!base_target_squad_2) return false;
+	procptr32_t base_target_squad_3 = peekProc<procptr32_t>(base_target_squad_2 + 0xC0);
+	if (!base_target_squad_3) return false;
+	procptr32_t base_target_squad_4 = peekProc<procptr32_t>(base_target_squad_3 + 0x40);
+	if (!base_target_squad_4) return false;
+
+	target_squad_ptr = base_target_squad_4 + 0xAC;
+
 	return true;
 }
 
@@ -108,15 +129,21 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE is_squad_leader;
 	BYTE is_in_squad;
 	BYTE is_opfor;
+	BYTE on_voip;
+	BYTE on_voip_com;
+	BYTE target_squad_id;
 
 	ok = peekProc(pos_ptr, avatar_pos, 12) &&
 	     peekProc(face_ptr, avatar_front, 12) &&
 	     peekProc(top_ptr, avatar_top, 12) &&
 	     peekProc(ipport_ptr, ccontext, 128) &&
-	     peekProc(commander_ptr, &is_commander, 1) &&
-	     peekProc(squad_leader_ptr, &is_squad_leader, 1) &&
-	     peekProc(squad_state_ptr, &is_in_squad, 1) &&
-	     peekProc(team_state_ptr, &is_opfor, 1);
+	     peekProc(commander_ptr, is_commander) &&
+	     peekProc(squad_leader_ptr, is_squad_leader) &&
+	     peekProc(squad_state_ptr, is_in_squad) &&
+	     peekProc(team_state_ptr, is_opfor) &&
+	     peekProc(voip_ptr, on_voip) &&
+	     peekProc(voip_com_ptr, on_voip_com) &&
+		 peekProc(target_squad_ptr, target_squad_id);
 
 	if (! ok)
 		return false;
@@ -140,10 +167,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		*/
 		wostringstream oidentity;
 		oidentity << "{"
-		          << "\"commander\":" << (is_commander ? "true" : "false") << ","
-		          << "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
-		          << "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
-		          << "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
+		          << "\"ipport\": \"" << ccontext << "\", "
+		          << "\"commander\":" << (is_commander ? "true" : "false") << ", "
+		          << "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ", "
+		          << "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ", "
+		          << "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\", "
+		          << "\"on_voip\":" << (on_voip ? "true" : "false") << ", "
+		          << "\"on_voip_com\":" << (on_voip_com ? "true" : "false") << ", "
+		          << "\"target_squad_id\":" << static_cast<unsigned int>(target_squad_id)
 		          << "}";
 
 		identity = oidentity.str();
