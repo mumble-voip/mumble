@@ -119,7 +119,8 @@ CONFIG(opus-sse-sources) {
 CONFIG(opus-sse2-sources) {
   # celt_sources.mk: CELT_SOURCES_SSE2
   SOURCES *= \
-  celt/x86/pitch_sse2.c
+  celt/x86/pitch_sse2.c \
+  celt/x86/vq_sse2.c
 }
 
 CONFIG(opus-sse41-sources) {
@@ -207,6 +208,7 @@ silk/stereo_decode_pred.c \
 silk/stereo_encode_pred.c \
 silk/stereo_find_predictor.c \
 silk/stereo_quant_pred.c \
+silk/LPC_fit.c \
 silk/float/apply_sine_window_FLP.c \
 silk/float/corrMatrix_FLP.c \
 silk/float/encode_frame_FLP.c \
@@ -218,11 +220,9 @@ silk/float/LPC_analysis_filter_FLP.c \
 silk/float/LTP_analysis_filter_FLP.c \
 silk/float/LTP_scale_ctrl_FLP.c \
 silk/float/noise_shape_analysis_FLP.c \
-silk/float/prefilter_FLP.c \
 silk/float/process_gains_FLP.c \
 silk/float/regularize_correlations_FLP.c \
 silk/float/residual_energy_FLP.c \
-silk/float/solve_LS_FLP.c \
 silk/float/warped_autocorrelation_FLP.c \
 silk/float/wrappers_FLP.c \
 silk/float/autocorrelation_FLP.c \
@@ -231,7 +231,6 @@ silk/float/bwexpander_FLP.c \
 silk/float/energy_FLP.c \
 silk/float/inner_product_FLP.c \
 silk/float/k2a_FLP.c \
-silk/float/levinsondurbin_FLP.c \
 silk/float/LPC_inv_pred_gain_FLP.c \
 silk/float/pitch_analysis_core_FLP.c \
 silk/float/scale_copy_vector_FLP.c \
