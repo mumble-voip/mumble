@@ -125,6 +125,8 @@ void InitializePlutoSettings()
 	g.s.iOutputDelay = 1;
 	g.s.fVolume = 1;
 	g.s.fOtherVolume = 0.35;
+	g.s.bAttenuateOthersOnTalk = true;
+	g.s.bAttenuateOthers = true;
 	g.s.iNoiseSuppress = -30;
 	g.s.bUpdateCheck = false;
 	g.s.bPluginCheck = false;
