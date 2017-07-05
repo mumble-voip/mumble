@@ -776,7 +776,7 @@ void ConnectDialogEdit::validate() {
 	qlePort->setDisabled(!qsHostname.isEmpty() && qsHostname.startsWith(QLatin1Char('@')));
 
 	// For SuperUser show password edit
-	if (qsUsername == QLatin1String("SuperUser")) {
+	if (qsUsername.toLower() == QLatin1String("superuser")) {
 		qliPassword->setVisible(true);
 		qlePassword->setVisible(true);
 		qcbShowPassword->setVisible(true);
