@@ -30,7 +30,7 @@ bool operator<(const ServerAddress &lhs, const ServerAddress &rhs) {
 	if (lhs.host < rhs.host) {
 		return true;
 	} else if (lhs.host == rhs.host) {
-		if (lhs.port < lhs.port) {
+		if (lhs.port < rhs.port) {
 			return true;
 		}
 	}
