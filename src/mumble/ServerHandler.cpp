@@ -266,6 +266,7 @@ void ServerHandler::hostnameResolved() {
 	// error code in case our hostname lookup failed.
 	if (records.isEmpty()) {
 		exit(-1);
+		return;
 	}
 
 	// Create the list of target host:port pairs
