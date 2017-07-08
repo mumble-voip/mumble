@@ -302,6 +302,7 @@ void ServerHandler::run() {
 	do {
 		saTargetServer = qlAddresses.takeFirst();
 
+		tConnectionTimeoutTimer = NULL;
 		qbaDigest = QByteArray();
 		bStrong = true;
 		qtsSock = new QSslSocket(this);
@@ -393,6 +394,7 @@ void ServerHandler::run() {
 			msleep(100);
 		}
 		delete qtsSock;
+		delete tConnectionTimeoutTimer;
 	} while (shouldTryNextTargetServer && !qlAddresses.isEmpty());
 }
 
