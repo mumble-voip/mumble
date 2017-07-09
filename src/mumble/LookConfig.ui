@@ -243,6 +243,16 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbLockLayout">
+        <property name="whatsThis">
+         <string>When in custom layout mode, checking this disables rearranging.</string>
+        </property>
+        <property name="text">
+         <string>Lock layout</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
