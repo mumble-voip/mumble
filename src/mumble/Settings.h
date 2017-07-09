@@ -295,6 +295,7 @@ struct Settings {
 	AlwaysOnTopBehaviour aotbAlwaysOnTop;
 	bool bAskOnQuit;
 	bool bEnableDeveloperMenu;
+	bool bLockLayout;
 	bool bHideInTray;
 	bool bStateInTray;
 	bool bUsage;
