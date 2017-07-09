@@ -86,7 +86,6 @@ class LogDocument : public QTextDocument {
 		QVariant loadResource(int, const QUrl &) Q_DECL_OVERRIDE;
 		void setAllowHTTPResources(bool allowHttpResources);
 		void setOnlyLoadDataURLs(bool onlyLoadDataURLs);
-		bool isValid();
 	public slots:
 		void receivedHead();
 		void finished();
