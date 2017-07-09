@@ -365,7 +365,6 @@ QString Log::imageToImg(QImage img) {
 QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *tc) {
 	QDesktopWidget dw;
 	LogDocument qtd;
-	bool valid = false;
 
 	qtd.setAllowHTTPResources(allowReplacement);
 	qtd.setOnlyLoadDataURLs(true);
@@ -382,7 +381,6 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	// data URL images to run.
 	(void) qtd.documentLayout();
 	qtd.setHtml(html);
-	valid = qtd.isValid();
 
 	QStringList qslAllowed = allowedSchemes();
 	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
@@ -400,22 +398,6 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 					qtbi = qtb.begin();
 				}
 			}
-			if (qcf.isImageFormat()) {
-				QTextImageFormat qtif = qcf.toImageFormat();
-				QUrl url(qtif.name());
-				if (! qtif.name().isEmpty() && ! url.isValid())
-					valid = false;
-			}
-		}
-	}
-
-	if (!valid) {
-		QString errorImageMessage = tr("[[ No valid image ]]");
-		if (tc) {
-			tc->insertText(errorImageMessage);
-			return QString();
-		} else {
-			return errorImageMessage;
 		}
 	}
 
@@ -594,26 +576,25 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 LogDocument::LogDocument(QObject *p)
 	: QTextDocument(p)
 	, m_allowHTTPResources(true)
-	, m_valid(true)
 	, m_onlyLoadDataURLs(false) {
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {
+	// Ignore requests for all external resources
+	// that aren't images. We don't support any of them.
 	if (type != QTextDocument::ImageResource) {
-		m_valid = false;
-		return QLatin1String("No external resources allowed.");
-	}
-
-	if (url.scheme() != QLatin1String("data") && g.s.iMaxImageSize <= 0) {
-		m_valid = false;
-		return QLatin1String("Image download disabled.");
+		addResource(type, url, QByteArray());
+		return QByteArray();
 	}
 
 	QImage qi(1, 1, QImage::Format_Mono);
 	addResource(type, url, qi);
 
+	if (url.scheme() != QLatin1String("data") && g.s.iMaxImageSize <= 0) {
+		return qi;
+	}
+
 	if (! url.isValid() || url.isRelative()) {
-		m_valid = false;
 		return qi;
 	}
 
@@ -625,7 +606,6 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 	}
 
 	if (!allowedSchemes.contains(url.scheme())) {
-		m_valid = false;
 		return qi;
 	}
 
@@ -656,10 +636,6 @@ void LogDocument::setAllowHTTPResources(bool allowHTTPResources) {
 
 void LogDocument::setOnlyLoadDataURLs(bool onlyLoadDataURLs) {
 	m_onlyLoadDataURLs = onlyLoadDataURLs;
-}
-
-bool LogDocument::isValid() {
-	return m_valid;
 }
 
 void LogDocument::receivedHead() {
@@ -708,12 +684,8 @@ void LogDocument::finished() {
 						e = new LogDocumentResourceAddedEvent();
 						QApplication::postEvent(qte, e);
 					}
-				} else {
-					m_valid = false;
 				}
 			}
-		} else {
-			m_valid = false;
 		}
 	}
 
