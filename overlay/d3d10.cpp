@@ -716,13 +716,13 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 			void ***vtbl = (void ***) pSwapChain;
 
 			void *pPresent = (*vtbl)[8];
-			int offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pPresent), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D10", "Present");
-			if (offset >= 0) {
+			boost::optional<size_t> offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pPresent), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D10", "Present");
+			if (offset) {
 				if (initializeDXGIData) {
-					dxgi->offsetPresent = offset;
+					dxgi->offsetPresent = *offset;
 					ods("D3D10: Successfully found Present offset: %ls: %d", dxgi->wcFileName, dxgi->offsetPresent);
 				} else {
-					if (dxgi->offsetPresent == offset) {
+					if (dxgi->offsetPresent == *offset) {
 						ods("D3D10: Successfully verified Present offset: %ls: %d", dxgi->wcFileName, dxgi->offsetPresent);
 					} else {
 						ods("D3D10: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->offsetPresent);
@@ -732,12 +732,12 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 			void *pResize = (*vtbl)[13];
 			offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pResize), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D10", "ResizeBuffers");
-			if (offset >= 0) {
+			if (offset) {
 				if (initializeDXGIData) {
-					dxgi->offsetResize = offset;
+					dxgi->offsetResize = *offset;
 					ods("D3D10: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->offsetResize);
 				} else {
-					if (dxgi->offsetResize == offset) {
+					if (dxgi->offsetResize == *offset) {
 						ods("D3D10: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->offsetResize);
 					} else {
 						ods("D3D10: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->offsetResize);
@@ -749,15 +749,15 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 			void *pAddRef = (*vtbl)[1];
 			offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pAddRef), d3d10->wcFileName, ARRAY_NUM_ELEMENTS(d3d10->wcFileName), "D3D10", "AddRef");
-			if (offset >= 0) {
-				d3d10->offsetAddRef = offset;
+			if (offset) {
+				d3d10->offsetAddRef = *offset;
 				ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcFileName, d3d10->offsetAddRef);
 			}
 
 			void *pRelease = (*vtbl)[2];
 			offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pRelease), d3d10->wcFileName, ARRAY_NUM_ELEMENTS(d3d10->wcFileName), "D3D10", "Release");
-			if (offset >= 0) {
-				d3d10->offsetRelease = offset;
+			if (offset) {
+				d3d10->offsetRelease = *offset;
 				ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcFileName, d3d10->offsetRelease);
 			}
 		}

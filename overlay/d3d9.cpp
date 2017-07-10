@@ -7,8 +7,6 @@
 #include <d3d9.h>
 #include <time.h>
 
-#undef max // for std::numeric_limits<T>::max()
-
 Direct3D9Data *d3dd = NULL;
 
 typedef IDirect3D9* (WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
@@ -1090,19 +1088,10 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 					if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreate), d3dd->wcFileName, "D3D9", "CreateDevice")) {
 						ods("D3D9: CreateDevice is not in D3D9 library");
 					} else {
-						unsigned char *fn = reinterpret_cast<unsigned char *>(pCreate);
-						unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
-						unsigned long off = static_cast<unsigned long>(fn - base);
-
-						// XXX: convert the offset to use something other than int.
-						// Issue mumble-voip/mumble#1924.
-						if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
-							ods("D3D9: Internal overlay error: CreateDevice offset is > 2GB, does not fit the current data structure.");
-						} else {
-							d3dd->offsetCreate = static_cast<int>(off);
-							ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->offsetCreate);
-						}
-					}
+						size_t fn = reinterpret_cast<size_t>(pCreate);
+						size_t base = reinterpret_cast<size_t>(hD3D);
+						d3dd->offsetCreate = fn - base;
+						ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->offsetCreate);					}
 					id3d9->Release();
 				}
 			}
@@ -1125,18 +1114,10 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreateEx), d3dd->wcFileName, "D3D9", "CreateDeviceEx")) {
 							ods("D3D9: CreateDeviceEx is not in D3D9 library");
 						} else {
-							unsigned char *fn = reinterpret_cast<unsigned char *>(pCreateEx);
-							unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
-							unsigned long off = static_cast<unsigned long>(fn - base);
-
-							// XXX: convert the offset to use something other than int.
-							// Issue mumble-voip/mumble#1924.
-							if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
-								ods("D3D9: Internal overlay error: CreateDeviceEx offset is > 2GB, does not fit the current data structure.");
-							} else {
-								d3dd->offsetCreateEx = static_cast<int>(off);
-								ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->offsetCreateEx);
-							}
+							size_t fn = reinterpret_cast<size_t>(pCreateEx);
+							size_t base = reinterpret_cast<size_t>(hD3D);
+							d3dd->offsetCreateEx = fn - base;
+							ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->offsetCreateEx);
 						}
 
 						id3d9->Release();

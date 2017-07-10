@@ -729,13 +729,13 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 				void ***vtbl = (void ***) pSwapChain;
 
 				void *pPresent = (*vtbl)[8];
-				int offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pPresent), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D11", "Present");
-				if (offset >= 0) {
+				boost::optional<size_t> offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pPresent), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D11", "Present");
+				if (offset) {
 					if (initializeDXGIData) {
-						dxgi->offsetPresent = offset;
+						dxgi->offsetPresent = *offset;
 						ods("D3D11: Successfully found Present offset: %ls: %d", dxgi->wcFileName, dxgi->offsetPresent);
 					} else {
-						if (dxgi->offsetPresent == offset) {
+						if (dxgi->offsetPresent == *offset) {
 							ods("D3D11: Successfully verified Present offset: %ls: %d", dxgi->wcFileName, dxgi->offsetPresent);
 						} else {
 							ods("D3D11: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->offsetPresent);
@@ -745,12 +745,12 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 
 				void *pResize = (*vtbl)[13];
 				offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pResize), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D11", "ResizeBuffers");
-				if (offset >= 0) {
+				if (offset) {
 					if (initializeDXGIData) {
-						dxgi->offsetResize = offset;
+						dxgi->offsetResize = *offset;
 						ods("D3D11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->offsetResize);
 					} else {
-						if (dxgi->offsetResize == offset) {
+						if (dxgi->offsetResize == *offset) {
 							ods("D3D11: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->offsetResize);
 						} else {
 							ods("D3D11: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->offsetResize);
@@ -762,15 +762,15 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 
 				void *pAddRef = (*vtbl)[1];
 				offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pAddRef), d3d11->wcFileName, ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "AddRef");
-				if (offset >= 0) {
-					d3d11->offsetAddRef = offset;
+				if (offset) {
+					d3d11->offsetAddRef = *offset;
 					ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcFileName, d3d11->offsetAddRef);
 				}
 
 				void *pRelease = (*vtbl)[2];
 				offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pRelease), d3d11->wcFileName, ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "Release");
-				if (offset >= 0) {
-					d3d11->offsetRelease = offset;
+				if (offset) {
+					d3d11->offsetRelease = *offset;
 					ods("D3D11: Successfully found Release offset: %ls: %d", d3d11->wcFileName, d3d11->offsetRelease);
 				}
 			}
