@@ -1000,7 +1000,7 @@ static void hookD3D9(HMODULE hD3D, bool preonly) {
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	HMODULE hTempSelf = NULL;
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D9), &hTempSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookD3D9), &hTempSelf);
 
 	bHooked = true;
 

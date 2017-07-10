@@ -148,7 +148,7 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	HMODULE hTempSelf = NULL;
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookDXGI), &hTempSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookDXGI), &hTempSelf);
 
 	bHooked = true;
 
