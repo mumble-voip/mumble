@@ -391,7 +391,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		if (sd != NULL && ! sd->bHooked) {
 			HMODULE hSelf = NULL;
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) &InstallHooks, &hSelf);
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(&InstallHooks), &hSelf);
 			if (hSelf == NULL) {
 				ods("Lib: Failed to find myself");
 			} else {
@@ -695,7 +695,7 @@ bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &log
 
 	BOOL success = GetModuleHandleEx(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			reinterpret_cast<LPCSTR>(fnptr), &hModule);
+			reinterpret_cast<LPCTSTR>(fnptr), &hModule);
 	if (!success) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 	} else {
@@ -710,7 +710,7 @@ int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int ref
 
 	HMODULE hModule = NULL;
 
-	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) fnptr, &hModule)) {
+	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(fnptr), &hModule)) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 		return -1;
 	}
