@@ -198,6 +198,8 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ConnectDialogEdit)
+
+		void init();
 	protected:
 		bool bOk;
 		bool bCustomLabel;
@@ -212,12 +214,14 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 		QString qsName, qsHostname, qsUsername, qsPassword;
 		unsigned short usPort;
 		ConnectDialogEdit(QWidget *parent,
-		                  const QString &name = QString(),
-		                  const QString &host = QString(),
-		                  const QString &user = QString(),
-		                  unsigned short port = DEFAULT_MUMBLE_PORT,
-		                  const QString &password = QString(),
-		                  bool add = false);
+		                  const QString &name,
+		                  const QString &host,
+		                  const QString &user,
+		                  unsigned short port,
+		                  const QString &password);
+		/// Add a new Server
+		/// Prefills from clipboard content or the connected to server if available
+		ConnectDialogEdit(QWidget *parent);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {

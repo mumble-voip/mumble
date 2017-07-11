@@ -728,23 +728,65 @@ QIcon ServerItem::loadIcon(const QString &name) {
 	return qmIcons.value(name);
 }
 
-ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port, const QString &password, bool add) : QDialog(p) {
+ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port, const QString &password) : QDialog(p) {
 	setupUi(this);
-	if (add)
-		setWindowTitle(tr("Add Server"));
+	init();
 
-	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
+	bCustomLabel = ! name.simplified().isEmpty();
 
 	qleName->setText(name);
 	qleServer->setText(host);
-	qleUsername->setText(user.isEmpty() ? g.s.qsUsername : user);
+	qleUsername->setText(user);
 	qlePort->setText(QString::number(port));
-	qlePassword->setEchoMode(QLineEdit::Password);
 	qlePassword->setText(password);
 
+	validate();
+}
+
+ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
+	setupUi(this);
+	setWindowTitle(tr("Add Server"));
+	init();
+
+	QString host, user, pw;
+	QString name;
+	unsigned short port = DEFAULT_MUMBLE_PORT;
+	if (ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false)) {
+		name = si->qsName;
+		host = si->qsHostname;
+		port = si->usPort;
+		pw = si->qsPassword;
+		delete si;
+	} else {
+		// If connected to a server assume the user wants to add it
+		if (g.sh && g.sh->isRunning()) {
+			g.sh->getConnectionInfo(host, port, user, pw);
+			Channel *c = Channel::get(0);
+			if (c) {
+				if (c->qsName != QLatin1String("Root")) {
+					name = c->qsName;
+				}
+			}
+		}
+	}
+	if (user.isEmpty()) {
+		user = g.s.qsUsername;
+	}
+	qleName->setText(name);
+	qleServer->setText(host);
+	qleUsername->setText(user);
+	qlePort->setText(QString::number(port));
+	qlePassword->setText(pw);
+}
+
+void ConnectDialogEdit::init() {
 	usPort = 0;
 	bOk = true;
-	bCustomLabel = ! name.simplified().isEmpty();
+	bCustomLabel = false;
+
+	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
+	qlePort->setText(QString::number(DEFAULT_MUMBLE_PORT));
+	qlePassword->setEchoMode(QLineEdit::Password);
 
 	connect(qleName, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
 	connect(qleServer, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
@@ -1068,39 +1110,7 @@ void ConnectDialog::on_qaFavoriteAdd_triggered() {
 }
 
 void ConnectDialog::on_qaFavoriteAddNew_triggered() {
-	QString host, user, pw;
-	QString name;
-	unsigned short port = DEFAULT_MUMBLE_PORT;
-
-	// Try to fill out fields if possible
-	{
-		ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false);
-		if (si) {
-			// If there is server information in the clipboard assume user wants to add it
-			name = si->qsName;
-
-			if (! si->qsBonjourHost.isEmpty())
-				host = QLatin1Char('@') + si->qsBonjourHost;
-			else
-				host = si->qsHostname;
-
-			port = si->usPort;
-			pw = si->qsPassword;
-		} else {
-			// If connected to a server assume the user wants to add it
-			if (g.sh && g.sh->isRunning()) {
-				g.sh->getConnectionInfo(host, port, user, pw);
-				Channel *c = Channel::get(0);
-				if (c) {
-					if (c->qsName != QLatin1String("Root"))
-						name = c->qsName;
-				}
-			} else
-				user = g.s.qsUsername;
-		}
-	}
-
-	ConnectDialogEdit *cde = new ConnectDialogEdit(this, name, host, user, port, pw, true);
+	ConnectDialogEdit *cde = new ConnectDialogEdit(this);
 
 	if (cde->exec() == QDialog::Accepted) {
 		ServerItem *si = new ServerItem(cde->qsName, cde->qsHostname, cde->usPort, cde->qsUsername, cde->qsPassword);
