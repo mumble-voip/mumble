@@ -40,29 +40,29 @@ const int PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN = PROCNAMEFILEPATH_BUFLEN + PR
 struct Direct3D9Data {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetCreate;
-	int iOffsetCreateEx;
+	int offsetCreate;
+	int offsetCreateEx;
 };
 
 struct DXGIData {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetPresent;
-	int iOffsetResize;
+	int offsetPresent;
+	int offsetResize;
 };
 
 struct D3D10Data {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetAddRef;
-	int iOffsetRelease;
+	int offsetAddRef;
+	int offsetRelease;
 };
 
 struct D3D11Data {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetAddRef;
-	int iOffsetRelease;
+	int offsetAddRef;
+	int offsetRelease;
 };
 
 struct SharedData {

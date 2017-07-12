@@ -608,7 +608,7 @@ void checkDXGI11Hook(bool preonly) {
 		return;
 	}
 
-	if (d3d11->iOffsetAddRef == 0 || d3d11->iOffsetRelease == 0) {
+	if (d3d11->offsetAddRef == 0 || d3d11->offsetRelease == 0) {
 		return;
 	}
 
@@ -649,7 +649,7 @@ void hookD3D11(HMODULE hD3D11, bool preonly) {
 
 	if (_wcsicmp(d3d11->wcFileName, modulename) == 0) {
 		unsigned char *raw = (unsigned char *) hD3D11;
-		HookAddRelease((voidFunc)(raw + d3d11->iOffsetAddRef), (voidFunc)(raw + d3d11->iOffsetRelease));
+		HookAddRelease((voidFunc)(raw + d3d11->offsetAddRef), (voidFunc)(raw + d3d11->offsetRelease));
 	} else if (! preonly) {
 		ods("D3D11: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3d11->wcFileName);
 	} else {
@@ -670,8 +670,8 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 	ods("D3D11: Preparing static data for DXGI and D3D11 Injection");
 
 	d3d11->wcFileName[0] = 0;
-	d3d11->iOffsetAddRef = 0;
-	d3d11->iOffsetRelease = 0;
+	d3d11->offsetAddRef = 0;
+	d3d11->offsetRelease = 0;
 
 	HMODULE hD3D11 = LoadLibrary("D3D11.DLL");
 
@@ -732,13 +732,13 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 				int offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pPresent), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D11", "Present");
 				if (offset >= 0) {
 					if (initializeDXGIData) {
-						dxgi->iOffsetPresent = offset;
-						ods("D3D11: Successfully found Present offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
+						dxgi->offsetPresent = offset;
+						ods("D3D11: Successfully found Present offset: %ls: %d", dxgi->wcFileName, dxgi->offsetPresent);
 					} else {
-						if (dxgi->iOffsetPresent == offset) {
-							ods("D3D11: Successfully verified Present offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
+						if (dxgi->offsetPresent == offset) {
+							ods("D3D11: Successfully verified Present offset: %ls: %d", dxgi->wcFileName, dxgi->offsetPresent);
 						} else {
-							ods("D3D11: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->iOffsetPresent);
+							ods("D3D11: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->offsetPresent);
 						}
 					}
 				}
@@ -747,13 +747,13 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 				offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pResize), dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName), "D3D11", "ResizeBuffers");
 				if (offset >= 0) {
 					if (initializeDXGIData) {
-						dxgi->iOffsetResize = offset;
-						ods("D3D11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetResize);
+						dxgi->offsetResize = offset;
+						ods("D3D11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->offsetResize);
 					} else {
-						if (dxgi->iOffsetResize == offset) {
-							ods("D3D11: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetResize);
+						if (dxgi->offsetResize == offset) {
+							ods("D3D11: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->offsetResize);
 						} else {
-							ods("D3D11: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->iOffsetResize);
+							ods("D3D11: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->offsetResize);
 						}
 					}
 				}
@@ -763,15 +763,15 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 				void *pAddRef = (*vtbl)[1];
 				offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pAddRef), d3d11->wcFileName, ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "AddRef");
 				if (offset >= 0) {
-					d3d11->iOffsetAddRef = offset;
-					ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcFileName, d3d11->iOffsetAddRef);
+					d3d11->offsetAddRef = offset;
+					ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcFileName, d3d11->offsetAddRef);
 				}
 
 				void *pRelease = (*vtbl)[2];
 				offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pRelease), d3d11->wcFileName, ARRAY_NUM_ELEMENTS(d3d11->wcFileName), "D3D11", "Release");
 				if (offset >= 0) {
-					d3d11->iOffsetRelease = offset;
-					ods("D3D11: Successfully found Release offset: %ls: %d", d3d11->wcFileName, d3d11->iOffsetRelease);
+					d3d11->offsetRelease = offset;
+					ods("D3D11: Successfully found Release offset: %ls: %d", d3d11->wcFileName, d3d11->offsetRelease);
 				}
 			}
 

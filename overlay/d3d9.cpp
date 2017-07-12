@@ -1011,9 +1011,9 @@ static void hookD3D9(HMODULE hD3D, bool preonly) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hD3D;
-		HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
-		if (d3dd->iOffsetCreateEx) {
-			HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
+		HookCreateRaw((voidFunc)(raw + d3dd->offsetCreate));
+		if (d3dd->offsetCreateEx) {
+			HookCreateRawEx((voidFunc)(raw + d3dd->offsetCreateEx));
 		}
 
 	} else if (! preonly) {
@@ -1099,8 +1099,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
 							ods("D3D9: Internal overlay error: CreateDevice offset is > 2GB, does not fit the current data structure.");
 						} else {
-							d3dd->iOffsetCreate = static_cast<int>(off);
-							ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->iOffsetCreate);
+							d3dd->offsetCreate = static_cast<int>(off);
+							ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->offsetCreate);
 						}
 					}
 					id3d9->Release();
@@ -1134,8 +1134,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 							if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
 								ods("D3D9: Internal overlay error: CreateDeviceEx offset is > 2GB, does not fit the current data structure.");
 							} else {
-								d3dd->iOffsetCreateEx = static_cast<int>(off);
-								ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->iOffsetCreateEx);
+								d3dd->offsetCreateEx = static_cast<int>(off);
+								ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->offsetCreateEx);
 							}
 						}
 
