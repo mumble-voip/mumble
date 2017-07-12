@@ -287,9 +287,9 @@ void ServerHandler::hostnameResolved() {
 void ServerHandler::run() {
 	// Resolve the hostname...
 	{
-		ServerResolver *sr = new ServerResolver();
-		QObject::connect(sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
-		sr->resolve(qsHostName, usPort);
+		ServerResolver sr;
+		QObject::connect(&sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
+		sr.resolve(qsHostName, usPort);
 		int ret = exec();
 		if (ret < 0) {
 			qWarning("ServerHandler: failed to resolve hostname");
