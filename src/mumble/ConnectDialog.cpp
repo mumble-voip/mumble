@@ -378,6 +378,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 
 			url = QUrl::fromEncoded(qba, QUrl::StrictMode);
 			if (! url.isValid()) {
+				// Windows internet shortcut files (.url) are an ini with an URL value
 				QSettings qs(qsFile, QSettings::IniFormat);
 				url = QUrl::fromEncoded(qs.value(QLatin1String("InternetShortcut/URL")).toByteArray(), QUrl::StrictMode);
 			}
