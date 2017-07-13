@@ -482,6 +482,7 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 #define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var))
 #define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var).toInt())
 #define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), static_cast<int>(var)).toInt())
+#define DEPRECATED(name) do { } while (0)
 
 // Workaround for mumble-voip/mumble#2638.
 //
@@ -825,6 +826,8 @@ void Settings::load(QSettings* settings_ptr) {
 #undef SAVELOAD
 #define SAVELOAD(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), var); else settings_ptr->remove(QLatin1String(name))
 #define SAVEFLAG(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), static_cast<int>(var)); else settings_ptr->remove(QLatin1String(name))
+#undef DEPRECATED
+#define DEPRECATED(name) settings_ptr->remove(QLatin1String(name))
 
 void OverlaySettings::save() {
 	save(g.qs);
