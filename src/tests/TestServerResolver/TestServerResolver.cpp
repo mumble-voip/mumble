@@ -9,6 +9,13 @@
 
 #include "ServerResolver.h"
 
+// Equivalent to QSignalSpy::wait() in Qt 5.
+// We increased the timeout from 5s to 8s because travis builds could fail otherwise.
+void signalSpyWait() {
+	QTestEventLoop loop;
+	loop.enterLoop(8);
+}
+
 class TestServerResolver : public QObject {
 		Q_OBJECT
 	private slots:
@@ -30,11 +37,7 @@ void TestServerResolver::simpleSrv() {
 
 	r.resolve(hostname, port);
 
-	// Equivalent to QSignalSpy::wait() in Qt 5.
-	{
-		QTestEventLoop loop;
-		loop.enterLoop(5);
-	}
+	signalSpyWait();
 
 	QCOMPARE(spy.count(), 1);
 
@@ -77,11 +80,7 @@ void TestServerResolver::simpleA() {
 
 	r.resolve(hostname, port);
 
-	// Equivalent to QSignalSpy::wait() in Qt 5.
-	{
-		QTestEventLoop loop;
-		loop.enterLoop(5);
-	}
+	signalSpyWait();
 
 	QCOMPARE(spy.count(), 1);
 
@@ -116,11 +115,7 @@ void TestServerResolver::simpleAAAA() {
 
 	r.resolve(hostname, port);
 
-	// Equivalent to QSignalSpy::wait() in Qt 5.
-	{
-		QTestEventLoop loop;
-		loop.enterLoop(5);
-	}
+	signalSpyWait();
 
 	QCOMPARE(spy.count(), 1);
 
