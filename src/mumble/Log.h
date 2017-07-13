@@ -91,7 +91,6 @@ class LogDocument : public QTextDocument {
 		void finished();
 	private:
 		bool m_allowHTTPResources;
-		bool m_valid;
 		bool m_onlyLoadDataURLs;
 };
 
