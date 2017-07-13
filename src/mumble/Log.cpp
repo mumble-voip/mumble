@@ -643,7 +643,6 @@ void LogDocument::receivedHead() {
 	if (rep->url().scheme() != QLatin1String("data")) {
 		QVariant length = rep->header(QNetworkRequest::ContentLengthHeader);
 		if (length == QVariant::Invalid || length.toInt() > g.s.iMaxImageSize) {
-			m_valid = false;
 			rep->abort();
 		}
 	}
