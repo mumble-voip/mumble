@@ -54,7 +54,6 @@ void NetworkConfig::load(const Settings &r) {
 	qleUsername->setText(r.qsProxyUsername);
 	qlePassword->setText(r.qsProxyPassword);
 
-	loadCheckBox(qcbImageDownload, r.iMaxImageSize <= 0);
 	loadCheckBox(qcbHideOS, s.bHideOS);
 
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
@@ -80,12 +79,6 @@ void NetworkConfig::save() const {
 	s.usProxyPort = qlePort->text().toUShort();
 	s.qsProxyUsername = qleUsername->text();
 	s.qsProxyPassword = qlePassword->text();
-
-	if (qcbImageDownload->isChecked()) {
-		s.iMaxImageSize = 0;
-	} else if (s.iMaxImageSize <= 0) {
-		s.iMaxImageSize = s.ciDefaultMaxImageSize;
-	}
 
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
 	s.bPluginCheck=qcbPluginUpdate->isChecked();
