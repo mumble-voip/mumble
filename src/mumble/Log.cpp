@@ -362,12 +362,9 @@ QString Log::imageToImg(QImage img) {
 	return QString();
 }
 
-QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *tc) {
+QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	QDesktopWidget dw;
 	LogDocument qtd;
-
-	qtd.setAllowHTTPResources(allowReplacement);
-	qtd.setOnlyLoadDataURLs(true);
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);
@@ -478,7 +475,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tc.insertBlock();
 		}
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(Qt::escape(dt.time().toString())), Log::Time));
-		validHtml(console, true, &tc);
+		validHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 
@@ -574,9 +571,7 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 }
 
 LogDocument::LogDocument(QObject *p)
-	: QTextDocument(p)
-	, m_allowHTTPResources(true)
-	, m_onlyLoadDataURLs(false) {
+	: QTextDocument(p) {
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {
@@ -590,62 +585,23 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 	QImage qi(1, 1, QImage::Format_Mono);
 	addResource(type, url, qi);
 
-	if (url.scheme() != QLatin1String("data") && g.s.iMaxImageSize <= 0) {
+	if (! url.isValid()) {
 		return qi;
 	}
 
-	if (! url.isValid() || url.isRelative()) {
+	if (url.scheme() != QLatin1String("data")) {
 		return qi;
 	}
 
-	QStringList allowedSchemes;
-	allowedSchemes << QLatin1String("data");
-	if (m_allowHTTPResources) {
-		allowedSchemes << QLatin1String("http");
-		allowedSchemes << QLatin1String("https");
-	}
+	QNetworkReply *rep = Network::get(url);
+	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 
-	if (!allowedSchemes.contains(url.scheme())) {
-		return qi;
-	}
-
-	bool shouldLoad = true;
-	if (m_onlyLoadDataURLs && url.scheme() != QLatin1String("data")) {
-		shouldLoad = false;
-	}
-
-	if (shouldLoad) {
-		QNetworkReply *rep = Network::get(url);
-		connect(rep, SIGNAL(metaDataChanged()), this, SLOT(receivedHead()));
-		connect(rep, SIGNAL(finished()), this, SLOT(finished()));
-
-		// Handle data URLs immediately without a roundtrip to the event loop.
-		// We need this to perform proper validation for data URL images when
-		// a LogDocument is used inside Log::validHtml().
-		if (url.scheme() == QLatin1String("data")) {
-			QCoreApplication::sendPostedEvents(rep, 0);
-		}
-	}
+	// Handle data URLs immediately without a roundtrip to the event loop.
+	// We need this to perform proper validation for data URL images when
+	// a LogDocument is used inside Log::validHtml().
+	QCoreApplication::sendPostedEvents(rep, 0);
 
 	return qi;
-}
-
-void LogDocument::setAllowHTTPResources(bool allowHTTPResources) {
-	m_allowHTTPResources = allowHTTPResources;
-}
-
-void LogDocument::setOnlyLoadDataURLs(bool onlyLoadDataURLs) {
-	m_onlyLoadDataURLs = onlyLoadDataURLs;
-}
-
-void LogDocument::receivedHead() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	if (rep->url().scheme() != QLatin1String("data")) {
-		QVariant length = rep->header(QNetworkRequest::ContentLengthHeader);
-		if (length == QVariant::Invalid || length.toInt() > g.s.iMaxImageSize) {
-			rep->abort();
-		}
-	}
 }
 
 void LogDocument::finished() {
@@ -662,27 +618,21 @@ void LogDocument::finished() {
 		// instead of strictly requiring a correct Content-Type.
 		if (RichTextImage::isValidImage(ba, fmt)) {
 			if (qi.loadFromData(ba, fmt)) {
-				bool ok = true;
-				if (rep->url().scheme() != QLatin1String("data")) {
-					ok = (qi.width() <= g.s.iMaxImageWidth && qi.height() <= g.s.iMaxImageHeight);
-				}
-				if (ok) {
-					addResource(QTextDocument::ImageResource, rep->request().url(), qi);
+				addResource(QTextDocument::ImageResource, rep->request().url(), qi);
 
-					// Force a re-layout of the QTextEdit the next
-					// time we enter the event loop.
-					// We must not trigger a re-layout immediately.
-					// Doing so can trigger crashes deep inside Qt
-					// if the QTextDocument has just been set on the
-					// text edit widget.
-					QTextEdit *qte = qobject_cast<QTextEdit *>(parent());
-					if (qte != NULL) {
-						QEvent *e = new QEvent(QEvent::FontChange);
-						QApplication::postEvent(qte, e);
+				// Force a re-layout of the QTextEdit the next
+				// time we enter the event loop.
+				// We must not trigger a re-layout immediately.
+				// Doing so can trigger crashes deep inside Qt
+				// if the QTextDocument has just been set on the
+				// text edit widget.
+				QTextEdit *qte = qobject_cast<QTextEdit *>(parent());
+				if (qte != NULL) {
+					QEvent *e = new QEvent(QEvent::FontChange);
+					QApplication::postEvent(qte, e);
 
-						e = new LogDocumentResourceAddedEvent();
-						QApplication::postEvent(qte, e);
-					}
+					e = new LogDocumentResourceAddedEvent();
+					QApplication::postEvent(qte, e);
 				}
 			}
 		}
