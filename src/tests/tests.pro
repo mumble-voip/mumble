@@ -15,4 +15,5 @@ SUBDIRS += \
 	TestXMLTools \
 	TestUnresolvedServerAddress \
 	TestServerAddress \
-	TestServerResolver
+	TestServerResolver \
+	TestSelfSignedCertificate
