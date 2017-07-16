@@ -532,7 +532,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
 				replacement = tr("link to %1").arg(host);
 			else if (url.scheme() == QLatin1String("ftp"))
-				replacement = tr("ftp link to %1").arg(host);
+				replacement = tr("FTP link to %1").arg(host);
 			else if (url.scheme() == QLatin1String("clientid"))
 				replacement = tr("player link");
 			else if (url.scheme() == QLatin1String("channelid"))
