@@ -68,11 +68,11 @@ void CrashReporter::uploadFinished() {
 	qpdProgress->reset();
 	if (qnrReply->error() == QNetworkReply::NoError) {
 		if (qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)
-			QMessageBox::information(NULL, tr("Crash upload successful"), tr("Thank you for helping make Mumble better!"));
+			QMessageBox::information(NULL, tr("Crash rapport sent"), tr("Thank you for helping make Mumble better!"));
 		else
-			QMessageBox::critical(NULL, tr("Crash upload failed"), tr("We're really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.").arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()).arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
+			QMessageBox::critical(NULL, tr("Failed to send crash rapport"), tr("Unfortunately the crash rapport failed to upload, with error %1 %2. Please inform a developer.").arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()).arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
 	} else {
-		QMessageBox::critical(NULL, tr("Crash upload failed"), tr("This really isn't funny, but apparently there's a bug in the crash reporting code, and we've failed to upload the report. You may inform a developer about error %1").arg(qnrReply->error()));
+		QMessageBox::critical(NULL, tr("Crash uploader failed"), tr("Murphy\'s law in full effect, hitting a bug in the crash reporting code, so that the rapport could not be sent. Please inform a developer about this, error %1").arg(qnrReply->error()));
 	}
 	qelLoop->exit(0);
 }
@@ -99,8 +99,8 @@ void CrashReporter::run() {
 
 #elif defined(Q_OS_MAC)
 	/*
-	 * On OSX, the .dmp file is simply a dummy file that we
-	 * use to find the *real* crash dump, made by the OSX
+	 * On MacOS, the .dmp file is simply a dummy file that we
+	 * use to find the *real* crash dump, made by the MacOS
 	 * built in crash reporter.
 	 */
 	QFileInfo qfiDump(qfCrashDump);
@@ -160,7 +160,7 @@ void CrashReporter::run() {
 					details = QString::fromLocal8Bit(qba);
 				}
 			} else {
-				details = QLatin1String("Failed to run dxdiag");
+				details = QLatin1String("Failed to run DxDiag");
 			}
 			qp.kill();
 		}
@@ -173,7 +173,7 @@ void CrashReporter::run() {
 	}
 
 	if (exec() == QDialog::Accepted) {
-		qpdProgress = new QProgressDialog(tr("Uploading crash report"), tr("Abort upload"), 0, 100, this);
+		qpdProgress = new QProgressDialog(tr("Sending crash report"), tr("Cancel"), 0, 100, this);
 		qpdProgress->setMinimumDuration(500);
 		qpdProgress->setValue(0);
 		connect(qpdProgress, SIGNAL(canceled()), qelLoop, SLOT(quit()));
