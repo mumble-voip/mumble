@@ -68,11 +68,11 @@ void CrashReporter::uploadFinished() {
 	qpdProgress->reset();
 	if (qnrReply->error() == QNetworkReply::NoError) {
 		if (qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)
-			QMessageBox::information(NULL, tr("Crash rapport sent"), tr("Thank you for helping make Mumble better!"));
+			QMessageBox::information(NULL, tr("Crash report sent"), tr("Thank you for helping make Mumble better!"));
 		else
-			QMessageBox::critical(NULL, tr("Failed to send crash rapport"), tr("Unfortunately the crash rapport failed to upload, with error %1 %2. Please inform a developer.").arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()).arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
+			QMessageBox::critical(NULL, tr("Failed to send crash report"), tr("Unfortunately the crash report failed to upload, with error %1 %2. Please inform a developer.").arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()).arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
 	} else {
-		QMessageBox::critical(NULL, tr("Crash uploader failed"), tr("Murphy\'s law in full effect, hitting a bug in the crash reporting code, so that the rapport could not be sent. Please inform a developer about this, error %1").arg(qnrReply->error()));
+		QMessageBox::critical(NULL, tr("Crash uploader failed"), tr("Murphy\'s law in full effect, hitting a bug in the crash reporting code, so that the report could not be sent. Please inform a developer about this, error %1").arg(qnrReply->error()));
 	}
 	qelLoop->exit(0);
 }
