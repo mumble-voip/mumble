@@ -8,5 +8,5 @@ include(../test.pri)
 QT *= network
 
 TARGET = TestCrypt
-HEADERS = Timer.h CryptState.h
-SOURCES = TestCrypt.cpp CryptState.cpp Timer.cpp
+HEADERS = SSL.h SSLLocks.h Timer.h CryptState.h
+SOURCES = SSL.cpp SSLLocks.cpp TestCrypt.cpp CryptState.cpp Timer.cpp

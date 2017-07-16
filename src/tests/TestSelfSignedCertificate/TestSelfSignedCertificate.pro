@@ -9,5 +9,5 @@ include(../../../qmake/qt.pri)
 QT *= network
 
 TARGET = TestSelfSignedCertificate
-SOURCES = TestSelfSignedCertificate.cpp SelfSignedCertificate.cpp
-HEADERS = SelfSignedCertificate.h
+SOURCES = SSL.cpp SSLLocks.cpp TestSelfSignedCertificate.cpp SelfSignedCertificate.cpp
+HEADERS = SSL.h SSLLocks.h SelfSignedCertificate.h

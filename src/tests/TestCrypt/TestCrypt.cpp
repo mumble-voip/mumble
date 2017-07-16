@@ -9,18 +9,29 @@
 #include <QtCore>
 #include <QtTest>
 
+#include "SSL.h"
 #include "Timer.h"
 #include "CryptState.h"
 
 class TestCrypt : public QObject {
 		Q_OBJECT
 	private slots:
+		void initTestCase();
+		void cleanupTestCase();
 		void testvectors();
 		void authcrypt();
 		void ivrecovery();
 		void reverserecovery();
 		void tamper();
 };
+
+void TestCrypt::initTestCase() {
+	MumbleSSL::initialize();
+}
+
+void TestCrypt::cleanupTestCase() {
+	MumbleSSL::destroy();
+}
 
 void TestCrypt::reverserecovery() {
 	CryptState enc, dec;

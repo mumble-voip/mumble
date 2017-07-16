@@ -6,6 +6,8 @@
 #include <QtCore>
 #include <QtTest>
 
+#include "SSL.h"
+
 #include "PasswordGenerator.h"
 
 // Get the password alphabet from PasswordGenerator.
@@ -14,8 +16,18 @@ extern QVector<QChar> mumble_password_generator_alphabet();
 class TestPasswordGenerator : public QObject {
 		Q_OBJECT
 	private slots:
+		void initTestCase();
+		void cleanupTestCase();
 		void random();
 };
+
+void TestPasswordGenerator::initTestCase() {
+	MumbleSSL::initialize();
+}
+
+void TestPasswordGenerator::cleanupTestCase() {
+	MumbleSSL::destroy();
+}
 
 void TestPasswordGenerator::random() {
 	QVector<QChar> alphabet = mumble_password_generator_alphabet();

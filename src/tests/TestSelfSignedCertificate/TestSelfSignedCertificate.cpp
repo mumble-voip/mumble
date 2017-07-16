@@ -6,14 +6,26 @@
 #include <QtCore>
 #include <QtTest>
 
+#include "SSL.h"
+
 #include "SelfSignedCertificate.h"
 
 class TestSelfSignedCertificate : public QObject {
 		Q_OBJECT
 	private slots:
+		void initTestCase();
+		void cleanupTestCase();
 		void exerciseClientCert();
 		void exerciseServerCert();
 };
+
+void TestSelfSignedCertificate::initTestCase() {
+	MumbleSSL::initialize();
+}
+
+void TestSelfSignedCertificate::cleanupTestCase() {
+	MumbleSSL::destroy();
+}
 
 void TestSelfSignedCertificate::exerciseClientCert() {
 	QSslCertificate cert;
