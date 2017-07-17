@@ -767,12 +767,12 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 	setWindowTitle(tr("Add Server"));
 	init();
 
+	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(updateFromClipboard()));
+
 	QString host, user, pw;
 	QString name;
 	unsigned short port = DEFAULT_MUMBLE_PORT;
-	if (m_si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false, NULL, true)) {
-		showPasteNotice();
-	} else {
+	if (!updateFromClipboard()) {
 		// If connected to a server assume the user wants to add it
 		if (g.sh && g.sh->isRunning()) {
 			g.sh->getConnectionInfo(host, port, user, pw);
@@ -822,12 +822,18 @@ ConnectDialogEdit::~ConnectDialogEdit() {
 	delete m_si;
 }
 
-void ConnectDialogEdit::showPasteNotice() {
-	if (QLabel *label = qwPasteNotice->findChild<QLabel *>(QLatin1String("qlPasteNotice"))) {
+bool ConnectDialogEdit::updateFromClipboard() {
+	delete m_si;
+	m_si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false, NULL, true);
+	bool hasServerData = m_si != NULL;
+	if (hasServerData) {
+		QLabel *label = qwInlineNotice->findChild<QLabel *>(QLatin1String("qlPasteNotice"));
+		Q_ASSERT(label);
 		label->setText(tr("You have an URL in your clipboard.\nDo you want to fill the dialog with this data?\nHost: %1 Port: %2").arg(m_si->qsHostname).arg(m_si->usPort));
 	}
-
-	qwPasteNotice->show();
+	qwInlineNotice->setVisible(hasServerData);
+	adjustSize();
+	return hasServerData;
 }
 
 void ConnectDialogEdit::on_qbFill_clicked() {
