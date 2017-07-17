@@ -99,8 +99,8 @@ void CrashReporter::run() {
 
 #elif defined(Q_OS_MAC)
 	/*
-	 * On MacOS, the .dmp file is simply a dummy file that we
-	 * use to find the *real* crash dump, made by the MacOS
+	 * On macOS, the .dmp file is simply a dummy file that we
+	 * use to find the *real* crash dump, made by the macOS
 	 * built in crash reporter.
 	 */
 	QFileInfo qfiDump(qfCrashDump);
