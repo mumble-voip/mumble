@@ -356,7 +356,7 @@ ServerItem::~ServerItem() {
 		delete si;
 }
 
-ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, QWidget *p) {
+ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, QWidget *p, bool convertHttpUrls) {
 	if (mime->hasFormat(QLatin1String("OriginatedInMumble")))
 		return NULL;
 
@@ -396,6 +396,25 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 			url.addQueryItem(QLatin1String("title"), url.host());
 		}
 #endif
+	}
+
+	if (! url.isValid()) {
+		return NULL;
+	}
+
+	// An URL from text without a scheme will have the hostname text
+	// in the QUrl scheme and no hostname. We do not want to use that.
+	if (url.host().isEmpty()) {
+		return NULL;
+	}
+
+	// Some communication programs automatically create http links from domains.
+	// When a user sends another user a domain to connect to, and http is added wrongly,
+	// we do our best to remove it again.
+	if (convertHttpUrls && (
+	    url.scheme() == QLatin1String("http")
+	    || url.scheme() == QLatin1String("https"))) {
+		url.setScheme(QLatin1String("mumble"));
 	}
 
 	return fromUrl(url, p);
@@ -751,12 +770,8 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 	QString host, user, pw;
 	QString name;
 	unsigned short port = DEFAULT_MUMBLE_PORT;
-	if (ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false)) {
-		name = si->qsName;
-		host = si->qsHostname;
-		port = si->usPort;
-		pw = si->qsPassword;
-		delete si;
+	if (m_si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false, NULL, true)) {
+		showPasteNotice();
 	} else {
 		// If connected to a server assume the user wants to add it
 		if (g.sh && g.sh->isRunning()) {
@@ -767,6 +782,9 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 					name = c->qsName;
 				}
 			}
+
+			showNotice(tr("You are currently connected to a server.\nDo you want to fill the dialog with the connection data of this server?\nHost: %1 Port: %2").arg(host).arg(port));
+			m_si = new ServerItem(name, host, port, user, pw);
 		}
 	}
 	if (user.isEmpty()) {
@@ -780,9 +798,12 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 }
 
 void ConnectDialogEdit::init() {
+	m_si = NULL;
 	usPort = 0;
 	bOk = true;
 	bCustomLabel = false;
+
+	qwInlineNotice->hide();
 
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 	qlePort->setText(QString::number(DEFAULT_MUMBLE_PORT));
@@ -795,6 +816,39 @@ void ConnectDialogEdit::init() {
 	connect(qlePassword, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
 
 	validate();
+}
+
+ConnectDialogEdit::~ConnectDialogEdit() {
+	delete m_si;
+}
+
+void ConnectDialogEdit::showPasteNotice() {
+	if (QLabel *label = qwPasteNotice->findChild<QLabel *>(QLatin1String("qlPasteNotice"))) {
+		label->setText(tr("You have an URL in your clipboard.\nDo you want to fill the dialog with this data?\nHost: %1 Port: %2").arg(m_si->qsHostname).arg(m_si->usPort));
+	}
+
+	qwPasteNotice->show();
+}
+
+void ConnectDialogEdit::on_qbFill_clicked() {
+	Q_ASSERT(m_si);
+
+	qwInlineNotice->hide();
+	adjustSize();
+
+	qleName->setText(m_si->qsName);
+	qleServer->setText(m_si->qsHostname);
+	qleUsername->setText(m_si->qsUsername);
+	qlePort->setText(QString::number(m_si->usPort));
+	qlePassword->setText(m_si->qsPassword);
+
+	delete m_si;
+	m_si = NULL;
+}
+
+void ConnectDialogEdit::on_qbDiscard_clicked() {
+	qwInlineNotice->hide();
+	adjustSize();
 }
 
 void ConnectDialogEdit::on_qleName_textEdited(const QString& name) {
