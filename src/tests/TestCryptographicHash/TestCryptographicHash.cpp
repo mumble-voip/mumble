@@ -7,11 +7,16 @@
 #include <QtTest>
 #include <QLatin1String>
 
+#include "SSL.h"
+
 #include "CryptographicHash.h"
 
 class TestCryptographicHash : public QObject {
 		Q_OBJECT
 	private slots:
+		void initTestCase();
+		void cleanupTestCase();
+
 		void sha1_data();
 		void sha1();
 
@@ -22,6 +27,14 @@ class TestCryptographicHash : public QObject {
 		void multipleResultCalls();
 		void addDataAfterResult();
 };
+
+void TestCryptographicHash::initTestCase() {
+	MumbleSSL::initialize();
+}
+
+void TestCryptographicHash::cleanupTestCase() {
+	MumbleSSL::destroy();
+}
 
 /// normalizeHash removes all whitespace from the hex-encoded hash string.
 static QString normalizeHash(QString str) {

@@ -6,17 +6,37 @@
 #include "murmur_pch.h"
 
 #include "SSL.h"
+#include "SSLLocks.h"
 
 #include "Version.h"
 
 void MumbleSSL::initialize() {
+	// Let Qt initialize its copy of OpenSSL, if it's different than
+	// Mumble's. (Initialization is a side-effect of calling
+	// QSslSocket::supportsSsl()).
+	QSslSocket::supportsSsl();
+
 	// Initialize our copy of OpenSSL.
 	SSL_library_init(); // Safe to discard return value, per OpenSSL man pages.
 	SSL_load_error_strings();
 
-	// Let Qt initialize its copy of OpenSSL, if it's different than
-	// Mumble's.
-	QSslSocket::supportsSsl();
+	// Determine if a locking callback has not been set.
+	// This should be the case if there are multiple copies
+	// of OpensSSL in the address space. This is mostly due
+	// to Qt dynamically loading OpenSSL when it is not
+	// configured with -openssl-linked.
+	//
+	// If we detect that no locking callback is configured, we
+	// have to set it up ourselves to allow multi-threaded use
+	// of OpenSSL.
+	void *lockcb = reinterpret_cast<void *>(CRYPTO_get_locking_callback());
+	if (lockcb == NULL) {
+		SSLLocks::initialize();
+	}
+}
+
+void MumbleSSL::destroy() {
+	SSLLocks::destroy();
 }
 
 QString MumbleSSL::defaultOpenSSLCipherString() {

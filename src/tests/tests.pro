@@ -16,4 +16,5 @@ SUBDIRS += \
 	TestUnresolvedServerAddress \
 	TestServerAddress \
 	TestServerResolver \
-	TestSelfSignedCertificate
+	TestSelfSignedCertificate \
+	TestSSLLocks

@@ -4,10 +4,9 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(../test.pri)
-include(../../../qmake/qt.pri)
 
-QT *= network
+QT += network
 
-TARGET = TestSelfSignedCertificate
-SOURCES = SSL.cpp SSLLocks.cpp TestSelfSignedCertificate.cpp SelfSignedCertificate.cpp
-HEADERS = SSL.h SSLLocks.h SelfSignedCertificate.h
+TARGET = TestSSLLocks
+SOURCES = SSL.cpp SSLLocks.cpp TestSSLLocks.cpp
+HEADERS = SSL.h SSLLocks.h
