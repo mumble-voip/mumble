@@ -175,6 +175,8 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		/// @return Server item or NULL if mime data invalid.
 		///
 		static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = NULL);
+		/// Create a ServerItem from a mumble:// URL
+		static ServerItem *fromUrl(QUrl url, bool default_name, QWidget *p);
 
 		void addServerItem(ServerItem *child);
 

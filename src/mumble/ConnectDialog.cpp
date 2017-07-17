@@ -385,12 +385,17 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 		}
 	}
 
+	return fromUrl(url, default_name, p);
+}
+
+ServerItem *ServerItem::fromUrl(QUrl url, bool default_name, QWidget *p) {
+	if (! url.isValid() || (url.scheme() != QLatin1String("mumble"))) {
+		return NULL;
+	}
+
 #if QT_VERSION >= 0x050000
 	QUrlQuery query(url);
 #endif
-
-	if (! url.isValid() || (url.scheme() != QLatin1String("mumble")))
-		return NULL;
 
 	if (url.userName().isEmpty()) {
 		if (g.s.qsUsername.isEmpty()) {
