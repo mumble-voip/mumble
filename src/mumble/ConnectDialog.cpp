@@ -385,10 +385,23 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 		}
 	}
 
-	return fromUrl(url, default_name, p);
+	if (default_name) {
+#if QT_VERSION >= 0x050000
+		QUrlQuery query(url);
+		if (! query.hasQueryItem(QLatin1String("title"))) {
+			query.addQueryItem(QLatin1String("title"), url.host());
+		}
+#else
+		if (! url.hasQueryItem(QLatin1String("title"))) {
+			url.addQueryItem(QLatin1String("title"), url.host());
+		}
+#endif
+	}
+
+	return fromUrl(url, p);
 }
 
-ServerItem *ServerItem::fromUrl(QUrl url, bool default_name, QWidget *p) {
+ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
 	if (! url.isValid() || (url.scheme() != QLatin1String("mumble"))) {
 		return NULL;
 	}
@@ -411,17 +424,11 @@ ServerItem *ServerItem::fromUrl(QUrl url, bool default_name, QWidget *p) {
 	}
 
 #if QT_VERSION >= 0x050000
-	if (! query.hasQueryItem(QLatin1String("title")) && default_name)
-		query.addQueryItem(QLatin1String("title"), url.host());
-
 	ServerItem *si = new ServerItem(query.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
 
 	if (query.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = query.queryItemValue(QLatin1String("url"));
 #else
-	if (! url.hasQueryItem(QLatin1String("title")) && default_name)
-		url.addQueryItem(QLatin1String("title"), url.host());
-
 	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
 
 	if (url.hasQueryItem(QLatin1String("url")))
