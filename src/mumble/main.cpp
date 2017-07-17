@@ -600,6 +600,9 @@ int main(int argc, char **argv) {
 	// correctly.
 	userLockFile.release();
 #endif
+
+	// Tear down OpenSSL state.
+	MumbleSSL::destroy();
 	
 	// At this point termination of our process is immenent. We can safely
 	// launch another version of Mumble. The reason we do an actual

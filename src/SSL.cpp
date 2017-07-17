@@ -19,6 +19,9 @@ void MumbleSSL::initialize() {
 	QSslSocket::supportsSsl();
 }
 
+void MumbleSSL::destroy() {
+}
+
 QString MumbleSSL::defaultOpenSSLCipherString() {
 	return QLatin1String("EECDH+AESGCM:EDH+aRSA+AESGCM:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:AES256-SHA:AES128-SHA");
 }
