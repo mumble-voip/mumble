@@ -19,8 +19,8 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 
 	QLabel *l;
 
-	l = new QLabel(tr("<p><b>We're terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?</b></p>"
-	                  "<p>The crash report contains a partial copy of Mumble's memory at the time it crashed, and will help the developers fix the problem.</p>"));
+	l = new QLabel(tr("<p><b>Giving way to sincere apology, Mumble has crashed. Leaving only a trace of stripped memory behind.</b></p>"
+	                  "<p>Sending it in provides clues to preventing it from happening in the future.</p>"));
 
 	vbl->addWidget(l);
 
