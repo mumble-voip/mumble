@@ -1,12 +1,12 @@
 [submodule "speex"]
 	path = 3rdparty/speex-src
-	url = https://git.xiph.org/speex.git/
+	url = https://github.com/mumble-voip/speex.git
 [submodule "celt-0.7.0-src"]
 	path = 3rdparty/celt-0.7.0-src
 	url = https://github.com/mumble-voip/celt-0.7.0.git
 [submodule "celt-0.11.0-src"]
 	path = 3rdparty/celt-0.11.0-src
-	url = https://git.xiph.org/celt.git/
+	url = https://github.com/mumble-voip/celt-0.11.0.git
 [submodule "opus-src"]
 	path = 3rdparty/opus-src
 	url = https://github.com/mumble-voip/opus.git
@@ -21,7 +21,7 @@
 	url = https://github.com/mumble-voip/mach_override.git
 [submodule "3rdparty/speexdsp-src"]
 	path = 3rdparty/speexdsp-src
-	url = https://git.xiph.org/speexdsp.git
+	url = https://github.com/mumble-voip/speexdsp.git
 [submodule "themes/Mumble"]
 	path = themes/Mumble
 	url = https://github.com/mumble-voip/mumble-theme.git
