@@ -32,7 +32,7 @@
       VersionNT > 501 OR (VersionNT = 501 AND ServicePackLevel >= 2) OR (VersionNT = 502 AND ServicePackLevel >= 1)
     </Condition>
 
-    <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallValidate' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
+    <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallExecute' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
 
     <Media Id="1" Cabinet="$(var.ProductName).cab" EmbedCab="yes" CompressionLevel="high" />
 
