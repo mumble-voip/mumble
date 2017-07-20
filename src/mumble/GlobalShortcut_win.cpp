@@ -113,13 +113,15 @@ void GlobalShortcutWin::run() {
 	}
 #endif
 
-	QTimer * timer = new QTimer(this);
+	QTimer *timer = new QTimer;
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 	timer->start(20);
 
 	setPriority(QThread::TimeCriticalPriority);
 
 	exec();
+
+	delete timer;
 
 #ifdef USE_GKEY
 	delete gkey;
