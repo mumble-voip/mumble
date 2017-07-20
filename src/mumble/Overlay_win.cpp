@@ -133,6 +133,18 @@ OverlayPrivateWin::~OverlayPrivateWin() {
 		qFatal("OverlayPrivateWin: unable to close Mumble process handle.");
 		return;
 	}
+
+	// Remove all signals, so they don't
+	// interfere with our calls to waitForFinished
+	// below.
+	m_helper_process->disconnect();
+	m_helper64_process->disconnect();
+
+	m_helper_process->terminate();
+	m_helper64_process->terminate();
+
+	m_helper_process->waitForFinished();
+	m_helper64_process->waitForFinished();
 }
 
 void OverlayPrivateWin::startHelper(QProcess *helper) {
