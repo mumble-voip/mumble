@@ -19,8 +19,8 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 
 	QLabel *l;
 
-	l = new QLabel(tr("<p><b>We're terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?</b></p>"
-	                  "<p>The crash report contains a partial copy of Mumble's memory at the time it crashed, and will help the developers fix the problem.</p>"));
+	l = new QLabel(tr("<p><b>Giving way to sincere apology, Mumble has crashed. Leaving only a trace of stripped memory behind.</b></p>"
+	                  "<p>Sending it in provides clues to preventing it from happening in the future.</p>"));
 
 	vbl->addWidget(l);
 
@@ -68,11 +68,11 @@ void CrashReporter::uploadFinished() {
 	qpdProgress->reset();
 	if (qnrReply->error() == QNetworkReply::NoError) {
 		if (qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)
-			QMessageBox::information(NULL, tr("Crash upload successful"), tr("Thank you for helping make Mumble better!"));
+			QMessageBox::information(NULL, tr("Crash report sent"), tr("Thank you for helping make Mumble better!"));
 		else
-			QMessageBox::critical(NULL, tr("Crash upload failed"), tr("We're really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.").arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()).arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
+			QMessageBox::critical(NULL, tr("Failed to send crash report"), tr("Unfortunately the crash report failed to upload, with error %1 %2. Please inform a developer.").arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()).arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
 	} else {
-		QMessageBox::critical(NULL, tr("Crash upload failed"), tr("This really isn't funny, but apparently there's a bug in the crash reporting code, and we've failed to upload the report. You may inform a developer about error %1").arg(qnrReply->error()));
+		QMessageBox::critical(NULL, tr("Crash uploader failed"), tr("Murphy\'s law in full effect, hitting a bug in the crash reporting code, so that the report could not be sent. Please inform a developer about this, error %1").arg(qnrReply->error()));
 	}
 	qelLoop->exit(0);
 }
@@ -99,8 +99,8 @@ void CrashReporter::run() {
 
 #elif defined(Q_OS_MAC)
 	/*
-	 * On OSX, the .dmp file is simply a dummy file that we
-	 * use to find the *real* crash dump, made by the OSX
+	 * On macOS, the .dmp file is simply a dummy file that we
+	 * use to find the *real* crash dump, made by the macOS
 	 * built in crash reporter.
 	 */
 	QFileInfo qfiDump(qfCrashDump);
@@ -160,7 +160,7 @@ void CrashReporter::run() {
 					details = QString::fromLocal8Bit(qba);
 				}
 			} else {
-				details = QLatin1String("Failed to run dxdiag");
+				details = QLatin1String("Failed to run DxDiag");
 			}
 			qp.kill();
 		}
@@ -173,7 +173,7 @@ void CrashReporter::run() {
 	}
 
 	if (exec() == QDialog::Accepted) {
-		qpdProgress = new QProgressDialog(tr("Uploading crash report"), tr("Abort upload"), 0, 100, this);
+		qpdProgress = new QProgressDialog(tr("Sending crash report"), tr("Cancel"), 0, 100, this);
 		qpdProgress->setMinimumDuration(500);
 		qpdProgress->setValue(0);
 		connect(qpdProgress, SIGNAL(canceled()), qelLoop, SLOT(quit()));
