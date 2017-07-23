@@ -102,7 +102,8 @@ my @thirdPartyLicenses = (
     ["licenseFreetype", "../3rdPartyLicenses/freetype_license.txt", "Freetype", "https://www.freetype.org/", "USE_BUILDENV"],
     ["licenseHarfBuzzNG", "../3rdPartyLicenses/harfbuzzng_license.txt", "HarfBuzz", "https://www.freedesktop.org/wiki/Software/HarfBuzz", "USE_BUILDENV"],
     ["licenseLibPNG", "../3rdPartyLicenses/libpng_license.txt", "LibPNG", "http://www.libpng.org/pub/png/libpng.html", "USE_BUILDENV"],
-    ["licenseLibjpegTurbo", "../3rdPartyLicenses/libjpeg_turbo_license.txt", "libjpeg-turbo", "http://www.libjpeg-turbo.org", "USE_BUILDENV"]
+    ["licenseLibjpegTurbo", "../3rdPartyLicenses/libjpeg_turbo_license.txt", "libjpeg-turbo", "http://www.libjpeg-turbo.org", "USE_BUILDENV"],
+    ["licenseZeroCIce", "../3rdPartyLicenses/zeroc_ice_license.txt", "ZeroC Ice", "https://zeroc.com/", "USE_BUILDENV"]
 );
 
 # Print 3rd party licenses
