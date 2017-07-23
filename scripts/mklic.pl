@@ -92,7 +92,8 @@ my @thirdPartyLicenses = (
     ["licenseSmallFT", "../3rdparty/smallft-src/LICENSE", "smallft", "https://www.xiph.org"],
     ["licenseOldStyleLicenseHeaders", "../3rdPartyLicenses/mumble-old-license-headers/LICENSE.txt", "Old-style Mumble license headers", "https://www.mumble.info"],
     ["licenseArc4RandomUniform", "../3rdparty/arc4random-src/LICENSE", "arc4random_uniform", "https://www.openbsd.org"],
-    ["licenseMariaDBCConnector", "../3rdPartyLicenses/mariadb_c_connector_license.txt", "MariaDB Connector/C", "https://www.mariadb.org", "USE_BUILDENV"]
+    ["licenseMariaDBCConnector", "../3rdPartyLicenses/mariadb_c_connector_license.txt", "MariaDB Connector/C", "https://www.mariadb.org", "USE_BUILDENV"],
+    ["licenseZlib", "../3rdPartyLicenses/zlib_license.txt", "ZLIB", "https://www.zlib.net", "USE_BUILDENV"]
 );
 
 # Print 3rd party licenses
