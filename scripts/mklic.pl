@@ -96,7 +96,8 @@ my @thirdPartyLicenses = (
     ["licenseZlib", "../3rdPartyLicenses/zlib_license.txt", "ZLIB", "https://www.zlib.net", "USE_BUILDENV"],
     ["licenseProtobuf", "../3rdPartyLicenses/protobuf_license.txt", "Protobuf", "https://developers.google.com/protocol-buffers", "USE_BUILDENV"],
     ["licenseExpat", "../3rdPartyLicenses/expat_license.txt", "Expat", "http://libexpat.org", "USE_BUILDENV"],
-    ["licenseBoost", "../3rdPartyLicenses/boost_license.txt", "Boost C++ Libraries", "https://www.boost.org/", "USE_BUILDENV"]
+    ["licenseBoost", "../3rdPartyLicenses/boost_license.txt", "Boost C++ Libraries", "https://www.boost.org/", "USE_BUILDENV"],
+    ["licenseBzip2", "../3rdPartyLicenses/bzip2_license.txt", "bzip2", "http://www.bzip.org", "USE_BUILDENV"]
 );
 
 # Print 3rd party licenses
