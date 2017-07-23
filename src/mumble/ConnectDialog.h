@@ -234,6 +234,10 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		bool bPublicInit;
 		bool bAutoConnect;
+		/// This flag is set once the ConnectDialog has begun auto-connecting.
+		/// It ensures that the ConnectDialog does not try to connect multiple
+		/// times to the server.
+		bool bAutoConnectInProgress;
 
 		Timer tPing;
 		Timer tCurrent, tHover, tRestart;

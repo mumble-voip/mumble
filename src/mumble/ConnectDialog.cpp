@@ -823,7 +823,11 @@ void ConnectDialogEdit::on_qcbShowPassword_toggled(bool checked) {
 	qlePassword->setEchoMode(checked ? QLineEdit::Normal : QLineEdit::Password);
 }
 
-ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoConnect(autoconnect) {
+ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect)
+	: QDialog(p)
+	, bAutoConnect(autoconnect)
+	, bAutoConnectInProgress(false) {
+
 	setupUi(this);
 #ifdef Q_OS_MAC
 	setWindowModality(Qt::WindowModal);
@@ -1377,12 +1381,14 @@ void ConnectDialog::timeTick() {
 		if (!items.isEmpty()) {
 			bLastFound = true;
 			qtwServers->setCurrentItem(items.at(0));
-			if (g.s.bAutoConnect && bAutoConnect) {
+			if (g.s.bAutoConnect && bAutoConnect && !bAutoConnectInProgress) {
 				siAutoConnect = static_cast<ServerItem *>(items.at(0));
 				if (! siAutoConnect->qlAddresses.isEmpty()) {
+					bAutoConnectInProgress = true;
 					accept();
 					return;
 				} else if (!bAllowHostLookup) {
+					bAutoConnectInProgress = true;
 					accept();
 					return;
 				}
@@ -1578,8 +1584,10 @@ void ConnectDialog::lookedUp() {
 
 		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);
-			if (si == siAutoConnect)
+			if (si == siAutoConnect && !bAutoConnectInProgress) {
+				bAutoConnectInProgress = true;
 				accept();
+			}
 		}
 	}
 
