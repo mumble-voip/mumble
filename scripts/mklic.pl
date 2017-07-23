@@ -106,7 +106,8 @@ my @thirdPartyLicenses = (
     ["licenseZeroCIce", "../3rdPartyLicenses/zeroc_ice_license.txt", "ZeroC Ice", "https://zeroc.com/", "USE_BUILDENV"],
     ["licenseMcpp", "../3rdPartyLicenses/mcpp_license.txt", "mcpp", "http://mcpp.sourceforge.net/", "USE_BUILDENV"],
     ["licenseMDNSResponder", "../3rdPartyLicenses/mdnsresponder_license.txt", "mDNSResponder", "https://opensource.apple.com/tarballs/mDNSResponder/", "USE_BUILDENV"],
-    ["licensePCRE", "../3rdPartyLicenses/pcre_license.txt", "PCRE", "http://www.pcre.org/", "USE_BUILDENV"]
+    ["licensePCRE", "../3rdPartyLicenses/pcre_license.txt", "PCRE", "http://www.pcre.org/", "USE_BUILDENV"],
+    ["licenseQt", "../3rdPartyLicenses/qt_license.txt", "Qt", "https://www.qt.io/", "USE_BUILDENV"]
 );
 
 # Print 3rd party licenses
