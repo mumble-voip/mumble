@@ -117,7 +117,8 @@ my @thirdPartyLicenses = (
     ["licenseLibfuse", "../3rdPartyLicenses/libfuse_license.txt", "libfuse", "https://github.com/libfuse/libfuse/", "USE_BUILDENV"], # Linux only
     ["licenseGlib", "../3rdPartyLicenses/glib_license.txt", "glib", "https://developer.gnome.org/glib/", "USE_BUILDENV"], # Linux only
     ["licenseLibcap2", "../3rdPartyLicenses/libcap2_license.txt", "libcap2", "https://sites.google.com/site/fullycapable/", "USE_BUILDENV"], # Linux only
-    ["licenseLibdaemon", "../3rdPartyLicenses/libdaemon_license.txt", "libdaemon", "http://0pointer.de/lennart/projects/libdaemon/", "USE_BUILDENV"] # Linux only
+    ["licenseLibdaemon", "../3rdPartyLicenses/libdaemon_license.txt", "libdaemon", "http://0pointer.de/lennart/projects/libdaemon/", "USE_BUILDENV"], # Linux only
+    ["licenseLibffi", "../3rdPartyLicenses/libffi_license.txt", "libffi", "https://sourceware.org/libffi/", "USE_BUILDENV"] # Linux only
 );
 
 # Print 3rd party licenses
