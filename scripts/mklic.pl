@@ -108,7 +108,8 @@ my @thirdPartyLicenses = (
     ["licenseMDNSResponder", "../3rdPartyLicenses/mdnsresponder_license.txt", "mDNSResponder", "https://opensource.apple.com/tarballs/mDNSResponder/", "USE_BUILDENV"],
     ["licensePCRE", "../3rdPartyLicenses/pcre_license.txt", "PCRE", "http://www.pcre.org/", "USE_BUILDENV"],
     ["licenseQt", "../3rdPartyLicenses/qt_license.txt", "Qt", "https://www.qt.io/", "USE_BUILDENV"],
-    ["licenseSQLite3", "../3rdPartyLicenses/sqlite3_license.txt", "SQLite3", "http://sqlite.org", "USE_BUILDENV"]
+    ["licenseSQLite3", "../3rdPartyLicenses/sqlite3_license.txt", "SQLite3", "http://sqlite.org", "USE_BUILDENV"],
+    ["licenseXar", "../3rdPartyLicenses/xar_license.txt", "XAR", "https://opensource.apple.com/source/xar/", "USE_BUILDENV"] # macOS only
 );
 
 # Print 3rd party licenses
