@@ -99,7 +99,8 @@ my @thirdPartyLicenses = (
     ["licenseBoost", "../3rdPartyLicenses/boost_license.txt", "Boost C++ Libraries", "https://www.boost.org/", "USE_BUILDENV"],
     ["licenseBzip2", "../3rdPartyLicenses/bzip2_license.txt", "bzip2", "http://www.bzip.org", "USE_BUILDENV"],
     ["licenseBerkeleyDB", "../3rdPartyLicenses/berkeleydb_license.txt", "BerkeleyDB", "https://www.oracle.com/database/berkeley-db", "USE_BUILDENV"],
-    ["licenseFreetype", "../3rdPartyLicenses/freetype_license.txt", "Freetype", "https://www.freetype.org/", "USE_BUILDENV"]
+    ["licenseFreetype", "../3rdPartyLicenses/freetype_license.txt", "Freetype", "https://www.freetype.org/", "USE_BUILDENV"],
+    ["licenseHarfBuzzNG", "../3rdPartyLicenses/harfbuzzng_license.txt", "HarfBuzz", "https://www.freedesktop.org/wiki/Software/HarfBuzz", "USE_BUILDENV"]
 );
 
 # Print 3rd party licenses
