@@ -114,7 +114,8 @@ my @thirdPartyLicenses = (
     ["licenseDBus", "../3rdPartyLicenses/dbus_license.txt", "D-Bus", "https://www.freedesktop.org/wiki/Software/dbus", "USE_BUILDENV"], # Linux only
     ["licenseAppImageRuntime", "../3rdPartyLicenses/appimage_runtime_license.txt", "AppImage Runtime", "http://www.appimage.org", "USE_BUILDENV"], # Linux only
     ["licenseSquashfuse", "../3rdPartyLicenses/squashfuse_license.txt", "squashfuse", "https://github.com/vasi/squashfuse", "USE_BUILDENV"], # Linux only
-    ["licenseLibfuse", "../3rdPartyLicenses/libfuse_license.txt", "libfuse", "https://github.com/libfuse/libfuse/", "USE_BUILDENV"] # Linux only
+    ["licenseLibfuse", "../3rdPartyLicenses/libfuse_license.txt", "libfuse", "https://github.com/libfuse/libfuse/", "USE_BUILDENV"], # Linux only
+    ["licenseGlib", "../3rdPartyLicenses/glib_license.txt", "glib", "https://developer.gnome.org/glib/", "USE_BUILDENV"] # Linux only
 );
 
 # Print 3rd party licenses
