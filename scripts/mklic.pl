@@ -94,7 +94,8 @@ my @thirdPartyLicenses = (
     ["licenseArc4RandomUniform", "../3rdparty/arc4random-src/LICENSE", "arc4random_uniform", "https://www.openbsd.org"],
     ["licenseMariaDBCConnector", "../3rdPartyLicenses/mariadb_c_connector_license.txt", "MariaDB Connector/C", "https://www.mariadb.org", "USE_BUILDENV"],
     ["licenseZlib", "../3rdPartyLicenses/zlib_license.txt", "ZLIB", "https://www.zlib.net", "USE_BUILDENV"],
-    ["licenseProtobuf", "../3rdPartyLicenses/protobuf_license.txt", "Protobuf", "https://developers.google.com/protocol-buffers", "USE_BUILDENV"]
+    ["licenseProtobuf", "../3rdPartyLicenses/protobuf_license.txt", "Protobuf", "https://developers.google.com/protocol-buffers", "USE_BUILDENV"],
+    ["licenseExpat", "../3rdPartyLicenses/expat_license.txt", "Expat", "http://libexpat.org", "USE_BUILDENV"]
 );
 
 # Print 3rd party licenses
