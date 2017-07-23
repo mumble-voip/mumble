@@ -111,6 +111,7 @@ my @thirdPartyLicenses = (
     ["licenseSQLite3", "../3rdPartyLicenses/sqlite3_license.txt", "SQLite3", "http://sqlite.org", "USE_BUILDENV"],
     ["licenseXar", "../3rdPartyLicenses/xar_license.txt", "XAR", "https://opensource.apple.com/source/xar/", "USE_BUILDENV"], # macOS only
     ["licenseAvahi", "../3rdPartyLicenses/avahi_license.txt", "Avahi", "https://www.avahi.org/", "USE_BUILDENV"], # Linux only
+    ["licenseDBus", "../3rdPartyLicenses/dbus_license.txt", "D-Bus", "https://www.freedesktop.org/wiki/Software/dbus", "USE_BUILDENV"] # Linux only
 );
 
 # Print 3rd party licenses
