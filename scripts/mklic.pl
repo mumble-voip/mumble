@@ -104,7 +104,8 @@ my @thirdPartyLicenses = (
     ["licenseLibPNG", "../3rdPartyLicenses/libpng_license.txt", "LibPNG", "http://www.libpng.org/pub/png/libpng.html", "USE_BUILDENV"],
     ["licenseLibjpegTurbo", "../3rdPartyLicenses/libjpeg_turbo_license.txt", "libjpeg-turbo", "http://www.libjpeg-turbo.org", "USE_BUILDENV"],
     ["licenseZeroCIce", "../3rdPartyLicenses/zeroc_ice_license.txt", "ZeroC Ice", "https://zeroc.com/", "USE_BUILDENV"],
-    ["licenseMcpp", "../3rdPartyLicenses/mcpp_license.txt", "mcpp", "http://mcpp.sourceforge.net/", "USE_BUILDENV"]
+    ["licenseMcpp", "../3rdPartyLicenses/mcpp_license.txt", "mcpp", "http://mcpp.sourceforge.net/", "USE_BUILDENV"],
+    ["licenseMDNSResponder", "../3rdPartyLicenses/mdnsresponder_license.txt", "mDNSResponder", "https://opensource.apple.com/tarballs/mDNSResponder/", "USE_BUILDENV"]
 );
 
 # Print 3rd party licenses
