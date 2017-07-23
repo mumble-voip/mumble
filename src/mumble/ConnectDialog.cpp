@@ -1569,23 +1569,26 @@ void ConnectDialog::lookedUp() {
 		}
 	}
 
-	foreach(ServerItem *si, qhDNSWait[unresolved]) {
+	QSet<ServerItem *> waiting = qhDNSWait[unresolved];
+	foreach(ServerItem *si, waiting) {
 		foreach (const ServerAddress &addr, qs) {
 			qhPings[addr].insert(si);
 		}
 
 		si->qlAddresses = qs.toList();
+	}
 
+	qlDNSLookup.removeAll(unresolved);
+	qhDNSCache.insert(unresolved, qs.toList());
+	qhDNSWait.remove(unresolved);
+
+	foreach(ServerItem *si, waiting) {
 		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);
 			if (si == siAutoConnect)
 				accept();
 		}
 	}
-
-	qlDNSLookup.removeAll(unresolved);
-	qhDNSCache.insert(unresolved, qs.toList());
-	qhDNSWait.remove(unresolved);
 
 	if (bAllowPing) {
 		foreach(const ServerAddress &addr, qs) {
