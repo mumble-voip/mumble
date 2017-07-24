@@ -206,7 +206,7 @@ public:
 	}
 
 	void write(const OutType &msg, void *tag) {
-		QMutexLocker(&RPCSingleStreamCall::m_writeLock);
+		QMutexLocker l(&m_writeLock);
 		if (m_writeQueue.size() > 0) {
 			m_writeQueue.enqueue(qMakePair(msg, tag));
 		} else {
@@ -222,7 +222,7 @@ private:
 	}
 
 	void writeCallback(bool ok) {
-		QMutexLocker(&RPCSingleStreamCall::m_writeLock);
+		QMutexLocker l(&m_writeLock);
 		auto processed = m_writeQueue.dequeue();
 		if (processed.second) {
 			auto cb = static_cast< ::boost::function<void(bool)> *>(processed.second);
