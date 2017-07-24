@@ -14,6 +14,25 @@
 // 3rdparty/xinputcheck-src.
 #include <xinputcheck.h>
 
+#define INJECTKEY_QEVENT (QEvent::User + 200)
+
+class InjectKeyEvent : public QEvent {
+		Q_DISABLE_COPY(InjectKeyEvent);
+
+	public:
+		DWORD m_scancode;
+		DWORD m_vkcode;
+		bool m_extended;
+		bool m_up;
+
+		InjectKeyEvent(DWORD scancode, DWORD vkcode, bool extended, bool up)
+			: QEvent(static_cast<QEvent::Type>(INJECTKEY_QEVENT))
+			, m_scancode(scancode)
+			, m_vkcode(vkcode)
+			, m_extended(extended)
+			, m_up(up) {}
+};
+
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
@@ -150,10 +169,68 @@ void GlobalShortcutWin::run() {
 	pDI->Release();
 }
 
+bool GlobalShortcutWin::handleKeyPressed(DWORD scancode, DWORD vkcode, bool extended, bool up) {
+	qWarning("HKP scan 0x%x, vkcode 0x%x, extended %i, up %i", scancode, vkcode, extended, up);
+
+	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
+
+	QList<QVariant> ql;
+
+	// Convert the low-level key event to
+	// a DirectInput key ID.
+	unsigned int keyid = static_cast<unsigned int>((scancode << 8) | 0x4);
+	if (extended) {
+		keyid |= 0x8000U;
+	}
+
+	// NumLock and Pause need special handling.
+	// For those keys, the method above of setting
+	// bit 15 high when the LLKHF_EXTENDED flag is
+	// set on the low-level key event does not work.
+	//
+	// When we receive a low-level Windows
+	// Pause key event, the extended flag isn't
+	// set, but DirectInput expects it to be.
+	//
+	// The opposite is true for NumLock key,
+	// where the extended flag for the low-level
+	// Windows event is set, but DirectInput expects
+	// it not to be.
+	//
+	// Without this fix-up, we would emit Pause as
+	// NumLock, and NumLock as pause. That was
+	// problematic, because at the same time,
+	// DirectInput would emit the correct key.
+	// This meant that when pressing one of Pause
+	// and NumLock, shortcut actions for both keys
+	// would be triggered.
+	//
+	// Originally reported in mumble-voip/mumble#1353
+	if (vkcode == VK_PAUSE) {
+		// Always set the extended bit for Pause.
+		keyid |= 0x8000U;
+	} else if (vkcode == VK_NUMLOCK) {
+		// Never set the extended bit for NumLock.
+		keyid &= ~0x8000U;
+	}
+
+	qWarning("winHooks keypress 0x%x", keyid);
+	ql << keyid;
+	ql << QVariant(QUuid(GUID_SysKeyboard));
+	bool suppress = gsw->handleButton(ql, !up);
+
+	if (suppress) {
+		return false;
+	}
+
+	return true;
+}
+
 LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARAM lParam) {
 	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
 	KBDLLHOOKSTRUCT *key=reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
-	BYTE *ucKeyState = gsw->ucKeyState;
+
+	qWarning("HookKeyboard");
 
 #ifndef QT_NO_DEBUG
 	static int safety = 0;
@@ -162,121 +239,10 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 #else
 	if (nCode >= 0) {
 #endif
-		UINT msg = wParam;
-		WPARAM w = key->vkCode;
-		LPARAM l = 1 | (key->scanCode << 16);
-		if (key->flags & LLKHF_EXTENDED)
-			l |= 0x1000000;
-		if (wParam == WM_KEYUP)
-			l |= 0xC0000000;
-
-		bool nomsg = false;
-
-		switch (w) {
-			case VK_LCONTROL:
-			case VK_RCONTROL:
-				if ((msg == WM_KEYDOWN) || (msg == WM_SYSKEYDOWN))
-					ucKeyState[w] |= 0x80;
-				else {
-					ucKeyState[w] &= 0x7f;
-
-					if ((ucKeyState[VK_LCONTROL] & 0x80) || (ucKeyState[VK_RCONTROL] & 0x80)) {
-						nomsg = true;
-						break;
-					}
-				}
-
-				w = VK_CONTROL;
-				break;
-			case VK_LSHIFT:
-			case VK_RSHIFT:
-				if ((msg == WM_KEYDOWN) || (msg == WM_SYSKEYDOWN))
-					ucKeyState[w] |= 0x80;
-				else {
-					ucKeyState[w] &= 0x7f;
-
-					if ((ucKeyState[VK_LSHIFT] & 0x80) || (ucKeyState[VK_RSHIFT] & 0x80)) {
-						nomsg = true;
-						break;
-					}
-				}
-
-				w = VK_SHIFT;
-				break;
-			case VK_LMENU:
-			case VK_RMENU:
-				if ((msg == WM_KEYDOWN) || (msg == WM_SYSKEYDOWN))
-					ucKeyState[w] |= 0x80;
-				else {
-					ucKeyState[w] &= 0x7f;
-
-					if ((ucKeyState[VK_LMENU] & 0x80) || (ucKeyState[VK_RMENU] & 0x80)) {
-						nomsg = true;
-						break;
-					}
-				}
-
-				w = VK_MENU;
-				break;
-			default:
-				break;
-		}
-
-		if ((msg == WM_KEYDOWN) || (msg == WM_SYSKEYDOWN)) {
-			if (ucKeyState[w] & 0x80)
-				l |= 0x40000000;
-			ucKeyState[w] |= 0x80;
-		} else if (((msg == WM_KEYUP) || (msg == WM_SYSKEYUP)) && !nomsg) {
-			ucKeyState[w] &= 0x7f;
-		}
-
-		QList<QVariant> ql;
-
-		// Convert the low-level key event to
-		// a DirectInput key ID.
-		unsigned int keyid = static_cast<unsigned int>((key->scanCode << 8) | 0x4);
-		if (key->flags & LLKHF_EXTENDED) {
-			keyid |= 0x8000U;
-		}
-
-		// NumLock and Pause need special handling.
-		// For those keys, the method above of setting
-		// bit 15 high when the LLKHF_EXTENDED flag is
-		// set on the low-level key event does not work.
-		//
-		// When we receive a low-level Windows
-		// Pause key event, the extended flag isn't
-		// set, but DirectInput expects it to be.
-		//
-		// The opposite is true for NumLock key,
-		// where the extended flag for the low-level
-		// Windows event is set, but DirectInput expects
-		// it not to be.
-		//
-		// Without this fix-up, we would emit Pause as
-		// NumLock, and NumLock as pause. That was
-		// problematic, because at the same time,
-		// DirectInput would emit the correct key.
-		// This meant that when pressing one of Pause
-		// and NumLock, shortcut actions for both keys
-		// would be triggered.
-		//
-		// Originally reported in mumble-voip/mumble#1353
-		if (key->vkCode == VK_PAUSE) {
-			// Always set the extended bit for Pause.
-			keyid |= 0x8000U;
-		} else if (key->vkCode == VK_NUMLOCK) {
-			// Never set the extended bit for NumLock.
-			keyid &= ~0x8000U;
-		}
-
-		ql << keyid;
-		ql << QVariant(QUuid(GUID_SysKeyboard));
-		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
-
-		if (suppress)
+		if (!handleKeyPressed(key->scanCode, key->vkCode, !!(key->flags & LLKHF_EXTENDED), !!(key->flags & LLKHF_UP))) {
+			// Suppress.
 			return 1;
-
+		}
 	}
 	return CallNextHookEx(gsw->hhKeyboard, nCode, wParam, lParam);
 }
@@ -603,7 +569,7 @@ void GlobalShortcutWin::timeTicked() {
 			quint32 uiType = id->qhOfsToType.value(rgdod[j].dwOfs);
 			ql << uiType;
 			ql << id->vguid;
-			handleButton(ql, rgdod[j].dwData & 0x80);
+			//handleButton(ql, rgdod[j].dwData & 0x80);
 		}
 	}
 
@@ -819,6 +785,18 @@ bool GlobalShortcutWin::canSuppress() {
 	return bHook;
 }
 
-void GlobalShortcutWin::prepareInput() {
-	SetKeyboardState(ucKeyState);
+bool GlobalShortcutWin::event(QEvent *event) {
+	if (event->type() == INJECTKEY_QEVENT) {
+		qWarning("BHKP thread = %p", QThread::currentThread());
+		InjectKeyEvent *ike = reinterpret_cast<InjectKeyEvent *>(event);
+		handleKeyPressed(ike->m_scancode, ike->m_vkcode, ike->m_extended, ike->m_up);
+		return true;
+	}
+	return QObject::event(event);
+}
+
+void GlobalShortcutWin::injectKeyPress(DWORD scancode, DWORD vkcode, bool extended, bool up) {
+	qWarning("IKP thread = %p", QThread::currentThread());
+	qWarning("IKP scan 0x%x, vkcode 0x%x, extended %i, up %i", scancode, vkcode, extended, up);
+	qApp->postEvent(this, new InjectKeyEvent(scancode, vkcode, extended, up));
 }
