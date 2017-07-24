@@ -17,7 +17,60 @@
 #define INJECTKEYBOARDMESSAGE_QEVENT (QEvent::User + 200)
 #define INJECTMOUSEMESSAGE_QEVENT (QEvent::User + 201)
 
-class InjectKeyboardMessageEvent : public QEvent {
+class InjectedMessageSuppressor {
+		Q_DISABLE_COPY(InjectedMessageSuppressor)
+
+	public:
+		QMutex m_mutex;
+		QWaitCondition m_waitCondition;
+		bool m_suppressed;
+
+		InjectedMessageSuppressor() : m_suppressed(false) {}
+
+		inline void wait() {
+			QMutexLocker locker(&m_mutex);
+			m_waitCondition.wait(&m_mutex);
+		}
+
+		inline void done() {
+			m_waitCondition.wakeAll();
+		}
+
+		inline void setSuppressed(bool suppressed) {
+			QMutexLocker locker(&m_mutex);
+			m_suppressed = suppressed;
+		}
+
+		inline bool isSuppressed() {
+			QMutexLocker locker(&m_mutex);
+			return m_suppressed;
+		}
+};
+
+class InjectedMessageEvent : public QEvent {
+		Q_DISABLE_COPY(InjectedMessageEvent)
+
+	public:
+		InjectedMessageSuppressor *m_suppressor;
+
+		InjectedMessageEvent(QEvent::Type type, InjectedMessageSuppressor *suppressor)
+			: QEvent(type)
+			, m_suppressor(suppressor) {}
+
+		inline void done() {
+			m_suppressor->done();
+		}
+
+		inline void setSuppressed(bool suppressed) {
+			m_suppressor->setSuppressed(suppressed);
+		}
+
+		inline bool isSuppressed() {
+			return m_suppressor->isSuppressed();
+		}
+};
+
+class InjectKeyboardMessageEvent : public InjectedMessageEvent {
 		Q_DISABLE_COPY(InjectKeyboardMessageEvent);
 
 	public:
@@ -26,23 +79,23 @@ class InjectKeyboardMessageEvent : public QEvent {
 		bool m_extended;
 		bool m_up;
 
-		InjectKeyboardMessageEvent(DWORD scancode, DWORD vkcode, bool extended, bool up)
-			: QEvent(static_cast<QEvent::Type>(INJECTKEYBOARDMESSAGE_QEVENT))
+		InjectKeyboardMessageEvent(InjectedMessageSuppressor *suppressor, DWORD scancode, DWORD vkcode, bool extended, bool up)
+			: InjectedMessageEvent(static_cast<QEvent::Type>(INJECTKEYBOARDMESSAGE_QEVENT), suppressor)
 			, m_scancode(scancode)
 			, m_vkcode(vkcode)
 			, m_extended(extended)
 			, m_up(up) {}
 };
 
-class InjectMouseMessageEvent : public QEvent {
+class InjectMouseMessageEvent : public InjectedMessageEvent {
 		Q_DISABLE_COPY(InjectMouseMessageEvent);
 
 	public:
 		unsigned int m_btn;
 		bool m_down;
 
-		InjectMouseMessageEvent(unsigned int btn, bool down)
-			: QEvent(static_cast<QEvent::Type>(INJECTMOUSEMESSAGE_QEVENT))
+		InjectMouseMessageEvent(InjectedMessageSuppressor *suppressor, unsigned int btn, bool down)
+			: InjectedMessageEvent(static_cast<QEvent::Type>(INJECTMOUSEMESSAGE_QEVENT), suppressor)
 			, m_btn(btn)
 			, m_down(down) {}
 };
@@ -185,11 +238,15 @@ bool GlobalShortcutWin::event(QEvent *event) {
 	QEvent::Type type = event->type();
 	if (type == INJECTKEYBOARDMESSAGE_QEVENT) {
 		InjectKeyboardMessageEvent *ikme = static_cast<InjectKeyboardMessageEvent *>(event);
-		handleKeyMessage(ikme->m_scancode, ikme->m_vkcode, ikme->m_extended, ikme->m_up);
+		bool propagate = handleKeyMessage(ikme->m_scancode, ikme->m_vkcode, ikme->m_extended, ikme->m_up);
+		ikme->setSuppressed(!propagate);
+		ikme->done();
 		return true;
 	} else if (type == INJECTMOUSEMESSAGE_QEVENT) {
 		InjectMouseMessageEvent *imme = static_cast<InjectMouseMessageEvent *>(event);
-		handleMouseMessage(imme->m_btn, imme->m_down);
+		bool propagate = handleMouseMessage(imme->m_btn, imme->m_down);
+		imme->setSuppressed(!propagate);
+		imme->done();
 		return true;
 	}
 	return QObject::event(event);
@@ -781,10 +838,18 @@ bool GlobalShortcutWin::canSuppress() {
 	return bHook;
 }
 
-void GlobalShortcutWin::injectKeyMessage(DWORD scancode, DWORD vkcode, bool extended, bool up) {
-	qApp->postEvent(this, new InjectKeyboardMessageEvent(scancode, vkcode, extended, up));
+bool GlobalShortcutWin::injectKeyMessage(DWORD scancode, DWORD vkcode, bool extended, bool up) {
+	InjectedMessageSuppressor suppressor;
+	InjectKeyboardMessageEvent *ikme = new InjectKeyboardMessageEvent(&suppressor, scancode, vkcode, extended, up);
+	qApp->postEvent(this, ikme);
+	suppressor.wait();
+	return suppressor.isSuppressed();
 }
 
-void GlobalShortcutWin::injectMouseMessage(unsigned int btn, bool down) {
-	qApp->postEvent(this, new InjectMouseMessageEvent(btn, down));
+bool GlobalShortcutWin::injectMouseMessage(unsigned int btn, bool down) {
+	InjectedMessageSuppressor suppressor;
+	InjectMouseMessageEvent *imme = new InjectMouseMessageEvent(&suppressor, btn, down);
+	qApp->postEvent(this, imme);
+	suppressor.wait();
+	return suppressor.isSuppressed();
 }

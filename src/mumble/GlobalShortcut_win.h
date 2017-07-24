@@ -98,8 +98,8 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		void unacquire();
 		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
 
-		void injectKeyMessage(DWORD scancode, DWORD vkcode, bool extended, bool up);
-		void injectMouseMessage(unsigned int button, bool down);
+		bool injectKeyMessage(DWORD scancode, DWORD vkcode, bool extended, bool up);
+		bool injectMouseMessage(unsigned int button, bool down);
 };
 
 uint qHash(const GUID &);

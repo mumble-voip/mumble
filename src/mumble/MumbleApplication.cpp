@@ -61,19 +61,25 @@ bool MumbleApplication::event(QEvent *e) {
 
 #ifdef Q_OS_WIN
 
-static void handleWMKeyMessage(MSG *msg) {
+static bool handleWMKeyMessage(MSG *msg) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
+	if (gsw == NULL) {
+		return false;
+	}
 
 	DWORD scancode = (msg->lParam >> 16) & 0xff;
 	DWORD vkcode = msg->wParam;
 	bool extended = !!(msg->lParam & 0x01000000);
 	bool up = !!(msg->lParam & 0x80000000);
 
-	gsw->injectKeyMessage(scancode, vkcode, extended, up);
+	return gsw->injectKeyMessage(scancode, vkcode, extended, up);
 }
 
-static void handleWMMouseMessage(MSG *msg) {
+bool handleWMMouseMessage(MSG *msg) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
+	if (gsw == NULL) {
+		return false;
+	}
 
 	bool down = false;
 	unsigned int btn = 0;
@@ -102,10 +108,10 @@ static void handleWMMouseMessage(MSG *msg) {
 		}
 		default:
 			// Non-mouse event. Return early.
-			return;
+			return false;
 	}
 
-	gsw->injectMouseMessage(btn, down);
+	return gsw->injectMouseMessage(btn, down);
 }
 
 # if QT_VERSION >= 0x050000
@@ -123,13 +129,19 @@ bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, lon
 				case WM_MBUTTONUP:
 				case WM_XBUTTONDOWN:
 				case WM_XBUTTONUP:
-					handleWMMouseMessage(msg);
+					if (handleWMMouseMessage(msg)) {
+						// Suppress
+						return true;
+					}
 					break;
 				case WM_KEYDOWN:
 				case WM_KEYUP:
 				case WM_SYSKEYDOWN:
 				case WM_SYSKEYUP:
-					handleWMKeyMessage(msg);
+					if (handleWMKeyMessage(msg)) {
+						// Suppress
+						return true;
+					}
 					break;
 				default:
 					break;
@@ -151,13 +163,19 @@ bool MumbleApplication::winEventFilter(MSG *msg, long *result) {
 				case WM_MBUTTONUP:
 				case WM_XBUTTONDOWN:
 				case WM_XBUTTONUP:
-					handleWMMouseMessage(msg);
+					if (handleWMMouseMessage(msg)) {
+						// Suppress
+						return true;
+					}
 					break;
 				case WM_KEYDOWN:
 				case WM_KEYUP:
 				case WM_SYSKEYDOWN:
 				case WM_SYSKEYUP:
-					handleWMKeyMessage(msg);
+					if (handleWMKeyMessage(msg)) {
+						// Suppress
+						return true;
+					}
 					break;
 				default:
 					break;
