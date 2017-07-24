@@ -59,7 +59,7 @@ unix {
     QMAKE_LFLAGS *= -static
   }
 
-  CONFIG(ermine) {
+  !macx:CONFIG(buildenv) {
     QMAKE_LFLAGS *= -Wl,-rpath,$$(MUMBLE_PREFIX)/lib:$$(MUMBLE_ICE_PREFIX)/lib
   }
 
@@ -116,7 +116,7 @@ ice {
 		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/Ice-3.4.2/lib/
 	}
 
-	CONFIG(ermine) {
+	unix:!macx:CONFIG(buildenv) {
 		INCLUDEPATH *= $$(MUMBLE_ICE_PREFIX)/include/
 		QMAKE_LIBDIR *= $$(MUMBLE_ICE_PREFIX)/lib/
 	}
