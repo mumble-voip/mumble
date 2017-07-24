@@ -163,8 +163,18 @@ grpc {
 
 	unix {
 		QMAKE_CXXFLAGS *= -std=c++11
-		must_pkgconfig(grpc)
-		must_pkgconfig(grpc++)
+
+		CONFIG(buildenv) {
+			# Our buildenv builds gRPC using CMake.
+			# The gRPC CMake build does not install pkg-config
+			# files, so we have to manually add the libs here.
+			#
+			# Upstream bug: https://github.com/grpc/grpc/issues/10727
+			LIBS *= -lgrpc++ -lgrpc -lgpr -lz -lcares
+		} else {
+			must_pkgconfig(grpc)
+			must_pkgconfig(grpc++)
+		}
 	}
 }
 
