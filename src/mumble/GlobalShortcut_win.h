@@ -79,11 +79,17 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
+
 		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
 		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
 
+		static bool handleKeyMessage(DWORD scancode, DWORD vkcode, bool extended, bool up);
+		static bool handleMouseMessage(unsigned int btn, bool down);
+
 		virtual bool canSuppress() Q_DECL_OVERRIDE;
 		void run() Q_DECL_OVERRIDE;
+		bool event(QEvent *e) Q_DECL_OVERRIDE;
+
 	public slots:
 		void timeTicked();
 	public:
@@ -91,6 +97,9 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		~GlobalShortcutWin() Q_DECL_OVERRIDE;
 		void unacquire();
 		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
+
+		void injectKeyMessage(DWORD scancode, DWORD vkcode, bool extended, bool up);
+		void injectMouseMessage(unsigned int button, bool down);
 };
 
 uint qHash(const GUID &);
