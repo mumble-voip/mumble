@@ -12,6 +12,10 @@
 #include "Global.h"
 #include "EnvUtils.h"
 
+#ifdef Q_OS_WIN
+# include "GlobalShortcut_win.h"
+#endif
+
 MumbleApplication *MumbleApplication::instance() {
 	return static_cast<MumbleApplication *>(QCoreApplication::instance());
 }
@@ -57,21 +61,24 @@ bool MumbleApplication::event(QEvent *e) {
 
 #ifdef Q_OS_WIN
 # if QT_VERSION >= 0x050000
-bool MumbleApplication::nativeEventFilter(const QByteArray &eventType, void *message, long *result) {
-	Q_UNUSED(eventType);
+bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
 	MSG *msg = reinterpret_cast<MSG *>(message);
 
 	if (QThread::currentThread() == thread()) {
-		if (Global::g_global_struct && g.ocIntercept) {
+		if (Global::g_global_struct) {
 			switch (msg->message) {
-				case WM_MOUSELEAVE:
-					*result = 0;
-					return true;
 				case WM_KEYDOWN:
 				case WM_KEYUP:
 				case WM_SYSKEYDOWN:
-				case WM_SYSKEYUP:
-					GlobalShortcutEngine::engine->prepareInput();
+				case WM_SYSKEYUP: {
+						GlobalShortcutWin *gsw = reinterpret_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
+						DWORD scancode = (msg->lParam >> 16) & 0xff;
+						DWORD vkcode = msg->wParam;
+						bool extended = !!(msg->lParam & 0x01000000);
+						bool up = !!(msg->lParam & 0x80000000);
+
+						gsw->injectKeyPress(scancode, vkcode, extended, up);
+					}
 				default:
 					break;
 			}
