@@ -71,7 +71,6 @@ bool MumbleApplication::nativeEventFilter(const QByteArray &eventType, void *mes
 				case WM_KEYUP:
 				case WM_SYSKEYDOWN:
 				case WM_SYSKEYUP:
-					GlobalShortcutEngine::engine->prepareInput();
 				default:
 					break;
 			}
@@ -91,7 +90,6 @@ bool MumbleApplication::winEventFilter(MSG *msg, long *result) {
 				case WM_KEYUP:
 				case WM_SYSKEYDOWN:
 				case WM_SYSKEYUP:
-					GlobalShortcutEngine::engine->prepareInput();
 				default:
 					break;
 			}

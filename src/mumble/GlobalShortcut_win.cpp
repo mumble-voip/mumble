@@ -709,6 +709,3 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 bool GlobalShortcutWin::canSuppress() {
 	return bHook;
 }
-
-void GlobalShortcutWin::prepareInput() {
-}
