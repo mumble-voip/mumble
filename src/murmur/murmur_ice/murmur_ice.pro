@@ -51,7 +51,7 @@ macx {
 	slice.commands = $$MUMBLE_ICE_PREFIX/bin/slice2cpp --checksum -I$$MUMBLE_ICE_PREFIX/slice/ -I$$MUMBLE_ICE_PREFIX/share/slice/ ../Murmur.ice
 }
 
-CONFIG(ermine) {
+unix:!macx:CONFIG(buildenv) {
 	INCLUDEPATH *= $$(MUMBLE_ICE_PREFIX)/include/
 	slice.commands = $$(MUMBLE_ICE_PREFIX)/bin/slice2cpp --checksum -I$$(MUMBLE_ICE_PREFIX)/slice/ ../Murmur.ice
 }
