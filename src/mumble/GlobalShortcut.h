@@ -258,8 +258,6 @@ class GlobalShortcutEngine : public QThread {
 		virtual void setEnabled(bool b);
 		virtual bool enabled();
 		virtual bool canDisable();
-
-		virtual void prepareInput();
 	signals:
 		void buttonPressed(bool last);
 };
