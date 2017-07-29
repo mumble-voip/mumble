@@ -15,6 +15,7 @@
 #include "Version.h"
 #include "SSL.h"
 #include "EnvUtils.h"
+#include "FFDHE.h"
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 # include <QSslDiffieHellmanParameters>
@@ -519,12 +520,21 @@ bool MetaParams::loadSSLSettings() {
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 	if (! qsSSLDHParams.isEmpty()) {
-		QFile pem(qsSSLDHParams);
-		if (pem.open(QIODevice::ReadOnly)) {
-			dhparams = pem.readAll();
-			pem.close();
+		if (qsSSLDHParams.startsWith(QLatin1String("@"))) {
+			QString group = qsSSLDHParams.mid(1).trimmed();
+			QByteArray pem = FFDHE::PEMForNamedGroup(group);
+			if (pem.isEmpty()) {
+				qCritical("MetaParms: Diffie-Hellman parameters with name '%s' is not available in Murmur.", qPrintable(qsSSLDHParams));
+			}
+			dhparams = pem;
 		} else {
-			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLDHParams));
+			QFile pem(qsSSLDHParams);
+			if (pem.open(QIODevice::ReadOnly)) {
+				dhparams = pem.readAll();
+				pem.close();
+			} else {
+				qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLDHParams));
+			}
 		}
 	}
 
