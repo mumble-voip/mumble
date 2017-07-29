@@ -429,7 +429,7 @@ bool MetaParams::loadSSLSettings() {
 	QString qsSSLCert = qsSettings->value("sslCert").toString();
 	QString qsSSLKey = qsSettings->value("sslKey").toString();
 	QString qsSSLCA = qsSettings->value("sslCA").toString();
-	QString qsSSLDHParams = qsSettings->value("sslDHParams").toString();
+	QString qsSSLDHParams = typeCheckedFromSettings(QLatin1String("sslDHParams"), QString(QLatin1String("@ffdhe2048")));
 
 	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
 
