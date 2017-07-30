@@ -54,7 +54,6 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcutWin)
 	public:
-		BYTE ucKeyState[256];
 		LPDIRECTINPUT8 pDI;
 		QHash<GUID, InputDevice *> qhInputDevices;
 		HHOOK hhMouse, hhKeyboard;
@@ -92,8 +91,6 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		~GlobalShortcutWin() Q_DECL_OVERRIDE;
 		void unacquire();
 		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
-
-		virtual void prepareInput() Q_DECL_OVERRIDE;
 };
 
 uint qHash(const GUID &);
