@@ -82,6 +82,18 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
 		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
 
+		/// Handle an incoming Windows keyboard message.
+		///
+		/// Returns true if the GlobalShortcut engine signals that the
+		/// button should be suppressed. Returns false otherwise.
+		static bool handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down);
+
+		/// Handle an incoming Windows mouse message.
+		///
+		/// Returns true if the GlobalShortcut engine signals that the
+		/// button should be suppressed. Returns false otherwise.
+		static bool handleMouseMessage(unsigned int btn, bool down);
+
 		virtual bool canSuppress() Q_DECL_OVERRIDE;
 		void run() Q_DECL_OVERRIDE;
 	public slots:

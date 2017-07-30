@@ -148,6 +148,74 @@ void GlobalShortcutWin::run() {
 	pDI->Release();
 }
 
+bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
+	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
+
+	QList<QVariant> ql;
+
+	// Convert the low-level key event to
+	// a DirectInput key ID.
+	unsigned int keyid = static_cast<unsigned int>((scancode << 8) | 0x4);
+	if (extended) {
+		keyid |= 0x8000U;
+	}
+
+	// NumLock and Pause need special handling.
+	// For those keys, the method above of setting
+	// bit 15 high when the LLKHF_EXTENDED flag is
+	// set on the low-level key event does not work.
+	//
+	// When we receive a low-level Windows
+	// Pause key event, the extended flag isn't
+	// set, but DirectInput expects it to be.
+	//
+	// The opposite is true for NumLock key,
+	// where the extended flag for the low-level
+	// Windows event is set, but DirectInput expects
+	// it not to be.
+	//
+	// Without this fix-up, we would emit Pause as
+	// NumLock, and NumLock as pause. That was
+	// problematic, because at the same time,
+	// DirectInput would emit the correct key.
+	// This meant that when pressing one of Pause
+	// and NumLock, shortcut actions for both keys
+	// would be triggered.
+	//
+	// Originally reported in mumble-voip/mumble#1353
+	if (vkcode == VK_PAUSE) {
+		// Always set the extended bit for Pause.
+		keyid |= 0x8000U;
+	} else if (vkcode == VK_NUMLOCK) {
+		// Never set the extended bit for NumLock.
+		keyid &= ~0x8000U;
+	}
+
+	ql << keyid;
+	ql << QVariant(QUuid(GUID_SysKeyboard));
+	bool suppress = gsw->handleButton(ql, down);
+
+	return suppress;
+}
+
+bool GlobalShortcutWin::handleMouseMessage(unsigned int btn, bool down) {
+	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
+
+	bool suppress = false;
+
+	if (btn > 0) {
+		QList<QVariant> ql;
+		ql << static_cast<unsigned int>((btn << 8) | 0x4);
+		ql << QVariant(QUuid(GUID_SysMouse));
+
+		// Do not suppress LBUTTONUP though (so suppression can be deactivated via mouse).
+		bool wantsuppress = gsw->handleButton(ql, down);
+		suppress = wantsuppress && (btn != 3);
+	}
+
+	return suppress;
+}
+
 LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARAM lParam) {
 	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
 	KBDLLHOOKSTRUCT *key=reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
@@ -159,54 +227,14 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 #else
 	if (nCode >= 0) {
 #endif
-
-		QList<QVariant> ql;
-
-		// Convert the low-level key event to
-		// a DirectInput key ID.
-		unsigned int keyid = static_cast<unsigned int>((key->scanCode << 8) | 0x4);
-		if (key->flags & LLKHF_EXTENDED) {
-			keyid |= 0x8000U;
-		}
-
-		// NumLock and Pause need special handling.
-		// For those keys, the method above of setting
-		// bit 15 high when the LLKHF_EXTENDED flag is
-		// set on the low-level key event does not work.
-		//
-		// When we receive a low-level Windows
-		// Pause key event, the extended flag isn't
-		// set, but DirectInput expects it to be.
-		//
-		// The opposite is true for NumLock key,
-		// where the extended flag for the low-level
-		// Windows event is set, but DirectInput expects
-		// it not to be.
-		//
-		// Without this fix-up, we would emit Pause as
-		// NumLock, and NumLock as pause. That was
-		// problematic, because at the same time,
-		// DirectInput would emit the correct key.
-		// This meant that when pressing one of Pause
-		// and NumLock, shortcut actions for both keys
-		// would be triggered.
-		//
-		// Originally reported in mumble-voip/mumble#1353
-		if (key->vkCode == VK_PAUSE) {
-			// Always set the extended bit for Pause.
-			keyid |= 0x8000U;
-		} else if (key->vkCode == VK_NUMLOCK) {
-			// Never set the extended bit for NumLock.
-			keyid &= ~0x8000U;
-		}
-
-		ql << keyid;
-		ql << QVariant(QUuid(GUID_SysKeyboard));
-		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
-
-		if (suppress)
+		DWORD scancode = key->scanCode;
+		DWORD vkcode = key->vkCode;
+		bool extended = !!(key->flags & LLKHF_EXTENDED);
+		bool up = !!(key->flags & LLKHF_UP);
+		bool suppress = handleKeyboardMessage(scancode, vkcode, extended, !up);
+		if (suppress) {
 			return 1;
-
+		}
 	}
 	return CallNextHookEx(gsw->hhKeyboard, nCode, wParam, lParam);
 }
@@ -245,17 +273,12 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			default:
 				break;
 		}
-		if (btn) {
-			QList<QVariant> ql;
-			ql << static_cast<unsigned int>((btn << 8) | 0x4);
-			ql << QVariant(QUuid(GUID_SysMouse));
-			bool wantsuppress = gsw->handleButton(ql, down);
-			// Do not suppress LBUTTONUP though (so suppression can be deactvated via mouse).
-			if (! suppress)
-				suppress = wantsuppress && (btn != 3);
+		if (btn > 0) {
+			suppress = handleMouseMessage(btn, down);
+			if (suppress) {
+				return 1;
+			}
 		}
-		if (suppress)
-			return 1;
 	}
 	return CallNextHookEx(gsw->hhMouse, nCode, wParam, lParam);
 }
