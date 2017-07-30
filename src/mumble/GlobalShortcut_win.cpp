@@ -22,6 +22,60 @@
 // from os_win.cpp
 extern HWND mumble_mw_hwnd;
 
+/// The QEvent::Type value to use for InjectKeyboardMessageEvent.
+#define INJECTKEYBOARDMESSAGE_QEVENT (QEvent::User + 200)
+/// The QEvent::Type value to use for InjectKeyboardMouseEvent.
+#define INJECTMOUSEMESSAGE_QEVENT (QEvent::User + 201)
+
+/// InjectKeyboardMessageEvent is an event that can be sent to
+/// the GlobalShortcutWin engine to inject a native Windows keyboard
+/// event into GlobalShortcutWin's event stream.
+class InjectKeyboardMessageEvent : public QEvent {
+		Q_DISABLE_COPY(InjectKeyboardMessageEvent);
+
+	public:
+		DWORD m_scancode;
+		DWORD m_vkcode;
+		bool m_extended;
+		bool m_down;
+
+		/// Construct a new InjectKeyboardMessageEvent.
+		///
+		/// @param  scancode   The Windows scancode of the button.
+		/// @param  vkcode     The Windows virtual keycode of the button.
+		/// @param  extended   Indicates whether the button is an extended key in
+		///                    Windows nomenclature. ("[...] such as the right-hand ALT
+		///                    and CTRL keys that appear on an enhanced 101- or 102-key
+		///                    keyboard")
+		/// @param  down       The down/pressed status of the keyboard button.
+		InjectKeyboardMessageEvent(DWORD scancode, DWORD vkcode, bool extended, bool down)
+			: QEvent(static_cast<QEvent::Type>(INJECTKEYBOARDMESSAGE_QEVENT))
+			, m_scancode(scancode)
+			, m_vkcode(vkcode)
+			, m_extended(extended)
+			, m_down(down) {}
+};
+
+/// InjectMouseMessageEvent is an event that can be sent to
+/// the GlobalShortcutWin engine to inject a native Windows mouse
+/// event into GlobalShortcutWin's event stream.
+class InjectMouseMessageEvent : public QEvent {
+		Q_DISABLE_COPY(InjectMouseMessageEvent);
+
+	public:
+		unsigned int m_btn;
+		bool m_down;
+
+		/// Construct a new InjectMouseMessageEvent.
+		///
+		/// @param  btn   The DirectInput button index of the mouse event.
+		/// @param  down  The down/pressed status of the mouse button.
+		InjectMouseMessageEvent(unsigned int btn, bool down)
+			: QEvent(static_cast<QEvent::Type>(INJECTMOUSEMESSAGE_QEVENT))
+			, m_btn(btn)
+			, m_down(down) {}
+};
+
 uint qHash(const GUID &a) {
 	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
 	for (int i=0;i<8;i++)
