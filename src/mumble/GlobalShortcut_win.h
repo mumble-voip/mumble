@@ -104,6 +104,25 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		~GlobalShortcutWin() Q_DECL_OVERRIDE;
 		void unacquire();
 		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
+
+		/// Inject a native Windows keyboard message into GlobalShortcutWin's
+		/// event stream. This method is meant to be called from the main thread
+		/// to pass native Windows keyboard messages to GlobalShortcutWin.
+		///
+		/// @param  msg  The keyboard message to inject into GlobalShortcutWin.
+		///              Must be WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN or WM_SYSKEYUP.
+		///              Otherwise the message will be ignored.
+		void injectKeyboardMessage(MSG *msg);
+
+		/// Inject a native Windows mouse message into GlobalShortcutWin's
+		/// event stream. This method is meant to be called from the main thread
+		/// to pass native Windows mouse messages to GlobalShortcutWin.
+		///
+		/// @param  msg  The keyboard message to inject into GlobalShortcutWin.
+		///              Must be WM_LBUTTONDOWN, WM_LBUTTONUP, WM_RBUTTONDOWN,
+		///              WM_RBUTTONUP, WM_MBUTTONDOWN, WM_MBUTTONUP, WM_XBUTTONDOWN
+		///              or WM_XBUTTONUP. Otherwise the message will be ignored.
+		void injectMouseMessage(MSG *msg);
 };
 
 uint qHash(const GUID &);

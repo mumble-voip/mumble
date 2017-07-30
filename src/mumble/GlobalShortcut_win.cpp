@@ -216,6 +216,62 @@ bool GlobalShortcutWin::event(QEvent *event) {
 	return GlobalShortcutEngine::event(event);
 }
 
+void GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
+	// Only allow keyboard messages.
+	switch (msg->message) {
+		case WM_KEYDOWN:
+		case WM_KEYUP:
+		case WM_SYSKEYDOWN:
+		case WM_SYSKEYUP:
+			break;
+		default:
+			return;
+	}
+
+	DWORD scancode = (msg->lParam >> 16) & 0xff;
+	DWORD vkcode = msg->wParam;
+	bool extended = !!(msg->lParam & 0x01000000);
+	bool up = !!(msg->lParam & 0x80000000);
+
+	qApp->postEvent(this, new InjectKeyboardMessageEvent(scancode, vkcode, extended, !up));
+}
+
+void GlobalShortcutWin::injectMouseMessage(MSG *msg) {
+	bool down = false;
+	unsigned int btn = 0;
+
+	// Convert the Windows mouse message into a DirectInput
+	// button index, and store the pressed state of the button.
+	switch (msg->message) {
+		case WM_LBUTTONDOWN:
+			down = true;
+		case WM_LBUTTONUP:
+			btn = 3;
+			break;
+		case WM_RBUTTONDOWN:
+			down = true;
+		case WM_RBUTTONUP:
+			btn = 4;
+			break;
+		case WM_MBUTTONDOWN:
+			down = true;
+		case WM_MBUTTONUP:
+			btn = 5;
+			break;
+		case WM_XBUTTONDOWN:
+			down = true;
+		case WM_XBUTTONUP: {
+			unsigned int offset = (msg->wParam >> 16) & 0xffff;
+			btn = 5 + offset;
+		}
+		default:
+			// Non-mouse event. Return early.
+			return;
+	}
+
+	qApp->postEvent(this, new InjectMouseMessageEvent(btn, down));
+}
+
 bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
 
