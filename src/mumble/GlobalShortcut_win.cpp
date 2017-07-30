@@ -218,6 +218,8 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 	if (nCode >= 0) {
 		bool suppress = false;
 		UINT msg = wParam;
+		// Convert the hooked Windows mouse message into a DirectInput
+		// button index, and store the pressed state of the button.
 		bool down = false;
 		unsigned int btn = 0;
 		switch (msg) {
