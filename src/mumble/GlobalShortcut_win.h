@@ -96,6 +96,7 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 
 		virtual bool canSuppress() Q_DECL_OVERRIDE;
 		void run() Q_DECL_OVERRIDE;
+		bool event(QEvent *e) Q_DECL_OVERRIDE;
 	public slots:
 		void timeTicked();
 	public:

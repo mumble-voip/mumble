@@ -202,6 +202,20 @@ void GlobalShortcutWin::run() {
 	pDI->Release();
 }
 
+bool GlobalShortcutWin::event(QEvent *event) {
+	QEvent::Type type = event->type();
+	if (type == INJECTKEYBOARDMESSAGE_QEVENT) {
+		InjectKeyboardMessageEvent *ikme = static_cast<InjectKeyboardMessageEvent *>(event);
+		handleKeyboardMessage(ikme->m_scancode, ikme->m_vkcode, ikme->m_extended, ikme->m_down);
+		return true;
+	} else if (type == INJECTMOUSEMESSAGE_QEVENT) {
+		InjectMouseMessageEvent *imme = static_cast<InjectMouseMessageEvent *>(event);
+		handleMouseMessage(imme->m_btn, imme->m_down);
+		return true;
+	}
+	return GlobalShortcutEngine::event(event);
+}
+
 bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
 
