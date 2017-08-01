@@ -217,6 +217,10 @@ bool GlobalShortcutWin::event(QEvent *event) {
 }
 
 void GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
+	if (!bHook) {
+		return;
+	}
+
 	// Only allow keyboard messages.
 	switch (msg->message) {
 		case WM_KEYDOWN:
@@ -237,6 +241,10 @@ void GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
 }
 
 void GlobalShortcutWin::injectMouseMessage(MSG *msg) {
+	if (!bHook) {
+		return;
+	}
+
 	bool down = false;
 	unsigned int btn = 0;
 
