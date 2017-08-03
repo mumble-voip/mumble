@@ -93,12 +93,18 @@ ice {
 		ICE_MAJOR_VERSION = $$section(ICE_VERSION, ., 0, 0))
 		ICE_MINOR_VERSION = $$section(ICE_VERSION, ., 1, 1)
 
-		lessThan(ICE_MAJOR_VERSION, 3) | lessThan(ICE_MINOR_VERSION, 7) {
-			LIBS *= -lIce -lIceUtil
-		} else {
-			LIBS *= -lIce 
+		!equals(ICE_MAJOR_VERSION, 3) {
+     			error("Unsupported Ice version")
+		}
+		lessThan(ICE_MINOR_VERSION, 7) {
+    			# Ice < 3.7
+    			LIBS *= -lIce -lIceUtil
+		}  else {
+    			# Ice 3.7+
+    			LIBS *= -lIce
 		}
 	}
+
 	DEFINES *= USE_ICE
 
 	win32 {
