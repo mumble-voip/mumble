@@ -88,7 +88,16 @@ ice {
 	win32:CONFIG(debug, debug|release) {
 		LIBS *= -lIceD -lIceUtilD
 	} else {
-		LIBS *= -lIce -lIceUtil
+		# check Ice version, 3.7 merged IceUtil into Ice
+		ICE_VERSION = $$system(slice2cpp --version 2>&1)
+		ICE_MAJOR_VERSION = $$section(ICE_VERSION, ., 0, 0))
+		ICE_MINOR_VERSION = $$section(ICE_VERSION, ., 1, 1)
+
+		lessThan(ICE_MAJOR_VERSION, 3) | lessThan(ICE_MINOR_VERSION, 7) {
+			LIBS *= -lIce -lIceUtil
+		} else {
+			LIBS *= -lIce 
+		}
 	}
 	DEFINES *= USE_ICE
 

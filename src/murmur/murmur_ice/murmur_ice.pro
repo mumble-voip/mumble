@@ -16,7 +16,7 @@ win32 {
 	!isEmpty(ICE_VERSION) {
 		EXTRA_SLICEFLAGS = -I/usr/share/Ice-$$ICE_VERSION/slice/
 	}
-	slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice $$EXTRA_SLICEFLAGS ${QMAKE_FILE_NAME}
+	slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/ice/slice -I/usr/share/slice $$EXTRA_SLICEFLAGS ${QMAKE_FILE_NAME}
 }
 slice.input = SLICEFILES
 slice.CONFIG *= no_link explicit_dependencies
