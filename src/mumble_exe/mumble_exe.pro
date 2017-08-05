@@ -13,7 +13,7 @@ TARGET = mumble
 win32 {
   DEFINES += WIN32 _WIN32
   RC_FILE = ../mumble/mumble.rc
-  LIBS *= -luser32 -lshlwapi
+  LIBS *= -luser32 -lshlwapi -ladvapi32
 
   win32-g++ {
     QMAKE_LFLAGS *= -municode

@@ -402,6 +402,7 @@ Settings::Settings() {
 	bEnableXboxInput = true;
 	bEnableWinHooks = true;
 	bDirectInputVerboseLogging = false;
+	bEnableUIAccess = true;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i) {
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
@@ -775,6 +776,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	SAVELOAD(bEnableWinHooks, "winhooks");
 	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
+	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0; i<nshorts; i++) {
@@ -1104,6 +1106,7 @@ void Settings::save() {
 	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	SAVELOAD(bEnableWinHooks, "winhooks");
 	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
+	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
