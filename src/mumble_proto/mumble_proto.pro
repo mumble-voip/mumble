@@ -6,7 +6,7 @@
 include(../../qmake/compiler.pri)
 include(../../qmake/protoc.pri)
 
-PROTOBUF	*= ../Mumble.proto
+PROTOBUF *= ../Mumble.proto
 
 pbh.output = ${QMAKE_FILE_BASE}.pb.h
 pbh.depends = ${QMAKE_FILE_BASE}.pb.cc

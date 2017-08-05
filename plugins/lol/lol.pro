@@ -5,6 +5,6 @@
 
 include(../plugins.pri)
 
-TARGET		= lol
-SOURCES		= lol.cpp
-LIBS		+= -luser32
+TARGET = lol
+SOURCES = lol.cpp
+LIBS += -luser32

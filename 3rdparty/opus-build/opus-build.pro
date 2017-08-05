@@ -16,7 +16,7 @@ TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += no_include_pwd
-VPATH	= ../$$SOURCEDIR
+VPATH = ../$$SOURCEDIR
 TARGET = opus
 DEFINES += HAVE_CONFIG_H
 

@@ -16,7 +16,7 @@ CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
 CONFIG += no_include_pwd
-VPATH	= ../$$SOURCEDIR/libcelt
+VPATH = ../$$SOURCEDIR/libcelt
 TARGET = celt0
 RC_FILE = celt-0.7.0.rc
 DEFINES += HAVE_CONFIG_H
@@ -75,11 +75,11 @@ SOURCES *= bands.c celt.c cwrs.c entcode.c entdec.c entenc.c header.c kiss_fft.c
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  DESTDIR	= ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR	= ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

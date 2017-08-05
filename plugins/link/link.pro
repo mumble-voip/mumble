@@ -5,15 +5,15 @@
 
 include(../plugins.pri)
 
-TARGET		= link
+TARGET = link
 
 win32 {
-  SOURCES		= link.cpp
-  LIBS		+= -luser32
+  SOURCES = link.cpp
+  LIBS += -luser32
 }
 
 unix {
-  SOURCES		= link-posix.cpp
+  SOURCES = link-posix.cpp
 
   linux* {
     LIBS          += -lrt

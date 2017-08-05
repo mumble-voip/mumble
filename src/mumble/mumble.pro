@@ -7,9 +7,9 @@ include(../mumble.pri)
 include(../../qmake/python.pri)
 include(../../qmake/lrelease.pri)
 
-DEFINES		*= MUMBLE
-TEMPLATE	= app
-TARGET		= mumble
+DEFINES *= MUMBLE
+TEMPLATE = app
+TARGET = mumble
 
 !CONFIG(qt4-legacy-compat) {
   CONFIG += no-qt4-legacy-compat
@@ -61,7 +61,7 @@ CONFIG(static) {
   CONFIG += static_qt_plugins
 }
 
-QT		*= network sql xml svg
+QT  *= network sql xml svg
 isEqual(QT_MAJOR_VERSION, 5) {
   QT *= widgets
 
@@ -214,8 +214,8 @@ CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp
 }
 
-DIST		*= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
-RESOURCES	*= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
+DIST  *= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
+RESOURCES *= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
 # Add the various mumble_flags_XX.qrc files to RESOURCES...
 include(flags/mumble_flags.pri)
 
@@ -279,20 +279,20 @@ CONFIG(static) {
 }
 
 unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
-  CONFIG	*= no-bundled-speex
+  CONFIG *= no-bundled-speex
 }
 
 CONFIG(no-crash-report) {
-  DEFINES	*= NO_CRASH_REPORT
+  DEFINES *= NO_CRASH_REPORT
 } else:unix:!macx {
-  DEFINES	*= NO_CRASH_REPORT
+  DEFINES *= NO_CRASH_REPORT
 } else {
-  HEADERS	*= CrashReporter.h
-  SOURCES	*= CrashReporter.cpp
+  HEADERS *= CrashReporter.h
+  SOURCES *= CrashReporter.cpp
 }
 
 CONFIG(no-xinput2) {
-  DEFINES	*= NO_XINPUT2
+  DEFINES *= NO_XINPUT2
 }
 
 CONFIG(no-bundled-speex) {
@@ -301,8 +301,8 @@ CONFIG(no-bundled-speex) {
 }
 
 !CONFIG(no-bundled-speex) {
-  INCLUDEPATH	*= ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build ../../3rdparty/speexdsp-src/include ../../3rdparty/speexdsp-src/libspeexdsp
-  LIBS 		*= -lspeex
+  INCLUDEPATH *= ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build ../../3rdparty/speexdsp-src/include ../../3rdparty/speexdsp-src/libspeexdsp
+  LIBS   *= -lspeex
 }
 
 CONFIG(sbcelt) {
@@ -313,10 +313,10 @@ CONFIG(sbcelt) {
   DEFINES *= SBCELT_PREFIX_API SBCELT_COMPAT_API USE_SBCELT
 } else {
   unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
-    CONFIG	*= no-bundled-celt
+    CONFIG *= no-bundled-celt
   }
   CONFIG(no-bundled-celt) {
-    INCLUDEPATH	*= /usr/include/celt
+    INCLUDEPATH *= /usr/include/celt
     unix {
       QMAKE_CFLAGS *= "-I/usr/include/celt" "-isystem /usr/include/celt"
       QMAKE_CXXFLAGS *= "-I/usr/include/celt" "-isystem /usr/include/celt"
@@ -332,7 +332,7 @@ CONFIG(sbcelt) {
 }
 
 !win32:!macx:!CONFIG(no-dbus) {
-  CONFIG		*= dbus
+  CONFIG  *= dbus
 }
 !contains(UNAME, FreeBSD):!CONFIG(no-g15) {
   CONFIG *= g15
@@ -373,31 +373,31 @@ win32 {
   } else {
     RC_FILE = mumble.rc
   }
-  HEADERS	*= GlobalShortcut_win.h Overlay_win.h TaskList.h UserLockFile.h
-  SOURCES	*= GlobalShortcut_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp WinGUIDs.cpp ../../overlay/ods.cpp UserLockFile_win.cpp os_early_win.cpp
+  HEADERS *= GlobalShortcut_win.h Overlay_win.h TaskList.h UserLockFile.h
+  SOURCES *= GlobalShortcut_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp WinGUIDs.cpp ../../overlay/ods.cpp UserLockFile_win.cpp os_early_win.cpp
 
   !CONFIG(qtspeech) {
     SOURCES *= TextToSpeech_win.cpp
   }
 
-  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
+  LIBS  *= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
   win32-g++ {
     LIBS *= -lsndfile -lvorbis -lvorbisfile -lvorbisenc -logg -lFLAC
   }
   win32-msvc* {
     LIBS *= -lsndfile -lvorbis -lvorbisfile -logg -lFLAC
   }
-  LIBS		*= -ldelayimp -delayload:shell32.dll
+  LIBS  *= -ldelayimp -delayload:shell32.dll
 
-  DEFINES	*= WIN32
+  DEFINES *= WIN32
   !CONFIG(no-asio) {
-    CONFIG	*= asio
+    CONFIG *= asio
   }
   !CONFIG(no-directsound) {
-    CONFIG	*= directsound
+    CONFIG *= directsound
   }
   !CONFIG(no-wasapi) {
-    CONFIG	*= wasapi
+    CONFIG *= wasapi
   }
   !CONFIG(no-gkey) {
     CONFIG *= gkey
@@ -553,7 +553,7 @@ portaudio {
 asio {
   DEFINES *= USE_ASIO
   HEADERS *= ASIOInput.h
-  SOURCES	*= ASIOInput.cpp
+  SOURCES *= ASIOInput.cpp
   FORMS *= ASIOInput.ui
 
   # If 3rdparty/asio exists, use that...
@@ -606,15 +606,15 @@ speechd {
     must_pkgconfig(speech-dispatcher)
   } else {
     LIBS *= -lspeechd
-    INCLUDEPATH	*= /usr/include/speech-dispatcher
+    INCLUDEPATH *= /usr/include/speech-dispatcher
   }
 }
 
 directsound {
   DEFINES *= USE_DIRECTSOUND
-  HEADERS	*= DirectSound.h
-  SOURCES	*= DirectSound.cpp
-  LIBS	*= -ldsound
+  HEADERS *= DirectSound.h
+  SOURCES *= DirectSound.cpp
+  LIBS *= -ldsound
   win32-g++ {
     LIBS *= -lksuser
   }
@@ -622,9 +622,9 @@ directsound {
 
 wasapi {
   DEFINES *= USE_WASAPI
-  HEADERS	*= WASAPI.h WASAPINotificationClient.h
-  SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
-  LIBS	*= -lavrt -delayload:avrt.DLL
+  HEADERS *= WASAPI.h WASAPINotificationClient.h
+  SOURCES *= WASAPI.cpp WASAPINotificationClient.cpp
+  LIBS *= -lavrt -delayload:avrt.DLL
   win32-g++ {
     LIBS *= -lboost_system-mt
   }

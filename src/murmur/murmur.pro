@@ -7,14 +7,14 @@ include(../mumble.pri)
 include(../../qmake/protoc.pri)
 
 DEFINES *= MURMUR
-TEMPLATE	=app
-CONFIG  *= network
-CONFIG	-= gui
+TEMPLATE =app
+CONFIG *= network
+CONFIG -= gui
 QT *= network sql xml
 QT -= gui
 TARGET = murmur
-DBFILE  = murmur.db
-LANGUAGE	= C++
+DBFILE = murmur.db
+LANGUAGE = C++
 FORMS =
 HEADERS *= Server.h ServerUser.h Meta.h PBKDF2.h
 SOURCES *= main.cpp Server.cpp ServerUser.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp RPC.cpp PBKDF2.cpp
@@ -41,7 +41,7 @@ win32 {
   isEqual(QT_MAJOR_VERSION, 5) {
     QT *= widgets
   }
-  RESOURCES	*= murmur.qrc
+  RESOURCES *= murmur.qrc
   SOURCES *= Tray.cpp About.cpp
   HEADERS *= Tray.h About.h
   LIBS *= -luser32

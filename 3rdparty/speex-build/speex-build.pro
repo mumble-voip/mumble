@@ -15,11 +15,11 @@ include(../../qmake/compiler.pri)
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  DESTDIR	= ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR	= ../../release
+  DESTDIR = ../../release
 }
 
 TEMPLATE = lib
@@ -34,7 +34,7 @@ CONFIG += no_include_pwd
 # below, and nmake is unable to figure out how to handle
 # that.
 CONFIG += no_batch
-VPATH	= ../speex-src/libspeex ../speexdsp-src/libspeexdsp
+VPATH = ../speex-src/libspeex ../speexdsp-src/libspeexdsp
 
 TARGET = speex
 DEFINES += NDEBUG HAVE_CONFIG_H
@@ -61,7 +61,7 @@ win32 {
     }
   }
 
-  SOURCES	*= mumble_speex_init.c
+  SOURCES *= mumble_speex_init.c
 
   CONFIG -= static
   CONFIG += shared
