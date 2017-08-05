@@ -6,8 +6,8 @@ VERSION=$$replace(BUILDDIR,-build,)
 VERSION=$$replace(VERSION,celt-,)
 
 !exists(../$$SOURCEDIR/COPYING) {
-	message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init) or build with CONFIG+=no-bundled-celt.")
-	error("Aborting configuration")
+  message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init) or build with CONFIG+=no-bundled-celt.")
+  error("Aborting configuration")
 }
 
 TEMPLATE = lib
@@ -21,15 +21,15 @@ DEFINES += HAVE_CONFIG_H
 TARGET_VERSION_EXT = .$$VERSION
 
 CONFIG(static) {
-	CONFIG -= static
-	CONFIG += shared
+  CONFIG -= static
+  CONFIG += shared
 }
 
 !CONFIG(third-party-warnings) {
-	# We ignore warnings in third party builds. We won't actually look
-	# at them and they clutter out our warnings.
-	CONFIG -= warn_on
-	CONFIG += warn_off
+  # We ignore warnings in third party builds. We won't actually look
+  # at them and they clutter out our warnings.
+  CONFIG -= warn_on
+  CONFIG += warn_off
 }
 
 QMAKE_CFLAGS -= -fPIE -pie
@@ -55,11 +55,11 @@ win32 {
 }
 
 unix {
-	contains(QMAKE_CFLAGS, -ffast-math) {
-		DEFINES += FLOAT_APPROX
-	}
+  contains(QMAKE_CFLAGS, -ffast-math) {
+    DEFINES += FLOAT_APPROX
+  }
 
-	INCLUDEPATH += ../$$BUILDDIR
+  INCLUDEPATH += ../$$BUILDDIR
 }
 
 DIST = config.h

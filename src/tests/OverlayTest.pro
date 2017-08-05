@@ -9,9 +9,9 @@ TARGET = OverlayTest
 HEADERS = ../mumble/SharedMemory.h
 SOURCES = OverlayTest.cpp ../mumble/SharedMemory.cpp
 win32 {
-	SOURCES += ../mumble/SharedMemory_win.cpp
+  SOURCES += ../mumble/SharedMemory_win.cpp
 } else {
-	SOURCES += ../mumble/SharedMemory_unix.cpp
+  SOURCES += ../mumble/SharedMemory_unix.cpp
 }
 
 VPATH += ..

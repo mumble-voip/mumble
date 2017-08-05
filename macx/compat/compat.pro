@@ -14,17 +14,17 @@ CONFIG -= qt app_bundle
 CONFIG += debug_and_release
 
 isEqual(QT_MAJOR_VERSION, 5) {
-	QMAKE_CFLAGS += -arch i386
-	QMAKE_OBJECTIVE_CFLAGS += -arch i386
-	QMAKE_CXXFLAGS += -arch i386
-	QMAKE_LFLAGS += -arch i386
+  QMAKE_CFLAGS += -arch i386
+  QMAKE_OBJECTIVE_CFLAGS += -arch i386
+  QMAKE_CXXFLAGS += -arch i386
+  QMAKE_LFLAGS += -arch i386
 } else {
-	CONFIG -= x86_64
-	CONFIG += x86
+  CONFIG -= x86_64
+  CONFIG += x86
 }
 
 CONFIG(universal) {
-	CONFIG += ppc
+  CONFIG += ppc
 }
 
 TARGET = Mumble.compat

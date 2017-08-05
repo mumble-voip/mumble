@@ -1,16 +1,16 @@
 include(../../qmake/compiler.pri)
 
 !exists(../speex-src/COPYING) | !exists(../speexdsp-src/COPYING) {
-	message("The speex-src/ or speexdsp-src/ directories were not found. You need to do one of the following:")
-	message("")
-	message("Option 1: Use Speex Git:")
-	message("git submodule init")
-	message("git submodule update")
-	message("")
-	message("Option 2: Use system speex and speex-dsp (v 1.2 or later):")
-	message("qmake CONFIG+=no-bundled-speex -recursive")
-	message("")
-	error("Aborting configuration")
+  message("The speex-src/ or speexdsp-src/ directories were not found. You need to do one of the following:")
+  message("")
+  message("Option 1: Use Speex Git:")
+  message("git submodule init")
+  message("git submodule update")
+  message("")
+  message("Option 2: Use system speex and speex-dsp (v 1.2 or later):")
+  message("qmake CONFIG+=no-bundled-speex -recursive")
+  message("")
+  error("Aborting configuration")
 }
 
 CONFIG(debug, debug|release) {

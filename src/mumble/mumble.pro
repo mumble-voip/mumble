@@ -523,170 +523,170 @@ unix {
 }
 
 alsa {
-	DEFINES *= USE_ALSA
-	must_pkgconfig(alsa)
-	HEADERS *= ALSAAudio.h
-	SOURCES *= ALSAAudio.cpp
+  DEFINES *= USE_ALSA
+  must_pkgconfig(alsa)
+  HEADERS *= ALSAAudio.h
+  SOURCES *= ALSAAudio.cpp
 }
 
 oss {
-	DEFINES *= USE_OSS
-	HEADERS *= OSS.h
-	SOURCES *= OSS.cpp
-	INCLUDEPATH *= /usr/lib/oss/include
+  DEFINES *= USE_OSS
+  HEADERS *= OSS.h
+  SOURCES *= OSS.cpp
+  INCLUDEPATH *= /usr/lib/oss/include
 }
 
 pulseaudio {
-	DEFINES *= USE_PULSEAUDIO
-	must_pkgconfig(libpulse)
-	HEADERS *= PulseAudio.h
-	SOURCES *= PulseAudio.cpp
+  DEFINES *= USE_PULSEAUDIO
+  must_pkgconfig(libpulse)
+  HEADERS *= PulseAudio.h
+  SOURCES *= PulseAudio.cpp
 }
 
 portaudio {
-	DEFINES *= USE_PORTAUDIO
-	must_pkgconfig(portaudio-2.0)
-	HEADERS *= PAAudio.h
-	SOURCES *= PAAudio.cpp
+  DEFINES *= USE_PORTAUDIO
+  must_pkgconfig(portaudio-2.0)
+  HEADERS *= PAAudio.h
+  SOURCES *= PAAudio.cpp
 }
 
 asio {
-	DEFINES *= USE_ASIO
-	HEADERS *= ASIOInput.h
-	SOURCES	*= ASIOInput.cpp
-	FORMS *= ASIOInput.ui
+  DEFINES *= USE_ASIO
+  HEADERS *= ASIOInput.h
+  SOURCES	*= ASIOInput.cpp
+  FORMS *= ASIOInput.ui
 
-	# If 3rdparty/asio exists, use that...
-	exists(../../3rdparty/asio) {
-		INCLUDEPATH *= ../../3rdparty/asio/common ../../3rdparty/asio/host ../../3rdparty/asio/host/pc
-	# Otherwise, fall back to the path from winpaths_*.pri.
-	} else {
-		INCLUDEPATH *= "$$ASIO_PATH/common" "$$ASIO_PATH/host" "$$ASIO_PATH/host/pc"
-	}
+  # If 3rdparty/asio exists, use that...
+  exists(../../3rdparty/asio) {
+    INCLUDEPATH *= ../../3rdparty/asio/common ../../3rdparty/asio/host ../../3rdparty/asio/host/pc
+  # Otherwise, fall back to the path from winpaths_*.pri.
+  } else {
+    INCLUDEPATH *= "$$ASIO_PATH/common" "$$ASIO_PATH/host" "$$ASIO_PATH/host/pc"
+  }
 }
 
 bonjour {
-	DEFINES *= USE_BONJOUR
+  DEFINES *= USE_BONJOUR
 
-	HEADERS *= \
-		../../3rdparty/qqbonjour-src/BonjourRecord.h \
-		../../3rdparty/qqbonjour-src/BonjourServiceResolver.h \
-		../../3rdparty/qqbonjour-src/BonjourServiceBrowser.h \
-		BonjourClient.h
-	SOURCES *= \
-		../../3rdparty/qqbonjour-src/BonjourServiceResolver.cpp \
-		../../3rdparty/qqbonjour-src/BonjourServiceBrowser.cpp \
-		BonjourClient.cpp
-	win32 {
-		INCLUDEPATH *= "$$BONJOUR_PATH/include"
-		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
-		LIBS *= -lDNSSD
-	}
-	unix:!macx {
-		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
-			must_pkgconfig(avahi-compat-libdns_sd)
-			must_pkgconfig(avahi-client)
-		} else {
-			LIBS *= -ldns_sd
-		}
-	}
+  HEADERS *= \
+    ../../3rdparty/qqbonjour-src/BonjourRecord.h \
+    ../../3rdparty/qqbonjour-src/BonjourServiceResolver.h \
+    ../../3rdparty/qqbonjour-src/BonjourServiceBrowser.h \
+    BonjourClient.h
+  SOURCES *= \
+    ../../3rdparty/qqbonjour-src/BonjourServiceResolver.cpp \
+    ../../3rdparty/qqbonjour-src/BonjourServiceBrowser.cpp \
+    BonjourClient.cpp
+  win32 {
+    INCLUDEPATH *= "$$BONJOUR_PATH/include"
+    QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
+    LIBS *= -lDNSSD
+  }
+  unix:!macx {
+    system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
+      must_pkgconfig(avahi-compat-libdns_sd)
+      must_pkgconfig(avahi-client)
+    } else {
+      LIBS *= -ldns_sd
+    }
+  }
 }
 
 dbus {
-	DEFINES *= USE_DBUS
-	QT *= dbus
-	HEADERS *= DBus.h
-	SOURCES *= DBus.cpp
+  DEFINES *= USE_DBUS
+  QT *= dbus
+  HEADERS *= DBus.h
+  SOURCES *= DBus.cpp
 }
 
 speechd {
-	DEFINES *= USE_SPEECHD
-	system(pkg-config --atleast-version=0.8 speech-dispatcher) {
-		DEFINES *= USE_SPEECHD_PKGCONFIG
-		must_pkgconfig(speech-dispatcher)
-	} else {
-		LIBS *= -lspeechd
-		INCLUDEPATH	*= /usr/include/speech-dispatcher
-	}
+  DEFINES *= USE_SPEECHD
+  system(pkg-config --atleast-version=0.8 speech-dispatcher) {
+    DEFINES *= USE_SPEECHD_PKGCONFIG
+    must_pkgconfig(speech-dispatcher)
+  } else {
+    LIBS *= -lspeechd
+    INCLUDEPATH	*= /usr/include/speech-dispatcher
+  }
 }
 
 directsound {
-	DEFINES *= USE_DIRECTSOUND
-	HEADERS	*= DirectSound.h
-	SOURCES	*= DirectSound.cpp
-	LIBS	*= -ldsound
-	win32-g++ {
-		LIBS *= -lksuser
-	}
+  DEFINES *= USE_DIRECTSOUND
+  HEADERS	*= DirectSound.h
+  SOURCES	*= DirectSound.cpp
+  LIBS	*= -ldsound
+  win32-g++ {
+    LIBS *= -lksuser
+  }
 }
 
 wasapi {
-	DEFINES *= USE_WASAPI
-	HEADERS	*= WASAPI.h WASAPINotificationClient.h
-	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
-	LIBS	*= -lavrt -delayload:avrt.DLL
-	win32-g++ {
-		LIBS *= -lboost_system-mt
-	}
+  DEFINES *= USE_WASAPI
+  HEADERS	*= WASAPI.h WASAPINotificationClient.h
+  SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
+  LIBS	*= -lavrt -delayload:avrt.DLL
+  win32-g++ {
+    LIBS *= -lboost_system-mt
+  }
 }
 
 g15 {
-	DEFINES *= USE_G15
-	win32|macx {
-		SOURCES *= G15LCDEngine_helper.cpp
-		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
-	}
-	unix:!macx:!contains(UNAME, FreeBSD) {
-		SOURCES *= G15LCDEngine_unix.cpp
-		HEADERS *= G15LCDEngine_unix.h
-		LIBS *= -lg15daemon_client
-	}
+  DEFINES *= USE_G15
+  win32|macx {
+    SOURCES *= G15LCDEngine_helper.cpp
+    HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
+  }
+  unix:!macx:!contains(UNAME, FreeBSD) {
+    SOURCES *= G15LCDEngine_unix.cpp
+    HEADERS *= G15LCDEngine_unix.h
+    LIBS *= -lg15daemon_client
+  }
 }
 
 CONFIG(no-update) {
-	DEFINES *= NO_UPDATE_CHECK
+  DEFINES *= NO_UPDATE_CHECK
 }
 
 !CONFIG(no-embed-qt-translations):!exists($$[QT_INSTALL_TRANSLATIONS]) {
   error("$$escape_expand(\\n)$$escape_expand(\\n)"\
         "The QT_INSTALL_TRANSLATIONS directory ($$[QT_INSTALL_TRANSLATIONS])$$escape_expand(\\n)"\
-	"does not exist.$$escape_expand(\\n)"\
-	"$$escape_expand(\\n)"\
-	"The Mumble build process is attempting to embed Qt translations into the Mumble binary,$$escape_expand(\\n)"\
-	"but it cannot, because the files are missing.$$escape_expand(\\n)"\
-	"$$escape_expand(\\n)"\
-	"If you wish to embed Qt translations into the Mumble binary,$$escape_expand(\\n)"\
-	"you will need to install the translation package for your verison of Qt.$$escape_expand(\\n)"\
-	"For example, On Ubuntu with Qt 5, that package is 'qttranslations5-l10n'.$$escape_expand(\\n)"\
-	"$$escape_expand(\\n)"\
-	"You can also tell the Mumble build process to not embed Qt's$$escape_expand(\\n)"\
-	"translations into the Mumble binary by using the 'no-embed-qt-translations'$$escape_expand(\\n)"\
-	"CONFIG option when running qmake, such as:$$escape_expand(\\n)"\
-	"$$escape_expand(\\n)"\
-	"    $ qmake -recursive main.pro CONFIG+=$$escape_expand(\")no-embed-qt-translations$$escape_expand(\")$$escape_expand(\\n)"\
-	"$$escape_expand(\\n)"\
-	"Please refer to the INSTALL file at the root of the source tree for more information$$escape_expand(\\n)"\
-	"about the build process.$$escape_expand(\\n)"\
+  "does not exist.$$escape_expand(\\n)"\
+  "$$escape_expand(\\n)"\
+  "The Mumble build process is attempting to embed Qt translations into the Mumble binary,$$escape_expand(\\n)"\
+  "but it cannot, because the files are missing.$$escape_expand(\\n)"\
+  "$$escape_expand(\\n)"\
+  "If you wish to embed Qt translations into the Mumble binary,$$escape_expand(\\n)"\
+  "you will need to install the translation package for your verison of Qt.$$escape_expand(\\n)"\
+  "For example, On Ubuntu with Qt 5, that package is 'qttranslations5-l10n'.$$escape_expand(\\n)"\
+  "$$escape_expand(\\n)"\
+  "You can also tell the Mumble build process to not embed Qt's$$escape_expand(\\n)"\
+  "translations into the Mumble binary by using the 'no-embed-qt-translations'$$escape_expand(\\n)"\
+  "CONFIG option when running qmake, such as:$$escape_expand(\\n)"\
+  "$$escape_expand(\\n)"\
+  "    $ qmake -recursive main.pro CONFIG+=$$escape_expand(\")no-embed-qt-translations$$escape_expand(\")$$escape_expand(\\n)"\
+  "$$escape_expand(\\n)"\
+  "Please refer to the INSTALL file at the root of the source tree for more information$$escape_expand(\\n)"\
+  "about the build process.$$escape_expand(\\n)"\
         "$$escape_expand(\\n)")
 }
 
 !CONFIG(no-embed-qt-translations) {
-	QT_TRANSLATIONS_FALLBACK_DIR = qttranslations
-	QT_TRANSLATIONS_FALLBACK_FILES = $$files($$QT_TRANSLATIONS_FALLBACK_DIR/*.ts)
-	for(fn, QT_TRANSLATIONS_FALLBACK_FILES) {
-		!system($$QMAKE_LRELEASE -silent $$fn) {
-			error(Failed to run lrelease for $$fn)
-		}
-	}
-	GENQRC = $$PYTHON ../../scripts/generate-mumble_qt-qrc.py
-	!system($$GENQRC mumble_qt_auto.qrc $$[QT_INSTALL_TRANSLATIONS] $$QT_TRANSLATIONS_FALLBACK_DIR) {
-		error(Failed to run generate-mumble_qt-qrc.py script)
-	}
-	RESOURCES *= mumble_qt_auto.qrc
+  QT_TRANSLATIONS_FALLBACK_DIR = qttranslations
+  QT_TRANSLATIONS_FALLBACK_FILES = $$files($$QT_TRANSLATIONS_FALLBACK_DIR/*.ts)
+  for(fn, QT_TRANSLATIONS_FALLBACK_FILES) {
+    !system($$QMAKE_LRELEASE -silent $$fn) {
+      error(Failed to run lrelease for $$fn)
+    }
+  }
+  GENQRC = $$PYTHON ../../scripts/generate-mumble_qt-qrc.py
+  !system($$GENQRC mumble_qt_auto.qrc $$[QT_INSTALL_TRANSLATIONS] $$QT_TRANSLATIONS_FALLBACK_DIR) {
+    error(Failed to run generate-mumble_qt-qrc.py script)
+  }
+  RESOURCES *= mumble_qt_auto.qrc
 }
 
 !CONFIG(no-embed-tango-icons) {
-	RESOURCES *= mumble_tango.qrc
+  RESOURCES *= mumble_tango.qrc
 }
 
 CONFIG(static_qt_plugins) {
