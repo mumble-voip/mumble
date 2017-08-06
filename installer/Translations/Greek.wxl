@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="el-gr" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1032</String>
+
+  <String Id="MUMBLE_CREATE_SHORTCUT">Δημιουργία συντόμευσης στην Επιφάνεια Εργασίας</String>
+  <String Id="MUMBLE_DONATE">Δωρεά στο Mumble</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">Ο δαίμονας DBus που χρησιμοποιείται από το Mumble βρίσκεται σε εκτέλεση. Τερματισμός του δαίμονα έτσι ώστε να μπορέσει να ενημερωθεί;</String>
+  <String Id="MUMBLE_NO_SSE">Το Mumble χρειάζεται το SSE, το οποίο είναι ενα χαρακτηριστικό που υπάρχει στους Intel Pentium III, AMD Athlon XP ή και σε νεότερους επεξεργαστές. Το χαρακτηριστικό SSE δεν εντοπίστηκε στον επεξεργαστή σας, και ως εκ τούτου το Mumble μάλλον δεν θα λειτουργεί. Θέλετε ακόμα να εγκαταστήσετε το Mumble;</String>
+  <String Id="MUMBLE_NO_XP">Το Mumble λειτουργεί σε Windows XP SP2 ή νεότερα. Ανιχνεύθηκε ένα παλαιότερο και μη συμβατό λειτουργικό σύστημα, στο οποίο μάλλον δεν θα λειτουργεί το Mumble. Θέλετε ακόμα να εγκαταστήσετε το Mumble;</String>
+  <String Id="MUMBLE_START">Εκκίνηση του Mumble</String>
+
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Mumble ΔιάβασέΜε</String>
+  <String Id="MUMBLE_LICENSE_LNK">Άδεια του Mumble</String>
+  <String Id="MUMBLE_QT_LNK">Άδεια του Qt</String>
+  <String Id="MUMBLE_SPEEX_LNK">Άδεια του Speex</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Απεγκατάσταση του Mumble</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Παλαιότερη Συμβατότητα)</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">Πλήρης</String>
+  <String Id="INSTALL_CLIENT">Μόνο την εφαρμογή</String>
+  <String Id="INSTALL_SERVER">Μόνο τον διακομιστή</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (εφαρμογή)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (εφαρμογή παλαιότερης συμβατότητας)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (διακομιστής)</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Bonjour για Windows</String>
+  <String Id="DESC_SectionMumble">Η εφαρμογή Mumble, την οποία θα χρειαστείτε για να συνδεθείτε σε κάποιον διακομιστή.</String>
+  <String Id="DESC_SectionMumble11X">Η εφαρμογή Mumble για σύνδεση σε παλαιότερους διακομιστές.</String>
+  <String Id="DESC_SectionMurmur">Ο διακομιστής για το Mumble. Περιλαμβάνει όσα χρειάζονται για να τρέξετε τον δικό σας διακομιστή.</String>
+  <String Id="DESC_SectionBonjour">Το Bonjour είναι για ανακοίνωση και ανίχνευση διακομιστών Murmur στο τοπικό σας δίκτυο. Αυτό θα κατεβάσει και θα τρέξει την εγκατάσταση του Bonjour.</String>
+  <String Id="MUMBLE_SEC_DesktopShortcut">Συντόμευση στην επιφάνεια εργασίας</String>
+  <String Id="DESC_DesktopShortcut">Δημιουργεί μια συντόμευση στην επιφάνεια εργασίας</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble και Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">Επιλογές και Βάσεις Δεδομένων</String>
+  <String Id="DESC_SectionUninstBase">Απεγκατάσταση των εφαρμογών Mumble και Murmur</String>
+  <String Id="DESC_SectionUninstAll">Απεγκατάσταση όλων των υπολειμμάτων των Mumble και Murmur, συμπεριλαμβανομένου τις επιλογές και τις βάσεις δεδομένων.</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Το Mumble είναι ήδη εγκατεστημένο. Συνιστάται η απεγκατάσταση της τωρινής έκδοσης πριν την εγκατάσταση. Επιλέξτε τη λειτουργία που θέλετε να εκτελέσετε και κάντε κλικ στο Επόμενο για να συνεχίσετε.</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">Είναι ήδη εγκατεστημένο</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">Επιλέξτε πώς θέλετε να εγκαταστήσετε το Mumble.</String>
+  <String Id="MUMBLE_UNINSTALL">Απεγκατάσταση πριν την εγκατάσταση</String>
+  <String Id="MUMBLE_NO_UNINSTALL">Να μην γίνει απεγκατάσταση</String>
+</WixLocalization>
