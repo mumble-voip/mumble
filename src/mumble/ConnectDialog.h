@@ -214,6 +214,7 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 		void on_qcbShowPassword_toggled(bool);
 		void on_qleName_textEdited(const QString&);
 		void on_qleServer_textEdited(const QString&);
+		void showNotice(const QString & text);
 		bool updateFromClipboard();
 	public:
 		QString qsName, qsHostname, qsUsername, qsPassword;

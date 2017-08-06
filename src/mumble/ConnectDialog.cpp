@@ -769,32 +769,23 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(updateFromClipboard()));
 
-	QString host, user, pw;
-	QString name;
-	unsigned short port = DEFAULT_MUMBLE_PORT;
 	if (!updateFromClipboard()) {
 		// If connected to a server assume the user wants to add it
 		if (g.sh && g.sh->isRunning()) {
+			QString host, name, user, pw;
+			unsigned short port = DEFAULT_MUMBLE_PORT;
+
 			g.sh->getConnectionInfo(host, port, user, pw);
 			Channel *c = Channel::get(0);
-			if (c) {
-				if (c->qsName != QLatin1String("Root")) {
-					name = c->qsName;
-				}
+			if (c && c->qsName != QLatin1String("Root")) {
+				name = c->qsName;
 			}
 
 			showNotice(tr("You are currently connected to a server.\nDo you want to fill the dialog with the connection data of this server?\nHost: %1 Port: %2").arg(host).arg(port));
 			m_si = new ServerItem(name, host, port, user, pw);
 		}
 	}
-	if (user.isEmpty()) {
-		user = g.s.qsUsername;
-	}
-	qleName->setText(name);
-	qleServer->setText(host);
-	qleUsername->setText(user);
-	qlePort->setText(QString::number(port));
-	qlePassword->setText(pw);
+	qleUsername->setText(g.s.qsUsername);
 }
 
 void ConnectDialogEdit::init() {
@@ -822,18 +813,26 @@ ConnectDialogEdit::~ConnectDialogEdit() {
 	delete m_si;
 }
 
+void ConnectDialogEdit::showNotice(const QString & text) {
+	QLabel *label = qwInlineNotice->findChild<QLabel *>(QLatin1String("qlPasteNotice"));
+	Q_ASSERT(label);
+	label->setText(text);
+	qwInlineNotice->show();
+	adjustSize();
+}
+
 bool ConnectDialogEdit::updateFromClipboard() {
 	delete m_si;
 	m_si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false, NULL, true);
 	bool hasServerData = m_si != NULL;
 	if (hasServerData) {
-		QLabel *label = qwInlineNotice->findChild<QLabel *>(QLatin1String("qlPasteNotice"));
-		Q_ASSERT(label);
-		label->setText(tr("You have an URL in your clipboard.\nDo you want to fill the dialog with this data?\nHost: %1 Port: %2").arg(m_si->qsHostname).arg(m_si->usPort));
+		showNotice(tr("You have an URL in your clipboard.\nDo you want to fill the dialog with this data?\nHost: %1 Port: %2").arg(m_si->qsHostname).arg(m_si->usPort));
+		return true;
+	} else {
+		qwInlineNotice->hide();
+		adjustSize();
+		return false;
 	}
-	qwInlineNotice->setVisible(hasServerData);
-	adjustSize();
-	return hasServerData;
 }
 
 void ConnectDialogEdit::on_qbFill_clicked() {
