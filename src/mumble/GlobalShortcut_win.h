@@ -82,8 +82,21 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
 		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
 
+		/// Handle an incoming Windows keyboard message.
+		///
+		/// Returns true if the GlobalShortcut engine signals that the
+		/// button should be suppressed. Returns false otherwise.
+		static bool handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down);
+
+		/// Handle an incoming Windows mouse message.
+		///
+		/// Returns true if the GlobalShortcut engine signals that the
+		/// button should be suppressed. Returns false otherwise.
+		static bool handleMouseMessage(unsigned int btn, bool down);
+
 		virtual bool canSuppress() Q_DECL_OVERRIDE;
 		void run() Q_DECL_OVERRIDE;
+		bool event(QEvent *e) Q_DECL_OVERRIDE;
 	public slots:
 		void timeTicked();
 	public:
@@ -91,6 +104,25 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		~GlobalShortcutWin() Q_DECL_OVERRIDE;
 		void unacquire();
 		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
+
+		/// Inject a native Windows keyboard message into GlobalShortcutWin's
+		/// event stream. This method is meant to be called from the main thread
+		/// to pass native Windows keyboard messages to GlobalShortcutWin.
+		///
+		/// @param  msg  The keyboard message to inject into GlobalShortcutWin.
+		///              Must be WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN or WM_SYSKEYUP.
+		///              Otherwise the message will be ignored.
+		void injectKeyboardMessage(MSG *msg);
+
+		/// Inject a native Windows mouse message into GlobalShortcutWin's
+		/// event stream. This method is meant to be called from the main thread
+		/// to pass native Windows mouse messages to GlobalShortcutWin.
+		///
+		/// @param  msg  The keyboard message to inject into GlobalShortcutWin.
+		///              Must be WM_LBUTTONDOWN, WM_LBUTTONUP, WM_RBUTTONDOWN,
+		///              WM_RBUTTONUP, WM_MBUTTONDOWN, WM_MBUTTONUP, WM_XBUTTONDOWN
+		///              or WM_XBUTTONUP. Otherwise the message will be ignored.
+		void injectMouseMessage(MSG *msg);
 };
 
 uint qHash(const GUID &);
