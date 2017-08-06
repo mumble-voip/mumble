@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>241</height>
+    <height>272</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -27,7 +27,13 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0" colspan="2">
-    <widget class="QWidget" name="qwPasteNotice" native="true">
+    <widget class="QWidget" name="qwInlineNotice" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="qlPasteNotice">
@@ -232,8 +238,8 @@ Label of the server. This is what the server will be named like in your server l
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>123</y>
+     <x>175</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
      <x>50</x>
@@ -248,8 +254,8 @@ Label of the server. This is what the server will be named like in your server l
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>191</x>
-     <y>128</y>
+     <x>254</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
      <x>224</x>
