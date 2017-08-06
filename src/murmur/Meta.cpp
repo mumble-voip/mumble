@@ -554,7 +554,8 @@ bool MetaParams::loadSSLSettings() {
 		}
 	}
 #else
-	if (! qsSSLDHParams.isEmpty()) {
+	QString qsSSLDHParamsIniValue = qsSettings->value(QLatin1String("sslDHParams")).toString();
+	if (! qsSSLDHParamsIniValue.isEmpty()) {
 		qFatal("MetaParams: This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur will not start unless you remove the option from your murmur.ini file.");
 		return false;
 	}
