@@ -91,7 +91,6 @@ CONFIG(g15-emulator) {
     INCLUDEPATH *= $$(MUMBLE_PREFIX)/../LCDSDK/Src/
     QMAKE_LFLAGS += -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
     DEFINES *= APPLE
-    DIST = g15helper.plist
   }
 }
 

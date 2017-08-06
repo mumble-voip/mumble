@@ -214,7 +214,6 @@ CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp
 }
 
-DIST  *= ../../icons/mumble.ico ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES *= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
 # Add the various mumble_flags_XX.qrc files to RESOURCES...
 include(flags/mumble_flags.pri)

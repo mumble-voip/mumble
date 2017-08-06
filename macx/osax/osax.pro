@@ -33,7 +33,6 @@ SDEF.path = Contents/Resources
 QMAKE_BUNDLE_DATA += SDEF
 
 OBJECTIVE_SOURCES = osax.m
-DIST = osax.plist MumbleOverlay.sdef
 
 CONFIG(debug, debug|release) {
   DESTDIR       = ../../debug

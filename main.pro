@@ -105,6 +105,4 @@ CONFIG(tests) {
   SUBDIRS *= src/tests
 }
 
-DIST=LICENSE INSTALL README README.Linux CHANGES
-
 include(scripts/scripts.pro)

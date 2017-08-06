@@ -65,8 +65,6 @@ unix {
   INCLUDEPATH += ../$$BUILDDIR
 }
 
-DIST = config.h
-
 INCLUDEPATH *= \
 ../$$SOURCEDIR \
 ../$$SOURCEDIR/celt \

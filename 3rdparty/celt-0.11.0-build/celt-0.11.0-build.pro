@@ -62,8 +62,6 @@ unix {
   INCLUDEPATH += ../$$BUILDDIR
 }
 
-DIST = config.h
-
 SOURCES *= bands.c celt.c cwrs.c entcode.c entdec.c entenc.c header.c kiss_fft.c laplace.c mathops.c mdct.c modes.c pitch.c plc.c quant_bands.c rate.c vq.c
 
 CONFIG(debug, debug|release) {
