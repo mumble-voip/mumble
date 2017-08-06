@@ -8,6 +8,16 @@
 #include "FFDHE.h"
 #include "FFDHETable.h"
 
+QStringList FFDHE::NamedGroups() {
+	QStringList ng;
+	ng << QLatin1String("ffdhe2048");
+	ng << QLatin1String("ffdhe3072");
+	ng << QLatin1String("ffdhe4096");
+	ng << QLatin1String("ffdhe6144");
+	ng << QLatin1String("ffdhe8192");
+	return ng;
+}
+
 QByteArray FFDHE::PEMForNamedGroup(QString name) {
 	name = name.toLower();
 

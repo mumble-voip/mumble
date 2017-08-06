@@ -22,6 +22,7 @@ class TestFFDHE : public QObject {
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		void exercise_data();
 		void exercise();
+		void namedGroupsMethod();
 #endif
 };
 
@@ -51,10 +52,7 @@ void TestFFDHE::exercise_data() {
 	QTest::newRow("trailingspace") << QString(QLatin1String("ffdhe2048 ")) << false;
 }
 
-void TestFFDHE::exercise() {
-	QFETCH(QString, name);
-	QFETCH(bool, expectedToWork);
-
+static bool tryFFDHELookupByName(QString name) {
 	bool ok = true;
 
 	QByteArray pem = FFDHE::PEMForNamedGroup(name);
@@ -69,7 +67,19 @@ void TestFFDHE::exercise() {
 		}
 	}
 
-	QCOMPARE(ok, expectedToWork);
+	return ok;
+}
+
+void TestFFDHE::exercise() {
+	QFETCH(QString, name);
+	QFETCH(bool, expectedToWork);
+	QCOMPARE(tryFFDHELookupByName(name), expectedToWork);
+}
+
+void TestFFDHE::namedGroupsMethod() {
+	foreach (QString name, FFDHE::NamedGroups()) {
+		QCOMPARE(tryFFDHELookupByName(name), true);
+	}
 }
 #endif
 

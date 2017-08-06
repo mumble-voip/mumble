@@ -9,6 +9,10 @@
 /// FFDHE provides access to the Diffie-Hellman parameters from RFC 7919.
 class FFDHE {
 	public:
+		/// NamedGroups returns a list of the supported named
+		/// groups for PEMForNamedGroup.
+		static QStringList NamedGroups();
+
 		/// PEMForNamedGroup returns the PEM-encoded
 		/// Diffie-Hellman parameters for the RFC 7919
 		/// group with the given name, such as "ffdhe2048",
