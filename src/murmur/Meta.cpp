@@ -524,7 +524,13 @@ bool MetaParams::loadSSLSettings() {
 			QString group = qsSSLDHParams.mid(1).trimmed();
 			QByteArray pem = FFDHE::PEMForNamedGroup(group);
 			if (pem.isEmpty()) {
-				qCritical("MetaParms: Diffie-Hellman parameters with name '%s' is not available in Murmur.", qPrintable(qsSSLDHParams));
+				QStringList names = FFDHE::NamedGroups();
+				QStringList atNames;
+				foreach (QString name, names) {
+					atNames << QLatin1String("@") + name;
+				}
+				QString supported = atNames.join(QLatin1String(", "));
+				qCritical("MetaParms: Diffie-Hellman parameters with name '%s' is not available. (Supported: %s)", qPrintable(qsSSLDHParams), qPrintable(supported));
 			}
 			dhparams = pem;
 		} else {
