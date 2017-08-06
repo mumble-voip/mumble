@@ -64,6 +64,7 @@
     <EmbeddedResource Include="Translations\Finnish.wxl" />
     <EmbeddedResource Include="Translations\French.wxl" />
     <EmbeddedResource Include="Translations\German.wxl" />
+    <EmbeddedResource Include="Translations\Greek.wxl" />
     <EmbeddedResource Include="Translations\Italian.wxl" />
     <EmbeddedResource Include="Translations\Japanese.wxl" />
     <EmbeddedResource Include="Translations\Norwegian.wxl" />
