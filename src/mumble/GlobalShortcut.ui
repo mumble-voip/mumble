@@ -220,7 +220,7 @@
            <property name="whatsThis">
             <string>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
-Without this option enabled, using Mumble's global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but relesed in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</string>
+Without this option enabled, using Mumble's global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</string>
            </property>
            <property name="text">
             <string>Enable shortcuts in privileged applications</string>
