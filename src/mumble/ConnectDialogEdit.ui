@@ -83,6 +83,9 @@ Port on which the server is listening. If the server is identified by a Bonjour 
      <property name="text">
       <string>Password</string>
      </property>
+     <property name="buddy">
+      <cstring>qlePassword</cstring>
+     </property>
     </widget>
    </item>
    <item row="4" column="1">
