@@ -18,7 +18,6 @@ HEADERS = ancestor.h lib.h olsettings.h excludecheck.h ods.h HardHook.h overlay_
 EFFECTS = overlay.fx
 DX11_PIXEL_SHADERS = overlay11.ps
 DX11_VERTEX_SHADERS = overlay11.vs
-DIST = overlay.h overlay.fx HardHook.h
 
 DEFINES -= UNICODE
 

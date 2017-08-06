@@ -73,8 +73,6 @@ win32 {
   INCLUDEPATH += ../speex-build
 }
 
-DIST = config.h speex.def speex/speex_config_types.h
-
 DEF_FILE = speex.def
 
 # libspeexdsp
