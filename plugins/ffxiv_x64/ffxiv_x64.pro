@@ -5,8 +5,8 @@
 
 include(../plugins.pri)
 
-TARGET		= ffxiv_x64
-SOURCES		= ../ffxiv/ffxiv.cpp
+TARGET = ffxiv_x64
+SOURCES = ../ffxiv/ffxiv.cpp
 
 DEFINES *= FFXIV_USE_x64
-win32:LIBS		+= -luser32
+win32:LIBS += -luser32

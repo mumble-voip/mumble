@@ -10,7 +10,7 @@ include(../../qmake/compiler.pri)
 
 CONFIG += x86_64 x86 debug_and_release
 CONFIG(universal) {
-	CONFIG += ppc
+  CONFIG += ppc
 }
 
 TEMPLATE = lib
@@ -18,7 +18,7 @@ CONFIG += plugin plugin_bundle
 CONFIG -= gui qt
 
 CONFIG(static) {
-	CONFIG -= static
+  CONFIG -= static
 }
 
 TARGET = MumbleOverlay

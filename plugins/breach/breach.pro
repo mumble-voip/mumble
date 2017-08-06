@@ -5,7 +5,7 @@
 
 include(../plugins.pri)
 
-TARGET		= breach
-SOURCES		= breach.cpp
-LIBS		+= -luser32
+TARGET = breach
+SOURCES = breach.cpp
+LIBS += -luser32
 

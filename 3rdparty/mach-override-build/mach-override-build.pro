@@ -10,11 +10,11 @@ SOURCEDIR=$$replace(BUILDDIR,-build,-src)
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  DESTDIR	= ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR	= ../../release
+  DESTDIR = ../../release
 }
 
 TEMPLATE = lib
@@ -30,7 +30,7 @@ CONFIG += x86_64 x86
   CONFIG += warn_off
 }
 
-VPATH	= ../mach-override-src
+VPATH = ../mach-override-src
 TARGET = mach-override
 INCLUDEPATH = ../mach-override-src/ ../mach-override-src/libudis86
 

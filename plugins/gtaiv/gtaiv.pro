@@ -5,6 +5,6 @@
 
 include(../plugins.pri)
 
-TARGET		= gtaiv
-SOURCES		= gtaiv.cpp
-LIBS		+= -luser32
+TARGET = gtaiv
+SOURCES = gtaiv.cpp
+LIBS += -luser32

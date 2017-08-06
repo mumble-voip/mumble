@@ -12,7 +12,7 @@ QT += network
 #
 # Can be disabled with no-qssldiffiehellmanparameters.
 !CONFIG(no-qssldiffiehellmanparameters):exists($$[QT_INSTALL_HEADERS]/QtNetwork/QSslDiffieHellmanParameters) {
-	DEFINES += USE_QSSLDIFFIEHELLMANPARAMETERS
+  DEFINES += USE_QSSLDIFFIEHELLMANPARAMETERS
 }
 
 TARGET = TestFFDHE

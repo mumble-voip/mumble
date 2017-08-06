@@ -47,12 +47,12 @@ win32-msvc* {
 CONFIG(debug, debug|release) {
   CONFIG += console
   DEFINES *= DEBUG
-  DESTDIR	= ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
   DEFINES *= NDEBUG
-  DESTDIR	= ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

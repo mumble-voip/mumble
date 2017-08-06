@@ -5,6 +5,6 @@
 
 include(../plugins.pri)
 
-TARGET		= insurgency
-SOURCES		= insurgency.cpp
-LIBS		+= -luser32
+TARGET = insurgency
+SOURCES = insurgency.cpp
+LIBS += -luser32

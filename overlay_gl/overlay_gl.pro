@@ -14,57 +14,57 @@ VERSION = 1.3.0
 SOURCES = overlay.c
 
 CONFIG(static) {
-	CONFIG -= static
+  CONFIG -= static
 }
 
 unix:!macx {
-	TARGET = mumble$(TARGET_ADD)
+  TARGET = mumble$(TARGET_ADD)
 
-	DEFINES += TARGET_UNIX
-	linux* {
-		LIBS *= -lrt -ldl
-	}
-	QMAKE_CFLAGS *= -fvisibility=hidden $(CFLAGS_ADD)
-	QMAKE_LFLAGS -= -Wl,--no-undefined
+  DEFINES += TARGET_UNIX
+  linux* {
+    LIBS *= -lrt -ldl
+  }
+  QMAKE_CFLAGS *= -fvisibility=hidden $(CFLAGS_ADD)
+  QMAKE_LFLAGS -= -Wl,--no-undefined
 
-	QMAKE_LFLAGS -= -Wl,-z,now
-	QMAKE_LFLAGS += -Wl,-z,lazy
+  QMAKE_LFLAGS -= -Wl,-z,now
+  QMAKE_LFLAGS += -Wl,-z,lazy
 
-	QMAKE_LFLAGS *= $(LFLAGS_ADD)
-	equals(QMAKE_LINK,g++) {
-	  QMAKE_LINK = gcc
-	  QMAKE_LINK_SHLIB = gcc
-	}
+  QMAKE_LFLAGS *= $(LFLAGS_ADD)
+  equals(QMAKE_LINK,g++) {
+    QMAKE_LINK = gcc
+    QMAKE_LINK_SHLIB = gcc
+  }
 }
 
 macx {
-	CONFIG *= x86_64 x86 plugin
-	CONFIG(universal) {
-		CONFIG *= ppc
-	}
+  CONFIG *= x86_64 x86 plugin
+  CONFIG(universal) {
+    CONFIG *= ppc
+  }
 
-	TARGET = mumbleoverlay$(TARGET_ADD)
+  TARGET = mumbleoverlay$(TARGET_ADD)
 
-	DEFINES += TARGET_MAC
-	QMAKE_CFLAGS *= -x objective-c
-	QMAKE_CFLAGS *= $(CFLAGS_ADD)
-	QMAKE_LFLAGS_PLUGIN *= -undefined dynamic_lookup -dynamic
-	QMAKE_LFLAGS += -framework CoreFoundation
-	QMAKE_LFLAGS += $(LFLAGS_ADD)
-	QMAKE_INFO_PLIST = overlay_gl.plist
+  DEFINES += TARGET_MAC
+  QMAKE_CFLAGS *= -x objective-c
+  QMAKE_CFLAGS *= $(CFLAGS_ADD)
+  QMAKE_LFLAGS_PLUGIN *= -undefined dynamic_lookup -dynamic
+  QMAKE_LFLAGS += -framework CoreFoundation
+  QMAKE_LFLAGS += $(LFLAGS_ADD)
+  QMAKE_INFO_PLIST = overlay_gl.plist
 
-	INCLUDEPATH *= ../3rdparty/mach-override-src
-	LIBS *= -lmach-override
+  INCLUDEPATH *= ../3rdparty/mach-override-src
+  LIBS *= -lmach-override
 }
 
 CONFIG(debug, debug|release) {
-	QMAKE_LIBDIR = ../debug$(DESTDIR_ADD) $$QMAKE_LIBDIR
-	DESTDIR = ../debug$(DESTDIR_ADD)
+  QMAKE_LIBDIR = ../debug$(DESTDIR_ADD) $$QMAKE_LIBDIR
+  DESTDIR = ../debug$(DESTDIR_ADD)
 }
 
 CONFIG(release, debug|release) {
-	QMAKE_LIBDIR = ../release$(DESTDIR_ADD) $$QMAKE_LIBDIR
-	DESTDIR = ../release$(DESTDIR_ADD)
+  QMAKE_LIBDIR = ../release$(DESTDIR_ADD) $$QMAKE_LIBDIR
+  DESTDIR = ../release$(DESTDIR_ADD)
 }
 
 include(../qmake/symbols.pri)

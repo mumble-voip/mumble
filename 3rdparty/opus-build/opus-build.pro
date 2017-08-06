@@ -4,27 +4,27 @@ BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
 
 !win32 {
-	VERSION=0 #$$ Fool packaging script
+  VERSION=0 #$$ Fool packaging script
 }
 
 !exists(../$$SOURCEDIR/COPYING) {
-	message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init).")
-	error("Aborting configuration")
+  message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init).")
+  error("Aborting configuration")
 }
 
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += no_include_pwd
-VPATH	= ../$$SOURCEDIR
+VPATH = ../$$SOURCEDIR
 TARGET = opus
 DEFINES += HAVE_CONFIG_H
 
 !CONFIG(third-party-warnings) {
-	# We ignore warnings in third party builds. We won't actually look
-	# at them and they clutter out our warnings.
-	CONFIG -= warn_on
-	CONFIG += warn_off
+  # We ignore warnings in third party builds. We won't actually look
+  # at them and they clutter out our warnings.
+  CONFIG -= warn_on
+  CONFIG += warn_off
 }
 
 QMAKE_CFLAGS -= -fPIE -pie
@@ -263,12 +263,12 @@ src/mlp_data.c
 
 
 CONFIG(debug, debug|release) {
-	CONFIG += console
-	DESTDIR = ../../debug
+  CONFIG += console
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-	DESTDIR = ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)
