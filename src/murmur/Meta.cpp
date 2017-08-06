@@ -530,7 +530,7 @@ bool MetaParams::loadSSLSettings() {
 					atNames << QLatin1String("@") + name;
 				}
 				QString supported = atNames.join(QLatin1String(", "));
-				qCritical("MetaParms: Diffie-Hellman parameters with name '%s' is not available. (Supported: %s)", qPrintable(qsSSLDHParams), qPrintable(supported));
+				qFatal("MetaParms: Diffie-Hellman parameters with name '%s' is not available. (Supported: %s)", qPrintable(qsSSLDHParams), qPrintable(supported));
 			}
 			dhparams = pem;
 		} else {
@@ -539,7 +539,7 @@ bool MetaParams::loadSSLSettings() {
 				dhparams = pem.readAll();
 				pem.close();
 			} else {
-				qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLDHParams));
+				qFatal("MetaParams: Failed to read %s", qPrintable(qsSSLDHParams));
 			}
 		}
 	}
@@ -549,13 +549,13 @@ bool MetaParams::loadSSLSettings() {
 		if (qdhp.isValid()) {
 			tmpDHParams = dhparams;
 		} else {
-			qCritical("MetaParams: Unable to use specified Diffie-Hellman parameters: %s", qPrintable(qdhp.errorString()));
+			qFatal("MetaParams: Unable to use specified Diffie-Hellman parameters: %s", qPrintable(qdhp.errorString()));
 			return false;
 		}
 	}
 #else
 	if (! qsSSLDHParams.isEmpty()) {
-		qCritical("MetaParams: This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur will not start unless you remove the option from your murmur.ini file.");
+		qFatal("MetaParams: This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur will not start unless you remove the option from your murmur.ini file.");
 		return false;
 	}
 #endif
