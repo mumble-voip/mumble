@@ -9,33 +9,6 @@
 #include "Server.h"
 #include "SelfSignedCertificate.h"
 
-#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-static BN_GENCB *mumble_BN_GENCB_new() {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	return BN_GENCB_new();
-#else
-	return reinterpret_cast<BN_GENCB *>(malloc(sizeof(BN_GENCB)));
-#endif
-}
-
-static void mumble_BN_GENCB_free(BN_GENCB *cb) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	BN_GENCB_free(cb);
-#else
-	free(cb);
-#endif
-}
-
-// dh_progress is a status callback for DH_generate_parameters_ex.
-// We use it to run the event loop while generating DH params, in
-// order to keep the Murmur GUI on Windows responsive during the
-// process.
-static int dh_progress(int, int, BN_GENCB *) {
-	qApp->processEvents();
-	return 1;
-}
-#endif
-
 bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	if (key.isNull() || cert.isNull() || (key.type() != QSsl::PrivateKey))
 		return false;
@@ -201,52 +174,6 @@ void Server::initializeCert() {
 			setConf("key", qskKey.toPem());
 		}
 	}
-
-#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-	if (qsdhpDHParams.isEmpty()) {
-		log("Generating new server 2048-bit Diffie-Hellman parameters. This could take a while...");
-
-		DH *dh = DH_new();
-		if (dh == NULL) {
-			qFatal("DH_new failed: unable to generate Diffie-Hellman parameters for virtual server");
-		}
-
-		// Generate DH params.
-		// We register a status callback in order to update the UI
-		// for Murmur on Windows. We don't show the actual status,
-		// but we do it to keep Murmur on Windows responsive while
-		// generating the parameters.
-		BN_GENCB *cb = mumble_BN_GENCB_new();
-		BN_GENCB_set(cb, dh_progress, NULL);
-		if (DH_generate_parameters_ex(dh, 2048, 2, cb) == 0) {
-			qFatal("DH_generate_parameters_ex failed: unable to generate Diffie-Hellman parameters for virtual server");
-		}
-
-		BIO *mem = BIO_new(BIO_s_mem());
-		if (PEM_write_bio_DHparams(mem, dh) == 0) {
-			qFatal("PEM_write_bio_DHparams failed: unable to write generated Diffie-Hellman parameters to memory");
-		}
-
-		char *pem = NULL;
-		long len = BIO_get_mem_data(mem, &pem);
-		if (len <= 0) {
-			qFatal("BIO_get_mem_data returned an empty or invalid buffer");
-		}
-
-		QByteArray pemdh(pem, len);
-		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters::fromEncoded(pemdh);
-		if (!qdhp.isValid()) {
-			qFatal("QSslDiffieHellmanParameters: unable to import generated Diffie-HellmanParameters: %s", qdhp.errorString().toStdString().c_str());
-		}
-
-		qsdhpDHParams = qdhp;
-		setConf("sslDHParams", pemdh);
-
-		BIO_free(mem);
-		mumble_BN_GENCB_free(cb);
-		DH_free(dh);
-	}
-#endif
 
 	// Drain OpenSSL's per-thread error queue
 	// to ensure that errors from the operations
