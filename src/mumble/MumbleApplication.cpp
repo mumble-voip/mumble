@@ -62,10 +62,13 @@ bool MumbleApplication::event(QEvent *e) {
 #ifdef Q_OS_WIN
 /// gswForward forwards a native Windows keyboard/mouse message
 /// into GlobalShortcutWin's event stream.
-static void gswForward(MSG *msg) {
+///
+/// @return  Returns true if the forwarded event was suppressed
+///          by GlobalShortcutWin. Otherwise, returns false.
+static bool gswForward(MSG *msg) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
 	if (gsw == NULL) {
-		return;
+		return false;
 	}
 	switch (msg->message) {
 		case WM_LBUTTONDOWN:
@@ -76,29 +79,34 @@ static void gswForward(MSG *msg) {
 		case WM_MBUTTONUP:
 		case WM_XBUTTONDOWN:
 		case WM_XBUTTONUP:
-			gsw->injectMouseMessage(msg);
-			break;
+			return gsw->injectMouseMessage(msg);
 		case WM_KEYDOWN:
 		case WM_KEYUP:
 		case WM_SYSKEYDOWN:
 		case WM_SYSKEYUP:
-			gsw->injectKeyboardMessage(msg);
-			break;
+			return gsw->injectKeyboardMessage(msg);
 	}
+	return false;
 }
 
 # if QT_VERSION >= 0x050000
 bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
 	MSG *msg = reinterpret_cast<MSG *>(message);
 	if (QThread::currentThread() == thread()) {
-		gswForward(msg);
+		bool suppress = gswForward(msg);
+		if (suppress) {
+			return true;
+		}
 	}
 	return false;
 }
 # else
 bool MumbleApplication::winEventFilter(MSG *msg, long *result) {
 	if (QThread::currentThread() == thread()) {
-		gswForward(msg);
+		bool suppress = gswForward(msg);
+		if (suppress) {
+			return true;
+		}
 	}
 	return QApplication::winEventFilter(msg, result);
 }

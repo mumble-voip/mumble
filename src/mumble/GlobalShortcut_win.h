@@ -112,7 +112,10 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		/// @param  msg  The keyboard message to inject into GlobalShortcutWin.
 		///              Must be WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN or WM_SYSKEYUP.
 		///              Otherwise the message will be ignored.
-		void injectKeyboardMessage(MSG *msg);
+		///
+		/// @return      Returns true if the GlobalShortcut engine signalled that
+		///              the button should be suppressed. Returns false otherwise.
+		bool injectKeyboardMessage(MSG *msg);
 
 		/// Inject a native Windows mouse message into GlobalShortcutWin's
 		/// event stream. This method is meant to be called from the main thread
@@ -122,7 +125,10 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		///              Must be WM_LBUTTONDOWN, WM_LBUTTONUP, WM_RBUTTONDOWN,
 		///              WM_RBUTTONUP, WM_MBUTTONDOWN, WM_MBUTTONUP, WM_XBUTTONDOWN
 		///              or WM_XBUTTONUP. Otherwise the message will be ignored.
-		void injectMouseMessage(MSG *msg);
+		///
+		/// @return      Returns true if the GlobalShortcut engine signalled that
+		///              the button should be suppressed. Returns false otherwise.
+		bool injectMouseMessage(MSG *msg);
 };
 
 uint qHash(const GUID &);

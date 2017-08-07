@@ -11,6 +11,8 @@
 #include "OverlayClient.h"
 #include "Global.h"
 
+#include <future>
+
 // 3rdparty/xinputcheck-src.
 #include <xinputcheck.h>
 
@@ -34,6 +36,7 @@ class InjectKeyboardMessageEvent : public QEvent {
 		Q_DISABLE_COPY(InjectKeyboardMessageEvent);
 
 	public:
+		std::promise<bool> m_suppressionPromise;
 		DWORD m_scancode;
 		DWORD m_vkcode;
 		bool m_extended;
@@ -41,19 +44,23 @@ class InjectKeyboardMessageEvent : public QEvent {
 
 		/// Construct a new InjectKeyboardMessageEvent.
 		///
-		/// @param  scancode   The Windows scancode of the button.
-		/// @param  vkcode     The Windows virtual keycode of the button.
-		/// @param  extended   Indicates whether the button is an extended key in
-		///                    Windows nomenclature. ("[...] such as the right-hand ALT
-		///                    and CTRL keys that appear on an enhanced 101- or 102-key
-		///                    keyboard")
-		/// @param  down       The down/pressed status of the keyboard button.
+		/// @param  scancode            The Windows scancode of the button.
+		/// @param  vkcode              The Windows virtual keycode of the button.
+		/// @param  extended            Indicates whether the button is an extended key in
+		///                             Windows nomenclature. ("[...] such as the right-hand ALT
+		///                             and CTRL keys that appear on an enhanced 101- or 102-key
+		///                             keyboard")
+		/// @param  down                The down/pressed status of the keyboard button.
 		InjectKeyboardMessageEvent(DWORD scancode, DWORD vkcode, bool extended, bool down)
 			: QEvent(static_cast<QEvent::Type>(INJECTKEYBOARDMESSAGE_QEVENT))
 			, m_scancode(scancode)
 			, m_vkcode(vkcode)
 			, m_extended(extended)
 			, m_down(down) {}
+
+		inline std::future<bool> shouldSuppress() {
+			return m_suppressionPromise.get_future();
+		}
 };
 
 /// InjectMouseMessageEvent is an event that can be sent to
@@ -63,17 +70,22 @@ class InjectMouseMessageEvent : public QEvent {
 		Q_DISABLE_COPY(InjectMouseMessageEvent);
 
 	public:
+		std::promise<bool> m_suppressionPromise;
 		unsigned int m_btn;
 		bool m_down;
 
 		/// Construct a new InjectMouseMessageEvent.
 		///
-		/// @param  btn   The DirectInput button index of the mouse event.
-		/// @param  down  The down/pressed status of the mouse button.
+		/// @param  btn                 The DirectInput button index of the mouse event.
+		/// @param  down                The down/pressed status of the mouse button.
 		InjectMouseMessageEvent(unsigned int btn, bool down)
 			: QEvent(static_cast<QEvent::Type>(INJECTMOUSEMESSAGE_QEVENT))
 			, m_btn(btn)
 			, m_down(down) {}
+
+		inline std::future<bool> shouldSuppress() {
+			return m_suppressionPromise.get_future();
+		}
 };
 
 uint qHash(const GUID &a) {
@@ -206,19 +218,21 @@ bool GlobalShortcutWin::event(QEvent *event) {
 	QEvent::Type type = event->type();
 	if (type == INJECTKEYBOARDMESSAGE_QEVENT) {
 		InjectKeyboardMessageEvent *ikme = static_cast<InjectKeyboardMessageEvent *>(event);
-		handleKeyboardMessage(ikme->m_scancode, ikme->m_vkcode, ikme->m_extended, ikme->m_down);
+		bool suppress = handleKeyboardMessage(ikme->m_scancode, ikme->m_vkcode, ikme->m_extended, ikme->m_down);
+		ikme->m_suppressionPromise.set_value(suppress);
 		return true;
 	} else if (type == INJECTMOUSEMESSAGE_QEVENT) {
 		InjectMouseMessageEvent *imme = static_cast<InjectMouseMessageEvent *>(event);
-		handleMouseMessage(imme->m_btn, imme->m_down);
+		bool suppress = handleMouseMessage(imme->m_btn, imme->m_down);
+		imme->m_suppressionPromise.set_value(suppress);
 		return true;
 	}
 	return GlobalShortcutEngine::event(event);
 }
 
-void GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
+bool GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
 	if (!bHook) {
-		return;
+		return false;
 	}
 
 	// Only allow keyboard messages.
@@ -229,7 +243,7 @@ void GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
 		case WM_SYSKEYUP:
 			break;
 		default:
-			return;
+			return false;
 	}
 
 	DWORD scancode = (msg->lParam >> 16) & 0xff;
@@ -237,12 +251,15 @@ void GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
 	bool extended = !!(msg->lParam & 0x01000000);
 	bool up = !!(msg->lParam & 0x80000000);
 
-	qApp->postEvent(this, new InjectKeyboardMessageEvent(scancode, vkcode, extended, !up));
+	InjectKeyboardMessageEvent *ikme = new InjectKeyboardMessageEvent(scancode, vkcode, extended, !up);
+	std::future<bool> suppress = ikme->shouldSuppress();
+	qApp->postEvent(this, ikme);
+	return suppress.get();
 }
 
-void GlobalShortcutWin::injectMouseMessage(MSG *msg) {
+bool GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 	if (!bHook) {
-		return;
+		return false;
 	}
 
 	bool down = false;
@@ -274,10 +291,13 @@ void GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 		}
 		default:
 			// Non-mouse event. Return early.
-			return;
+			return false;
 	}
 
-	qApp->postEvent(this, new InjectMouseMessageEvent(btn, down));
+	InjectMouseMessageEvent *imme = new InjectMouseMessageEvent(btn, down);
+	std::future<bool> suppress = imme->shouldSuppress();
+	qApp->postEvent(this, imme);
+	return suppress.get();
 }
 
 bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
