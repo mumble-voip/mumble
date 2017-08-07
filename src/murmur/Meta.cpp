@@ -15,6 +15,7 @@
 #include "Version.h"
 #include "SSL.h"
 #include "EnvUtils.h"
+#include "FFDHE.h"
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 # include <QSslDiffieHellmanParameters>
@@ -428,7 +429,7 @@ bool MetaParams::loadSSLSettings() {
 	QString qsSSLCert = qsSettings->value("sslCert").toString();
 	QString qsSSLKey = qsSettings->value("sslKey").toString();
 	QString qsSSLCA = qsSettings->value("sslCA").toString();
-	QString qsSSLDHParams = qsSettings->value("sslDHParams").toString();
+	QString qsSSLDHParams = typeCheckedFromSettings(QLatin1String("sslDHParams"), QString(QLatin1String("@ffdhe2048")));
 
 	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
 
@@ -519,12 +520,27 @@ bool MetaParams::loadSSLSettings() {
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 	if (! qsSSLDHParams.isEmpty()) {
-		QFile pem(qsSSLDHParams);
-		if (pem.open(QIODevice::ReadOnly)) {
-			dhparams = pem.readAll();
-			pem.close();
+		if (qsSSLDHParams.startsWith(QLatin1String("@"))) {
+			QString group = qsSSLDHParams.mid(1).trimmed();
+			QByteArray pem = FFDHE::PEMForNamedGroup(group);
+			if (pem.isEmpty()) {
+				QStringList names = FFDHE::NamedGroups();
+				QStringList atNames;
+				foreach (QString name, names) {
+					atNames << QLatin1String("@") + name;
+				}
+				QString supported = atNames.join(QLatin1String(", "));
+				qFatal("MetaParms: Diffie-Hellman parameters with name '%s' is not available. (Supported: %s)", qPrintable(qsSSLDHParams), qPrintable(supported));
+			}
+			dhparams = pem;
 		} else {
-			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLDHParams));
+			QFile pem(qsSSLDHParams);
+			if (pem.open(QIODevice::ReadOnly)) {
+				dhparams = pem.readAll();
+				pem.close();
+			} else {
+				qFatal("MetaParams: Failed to read %s", qPrintable(qsSSLDHParams));
+			}
 		}
 	}
 
@@ -533,13 +549,14 @@ bool MetaParams::loadSSLSettings() {
 		if (qdhp.isValid()) {
 			tmpDHParams = dhparams;
 		} else {
-			qCritical("MetaParams: Unable to use specified Diffie-Hellman parameters: %s", qPrintable(qdhp.errorString()));
+			qFatal("MetaParams: Unable to use specified Diffie-Hellman parameters: %s", qPrintable(qdhp.errorString()));
 			return false;
 		}
 	}
 #else
-	if (! qsSSLDHParams.isEmpty()) {
-		qCritical("MetaParams: This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur will not start unless you remove the option from your murmur.ini file.");
+	QString qsSSLDHParamsIniValue = qsSettings->value(QLatin1String("sslDHParams")).toString();
+	if (! qsSSLDHParamsIniValue.isEmpty()) {
+		qFatal("MetaParams: This version of Murmur does not support Diffie-Hellman parameters (sslDHParams). Murmur will not start unless you remove the option from your murmur.ini file.");
 		return false;
 	}
 #endif
