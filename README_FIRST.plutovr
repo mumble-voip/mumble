@@ -1,3 +1,12 @@
-qmake -recursive main.pro CONFIG+="release static no-elevation no-g15 no-asio" CONFIG-=sse2 DEFINES+="NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
+1. Setup Speex Git:
+pluto_qmake.cmd choice 1
 
-qmake -recursive main.pro CONFIG+="static no-elevation no-g15 no-asio" CONFIG-=sse2 DEFINES+="DEBUG NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
+2. Configure for Release:
+pluto_qmake.cmd choice 2
+
+or
+Configure for Development:
+pluto_qmake.cmd choice 3
+
+3. Build
+nmake
