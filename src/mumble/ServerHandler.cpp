@@ -266,6 +266,7 @@ void ServerHandler::hostnameResolved() {
 	// error code in case our hostname lookup failed.
 	if (records.isEmpty()) {
 		exit(-1);
+		return;
 	}
 
 	// Create the list of target host:port pairs
@@ -286,9 +287,9 @@ void ServerHandler::hostnameResolved() {
 void ServerHandler::run() {
 	// Resolve the hostname...
 	{
-		ServerResolver *sr = new ServerResolver();
-		QObject::connect(sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
-		sr->resolve(qsHostName, usPort);
+		ServerResolver sr;
+		QObject::connect(&sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
+		sr.resolve(qsHostName, usPort);
 		int ret = exec();
 		if (ret < 0) {
 			qWarning("ServerHandler: failed to resolve hostname");
@@ -301,9 +302,11 @@ void ServerHandler::run() {
 	do {
 		saTargetServer = qlAddresses.takeFirst();
 
+		tConnectionTimeoutTimer = NULL;
 		qbaDigest = QByteArray();
 		bStrong = true;
 		qtsSock = new QSslSocket(this);
+		qtsSock->setPeerVerifyName(qsHostName);
 
 		if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
 			qtsSock->setPrivateKey(g.s.kpCertificate.second);
@@ -391,6 +394,7 @@ void ServerHandler::run() {
 			msleep(100);
 		}
 		delete qtsSock;
+		delete tConnectionTimeoutTimer;
 	} while (shouldTryNextTargetServer && !qlAddresses.isEmpty());
 }
 

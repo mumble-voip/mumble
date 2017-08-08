@@ -10,7 +10,7 @@ include(../../qmake/compiler.pri)
 
 CONFIG += x86_64 x86 debug_and_release
 CONFIG(universal) {
-	CONFIG += ppc
+  CONFIG += ppc
 }
 
 TEMPLATE = lib
@@ -18,7 +18,7 @@ CONFIG += plugin plugin_bundle
 CONFIG -= gui qt
 
 CONFIG(static) {
-	CONFIG -= static
+  CONFIG -= static
 }
 
 TARGET = MumbleOverlay
@@ -33,7 +33,6 @@ SDEF.path = Contents/Resources
 QMAKE_BUNDLE_DATA += SDEF
 
 OBJECTIVE_SOURCES = osax.m
-DIST = osax.plist MumbleOverlay.sdef
 
 CONFIG(debug, debug|release) {
   DESTDIR       = ../../debug

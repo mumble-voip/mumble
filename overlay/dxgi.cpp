@@ -120,7 +120,7 @@ void checkDXGIHook(bool preonly) {
 		return;
 	}
 
-	if (dxgi->iOffsetPresent == 0 || dxgi->iOffsetResize == 0)
+	if (dxgi->offsetPresent == 0 || dxgi->offsetResize == 0)
 		return;
 
 	bCheckHookActive = true;
@@ -148,7 +148,7 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	HMODULE hTempSelf = NULL;
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookDXGI), &hTempSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookDXGI), &hTempSelf);
 
 	bHooked = true;
 
@@ -158,8 +158,8 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hDXGI;
-		HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
-		HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
+		HookPresentRaw((voidFunc)(raw + dxgi->offsetPresent));
+		HookResizeRaw((voidFunc)(raw + dxgi->offsetResize));
 
 	} else if (! preonly) {
 		ods("DXGI: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, dxgi->wcFileName);
@@ -184,8 +184,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	ods("DXGI: Preparing static data for DXGI Injection");
 
 	dxgi->wcFileName[0] = 0;
-	dxgi->iOffsetPresent = 0;
-	dxgi->iOffsetResize = 0;
+	dxgi->offsetPresent = 0;
+	dxgi->offsetResize = 0;
 
 	// Make sure this is Vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
 	OSVERSIONINFOEXW ovi;
@@ -214,9 +214,9 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 				pFactory->EnumAdapters1(0, &pAdapter);
 
 				/// Offsets have to be identified and initialized only once.
-				bool initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
+				bool initializeDXGIData = !dxgi->offsetPresent && !dxgi->offsetResize;
 				PrepareDXGI10(pAdapter, initializeDXGIData);
-				initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
+				initializeDXGIData = !dxgi->offsetPresent && !dxgi->offsetResize;
 				PrepareDXGI11(pAdapter, initializeDXGIData);
 
 				pFactory->Release();

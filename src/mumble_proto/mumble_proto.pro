@@ -6,7 +6,7 @@
 include(../../qmake/compiler.pri)
 include(../../qmake/protoc.pri)
 
-PROTOBUF	*= ../Mumble.proto
+PROTOBUF *= ../Mumble.proto
 
 pbh.output = ${QMAKE_FILE_BASE}.pb.h
 pbh.depends = ${QMAKE_FILE_BASE}.pb.cc
@@ -32,18 +32,18 @@ include(../../qmake/protobuf.pri)
 QMAKE_EXTRA_COMPILERS *= pb pbh
 
 !CONFIG(third-party-warnings) {
-	# We ignore warnings in third party builds. We won't actually look
-	# at them and they clutter out our warnings.
-	CONFIG -= warn_on
-	CONFIG += warn_off
+  # We ignore warnings in third party builds. We won't actually look
+  # at them and they clutter out our warnings.
+  CONFIG -= warn_on
+  CONFIG += warn_off
 }
 
 CONFIG(debug, debug|release) {
-	DESTDIR = ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-	DESTDIR = ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

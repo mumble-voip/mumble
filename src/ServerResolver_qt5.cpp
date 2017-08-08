@@ -67,10 +67,10 @@ QList<ServerResolverRecord> ServerResolverPrivate::records() {
 void ServerResolverPrivate::srvResolved() {
 	QDnsLookup *resolver = qobject_cast<QDnsLookup *>(sender());
 
-	if (resolver->error() == QDnsLookup::NoError) {
-		m_srvQueue = resolver->serviceRecords();
-		m_srvQueueRemain = m_srvQueue.count();
+	m_srvQueue = resolver->serviceRecords();
+	m_srvQueueRemain = m_srvQueue.count();
 
+	if (resolver->error() == QDnsLookup::NoError && m_srvQueueRemain > 0) {
 		for (int i = 0; i < m_srvQueue.count(); i++) {
 			QDnsServiceRecord record = m_srvQueue.at(i);
 			int hostInfoId = QHostInfo::lookupHost(record.target(), this, SLOT(hostResolved(QHostInfo)));

@@ -557,6 +557,10 @@ int main(int argc, char **argv) {
 
 #ifdef USE_GRPC
 	GRPCStart();
+#else
+	if (!meta->mp.qsGRPCAddress.isEmpty() || !meta->mp.qsGRPCCert.isEmpty() || !meta->mp.qsGRPCKey.isEmpty()) {
+		qWarning("This version of Murmur was built without gRPC support. Ignoring 'grpc' option from configuration file.");
+	}
 #endif
 
 	meta->getOSInfo();

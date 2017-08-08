@@ -6,13 +6,16 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-	TestCrypt \
-	TestCryptographicHash \
-	TestCryptographicRandom \
-	TestPacketDataStream \
-	TestPasswordGenerator \
-	TestTimer \
-	TestXMLTools \
-	TestUnresolvedServerAddress \
-	TestServerAddress \
-	TestServerResolver
+  TestCrypt \
+  TestCryptographicHash \
+  TestCryptographicRandom \
+  TestPacketDataStream \
+  TestPasswordGenerator \
+  TestTimer \
+  TestXMLTools \
+  TestUnresolvedServerAddress \
+  TestServerAddress \
+  TestServerResolver \
+  TestSelfSignedCertificate \
+  TestSSLLocks \
+  TestFFDHE

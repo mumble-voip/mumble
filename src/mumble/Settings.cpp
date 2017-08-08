@@ -287,6 +287,7 @@ Settings::Settings() {
 	aotbAlwaysOnTop = OnTopNever;
 	bAskOnQuit = true;
 	bEnableDeveloperMenu = false;
+	bLockLayout = false;
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on Windows >= 7
 	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
@@ -401,6 +402,7 @@ Settings::Settings() {
 	bEnableXboxInput = true;
 	bEnableWinHooks = true;
 	bDirectInputVerboseLogging = false;
+	bEnableUIAccess = true;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i) {
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
@@ -481,6 +483,7 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 #define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var))
 #define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var).toInt())
 #define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), static_cast<int>(var)).toInt())
+#define DEPRECATED(name) do { } while (0)
 
 // Workaround for mumble-voip/mumble#2638.
 //
@@ -703,6 +706,7 @@ void Settings::load(QSettings* settings_ptr) {
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bEnableDeveloperMenu, "ui/developermenu");
+	SAVELOAD(bLockLayout, "ui/locklayout");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
@@ -772,6 +776,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	SAVELOAD(bEnableWinHooks, "winhooks");
 	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
+	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0; i<nshorts; i++) {
@@ -823,6 +828,8 @@ void Settings::load(QSettings* settings_ptr) {
 #undef SAVELOAD
 #define SAVELOAD(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), var); else settings_ptr->remove(QLatin1String(name))
 #define SAVEFLAG(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), static_cast<int>(var)); else settings_ptr->remove(QLatin1String(name))
+#undef DEPRECATED
+#define DEPRECATED(name) settings_ptr->remove(QLatin1String(name))
 
 void OverlaySettings::save() {
 	save(g.qs);
@@ -1032,6 +1039,7 @@ void Settings::save() {
 	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bEnableDeveloperMenu, "ui/developermenu");
+	SAVELOAD(bLockLayout, "ui/locklayout");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
@@ -1098,6 +1106,7 @@ void Settings::save() {
 	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	SAVELOAD(bEnableWinHooks, "winhooks");
 	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
+	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

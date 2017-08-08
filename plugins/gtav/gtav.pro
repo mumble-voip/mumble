@@ -5,6 +5,6 @@
 
 include(../plugins.pri)
 
-TARGET		= gtav
-SOURCES		= gtav.cpp
-LIBS		+= -luser32
+TARGET = gtav
+SOURCES = gtav.cpp
+LIBS += -luser32

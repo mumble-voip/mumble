@@ -268,6 +268,9 @@ struct Settings {
 	bool bEnableWinHooks;
 	/// Enable verbose logging in GlobalShortcutWin's DirectInput backend.
 	bool bDirectInputVerboseLogging;
+	/// Enable use of UIAccess (Windows's UI automation feature). This allows
+	/// Mumble greater access to global shortcuts.
+	bool bEnableUIAccess;
 	QList<Shortcut> qlShortcuts;
 
 	enum MessageLog { LogNone = 0x00, LogConsole = 0x01, LogTTS = 0x02, LogBalloon = 0x04, LogSoundfile = 0x08};
@@ -295,6 +298,7 @@ struct Settings {
 	AlwaysOnTopBehaviour aotbAlwaysOnTop;
 	bool bAskOnQuit;
 	bool bEnableDeveloperMenu;
+	bool bLockLayout;
 	bool bHideInTray;
 	bool bStateInTray;
 	bool bUsage;

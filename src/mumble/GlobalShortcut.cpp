@@ -665,6 +665,7 @@ void GlobalShortcutConfig::load(const Settings &r) {
 		qwWarningContainer->setVisible(showWarning());
 	}
 
+	qcbEnableUIAccess->setChecked(r.bEnableUIAccess);
 	qcbEnableWinHooks->setChecked(r.bEnableWinHooks);
 	qcbEnableGKey->setChecked(r.bEnableGKey);
 	qcbEnableXboxInput->setChecked(r.bEnableXboxInput);
@@ -678,6 +679,9 @@ void GlobalShortcutConfig::save() const {
 	s.qlShortcuts = qlShortcuts;
 	s.bShortcutEnable = qcbEnableGlobalShortcuts->checkState() == Qt::Checked;
 
+	bool oldUIAccess = s.bEnableUIAccess;
+	s.bEnableUIAccess = qcbEnableUIAccess->checkState() == Qt::Checked;
+
 	bool oldWinHooks = s.bEnableWinHooks;
 	s.bEnableWinHooks = qcbEnableWinHooks->checkState() == Qt::Checked;
 
@@ -687,7 +691,7 @@ void GlobalShortcutConfig::save() const {
 	bool oldXboxInput = s.bEnableXboxInput;
 	s.bEnableXboxInput = qcbEnableXboxInput->checkState() == Qt::Checked;
 
-	if (s.bEnableWinHooks != oldWinHooks || s.bEnableGKey != oldGKey || s.bEnableXboxInput != oldXboxInput) {
+	if (s.bEnableUIAccess != oldUIAccess || s.bEnableWinHooks != oldWinHooks || s.bEnableGKey != oldGKey || s.bEnableXboxInput != oldXboxInput) {
 		s.requireRestartToApply = true;
 	}
 }
@@ -932,9 +936,6 @@ QString GlobalShortcutEngine::buttonText(const QList<QVariant> &list) {
 			keys << id;
 	}
 	return keys.join(QLatin1String(" + "));
-}
-
-void GlobalShortcutEngine::prepareInput() {
 }
 
 GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, QVariant def) : QObject(p) {

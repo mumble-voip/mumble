@@ -11,5 +11,5 @@ HEADERS *= Timer.h CryptState.h
 VPATH *= ..
 INCLUDEPATH *= .. ../murmur ../mumble
 !win32 {
-	LIBS *= -lcrypto
+  LIBS *= -lcrypto
 }

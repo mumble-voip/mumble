@@ -8,8 +8,6 @@
 
 #include "overlay_exe/overlay_exe.h"
 
-#undef max // for std::numeric_limits<T>::max()
-
 static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
@@ -391,7 +389,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		if (sd != NULL && ! sd->bHooked) {
 			HMODULE hSelf = NULL;
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) &InstallHooks, &hSelf);
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(&InstallHooks), &hSelf);
 			if (hSelf == NULL) {
 				ods("Lib: Failed to find myself");
 			} else {
@@ -695,7 +693,7 @@ bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &log
 
 	BOOL success = GetModuleHandleEx(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			reinterpret_cast<LPCSTR>(fnptr), &hModule);
+			reinterpret_cast<LPCTSTR>(fnptr), &hModule);
 	if (!success) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 	} else {
@@ -706,13 +704,13 @@ bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &log
 	return false;
 }
 
-int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName) {
+boost::optional<size_t> GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName) {
 
 	HMODULE hModule = NULL;
 
-	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) fnptr, &hModule)) {
+	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(fnptr), &hModule)) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
-		return -1;
+		return boost::none;
 	}
 
 	const bool bInit = refmodulepath[0] == '\0';
@@ -723,20 +721,12 @@ int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int ref
 		GetModuleFileNameW(hModule, modulename, ARRAY_NUM_ELEMENTS(modulename));
 		if (_wcsicmp(modulename, refmodulepath) != 0) {
 			ods((logPrefix + ": " + fnName + " functions module path does not match previously found. Now: '%ls', Previously: '%ls'").c_str(), modulename, refmodulepath);
-			return -2;
+			return boost::none;
 		}
 	}
 
-	unsigned char *fn = reinterpret_cast<unsigned char *>(fnptr);
-	unsigned char *base = reinterpret_cast<unsigned char *>(hModule);
-	unsigned long off = static_cast<unsigned long>(fn - base);
+	size_t fn = reinterpret_cast<size_t>(fnptr);
+	size_t base = reinterpret_cast<size_t>(hModule);
 
-	// XXX: convert this function to use something other than int.
-	// Issue mumble-voip/mumble#1924.
-	if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
-		ods("Internal overlay error: GetFnOffsetInModule() offset greater than return type can hold.");
-		return -1;
-	}
-
-	return static_cast<int>(off);
+	return fn - base;
 }

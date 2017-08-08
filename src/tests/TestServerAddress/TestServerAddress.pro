@@ -9,4 +9,4 @@ QT += network
 
 TARGET = TestServerAddress
 SOURCES = TestServerAddress.cpp ServerAddress.cpp HostAddress.cpp
-HEADERS = ServerAddress.h HostAddresss.h
+HEADERS = ServerAddress.h HostAddress.h

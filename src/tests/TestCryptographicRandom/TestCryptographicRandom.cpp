@@ -6,6 +6,8 @@
 #include <QtCore>
 #include <QtTest>
 
+#include "SSL.h"
+
 #include "CryptographicRandom.h"
 
 #include <stdint.h>
@@ -15,10 +17,20 @@
 class TestCryptographicRandom : public QObject {
 		Q_OBJECT
 	private slots:
+		void initTestCase();
+		void cleanupTestCase();
 		void fillBuffer();
 		void uint32();
 		void uniform();
 };
+
+void TestCryptographicRandom::initTestCase() {
+	MumbleSSL::initialize();
+}
+
+void TestCryptographicRandom::cleanupTestCase() {
+	MumbleSSL::destroy();
+}
 
 // Verify the entropy of the data returned by the random source
 // by zlib compressing it and ensuring the compressed size is at

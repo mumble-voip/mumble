@@ -356,7 +356,7 @@ void checkOpenGLHook() {
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 			HMODULE hTempSelf = NULL;
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkOpenGLHook), &hTempSelf);
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&checkOpenGLHook), &hTempSelf);
 
 #define INJECT(handle, name) {\
 	o##name = reinterpret_cast<t##name>(GetProcAddress(handle, #name));\

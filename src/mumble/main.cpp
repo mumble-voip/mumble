@@ -196,6 +196,8 @@ extern void os_init();
 extern char *os_lang;
 
 #ifdef Q_OS_WIN
+// from os_early_win.cpp
+extern int os_early_init();
 // from os_win.cpp
 extern HWND mumble_mw_hwnd;
 #endif // Q_OS_WIN
@@ -206,6 +208,13 @@ extern "C" __declspec(dllexport) int main(int argc, char **argv) {
 int main(int argc, char **argv) {
 #endif
 	int res = 0;
+
+#if defined(Q_OS_WIN)
+	int ret = os_early_init();
+	if (ret != 0) {
+		return ret;
+	}
+#endif
 
 	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
 
@@ -775,6 +784,9 @@ int main(int argc, char **argv) {
 	// correctly.
 	userLockFile.release();
 #endif
+
+	// Tear down OpenSSL state.
+	MumbleSSL::destroy();
 	
 	// At this point termination of our process is immenent. We can safely
 	// launch another version of Mumble. The reason we do an actual

@@ -4,27 +4,27 @@ BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
 
 !win32 {
-	VERSION=0 #$$ Fool packaging script
+  VERSION=0 #$$ Fool packaging script
 }
 
 !exists(../$$SOURCEDIR/COPYING) {
-	message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init).")
-	error("Aborting configuration")
+  message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init).")
+  error("Aborting configuration")
 }
 
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += no_include_pwd
-VPATH	= ../$$SOURCEDIR
+VPATH = ../$$SOURCEDIR
 TARGET = opus
 DEFINES += HAVE_CONFIG_H
 
 !CONFIG(third-party-warnings) {
-	# We ignore warnings in third party builds. We won't actually look
-	# at them and they clutter out our warnings.
-	CONFIG -= warn_on
-	CONFIG += warn_off
+  # We ignore warnings in third party builds. We won't actually look
+  # at them and they clutter out our warnings.
+  CONFIG -= warn_on
+  CONFIG += warn_off
 }
 
 QMAKE_CFLAGS -= -fPIE -pie
@@ -64,8 +64,6 @@ unix {
 
   INCLUDEPATH += ../$$BUILDDIR
 }
-
-DIST = config.h
 
 INCLUDEPATH *= \
 ../$$SOURCEDIR \
@@ -119,7 +117,8 @@ CONFIG(opus-sse-sources) {
 CONFIG(opus-sse2-sources) {
   # celt_sources.mk: CELT_SOURCES_SSE2
   SOURCES *= \
-  celt/x86/pitch_sse2.c
+  celt/x86/pitch_sse2.c \
+  celt/x86/vq_sse2.c
 }
 
 CONFIG(opus-sse41-sources) {
@@ -207,6 +206,7 @@ silk/stereo_decode_pred.c \
 silk/stereo_encode_pred.c \
 silk/stereo_find_predictor.c \
 silk/stereo_quant_pred.c \
+silk/LPC_fit.c \
 silk/float/apply_sine_window_FLP.c \
 silk/float/corrMatrix_FLP.c \
 silk/float/encode_frame_FLP.c \
@@ -218,11 +218,9 @@ silk/float/LPC_analysis_filter_FLP.c \
 silk/float/LTP_analysis_filter_FLP.c \
 silk/float/LTP_scale_ctrl_FLP.c \
 silk/float/noise_shape_analysis_FLP.c \
-silk/float/prefilter_FLP.c \
 silk/float/process_gains_FLP.c \
 silk/float/regularize_correlations_FLP.c \
 silk/float/residual_energy_FLP.c \
-silk/float/solve_LS_FLP.c \
 silk/float/warped_autocorrelation_FLP.c \
 silk/float/wrappers_FLP.c \
 silk/float/autocorrelation_FLP.c \
@@ -231,7 +229,6 @@ silk/float/bwexpander_FLP.c \
 silk/float/energy_FLP.c \
 silk/float/inner_product_FLP.c \
 silk/float/k2a_FLP.c \
-silk/float/levinsondurbin_FLP.c \
 silk/float/LPC_inv_pred_gain_FLP.c \
 silk/float/pitch_analysis_core_FLP.c \
 silk/float/scale_copy_vector_FLP.c \
@@ -264,12 +261,12 @@ src/mlp_data.c
 
 
 CONFIG(debug, debug|release) {
-	CONFIG += console
-	DESTDIR = ../../debug
+  CONFIG += console
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-	DESTDIR = ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

@@ -5,7 +5,7 @@
 
 include(../plugins.pri)
 
-TARGET		= ffxiv
-SOURCES		= ffxiv.cpp
+TARGET = ffxiv
+SOURCES = ffxiv.cpp
 
-win32:LIBS		+= -luser32
+win32:LIBS += -luser32

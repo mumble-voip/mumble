@@ -19,6 +19,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <boost/optional.hpp>
 #include "overlay.h"
 #include "HardHook.h"
 #include "ods.h"
@@ -40,29 +41,29 @@ const int PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN = PROCNAMEFILEPATH_BUFLEN + PR
 struct Direct3D9Data {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetCreate;
-	int iOffsetCreateEx;
+	size_t offsetCreate;
+	size_t offsetCreateEx;
 };
 
 struct DXGIData {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetPresent;
-	int iOffsetResize;
+	size_t offsetPresent;
+	size_t offsetResize;
 };
 
 struct D3D10Data {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetAddRef;
-	int iOffsetRelease;
+	size_t offsetAddRef;
+	size_t offsetRelease;
 };
 
 struct D3D11Data {
 	/// Filepath of the module the offsets are for.
 	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
-	int iOffsetAddRef;
-	int iOffsetRelease;
+	size_t offsetAddRef;
+	size_t offsetRelease;
 };
 
 struct SharedData {
@@ -141,6 +142,6 @@ extern bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::stri
 /// Checks fnptr is in a loaded module with module path refmodulepath.
 ///
 /// @return Offset as int or < 0 on failure.
-extern int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName);
+extern boost::optional<size_t> GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName);
 
 #endif

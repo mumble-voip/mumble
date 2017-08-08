@@ -6,30 +6,30 @@ VERSION=$$replace(BUILDDIR,-build,)
 VERSION=$$replace(VERSION,celt-,)
 
 !exists(../$$SOURCEDIR/COPYING) {
-	message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init) or build with CONFIG+=no-bundled-celt.")
-	error("Aborting configuration")
+  message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init) or build with CONFIG+=no-bundled-celt.")
+  error("Aborting configuration")
 }
 
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += no_include_pwd
-VPATH	= ../$$SOURCEDIR/libcelt
+VPATH = ../$$SOURCEDIR/libcelt
 TARGET = celt0
 RC_FILE = celt-0.11.0.rc
 DEFINES += HAVE_CONFIG_H
 TARGET_VERSION_EXT = .$$VERSION
 
 CONFIG(static) {
-	CONFIG -= static
-	CONFIG += shared
+  CONFIG -= static
+  CONFIG += shared
 }
 
 !CONFIG(third-party-warnings) {
-	# We ignore warnings in third party builds. We won't actually look
-	# at them and they clutter out our warnings.
-	CONFIG -= warn_on
-	CONFIG += warn_off
+  # We ignore warnings in third party builds. We won't actually look
+  # at them and they clutter out our warnings.
+  CONFIG -= warn_on
+  CONFIG += warn_off
 }
 
 QMAKE_CFLAGS -= -fPIE -pie
@@ -55,24 +55,22 @@ win32 {
 }
 
 unix {
-	contains(QMAKE_CFLAGS, -ffast-math) {
-		DEFINES += FLOAT_APPROX
-	}
+  contains(QMAKE_CFLAGS, -ffast-math) {
+    DEFINES += FLOAT_APPROX
+  }
 
-	INCLUDEPATH += ../$$BUILDDIR
+  INCLUDEPATH += ../$$BUILDDIR
 }
-
-DIST = config.h
 
 SOURCES *= bands.c celt.c cwrs.c entcode.c entdec.c entenc.c header.c kiss_fft.c laplace.c mathops.c mdct.c modes.c pitch.c plc.c quant_bands.c rate.c vq.c
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  DESTDIR	= ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR	= ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

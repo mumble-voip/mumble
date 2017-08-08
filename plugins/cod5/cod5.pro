@@ -5,6 +5,6 @@
 
 include(../plugins.pri)
 
-TARGET		= cod5
-SOURCES		= cod5.cpp
-LIBS		+= -luser32
+TARGET = cod5
+SOURCES = cod5.cpp
+LIBS += -luser32

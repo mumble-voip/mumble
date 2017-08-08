@@ -13,11 +13,11 @@ SOURCES = TestServerResolver.cpp HostAddress.cpp ServerResolver_qt5.cpp ServerRe
 HEADERS = HostAddress.h ServerResolver.h ServerResolverRecord.h
 
 isEqual(QT_MAJOR_VERSION, 4) {
-	CONFIG *= no-srv
+  CONFIG *= no-srv
 }
 
 CONFIG(no-srv) {
-	DEFINES += USE_NO_SRV
-	SOURCES -= ServerResolver_qt5.cpp
-	SOURCES *= ServerResolver_nosrv.cpp
+  DEFINES += USE_NO_SRV
+  SOURCES -= ServerResolver_qt5.cpp
+  SOURCES *= ServerResolver_nosrv.cpp
 }

@@ -3,4 +3,11 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-DIST *= DS_Store codesign-requirements.tmpl osxdist.py build-overlay-installer gendmg.pl
+include(../test.pri)
+include(../../../qmake/qt.pri)
+
+QT *= network
+
+TARGET = TestSelfSignedCertificate
+SOURCES = SSL.cpp SSLLocks.cpp TestSelfSignedCertificate.cpp SelfSignedCertificate.cpp
+HEADERS = SSL.h SSLLocks.h SelfSignedCertificate.h

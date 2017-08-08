@@ -9,7 +9,7 @@ CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
 CONFIG += static
-VPATH	= ../xinputcheck-src
+VPATH = ../xinputcheck-src
 TARGET = xinputcheck
 INCLUDEPATH = ../$$SOURCEDIR
 
@@ -17,11 +17,11 @@ SOURCES *= xinputcheck.cpp
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  DESTDIR	= ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR	= ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

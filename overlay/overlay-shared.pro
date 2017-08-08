@@ -18,15 +18,14 @@ HEADERS = ancestor.h lib.h olsettings.h excludecheck.h ods.h HardHook.h overlay_
 EFFECTS = overlay.fx
 DX11_PIXEL_SHADERS = overlay11.ps
 DX11_VERTEX_SHADERS = overlay11.vs
-DIST = overlay.h overlay.fx HardHook.h
 
 DEFINES -= UNICODE
 
-QMAKE_CXXFLAGS_RELEASE	-= -MD
-QMAKE_CXXFLAGS_DEBUG	-= -MDd
+QMAKE_CXXFLAGS_RELEASE -= -MD
+QMAKE_CXXFLAGS_DEBUG -= -MDd
 
-QMAKE_CXXFLAGS_RELEASE	*= -MT
-QMAKE_CXXFLAGS_DEBUG	*= -MTd
+QMAKE_CXXFLAGS_RELEASE *= -MT
+QMAKE_CXXFLAGS_DEBUG *= -MTd
 
 LIBS *= -ldxguid -luuid -lole32 -luser32 -ladvapi32
 LIBS *= -ld3d9 -ld3d10 -ld3d11 -ld3dcompiler -ldxgi

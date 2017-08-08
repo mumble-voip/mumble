@@ -32,12 +32,12 @@ QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo
 CONFIG(debug, debug|release) {
   CONFIG += console
   DEFINES *= DEBUG
-  DESTDIR	= ../../debug
+  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
   DEFINES *= NDEBUG
-  DESTDIR	= ../../release
+  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

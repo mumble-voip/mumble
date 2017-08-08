@@ -8,10 +8,10 @@ include(../plugins.pri)
 TARGET = rl
 
 win32 {
-	SOURCES = rl_win32.cpp
-	LIBS += -luser32
+  SOURCES = rl_win32.cpp
+  LIBS += -luser32
 }
 
 linux {
-	SOURCES = rl_linux.cpp
+  SOURCES = rl_linux.cpp
 }

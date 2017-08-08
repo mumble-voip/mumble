@@ -1,6 +1,6 @@
 include(../../qmake/compiler.pri)
 
-TEMPLATE	=app
+TEMPLATE =app
 CONFIG  += qt warn_on release console
 QT -= gui
 TARGET = ResampMark
