@@ -3,7 +3,7 @@ cls
 echo 1. Build for release
 echo 2. Build for development
 
-CHOICE /C 123 /M "Enter your choice:"
+CHOICE /C 12 /M "Enter your choice:"
 
 IF ERRORLEVEL 2 GOTO ConfigDev
 IF ERRORLEVEL 1 GOTO ConfigRelease
