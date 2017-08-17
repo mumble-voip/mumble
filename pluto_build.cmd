@@ -15,12 +15,12 @@ goto:eof
 
 :ConfigRelease
 call:SetupSpeex
-qmake -recursive main.pro CONFIG+="release static no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
+qmake -recursive main.pro CONFIG+="release static no-game-plugins no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
 goto Done
 
 :ConfigDev
 call:SetupSpeex
-qmake -recursive main.pro CONFIG+="static no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="DEBUG NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
+qmake -recursive main.pro CONFIG+="static no-game-plugins no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="DEBUG NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
 
 :Done
 nmake
