@@ -1,4 +1,4 @@
-@echo off
+@echo on
 cls
 echo 1. Build for release
 echo 2. Build for development
