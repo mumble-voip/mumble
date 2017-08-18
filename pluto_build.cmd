@@ -9,7 +9,6 @@ IF ERRORLEVEL 2 GOTO ConfigDev
 IF ERRORLEVEL 1 GOTO ConfigRelease
 
 :ConfigRelease
-echo ConfigRelease begin
 call git submodule init && ^
 call git submodule update && ^
 call qmake -recursive main.pro CONFIG+="release static no-game-plugins no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
