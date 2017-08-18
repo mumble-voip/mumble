@@ -1,4 +1,4 @@
-@echo on
+@echo off
 cls
 echo 1. Build for release
 echo 2. Build for development
@@ -10,22 +10,16 @@ IF ERRORLEVEL 1 GOTO ConfigRelease
 
 :ConfigRelease
 echo ConfigRelease begin
-@echo on
-git submodule init & ^
-git submodule update & ^
-echo qmake -recursive main.pro CONFIG+="release static no-game-plugins no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD" && ^
-echo ConfigRelease end & ^
+call git submodule init && ^
+call git submodule update && ^
+call qmake -recursive main.pro CONFIG+="release static no-game-plugins no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
 goto Done
 
 :ConfigDev
-@echo on
-git submodule init & ^
-git submodule update & ^
-qmake -recursive main.pro CONFIG+="static no-game-plugins no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="DEBUG NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
-@echo off
+call git submodule init && ^
+call git submodule update && ^
+call qmake -recursive main.pro CONFIG+="static no-game-plugins no-elevation no-g15 no-asio no-overlay no-server" CONFIG-=sse2 DEFINES+="DEBUG NO_UPDATE_CHECK NO_CRASH_REPORT PLUTOVR_BUILD"
 
 :Done
-echo Done begin
-@echo on
 echo nmake
-@echo off
+call nmake
