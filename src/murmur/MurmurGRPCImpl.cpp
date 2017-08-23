@@ -123,7 +123,7 @@ void GRPCStart() {
 
 	service = new MurmurRPCImpl(address, credentials);
 
-	qWarning("GRPC: lisetning on '%s'", qPrintable(address));
+	qWarning("GRPC: listening on '%s'", qPrintable(address));
 }
 
 void GRPCStop() {
