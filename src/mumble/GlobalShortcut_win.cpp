@@ -308,6 +308,32 @@ bool GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
 
+	// Encode all the information we need to identify
+	// the key press into a DWORD.
+	//
+	// The GetKeyNameText Windows API expects a DWORD
+	// equivalent to the lParam parameter from a WM_KEYDOWN/WM_KEYUP
+	// message. That is, bits 16-23 contain the scancode and bit 24
+	// contains the extended flag. (The function also reads bit 25,
+	// the "do not care" bit which indicates that the function should
+	// not consider Left/Right Ctrl/Alt keys as different from one
+	// another).
+	//
+	// So if we put the scancode and extended flag where GetKeyNameText
+	// expects them to be, we can pass our DWORD value directly to that
+	// API call.
+	//
+	// However, it turns out that GetKeyNameText is not able to translate
+	// all key names. For example, it cannot translate keys F13-F24.
+	//
+	// To fix this problem, we also include the 8-bit virtual keycode
+	// (vkcode) in our keyInfo DWORD. Since GetKeyNameText does not
+	// look at the lower 16-bits of the DWORD it operates on, we're
+	// free to use those for the virtual keycode. We make use of that
+	// by putting the virtual keycode in in the first byte of the DWORD.
+	//
+	// This allows us to translate the virtual keycode manually when
+	// GetKeyNameText fails, such as it does for F13-F24.
 	DWORD keyInfo = 0;
 	keyInfo |= (vkcode & 0xff);
 	keyInfo |= (scancode << 16);
