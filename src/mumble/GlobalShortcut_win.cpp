@@ -308,11 +308,15 @@ bool GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
 
-	Q_UNUSED(scancode);
-	Q_UNUSED(extended);
+	Q_UNUSED(vkcode);
+
+	DWORD lParam = (scancode << 16);
+	if (extended) {
+		lParam |= (1 << 24);
+	}
 
 	QList<QVariant> ql;
-	ql << static_cast<unsigned int>(vkcode);
+	ql << static_cast<unsigned int>(lParam);
 	ql << GlobalShortcutWin::s_WinHooksKeyboardGuid;
 	bool suppress = gsw->handleButton(ql, down);
 
@@ -786,11 +790,12 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	QString name=QLatin1String("Unknown");
 
 	if (guid == GlobalShortcutWin::s_WinHooksKeyboardGuid) {
-		const char *keyName = vk_translation_tbl_lookup(type);
-		if (keyName == NULL) {
-			keyName = "Unknown";
+		wchar_t keyName[32];
+		int len = GetKeyNameText(type, reinterpret_cast<WCHAR *>(&keyName), sizeof(keyName)/sizeof(keyName[0]));
+		if (len > 0) {
+			return QString::fromLatin1("K:%1").arg(QString::fromWCharArray(&keyName[0], len));
 		}
-		return QString::fromLatin1("K:%1").arg(QString::fromLatin1(keyName));
+		return QString::fromLatin1("K:Unknown");
 	} else if (guid == GlobalShortcutWin::s_WinHooksMouseGuid) {
 		return QString::fromLatin1("M:Button %1").arg(type);
 	}
