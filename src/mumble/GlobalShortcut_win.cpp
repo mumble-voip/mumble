@@ -16,6 +16,9 @@
 // 3rdparty/xinputcheck-src.
 #include <xinputcheck.h>
 
+#include "WindowsVKTable.h"
+
+
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
@@ -106,6 +109,8 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
 
+const QUuid GlobalShortcutWin::s_WinHooksKeyboardGuid = QUuid(QString::fromLatin1("fa11e576-13bc-494b-a572-8dd351ffbcb4"));
+const QUuid GlobalShortcutWin::s_WinHooksMouseGuid = QUuid(QString::fromLatin1("bd9f6a44-bfff-450b-8144-1b934aee0030"));
 
 GlobalShortcutWin::GlobalShortcutWin()
 	: pDI(NULL)
@@ -303,48 +308,12 @@ bool GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
 
+	Q_UNUSED(scancode);
+	Q_UNUSED(extended);
+
 	QList<QVariant> ql;
-
-	// Convert the low-level key event to
-	// a DirectInput key ID.
-	unsigned int keyid = static_cast<unsigned int>((scancode << 8) | 0x4);
-	if (extended) {
-		keyid |= 0x8000U;
-	}
-
-	// NumLock and Pause need special handling.
-	// For those keys, the method above of setting
-	// bit 15 high when the LLKHF_EXTENDED flag is
-	// set on the low-level key event does not work.
-	//
-	// When we receive a low-level Windows
-	// Pause key event, the extended flag isn't
-	// set, but DirectInput expects it to be.
-	//
-	// The opposite is true for NumLock key,
-	// where the extended flag for the low-level
-	// Windows event is set, but DirectInput expects
-	// it not to be.
-	//
-	// Without this fix-up, we would emit Pause as
-	// NumLock, and NumLock as pause. That was
-	// problematic, because at the same time,
-	// DirectInput would emit the correct key.
-	// This meant that when pressing one of Pause
-	// and NumLock, shortcut actions for both keys
-	// would be triggered.
-	//
-	// Originally reported in mumble-voip/mumble#1353
-	if (vkcode == VK_PAUSE) {
-		// Always set the extended bit for Pause.
-		keyid |= 0x8000U;
-	} else if (vkcode == VK_NUMLOCK) {
-		// Never set the extended bit for NumLock.
-		keyid &= ~0x8000U;
-	}
-
-	ql << keyid;
-	ql << QVariant(QUuid(GUID_SysKeyboard));
+	ql << static_cast<unsigned int>(vkcode);
+	ql << GlobalShortcutWin::s_WinHooksKeyboardGuid;
 	bool suppress = gsw->handleButton(ql, down);
 
 	return suppress;
@@ -357,8 +326,8 @@ bool GlobalShortcutWin::handleMouseMessage(unsigned int btn, bool down) {
 
 	if (btn > 0) {
 		QList<QVariant> ql;
-		ql << static_cast<unsigned int>((btn << 8) | 0x4);
-		ql << QVariant(QUuid(GUID_SysMouse));
+		ql << btn; 
+		ql << GlobalShortcutWin::s_WinHooksMouseGuid;
 
 		// Do not suppress LBUTTONUP though (so suppression can be deactivated via mouse).
 		bool wantsuppress = gsw->handleButton(ql, down);
@@ -454,6 +423,19 @@ BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINST
 BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext) {
 	GlobalShortcutWin *cbgsw=static_cast<GlobalShortcutWin *>(pContext);
 	HRESULT hr;
+
+	// If we are using native Windows messages for input,
+	// do not consider keyboard and mouse devices in DirectInput.
+	if (cbgsw->bHook) {
+		GUID guid = pdidi->guidInstance;
+		if (guid == GUID_SysKeyboard) {
+			qWarning("GlobalShortcutWin: skipping DirectInput SysKeyboard device becasue winhooks are enabled");
+			return DIENUM_CONTINUE;
+		} else if (guid == GUID_SysMouse) {
+			qWarning("GlobalShortcutWin: skipping DirectInput SysKeyboard device becasue winhooks are enabled");
+			return DIENUM_CONTINUE;
+		}
+	}
 
 	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszProductName));
 	QString sname = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszInstanceName));
@@ -802,6 +784,16 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 	QString device=guid.toString();
 	QString name=QLatin1String("Unknown");
+
+	if (guid == GlobalShortcutWin::s_WinHooksKeyboardGuid) {
+		const char *keyName = vk_translation_tbl_lookup(type);
+		if (keyName == NULL) {
+			keyName = "Unknown";
+		}
+		return QString::fromLatin1("K:%1").arg(QString::fromLatin1(keyName));
+	} else if (guid == GlobalShortcutWin::s_WinHooksMouseGuid) {
+		return QString::fromLatin1("M:Button %1").arg(type);
+	}
 
 #ifdef USE_GKEY
 	if (g.s.bEnableGKey && gkey != NULL && gkey->isValid()) {

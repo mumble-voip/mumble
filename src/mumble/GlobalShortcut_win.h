@@ -76,6 +76,9 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		int nxboxinput;
 #endif
 
+		static const QUuid s_WinHooksKeyboardGuid;
+		static const QUuid s_WinHooksMouseGuid;
+
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
