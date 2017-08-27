@@ -5,6 +5,9 @@
 
 // This table translates Windows virtual keycodes
 // to user-readable strings.
+//
+// The following list on MSDN was used for reference:
+// https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731.aspx
 
 static const char *vk_translation_tbl[] = {
 	NULL,               // 0x00
