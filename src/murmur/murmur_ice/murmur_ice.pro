@@ -48,7 +48,7 @@ macx {
       MUMBLE_ICE_PREFIX = $$(MUMBLE_PREFIX)/Ice-3.4.2
   }
   INCLUDEPATH *= $$MUMBLE_ICE_PREFIX/include/
-  slice.commands = $$MUMBLE_ICE_PREFIX/bin/slice2cpp --checksum -I$$MUMBLE_ICE_PREFIX/slice/ -I$$MUMBLE_ICE_PREFIX/share/slice/ ../Murmur.ice
+  slice.commands = $$MUMBLE_ICE_PREFIX/bin/slice2cpp --checksum -I$$MUMBLE_ICE_PREFIX/slice/ -I$$MUMBLE_ICE_PREFIX/share/slice/ -I$$MUMBLE_ICE_PREFIX/share/ice/slice ../Murmur.ice
 }
 
 unix:!macx:CONFIG(buildenv) {
