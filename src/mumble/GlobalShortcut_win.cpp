@@ -878,7 +878,10 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	else if (id)
 		device=id->name+QLatin1String(":");
 	if (id) {
-		name=id->qhNames.value(type);
+		QString result = id->qhNames.value(type);
+		if (!result.isEmpty()) {
+			name = result;
+		}
 	}
 	return device+name;
 }
