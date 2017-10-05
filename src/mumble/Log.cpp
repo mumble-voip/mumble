@@ -557,6 +557,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 // Post a notification using the MainWindow's QSystemTrayIcon.
 void Log::postQtNotification(MsgType mt, const QString &plain) {
+#ifndef PLUTOVR_BUILD
 	if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
 		QSystemTrayIcon::MessageIcon msgIcon;
 		switch (mt) {
@@ -571,10 +572,12 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 				msgIcon = QSystemTrayIcon::Information;
 				break;
 		}
-#ifndef PLUTOVR_BUILD
 		g.mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
-#endif
 	}
+#else
+	UNREFERENCED_PARAMETER(mt);
+	UNREFERENCED_PARAMETER(plain);
+#endif
 }
 
 LogDocument::LogDocument(QObject *p)
