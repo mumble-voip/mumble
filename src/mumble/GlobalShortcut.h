@@ -201,6 +201,8 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		void on_qcbEnableGlobalShortcuts_stateChanged(int);
 		void on_qpbAdd_clicked(bool);
 		void on_qpbRemove_clicked(bool);
+		void on_qpbImport_clicked();
+		void on_qpbExport_clicked();
 		void on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwShortcuts_itemChanged(QTreeWidgetItem *, int);
 		void on_qpbOpenAccessibilityPrefs_clicked();

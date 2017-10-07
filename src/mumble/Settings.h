@@ -411,7 +411,9 @@ struct Settings {
 	Settings();
 	void load();
 	void load(QSettings*);
+	QList<Shortcut> loadShortcuts(QSettings *s);
 	void save();
+	void saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *s);
 };
 
 #endif

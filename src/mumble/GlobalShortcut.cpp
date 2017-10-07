@@ -625,6 +625,27 @@ void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
 	qlShortcuts.removeAt(idx);
 }
 
+void GlobalShortcutConfig::on_qpbImport_clicked() {
+	commit();
+	QString filePath = QFileDialog::getOpenFileName(this, tr("Import shortcuts"), QString(), QLatin1String("*.ini"));
+	if (filePath.isEmpty()) {
+		return;
+	}
+	QSettings s(filePath, QSettings::IniFormat);
+	qlShortcuts = g.s.loadShortcuts(&s);
+	reload();
+}
+
+void GlobalShortcutConfig::on_qpbExport_clicked() {
+	commit();
+	QString filePath = QFileDialog::getSaveFileName(this, tr("Save shortcuts"), QLatin1String("mumble-shortcuts.ini"), QLatin1String("*.ini"));
+	if (filePath.isEmpty()) {
+		return;
+	}
+	QSettings s(filePath, QSettings::IniFormat);
+	g.s.saveShortcuts(qlShortcuts, &s);
+}
+
 void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
 	qpbRemove->setEnabled(item ? true : false);
 }

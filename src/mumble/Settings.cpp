@@ -778,21 +778,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
 	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
-	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
-	for (int i=0; i<nshorts; i++) {
-		settings_ptr->setArrayIndex(i);
-		Shortcut s;
-
-		s.iIndex = -2;
-
-		SAVELOAD(s.iIndex, "index");
-		SAVELOAD(s.qlButtons, "keys");
-		SAVELOAD(s.bSuppress, "suppress");
-		s.qvData = settings_ptr->value(QLatin1String("data"));
-		if (s.iIndex >= -1)
-			qlShortcuts << s;
-	}
-	settings_ptr->endArray();
+	qlShortcuts = loadShortcuts(settings_ptr);
 
 	settings_ptr->beginReadArray(QLatin1String("messages"));
 	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
@@ -823,6 +809,26 @@ void Settings::load(QSettings* settings_ptr) {
 	settings_ptr->beginGroup(QLatin1String("overlay"));
 	os.load(settings_ptr);
 	settings_ptr->endGroup();
+}
+
+QList<Shortcut> Settings::loadShortcuts(QSettings *settings_ptr) {
+	QList<Shortcut> qlShortcuts;
+	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
+	for (int i=0; i<nshorts; i++) {
+		settings_ptr->setArrayIndex(i);
+		Shortcut s;
+
+		s.iIndex = -2;
+
+		SAVELOAD(s.iIndex, "index");
+		SAVELOAD(s.qlButtons, "keys");
+		SAVELOAD(s.bSuppress, "suppress");
+		s.qvData = settings_ptr->value(QLatin1String("data"));
+		if (s.iIndex >= -1)
+			qlShortcuts << s;
+	}
+	settings_ptr->endArray();
+	return qlShortcuts;
 }
 
 #undef SAVELOAD
@@ -1108,18 +1114,7 @@ void Settings::save() {
 	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
 	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
-	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
-	int idx = 0;
-	foreach(const Shortcut &s, qlShortcuts) {
-		if (! s.isServerSpecific()) {
-			settings_ptr->setArrayIndex(idx++);
-			settings_ptr->setValue(QLatin1String("index"), s.iIndex);
-			settings_ptr->setValue(QLatin1String("keys"), s.qlButtons);
-			settings_ptr->setValue(QLatin1String("suppress"), s.bSuppress);
-			settings_ptr->setValue(QLatin1String("data"), s.qvData);
-		}
-	}
-	settings_ptr->endArray();
+	saveShortcuts(qlShortcuts, settings_ptr);
 
 	settings_ptr->beginWriteArray(QLatin1String("messages"));
 	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
@@ -1158,4 +1153,19 @@ void Settings::save() {
 	settings_ptr->beginGroup(QLatin1String("overlay"));
 	os.save(settings_ptr);
 	settings_ptr->endGroup();
+}
+
+void Settings::saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr) {
+	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
+	int idx = 0;
+	foreach(const Shortcut &s, qlShortcuts) {
+		if (! s.isServerSpecific()) {
+			settings_ptr->setArrayIndex(idx++);
+			settings_ptr->setValue(QLatin1String("index"), s.iIndex);
+			settings_ptr->setValue(QLatin1String("keys"), s.qlButtons);
+			settings_ptr->setValue(QLatin1String("suppress"), s.bSuppress);
+			settings_ptr->setValue(QLatin1String("data"), s.qvData);
+		}
+	}
+	settings_ptr->endArray();
 }
