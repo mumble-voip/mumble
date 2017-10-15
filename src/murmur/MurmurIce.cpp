@@ -252,7 +252,11 @@ MurmurIce::MurmurIce() {
 		}
 		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
+#if ICE_INT_VERSION >= 30700
+		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, Ice::stringToIdentity("Meta")));
+#else
 		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));
+#endif
 		adapter->addServantLocator(new ServerLocator(), "s");
 
 		iopServer = new ServerI;
@@ -264,7 +268,11 @@ MurmurIce::MurmurIce() {
 
 		meta->connectListener(this);
 	} catch (Ice::Exception &e) {
+#if ICE_INT_VERSION >= 30700
+		qCritical("MurmurIce: Initialization failed: %s", qPrintable(u8(e.ice_id())));
+#else
 		qCritical("MurmurIce: Initialization failed: %s", qPrintable(u8(e.ice_name())));
+#endif
 	}
 }
 
