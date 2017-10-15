@@ -57,7 +57,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		exit 1
 	fi
 elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
-	brew install qt5 libogg libvorbis flac libsndfile protobuf openssl ice
+	brew update && brew install qt5 libogg libvorbis flac libsndfile protobuf openssl ice
 else
 	exit 1
 fi
