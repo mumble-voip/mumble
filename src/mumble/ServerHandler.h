@@ -85,8 +85,8 @@ class ServerHandler : public QThread {
 		QByteArray qbaDigest;
 		boost::shared_ptr<VoiceRecorder> recorder;
 		QSslSocket *qtsSock;
-		QList<ServerAddress> qlAddresses;
-		ServerAddress saTargetServer;
+		QList<QPair<QString, unsigned short>> qlAddresses;
+		QPair<QString, unsigned short> saTargetServer;
 
 		unsigned int uiVersion;
 		QString qsRelease;

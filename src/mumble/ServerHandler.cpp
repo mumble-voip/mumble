@@ -271,13 +271,12 @@ void ServerHandler::hostnameResolved() {
 
 	// Create the list of target host:port pairs
 	// that the ServerHandler should try to connect to.
-	QList<ServerAddress> ql;
+	qlAddresses.clear();
 	foreach (ServerResolverRecord record, records) {
 		foreach (HostAddress addr, record.addresses()) {
-			ql.append(ServerAddress(addr, record.port()));
+			qlAddresses.append(qMakePair(addr.toString(), record.port()));
 		}
 	}
-	qlAddresses = ql;
 
 	// Exit the event loop with 'success' status code,
 	// to continue connecting to the server.
@@ -286,7 +285,7 @@ void ServerHandler::hostnameResolved() {
 
 void ServerHandler::run() {
 	// Resolve the hostname...
-	{
+	if (g.s.ptProxyType == Settings::ProxyType::NoProxy || !g.s.bRemoteDNS) {
 		ServerResolver sr;
 		QObject::connect(&sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
 		sr.resolve(qsHostName, usPort);
@@ -295,12 +294,14 @@ void ServerHandler::run() {
 			qWarning("ServerHandler: failed to resolve hostname");
 			return;
 		}
+	} else {
+		qlAddresses.clear();
+		qlAddresses.append(qMakePair(qsHostName, usPort));
 	}
 
-	QList<ServerAddress> targetAddresses(qlAddresses);
 	bool shouldTryNextTargetServer = true;
 	do {
-		saTargetServer = qlAddresses.takeFirst();
+    	saTargetServer = qlAddresses.takeFirst();
 
 		tConnectionTimeoutTimer = NULL;
 		qbaDigest = QByteArray();
@@ -343,7 +344,7 @@ void ServerHandler::run() {
 	#else
 		qtsSock->setProtocol(QSsl::TlsV1);
 	#endif
-		qtsSock->connectToHost(saTargetServer.host.toAddress(), saTargetServer.port);
+		qtsSock->connectToHost(saTargetServer.first, saTargetServer.second);
 
 		tTimestamp.restart();
 
@@ -588,7 +589,7 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 	if (!qlAddresses.isEmpty()) {
 		if (err == QAbstractSocket::ConnectionRefusedError || err == QAbstractSocket::SocketTimeoutError) {
 			qWarning("ServerHandler: connection attempt to %s:%i failed: %s (%li); trying next server....",
-						qPrintable(saTargetServer.host.toString()), static_cast<int>(saTargetServer.port),
+						qPrintable(saTargetServer.first), static_cast<int>(saTargetServer.second),
 						qPrintable(reason), static_cast<long>(err));
 			exit(-2);
 			return;

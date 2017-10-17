@@ -349,6 +349,7 @@ Settings::Settings() {
 	bAutoConnect = false;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
+	bRemoteDNS = true;
 	iMaxInFlightTCPPings = 2;
 	bUdpForceTcpAddr = true;
 
@@ -683,6 +684,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(usProxyPort, "net/proxyport");
 	SAVELOAD(qsProxyUsername, "net/proxyusername");
 	SAVELOAD(qsProxyPassword, "net/proxypassword");
+	SAVELOAD(bRemoteDNS, "net/remotedns");
 	SAVELOAD(iMaxImageSize, "net/maximagesize");
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");

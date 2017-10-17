@@ -41,6 +41,7 @@ void NetworkConfig::load(const Settings &r) {
 	loadCheckBox(qcbAutoConnect, s.bAutoConnect);
 	loadCheckBox(qcbSuppressIdentity, s.bSuppressIdentity);
 	loadComboBox(qcbType, s.ptProxyType);
+	loadCheckBox(qcbRemoteDNS, s.bRemoteDNS);
 
 	qleHostname->setText(r.qsProxyHost);
 
@@ -80,6 +81,7 @@ void NetworkConfig::save() const {
 	s.usProxyPort = qlePort->text().toUShort();
 	s.qsProxyUsername = qleUsername->text();
 	s.qsProxyPassword = qlePassword->text();
+	s.bRemoteDNS = qcbRemoteDNS->isChecked();
 
 	if (qcbImageDownload->isChecked()) {
 		s.iMaxImageSize = 0;

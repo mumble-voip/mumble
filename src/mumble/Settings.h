@@ -331,6 +331,7 @@ struct Settings {
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
+	bool bRemoteDNS;
 	/// bUdpForceTcpAddr forces Mumble to bind its UDP
 	/// socket to the same address as its TCP
 	/// connection is using.
