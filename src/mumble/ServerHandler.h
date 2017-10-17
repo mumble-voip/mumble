@@ -137,6 +137,7 @@ class ServerHandler : public QThread {
 	signals:
 		void disconnected(QAbstractSocket::SocketError, QString reason);
 		void connected();
+		void pingRequested();
 	protected slots:
 		void message(unsigned int, const QByteArray &);
 		void serverConnectionConnected();
@@ -146,6 +147,8 @@ class ServerHandler : public QThread {
 		void setSslErrors(const QList<QSslError> &);
 		void udpReady();
 		void hostnameResolved();
+	private slots:
+		void sendPingInternal();
 	public slots:
 		void sendPing();
 };

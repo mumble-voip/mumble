@@ -110,6 +110,8 @@ ServerHandler::ServerHandler() {
 	if (hQoS)
 		Connection::setQoS(hQoS);
 #endif
+
+  connect(this, SIGNAL(pingRequested()), this, SLOT(sendPingInternal()), Qt::QueuedConnection);
 }
 
 ServerHandler::~ServerHandler() {
@@ -447,6 +449,10 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 }
 
 void ServerHandler::sendPing() {
+	emit pingRequested();
+}
+
+void ServerHandler::sendPingInternal() {
 	ConnectionPtr connection(cConnection);
 	if (!connection)
 		return;
@@ -688,6 +694,9 @@ void ServerHandler::serverConnectionConnected() {
 		}
 
 		qusUdp = new QUdpSocket(this);
+		if (! qusUdp) {
+			qFatal("ServerHandler: qusUdp is unexpectedly a null addr");
+		}
 		if (g.s.bUdpForceTcpAddr) {
 			qusUdp->bind(qhaLocal, 0);
 		} else {
@@ -698,7 +707,7 @@ void ServerHandler::serverConnectionConnected() {
 			}
 		}
 
-		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
+		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()), Qt::QueuedConnection);
 
 		if (g.s.bQoS) {
 
