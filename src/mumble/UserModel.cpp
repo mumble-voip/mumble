@@ -797,9 +797,13 @@ void UserModel::recheckLinks() {
 	if (! g.uiSession)
 		return;
 
+	ClientUser *clientUser = ClientUser::get(g.uiSession);
+	if (! clientUser)
+		return;
+
 	bool bChanged = false;
 
-	Channel *home = ClientUser::get(g.uiSession)->cChannel;
+	Channel *home = clientUser->cChannel;
 
 	QSet<Channel *> all = home->allLinks();
 
