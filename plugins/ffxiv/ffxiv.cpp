@@ -21,10 +21,10 @@
 
 #ifdef FFXIV_USE_x64
 // Memory offsets
-const procptr64_t camera_ptr              = 0x1673350;
-const procptr64_t avatar_ptr              = 0x1674950;
-const procptr64_t state_offset            = 0x1641990;
-const procptr64_t map_id_offset           = 0x16409E8;
+const procptr64_t camera_ptr              = 0x16BE8C0;
+const procptr64_t avatar_ptr              = 0x16BFEC0;
+const procptr64_t state_offset            = 0x1870C60;
+const procptr64_t map_id_offset           = 0x186F940;
 // Avatar struct offsets
 const procptr64_t identity_offset         = 48;  // Name
 const procptr64_t avatar_pos_offset       = 176; // X, Z, Y
@@ -32,8 +32,8 @@ const procptr64_t avatar_azimuth_offset   = 192; // Heading (-pi to pi)
 // Camera struct offsets
 const procptr64_t camera_is_free_offset   = 272; // 0: First person mode; 1: 3rd person
 const procptr64_t camera_pos_offset       = 80;  // X, Z, Y
-const procptr64_t camera_azimuth_offset   = 304; // (-pi to pi)
-const procptr64_t camera_elevation_offset = 308; // (-pi to pi)
+const procptr64_t camera_azimuth_offset   = 308; // (-pi to pi)
+const procptr64_t camera_elevation_offset = 312; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv_dx11.exe";
 // Plugin long description
@@ -42,10 +42,10 @@ static const std::wstring longdesc() {return std::wstring(L"Supports Final Fanta
 static std::wstring description(L"Final Fantasy XIV X64 (2016.11.11.0000.0000)");
 #else
 // Memory offsets
-const procptr32_t camera_ptr              = 0x1045C40;
-const procptr32_t avatar_ptr              = 0x10468EC;
-const procptr32_t state_offset            = 0x1048C60;
-const procptr32_t map_id_offset           = 0x10210B0;
+const procptr32_t camera_ptr              = 0x1081D30;
+const procptr32_t avatar_ptr              = 0x10829DC;
+const procptr32_t state_offset            = 0x11A7AA0;
+const procptr32_t map_id_offset           = 0x11A6784;
 // Avatar struct offsets
 const procptr32_t identity_offset         = 48;  // Name
 const procptr32_t avatar_pos_offset       = 160; // X, Z, Y
@@ -53,14 +53,14 @@ const procptr32_t avatar_azimuth_offset   = 176; // Heading (-pi to pi)
 // Camera struct offsets
 const procptr32_t camera_is_free_offset   = 256; // 0: First person mode; 1: 3rd person
 const procptr32_t camera_pos_offset       = 64;  // X, Z, Y
-const procptr32_t camera_azimuth_offset   = 288; // (-pi to pi)
-const procptr32_t camera_elevation_offset = 292; // (-pi to pi)
+const procptr32_t camera_azimuth_offset   = 292; // (-pi to pi)
+const procptr32_t camera_elevation_offset = 296; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv.exe";
 // Plugin long description
-static const std::wstring longdesc() {return std::wstring(L"Supports Final Fantasy XIV version 2016.11.11.0000.0000 with context and identity support.");}
+static const std::wstring longdesc() {return std::wstring(L"Supports Final Fantasy XIV version 2017.01.24.0000.0000 with context and identity support.");}
 // Plugin short description
-static std::wstring description(L"Final Fantasy XIV (2016.11.11.0000.0000)");
+static std::wstring description(L"Final Fantasy XIV (2017.01.24.0000.0000)");
 #endif
 // Plugin short name
 static std::wstring shortname(L"Final Fantasy XIV");
