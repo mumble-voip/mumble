@@ -154,7 +154,7 @@ Database::Database() {
 
 	execQueryAndLogFailure(query, QLatin1String("VACUUM"));
 
-	execQueryAndLogFailure(query, QLatin1String("PRAGMA synchronous = OFF"));
+	execQueryAndLogFailure(query, QLatin1String("PRAGMA synchronous = NORMAL"));
 #ifdef Q_OS_WIN
 	// Windows can not handle TRUNCATE with multiple connections to the DB. Thus less performant DELETE.
 	execQueryAndLogFailure(query, QLatin1String("PRAGMA journal_mode = DELETE"));
