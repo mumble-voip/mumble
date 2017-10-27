@@ -707,7 +707,7 @@ void ServerHandler::serverConnectionConnected() {
 			}
 		}
 
-		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()), Qt::QueuedConnection);
+		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 
 		if (g.s.bQoS) {
 
