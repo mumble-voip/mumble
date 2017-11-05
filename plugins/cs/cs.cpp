@@ -159,9 +159,9 @@ static MumblePlugin csplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Counter-Strike"),
-	MumbleInitConstWideString(L"1.6 (Steam)"),
-	MumbleInitConstWideString(L"Supports Counter-Strike. Context support based on server address. No identity support."),
+	L"Counter-Strike",
+	L"1.6 (Steam)",
+	L"Supports Counter-Strike. Context support based on server address. No identity support.",
 	fetch,
 	trylock,
 	generic_unlock

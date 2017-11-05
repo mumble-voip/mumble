@@ -159,9 +159,9 @@ static MumblePlugin codmw2soplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Call of Duty: Modern Warfare 2 Special Ops"),
-	MumbleInitConstWideString(L"1.1"),
-	MumbleInitConstWideString(L"Supports Call of Duty: Modern Warfare 2 Special Ops. No context or identity support."),
+	L"Call of Duty: Modern Warfare 2 Special Ops",
+	L"1.1",
+	L"Supports Call of Duty: Modern Warfare 2 Special Ops. No context or identity support.",
 	fetch,
 	trylock,
 	generic_unlock

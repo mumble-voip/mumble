@@ -18,8 +18,9 @@
 #include <fcntl.h>
 #include <time.h>
 
-static std::wstring wsPluginName(L"Link");
-static std::wstring wsDescription(L"Reads audio position information from linked game");
+static wchar_t pluginname[256] = L"Link";
+static wchar_t description[2048] = L"Reads audio position information from linked game";
+
 static char memname[256];
 
 struct LinkedMem {
@@ -57,8 +58,8 @@ static void unlock() {
 	lm->ui32count = last_count = 0;
 	lm->uiVersion = 0;
 	lm->name[0] = 0;
-	wsPluginName.assign(L"Link");
-	wsDescription.assign(L"Reads audio position information from linked game");
+	wcscpy(pluginname, L"Link");
+	wcscpy(description, L"Reads audio position information from linked game");
 }
 
 static int trylock(const MumblePIDLookup, const MumblePIDLookupContext) {
@@ -70,17 +71,13 @@ static int trylock(const MumblePIDLookup, const MumblePIDLookupContext) {
 			last_tick = GetTickCount();
 			last_count = lm->ui32count;
 
-			wchar_t buff[2048];
-
 			if (lm->name[0]) {
-				wcsncpy(buff, lm->name, 256);
-				buff[255] = 0;
-				wsPluginName.assign(buff);
+				wcsncpy(pluginname, lm->name, 256);
+				pluginname[255] = 0;
 			}
 			if (lm->description[0]) {
-				wcsncpy(buff, lm->description, 2048);
-				buff[2047] = 0;
-				wsDescription.assign(buff);
+				wcsncpy(description, lm->description, 2048);
+				description[2047] = 0;
 			}
 			return true;
 		}
@@ -114,12 +111,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
 			camera_top[i]=lm->fCameraTop[i];
 		}
 
-		if (lm->context_len > 255)
-			lm->context_len = 255;
+		MumbleStringAssign(context, std::string(reinterpret_cast<const char*>(lm->context), std::min(255u, lm->context_len)));
 		lm->identity[255] = 0;
-
-		MumbleStringAssign(context, std::string(reinterpret_cast<const char*>(lm->context)));
-		MumbleStringAssign(identity, std::wstring(reinterpret_cast<const wchar_t*>(lm->identity)));
+		MumbleStringAssign(identity, lm->identity);
 	} else {
 		for (int i=0;i<3;++i) {
 			camera_pos[i]=lm->fAvatarPosition[i];
@@ -181,9 +175,9 @@ static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	120,
 	false,
-	MumbleInitConstWideString(wsPluginName.data()),
-	MumbleInitConstWideString(L"Universal"),
-	MumbleInitConstWideString(wsDescription.data()),
+	pluginname,
+	L"Universal",
+	description,
 	fetch,
 	trylock,
 	unlock,

@@ -66,9 +66,9 @@ static MumblePlugin rlplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1, // Plugin version
 	false, // Is the plugin retracted?
-	MumbleInitConstWideString(L"Rocket League"), // Plugin name
-	MumbleInitConstWideString(L"1.29"), // Game version
-	MumbleInitConstWideString(L"Supports Rocket League without context or identity support yet."), // Plugin description
+	L"Rocket League", // Plugin name
+	L"1.29", // Game version
+	L"Supports Rocket League without context or identity support yet.", // Plugin description
 	fetch,
 	trylock,
 	generic_unlock

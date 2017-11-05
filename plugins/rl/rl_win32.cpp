@@ -68,9 +68,9 @@ static MumblePlugin rlplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Rocket League"),
-	MumbleInitConstWideString(L"1.29"),
-	MumbleInitConstWideString(L"Supports Rocket League without context or identity support yet."),
+	L"Rocket League",
+	L"1.29",
+	L"Supports Rocket League without context or identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

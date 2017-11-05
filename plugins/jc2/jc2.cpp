@@ -153,9 +153,9 @@ static MumblePlugin jc2plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Just Cause 2"),
-	MumbleInitConstWideString(L"1.0.0.2"),
-	MumbleInitConstWideString(L"Supports Just Cause 2. No identity support."),
+	L"Just Cause 2",
+	L"1.0.0.2",
+	L"Supports Just Cause 2. No identity support.",
 	fetch,
 	trylock,
 	generic_unlock

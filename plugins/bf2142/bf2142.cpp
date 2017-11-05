@@ -143,9 +143,9 @@ static MumblePlugin bf2142plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	true,
-	MumbleInitConstWideString(L"Battlefield 2142"),
-	MumbleInitConstWideString(L"1.51"),
-	MumbleInitConstWideString(L"Supports Battlefield 2142 with context and identity support."),
+	L"Battlefield 2142",
+	L"1.51",
+	L"Supports Battlefield 2142 with context and identity support.",
 	fetch,
 	trylock,
 	generic_unlock

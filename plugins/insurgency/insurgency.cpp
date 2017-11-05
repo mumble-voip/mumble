@@ -139,9 +139,9 @@ static MumblePlugin insurgencyplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Insurgency: Modern Infantry Combat"),
-	MumbleInitConstWideString(L"Build 4044"),
-	MumbleInitConstWideString(L"Supports Insurgency: Modern Infantry Combat. No identity support yet."),
+	L"Insurgency: Modern Infantry Combat",
+	L"Build 4044",
+	L"Supports Insurgency: Modern Infantry Combat. No identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

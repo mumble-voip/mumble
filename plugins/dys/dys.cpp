@@ -139,9 +139,9 @@ static MumblePlugin dysplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Dystopia"),
-	MumbleInitConstWideString(L"Build 4104"),
-	MumbleInitConstWideString(L"Supports Dystopia. No identity support yet."),
+	L"Dystopia",
+	L"Build 4104",
+	L"Supports Dystopia. No identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

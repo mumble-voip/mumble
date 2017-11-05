@@ -33,7 +33,7 @@ const procptr_t camera_elevation_offset = 308; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv_dx11.exe";
 // Game version
-static const MumbleWideString version = MumbleInitConstWideString(L"2016.11.11.0000.0000 (x64)");
+static const wchar_t version[] = L"2016.11.11.0000.0000 (x64)";
 #else
 // Memory offsets
 const procptr_t camera_ptr              = 0x1045C40;
@@ -52,12 +52,12 @@ const procptr_t camera_elevation_offset = 292; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv.exe";
 // Game version
-static const MumbleWideString version = MumbleInitConstWideString(L"2016.11.11.0000.0000");
+static const wchar_t version[] = L"2016.11.11.0000.0000";
 #endif
 // Plugin name
-static const MumbleWideString name = MumbleInitConstWideString(L"Final Fantasy XIV");
+static const wchar_t name[] = L"Final Fantasy XIV";
 // Plugin description
-static const MumbleWideString description = MumbleInitConstWideString(L"Supports Final Fantasy XIV with context and identity support.");
+static const wchar_t description[] = L"Supports Final Fantasy XIV with context and identity support.";
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	for (int i=0;i<3;i++) {

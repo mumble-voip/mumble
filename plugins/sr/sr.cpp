@@ -115,9 +115,9 @@ static MumblePlugin subrosaplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Sub Rosa"),
-	MumbleInitConstWideString(L"0.07b"),
-	MumbleInitConstWideString(L"Supports Sub Rosa. No identity or context support yet."),
+	L"Sub Rosa",
+	L"0.07b",
+	L"Supports Sub Rosa. No identity or context support yet.",
 	fetch,
 	trylock,
 	generic_unlock

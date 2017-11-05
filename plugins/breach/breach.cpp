@@ -113,9 +113,9 @@ static MumblePlugin breachplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Breach"),
-	MumbleInitConstWideString(L"1.1.0 (Steam)"),
-	MumbleInitConstWideString(L"Supports Breach. Context and Identity not supported."),
+	L"Breach",
+	L"1.1.0 (Steam)",
+	L"Supports Breach. Context and Identity not supported.",
 	fetch,
 	trylock,
 	generic_unlock

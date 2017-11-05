@@ -12,8 +12,8 @@
 
 #include "../mumble_plugin.h"
 
-static std::wstring wsPluginName;
-static std::wstring wsDescription;
+static wchar_t pluginname[256] = L"Link";
+static wchar_t description[2048] = L"Reads audio position information from linked game";
 
 struct LinkedMem {
 	UINT32  uiVersion;
@@ -40,8 +40,8 @@ static void unlock() {
 	lm->dwcount = last_count = 0;
 	lm->uiVersion = 0;
 	lm->name[0] = 0;
-	wsPluginName.assign(L"Link");
-	wsDescription.assign(L"Reads audio position information from linked game");
+	wcscpy(pluginname, L"Link");
+	wcscpy(description, L"Reads audio position information from linked game");
 }
 
 static int trylock(const MumblePIDLookup, const MumblePIDLookupContext) {
@@ -51,21 +51,16 @@ static int trylock(const MumblePIDLookup, const MumblePIDLookupContext) {
 			last_tick = GetTickCount();
 
 			errno_t err = 0;
-			wchar_t buff[2048];
 
 			if (lm->name[0]) {
-				err = wcscpy_s(buff, 256, lm->name);
-				if (! err)
-					wsPluginName.assign(buff);
+				err = wcscpy_s(pluginname, 256, lm->name);
 			}
 			if (!err && lm->description[0]) {
-				err = wcscpy_s(buff, 2048, lm->description);
-				if (! err)
-					wsDescription.assign(buff);
+				err = wcscpy_s(description, 2048, lm->description);
 			}
 			if (err) {
-				wsPluginName.assign(L"Link");
-				wsDescription.assign(L"Reads audio position information from linked game");
+				wcscpy(pluginname, L"Link");
+				wcscpy(description, L"Reads audio position information from linked game");
 				return false;
 			}
 			return true;
@@ -98,11 +93,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			camera_top[i]=lm->fCameraTop[i];
 		}
 
-		if (lm->context_len > 255)
-			lm->context_len = 255;
+		MumbleStringAssign(context, std::string(reinterpret_cast<const char *>(lm->context), std::min(255u, lm->context_len)));
 		lm->identity[255] = 0;
-
-		MumbleStringAssign(context, reinterpret_cast<const char *>(lm->context));
 		MumbleStringAssign(identity, lm->identity);
 	} else {
 		for (int i=0;i<3;++i) {
@@ -121,7 +113,6 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	bool bCreated = false;
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
-			wsPluginName.assign(L"Link");
 			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
 			if (hMapObject == NULL) {
 				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
@@ -156,9 +147,9 @@ static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	120,
 	false,
-	MumbleInitConstWideString(wsPluginName.data()),
-	MumbleInitConstWideString(L"Universal"),
-	MumbleInitConstWideString(wsDescription.data()),
+	pluginname,
+	L"Universal",
+	description,
 	fetch,
 	trylock,
 	unlock,

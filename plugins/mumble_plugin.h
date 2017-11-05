@@ -46,10 +46,15 @@ typedef struct _MumblePlugin {
 	unsigned int magic;
 	unsigned int version;
 	bool retracted;
-	MumbleWideString name;
-	MumbleWideString game_version;
-	MumbleWideString description;
-	int (MUMBLE_PLUGIN_CALLING_CONVENTION *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity);
+	
+	const wchar_t* const shortname;
+	const wchar_t* const gameversion;
+	const wchar_t* const description;
+	
+	int (MUMBLE_PLUGIN_CALLING_CONVENTION *fetch)(
+	        float *avatar_pos, float *avatar_front, float *avatar_top,
+	        float *camera_pos, float *camera_front, float *camera_top,
+	        MumbleString *context, MumbleWideString *identity);
 	int (MUMBLE_PLUGIN_CALLING_CONVENTION *trylock)(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext);
 	void (MUMBLE_PLUGIN_CALLING_CONVENTION *unlock)();
 } MumblePlugin;

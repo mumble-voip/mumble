@@ -186,9 +186,9 @@ static MumblePlugin borderlandsplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	true,
-	MumbleInitConstWideString(L"Borderlands"),
-	MumbleInitConstWideString(L"1.40"),
-	MumbleInitConstWideString(L"Supports Borderlands, including german and steam version. Context string is used with online games."),
+	L"Borderlands",
+	L"1.40",
+	L"Supports Borderlands, including german and steam version. Context string is used with online games.",
 	fetch,
 	trylock,
 	generic_unlock

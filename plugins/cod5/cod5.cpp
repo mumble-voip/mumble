@@ -116,9 +116,9 @@ static MumblePlugin cod5plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Call of Duty 5 MP"),
-	MumbleInitConstWideString(L"1.7.1263"),
-	MumbleInitConstWideString(L"Supports Call of Duty 5 MP. No context or identity support yet."),
+	L"Call of Duty 5 MP",
+	L"1.7.1263",
+	L"Supports Call of Duty 5 MP. No context or identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

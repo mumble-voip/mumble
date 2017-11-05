@@ -137,9 +137,9 @@ static MumblePlugin gmodplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Garry's Mod 11"),
-	MumbleInitConstWideString(L"Build 4426"),
-	MumbleInitConstWideString(L"Supports Garry's Mod. No identity support yet."),
+	L"Garry's Mod 11",
+	L"Build 4426",
+	L"Supports Garry's Mod. No identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

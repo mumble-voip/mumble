@@ -7,6 +7,7 @@
 #define MUMBLE_MESSAGE_H_
 
 #include <string>
+#include "../plugins/mumble_plugin_string.h"
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QString>
 
@@ -80,6 +81,10 @@ inline QString u8(const ::std::wstring &str) {
 inline ::std::string u8(const QString &str) {
 	const QByteArray &qba = str.toUtf8();
 	return ::std::string(qba.constData(), qba.length());
+}
+
+inline ::std::string u8(const MumbleWideString& wstr) {
+	return QString::fromWCharArray(wstr.data, static_cast<int>(wstr.len)).toStdString();
 }
 
 inline QByteArray blob(const ::std::string &str) {

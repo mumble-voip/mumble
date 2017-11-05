@@ -154,9 +154,9 @@ static MumblePlugin wowplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"World of Warcraft"),
-	MumbleInitConstWideString(L"7.0.3.22810"),
-	MumbleInitConstWideString(L"Supports World of Warcraft with context and identity support."),
+	L"World of Warcraft",
+	L"7.0.3.22810",
+	L"Supports World of Warcraft with context and identity support.",
 	fetch,
 	trylock,
 	generic_unlock

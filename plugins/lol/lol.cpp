@@ -171,9 +171,9 @@ static MumblePlugin lolplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"League of Legends"),
-	MumbleInitConstWideString(L"1.0.0.145"),
-	MumbleInitConstWideString(L"Supports League of Legends with context. No identity support."),
+	L"League of Legends",
+	L"1.0.0.145",
+	L"Supports League of Legends with context. No identity support.",
 	fetch,
 	trylock,
 	generic_unlock

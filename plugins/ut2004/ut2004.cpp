@@ -96,9 +96,9 @@ static MumblePlugin ut2004plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Unreal Tournament 2004"),
-	MumbleInitConstWideString(L"3369"),
-	MumbleInitConstWideString(L"Supports Unreal Tournament 2004. No context or identity support yet."),
+	L"Unreal Tournament 2004",
+	L"3369",
+	L"Supports Unreal Tournament 2004. No context or identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

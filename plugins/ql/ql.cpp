@@ -157,9 +157,9 @@ static MumblePlugin qlplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Quake Live"),
-	MumbleInitConstWideString(L"1069"),
-	MumbleInitConstWideString(L"Supports Quake Live with context and identity support."),
+	L"Quake Live",
+	L"1069",
+	L"Supports Quake Live with context and identity support.",
 	fetch,
 	trylock,
 	generic_unlock

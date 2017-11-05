@@ -152,9 +152,9 @@ static MumblePlugin gtaivplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Grand Theft Auto IV"),
-	MumbleInitConstWideString(L"1.0.7.0"),
-	MumbleInitConstWideString(L"Supports Grand Theft Auto IV. No identity support."),
+	L"Grand Theft Auto IV",
+	L"1.0.7.0",
+	L"Supports Grand Theft Auto IV. No identity support.",
 	fetch,
 	trylock,
 	generic_unlock

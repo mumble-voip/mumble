@@ -198,9 +198,9 @@ static MumblePlugin bl2plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	true,
-	MumbleInitConstWideString(L"Borderlands 2"),
-	MumbleInitConstWideString(L"1.8.3, 1.7.0, 1.5.0, 1.4.0, 1.3.1"),
-	MumbleInitConstWideString(L"Supports Borderlands 2. No context support yet."),
+	L"Borderlands 2",
+	L"1.8.3, 1.7.0, 1.5.0, 1.4.0, 1.3.1",
+	L"Supports Borderlands 2. No context support yet.",
 	fetch,
 	trylock,
 	generic_unlock

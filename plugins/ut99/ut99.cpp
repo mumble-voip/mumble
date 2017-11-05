@@ -202,9 +202,9 @@ static MumblePlugin ut99plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Unreal Tournament"),
-	MumbleInitConstWideString(L"436"),
-	MumbleInitConstWideString(L"Supports Unreal Tournament. No identity support yet."),
+	L"Unreal Tournament",
+	L"436",
+	L"Supports Unreal Tournament. No identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

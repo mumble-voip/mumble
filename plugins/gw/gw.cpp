@@ -197,9 +197,9 @@ static MumblePlugin gwplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Guild Wars"),
-	MumbleInitConstWideString(L"Build 36001"),
-	MumbleInitConstWideString(L"Supports Guild Wars with partial context support."),
+	L"Guild Wars",
+	L"Build 36001",
+	L"Supports Guild Wars with partial context support.",
 	fetch,
 	trylock,
 	generic_unlock

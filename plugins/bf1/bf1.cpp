@@ -225,9 +225,9 @@ static MumblePlugin bf1plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Battlefield 1"),
-	MumbleInitConstWideString(L"1.0.49.52296"),
-	MumbleInitConstWideString(L"Supports Battlefield 1 with context and identity support."),
+	L"Battlefield 1",
+	L"1.0.49.52296",
+	L"Supports Battlefield 1 with context and identity support.",
 	fetch,
 	trylock,
 	generic_unlock

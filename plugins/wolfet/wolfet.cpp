@@ -121,9 +121,9 @@ static MumblePlugin wolfetplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Wolfenstien: Enemy Territory"),
-	MumbleInitConstWideString(L"2.60b"),
-	MumbleInitConstWideString(L"Supports Wolfenstien: Enemy Territory. No context or identity support yet."),
+	L"Wolfenstien: Enemy Territory",
+	L"2.60b",
+	L"Supports Wolfenstien: Enemy Territory. No context or identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock

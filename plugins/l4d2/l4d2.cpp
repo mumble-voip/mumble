@@ -231,9 +231,9 @@ static MumblePlugin l4d2plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1, // Plugin version
 	false, // Is the plugin retracted?
-	MumbleInitConstWideString(L"Left 4 Dead 2"), // Plugin name
-	MumbleInitConstWideString(L"2.1.4.6"), // Game version
-	MumbleInitConstWideString(L"Supports Left 4 Dead 2 with context and identity support."), // Plugin description
+	L"Left 4 Dead 2", // Plugin name
+	L"2.1.4.6", // Game version
+	L"Supports Left 4 Dead 2 with context and identity support.", // Plugin description
 	fetch,
 	trylock,
 	generic_unlock,

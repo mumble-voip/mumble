@@ -66,10 +66,12 @@ class Plugins : public QObject {
 		DWORD cbPrevious;
 #endif
 	public:
-		MumbleString msContext, msContextSent;
-		MumbleWideString mwsIdentity, mwsIdentitySent;
-		unsigned char contextBuf[256], contextSentBuf[256];
-		wchar_t identityBuf[256], identitySentBuf[256];
+		unsigned char contextBuf[256];
+		wchar_t identityBuf[256];
+		MumbleString msContext;
+		MumbleWideString mwsIdentity;
+		std::string contextSent, identitySent;
+		
 		bool bValid;
 		bool bUnlink;
 		float fPosition[3], fFront[3], fTop[3];

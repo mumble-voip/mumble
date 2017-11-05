@@ -117,9 +117,9 @@ static MumblePlugin ut3plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	1,
 	false,
-	MumbleInitConstWideString(L"Unreal Tournament 3"),
-	MumbleInitConstWideString(L"2.1"),
-	MumbleInitConstWideString(L"Supports Unreal Tournament 3. No context or identity support yet."),
+	L"Unreal Tournament 3",
+	L"2.1",
+	L"Supports Unreal Tournament 3. No context or identity support yet.",
 	fetch,
 	trylock,
 	generic_unlock
