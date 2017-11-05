@@ -56,7 +56,7 @@ const wchar_t *server_name					= L"server.so";
 const wchar_t *engine_name					= L"engine.so";
 #endif
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	for (int i=0;i<3;i++) {
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 	}
@@ -89,8 +89,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// State
 	if (state != 1) { // If not in-game
-		context.clear(); // Clear context
-		identity.clear(); // Clear identity
+		MumbleStringClear(context); // Clear context
+		MumbleStringClear(identity); // Clear identity
 		// Set vectors values to 0.
 		for (int i=0;i<3;i++) {
 			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
@@ -106,7 +106,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		ocontext << " {\"Server ID\": \"" << serverid << "\"}"; // Set context with IP address and port
 	}
 
-	context = ocontext.str();
+	MumbleStringAssign(context, ocontext.str());
 	// End context
 
 	// Begin identity
@@ -154,7 +154,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	oidentity << std::endl << "}";
-	identity = oidentity.str();
+	MumbleStringAssign(identity, oidentity.str());
 	// End identity
 
 	/*
@@ -190,9 +190,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, exe_name, client_name)) { // Retrieve "client_name" module's memory address
+	if (! initialize(lookupFunc, lookupContext, exe_name, client_name)) { // Retrieve "client_name" module's memory address
 		return false;
 	}
 
@@ -216,10 +216,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -227,39 +227,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Left 4 Dead 2 version 2.1.4.6 with context and identity support."); // Plugin long description
-}
-
-static std::wstring description(L"Left 4 Dead 2 (v2.1.4.6)"); // Plugin short description
-static std::wstring shortname(L"Left 4 Dead 2"); // Plugin short name
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin l4d2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1, // Plugin version
+	false, // Is the plugin retracted?
+	MumbleInitConstWideString(L"Left 4 Dead 2"), // Plugin name
+	MumbleInitConstWideString(L"2.1.4.6"), // Game version
+	MumbleInitConstWideString(L"Supports Left 4 Dead 2 with context and identity support."), // Plugin description
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 l4d2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &l4d2plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &l4d2plug2;
 }

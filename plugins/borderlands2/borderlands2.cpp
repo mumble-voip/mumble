@@ -42,7 +42,7 @@ procptr_t vects_ptr;
 procptr_t state_ptr;
 procptr_t character_name_ptr_loc;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &identity)
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *identity)
 {
 	// Zero out the structures
 	for (int i=0;i<3;i++)
@@ -88,16 +88,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(character_name_ptr, character_name);
 	if (ok)
 	{
-		// character_name is zero terminated, but using strnlen for double-plus safety
-		identity.assign(character_name, character_name + strnlen(character_name, sizeof(character_name)));
+		MumbleStringAssign(identity, reinterpret_cast<wchar_t*>(character_name));
 	}
 
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids)
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext)
 {
-	if (!initialize(pids, L"Borderlands2.exe")) {
+	if (!initialize(lookupFunc, lookupContext, L"Borderlands2.exe")) {
 		return false;
 	}
 
@@ -184,10 +183,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -195,39 +194,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Borderlands 2. No context support yet.");
-}
-
-static std::wstring description(L"Borderlands 2 (v1.8.3)");
-static std::wstring shortname(L"Borderlands 2");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin bl2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 bl2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	true,
+	MumbleInitConstWideString(L"Borderlands 2"),
+	MumbleInitConstWideString(L"1.8.3, 1.7.0, 1.5.0, 1.4.0, 1.3.1"),
+	MumbleInitConstWideString(L"Supports Borderlands 2. No context support yet."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bl2plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &bl2plug2;
 }

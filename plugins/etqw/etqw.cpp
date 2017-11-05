@@ -9,7 +9,7 @@ using namespace std;
 
 procptr_t pos1ptr, pos2ptr, pos3ptr, rot1ptr, rot2ptr;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	char menustate;
 	char ccontext[128];
 
@@ -50,10 +50,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_top[2] = -1; // Head movement is in front vector
 
 	ccontext[127] = 0;
-	context = std::string(ccontext);
+	std::string context_str(ccontext);
 
-	if (context.find(':')==string::npos)
-		context.append(":27733");
+	if (context_str.find(':')==string::npos)
+		context_str.append(":27733");
+
+	MumbleStringAssign(context, context_str);
 
 	/*
 	   Z-Value is increasing when heading north
@@ -94,10 +96,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 	pos1ptr = pos2ptr = pos3ptr = rot1ptr = rot2ptr = 0;
 
-	if (! initialize(pids, L"etqw.exe", L"gamex86.dll"))
+	if (! initialize(lookupFunc, lookupContext, L"etqw.exe", L"gamex86.dll"))
 		return false;
 
 	pos1ptr = pModule + 0x74EABC;
@@ -107,10 +109,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	rot2ptr = pModule + 0x75D30C;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -118,39 +120,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Enemy Territory: Quake Wars v1.50. No identity support yet.");
-}
-
-static std::wstring description(L"Enemy Territory: Quake Wars v1.50");
-static std::wstring shortname(L"Enemy Territory: Quake Wars");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin etqwplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	false,
+	MumbleInitConstWideString(L"Enemy Territory: Quake Wars"),
+	MumbleInitConstWideString(L"1.50"),
+	MumbleInitConstWideString(L"Supports Enemy Territory: Quake Wars. No identity support yet."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 etqwplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &etqwplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &etqwplug2;
 }

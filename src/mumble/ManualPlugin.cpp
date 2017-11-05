@@ -200,7 +200,7 @@ void Manual::updateTopAndFront(int azimuth, int elevation) {
 	memcpy(my.camera_front, my.avatar_front, sizeof(float) * 3);
 }
 
-static int trylock() {
+static int trylock(MumblePIDLookup, MumblePIDLookupContext) {
 	return bLinkable;
 }
 
@@ -224,7 +224,7 @@ static void config(void *ptr) {
 	mDlg->show();
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	if (!bLinkable)
 		return false;
 
@@ -242,39 +242,35 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	memcpy(camera_front, my.camera_front, sizeof(float)*3);
 	memcpy(camera_top, my.camera_top, sizeof(float)*3);
 
-	context.assign(my.context);
-	identity.assign(my.identity);
+	MumbleStringAssign(context, my.context);
+	MumbleStringAssign(identity, my.identity);
 
 	return true;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"This is the manual placement plugin. It allows you to place yourself manually.");
-}
-
+static std::wstring name(L"Manual placement");
 static std::wstring description(L"Manual placement plugin");
-static std::wstring shortname(L"Manual placement");
 
 static void about(void *ptr) {
 	QWidget *w = reinterpret_cast<QWidget *>(ptr);
 
 	QMessageBox::about(
 		w,
-		QString::fromStdWString(description),
-		QString::fromStdWString(longdesc())
+		QString::fromStdWString(name),
+		QString::fromStdWString(description)
 	);
 }
 
 static MumblePlugin manual = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL, // About is handled by MumblePluginQt
-	NULL, // Config is handled by MumblePluginQt
+	1,
+	false,
+	MumbleInitConstWideString(L"Manual placement plugin"),
+	MumbleInitConstWideString(L"Universal"),
+	MumbleInitConstWideString(L"This is the manual placement plugin. It allows you to place yourself manually."),
+	fetch,
 	trylock,
 	unlock,
-	longdesc,
-	fetch
 };
 
 static MumblePluginQt manualqt = {

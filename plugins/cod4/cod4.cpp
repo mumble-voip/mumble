@@ -7,7 +7,7 @@
 
 using namespace std;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	float viewHor, viewVer;
 	char state;
 	char ccontext[128];
@@ -61,10 +61,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	*/
 
 	ccontext[127] = 0;
-	context = std::string(ccontext);
+	std::string context_str(ccontext);
 
-	if (context.find(':')==string::npos)
-		context.append(":28960");
+	if (context_str.find(':')==string::npos)
+		context_str.append(":28960");
+
+	MumbleStringAssign(context, context_str);
 
 	// Scale Coordinates
 	/*
@@ -111,15 +113,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"iw3mp.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"iw3mp.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -127,39 +129,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty 4 v1.7.568 only. No identity support yet.");
-}
-
-static std::wstring description(L"Call of Duty 4 v1.7.568");
-static std::wstring shortname(L"Call of Duty 4");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin cod4plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	false,
+	MumbleInitConstWideString(L"Call of Duty 4"),
+	MumbleInitConstWideString(L"1.7.568"),
+	MumbleInitConstWideString(L"Supports Call of Duty 4. No identity support yet."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 cod4plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &cod4plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &cod4plug2;
 }

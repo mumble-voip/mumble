@@ -61,7 +61,7 @@ static int setuppointers() {
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top,
-                 std::string &, std::wstring &) {
+				 MumbleString *, MumbleWideString *) {
 	unsigned int playerid_check;
 	if (!peekProc(base_address + 0xF1CC68, playerid_check))
 		return false;
@@ -122,15 +122,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (!initialize(pids, L"GTAIV.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (!initialize(lookupFunc, lookupContext, L"GTAIV.exe"))
 		return false;
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 	procptr_t viewportptr;
 
 	base_address = pModule - 0x400000;
@@ -140,7 +140,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	displayptr = viewportptr + 0x50;
 
-	if (setuppointers() && fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (setuppointers() && fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -148,39 +148,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto IV (v1.0.7.0). No identity support.");
-}
-
-static std::wstring description(L"Grand Theft Auto IV v1.0.7.0");
-static std::wstring shortname(L"GTA IV");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin gtaivplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 gtaivplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Grand Theft Auto IV"),
+	MumbleInitConstWideString(L"1.0.7.0"),
+	MumbleInitConstWideString(L"Supports Grand Theft Auto IV. No identity support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &gtaivplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &gtaivplug2;
 }

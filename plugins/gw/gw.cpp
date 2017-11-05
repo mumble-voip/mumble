@@ -128,7 +128,7 @@ static bool refreshPointers(void)
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	for (int i=0; i<3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -148,7 +148,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	ok = refreshPointers(); // yes, we need to do this pretty often since the pointer gets wiped and changed evey time you leave a world instance (that means on loading screens etc)
 	if (!ok) { // Next we check, if we're inside the game or in menus/in a loading screen
-		context.clear();
+		MumbleStringClear(context);
 		return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
 	}
 	else { // If we're inside the game, try to peekProc the last value we need or unlink (again, in case something went wrong)
@@ -159,31 +159,31 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
 
 	if (areaid != prev_areaid || location != prev_location) {
-		context.clear();
+		MumbleStringClear(context);
 
 		prev_areaid = areaid;
 		prev_location = location;
 
 		char buffer[50];
 		sprintf_s(buffer, sizeof(buffer), "{\"instance\": \"%d:%d\"}", areaid, static_cast<int>(location));
-		context.assign(buffer);
+		MumbleStringAssign(context, buffer);
 	}
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, L"Gw.exe"))
+	if (! initialize(lookupFunc, lookupContext, L"Gw.exe"))
 		return false;
 
 	float cam[3], pos[3], front[3],camfront[3], top[3], camtop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
 	prev_areaid = 0;
 	prev_location = 0;
 
-	if (fetch(pos, front, top, cam, camfront, camtop, context, identity)) {
+	if (fetch(pos, front, top, cam, camfront, camtop, &context, &identity)) {
 		prev_areaid = 0;
 		prev_location = 0; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 		return true;
@@ -193,39 +193,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Guild Wars build 36,001 with partial context support.");
-}
-
-static std::wstring description(L"Guild Wars b36001");
-static std::wstring shortname(L"Guild Wars");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin gwplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 gwplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Guild Wars"),
+	MumbleInitConstWideString(L"Build 36001"),
+	MumbleInitConstWideString(L"Supports Guild Wars with partial context support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &gwplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &gwplug2;
 }

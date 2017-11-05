@@ -37,7 +37,7 @@
 
 #include "../mumble_plugin_win32.h"
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *) {
 	float viewHor, viewVer;
 	char state;
 	char specops;
@@ -139,15 +139,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"iw4sp.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"iw4sp.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -155,39 +155,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 Special Ops v1.1 only. No context or identity support.");
-}
-
-static std::wstring description(L"Call of Duty: Modern Warfare 2 Special Ops v1.1");
-static std::wstring shortname(L"Call of Duty: Modern Warfare 2 Special Ops");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin codmw2soplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 codmw2soplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Call of Duty: Modern Warfare 2 Special Ops"),
+	MumbleInitConstWideString(L"1.1"),
+	MumbleInitConstWideString(L"Supports Call of Duty: Modern Warfare 2 Special Ops. No context or identity support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &codmw2soplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &codmw2soplug2;
 }

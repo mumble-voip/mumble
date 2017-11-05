@@ -85,7 +85,7 @@ static int setuppointers() {
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top,
-                 std::string &, std::wstring &) {
+				 MumbleString *, MumbleWideString *) {
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
@@ -132,16 +132,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (!initialize(pids, L"JustCause2.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (!initialize(lookupFunc, lookupContext, L"JustCause2.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 
-	if (setuppointers() && fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (setuppointers() && fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -149,39 +149,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Just Cause 2 (v1.0.0.2). No identity support.");
-}
-
-static std::wstring description(L"Just Cause 2 (v1.0.0.2)");
-static std::wstring shortname(L"Just Cause 2");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin jc2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 jc2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Just Cause 2"),
+	MumbleInitConstWideString(L"1.0.0.2"),
+	MumbleInitConstWideString(L"Supports Just Cause 2. No identity support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &jc2plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &jc2plug2;
 }

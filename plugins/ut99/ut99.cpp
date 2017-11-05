@@ -92,7 +92,7 @@ static bool correctFront(float *front, float *top) {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
@@ -104,7 +104,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	if (state != 8) {
-		context.clear();
+		MumbleStringClear(context);
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	}
 
@@ -169,14 +169,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	          << "\"servername\":\"" << servername << "\""
 	          << "}";
 
-	context = contextss.str();
+	MumbleStringAssign(context, contextss.str());
 
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, L"UnrealTournament.exe", L"Engine.dll"))
+	if (! initialize(lookupFunc, lookupContext, L"UnrealTournament.exe", L"Engine.dll"))
 		return false;
 
 	procptr_t base = pModule + 0x290584;
@@ -187,10 +187,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -198,39 +198,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Unreal Tournament (v436). No identity support yet.");
-}
-
-static std::wstring description(L"Unreal Tournament (v436)");
-static std::wstring shortname(L"Unreal Tournament");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin ut99plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 ut99plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Unreal Tournament"),
+	MumbleInitConstWideString(L"436"),
+	MumbleInitConstWideString(L"Supports Unreal Tournament. No identity support yet."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &ut99plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &ut99plug2;
 }

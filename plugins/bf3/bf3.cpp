@@ -120,7 +120,7 @@ inline bool resolve_ptrs() {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -137,8 +137,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (state != STATE_IN_GAME && state != STATE_IN_MENU) {
 		ptr_chain_valid = false;
-		context.clear();
-		identity.clear();
+		MumbleStringClear(context);
+		MumbleStringClear(identity);
 		return true;
 	} else if (!ptr_chain_valid) {
 		if (!resolve_ptrs())
@@ -162,7 +162,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		std::ostringstream ocontext;
 		ocontext << "{ \"ipport\": \"" << ccontext << "\" }";
 
-		context = ocontext.str();
+		MumbleStringAssign(context, ocontext.str());
 
 		/*
 		  Get identity string.
@@ -178,7 +178,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		else if (team_state == 2)
 			oidentity << "\"team\": \"RU\"";
 		oidentity << "}";
-		identity = oidentity.str();
+		MumbleStringAssign(identity, oidentity.str());
 	}
 
 	// Flip our front vector
@@ -200,16 +200,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return ok;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, L"bf3.exe"))
+	if (! initialize(lookupFunc, lookupContext, L"bf3.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (!fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (!fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		generic_unlock();
 		return false;
 	}
@@ -217,39 +217,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	return true;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 3 with context and identity support.");
-}
-
-static std::wstring description(L"Battlefield 3 v1147186 - Endgame");
-static std::wstring shortname(L"Battlefield 3");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin bf3plug = {
     MUMBLE_PLUGIN_MAGIC,
-    description,
-    shortname,
-    NULL,
-    NULL,
-    trylock1,
+    1,
+    false,
+    MumbleInitConstWideString(L"Battlefield 3"),
+    MumbleInitConstWideString(L"1147186 - Endgame"),
+    MumbleInitConstWideString(L"Supports Battlefield 3 with context and identity support."),
+    fetch,
+    trylock,
     generic_unlock,
-    longdesc,
-    fetch
-};
-
-static MumblePlugin2 bf3plug2 = {
-    MUMBLE_PLUGIN_MAGIC_2,
-    MUMBLE_PLUGIN_VERSION,
-    trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bf3plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &bf3plug2;
 }

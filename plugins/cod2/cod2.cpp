@@ -5,7 +5,7 @@
 
 #include "../mumble_plugin_win32.h"
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *) {
 	float viewHor, viewVer;
 	char state;
 
@@ -81,15 +81,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"CoD2MP_s.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"CoD2MP_s.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -97,39 +97,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty 2 v1.3. No context or identity support yet.");
-}
-
-static std::wstring description(L"Call of Duty 2 v1.3");
-static std::wstring shortname(L"Call of Duty 2");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin cod2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	false,
+	MumbleInitConstWideString(L"Call of Duty 2"),
+	MumbleInitConstWideString(L"1.3"),
+	MumbleInitConstWideString(L"Supports Call of Duty 2. No context or identity support yet."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 cod2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &cod2plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &cod2plug2;
 }

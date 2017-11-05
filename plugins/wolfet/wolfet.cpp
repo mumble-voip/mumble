@@ -49,7 +49,7 @@
 
 #include "../mumble_plugin_win32.h"
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	float viewHor, viewVer;
 	char team;
 
@@ -96,20 +96,20 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	hostip[sizeof(hostip)-1] = '\0';
 	mapname[sizeof(mapname)-1] = '\0';
 	// Context in JSON format, {} with fields ipport (server hostname), map, and team (: int)
-	context = "{\"ipport\":\"" + std::string(hostip) + "\",\"map\":\"" + mapname + "\",\"team\":" + (char)(team + 0x30) + "}";
+	MumbleStringAssign(context, "{\"ipport\":\"" + std::string(hostip) + "\",\"map\":\"" + mapname + "\",\"team\":" + (char)(team + 0x30) + "}");
 
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"ET.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"ET.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -117,39 +117,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Wolfenstien: Enemy Territory v2.60b. No context or identity support yet.");
-}
-
-static std::wstring description(L"Wolfenstein: Enemy Territory v2.60b");
-static std::wstring shortname(L"Wolfenstein: Enemy Territory");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin wolfetplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 wolfetplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Wolfenstien: Enemy Territory"),
+	MumbleInitConstWideString(L"2.60b"),
+	MumbleInitConstWideString(L"Supports Wolfenstien: Enemy Territory. No context or identity support yet."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &wolfetplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &wolfetplug2;
 }

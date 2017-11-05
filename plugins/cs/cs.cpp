@@ -58,7 +58,7 @@ procptr_t pEngine;
     ALT+TAB:                hw.dll+0x7486B4     byte    (0 - tabbed; 1 - ingame)
 */
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, string &context, wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -96,7 +96,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		fViewVer = -4,45587635040283;
 	*/
 	cHostAddr[39] = '\0';
-	context = cHostAddr;
+	MumbleStringAssign(context, cHostAddr);
 
 	if (!cPlayerState)
 		return true;
@@ -130,9 +130,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, L"hl.exe", L"client.dll"))
+	if (! initialize(lookupFunc, lookupContext, L"hl.exe", L"client.dll"))
 		return false;
 
 	pEngine = getModuleAddr(L"hw.dll");
@@ -145,49 +145,28 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity))
 		return true;
 
 	generic_unlock();
 	return false;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Counter-Strike 1.6 (Steam). Context support based on server address. No identity support.");
-}
-
-static std::wstring description(L"Counter-Strike 1.6");
-static std::wstring shortname(L"Counter-Strike");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin csplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 csplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Counter-Strike"),
+	MumbleInitConstWideString(L"1.6 (Steam)"),
+	MumbleInitConstWideString(L"Supports Counter-Strike. Context support based on server address. No identity support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &csplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &csplug2;
 }

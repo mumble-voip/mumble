@@ -9,7 +9,7 @@ procptr_t faceptr, topptr;
 //BYTE *stateptr;
 //BYTE *contextptr;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -50,10 +50,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 	faceptr = topptr = 0;
 
-	if (! initialize(pids, L"BF1942.exe"))
+	if (! initialize(lookupFunc, lookupContext, L"BF1942.exe"))
 		return false;
 
 	procptr_t ptr1 = peekProcPtr(0x009A9468);
@@ -63,10 +63,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	topptr = ptr2 + 0x4C;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -74,39 +74,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 1942 v1.61b. No identity or context support yet.");
-}
-
-static std::wstring description(L"Battlefield 1942 v1.61b");
-static std::wstring shortname(L"Battlefield 1942");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin bf1942plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	false,
+	MumbleInitConstWideString(L"Battlefield 1942"),
+	MumbleInitConstWideString(L"1.61b"),
+	MumbleInitConstWideString(L"Supports Battlefield 1942. No identity or context support yet."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 bf1942plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bf1942plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &bf1942plug2;
 }

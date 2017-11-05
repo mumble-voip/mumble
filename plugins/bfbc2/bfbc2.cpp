@@ -7,7 +7,7 @@
 
 bool is_steam = false;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -68,16 +68,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return ok;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, L"BFBC2Game.exe"))
+	if (! initialize(lookupFunc, lookupContext, L"BFBC2Game.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (!fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (!fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		generic_unlock();
 		return false;
 	}
@@ -85,39 +85,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	return true;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield Bad Company 2 build 795745. No identity or context support.");
-}
-
-static std::wstring description(L"Battlefield Bad Company 2 build 795745");
-static std::wstring shortname(L"Battlefield Bad Company 2");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin bfbc2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	true,
+	MumbleInitConstWideString(L"Battlefield Bad Company 2"),
+	MumbleInitConstWideString(L"Build 795745"),
+	MumbleInitConstWideString(L"Supports Battlefield Bad Company 2. No identity or context support."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 bfbc2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bfbc2plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &bfbc2plug2;
 }

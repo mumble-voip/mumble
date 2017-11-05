@@ -38,7 +38,7 @@
 
 procptr_t posptr, frontptr, topptr;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *) {
 	bool ok;
 
 	for (int i=0;i<3;i++)
@@ -74,10 +74,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 	posptr = frontptr = topptr = 0;
 
-	if (! initialize(pids, L"Breach.exe", L"fmodex.dll"))
+	if (! initialize(lookupFunc, lookupContext, L"Breach.exe", L"fmodex.dll"))
 		return false;
 
 	// Checking the version of Breach
@@ -99,9 +99,9 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Final check by calling fetch.
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
-	if (! fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	MumbleString context;
+	MumbleWideString identity;
+	if (! fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		generic_unlock();
 		return false;
 	}
@@ -109,39 +109,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	return true;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Breach v1.1.0, steam version. Context and Identity on supported.");
-}
-
-static std::wstring description(L"Breach v1.1.0");
-static std::wstring shortname(L"Breach");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin breachplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 breachplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Breach"),
+	MumbleInitConstWideString(L"1.1.0 (Steam)"),
+	MumbleInitConstWideString(L"Supports Breach. Context and Identity not supported."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &breachplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &breachplug2;
 }

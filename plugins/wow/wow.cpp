@@ -6,7 +6,7 @@
 #include "../mumble_plugin_win32.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	for (int i=0;i<3;i++) {
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 	}
@@ -62,8 +62,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// State
 	if (state != 1) { // If not in-game
-		context.clear(); // Clear context
-		identity.clear(); // Clear identity
+		MumbleStringClear(context); // Clear context
+		MumbleStringClear(identity); // Clear identity
 		// Set vectors values to 0.
 		for (int i=0;i<3;i++)
 			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
@@ -80,7 +80,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		ocontext << " {\"Realm\": \"" << realm << "\"}"; // Set context with Realm's name
 	}
 
-	context = ocontext.str();
+	MumbleStringAssign(context, ocontext.str());
 	// End context
 
 	// Begin identity
@@ -97,7 +97,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	oidentity << std::endl << "}";
-	identity = oidentity.str();
+	MumbleStringAssign(identity, oidentity.str());
 	// End identity
 
 	/*
@@ -131,18 +131,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, L"Wow.exe")) { // Retrieve game executable's memory address
+	if (! initialize(lookupFunc, lookupContext, L"Wow.exe")) { // Retrieve game executable's memory address
 		return false;
 	}
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -150,39 +150,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft (x86) with context and identity support."); // Plugin long description
-}
-
-static std::wstring description(L"World of Warcraft (x86) version 7.0.3.22810"); // Plugin short description
-static std::wstring shortname(L"World of Warcraft"); // Plugin short name
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin wowplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 wowplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"World of Warcraft"),
+	MumbleInitConstWideString(L"7.0.3.22810"),
+	MumbleInitConstWideString(L"Supports World of Warcraft with context and identity support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &wowplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &wowplug2;
 }

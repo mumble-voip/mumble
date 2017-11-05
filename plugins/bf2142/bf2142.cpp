@@ -10,7 +10,7 @@
 procptr_t RendDX9 = 0;
 
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	bool ok;
 	char server_name[100], soldier_name[100];
 	BYTE team_id, squad_id, is_commander, is_squad_leader, target_squad_id, on_voip, on_voip_com;
@@ -23,8 +23,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Doubles as an in-server state variable (NULL if not in a game)
 	procptr_t server_offset_0 = peekProcPtr(pModule + 0x61B5D8);
 	if (!server_offset_0) {
-		context.clear(); // Clear context
-		identity.clear(); // Clear identity
+		MumbleStringClear(context); // Clear context
+		MumbleStringClear(identity); // Clear identity
 
 		return true; // This tells Mumble to ignore all vectors.
 	}
@@ -83,7 +83,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (strcmp(server_name, "") != 0)
 		ocontext << " {\"ipport\": \"" << server_name << "\"}";
 
-	context = ocontext.str();
+	MumbleStringAssign(context, ocontext.str());
 	// End context
 
 	// Begin identity
@@ -104,7 +104,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	          << "\"name\": \"" << soldier_name << "\""
 	          << "}";
 
-	identity = oidentity.str();
+	MumbleStringAssign(identity, oidentity.str());
 	// End identity
 
 	// Copy camera direction vectors to avatar
@@ -116,9 +116,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (!initialize(pids, L"BF2142.exe")) // Retrieve game executable's memory address
+	if (!initialize(lookupFunc, lookupContext, L"BF2142.exe")) // Retrieve game executable's memory address
 		return false;
 
 	RendDX9 = getModuleAddr(L"RendDX9.dll"); // Retrieve "RendDX9.dll" module's memory address
@@ -128,10 +128,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -139,39 +139,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 2142 version 1.51."); // Plugin long description
-}
-
-static std::wstring description(L"Battlefield 2142 1.51"); // Plugin short description
-static std::wstring shortname(L"Battlefield 2142"); // Plugin short name
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin bf2142plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 bf2142plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	true,
+	MumbleInitConstWideString(L"Battlefield 2142"),
+	MumbleInitConstWideString(L"1.51"),
+	MumbleInitConstWideString(L"Supports Battlefield 2142 with context and identity support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bf2142plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &bf2142plug2;
 }

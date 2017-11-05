@@ -32,10 +32,8 @@ const procptr_t camera_azimuth_offset   = 304; // (-pi to pi)
 const procptr_t camera_elevation_offset = 308; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv_dx11.exe";
-// Plugin long description
-static const std::wstring longdesc() {return std::wstring(L"Supports Final Fantasy XIV X64 version 2016.11.11.0000.0000 with context and identity support.");}
-// Plugin short description
-static std::wstring description(L"Final Fantasy XIV X64 (2016.11.11.0000.0000)");
+// Game version
+static const MumbleWideString version = MumbleInitConstWideString(L"2016.11.11.0000.0000 (x64)");
 #else
 // Memory offsets
 const procptr_t camera_ptr              = 0x1045C40;
@@ -53,15 +51,15 @@ const procptr_t camera_azimuth_offset   = 288; // (-pi to pi)
 const procptr_t camera_elevation_offset = 292; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv.exe";
-// Plugin long description
-static const std::wstring longdesc() {return std::wstring(L"Supports Final Fantasy XIV version 2016.11.11.0000.0000 with context and identity support.");}
-// Plugin short description
-static std::wstring description(L"Final Fantasy XIV (2016.11.11.0000.0000)");
+// Game version
+static const MumbleWideString version = MumbleInitConstWideString(L"2016.11.11.0000.0000");
 #endif
-// Plugin short name
-static std::wstring shortname(L"Final Fantasy XIV");
+// Plugin name
+static const MumbleWideString name = MumbleInitConstWideString(L"Final Fantasy XIV");
+// Plugin description
+static const MumbleWideString description = MumbleInitConstWideString(L"Supports Final Fantasy XIV with context and identity support.");
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	for (int i=0;i<3;i++) {
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 	}
@@ -103,8 +101,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// State
 	if (state != 1) { // If not in-game
-		context.clear(); // Clear context
-		identity.clear(); // Clear identity
+		MumbleStringClear(context); // Clear context
+		MumbleStringClear(identity); // Clear identity
 		// Set vectors values to 0.
 		for (int i=0;i<3;i++) {
 			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
@@ -121,7 +119,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ocontext  << "Map: " << map_id << ""; // Set map id in identity.
 
 	ocontext << "}";
-	context = ocontext.str();
+	MumbleStringAssign(context, ocontext.str());
 	// End context
 
 	// Begin identity
@@ -140,7 +138,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	oidentity << "}";
-	identity = oidentity.str();
+	MumbleStringAssign(identity, oidentity.str());
 	// End identity
 
 	/*
@@ -179,18 +177,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 
-	if (! initialize(pids, exe_name)) { // Retrieve "exe_name" module's memory address
+	if (! initialize(lookupFunc, lookupContext, exe_name)) { // Retrieve "exe_name" module's memory address
 		return false;
 	}
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::wstring sidentity;
-	std::string scontext;
+	MumbleWideString sidentity;
+	MumbleString scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &scontext, &sidentity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -198,32 +196,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin ffxivplug = {
 	MUMBLE_PLUGIN_MAGIC,
+	1,
+	false,
+	name,
+	version,
 	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 ffxivplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &ffxivplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &ffxivplug2;
 }

@@ -36,7 +36,7 @@
 
 #include "../mumble_plugin_win32.h"
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -84,17 +84,20 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//if(nPtr3 > 0)
 	//	identity.assign(nPtr3);
 
+	std::string context_str;
 	// Use region as context since each region has its own coordinate system
 	if (r == 1)
-		context = "Eriador";
+		context_str.assign("Eriador");
 	else if (r == 2)
-		context = "Rhovannion";
+		context_str.assign("Rhovannion");
 	else
 		return true;
 
 	// If we're in an instance, append the instance id
 	if (i != 0)
-		context += i;
+		context_str.append(reinterpret_cast<char*>(i));
+
+	MumbleStringAssign(context, context_str);
 
 	// Heading should be between 0 and 360
 	if (h < 0 || h > 360)
@@ -126,15 +129,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"lotroclient.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"lotroclient.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -142,39 +145,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Rise of Isengard, Update 6, v3.6.0.8025). Context support based on region and instance. No Identity support.");
-}
-
-static std::wstring description(L"Lord of the Rings Online - Rise of Isengard - Update 6");
-static std::wstring shortname(L"Lord of the Rings Online");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin lotroplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	false,
+	MumbleInitConstWideString(L"Lord of the Rings Online"),
+	MumbleInitConstWideString(L"Rise of Isengard, Update 6, v3.6.0.8025"),
+	MumbleInitConstWideString(L"Supports Lord of the Rings Online. Context support based on region and instance. No Identity support."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 lotroplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &lotroplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &lotroplug2;
 }

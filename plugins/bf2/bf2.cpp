@@ -94,7 +94,7 @@ inline bool resolve_ptrs() {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -114,8 +114,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (state == 0) {
 		ptr_chain_valid = false;
-		context.clear();
-		identity.clear();
+		MumbleStringClear(context);
+		MumbleStringClear(identity);
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	} else if (!ptr_chain_valid) {
 		if (!resolve_ptrs())
@@ -160,7 +160,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		ostringstream ocontext;
 		ocontext << "{ \"ipport\": \"" << ccontext << "\"}";
 
-		context = ocontext.str();
+		MumbleStringAssign(context, ocontext.str());
 
 		/*
 			Get identity string.
@@ -177,7 +177,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		          << "\"target_squad_id\":" << static_cast<unsigned int>(target_squad_id)
 		          << "}";
 
-		identity = oidentity.str();
+		MumbleStringAssign(identity, oidentity.str());
 	}
 
 	for (int i=0;i<3;i++) {
@@ -189,8 +189,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return ok;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"BF2.exe", L"BF2Audio.dll"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"BF2.exe", L"BF2Audio.dll"))
 		return false;
 
 	pmodule_bf2		= getModuleAddr(L"BF2.exe");
@@ -200,10 +200,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (!pmodule_renddx9) return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -213,39 +213,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 2 v1.50");
-}
-
-static std::wstring description(L"Battlefield 2 v1.50");
-static std::wstring shortname(L"Battlefield 2");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin bf2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	false,
+	MumbleInitConstWideString(L"Battlefield 2"),
+	MumbleInitConstWideString(L"1.50"),
+	MumbleInitConstWideString(L"Supports Battlefield 2 with context and identity support."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 bf2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bf2plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &bf2plug2;
 }

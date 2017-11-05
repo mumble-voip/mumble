@@ -6,36 +6,29 @@
 #include "mumble_plugin.h"
 
 #ifndef NULL_DESC
-#define NULL_DESC L"Retracted plugin"
+#define NULL_DESC L"NULL plugin for retracted plugin. This should not be visible in Mumble >= 1.2.4"
 #endif // NULL_DESC
 
-static int fetch(float *, float *, float *, float *, float *, float *, std::string &, std::wstring &) {
+static int fetch(float *, float *, float *, float *, float *, float *, MumbleString *, MumbleWideString *) {
 	// Empty
 	return false;
 }
 
-static int trylock() {
+static int trylock(const MumblePIDLookup, const MumblePIDLookupContext) {
 	// Empty
 	return false;
 }
-
-static const std::wstring longdesc() {
-	return std::wstring(L"NULL plugin for retracted plugin. This should not be visible in Mumble >= 1.2.4");
-}
-
-static std::wstring description(NULL_DESC);
-static std::wstring shortname(L"Retracted");
 
 static MumblePlugin nullplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
+	1,
+	true,
+	MumbleInitConstWideString(L"Retracted"),
+	MumbleInitConstWideString(L""),
+	MumbleInitConstWideString(NULL_DESC),
+	fetch,
 	trylock,
 	NULL,
-	longdesc,
-	fetch
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {

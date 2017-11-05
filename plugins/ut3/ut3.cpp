@@ -10,7 +10,7 @@ using namespace std;
 procptr_t pos0ptr, pos1ptr, pos2ptr, faceptr, topptr;
 //BYTE *stateptr;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *) {
 	char state;
 	//char ccontext[128];
 	bool ok;
@@ -84,10 +84,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 	pos0ptr = pos1ptr = pos2ptr = faceptr = 0;
 
-	if (! initialize(pids, L"UT3.exe", L"wrap_oal.dll"))
+	if (! initialize(lookupFunc, lookupContext, L"UT3.exe", L"wrap_oal.dll"))
 		return false;
 
 	procptr_t ptraddress = pModule + 0x8A740;
@@ -102,10 +102,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	//stateptr = pModule + 0xC4;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -113,39 +113,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Unreal Tournament 3 (v2.1). No context or identity support yet.");
-}
-
-static std::wstring description(L"Unreal Tournament 3 (v2.1)");
-static std::wstring shortname(L"Unreal Tournament 3");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin ut3plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 ut3plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Unreal Tournament 3"),
+	MumbleInitConstWideString(L"2.1"),
+	MumbleInitConstWideString(L"Supports Unreal Tournament 3. No context or identity support yet."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &ut3plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &ut3plug2;
 }

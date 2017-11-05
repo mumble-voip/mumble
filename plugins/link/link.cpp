@@ -31,10 +31,6 @@ struct LinkedMem {
 	wchar_t description[2048];
 };
 
-static void about(void *h) {
-	::MessageBox(reinterpret_cast<HWND>(h), L"Reads audio position information from linked game", L"Mumble Link Plugin", MB_OK);
-}
-
 static HANDLE hMapObject = NULL;
 static LinkedMem *lm = NULL;
 static DWORD last_count = 0;
@@ -45,10 +41,10 @@ static void unlock() {
 	lm->uiVersion = 0;
 	lm->name[0] = 0;
 	wsPluginName.assign(L"Link");
-	wsDescription.clear();
+	wsDescription.assign(L"Reads audio position information from linked game");
 }
 
-static int trylock() {
+static int trylock(const MumblePIDLookup, const MumblePIDLookupContext) {
 	if ((lm->uiVersion == 1) || (lm->uiVersion == 2)) {
 		if (lm->dwcount != last_count) {
 			last_count = lm->dwcount;
@@ -69,7 +65,7 @@ static int trylock() {
 			}
 			if (err) {
 				wsPluginName.assign(L"Link");
-				wsDescription.clear();
+				wsDescription.assign(L"Reads audio position information from linked game");
 				return false;
 			}
 			return true;
@@ -79,7 +75,7 @@ static int trylock() {
 }
 
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *identity) {
 	if (lm->dwcount != last_count) {
 		last_count = lm->dwcount;
 		last_tick = GetTickCount();
@@ -106,23 +102,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			lm->context_len = 255;
 		lm->identity[255] = 0;
 
-		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
-		identity.assign(lm->identity);
+		MumbleStringAssign(context, reinterpret_cast<const char *>(lm->context));
+		MumbleStringAssign(identity, lm->identity);
 	} else {
 		for (int i=0;i<3;++i) {
 			camera_pos[i]=lm->fAvatarPosition[i];
 			camera_front[i]=lm->fAvatarFront[i];
 			camera_top[i]=lm->fAvatarTop[i];
 		}
-		context.clear();
-		identity.clear();
+		MumbleStringClear(context);
+		MumbleStringClear(identity);
 	}
 
 	return true;
-}
-
-static const std::wstring getdesc() {
-	return wsDescription;
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
@@ -160,18 +152,16 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	return true;
 }
 
-static std::wstring description(L"Link v1.2.0");
-
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	wsPluginName,
-	about,
-	NULL,
+	120,
+	false,
+	MumbleInitConstWideString(wsPluginName.data()),
+	MumbleInitConstWideString(L"Universal"),
+	MumbleInitConstWideString(wsDescription.data()),
+	fetch,
 	trylock,
 	unlock,
-	getdesc,
-	fetch
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {

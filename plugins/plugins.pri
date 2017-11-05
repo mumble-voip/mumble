@@ -19,3 +19,15 @@ CONFIG(static) {
 DESTDIR = $$DESTDIR/plugins
 
 include(../qmake/symbols.pri)
+
+unix|win32-g++ {
+    QMAKE_LFLAGS *= -static-libgcc -static-libstdc++
+}
+
+win32-msvc* {
+    QMAKE_CXXFLAGS_RELEASE -= -MD
+    QMAKE_CXXFLAGS_DEBUG -= -MDd
+
+    QMAKE_CXXFLAGS_RELEASE *= -MT
+    QMAKE_CXXFLAGS_DEBUG *= -MTd
+}

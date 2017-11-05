@@ -19,7 +19,7 @@
 #include <time.h>
 
 static std::wstring wsPluginName(L"Link");
-static std::wstring wsDescription;
+static std::wstring wsDescription(L"Reads audio position information from linked game");
 static char memname[256];
 
 struct LinkedMem {
@@ -58,10 +58,10 @@ static void unlock() {
 	lm->uiVersion = 0;
 	lm->name[0] = 0;
 	wsPluginName.assign(L"Link");
-	wsDescription.clear();
+	wsDescription.assign(L"Reads audio position information from linked game");
 }
 
-static int trylock() {
+static int trylock(const MumblePIDLookup, const MumblePIDLookupContext) {
 	if (lm == lm_invalid)
 		return false;
 
@@ -88,13 +88,9 @@ static int trylock() {
 	return false;
 }
 
-static const std::wstring longdesc() {
-	return wsDescription;
-}
-
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
                  float *camera_pos, float *camera_front, float *camera_top,
-                 std::string &context, std::wstring &identity) {
+                 MumbleString *context, MumbleWideString *identity) {
 
 	if (lm->ui32count != last_count) {
 		last_tick = GetTickCount();
@@ -122,16 +118,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
 			lm->context_len = 255;
 		lm->identity[255] = 0;
 
-		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
-		identity.assign(lm->identity);
+		MumbleStringAssign(context, std::string(reinterpret_cast<const char*>(lm->context)));
+		MumbleStringAssign(identity, std::wstring(reinterpret_cast<const wchar_t*>(lm->identity)));
 	} else {
 		for (int i=0;i<3;++i) {
 			camera_pos[i]=lm->fAvatarPosition[i];
 			camera_front[i]=lm->fAvatarFront[i];
 			camera_top[i]=lm->fAvatarTop[i];
 		}
-		context.clear();
-		identity.clear();
+		MumbleStringClear(context);
+		MumbleStringClear(identity);
 	}
 
 	return true;
@@ -181,18 +177,16 @@ static void unload_plugin() {
 	shm_unlink(memname);
 }
 
-static std::wstring description(L"Link v1.2.0");
-
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	wsPluginName,
-	NULL,
-	NULL,
+	120,
+	false,
+	MumbleInitConstWideString(wsPluginName.data()),
+	MumbleInitConstWideString(L"Universal"),
+	MumbleInitConstWideString(wsDescription.data()),
+	fetch,
 	trylock,
 	unlock,
-	longdesc,
-	fetch
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {

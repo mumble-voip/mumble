@@ -82,7 +82,7 @@ static bool refreshPointers(void) {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -100,7 +100,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	
 	hostipport[sizeof(hostipport) - 1] = '\0';
 	if (strcmp(hostipport, prev_hostipport) != 0) {
-		context.clear();
+		MumbleStringClear(context);
 		state = 0;
 
 		strcpy_s(prev_hostipport, sizeof(prev_hostipport), hostipport);
@@ -108,7 +108,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		if (strcmp(hostipport, "") != 0 && strcmp(hostipport, "bot") != 0) {
 			char buffer[50];
 			sprintf_s(buffer, sizeof(buffer), "{\"ipport\": \"%s\"}", hostipport);
-			context.assign(buffer);
+			MumbleStringAssign(context, buffer);
 			state = 1;
 		}
 	}
@@ -126,8 +126,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"BLR.exe", L"pbcl.dll"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"BLR.exe", L"pbcl.dll"))
 		return false;
 
 	if (refreshPointers()) { // unlink plugin if this fails
@@ -135,10 +135,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		*prev_hostipport = '\0';
 		float avatar_pos[3], avatar_front[3], avatar_top[3];
 		float camera_pos[3], camera_front[3], camera_top[3];
-		std::string context;
-		std::wstring identity;
+		MumbleString context;
+		MumbleWideString identity;
 
-		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
+		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, &context, &identity)) {
 			*prev_hostipport = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 			return true;
 		}
@@ -148,39 +148,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	return false;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Blacklight: Retribution v0.9.8.0. No identity or avatar vectors support yet.");
-}
-
-static std::wstring description(L"Blacklight: Retribution (v0.9.8.0)");
-static std::wstring shortname(L"Blacklight: Retribution");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin blacklightplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
+	1,
+	true,
+	MumbleInitConstWideString(L"Blacklight: Retribution"),
+	MumbleInitConstWideString(L"0.9.8.0"),
+	MumbleInitConstWideString(L"Supports Blacklight: Retribution. No identity or avatar vectors support yet."),
+	fetch,
+	trylock,
 	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 blacklightplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &blacklightplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &blacklightplug2;
 }

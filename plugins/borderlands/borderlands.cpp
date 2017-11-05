@@ -38,7 +38,7 @@
 
 procptr_t posptr, frontptr, topptr, contextptraddress, stateaddress, loginaddress;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	static bool loggedin = false;
 	static procptr_t contextptr;
 	bool ok;
@@ -120,16 +120,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			new_context.erase(0, new_context.find("bderlandspc"));
 		if (new_context.find(":7777") != std::string::npos)
 			new_context.erase(new_context.find(":7777") + 5);
-		context = new_context;
+		MumbleStringAssign(context, new_context);
 	}
 
 	return ok;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 	posptr = frontptr = topptr = contextptraddress = stateaddress = loginaddress = 0;
 
-	if (!initialize(pids, L"Borderlands.exe"))
+	if (!initialize(lookupFunc, lookupContext, L"Borderlands.exe"))
 		return false;
 
 	// Trying to assess which version of Borderlands is running.
@@ -171,10 +171,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	topptr = ptr1 + 0x9230;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -182,39 +182,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Borderlands v1.40, including german and steam version. Context string is used with online games.");
-}
-
-static std::wstring description(L"Borderlands v1.40");
-static std::wstring shortname(L"Borderlands");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin borderlandsplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 borderlandsplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	true,
+	MumbleInitConstWideString(L"Borderlands"),
+	MumbleInitConstWideString(L"1.40"),
+	MumbleInitConstWideString(L"Supports Borderlands, including german and steam version. Context string is used with online games."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &borderlandsplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &borderlandsplug2;
 }

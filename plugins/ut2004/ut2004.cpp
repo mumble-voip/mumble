@@ -9,7 +9,7 @@ using namespace std;
 
 procptr_t pos0ptr, pos1ptr, pos2ptr, faceptr, topptr;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *, MumbleWideString *) {
 	//char ccontext[128];
 	float face_corrector[3];
 	float top_corrector[3];
@@ -61,10 +61,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
 	pos0ptr = pos1ptr = pos2ptr = faceptr = topptr = 0;
 
-	if (! initialize(pids, L"UT2004.exe", L"Engine.dll"))
+	if (! initialize(lookupFunc, lookupContext, L"UT2004.exe", L"Engine.dll"))
 		return false;
 
 	procptr_t ptraddress = pModule + 0x4A44FC;
@@ -81,10 +81,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	topptr = baseptr + 0x24;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
+	MumbleString context;
+	MumbleWideString identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, &context, &identity)) {
 		return true;
 	} else {
 		generic_unlock();
@@ -92,39 +92,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Unreal Tournament 2004 (v3369). No context or identity support yet.");
-}
-
-static std::wstring description(L"Unreal Tournament 2004 (v3369)");
-static std::wstring shortname(L"Unreal Tournament 2004");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin ut2004plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 ut2004plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"Unreal Tournament 2004"),
+	MumbleInitConstWideString(L"3369"),
+	MumbleInitConstWideString(L"Supports Unreal Tournament 2004. No context or identity support yet."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &ut2004plug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &ut2004plug2;
 }

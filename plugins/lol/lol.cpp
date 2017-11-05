@@ -100,7 +100,7 @@ static bool refreshPointers(void) {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, MumbleString *context, MumbleWideString *) {
 	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -129,7 +129,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	calcout(ipos, cam, avatar_pos, camera_pos); //calculate proper position values
 	
 	if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
-		context.clear();
+		MumbleStringClear(context);
 
 		strcpy_s(prev_hostip, sizeof(prev_hostip), hostip);
 		prev_hostport = hostport;
@@ -137,14 +137,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		if (strcmp(hostip, "") != 0) {
 			char buffer[50];
 			sprintf_s(buffer, sizeof(buffer), "{\"ipport\": \"%s:%d\"}", hostip, hostport);
-			context.assign(buffer);
+			MumbleStringAssign(context, buffer);
 		}
 	}
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"League of Legends.exe"))
+static int trylock(const MumblePIDLookup lookupFunc, const MumblePIDLookupContext lookupContext) {
+	if (! initialize(lookupFunc, lookupContext, L"League of Legends.exe"))
 		return false;
 
 	if (refreshPointers()) { // unlink plugin if this fails
@@ -153,10 +153,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 		float avatar_pos[3], avatar_front[3], avatar_top[3];
 		float camera_pos[3], camera_front[3], camera_top[3];
-		std::string context;
-		std::wstring identity;
+		MumbleString context;
+		MumbleWideString identity;
 
-		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
+		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, &context, &identity)) {
 			*prev_hostip = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 			prev_hostport = 0;
 			return true;
@@ -167,39 +167,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	return false;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.145 with context. No identity support.");
-}
-
-static std::wstring description(L"League of Legends (v1.0.0.145)");
-static std::wstring shortname(L"League of Legends");
-
-static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
-}
-
 static MumblePlugin lolplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
-
-static MumblePlugin2 lolplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+	1,
+	false,
+	MumbleInitConstWideString(L"League of Legends"),
+	MumbleInitConstWideString(L"1.0.0.145"),
+	MumbleInitConstWideString(L"Supports League of Legends with context. No identity support."),
+	fetch,
+	trylock,
+	generic_unlock
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &lolplug;
-}
-
-extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin2 *getMumblePlugin2() {
-	return &lolplug2;
 }
