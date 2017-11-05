@@ -12,7 +12,6 @@
 #include "MainWindow.h"
 #include "Message.h"
 #include "ServerHandler.h"
-#include "../../plugins/mumble_plugin.h"
 #include "WebFetch.h"
 #include "MumbleApplication.h"
 
@@ -32,7 +31,6 @@ struct PluginInfo {
 	QString description;
 	QString shortname;
 	MumblePlugin *p;
-	MumblePlugin2 *p2;
 	MumblePluginQt *pqt;
 	PluginInfo();
 };
@@ -41,7 +39,6 @@ PluginInfo::PluginInfo() {
 	locked = false;
 	enabled = false;
 	p = NULL;
-	p2 = NULL;
 	pqt = NULL;
 }
 
@@ -121,8 +118,6 @@ void PluginConfig::on_qpbConfig_clicked() {
 
 	if (pi->pqt && pi->pqt->config) {
 		pi->pqt->config(this);
-	} else if (pi->p->config) {
-		pi->p->config(0);
 	} else {
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no configure function."), QMessageBox::Ok, QMessageBox::NoButton);
 	}
@@ -140,8 +135,6 @@ void PluginConfig::on_qpbAbout_clicked() {
 
 	if (pi->pqt && pi->pqt->about) {
 		pi->pqt->about(this);
-	} else if (pi->p->about) {
-		pi->p->about(0);
 	} else {
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no about function."), QMessageBox::Ok, QMessageBox::NoButton);
 	}
@@ -160,9 +153,9 @@ void PluginConfig::refillPluginList() {
 		QTreeWidgetItem *i = new QTreeWidgetItem(qtwPlugins);
 		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		i->setCheckState(1, pi->enabled ? Qt::Checked : Qt::Unchecked);
-		i->setText(0, pi->description);
-		if (pi->p->longdesc)
-			i->setToolTip(0, Qt::escape(QString::fromStdWString(pi->p->longdesc())));
+		i->setText(0, pi->shortname);
+		if (pi->p->description.data)
+			i->setToolTip(0, Qt::escape(QString::fromStdWString(pi->p->description.data)));
 		i->setData(0, Qt::UserRole, pi->filename);
 	}
 	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
@@ -175,18 +168,12 @@ void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QT
 	PluginInfo *pi=pluginForItem(current);
 	if (pi) {
 		bool showAbout = false;
-		if (pi->p->about) {
-			showAbout = true;
-		}
 		if (pi->pqt && pi->pqt->about) {
 			showAbout = true;
 		}
 		qpbAbout->setEnabled(showAbout);
 
 		bool showConfig = false;
-		if (pi->p->config) {
-			showConfig = true;
-		}
 		if (pi->pqt && pi->pqt->config) {
 			showConfig = true;
 		}
@@ -207,6 +194,16 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	for (int i=0;i<3;i++)
 		fPosition[i]=fFront[i]=fTop[i]= 0.0;
 	QMetaObject::connectSlotsByName(this);
+
+	// Initialize strings
+	msContext.len = 256;
+	msContext.data = contextBuf;
+	mwsIdentity.len = 256;
+	mwsIdentity.data = identityBuf;
+	msContextSent.len = 256;
+	msContextSent.data = contextSentBuf;
+	mwsIdentitySent.len = 256;
+	mwsIdentitySent.data = identitySentBuf;
 
 #ifdef QT_NO_DEBUG
 #ifndef PLUGIN_PATH
@@ -302,20 +299,12 @@ void Plugins::rescanPlugins() {
 					// Check whether the plugin has a valid plugin magic and that it's not retracted.
 					// A retracted plugin is a plugin that clients should disregard, typically because
 					// the game the plugin was written for now provides positional audio via the
-					// link plugin (see null_plugin.cpp).
-					if (pi->p && pi->p->magic == MUMBLE_PLUGIN_MAGIC && pi->p->shortname != L"Retracted") {
+					// link plugin (see null_plugin.cpp)
+					if (pi->p && pi->p->magic == MUMBLE_PLUGIN_MAGIC && !pi->p->retracted) {
 
-						pi->description = QString::fromStdWString(pi->p->description);
-						pi->shortname = QString::fromStdWString(pi->p->shortname);
+						pi->description = QString::fromWCharArray(pi->p->description.data);
+						pi->shortname = QString::fromWCharArray(pi->p->name.data);
 						pi->enabled = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
-
-						mumblePlugin2Func mpf2 = reinterpret_cast<mumblePlugin2Func>(pi->lib.resolve("getMumblePlugin2"));
-						if (mpf2) {
-							pi->p2 = mpf2();
-							if (pi->p2->magic != MUMBLE_PLUGIN_MAGIC_2) {
-								pi->p2 = NULL;
-							}
-						}
 
 						mumblePluginQtFunc mpfqt = reinterpret_cast<mumblePluginQtFunc>(pi->lib.resolve("getMumblePluginQt"));
 						if (mpfqt) {
@@ -345,8 +334,8 @@ void Plugins::rescanPlugins() {
 		pi->filename = QLatin1String("manual.builtin");
 		pi->p = ManualPlugin_getMumblePlugin();
 		pi->pqt = ManualPlugin_getMumblePluginQt();
-		pi->description = QString::fromStdWString(pi->p->description);
-		pi->shortname = QString::fromStdWString(pi->p->shortname);
+		pi->description = QString::fromWCharArray(pi->p->description.data);
+		pi->shortname = QString::fromWCharArray(pi->p->name.data);
 		pi->enabled = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
 		qlPlugins << pi;
 #endif
@@ -390,7 +379,7 @@ bool Plugins::fetch() {
 	bool ok;
 	{
 		QMutexLocker mlock(&qmPluginStrings);
-		ok = locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
+		ok = locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, &msContext, &mwsIdentity);
 	}
 	if (! ok || bUnlink) {
 		lock.unlock();
@@ -409,6 +398,21 @@ bool Plugins::fetch() {
 	return bValid;
 }
 
+static MumblePIDLookupStatus lookup_func(MumblePIDLookupContext ctx, const wchar_t *procname, unsigned long long int *pid) {
+
+	std::multimap<std::wstring, unsigned long long int> *pids = reinterpret_cast<std::multimap<std::wstring, unsigned long long int> *>(ctx);
+	std::multimap<std::wstring, unsigned long long int>::const_iterator iter = pids->find(std::wstring(procname));
+
+	if (iter != pids->end()) {
+		if (pid) {
+			*pid = iter->second;
+			return MUMBLE_PID_LOOKUP_OK;
+		}
+	}
+
+	return MUMBLE_PID_LOOKUP_EOF;
+}
+
 void Plugins::on_Timer_timeout() {
 	fetch();
 
@@ -424,27 +428,28 @@ void Plugins::on_Timer_timeout() {
 		QMutexLocker mlock(&qmPluginStrings);
 
 		if (! locked) {
-			ssContext.clear();
-			swsIdentity.clear();
+			MumbleStringClear(&msContext);
+			MumbleStringClear(&mwsIdentity);
 		}
 
 		std::string context;
 		if (locked)
-			context.assign(u8(QString::fromStdWString(locked->p->shortname)) + static_cast<char>(0) + ssContext);
+			context.assign(u8(QString::fromWCharArray(locked->p->name.data) + QChar::fromLatin1('0') + QString::fromUtf8(reinterpret_cast<const char*>(msContext.data))));
 
 		if (! g.uiSession) {
-			ssContextSent.clear();
-			swsIdentitySent.clear();
-		} else if ((context != ssContextSent) || (swsIdentity != swsIdentitySent)) {
+			MumbleStringClear(&msContextSent);
+			MumbleStringClear(&mwsIdentitySent);
+		} else if ((context != std::string(reinterpret_cast<char*>(msContextSent.data))) || (mwsIdentity.data != mwsIdentitySent.data)) {
 			MumbleProto::UserState mpus;
 			mpus.set_session(g.uiSession);
-			if (context != ssContextSent) {
-				ssContextSent.assign(context);
+			QString qstr_context_sent = QString::fromUtf8(reinterpret_cast<char*>(msContextSent.data));
+			if (context != qstr_context_sent.toStdString()) {
+				MumbleStringAssign(&msContextSent, context);
 				mpus.set_plugin_context(context);
 			}
-			if (swsIdentity != swsIdentitySent) {
-				swsIdentitySent.assign(swsIdentity);
-				mpus.set_plugin_identity(u8(QString::fromStdWString(swsIdentitySent)));
+			if (mwsIdentity.data != mwsIdentitySent.data) {
+				mwsIdentitySent.data = mwsIdentity.data;
+				mpus.set_plugin_identity(u8(QString::fromWCharArray(mwsIdentitySent.data)));
 			}
 			if (g.sh)
 				g.sh->sendMessage(mpus);
@@ -536,8 +541,8 @@ void Plugins::on_Timer_timeout() {
 
 	PluginInfo *pi = qlPlugins.at(iPluginTry);
 	if (pi->enabled) {
-		if (pi->p2 ? pi->p2->trylock(pids) : pi->p->trylock()) {
-			pi->shortname = QString::fromStdWString(pi->p->shortname);
+		if (pi->p && pi->p->trylock(lookup_func, &pids)) {
+			pi->shortname = QString::fromWCharArray(pi->p->name.data);
 			g.l->log(Log::Information, tr("%1 linked.").arg(Qt::escape(pi->shortname)));
 			pi->locked = true;
 			bUnlink = false;

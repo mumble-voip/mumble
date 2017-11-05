@@ -18,6 +18,8 @@
 
 #include "ui_Plugins.h"
 
+#include "../../plugins/mumble_plugin.h"
+
 struct PluginInfo;
 
 class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
@@ -64,8 +66,10 @@ class Plugins : public QObject {
 		DWORD cbPrevious;
 #endif
 	public:
-		std::string ssContext, ssContextSent;
-		std::wstring swsIdentity, swsIdentitySent;
+		MumbleString msContext, msContextSent;
+		MumbleWideString mwsIdentity, mwsIdentitySent;
+		unsigned char contextBuf[256], contextSentBuf[256];
+		wchar_t identityBuf[256], identitySentBuf[256];
 		bool bValid;
 		bool bUnlink;
 		float fPosition[3], fFront[3], fTop[3];
