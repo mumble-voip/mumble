@@ -119,6 +119,10 @@ win32-msvc* {
 	QMAKE_CFLAGS *= -Zm200
 	QMAKE_CXXFLAGS *= -Zm200
 
+	# Make sure we never see min/max macros
+	QMAKE_CFLAGS *= -DNOMINMAX
+	QMAKE_CXXFLAGS *= -DNOMINMAX
+
 	# Disable C4091 for x86 builds. We build against the v140_xp toolset, which uses
 	# a modified Windows 7 SDK which is compatible with Windows XP. Many system headers
 	# emit C4091, typically because of erroneous typedefs. For example 'GPFIDL_FLAGS' in
