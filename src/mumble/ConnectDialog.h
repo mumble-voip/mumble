@@ -174,7 +174,9 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		/// @param p Parent widget to use in case the user has to be queried
 		/// @return Server item or NULL if mime data invalid.
 		///
-		static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = NULL);
+		static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = NULL, bool convertHttpUrls=false);
+		/// Create a ServerItem from a mumble:// URL
+		static ServerItem *fromUrl(QUrl url, QWidget *p);
 
 		void addServerItem(ServerItem *child);
 
@@ -196,26 +198,37 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ConnectDialogEdit)
+
+		void init();
 	protected:
 		bool bOk;
 		bool bCustomLabel;
+		ServerItem *m_si;
+
 	public slots:
 		void validate();
 		void accept();
 
+		void on_qbFill_clicked();
+		void on_qbDiscard_clicked();
 		void on_qcbShowPassword_toggled(bool);
 		void on_qleName_textEdited(const QString&);
 		void on_qleServer_textEdited(const QString&);
+		void showNotice(const QString &text);
+		bool updateFromClipboard();
 	public:
 		QString qsName, qsHostname, qsUsername, qsPassword;
 		unsigned short usPort;
 		ConnectDialogEdit(QWidget *parent,
-		                  const QString &name = QString(),
-		                  const QString &host = QString(),
-		                  const QString &user = QString(),
-		                  unsigned short port = DEFAULT_MUMBLE_PORT,
-		                  const QString &password = QString(),
-		                  bool add = false);
+		                  const QString &name,
+		                  const QString &host,
+		                  const QString &user,
+		                  unsigned short port,
+		                  const QString &password);
+		/// Add a new Server
+		/// Prefills from clipboard content or the connected to server if available
+		ConnectDialogEdit(QWidget *parent);
+		virtual ~ConnectDialogEdit();
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {

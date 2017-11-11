@@ -6,21 +6,105 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>265</width>
-    <height>197</height>
+    <width>430</width>
+    <height>272</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>430</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Edit Server</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="1" column="0" colspan="2">
+    <widget class="QWidget" name="qwInlineNotice" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="qlPasteNotice">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>4</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="qwActions" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <layout class="QVBoxLayout" name="qlActions">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="qbFill">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>&amp;Fill</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="qbDiscard">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string notr="true">&amp;Ignore</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
     <widget class="QLabel" name="qliServer">
      <property name="text">
       <string>A&amp;ddress</string>
@@ -30,7 +114,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="1">
     <widget class="QLineEdit" name="qleServer">
      <property name="toolTip">
       <string>Internet address of the server.</string>
@@ -44,7 +128,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <widget class="QLabel" name="qliPort">
      <property name="text">
       <string>&amp;Port</string>
@@ -54,7 +138,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <widget class="QLineEdit" name="qlePort">
      <property name="toolTip">
       <string>Port on which the server is listening</string>
@@ -68,7 +152,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="5" column="0">
     <widget class="QLabel" name="qliUsername">
      <property name="text">
       <string>&amp;Username</string>
@@ -78,14 +162,17 @@ Port on which the server is listening. If the server is identified by a Bonjour 
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
+   <item row="6" column="0">
     <widget class="QLabel" name="qliPassword">
      <property name="text">
       <string>Password</string>
      </property>
+     <property name="buddy">
+      <cstring>qlePassword</cstring>
+     </property>
     </widget>
    </item>
-   <item row="4" column="1">
+   <item row="5" column="1">
     <widget class="QLineEdit" name="qleUsername">
      <property name="toolTip">
       <string>Username to send to the server</string>
@@ -99,14 +186,14 @@ Username to send to the server. Be aware that the server can impose restrictions
      </property>
     </widget>
    </item>
-   <item row="8" column="1">
+   <item row="9" column="1">
     <widget class="QDialogButtonBox" name="qdbbButtonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="6" column="1">
     <widget class="QLineEdit" name="qlePassword">
      <property name="toolTip">
       <string>Password to send to the server</string>
@@ -120,7 +207,7 @@ Password to be sent to the server on connect. This password is needed when conne
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
+   <item row="8" column="1">
     <widget class="QCheckBox" name="qcbShowPassword">
      <property name="toolTip">
       <string/>
@@ -130,7 +217,7 @@ Password to be sent to the server on connect. This password is needed when conne
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
+   <item row="7" column="0">
     <widget class="QLabel" name="qliName">
      <property name="text">
       <string>Label</string>
@@ -140,7 +227,7 @@ Password to be sent to the server on connect. This password is needed when conne
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
+   <item row="7" column="1">
     <widget class="QLineEdit" name="qleName">
      <property name="toolTip">
       <string>Name of the server</string>
@@ -174,8 +261,8 @@ Label of the server. This is what the server will be named like in your server l
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>123</y>
+     <x>175</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
      <x>50</x>
@@ -190,8 +277,8 @@ Label of the server. This is what the server will be named like in your server l
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>191</x>
-     <y>128</y>
+     <x>254</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
      <x>224</x>

@@ -155,5 +155,5 @@ bool Themes::readStylesheet(const QString &stylesheetFn, QString &stylesheetCont
 }
 
 QString Themes::getDefaultStylesheet() {
-	return QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}p{margin:0;}#qwMacWarning{background-color:#FFFEDC;border-radius:5px;border:1px solid #B5B59E;}");
+	return QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}p{margin:0;}#qwMacWarning,#qwInlineNotice{background-color:#FFFEDC;border-radius:5px;border:1px solid #B5B59E;}");
 }
