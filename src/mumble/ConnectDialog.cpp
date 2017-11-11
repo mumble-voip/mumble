@@ -767,8 +767,6 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 	setWindowTitle(tr("Add Server"));
 	init();
 
-	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(updateFromClipboard()));
-
 	if (!updateFromClipboard()) {
 		// If connected to a server assume the user wants to add it
 		if (g.sh && g.sh->isRunning()) {
