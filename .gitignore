@@ -1,6 +1,6 @@
 Makefile
-Makefile.Debug
-Makefile.Release
+*.Debug
+*.Release
 debug/
 release/
 asio/
@@ -36,7 +36,9 @@ mocinclude.opt
 src/mumble/mumble_qt_auto.qrc
 *_plugin_import.cpp
 target_wrapper.bat
+target_wrapper.sh
 doxygen/
 .qmake.cache
 .qmake.stash
 .DS_Store
+.directory
