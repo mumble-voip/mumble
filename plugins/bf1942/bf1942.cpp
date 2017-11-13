@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
-procptr32_t faceptr, topptr;
+procptr_t faceptr, topptr;
 //BYTE *stateptr;
 //BYTE *contextptr;
 
@@ -56,8 +56,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"BF1942.exe"))
 		return false;
 
-	procptr32_t ptr1 = peekProc<procptr32_t>(0x009A9468);
-	procptr32_t ptr2 = peekProc<procptr32_t>(ptr1 + 0x98);
+	procptr_t ptr1 = peekProcPtr(0x009A9468);
+	procptr_t ptr2 = peekProcPtr(ptr1 + 0x98);
 
 	faceptr = ptr2 + 0x5C;
 	topptr = ptr2 + 0x4C;

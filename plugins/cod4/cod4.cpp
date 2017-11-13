@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 

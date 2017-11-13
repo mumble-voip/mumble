@@ -3,10 +3,10 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-static procptr32_t steamclient, engine; // Variables to contain modules addresses
+static procptr_t steamclient, engine; // Variables to contain modules addresses
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++) {
@@ -23,9 +23,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool state;
 
 	// State pointers
-	procptr32_t state_base = peekProc<procptr32_t>(pModule + 0x5A7354);
+	procptr_t state_base = peekProcPtr(pModule + 0x5A7354);
 	if (state_base == 0) return false;
-	procptr32_t state_offset = peekProc<procptr32_t>(state_base + 0x5C);
+	procptr_t state_offset = peekProcPtr(state_base + 0x5C);
 	if (state_offset == 0) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data

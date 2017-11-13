@@ -4,56 +4,56 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #ifdef WIN32
-#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
 #else
-#include "../mumble_plugin_linux_32bit.h" // Include standard plugin header.
+#include "../mumble_plugin_linux.h" // Include standard plugin header.
 #endif
 
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 // Variables to contain modules addresses
-procptr32_t steamclient = 0;
-procptr32_t server = 0;
-procptr32_t engine = 0;
+procptr_t steamclient = 0;
+procptr_t server = 0;
+procptr_t engine = 0;
 
 #ifdef WIN32
 // Memory offsets
-const procptr32_t state_offset					= 0x6ACBD5;
-const procptr32_t avatar_pos_offset				= 0x6B9E1C;
-const procptr32_t camera_pos_offset				= 0x774B98;
-const procptr32_t avatar_front_offset			= 0x774BF8;
-const procptr32_t avatar_top_offset				= 0x774C28;
-const procptr32_t host_offset					= 0x772B24;
-const procptr32_t servername_offset				= 0x772D2C;
-const procptr32_t map_offset					= 0x772C28;
-const procptr32_t serverid_steamclient_offset	= 0x95E56D;
-const procptr32_t player_server_offset			= 0x7F87BC;
-const procptr32_t playerid_engine_offset		= 0x4EBF88;
+const procptr_t state_offset				= 0x6ACBD5;
+const procptr_t avatar_pos_offset			= 0x6B9E1C;
+const procptr_t camera_pos_offset			= 0x774B98;
+const procptr_t avatar_front_offset			= 0x774BF8;
+const procptr_t avatar_top_offset			= 0x774C28;
+const procptr_t host_offset					= 0x772B24;
+const procptr_t servername_offset			= 0x772D2C;
+const procptr_t map_offset					= 0x772C28;
+const procptr_t serverid_steamclient_offset	= 0x95E56D;
+const procptr_t player_server_offset		= 0x7F87BC;
+const procptr_t playerid_engine_offset		= 0x4EBF88;
 // Module names
-const wchar_t *exe_name							= L"left4dead2.exe";
-const wchar_t *client_name						= L"client.dll";
-const wchar_t *steamclient_name					= L"steamclient.dll";
-const wchar_t *server_name						= L"server.dll";
-const wchar_t *engine_name						= L"engine.dll";
+const wchar_t *exe_name						= L"left4dead2.exe";
+const wchar_t *client_name					= L"client.dll";
+const wchar_t *steamclient_name				= L"steamclient.dll";
+const wchar_t *server_name					= L"server.dll";
+const wchar_t *engine_name					= L"engine.dll";
 #else
 // Memory offsets
-const procptr32_t state_offset					= 0xE0A24C;
-const procptr32_t avatar_pos_offset				= 0xE773FC;
-const procptr32_t camera_pos_offset				= 0xED8700;
-const procptr32_t avatar_front_offset			= 0xE3C138;
-const procptr32_t avatar_top_offset				= 0xE3C150;
-const procptr32_t host_offset					= 0xE356D0;
-const procptr32_t servername_offset				= 0xE358D8;
-const procptr32_t map_offset					= 0xE09E9D;
-const procptr32_t serverid_steamclient_offset	= 0x1216CA5;
-const procptr32_t player_server_offset			= 0xF340E4;
-const procptr32_t playerid_engine_offset		= 0xA62C60;
+const procptr_t state_offset				= 0xE0A24C;
+const procptr_t avatar_pos_offset			= 0xE773FC;
+const procptr_t camera_pos_offset			= 0xED8700;
+const procptr_t avatar_front_offset			= 0xE3C138;
+const procptr_t avatar_top_offset			= 0xE3C150;
+const procptr_t host_offset					= 0xE356D0;
+const procptr_t servername_offset			= 0xE358D8;
+const procptr_t map_offset					= 0xE09E9D;
+const procptr_t serverid_steamclient_offset	= 0x1216CA5;
+const procptr_t player_server_offset		= 0xF340E4;
+const procptr_t playerid_engine_offset		= 0xA62C60;
 // Module names
-const wchar_t *exe_name							= L"hl2_linux";
-const wchar_t *client_name						= L"client.so";
-const wchar_t *steamclient_name					= L"steamclient.so";
-const wchar_t *server_name						= L"server.so";
-const wchar_t *engine_name						= L"engine.so";
+const wchar_t *exe_name						= L"hl2_linux";
+const wchar_t *client_name					= L"client.so";
+const wchar_t *steamclient_name				= L"steamclient.so";
+const wchar_t *server_name					= L"server.so";
+const wchar_t *engine_name					= L"engine.so";
 #endif
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {

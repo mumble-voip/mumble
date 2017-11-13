@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_64bit.h" // Include standard plugin header.
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 #include <algorithm> // Include algorithm header for the game version detector
 
@@ -14,7 +14,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Memory addresses
 	char game_name[20];
-	procptr64_t state_address, in_game_address, avatar_pos_address, camera_pos_address, avatar_base_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
+	procptr_t state_address, in_game_address, avatar_pos_address, camera_pos_address, avatar_base_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
 
 #define VERSION_EQ(buf, strlit) \
 	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
@@ -52,7 +52,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Avatar pointer
-	procptr64_t avatar_base = peekProc<procptr64_t>(avatar_base_address);
+	procptr_t avatar_base = peekProcPtr(avatar_base_address);
 	if (!avatar_base) return false;
 
 	// Boolean value to check if game addresses retrieval is successful

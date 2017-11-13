@@ -3,27 +3,27 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 using namespace std;
 
 
 bool ptr_chain_valid = false;
 
 // Modules
-procptr32_t pmodule_bf2, pmodule_renddx9;
+procptr_t pmodule_bf2, pmodule_renddx9;
 
 // Magic ptrs
-procptr32_t const login_ptr = 0x30058642;
-procptr32_t const state_ptr = 0x00A1D0A8;
+procptr_t const login_ptr = 0x30058642;
+procptr_t const state_ptr = 0x00A1D0A8;
 
 // Vector ptrs
-procptr32_t pos_ptr, face_ptr, top_ptr;
+procptr_t pos_ptr, face_ptr, top_ptr;
 
 // Context ptrs
-procptr32_t const ipport_ptr = 0x009A80B8;
+procptr_t const ipport_ptr = 0x009A80B8;
 
 // Identity ptrs
-procptr32_t commander_ptr, squad_leader_ptr, squad_state_ptr, team_state_ptr, voip_ptr, voip_com_ptr, target_squad_ptr;
+procptr_t commander_ptr, squad_leader_ptr, squad_state_ptr, team_state_ptr, voip_ptr, voip_com_ptr, target_squad_ptr;
 
 inline bool resolve_ptrs() {
 	pos_ptr = face_ptr = top_ptr = commander_ptr = squad_leader_ptr = squad_state_ptr = team_state_ptr = voip_ptr = voip_com_ptr = target_squad_ptr = 0;
@@ -31,13 +31,13 @@ inline bool resolve_ptrs() {
 	// Resolve all pointer chains to the values we want to fetch
 	//
 
-	procptr32_t base_bf2audio = pModule + 0x4645c;
-	procptr32_t base_bf2audio_2 = peekProc<procptr32_t>(base_bf2audio);
+	procptr_t base_bf2audio = pModule + 0x4645c;
+	procptr_t base_bf2audio_2 = peekProcPtr(base_bf2audio);
 	if (!base_bf2audio_2) return false;
 
-	pos_ptr = peekProc<procptr32_t>(base_bf2audio_2 + 0xb4);
-	face_ptr = peekProc<procptr32_t>(base_bf2audio_2 + 0xb8);
-	top_ptr = peekProc<procptr32_t>(base_bf2audio_2 + 0xbc);
+	pos_ptr = peekProcPtr(base_bf2audio_2 + 0xb4);
+	face_ptr = peekProcPtr(base_bf2audio_2 + 0xb8);
+	top_ptr = peekProcPtr(base_bf2audio_2 + 0xbc);
 	if (!pos_ptr || !face_ptr || !top_ptr) return false;
 
 	/*
@@ -59,34 +59,34 @@ inline bool resolve_ptrs() {
 		Com. VoiP state:    BF2.exe+005A4DA0 -> 4E                       BYTE      1 is VoiP on commander channel active (held down)
 		Target squad state: RendDX9.dll+00266D84 -> C0 -> C0 -> 40 -> AC BYTE      1 is Alpha squad, 2 Bravo... selected on commander screen
 	*/
-	procptr32_t base_renddx9 = peekProc<procptr32_t>(pmodule_renddx9 + 0x00244AE0);
+	procptr_t base_renddx9 = peekProcPtr(pmodule_renddx9 + 0x00244AE0);
 	if (!base_renddx9) return false;
 
-	procptr32_t base_renddx9_2 = peekProc<procptr32_t>(base_renddx9 + 0x60);
+	procptr_t base_renddx9_2 = peekProcPtr(base_renddx9 + 0x60);
 	if (!base_renddx9_2) return false;
 
 	commander_ptr = base_renddx9_2 + 0x110;
 	squad_leader_ptr = base_renddx9_2 + 0x111;
 	squad_state_ptr = base_renddx9_2 + 0x10C;
 
-	procptr32_t base_bf2 = peekProc<procptr32_t>(pmodule_bf2 + 0x0058734C);
+	procptr_t base_bf2 = peekProcPtr(pmodule_bf2 + 0x0058734C);
 	if (!base_bf2) return false;
 
 	team_state_ptr = base_bf2 + 0x239;
 
-	procptr32_t base_voip = peekProc<procptr32_t>(pmodule_bf2 + 0x005A4DA0);
+	procptr_t base_voip = peekProcPtr(pmodule_bf2 + 0x005A4DA0);
 	if (!base_voip) return false;
 
 	voip_ptr = base_voip + 0x61;
 	voip_com_ptr = base_voip + 0x4E;
 
-	procptr32_t base_target_squad = peekProc<procptr32_t>(pmodule_renddx9 + 0x00266D84);
+	procptr_t base_target_squad = peekProcPtr(pmodule_renddx9 + 0x00266D84);
 	if (!base_target_squad) return false;
-	procptr32_t base_target_squad_2 = peekProc<procptr32_t>(base_target_squad + 0xC0);
+	procptr_t base_target_squad_2 = peekProcPtr(base_target_squad + 0xC0);
 	if (!base_target_squad_2) return false;
-	procptr32_t base_target_squad_3 = peekProc<procptr32_t>(base_target_squad_2 + 0xC0);
+	procptr_t base_target_squad_3 = peekProcPtr(base_target_squad_2 + 0xC0);
 	if (!base_target_squad_3) return false;
-	procptr32_t base_target_squad_4 = peekProc<procptr32_t>(base_target_squad_3 + 0x40);
+	procptr_t base_target_squad_4 = peekProcPtr(base_target_squad_3 + 0x40);
 	if (!base_target_squad_4) return false;
 
 	target_squad_ptr = base_target_squad_4 + 0xAC;

@@ -3,11 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 // Variable to contain module's addresses
-procptr32_t RendDX9 = 0;
+procptr_t RendDX9 = 0;
 
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -21,7 +21,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Server name pointers
 	// Doubles as an in-server state variable (NULL if not in a game)
-	procptr32_t server_offset_0 = peekProc<procptr32_t>(pModule + 0x61B5D8);
+	procptr_t server_offset_0 = peekProcPtr(pModule + 0x61B5D8);
 	if (!server_offset_0) {
 		context.clear(); // Clear context
 		identity.clear(); // Clear identity
@@ -29,29 +29,29 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This tells Mumble to ignore all vectors.
 	}
 
-	procptr32_t server_offset_1 = peekProc<procptr32_t>(server_offset_0 + 0x108);
+	procptr_t server_offset_1 = peekProcPtr(server_offset_0 + 0x108);
 	if (!server_offset_1) return false;
 
 	// Team ID pointers
-	procptr32_t team_offset_0 = peekProc<procptr32_t>(pModule + 0x624430);
+	procptr_t team_offset_0 = peekProcPtr(pModule + 0x624430);
 	if (!team_offset_0) return false;
-	procptr32_t team_offset_1 = peekProc<procptr32_t>(team_offset_0 + 0x1B4);
+	procptr_t team_offset_1 = peekProcPtr(team_offset_0 + 0x1B4);
 	if (!team_offset_1) return false;
 
 	// Commander, SquadLeader, SquadID base pointers
-	procptr32_t role_offset_0 = peekProc<procptr32_t>(pModule + 0x685228);
+	procptr_t role_offset_0 = peekProcPtr(pModule + 0x685228);
 	if (!role_offset_0) return false;
-	procptr32_t role_offset_1 = peekProc<procptr32_t>(role_offset_0 + 0x6C);
+	procptr_t role_offset_1 = peekProcPtr(role_offset_0 + 0x6C);
 	if (!role_offset_1) return false;
 
 	// Tactical pointers
-	procptr32_t tactical_offset_0 = peekProc<procptr32_t>(pModule + 0x72D148);
+	procptr_t tactical_offset_0 = peekProcPtr(pModule + 0x72D148);
 	if (!tactical_offset_0) return false;
-	procptr32_t tactical_offset_1 = peekProc<procptr32_t>(tactical_offset_0 + 0xE4);
+	procptr_t tactical_offset_1 = peekProcPtr(tactical_offset_0 + 0xE4);
 	if (!tactical_offset_1) return false;
 
 	// VoiP pointers
-	procptr32_t voip_offset_0 = peekProc<procptr32_t>(pModule + 0x620D30);
+	procptr_t voip_offset_0 = peekProcPtr(pModule + 0x620D30);
 	if (!voip_offset_0) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data

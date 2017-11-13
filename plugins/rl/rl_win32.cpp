@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
 	for (int i=0;i<3;i++)
@@ -13,15 +13,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 
 	// Avatar pointers
-	procptr32_t avatar_base = peekProc<procptr32_t>(pModule + 0x174269C);
+	procptr_t avatar_base = peekProcPtr(pModule + 0x174269C);
 	if (!avatar_base) return false;
-	procptr32_t avatar_offset_0 = peekProc<procptr32_t>(avatar_base + 0x448);
+	procptr_t avatar_offset_0 = peekProcPtr(avatar_base + 0x448);
 	if (!avatar_offset_0) return false;
-	procptr32_t avatar_offset_1 = peekProc<procptr32_t>(avatar_offset_0 + 0x440);
+	procptr_t avatar_offset_1 = peekProcPtr(avatar_offset_0 + 0x440);
 	if (!avatar_offset_1) return false;
-	procptr32_t avatar_offset_2 = peekProc<procptr32_t>(avatar_offset_1 + 0x0);
+	procptr_t avatar_offset_2 = peekProcPtr(avatar_offset_1 + 0x0);
 	if (!avatar_offset_2) return false;
-	procptr32_t avatar_offset = peekProc<procptr32_t>(avatar_offset_2 + 0x1C);
+	procptr_t avatar_offset = peekProcPtr(avatar_offset_2 + 0x1C);
 	if (!avatar_offset) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data

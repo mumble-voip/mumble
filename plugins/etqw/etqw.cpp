@@ -3,11 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 
-procptr32_t pos1ptr, pos2ptr, pos3ptr, rot1ptr, rot2ptr;
+procptr_t pos1ptr, pos2ptr, pos3ptr, rot1ptr, rot2ptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	char menustate;

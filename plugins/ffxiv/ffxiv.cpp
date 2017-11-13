@@ -3,13 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifdef FFXIV_USE_x64
-#include "../mumble_plugin_win32_64bit.h" // Include standard plugin header.
-#else
-#include "../mumble_plugin_win32_32bit.h" // Include standard plugin header.
-#endif
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
 
-#include "../mumble_plugin_utils.h"       // Include plugin header for special functions, like "escape".
+#include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 #include <cmath>
 
 // Offset values can be obtained from:
@@ -21,19 +17,19 @@
 
 #ifdef FFXIV_USE_x64
 // Memory offsets
-const procptr64_t camera_ptr              = 0x1673350;
-const procptr64_t avatar_ptr              = 0x1674950;
-const procptr64_t state_offset            = 0x1641990;
-const procptr64_t map_id_offset           = 0x16409E8;
+const procptr_t camera_ptr              = 0x1673350;
+const procptr_t avatar_ptr              = 0x1674950;
+const procptr_t state_offset            = 0x1641990;
+const procptr_t map_id_offset           = 0x16409E8;
 // Avatar struct offsets
-const procptr64_t identity_offset         = 48;  // Name
-const procptr64_t avatar_pos_offset       = 176; // X, Z, Y
-const procptr64_t avatar_azimuth_offset   = 192; // Heading (-pi to pi)
+const procptr_t identity_offset         = 48;  // Name
+const procptr_t avatar_pos_offset       = 176; // X, Z, Y
+const procptr_t avatar_azimuth_offset   = 192; // Heading (-pi to pi)
 // Camera struct offsets
-const procptr64_t camera_is_free_offset   = 272; // 0: First person mode; 1: 3rd person
-const procptr64_t camera_pos_offset       = 80;  // X, Z, Y
-const procptr64_t camera_azimuth_offset   = 304; // (-pi to pi)
-const procptr64_t camera_elevation_offset = 308; // (-pi to pi)
+const procptr_t camera_is_free_offset   = 272; // 0: First person mode; 1: 3rd person
+const procptr_t camera_pos_offset       = 80;  // X, Z, Y
+const procptr_t camera_azimuth_offset   = 304; // (-pi to pi)
+const procptr_t camera_elevation_offset = 308; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv_dx11.exe";
 // Plugin long description
@@ -42,19 +38,19 @@ static const std::wstring longdesc() {return std::wstring(L"Supports Final Fanta
 static std::wstring description(L"Final Fantasy XIV X64 (2016.11.11.0000.0000)");
 #else
 // Memory offsets
-const procptr32_t camera_ptr              = 0x1045C40;
-const procptr32_t avatar_ptr              = 0x10468EC;
-const procptr32_t state_offset            = 0x1048C60;
-const procptr32_t map_id_offset           = 0x10210B0;
+const procptr_t camera_ptr              = 0x1045C40;
+const procptr_t avatar_ptr              = 0x10468EC;
+const procptr_t state_offset            = 0x1048C60;
+const procptr_t map_id_offset           = 0x10210B0;
 // Avatar struct offsets
-const procptr32_t identity_offset         = 48;  // Name
-const procptr32_t avatar_pos_offset       = 160; // X, Z, Y
-const procptr32_t avatar_azimuth_offset   = 176; // Heading (-pi to pi)
+const procptr_t identity_offset         = 48;  // Name
+const procptr_t avatar_pos_offset       = 160; // X, Z, Y
+const procptr_t avatar_azimuth_offset   = 176; // Heading (-pi to pi)
 // Camera struct offsets
-const procptr32_t camera_is_free_offset   = 256; // 0: First person mode; 1: 3rd person
-const procptr32_t camera_pos_offset       = 64;  // X, Z, Y
-const procptr32_t camera_azimuth_offset   = 288; // (-pi to pi)
-const procptr32_t camera_elevation_offset = 292; // (-pi to pi)
+const procptr_t camera_is_free_offset   = 256; // 0: First person mode; 1: 3rd person
+const procptr_t camera_pos_offset       = 64;  // X, Z, Y
+const procptr_t camera_azimuth_offset   = 288; // (-pi to pi)
+const procptr_t camera_elevation_offset = 292; // (-pi to pi)
 // Module names
 const wchar_t *exe_name                 = L"ffxiv.exe";
 // Plugin long description
@@ -82,11 +78,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Retrieve Avatar and Camera addresses
 #ifdef FFXIV_USE_x64
-	procptr64_t avatar_address = peekProc<procptr64_t>(pModule + avatar_ptr);
-	procptr64_t camera_address = peekProc<procptr64_t>(pModule + camera_ptr);
+	procptr_t avatar_address = peekProcPtr(pModule + avatar_ptr);
+	procptr_t camera_address = peekProcPtr(pModule + camera_ptr);
 #else
-	procptr32_t avatar_address = peekProc<procptr32_t>(pModule + avatar_ptr);
-	procptr32_t camera_address = peekProc<procptr32_t>(pModule + camera_ptr);
+	procptr_t avatar_address = peekProcPtr(pModule + avatar_ptr);
+	procptr_t camera_address = peekProcPtr(pModule + camera_ptr);
 #endif
 	if (!avatar_address || !camera_address) return false;
 

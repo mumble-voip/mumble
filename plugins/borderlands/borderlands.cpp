@@ -34,13 +34,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
-procptr32_t posptr, frontptr, topptr, contextptraddress, stateaddress, loginaddress;
+procptr_t posptr, frontptr, topptr, contextptraddress, stateaddress, loginaddress;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	static bool loggedin = false;
-	static procptr32_t contextptr;
+	static procptr_t contextptr;
 	bool ok;
 
 	// Zeroing the floats
@@ -56,9 +56,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (login == 0) {
 		loggedin = false;
 	} else if (!loggedin) {
-		procptr32_t ptr1 = peekProc<procptr32_t >(contextptraddress);
-		procptr32_t ptr2 = peekProc<procptr32_t >(ptr1 + 0x28c);
-		procptr32_t ptr3 = peekProc<procptr32_t >(ptr2 + 0x210);
+		procptr_t ptr1 = peekProcPtr(contextptraddress);
+		procptr_t ptr2 = peekProcPtr(ptr1 + 0x28c);
+		procptr_t ptr3 = peekProcPtr(ptr2 + 0x210);
 		if (ptr3 != 0) loggedin = true; //pointer set
 		contextptr = ptr3 + 0x2c;
 	}
@@ -139,7 +139,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	procptr32_t ptraddress;
+	procptr_t ptraddress;
 	if (strncmp("the cl", version, sizeof(version)) == 0) { // retail version
 		ptraddress = 0x01f73744;
 		stateaddress = 0x01f9bb18;
@@ -160,7 +160,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	procptr32_t ptr1 = peekProc<procptr32_t>(ptraddress);
+	procptr_t ptr1 = peekProcPtr(ptraddress);
 	if (ptr1 == 0) {
 		generic_unlock();
 		return false;

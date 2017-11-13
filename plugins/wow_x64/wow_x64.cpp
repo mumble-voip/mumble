@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_64bit.h" // Include standard plugin header.
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -16,28 +16,28 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-memory-editing/585582-wow-7-0-3-22624-release-info-dump-thread.html#post3615091
 
 	// Avatar pointer
-	procptr64_t avatar_offset = peekProc<procptr64_t>(pModule + 0x169DF10); // "LocalPlayer" in the thread.
+	procptr_t avatar_offset = peekProcPtr(pModule + 0x169DF10); // "LocalPlayer" in the thread.
 	if (!avatar_offset) return false;
 
 	// Camera pointer
-	procptr64_t camera_base = peekProc<procptr64_t>(pModule + 0x179C778); // "CameraStruct" in the thread.
+	procptr_t camera_base = peekProcPtr(pModule + 0x179C778); // "CameraStruct" in the thread.
 	if (!camera_base) return false;
-	procptr64_t camera_offset = peekProc<procptr64_t>(camera_base + 0x3338); // "CameraOffset" in the thread.
+	procptr_t camera_offset = peekProcPtr(camera_base + 0x3338); // "CameraOffset" in the thread.
 	if (!camera_offset) return false;
 
 	// Realm pointer
-	procptr64_t realm_offset = peekProc<procptr64_t>(pModule + 0x1827EC8); // Not available in the thread.
+	procptr_t realm_offset = peekProcPtr(pModule + 0x1827EC8); // Not available in the thread.
 	if (!realm_offset) return false;
 
 	// Memory addresses
-	procptr64_t state_address = 0x173E8CE; // "GameState" in the thread.
-	procptr64_t avatar_pos_address = 0x15A8; // "UnitOrigin" in the thread.
-	procptr64_t camera_pos_address = 0x10; // "CameraOrigin" in the thread.
-	procptr64_t camera_front_address = 0x1C; // "CameraMatrix" in the thread.
-	procptr64_t camera_top_address = 0x34; // "CameraMatrix" + 0x18.
-	procptr64_t avatar_heading_address = 0x15B8; // "UnitAngle" in the thread.
-	procptr64_t realm_address = 0x430; // Not available in the thread.
-	procptr64_t player_address = 0x1828220; // Not available in the thread.
+	procptr_t state_address = 0x173E8CE; // "GameState" in the thread.
+	procptr_t avatar_pos_address = 0x15A8; // "UnitOrigin" in the thread.
+	procptr_t camera_pos_address = 0x10; // "CameraOrigin" in the thread.
+	procptr_t camera_front_address = 0x1C; // "CameraMatrix" in the thread.
+	procptr_t camera_top_address = 0x34; // "CameraMatrix" + 0x18.
+	procptr_t avatar_heading_address = 0x15B8; // "UnitAngle" in the thread.
+	procptr_t realm_address = 0x430; // Not available in the thread.
+	procptr_t player_address = 0x1828220; // Not available in the thread.
 
 	// Boolean value to check if game addresses retrieval is successful
 	bool ok;

@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_64bit.h" // Include standard plugin header.
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -16,23 +16,23 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE squad, squad_leader, squad_state;
 
 	// Server ID pointers
-	procptr64_t serverid_base = peekProc<procptr64_t>(pModule + 0x23D5368);
+	procptr_t serverid_base = peekProcPtr(pModule + 0x23D5368);
 	if (!serverid_base) return false;
-	procptr64_t serverid_offset_0 = peekProc<procptr64_t>(serverid_base + 0x18);
+	procptr_t serverid_offset_0 = peekProcPtr(serverid_base + 0x18);
 	if (!serverid_offset_0) return false;
-	procptr64_t serverid_offset_1 = peekProc<procptr64_t>(serverid_offset_0 + 0x28);
+	procptr_t serverid_offset_1 = peekProcPtr(serverid_offset_0 + 0x28);
 	if (!serverid_offset_1) return false;
-	procptr64_t serverid_offset = peekProc<procptr64_t>(serverid_offset_1 + 0x350);
+	procptr_t serverid_offset = peekProcPtr(serverid_offset_1 + 0x350);
 	if (!serverid_offset) return false;
 
 	// Squad pointers
-	procptr64_t squad_base = peekProc<procptr64_t>(pModule + 0x23D5458);
+	procptr_t squad_base = peekProcPtr(pModule + 0x23D5458);
 	if (!squad_base) return false;
-	procptr64_t squad_offset_0 = peekProc<procptr64_t>(squad_base + 0xD8);
+	procptr_t squad_offset_0 = peekProcPtr(squad_base + 0xD8);
 	if (!squad_offset_0) return false;
-	procptr64_t squad_offset_1 = peekProc<procptr64_t>(squad_offset_0 + 0x100);
+	procptr_t squad_offset_1 = peekProcPtr(squad_offset_0 + 0x100);
 	if (!squad_offset_1) return false;
-	procptr64_t squad_offset_2 = peekProc<procptr64_t>(squad_offset_1 + 0x58);
+	procptr_t squad_offset_2 = peekProcPtr(squad_offset_1 + 0x58);
 	if (!squad_offset_2) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
