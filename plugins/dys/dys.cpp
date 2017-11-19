@@ -3,11 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 
-procptr32_t posptr, rotptr, stateptr, hostptr;
+procptr_t posptr, rotptr, stateptr, hostptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -97,7 +97,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	procptr32_t mod_engine=getModuleAddr(L"engine.dll");
+	procptr_t mod_engine=getModuleAddr(L"engine.dll");
 	if (!mod_engine)
 		return false;
 

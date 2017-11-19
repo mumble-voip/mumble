@@ -34,9 +34,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
-procptr32_t posptr, frontptr, topptr;
+procptr_t posptr, frontptr, topptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
 	bool ok;
@@ -88,7 +88,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 
 	// Setting the pointers for the avatar information
-	procptr32_t ptr1 = peekProc<procptr32_t>(pModule + 0x177980);
+	procptr_t ptr1 = peekProcPtr(pModule + 0x177980);
 	if (ptr1 == 0) {
 		generic_unlock();
 		return false;

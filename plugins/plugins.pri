@@ -16,10 +16,6 @@ CONFIG(static) {
 	CONFIG += qt_dynamic_lookup
 }
 
-!CONFIG(no-plugin-legacy-ptr) {
-	DEFINES += USE_PLUGIN_LEGACY_PTR
-}
-
 CONFIG(debug, debug|release) {
   CONFIG += console
   DESTDIR       = ../../debug/plugins

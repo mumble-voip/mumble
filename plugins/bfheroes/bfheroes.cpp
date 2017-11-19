@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
-procptr32_t posptr, faceptr, topptr, stateptr;
+procptr_t posptr, faceptr, topptr, stateptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
 	for (int i=0;i<3;i++)
@@ -51,13 +51,13 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"BFHeroes.exe", L"BFAudio.dll"))
 		return false;
 
-	procptr32_t cacheaddr = pModule + 0x4745c;
-	procptr32_t cache = peekProc<procptr32_t>(cacheaddr);
+	procptr_t cacheaddr = pModule + 0x4745c;
+	procptr_t cache = peekProcPtr(cacheaddr);
 
-	posptr = peekProc<procptr32_t>(cache + 0xc0);
-	faceptr = peekProc<procptr32_t>(cache + 0xc4);
-	topptr = peekProc<procptr32_t>(cache + 0xc8);
-	stateptr = peekProc<procptr32_t>(cache + 0xc0);
+	posptr = peekProcPtr(cache + 0xc0);
+	faceptr = peekProcPtr(cache + 0xc4);
+	topptr = peekProcPtr(cache + 0xc8);
+	stateptr = peekProcPtr(cache + 0xc0);
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;

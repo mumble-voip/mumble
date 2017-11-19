@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 /* 
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
@@ -54,10 +54,10 @@
 	TODO: Find Avatar position, front, top vectors, protect against version change (find a random pointer to check), distinguish spectator and normal mode
 */
 
-static procptr32_t camfrontptr = 0x141bc20;
-static procptr32_t camtopptr = camfrontptr + 0xC;
-static procptr32_t camptr = camfrontptr + 0x18;
-static procptr32_t hostipportptr;
+static procptr_t camfrontptr = 0x141bc20;
+static procptr_t camtopptr = camfrontptr + 0xC;
+static procptr_t camptr = camfrontptr + 0x18;
+static procptr_t hostipportptr;
 
 static char prev_hostipport[22];
 

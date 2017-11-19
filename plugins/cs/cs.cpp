@@ -35,11 +35,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 
-procptr32_t pEngine;
+procptr_t pEngine;
 
 /*  DESCRIPTION             ADDRESS             TYPE    VALUE
 

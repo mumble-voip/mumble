@@ -3,11 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 
-procptr32_t pos0ptr, pos1ptr, pos2ptr, faceptr, topptr;
+procptr_t pos0ptr, pos1ptr, pos2ptr, faceptr, topptr;
 //BYTE *stateptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
@@ -90,8 +90,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UT3.exe", L"wrap_oal.dll"))
 		return false;
 
-	procptr32_t ptraddress = pModule + 0x8A740;
-	procptr32_t baseptr = peekProc<procptr32_t>(ptraddress);
+	procptr_t ptraddress = pModule + 0x8A740;
+	procptr_t baseptr = peekProcPtr(ptraddress);
 
 	pos0ptr = baseptr;
 	pos1ptr = baseptr + 0x4;

@@ -34,15 +34,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 static unsigned int playerid;
-static procptr32_t base_address;
-static procptr32_t cvecptr;
-static procptr32_t displayptr;
+static procptr_t base_address;
+static procptr_t cvecptr;
+static procptr_t displayptr;
 
 static int setuppointers() {
-	procptr32_t playerptr, charptr;
+	procptr_t playerptr, charptr;
 
 	// Player stuff
 	if (!peekProc(base_address + 0xF1CC68, playerid))
@@ -131,7 +131,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	float cpos[3], cfront[3], ctop[3];
 	std::wstring sidentity;
 	std::string scontext;
-	procptr32_t viewportptr;
+	procptr_t viewportptr;
 
 	base_address = pModule - 0x400000;
 

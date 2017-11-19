@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */ 
 
-#include "../mumble_plugin_win32_32bit.h"  
+#include "../mumble_plugin_win32.h"
 
 /*
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
@@ -57,15 +57,15 @@
 	PORT:					+0x1C (offset, not pointer!)
 */
 
-static procptr32_t posptr, afrontptr, tmpptr;
+static procptr_t posptr, afrontptr, tmpptr;
 
-static procptr32_t posptr_ = 0x2F5E5F8;
-static procptr32_t camptr = 0xB738E8;
-static procptr32_t camfrontptr = 0x14;
-static procptr32_t gameptr = 0xE22E90;
+static procptr_t posptr_ = 0x2F5E5F8;
+static procptr_t camptr = 0xB738E8;
+static procptr_t camfrontptr = 0x14;
+static procptr_t gameptr = 0xE22E90;
 
-static procptr32_t hostipptr = 0xAF69D18;
-static procptr32_t hostportptr = hostipptr + 0x1C;
+static procptr_t hostipptr = 0xAF69D18;
+static procptr_t hostportptr = hostipptr + 0x1C;
 
 static char prev_hostip[16]; // These should never change while the game is running, but just in case...
 static int prev_hostport;
@@ -84,14 +84,14 @@ static bool refreshPointers(void) {
 	posptr = afrontptr = tmpptr = 0;
 	
 	// Avatar front vector pointer
-	tmpptr = peekProc<procptr32_t>(gameptr);
+	tmpptr = peekProcPtr(gameptr);
 	if (!tmpptr)
 		return false; // Something went wrong, unlink
 
 	afrontptr = tmpptr + 0x2acc;
 	
 	// Avatar position vector
-	tmpptr = peekProc<procptr32_t>(posptr_);
+	tmpptr = peekProcPtr(posptr_);
 	if (!tmpptr)
 		return false; // Something went wrong, unlink
 
@@ -110,7 +110,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 
 	// Player not in game (or something broke), unlink
-	if (!peekProc<procptr32_t>(gameptr))
+	if (!peekProcPtr(gameptr))
 		return false;
 
 	ok = peekProc(camfrontptr, camera_front, 12) &&

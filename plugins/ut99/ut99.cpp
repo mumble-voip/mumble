@@ -34,11 +34,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
-procptr32_t posptr;
-procptr32_t frtptr;
-procptr32_t topptr;
+procptr_t posptr;
+procptr_t frtptr;
+procptr_t topptr;
 
 static void wcsToMultibyteStdString(wchar_t *wcs, std::string &str) {
 	const int size = WideCharToMultiByte(CP_UTF8, 0, wcs, -1, NULL, 0, NULL, NULL);
@@ -147,15 +147,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Read server name
-	procptr32_t cbase = peekProc<procptr32_t> (pModule + 0x00290550);
-	procptr32_t cptr0 = peekProc<procptr32_t> (cbase + 0x30);
-	procptr32_t cptr1 = peekProc<procptr32_t> (cptr0 + 0x73C);
-	procptr32_t cptr2 = peekProc<procptr32_t> (cptr1 + 0x244);
+	procptr_t cbase = peekProcPtr(pModule + 0x00290550);
+	procptr_t cptr0 = peekProcPtr(cbase + 0x30);
+	procptr_t cptr1 = peekProcPtr(cptr0 + 0x73C);
+	procptr_t cptr2 = peekProcPtr(cptr1 + 0x244);
 
 
 	wchar_t wservername[60];
 
-	ok = peekProc((procptr32_t) cptr2, wservername);
+	ok = peekProc((procptr_t) cptr2, wservername);
 	if (! ok)
 		return false;
 
@@ -179,7 +179,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UnrealTournament.exe", L"Engine.dll"))
 		return false;
 
-	procptr32_t base = pModule + 0x290584;
+	procptr_t base = pModule + 0x290584;
 	posptr = base;
 	frtptr = base + 0x0C;
 	topptr = base + 0x18;

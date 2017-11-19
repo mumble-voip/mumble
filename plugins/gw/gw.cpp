@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32_32bit.h"
+#include "../mumble_plugin_win32.h"
 
 /*
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
@@ -73,14 +73,14 @@
 
 */
 
-static procptr32_t camptr = 0xa30274;
-static procptr32_t posptr = 0xa302a4;
-static procptr32_t camfrontptr = 0xbf46b8;
-static procptr32_t frontptr_ = 0xd55610;
-static procptr32_t frontptr;
+static procptr_t camptr = 0xa30274;
+static procptr_t posptr = 0xa302a4;
+static procptr_t camfrontptr = 0xbf46b8;
+static procptr_t frontptr_ = 0xd55610;
+static procptr_t frontptr;
 
-static procptr32_t locationptr = 0xa3fa08;
-static procptr32_t areaptr = 0xa31158;
+static procptr_t locationptr = 0xa3fa08;
+static procptr_t areaptr = 0xa31158;
 
 static char prev_location;
 static int prev_areaid;
@@ -114,13 +114,13 @@ static bool refreshPointers(void)
 {
 	frontptr = 0;
 
-	frontptr = peekProc<procptr32_t>(frontptr_);
+	frontptr = peekProcPtr(frontptr_);
 	if (!frontptr)
 		return false;
-	frontptr = peekProc<procptr32_t>(frontptr + 0x8);
+	frontptr = peekProcPtr(frontptr + 0x8);
 	if (!frontptr)
 		return false;
-	frontptr = peekProc<procptr32_t>(frontptr);
+	frontptr = peekProcPtr(frontptr);
 	if (!frontptr)
 		return false;
 	frontptr = frontptr + 0x1c;
