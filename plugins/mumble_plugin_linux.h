@@ -6,10 +6,6 @@
 #ifndef MUMBLE_PLUGIN_LINUX_H_
 #define MUMBLE_PLUGIN_LINUX_H_
 
-#ifndef PTR_TYPE_CONCRETE
-# define PTR_TYPE_CONCRETE PTR_TYPE
-#endif
-
 #include <sys/uio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +19,8 @@
 #include "mumble_plugin.h"
 
 pid_t pPid;
-static PTR_TYPE_CONCRETE pModule;
+int is64Bit;
+static procptr_t pModule;
 
 static inline std::string readAll(std::string fn) {
 	std::ifstream ifs;
@@ -43,7 +40,41 @@ static inline std::string readAll(std::string fn) {
 	return content;
 }
 
-static inline PTR_TYPE_CONCRETE getModuleAddr(pid_t pid, const wchar_t *modname) {
+// This function returns 0 if the process is 32-bit and 1 if it's 64-bit.
+// In case of failure, it returns -1.
+static inline int checkProcessIs64Bit(const pid_t pid)
+{
+	// We can know the process architecture by looking at its ELF header.
+	char elf[5];
+
+	std::stringstream ss;
+	ss << "/proc/";
+	ss << static_cast<unsigned long>(pid);
+	ss << "/exe";
+
+	std::ifstream ifs;
+	ifs.open(ss.str(), std::ifstream::binary);
+	if (!ifs.is_open()) {
+		return -1;
+	}
+
+	ifs.read(elf, LENGTH_OF(elf));
+	ifs.close();
+
+	if (ifs.gcount() != LENGTH_OF(elf)) {
+		return -1;
+	}
+
+	// The first 4 bytes constitute the magical number in ASCII: 0x7F 45 4c 46.
+	if (!(elf[0] == 0x7f && elf[1] == 'E' && elf[2] == 'L' && elf[3] == 'F')) {
+		return -1;
+	}
+
+	// The fifth byte is 1 in case the process is 32-bit or 2 in case it's 64-bit.
+	return elf[4] != 1;
+}
+
+static inline procptr_t getModuleAddr(pid_t pid, const wchar_t *modname) {
 	std::wstring modnameWide(modname);
 	std::string modnameNonWide(modnameWide.begin(), modnameWide.end());
 
@@ -151,11 +182,11 @@ static inline PTR_TYPE_CONCRETE getModuleAddr(pid_t pid, const wchar_t *modname)
 	return 0;
 }
 
-static inline PTR_TYPE_CONCRETE getModuleAddr(const wchar_t *modname) {
+static inline procptr_t getModuleAddr(const wchar_t *modname) {
 	return getModuleAddr(pPid, modname);
 }
 
-static inline bool peekProc(PTR_TYPE base, void *dest, size_t len) {
+static inline bool peekProc(procptr_t base, void *dest, size_t len) {
 	struct iovec in;
 	in.iov_base = reinterpret_cast<void *>(base); // Address from target process
 	in.iov_len = len; // Length
@@ -170,16 +201,7 @@ static inline bool peekProc(PTR_TYPE base, void *dest, size_t len) {
 }
 
 template<class T>
-T peekProc(PTR_TYPE base) {
-	T v = 0;
-	if (!peekProc(base, reinterpret_cast<T *>(&v), sizeof(T))) {
-		return 0;
-	}
-	return v;
-}
-
-template<class T>
-bool peekProc(PTR_TYPE base, T &dest) {
+bool peekProc(procptr_t base, T &dest) {
 	struct iovec in;
 	in.iov_base = reinterpret_cast<void *>(base); // Address from target process
 	in.iov_len = sizeof(T); // Length
@@ -191,6 +213,16 @@ bool peekProc(PTR_TYPE base, T &dest) {
 	ssize_t nread = process_vm_readv(pPid, &out, 1, &in, 1, 0);
 
 	return (nread != -1 && static_cast<size_t>(nread) == in.iov_len);
+}
+
+static inline procptr_t peekProcPtr(procptr_t base) {
+	procptr_t v = 0;
+
+	if (!peekProc(base, &v, is64Bit ? 8 : 4)) {
+		return 0;
+	}
+
+	return v;
 }
 
 static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
@@ -209,6 +241,13 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 
 	if (pPid == 0)
 		return false;
+
+	int result = checkProcessIs64Bit(pPid);
+	if (result == -1) {
+		return false;
+	}
+
+	is64Bit = result;
 
 	pModule = getModuleAddr(modname ? modname : procname);
 
