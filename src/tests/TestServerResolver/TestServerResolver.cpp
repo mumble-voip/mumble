@@ -25,6 +25,7 @@ class TestServerResolver : public QObject {
 		Q_OBJECT
 	private slots:
 		void simpleSrv();
+		void srvCustomPort();
 		void simpleA();
 		void simpleAAAA();
 		void simpleCNAME();
@@ -76,6 +77,53 @@ void TestServerResolver::simpleSrv() {
 	// Require either an IPv4 match, or an IPv6 match.
 	QVERIFY(hasipv4 || hasipv6);
 }
+
+void TestServerResolver::srvCustomPort() {
+#ifdef USE_NO_SRV
+	return;
+#endif
+
+	ServerResolver r;
+	QSignalSpy spy(&r, SIGNAL(resolved()));
+
+	QString hostname = QString::fromLatin1("customport.serverresolver.mumble.info");
+	quint16 customPort = 36001;
+	r.resolve(hostname, 64738);
+
+	signalSpyWait(spy);
+
+	QCOMPARE(spy.count(), 1);
+
+	QList<ServerResolverRecord> records = r.records();
+	QCOMPARE(records.size(), 1);
+
+	ServerResolverRecord record = records.at(0);
+	QCOMPARE(record.hostname(), hostname);
+	QCOMPARE(record.port(), customPort);
+	// Allow 1 or 2 results. The answer depends on whether
+	// the system supports IPv4, IPv6, or both.
+	QVERIFY(record.addresses().size() == 1 || record.addresses().size() == 2);
+	QCOMPARE(record.priority(), 65545); // priority=1, weight=10 -> 1 * 65535 + 10
+
+	bool hasipv4 = false;
+	bool hasipv6 = false;
+
+	HostAddress v4(QHostAddress(QLatin1String("127.0.0.1")));
+	HostAddress v6(QHostAddress(QLatin1String("::1")));
+
+	foreach (HostAddress ha, record.addresses()) {
+		if (ha == v4) {
+			hasipv4 = true;
+		}
+		if (ha == v6) {
+			hasipv6 = true;
+		}
+	}
+
+	// Require either an IPv4 match, or an IPv6 match.
+	QVERIFY(hasipv4 || hasipv6);
+}
+
 
 void TestServerResolver::simpleCNAME() {
 	ServerResolver r;
