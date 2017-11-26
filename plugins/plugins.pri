@@ -20,7 +20,7 @@ DESTDIR = $$DESTDIR/plugins
 
 include(../qmake/symbols.pri)
 
-unix|win32-g++ {
+unix:!macx|win32-gcc {
     QMAKE_LFLAGS *= -static-libgcc -static-libstdc++
 }
 
