@@ -386,6 +386,15 @@ win32 {
   win32-msvc* {
     LIBS *= -lsndfile -lvorbis -lvorbisfile -logg -lFLAC
   }
+
+  # Boost
+  win32-msvc* {
+    LIBS *= -llibboost_system-mt -llibboost_thread-mt
+  }
+  win32-g++ {
+    LIBS *= -lboost_system-mt -lboost_thread_win32-mt
+  }
+
   LIBS  *= -ldelayimp -delayload:shell32.dll
 
   DEFINES *= WIN32
@@ -624,9 +633,6 @@ wasapi {
   HEADERS *= WASAPI.h WASAPINotificationClient.h
   SOURCES *= WASAPI.cpp WASAPINotificationClient.cpp
   LIBS *= -lavrt -delayload:avrt.DLL
-  win32-g++ {
-    LIBS *= -lboost_system-mt
-  }
 }
 
 g15 {
