@@ -44,7 +44,7 @@ static bool UIAccessDisabledViaConfig() {
 	DWORD sz = sizeof(buf) - 1*sizeof(wchar_t);
 
 	HKEY key = NULL;
-	bool success = (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Mumble\\Mumble\\shortcut\\windows\\uiaccess", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
+	bool success = (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Mumble\\Mumble\\shortcut\\windows\\uiaccess", 0, KEY_READ, &key) == ERROR_SUCCESS) &&
 	               (RegQueryValueExW(key, L"enable" , NULL, NULL, (LPBYTE)&buf, &sz) == ERROR_SUCCESS);
 	if (success && _wcsicmp(buf, L"false") == 0) {
 		return true;
