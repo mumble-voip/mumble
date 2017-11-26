@@ -96,7 +96,7 @@ static bool RelaunchWithoutUIAccessIfNecessary() {
 	// Store the original value of __COMPAT_LAYER so we can
 	// restore it (which may be equivalent to not setting it all)
 	// once we've been relaunched.
-	wchar_t *compat_layer_env = _wgetenv(L"__COMPAT_LAYER");
+	const wchar_t *compat_layer_env = _wgetenv(L"__COMPAT_LAYER");
 	if (compat_layer_env == NULL) {
 		compat_layer_env = L"mumble_exe_none";
 	}
