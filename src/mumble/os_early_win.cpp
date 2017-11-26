@@ -44,7 +44,7 @@ static bool UIAccessDisabledViaConfig() {
 	DWORD sz = sizeof(buf) - 1*sizeof(wchar_t);
 
 	HKEY key = NULL;
-	bool success = (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Mumble\\Mumble\\shortcut\\windows\\uiaccess", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
+	bool success = (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Mumble\\Mumble\\shortcut\\windows\\uiaccess", 0, KEY_READ, &key) == ERROR_SUCCESS) &&
 	               (RegQueryValueExW(key, L"enable" , NULL, NULL, (LPBYTE)&buf, &sz) == ERROR_SUCCESS);
 	if (success && _wcsicmp(buf, L"false") == 0) {
 		return true;
@@ -96,7 +96,7 @@ static bool RelaunchWithoutUIAccessIfNecessary() {
 	// Store the original value of __COMPAT_LAYER so we can
 	// restore it (which may be equivalent to not setting it all)
 	// once we've been relaunched.
-	wchar_t *compat_layer_env = _wgetenv(L"__COMPAT_LAYER");
+	const wchar_t *compat_layer_env = _wgetenv(L"__COMPAT_LAYER");
 	if (compat_layer_env == NULL) {
 		compat_layer_env = L"mumble_exe_none";
 	}
