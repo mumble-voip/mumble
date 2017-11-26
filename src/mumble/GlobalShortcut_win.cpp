@@ -5,13 +5,17 @@
 
 #include "mumble_pch.hpp"
 
+// MinGW does not support boost::future/boost::promise
+// at present. Use Boost's implementation for now.
+#define BOOST_THREAD_VERSION 4
+#include <boost/thread.hpp>
+#include <boost/thread/future.hpp>
+
 #include "GlobalShortcut_win.h"
 
 #include "MainWindow.h"
 #include "OverlayClient.h"
 #include "Global.h"
-
-#include <future>
 
 // 3rdparty/xinputcheck-src.
 #include <xinputcheck.h>
@@ -36,7 +40,7 @@ class InjectKeyboardMessageEvent : public QEvent {
 		Q_DISABLE_COPY(InjectKeyboardMessageEvent);
 
 	public:
-		std::promise<bool> m_suppressionPromise;
+		boost::promise<bool> m_suppressionPromise;
 		DWORD m_scancode;
 		DWORD m_vkcode;
 		bool m_extended;
@@ -58,7 +62,7 @@ class InjectKeyboardMessageEvent : public QEvent {
 			, m_extended(extended)
 			, m_down(down) {}
 
-		inline std::future<bool> shouldSuppress() {
+		inline boost::future<bool> shouldSuppress() {
 			return m_suppressionPromise.get_future();
 		}
 };
@@ -70,7 +74,7 @@ class InjectMouseMessageEvent : public QEvent {
 		Q_DISABLE_COPY(InjectMouseMessageEvent);
 
 	public:
-		std::promise<bool> m_suppressionPromise;
+		boost::promise<bool> m_suppressionPromise;
 		unsigned int m_btn;
 		bool m_down;
 
@@ -83,7 +87,7 @@ class InjectMouseMessageEvent : public QEvent {
 			, m_btn(btn)
 			, m_down(down) {}
 
-		inline std::future<bool> shouldSuppress() {
+		inline boost::future<bool> shouldSuppress() {
 			return m_suppressionPromise.get_future();
 		}
 };
@@ -252,7 +256,7 @@ bool GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
 	bool up = !!(msg->lParam & 0x80000000);
 
 	InjectKeyboardMessageEvent *ikme = new InjectKeyboardMessageEvent(scancode, vkcode, extended, !up);
-	std::future<bool> suppress = ikme->shouldSuppress();
+	boost::future<bool> suppress = ikme->shouldSuppress();
 	qApp->postEvent(this, ikme);
 	return suppress.get();
 }
@@ -295,7 +299,7 @@ bool GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 	}
 
 	InjectMouseMessageEvent *imme = new InjectMouseMessageEvent(btn, down);
-	std::future<bool> suppress = imme->shouldSuppress();
+	boost::future<bool> suppress = imme->shouldSuppress();
 	qApp->postEvent(this, imme);
 	return suppress.get();
 }
