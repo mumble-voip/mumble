@@ -98,7 +98,7 @@ void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
 		}
 
 		qint64 priority = normalizeSrvPriority(record.priority(), record.weight());
-		m_resolved << ServerResolverRecord(m_origHostname, m_origPort, priority, addresses);
+		m_resolved << ServerResolverRecord(m_origHostname, record.port(), priority, addresses);
 	}
 
 	m_srvQueueRemain -= 1;

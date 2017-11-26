@@ -1645,7 +1645,7 @@ void ConnectDialog::lookedUp() {
 	QSet<ServerAddress> qs;
 	foreach (ServerResolverRecord record, sr->records()) {
 		foreach(const HostAddress &ha, record.addresses()) {
-			qs.insert(ServerAddress(ha, sr->port()));
+			qs.insert(ServerAddress(ha, record.port()));
 		}
 	}
 
