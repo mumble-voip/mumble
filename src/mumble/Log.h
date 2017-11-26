@@ -67,7 +67,7 @@ class Log : public QObject {
 		QString msgName(MsgType t) const;
 		void setIgnore(MsgType t, int ignore = 1 << 30);
 		void clearIgnore();
-		static QString validHtml(const QString &html, bool allowReplacement = false, QTextCursor *tc = NULL);
+		static QString validHtml(const QString &html, QTextCursor *tc = NULL);
 		static QString imageToImg(const QByteArray &format, const QByteArray &image);
 		static QString imageToImg(QImage img);
 		static QString msgColor(const QString &text, LogColorType t);
@@ -84,14 +84,8 @@ class LogDocument : public QTextDocument {
 	public:
 		LogDocument(QObject *p = NULL);
 		QVariant loadResource(int, const QUrl &) Q_DECL_OVERRIDE;
-		void setAllowHTTPResources(bool allowHttpResources);
-		void setOnlyLoadDataURLs(bool onlyLoadDataURLs);
 	public slots:
-		void receivedHead();
 		void finished();
-	private:
-		bool m_allowHTTPResources;
-		bool m_onlyLoadDataURLs;
 };
 
 class LogDocumentResourceAddedEvent : public QEvent {

@@ -352,7 +352,6 @@ Settings::Settings() {
 	iMaxInFlightTCPPings = 2;
 	bUdpForceTcpAddr = true;
 
-	iMaxImageSize = ciDefaultMaxImageSize;
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
@@ -683,7 +682,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(usProxyPort, "net/proxyport");
 	SAVELOAD(qsProxyUsername, "net/proxyusername");
 	SAVELOAD(qsProxyPassword, "net/proxypassword");
-	SAVELOAD(iMaxImageSize, "net/maximagesize");
+	DEPRECATED("net/maximagesize");
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsServicePrefix, "net/serviceprefix");
@@ -1016,7 +1015,7 @@ void Settings::save() {
 	SAVELOAD(usProxyPort, "net/proxyport");
 	SAVELOAD(qsProxyUsername, "net/proxyusername");
 	SAVELOAD(qsProxyPassword, "net/proxypassword");
-	SAVELOAD(iMaxImageSize, "net/maximagesize");
+	DEPRECATED("net/maximagesize");
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsServicePrefix, "net/serviceprefix");
