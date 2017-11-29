@@ -269,7 +269,7 @@ static MumblePlugin manual = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	NULL, // About is handled by MublePluginQt
+	NULL, // About is handled by MumblePluginQt
 	NULL, // Config is handled by MumblePluginQt
 	trylock,
 	unlock,
