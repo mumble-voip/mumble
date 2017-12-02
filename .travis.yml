@@ -33,10 +33,6 @@ matrix:
     - os: osx
       env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
 
-  allow_failures:
-    - env: MUMBLE_QT=qt5 MUMBLE_HOST=i686-w64-mingw32
-    - env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
-
 before_install:
     - ./scripts/travis-ci/before_install.bash
 
