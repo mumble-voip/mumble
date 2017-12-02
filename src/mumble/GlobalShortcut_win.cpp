@@ -5,7 +5,7 @@
 
 #include "mumble_pch.hpp"
 
-// MinGW does not support boost::future/boost::promise
+// MinGW does not support std::future/std::promise
 // at present. Use Boost's implementation for now.
 #define BOOST_THREAD_VERSION 4
 #include <boost/thread.hpp>
