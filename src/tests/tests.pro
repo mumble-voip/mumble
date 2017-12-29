@@ -18,4 +18,5 @@ SUBDIRS += \
   TestServerResolver \
   TestSelfSignedCertificate \
   TestSSLLocks \
-  TestFFDHE
+  TestFFDHE \
+  TestStdAbs
