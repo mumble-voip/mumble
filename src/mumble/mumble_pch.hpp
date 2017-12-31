@@ -82,6 +82,7 @@
 #include <boost/weak_ptr.hpp>
 
 #include <algorithm>
+#include <cmath>
 
 #ifdef Q_OS_WIN
 #include "../qos2_mingw.h"
