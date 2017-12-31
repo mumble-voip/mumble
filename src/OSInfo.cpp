@@ -17,6 +17,11 @@
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #include <mach-o/arch.h>
+
+// Ignore deprecation warnings for Gestalt.
+// See mumble-voip/mumble#3290 for more information.
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 #endif
 
 #include "OSInfo.h"

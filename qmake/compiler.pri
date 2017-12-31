@@ -359,11 +359,18 @@ macx {
 		QMAKE_CC = $$system(xcrun -find clang)
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
-		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
-		QMAKE_CFLAGS += -mmacosx-version-min=10.7
-		QMAKE_CXXFLAGS += -mmacosx-version-min=10.7
-		QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.7
-		QMAKE_OBJECTIVE_CXXFLAGS += -mmacosx-version-min=10.7
+
+		# Set target macOS version to 10.8 for Qt 5.10 and above.
+		MUMBLE_TARGET_MACOS_VERSION = 10.7
+		isEqual(QT_MAJOR_VERSION, 5):greaterThan(QT_MINOR_VERSION, 9) {
+			MUMBLE_TARGET_MACOS_VERSION = 10.8
+		}
+
+		QMAKE_MACOSX_DEPLOYMENT_TARGET = $$MUMBLE_TARGET_MACOS_VERSION
+		QMAKE_CFLAGS += -mmacosx-version-min=$$MUMBLE_TARGET_MACOS_VERSION
+		QMAKE_CXXFLAGS += -mmacosx-version-min=$$MUMBLE_TARGET_MACOS_VERSION
+		QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=$$MUMBLE_TARGET_MACOS_VERSION
+		QMAKE_OBJECTIVE_CXXFLAGS += -mmacosx-version-min=$$MUMBLE_TARGET_MACOS_VERSION
 	} else {
 		XCODE_PATH=$$system(xcode-select -print-path)
 		CONFIG += x86 ppc no-cocoa
