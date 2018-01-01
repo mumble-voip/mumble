@@ -19,7 +19,7 @@ struct ThirdPartyLicense {
 };
 
 static const char *licenseMumble = 
-	"Copyright (C) 2005-2017 The Mumble Developers\n"
+	"Copyright (C) 2005-2018 The Mumble Developers\n"
 	"\n"
 	"A list of The Mumble Developers can be found in the\n"
 	"AUTHORS file at the root of the Mumble source tree\n"
