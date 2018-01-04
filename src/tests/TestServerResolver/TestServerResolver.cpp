@@ -38,6 +38,7 @@ void TestServerResolver::simpleSrv() {
 #endif
 
 	// Qt 5's SRV resolver does not work in Wine.
+	// For more info, see https://bugs.winehq.org/show_bug.cgi?id=44296
 	if (PlatformCheck::IsWine()) {
 		return;
 	}
@@ -90,6 +91,7 @@ void TestServerResolver::srvCustomPort() {
 #endif
 
 	// Qt 5's SRV resolver does not work in Wine.
+	// For more info, see https://bugs.winehq.org/show_bug.cgi?id=44296
 	if (PlatformCheck::IsWine()) {
 		return;
 	}
