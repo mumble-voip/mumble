@@ -6,5 +6,5 @@
 include(../test.pri)
 
 TARGET = TestXMLTools
-HEADERS = XMLTools.h
-SOURCES = TestXMLTools.cpp XMLTools.cpp
+HEADERS *= XMLTools.h
+SOURCES *= TestXMLTools.cpp XMLTools.cpp
