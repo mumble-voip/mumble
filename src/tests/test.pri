@@ -27,6 +27,9 @@ LANGUAGE = C++
 VPATH *= ../.. ../../murmur ../../mumble
 INCLUDEPATH *= ../.. ../../murmur ../../mumble
 
+SOURCES += PlatformCheck.cpp
+HEADERS += PlatformCheck.h
+
 # We have to depend on OpenSSL in all tests
 # for no-pch builds to work. Our PCH headers
 # include OpenSSL, and if the headers aren't
