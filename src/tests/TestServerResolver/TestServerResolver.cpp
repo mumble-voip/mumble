@@ -8,6 +8,7 @@
 #include <QSignalSpy>
 
 #include "ServerResolver.h"
+#include "PlatformCheck.h"
 
 void signalSpyWait(QSignalSpy &spy) {
 	// We increase the timeout from 5s to 8s because travis builds could fail otherwise (slow network response).
@@ -35,6 +36,11 @@ void TestServerResolver::simpleSrv() {
 #ifdef USE_NO_SRV
 	return;
 #endif
+
+	// Qt 5's SRV resolver does not work in Wine.
+	if (PlatformCheck::IsWine()) {
+		return;
+	}
 
 	ServerResolver r;
 	QSignalSpy spy(&r, SIGNAL(resolved()));
@@ -82,6 +88,11 @@ void TestServerResolver::srvCustomPort() {
 #ifdef USE_NO_SRV
 	return;
 #endif
+
+	// Qt 5's SRV resolver does not work in Wine.
+	if (PlatformCheck::IsWine()) {
+		return;
+	}
 
 	ServerResolver r;
 	QSignalSpy spy(&r, SIGNAL(resolved()));
