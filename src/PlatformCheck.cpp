@@ -11,6 +11,8 @@
 
 bool PlatformCheck::IsWine() {
 #ifdef Q_OS_WIN
+	// Detect if we're running under Wine.
+	// For more info, see https://wiki.winehq.org/Developer_FAQ#How_can_I_detect_Wine.3F
 	if (QLibrary::resolve(QLatin1String("ntdll.dll"), "wine_get_version") != NULL) {
 		return true;
 	}
