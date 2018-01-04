@@ -11,8 +11,7 @@
 
 bool PlatformCheck::IsWine() {
 #ifdef Q_OS_WIN
-	void *ptr = QLibrary::resolve(QLatin1String("ntdll.dll"), "wine_get_version");
-	if (ptr != NULL) {
+	if (QLibrary::resolve(QLatin1String("ntdll.dll"), "wine_get_version") != NULL) {
 		return true;
 	}
 #endif
