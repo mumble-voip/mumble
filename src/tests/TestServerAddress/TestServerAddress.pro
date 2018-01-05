@@ -8,5 +8,5 @@ include(../test.pri)
 QT += network
 
 TARGET = TestServerAddress
-SOURCES = TestServerAddress.cpp ServerAddress.cpp HostAddress.cpp
-HEADERS = ServerAddress.h HostAddress.h
+SOURCES *= TestServerAddress.cpp ServerAddress.cpp HostAddress.cpp
+HEADERS *= ServerAddress.h HostAddress.h

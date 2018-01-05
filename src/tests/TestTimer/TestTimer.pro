@@ -6,5 +6,5 @@
 include(../test.pri)
 
 TARGET = TestTimer
-SOURCES = TestTimer.cpp Timer.cpp
-HEADERS = Timer.h
+SOURCES *= TestTimer.cpp Timer.cpp
+HEADERS *= Timer.h

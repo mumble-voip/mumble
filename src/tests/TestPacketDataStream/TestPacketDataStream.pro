@@ -8,4 +8,4 @@ include(../test.pri)
 QT *= network
 
 TARGET = TestPacketDataStream
-SOURCES = TestPacketDataStream.cpp
+SOURCES *= TestPacketDataStream.cpp

@@ -6,5 +6,5 @@
 include(../test.pri)
 
 TARGET = TestUnresolvedServerAddress
-SOURCES = TestUnresolvedServerAddress.cpp UnresolvedServerAddress.cpp
-HEADERS = UnresolvedServerAddress.h
+SOURCES *= TestUnresolvedServerAddress.cpp UnresolvedServerAddress.cpp
+HEADERS *= UnresolvedServerAddress.h

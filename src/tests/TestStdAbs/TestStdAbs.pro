@@ -6,4 +6,4 @@
 include(../test.pri)
 
 TARGET = TestStdAbs
-SOURCES = TestStdAbs.cpp
+SOURCES *= TestStdAbs.cpp

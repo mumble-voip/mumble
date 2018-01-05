@@ -9,8 +9,8 @@ include(../../../qmake/qt.pri)
 QT *= network
 
 TARGET = TestServerResolver
-SOURCES = TestServerResolver.cpp HostAddress.cpp ServerResolver_qt5.cpp ServerResolverRecord.cpp
-HEADERS = HostAddress.h ServerResolver.h ServerResolverRecord.h
+SOURCES *= TestServerResolver.cpp HostAddress.cpp ServerResolver_qt5.cpp ServerResolverRecord.cpp
+HEADERS *= HostAddress.h ServerResolver.h ServerResolverRecord.h
 
 isEqual(QT_MAJOR_VERSION, 4) {
   CONFIG *= no-srv
