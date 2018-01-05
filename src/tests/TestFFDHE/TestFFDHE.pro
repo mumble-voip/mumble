@@ -16,5 +16,5 @@ QT += network
 }
 
 TARGET = TestFFDHE
-SOURCES = SSL.cpp SSLLocks.cpp FFDHE.cpp TestFFDHE.cpp
-HEADERS = SSL.h SSLLocks.h FFDHE.h FFDHETable.h
+SOURCES *= SSL.cpp SSLLocks.cpp FFDHE.cpp TestFFDHE.cpp
+HEADERS *= SSL.h SSLLocks.h FFDHE.h FFDHETable.h

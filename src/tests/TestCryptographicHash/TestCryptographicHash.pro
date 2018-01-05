@@ -8,5 +8,5 @@ include(../test.pri)
 QT += network
 
 TARGET = TestCryptographicHash
-SOURCES = SSL.cpp SSLLocks.cpp TestCryptographicHash.cpp CryptographicHash.cpp
-HEADERS = SSL.h SSLLocks.h CryptographicHash.h
+SOURCES *= SSL.cpp SSLLocks.cpp TestCryptographicHash.cpp CryptographicHash.cpp
+HEADERS *= SSL.h SSLLocks.h CryptographicHash.h
