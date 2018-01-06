@@ -644,6 +644,10 @@ void GlobalShortcutConfig::on_qpbExport_clicked() {
 	}
 	QSettings s(filePath, QSettings::IniFormat);
 	g.s.saveShortcuts(qlShortcuts, &s);
+	s.sync();
+	if (s.status() != QSettings::NoError) {
+		QMessageBox::warning(this, tr("Export Failure"), tr("Writing the export file failed."));
+	}
 }
 
 void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
