@@ -631,6 +631,14 @@ void GlobalShortcutConfig::on_qpbImport_clicked() {
 	if (filePath.isEmpty()) {
 		return;
 	}
+	int userAction = QMessageBox::warning(this
+	                                      , tr("Shortcut Replacement")
+	                                      , tr("Importing the shortcuts will drop and replace all current shortcuts.\nDo you want to continue?")
+	                                      , QMessageBox::Ok | QMessageBox::Cancel
+	                                      , QMessageBox::Ok);
+	if (userAction != QMessageBox::Ok) {
+		return;
+	}
 	QSettings s(filePath, QSettings::IniFormat);
 	qlShortcuts = Settings::loadShortcuts(&s);
 	reload();
