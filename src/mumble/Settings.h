@@ -411,9 +411,15 @@ struct Settings {
 	Settings();
 	void load();
 	void load(QSettings*);
-	QList<Shortcut> loadShortcuts(QSettings *s);
+	/// \brief loadShortcuts Parses the passed settings for shortcuts. The shortcuts are returned in a list.
+	/// \param settings QSettings to load the shortcuts into
+	/// \return A list of shortcuts
+	static QList<Shortcut> loadShortcuts(QSettings *settings_ptr);
 	void save();
-	void saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *s);
+	/// \brief saveShortcuts Save qlShortcuts into settings
+	/// \param qlShortcuts list of shortcuts to store
+	/// \param settings settings object to save into
+	static void saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr);
 };
 
 #endif

@@ -632,7 +632,7 @@ void GlobalShortcutConfig::on_qpbImport_clicked() {
 		return;
 	}
 	QSettings s(filePath, QSettings::IniFormat);
-	qlShortcuts = g.s.loadShortcuts(&s);
+	qlShortcuts = Settings::loadShortcuts(&s);
 	reload();
 }
 
@@ -643,7 +643,7 @@ void GlobalShortcutConfig::on_qpbExport_clicked() {
 		return;
 	}
 	QSettings s(filePath, QSettings::IniFormat);
-	g.s.saveShortcuts(qlShortcuts, &s);
+	Settings::saveShortcuts(qlShortcuts, &s);
 	s.sync();
 	if (s.status() != QSettings::NoError) {
 		QMessageBox::warning(this, tr("Export Failure"), tr("Writing the export file failed."));
