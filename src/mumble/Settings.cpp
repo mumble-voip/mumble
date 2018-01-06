@@ -814,7 +814,7 @@ void Settings::load(QSettings* settings_ptr) {
 QList<Shortcut> Settings::loadShortcuts(QSettings *settings_ptr) {
 	QList<Shortcut> qlShortcuts;
 	const int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
-	for (int i=0; i<nshorts; i++) {
+	for (int i = 0; i < nshorts; ++i) {
 		settings_ptr->setArrayIndex(i);
 		Shortcut s;
 
