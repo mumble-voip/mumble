@@ -627,7 +627,7 @@ void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
 
 void GlobalShortcutConfig::on_qpbImport_clicked() {
 	commit();
-	QString filePath = QFileDialog::getOpenFileName(this, tr("Import shortcuts"), QString(), QLatin1String("*.ini"));
+	const QString filePath = QFileDialog::getOpenFileName(this, tr("Import shortcuts"), QString(), QLatin1String("*.ini"));
 	if (filePath.isEmpty()) {
 		return;
 	}
@@ -638,7 +638,7 @@ void GlobalShortcutConfig::on_qpbImport_clicked() {
 
 void GlobalShortcutConfig::on_qpbExport_clicked() {
 	commit();
-	QString filePath = QFileDialog::getSaveFileName(this, tr("Save shortcuts"), QLatin1String("mumble-shortcuts.ini"), QLatin1String("*.ini"));
+	const QString filePath = QFileDialog::getSaveFileName(this, tr("Save shortcuts"), QLatin1String("mumble-shortcuts.ini"), QLatin1String("*.ini"));
 	if (filePath.isEmpty()) {
 		return;
 	}
