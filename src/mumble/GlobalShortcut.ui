@@ -207,7 +207,7 @@
         <item>
          <widget class="QPushButton" name="qpbImport">
           <property name="toolTip">
-           <string>Import shortcuts from a file, replacing the current shortcuts.</string>
+           <string>Import shortcuts from a file. Replaces the current shortcuts.</string>
           </property>
           <property name="text">
            <string>&amp;Import</string>
