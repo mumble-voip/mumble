@@ -374,7 +374,7 @@ void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
 	if (!filter) {
 		return;
 	}
-	if (filter->context.IsCancelled()) {
+	if (!filter->context.IsCancelled()) {
 		filter->ref();
 		filter->error(::grpc::Status(::grpc::CANCELLED, "filter detached"));
 	}
