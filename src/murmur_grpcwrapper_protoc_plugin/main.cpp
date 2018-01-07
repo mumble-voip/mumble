@@ -54,6 +54,7 @@ public:
 	}
 
 	void impl(bool ok);
+	void done(bool ok);
 
 	::boost::function<void(bool)> *callback(::boost::function<void($service$_$method$ *, bool)> cb) {
 		auto fn = ::boost::bind(&$service$_$method$::callbackAction, this, cb, _1);
@@ -66,8 +67,16 @@ public:
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
+	void handleDone(bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::done, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
 		auto call = new $service$_$method$(rpc, service);
+		auto done_fn = ::boost::bind(&$service$_$method$::handleDone, call, _1);
+		auto done_fn_ptr = new ::boost::function<void(bool)>(done_fn);
+		call->context.AsyncNotifyWhenDone(done_fn_ptr);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->Request$method$(&call->context, &call->request, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
@@ -122,6 +131,7 @@ public:
 	}
 
 	void impl(bool ok);
+	void done(bool ok);
 
 	bool write() {
 		bool processed = false;
@@ -166,8 +176,16 @@ public:
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
+	void handleDone(bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::done, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
 		auto call = new $service$_$method$(rpc, service);
+		auto done_fn = ::boost::bind(&$service$_$method$::handleDone, call, _1);
+		auto done_fn_ptr = new ::boost::function<void(bool)>(done_fn);
+		call->context.AsyncNotifyWhenDone(done_fn_ptr);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->Request$method$(&call->context, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
