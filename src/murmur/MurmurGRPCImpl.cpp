@@ -374,12 +374,8 @@ void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
 	if (!filter) {
 		return;
 	}
-	if (!filter->context.IsCancelled()) {
-		filter->ref();
-		filter->error(::grpc::Status(::grpc::CANCELLED, "filter detached"));
-	}
+	filter->error(::grpc::Status(::grpc::CANCELLED, "filter detached"));
 	m_textMessageFilters.remove(s->iServerNum);
-	filter->deref();
 }
 
 // Removes a connected authenticator.
@@ -388,12 +384,8 @@ void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 	if (!authenticator) {
 		return;
 	}
-	if (!authenticator->context.IsCancelled()) {
-		authenticator->ref();
-		authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
-	}
+	authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
 	m_authenticators.remove(s->iServerNum);
-	authenticator->deref();
 }
 
 // Called when a connecting user needs to be authenticated.
