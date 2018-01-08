@@ -36,7 +36,6 @@ namespace MurmurRPC {
 class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
 		std::unique_ptr<grpc::Server> m_server;
-		QTimer m_cleanupTimer;
 	protected:
 		void customEvent(QEvent *evt);
 	public:
@@ -76,8 +75,6 @@ class MurmurRPCImpl : public QThread {
 		void sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e);
 
 	public slots:
-		void cleanup();
-
 		void started(Server *server);
 		void stopped(Server *server);
 
