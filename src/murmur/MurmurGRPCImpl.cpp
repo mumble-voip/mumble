@@ -1528,10 +1528,7 @@ void V1_ChannelRemove::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "cannot remove the root channel");
 	}
 
-	{
-		QWriteLocker wl(&server->qrwlVoiceThread);
-		server->removeChannel(channel);
-	}
+	server->removeChannel(channel);
 
 	end();
 }
