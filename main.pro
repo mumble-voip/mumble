@@ -104,5 +104,3 @@ SUBDIRS *= src/mumble_proto
 CONFIG(tests) {
   SUBDIRS *= src/tests
 }
-
-include(scripts/scripts.pro)
