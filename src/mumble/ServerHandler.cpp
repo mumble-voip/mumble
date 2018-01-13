@@ -461,6 +461,11 @@ void ServerHandler::sendPingInternal() {
 		return;
 	}
 
+	// Ensure the TLS handshake has completed before sending pings.
+	if (!qtsSock->isEncrypted()) {
+		return;
+	}
+
 	if (g.s.iMaxInFlightTCPPings >= 0 && iInFlightTCPPings >= g.s.iMaxInFlightTCPPings) {
 		serverConnectionClosed(QAbstractSocket::UnknownSocketError, tr("Server is not responding to TCP pings"));
 		return;
