@@ -352,7 +352,7 @@ void ServerHandler::run() {
 		// Setup ping timer;
 		QTimer *ticker = new QTimer(this);
 		connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
-		ticker->start(5000);
+		ticker->start(g.s.iPingIntervalMsec);
 
 		g.mw->rtLast = MumbleProto::Reject_RejectType_None;
 
@@ -624,7 +624,7 @@ void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState st
 		tConnectionTimeoutTimer = new QTimer();
 		connect(tConnectionTimeoutTimer, SIGNAL(timeout()), this, SLOT(serverConnectionTimeoutOnConnect()));
 		tConnectionTimeoutTimer->setSingleShot(true);
-		tConnectionTimeoutTimer->start(30000);
+		tConnectionTimeoutTimer->start(g.s.iConnectionTimeoutDurationMsec);
 	} else if (state == QAbstractSocket::ConnectedState) {
 		// Start TLS handshake
 		qtsSock->startClientEncryption();
