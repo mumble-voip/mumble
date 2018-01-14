@@ -351,7 +351,8 @@ Settings::Settings() {
 	usProxyPort = 0;
 	iMaxInFlightTCPPings = 2;
 	bUdpForceTcpAddr = true;
-
+	iPingIntervalMsec = 5000;
+	iConnectionTimeoutDurationMsec = 30000;
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
@@ -687,6 +688,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsServicePrefix, "net/serviceprefix");
 	SAVELOAD(iMaxInFlightTCPPings, "net/maxinflighttcppings");
+	SAVELOAD(iPingIntervalMsec, "net/pingintervalmsec");
+	SAVELOAD(iConnectionTimeoutDurationMsec, "net/connectiontimeoutdurationmsec");
 	SAVELOAD(bUdpForceTcpAddr, "net/udpforcetcpaddr");
 
 	// Network settings - SSL
@@ -1020,6 +1023,8 @@ void Settings::save() {
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsServicePrefix, "net/serviceprefix");
 	SAVELOAD(iMaxInFlightTCPPings, "net/maxinflighttcppings");
+	SAVELOAD(iPingIntervalMsec, "net/pingintervalmsec");
+	SAVELOAD(iConnectionTimeoutDurationMsec, "net/connectiontimeoutdurationmsec");
 	SAVELOAD(bUdpForceTcpAddr, "net/udpforcetcpaddr");
 
 	// Network settings - SSL
