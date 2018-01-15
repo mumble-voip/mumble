@@ -2,7 +2,7 @@
 <Include>
   <?define ProductName = "Mumble" ?>
   <?define ProductManufacturer = "Thorvald Natvig" ?>
-  <?define ProductVersion = "1.2.19" ?>
+  <?define ProductVersion = "1.2.20" ?>
 
   <!-- Defaults for values that aren't given by environment variables -->
   <?ifndef env.MumbleSourceDir ?>
