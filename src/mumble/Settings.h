@@ -331,6 +331,19 @@ struct Settings {
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
+
+	/// The ping interval in milliseconds. The Mumble client
+	/// will regularly send TCP and UDP pings to the remote
+	/// server. This setting specifies the time (in milliseconds)
+	/// between each ping message.
+	int iPingIntervalMsec;
+
+	/// The connection timeout duration in milliseconds.
+	/// If a connection is not fully established to the
+	/// server within this duration, the client will
+	/// forcefully disconnect.
+	int iConnectionTimeoutDurationMsec;
+
 	/// bUdpForceTcpAddr forces Mumble to bind its UDP
 	/// socket to the same address as its TCP
 	/// connection is using.
