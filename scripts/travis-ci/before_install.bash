@@ -8,6 +8,13 @@
 MUMBLE_HOST_DEB=${MUMBLE_HOST/_/-}
 
 if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
+	# Bump the apt http timeout to 120 seconds.
+	# Without this, we'd regularly get timeout errors
+	# from our MXE mirror on dl.mumble.info.
+	#
+	# See mumble-voip/mumble#3312 for more information.
+	echo 'Acquire::http::Timeout "120";' | sudo tee /etc/apt/apt.conf.d/99zzztimeout
+
 	if [ "${MUMBLE_QT}" == "qt4" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		sudo apt-get -qq update
 		sudo apt-get build-dep -qq mumble
