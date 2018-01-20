@@ -8,13 +8,13 @@
 if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	if [ "${MUMBLE_QT}" == "qt4" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		EXTRA_CONFIG=
-		if [ ${MUMBLE_NO_PCH} -eq 1 ]; then
+		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		qmake-qt4 CONFIG+="release tests g15-emulator qt4-legacy-compat ${EXTRA_CONFIG}" -recursive && make -j2 && make check
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		EXTRA_CONFIG=
-		if [ ${MUMBLE_NO_PCH} -eq 1 ]; then
+		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" -recursive && make -j2 && make check
@@ -25,7 +25,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		PATH=$PATH:/usr/lib/mxe/usr/bin
 		export MUMBLE_PROTOC=/usr/lib/mxe/usr/x86_64-unknown-linux-gnu/bin/protoc
 		EXTRA_CONFIG=
-		if [ ${MUMBLE_NO_PCH} -eq 1 ]; then
+		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
@@ -38,7 +38,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		PATH=$PATH:/usr/lib/mxe/usr/bin
 		export MUMBLE_PROTOC=/usr/lib/mxe/usr/x86_64-unknown-linux-gnu/bin/protoc
 		EXTRA_CONFIG=
-		if [ ${MUMBLE_NO_PCH} -eq 1 ]; then
+		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
