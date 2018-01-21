@@ -135,6 +135,7 @@ int CertWizard::nextId() const {
 					return 2;
 				else if (qrbExport->isChecked())
 					return 3;
+				return -1;
 			}
 		case 2: // Import
 			if (validateCert(kpCurrent))

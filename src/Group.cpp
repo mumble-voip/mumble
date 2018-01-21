@@ -164,16 +164,14 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 		int maxdesc = 1000;
 		int minpath = 0;
 		QStringList args = name.split(QLatin1String(","));
-		switch (args.count()) {
-			default:
-			case 3:
-				maxdesc = args[2].isEmpty() ? maxdesc : args[2].toInt();
-			case 2:
-				mindesc = args[1].isEmpty() ? mindesc : args[1].toInt();
-			case 1:
-				minpath = args[0].isEmpty() ? minpath : args[0].toInt();
-			case 0:
-				break;
+		if (args.count() >= 3) {
+			maxdesc = args[2].isEmpty() ? maxdesc : args[2].toInt();
+		}
+		if (args.count() >= 2) {
+			mindesc = args[1].isEmpty() ? mindesc : args[1].toInt();
+		}
+		if (args.count() >= 1) {
+			minpath = args[0].isEmpty() ? minpath : args[0].toInt();
 		}
 
 		Channel *home = pl->cChannel;
