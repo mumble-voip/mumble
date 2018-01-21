@@ -809,6 +809,7 @@ static void recreateServerHandler() {
 	g.sh = sh;
 	g.mw->connect(sh.get(), SIGNAL(connected()), g.mw, SLOT(serverConnected()));
 	g.mw->connect(sh.get(), SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), g.mw, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
+	g.mw->connect(sh.get(), SIGNAL(error(QAbstractSocket::SocketError, QString)), g.mw, SLOT(resolverError(QAbstractSocket::SocketError, QString)));
 }
 
 void MainWindow::openUrl(const QUrl &url) {
@@ -3011,6 +3012,21 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	}
 	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	AudioInput::setMaxBandwidth(-1);
+}
+
+void MainWindow::resolverError(QAbstractSocket::SocketError, QString reason) {
+	if (! reason.isEmpty()) {
+		g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(Qt::escape(reason)));
+	}  else {
+		g.l->log(Log::ServerDisconnected, tr("Server connection failed."));
+	}
+
+	if (g.s.bReconnect) {
+		qaServerDisconnect->setEnabled(true);
+		if (bRetryServer) {
+			qtReconnect->start();
+		}
+	}
 }
 
 void MainWindow::trayAboutToShow() {

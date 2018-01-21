@@ -295,6 +295,7 @@ void ServerHandler::run() {
 		int ret = exec();
 		if (ret < 0) {
 			qWarning("ServerHandler: failed to resolve hostname");
+			emit error(QAbstractSocket::HostNotFoundError, tr("Unable to resolve hostname"));
 			return;
 		}
 	}
