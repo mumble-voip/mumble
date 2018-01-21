@@ -267,6 +267,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
 		void serverConnected();
 		void serverDisconnected(QAbstractSocket::SocketError, QString reason);
+		void resolverError(QAbstractSocket::SocketError, QString reason);
 		void viewCertificate(bool);
 		void openUrl(const QUrl &url);
 		void context_triggered();

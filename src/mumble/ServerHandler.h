@@ -135,6 +135,7 @@ class ServerHandler : public QThread {
 		void disconnect();
 		void run() Q_DECL_OVERRIDE;
 	signals:
+		void error(QAbstractSocket::SocketError, QString reason);
 		void disconnected(QAbstractSocket::SocketError, QString reason);
 		void connected();
 		void pingRequested();
