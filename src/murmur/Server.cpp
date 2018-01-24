@@ -1481,7 +1481,6 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			}
 
 			if (ok) {
-				u->aiUdpFlag = 1;
 				processMsg(u, buffer, 1);
 			}
 		}

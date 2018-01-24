@@ -202,7 +202,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_stream_set_state_callback(pasOutput, stream_callback, this);
 						pa_stream_set_write_callback(pasOutput, write_callback, this);
 
-						break;
+						// Fallthrough
 					}
 				case PA_STREAM_UNCONNECTED:
 					do_start = true;
@@ -271,7 +271,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_stream_set_state_callback(pasInput, stream_callback, this);
 						pa_stream_set_read_callback(pasInput, read_callback, this);
 
-						break;
+						// Fallthrough
 					}
 
 				case PA_STREAM_UNCONNECTED:
@@ -336,7 +336,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_stream_set_state_callback(pasSpeaker, stream_callback, this);
 						pa_stream_set_read_callback(pasSpeaker, read_callback, this);
 
-						break;
+						// Fallthrough
 					}
 				case PA_STREAM_UNCONNECTED:
 					do_start = true;
