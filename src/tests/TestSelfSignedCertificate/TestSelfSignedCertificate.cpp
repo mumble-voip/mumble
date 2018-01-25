@@ -36,10 +36,11 @@ void TestSelfSignedCertificate::exerciseClientCert() {
 	QCOMPARE(cert.isNull(), false);
 	QCOMPARE(key.isNull(), false);
 
+	// Test that certificates are auto-generated correctly
 	ok = SelfSignedCertificate::generateMumbleCertificate(QString(), QString(), cert, key);
-	QCOMPARE(ok, false);
-	QCOMPARE(cert.isNull(), true);
-	QCOMPARE(key.isNull(), true);
+	QCOMPARE(ok, true);
+	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
 }
 
 void TestSelfSignedCertificate::exerciseServerCert() {
