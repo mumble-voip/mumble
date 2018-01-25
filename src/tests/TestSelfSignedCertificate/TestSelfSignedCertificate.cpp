@@ -34,12 +34,12 @@ void TestSelfSignedCertificate::exerciseClientCert() {
 	bool ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("Test"), QLatin1String("test@test.test"), cert, key);
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);
-	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
 
 	ok = SelfSignedCertificate::generateMumbleCertificate(QString(), QString(), cert, key);
 	QCOMPARE(ok, false);
 	QCOMPARE(cert.isNull(), true);
-	QCOMPARE(cert.isNull(), true);
+	QCOMPARE(key.isNull(), true);
 }
 
 void TestSelfSignedCertificate::exerciseServerCert() {
@@ -49,7 +49,7 @@ void TestSelfSignedCertificate::exerciseServerCert() {
 	bool ok = SelfSignedCertificate::generateMurmurV2Certificate(cert, key);
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);
-	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
 }
 
 QTEST_MAIN(TestSelfSignedCertificate)
