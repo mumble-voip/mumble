@@ -185,9 +185,11 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 	}
 
 	if (!isServerCert) {
-		if (add_ext(x509, NID_subject_alt_name, QString::fromLatin1("email:%1").arg(clientCertEmail).toUtf8().data()) == 0) {
-			ok = false;
-			goto out;
+		if (!clientCertEmail.trimmed().isEmpty()) {
+			if (add_ext(x509, NID_subject_alt_name, QString::fromLatin1("email:%1").arg(clientCertEmail).toUtf8().data()) == 0) {
+				ok = false;
+				goto out;
+			}
 		}
 	}
 
