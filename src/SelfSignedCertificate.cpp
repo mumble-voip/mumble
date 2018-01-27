@@ -214,6 +214,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		qscCert = QSslCertificate(crt, QSsl::Der);
 		if (qscCert.isNull()) {
 			ok = false;
+			goto out;
 		}
 	}
 
@@ -235,6 +236,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
 		if (qskKey.isNull()) {
 			ok = false;
+			goto out;
 		}
 	}
 
