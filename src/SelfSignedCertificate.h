@@ -10,9 +10,11 @@
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslKey>
 
+enum CertificateType { CertificateTypeServerCertificate, CertificateTypeClientCertificate };
+
 class SelfSignedCertificate {
 private:
-	static bool generate(QString clientCertName, QString clientCertEmail, QSslCertificate &qscCert, QSslKey &qskKey);
+	static bool generate(CertificateType certificateType, QString clientCertName, QString clientCertEmail, QSslCertificate &qscCert, QSslKey &qskKey);
 
 public:
 	static bool generateMumbleCertificate(QString name, QString email, QSslCertificate &qscCert, QSslKey &qskKey);

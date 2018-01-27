@@ -28,7 +28,7 @@ static int add_ext(X509 * crt, int nid, char *value) {
 	return 1;
 }
 
-bool SelfSignedCertificate::generate(QString clientCertName, QString clientCertEmail, QSslCertificate &qscCert, QSslKey &qskKey) {
+bool SelfSignedCertificate::generate(CertificateType certificateType, QString clientCertName, QString clientCertEmail, QSslCertificate &qscCert, QSslKey &qskKey) {
 	bool ok = true;
 	X509 *x509 = NULL;
 	EVP_PKEY *pkey = NULL;
@@ -39,7 +39,7 @@ bool SelfSignedCertificate::generate(QString clientCertName, QString clientCertE
 	ASN1_TIME *notBefore = NULL;
 	ASN1_TIME *notAfter = NULL;
 	QString commonName;
-	bool isServerCert = clientCertName.isEmpty() && clientCertEmail.isEmpty();
+	bool isServerCert = certificateType == CertificateTypeServerCertificate;
 
 	if (CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON) == -1) {
 		ok = false;
@@ -185,9 +185,11 @@ bool SelfSignedCertificate::generate(QString clientCertName, QString clientCertE
 	}
 
 	if (!isServerCert) {
-		if (add_ext(x509, NID_subject_alt_name, QString::fromLatin1("email:%1").arg(clientCertEmail).toUtf8().data()) == 0) {
-			ok = false;
-			goto out;
+		if (!clientCertEmail.trimmed().isEmpty()) {
+			if (add_ext(x509, NID_subject_alt_name, QString::fromLatin1("email:%1").arg(clientCertEmail).toUtf8().data()) == 0) {
+				ok = false;
+				goto out;
+			}
 		}
 	}
 
@@ -214,6 +216,7 @@ bool SelfSignedCertificate::generate(QString clientCertName, QString clientCertE
 		qscCert = QSslCertificate(crt, QSsl::Der);
 		if (qscCert.isNull()) {
 			ok = false;
+			goto out;
 		}
 	}
 
@@ -235,6 +238,7 @@ bool SelfSignedCertificate::generate(QString clientCertName, QString clientCertE
 		qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
 		if (qskKey.isNull()) {
 			ok = false;
+			goto out;
 		}
 	}
 
@@ -262,19 +266,9 @@ out:
 }
 
 bool SelfSignedCertificate::generateMumbleCertificate(QString name, QString email, QSslCertificate &qscCert, QSslKey &qskKey) {
-	if (name.trimmed().isEmpty()) {
-		qscCert = QSslCertificate();
-		qskKey = QSslKey();
-		return false;
-	}
-	if (email.trimmed().isEmpty()) {
-		qscCert = QSslCertificate();
-		qskKey = QSslKey();
-		return false;
-	}
-	return SelfSignedCertificate::generate(name, email, qscCert, qskKey);
+	return SelfSignedCertificate::generate(CertificateTypeClientCertificate, name, email, qscCert, qskKey);
 }
 
 bool SelfSignedCertificate::generateMurmurV2Certificate(QSslCertificate &qscCert, QSslKey &qskKey) {
-	return SelfSignedCertificate::generate(QString(), QString(), qscCert, qskKey);
+	return SelfSignedCertificate::generate(CertificateTypeServerCertificate, QString(), QString(), qscCert, qskKey);
 }

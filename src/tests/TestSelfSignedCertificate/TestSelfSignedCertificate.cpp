@@ -34,12 +34,27 @@ void TestSelfSignedCertificate::exerciseClientCert() {
 	bool ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("Test"), QLatin1String("test@test.test"), cert, key);
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);
-	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
 
+	// Test that certificates are auto-generated correctly
 	ok = SelfSignedCertificate::generateMumbleCertificate(QString(), QString(), cert, key);
-	QCOMPARE(ok, false);
-	QCOMPARE(cert.isNull(), true);
-	QCOMPARE(cert.isNull(), true);
+	QCOMPARE(ok, true);
+	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
+
+	// Test that users can create certificates without an email
+	// address set.
+	ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("John Doe"), QString(), cert, key);
+	QCOMPARE(ok, true);
+	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
+
+	// Test that it's possible to create a client certificate with
+	// both a name and an email.
+	ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("John Doe"), QLatin1String("john@doe.family"), cert, key);
+	QCOMPARE(ok, true);
+	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
 }
 
 void TestSelfSignedCertificate::exerciseServerCert() {
@@ -49,7 +64,7 @@ void TestSelfSignedCertificate::exerciseServerCert() {
 	bool ok = SelfSignedCertificate::generateMurmurV2Certificate(cert, key);
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);
-	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
 }
 
 QTEST_MAIN(TestSelfSignedCertificate)
