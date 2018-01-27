@@ -41,6 +41,20 @@ void TestSelfSignedCertificate::exerciseClientCert() {
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);
 	QCOMPARE(key.isNull(), false);
+
+	// Test that users can create certificates without an email
+	// address set.
+	ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("John Doe"), QString(), cert, key);
+	QCOMPARE(ok, true);
+	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
+
+	// Test that it's possible to create a client certificate with
+	// both a name and an email.
+	ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("John Doe"), QLatin1String("john@doe.family"), cert, key);
+	QCOMPARE(ok, true);
+	QCOMPARE(cert.isNull(), false);
+	QCOMPARE(key.isNull(), false);
 }
 
 void TestSelfSignedCertificate::exerciseServerCert() {
