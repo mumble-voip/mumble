@@ -1456,8 +1456,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 	}
 
 	if (uiType == MessageHandler::UDPTunnel) {
-		int l = qbaMsg.size();
-		if (l < 2)
+		int len = qbaMsg.size();
+		if (len < 2)
 			return;
 
 		QReadLocker rl(&qrwlVoiceThread);
@@ -1481,7 +1481,7 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			}
 
 			if (ok) {
-				processMsg(u, buffer, 1);
+				processMsg(u, buffer, len);
 			}
 		}
 
