@@ -89,7 +89,9 @@ void LogConfig::load(const Settings &r) {
 		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(mt));
 
 		i->setCheckState(ColConsole, (ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
+#ifndef PLUTOVR_BUILD
 		i->setCheckState(ColNotification, (ml & Settings::LogBalloon) ? Qt::Checked : Qt::Unchecked);
+#endif
 #ifndef USE_NO_TTS
 		i->setCheckState(ColTTS, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
 #endif
@@ -552,6 +554,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 // Post a notification using the MainWindow's QSystemTrayIcon.
 void Log::postQtNotification(MsgType mt, const QString &plain) {
+#ifndef PLUTOVR_BUILD
 	if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
 		QSystemTrayIcon::MessageIcon msgIcon;
 		switch (mt) {
@@ -568,6 +571,10 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 		}
 		g.mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 	}
+#else
+	UNREFERENCED_PARAMETER(mt);
+	UNREFERENCED_PARAMETER(plain);
+#endif
 }
 
 LogDocument::LogDocument(QObject *p)

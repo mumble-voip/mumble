@@ -1,0 +1,12 @@
+1. Setup Speex Git:
+pluto_qmake.cmd choice 1
+
+2. Configure for Release:
+pluto_qmake.cmd choice 2
+
+or
+Configure for Development:
+pluto_qmake.cmd choice 3
+
+3. Build
+nmake

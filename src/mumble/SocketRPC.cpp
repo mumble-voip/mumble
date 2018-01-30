@@ -13,6 +13,13 @@
 #include "MainWindow.h"
 #include "ServerHandler.h"
 
+#ifdef PLUTOVR_BUILD
+#include "Log.h"
+extern "C" {
+	void PlutoSettingsUpdated();
+}
+#endif
+
 SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(NULL) {
 	qlsSocket->setParent(this);
 
@@ -158,6 +165,19 @@ void SocketRPCClient::processXml() {
 					g.mw->qaAudioDeaf->trigger();
 				}
 			}
+#ifdef PLUTOVR_BUILD
+			iter = qmRequest.find(QLatin1String("sup"));
+			if (iter != qmRequest.constEnd()) {
+				::PlutoSettingsUpdated();
+			}
+			iter = qmRequest.find(QLatin1String("disconnect"));
+			if (iter != qmRequest.constEnd()) {
+	g.l->log(Log::Information, MainWindow::tr("Recieved disconnect RPC!"));
+				ServerHandlerPtr sh = g.sh;
+				if (sh)
+					sh->disconnect();
+			}
+#endif
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("url")) {
 			if (g.sh && g.sh->isRunning() && g.uiSession) {

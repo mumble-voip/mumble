@@ -279,8 +279,12 @@ void Plugins::rescanPlugins() {
 
 	QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
 #ifdef QT_NO_DEBUG
+#ifndef PLUTOVR_BUILD
 	QDir qud(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
 	QFileInfoList libs = qud.entryInfoList() + qd.entryInfoList();
+#else
+	QFileInfoList libs = qd.entryInfoList();
+#endif
 #else
 	QFileInfoList libs = qd.entryInfoList();
 #endif

@@ -65,3 +65,7 @@ To set the superuser password, run murmur with the parameters `-supw <password>`
 Mumble will use 10-40 kbit/s outgoing, and the same incoming for each user.
 So if there are 10 other users on the server with you, your incoming
 bandwidth requirement will be 100-400 kbit/s if they all talk at the same time.
+
+Owners
+---
+This repository is [owned and managed](https://docs.google.com/document/d/1tV8HDclTnf1hM0LssdiS2VjbG88K-r7e_V8OAPaPpYM) by the RTC Collective.

@@ -10,7 +10,7 @@
 #define MUMTEXT(X) MUMXTEXT(X)
 
 #ifndef MUMBLE_VERSION
-#define MUMBLE_RELEASE "Compiled by User"
+#define MUMBLE_RELEASE "Compiled by your friends at PlutoVR on " __DATE__ 
 #else
 #define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
 #endif

@@ -15,6 +15,7 @@
 static std::wstring wsPluginName;
 static std::wstring wsDescription;
 
+#ifndef PLUTOVR_BUILD
 struct LinkedMem {
 	UINT32  uiVersion;
 	DWORD   dwcount;
@@ -30,6 +31,19 @@ struct LinkedMem {
 	unsigned char context[256];
 	wchar_t description[2048];
 };
+#else
+struct LinkedMem {
+	UINT32  uiVersion;
+	DWORD   dwcount;
+	float	fAvatarPosition[3];
+	float	fAvatarFront[3];
+	float	fAvatarTop[3];
+	float	fCameraPosition[3];
+	float	fCameraFront[3];
+	float	fCameraTop[3];
+	wchar_t	identity[256];
+};
+#endif
 
 static void about(void *h) {
 	::MessageBox(reinterpret_cast<HWND>(h), L"Reads audio position information from linked game", L"Mumble Link Plugin", MB_OK);
@@ -43,8 +57,12 @@ static DWORD last_tick = 0;
 static void unlock() {
 	lm->dwcount = last_count = 0;
 	lm->uiVersion = 0;
+#ifndef PLUTOVR_BUILD
 	lm->name[0] = 0;
 	wsPluginName.assign(L"Link");
+#else
+	wsPluginName.assign(L"PlutoLink");
+#endif
 	wsDescription.clear();
 }
 
@@ -55,6 +73,7 @@ static int trylock() {
 			last_tick = GetTickCount();
 
 			errno_t err = 0;
+#ifndef PLUTOVR_BUILD
 			wchar_t buff[2048];
 
 			if (lm->name[0]) {
@@ -67,6 +86,10 @@ static int trylock() {
 				if (! err)
 					wsDescription.assign(buff);
 			}
+#else
+			wsPluginName.assign(L"PlutoLink");
+			wsDescription.clear();
+#endif
 			if (err) {
 				wsPluginName.assign(L"Link");
 				wsDescription.clear();
@@ -83,7 +106,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (lm->dwcount != last_count) {
 		last_count = lm->dwcount;
 		last_tick = GetTickCount();
+#ifndef PLUTOVR_BUILD
 	} else 	if ((GetTickCount() - last_tick) > 5000)
+#else
+	} else 	if ((GetTickCount() - last_tick) > 600000)
+#endif
 		return false;
 
 	if ((lm->uiVersion != 1) && (lm->uiVersion != 2))
@@ -102,11 +129,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			camera_top[i]=lm->fCameraTop[i];
 		}
 
+#ifndef PLUTOVR_BUILD
 		if (lm->context_len > 255)
 			lm->context_len = 255;
+#endif
 		lm->identity[255] = 0;
 
+#ifndef PLUTOVR_BUILD
 		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
+#else
+		context = "Pluto";
+		if (identity.empty())
+#endif
 		identity.assign(lm->identity);
 	} else {
 		for (int i=0;i<3;++i) {
@@ -129,10 +163,19 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	bool bCreated = false;
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
+#ifndef PLUTOVR_BUILD
 			wsPluginName.assign(L"Link");
 			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
+#else
+			wsPluginName.assign(L"PlutoLink");
+			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"PlutoLink");
+#endif
 			if (hMapObject == NULL) {
+#ifndef PLUTOVR_BUILD
 				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
+#else
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"PlutoLink");
+#endif
 				bCreated = true;
 				if (hMapObject == NULL)
 					return false;

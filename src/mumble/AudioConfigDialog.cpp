@@ -149,6 +149,9 @@ void AudioInputDialog::load(const Settings &r) {
 	if (r.bEcho)
 		echo = r.bEchoMulti ? 2 : 1;
 
+#ifdef PLUTOVR_BUILD
+	echo = 2;
+#endif
 	loadComboBox(qcbEcho, echo);
 }
 
@@ -188,6 +191,12 @@ void AudioInputDialog::save() const {
 			air->setDeviceChoice(qcbDevice->itemData(idx), s);
 		}
 	}
+#ifdef PLUTOVR_BUILD
+	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bEcho " << g.s.bEcho << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bEchoMulti " << g.s.bEchoMulti << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+#endif
 }
 
 void AudioInputDialog::on_qsFrames_valueChanged(int v) {
