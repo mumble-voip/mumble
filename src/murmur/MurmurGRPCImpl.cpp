@@ -970,7 +970,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 // exception.
 ::ServerUser *MustUser(const Server *server, unsigned int session) {
 	auto user = server->qhUsers.value(session);
-	if (!user) {
+	if (!user || user->sState != ServerUser::Authenticated) {
 		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
 	}
 	return user;
@@ -1285,6 +1285,9 @@ void V1_ContextActionRemove::impl(bool) {
 	} else {
 		// Remove context action from all users
 		foreach(::ServerUser *user, server->qhUsers) {
+			if (user->sState != ServerUser::Authenticated) {
+				continue;
+			}
 			rpc->removeActiveContextAction(server, user, action);
 			server->sendMessage(user, mpcam);
 		}
@@ -1578,6 +1581,9 @@ void V1_UserQuery::impl(bool) {
 	list.mutable_server()->set_id(server->iServerNum);
 
 	foreach(const ::ServerUser *user, server->qhUsers) {
+		if (user->sState != ServerUser::Authenticated) {
+			continue;
+		}
 		auto rpcUser = list.add_users();
 		ToRPC(server, user, rpcUser);
 	}
@@ -1600,6 +1606,9 @@ void V1_UserGet::impl(bool) {
 		// Lookup user by name
 		QString qsName = u8(request.name());
 		foreach(const ::ServerUser *user, server->qhUsers) {
+			if (user->sState != ServerUser::Authenticated) {
+				continue;
+			}
 			if (user->qsName == qsName) {
 				ToRPC(server, user, &rpcUser);
 				end(rpcUser);
