@@ -54,7 +54,8 @@ QString TestXMLTools::doParse(QString input) {
 	QXmlStreamWriter writerOut(&outBuf);
 	outBuf.open(QIODevice::WriteOnly);
 	int paragraphs = 0;
-	XMLTools::recurseParse(reader, writerOut, paragraphs);
+	QMap<QString, QString> pstyle;
+	XMLTools::recurseParse(reader, writerOut, paragraphs, pstyle);
 	outBuf.close();
 	return QString(outBuf.data());
 }
