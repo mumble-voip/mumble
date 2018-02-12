@@ -114,8 +114,8 @@ CONFIG+=no-directsound (Mumble, Win32)
 CONFIG+=no-wasapi (Mumble, Win32)
  Don't build support for WASAPI.
 
-CONFIG+=no-portaudio (Mumble, Unix, OSX)
- Don't build support for PortAudio.
+CONFIG+=portaudio (Mumble, Unix, OSX)
+ Build support for PortAudio.
 
 CONFIG+=no-pulseaudio (Mumble, Unix)
  Don't build support for PulseAudio.

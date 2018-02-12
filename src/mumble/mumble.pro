@@ -444,14 +444,8 @@ win32 {
 
 unix {
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
-  HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
-
-  !isEmpty(HAVE_PORTAUDIO):!CONFIG(no-portaudio) {
-    CONFIG *= portaudio
-  }
 
   !isEmpty(HAVE_PULSEAUDIO):!CONFIG(no-pulseaudio) {
-    CONFIG -= portaudio
     CONFIG *= pulseaudio
   }
 
