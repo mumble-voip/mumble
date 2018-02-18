@@ -57,14 +57,9 @@ macx {
   LIBS *= -lmach-override
 }
 
-CONFIG(debug, debug|release) {
-  QMAKE_LIBDIR = ../debug$(DESTDIR_ADD) $$QMAKE_LIBDIR
-  DESTDIR = ../debug$(DESTDIR_ADD)
-}
 
-CONFIG(release, debug|release) {
-  QMAKE_LIBDIR = ../release$(DESTDIR_ADD) $$QMAKE_LIBDIR
-  DESTDIR = ../release$(DESTDIR_ADD)
-}
+DESTDIR = $$DESTDIR$(DESTDIR_ADD)
+
+QMAKE_LIBDIR = $$DESTDIR $$QMAKE_LIBDIR
 
 include(../qmake/symbols.pri)
