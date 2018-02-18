@@ -6,8 +6,9 @@
 include(qt.pri)
 include(uname.pri)
 include(buildenv.pri)
+include(builddir.pri)
 include(cplusplus.pri)
- 
+
 CONFIG *= warn_on
 
 # Enable zlib compression for assets

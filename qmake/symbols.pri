@@ -4,13 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 CONFIG(symbols):macx {
-	CONFIG(debug, debug|release) {
-		DSYM_DESTDIR = $${PWD}/debug
-	}
-
-	CONFIG(release, debug|release) {
-		DSYM_DESTDIR = $${PWD}/release
-	}
+	DSYM_DESTDIR = $${DESTDIR}
 
 	contains(TEMPLATE, 'app') {
 		DSYM_TARGET_FULLPATH = ${TARGET}
