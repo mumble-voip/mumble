@@ -94,13 +94,8 @@ CONFIG(g15-emulator) {
   }
 }
 
-CONFIG(release, debug|release) {
-  DESTDIR = ../release
-}
-
 CONFIG(debug, debug|release) {
   DEFINES *= USE_LOGFILE
-  DESTDIR = ../debug/
 }
 
 include(../qmake/symbols.pri)

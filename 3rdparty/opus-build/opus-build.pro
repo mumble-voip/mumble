@@ -259,14 +259,4 @@ src/analysis.c \
 src/mlp.c \
 src/mlp_data.c
 
-
-CONFIG(debug, debug|release) {
-  CONFIG += console
-  DESTDIR = ../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR = ../../release
-}
-
 include(../../qmake/symbols.pri)

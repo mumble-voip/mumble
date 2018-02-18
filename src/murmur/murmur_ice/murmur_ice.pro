@@ -73,12 +73,4 @@ macx:CONFIG(static) {
     CONFIG += warn_off
 }
 
-CONFIG(debug, debug|release) {
-  DESTDIR = ../../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR = ../../../release
-}
-
 include(../../../qmake/symbols.pri)

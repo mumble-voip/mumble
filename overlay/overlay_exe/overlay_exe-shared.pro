@@ -8,7 +8,6 @@ include(../../qmake/compiler.pri)
 TEMPLATE = app
 CONFIG -= qt
 CONFIG += debug_and_release
-TARGET = mumble_ol_helper
 
 win32 {
   DEFINES += WIN32 _WIN32
@@ -32,12 +31,10 @@ QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo
 CONFIG(debug, debug|release) {
   CONFIG += console
   DEFINES *= DEBUG
-  DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
   DEFINES *= NDEBUG
-  DESTDIR = ../../release
 }
 
 include(../../qmake/symbols.pri)

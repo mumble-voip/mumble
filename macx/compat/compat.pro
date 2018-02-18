@@ -31,12 +31,4 @@ TARGET = Mumble.compat
 OBJECTIVE_SOURCES = compat.m
 QMAKE_LFLAGS += -framework ApplicationServices -framework Cocoa -framework AppKit
 
-CONFIG(debug, debug|release) {
-  DESTDIR       = ../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR       = ../../release
-}
-
 include(../../qmake/symbols.pri)

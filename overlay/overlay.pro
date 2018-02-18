@@ -4,4 +4,6 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 CONFIG += force-x86-toolchain
+TARGET = mumble_ol
+
 include(overlay-shared.pro)
