@@ -52,13 +52,4 @@ macx {
   SOURCES *= futex-stub.c closefrom.c
 }
 
-CONFIG(debug, debug|release) {
-  CONFIG += console
-  DESTDIR = ../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR = ../../release
-}
-
 include(../../qmake/symbols.pri)

@@ -1,4 +1,4 @@
-include (../../qmake/compiler.pri)
+include(../../qmake/compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-helper-build,-src)
@@ -67,13 +67,8 @@ macx {
   SOURCES *= ../lib/futex-stub.c sbcelt-sandbox-darwin.c pdeath-kqueue.c
 }
 
-CONFIG(release, debug|release) {
-  DESTDIR = ../../release
-}
-
 CONFIG(debug, debug|release) {
   DEFINES *= USE_LOGFILE
-  DESTDIR = ../../debug/
 }
 
 include(../../qmake/symbols.pri)

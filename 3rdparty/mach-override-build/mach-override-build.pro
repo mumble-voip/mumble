@@ -8,15 +8,6 @@ SOURCEDIR=$$replace(BUILDDIR,-build,-src)
   error("Aborting configuration")
 }
 
-CONFIG(debug, debug|release) {
-  CONFIG += console
-  DESTDIR = ../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR = ../../release
-}
-
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release

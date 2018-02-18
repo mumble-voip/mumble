@@ -71,13 +71,11 @@ unix {
 
 SOURCES *= bands.c celt.c cwrs.c entcode.c entdec.c entenc.c header.c kiss_fft.c kiss_fftr.c laplace.c mdct.c modes.c pitch.c psy.c quant_bands.c rangedec.c rangeenc.c rate.c vq.c
 
-CONFIG(debug, debug|release) {
-  CONFIG += console
-  DESTDIR = ../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR = ../../release
-}
+# TARGET is the same in both versions of CELT, thus we have to specify
+# a separated folder to prevent objects collision between the two.
+OBJECTS_DIR = $$OBJECTS_ROOT/celt-0.7.0-build
+MOC_DIR = $$MOC_ROOT/celt-0.7.0-build
+RCC_DIR = $$RCC_ROOT/celt-0.7.0-build
+UI_DIR = $$UI_ROOT/celt-0.7.0-build
 
 include(../../qmake/symbols.pri)
