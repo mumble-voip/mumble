@@ -35,3 +35,5 @@ HEADERS += PlatformCheck.h
 # include OpenSSL, and if the headers aren't
 # in the include path, the build will break.
 include(../../qmake/openssl.pri)
+
+DESTDIR = $$DESTDIR/tests

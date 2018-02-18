@@ -52,12 +52,4 @@ unix {
   QMAKE_CXXFLAGS *= -std=c++11
 }
 
-CONFIG(debug, debug|release) {
-  DESTDIR = ../../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR = ../../../release
-}
-
 include(../../../qmake/symbols.pri)
