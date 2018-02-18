@@ -16,13 +16,6 @@ CONFIG(static) {
 	CONFIG += qt_dynamic_lookup
 }
 
-CONFIG(debug, debug|release) {
-  CONFIG += console
-  DESTDIR       = ../../debug/plugins
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR       = ../../release/plugins
-}
+DESTDIR = $$DESTDIR/plugins
 
 include(../qmake/symbols.pri)
