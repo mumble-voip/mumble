@@ -34,12 +34,4 @@ QMAKE_BUNDLE_DATA += SDEF
 
 OBJECTIVE_SOURCES = osax.m
 
-CONFIG(debug, debug|release) {
-  DESTDIR       = ../../debug
-}
-
-CONFIG(release, debug|release) {
-  DESTDIR       = ../../release
-}
-
 include(../../qmake/symbols.pri)
