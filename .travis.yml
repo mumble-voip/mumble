@@ -2,6 +2,7 @@ sudo: required # Required for apt-get build-dep
 dist: trusty
 language: cpp
 compiler: gcc
+services: docker
 
 os:
   - linux
