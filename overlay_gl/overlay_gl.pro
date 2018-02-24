@@ -54,12 +54,10 @@ macx {
   QMAKE_INFO_PLIST = overlay_gl.plist
 
   INCLUDEPATH *= ../3rdparty/mach-override-src
-  LIBS *= -lmach-override
+  LIBS *= -L$$DESTDIR -lmach-override
 }
 
 
 DESTDIR = $$DESTDIR$(DESTDIR_ADD)
-
-QMAKE_LIBDIR = $$DESTDIR $$QMAKE_LIBDIR
 
 include(../qmake/symbols.pri)

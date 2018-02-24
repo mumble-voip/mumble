@@ -32,14 +32,16 @@ LIBS *= -ld3d9 -ld3d10 -ld3d11 -ld3dcompiler -ldxgi
 CONFIG(force-x86_64-toolchain) {
   DEFINES += USE_MINHOOK
   INCLUDEPATH *= ../3rdparty/minhook-src/include
-  LIBS *= -lminhook
+  !win32-msvc* {
+    LIBS *= -L$$DESTDIR -lminhook
+  } else {
+    LIBS *= $$DESTDIR/minhook.lib
+  }
 }
 
 CONFIG(debug, debug|release) {
   DEFINES *= DEBUG
 }
-
-QMAKE_LIBDIR = $$DESTDIR $$QMAKE_LIBDIR
 
 # Override fxc binary for the x86 build.
 CONFIG(force-x86-toolchain) {

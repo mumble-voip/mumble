@@ -147,7 +147,12 @@ ice {
     QMAKE_CXXFLAGS *= -fPIC
   }
 
-  LIBS *= -lmurmur_ice
+  !win32-msvc* {
+    LIBS *= -L$$DESTDIR -lmurmur_ice
+  } else {
+    LIBS *= $$DESTDIR/murmur_ice.lib
+  }
+
   INCLUDEPATH *= murmur_ice
 
   unix {
