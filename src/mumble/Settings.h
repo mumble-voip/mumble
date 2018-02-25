@@ -11,6 +11,7 @@
 #include <QtCore/QPair>
 #include <QtCore/QRectF>
 #include <QtCore/QSettings>
+#include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtGui/QColor>
 #include <QtGui/QFont>
@@ -150,6 +151,8 @@ struct Settings {
 	enum TalkState { Passive, Talking, Whispering, Shouting };
 	enum IdleAction { Nothing, Deafen, Mute };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
+
+	static const QString SHORTCUTS_FILE_VERSION_FIELDNAME;
 
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
@@ -413,8 +416,9 @@ struct Settings {
 	void load(QSettings*);
 	/// \brief loadShortcuts Parses the passed settings for shortcuts. The shortcuts are returned in a list.
 	/// \param settings QSettings to load the shortcuts into
-	/// \return A list of shortcuts
-	static QList<Shortcut> loadShortcuts(QSettings *settings_ptr);
+	/// \param ok if passed, will hold true for a successful import, false for a failure
+	/// \return A list of shortcuts (if param ok is false of undefined contents)
+	static QList<Shortcut> loadShortcuts(QSettings *settings_ptr, bool *ok=NULL);
 	void save();
 	/// \brief saveShortcuts Save qlShortcuts into settings
 	/// \param qlShortcuts list of shortcuts to store

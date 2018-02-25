@@ -214,6 +214,8 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 	}
 }
 
+const QString Settings::SHORTCUTS_FILE_VERSION_FIELDNAME = QLatin1String("MUMBLE_SHORTCUTS_FILE_VERSION");
+
 Settings::Settings() {
 	qRegisterMetaType<ShortcutTarget> ("ShortcutTarget");
 	qRegisterMetaTypeStreamOperators<ShortcutTarget> ("ShortcutTarget");
@@ -811,8 +813,19 @@ void Settings::load(QSettings* settings_ptr) {
 	settings_ptr->endGroup();
 }
 
-QList<Shortcut> Settings::loadShortcuts(QSettings *settings_ptr) {
+QList<Shortcut> Settings::loadShortcuts(QSettings *settings_ptr, bool *ok) {
+	QVariant fileVersionVar = settings_ptr->value(SHORTCUTS_FILE_VERSION_FIELDNAME, QVariant::fromValue(-1));
+	bool convertOk = false;
+	int fileVersion = fileVersionVar.toInt(&convertOk);
 	QList<Shortcut> qlShortcuts;
+	if (!convertOk || fileVersion != 1)
+	{
+		if (ok != NULL)
+		{
+			*ok = false;
+		}
+		return qlShortcuts;
+	}
 	const int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i = 0; i < nshorts; ++i) {
 		settings_ptr->setArrayIndex(i);
@@ -828,6 +841,11 @@ QList<Shortcut> Settings::loadShortcuts(QSettings *settings_ptr) {
 			qlShortcuts << s;
 	}
 	settings_ptr->endArray();
+
+	if (ok != NULL)
+	{
+		*ok = true;
+	}
 	return qlShortcuts;
 }
 
@@ -1156,6 +1174,8 @@ void Settings::save() {
 }
 
 void Settings::saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr) {
+	const int fileVersion = 1;
+	settings_ptr->setValue(SHORTCUTS_FILE_VERSION_FIELDNAME, fileVersion);
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
 	foreach(const Shortcut &s, qlShortcuts) {
