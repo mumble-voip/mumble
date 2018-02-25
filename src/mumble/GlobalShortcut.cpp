@@ -633,7 +633,7 @@ void GlobalShortcutConfig::on_qpbImport_clicked() {
 	}
 	const int userAction = QMessageBox::warning(this
 	                                      , tr("Shortcut Replacement")
-	                                      , tr("Importing the shortcuts will drop and replace all current shortcuts.\nDo you want to continue?")
+	                                      , tr("Importing the shortcuts will drop and replace all current shortcuts, including server specific shortcuts.\nYou may want to export the current shortcuts before importing to have a backup to come back to.\n\nDo you want to continue the import?")
 	                                      , QMessageBox::Ok | QMessageBox::Cancel
 	                                      , QMessageBox::Ok);
 	if (userAction != QMessageBox::Ok) {
