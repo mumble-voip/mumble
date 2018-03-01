@@ -471,11 +471,12 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 		Channel *old = pDst->cChannel;
 		if (c != old) {
-			bool log = pSelf && !((pDst == pSelf) && (pSrc == pSelf));
-
-			if (log) {
+			if (pSelf) {
 				if (pDst == pSelf) {
-					g.l->log(Log::ChannelJoin, tr("You were moved to %1 by %2.").arg(Log::formatChannel(c)).arg(Log::formatClientUser(pSrc, Log::Source)));
+					if (pSrc == pSelf)
+						g.l->log(Log::SelfChannelJoin, tr("You joined %1.").arg(Log::formatChannel(c)));
+					else
+						g.l->log(Log::SelfChannelJoinOther, tr("You were moved to %1 by %2.").arg(Log::formatChannel(c)).arg(Log::formatClientUser(pSrc, Log::Source)));
 				} else if (pDst->cChannel == pSelf->cChannel) {
 					if (pDst == pSrc)
 						g.l->log(Log::ChannelLeave, tr("%1 moved to %2.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(c)));
@@ -493,6 +494,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				qsDesiredChannel = c->getPath();
 			}
 
+			bool log = pSelf && !((pDst == pSelf) && (pSrc == pSelf));
 			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {
 				if (pDst == pSrc)
 					g.l->log(Log::ChannelJoin, tr("%1 entered channel.").arg(Log::formatClientUser(pDst, Log::Target)));
