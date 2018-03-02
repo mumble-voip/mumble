@@ -34,12 +34,14 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->header()->setSectionResizeMode(ColMessage, QHeaderView::Stretch);
 	qtwMessages->header()->setSectionResizeMode(ColConsole, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColNotification, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setSectionResizeMode(ColHighlight, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColTTS, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
 #else
 	qtwMessages->header()->setResizeMode(ColMessage, QHeaderView::Stretch);
 	qtwMessages->header()->setResizeMode(ColConsole, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColNotification, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setResizeMode(ColHighlight, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColTTS, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
 #endif
@@ -54,15 +56,18 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setText(ColMessage, messageName);
 		twi->setCheckState(ColConsole, Qt::Unchecked);
 		twi->setCheckState(ColNotification, Qt::Unchecked);
+		twi->setCheckState(ColHighlight, Qt::Unchecked);
 		twi->setCheckState(ColStaticSound, Qt::Unchecked);
 
 		twi->setToolTip(ColConsole, tr("Toggle console for %1 events").arg(messageName));
 		twi->setToolTip(ColNotification, tr("Toggle pop-up notifications for %1 events").arg(messageName));
+		twi->setToolTip(ColHighlight, tr("Toggle window highlight (if not active) for %1 events").arg(messageName));
 		twi->setToolTip(ColStaticSound, tr("Click here to toggle sound notification for %1 events").arg(messageName));
 		twi->setToolTip(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 events<br />Single click to play<br />Double-click to change").arg(messageName));
 
 		twi->setWhatsThis(ColConsole, tr("Click here to toggle console output for %1 events.<br />If checked, this option makes Mumble output all %1 events in its message log.").arg(messageName));
 		twi->setWhatsThis(ColNotification, tr("Click here to toggle pop-up notifications for %1 events.<br />If checked, a notification pop-up will be created by Mumble for every %1 event.").arg(messageName));
+		twi->setWhatsThis(ColHighlight, tr("Click here to toggle window highlight for %1 events.<br />If checked, Mumble's window will be highlighted for every %1 event, if not active.").arg(messageName));
 		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.").arg(messageName));
 		twi->setWhatsThis(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 events.<br />Single click to play<br />Double-click to change<br />Ensure that sound notifications for these events are enabled or this field will not have any effect.").arg(messageName));
 #ifndef USE_NO_TTS
@@ -90,6 +95,7 @@ void LogConfig::load(const Settings &r) {
 
 		i->setCheckState(ColConsole, (ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
 		i->setCheckState(ColNotification, (ml & Settings::LogBalloon) ? Qt::Checked : Qt::Unchecked);
+		i->setCheckState(ColHighlight, (ml & Settings::LogHighlight) ? Qt::Checked : Qt::Unchecked);
 #ifndef USE_NO_TTS
 		i->setCheckState(ColTTS, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
 #endif
@@ -119,6 +125,8 @@ void LogConfig::save() const {
 			v |= Settings::LogConsole;
 		if (i->checkState(ColNotification) == Qt::Checked)
 			v |= Settings::LogBalloon;
+		if (i->checkState(ColHighlight) == Qt::Checked)
+			v |= Settings::LogHighlight;
 #ifndef USE_NO_TTS
 		if (i->checkState(ColTTS) == Qt::Checked)
 			v |= Settings::LogTTS;
@@ -491,9 +499,17 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	if (!g.s.bTTSMessageReadBack && ownMessage)
 		return;
 
-	// Message notification with balloon tooltips
-	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))
-		postNotification(mt, plain);
+	if (!(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible())) {
+		// Message notification with window highlight
+		if (flags & Settings::LogHighlight) {
+			QApplication::alert(g.mw);
+		}
+
+		// Message notification with balloon tooltips
+		if (flags & Settings::LogBalloon) {
+			postNotification(mt, plain);
+		}
+	}
 
 	// Don't make any noise if we are self deafened (Unless it is the sound for activating self deaf)
 	if (g.s.bDeaf && mt != Log::SelfDeaf)

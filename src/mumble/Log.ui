@@ -48,6 +48,11 @@
      </column>
      <column>
       <property name="text">
+       <string>Highlight</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>Text-To-Speech</string>
       </property>
      </column>
