@@ -224,6 +224,8 @@ Settings::Settings() {
 	bMute = bDeaf = false;
 	bTTS = true;
 	bTTSMessageReadBack = false;
+	bTTSNoScope = false;
+	bTTSNoAuthor = false;
 	iTTSVolume = 75;
 	iTTSThreshold = 250;
 	qsTTSLanguage = QString();
@@ -684,6 +686,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 	SAVELOAD(bTTSMessageReadBack, "tts/readback");
+	SAVELOAD(bTTSNoScope, "tts/noscope");
+	SAVELOAD(bTTSNoAuthor, "tts/noauthor");
 	SAVELOAD(qsTTSLanguage, "tts/language");
 
 	// Network settings
@@ -1025,6 +1029,8 @@ void Settings::save() {
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 	SAVELOAD(bTTSMessageReadBack, "tts/readback");
+	SAVELOAD(bTTSNoScope, "tts/noscope");
+	SAVELOAD(bTTSNoAuthor, "tts/noauthor");
 	SAVELOAD(qsTTSLanguage, "tts/language");
 
 	// Network settings

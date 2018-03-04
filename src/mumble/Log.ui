@@ -154,6 +154,26 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="qcbNoScope">
+        <property name="toolTip">
+         <string>If enabled, TTS will not dictate the message scope.</string>
+        </property>
+        <property name="text">
+         <string>Omit Message Scope</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="qcbNoAuthor">
+        <property name="toolTip">
+         <string>If enabled, TTS will not dictate the message author.</string>
+        </property>
+        <property name="text">
+         <string>Omit Message Author</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
