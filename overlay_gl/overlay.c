@@ -45,7 +45,7 @@ typedef unsigned char bool;
 # include <OpenGL/OpenGL.h>
 # include <Carbon/Carbon.h>
 # include <Cocoa/Cocoa.h>
-# include <AGL/AGL.h>
+# include <AGL/agl.h>
 #
 # include <objc/objc-runtime.h>
 #
