@@ -347,7 +347,22 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 	if (p) {
 		switch (role) {
 			case Qt::DecorationRole:
-				if (idx.column() == 0)
+				if (idx.column() == 0) {
+					ClientUser *pSelf = ClientUser::get(g.uiSession);
+					if (p == pSelf) {
+						if (g.s.bDeaf) {
+							return qiDeafenedSelf;
+						} else if (p->bDeaf) {
+							return qiDeafenedServer;
+						} else if (g.s.bMute) {
+							return qiMutedSelf;
+						} else if (p->bMute) {
+							return qiMutedServer;
+						} else if (p->bSuppress) {
+							return qiMutedSuppressed;
+						}
+					}
+
 					switch (p->tsState) {
 						case Settings::Talking:
 							return qiTalkingOn;
@@ -359,6 +374,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 						default:
 							return qiTalkingOff;
 					}
+				}
 				break;
 			case Qt::FontRole:
 				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
