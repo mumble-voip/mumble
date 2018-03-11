@@ -601,6 +601,12 @@ void MainWindow::updateTrayIcon() {
 	}
 }
 
+void MainWindow::updateUserModel()
+{
+	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+	um->toggleChannelFiltered(NULL); // Force a UI refresh
+}
+
 void MainWindow::updateTransmitModeComboBox() {
 	switch (g.s.atTransmit) {
 		case Settings::Continuous:
@@ -2280,9 +2286,7 @@ void MainWindow::on_qaAudioReset_triggered() {
 
 void MainWindow::on_qaFilterToggle_triggered() {	
 	g.s.bFilterActive = qaFilterToggle->isChecked();
-
-	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-	um->toggleChannelFiltered(NULL); // force a UI refresh
+	updateUserModel();
 }
 
 void MainWindow::on_qaAudioMute_triggered() {
@@ -2382,9 +2386,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 		setupView(false);
 		updateTransmitModeComboBox();
 		updateTrayIcon();
-
-		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-		um->toggleChannelFiltered(NULL); // force a UI refresh
+		updateUserModel();
 		
 		if (g.s.requireRestartToApply) {
 			if (g.s.requireRestartToApply && QMessageBox::question(
@@ -2491,6 +2493,7 @@ void MainWindow::pttReleased() {
 void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	g.bPushToMute = down;
 	updateTrayIcon();
+	updateUserModel();
 }
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {

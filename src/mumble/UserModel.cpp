@@ -195,6 +195,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingWhisper=QIcon(QLatin1String("skin:talking_whisper.svg"));
 	qiPrioritySpeaker=QIcon(QLatin1String("skin:priority_speaker.svg"));
 	qiRecording=QIcon(QLatin1String("skin:actions/media-record.svg"));
+	qiMutedPushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
 	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.svg"));
@@ -360,6 +361,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 							return qiMutedServer;
 						} else if (p->bSuppress) {
 							return qiMutedSuppressed;
+						} else if (g.bPushToMute) {
+							return qiMutedPushToMute;
 						}
 					}
 
@@ -1299,7 +1302,7 @@ void UserModel::userStateChanged() {
 	ClientUser *user = qobject_cast<ClientUser *>(sender());
 	if (user == NULL)
 		return;
-	
+
 	const QModelIndex idx = index(user);
 	emit dataChanged(idx, idx);
 	
