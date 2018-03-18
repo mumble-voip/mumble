@@ -45,6 +45,7 @@
 #include "Settings.h"
 #include "Themes.h"
 #include "SSLCipherInfo.h"
+#include "SvgIcon.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -63,37 +64,25 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast<QEvent::Type>(OU_QEVENT)
 }
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
-	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
-	qiIconMuteServer.addFile(QLatin1String("skin:muted_server.svg"));
-	qiIconMuteSuppressed.addFile(QLatin1String("skin:muted_suppressed.svg"));
-	qiIconMutePushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
-	qiIconDeafSelf.addFile(QLatin1String("skin:deafened_self.svg"));
-	qiIconDeafServer.addFile(QLatin1String("skin:deafened_server.svg"));
-	qiTalkingOff.addFile(QLatin1String("skin:talking_off.svg"));
-	qiTalkingOn.addFile(QLatin1String("skin:talking_on.svg"));
-	qiTalkingShout.addFile(QLatin1String("skin:talking_alt.svg"));
-	qiTalkingWhisper.addFile(QLatin1String("skin:talking_whisper.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSelf, QLatin1String("skin:muted_self.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMuteServer, QLatin1String("skin:muted_server.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSuppressed, QLatin1String("skin:muted_suppressed.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMutePushToMute, QLatin1String("skin:muted_pushtomute.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconDeafSelf, QLatin1String("skin:deafened_self.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconDeafServer, QLatin1String("skin:deafened_server.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingOff, QLatin1String("skin:talking_off.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingOn, QLatin1String("skin:talking_on.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingShout, QLatin1String("skin:talking_alt.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingWhisper, QLatin1String("skin:talking_whisper.svg"));
 
 #ifdef Q_OS_MAC
 	if (QFile::exists(QLatin1String("skin:mumble.icns")))
 		qiIcon.addFile(QLatin1String("skin:mumble.icns"));
 	else
-		qiIcon.addFile(QLatin1String("skin:mumble.svg"));
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
 	{
-		QSvgRenderer svg(QLatin1String("skin:mumble.svg"));
-		QPixmap original(512,512);
-		original.fill(Qt::transparent);
-
-		QPainter painter(&original);
-		painter.setRenderHint(QPainter::Antialiasing);
-		painter.setRenderHint(QPainter::TextAntialiasing);
-		painter.setRenderHint(QPainter::SmoothPixmapTransform);
-		painter.setRenderHint(QPainter::HighQualityAntialiasing);
-		svg.render(&painter);
-
-		for (int sz=8;sz<=256;sz+=8)
-			qiIcon.addPixmap(original.scaled(sz,sz, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 	}
 
 	// Set application icon except on MacOSX, where the window-icon
