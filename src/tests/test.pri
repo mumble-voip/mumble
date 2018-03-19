@@ -24,8 +24,8 @@ DEFINES += QT_NO_OPENGL
 
 LANGUAGE = C++
 
-VPATH *= ../.. ../../murmur ../../mumble
-INCLUDEPATH *= ../.. ../../murmur ../../mumble
+VPATH *= ../.. ../../murmur ../../mumble ../../../plugins
+INCLUDEPATH *= ../.. ../../murmur ../../mumble ../../../plugins
 
 SOURCES += PlatformCheck.cpp
 HEADERS += PlatformCheck.h

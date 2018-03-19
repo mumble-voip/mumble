@@ -17,5 +17,6 @@ CONFIG(static) {
 }
 
 DESTDIR = $$DESTDIR/plugins
+OBJECTS_DIR = $$OBJECTS_ROOT/plugins/$$TARGET
 
 include(../qmake/symbols.pri)

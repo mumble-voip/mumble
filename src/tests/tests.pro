@@ -20,3 +20,7 @@ SUBDIRS += \
   TestSSLLocks \
   TestFFDHE \
   TestStdAbs
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+  SUBDIRS += TestPlugins games
+}
