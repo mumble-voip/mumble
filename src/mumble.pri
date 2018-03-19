@@ -78,7 +78,11 @@ SOURCES *= \
   SSLLocks.cpp \
   FFDHE.cpp
 
-LIBS		*= -lmumble_proto
+!win32-msvc* {
+	LIBS *= -L$$DESTDIR -lmumble_proto
+} else {
+	LIBS *= $$DESTDIR/mumble_proto.lib
+}
 
 equals(QT_MAJOR_VERSION, 4) {
 	CONFIG *= no-srv
@@ -140,5 +144,3 @@ isEqual(QT_MAJOR_VERSION, 4) {
 CONFIG(debug, debug|release) {
   CONFIG += console
 }
-
-QMAKE_LIBDIR = $$DESTDIR $$QMAKE_LIBDIR

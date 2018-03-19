@@ -11,12 +11,20 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
+		cd ..
+		mv $TRAVIS_BUILD_DIR "Mumble VoIP"
+		cd "Mumble VoIP"
 		qmake-qt4 CONFIG+="release tests g15-emulator qt4-legacy-compat ${EXTRA_CONFIG}" -recursive && make -j2 && make check
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
+		docker start ubuntu
+		docker attach ubuntu
 		EXTRA_CONFIG=
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
+		cd ..
+		mv $TRAVIS_BUILD_DIR "Mumble VoIP"
+		cd "Mumble VoIP"
 		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" -recursive && make -j2 && make check
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		wget http://www.steinberg.net/sdk_downloads/asiosdk2.3.zip -P ../
@@ -28,6 +36,9 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
+		cd ..
+		mv $TRAVIS_BUILD_DIR "Mumble VoIP"
+		cd "Mumble VoIP"
 		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
 		make -j2
 		make check TESTRUNNER="wine"
@@ -41,6 +52,9 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
+		cd ..
+		mv $TRAVIS_BUILD_DIR "Mumble VoIP"
+		cd "Mumble VoIP"
 		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
 		make -j2
 		make check TESTRUNNER="wine"
@@ -53,6 +67,9 @@ elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
 	export PATH=$PATH:/usr/local/opt/qt5/bin:/usr/local/bin
 	export MUMBLE_PREFIX=/usr/local
 	export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
+	cd ..
+	mv $TRAVIS_BUILD_DIR "Mumble VoIP"
+	cd "Mumble VoIP"
 	qmake CONFIG+="release tests warnings-as-errors" && make -j2 && make check
 else
 	exit 1

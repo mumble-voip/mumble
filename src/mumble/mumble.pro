@@ -303,14 +303,22 @@ CONFIG(no-bundled-speex) {
 
 !CONFIG(no-bundled-speex) {
   INCLUDEPATH *= ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build ../../3rdparty/speexdsp-src/include ../../3rdparty/speexdsp-src/libspeexdsp
-  LIBS   *= -lspeex
+  !win32-msvc* {
+    LIBS *= -L$$DESTDIR -lspeex
+  } else {
+    LIBS *= $$DESTDIR/speex.lib
+  }
 }
 
 CONFIG(sbcelt) {
   SOURCES -= CELTCodec.cpp
   SOURCES += CELTCodec_sbcelt.cpp
   INCLUDEPATH *= ../../3rdparty/celt-0.7.0-src/libcelt ../../3rdparty/sbcelt-src
-  LIBS *= -lcelt -lsbcelt
+  !win32-msvc* {
+    LIBS *= -L$$DESTDIR -lcelt -lsbcelt
+  } else {
+    LIBS *= $$DESTDIR/celt.lib $$DESTDIR/sbcelt.lib
+  }
   DEFINES *= SBCELT_PREFIX_API SBCELT_COMPAT_API USE_SBCELT
 } else {
   unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
@@ -358,7 +366,11 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
   CONFIG(opus) {
     INCLUDEPATH *= ../../3rdparty/opus-src/celt ../../3rdparty/opus-src/include ../../3rdparty/opus-src/src ../../3rdparty/opus-build/src
     DEFINES *= USE_OPUS
-    LIBS *= -lopus
+    !win32-msvc* {
+      LIBS *= -L$$DESTDIR -lopus
+    } else {
+      LIBS *= $$DESTDIR/opus.lib
+    }
     unix {
       QMAKE_CFLAGS *= "-I../../3rdparty/opus-src/celt" "-isystem  ../../3rdparty/opus-src/celt"
       QMAKE_CFLAGS *= "-I../../3rdparty/opus-src/include" "-isystem ../../3rdparty/opus-src/include"
@@ -430,7 +442,11 @@ win32 {
 
   # XInputCheck (3rdparty/xinputheck-src)
   INCLUDEPATH *= ../../3rdparty/xinputcheck-src
-  LIBS *= -lxinputcheck
+  !win32-msvc* {
+    LIBS *= -L$$DESTDIR -lxinputcheck
+  } else {
+    LIBS *= $$DESTDIR/xinputcheck.lib
+  }
 
   !CONFIG(mumble_dll) {
     !CONFIG(no-elevation) {

@@ -20,6 +20,10 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		sudo apt-get build-dep -qq mumble
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		sudo apt-get -qq update
+		docker pull ubuntu:devel
+		docker run -d --name ubuntu ubuntu:devel
+		docker attach ubuntu
+		sudo apt-get -qq update
 		sudo apt-get build-dep -qq mumble
 		sudo apt-get install qt5-default qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qttranslations5-l10n libqt5svg5-dev
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
@@ -41,6 +45,8 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			mxe-${MUMBLE_HOST_DEB}.static-ogg \
 			mxe-${MUMBLE_HOST_DEB}.static-vorbis \
 			mxe-${MUMBLE_HOST_DEB}.static-libsndfile
+		# https://bugreports.qt.io/browse/QTBUG-58764
+		sudo sed 's/--include $$moc_predefs.output/--include $$shell_quote($$moc_predefs.output)/' /usr/lib/mxe/usr/i686-w64-mingw32.static/qt5/mkspecs/features/moc.prf
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
@@ -60,6 +66,8 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			mxe-${MUMBLE_HOST_DEB}.static-ogg \
 			mxe-${MUMBLE_HOST_DEB}.static-vorbis \
 			mxe-${MUMBLE_HOST_DEB}.static-libsndfile
+		# https://bugreports.qt.io/browse/QTBUG-58764
+		sudo sed 's/--include $$moc_predefs.output/--include $$shell_quote($$moc_predefs.output)/' /usr/lib/mxe/usr/x86_64-w64-mingw32.static/qt5/mkspecs/features/moc.prf
 	else
 		exit 1
 	fi
