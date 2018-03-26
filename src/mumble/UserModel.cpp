@@ -334,6 +334,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 
 	Channel *c = item->cChan;
 	ClientUser *p = item->pUser;
+	ClientUser *pSelf = ClientUser::get(g.uiSession);
 
 	if (!c && !p) {
 		return QVariant();
@@ -349,23 +350,6 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0) {
-					ClientUser *pSelf = ClientUser::get(g.uiSession);
-					if (p == pSelf) {
-						if (g.s.bDeaf) {
-							return qiDeafenedSelf;
-						} else if (p->bDeaf) {
-							return qiDeafenedServer;
-						} else if (g.s.bMute) {
-							return qiMutedSelf;
-						} else if (p->bMute) {
-							return qiMutedServer;
-						} else if (p->bSuppress) {
-							return qiMutedSuppressed;
-						} else if (g.bPushToMute) {
-							return qiMutedPushToMute;
-						}
-					}
-
 					switch (p->tsState) {
 						case Settings::Talking:
 							return qiTalkingOn;
@@ -399,6 +383,11 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiPrioritySpeaker;
 				if (p->bRecording)
 					l << qiRecording;
+				// ClientUser doesn't contain a push-to-mute
+				// state because it isn't sent to the server.
+				// We can show the icon only for the local user.
+				if (p == pSelf && g.bPushToMute)
+					l << qiMutedPushToMute;
 				if (p->bMute)
 					l << qiMutedServer;
 				if (p->bSuppress)
@@ -617,18 +606,20 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                           "<tr><td><img src=\"skin:muted_server.svg\" height=64 /></td><td valign=\"middle\">%5</td></tr>"
 						                           "<tr><td><img src=\"skin:muted_suppressed.svg\" height=64 /></td><td valign=\"middle\">%6</td></tr>"
 						                           "<tr><td><img src=\"skin:muted_local.svg\" height=64 /></td><td valign=\"middle\">%7</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_self.svg\" height=64 /></td><td valign=\"middle\">%8</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_server.svg\" height=64 /></td><td valign=\"middle\">%9</td></tr>"
-						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
-						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
-						                           "<tr><td><img src=\"skin:status/text-missing.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_pushtomute.svg\" height=64 /></td><td valign=\"middle\">%8</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_self.svg\" height=64 /></td><td valign=\"middle\">%9</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_server.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
+						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
+						                           "<tr><td><img src=\"skin:status/text-missing.svg\" height=64 /></td><td valign=\"middle\">%13</td></tr>"
 						                           "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
 						                                           tr("On your friend list"),
 						                                           tr("Authenticated user"),
 						                                           tr("Muted (manually muted by self)"),
 						                                           tr("Muted (manually muted by admin)"),
 						                                           tr("Muted (not allowed to speak in current channel)"),
-						                                           tr("Muted (muted by you, only on your machine)")
+						                                           tr("Muted (muted by you, only on your machine)"),
+						                                           tr("Muted (push-to-mute)")
 						                                          ).arg(
 						                                           tr("Deafened (by self)"),
 						                                           tr("Deafened (by admin)"),
