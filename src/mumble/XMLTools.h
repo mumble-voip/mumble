@@ -8,9 +8,8 @@
 
 #include <QObject>
 #include <QMap>
-
-class QXmlStreamReader;
-class QXmlStreamWriter;
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 class XMLTools : public QObject {
 		Q_OBJECT
