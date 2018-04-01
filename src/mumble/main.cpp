@@ -42,7 +42,9 @@
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
-Q_IMPORT_PLUGIN(qico)
+# ifdef Q_OS_WIN
+   Q_IMPORT_PLUGIN(qico)
+# endif
 Q_IMPORT_PLUGIN(qsvg)
 Q_IMPORT_PLUGIN(qsvgicon)
 # ifdef Q_OS_MAC
