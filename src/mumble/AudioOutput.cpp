@@ -476,15 +476,24 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			validListener = true;
 		}
 
+        int numberOfSpeakers = qlMix.count(); // numberOfSpeakers are used for turning down background users
+
 		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
-			float volumeAdjustment = 1;
+            float volumeAdjustment = 1;
 
-			AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
+            AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
 			if (speech) {
-				const ClientUser *user = speech->p;
+                const ClientUser *user = speech->p;
 				volumeAdjustment *= user->fLocalVolume;
-				if (prioritySpeakerActive) {
+
+
+                // Turn down user while others are speaking - if #BACKGROUND_SOURCE tag is added in user comment
+                if (numberOfSpeakers>1 && (std::string::npos != user->qsComment.toStdString().find("#BACKGROUND_SOURCE"))) {
+                    volumeAdjustment = 0.3;
+                }
+
+                if (prioritySpeakerActive) {
 					
 					if (user->tsState != Settings::Whispering
 					    && !user->bPrioritySpeaker) {
