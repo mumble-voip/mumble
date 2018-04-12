@@ -29,69 +29,70 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _JACKAUDIO_H
-#define _JACKAUDIO_H
+#ifndef MUMBLE_MUMBLE_JACKAUDIO_H_
+#define MUMBLE_MUMBLE_JACKAUDIO_H_
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
+
 #include <jack/jack.h>
 
 class JackAudioOutput;
 class JackAudioInput;
 
 class JackAudioSystem : public QObject {
-        private:
-                Q_OBJECT
-                Q_DISABLE_COPY(JackAudioSystem)
-        protected:
-                jack_client_t* client;
-                jack_port_t* in_port;
-                jack_port_t* out_port;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(JackAudioSystem)
+	protected:
+		jack_client_t* client;
+		jack_port_t* in_port;
+		jack_port_t* out_port;
 
-                static int process_callback(jack_nframes_t nframes, void *arg);
-                static int srate_callback(jack_nframes_t frames, void *arg);
-                static void shutdown_callback(void *arg);
-        public:
-                QHash<QString, QString> qhInput;
-                QHash<QString, QString> qhOutput;
-                bool bJackIsGood;
-                int iSampleRate;
-                QMutex qmWait;
-                QWaitCondition qwcWait;
+		static int process_callback(jack_nframes_t nframes, void *arg);
+		static int srate_callback(jack_nframes_t frames, void *arg);
+		static void shutdown_callback(void *arg);
+	public:
+		QHash<QString, QString> qhInput;
+		QHash<QString, QString> qhOutput;
+		bool bJackIsGood;
+		int iSampleRate;
+		QMutex qmWait;
+		QWaitCondition qwcWait;
 
-                void init_jack();
-                void close_jack();
+		void init_jack();
+		void close_jack();
 
-                JackAudioSystem();
-                ~JackAudioSystem();
+		JackAudioSystem();
+		~JackAudioSystem();
 };
 
 class JackAudioInput : public AudioInput {
-                friend class JackAudioSystem;
-        private:
-                Q_OBJECT
-                Q_DISABLE_COPY(JackAudioInput)
-        protected:
-                QMutex qmMutex;
-                QWaitCondition qwcWait;
-        public:
-                JackAudioInput();
-                ~JackAudioInput();
-                void run();
+	friend class JackAudioSystem;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(JackAudioInput)
+	protected:
+		QMutex qmMutex;
+		QWaitCondition qwcWait;
+	public:
+		JackAudioInput();
+		~JackAudioInput();
+		void run();
 };
 
 class JackAudioOutput : public AudioOutput {
-                friend class JackAudioSystem;
-        private:
-                Q_OBJECT
-                Q_DISABLE_COPY(JackAudioOutput)
-        protected:
-                QMutex qmMutex;
-                QWaitCondition qwcWait;
-        public:
-                JackAudioOutput();
-                ~JackAudioOutput();
-                void run();
+	friend class JackAudioSystem;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(JackAudioOutput)
+	protected:
+		QMutex qmMutex;
+		QWaitCondition qwcWait;
+	public:
+		JackAudioOutput();
+		~JackAudioOutput();
+		void run();
 };
 
 #endif
