@@ -1,5 +1,6 @@
 /* Copyright (C) 2011, Benjamin Jemlich <pcgod@users.sourceforge.net>
    Copyright (C) 2011, Filipe Coelho <falktx@gmail.com>
+   Copyright (C) 2018, Bernd Buschinski <b.buschinski@gmail.com>
 
    All rights reserved.
 
@@ -37,6 +38,8 @@
 
 #include <jack/jack.h>
 
+#define JACK_OUTPUT_CHANNELS 2
+
 class JackAudioOutput;
 class JackAudioInput;
 
@@ -47,10 +50,12 @@ class JackAudioSystem : public QObject {
 	protected:
 		jack_client_t* client;
 		jack_port_t* in_port;
-		jack_port_t* out_port;
+		jack_port_t* out_ports[JACK_OUTPUT_CHANNELS];
+		jack_default_audio_sample_t* output_buffer;
 
 		static int process_callback(jack_nframes_t nframes, void *arg);
 		static int srate_callback(jack_nframes_t frames, void *arg);
+		static int buffer_size_callback(jack_nframes_t frames, void *arg);
 		static void shutdown_callback(void *arg);
 	public:
 		QHash<QString, QString> qhInput;
@@ -62,6 +67,8 @@ class JackAudioSystem : public QObject {
 
 		void init_jack();
 		void close_jack();
+
+		void allocate_output_buffer(jack_nframes_t frames);
 
 		JackAudioSystem();
 		~JackAudioSystem();

@@ -554,10 +554,10 @@ pulseaudio {
 }
 
 jackaudio {
-       DEFINES *= USE_JACKAUDIO
-       PKGCONFIG *= jack
-       HEADERS *= JackAudio.h
-       SOURCES *= JackAudio.cpp
+  DEFINES *= USE_JACKAUDIO
+  PKGCONFIG *= jack
+  HEADERS *= JackAudio.h
+  SOURCES *= JackAudio.cpp
 }
 
 portaudio {

@@ -1,5 +1,6 @@
 /* Copyright (C) 2011, Benjamin Jemlich <pcgod@users.sourceforge.net>
    Copyright (C) 2011, Filipe Coelho <falktx@gmail.com>
+   Copyright (C) 2018, Bernd Buschinski <b.buschinski@gmail.com>
 
    All rights reserved.
 
@@ -67,24 +68,24 @@ class JackAudioInit : public DeferInit {
 			jasys->qwcWait.wait(&jasys->qmWait, 1000);
 			jasys->qmWait.unlock();
 			if (jasys->bJackIsGood) {
-					airJackAudio = new JackAudioInputRegistrar();
-					aorJackAudio = new JackAudioOutputRegistrar();
+				airJackAudio = new JackAudioInputRegistrar();
+				aorJackAudio = new JackAudioOutputRegistrar();
 			} else {
-					airJackAudio = NULL;
-					aorJackAudio = NULL;
-					delete jasys;
-					jasys = NULL;
+				airJackAudio = NULL;
+				aorJackAudio = NULL;
+				delete jasys;
+				jasys = NULL;
 			}
 		};
 		void destroy() {
 			if (airJackAudio)
-					delete airJackAudio;
+				delete airJackAudio;
 			if (aorJackAudio)
-					delete aorJackAudio;
+				delete aorJackAudio;
 			if (jasys) {
-					jasys->close_jack();
-					delete jasys;
-					jasys = NULL;
+				jasys->close_jack();
+				delete jasys;
+				jasys = NULL;
 			}
 		};
 };
@@ -94,31 +95,48 @@ static JackAudioInit jackinit; //unused
 JackAudioSystem::JackAudioSystem() {
 	bJackIsGood = false;
 	iSampleRate = 0;
+	output_buffer = NULL;
 }
 
 JackAudioSystem::~JackAudioSystem() {
 }
 
-void JackAudioSystem::init_jack()
-{
-	client = jack_client_open("mumble", JackNullOption, 0);
+void JackAudioSystem::init_jack() {
+
+	output_buffer = NULL;
+
+	/* TODO make option */
+	jack_options_t jack_option = false ? JackNullOption : JackNoStartServer;
+	client = jack_client_open("mumble", jack_option, 0);
 
 	if (client) {
 		in_port = jack_port_register(client, "input", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
-		out_port = jack_port_register(client, "output", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
+		out_ports[0] = jack_port_register(client, "output_1", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
+		out_ports[1] = jack_port_register(client, "output_2", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
+
+		bJackIsGood = true;
+		allocate_output_buffer(jack_get_buffer_size(client));
+		if (bJackIsGood == false) {
+			close_jack();
+			return;
+		}
+
 		jack_set_process_callback(client, process_callback, this);
 		jack_set_sample_rate_callback(client, srate_callback, this);
+		jack_set_buffer_size_callback(client, buffer_size_callback, this);
 		jack_on_shutdown(client, shutdown_callback, this);
 
 		iSampleRate = jack_get_sample_rate(client);
 
-		if (jack_activate(client) || in_port == NULL || out_port == NULL) {
-			client = NULL;
+		if (jack_activate(client) || in_port == NULL || out_ports[0] == NULL || out_ports[1] == NULL) {
+			close_jack();
 			return;
 		}
 
+		/* TODO make option for auto connect */
 		int port_flags;
-		unsigned i = -1;
+		unsigned int i = -1;
+		unsigned int output_index = 0;
 		const char** ports = jack_get_ports(client, 0, 0, JackPortIsPhysical);
 
 		if (ports) {
@@ -130,8 +148,8 @@ void JackAudioSystem::init_jack()
 				if (port_flags & (JackPortIsPhysical|JackPortIsOutput) && strstr(jack_port_type(port), "audio")) {
 					jack_connect(client, ports[i], jack_port_name(in_port));
 				}
-				if (port_flags & (JackPortIsPhysical|JackPortIsInput) && strstr(jack_port_type(port), "audio")) {
-					jack_connect(client, jack_port_name(out_port), ports[i]);
+				if (output_index < 2 && port_flags & (JackPortIsPhysical|JackPortIsInput) && strstr(jack_port_type(port), "audio")) {
+					jack_connect(client, jack_port_name(out_ports[output_index++]), ports[i]);
 				}
 			}
 		}
@@ -149,17 +167,22 @@ void JackAudioSystem::init_jack()
 	}
 }
 
-void JackAudioSystem::close_jack()
-{
+void JackAudioSystem::close_jack() {
+
 	if (client) {
 		jack_deactivate(client);
 		jack_client_close(client);
+
+		delete [] output_buffer;
+		output_buffer = NULL;
+
 		client = NULL;
 	}
+	bJackIsGood = false;
 }
 
-int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg)
-{
+int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
+
 	JackAudioSystem *jas = (JackAudioSystem*)arg;
 
 	if (jas && jas->bJackIsGood) {
@@ -169,30 +192,64 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg)
 		JackAudioOutput *jao = (JackAudioOutput*)(ao.get());
 
 		if (jai && jai->bRunning && jai->iMicChannels > 0 && !jai->isFinished()) {
+
 			void* input = jack_port_get_buffer(jas->in_port, nframes);
-			if ((float*)input != 0)
-				jai->addMic(input, nframes);
+			jai->addMic(input, nframes);
 		}
 
-		if (jao && jao->bRunning && jao->iChannels > 0 && !jao->isFinished()) {
-			jack_default_audio_sample_t* output = (jack_default_audio_sample_t*)jack_port_get_buffer(jas->out_port, nframes);
-			memset(output, 0, sizeof(jack_default_audio_sample_t)*nframes); //TEST
-			jao->mix(output, nframes);
+		if (jao && jao->isRunning() && jao->iChannels > 0 && !jao->isFinished()) {
+
+			jack_default_audio_sample_t* port_buffers[JACK_OUTPUT_CHANNELS];
+			for (unsigned int i = 0; i < jao->iChannels; ++i) {
+
+				port_buffers[i] = (jack_default_audio_sample_t*)jack_port_get_buffer(jas->out_ports[i], nframes);
+			}
+
+			jack_default_audio_sample_t * const buffer = jas->output_buffer;
+
+			jao->mix(buffer, nframes);
+
+			for (unsigned int i = 0; i < nframes * jao->iChannels; i += JACK_OUTPUT_CHANNELS) {
+
+				const unsigned int buffer_pos = i / JACK_OUTPUT_CHANNELS;
+				port_buffers[0][buffer_pos] = buffer[i];
+				port_buffers[1][buffer_pos] = buffer[i+1];
+			}
 		}
 	}
 
 	return 0;
 }
 
-int JackAudioSystem::srate_callback(jack_nframes_t frames, void *arg)
-{
+int JackAudioSystem::srate_callback(jack_nframes_t frames, void *arg) {
+
 	JackAudioSystem *jas = (JackAudioSystem*)arg;
 	jas->iSampleRate = frames;
 	return 0;
 }
 
-void JackAudioSystem::shutdown_callback(void *arg)
-{
+void JackAudioSystem::allocate_output_buffer(jack_nframes_t frames) {
+
+	if (output_buffer) {
+		delete [] output_buffer;
+	}
+	output_buffer = new jack_default_audio_sample_t[frames * JACK_OUTPUT_CHANNELS];
+	if (output_buffer) {
+		memset(output_buffer, 0, sizeof(jack_default_audio_sample_t) * frames * JACK_OUTPUT_CHANNELS);
+	} else {
+		bJackIsGood = false;
+	}
+}
+
+int JackAudioSystem::buffer_size_callback(jack_nframes_t frames, void *arg) {
+
+	JackAudioSystem *jas = (JackAudioSystem*)arg;
+	jas->allocate_output_buffer(frames);
+	return 0;
+}
+
+void JackAudioSystem::shutdown_callback(void *arg) {
+
 	JackAudioSystem *jas = (JackAudioSystem*)arg;
 	jas->bJackIsGood = false;
 }
@@ -302,8 +359,8 @@ void JackAudioOutput::run() {
 		chanmasks[1] = SPEAKER_FRONT_RIGHT;
 
 		eSampleFormat = SampleFloat;
+		iChannels = JACK_OUTPUT_CHANNELS;
 		iMixerFreq = jasys->iSampleRate;
-		iChannels = 1;
 		initializeMixer(chanmasks);
 	}
 
