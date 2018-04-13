@@ -48,6 +48,7 @@ class JackAudioSystem : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(JackAudioSystem)
 	protected:
+		bool active;
 		jack_client_t* client;
 		jack_port_t* in_port;
 		jack_port_t* out_ports[JACK_OUTPUT_CHANNELS];
@@ -68,6 +69,8 @@ class JackAudioSystem : public QObject {
 		void init_jack();
 		void close_jack();
 
+		void activate();
+
 		void allocate_output_buffer(jack_nframes_t frames);
 
 		JackAudioSystem();
@@ -84,8 +87,8 @@ class JackAudioInput : public AudioInput {
 		QWaitCondition qwcWait;
 	public:
 		JackAudioInput();
-		~JackAudioInput();
-		void run();
+		~JackAudioInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 class JackAudioOutput : public AudioOutput {
@@ -98,8 +101,8 @@ class JackAudioOutput : public AudioOutput {
 		QWaitCondition qwcWait;
 	public:
 		JackAudioOutput();
-		~JackAudioOutput();
-		void run();
+		~JackAudioOutput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #endif

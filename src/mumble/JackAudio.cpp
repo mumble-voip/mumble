@@ -96,6 +96,7 @@ JackAudioSystem::JackAudioSystem() {
 	bJackIsGood = false;
 	iSampleRate = 0;
 	output_buffer = NULL;
+	active = false;
 }
 
 JackAudioSystem::~JackAudioSystem() {
@@ -128,33 +129,10 @@ void JackAudioSystem::init_jack() {
 
 		iSampleRate = jack_get_sample_rate(client);
 
-		if (jack_activate(client) || in_port == NULL || out_ports[0] == NULL || out_ports[1] == NULL) {
+		if (in_port == NULL || out_ports[0] == NULL || out_ports[1] == NULL) {
 			close_jack();
 			return;
 		}
-
-		/* TODO make option for auto connect */
-		int port_flags;
-		unsigned int i = -1;
-		unsigned int output_index = 0;
-		const char** ports = jack_get_ports(client, 0, 0, JackPortIsPhysical);
-
-		if (ports) {
-			while (ports[++i])
-			{
-				jack_port_t* port = jack_port_by_name(client, ports[i]);
-				port_flags = jack_port_flags(port);
-
-				if (port_flags & (JackPortIsPhysical|JackPortIsOutput) && strstr(jack_port_type(port), "audio")) {
-					jack_connect(client, ports[i], jack_port_name(in_port));
-				}
-				if (output_index < 2 && port_flags & (JackPortIsPhysical|JackPortIsInput) && strstr(jack_port_type(port), "audio")) {
-					jack_connect(client, jack_port_name(out_ports[output_index++]), ports[i]);
-				}
-			}
-		}
-
-		jack_free(ports);
 
 		// If we made it this far, then everything is okay
 		qhInput.insert(QString(), tr("Hardware Ports"));
@@ -181,6 +159,19 @@ void JackAudioSystem::close_jack() {
 	bJackIsGood = false;
 }
 
+void JackAudioSystem::activate()
+{
+	if (active) {
+		return;
+	}
+
+	if (jack_activate(client)) {
+		close_jack();
+		return;
+	}
+	active = true;
+}
+
 int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 
 	JackAudioSystem *jas = (JackAudioSystem*)arg;
@@ -188,16 +179,20 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 	if (jas && jas->bJackIsGood) {
 		AudioInputPtr ai = g.ai;
 		AudioOutputPtr ao = g.ao;
-		JackAudioInput *jai = (JackAudioInput*)(ai.get());
-		JackAudioOutput *jao = (JackAudioOutput*)(ao.get());
+		AudioInput *raw_ai = ai.get();
+		AudioOutput *raw_ao = ao.get();
+		JackAudioInput *jai = dynamic_cast<JackAudioInput *>(raw_ai);
+		JackAudioOutput *jao = dynamic_cast<JackAudioOutput *>(raw_ao);
 
-		if (jai && jai->bRunning && jai->iMicChannels > 0 && !jai->isFinished()) {
-
+		if (jai && jai->isRunning() && jai->iMicChannels > 0 && !jai->isFinished()) {
+			jai->qmMutex.lock();
 			void* input = jack_port_get_buffer(jas->in_port, nframes);
 			jai->addMic(input, nframes);
+			jai->qmMutex.unlock();
 		}
 
 		if (jao && jao->isRunning() && jao->iChannels > 0 && !jao->isFinished()) {
+			jao->qmMutex.lock();
 
 			jack_default_audio_sample_t* port_buffers[JACK_OUTPUT_CHANNELS];
 			for (unsigned int i = 0; i < jao->iChannels; ++i) {
@@ -206,6 +201,7 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 			}
 
 			jack_default_audio_sample_t * const buffer = jas->output_buffer;
+			memset(buffer, 0, sizeof(jack_default_audio_sample_t) * nframes * JACK_OUTPUT_CHANNELS);
 
 			jao->mix(buffer, nframes);
 
@@ -215,6 +211,7 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 				port_buffers[0][buffer_pos] = buffer[i];
 				port_buffers[1][buffer_pos] = buffer[i+1];
 			}
+			jao->qmMutex.unlock();
 		}
 	}
 
@@ -230,14 +227,25 @@ int JackAudioSystem::srate_callback(jack_nframes_t frames, void *arg) {
 
 void JackAudioSystem::allocate_output_buffer(jack_nframes_t frames) {
 
+	AudioOutputPtr ao = g.ao;
+	JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
+
+	if (jao) {
+		jao->qmMutex.lock();
+	}
 	if (output_buffer) {
 		delete [] output_buffer;
+		output_buffer = NULL;
 	}
 	output_buffer = new jack_default_audio_sample_t[frames * JACK_OUTPUT_CHANNELS];
 	if (output_buffer) {
 		memset(output_buffer, 0, sizeof(jack_default_audio_sample_t) * frames * JACK_OUTPUT_CHANNELS);
 	} else {
 		bJackIsGood = false;
+	}
+
+	if (jao) {
+		jao->qmMutex.unlock();
 	}
 }
 
@@ -329,6 +337,7 @@ void JackAudioInput::run() {
 		iMicChannels = 1;
 		eMicFormat = SampleFloat;
 		initializeMixer();
+		jasys->activate();
 	}
 
 	qmMutex.lock();
@@ -362,6 +371,7 @@ void JackAudioOutput::run() {
 		iChannels = JACK_OUTPUT_CHANNELS;
 		iMixerFreq = jasys->iSampleRate;
 		initializeMixer(chanmasks);
+		jasys->activate();
 	}
 
 	qmMutex.lock();
