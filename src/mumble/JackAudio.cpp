@@ -31,12 +31,9 @@
 */
 
 #include "JackAudio.h"
-#include "User.h"
-#include "Global.h"
-#include "MainWindow.h"
-#include "Timer.h"
 
-#include <cstring>
+#include "Global.h"
+
 
 static JackAudioSystem *jasys = NULL;
 
@@ -96,7 +93,13 @@ JackAudioSystem::JackAudioSystem() {
 	bJackIsGood = false;
 	iSampleRate = 0;
 	output_buffer = NULL;
-	active = false;
+	bActive = false;
+	if (g.s.qsJackAudioOutput.isEmpty()) {
+		iOutPorts = 1;
+	} else {
+		iOutPorts = g.s.qsJackAudioOutput.toInt();
+	}
+	memset((void*)&out_ports, 0, sizeof(out_ports));
 }
 
 JackAudioSystem::~JackAudioSystem() {
@@ -112,11 +115,13 @@ void JackAudioSystem::init_jack() {
 
 	if (client) {
 		in_port = jack_port_register(client, "input", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
-		out_ports[0] = jack_port_register(client, "output_1", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
-		out_ports[1] = jack_port_register(client, "output_2", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
 
 		bJackIsGood = true;
-		allocate_output_buffer(jack_get_buffer_size(client));
+		iBufferSize = jack_get_buffer_size(client);
+		iSampleRate = jack_get_sample_rate(client);
+
+		setNumberOfOutPorts(iOutPorts);
+
 		if (bJackIsGood == false) {
 			close_jack();
 			return;
@@ -127,16 +132,15 @@ void JackAudioSystem::init_jack() {
 		jack_set_buffer_size_callback(client, buffer_size_callback, this);
 		jack_on_shutdown(client, shutdown_callback, this);
 
-		iSampleRate = jack_get_sample_rate(client);
-
-		if (in_port == NULL || out_ports[0] == NULL || out_ports[1] == NULL) {
+		if (in_port == NULL) {
 			close_jack();
 			return;
 		}
 
 		// If we made it this far, then everything is okay
 		qhInput.insert(QString(), tr("Hardware Ports"));
-		qhOutput.insert(QString(), tr("Hardware Ports"));
+		qhOutput.insert(QString::number(1), tr("Mono"));
+		qhOutput.insert(QString::number(2), tr("Stereo"));
 		bJackIsGood = true;
 
 	} else {
@@ -149,6 +153,17 @@ void JackAudioSystem::close_jack() {
 
 	if (client) {
 		jack_deactivate(client);
+
+		if (in_port != NULL) {
+			jack_port_unregister(client, in_port);
+		}
+
+		for (unsigned i = 0; i < iOutPorts; ++i) {
+			if (out_ports[i] != NULL) {
+				jack_port_unregister(client, out_ports[0]);
+			}
+		}
+
 		jack_client_close(client);
 
 		delete [] output_buffer;
@@ -161,28 +176,26 @@ void JackAudioSystem::close_jack() {
 
 void JackAudioSystem::activate()
 {
-	if (active) {
+	if (bActive) {
 		return;
 	}
 
-	if (jack_activate(client)) {
+	if (jack_activate(client) != 0) {
 		close_jack();
 		return;
 	}
-	active = true;
+	bActive = true;
 }
 
 int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 
-	JackAudioSystem *jas = (JackAudioSystem*)arg;
+	JackAudioSystem * const jas = (JackAudioSystem*)arg;
 
 	if (jas && jas->bJackIsGood) {
 		AudioInputPtr ai = g.ai;
 		AudioOutputPtr ao = g.ao;
-		AudioInput *raw_ai = ai.get();
-		AudioOutput *raw_ao = ao.get();
-		JackAudioInput *jai = dynamic_cast<JackAudioInput *>(raw_ai);
-		JackAudioOutput *jao = dynamic_cast<JackAudioOutput *>(raw_ao);
+		JackAudioInput * const jai = dynamic_cast<JackAudioInput *>(ai.get());
+		JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
 
 		if (jai && jai->isRunning() && jai->iMicChannels > 0 && !jai->isFinished()) {
 			jai->qmMutex.lock();
@@ -194,22 +207,26 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 		if (jao && jao->isRunning() && jao->iChannels > 0 && !jao->isFinished()) {
 			jao->qmMutex.lock();
 
-			jack_default_audio_sample_t* port_buffers[JACK_OUTPUT_CHANNELS];
+			jack_default_audio_sample_t* port_buffers[JACK_MAX_OUTPUT_PORTS];
 			for (unsigned int i = 0; i < jao->iChannels; ++i) {
 
 				port_buffers[i] = (jack_default_audio_sample_t*)jack_port_get_buffer(jas->out_ports[i], nframes);
 			}
 
 			jack_default_audio_sample_t * const buffer = jas->output_buffer;
-			memset(buffer, 0, sizeof(jack_default_audio_sample_t) * nframes * JACK_OUTPUT_CHANNELS);
+			memset(buffer, 0, sizeof(jack_default_audio_sample_t) * nframes * jao->iChannels);
 
 			jao->mix(buffer, nframes);
 
-			for (unsigned int i = 0; i < nframes * jao->iChannels; i += JACK_OUTPUT_CHANNELS) {
+			if (jao->iChannels == 1) {
 
-				const unsigned int buffer_pos = i / JACK_OUTPUT_CHANNELS;
-				port_buffers[0][buffer_pos] = buffer[i];
-				port_buffers[1][buffer_pos] = buffer[i+1];
+				memcpy(port_buffers[0], buffer, sizeof(jack_default_audio_sample_t) * nframes);
+			} else {
+
+				// de-interleave channels
+				for (unsigned int i = 0; i < nframes * jao->iChannels; ++i) {
+					port_buffers[i % jao->iChannels][i/jao->iChannels] = buffer[i];
+				}
 			}
 			jao->qmMutex.unlock();
 		}
@@ -220,13 +237,14 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 
 int JackAudioSystem::srate_callback(jack_nframes_t frames, void *arg) {
 
-	JackAudioSystem *jas = (JackAudioSystem*)arg;
+	JackAudioSystem * const jas = (JackAudioSystem*)arg;
 	jas->iSampleRate = frames;
 	return 0;
 }
 
-void JackAudioSystem::allocate_output_buffer(jack_nframes_t frames) {
+void JackAudioSystem::allocOutputBuffer(jack_nframes_t frames) {
 
+	iBufferSize = frames;
 	AudioOutputPtr ao = g.ao;
 	JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
 
@@ -237,10 +255,8 @@ void JackAudioSystem::allocate_output_buffer(jack_nframes_t frames) {
 		delete [] output_buffer;
 		output_buffer = NULL;
 	}
-	output_buffer = new jack_default_audio_sample_t[frames * JACK_OUTPUT_CHANNELS];
-	if (output_buffer) {
-		memset(output_buffer, 0, sizeof(jack_default_audio_sample_t) * frames * JACK_OUTPUT_CHANNELS);
-	} else {
+	output_buffer = new jack_default_audio_sample_t[frames * numberOfOutPorts()];
+	if (output_buffer == NULL) {
 		bJackIsGood = false;
 	}
 
@@ -249,16 +265,65 @@ void JackAudioSystem::allocate_output_buffer(jack_nframes_t frames) {
 	}
 }
 
+void JackAudioSystem::setNumberOfOutPorts(unsigned int ports) {
+
+	AudioOutputPtr ao = g.ao;
+	JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
+	unsigned int oldSize = iOutPorts;
+
+	iOutPorts = qBound<unsigned>(1, ports, JACK_MAX_OUTPUT_PORTS);
+
+	allocOutputBuffer(iBufferSize);
+
+	if (jao) {
+		jao->qmMutex.lock();
+	}
+
+	if (bActive)
+		jack_deactivate(client);
+
+	for (unsigned int i = 0; i < oldSize; ++i) {
+		if (out_ports[i] != NULL) {
+			jack_port_unregister(client, out_ports[i]);
+			out_ports[i] = NULL;
+		}
+	}
+
+	for (unsigned int i = 0; i < iOutPorts; ++i) {
+
+		char name[10];
+		snprintf(name, 10, "output_%d", i + 1);
+
+		out_ports[i] = jack_port_register(client, name, JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
+		if (out_ports[i] == NULL) {
+			bJackIsGood = false;
+			break;
+		}
+	}
+
+	if (bActive)
+		jack_activate(client);
+
+	if (jao) {
+		jao->qmMutex.unlock();
+	}
+}
+
+unsigned int JackAudioSystem::numberOfOutPorts() const {
+
+	return iOutPorts;
+}
+
 int JackAudioSystem::buffer_size_callback(jack_nframes_t frames, void *arg) {
 
-	JackAudioSystem *jas = (JackAudioSystem*)arg;
-	jas->allocate_output_buffer(frames);
+	JackAudioSystem * const jas = (JackAudioSystem*)arg;
+	jas->allocOutputBuffer(frames);
 	return 0;
 }
 
 void JackAudioSystem::shutdown_callback(void *arg) {
 
-	JackAudioSystem *jas = (JackAudioSystem*)arg;
+	JackAudioSystem * const jas = (JackAudioSystem*)arg;
 	jas->bJackIsGood = false;
 }
 
@@ -305,6 +370,11 @@ const QList<audioDevice> JackAudioOutputRegistrar::getDeviceChoices() {
 	QStringList qlOutputDevs = jasys->qhOutput.keys();
 	qSort(qlOutputDevs);
 
+	if (qlOutputDevs.contains(g.s.qsJackAudioOutput)) {
+		qlOutputDevs.removeAll(g.s.qsJackAudioOutput);
+		qlOutputDevs.prepend(g.s.qsJackAudioOutput);
+	}
+
 	foreach(const QString &dev, qlOutputDevs) {
 		qlReturn << audioDevice(jasys->qhOutput.value(dev), dev);
 	}
@@ -313,8 +383,9 @@ const QList<audioDevice> JackAudioOutputRegistrar::getDeviceChoices() {
 }
 
 void JackAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
-	Q_UNUSED(choice);
-	Q_UNUSED(s);
+
+	s.qsJackAudioOutput = choice.toString();
+	jasys->setNumberOfOutPorts(choice.toInt());
 }
 
 JackAudioInput::JackAudioInput() {
@@ -368,7 +439,7 @@ void JackAudioOutput::run() {
 		chanmasks[1] = SPEAKER_FRONT_RIGHT;
 
 		eSampleFormat = SampleFloat;
-		iChannels = JACK_OUTPUT_CHANNELS;
+		iChannels = jasys->numberOfOutPorts();
 		iMixerFreq = jasys->iSampleRate;
 		initializeMixer(chanmasks);
 		jasys->activate();

@@ -654,6 +654,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
 	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
 
+	SAVELOAD(qsJackAudioOutput, "jack/output");
+
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");
 
@@ -989,6 +991,8 @@ void Settings::save() {
 
 	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
 	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
+
+	SAVELOAD(qsJackAudioOutput, "jack/output");
 
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");

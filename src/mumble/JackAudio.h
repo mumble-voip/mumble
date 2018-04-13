@@ -38,7 +38,7 @@
 
 #include <jack/jack.h>
 
-#define JACK_OUTPUT_CHANNELS 2
+#define JACK_MAX_OUTPUT_PORTS 2
 
 class JackAudioOutput;
 class JackAudioInput;
@@ -48,11 +48,13 @@ class JackAudioSystem : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(JackAudioSystem)
 	protected:
-		bool active;
+		bool bActive;
 		jack_client_t* client;
 		jack_port_t* in_port;
-		jack_port_t* out_ports[JACK_OUTPUT_CHANNELS];
+		jack_port_t* out_ports[JACK_MAX_OUTPUT_PORTS];
 		jack_default_audio_sample_t* output_buffer;
+		unsigned int iOutPorts;
+		jack_nframes_t iBufferSize;
 
 		static int process_callback(jack_nframes_t nframes, void *arg);
 		static int srate_callback(jack_nframes_t frames, void *arg);
@@ -71,7 +73,10 @@ class JackAudioSystem : public QObject {
 
 		void activate();
 
-		void allocate_output_buffer(jack_nframes_t frames);
+		void allocOutputBuffer(jack_nframes_t frames);
+
+		void setNumberOfOutPorts(unsigned int ports);
+		unsigned int numberOfOutPorts() const;
 
 		JackAudioSystem();
 		~JackAudioSystem();
