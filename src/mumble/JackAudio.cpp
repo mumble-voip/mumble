@@ -151,8 +151,10 @@ void JackAudioSystem::init_jack() {
 
 void JackAudioSystem::close_jack() {
 
+	QMutexLocker lock(&qmWait);
 	if (client) {
 		jack_deactivate(client);
+		bActive = false;
 
 		if (in_port != NULL) {
 			jack_port_unregister(client, in_port);
@@ -176,15 +178,18 @@ void JackAudioSystem::close_jack() {
 
 void JackAudioSystem::activate()
 {
-	if (bActive) {
-		return;
-	}
+	QMutexLocker lock(&qmWait);
+	if (client) {
+		if (bActive) {
+			return;
+		}
 
-	if (jack_activate(client) != 0) {
-		close_jack();
-		return;
+		if (jack_activate(client) != 0) {
+			close_jack();
+			return;
+		}
+		bActive = true;
 	}
-	bActive = true;
 }
 
 int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
