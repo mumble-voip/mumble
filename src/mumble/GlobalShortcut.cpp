@@ -641,7 +641,7 @@ void GlobalShortcutConfig::on_qpbImport_clicked() {
 	}
 	QSettings s(filePath, QSettings::IniFormat);
 	bool importOk = false;
-	QList<Shortcut> importedShortcuts  = Settings::loadShortcuts(&s, &importOk);
+	QList<Shortcut> importedShortcuts  = Settings::loadShortcutsFromFile(&s, &importOk);
 	if (!importOk)
 	{
 		QMessageBox::warning(this, tr("Import Failure"), tr("The file could not be imported as Mumble shortcuts.\nAre you sure this is a valid Mumble shortcuts file?"));

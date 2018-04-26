@@ -813,19 +813,24 @@ void Settings::load(QSettings* settings_ptr) {
 	settings_ptr->endGroup();
 }
 
-QList<Shortcut> Settings::loadShortcuts(QSettings *settings_ptr, bool *ok) {
+QList<Shortcut> Settings::loadShortcutsFromFile(QSettings *settings_ptr, bool *ok) {
 	QVariant fileVersionVar = settings_ptr->value(SHORTCUTS_FILE_VERSION_FIELDNAME, QVariant::fromValue(-1));
 	bool convertOk = false;
 	int fileVersion = fileVersionVar.toInt(&convertOk);
-	QList<Shortcut> qlShortcuts;
 	if (!convertOk || fileVersion != 1)
 	{
 		if (ok != NULL)
 		{
 			*ok = false;
 		}
-		return qlShortcuts;
+		return QList<Shortcut>();
 	}
+
+	return loadShortcuts(settings_ptr, ok);
+}
+
+QList<Shortcut> Settings::loadShortcuts(QSettings *settings_ptr, bool *ok) {
+	QList<Shortcut> qlShortcuts;
 	const int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i = 0; i < nshorts; ++i) {
 		settings_ptr->setArrayIndex(i);
@@ -1173,9 +1178,13 @@ void Settings::save() {
 	settings_ptr->endGroup();
 }
 
-void Settings::saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr) {
+void Settings::saveShortcutsToFile(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr) {
 	const int fileVersion = 1;
 	settings_ptr->setValue(SHORTCUTS_FILE_VERSION_FIELDNAME, fileVersion);
+	saveShortcuts(qlShortcuts, settings_ptr);
+}
+
+void Settings::saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr) {
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
 	foreach(const Shortcut &s, qlShortcuts) {
