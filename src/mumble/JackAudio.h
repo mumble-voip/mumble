@@ -1,5 +1,6 @@
 /* Copyright (C) 2011, Benjamin Jemlich <pcgod@users.sourceforge.net>
    Copyright (C) 2011, Filipe Coelho <falktx@gmail.com>
+   Copyright (C) 2015, Mikkel Krautz <mikkel@krautz.dk>
    Copyright (C) 2018, Bernd Buschinski <b.buschinski@gmail.com>
 
    All rights reserved.

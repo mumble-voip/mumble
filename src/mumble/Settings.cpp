@@ -315,6 +315,8 @@ Settings::Settings() {
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
+	qsJackAudioOutput = QLatin1String("1");
+
 	bEcho = false;
 	bEchoMulti = true;
 

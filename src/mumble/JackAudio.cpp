@@ -1,5 +1,6 @@
 /* Copyright (C) 2011, Benjamin Jemlich <pcgod@users.sourceforge.net>
    Copyright (C) 2011, Filipe Coelho <falktx@gmail.com>
+   Copyright (C) 2015, Mikkel Krautz <mikkel@krautz.dk>
    Copyright (C) 2018, Bernd Buschinski <b.buschinski@gmail.com>
 
    All rights reserved.
@@ -35,7 +36,55 @@
 #include "Global.h"
 
 
-static JackAudioSystem *jasys = NULL;
+static JackAudioSystem * jasys = NULL;
+
+// jackStatusToStringList converts a jack_status_t (a flag type
+// that can contain multiple Jack statuses) to a QStringList.
+QStringList jackStatusToStringList(jack_status_t status) {
+	QStringList statusList;
+
+	if ((status & JackFailure) != 0) {
+		statusList << QLatin1String("JackFailure - overall operation failed");
+	}
+	if ((status & JackInvalidOption) != 0) {
+		statusList << QLatin1String("JackInvalidOption - the operation contained an invalid or unsupported option");
+	}
+	if ((status & JackNameNotUnique) != 0)  {
+		statusList << QLatin1String("JackNameNotUnique - the desired client name is not unique");
+	}
+	if ((status & JackServerStarted) != 0) {
+		statusList << QLatin1String("JackServerStarted - the server was started as a result of this operation");
+	}
+	if ((status & JackServerFailed) != 0) {
+		statusList << QLatin1String("JackServerFailed - unable to connect to the JACK server");
+	}
+	if ((status & JackServerError) != 0) {
+		statusList << QLatin1String("JackServerError - communication error with the JACK server");
+	}
+	if ((status & JackNoSuchClient) != 0) {
+		statusList << QLatin1String("JackNoSuchClient - requested client does not exist");
+	}
+	if ((status & JackLoadFailure) != 0) {
+		statusList << QLatin1String("JackLoadFailure - unable to load initial client");
+	}
+	if ((status & JackInitFailure) != 0) {
+		statusList << QLatin1String("JackInitFailure - unable to initialize client");
+	}
+	if ((status & JackShmFailure) != 0)  {
+		statusList << QLatin1String("JackShmFailure - unable to access shared memory");
+	}
+	if ((status & JackVersionError) != 0) {
+		statusList << QLatin1String("JackVersionError - client's protocol version does not match");
+	}
+	if ((status & JackBackendError) != 0) {
+		statusList << QLatin1String("JackBackendError - a backend error occurred");
+	}
+	if ((status & JackClientZombie) != 0) {
+		statusList << QLatin1String("JackClientZombie - client zombified");
+	}
+
+	return statusList;
+}
 
 class JackAudioInputRegistrar : public AudioInputRegistrar {
 	public:
@@ -108,13 +157,20 @@ JackAudioSystem::~JackAudioSystem() {
 void JackAudioSystem::init_jack() {
 
 	output_buffer = NULL;
+	jack_status_t status = static_cast<jack_status_t>(0);
+	int err = 0;
 
 	/* TODO make option */
 	jack_options_t jack_option = false ? JackNullOption : JackNoStartServer;
-	client = jack_client_open("mumble", jack_option, 0);
+	client = jack_client_open("mumble", jack_option, &status);
 
 	if (client) {
 		in_port = jack_port_register(client, "input", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
+		if (in_port == NULL) {
+			qWarning("JackAudioSystem: unable to register 'input' port");
+			close_jack();
+			return;
+		}
 
 		bJackIsGood = true;
 		iBufferSize = jack_get_buffer_size(client);
@@ -127,15 +183,28 @@ void JackAudioSystem::init_jack() {
 			return;
 		}
 
-		jack_set_process_callback(client, process_callback, this);
-		jack_set_sample_rate_callback(client, srate_callback, this);
-		jack_set_buffer_size_callback(client, buffer_size_callback, this);
-		jack_on_shutdown(client, shutdown_callback, this);
-
-		if (in_port == NULL) {
+		err = jack_set_process_callback(client, process_callback, this);
+		if (err != 0) {
+			qWarning("JackAudioSystem: unable to set process callback - jack_set_process_callback() returned %i", err);
 			close_jack();
 			return;
 		}
+
+		err = jack_set_sample_rate_callback(client, srate_callback, this);
+		if (err != 0) {
+			qWarning("JackAudioSystem: unable to set sample rate callback - jack_set_sample_rate_callback() returned %i", err);
+			close_jack();
+			return;
+		}
+
+		err = jack_set_buffer_size_callback(client, buffer_size_callback, this);
+		if (err != 0) {
+			qWarning("JackAudioSystem: unable to set buffer size callback - jack_set_buffer_size_callback() returned %i", err);
+			close_jack();
+			return;
+		}
+
+		jack_on_shutdown(client, shutdown_callback, this);
 
 		// If we made it this far, then everything is okay
 		qhInput.insert(QString(), tr("Hardware Ports"));
@@ -144,6 +213,11 @@ void JackAudioSystem::init_jack() {
 		bJackIsGood = true;
 
 	} else {
+		QStringList errors = jackStatusToStringList(status);
+		qWarning("JackAudioSystem: unable to open jack client due to %i errors:", errors.count());
+		for (int i = 0; i < errors.count(); i++) {
+			qWarning("JackAudioSystem:  %s", qPrintable(errors.at(i)));
+		}
 		bJackIsGood = false;
 		client = NULL;
 	}
@@ -153,20 +227,34 @@ void JackAudioSystem::close_jack() {
 
 	QMutexLocker lock(&qmWait);
 	if (client) {
-		jack_deactivate(client);
+		int err = 0;
+		err = jack_deactivate(client);
+		if (err != 0)  {
+			qWarning("JackAudioSystem: unable to remove client from the process graph - jack_deactivate() returned %i", err);
+		}
+
 		bActive = false;
 
 		if (in_port != NULL) {
-			jack_port_unregister(client, in_port);
+			err = jack_port_unregister(client, in_port);
+			if (err != 0)  {
+				qWarning("JackAudioSystem: unable to unregister in port - jack_port_unregister() returned %i", err);
+			}
 		}
 
 		for (unsigned i = 0; i < iOutPorts; ++i) {
 			if (out_ports[i] != NULL) {
-				jack_port_unregister(client, out_ports[0]);
+				err = jack_port_unregister(client, out_ports[0]);
+				if (err != 0)  {
+					qWarning("JackAudioSystem: unable to unregister out port - jack_port_unregister() returned %i", err);
+				}
 			}
 		}
 
-		jack_client_close(client);
+		err = jack_client_close(client);
+		if (err != 0) {
+			qWarning("JackAudioSystem: unable to to disconnect from the JACK server - jack_client_close() returned %i", err);
+		}
 
 		delete [] output_buffer;
 		output_buffer = NULL;
@@ -184,8 +272,10 @@ void JackAudioSystem::activate()
 			return;
 		}
 
-		if (jack_activate(client) != 0) {
-			close_jack();
+		int err = jack_activate(client);
+		if (err != 0) {
+			qWarning("JackAudioSystem: unable to activate client - jack_activate() returned %i", err);
+			bJackIsGood = false;
 			return;
 		}
 		bActive = true;
@@ -194,7 +284,7 @@ void JackAudioSystem::activate()
 
 int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 
-	JackAudioSystem * const jas = (JackAudioSystem*)arg;
+	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 
 	if (jas && jas->bJackIsGood) {
 		AudioInputPtr ai = g.ai;
@@ -203,19 +293,23 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 		JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
 
 		if (jai && jai->isRunning() && jai->iMicChannels > 0 && !jai->isFinished()) {
-			jai->qmMutex.lock();
-			void* input = jack_port_get_buffer(jas->in_port, nframes);
-			jai->addMic(input, nframes);
-			jai->qmMutex.unlock();
+			QMutexLocker(&jai->qmMutex);
+			void * input = jack_port_get_buffer(jas->in_port, nframes);
+			if (input != NULL) {
+				jai->addMic(input, nframes);
+			}
 		}
 
 		if (jao && jao->isRunning() && jao->iChannels > 0 && !jao->isFinished()) {
-			jao->qmMutex.lock();
+			QMutexLocker(&jao->qmMutex);
 
 			jack_default_audio_sample_t* port_buffers[JACK_MAX_OUTPUT_PORTS];
 			for (unsigned int i = 0; i < jao->iChannels; ++i) {
 
 				port_buffers[i] = (jack_default_audio_sample_t*)jack_port_get_buffer(jas->out_ports[i], nframes);
+				if (port_buffers[i] == NULL) {
+					return 1;
+				}
 			}
 
 			jack_default_audio_sample_t * const buffer = jas->output_buffer;
@@ -230,10 +324,9 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 
 				// de-interleave channels
 				for (unsigned int i = 0; i < nframes * jao->iChannels; ++i) {
-					port_buffers[i % jao->iChannels][i/jao->iChannels] = buffer[i];
+					port_buffers[i % jao->iChannels][i / jao->iChannels] = buffer[i];
 				}
 			}
-			jao->qmMutex.unlock();
 		}
 	}
 
@@ -242,7 +335,7 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 
 int JackAudioSystem::srate_callback(jack_nframes_t frames, void *arg) {
 
-	JackAudioSystem * const jas = (JackAudioSystem*)arg;
+	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 	jas->iSampleRate = frames;
 	return 0;
 }
@@ -274,7 +367,8 @@ void JackAudioSystem::setNumberOfOutPorts(unsigned int ports) {
 
 	AudioOutputPtr ao = g.ao;
 	JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
-	unsigned int oldSize = iOutPorts;
+	unsigned int const oldSize = iOutPorts;
+	int err = 0;
 
 	iOutPorts = qBound<unsigned>(1, ports, JACK_MAX_OUTPUT_PORTS);
 
@@ -284,12 +378,19 @@ void JackAudioSystem::setNumberOfOutPorts(unsigned int ports) {
 		jao->qmMutex.lock();
 	}
 
-	if (bActive)
-		jack_deactivate(client);
+	if (bActive) {
+		err = jack_deactivate(client);
+		if (err != 0) {
+			qWarning("JackAudioSystem: unable to remove client from the process graph - jack_deactivate() returned %i", err);
+		}
+	}
 
 	for (unsigned int i = 0; i < oldSize; ++i) {
 		if (out_ports[i] != NULL) {
-			jack_port_unregister(client, out_ports[i]);
+			err = jack_port_unregister(client, out_ports[i]);
+			if (err != 0)  {
+				qWarning("JackAudioSystem: unable to unregister out port - jack_port_unregister() returned %i", err);
+			}
 			out_ports[i] = NULL;
 		}
 	}
@@ -301,13 +402,19 @@ void JackAudioSystem::setNumberOfOutPorts(unsigned int ports) {
 
 		out_ports[i] = jack_port_register(client, name, JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
 		if (out_ports[i] == NULL) {
+			qWarning("JackAudioSystem: unable to register 'output' port");
 			bJackIsGood = false;
 			break;
 		}
 	}
 
-	if (bActive)
-		jack_activate(client);
+	if (bActive) {
+		err = jack_activate(client);
+		if (err != 0) {
+			qWarning("JackAudioSystem: unable to activate client - jack_activate() returned %i", err);
+			bJackIsGood = false;
+		}
+	}
 
 	if (jao) {
 		jao->qmMutex.unlock();
@@ -321,14 +428,14 @@ unsigned int JackAudioSystem::numberOfOutPorts() const {
 
 int JackAudioSystem::buffer_size_callback(jack_nframes_t frames, void *arg) {
 
-	JackAudioSystem * const jas = (JackAudioSystem*)arg;
+	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 	jas->allocOutputBuffer(frames);
 	return 0;
 }
 
 void JackAudioSystem::shutdown_callback(void *arg) {
 
-	JackAudioSystem * const jas = (JackAudioSystem*)arg;
+	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 	jas->bJackIsGood = false;
 }
 
