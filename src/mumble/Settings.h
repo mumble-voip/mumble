@@ -207,6 +207,7 @@ struct Settings {
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;
 	QString qsJackAudioOutput;
+	bool bJackStartServer, bJackAutoConnect;
 	QString qsOSSInput, qsOSSOutput;
 	int iPortAudioInput, iPortAudioOutput;
 

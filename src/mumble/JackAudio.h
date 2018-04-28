@@ -72,6 +72,8 @@ class JackAudioSystem : public QObject {
 		void init_jack();
 		void close_jack();
 
+		void auto_connect_ports();
+
 		void activate();
 
 		void allocOutputBuffer(jack_nframes_t frames);

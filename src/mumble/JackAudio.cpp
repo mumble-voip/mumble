@@ -122,7 +122,8 @@ class JackAudioInit : public DeferInit {
 				delete jasys;
 				jasys = NULL;
 			}
-		};
+		}
+
 		void destroy() {
 			if (airJackAudio)
 				delete airJackAudio;
@@ -133,16 +134,20 @@ class JackAudioInit : public DeferInit {
 				delete jasys;
 				jasys = NULL;
 			}
-		};
+		}
 };
 
 static JackAudioInit jackinit; //unused
 
-JackAudioSystem::JackAudioSystem() {
-	bJackIsGood = false;
-	iSampleRate = 0;
-	output_buffer = NULL;
-	bActive = false;
+JackAudioSystem::JackAudioSystem()
+	: bActive(false)
+	, client(NULL)
+	, in_port(NULL)
+	, output_buffer(NULL)
+	, iBufferSize(0)
+	, bJackIsGood(false)
+	, iSampleRate(0)
+{
 	if (g.s.qsJackAudioOutput.isEmpty()) {
 		iOutPorts = 1;
 	} else {
@@ -160,8 +165,7 @@ void JackAudioSystem::init_jack() {
 	jack_status_t status = static_cast<jack_status_t>(0);
 	int err = 0;
 
-	/* TODO make option */
-	jack_options_t jack_option = false ? JackNullOption : JackNoStartServer;
+	jack_options_t jack_option = g.s.bJackStartServer ? JackNullOption : JackNoStartServer;
 	client = jack_client_open("mumble", jack_option, &status);
 
 	if (client) {
@@ -215,7 +219,7 @@ void JackAudioSystem::init_jack() {
 	} else {
 		QStringList errors = jackStatusToStringList(status);
 		qWarning("JackAudioSystem: unable to open jack client due to %i errors:", errors.count());
-		for (int i = 0; i < errors.count(); i++) {
+		for (int i = 0; i < errors.count(); ++i) {
 			qWarning("JackAudioSystem:  %s", qPrintable(errors.at(i)));
 		}
 		bJackIsGood = false;
@@ -264,6 +268,54 @@ void JackAudioSystem::close_jack() {
 	bJackIsGood = false;
 }
 
+
+void JackAudioSystem::auto_connect_ports()
+{
+	if (g.s.bJackAutoConnect == false) {
+		return;
+	}
+
+	const char **ports = NULL;
+	int const wanted_out_flags = JackPortIsPhysical | JackPortIsOutput;
+	int const wanted_in_flags = JackPortIsPhysical | JackPortIsInput;
+	int err;
+	unsigned int connected_out_ports = 0;
+	unsigned int connected_in_ports = 0;
+
+	ports = jack_get_ports(client, 0, "audio", JackPortIsPhysical);
+	if (ports != NULL) {
+		int i = 0;
+		while (ports[i] != NULL) {
+			jack_port_t * const port = jack_port_by_name(client, ports[i]);
+			if (port == NULL)  {
+				qWarning("JackAudioSystem: jack_port_by_name() returned an invalid port - skipping it");
+				continue;
+			}
+
+			int const port_flags = jack_port_flags(port);
+
+			if ((port_flags & wanted_out_flags) == wanted_out_flags && connected_in_ports < 1) {
+				err = jack_connect(client, ports[i], jack_port_name(in_port));
+				if (err != 0) {
+					qWarning("JackAudioSystem: unable to connect port '%s' to '%s' - jack_connect() returned %i", ports[i], jack_port_name(in_port), err);
+				} else {
+					connected_in_ports++;
+				}
+			}
+			else if ((port_flags & wanted_in_flags) == wanted_in_flags && connected_out_ports < iOutPorts) {
+				err = jack_connect(client, jack_port_name(out_ports[connected_out_ports]), ports[i]);
+				if (err != 0) {
+					qWarning("JackAudioSystem: unable to connect port '%s' to '%s' - jack_connect() returned %i", jack_port_name(out_ports[connected_out_ports]), ports[i], err);
+				} else {
+					connected_out_ports++;
+				}
+			}
+
+			++i;
+		}
+	}
+}
+
 void JackAudioSystem::activate()
 {
 	QMutexLocker lock(&qmWait);
@@ -279,6 +331,8 @@ void JackAudioSystem::activate()
 			return;
 		}
 		bActive = true;
+
+		auto_connect_ports();
 	}
 }
 
@@ -503,7 +557,7 @@ void JackAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 JackAudioInput::JackAudioInput() {
 	bRunning = true;
 	iMicChannels = 0;
-};
+}
 
 JackAudioInput::~JackAudioInput() {
 	bRunning = false;
