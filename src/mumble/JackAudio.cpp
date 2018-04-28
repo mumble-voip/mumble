@@ -248,7 +248,7 @@ void JackAudioSystem::close_jack() {
 
 		for (unsigned i = 0; i < iOutPorts; ++i) {
 			if (out_ports[i] != NULL) {
-				err = jack_port_unregister(client, out_ports[0]);
+				err = jack_port_unregister(client, out_ports[i]);
 				if (err != 0)  {
 					qWarning("JackAudioSystem: unable to unregister out port - jack_port_unregister() returned %i", err);
 				}
