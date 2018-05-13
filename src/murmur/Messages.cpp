@@ -1001,8 +1001,14 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			}
 
 			if (! hasPermission(uSource, p, ChanACL::MakeChannel)) {
-				PERM_DENIED(uSource, p, ChanACL::MakeChannel);
-				return;
+				if (c->bTemporary) {
+					if (! hasPermission(uSource, p, ChanACL::MakeTempChannel)) {
+						PERM_DENIED(uSource, p, ChanACL::MakeTempChannel);
+					}
+				} else {
+					PERM_DENIED(uSource, p, ChanACL::MakeChannel);
+					return;
+				}
 			}
 
 			QString name = qsName.isNull() ? c->qsName : qsName;
