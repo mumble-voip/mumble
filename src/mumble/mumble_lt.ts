@@ -2423,7 +2423,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+177"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation><numerusform>Uždraudimų sąrašas - %n uždraudimas</numerusform><numerusform>Uždraudimų sąrašas - %n uždraudimai</numerusform><numerusform>Uždraudimų sąrašas - %n uždraudimų</numerusform></translation>
+        <translation><numerusform>Uždraudimų sąrašas - %n uždraudimas</numerusform><numerusform>Uždraudimų sąrašas - %n uždraudimai</numerusform><numerusform>Uždraudimų sąrašas - %n uždraudimų</numerusform><numerusform>Uždraudimų sąrašas - %n uždraudimų</numerusform></translation>
     </message>
 </context>
 <context>
@@ -8311,7 +8311,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
-        <translation><numerusform>Registruoti naudotojai: %n paskyra</numerusform><numerusform>Registruoti naudotojai: %n paskyros</numerusform><numerusform>Registruoti naudotojai: %n paskyrų</numerusform></translation>
+        <translation><numerusform>Registruoti naudotojai: %n paskyra</numerusform><numerusform>Registruoti naudotojai: %n paskyros</numerusform><numerusform>Registruoti naudotojai: %n paskyrų</numerusform><numerusform>Registruoti naudotojai: %n paskyrų</numerusform></translation>
     </message>
 </context>
 <context>
