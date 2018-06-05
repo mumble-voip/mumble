@@ -966,7 +966,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	qpbEdit = new QPushButton(tr("&Edit..."), this);
 	qpbEdit->setEnabled(false);
 	qpbEdit->setDefault(false);
-	qpbEdit->setAutoDefault(false);
+	qpbEdit->setAutoDefault(true);
 	connect(qpbEdit, SIGNAL(clicked()), qaFavoriteEdit, SIGNAL(triggered()));
 	qdbbButtonBox->addButton(qpbEdit, QDialogButtonBox::ActionRole);
 	
