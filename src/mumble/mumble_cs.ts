@@ -2435,7 +2435,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+177"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation><numerusform>Seznam zákazů - %n zákaz</numerusform><numerusform>Seznam zákazů - %n zákazy</numerusform><numerusform>Seznam zákazů - %n zákazů</numerusform></translation>
+        <translation><numerusform>Seznam zákazů - %n zákaz</numerusform><numerusform>Seznam zákazů - %n zákazy</numerusform><numerusform>Seznam zákazů - %n zákazů</numerusform><numerusform>Seznam zákazů - %n zákazů</numerusform></translation>
     </message>
 </context>
 <context>
@@ -8343,7 +8343,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
-        <translation><numerusform>Registrovaní uživatelé: %n účet</numerusform><numerusform>Registrovaní uživatelé: %n účty</numerusform><numerusform>Registrovaní uživatelé: %n účtů</numerusform></translation>
+        <translation><numerusform>Registrovaní uživatelé: %n účet</numerusform><numerusform>Registrovaní uživatelé: %n účty</numerusform><numerusform>Registrovaní uživatelé: %n účtů</numerusform><numerusform>Registrovaní uživatelé: %n účtů</numerusform></translation>
     </message>
 </context>
 <context>
