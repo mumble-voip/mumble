@@ -285,7 +285,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Kontekstas</translation>
     </message>
     <message>
         <location/>
@@ -377,7 +377,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojas/Grupė</translation>
     </message>
     <message>
         <location/>
@@ -641,12 +641,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>Kanalai</translation>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofonas</translation>
     </message>
     <message>
         <location/>
@@ -2308,7 +2308,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>Atna&amp;ujinti</translation>
     </message>
     <message>
         <location/>
@@ -2373,7 +2373,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Liudijimo maiša</translation>
     </message>
     <message>
         <location/>
@@ -2519,7 +2519,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+34"/>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko importuoti. Trūksta slaptažodžio arba nesuderinamas failo tipas.</translation>
     </message>
     <message>
         <location filename="main.cpp" line="+517"/>
@@ -2628,7 +2628,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra failo, iš kurio norite importuoti liudijimą, pavadinimas.</translation>
     </message>
     <message>
         <location/>
@@ -3434,7 +3434,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Vietinio serverio etiketė</translation>
     </message>
     <message>
         <location/>
@@ -3606,7 +3606,7 @@ of the possible locations.</source>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Kūrėjo pultas</translation>
     </message>
 </context>
 <context>
@@ -6183,7 +6183,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"/>
+        <translation>Serveris</translation>
     </message>
     <message>
         <location line="+3"/>
