@@ -373,7 +373,7 @@ void ALSAAudioInput::run() {
 		}
 	}
 
-	snd_pcm_drain(capture_handle);
+	snd_pcm_drop(capture_handle);
 	snd_pcm_close(capture_handle);
 
 	qWarning("ALSAAudioInput: Releasing ALSA Mic.");
