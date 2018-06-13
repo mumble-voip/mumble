@@ -896,7 +896,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		if (! p || qsName.isNull())
 			return;
 
-		if (iChannelCountLimit == 0 || qhChannels.count() >= iChannelCountLimit) {
+		if (iChannelCountLimit != 0 && qhChannels.count() >= iChannelCountLimit) {
 			PERM_DENIED_FALLBACK(ChannelCountLimit, 0x010301, QLatin1String("Channel count limit reached"));
 			return;
 		}
