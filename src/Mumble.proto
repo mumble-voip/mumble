@@ -280,7 +280,10 @@ message PermissionDenied {
 		UserName = 8;
 		// Channel is full.
 		ChannelFull = 9;
+		// Channels are nested too deply.
 		NestingLimit = 10;
+		// Maximum channel count reached.
+		ChannelCountLimit = 11;
 	}
 	// The denied permission when type is Permission.
 	optional uint32 permission = 1;

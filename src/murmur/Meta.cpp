@@ -69,6 +69,7 @@ MetaParams::MetaParams() {
 	iOpusThreshold = 100;
 
 	iChannelNestingLimit = 10;
+	iChannelCountLimit = 1000;
 
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
@@ -341,6 +342,7 @@ void MetaParams::read(QString fname) {
 	iOpusThreshold = typeCheckedFromSettings("opusthreshold", iOpusThreshold);
 
 	iChannelNestingLimit = typeCheckedFromSettings("channelnestinglimit", iChannelNestingLimit);
+	iChannelCountLimit = typeCheckedFromSettings("channelcountlimit", iChannelCountLimit);
 
 #ifdef Q_OS_UNIX
 	qsName = qsSettings->value("uname").toString();
@@ -414,6 +416,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
 	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
 	qmConfig.insert(QLatin1String("channelnestinglimit"), QString::number(iChannelNestingLimit));
+	qmConfig.insert(QLatin1String("channelcountlimit"), QString::number(iChannelCountLimit));
 	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
 	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
 }
