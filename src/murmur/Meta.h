@@ -39,6 +39,7 @@ public:
 	int iMaxImageMessageLength;
 	int iOpusThreshold;
 	int iChannelNestingLimit;
+	int iChannelCountLimit;
 	/// If true the old SHA1 password hashing is used instead of PBKDF2
 	bool legacyPasswordHash;
 	/// Contains the default number of PBKDF2 iterations to use

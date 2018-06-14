@@ -397,6 +397,7 @@ void Server::readParams() {
 	qvSuggestPushToTalk = Meta::mp.qvSuggestPushToTalk;
 	iOpusThreshold = Meta::mp.iOpusThreshold;
 	iChannelNestingLimit = Meta::mp.iChannelNestingLimit;
+	iChannelCountLimit = Meta::mp.iChannelCountLimit;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -463,6 +464,7 @@ void Server::readParams() {
 	iOpusThreshold = getConf("opusthreshold", iOpusThreshold).toInt();
 
 	iChannelNestingLimit = getConf("channelnestinglimit", iChannelNestingLimit).toInt();
+	iChannelCountLimit = getConf("channelcountlimit", iChannelCountLimit).toInt();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -582,6 +584,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp.iOpusThreshold;
 	else if (key == "channelnestinglimit")
 		iChannelNestingLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp.iChannelNestingLimit;
+	else if (key == "channelcountlimit")
+		iChannelCountLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp.iChannelCountLimit;
 }
 
 #ifdef USE_BONJOUR

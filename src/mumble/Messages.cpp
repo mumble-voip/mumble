@@ -242,6 +242,10 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				g.l->log(Log::PermissionDenied, tr("Channel nesting limit reached."));
 			}
 			break;
+		case MumbleProto::PermissionDenied_DenyType_ChannelCountLimit: {
+				g.l->log(Log::PermissionDenied, tr("Channel count limit reached. Need to delete channels before creating new ones."));
+			}
+			break;
 		default: {
 				if (msg.has_reason())
 					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(Qt::escape(u8(msg.reason()))));
