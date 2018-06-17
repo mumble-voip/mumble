@@ -412,9 +412,6 @@ int main(int argc, char **argv) {
 	// Initialize logger
 	g.l = new Log();
 
-	// Initialize database
-	g.db = new Database();
-
 #ifdef USE_BONJOUR
 	// Initialize bonjour
 	g.bc = new BonjourClient();
@@ -575,7 +572,6 @@ int main(int argc, char **argv) {
 	delete g.nam;
 	delete g.lcd;
 
-	delete g.db;
 	delete g.p;
 	delete g.l;
 
@@ -614,7 +610,16 @@ int main(int argc, char **argv) {
 
 	// Tear down OpenSSL state.
 	MumbleSSL::destroy();
-	
+
+	// Cleanup database.
+	Database::cleanupDatabase();
+
+	// Close database connections.
+	foreach(QString connectionName, QSqlDatabase::connectionNames()) {
+		qDebug() << "Closing database connection" << connectionName;
+		QSqlDatabase::database(connectionName, false).close();
+	}
+
 	// At this point termination of our process is immenent. We can safely
 	// launch another version of Mumble. The reason we do an actual
 	// restart instead of re-creating our data structures is that making

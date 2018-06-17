@@ -9,6 +9,8 @@
 #include "Settings.h"
 #include "UnresolvedServerAddress.h"
 
+class QSqlDatabase;
+
 struct FavoriteServer {
 	QString qsName;
 	QString qsUsername;
@@ -23,8 +25,9 @@ class Database : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(Database)
 	public:
-		Database();
-		~Database() Q_DECL_OVERRIDE;
+		static QSqlDatabase getDatabase();
+		static void cleanupDatabase();
+
 		static QList<FavoriteServer> getFavorites();
 		static void setFavorites(const QList<FavoriteServer> &servers);
 		static void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
