@@ -493,7 +493,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 							QString qsImage;
 							if (! p->qbaTextureHash.isEmpty()) {
 								if (p->qbaTexture.isEmpty()) {
-									p->qbaTexture = Database::blob(p->qbaTextureHash);
+									p->qbaTexture = g.db->blob(p->qbaTextureHash);
 									if (p->qbaTexture.isEmpty()) {
 										MumbleProto::RequestBlob mprb;
 										mprb.add_session_texture(p->uiSession);
@@ -527,7 +527,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 									return p->qsName;
 							} else {
 								if (p->qsComment.isEmpty()) {
-									p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+									p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
 									if (p->qsComment.isEmpty()) {
 										const_cast<UserModel *>(this)->uiSessionComment = p->uiSession;
 
@@ -548,7 +548,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								return c->qsName;
 							} else {
 								if (c->qsDesc.isEmpty()) {
-									c->qsDesc = QString::fromUtf8(Database::blob(c->qbaDescHash));
+									c->qsDesc = QString::fromUtf8(g.db->blob(c->qbaDescHash));
 									if (c->qsDesc.isEmpty()) {
 										const_cast<UserModel *>(this)->iChannelDescription = c->iId;
 
@@ -975,7 +975,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 		cu->qsComment = comment;
 
 		if (! comment.isEmpty()) {
-			Database::setBlob(cu->qbaCommentHash, cu->qsComment.toUtf8());
+			g.db->setBlob(cu->qbaCommentHash, cu->qsComment.toUtf8());
 			if (cu->uiSession == uiSessionComment) {
 				uiSessionComment = 0;
 				item->bCommentSeen = false;
@@ -994,7 +994,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 					QTimer::singleShot(0, g.mw, SLOT(on_qaUserCommentView_triggered()));
 				}
 			} else {
-				item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
+				item->bCommentSeen = g.db->seenComment(item->hash(), cu->qbaCommentHash);
 				newstate = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
@@ -1017,7 +1017,7 @@ void UserModel::setCommentHash(ClientUser *cu, const QByteArray &hash) {
 		cu->qsComment = QString();
 		cu->qbaCommentHash = hash;
 
-		item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
+		item->bCommentSeen = g.db->seenComment(item->hash(), cu->qbaCommentHash);
 		newstate = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
@@ -1038,7 +1038,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 		c->qsDesc = comment;
 
 		if (! comment.isEmpty()) {
-			Database::setBlob(c->qbaDescHash, c->qsDesc.toUtf8());
+			g.db->setBlob(c->qbaDescHash, c->qsDesc.toUtf8());
 
 			if (c->iId == iChannelDescription) {
 				iChannelDescription = -1;
@@ -1050,7 +1050,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				}
 			} else {
-				item->bCommentSeen = Database::seenComment(item->hash(), c->qbaDescHash);
+				item->bCommentSeen = g.db->seenComment(item->hash(), c->qbaDescHash);
 				newstate = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
@@ -1073,7 +1073,7 @@ void UserModel::setCommentHash(Channel *c, const QByteArray &hash) {
 		c->qsDesc = QString();
 		c->qbaDescHash = hash;
 
-		item->bCommentSeen = Database::seenComment(item->hash(), hash);
+		item->bCommentSeen = g.db->seenComment(item->hash(), hash);
 		newstate = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
@@ -1095,9 +1095,9 @@ void UserModel::seenComment(const QModelIndex &idx) {
 	emit dataChanged(idx, idx);
 
 	if (item->pUser)
-		Database::setSeenComment(item->hash(), item->pUser->qbaCommentHash);
+		g.db->setSeenComment(item->hash(), item->pUser->qbaCommentHash);
 	else
-		Database::setSeenComment(item->hash(), item->cChan->qbaDescHash);
+		g.db->setSeenComment(item->hash(), item->cChan->qbaDescHash);
 }
 
 void UserModel::renameChannel(Channel *c, const QString &name) {
@@ -1306,7 +1306,7 @@ void UserModel::toggleChannelFiltered(Channel *c) {
 		c->bFiltered = !c->bFiltered;
 
 		ServerHandlerPtr sh = g.sh;
-		Database::setChannelFiltered(sh->qbaDigest, c->iId, c->bFiltered);
+		g.db->setChannelFiltered(sh->qbaDigest, c->iId, c->bFiltered);
 		idx = index(c);
 	}
 

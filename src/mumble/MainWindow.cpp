@@ -890,7 +890,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		}
 	}
 
-	Database::fuzzyMatch(name, user, pw, host, port);
+	g.db->fuzzyMatch(name, user, pw, host, port);
 
 	if (user.isEmpty()) {
 		bool ok;
@@ -1168,7 +1168,7 @@ void MainWindow::on_qaSelfComment_triggered() {
 		return;
 
 	if (! p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
-		p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+		p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
 		if (p->qsComment.isEmpty()) {
 			pmModel->uiSessionComment = ~(p->uiSession);
 			MumbleProto::RequestBlob mprb;
@@ -1195,7 +1195,7 @@ void MainWindow::on_qaSelfComment_triggered() {
 		g.sh->sendMessage(mpus);
 
 		if (! msg.isEmpty())
-			Database::setBlob(sha1(msg), msg.toUtf8());
+			g.db->setBlob(sha1(msg), msg.toUtf8());
 	}
 	delete texm;
 }
@@ -1583,7 +1583,7 @@ void MainWindow::on_qaUserLocalMute_triggered() {
 
 	p->setLocalMute(muted);
 	if (! p->qsHash.isEmpty())
-		Database::setLocalMuted(p->qsHash, muted);
+		g.db->setLocalMuted(p->qsHash, muted);
 }
 
 void MainWindow::on_qaUserLocalIgnore_triggered() {
@@ -1595,7 +1595,7 @@ void MainWindow::on_qaUserLocalIgnore_triggered() {
 
 	p->setLocalIgnore(ignored);
 	if (! p->qsHash.isEmpty())
-		Database::setLocalIgnored(p->qsHash, ignored);
+		g.db->setLocalIgnored(p->qsHash, ignored);
 }
 
 void MainWindow::on_qaUserLocalVolume_triggered() {
@@ -1671,7 +1671,7 @@ void MainWindow::on_qaUserFriendAdd_triggered() {
 	if (!p)
 		return;
 
-	Database::addFriend(p->qsName, p->qsHash);
+	g.db->addFriend(p->qsName, p->qsHash);
 	pmModel->setFriendName(p, p->qsName);
 }
 
@@ -1684,7 +1684,7 @@ void MainWindow::on_qaUserFriendRemove_triggered() {
 	if (!p)
 		return;
 
-	Database::removeFriend(p->qsHash);
+	g.db->removeFriend(p->qsHash);
 	pmModel->setFriendName(p, QString());
 }
 
@@ -1764,7 +1764,7 @@ void MainWindow::on_qaUserCommentView_triggered() {
 		return;
 
 	if (! p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
-		p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+		p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
 		if (p->qsComment.isEmpty()) {
 			pmModel->uiSessionComment = ~(p->uiSession);
 			MumbleProto::RequestBlob mprb;
@@ -2058,7 +2058,7 @@ void MainWindow::on_qaChannelACL_triggered() {
 	int id = c->iId;
 
 	if (! c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
-		c->qsDesc = QString::fromUtf8(Database::blob(c->qbaDescHash));
+		c->qsDesc = QString::fromUtf8(g.db->blob(c->qbaDescHash));
 		if (c->qsDesc.isEmpty()) {
 			MumbleProto::RequestBlob mprb;
 			mprb.add_channel_description(id);
@@ -2850,7 +2850,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	QString uname, pw, host;
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	if (Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
+	if (g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 
 	if (aclEdit) {
@@ -2907,7 +2907,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			QString basereason;
 			QString actual_digest = QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex());
 			QString digests_section = tr("<li>Server certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(actual_digest));
-			QString expected_digest = Database::getDigest(host, port);
+			QString expected_digest = g.db->getDigest(host, port);
 			if (! expected_digest.isNull()) {
 				basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
 				digests_section.append(tr("<li>Expected certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(expected_digest)));
@@ -2935,7 +2935,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 					vc.exec();
 					continue;
 				} else if (res == QMessageBox::Yes) {
-					Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+					g.db->setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
 					qaServerDisconnect->setEnabled(true);
 					on_Reconnect_timeout();
 				}
@@ -2991,7 +2991,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		}
 		if (ok && matched) {
 			if (! g.s.bSuppressIdentity)
-				Database::setPassword(host, port, uname, pw);
+				g.db->setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			g.sh->setConnectionInfo(host, port, uname, pw);
 			on_Reconnect_timeout();

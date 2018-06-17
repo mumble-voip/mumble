@@ -268,7 +268,7 @@ void ACLEditor::accept() {
 			const QString &descriptionText = rteChannelDescription->text();
 			mpcs.set_description(u8(descriptionText));
 			needs_update = true;
-			Database::setBlob(sha1(descriptionText), descriptionText.toUtf8());
+			g.db->setBlob(sha1(descriptionText), descriptionText.toUtf8());
 		}
 		if (pChannel->iPosition != qsbChannelPosition->value()) {
 			mpcs.set_position(qsbChannelPosition->value());

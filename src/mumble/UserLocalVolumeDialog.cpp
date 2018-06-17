@@ -93,7 +93,7 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 	if (button == qbbUserLocalVolume->button(QDialogButtonBox::Ok)) {
 		ClientUser *user = ClientUser::get(m_clientSession);
 		if (user && !user->qsHash.isEmpty()) {
-			Database::setUserLocalVolume(user->qsHash, user->fLocalVolume);
+			g.db->setUserLocalVolume(user->qsHash, user->fLocalVolume);
 		}
 		UserLocalVolumeDialog::close();
 	}
