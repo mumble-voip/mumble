@@ -20,7 +20,6 @@ class MainWindow;
 class ServerHandler;
 class AudioInput;
 class AudioOutput;
-class Database;
 class Log;
 class Plugins;
 class QSettings;
@@ -44,7 +43,6 @@ public:
 	boost::shared_ptr<ServerHandler> sh;
 	boost::shared_ptr<AudioInput> ai;
 	boost::shared_ptr<AudioOutput> ao;
-	Database *db;
 	Log *l;
 	Plugins *p;
 	QSettings *qs;
