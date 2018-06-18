@@ -306,7 +306,7 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 	allowupdate = allowupdate && self && self->cChannel->isLinked(cp->cChannel);
 
 	if (allowupdate && ! cp->qbaTextureHash.isEmpty() && cp->qbaTexture.isEmpty())
-		cp->qbaTexture = Database::blob(cp->qbaTextureHash);
+		cp->qbaTexture = g.db->blob(cp->qbaTextureHash);
 
 	if (! cp->qbaTexture.isEmpty()) {
 		bool valid = true;
@@ -439,7 +439,7 @@ void Overlay::updateOverlay() {
 
 void Overlay::requestTexture(ClientUser *cu) {
 	if (cu->qbaTexture.isEmpty() && ! qsQueried.contains(cu->uiSession)) {
-		cu->qbaTexture=Database::blob(cu->qbaTextureHash);
+		cu->qbaTexture=g.db->blob(cu->qbaTextureHash);
 		if (cu->qbaTexture.isEmpty())
 			qsQuery.insert(cu->uiSession);
 		else

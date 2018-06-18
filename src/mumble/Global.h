@@ -44,6 +44,9 @@ public:
 	boost::shared_ptr<ServerHandler> sh;
 	boost::shared_ptr<AudioInput> ai;
 	boost::shared_ptr<AudioOutput> ao;
+	/**
+	 * @remark Must only be accessed from the main event loop
+	 */
 	Database *db;
 	Log *l;
 	Plugins *p;

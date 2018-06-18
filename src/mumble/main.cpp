@@ -413,7 +413,7 @@ int main(int argc, char **argv) {
 	g.l = new Log();
 
 	// Initialize database
-	g.db = new Database();
+	g.db = new Database(QLatin1String("main"));
 
 #ifdef USE_BONJOUR
 	// Initialize bonjour
@@ -555,7 +555,7 @@ int main(int argc, char **argv) {
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning()) {
 		url = sh->getServerURL();
-		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
+		g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
 	}
 
 	Audio::stop();

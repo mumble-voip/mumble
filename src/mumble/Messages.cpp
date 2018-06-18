@@ -121,7 +121,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
 
-	QList<Shortcut> sc = Database::getShortcuts(g.sh->qbaDigest);
+	QList<Shortcut> sc = g.db->getShortcuts(g.sh->qbaDigest);
 	if (! sc.isEmpty()) {
 		for (int i=0;i<sc.count(); ++i) {
 			Shortcut &s = sc[i];
@@ -279,14 +279,14 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 	if (msg.has_hash()) {
 		pmModel->setHash(pDst, u8(msg.hash()));
-		const QString &name = Database::getFriend(pDst->qsHash);
+		const QString &name = g.db->getFriend(pDst->qsHash);
 		if (! name.isEmpty())
 			pmModel->setFriendName(pDst, name);
-		if (Database::isLocalMuted(pDst->qsHash))
+		if (g.db->isLocalMuted(pDst->qsHash))
 			pDst->setLocalMute(true);
-		if (Database::isLocalIgnored(pDst->qsHash))
+		if (g.db->isLocalIgnored(pDst->qsHash))
 			pDst->setLocalIgnore(true);
-		pDst->fLocalVolume = Database::getUserLocalVolume(pDst->qsHash);
+		pDst->fLocalVolume = g.db->getUserLocalVolume(pDst->qsHash);
 	}
 
 	if (bNewUser)
@@ -535,7 +535,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			pDst->qbaTextureHash = QByteArray();
 		} else {
 			pDst->qbaTextureHash = sha1(pDst->qbaTexture);
-			Database::setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
+			g.db->setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
 		}
 		g.o->verifyTexture(pDst);
 	}
@@ -590,7 +590,7 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 
 			ServerHandlerPtr sh = g.sh;
 			if (sh)
-				c->bFiltered = Database::isChannelFiltered(sh->qbaDigest, c->iId);
+				c->bFiltered = g.db->isChannelFiltered(sh->qbaDigest, c->iId);
 
 		} else {
 			qWarning("Server attempted state change on nonexistent channel");
@@ -667,7 +667,7 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 		if (c->bFiltered) {
 			ServerHandlerPtr sh = g.sh;
 			if (sh)
-				Database::setChannelFiltered(sh->qbaDigest, c->iId, false);
+				g.db->setChannelFiltered(sh->qbaDigest, c->iId, false);
 			c->bFiltered = false;
 		}
 		pmModel->removeChannel(c);
