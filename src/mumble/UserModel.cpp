@@ -195,6 +195,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingWhisper=QIcon(QLatin1String("skin:talking_whisper.svg"));
 	qiPrioritySpeaker=QIcon(QLatin1String("skin:priority_speaker.svg"));
 	qiRecording=QIcon(QLatin1String("skin:actions/media-record.svg"));
+	qiMutedPushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
 	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.svg"));
@@ -333,6 +334,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 
 	Channel *c = item->cChan;
 	ClientUser *p = item->pUser;
+	ClientUser *pSelf = ClientUser::get(g.uiSession);
 
 	if (!c && !p) {
 		return QVariant();
@@ -347,7 +349,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 	if (p) {
 		switch (role) {
 			case Qt::DecorationRole:
-				if (idx.column() == 0)
+				if (idx.column() == 0) {
 					switch (p->tsState) {
 						case Settings::Talking:
 							return qiTalkingOn;
@@ -359,6 +361,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 						default:
 							return qiTalkingOff;
 					}
+				}
 				break;
 			case Qt::FontRole:
 				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
@@ -380,6 +383,11 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiPrioritySpeaker;
 				if (p->bRecording)
 					l << qiRecording;
+				// ClientUser doesn't contain a push-to-mute
+				// state because it isn't sent to the server.
+				// We can show the icon only for the local user.
+				if (p == pSelf && g.bPushToMute)
+					l << qiMutedPushToMute;
 				if (p->bMute)
 					l << qiMutedServer;
 				if (p->bSuppress)
@@ -485,7 +493,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 							QString qsImage;
 							if (! p->qbaTextureHash.isEmpty()) {
 								if (p->qbaTexture.isEmpty()) {
-									p->qbaTexture = Database::blob(p->qbaTextureHash);
+									p->qbaTexture = g.db->blob(p->qbaTextureHash);
 									if (p->qbaTexture.isEmpty()) {
 										MumbleProto::RequestBlob mprb;
 										mprb.add_session_texture(p->uiSession);
@@ -519,7 +527,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 									return p->qsName;
 							} else {
 								if (p->qsComment.isEmpty()) {
-									p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+									p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
 									if (p->qsComment.isEmpty()) {
 										const_cast<UserModel *>(this)->uiSessionComment = p->uiSession;
 
@@ -540,7 +548,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								return c->qsName;
 							} else {
 								if (c->qsDesc.isEmpty()) {
-									c->qsDesc = QString::fromUtf8(Database::blob(c->qbaDescHash));
+									c->qsDesc = QString::fromUtf8(g.db->blob(c->qbaDescHash));
 									if (c->qsDesc.isEmpty()) {
 										const_cast<UserModel *>(this)->iChannelDescription = c->iId;
 
@@ -598,18 +606,20 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                           "<tr><td><img src=\"skin:muted_server.svg\" height=64 /></td><td valign=\"middle\">%5</td></tr>"
 						                           "<tr><td><img src=\"skin:muted_suppressed.svg\" height=64 /></td><td valign=\"middle\">%6</td></tr>"
 						                           "<tr><td><img src=\"skin:muted_local.svg\" height=64 /></td><td valign=\"middle\">%7</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_self.svg\" height=64 /></td><td valign=\"middle\">%8</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_server.svg\" height=64 /></td><td valign=\"middle\">%9</td></tr>"
-						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
-						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
-						                           "<tr><td><img src=\"skin:status/text-missing.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_pushtomute.svg\" height=64 /></td><td valign=\"middle\">%8</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_self.svg\" height=64 /></td><td valign=\"middle\">%9</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_server.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
+						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
+						                           "<tr><td><img src=\"skin:status/text-missing.svg\" height=64 /></td><td valign=\"middle\">%13</td></tr>"
 						                           "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
 						                                           tr("On your friend list"),
 						                                           tr("Authenticated user"),
 						                                           tr("Muted (manually muted by self)"),
 						                                           tr("Muted (manually muted by admin)"),
 						                                           tr("Muted (not allowed to speak in current channel)"),
-						                                           tr("Muted (muted by you, only on your machine)")
+						                                           tr("Muted (muted by you, only on your machine)"),
+						                                           tr("Muted (push-to-mute)")
 						                                          ).arg(
 						                                           tr("Deafened (by self)"),
 						                                           tr("Deafened (by admin)"),
@@ -965,7 +975,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 		cu->qsComment = comment;
 
 		if (! comment.isEmpty()) {
-			Database::setBlob(cu->qbaCommentHash, cu->qsComment.toUtf8());
+			g.db->setBlob(cu->qbaCommentHash, cu->qsComment.toUtf8());
 			if (cu->uiSession == uiSessionComment) {
 				uiSessionComment = 0;
 				item->bCommentSeen = false;
@@ -984,7 +994,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 					QTimer::singleShot(0, g.mw, SLOT(on_qaUserCommentView_triggered()));
 				}
 			} else {
-				item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
+				item->bCommentSeen = g.db->seenComment(item->hash(), cu->qbaCommentHash);
 				newstate = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
@@ -1007,7 +1017,7 @@ void UserModel::setCommentHash(ClientUser *cu, const QByteArray &hash) {
 		cu->qsComment = QString();
 		cu->qbaCommentHash = hash;
 
-		item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
+		item->bCommentSeen = g.db->seenComment(item->hash(), cu->qbaCommentHash);
 		newstate = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
@@ -1028,7 +1038,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 		c->qsDesc = comment;
 
 		if (! comment.isEmpty()) {
-			Database::setBlob(c->qbaDescHash, c->qsDesc.toUtf8());
+			g.db->setBlob(c->qbaDescHash, c->qsDesc.toUtf8());
 
 			if (c->iId == iChannelDescription) {
 				iChannelDescription = -1;
@@ -1040,7 +1050,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				}
 			} else {
-				item->bCommentSeen = Database::seenComment(item->hash(), c->qbaDescHash);
+				item->bCommentSeen = g.db->seenComment(item->hash(), c->qbaDescHash);
 				newstate = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
@@ -1063,7 +1073,7 @@ void UserModel::setCommentHash(Channel *c, const QByteArray &hash) {
 		c->qsDesc = QString();
 		c->qbaDescHash = hash;
 
-		item->bCommentSeen = Database::seenComment(item->hash(), hash);
+		item->bCommentSeen = g.db->seenComment(item->hash(), hash);
 		newstate = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
@@ -1085,9 +1095,9 @@ void UserModel::seenComment(const QModelIndex &idx) {
 	emit dataChanged(idx, idx);
 
 	if (item->pUser)
-		Database::setSeenComment(item->hash(), item->pUser->qbaCommentHash);
+		g.db->setSeenComment(item->hash(), item->pUser->qbaCommentHash);
 	else
-		Database::setSeenComment(item->hash(), item->cChan->qbaDescHash);
+		g.db->setSeenComment(item->hash(), item->cChan->qbaDescHash);
 }
 
 void UserModel::renameChannel(Channel *c, const QString &name) {
@@ -1283,7 +1293,7 @@ void UserModel::userStateChanged() {
 	ClientUser *user = qobject_cast<ClientUser *>(sender());
 	if (user == NULL)
 		return;
-	
+
 	const QModelIndex idx = index(user);
 	emit dataChanged(idx, idx);
 	
@@ -1296,7 +1306,7 @@ void UserModel::toggleChannelFiltered(Channel *c) {
 		c->bFiltered = !c->bFiltered;
 
 		ServerHandlerPtr sh = g.sh;
-		Database::setChannelFiltered(sh->qbaDigest, c->iId, c->bFiltered);
+		g.db->setChannelFiltered(sh->qbaDigest, c->iId, c->bFiltered);
 		idx = index(c);
 	}
 

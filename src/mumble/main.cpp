@@ -42,7 +42,9 @@
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
-Q_IMPORT_PLUGIN(qico)
+# ifdef Q_OS_WIN
+   Q_IMPORT_PLUGIN(qico)
+# endif
 Q_IMPORT_PLUGIN(qsvg)
 Q_IMPORT_PLUGIN(qsvgicon)
 # ifdef Q_OS_MAC
@@ -411,7 +413,7 @@ int main(int argc, char **argv) {
 	g.l = new Log();
 
 	// Initialize database
-	g.db = new Database();
+	g.db = new Database(QLatin1String("main"));
 
 #ifdef USE_BONJOUR
 	// Initialize bonjour
@@ -553,7 +555,7 @@ int main(int argc, char **argv) {
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning()) {
 		url = sh->getServerURL();
-		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
+		g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
 	}
 
 	Audio::stop();

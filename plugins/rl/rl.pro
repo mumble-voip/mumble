@@ -6,12 +6,6 @@
 include(../plugins.pri)
 
 TARGET = rl
+SOURCES = rl.cpp
 
-win32 {
-  SOURCES = rl_win32.cpp
-  LIBS += -luser32
-}
-
-linux {
-  SOURCES = rl_linux.cpp
-}
+win32:LIBS += -luser32

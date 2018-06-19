@@ -105,11 +105,6 @@
     </message>
     <message>
         <location/>
-        <source>Channel positioning facility value</source>
-        <translation>Kanavan järjestysnumero</translation>
-    </message>
-    <message>
-        <location/>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
@@ -507,6 +502,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;Maksimi käyttäjämäärä&lt;/b&gt;&lt;br /&gt;
 Tämän numeron ollessa suurempi kuin nolla kanava sallii maksimissaan numeron suuruisen määrän käyttäjiä yhtäaikaisesti. Numeron ollessa nolla käytetään palvelimen oletusarvoa.</translation>
     </message>
+    <message>
+        <location/>
+        <source>This is the sort order for the channel.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -678,7 +678,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii maksimissaan numeron s
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+78"/>
+        <location filename="ASIOInput.cpp" line="+74"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>Sinun tulee valita vähintään yksi mikrofoni- ja kaiutinlähde käyttääksesi ASIO:ta. Jos tarvitset vain mikrofonin sämpläystä, käytä DirectSoundia.</translation>
     </message>
@@ -717,8 +717,8 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii maksimissaan numeron s
     </message>
     <message>
         <location line="+1"/>
-        <source>3rd &amp;party licenses</source>
-        <translation>Kolmannen &amp;osapuolen lisenssit</translation>
+        <source>&amp;Third-Party Licenses</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -1100,7 +1100,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
         <translation>Aika jonka mikrofoni pysyy auki kun puhepikanäppäin on vapautettu</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+513"/>
+        <location filename="AudioInput.cpp" line="+580"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Palvelimen verkon kaistanleveyden maksimi on vain %1 kbit/s. Äänenlaatu on automaattisesti säädetty %2 kbit/s (%3 ms)</translation>
     </message>
@@ -1154,6 +1154,16 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
         <source>Multichannel echo cancellation</source>
         <translation>Monikanavainen kaiunpoisto</translation>
     </message>
+    <message>
+        <location/>
+        <source>The idle action will be reversed upon any key or mouse button input</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Undo Idle action upon activity</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1178,7 +1188,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
         <translation>Äänen sisääntulo</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+98"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -1556,7 +1566,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+137"/>
+        <location filename="AudioConfigDialog.cpp" line="+138"/>
         <source>None</source>
         <translation>Ei mikään</translation>
     </message>
@@ -1576,7 +1586,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
         <translation>Audion ulostulo</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+119"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -1601,7 +1611,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutputSample.cpp" line="+185"/>
+        <location filename="AudioOutputSample.cpp" line="+186"/>
         <source>Choose sound file</source>
         <translation>Valitse äänitiedosto</translation>
     </message>
@@ -2430,7 +2440,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
 <context>
     <name>CertView</name>
     <message>
-        <location filename="Cert.cpp" line="+26"/>
+        <location filename="Cert.cpp" line="+27"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
@@ -2463,7 +2473,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
 <context>
     <name>CertWizard</name>
     <message>
-        <location line="+85"/>
+        <location line="+86"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation>Sähköpostin varmentaminen epäonnistui. &lt;br/&gt;Syötä voimassaoleva (tai tyhjä) sähköpostiosoite jatkaaksesi.</translation>
     </message>
@@ -2523,12 +2533,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
         <translation>Tuonti epäonnistui. Salasana puuttuu tai tiedostomuoto ei ole tuettu.</translation>
     </message>
     <message>
-        <location line="+60"/>
-        <source>Mumble User</source>
-        <translation>Mumblen käyttäjä</translation>
-    </message>
-    <message>
-        <location filename="main.cpp" line="+501"/>
+        <location filename="main.cpp" line="+517"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Sertifikaatti vanhenee:&lt;/b&gt; Sertifikaattisi on vanhentumassa. Sinun tulee uusia sertifikaattisi tai et voi enään yhdistää rekisteröimiisi palvelimiin.</translation>
     </message>
@@ -2824,23 +2829,15 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <location/>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;
-&lt;p&gt;
-It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
-&lt;/p&gt;
-</source>
-        <translation>&lt;p&gt;Mumble käyttää sertifikaatteja palvelimien todentamiseen. Sertifikaateilla et tarvitse salasanoja, jolloin sinun ei tarvitse paljastaa salasanaa ulkopuolisille sivuille. Ne myös mahdollistavat erittäin helpon käyttäjien rekisteröitymisen.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman sertifikaatteja, suurin osa palvelimista olettaa sinun omaavan sertifikaatin.&lt;/p&gt;
-&lt;p&gt;
-On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;luot luotettavan sertifikaatin&lt;/a&gt;.
-&lt;/p&gt;
-</translation>
-    </message>
-    <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Mikäli menetät sertifikaattisi, joka tapahtuu laitteistovian tai kun uudelleen asennat järjestelmäsi, et pysty enään autentikoimaan mihinkään palvelimeen johon olet rekisteröitynyt. Tämän takia on sinun &lt;b&gt;täytyy&lt;/b&gt; tehdä varmuuskopio sertifikaatistasi. Suosittelememme pitämään varmuuskopiota erillisellä laitteella, kuten USB muistitikulla.&lt;/p&gt;
 &lt;p&gt;Ota huomioon että varmuuskopio tiedosto ei ole salattu ja mikäli joku pääsee siihen käsiksi, he pystyvät esiintymään sinuna, joten pidä varmuuskopiosta hyvää huolta.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3076,7 +3073,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+30"/>
+        <location filename="ConfigDialog.cpp" line="+29"/>
         <source>Accept changes</source>
         <translation>Hyväksy muutokset</translation>
     </message>
@@ -3131,33 +3128,28 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
         <source>Mumble Configuration</source>
         <translation>Mumblen konfigurointi</translation>
     </message>
-    <message>
-        <location/>
-        <source>Advanced</source>
-        <translation>Lisäasetukset</translation>
-    </message>
 </context>
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+1020"/>
+        <location filename="ConnectDialog.cpp" line="+1134"/>
         <source>Connecting to %1</source>
         <translation>Yhdistetään %1</translation>
     </message>
     <message>
-        <location line="-624"/>
-        <location line="+624"/>
+        <location line="-699"/>
+        <location line="+699"/>
         <source>Enter username</source>
         <translation>Kirjoita käyttäjänimi</translation>
     </message>
     <message>
-        <location line="-624"/>
+        <location line="-699"/>
         <source>Adding host %1</source>
         <translation>Lisää isäntä %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+76"/>
+        <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
         <translation>Palvelimen nimi</translation>
     </message>
@@ -3218,7 +3210,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+350"/>
+        <location line="+430"/>
         <source>&amp;Connect</source>
         <translation>&amp;Yhdistä</translation>
     </message>
@@ -3229,7 +3221,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-425"/>
+        <location filename="ConnectDialog.cpp" line="-505"/>
         <source>Users</source>
         <translation>Käyttäjät</translation>
     </message>
@@ -3239,7 +3231,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
         <translation>Versio</translation>
     </message>
     <message>
-        <location line="+1145"/>
+        <location line="+1221"/>
         <source>Failed to fetch server list</source>
         <translation>Epäonnistui noutamaan palvelinlistan</translation>
     </message>
@@ -3300,7 +3292,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-788"/>
+        <location filename="ConnectDialog.cpp" line="-784"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Muokkaa...</translation>
     </message>
@@ -3408,9 +3400,23 @@ Käyttäjänimi jota tulet käyttämään palvelimella. Huomioi että palvelimet
         <translation>Nimike</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-126"/>
+        <location filename="ConnectDialog.cpp" line="-192"/>
         <source>Add Server</source>
         <translation>Lisää palvelin</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>You are currently connected to a server.
+Do you want to fill the dialog with the connection data of this server?
+Host: %1 Port: %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>You have an URL in your clipboard.
+Do you want to fill the dialog with this data?
+Host: %1 Port: %2</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
@@ -3466,6 +3472,11 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <source>Your password</source>
         <translation>Salasanasi</translation>
     </message>
+    <message>
+        <location/>
+        <source>&amp;Fill</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -3478,7 +3489,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
 <context>
     <name>CrashReporter</name>
     <message>
-        <location filename="CrashReporter.cpp" line="+15"/>
+        <location filename="CrashReporter.cpp" line="+16"/>
         <source>Mumble Crash Report</source>
         <translation>Mumblen kaatumisraportti</translation>
     </message>
@@ -3535,7 +3546,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <translation>Tämä ei ole vitsi, mutta kaatumisraportin koodissa näyttäisi olevan bugi, ja me epäonnistuimme lataamaan raportin. Voit informoida kehittäjiä virheestä %1</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+101"/>
         <source>Uploading crash report</source>
         <translation>Lähetetään kaatumisraporttia</translation>
     </message>
@@ -3548,7 +3559,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+151"/>
+        <location filename="DirectSound.cpp" line="+158"/>
         <source>Default DirectSound Voice Input</source>
         <translation>Oletus DirectSound-äänen sisääntulolle</translation>
     </message>
@@ -3705,11 +3716,63 @@ missään sijainnissa.</translation>
         <source>Enable Global Shortcuts</source>
         <translation>Salli yleiset pikanäppäimet</translation>
     </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Additional Shortcut Engines</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Windows hooks</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable GKey</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable XInput</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
+&lt;br /&gt;&lt;br /&gt;
+Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable shortcuts in privileged applications</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+540"/>
+        <location filename="GlobalShortcut.cpp" line="+533"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumblea voi tällä hetkellä käyttää vain hiiren painikkeilla ja näppäimistön muokkausnäppäimillä (Alt, Ctrl, Cmd, etc.) maailmanlaajuisen pikanäppäimet.&lt;/p&gt;&lt;p&gt;Jos haluat enemmän joustavuutta, voit lisätä Mumblen Macin järjestelmäasetuksissa turvallisuus ja yksityisyys osiossa, luottettujen ohjelmien joukkoon  .&lt;/p&gt;&lt;p&gt;Turvallisuus ja yksityisyys asetuksissa valitse Tietosuoja-välilehti, Sen jälkeen Valitse Saavutettavuus (alhaalla) luettelossa vasemmalla. Lopuksi, lisää Mumble luetettujen ohjelmien listaan.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -3719,7 +3782,7 @@ missään sijainnissa.</translation>
         <translation>Pikanäppäimet</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+72"/>
         <source>Shortcut button combination.</source>
         <translation>Pikanäppäinyhdistelmä.</translation>
     </message>
@@ -3834,7 +3897,7 @@ missään sijainnissa.</translation>
 <context>
     <name>LCD</name>
     <message>
-        <location filename="LCD.cpp" line="+271"/>
+        <location filename="LCD.cpp" line="+267"/>
         <source>Not connected</source>
         <translation>Ei yhdistetty</translation>
     </message>
@@ -3842,12 +3905,12 @@ missään sijainnissa.</translation>
 <context>
     <name>LCDConfig</name>
     <message>
-        <location line="-175"/>
+        <location line="-171"/>
         <source>Enable this device</source>
         <translation>Käytä tätä laitetta</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+5"/>
         <source>LCD</source>
         <translation>LCD</translation>
     </message>
@@ -3924,7 +3987,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+216"/>
+        <location filename="Log.cpp" line="+221"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
@@ -4044,17 +4107,22 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Käyttäjä uudelleennimetty</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>You Joined Channel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You Joined Channel (moved)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+59"/>
         <source>the server</source>
         <translation>palvelin</translation>
     </message>
     <message>
-        <location line="+119"/>
-        <source>[[ No valid image ]]</source>
-        <translation>[[ Ei kelpaavaa kuvaa ]]</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="+111"/>
         <source>[[ Invalid size ]]</source>
         <translation>[[ Väärä koko ]]</translation>
     </message>
@@ -4071,14 +4139,14 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
 </translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+74"/>
         <source>link to %1</source>
         <translation>%1 menevä linkki</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>ftp link to %1</source>
-        <translation>%1 menevä ftp linkki</translation>
+        <source>FTP link to %1</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -4099,7 +4167,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-504"/>
+        <location line="-495"/>
         <source>Toggle console for %1 events</source>
         <translation>Käytä ilmoitusviestiä tapahtumalle %1.</translation>
     </message>
@@ -4109,17 +4177,22 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Käytä pop-up ilmoitusta tapahtumalle %1</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>Toggle Text-To-Speech for %1 events</source>
         <translation>Käytä Teksti-puheeksi -toimintoa %1 toiminnolle</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-10"/>
         <source>Click here to toggle sound notification for %1 events</source>
         <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
+        <source>Toggle window highlight (if not active) for %1 events</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
         <translation>Polku äänitiedostoon, jota käytetään äänimerkkinä tapahtuman %1 yhteydessä&lt;br /&gt;Klikkaa kerran toistaaksesi&lt;br /&gt;Tuplaklikkaa vaihtaaksesi</translation>
     </message>
@@ -4133,6 +4206,11 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
         <translation>Valitse käyttääksesi pop-up ilmoitusta tapahtumalle %1&lt;br /&gt;Valittuna lähettää pop-up viestin jokaisen tapahtuman %1 yhteydessä.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -4271,6 +4349,11 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <source> Lines</source>
         <translation>Riviä</translation>
     </message>
+    <message>
+        <location/>
+        <source>Highlight</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>
@@ -4281,12 +4364,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+21"/>
-        <location line="+49"/>
+        <location line="+51"/>
         <source>None</source>
         <translation>Ei koskaan</translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location line="-50"/>
         <source>Only with users</source>
         <translation>Kanavilla käyttäjiä</translation>
     </message>
@@ -4314,7 +4397,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Siirrä</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
         <translation>&lt;a href=&quot;%1&quot;&gt;Selaa&lt;/a&gt;</translation>
@@ -4580,17 +4663,37 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
         <translation>Määrää käyttäjien vetämisen tapahtuman. Voidaan hyödyntää käyttäjien vahinkosiirtämisen välttämiseen. &lt;i&gt;Siirrä&lt;/i&gt; siirtää käyttäjän välittömästi. &lt;i&gt;Älä tee mitään&lt;/i&gt; ei tee mitään tapahtuman yhteydessä ja antaa virheilmoituksen. &lt;i&gt;Kysy&lt;/i&gt; varmistaa tapahtuman yhteydessä halutaanko käyttäjä siirtää.</translation>
     </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Developer menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>When in custom layout mode, checking this disables rearranging.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Lock layout</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+117"/>
-        <location line="+2669"/>
+        <location line="+2698"/>
         <source>Root</source>
         <translation>Juuri</translation>
     </message>
     <message>
-        <location line="-2615"/>
+        <location line="-2641"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Puhepikanäppäin</translation>
@@ -4669,28 +4772,28 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2609"/>
+        <location line="+2635"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2737"/>
+        <location line="-2763"/>
         <source>&amp;Window</source>
         <translation>&amp;Ikkuna</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+186"/>
+        <location line="+185"/>
         <source>Minimize</source>
         <translation>Pienennä</translation>
     </message>
     <message>
-        <location line="-186"/>
+        <location line="-185"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+184"/>
         <source>Close</source>
         <translation>Sulje</translation>
     </message>
@@ -4700,7 +4803,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Mumble on yhdistetty palvelimeen. Haluatko sulkea vai pienentää sen?</translation>
     </message>
     <message>
-        <location line="-253"/>
+        <location line="-252"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mykistä itsesi</translation>
@@ -4743,18 +4846,18 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2753"/>
+        <location line="+2794"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ei yhteyttä&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2318"/>
+        <location line="-2352"/>
         <source>Clear</source>
         <translation>Tyhjennä</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+73"/>
         <source>Opening URL %1</source>
         <translation>Avataan URL %1</translation>
     </message>
@@ -4795,7 +4898,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+205"/>
+        <location line="+221"/>
         <source>Connecting to server %1.</source>
         <translation>Yhdistetään palvelimeen %1.</translation>
     </message>
@@ -4806,12 +4909,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1498"/>
+        <location line="+1500"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Lähetystila vaihdettu jatkuvaksi</translation>
     </message>
     <message>
-        <location line="-1398"/>
+        <location line="-1400"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
@@ -4905,7 +5008,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+76"/>
         <location line="+270"/>
-        <location line="+612"/>
+        <location line="+614"/>
         <source>Message to channel %1</source>
         <translation>Viesti kanavalle %1</translation>
     </message>
@@ -4935,7 +5038,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>SSL versio konflikti</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+67"/>
+        <source>Server connection failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+80"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation>&lt;center&gt;Kirjoita viesti kanavalle &apos;%1&apos; tähän&lt;/center&gt;</translation>
@@ -4970,7 +5078,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Kuvan tiedostomuotoa ei tunneta.</translation>
     </message>
     <message>
-        <location line="-3056"/>
+        <location line="-3100"/>
         <source>&amp;User</source>
         <translation>&amp;Käyttäjä</translation>
     </message>
@@ -4980,7 +5088,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>K&amp;anava</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+62"/>
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
@@ -5043,12 +5151,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Mumble - Minimalistinen tyyli -- %1</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+62"/>
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
     <message>
-        <location line="+291"/>
+        <location line="+299"/>
         <source>Save Image As...</source>
         <translation>Tallenna kuva nimellä...</translation>
     </message>
@@ -5063,24 +5171,24 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Kuvaa ei voitu tallentaa: %1</translation>
     </message>
     <message>
-        <location line="+401"/>
+        <location line="+418"/>
         <source>Change your comment</source>
         <translation>Muokkaa kommenttiasi</translation>
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1485"/>
+        <location line="+1487"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Lähetystila vaihdettu puheaktivoinniksi</translation>
     </message>
     <message>
-        <location line="-1480"/>
-        <location line="+1484"/>
+        <location line="-1482"/>
+        <location line="+1486"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Lähetystila vaihdettu puhepikanäppäimeksi</translation>
     </message>
     <message>
-        <location line="-1333"/>
+        <location line="-1335"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation>&lt;p&gt;Yhdistetyt käyttäjät: %1/%2&lt;/p&gt;</translation>
     </message>
@@ -5131,12 +5239,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1525"/>
+        <location line="+1527"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Näytä sertifikaatti</translation>
     </message>
     <message>
-        <location line="-1231"/>
+        <location line="-1233"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Kirjoita syy</translation>
@@ -5151,12 +5259,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+103"/>
         <location line="+4"/>
         <location line="+266"/>
-        <location line="+612"/>
+        <location line="+614"/>
         <source>To %1: %2</source>
         <translation>-&gt; %1: %2</translation>
     </message>
     <message>
-        <location line="-985"/>
+        <location line="-987"/>
         <location line="+107"/>
         <source>Message to %1</source>
         <translation>Viesti käyttäjälle %1</translation>
@@ -5223,7 +5331,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Hiljennys poistettu.</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+49"/>
         <source>Restart Mumble?</source>
         <translation>Uudelleenkäynnistä Mumble?</translation>
     </message>
@@ -5238,7 +5346,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Tietoa Qt:sta</translation>
     </message>
     <message>
-        <location line="+464"/>
+        <location line="+468"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL vahvistus epäonnistui: %1</translation>
     </message>
@@ -5259,11 +5367,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+6"/>
+        <location line="+59"/>
         <source>Server connection failed: %1.</source>
         <translation>Palvelinyhteys epäonnistui: %1.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-57"/>
         <source>Disconnected from server.</source>
         <translation>Yhteys palvelimeen katkaistu.</translation>
     </message>
@@ -5316,8 +5425,8 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
         <translation>Väärä palvelin salasana rekisteröimättömällä käyttäjätilillä, ole hyvä ja yritä uudelleen.</translation>
     </message>
     <message>
-        <location line="-2222"/>
-        <location line="+2419"/>
+        <location line="-2241"/>
+        <location line="+2453"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Kuvat (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5363,11 +5472,6 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     </message>
     <message>
         <location/>
-        <source>&amp;Connect</source>
-        <translation>&amp;Yhdistä</translation>
-    </message>
-    <message>
-        <location/>
         <source>Open the server connection dialog</source>
         <translation>Avaa palvelinyhteysikkuna</translation>
     </message>
@@ -5388,11 +5492,6 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     </message>
     <message>
         <location/>
-        <source>&amp;Information</source>
-        <translation>&amp;Tietoa</translation>
-    </message>
-    <message>
-        <location/>
         <source>Show information about the server connection</source>
         <translation>Näytä tietoa palvelinyhteydestä</translation>
     </message>
@@ -5403,18 +5502,8 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     </message>
     <message>
         <location/>
-        <source>&amp;Kick</source>
-        <translation>&amp;Poista</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Mute</source>
         <translation>&amp;Mykistä</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Ban</source>
-        <translation>&amp;Estä</translation>
     </message>
     <message>
         <location/>
@@ -5438,11 +5527,6 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     </message>
     <message>
         <location/>
-        <source>&amp;Add</source>
-        <translation>&amp;Lisää</translation>
-    </message>
-    <message>
-        <location/>
         <source>Add new channel</source>
         <translation>Lisää uusi kanava</translation>
     </message>
@@ -5450,11 +5534,6 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
         <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
         <translation>Lisää uuden alikanavan valitulle kanavalle.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Remove</source>
-        <translation>&amp;Poista</translation>
     </message>
     <message>
         <location/>
@@ -5551,11 +5630,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
         <translation>Mykistää tai poistaa mykistyksen käyttäjältä. Käytä käyttäjiin, jotka ovat samassa huoneessa.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Muokkaa</translation>
     </message>
     <message>
         <location/>
@@ -5671,11 +5745,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     </message>
     <message>
         <location/>
-        <source>&amp;Settings</source>
-        <translation>&amp;Asetukset</translation>
-    </message>
-    <message>
-        <location/>
         <source>Configure Mumble</source>
         <translation>Konfiguroi Mumble</translation>
     </message>
@@ -5683,11 +5752,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
         <translation>Sallii Mumblen asetusten muokkaamisen.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Audio Wizard</source>
-        <translation>&amp;Audioapuri</translation>
     </message>
     <message>
         <location/>
@@ -5716,11 +5780,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     </message>
     <message>
         <location/>
-        <source>&amp;About</source>
-        <translation>&amp;Tietoa Mumblesta</translation>
-    </message>
-    <message>
-        <location/>
         <source>Information about Mumble</source>
         <translation>Tietoa Mumblesta</translation>
     </message>
@@ -5731,11 +5790,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     </message>
     <message>
         <location/>
-        <source>About &amp;Speex</source>
-        <translation>Tietoa &amp;Speexistä</translation>
-    </message>
-    <message>
-        <location/>
         <source>Information about Speex</source>
         <translation>Tietoa Speexistä</translation>
     </message>
@@ -5743,11 +5797,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
         <translation>Antaa tietoa Speexistä.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>About &amp;Qt</source>
-        <translation>Tietoa &amp;Qt:sta</translation>
     </message>
     <message>
         <location/>
@@ -5778,11 +5827,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>Sends a text message to all users in a channel.</source>
         <translation>Lähettää viestin kaikille kanavan käyttäjille.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Change Comment</source>
-        <translation>&amp;Muokkaa kommenttia</translation>
     </message>
     <message>
         <location/>
@@ -5851,11 +5895,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     </message>
     <message>
         <location/>
-        <source>Registered &amp;Users</source>
-        <translation>Rekisteröidyt &amp;käyttäjät</translation>
-    </message>
-    <message>
-        <location/>
         <source>Edit registered users list</source>
         <translation>Muokkaa rekisteröityneiden käyttäjien listaa</translation>
     </message>
@@ -5863,11 +5902,6 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
         <translation>Avaa muokkaustyökalun rekisteröidyille käyttäjille, jossa pystyt muuttamaan heidän nimiään ja poistamaan heidän rekisteröitymisen.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Access Tokens</source>
-        <translation>&amp;Pääsyavaimet</translation>
     </message>
     <message>
         <location/>
@@ -5930,7 +5964,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>%2 vaimensi käyttäjän %1.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+26"/>
         <source>%1 moved to %2.</source>
         <translation>%1 siirtyi kanavalle %2.</translation>
     </message>
@@ -5940,12 +5974,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>%3 siirsi käyttäjän %1 kanavalle %2.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%3 siirsi käyttäjän %1 kanavallesi kanavalta %2.</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-202"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 on nyt mykistetty ja hiljennetty.</translation>
     </message>
@@ -6147,12 +6181,17 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>%1 poisti vaimennuksesi.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+75"/>
+        <source>You joined %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>You moved %1 to %2.</source>
         <translation>Siirsit %1 kanavalle %2.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>%1 is recording</source>
         <translation>%1 nauhoittaa</translation>
     </message>
@@ -6219,7 +6258,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>Palvelin ei salli Puhepikanäppäimen käyttöä.</translation>
     </message>
     <message>
-        <location line="-517"/>
+        <location line="-519"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 poisti sinun mykistyksen.</translation>
     </message>
@@ -6254,18 +6293,18 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>%2 poisti käyttäjän %1 mykistyksen.</translation>
     </message>
     <message>
-        <location line="+420"/>
+        <location line="+422"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Vastaavia CELT koodekkeja ei löydy muilta käyttäjiltä. Et pysty puhumaan kaikille käyttäjille.</translation>
     </message>
     <message>
-        <location line="-486"/>
+        <location line="-488"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 mykisti ja hiljensi sinut.</translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+178"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>%1 poisti sinut palvelimelta: %2.</translation>
     </message>
@@ -6285,17 +6324,17 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>%1 esti käyttäjän %3 pääsyn palvelimelle: %2.</translation>
     </message>
     <message>
-        <location line="-79"/>
+        <location line="-80"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2 siirsi sinut kanavalle %1.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>%1 entered channel.</source>
         <translation>%1 liittyi kanavalle.</translation>
     </message>
     <message>
-        <location line="-409"/>
+        <location line="-411"/>
         <source>Server connection rejected: %1.</source>
         <translation>Palvelinyhteys hylättiin: %1.</translation>
     </message>
@@ -6305,7 +6344,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>Estetty: %1</translation>
     </message>
     <message>
-        <location line="+269"/>
+        <location line="+271"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 vaihtoi nimensä %2.</translation>
     </message>
@@ -6320,7 +6359,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>Viesti käyttäjältä %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1377"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation>Käyttäjän vetäminen -asetuksesi on asetettu muotoon &quot;Älä tee mitään&quot;, joten käyttäjää ei liikutettu.</translation>
     </message>
@@ -6335,7 +6374,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>UserModel::dropMimeData sisältää lukemattoman kanavien vetämistilan.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-345"/>
+        <location filename="main.cpp" line="-351"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6387,7 +6426,7 @@ Valid actions are:
   undeaf
                 Undeafen self
   toggledeaf
-                Toggle self-deafen stauts
+                Toggle self-deafen status
 
 </source>
         <translation type="unfinished"/>
@@ -6408,7 +6447,7 @@ Valid actions are:
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+221"/>
+        <location line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>Tervetuloa Mumbleen.</translation>
     </message>
@@ -6434,28 +6473,8 @@ Valid actions are:
     </message>
     <message>
         <location/>
-        <source>Send &amp;Message</source>
-        <translation>Lähetä &amp;Viesti</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Unlink All</source>
         <translation>&amp;Poista kaikki liitokset</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Certificate Wizard</source>
-        <translation>&amp;Sertifikaattiapuri</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Register</source>
-        <translation>&amp;Rekisteröidy</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Reset &amp;Comment</source>
-        <translation>Poista &amp;Kommentti</translation>
     </message>
     <message>
         <location/>
@@ -6466,11 +6485,6 @@ Valid actions are:
         <location/>
         <source>&amp;Join Channel</source>
         <translation>&amp;Liity kanavalle</translation>
-    </message>
-    <message>
-        <location/>
-        <source>View Comment</source>
-        <translation>Katso kommentti</translation>
     </message>
     <message>
         <location/>
@@ -6494,28 +6508,13 @@ Valid actions are:
     </message>
     <message>
         <location/>
-        <source>Audio S&amp;tatistics</source>
-        <translation>Äänis&amp;tatistiikat</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Unlink Plugins</source>
         <translation>&amp;Erota liitännäinen</translation>
     </message>
     <message>
         <location/>
-        <source>R&amp;egister</source>
-        <translation>&amp;Rekisteröidy</translation>
-    </message>
-    <message>
-        <location/>
         <source>Register yourself on the server</source>
         <translation>Rekisteröidy palvelimelle</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Change &amp;Avatar</source>
-        <translation>&amp;Vaihda käyttäjäkuva</translation>
     </message>
     <message>
         <location/>
@@ -6579,11 +6578,6 @@ Valid actions are:
     </message>
     <message>
         <location/>
-        <source>&amp;Ban list</source>
-        <translation>&amp;Estettyjen käyttäjien lista</translation>
-    </message>
-    <message>
-        <location/>
         <source>Edit ban list on server</source>
         <translation>Muokkaa palvelimen estettyjä käyttäjiä</translation>
     </message>
@@ -6625,18 +6619,8 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <location/>
-        <source>Reset &amp;Avatar</source>
-        <translation>Poista &amp;käyttäjäkuva</translation>
-    </message>
-    <message>
-        <location/>
         <source>Reset the avatar of the selected user.</source>
         <translation>Poistaa valitun käyttäjän käyttäjäkuva.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Local Volume Adjustment</source>
-        <translation>Paikallinen äänenvoimakkuuden muokkaus</translation>
     </message>
     <message>
         <location/>
@@ -6649,12 +6633,12 @@ kanavien alivalikosta.</translation>
         <translation>Avaa dialogin, mistä äänenvoimakkuutta voi muokata. Käytä tätä muihin samalla kanavalla oleviin käyttäjiin.</translation>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.cpp" line="-3064"/>
         <source>&amp;Developer</source>
         <translation>&amp;Kehittäjä</translation>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.ui"/>
         <source>&amp;Hide Mumble</source>
         <translation>&amp;Piilota Mumble</translation>
     </message>
@@ -6670,11 +6654,6 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <location/>
-        <source>Developer &amp;Console</source>
-        <translation>&amp;Kehittäjäkonsoli</translation>
-    </message>
-    <message>
-        <location/>
         <source>Show the Developer Console</source>
         <translation>Näytä kehittäjäkonsoli</translation>
     </message>
@@ -6682,6 +6661,141 @@ kanavien alivalikosta.</translation>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
         <translation>Näyttää Mumblen kehittäjäkonsolin, mistä lokitietoja voi selata.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Connect...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Information...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Kick...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Local Volume Adjustment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Send &amp;Message...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Audio S&amp;tatistics...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Settings...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Audio Wizard...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Developer &amp;Console...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;About...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>About &amp;Speex...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>About &amp;Qt...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Certificate Wizard...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Register...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Registered &amp;Users...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Change &amp;Avatar...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Access Tokens...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Reset &amp;Comment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Reset &amp;Avatar...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>View Comment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Change Comment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;egister...</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6952,27 +7066,6 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <location/>
-        <source>Misc</source>
-        <translation>Muut</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Prevent log from downloading images</source>
-        <translation>Estä kuvien lataus</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
-Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation>&lt;b&gt;Estä kuvien lataus&lt;/b&gt;&lt;br/&gt;Estää ohjelman lataamasta kuvia chatti viesteissä.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Disable image download</source>
-        <translation>Estä kuvien lataus</translation>
-    </message>
-    <message>
-        <location/>
         <source>Mumble services</source>
         <translation>Mumble palvelut</translation>
     </message>
@@ -7031,6 +7124,27 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Download plugin and overlay updates on startup</source>
         <translation>Lataa liitännäisten ja overlayn päivitykset ohjelman käynnistymisen yhteydessä</translation>
     </message>
+    <message>
+        <location/>
+        <source>Privacy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Prevent OS information being sent to Mumble servers and web servers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
+Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Do not send OS information to Mumble servers and web servers</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Overlay</name>
@@ -7065,7 +7179,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Kanava</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+91"/>
+        <location filename="Overlay.cpp" line="+205"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Overlayn luominen epäonnistui kohteessa %2: %1. Overlayta ei ole saatavissa.</translation>
     </message>
@@ -7151,7 +7265,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+74"/>
+        <location filename="OverlayConfig.cpp" line="+80"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Liikuttaaksesi käyttäjiä vedä pienestä punaisesta pisteestä.</translation>
     </message>
@@ -7168,28 +7282,42 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Saadaksesi lisävalintoja, paina käyttäjää hiiren oikealla napilla.</translation>
     </message>
     <message>
-        <location line="+278"/>
+        <location line="+72"/>
+        <source>Launcher Filter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+249"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+190"/>
+        <location line="+60"/>
+        <location line="+76"/>
         <source>Choose executable</source>
         <translation>Valitse suoritettava</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-134"/>
+        <location line="+60"/>
+        <location line="+76"/>
         <source>Choose application</source>
         <translation>Valitse ohjelma</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="-41"/>
+        <source>Choose path</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+132"/>
         <source>Load Overlay Presets</source>
         <translation>Lataa Overlay asetelma</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+28"/>
+        <location line="+36"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
         <translation>Mumblen overlay asetelma (*.mumblelay)</translation>
     </message>
@@ -7225,22 +7353,17 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Asettelu</translation>
     </message>
     <message>
-        <location/>
-        <source>Overlay exceptions</source>
-        <translation>Overlay poikkeukset</translation>
-    </message>
-    <message>
-        <location/>
+        <location filename="OverlayConfig.cpp" line="-702"/>
         <source>Blacklist</source>
         <translation>Musta lista</translation>
     </message>
     <message>
-        <location/>
+        <location line="-1"/>
         <source>Whitelist</source>
         <translation>Valkoinen lista</translation>
     </message>
     <message>
-        <location/>
+        <location filename="Overlay.ui"/>
         <source>Uninstall Overlay</source>
         <translation>Overlayn asennuksen poisto</translation>
     </message>
@@ -7329,11 +7452,6 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
     </message>
     <message>
         <location/>
-        <source>Add...</source>
-        <translation>Lisää...</translation>
-    </message>
-    <message>
-        <location/>
         <source>Remove</source>
         <translation>Poista</translation>
     </message>
@@ -7341,21 +7459,6 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
         <location/>
         <source>Font</source>
         <translation>Fontti</translation>
-    </message>
-    <message>
-        <location/>
-        <source>To list exceptions, use a</source>
-        <translation>Poikkeustapauksen lisäämisessä käytä:</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Show the overlay in all applicable programs except</source>
-        <translation>Näytä Overlay kaikissa sovelluksissa lukuunottamatta</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Show the overlay only in</source>
-        <translation>Näytä Overlay ainoastaan</translation>
     </message>
     <message>
         <location/>
@@ -7371,6 +7474,41 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
         <location/>
         <source>Show Clock</source>
         <translation>Näytä kello</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay Exceptions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay Exception Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Allowed launchers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Allowed programs</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Allowed paths</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklisted programs</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7620,7 +7758,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
         <translation>Liitännäiset</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+58"/>
+        <location filename="Plugins.cpp" line="+54"/>
         <source>Plugin has no configure function.</source>
         <translation>Liitännäisellä ei ole muokkausmahdollisuutta.</translation>
     </message>
@@ -7750,7 +7888,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+792"/>
+        <location filename="PulseAudio.cpp" line="+799"/>
         <source>Default Input</source>
         <translation>Oletus Sisääntulo</translation>
     </message>
@@ -7763,7 +7901,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+123"/>
+        <location filename="main.cpp" line="+126"/>
         <source>Failed to restart mumble</source>
         <translation>Uudelleenkäynnistys epäonnistui</translation>
     </message>
@@ -7877,7 +8015,12 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+397"/>
+        <location filename="ServerHandler.cpp" line="+298"/>
+        <source>Unable to resolve hostname</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+173"/>
         <source>Server is not responding to TCP pings</source>
         <translation>Palvelin ei vastaa TCP-pingeihin</translation>
     </message>
@@ -7902,7 +8045,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
         <translation>UDP paketteja voidaan lähettää ja vastaanottaa palvelimelta. Siirrytään takaisin UDP tilaan.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+53"/>
         <source>Connection timed out</source>
         <translation>Yhteys aikakatkaistiin</translation>
     </message>
@@ -7910,7 +8053,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-646"/>
+        <location filename="ConnectDialog.cpp" line="-753"/>
         <source>Favorite</source>
         <translation>Suosikki</translation>
     </message>
@@ -7958,7 +8101,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-602"/>
+        <location filename="GlobalShortcut.cpp" line="-615"/>
         <source>Unassigned</source>
         <translation>Määrittämätön</translation>
     </message>
@@ -7966,7 +8109,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+376"/>
+        <location line="+363"/>
         <source>On</source>
         <translation> Päällä</translation>
     </message>
@@ -7989,7 +8132,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-450"/>
+        <location line="-437"/>
         <source>Press Shortcut</source>
         <translation>Paina Pikanäppäintä</translation>
     </message>
@@ -7997,7 +8140,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+206"/>
+        <location line="+193"/>
         <source>Root</source>
         <translation>Juuri</translation>
     </message>
@@ -8425,8 +8568,8 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     </message>
     <message>
         <location line="+2"/>
-        <source>Channel id: %1</source>
-        <translation>Kanavan id: %1</translation>
+        <source>Channel ID: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8460,7 +8603,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-830"/>
+        <location filename="UserModel.cpp" line="-834"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Palvelimelle yhdistänyt käyttäjä. Kuvake käyttäjän vieressä ilmaisee onko käyttäjä puhumassa vai ei.</translation>
     </message>
@@ -8596,7 +8739,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
         <translation>Merkintä</translation>
     </message>
     <message>
-        <location line="+722"/>
+        <location line="+726"/>
         <source>Are you sure you want to drag this user?</source>
         <translation>Haluatko varmasti siirtää tämän käyttäjän?</translation>
     </message>
@@ -8941,7 +9084,7 @@ Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+226"/>
+        <location filename="WASAPI.cpp" line="+241"/>
         <source>Default Device</source>
         <translation>Oletuslaite</translation>
     </message>

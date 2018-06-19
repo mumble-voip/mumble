@@ -45,6 +45,7 @@
 #include "Settings.h"
 #include "Themes.h"
 #include "SSLCipherInfo.h"
+#include "SvgIcon.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -63,37 +64,25 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast<QEvent::Type>(OU_QEVENT)
 }
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
-	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
-	qiIconMuteServer.addFile(QLatin1String("skin:muted_server.svg"));
-	qiIconMuteSuppressed.addFile(QLatin1String("skin:muted_suppressed.svg"));
-	qiIconMutePushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
-	qiIconDeafSelf.addFile(QLatin1String("skin:deafened_self.svg"));
-	qiIconDeafServer.addFile(QLatin1String("skin:deafened_server.svg"));
-	qiTalkingOff.addFile(QLatin1String("skin:talking_off.svg"));
-	qiTalkingOn.addFile(QLatin1String("skin:talking_on.svg"));
-	qiTalkingShout.addFile(QLatin1String("skin:talking_alt.svg"));
-	qiTalkingWhisper.addFile(QLatin1String("skin:talking_whisper.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSelf, QLatin1String("skin:muted_self.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMuteServer, QLatin1String("skin:muted_server.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSuppressed, QLatin1String("skin:muted_suppressed.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconMutePushToMute, QLatin1String("skin:muted_pushtomute.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconDeafSelf, QLatin1String("skin:deafened_self.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiIconDeafServer, QLatin1String("skin:deafened_server.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingOff, QLatin1String("skin:talking_off.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingOn, QLatin1String("skin:talking_on.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingShout, QLatin1String("skin:talking_alt.svg"));
+	SvgIcon::addSvgPixmapsToIcon(qiTalkingWhisper, QLatin1String("skin:talking_whisper.svg"));
 
 #ifdef Q_OS_MAC
 	if (QFile::exists(QLatin1String("skin:mumble.icns")))
 		qiIcon.addFile(QLatin1String("skin:mumble.icns"));
 	else
-		qiIcon.addFile(QLatin1String("skin:mumble.svg"));
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
 	{
-		QSvgRenderer svg(QLatin1String("skin:mumble.svg"));
-		QPixmap original(512,512);
-		original.fill(Qt::transparent);
-
-		QPainter painter(&original);
-		painter.setRenderHint(QPainter::Antialiasing);
-		painter.setRenderHint(QPainter::TextAntialiasing);
-		painter.setRenderHint(QPainter::SmoothPixmapTransform);
-		painter.setRenderHint(QPainter::HighQualityAntialiasing);
-		svg.render(&painter);
-
-		for (int sz=8;sz<=256;sz+=8)
-			qiIcon.addPixmap(original.scaled(sz,sz, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 	}
 
 	// Set application icon except on MacOSX, where the window-icon
@@ -601,6 +590,12 @@ void MainWindow::updateTrayIcon() {
 	}
 }
 
+void MainWindow::updateUserModel()
+{
+	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+	um->toggleChannelFiltered(NULL); // Force a UI refresh
+}
+
 void MainWindow::updateTransmitModeComboBox() {
 	switch (g.s.atTransmit) {
 		case Settings::Continuous:
@@ -895,7 +890,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		}
 	}
 
-	Database::fuzzyMatch(name, user, pw, host, port);
+	g.db->fuzzyMatch(name, user, pw, host, port);
 
 	if (user.isEmpty()) {
 		bool ok;
@@ -1173,7 +1168,7 @@ void MainWindow::on_qaSelfComment_triggered() {
 		return;
 
 	if (! p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
-		p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+		p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
 		if (p->qsComment.isEmpty()) {
 			pmModel->uiSessionComment = ~(p->uiSession);
 			MumbleProto::RequestBlob mprb;
@@ -1200,7 +1195,7 @@ void MainWindow::on_qaSelfComment_triggered() {
 		g.sh->sendMessage(mpus);
 
 		if (! msg.isEmpty())
-			Database::setBlob(sha1(msg), msg.toUtf8());
+			g.db->setBlob(sha1(msg), msg.toUtf8());
 	}
 	delete texm;
 }
@@ -1588,7 +1583,7 @@ void MainWindow::on_qaUserLocalMute_triggered() {
 
 	p->setLocalMute(muted);
 	if (! p->qsHash.isEmpty())
-		Database::setLocalMuted(p->qsHash, muted);
+		g.db->setLocalMuted(p->qsHash, muted);
 }
 
 void MainWindow::on_qaUserLocalIgnore_triggered() {
@@ -1600,7 +1595,7 @@ void MainWindow::on_qaUserLocalIgnore_triggered() {
 
 	p->setLocalIgnore(ignored);
 	if (! p->qsHash.isEmpty())
-		Database::setLocalIgnored(p->qsHash, ignored);
+		g.db->setLocalIgnored(p->qsHash, ignored);
 }
 
 void MainWindow::on_qaUserLocalVolume_triggered() {
@@ -1676,7 +1671,7 @@ void MainWindow::on_qaUserFriendAdd_triggered() {
 	if (!p)
 		return;
 
-	Database::addFriend(p->qsName, p->qsHash);
+	g.db->addFriend(p->qsName, p->qsHash);
 	pmModel->setFriendName(p, p->qsName);
 }
 
@@ -1689,7 +1684,7 @@ void MainWindow::on_qaUserFriendRemove_triggered() {
 	if (!p)
 		return;
 
-	Database::removeFriend(p->qsHash);
+	g.db->removeFriend(p->qsHash);
 	pmModel->setFriendName(p, QString());
 }
 
@@ -1769,7 +1764,7 @@ void MainWindow::on_qaUserCommentView_triggered() {
 		return;
 
 	if (! p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
-		p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+		p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
 		if (p->qsComment.isEmpty()) {
 			pmModel->uiSessionComment = ~(p->uiSession);
 			MumbleProto::RequestBlob mprb;
@@ -2063,7 +2058,7 @@ void MainWindow::on_qaChannelACL_triggered() {
 	int id = c->iId;
 
 	if (! c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
-		c->qsDesc = QString::fromUtf8(Database::blob(c->qbaDescHash));
+		c->qsDesc = QString::fromUtf8(g.db->blob(c->qbaDescHash));
 		if (c->qsDesc.isEmpty()) {
 			MumbleProto::RequestBlob mprb;
 			mprb.add_channel_description(id);
@@ -2280,9 +2275,7 @@ void MainWindow::on_qaAudioReset_triggered() {
 
 void MainWindow::on_qaFilterToggle_triggered() {	
 	g.s.bFilterActive = qaFilterToggle->isChecked();
-
-	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-	um->toggleChannelFiltered(NULL); // force a UI refresh
+	updateUserModel();
 }
 
 void MainWindow::on_qaAudioMute_triggered() {
@@ -2382,9 +2375,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 		setupView(false);
 		updateTransmitModeComboBox();
 		updateTrayIcon();
-
-		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-		um->toggleChannelFiltered(NULL); // force a UI refresh
+		updateUserModel();
 		
 		if (g.s.requireRestartToApply) {
 			if (g.s.requireRestartToApply && QMessageBox::question(
@@ -2491,6 +2482,7 @@ void MainWindow::pttReleased() {
 void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	g.bPushToMute = down;
 	updateTrayIcon();
+	updateUserModel();
 }
 
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
@@ -2858,7 +2850,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	QString uname, pw, host;
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	if (Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
+	if (g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 
 	if (aclEdit) {
@@ -2915,7 +2907,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			QString basereason;
 			QString actual_digest = QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex());
 			QString digests_section = tr("<li>Server certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(actual_digest));
-			QString expected_digest = Database::getDigest(host, port);
+			QString expected_digest = g.db->getDigest(host, port);
 			if (! expected_digest.isNull()) {
 				basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
 				digests_section.append(tr("<li>Expected certificate digest (SHA-1):\t%1</li>").arg(ViewCert::prettifyDigest(expected_digest)));
@@ -2943,7 +2935,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 					vc.exec();
 					continue;
 				} else if (res == QMessageBox::Yes) {
-					Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+					g.db->setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
 					qaServerDisconnect->setEnabled(true);
 					on_Reconnect_timeout();
 				}
@@ -2999,7 +2991,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		}
 		if (ok && matched) {
 			if (! g.s.bSuppressIdentity)
-				Database::setPassword(host, port, uname, pw);
+				g.db->setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			g.sh->setConnectionInfo(host, port, uname, pw);
 			on_Reconnect_timeout();

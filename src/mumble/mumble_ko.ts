@@ -105,11 +105,6 @@
     </message>
     <message>
         <location/>
-        <source>Channel positioning facility value</source>
-        <translation>채널 위치를 지정하기 위한 값</translation>
-    </message>
-    <message>
-        <location/>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
@@ -506,6 +501,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>This is the sort order for the channel.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -677,7 +677,7 @@ This value allows you to set the maximum number of users allowed in the channel.
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+78"/>
+        <location filename="ASIOInput.cpp" line="+74"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>ASIO을 사용하려면 적어도 1개의 마이크와 1개의 스피커를 선택해야 합니다. 만약 마이크 샘플링이 필요한 것 뿐이라면 DirectSound를 사용해 주세요.</translation>
     </message>
@@ -716,8 +716,8 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <location line="+1"/>
-        <source>3rd &amp;party licenses</source>
-        <translation>3rd &amp;party 라이센스</translation>
+        <source>&amp;Third-Party Licenses</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -1098,7 +1098,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>PTT키를 누른 뒤에 마이크가 꺼지는 시간</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+513"/>
+        <location filename="AudioInput.cpp" line="+580"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>서버의 최대 네트워크 대역은%1kbit/s밖에 안됩니다. 음성 품질은 자동적으로%2kbit/s(%3 ms)로 조절 됩니다</translation>
     </message>
@@ -1152,6 +1152,16 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>Multichannel echo cancellation</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>The idle action will be reversed upon any key or mouse button input</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Undo Idle action upon activity</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1176,7 +1186,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>오디오 입력</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+98"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -1554,7 +1564,7 @@ This value allows you to set the maximum number of users allowed in the channel.
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+137"/>
+        <location filename="AudioConfigDialog.cpp" line="+138"/>
         <source>None</source>
         <translation>빈칸</translation>
     </message>
@@ -1574,7 +1584,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>오디오 출력</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+119"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -1599,7 +1609,7 @@ This value allows you to set the maximum number of users allowed in the channel.
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutputSample.cpp" line="+185"/>
+        <location filename="AudioOutputSample.cpp" line="+186"/>
         <source>Choose sound file</source>
         <translation>사운드 파일 선택</translation>
     </message>
@@ -2412,7 +2422,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>CertView</name>
     <message>
-        <location filename="Cert.cpp" line="+26"/>
+        <location filename="Cert.cpp" line="+27"/>
         <source>Name</source>
         <translation>이름</translation>
     </message>
@@ -2445,7 +2455,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>CertWizard</name>
     <message>
-        <location line="+85"/>
+        <location line="+86"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation type="unfinished"/>
     </message>
@@ -2505,12 +2515,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+60"/>
-        <source>Mumble User</source>
-        <translation>Mumble 유저</translation>
-    </message>
-    <message>
-        <location filename="main.cpp" line="+501"/>
+        <location filename="main.cpp" line="+517"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;인증서의 유효 기간:&lt;/b&gt;당신의 인증서의 유효 기한이 곧 종료 됩니다. 인증서를 갱신할 필요가 있습니다. 갱신을 하지 않는다면 등록한 서버에 접속할 수 없게 될 것입니다.</translation>
     </message>
@@ -2806,17 +2811,13 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location/>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;
-&lt;p&gt;
-It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
-&lt;/p&gt;
-</source>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location/>
-        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
-&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3053,7 +3054,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+30"/>
+        <location filename="ConfigDialog.cpp" line="+29"/>
         <source>Accept changes</source>
         <translation>변경 확인</translation>
     </message>
@@ -3108,33 +3109,28 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <source>Mumble Configuration</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <location/>
-        <source>Advanced</source>
-        <translation>확장기능</translation>
-    </message>
 </context>
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+1020"/>
+        <location filename="ConnectDialog.cpp" line="+1134"/>
         <source>Connecting to %1</source>
         <translation>%1에 접속 중</translation>
     </message>
     <message>
-        <location line="-624"/>
-        <location line="+624"/>
+        <location line="-699"/>
+        <location line="+699"/>
         <source>Enter username</source>
         <translation>유저이름 입력</translation>
     </message>
     <message>
-        <location line="-624"/>
+        <location line="-699"/>
         <source>Adding host %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+76"/>
+        <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
         <translation>서버이름</translation>
     </message>
@@ -3195,7 +3191,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+350"/>
+        <location line="+430"/>
         <source>&amp;Connect</source>
         <translation>연결(&amp;C)</translation>
     </message>
@@ -3206,7 +3202,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-425"/>
+        <location filename="ConnectDialog.cpp" line="-505"/>
         <source>Users</source>
         <translation>유저</translation>
     </message>
@@ -3216,7 +3212,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>버전</translation>
     </message>
     <message>
-        <location line="+1145"/>
+        <location line="+1221"/>
         <source>Failed to fetch server list</source>
         <translation type="unfinished"/>
     </message>
@@ -3277,7 +3273,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-788"/>
+        <location filename="ConnectDialog.cpp" line="-784"/>
         <source>&amp;Edit...</source>
         <translation>편집(&amp;E)</translation>
     </message>
@@ -3382,9 +3378,23 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation>라벨</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-126"/>
+        <location filename="ConnectDialog.cpp" line="-192"/>
         <source>Add Server</source>
         <translation>서버 추가</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>You are currently connected to a server.
+Do you want to fill the dialog with the connection data of this server?
+Host: %1 Port: %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>You have an URL in your clipboard.
+Do you want to fill the dialog with this data?
+Host: %1 Port: %2</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
@@ -3438,6 +3448,11 @@ Label of the server. This is what the server will be named like in your server l
         <source>Your password</source>
         <translation>비밀번호</translation>
     </message>
+    <message>
+        <location/>
+        <source>&amp;Fill</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -3450,7 +3465,7 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>CrashReporter</name>
     <message>
-        <location filename="CrashReporter.cpp" line="+15"/>
+        <location filename="CrashReporter.cpp" line="+16"/>
         <source>Mumble Crash Report</source>
         <translation>Mumble 충돌 보고서</translation>
     </message>
@@ -3507,7 +3522,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+101"/>
         <source>Uploading crash report</source>
         <translation type="unfinished"/>
     </message>
@@ -3520,7 +3535,7 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+151"/>
+        <location filename="DirectSound.cpp" line="+158"/>
         <source>Default DirectSound Voice Input</source>
         <translation>기본 DirectSound 음성 입력</translation>
     </message>
@@ -3677,11 +3692,63 @@ of the possible locations.</source>
         <source>Enable Global Shortcuts</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Additional Shortcut Engines</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Windows hooks</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable GKey</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable XInput</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
+&lt;br /&gt;&lt;br /&gt;
+Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable shortcuts in privileged applications</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+540"/>
+        <location filename="GlobalShortcut.cpp" line="+533"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -3691,7 +3758,7 @@ of the possible locations.</source>
         <translation>단축키</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+72"/>
         <source>Shortcut button combination.</source>
         <translation>단축 버튼 조합</translation>
     </message>
@@ -3806,7 +3873,7 @@ of the possible locations.</source>
 <context>
     <name>LCD</name>
     <message>
-        <location filename="LCD.cpp" line="+271"/>
+        <location filename="LCD.cpp" line="+267"/>
         <source>Not connected</source>
         <translation>연결 되지 않았습니다.</translation>
     </message>
@@ -3814,12 +3881,12 @@ of the possible locations.</source>
 <context>
     <name>LCDConfig</name>
     <message>
-        <location line="-175"/>
+        <location line="-171"/>
         <source>Enable this device</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+5"/>
         <source>LCD</source>
         <translation type="unfinished"/>
     </message>
@@ -3894,7 +3961,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+216"/>
+        <location filename="Log.cpp" line="+221"/>
         <source>Debug</source>
         <translation>디버그</translation>
     </message>
@@ -4014,17 +4081,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+1"/>
+        <source>You Joined Channel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You Joined Channel (moved)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+59"/>
         <source>the server</source>
         <translation>서버</translation>
     </message>
     <message>
-        <location line="+119"/>
-        <source>[[ No valid image ]]</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="+111"/>
         <source>[[ Invalid size ]]</source>
         <translation type="unfinished"/>
     </message>
@@ -4040,13 +4112,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+74"/>
         <source>link to %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
-        <source>ftp link to %1</source>
+        <source>FTP link to %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4068,7 +4140,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-504"/>
+        <location line="-495"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"/>
     </message>
@@ -4078,17 +4150,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>Toggle Text-To-Speech for %1 events</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-10"/>
         <source>Click here to toggle sound notification for %1 events</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
+        <source>Toggle window highlight (if not active) for %1 events</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
         <translation type="unfinished"/>
     </message>
@@ -4101,6 +4178,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4240,6 +4322,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source> Lines</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>Highlight</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>
@@ -4250,12 +4337,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+21"/>
-        <location line="+49"/>
+        <location line="+51"/>
         <source>None</source>
         <translation>없음</translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location line="-50"/>
         <source>Only with users</source>
         <translation type="unfinished"/>
     </message>
@@ -4283,7 +4370,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>이동</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
         <translation type="unfinished"/>
@@ -4549,17 +4636,37 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Developer menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>When in custom layout mode, checking this disables rearranging.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Lock layout</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+117"/>
-        <location line="+2669"/>
+        <location line="+2698"/>
         <source>Root</source>
         <translation>루트</translation>
     </message>
     <message>
-        <location line="-2615"/>
+        <location line="-2641"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>누르며 말하기</translation>
@@ -4638,28 +4745,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2609"/>
+        <location line="+2635"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2737"/>
+        <location line="-2763"/>
         <source>&amp;Window</source>
         <translation>&amp;Window</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+186"/>
+        <location line="+185"/>
         <source>Minimize</source>
         <translation>최소화</translation>
     </message>
     <message>
-        <location line="-186"/>
+        <location line="-185"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+184"/>
         <source>Close</source>
         <translation>종료</translation>
     </message>
@@ -4669,7 +4776,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>현재 서버에 접속 되어 있습니다. 연결을 종료하거나 트레이합니까?</translation>
     </message>
     <message>
-        <location line="-253"/>
+        <location line="-252"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>발언 금지</translation>
@@ -4712,18 +4819,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2753"/>
+        <location line="+2794"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;연결되지 않았습니다.&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2318"/>
+        <location line="-2352"/>
         <source>Clear</source>
         <translation>청소</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+73"/>
         <source>Opening URL %1</source>
         <translation>URL %1 열기</translation>
     </message>
@@ -4764,7 +4871,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+15"/>
-        <location line="+205"/>
+        <location line="+221"/>
         <source>Connecting to server %1.</source>
         <translation>%1 서버에 연결 중입니다.</translation>
     </message>
@@ -4775,12 +4882,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1498"/>
+        <location line="+1500"/>
         <source>Transmit Mode set to Continuous</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1398"/>
+        <location line="-1400"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
@@ -4874,7 +4981,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+76"/>
         <location line="+270"/>
-        <location line="+612"/>
+        <location line="+614"/>
         <source>Message to channel %1</source>
         <translation>채널%1 메시지</translation>
     </message>
@@ -4904,7 +5011,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+67"/>
+        <source>Server connection failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+80"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation>&lt;center&gt;채널&apos;%1&apos; 채팅 내용을 입력하세요.&lt;/center&gt;</translation>
@@ -4939,7 +5051,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-3056"/>
+        <location line="-3100"/>
         <source>&amp;User</source>
         <translation>유저(&amp;U)</translation>
     </message>
@@ -4949,7 +5061,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>채널(&amp;C)</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+62"/>
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
@@ -5012,12 +5124,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+62"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location line="+291"/>
+        <location line="+299"/>
         <source>Save Image As...</source>
         <translation type="unfinished"/>
     </message>
@@ -5032,24 +5144,24 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+401"/>
+        <location line="+418"/>
         <source>Change your comment</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1485"/>
+        <location line="+1487"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1480"/>
-        <location line="+1484"/>
+        <location line="-1482"/>
+        <location line="+1486"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1333"/>
+        <location line="-1335"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -5100,12 +5212,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1525"/>
+        <location line="+1527"/>
         <source>&amp;View Certificate</source>
         <translation>인증 보기(&amp;V)</translation>
     </message>
     <message>
-        <location line="-1231"/>
+        <location line="-1233"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished"/>
@@ -5120,12 +5232,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+103"/>
         <location line="+4"/>
         <location line="+266"/>
-        <location line="+612"/>
+        <location line="+614"/>
         <source>To %1: %2</source>
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location line="-985"/>
+        <location line="-987"/>
         <location line="+107"/>
         <source>Message to %1</source>
         <translation>%1 메시지</translation>
@@ -5192,7 +5304,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation> 청취 금지를 해제했습니다.</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+49"/>
         <source>Restart Mumble?</source>
         <translation type="unfinished"/>
     </message>
@@ -5207,7 +5319,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Qt에 대해서</translation>
     </message>
     <message>
-        <location line="+464"/>
+        <location line="+468"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"/>
     </message>
@@ -5228,11 +5340,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+6"/>
+        <location line="+59"/>
         <source>Server connection failed: %1.</source>
         <translation>%1 서버 연결에 실패 하였습니다.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-57"/>
         <source>Disconnected from server.</source>
         <translation>서버로 부터 접속해제 되었습니다.</translation>
     </message>
@@ -5283,8 +5396,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2222"/>
-        <location line="+2419"/>
+        <location line="-2241"/>
+        <location line="+2453"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"/>
     </message>
@@ -5330,11 +5443,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Connect</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location/>
         <source>Open the server connection dialog</source>
         <translation>서버 연결 대화상자를 열어 봅니다.</translation>
     </message>
@@ -5355,11 +5463,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Information</source>
-        <translation>정보</translation>
-    </message>
-    <message>
-        <location/>
         <source>Show information about the server connection</source>
         <translation>서버 연결에 대한 정보를 보여 줍니다.</translation>
     </message>
@@ -5370,18 +5473,8 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Kick</source>
-        <translation>강퇴</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Mute</source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Ban</source>
-        <translation>차단</translation>
     </message>
     <message>
         <location/>
@@ -5405,11 +5498,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <location/>
         <source>Add new channel</source>
         <translation>채널을 새로 추가한다.</translation>
     </message>
@@ -5417,11 +5505,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Remove</source>
-        <translation>삭제</translation>
     </message>
     <message>
         <location/>
@@ -5517,11 +5600,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
         <translation>로컬 사용자 발언을 금지합니다. 같은 룸에 있는 사용자에게 사용하세요</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Edit</source>
-        <translation>편집</translation>
     </message>
     <message>
         <location/>
@@ -5637,11 +5715,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Settings</source>
-        <translation>설정</translation>
-    </message>
-    <message>
-        <location/>
         <source>Configure Mumble</source>
         <translation>Mumble 설정</translation>
     </message>
@@ -5649,11 +5722,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
         <translation>Mumble의 여러가지 설정을 합니다.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Audio Wizard</source>
-        <translation>오디오 마법사</translation>
     </message>
     <message>
         <location/>
@@ -5682,11 +5750,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;About</source>
-        <translation>&amp;About</translation>
-    </message>
-    <message>
-        <location/>
         <source>Information about Mumble</source>
         <translation>Mumble 정보에 대해서</translation>
     </message>
@@ -5697,11 +5760,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>About &amp;Speex</source>
-        <translation>Speex에 대해서</translation>
-    </message>
-    <message>
-        <location/>
         <source>Information about Speex</source>
         <translation>Speex 정보에 대해서</translation>
     </message>
@@ -5709,11 +5767,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
         <translation>Speex 정보를 위한 대화 상자를 표시합니다.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>About &amp;Qt</source>
-        <translation>Qt에 대해서</translation>
     </message>
     <message>
         <location/>
@@ -5744,11 +5797,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Sends a text message to all users in a channel.</source>
         <translation>채널 내의 모든 사용자에게 메시지를 송신합니다.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Change Comment</source>
-        <translation>코멘트 변경</translation>
     </message>
     <message>
         <location/>
@@ -5817,11 +5865,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>Registered &amp;Users</source>
-        <translation>등록된 사용자(&amp;U)</translation>
-    </message>
-    <message>
-        <location/>
         <source>Edit registered users list</source>
         <translation>등록된 사용자의 명단 편집</translation>
     </message>
@@ -5829,11 +5872,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
         <translation>권한 관리를 위해 등록 된 사용자 편집 대화 상자를 엽니다.(사용자의 이름을 변경하거나 등록을 삭제하거나 할 수 있습니다).</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Access Tokens</source>
-        <translation>액세스 토큰(&amp;A)</translation>
     </message>
     <message>
         <location/>
@@ -5896,7 +5934,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2가%1의 발언을 금지했습니다.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+26"/>
         <source>%1 moved to %2.</source>
         <translation>%1은 %2로 이동 했습니다.</translation>
     </message>
@@ -5906,12 +5944,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1은 %3에 의해 %2로 이동 합니다.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1은 %3에 의해 %2으로 부터 이동하게 되었습니다.</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-202"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 발언 금지/청취 금지 상태가 되었습니다.</translation>
     </message>
@@ -6113,12 +6151,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation>당신은%1에 따라 발언 금지가 해제 되었습니다.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+75"/>
+        <source>You joined %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>You moved %1 to %2.</source>
         <translation>당신은 %1 를 %2로 이동 시켰습니다.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>%1 is recording</source>
         <translation>%1은 녹음하고 있습니다</translation>
     </message>
@@ -6185,7 +6228,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-517"/>
+        <location line="-519"/>
         <source>You were unmuted by %1.</source>
         <translation>%1가 당신의 발언 금지를 해제 하였습니다.</translation>
     </message>
@@ -6220,18 +6263,18 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1은 %2으로부터 발언 금지 해제 되었습니다.</translation>
     </message>
     <message>
-        <location line="+420"/>
+        <location line="+422"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>다른 클라이언트와 매치된 CELT코덱이 발견되지 않습니다. 당신은 모든 유저에게 말을 할수 없습니다.</translation>
     </message>
     <message>
-        <location line="-486"/>
+        <location line="-488"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1이 당신의 청취을 금지했습니다.</translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+178"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>당신은%1에 의해 서버부터 강퇴 되었습니다.%2.</translation>
     </message>
@@ -6251,17 +6294,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%3은%1에 의해 강퇴되어 서버에서 제명 되었습니다.%2.</translation>
     </message>
     <message>
-        <location line="-79"/>
+        <location line="-80"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2가 당신을 %1로 이동 시켰습니다.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>%1 entered channel.</source>
         <translation>%1 채널에 입장 했습니다.</translation>
     </message>
     <message>
-        <location line="-409"/>
+        <location line="-411"/>
         <source>Server connection rejected: %1.</source>
         <translation>서버 접속을 거부당했습니다:%1.</translation>
     </message>
@@ -6271,7 +6314,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>거부당했습니다:%1.</translation>
     </message>
     <message>
-        <location line="+269"/>
+        <location line="+271"/>
         <source>%1 renamed to %2.</source>
         <translation type="unfinished"/>
     </message>
@@ -6286,7 +6329,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1의 메시지</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1377"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation type="unfinished"/>
     </message>
@@ -6301,7 +6344,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>UserModel;dropMimeData 불분명한 채널 D모드입니다.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-345"/>
+        <location filename="main.cpp" line="-351"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6353,7 +6396,7 @@ Valid actions are:
   undeaf
                 Undeafen self
   toggledeaf
-                Toggle self-deafen stauts
+                Toggle self-deafen status
 
 </source>
         <translation type="unfinished"/>
@@ -6374,7 +6417,7 @@ Valid actions are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+221"/>
+        <location line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>멈블에 오신것을 환영 합니다</translation>
     </message>
@@ -6400,28 +6443,8 @@ Valid actions are:
     </message>
     <message>
         <location/>
-        <source>Send &amp;Message</source>
-        <translation>메시지를 송신(&amp;M)</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Unlink All</source>
         <translation>모든 링크를 해제(&amp;U)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Certificate Wizard</source>
-        <translation>인증 마법사(&amp;C)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Register</source>
-        <translation>유저 등록(&amp;R)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Reset &amp;Comment</source>
-        <translation>코멘트를 리셋(&amp;R)</translation>
     </message>
     <message>
         <location/>
@@ -6432,11 +6455,6 @@ Valid actions are:
         <location/>
         <source>&amp;Join Channel</source>
         <translation>채널 입장(&amp;J)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>View Comment</source>
-        <translation>코멘트 보기</translation>
     </message>
     <message>
         <location/>
@@ -6460,28 +6478,13 @@ Valid actions are:
     </message>
     <message>
         <location/>
-        <source>Audio S&amp;tatistics</source>
-        <translation>음성 상태(&amp;T)</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Unlink Plugins</source>
         <translation>플러그인을 해제(&amp;U)</translation>
     </message>
     <message>
         <location/>
-        <source>R&amp;egister</source>
-        <translation>등록 (%R)</translation>
-    </message>
-    <message>
-        <location/>
         <source>Register yourself on the server</source>
         <translation>서버에 당신을 등록 합니다.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Change &amp;Avatar</source>
-        <translation>아바타를 변경 (&amp;A)</translation>
     </message>
     <message>
         <location/>
@@ -6545,11 +6548,6 @@ Valid actions are:
     </message>
     <message>
         <location/>
-        <source>&amp;Ban list</source>
-        <translation>차단 리스트</translation>
-    </message>
-    <message>
-        <location/>
         <source>Edit ban list on server</source>
         <translation type="unfinished"/>
     </message>
@@ -6588,17 +6586,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <location/>
-        <source>Reset &amp;Avatar</source>
-        <translation>아바타를 초기화 (&amp;A)</translation>
-    </message>
-    <message>
-        <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location/>
-        <source>Local Volume Adjustment</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6612,12 +6600,12 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.cpp" line="-3064"/>
         <source>&amp;Developer</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.ui"/>
         <source>&amp;Hide Mumble</source>
         <translation type="unfinished"/>
     </message>
@@ -6633,17 +6621,147 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <location/>
-        <source>Developer &amp;Console</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location/>
         <source>Show the Developer Console</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Connect...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Information...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Kick...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Local Volume Adjustment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Send &amp;Message...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Audio S&amp;tatistics...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Settings...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Audio Wizard...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Developer &amp;Console...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;About...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>About &amp;Speex...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>About &amp;Qt...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Certificate Wizard...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Register...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Registered &amp;Users...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Change &amp;Avatar...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Access Tokens...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Reset &amp;Comment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Reset &amp;Avatar...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>View Comment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Change Comment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;egister...</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6916,28 +7034,6 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <location/>
-        <source>Misc</source>
-        <translation>Misc</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Prevent log from downloading images</source>
-        <translation>로그상에서 이미지을 다운로드하지 않는다.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
-Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation>&lt;b&gt;이미지 다운로드를 비활성&lt;/b&gt;&lt;br/&gt;
-img태그, 채팅 메시지에 내장된 이미지 다운로드를 비활성 합니다.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Disable image download</source>
-        <translation>이미지 다운로드를 비활성</translation>
-    </message>
-    <message>
-        <location/>
         <source>Mumble services</source>
         <translation>Mumble 서비스</translation>
     </message>
@@ -6996,6 +7092,27 @@ img태그, 채팅 메시지에 내장된 이미지 다운로드를 비활성 합
         <source>Download plugin and overlay updates on startup</source>
         <translation>시작시 플러그 인과 오버레이의 업데이트를 다운로드한다.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Privacy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Prevent OS information being sent to Mumble servers and web servers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
+Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Do not send OS information to Mumble servers and web servers</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Overlay</name>
@@ -7030,7 +7147,7 @@ img태그, 채팅 메시지에 내장된 이미지 다운로드를 비활성 합
         <translation>채널</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+91"/>
+        <location filename="Overlay.cpp" line="+205"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>오버레이:%2:%1와의 통신 생성에 실패 했습니다. 유효한 오버레이는 없습니다.</translation>
     </message>
@@ -7116,7 +7233,7 @@ img태그, 채팅 메시지에 내장된 이미지 다운로드를 비활성 합
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+74"/>
+        <location filename="OverlayConfig.cpp" line="+80"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>사용자를 움직이려면, 작은 붉은 점을 끌어 주세요.</translation>
     </message>
@@ -7133,28 +7250,42 @@ img태그, 채팅 메시지에 내장된 이미지 다운로드를 비활성 합
         <translation>추가 설정을 하려면 유저 오른쪽 클릭해 주세요.</translation>
     </message>
     <message>
-        <location line="+278"/>
+        <location line="+72"/>
+        <source>Launcher Filter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+249"/>
         <source>Overlay</source>
         <translation>오버레이</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+190"/>
+        <location line="+60"/>
+        <location line="+76"/>
         <source>Choose executable</source>
         <translation>실행 파일을 선택</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-134"/>
+        <location line="+60"/>
+        <location line="+76"/>
         <source>Choose application</source>
         <translation>어플리케이션 선택</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="-41"/>
+        <source>Choose path</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+132"/>
         <source>Load Overlay Presets</source>
         <translation>오버레이 프리셋 불러오기</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+28"/>
+        <location line="+36"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
         <translation>Mumble 오버레이 프리셋 (*.mumblelay)</translation>
     </message>
@@ -7190,22 +7321,17 @@ img태그, 채팅 메시지에 내장된 이미지 다운로드를 비활성 합
         <translation>레이아웃</translation>
     </message>
     <message>
-        <location/>
-        <source>Overlay exceptions</source>
-        <translation>오버레이 예외 설정</translation>
-    </message>
-    <message>
-        <location/>
+        <location filename="OverlayConfig.cpp" line="-702"/>
         <source>Blacklist</source>
         <translation>블랙리스트</translation>
     </message>
     <message>
-        <location/>
+        <location line="-1"/>
         <source>Whitelist</source>
         <translation>화이트리스트</translation>
     </message>
     <message>
-        <location/>
+        <location filename="Overlay.ui"/>
         <source>Uninstall Overlay</source>
         <translation>오버레이 삭제하기</translation>
     </message>
@@ -7294,11 +7420,6 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location/>
-        <source>Add...</source>
-        <translation>추가...</translation>
-    </message>
-    <message>
-        <location/>
         <source>Remove</source>
         <translation>삭제</translation>
     </message>
@@ -7306,21 +7427,6 @@ To upgrade these files to their latest versions, click the button below.</source
         <location/>
         <source>Font</source>
         <translation>폰트</translation>
-    </message>
-    <message>
-        <location/>
-        <source>To list exceptions, use a</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location/>
-        <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location/>
-        <source>Show the overlay only in</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7336,6 +7442,41 @@ To upgrade these files to their latest versions, click the button below.</source
         <location/>
         <source>Show Clock</source>
         <translation>시계 보기</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay Exceptions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay Exception Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Allowed launchers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Allowed programs</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Allowed paths</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklisted programs</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7585,7 +7726,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>플러그인</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+58"/>
+        <location filename="Plugins.cpp" line="+54"/>
         <source>Plugin has no configure function.</source>
         <translation>플러그인에 설정 기능이 없습니다.</translation>
     </message>
@@ -7715,7 +7856,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+792"/>
+        <location filename="PulseAudio.cpp" line="+799"/>
         <source>Default Input</source>
         <translation>기본 입력</translation>
     </message>
@@ -7728,7 +7869,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+123"/>
+        <location filename="main.cpp" line="+126"/>
         <source>Failed to restart mumble</source>
         <translation type="unfinished"/>
     </message>
@@ -7842,7 +7983,12 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+397"/>
+        <location filename="ServerHandler.cpp" line="+298"/>
+        <source>Unable to resolve hostname</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+173"/>
         <source>Server is not responding to TCP pings</source>
         <translation type="unfinished"/>
     </message>
@@ -7867,7 +8013,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>UDP패킷 서버에 송수신을 하게 되었습니다. UDP모드로 전환합니다.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+53"/>
         <source>Connection timed out</source>
         <translation>연결시간 초과</translation>
     </message>
@@ -7875,7 +8021,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-646"/>
+        <location filename="ConnectDialog.cpp" line="-753"/>
         <source>Favorite</source>
         <translation>즐겨찾기</translation>
     </message>
@@ -7923,7 +8069,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-602"/>
+        <location filename="GlobalShortcut.cpp" line="-615"/>
         <source>Unassigned</source>
         <translation>인증이 되지 않은</translation>
     </message>
@@ -7931,7 +8077,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+376"/>
+        <location line="+363"/>
         <source>On</source>
         <translation>켜기</translation>
     </message>
@@ -7954,7 +8100,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-450"/>
+        <location line="-437"/>
         <source>Press Shortcut</source>
         <translation>단축키를 누른다</translation>
     </message>
@@ -7962,7 +8108,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+206"/>
+        <location line="+193"/>
         <source>Root</source>
         <translation>루트</translation>
     </message>
@@ -8390,8 +8536,8 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+2"/>
-        <source>Channel id: %1</source>
-        <translation>채널 ID: %1</translation>
+        <source>Channel ID: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8425,7 +8571,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-830"/>
+        <location filename="UserModel.cpp" line="-834"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>서버에 접속하고 있는 유저입니다. 사용자의 왼쪽의 아이콘은 말하고 있는지를 의미합니다:</translation>
     </message>
@@ -8561,7 +8707,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>플래그</translation>
     </message>
     <message>
-        <location line="+722"/>
+        <location line="+726"/>
         <source>Are you sure you want to drag this user?</source>
         <translation type="unfinished"/>
     </message>
@@ -8906,7 +9052,7 @@ Please contact your server administrator for further information.</source>
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+226"/>
+        <location filename="WASAPI.cpp" line="+241"/>
         <source>Default Device</source>
         <translation>기본 디바이스</translation>
     </message>

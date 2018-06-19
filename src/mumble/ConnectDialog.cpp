@@ -1040,7 +1040,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	}
 
 	QList<QTreeWidgetItem *> ql;
-	QList<FavoriteServer> favorites = Database::getFavorites();
+	QList<FavoriteServer> favorites = g.db->getFavorites();
 
 	foreach(const FavoriteServer &fs, favorites) {
 		ServerItem *si = new ServerItem(fs);
@@ -1089,7 +1089,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	qtwServers->setCurrentItem(NULL);
 	bLastFound = false;
 
-	qmPingCache = Database::getPingCache();
+	qmPingCache = g.db->getPingCache();
 
 	if (! g.s.qbaConnectDialogGeometry.isEmpty())
 		restoreGeometry(g.s.qbaConnectDialogGeometry);
@@ -1111,8 +1111,8 @@ ConnectDialog::~ConnectDialog() {
 			continue;
 		ql << si->toFavoriteServer();
 	}
-	Database::setFavorites(ql);
-	Database::setPingCache(qmPingCache);
+	g.db->setFavorites(ql);
+	g.db->setPingCache(qmPingCache);
 
 	g.s.qbaConnectDialogHeader = qtwServers->header()->saveState();
 	g.s.qbaConnectDialogGeometry = saveGeometry();

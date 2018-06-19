@@ -188,7 +188,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	qcbChildren->setChecked(st.bChildren);
 
 	// Insert all known friends into the possible targets list
-	const QMap<QString, QString> &friends = Database::getFriends();
+	const QMap<QString, QString> &friends = g.db->getFriends();
 	if (! friends.isEmpty()) {
 		QMap<QString, QString>::const_iterator i;
 		for (i = friends.constBegin(); i != friends.constEnd(); ++i) {
@@ -376,7 +376,7 @@ QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
 				if (hashes.contains(hash)) {
 					name = hashes.value(hash);
 				} else {
-					name = Database::getFriend(hash);
+					name = g.db->getFriend(hash);
 					if (name.isEmpty())
 						name = QString::fromLatin1("#%1").arg(hash);
 				}

@@ -140,7 +140,8 @@ HEADERS *= BanEditor.h \
     widgets/MUComboBox.h \
     DeveloperConsole.h \
     PathListWidget.h \
-    XMLTools.h
+    XMLTools.h \
+    SvgIcon.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -208,7 +209,8 @@ SOURCES *= BanEditor.cpp \
     widgets/MUComboBox.cpp \
     DeveloperConsole.cpp \
     PathListWidget.cpp \
-    XMLTools.cpp
+    XMLTools.cpp \
+    SvgIcon.cpp
 
 CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp
@@ -704,10 +706,10 @@ CONFIG(static_qt_plugins) {
   !contains(TEMPLATE, .*app)|lessThan(QT_VERSION_INT, 50300) {
     QTPLUGIN += qsvg qsvgicon
 
-    # The accessiblewidgets plugin is only needed for Qt 5 versions below 5.4.
-    # In Qt 5.4, it was integrated into the QtWidgets library.
+    # For Qt 4 and Qt 5 below 5.4, we need to manually add qtaccessiblewidgets to PLUGINS.
+    # In Qt 5.4, the plugin was integrated into the QtWidgets library.
     # See QTBUG-43007 and Qt commit 4255ba40ab073a for more information.
-    isEqual(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 4) {
+    lessThan(QT_VERSION_INT, 50400) {
       QTPLUGIN *= qtaccessiblewidgets
     }
 

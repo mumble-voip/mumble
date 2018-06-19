@@ -171,6 +171,7 @@ class Server : public QThread {
 
 	private:
 		int iChannelNestingLimit;
+		int iChannelCountLimit;
 
 	public slots:
 		void regSslError(const QList<QSslError> &);

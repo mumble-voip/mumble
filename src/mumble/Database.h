@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_DATABASE_H_
 #define MUMBLE_MUMBLE_DATABASE_H_
 
+#include <QSqlDatabase>
 #include "Settings.h"
 #include "UnresolvedServerAddress.h"
 
@@ -22,51 +23,54 @@ class Database : public QObject {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(Database)
+
+		QSqlDatabase db;
 	public:
-		Database();
+		Database(const QString &dbname);
 		~Database() Q_DECL_OVERRIDE;
-		static QList<FavoriteServer> getFavorites();
-		static void setFavorites(const QList<FavoriteServer> &servers);
-		static void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
-		static bool fuzzyMatch(QString &name, QString &user, QString &pw, QString &host, unsigned short port);
 
-		static bool isLocalIgnored(const QString &hash);
-		static void setLocalIgnored(const QString &hash, bool ignored);
+		QList<FavoriteServer> getFavorites();
+		void setFavorites(const QList<FavoriteServer> &servers);
+		void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
+		bool fuzzyMatch(QString &name, QString &user, QString &pw, QString &host, unsigned short port);
 
-		static bool isLocalMuted(const QString &hash);
-		static void setLocalMuted(const QString &hash, bool muted);
+		bool isLocalIgnored(const QString &hash);
+		void setLocalIgnored(const QString &hash, bool ignored);
 
-		static float getUserLocalVolume(const QString &hash);
-		static void setUserLocalVolume(const QString &hash, float volume);
+		bool isLocalMuted(const QString &hash);
+		void setLocalMuted(const QString &hash, bool muted);
 
-		static bool isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id);
-		static void setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, bool hidden);
+		float getUserLocalVolume(const QString &hash);
+		void setUserLocalVolume(const QString &hash, float volume);
 
-		static QMap<UnresolvedServerAddress, unsigned int> getPingCache();
-		static void setPingCache(const QMap<UnresolvedServerAddress, unsigned int> &cache);
+		bool isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id);
+		void setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, bool hidden);
 
-		static bool seenComment(const QString &hash, const QByteArray &commenthash);
-		static void setSeenComment(const QString &hash, const QByteArray &commenthash);
+		QMap<UnresolvedServerAddress, unsigned int> getPingCache();
+		void setPingCache(const QMap<UnresolvedServerAddress, unsigned int> &cache);
 
-		static QByteArray blob(const QByteArray &hash);
-		static void setBlob(const QByteArray &hash, const QByteArray &blob);
+		bool seenComment(const QString &hash, const QByteArray &commenthash);
+		void setSeenComment(const QString &hash, const QByteArray &commenthash);
 
-		static QStringList getTokens(const QByteArray &digest);
-		static void setTokens(const QByteArray &digest, QStringList &tokens);
+		QByteArray blob(const QByteArray &hash);
+		void setBlob(const QByteArray &hash, const QByteArray &blob);
 
-		static QList<Shortcut> getShortcuts(const QByteArray &digest);
-		static bool setShortcuts(const QByteArray &digest, QList<Shortcut> &shortcuts);
+		QStringList getTokens(const QByteArray &digest);
+		void setTokens(const QByteArray &digest, QStringList &tokens);
 
-		static void addFriend(const QString &name, const QString &hash);
-		static void removeFriend(const QString &hash);
-		static const QString getFriend(const QString &hash);
-		static const QMap<QString, QString> getFriends();
+		QList<Shortcut> getShortcuts(const QByteArray &digest);
+		bool setShortcuts(const QByteArray &digest, QList<Shortcut> &shortcuts);
 
-		static const QString getDigest(const QString &hostname, unsigned short port);
-		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
+		void addFriend(const QString &name, const QString &hash);
+		void removeFriend(const QString &hash);
+		const QString getFriend(const QString &hash);
+		const QMap<QString, QString> getFriends();
 
-		static bool getUdp(const QByteArray &digest);
-		static void setUdp(const QByteArray &digest, bool udp);
+		const QString getDigest(const QString &hostname, unsigned short port);
+		void setDigest(const QString &hostname, unsigned short port, const QString &digest);
+
+		bool getUdp(const QByteArray &digest);
+		void setUdp(const QByteArray &digest, bool udp);
 };
 
 #endif
