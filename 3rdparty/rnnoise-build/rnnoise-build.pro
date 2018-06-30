@@ -38,6 +38,7 @@ win32 {
 
 win32-msvc* {
   DEFINES += _USE_MATH_DEFINES # To define M_PI
+  DEFINES += USE_MALLOC # To use malloc() and free() instead of variable length arrays
 }
 
 unix {
