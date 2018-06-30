@@ -36,6 +36,10 @@ win32 {
   CONFIG += shared
 }
 
+win32-msvc* {
+  DEFINES += _USE_MATH_DEFINES # To define M_PI
+}
+
 unix {
   CONFIG += staticlib
 
