@@ -50,10 +50,10 @@ class JackAudioSystem : public QObject {
 		Q_DISABLE_COPY(JackAudioSystem)
 	protected:
 		bool bActive;
-		jack_client_t* client;
-		jack_port_t* in_port;
-		jack_port_t* out_ports[JACK_MAX_OUTPUT_PORTS];
-		jack_default_audio_sample_t* output_buffer;
+		jack_client_t *client;
+		jack_port_t *in_port;
+		jack_port_t *out_ports[JACK_MAX_OUTPUT_PORTS];
+		jack_default_audio_sample_t *output_buffer;
 		unsigned int iOutPorts;
 		jack_nframes_t iBufferSize;
 

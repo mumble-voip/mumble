@@ -36,7 +36,7 @@
 #include "Global.h"
 
 
-static JackAudioSystem * jasys = NULL;
+static JackAudioSystem *jasys = NULL;
 
 // jackStatusToStringList converts a jack_status_t (a flag type
 // that can contain multiple Jack statuses) to a QStringList.
@@ -160,7 +160,6 @@ JackAudioSystem::~JackAudioSystem() {
 }
 
 void JackAudioSystem::init_jack() {
-
 	output_buffer = NULL;
 	jack_status_t status = static_cast<jack_status_t>(0);
 	int err = 0;
@@ -228,7 +227,6 @@ void JackAudioSystem::init_jack() {
 }
 
 void JackAudioSystem::close_jack() {
-
 	QMutexLocker lock(&qmWait);
 	if (client) {
 		int err = 0;
@@ -269,15 +267,14 @@ void JackAudioSystem::close_jack() {
 }
 
 
-void JackAudioSystem::auto_connect_ports()
-{
+void JackAudioSystem::auto_connect_ports() {
 	if (g.s.bJackAutoConnect == false) {
 		return;
 	}
 
 	const char **ports = NULL;
-	int const wanted_out_flags = JackPortIsPhysical | JackPortIsOutput;
-	int const wanted_in_flags = JackPortIsPhysical | JackPortIsInput;
+	const int wanted_out_flags = JackPortIsPhysical | JackPortIsOutput;
+	const int wanted_in_flags = JackPortIsPhysical | JackPortIsInput;
 	int err;
 	unsigned int connected_out_ports = 0;
 	unsigned int connected_in_ports = 0;
@@ -292,7 +289,7 @@ void JackAudioSystem::auto_connect_ports()
 				continue;
 			}
 
-			int const port_flags = jack_port_flags(port);
+			const int port_flags = jack_port_flags(port);
 
 			if ((port_flags & wanted_out_flags) == wanted_out_flags && connected_in_ports < 1) {
 				err = jack_connect(client, ports[i], jack_port_name(in_port));
@@ -316,8 +313,7 @@ void JackAudioSystem::auto_connect_ports()
 	}
 }
 
-void JackAudioSystem::activate()
-{
+void JackAudioSystem::activate() {
 	QMutexLocker lock(&qmWait);
 	if (client) {
 		if (bActive) {
@@ -337,7 +333,6 @@ void JackAudioSystem::activate()
 }
 
 int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
-
 	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 
 	if (jas && jas->bJackIsGood) {
@@ -348,7 +343,7 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 
 		if (jai && jai->isRunning() && jai->iMicChannels > 0 && !jai->isFinished()) {
 			QMutexLocker(&jai->qmMutex);
-			void * input = jack_port_get_buffer(jas->in_port, nframes);
+			void *input = jack_port_get_buffer(jas->in_port, nframes);
 			if (input != NULL) {
 				jai->addMic(input, nframes);
 			}
@@ -357,7 +352,7 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 		if (jao && jao->isRunning() && jao->iChannels > 0 && !jao->isFinished()) {
 			QMutexLocker(&jao->qmMutex);
 
-			jack_default_audio_sample_t* port_buffers[JACK_MAX_OUTPUT_PORTS];
+			jack_default_audio_sample_t *port_buffers[JACK_MAX_OUTPUT_PORTS];
 			for (unsigned int i = 0; i < jao->iChannels; ++i) {
 
 				port_buffers[i] = (jack_default_audio_sample_t*)jack_port_get_buffer(jas->out_ports[i], nframes);
@@ -388,14 +383,12 @@ int JackAudioSystem::process_callback(jack_nframes_t nframes, void *arg) {
 }
 
 int JackAudioSystem::srate_callback(jack_nframes_t frames, void *arg) {
-
 	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 	jas->iSampleRate = frames;
 	return 0;
 }
 
 void JackAudioSystem::allocOutputBuffer(jack_nframes_t frames) {
-
 	iBufferSize = frames;
 	AudioOutputPtr ao = g.ao;
 	JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
@@ -418,10 +411,9 @@ void JackAudioSystem::allocOutputBuffer(jack_nframes_t frames) {
 }
 
 void JackAudioSystem::setNumberOfOutPorts(unsigned int ports) {
-
 	AudioOutputPtr ao = g.ao;
 	JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
-	unsigned int const oldSize = iOutPorts;
+	const unsigned int oldSize = iOutPorts;
 	int err = 0;
 
 	iOutPorts = qBound<unsigned>(1, ports, JACK_MAX_OUTPUT_PORTS);
@@ -476,19 +468,16 @@ void JackAudioSystem::setNumberOfOutPorts(unsigned int ports) {
 }
 
 unsigned int JackAudioSystem::numberOfOutPorts() const {
-
 	return iOutPorts;
 }
 
 int JackAudioSystem::buffer_size_callback(jack_nframes_t frames, void *arg) {
-
 	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 	jas->allocOutputBuffer(frames);
 	return 0;
 }
 
 void JackAudioSystem::shutdown_callback(void *arg) {
-
 	JackAudioSystem * const jas = static_cast<JackAudioSystem*>(arg);
 	jas->bJackIsGood = false;
 }
@@ -549,7 +538,6 @@ const QList<audioDevice> JackAudioOutputRegistrar::getDeviceChoices() {
 }
 
 void JackAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
-
 	s.qsJackAudioOutput = choice.toString();
 	jasys->setNumberOfOutPorts(choice.toInt());
 }
