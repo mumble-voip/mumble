@@ -27,3 +27,7 @@ install:
 
 build_script:
   - "powershell ./scripts/appveyor/appveyor-build.ps1"
+
+artifacts:
+  - path: installer\bin\x64\Release\*.msi
+    name: Installer
