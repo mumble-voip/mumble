@@ -99,7 +99,7 @@ SUBDIRS *= src/mumble_proto
   !CONFIG(no-ice) {
     SUBDIRS *= src/murmur/murmur_ice
   }
-  CONFIG(grpc) {
+  !CONFIG(no-grpc) {
     !system($$PKG_CONFIG --atleast-version=3 protobuf) {
       error(grpc requires protobuf>=3)
     }

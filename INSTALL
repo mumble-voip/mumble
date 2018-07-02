@@ -152,14 +152,8 @@ CONFIG+=no-embed-qt-translations (Mumble)
 CONFIG+=no-ice (Murmur)
  Don't build support for Ice RPC.
 
-CONFIG+=grpc (Murmur, Linux)
- Include experimental support for gRPC.
- We do not currently recommend that packagers
- ship packages to end users with gRPC enabled.
- The gRPC library's API is not yet stable, and
- Murmur's gRPC interface is not yet frozen, and
- will most likely change in the future.
- Support for gRPC requires Qt 5.
+CONFIG+=no-grpc (Murmur)
+ Don't build support for gRPC. Support for gRPC requires Qt 5.
 
 CONFIG+=no-bonjour
  Don't build support for Bonjour.

@@ -33,6 +33,10 @@ PRECOMPILED_HEADER = murmur_pch.h
   CONFIG *= bonjour
 }
 
+!CONFIG(no-grpc) {
+  CONFIG *= grpc
+}
+
 win32 {
   RC_FILE = murmur.rc
   CONFIG *= gui
