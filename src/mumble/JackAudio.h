@@ -9,6 +9,8 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 
+#include <QtCore/QWaitCondition>
+
 #include <jack/jack.h>
 
 #define JACK_MAX_OUTPUT_PORTS 2
