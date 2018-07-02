@@ -315,6 +315,10 @@ Settings::Settings() {
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
+	qsJackAudioOutput = QLatin1String("1");
+	bJackStartServer = true;
+	bJackAutoConnect = false;
+
 	bEcho = false;
 	bEchoMulti = true;
 
@@ -654,6 +658,10 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
 	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
 
+	SAVELOAD(qsJackAudioOutput, "jack/output");
+	SAVELOAD(bJackStartServer, "jack/startserver");
+	SAVELOAD(bJackAutoConnect, "jack/autoconnect");
+
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");
 
@@ -989,6 +997,10 @@ void Settings::save() {
 
 	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
 	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
+
+	SAVELOAD(qsJackAudioOutput, "jack/output");
+	SAVELOAD(bJackStartServer, "jack/startserver");
+	SAVELOAD(bJackAutoConnect, "jack/autoconnect");
 
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");

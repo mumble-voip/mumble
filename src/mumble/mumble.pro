@@ -446,10 +446,16 @@ win32 {
 
 unix {
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
+  HAVE_JACKAUDIO=$$system(pkg-config --modversion --silence-errors jack)
 
   !isEmpty(HAVE_PULSEAUDIO):!CONFIG(no-pulseaudio) {
     CONFIG *= pulseaudio
   }
+
+  !isEmpty(HAVE_JACKAUDIO):!CONFIG(no-jackaudio) {
+    CONFIG *= jackaudio
+  }
+
 
   !CONFIG(no-bundled-speex) {
     QMAKE_CFLAGS *= -I../../3rdparty/speex-src/include -I../../3rdparty/speex-build
@@ -545,6 +551,13 @@ pulseaudio {
   must_pkgconfig(libpulse)
   HEADERS *= PulseAudio.h
   SOURCES *= PulseAudio.cpp
+}
+
+jackaudio {
+  DEFINES *= USE_JACKAUDIO
+  PKGCONFIG *= jack
+  HEADERS *= JackAudio.h
+  SOURCES *= JackAudio.cpp
 }
 
 portaudio {
