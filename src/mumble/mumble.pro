@@ -392,7 +392,14 @@ win32 {
     LIBS *= -llibboost_system-mt -llibboost_thread-mt
   }
   win32-g++ {
-    LIBS *= -lboost_system-mt -lboost_thread_win32-mt
+    LIBS *= -lboost_system-mt
+
+    # The library has a different name in MXE
+    contains(QMAKE_HOST.os, Linux) {
+      LIBS *= -lboost_thread_win32-mt
+    } else {
+      LIBS *= -lboost_thread-mt
+    }
   }
 
   LIBS  *= -ldelayimp -delayload:shell32.dll
