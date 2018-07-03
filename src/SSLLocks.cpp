@@ -33,7 +33,7 @@ unsigned long id_callback() {
 	// So, in all cases, it's safe to use unsigned long.
 	//
 	// The trouble is, since the return type of QThread::currentThreadId()
-	// difers between platforms, we have to be clever about how we convert
+	// differs between platforms, we have to be clever about how we convert
 	// that type to an unsigned long. The way we do it here is to first convert
 	// it to an uintptr_t, since both pointer types and integer types will
 	// convert to that without the compiler complaining. Then, we convert
