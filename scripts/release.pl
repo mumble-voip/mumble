@@ -32,7 +32,7 @@ if ($#ARGV < 0) {
   $ver = $ARGV[0];
 }
 
-print "Adjusting Version.cpp\n";
+print "Adjusting Version.h\n";
 
 open(F, "<src/Version.h") or croak "Could not open src/Version.h for reading";
 my @lines = <F>;
