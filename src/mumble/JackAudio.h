@@ -28,8 +28,12 @@ class JackAudioSystem : public QObject {
 		jack_port_t *in_port;
 		jack_port_t *out_ports[JACK_MAX_OUTPUT_PORTS];
 		jack_default_audio_sample_t *output_buffer;
-		unsigned int iOutPorts;
 		jack_nframes_t iBufferSize;
+
+		void allocOutputBuffer(jack_nframes_t frames);
+
+		void auto_connect_ports();
+		void disconnect_ports();
 
 		static int process_callback(jack_nframes_t nframes, void *arg);
 		static int srate_callback(jack_nframes_t frames, void *arg);
@@ -39,24 +43,24 @@ class JackAudioSystem : public QObject {
 		QHash<QString, QString> qhInput;
 		QHash<QString, QString> qhOutput;
 		bool bJackIsGood;
+		bool bInputIsGood;
+		bool bOutputIsGood;
 		int iSampleRate;
+		unsigned int iOutPorts;
 		QMutex qmWait;
-		QWaitCondition qwcWait;
 
 		void init_jack();
 		void close_jack();
 
-		void auto_connect_ports();
-
 		void activate();
 
-		void allocOutputBuffer(jack_nframes_t frames);
+		void initializeInput();
+		void destroyInput();
 
-		void setNumberOfOutPorts(unsigned int ports);
-		unsigned int numberOfOutPorts() const;
+		void initializeOutput();
+		void destroyOutput();
 
 		JackAudioSystem();
-		~JackAudioSystem();
 };
 
 class JackAudioInput : public AudioInput {
