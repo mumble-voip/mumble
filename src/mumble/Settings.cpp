@@ -317,7 +317,7 @@ Settings::Settings() {
 
 	qsJackAudioOutput = QLatin1String("1");
 	bJackStartServer = true;
-	bJackAutoConnect = false;
+	bJackAutoConnect = true;
 
 	bEcho = false;
 	bEchoMulti = true;
