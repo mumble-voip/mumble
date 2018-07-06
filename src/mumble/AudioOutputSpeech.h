@@ -18,6 +18,7 @@
 #include "Message.h"
 
 class CELTCodec;
+class OpusCodec;
 class ClientUser;
 struct OpusDecoder;
 
@@ -51,6 +52,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 		CELTCodec *cCodec;
 		CELTDecoder *cdDecoder;
 
+		OpusCodec *oCodec;
 		OpusDecoder *opusState;
 
 		SpeexBits sbBits;

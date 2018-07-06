@@ -86,6 +86,7 @@ HEADERS *= BanEditor.h \
     AudioOutputSpeech.h \
     AudioOutputUser.h \
     CELTCodec.h \
+    OpusCodec.h \
     CustomElements.h \
     MainWindow.h \
     ServerHandler.h \
@@ -156,6 +157,7 @@ SOURCES *= BanEditor.cpp \
     AudioOutputUser.cpp \
     main.cpp \
     CELTCodec.cpp \
+    OpusCodec.cpp \
     CustomElements.cpp \
     MainWindow.cpp \
     ServerHandler.cpp \
@@ -358,7 +360,6 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
   CONFIG(opus) {
     INCLUDEPATH *= ../../3rdparty/opus-src/celt ../../3rdparty/opus-src/include ../../3rdparty/opus-src/src ../../3rdparty/opus-build/src
     DEFINES *= USE_OPUS
-    LIBS *= -lopus
     unix {
       QMAKE_CFLAGS *= "-I../../3rdparty/opus-src/celt" "-isystem  ../../3rdparty/opus-src/celt"
       QMAKE_CFLAGS *= "-I../../3rdparty/opus-src/include" "-isystem ../../3rdparty/opus-src/include"

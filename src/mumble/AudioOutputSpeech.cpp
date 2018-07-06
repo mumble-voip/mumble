@@ -9,13 +9,10 @@
 
 #include "Audio.h"
 #include "CELTCodec.h"
+#include "OpusCodec.h"
 #include "ClientUser.h"
 #include "Global.h"
 #include "PacketDataStream.h"
-
-#ifdef USE_OPUS
-#include "opus.h"
-#endif
 
 AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type) : AudioOutputUser(user->qsName) {
 	int err;
@@ -26,6 +23,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	cCodec = NULL;
 	cdDecoder = NULL;
 	dsSpeex = NULL;
+	oCodec = NULL;
 	opusState = NULL;
 
 	bHasTerminator = false;
@@ -37,8 +35,11 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-		iAudioBufferSize *= 12;
-		opusState = opus_decoder_create(iSampleRate, bStereo ? 2 : 1, NULL);
+		oCodec = g.oCodec;
+		if (oCodec) {
+			iAudioBufferSize *= 12;
+			opusState = oCodec->opus_decoder_create(iSampleRate, bStereo ? 2 : 1, NULL);
+		}
 #endif
 	} else if (umtType == MessageHandler::UDPVoiceSpeex) {
 		speex_bits_init(&sbBits);
@@ -87,7 +88,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 AudioOutputSpeech::~AudioOutputSpeech() {
 #ifdef USE_OPUS
 	if (opusState)
-		opus_decoder_destroy(opusState);
+		oCodec->opus_decoder_destroy(opusState);
 #endif
 	if (cdDecoder) {
 		cCodec->celt_decoder_destroy(cdDecoder);
@@ -134,8 +135,10 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		const unsigned char *packet = reinterpret_cast<const unsigned char*>(qba.constData());
 
 #ifdef USE_OPUS
-		int frames = opus_packet_get_nb_frames(packet, size);
-		samples = frames * opus_packet_get_samples_per_frame(packet, SAMPLE_RATE);
+		if (oCodec) {
+			int frames = oCodec->opus_packet_get_nb_frames(packet, size);
+			samples = frames * oCodec->opus_packet_get_samples_per_frame(packet, SAMPLE_RATE);
+		}
 #else
 		return;
 #endif
@@ -288,14 +291,15 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-					decodedSamples = opus_decode_float(opusState,
-					                                   qba.isEmpty() ?
-					                                       NULL :
-					                                       reinterpret_cast<const unsigned char *>(qba.constData()),
-					                                   qba.size(),
-					                                   pOut,
-					                                   iAudioBufferSize,
-					                                   0);
+					decodedSamples = oCodec->opus_decode_float(opusState,
+					                                           qba.isEmpty() ?
+					                                               NULL :
+					                                               reinterpret_cast<const unsigned char *>(qba.constData()),
+					                                           qba.size(),
+					                                           pOut,
+					                                           iAudioBufferSize,
+					                                           0);
+
 					if (decodedSamples < 0) {
 						decodedSamples = iFrameSize;
 						memset(pOut, 0, iFrameSize * sizeof(float));
@@ -350,7 +354,8 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-					decodedSamples = opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
+					decodedSamples = oCodec->opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
+
 					if (decodedSamples < 0) {
 						decodedSamples = iFrameSize;
 						memset(pOut, 0, iFrameSize * sizeof(float));

@@ -29,6 +29,7 @@ class LCD;
 class BonjourClient;
 class OverlayClient;
 class CELTCodec;
+class OpusCodec;
 class LogEmitter;
 class DeveloperConsole;
 
@@ -74,6 +75,7 @@ public:
 	int iAudioBandwidth;
 	QDir qdBasePath;
 	QMap<int, CELTCodec *> qmCodecs;
+	OpusCodec *oCodec;
 	int iCodecAlpha, iCodecBeta;
 	bool bPreferAlpha;
 	bool bOpus;
