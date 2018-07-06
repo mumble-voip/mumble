@@ -1,0 +1,48 @@
+Copyright (c) 2003-2016 ZeroC, Inc. All rights reserved.
+
+This copy of Ice is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+Ice is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public License version
+2 along with this program; if not, see http://www.gnu.org/licenses.
+
+Linking Ice statically or dynamically with other software (such as a 
+library, module or application) is making a combined work based on Ice. 
+Thus, the terms and conditions of the GNU General Public License version
+2 cover this combined work.
+
+If such software can only be used together with Ice, then not only the 
+combined work but the software itself is a work derived from Ice and as
+such shall be licensed under the terms of the GNU General Public License 
+version 2. This includes the situation where Ice is only being used 
+through an abstraction layer.
+
+As a special exception to the above, ZeroC grants to the copyright 
+holders and contributors of the Mumble project (http://www.mumble.info) 
+the permission to license the Ice-based software they contribute to 
+Mumble under the terms of the BSD license. This exception does not extend
+to the parts of Ice used by Mumble, or to any other derived work: as a 
+whole, any work based on Ice shall be licensed under the terms and 
+conditions of the GNU General Public License version 2.
+
+You may also combine Ice with any software not derived from Ice, provided
+the license of such software is compatible with the GNU General Public 
+License version 2. In addition, as a special exception, ZeroC grants you
+permission to combine Ice with:
+ 
+ - the OpenSSL library, or with a modified version of the OpenSSL library
+   that uses the same license as OpenSSL
+
+ - any library not derived from Ice and licensed under the terms of
+   the Apache License, version 2.0 
+   (http://www.apache.org/licenses/LICENSE-2.0.html) 
+
+If you modify this copy of Ice, you may extend any of the exceptions 
+provided above to your version of Ice, but you are not obligated to 
+do so.
