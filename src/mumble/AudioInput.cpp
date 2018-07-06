@@ -20,6 +20,12 @@
 #include "NetworkConfig.h"
 #include "VoiceRecorder.h"
 
+#ifdef USE_RNNOISE
+extern "C" {
+#include "rnnoise.h"
+}
+#endif
+
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
 // is called from global initialization.
@@ -97,6 +103,10 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	}
 #endif
 
+#ifdef USE_RNNOISE
+	denoiseState = rnnoise_create();
+#endif
+
 	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
 	iEchoFreq = iMicFreq = iSampleRate;
 
@@ -152,6 +162,11 @@ AudioInput::~AudioInput() {
 	if (opusState) {
 		oCodec->opus_encoder_destroy(opusState);
 	}
+#endif
+
+#ifdef USE_RNNOISE
+	if (denoiseState)
+		rnnoise_destroy(denoiseState);
 #endif
 
 	if (ceEncoder) {
@@ -809,6 +824,22 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_run(sppPreprocess, psMic);
 		psSource = psMic;
 	}
+
+#ifdef USE_RNNOISE
+	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
+	if (g.s.bDenoise && (iFrameSize == 480)) {
+		float denoiseFrames[480];
+		for (int i = 0; i < 480; i++) {
+			denoiseFrames[i] = psSource[i];
+		}
+
+		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
+
+		for (int i = 0; i < 480; i++) {
+			psSource[i] = denoiseFrames[i];
+		}
+	}
+#endif
 
 	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)

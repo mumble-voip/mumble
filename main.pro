@@ -37,6 +37,14 @@ SUBDIRS *= src/mumble_proto
     SUBDIRS *= 3rdparty/opus-build
   }
 
+  !CONFIG(no-rnnoise) {
+    CONFIG *= rnnoise
+  }
+
+  CONFIG(rnnoise):!CONFIG(no-bundled-rnnoise) {
+    SUBDIRS *= 3rdparty/rnnoise-build
+  }
+
   win32 {
     SUBDIRS *= 3rdparty/xinputcheck-build
   }

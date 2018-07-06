@@ -369,6 +369,21 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
   }
 }
 
+unix:!CONFIG(bundled-rnnoise):system(pkg-config --exists rnnoise) {
+  must_pkgconfig(rnnoise)
+  DEFINES *= USE_RNNOISE
+} else {
+  !CONFIG(no-rnnoise) {
+    CONFIG *= rnnoise
+  }
+
+  CONFIG(rnnoise) {
+    INCLUDEPATH *= ../../3rdparty/rnnoise-src/include
+    DEFINES *= USE_RNNOISE
+    LIBS *= -lrnnoise
+  }
+}
+
 win32 {
   CONFIG(mumble_dll) {
     RC_FILE = mumble_dll.rc

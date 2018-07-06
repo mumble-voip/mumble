@@ -137,6 +137,13 @@ void AudioInputDialog::load(const Settings &r) {
 		loadSlider(qsNoise, - r.iNoiseSuppress);
 	else
 		loadSlider(qsNoise, 14);
+	loadCheckBox(qcbDenoise, r.bDenoise);
+
+#ifdef USE_RNNOISE
+	qcbDenoise->setEnabled(SAMPLE_RATE == 48000);
+#else
+	qcbDenoise->setVisible(false);
+#endif
 
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
 
@@ -155,6 +162,7 @@ void AudioInputDialog::load(const Settings &r) {
 void AudioInputDialog::save() const {
 	s.iQuality = qsQuality->value();
 	s.iNoiseSuppress = (qsNoise->value() == 14) ? 0 : - qsNoise->value();
+	s.bDenoise = qcbDenoise->isChecked();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	s.iVoiceHold = qsTransmitHold->value();
 	s.fVADmin = static_cast<float>(qsTransmitMin->value()) / 32767.0f;

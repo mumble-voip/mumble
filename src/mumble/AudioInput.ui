@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>569</width>
-    <height>730</height>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -87,7 +87,7 @@
          <string>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</string>
         </property>
         <property name="sizeAdjustPolicy">
-         <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
+         <enum>QComboBox::AdjustToContents</enum>
         </property>
         <property name="minimumContentsLength">
          <number>16</number>
@@ -677,6 +677,25 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="qcbDenoise">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>27</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Apply RNNoise's noise suppression filter.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This applies RNNoise's noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</string>
+        </property>
+        <property name="text">
+         <string>RNNoise</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -909,6 +928,7 @@
   <tabstop>qsQuality</tabstop>
   <tabstop>qsFrames</tabstop>
   <tabstop>qsNoise</tabstop>
+  <tabstop>qcbDenoise</tabstop>
   <tabstop>qsAmp</tabstop>
  </tabstops>
  <resources/>
