@@ -105,8 +105,6 @@
      <?endif ?>
   <?endif ?>
 
-  <?define Win81SDKDir = "C:\Program Files (x86)\Windows Kits\8.1" ?>
-
   <!--
     System32x86Dir is the system's System32 directory
     that contains x86 binaries.
@@ -130,10 +128,6 @@
   
   <?ifndef env.MumbleNoG15 ?>
     <?define G15 = true ?> 
-  <?endif ?>
-
-  <?ifndef env.MumbleNoD3DCompilerDLL ?>
-    <?define D3DCompilerDLL = true ?>
   <?endif ?>
 
   <?ifdef env.MumbleVersionSubDir ?>
