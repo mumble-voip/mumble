@@ -23,6 +23,7 @@
 
 class AudioInput;
 class CELTCodec;
+class OpusCodec;
 struct CELTEncoder;
 struct OpusEncoder;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
@@ -72,6 +73,7 @@ class AudioInput : public QThread {
 		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask);
 		void resetAudioProcessor();
 
+		OpusCodec *oCodec;
 		OpusEncoder *opusState;
 		bool selectCodec();
 		

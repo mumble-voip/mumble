@@ -9,6 +9,7 @@
 
 #include "AudioOutput.h"
 #include "CELTCodec.h"
+#include "OpusCodec.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "User.h"
@@ -18,10 +19,6 @@
 #include "Global.h"
 #include "NetworkConfig.h"
 #include "VoiceRecorder.h"
-
-#ifdef USE_OPUS
-#include "opus.h"
-#endif
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
@@ -86,15 +83,18 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	iFrameSize = SAMPLE_RATE / 100;
 
 #ifdef USE_OPUS
-	if (!g.s.bUseOpusMusicEncoding) {
-		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
-		qWarning("AudioInput: Opus encoder set for VOIP");
-	} else {
-		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, NULL);
-		qWarning("AudioInput: Opus encoder set for Music");
-	}
+	oCodec = g.oCodec;
+	if (oCodec) {
+		if (!g.s.bUseOpusMusicEncoding) {
+			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
+			qWarning("AudioInput: Opus encoder set for VOIP");
+		} else {
+			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, NULL);
+			qWarning("AudioInput: Opus encoder set for Music");
+		}
 
-	opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
+		oCodec->opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
+	}
 #endif
 
 	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
@@ -149,8 +149,9 @@ AudioInput::~AudioInput() {
 	wait();
 
 #ifdef USE_OPUS
-	if (opusState)
-		opus_encoder_destroy(opusState);
+	if (opusState) {
+		oCodec->opus_encoder_destroy(opusState);
+	}
 #endif
 
 	if (ceEncoder) {
@@ -729,13 +730,13 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& b
 	int len = 0;
 #ifdef USE_OPUS
 	if (bResetEncoder) {
-		opus_encoder_ctl(opusState, OPUS_RESET_STATE, NULL);
+		oCodec->opus_encoder_ctl(opusState, OPUS_RESET_STATE, NULL);
 		bResetEncoder = false;
 	}
 
-	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
+	oCodec->opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
-	len = opus_encode(opusState, source, size, &buffer[0], static_cast<opus_int32>(buffer.size()));
+	len = oCodec->opus_encode(opusState, source, size, &buffer[0], static_cast<opus_int32>(buffer.size()));
 	const int tenMsFrameCount = (size / iFrameSize);
 	iBitrate = (len * 100 * 8) / tenMsFrameCount;
 #endif

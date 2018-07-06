@@ -15,6 +15,7 @@
 #include "AudioWizard.h"
 #include "BanEditor.h"
 #include "CELTCodec.h"
+#include "OpusCodec.h"
 #include "Cert.h"
 #include "Channel.h"
 #include "Connection.h"

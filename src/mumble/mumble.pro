@@ -86,6 +86,7 @@ HEADERS *= BanEditor.h \
     AudioOutputSpeech.h \
     AudioOutputUser.h \
     CELTCodec.h \
+    OpusCodec.h \
     CustomElements.h \
     MainWindow.h \
     ServerHandler.h \
@@ -156,6 +157,7 @@ SOURCES *= BanEditor.cpp \
     AudioOutputUser.cpp \
     main.cpp \
     CELTCodec.cpp \
+    OpusCodec.cpp \
     CustomElements.cpp \
     MainWindow.cpp \
     ServerHandler.cpp \
