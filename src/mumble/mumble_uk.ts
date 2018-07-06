@@ -688,7 +688,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Про Mumble</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -2491,7 +2491,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="main.cpp" line="+517"/>
+        <location filename="main.cpp" line="+519"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"/>
     </message>
@@ -3838,6 +3838,24 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>JackAudioSystem</name>
+    <message>
+        <location filename="JackAudio.cpp" line="+121"/>
+        <source>Hardware Ports</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mono</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Stereo</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>LCD</name>
     <message>
         <location filename="LCD.cpp" line="+267"/>
@@ -4622,13 +4640,13 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+117"/>
-        <location line="+2698"/>
+        <location filename="MainWindow.cpp" line="+106"/>
+        <location line="+2701"/>
         <source>Root</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2641"/>
+        <location line="-2644"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"/>
@@ -4707,12 +4725,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2635"/>
+        <location line="+2638"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2763"/>
+        <location line="-2766"/>
         <source>&amp;Window</source>
         <translation type="unfinished"/>
     </message>
@@ -4781,13 +4799,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2794"/>
+        <location line="+2797"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2352"/>
+        <location line="-2349"/>
         <source>Clear</source>
         <translation type="unfinished"/>
     </message>
@@ -4844,12 +4862,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1500"/>
+        <location line="+1497"/>
         <source>Transmit Mode set to Continuous</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1400"/>
+        <location line="-1397"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -4943,7 +4961,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+76"/>
         <location line="+270"/>
-        <location line="+614"/>
+        <location line="+611"/>
         <source>Message to channel %1</source>
         <translation type="unfinished"/>
     </message>
@@ -5013,7 +5031,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-3100"/>
+        <location line="-3103"/>
         <source>&amp;User</source>
         <translation type="unfinished"/>
     </message>
@@ -5091,7 +5109,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+299"/>
+        <location line="+305"/>
         <source>Save Image As...</source>
         <translation type="unfinished"/>
     </message>
@@ -5112,18 +5130,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1487"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1482"/>
-        <location line="+1486"/>
+        <location line="-1479"/>
+        <location line="+1483"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1335"/>
+        <location line="-1332"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -5174,12 +5192,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1527"/>
+        <location line="+1524"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1233"/>
+        <location line="-1230"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished"/>
@@ -5194,12 +5212,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+103"/>
         <location line="+4"/>
         <location line="+266"/>
-        <location line="+614"/>
+        <location line="+611"/>
         <source>To %1: %2</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-987"/>
+        <location line="-984"/>
         <location line="+107"/>
         <source>Message to %1</source>
         <translation type="unfinished"/>
@@ -5236,7 +5254,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+175"/>
+        <location line="+173"/>
         <source>Unmuted and undeafened.</source>
         <translation type="unfinished"/>
     </message>
@@ -5266,7 +5284,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+47"/>
         <source>Restart Mumble?</source>
         <translation type="unfinished"/>
     </message>
@@ -5281,7 +5299,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+468"/>
+        <location line="+469"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"/>
     </message>
@@ -5358,8 +5376,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2241"/>
-        <location line="+2453"/>
+        <location line="-2238"/>
+        <location line="+2450"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"/>
     </message>
@@ -5856,7 +5874,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+330"/>
+        <location filename="Messages.cpp" line="+334"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -5916,7 +5934,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-222"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation type="unfinished"/>
     </message>
@@ -5989,6 +6007,11 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6266,12 +6289,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-411"/>
+        <location line="-415"/>
         <source>Server connection rejected: %1.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+162"/>
         <source>Denied: %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6291,7 +6314,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1391"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation type="unfinished"/>
     </message>
@@ -6562,7 +6585,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3064"/>
+        <location filename="MainWindow.cpp" line="-3067"/>
         <source>&amp;Developer</source>
         <translation type="unfinished"/>
     </message>
@@ -7940,7 +7963,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+298"/>
+        <location filename="ServerHandler.cpp" line="+299"/>
         <source>Unable to resolve hostname</source>
         <translation type="unfinished"/>
     </message>
@@ -8525,7 +8548,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-834"/>
+        <location filename="UserModel.cpp" line="-836"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation type="unfinished"/>
     </message>
@@ -8571,7 +8594,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>This shows the flags the user has on the server, if any:</source>
         <translation type="unfinished"/>
     </message>
@@ -8603,6 +8626,11 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Muted (push-to-mute)</source>
         <translation type="unfinished"/>
     </message>
     <message>

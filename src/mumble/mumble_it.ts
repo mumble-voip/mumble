@@ -696,7 +696,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Informazioni su Mumble</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Utility di chat vocale per videogiocatori&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Traduzione italiana a cura di Spaccaossi&lt;br /&gt;spaccaossi@users.sourceforge.net&lt;/p&gt;</translation>
     </message>
@@ -2534,7 +2534,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
         <translation>Impossibile importare. Password mancante o tipo di file incompatibile.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+517"/>
+        <location filename="main.cpp" line="+519"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato sta per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
@@ -3902,6 +3902,24 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     </message>
 </context>
 <context>
+    <name>JackAudioSystem</name>
+    <message>
+        <location filename="JackAudio.cpp" line="+121"/>
+        <source>Hardware Ports</source>
+        <translation>Porte hardware</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mono</source>
+        <translation>Mono</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Stereo</source>
+        <translation>Stereo</translation>
+    </message>
+</context>
+<context>
     <name>LCD</name>
     <message>
         <location filename="LCD.cpp" line="+267"/>
@@ -4694,13 +4712,13 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+117"/>
-        <location line="+2698"/>
+        <location filename="MainWindow.cpp" line="+106"/>
+        <location line="+2701"/>
         <source>Root</source>
         <translation>Canale principale</translation>
     </message>
     <message>
-        <location line="-2641"/>
+        <location line="-2644"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -4779,12 +4797,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2635"/>
+        <location line="+2638"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2763"/>
+        <location line="-2766"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -4853,13 +4871,13 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2794"/>
+        <location line="+2797"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2352"/>
+        <location line="-2349"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -4916,12 +4934,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1500"/>
+        <location line="+1497"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Modalità di Trasmissione impostata su Continua</translation>
     </message>
     <message>
-        <location line="-1400"/>
+        <location line="-1397"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
@@ -5015,7 +5033,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+76"/>
         <location line="+270"/>
-        <location line="+614"/>
+        <location line="+611"/>
         <source>Message to channel %1</source>
         <translation>Messaggio per il canale %1</translation>
     </message>
@@ -5085,7 +5103,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Formato dell&apos;immagine non riconosciuto.</translation>
     </message>
     <message>
-        <location line="-3100"/>
+        <location line="-3103"/>
         <source>&amp;User</source>
         <translation>&amp;Utente</translation>
     </message>
@@ -5163,7 +5181,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Annulla</translation>
     </message>
     <message>
-        <location line="+299"/>
+        <location line="+305"/>
         <source>Save Image As...</source>
         <translation>Salva Immagine Con Nome...</translation>
     </message>
@@ -5184,18 +5202,18 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1487"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Modalità trasmissione impostata su Attività Vocale</translation>
     </message>
     <message>
-        <location line="-1482"/>
-        <location line="+1486"/>
+        <location line="-1479"/>
+        <location line="+1483"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Modalità trasmissione impostata su Push-to-Talk</translation>
     </message>
     <message>
-        <location line="-1335"/>
+        <location line="-1332"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation>&lt;p&gt;Utenti connessi: %1/%2&lt;/p&gt;</translation>
     </message>
@@ -5246,12 +5264,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1527"/>
+        <location line="+1524"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
     <message>
-        <location line="-1233"/>
+        <location line="-1230"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5266,12 +5284,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <location line="+103"/>
         <location line="+4"/>
         <location line="+266"/>
-        <location line="+614"/>
+        <location line="+611"/>
         <source>To %1: %2</source>
         <translation>Per %1: %2</translation>
     </message>
     <message>
-        <location line="-987"/>
+        <location line="-984"/>
         <location line="+107"/>
         <source>Message to %1</source>
         <translation>Messaggio per %1</translation>
@@ -5308,7 +5326,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Per il canale %1 e sottocanali:%2</translation>
     </message>
     <message>
-        <location line="+175"/>
+        <location line="+173"/>
         <source>Unmuted and undeafened.</source>
         <translation>Ti sei riattivato.</translation>
     </message>
@@ -5338,7 +5356,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Ti sei riattivato.</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+47"/>
         <source>Restart Mumble?</source>
         <translation>Riavviare Mumble</translation>
     </message>
@@ -5353,7 +5371,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Informazioni su Qt</translation>
     </message>
     <message>
-        <location line="+468"/>
+        <location line="+469"/>
         <source>SSL Verification failed: %1</source>
         <translation>Verifica SSL fallita: %1</translation>
     </message>
@@ -5433,8 +5451,8 @@ certificato ed il nome utente.</translation>
         <translation>Password errata per un account non registrato, prova di nuovo.</translation>
     </message>
     <message>
-        <location line="-2241"/>
-        <location line="+2453"/>
+        <location line="-2238"/>
+        <location line="+2450"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Immagini (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5931,7 +5949,7 @@ certificato ed il nome utente.</translation>
         <translation>Attiva/disattiva l&apos;interfaccia minima, dove la finestra del log e il menu sono nascosti.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+330"/>
+        <location filename="Messages.cpp" line="+334"/>
         <source>You muted and deafened %1.</source>
         <translation>Hai escluso %1.</translation>
     </message>
@@ -5991,7 +6009,7 @@ certificato ed il nome utente.</translation>
         <translation>%1 si è escluso.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-222"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Le tue informazioni d&apos;accesso non possono essere verificate attualmente. Sei pregato di riprovare più tardi</translation>
     </message>
@@ -6065,6 +6083,11 @@ certificato ed il nome utente.</translation>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
         <translation>Limite annidamento canali raggiunto.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
+        <translation>Limite di canali raggiunto. Bisogna eliminarne prima di crearne di nuovi.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6341,12 +6364,12 @@ certificato ed il nome utente.</translation>
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-411"/>
+        <location line="-415"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+162"/>
         <source>Denied: %1.</source>
         <translation>Negato: %1.</translation>
     </message>
@@ -6366,7 +6389,7 @@ certificato ed il nome utente.</translation>
         <translation>Messaggio da %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1391"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation>Hai impostato &quot;Non Fare Nulla&quot; su Trascinamento Utente quindi l&apos;utente non è stato spostato.</translation>
     </message>
@@ -6683,7 +6706,7 @@ contestuale del canale.</translation>
         <translation>Apre una finestra di dialogo con un cursore del volume. Usalo su utenti nello stesso canale.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3064"/>
+        <location filename="MainWindow.cpp" line="-3067"/>
         <source>&amp;Developer</source>
         <translation>&amp;Sviluppatore</translation>
     </message>
@@ -8066,7 +8089,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+298"/>
+        <location filename="ServerHandler.cpp" line="+299"/>
         <source>Unable to resolve hostname</source>
         <translation>Impossibile risolvere nome host</translation>
     </message>
@@ -8654,7 +8677,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-834"/>
+        <location filename="UserModel.cpp" line="-836"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Questo è un utente connesso al server. L&apos;icona a sinistra dell&apos;utente indica se sta parlando o no:</translation>
     </message>
@@ -8700,7 +8723,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
         <translation>Un canale nel server al quale non sei collegato.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>This shows the flags the user has on the server, if any:</source>
         <translation>Mostra delle informazioni sull&apos;utente relative a questo server:</translation>
     </message>
@@ -8733,6 +8756,11 @@ Un token di accesso è una stringa di testo, che può essere usata come password
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
         <translation>Mutato localmente (solo tu non potrai sentirlo)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Muted (push-to-mute)</source>
+        <translation>Mutato (push-to-mute)</translation>
     </message>
     <message>
         <location line="+2"/>

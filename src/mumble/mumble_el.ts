@@ -698,7 +698,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Σχετικά με το Mumble</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ένα πρόγραμμα φωνητικής συνομιλίας για gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
@@ -2536,7 +2536,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Δεν είναι δυνατή η εισαγωγή. Λείπει ο κωδικός πρόσβασης ή ο τύπος του αρχείου είναι μη συμβατός.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+517"/>
+        <location filename="main.cpp" line="+519"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Λήξη πιστοποιητικού:&lt;/b&gt; Το πιστοποιητικό σας πρόκειται να λήξει. Θα πρέπει να το ανανεώσετε αλλιώς δεν θα μπορείτε πλέον να συνδεθείτε σε διακομιστές στους οποίους είστε εγγεγραμμένοι.</translation>
     </message>
@@ -3898,6 +3898,24 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>JackAudioSystem</name>
+    <message>
+        <location filename="JackAudio.cpp" line="+121"/>
+        <source>Hardware Ports</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mono</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Stereo</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>LCD</name>
     <message>
         <location filename="LCD.cpp" line="+267"/>
@@ -4691,13 +4709,13 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+117"/>
-        <location line="+2698"/>
+        <location filename="MainWindow.cpp" line="+106"/>
+        <location line="+2701"/>
         <source>Root</source>
         <translation>Ρίζα</translation>
     </message>
     <message>
-        <location line="-2641"/>
+        <location line="-2644"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Πίεση Πλήκτρου για Ομιλία</translation>
@@ -4776,12 +4794,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2635"/>
+        <location line="+2638"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2763"/>
+        <location line="-2766"/>
         <source>&amp;Window</source>
         <translation>&amp;Παράθυρο</translation>
     </message>
@@ -4850,13 +4868,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2794"/>
+        <location line="+2797"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Μη συνδεδεμένο&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2352"/>
+        <location line="-2349"/>
         <source>Clear</source>
         <translation>Καθαρισμός</translation>
     </message>
@@ -4913,12 +4931,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1500"/>
+        <location line="+1497"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Η Λειτουργία Μετάδοσης ρυθμίστηκε σε Συνεχής</translation>
     </message>
     <message>
-        <location line="-1400"/>
+        <location line="-1397"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
@@ -5012,7 +5030,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+76"/>
         <location line="+270"/>
-        <location line="+614"/>
+        <location line="+611"/>
         <source>Message to channel %1</source>
         <translation>Μήνυμα στο κανάλι %1</translation>
     </message>
@@ -5082,7 +5100,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>To format της εικόνας δεν αναγνωρίστηκε.</translation>
     </message>
     <message>
-        <location line="-3100"/>
+        <location line="-3103"/>
         <source>&amp;User</source>
         <translation>&amp;Χρήστης</translation>
     </message>
@@ -5160,7 +5178,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ακύρωση</translation>
     </message>
     <message>
-        <location line="+299"/>
+        <location line="+305"/>
         <source>Save Image As...</source>
         <translation>Αποθήκευση εικόνας ως...</translation>
     </message>
@@ -5181,18 +5199,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1487"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Φωνητική Δραστηριότητα</translation>
     </message>
     <message>
-        <location line="-1482"/>
-        <location line="+1486"/>
+        <location line="-1479"/>
+        <location line="+1483"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Πίεση-πλήκτρου-για-Ομιλία </translation>
     </message>
     <message>
-        <location line="-1335"/>
+        <location line="-1332"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation>&lt;p&gt;Συνδεδεμένοι χρήστες: %1/%2&lt;/p&gt;</translation>
     </message>
@@ -5243,12 +5261,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1527"/>
+        <location line="+1524"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Προβολή Πιστοποιητικού</translation>
     </message>
     <message>
-        <location line="-1233"/>
+        <location line="-1230"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Εισάγετε λόγο</translation>
@@ -5263,12 +5281,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+103"/>
         <location line="+4"/>
         <location line="+266"/>
-        <location line="+614"/>
+        <location line="+611"/>
         <source>To %1: %2</source>
         <translation>Στον %1: %2</translation>
     </message>
     <message>
-        <location line="-987"/>
+        <location line="-984"/>
         <location line="+107"/>
         <source>Message to %1</source>
         <translation>Μήνυμα στον %1</translation>
@@ -5305,7 +5323,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Στο %1 (Δέντρο Καναλιών): %2</translation>
     </message>
     <message>
-        <location line="+175"/>
+        <location line="+173"/>
         <source>Unmuted and undeafened.</source>
         <translation>Ξεφιμώθηκε και ξεκωφώθηκε.</translation>
     </message>
@@ -5335,7 +5353,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ξεκωφώθηκε.</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+47"/>
         <source>Restart Mumble?</source>
         <translation>Επανεκκίνηση του Mumble;</translation>
     </message>
@@ -5350,7 +5368,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Σχετικά με το Qt</translation>
     </message>
     <message>
-        <location line="+468"/>
+        <location line="+469"/>
         <source>SSL Verification failed: %1</source>
         <translation>Η Επαλήθευση με SSL απέτυχε: %1</translation>
     </message>
@@ -5429,8 +5447,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Λάθος κωδικός πρόσβασης διακομιστή για μη εγγραμμένο λογαριασμό χρήστη, δοκιμάστε ξανά.</translation>
     </message>
     <message>
-        <location line="-2241"/>
-        <location line="+2453"/>
+        <location line="-2238"/>
+        <location line="+2450"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Εικόνες (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5927,7 +5945,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Αυτό εναλλάσει την κατάσταση μινιμαλ, όπου το μενού και το παράθυρο καταγραφών θα είναι κρυμμένα.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+330"/>
+        <location filename="Messages.cpp" line="+334"/>
         <source>You muted and deafened %1.</source>
         <translation>Φιμώσατε και κωφώσατε τον %1.</translation>
     </message>
@@ -5987,7 +6005,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 είναι τώρα φιμωμένος και κωφωμένος.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-222"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Δεν είναι δυνατή η επαλήθευση των στοιχείων του λογαριασμού σας αυτήν τη στιγμή. Παρακαλώ δοκιμάστε ξανά αργότερα</translation>
     </message>
@@ -6061,6 +6079,11 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
         <translation>Η ένθεση καναλιών έφτασε στο όριο.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
@@ -6337,12 +6360,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 εισήλθε στο κανάλι.</translation>
     </message>
     <message>
-        <location line="-411"/>
+        <location line="-415"/>
         <source>Server connection rejected: %1.</source>
         <translation>Η σύνδεση στον διακομιστή απορρίφθηκε: %1.</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+162"/>
         <source>Denied: %1.</source>
         <translation>Απορρίφθηκε: %1.</translation>
     </message>
@@ -6362,7 +6385,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Μήνυμα από τον %1.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1391"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation>Έχετε το Σύρσιμο Χρήστη ρυθμισμένο να &quot;Μην κάνει τίποτα&quot;, οπότε ο χρήστης δεν μετακινήθηκε.</translation>
     </message>
@@ -6677,7 +6700,7 @@ the channel&apos;s context menu.</source>
         <translation>Ανοίγει ένα παράθυρο διαλόγου με ένα ρυθμιστικό έντασης. Χρησιμοποιήστε το σε άλλους χρήστες στο ίδιο δωμάτιο.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3064"/>
+        <location filename="MainWindow.cpp" line="-3067"/>
         <source>&amp;Developer</source>
         <translation>&amp;Προγραμματιστής</translation>
     </message>
@@ -8060,7 +8083,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+298"/>
+        <location filename="ServerHandler.cpp" line="+299"/>
         <source>Unable to resolve hostname</source>
         <translation type="unfinished"/>
     </message>
@@ -8648,7 +8671,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-834"/>
+        <location filename="UserModel.cpp" line="-836"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Αυτός είναι ένας χρήστης συνδεδεμένος στο διακομιστή. Το εικονίδιο στα αριστερά του χρήστη υποδεικνύει εάν μιλάει ή όχι:</translation>
     </message>
@@ -8694,7 +8717,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Ένα κανάλι στο διακομιστή με το οποίο δεν είστε συνδεδεμένοι.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>This shows the flags the user has on the server, if any:</source>
         <translation>Αυτό δείχνει τα flags που έχει ο χρήστης στο διακομιστή, εάν υπάρχουν:</translation>
     </message>
@@ -8727,6 +8750,11 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
         <translation>Φιμωμένος (από εσάς, μόνο στο μηχάνημά σας)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Muted (push-to-mute)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
