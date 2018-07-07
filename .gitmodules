@@ -22,6 +22,9 @@
 [submodule "3rdparty/speexdsp-src"]
 	path = 3rdparty/speexdsp-src
 	url = https://github.com/mumble-voip/speexdsp.git
+[submodule "3rdparty/rnnoise-src"]
+	path = 3rdparty/rnnoise-src
+	url = https://github.com/mumble-voip/rnnoise.git
 [submodule "themes/Mumble"]
 	path = themes/Mumble
 	url = https://github.com/mumble-voip/mumble-theme.git

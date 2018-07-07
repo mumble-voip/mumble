@@ -72,6 +72,12 @@ CONFIG+=no-opus (Mumble)
 CONFIG+=no-bundled-opus (Mumble)
  Don't use the included version of Opus, but look for one on the system.
 
+CONFIG+=no-rnnoise (Mumble)
+ Don't build RNNoise support at all.
+
+ CONFIG+=no-bundled-rnnoise (Mumble)
+ Don't use the included version of RNNoise, but look for one on the system.
+
 CONFIG+=sbcelt (Mumble, Linux, OSX, FreeBSD)
  Use the SBCELT library for decoding CELT frames. Enabling this option will
  build Mumble in a mode that forces all CELT frames to be decoded in a

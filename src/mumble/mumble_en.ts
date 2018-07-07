@@ -1093,7 +1093,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+580"/>
+        <location filename="AudioInput.cpp" line="+596"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1157,6 +1157,21 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>Undo Idle action upon activity</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Apply RNNoise&apos;s noise suppression filter.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>RNNoise</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1181,7 +1196,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+106"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -4644,7 +4659,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+106"/>
+        <location filename="MainWindow.cpp" line="+107"/>
         <location line="+2701"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
