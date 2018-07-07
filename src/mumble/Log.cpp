@@ -213,6 +213,7 @@ const Log::MsgType Log::msgOrder[] = {
 	OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther,
 	SelfChannelJoin, SelfChannelJoinOther,
 	ChannelJoin, ChannelLeave,
+	ChannelJoinConnect, ChannelLeaveDisconnect,
 	PermissionDenied,
 	TextMessage
 };
@@ -244,6 +245,8 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "User renamed"),
 	QT_TRANSLATE_NOOP("Log", "You Joined Channel"),
 	QT_TRANSLATE_NOOP("Log", "You Joined Channel (moved)"),
+	QT_TRANSLATE_NOOP("Log", "User connected and entered channel"),
+	QT_TRANSLATE_NOOP("Log", "User left channel and disconnected")
 };
 
 QString Log::msgName(MsgType t) const {
