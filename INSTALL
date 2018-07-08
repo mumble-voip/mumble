@@ -75,7 +75,7 @@ CONFIG+=no-bundled-opus (Mumble)
 CONFIG+=no-rnnoise (Mumble)
  Don't build RNNoise support at all.
 
- CONFIG+=no-bundled-rnnoise (Mumble)
+CONFIG+=no-bundled-rnnoise (Mumble)
  Don't use the included version of RNNoise, but look for one on the system.
 
 CONFIG+=sbcelt (Mumble, Linux, OSX, FreeBSD)
@@ -110,6 +110,9 @@ CONFIG+=no-dbus (Mumble)
 
 CONFIG+=no-g15 (Mumble)
  Don't include support for the G15 keyboard (and compatible devices).
+
+CONFIG+=no-jackaudio (Mumble)
+ Don't build support for JackAudio.
 
 CONFIG+=no-asio (Mumble, Win32)
  Don't build support for ASIO audio input.
