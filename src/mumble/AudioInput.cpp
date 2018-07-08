@@ -165,8 +165,9 @@ AudioInput::~AudioInput() {
 #endif
 
 #ifdef USE_RNNOISE
-	if (denoiseState)
+	if (denoiseState) {
 		rnnoise_destroy(denoiseState);
+	}
 #endif
 
 	if (ceEncoder) {
@@ -811,6 +812,22 @@ void AudioInput::encodeAudioFrame() {
 	QMutexLocker l(&qmSpeex);
 	resetAudioProcessor();
 
+#ifdef USE_RNNOISE
+	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
+	if (g.s.bDenoise && denoiseState && (iFrameSize == 480)) {
+		float denoiseFrames[480];
+		for (int i = 0; i < 480; i++) {
+			denoiseFrames[i] = psMic[i];
+		}
+
+		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
+
+		for (int i = 0; i < 480; i++) {
+			psMic[i] = denoiseFrames[i];
+		}
+	}
+#endif
+
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
 	float gainValue = static_cast<float>(iArg);
 	iArg = g.s.iNoiseSuppress - iArg;
@@ -824,22 +841,6 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_run(sppPreprocess, psMic);
 		psSource = psMic;
 	}
-
-#ifdef USE_RNNOISE
-	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
-	if (g.s.bDenoise && (iFrameSize == 480)) {
-		float denoiseFrames[480];
-		for (int i = 0; i < 480; i++) {
-			denoiseFrames[i] = psSource[i];
-		}
-
-		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
-
-		for (int i = 0; i < 480; i++) {
-			psSource[i] = denoiseFrames[i];
-		}
-	}
-#endif
 
 	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
