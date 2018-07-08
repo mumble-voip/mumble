@@ -316,6 +316,7 @@ Settings::Settings() {
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
+	qsJackClientName = QLatin1String("mumble");
 	qsJackAudioOutput = QLatin1String("1");
 	bJackStartServer = true;
 	bJackAutoConnect = true;

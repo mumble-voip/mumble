@@ -133,7 +133,7 @@ void JackAudioSystem::init_jack() {
 	int err = 0;
 
 	jack_options_t jack_option = g.s.bJackStartServer ? JackNullOption : JackNoStartServer;
-	client = jack_client_open("mumble", jack_option, &status);
+	client = jack_client_open(g.s.qsJackClientName.toStdString().c_str(), jack_option, &status);
 
 	if (client) {
 		qWarning("JackAudioSystem: client \"%s\" opened successfully", jack_get_client_name(client));

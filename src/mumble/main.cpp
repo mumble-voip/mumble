@@ -130,6 +130,7 @@ int main(int argc, char **argv) {
 
 	bool bAllowMultiple = false;
 	bool suppressIdentity = false;
+	bool customJackClientName = false;
 	bool bRpcMode = false;
 	QString rpcCommand;
 	QUrl url;
@@ -157,6 +158,8 @@ int main(int argc, char **argv) {
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
+					"  -jn, --jackname\n"
+					"                Set custom Jack client name.\n"
 					"  --license\n"
 					"                Show the Mumble license.\n"
 					"  --authors\n"
@@ -207,6 +210,9 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				suppressIdentity = true;
 				g.s.bSuppressIdentity = true;
+			} else if (args.at(i) == QLatin1String("-jn") || args.at(i) == QLatin1String("--jackname")) {
+				g.s.qsJackClientName = QString(args.at(i+1));
+				customJackClientName = true;
 			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 				printf("%s\n", qPrintable(License::license()));
 				return 0;
@@ -627,6 +633,7 @@ int main(int argc, char **argv) {
 		
 		if (bAllowMultiple)   arguments << QLatin1String("--multiple");
 		if (suppressIdentity) arguments << QLatin1String("--noidentity");
+		if (customJackClientName) arguments << QLatin1String("--jackname ") + g.s.qsJackClientName;
 		if (!url.isEmpty())   arguments << url.toString();
 		
 		qWarning() << "Triggering restart of Mumble with arguments: " << arguments;
