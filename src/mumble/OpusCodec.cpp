@@ -28,11 +28,13 @@ OpusCodec::OpusCodec() {
 	alternatives << QString::fromLatin1("libopus.dylib");
 	alternatives << QString::fromLatin1("opus.dylib");
 #elif defined(Q_OS_UNIX)
+	alternatives << QString::fromLatin1("libopus.so.0");
 	alternatives << QString::fromLatin1("libopus0.so");
 	alternatives << QString::fromLatin1("libopus.so");
 	alternatives << QString::fromLatin1("opus.so");
 #else
 	alternatives << QString::fromLatin1("opus0.dll");
+	alternatives << QString::fromLatin1("opus.dll");
 #endif
 	foreach(const QString &lib, alternatives) {
 		qlOpus.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
