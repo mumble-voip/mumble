@@ -1178,6 +1178,17 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 			users.insert(static_cast<ServerUser *>(p));
 
 		tm.qlChannels.append(id);
+
+		// Forward text message to linked channels
+		if (c->qhLinks.count() > 0) {
+			foreach(Channel *l, c->qhLinks.keys()) {
+				foreach(User *p, l->qlUsers) {
+					users.insert(static_cast<ServerUser *>(p));
+				}
+
+				tm.qlTrees.append(l->iId);
+			}
+		}
 	}
 
 	for (int i=0;i<msg.tree_id_size(); ++i) {
@@ -1195,6 +1206,14 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		q.enqueue(c);
 
 		tm.qlTrees.append(id);
+
+		// Forward text message to linked channels
+		if (c->qhLinks.count() > 0) {
+			foreach(Channel *l, c->qhLinks.keys()) {
+				q.enqueue(l);
+				tm.qlTrees.append(l->iId);
+			}
+		}
 	}
 
 	while (! q.isEmpty()) {
