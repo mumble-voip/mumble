@@ -165,8 +165,9 @@ AudioInput::~AudioInput() {
 #endif
 
 #ifdef USE_RNNOISE
-	if (denoiseState)
+	if (denoiseState) {
 		rnnoise_destroy(denoiseState);
+	}
 #endif
 
 	if (ceEncoder) {
@@ -813,7 +814,7 @@ void AudioInput::encodeAudioFrame() {
 
 #ifdef USE_RNNOISE
 	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
-	if (g.s.bDenoise && (iFrameSize == 480)) {
+	if (g.s.bDenoise && denoiseState && (iFrameSize == 480)) {
 		float denoiseFrames[480];
 		for (int i = 0; i < 480; i++) {
 			denoiseFrames[i] = psMic[i];
