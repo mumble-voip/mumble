@@ -1099,7 +1099,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>Tiden som mikrofonen är igång efter att tryck-för-att-tala-knappen släppts</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+580"/>
+        <location filename="AudioInput.cpp" line="+596"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Serverns maximala nätverkskapacitet är bara %1 kbit/s. Ljudkvaliteten justerades till %2 kbit/s (%3 ms)</translation>
     </message>
@@ -1163,6 +1163,21 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <source>Undo Idle action upon activity</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>Apply RNNoise&apos;s noise suppression filter.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>RNNoise</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1187,7 +1202,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>Ljudingång</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+106"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -4003,7 +4018,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+221"/>
+        <location filename="Log.cpp" line="+222"/>
         <source>Debug</source>
         <translation>Felsök</translation>
     </message>
@@ -4133,6 +4148,21 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Du gick med i kanlen (flyttat)</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>User connected and entered channel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>User left channel and disconnected</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Private text message</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+59"/>
         <source>the server</source>
         <translation>servern</translation>
@@ -4183,7 +4213,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-495"/>
+        <location line="-499"/>
         <source>Toggle console for %1 events</source>
         <translation>Växla konsoll för %1 händelser</translation>
     </message>
@@ -4703,7 +4733,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+106"/>
+        <location filename="MainWindow.cpp" line="+107"/>
         <location line="+2701"/>
         <source>Root</source>
         <translation>Rot</translation>
@@ -5939,7 +5969,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Detta kommer växla minimalt läge när loggfönstret och menyn är gömd.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+334"/>
+        <location filename="Messages.cpp" line="+408"/>
         <source>You muted and deafened %1.</source>
         <translation>Du avaktiverade mikrofon och ljud för %1.</translation>
     </message>
@@ -5979,27 +6009,27 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>%2 tystade %1.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="-218"/>
         <source>%1 moved to %2.</source>
         <translation>%1 flyttade till %2.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+12"/>
         <source>%1 moved to %2 by %3.</source>
         <translation>%1 flyttades till %2 av %3.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-2"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1 flyttades in från %2 av %3.</translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="+52"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 har avaktiverat sin mikrofon och sitt ljud.</translation>
     </message>
     <message>
-        <location line="-222"/>
+        <location line="-296"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Din kontoinformation kan inte verifieras just nu. Var god försök igen senare</translation>
     </message>
@@ -6085,12 +6115,17 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Åtkomst nekad.</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+32"/>
+        <source>%1 connected and entered channel.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>%1 connected.</source>
         <translation>%1 anslöt till servern.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+93"/>
         <source>%1 is now muted.</source>
         <translation>%1 har avaktiverat sin mikrofon.</translation>
     </message>
@@ -6201,27 +6236,28 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Du avtystades av %1.</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="-173"/>
         <source>You joined %1.</source>
         <translation>Du gick med %1.</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+13"/>
+        <location line="+2"/>
         <source>You moved %1 to %2.</source>
         <translation>Du flyttade %1 till %2.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+12"/>
         <source>%1 is recording</source>
         <translation>%1 spelar in</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>%1 renamed to %2 by %3.</source>
         <translation>%1 namnbyte till %2 av %3</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+240"/>
         <source>%1 disconnected.</source>
         <translation>%1 lämnade servern.</translation>
     </message>
@@ -6233,7 +6269,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>server</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>(Tree) </source>
         <translation>(Träd) </translation>
     </message>
@@ -6248,7 +6284,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>(Privat) </translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>%2%1: %3</source>
         <translation>%2%1: %3</translation>
     </message>
@@ -6278,7 +6314,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Servern efterfrågar avaktivering av Tryck-för-att-Tala-funktionen.</translation>
     </message>
     <message>
-        <location line="-519"/>
+        <location line="-464"/>
         <source>You were unmuted by %1.</source>
         <translation>Din mikrofon aktiverades av %1.</translation>
     </message>
@@ -6313,18 +6349,18 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>%2 aktiverade mikrofon för %1.</translation>
     </message>
     <message>
-        <location line="+422"/>
+        <location line="+367"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Kunde inte hitta liknande CELT-kodekar med andra klienter. Du kan inte tala med alla användare.</translation>
     </message>
     <message>
-        <location line="-488"/>
+        <location line="-433"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Din mikrofon och ljud avaktiverades av %1.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+120"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Du slängdes ut från servern av %1: %2.</translation>
     </message>
@@ -6344,17 +6380,17 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>%3 slängdes ut och blev bannlyst från servern av %1: %2.</translation>
     </message>
     <message>
-        <location line="-80"/>
+        <location line="-270"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Du flyttades till %1 av %2.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+5"/>
         <source>%1 entered channel.</source>
         <translation>%1 gick med i kanalen.</translation>
     </message>
     <message>
-        <location line="-415"/>
+        <location line="-225"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serveranslutning avbröts: %1.</translation>
     </message>
@@ -6364,17 +6400,17 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Nekad: %1.</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+98"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 omdöpt till %2</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+235"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 lämnade kanalen och servern.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+132"/>
         <source>Message from %1</source>
         <translation>Meddelande från %1</translation>
     </message>
