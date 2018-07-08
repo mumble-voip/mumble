@@ -1099,7 +1099,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>Doba, kdy mikrofon stále přijímá po uvolnění klávesy pro mluvení</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+580"/>
+        <location filename="AudioInput.cpp" line="+596"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Maximální propustnost sítě na serveru je %1 kbit/s. Kvalita zvuku byla automaticky upravena na %2 kbit/s (%3 ms) </translation>
     </message>
@@ -1163,6 +1163,21 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <source>Undo Idle action upon activity</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>Apply RNNoise&apos;s noise suppression filter.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>RNNoise</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1187,7 +1202,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>Vstup Zvuku</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+106"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -4006,7 +4021,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+221"/>
+        <location filename="Log.cpp" line="+222"/>
         <source>Debug</source>
         <translation>Ladění</translation>
     </message>
@@ -4136,6 +4151,21 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+1"/>
+        <source>User connected and entered channel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>User left channel and disconnected</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Private text message</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+59"/>
         <source>the server</source>
         <translation>server</translation>
@@ -4186,7 +4216,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-495"/>
+        <location line="-499"/>
         <source>Toggle console for %1 events</source>
         <translation>Zapnout konzoli pro události %1</translation>
     </message>
@@ -4706,7 +4736,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+106"/>
+        <location filename="MainWindow.cpp" line="+107"/>
         <location line="+2701"/>
         <source>Root</source>
         <translation>Kořen</translation>
@@ -5942,7 +5972,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Toto zapne minimální zobrazení, kde jsou okna záznamu a menu skryta.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+334"/>
+        <location filename="Messages.cpp" line="+408"/>
         <source>You muted and deafened %1.</source>
         <translation>Zeslabili a ohlušili jste uživatele %1.</translation>
     </message>
@@ -5982,27 +6012,27 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>%1 potlačen uživatelem %2.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="-218"/>
         <source>%1 moved to %2.</source>
         <translation>%1 přesunut do %2.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+12"/>
         <source>%1 moved to %2 by %3.</source>
         <translation>%1 přesunut do %2 uživatelem %3.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-2"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1 přesunut z %2 uživatelem %3.</translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="+52"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 je nyní zeslaben a ohlušen.</translation>
     </message>
     <message>
-        <location line="-222"/>
+        <location line="-296"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Informace o vašem účtu nemohou být momentálně ověřeny. Zkuste to prosím později</translation>
     </message>
@@ -6088,12 +6118,17 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Oprávnění zamítnuto.</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+32"/>
+        <source>%1 connected and entered channel.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>%1 connected.</source>
         <translation>%1 se připojil.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+93"/>
         <source>%1 is now muted.</source>
         <translation>%1 je nyní zeslaben.</translation>
     </message>
@@ -6204,27 +6239,28 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Vaše potlačení bylo zrušeno uživatelem %1.</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="-173"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+13"/>
+        <location line="+2"/>
         <source>You moved %1 to %2.</source>
         <translation>%1 jste přesunuli do %2.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+12"/>
         <source>%1 is recording</source>
         <translation>%1 nahrává</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>%1 renamed to %2 by %3.</source>
         <translation>%1 přejmenován na %2 uživatelem %3.</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+240"/>
         <source>%1 disconnected.</source>
         <translation>%1 odpojen.</translation>
     </message>
@@ -6236,7 +6272,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Serveru</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>(Tree) </source>
         <translation>(Strom) </translation>
     </message>
@@ -6251,7 +6287,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>%2%1: %3</source>
         <translation>%2%1: %3</translation>
     </message>
@@ -6281,7 +6317,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Server vyžaduje, aby mluvení při stisku tlačítka bylo vypnuto.</translation>
     </message>
     <message>
-        <location line="-519"/>
+        <location line="-464"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 Vás zesílil.</translation>
     </message>
@@ -6316,18 +6352,18 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>%1 zesílil %2.</translation>
     </message>
     <message>
-        <location line="+422"/>
+        <location line="+367"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Nelze nalézt odpovídající kodeky CELT s ostatními klienty. Nebudete schopni mluvit ke všem uživatelům.</translation>
     </message>
     <message>
-        <location line="-488"/>
+        <location line="-433"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 Vás zeslabil a ohlušil.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+120"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Byli jste vykopnuti ze serveru uživatelem %1: %2.</translation>
     </message>
@@ -6347,17 +6383,17 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>%3 byl vykopnut a zakázán uživatelem %1: %2.</translation>
     </message>
     <message>
-        <location line="-80"/>
+        <location line="-270"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Byli jste přesunuti do %1 uživatelem %2.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+5"/>
         <source>%1 entered channel.</source>
         <translation>%1 vstoupil do kanálu.</translation>
     </message>
     <message>
-        <location line="-415"/>
+        <location line="-225"/>
         <source>Server connection rejected: %1.</source>
         <translation>Spojení se serverem odmítnuto: %1.</translation>
     </message>
@@ -6367,17 +6403,17 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Zamítnuto: %1.</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+98"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 přejmenován na %2.</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+235"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 opustil kanál a odpojil se.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+132"/>
         <source>Message from %1</source>
         <translation>Zpráva od %1</translation>
     </message>

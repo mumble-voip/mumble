@@ -505,7 +505,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"/>
+        <translation>Esse é o critério de ordenação para o canal.</translation>
     </message>
 </context>
 <context>
@@ -545,7 +545,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>Buffer de amostra %1 -&gt; %2, com resolução de amostra de%3 (%4 preferencialmente) em %5 Hz</translation>
+        <translation>Buffer de amostra %1 → %2, com resolução de amostra de%3 (%4 preferencialmente) em %5 Hz</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -718,7 +718,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location line="+1"/>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"/>
+        <translation>Licenças de &amp;Terceiros</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1099,7 +1099,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <translation>Tempo que o microfone fica aberto após a tecla PPF ser solta</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+580"/>
+        <location filename="AudioInput.cpp" line="+596"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>A largura máxima de banda do servidor é apenas %1 kbit/s. Qualidade de áudio ajustada para %2 kbit/s (%3 ms)</translation>
     </message>
@@ -1156,11 +1156,26 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"/>
+        <translation>A ação ausente será revertida por qualquer modificação de mouse ou teclas</translation>
     </message>
     <message>
         <location/>
         <source>Undo Idle action upon activity</source>
+        <translation>Desfazer Ausência por atividade</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply RNNoise&apos;s noise suppression filter.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>RNNoise</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1187,7 +1202,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <translation>Entrada de Áudio</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+106"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -3407,14 +3422,18 @@ Nome de usuário para enviar ao servidor. Lembre-se que o servidor pode impor re
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"/>
+        <translation>Atualmente você está conectado a um servidor.
+Você deseja preencher o diálogo com os dados de conexão desse servidor?
+Host: %1 Porta: %2</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"/>
+        <translation>Você tem uma URL na sua área de transferência.
+Você quer preencher o diálogo com esses dados?
+Host: %1 Porta: %2</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
@@ -3473,7 +3492,7 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     <message>
         <location/>
         <source>&amp;Fill</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Preencher</translation>
     </message>
 </context>
 <context>
@@ -3722,7 +3741,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished"/>
+        <translation>Motores de Atalho Adicionais</translation>
     </message>
     <message>
         <location/>
@@ -3732,7 +3751,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>Enable Windows hooks</source>
-        <translation type="unfinished"/>
+        <translation>Permitir gatilhos de janela</translation>
     </message>
     <message>
         <location/>
@@ -3742,7 +3761,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>Enable GKey</source>
-        <translation type="unfinished"/>
+        <translation>Ativar GKey</translation>
     </message>
     <message>
         <location/>
@@ -3752,7 +3771,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>Enable XInput</source>
-        <translation type="unfinished"/>
+        <translation>Ativar XInput</translation>
     </message>
     <message>
         <location/>
@@ -3764,7 +3783,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <location/>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"/>
+        <translation>Ativar atalhos em aplicações privilegiadas</translation>
     </message>
 </context>
 <context>
@@ -3897,17 +3916,17 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <location filename="JackAudio.cpp" line="+121"/>
         <source>Hardware Ports</source>
-        <translation type="unfinished"/>
+        <translation>Portas de Hardware</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mono</source>
-        <translation type="unfinished"/>
+        <translation>Mono</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Stereo</source>
-        <translation type="unfinished"/>
+        <translation>Estéreo</translation>
     </message>
 </context>
 <context>
@@ -4003,7 +4022,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+221"/>
+        <location filename="Log.cpp" line="+222"/>
         <source>Debug</source>
         <translation>Depuração</translation>
     </message>
@@ -4125,11 +4144,26 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+1"/>
         <source>You Joined Channel</source>
-        <translation type="unfinished"/>
+        <translation>Você Ingressou no Canal</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You Joined Channel (moved)</source>
+        <translation>Você Ingressou no Canal (movido)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>User connected and entered channel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>User left channel and disconnected</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Private text message</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4162,7 +4196,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+2"/>
         <source>FTP link to %1</source>
-        <translation type="unfinished"/>
+        <translation>Endereço FTP para %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4183,7 +4217,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-495"/>
+        <location line="-499"/>
         <source>Toggle console for %1 events</source>
         <translation>Alternar console para eventos %1</translation>
     </message>
@@ -4205,7 +4239,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="-1"/>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Alterna destaque de janela (se inativo) para eventos %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4226,7 +4260,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+1"/>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished"/>
+        <translation>Clique aqui para alternar realce de janela para eventos %1. &lt;br /&gt;Se marcado, a janela do Mumble será destacada para cara evento %1, se inativa.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4368,7 +4402,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Highlight</source>
-        <translation type="unfinished"/>
+        <translation>Destaque</translation>
     </message>
 </context>
 <context>
@@ -4687,23 +4721,23 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Enable Developer menu</source>
-        <translation type="unfinished"/>
+        <translation>Ativar menu de Desenvolvedor</translation>
     </message>
     <message>
         <location/>
         <source>When in custom layout mode, checking this disables rearranging.</source>
-        <translation type="unfinished"/>
+        <translation>No modo de disposição pessoal, marcar isso desativa a reordenação.</translation>
     </message>
     <message>
         <location/>
         <source>Lock layout</source>
-        <translation type="unfinished"/>
+        <translation>Trancar Disposição</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+106"/>
+        <location filename="MainWindow.cpp" line="+107"/>
         <location line="+2701"/>
         <source>Root</source>
         <translation>Raiz</translation>
@@ -5036,7 +5070,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+112"/>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Resumo de certificado (SHA-1) esperado:	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5056,7 +5090,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+67"/>
         <source>Server connection failed.</source>
-        <translation type="unfinished"/>
+        <translation>Conexão com o servidor falhou.</translation>
     </message>
     <message>
         <location line="+80"/>
@@ -5369,7 +5403,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+5"/>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Resumo de certificado (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5940,7 +5974,7 @@ seu certificado e nome de usuário.</translation>
         <translation>Alterna o modo mínimo, em que a janela de registro e o menu são escondidos.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+334"/>
+        <location filename="Messages.cpp" line="+408"/>
         <source>You muted and deafened %1.</source>
         <translation>Você emudeceu e ensurdeceu %1.</translation>
     </message>
@@ -5980,27 +6014,27 @@ seu certificado e nome de usuário.</translation>
         <translation>%1 reprimido por %2.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="-218"/>
         <source>%1 moved to %2.</source>
         <translation>%1 movido para %2.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+12"/>
         <source>%1 moved to %2 by %3.</source>
         <translation>%1 movido para %2 por %3.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-2"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1 foi trazido de %2 por %3.</translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="+52"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 agora está mudo e surdo.</translation>
     </message>
     <message>
-        <location line="-222"/>
+        <location line="-296"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>A informação da sua conta não pode ser verificada de momento. Por favor tente mais tarde</translation>
     </message>
@@ -6078,7 +6112,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+4"/>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
-        <translation type="unfinished"/>
+        <translation>Limite de contagem de canais atingido. É preciso deletar canais antes de criar novos.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6086,12 +6120,17 @@ seu certificado e nome de usuário.</translation>
         <translation>Permissão negada.</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+32"/>
+        <source>%1 connected and entered channel.</source>
+        <translation>%1 conectou e entrou no canal.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>%1 connected.</source>
         <translation>%1 conectou.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+93"/>
         <source>%1 is now muted.</source>
         <translation>%1 agora está mudo.</translation>
     </message>
@@ -6202,27 +6241,28 @@ seu certificado e nome de usuário.</translation>
         <translation>Você foi liberado por %1.</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="-173"/>
         <source>You joined %1.</source>
-        <translation type="unfinished"/>
+        <translation>Você ingressou %1.</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+13"/>
+        <location line="+2"/>
         <source>You moved %1 to %2.</source>
         <translation>Você moveu %1 para %2</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+12"/>
         <source>%1 is recording</source>
         <translation>%1 está gravando</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>%1 renamed to %2 by %3.</source>
         <translation>%1 renomeado para %2 por %3.</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+240"/>
         <source>%1 disconnected.</source>
         <translation>%1 desconectou.</translation>
     </message>
@@ -6234,7 +6274,7 @@ seu certificado e nome de usuário.</translation>
         <translation>Servidor</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>(Tree) </source>
         <translation>(Árvore)</translation>
     </message>
@@ -6249,7 +6289,7 @@ seu certificado e nome de usuário.</translation>
         <translation>(Privado)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>%2%1: %3</source>
         <translation>%2%1: %3</translation>
     </message>
@@ -6279,7 +6319,7 @@ seu certificado e nome de usuário.</translation>
         <translation>O servidor requer Pressionar-para-Falar inativo.</translation>
     </message>
     <message>
-        <location line="-519"/>
+        <location line="-464"/>
         <source>You were unmuted by %1.</source>
         <translation>Você foi desemudecido por %1.</translation>
     </message>
@@ -6314,18 +6354,18 @@ seu certificado e nome de usuário.</translation>
         <translation>%1 desemudecido por %2.</translation>
     </message>
     <message>
-        <location line="+422"/>
+        <location line="+367"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Impossível encontrar decodificadores CELT correspondentes com outros clientes. Você não será capaz de falar com todos usuários.</translation>
     </message>
     <message>
-        <location line="-488"/>
+        <location line="-433"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Você foi emudecido e ensurdecido por %1.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+120"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Você foi expulso do servidor por %1: %2.</translation>
     </message>
@@ -6345,17 +6385,17 @@ seu certificado e nome de usuário.</translation>
         <translation>%3 foi expulso e banido do servidor por %1: %2.</translation>
     </message>
     <message>
-        <location line="-80"/>
+        <location line="-270"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Você foi movido para %1 por %2.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+5"/>
         <source>%1 entered channel.</source>
         <translation>%1 entrou no canal.</translation>
     </message>
     <message>
-        <location line="-415"/>
+        <location line="-225"/>
         <source>Server connection rejected: %1.</source>
         <translation>Conexão com o servidor rejeitada: %1.</translation>
     </message>
@@ -6365,24 +6405,24 @@ seu certificado e nome de usuário.</translation>
         <translation>Negado: %1.</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+98"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 renomeado para %2.</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+235"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 deixou o canal e desconectou-se.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+132"/>
         <source>Message from %1</source>
         <translation>Mensagem de %1</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1391"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Você possui Arrasto de Usuário definido para &quot;Fazer Nada&quot; então o usuário não foi movido.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6452,7 +6492,26 @@ Valid actions are:
                 Toggle self-deafen status
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Uso: mumble rpc &lt;açao&gt; [opções]
+
+É possível controlar remotamente uma instância do Mumble
+usando o comando &apos;mumble rpc&apos;.
+
+São ações válidas:
+  mute
+                Emudecer-se
+  unmute
+                Desemudecer-se
+  togglemute
+                Alternar auto emudecimento
+  deaf
+                Ensudecer-se
+  undeaf
+                Desensudecer-se
+  toggledeaf
+                Alternar auto ensurdecimento
+
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6668,77 +6727,77 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Esconde a janela principal do Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation>Esconde a janela principal do Mumble. Restaure ao clicar no ícone da bandeja ou iniciar novamente o Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar o Console de Desenvolvedor</translation>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Mostra o Console de Desenvolvedor Mumble, onde a saída de registro do Mumble pode ser inspecionada.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Connect...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Conectar...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Ban list...</source>
-        <translation type="unfinished"/>
+        <translation>Lista de &amp;banidos...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Information...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Informação...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Kick...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Expulsar...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Ban...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Banir...</translation>
     </message>
     <message>
         <location/>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"/>
+        <translation>Ajuste Local de Volume...</translation>
     </message>
     <message>
         <location/>
         <source>Send &amp;Message...</source>
-        <translation type="unfinished"/>
+        <translation>Enviar &amp;Mensagem...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Adicionar..</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Eliminar...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Editar...</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics...</source>
-        <translation type="unfinished"/>
+        <translation>E&amp;statísticas de Áudio...</translation>
     </message>
     <message>
         <location/>
@@ -6748,77 +6807,77 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&amp;Audio Wizard...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Assistente de Áudio...</translation>
     </message>
     <message>
         <location/>
         <source>Developer &amp;Console...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Console de Desenvolvedor...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;About...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Sobre...</translation>
     </message>
     <message>
         <location/>
         <source>About &amp;Speex...</source>
-        <translation type="unfinished"/>
+        <translation>Sobre &amp;Speex...</translation>
     </message>
     <message>
         <location/>
         <source>About &amp;Qt...</source>
-        <translation type="unfinished"/>
+        <translation>Sobre &amp;Qt...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Certificate Wizard...</source>
-        <translation type="unfinished"/>
+        <translation>Assistente de &amp;Certificado...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Registrar...</translation>
     </message>
     <message>
         <location/>
         <source>Registered &amp;Users...</source>
-        <translation type="unfinished"/>
+        <translation>Usuários &amp;Registrados..</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar...</source>
-        <translation type="unfinished"/>
+        <translation>Alterar &amp;Avatar..</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Access Tokens...</source>
-        <translation type="unfinished"/>
+        <translation>Chaves de &amp;Acesso...</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment...</source>
-        <translation type="unfinished"/>
+        <translation>Resetar &amp;Comentário...</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Avatar...</source>
-        <translation type="unfinished"/>
+        <translation>Resetar &amp;Avatar...</translation>
     </message>
     <message>
         <location/>
         <source>View Comment...</source>
-        <translation type="unfinished"/>
+        <translation>Ver Comentário...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Change Comment...</source>
-        <translation type="unfinished"/>
+        <translation>Alterar &amp;Comentário...</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;egister...</source>
-        <translation type="unfinished"/>
+        <translation>R&amp;egistrar..</translation>
     </message>
 </context>
 <context>
@@ -6826,92 +6885,92 @@ no menu contextual do canal.</translation>
     <message>
         <location filename="ManualPlugin.ui"/>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Áudio Posicional Manual do Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Posição</translation>
     </message>
     <message>
         <location/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location/>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <location/>
         <source>Heading</source>
-        <translation type="unfinished"/>
+        <translation>Cabeçalho</translation>
     </message>
     <message>
         <location/>
         <source>Azimuth</source>
-        <translation type="unfinished"/>
+        <translation>Azimute</translation>
     </message>
     <message>
         <location/>
         <source>Elevation</source>
-        <translation type="unfinished"/>
+        <translation>Elevação</translation>
     </message>
     <message>
         <location/>
         <source>°</source>
-        <translation type="unfinished"/>
+        <translation>°</translation>
     </message>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Meta dados</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Contexto</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Identidade</translation>
     </message>
     <message>
         <location/>
         <source>Set</source>
-        <translation type="unfinished"/>
+        <translation>Definir</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Estado</translation>
     </message>
     <message>
         <location/>
         <source>Linked</source>
-        <translation type="unfinished"/>
+        <translation>Ligado</translation>
     </message>
     <message>
         <location/>
         <source>Activated</source>
-        <translation type="unfinished"/>
+        <translation>Ativado</translation>
     </message>
     <message>
         <location/>
         <source>Unhinge</source>
-        <translation type="unfinished"/>
+        <translation>Desarticular</translation>
     </message>
 </context>
 <context>
@@ -7150,12 +7209,12 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>Privacy</source>
-        <translation type="unfinished"/>
+        <translation>Privacidade</translation>
     </message>
     <message>
         <location/>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
-        <translation type="unfinished"/>
+        <translation>Evitar o envio de informações sobre o SO para servidores e web servidores Mumble</translation>
     </message>
     <message>
         <location/>
@@ -7166,7 +7225,7 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <location/>
         <source>Do not send OS information to Mumble servers and web servers</source>
-        <translation type="unfinished"/>
+        <translation>Não enviar informação de SO para servidores e web servidores Mumble</translation>
     </message>
 </context>
 <context>
@@ -7307,7 +7366,7 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <location line="+72"/>
         <source>Launcher Filter</source>
-        <translation type="unfinished"/>
+        <translation>Filtro de Inicializador</translation>
     </message>
     <message>
         <location line="+249"/>
@@ -7331,7 +7390,7 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <location line="-41"/>
         <source>Choose path</source>
-        <translation type="unfinished"/>
+        <translation>Escolha o local</translation>
     </message>
     <message>
         <location line="+132"/>
@@ -7501,37 +7560,37 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location/>
         <source>Overlay Exceptions</source>
-        <translation type="unfinished"/>
+        <translation>Exceções de Sobreimpressão</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Exception Mode</source>
-        <translation type="unfinished"/>
+        <translation>Modo Sobreimpressão de Exceção</translation>
     </message>
     <message>
         <location/>
         <source>Allowed launchers</source>
-        <translation type="unfinished"/>
+        <translation>Inicializadores permitidos</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Adicionar</translation>
     </message>
     <message>
         <location/>
         <source>Allowed programs</source>
-        <translation type="unfinished"/>
+        <translation>Programas permitidos</translation>
     </message>
     <message>
         <location/>
         <source>Allowed paths</source>
-        <translation type="unfinished"/>
+        <translation>Locais permitidos</translation>
     </message>
     <message>
         <location/>
         <source>Blacklisted programs</source>
-        <translation type="unfinished"/>
+        <translation>Programas na lista negra</translation>
     </message>
 </context>
 <context>
@@ -8040,12 +8099,12 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location filename="ServerHandler.cpp" line="+299"/>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"/>
+        <translation>Impossível resolver nome de host</translation>
     </message>
     <message>
         <location line="+173"/>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>Servidor não responde pings TCP</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -8591,7 +8650,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+2"/>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID do canal: %1</translation>
     </message>
 </context>
 <context>
@@ -8708,7 +8767,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>Muted (push-to-mute)</source>
-        <translation type="unfinished"/>
+        <translation>Emudecido (pressione-para-emudecer)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8768,7 +8827,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+726"/>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"/>
+        <translation>Você tem certeza que deseja arrastar esse usuário?</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -8842,36 +8901,36 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
         <location line="+36"/>
         <location line="+40"/>
         <source>Common Name</source>
-        <translation type="unfinished"/>
+        <translation>Nome Comum</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>Organização</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Subunit</source>
-        <translation type="unfinished"/>
+        <translation>Subunidade</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+40"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>País</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>Locality</source>
-        <translation type="unfinished"/>
+        <translation>Localidade</translation>
     </message>
     <message>
         <location line="-39"/>
         <location line="+40"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Estado</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -8911,7 +8970,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+2"/>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"/>
+        <translation>Resumo (SHA-256): %1</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -8931,7 +8990,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+3"/>
         <source>Unit Name</source>
-        <translation type="unfinished"/>
+        <translation>Nome de Unidade</translation>
     </message>
 </context>
 <context>

@@ -51,7 +51,7 @@
     <message>
         <location line="+46"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>授予%1权限。如果一项权限既被设为允许又被设为禁止，它将被禁止。&lt;br /&gt;%2</translation>
+        <translation>授予%1权限。如果一项权限既被设为允许又被设为禁止，那么它将被禁止。&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -61,7 +61,7 @@
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>撤销%1权限。如果一项权限既被设为允许又被设为禁止，它将被禁止。&lt;br /&gt;%2</translation>
+        <translation>撤销%1权限。如果一项权限既被设为允许又被设为禁止，那么它将被禁止。&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -170,7 +170,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherited</source>
-        <translation>继承</translation>
+        <translation>来自继承</translation>
     </message>
     <message>
         <location/>
@@ -195,7 +195,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation>&amp;ACL</translation>
+        <translation>&amp;ACL（访问控制列表）</translation>
     </message>
     <message>
         <location/>
@@ -230,7 +230,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>将列表中的选项向上移动。一个选项通过顺序来决定优先级，这将会改变用户的权限租用。你不能移动一个权限到继承的权限之前。如果你确实需要那样做你需要建立一个重复的选项。</translation>
+        <translation>将列表中你选中的规则向上移动。一个规则通过顺序来决定优先级，这将会改变用户的权限的实际效果。你不能移动一个权限到继承的权限之前。如果你确实需要那样做你需要建立一个重复的选项。</translation>
     </message>
     <message>
         <location/>
@@ -245,7 +245,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>将选项在列表中的位置下移。选项通过顺序决定优先级，这将会改变用户的权限效果。</translation>
+        <translation>将选中的规则在列表中的位置下移。规则通过顺序决定优先级，这将会改变用户的权限效果。</translation>
     </message>
     <message>
         <location/>
@@ -260,7 +260,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>添加一个新的选项。默认没有任何权限而且对所有人生效。</translation>
+        <translation>添加一个新的规则。默认没有任何权限而且对所有人生效。</translation>
     </message>
     <message>
         <location/>
@@ -291,17 +291,17 @@ This value enables you to change the way mumble arranges the channels in the tre
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>规则作用于该频道。</translation>
+        <translation>规则作用于当前频道。</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>这将设置规则作用于该频道。</translation>
+        <translation>这将设置规则作用于当前频道。</translation>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation>作用于该频道</translation>
+        <translation>作用于当前频道</translation>
     </message>
     <message>
         <location/>
@@ -373,7 +373,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation>许可</translation>
+        <translation>权限</translation>
     </message>
     <message>
         <location/>
@@ -427,7 +427,7 @@ These are all the groups currently defined for the channel. To create a new grou
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;删除&lt;/b&gt;&lt;br /&gt;删除当前所选分组。如果一个分组是集成的，将无法从列表中删除，不过所有关于这个分组的本地信息将被清除。</translation>
+        <translation>&lt;b&gt;删除&lt;/b&gt;&lt;br /&gt;删除当前所选分组。如果一个分组是继承的，将无法从列表中删除，不过所有关于这个分组的本地信息将被清除。</translation>
     </message>
     <message>
         <location/>
@@ -468,7 +468,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"/>
+        <translation>这将控制此条目适用于哪个用户组。&lt;br /&gt;请注意评估该组在频道中的关系。例如，Root频道的默认ACL设定是允许&lt;i&gt;admin&lt;/i&gt;组的&lt;i&gt;写入&lt;/i&gt;权限的。这条规则如果是继承自一个频道，那么它也将给用户写入权限，如果该用户属于那个频道的&lt;i&gt;admin&lt;/i&gt;组，即使其不属于这个ACL列表的原始定义频道的&lt;i&gt;admin&lt;/i&gt;组。&lt;br /&gt;如果一个组，它的组名以&apos;!&apos;符号开始，它的成员将被排除，而如果它的组名以&apos;~&apos;开始，则它的成员权限在ACL的定义频道而非ACL当前作用的频道进行计算。&lt;br /&gt;如果一个组的组名以&apos;#&apos;开头，它将会被解释为一个访问令牌。用户需要在他们的访问令牌列表中添加&apos;#&apos;号后面对应的字符串的条目才能匹配。则可以被用于一个非常简单的对于非认证用户的频道密码保护访问。&lt;br /&gt;如果组名以&apos;$&apos;开头，则只会匹配其证书哈希与&apos;$&apos;后面的字符串匹配的用户。&lt;br /&gt;而这里有一些特殊的预定义组，它们的列表如下：&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - 每个人都匹配。&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - 匹配所有认证用户。&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - 匹配那些当前在&lt;i&gt;a&lt;/i&gt;频道下属子频道深度介于&lt;i&gt;b&lt;/i&gt;和&lt;i&gt;c&lt;/i&gt;之间的用户。查看网站上的拓展文档以了解本预定义组的更多信息。&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - 匹配在当前频道的用户（就像&apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;那样工作）。&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - 匹配不在当前频道的用户（就像&apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;那样工作）。&lt;br /&gt;请注意，规则是适用于用户或组的，而不是同时适用于二者。</translation>
     </message>
     <message>
         <location/>
@@ -478,7 +478,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>显示了当前频道被激活的所有选项。从父频道继承的选项被静态显示。&lt;br /&gt;ACL 的优先级是自上而下增加的，这意味着列表最下面的选项拥有最高的优先级。</translation>
+        <translation>显示了当前频道被激活的所有规则。从父频道继承的规则被斜体显示。&lt;br /&gt;ACL 的优先级是自上而下增加的，这意味着列表最下面的规则拥有最高的优先级。</translation>
     </message>
     <message>
         <location/>
@@ -505,7 +505,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"/>
+        <translation>这是频道用于排序的参数。</translation>
     </message>
 </context>
 <context>
@@ -587,12 +587,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>这个将选择需要询问的设备。你需要激活测试设备并且选择需要使用的频道。</translation>
+        <translation>这个将选择需要查询的设备。你需要激活测试设备并且选择需要使用的频道。</translation>
     </message>
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation>询问所选设备</translation>
+        <translation>查询所选设备</translation>
     </message>
     <message>
         <location/>
@@ -602,12 +602,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation>询问(&amp;Q)</translation>
+        <translation>查询(&amp;Q)</translation>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation>设置所选设备</translation>
+        <translation>配置所选设备</translation>
     </message>
     <message>
         <location/>
@@ -617,7 +617,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>设置(&amp;C)</translation>
+        <translation>配置(&amp;C)</translation>
     </message>
     <message>
         <location/>
@@ -632,22 +632,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation>缓存尺寸</translation>
+        <translation>缓存大小</translation>
     </message>
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"/>
+        <translation>这将配置ASIO的输入通道。 确保至少选择一个通道作为麦克风和扬声器。&lt;i&gt;麦克风&lt;/i&gt;应当是你的麦克风所连接的通道，而&lt;i&gt;扬声器&lt;/i&gt;应当是你听到示例声音&apos;&lt;i&gt;你所听到的东西&lt;/i&gt;&apos;的通道。&lt;br /&gt;例如，在Audigy 2 ZS上，麦克风的良好选择是&apos;&lt;i&gt;Mic L&lt;/i&gt;&apos;，而扬声器应为&apos;&lt;i&gt;Mix L&lt;/i&gt;&apos;和&apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;。</translation>
     </message>
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation>设置输入频道</translation>
+        <translation>设置输入通道</translation>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation>频道</translation>
+        <translation>通道</translation>
     </message>
     <message>
         <location/>
@@ -801,7 +801,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;双击时间&lt;/b&gt;&lt;br /&gt;如果在配置的时间间隔内按两次按键通话快捷键，它将被锁定。 Mumble将继续发送，直到您再次按下该键再次解锁PTT。</translation>
     </message>
     <message>
         <location/>
@@ -851,7 +851,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;设置语音检测为振幅&lt;/b&gt;&lt;br /&gt;在这个模式下，输入信号的强度被用于检测是否在说哈。</translation>
+        <translation>&lt;b&gt;设置语音检测为振幅&lt;/b&gt;&lt;br /&gt;在这个模式下，输入信号的强度被用于检测是否在说话。</translation>
     </message>
     <message>
         <location/>
@@ -876,7 +876,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;设置语音检测的触发值。&lt;/b&gt;&lt;br /&gt;将此功能与“音频统计”窗口一起使用，可手动调整用于检测语音的触发值。低于“安静阈值”的输入值始终算作静音。高于“说话阈值”的值始终算作说话。如果您已经在说话，那么介于中间的音量不会出发新的检测，都算作说话。</translation>
     </message>
     <message>
         <location/>
@@ -906,7 +906,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;这里可以设置压缩质量&lt;/b&gt;&lt;br /&gt;这决定了Mumble允许用于传出音频的带宽量。</translation>
     </message>
     <message>
         <location/>
@@ -921,12 +921,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;选择应将多少个音频帧放入一个数据包中。&lt;/b&gt;&lt;br /&gt;增加此值会增加语音的延迟，但也会降低带宽要求。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;显示使用的峰值传出带宽。&lt;/b&gt;&lt;br /&gt;显示从您的计算机发出的峰值带宽量。音频比特率是单独音频数据的最大比特率（因为我们使用VBR）。位置是用于位置信息的比特率。开销是我们的框架和IP数据包标头（IP和UDP是此开销的75%）。</translation>
     </message>
     <message>
         <location/>
@@ -946,17 +946,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;设置要应用的噪声抑制量。&lt;/b&gt;&lt;br /&gt;该值越高，静止噪声就越大。</translation>
     </message>
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished"/>
+        <translation>输入声音的最大放大倍数</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;输入声音的最大放大倍数&lt;/b&gt;&lt;br /&gt;Mumble在压缩前将输入音量标准化，并设置允许放大的程度。&lt;br /&gt;实际级别会根据您当前的语音模式不断更新，但永远不会超过此处指定的级别。&lt;br /&gt;如果音频统计的&lt;i&gt;麦克风响度&lt;/i&gt;级别徘徊在100%左右，您可能希望将其设置为2.0左右，但如果像大多数人一样，您无法达到100%，因此请将此设置的更高。&lt;br /&gt;一般情况，将其设置到&lt;i&gt;麦克风响度 * 放大系数 &gt;= 100&lt;/i&gt;，即使您说话十分柔和。&lt;br /&gt;&lt;br /&gt;请注意，将此设置为最大值没有任何害处，但如果您将其自动调整到该级别，Mumble将开始接收其他会话。</translation>
     </message>
     <message>
         <location/>
@@ -981,7 +981,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;这将语音检测设置为使用信噪比。&lt;/b&gt;&lt;br /&gt;在此模式下，分析输入类似于清晰信号的内容，并且该信号的清晰度用于触发语音检测。</translation>
     </message>
     <message>
         <location/>
@@ -1006,7 +1006,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;这选择了语音传输中感知到的停止后应该持续多长时间。&lt;/b&gt;&lt;br /&gt;如果您说话时声音中断（通过您名字旁边的快速闪烁的语音图标看到），请将此值设置得更高。</translation>
     </message>
     <message>
         <location/>
@@ -1036,7 +1036,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation>浏览(&amp;B)...</translation>
+        <translation>浏览(&amp;r)...</translation>
     </message>
     <message>
         <location/>
@@ -1066,7 +1066,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>启动或停止传输时发出声音提示音</translation>
     </message>
     <message>
         <location/>
@@ -1091,37 +1091,37 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"/>
+        <translation>保持时间</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"/>
+        <translation>释放PTT键后麦克风保持打开的时间</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+580"/>
+        <location filename="AudioInput.cpp" line="+596"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>服务器限制带宽%1 kbit/s。语音质量自动调整到%2 kbit/s (%3 ms)。</translation>
+        <translation>服务器限制带宽%1 kbit/s。语音质量自动调整到%2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"/>
+        <translation>最大放大倍数</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"/>
+        <translation>空闲操作</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"/>
+        <translation>分钟后</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"/>
+        <translation>什么也不做</translation>
     </message>
     <message>
         <location/>
@@ -1136,7 +1136,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"/>
+        <translation>在空闲</translation>
     </message>
     <message>
         <location/>
@@ -1146,21 +1146,36 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>混音回声消除</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>多轨混音回声消除</translation>
     </message>
     <message>
         <location/>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"/>
+        <translation>在检测到任何鼠标和键盘动作后，撤销空闲操作</translation>
     </message>
     <message>
         <location/>
         <source>Undo Idle action upon activity</source>
+        <translation>在活动时撤消空闲操作</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply RNNoise&apos;s noise suppression filter.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>RNNoise</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1169,7 +1184,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioConfigDialog.cpp" line="+80"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>连续</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1187,7 +1202,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>音频输入</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+106"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -1218,7 +1233,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s (声音 %2, 位置 %4, 超出 %3)</translation>
     </message>
 </context>
 <context>
@@ -1277,17 +1292,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"/>
+        <translation>默认抖动缓冲区(&amp;J)</translation>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished"/>
+        <translation>抖动缓冲安全边际</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;这设置了抖动缓冲区的最小安全裕度。&lt;/b&gt;&lt;br /&gt;所有传入的音频都被缓冲，抖动缓冲区不断尝试将缓冲区推送到网络可持续的最小值以降低延迟。这将设置要使用的最小缓冲区大小。如果你听到的句子开头非常紧张，请增加这个值。</translation>
     </message>
     <message>
         <location/>
@@ -1343,7 +1358,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished"/>
+        <translation>音量减小的因素</translation>
     </message>
     <message>
         <location/>
@@ -1353,12 +1368,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"/>
+        <translation>音量增加的因素</translation>
     </message>
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"/>
+        <translation>对于真正接近的音源，音量会增加多少？</translation>
     </message>
     <message>
         <location/>
@@ -1368,7 +1383,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"/>
+        <translation>这将在输出缓冲区中设置要预缓冲的数据量。尝试不同的值并将其设置为最低值，这不会导致声音中的快速抖动。</translation>
     </message>
     <message>
         <location/>
@@ -1388,7 +1403,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation type="unfinished"/>
+        <translation>最大距离，语音音量不会降低</translation>
     </message>
     <message>
         <location/>
@@ -1413,13 +1428,13 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"/>
+        <translation>数据包延迟的差异</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;这设置了环回测试的数据包延迟差异。&lt;/b&gt;&lt;br /&gt;大多数音频路径包含一些可变延迟。这允许您为环回模式测试设置该方差。例如，如果将此值设置为15毫秒，则会模拟具有20-35毫秒ping延迟的网络或具有80-95毫秒延迟的网络。大多数区域网络连接的差异约为5毫秒。</translation>
     </message>
     <message>
         <location/>
@@ -1429,7 +1444,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"/>
+        <translation>环回模式的包丢失</translation>
     </message>
     <message>
         <location/>
@@ -1449,27 +1464,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"/>
+        <translation>减弱应用程序通过...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"/>
+        <translation>说话期间其他应用程序的衰减</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;在说话期间减少其他应用程序的音量&lt;/b&gt;&lt;br /&gt;Mumble支持在传入和/或传出语音期间减少其他应用程序的音量。如果启用此功能，则会设置其他应用程序的衰减。</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>如果选中，Mumble会在其他用户说话时降低其他应用程序的音量</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;在其他用户讲话时减弱应用程序音量&lt;/b&gt;&lt;br /&gt;Mumble支持在传入和/或传出语音期间减少其他应用程序的音量。这使得mumble在其他用户与您交谈时激活该功能。</translation>
     </message>
     <message>
         <location/>
@@ -1479,12 +1494,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"/>
+        <translation>如果选中，Mumble会在您说话时降低其他应用程序的音量</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;在您讲话时减弱应用程序音量&lt;/b&gt;&lt;br /&gt;Mumble支持在传入和/或传出语音期间减少其他应用程序的音量。这使得mumble在你说话时激活了这个功能。</translation>
     </message>
     <message>
         <location/>
@@ -1494,7 +1509,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation>独占模式（不推荐）</translation>
+        <translation>独占模式（不推荐）。</translation>
     </message>
     <message>
         <location/>
@@ -1514,17 +1529,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>如果选中，如果您具有“优先发言人”状态，Mumble会在您说话时降低其他用户的音量。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;在作为优先发言人说话时减弱其他用户。&lt;/b&gt;&lt;br /&gt;Mumble支持在您作为&lt;i&gt;优先发言人&lt;/i&gt;说话时减少其他用户的音量以避免受到干扰。选中此复选框将启用此功能。</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"/>
+        <translation>在与优先发言人交谈时减弱其他用户。</translation>
     </message>
     <message>
         <location/>
@@ -1534,32 +1549,32 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>如果选中，Mumble将仅衰减使用与Mumble相同的输出源的应用程序</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;仅衰减与Mumble使用相同的输出的应用程序&lt;/b&gt;&lt;br /&gt;如果选中，则使用与Mumble不同输出的应用程序将不会被衰减。</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>仅衰减与Mumble使用相同的输出的应用程序</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>如果选中，PulseAudio环回模块将被衰减</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;衰减PulseAudio环回模块&lt;/b&gt;&lt;br /&gt;如果环回模块链接到Mumble的输出设备/接收器，它们也将被衰减。</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>衰减PulseAudio环回模块</translation>
     </message>
 </context>
 <context>
@@ -1651,33 +1666,33 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Peak power in last frame</source>
-        <translation type="unfinished"/>
+        <translation>最后一帧的峰值功率</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation type="unfinished"/>
+        <translation>这显示了最后一帧（20 ms）的峰值功率，与您通常看到的显示为“输入功率”的测量值相同。请忽略这一点，然后查看&lt;b&gt;麦克风功率&lt;/b&gt;，这样更加稳定并且无视异常值。</translation>
     </message>
     <message>
         <location/>
         <source>Peak speaker level</source>
-        <translation type="unfinished"/>
+        <translation>峰值扬声器级别</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</oldsource>
-        <translation type="unfinished"/>
+        <translation>这显示了最后一帧（20 ms）中扬声器的峰值功率。 除非您使用配置了扬声器通道的多通道采样方法（例如ASIO），否则将为0。如果您配置了这样的设置，并且当您从其他程序播放音频时仍然显示0，则说明您的设置无效。</translation>
     </message>
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation type="unfinished"/>
+        <translation>峰值清洁水平</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation type="unfinished"/>
+        <translation>这显示了所有处理后最后一帧（20 ms）的峰值功率。理想情况下，当你不说话时，这应该是-96 dB。实际上，声音工作室应该看到-60 dB，你应该看到大约-20 dB左右。当你说话时，这应该上升到介于-5和-10 dB之间。&lt;br /&gt;如果你正在使用回音消除，当你不说话时，上升到超过-15 dB，那么则表示你的设置不起作用，你会用回声惹恼其他用户。</translation>
     </message>
     <message>
         <location/>
@@ -1692,12 +1707,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>How close the current input level is to ideal</source>
-        <translation type="unfinished"/>
+        <translation>当前输入电平与理想电平的接近程度</translation>
     </message>
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation type="unfinished"/>
+        <translation>这表明您当前的输入音量与理想值的接近程度。要调整麦克风音量，请打开用于调节录音音量的任何程序，并在讲话时查看此处的值。&lt;br /&gt;&lt;b&gt;大声说话，就像你对被菜鸟击毁而感到不安 。&lt;/b&gt;&lt;br /&gt;调整音量直到此值接近100%，但请确保它不高于此值。如果确实如此，您可能会在部分语音中出现裁切，这会降低音质。</translation>
     </message>
     <message>
         <location/>
@@ -1712,27 +1727,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation type="unfinished"/>
+        <translation>这是最后一帧（20 ms）中麦克风的信噪比（SNR）。 它显示了声音与噪声相比更清晰的比例。&lt;br /&gt;如果此值低于1.0，则信号中的噪声比声音更多，因此质量会降低。&lt;br /&gt;这个值没有上限，但是没有一个专业级的工作室，不要指望能看到40-50以上。</translation>
     </message>
     <message>
         <location/>
         <source>Speech Probability</source>
-        <translation type="unfinished"/>
+        <translation>语音概率</translation>
     </message>
     <message>
         <location/>
         <source>Probability of speech</source>
-        <translation type="unfinished"/>
+        <translation>声音是语音的概率</translation>
     </message>
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation type="unfinished"/>
+        <translation>这是最后一帧（20 ms）是语音而非环境噪音的概率。&lt;br /&gt;语音活动传输取决于这是正确的。这样做的诀窍是句子的中间总是被检测为语音;问题是文字和言论开始之间的停顿。很难区分叹气与以&apos;h&apos;开头的单词。&lt;br /&gt;如果这是粗体字，则表示Mumble当前正在传输（如果您已连接）。</translation>
     </message>
     <message>
         <location/>
         <source>Configuration feedback</source>
-        <translation type="unfinished"/>
+        <translation>配置反馈</translation>
     </message>
     <message>
         <location/>
@@ -1752,7 +1767,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished"/>
+        <translation>最后两次按键通话之间的时间</translation>
     </message>
     <message>
         <location/>
@@ -1762,7 +1777,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>目前的语音检测机会</translation>
     </message>
     <message>
         <location/>
@@ -1772,37 +1787,37 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Signal and noise power spectrum</source>
-        <translation type="unfinished"/>
+        <translation>信号和噪声功率谱</translation>
     </message>
     <message>
         <location/>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation type="unfinished"/>
+        <translation>输入信号的功率谱和噪声估计</translation>
     </message>
     <message>
         <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation type="unfinished"/>
+        <translation>这显示了当前输入信号的功率谱（红线）和当前噪声估计（填充蓝色）。&lt;br /&gt;所有幅度都乘以30以显示有趣的部分（每个波段中信号比噪声多出多少）。&lt;br /&gt;这可能只当您正在尝试微调麦克风上的噪声条件时有意义。在良好的条件下，底部应该只有一点点蓝色的颤动。如果图表上的蓝色超过一半，则您的环境会非常嘈杂。</translation>
     </message>
     <message>
         <location/>
         <source>Echo Analysis</source>
-        <translation type="unfinished"/>
+        <translation>回声分析</translation>
     </message>
     <message>
         <location/>
         <source>Weights of the echo canceller</source>
-        <translation type="unfinished"/>
+        <translation>回声消除器的权重</translation>
     </message>
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"/>
+        <translation>这显示了回声消除器的权重，时间向下增加，频率向右增加。&lt;br /&gt;理想情况下，这应该是黑色，表示根本不存在回声。更常见的是，你会有一个或多个蓝色水平条纹代表延时回声。您应该能够实时更新权重。&lt;br /&gt;请注意，只要您没有任何回声，您就不会在这里看到太多有用的数据。播放一些音乐，它应该会稳定下来。&lt;br /&gt;您可以选择查看频域权重的实部或虚部，或者可选择计算的模数和相位。其中最有用的可能是模数，它是回声的幅度，并显示在该时间步消除了多少输出信号。其他观看模式对于想要调整回声消除算法的人来说非常有用。&lt;br /&gt;请注意：如果整个图像在模数模式下大幅波动，则回声消除器无法在两个输入源之间找到任何相关性（扬声器和麦克风）。您要么在回声上有很长的延迟，要么其中一个输入源配置错误。</translation>
     </message>
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"/>
+        <translation>这是最后一个压缩帧的音频比特率（20 ms），因此当VBR调整质量时，它会上下跳转。可以在“设置”对话框中调整峰值比特率。</translation>
     </message>
 </context>
 <context>
@@ -1978,12 +1993,12 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>要缓冲的数据量</translation>
     </message>
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"/>
+        <translation>这将在输出缓冲区中设置要预缓冲的数据量。尝试不同的值并将其设置为最低值，这不会导致声音中的快速抖动。</translation>
     </message>
     <message>
         <location/>
@@ -2031,7 +2046,7 @@ Mumble支持在一些游戏中使用方位语音功能，能够根据玩家在�
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"/>
+        <translation>使用耳机代替扬声器</translation>
     </message>
     <message>
         <location/>
@@ -2058,7 +2073,7 @@ Mumble仍在开发中，开发团队希望能专注于大多数用户需要的�
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"/>
+        <translation>这忽略了OS扬声器配置并改为配置耳机的定位。</translation>
     </message>
     <message>
         <location/>
@@ -2119,12 +2134,12 @@ Mumble仍在开发中，开发团队希望能专注于大多数用户需要的�
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>向Mumble Project发送匿名统计数据</translation>
     </message>
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation>按键发言</translation>
+        <translation>按键发言：</translation>
     </message>
     <message>
         <location/>
@@ -2184,32 +2199,32 @@ Mumble仍在开发中，开发团队希望能专注于大多数用户需要的�
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"/>
+        <translation>高</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>自定义</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"/>
+        <translation>您已在Mumble中设置了自定义质量配置。选择此设置以保留它。</translation>
     </message>
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"/>
+        <translation>在用户与您通话时启用其他应用程序的衰减。这意味着一旦有人开始在Mumble中与您交谈，所有其他应用程序（如音频播放器）的声音将会衰减，以便您可以更清楚地听到它们。</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>为视障用户应用一些高对比度优化</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"/>
+        <translation>使用高对比度图形</translation>
     </message>
     <message>
         <location/>
@@ -2239,13 +2254,13 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>现在轻声说话，就像你在深夜谈话时所说的那样，你不想打扰任何人。调整下方的滑块，以便在您说话时条形移动到空白区域，但在您保持沉默时保持条纹状态。</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>接下来，您需要调整以下滑块。你说的前几句话应该在空白区域（最终的演讲）结束。在说话时，你应该留在条纹（可能是语音）内，当你不说话时，一切都应该是纵横交错的（最终不是语音）。</translation>
     </message>
     <message>
         <location/>
@@ -2303,7 +2318,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Hash</source>
-        <translation type="unfinished"/>
+        <translation>哈希</translation>
     </message>
     <message>
         <location/>
@@ -2328,107 +2343,107 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Search field</source>
-        <translation type="unfinished"/>
+        <translation>搜索区域</translation>
     </message>
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"/>
+        <translation>这是搜索区域。使用它来查找在用户名字段中设置此用户名的禁令。</translation>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>你在找谁？</translation>
     </message>
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"/>
+        <translation>无昵称</translation>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"/>
+        <translation>IP地址</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"/>
+        <translation>无IP地址</translation>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"/>
+        <translation>封禁原因</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"/>
+        <translation>无原因</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"/>
+        <translation>封禁结束时间</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"/>
+        <translation>封禁结束时间。如果你设置开始与结束时间相同，这个封禁将会是永久的（它不会过期）。</translation>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>证书散列值</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>无证书散列值</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"/>
+        <translation>被封禁的用户</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>这是一个列表用于显示被封禁的用户。</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>使用此按钮添加一个新的封禁。</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"/>
+        <translation>使用此按钮更新一个封禁的信息。</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>使用此按钮如果你想从封禁列表中移除一个用户。</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"/>
+        <translation>清除所有区域</translation>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>这个按钮可以清除全部字段。用于你想要添加一个新的封禁纪录的时候。</translation>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>清除</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+177"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>封禁列表 - %n 个封禁</numerusform></translation>
     </message>
 </context>
 <context>
@@ -3984,7 +3999,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+221"/>
+        <location filename="Log.cpp" line="+222"/>
         <source>Debug</source>
         <translation>调试</translation>
     </message>
@@ -4114,6 +4129,21 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+1"/>
+        <source>User connected and entered channel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>User left channel and disconnected</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Private text message</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+59"/>
         <source>the server</source>
         <translation>服务器</translation>
@@ -4164,7 +4194,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-495"/>
+        <location line="-499"/>
         <source>Toggle console for %1 events</source>
         <translation>将事件 %1 关联到控制台</translation>
     </message>
@@ -4684,7 +4714,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+106"/>
+        <location filename="MainWindow.cpp" line="+107"/>
         <location line="+2701"/>
         <source>Root</source>
         <translation>根</translation>
@@ -5918,7 +5948,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>切换到简洁视图模式，记录窗口和菜单将被隐藏。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+334"/>
+        <location filename="Messages.cpp" line="+408"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -5958,27 +5988,27 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="-218"/>
         <source>%1 moved to %2.</source>
         <translation>%1 移动到 %2 。</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+12"/>
         <source>%1 moved to %2 by %3.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-2"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="+52"/>
         <source>%1 is now muted and deafened.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-222"/>
+        <location line="-296"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>您的帐户信息目前无法确认，请稍候重试</translation>
     </message>
@@ -6064,12 +6094,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation>权限被拒绝。</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+32"/>
+        <source>%1 connected and entered channel.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>%1 connected.</source>
         <translation>%1 上线。</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+93"/>
         <source>%1 is now muted.</source>
         <translation>%1 关闭了麦克风。</translation>
     </message>
@@ -6180,27 +6215,28 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="-173"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+13"/>
+        <location line="+2"/>
         <source>You moved %1 to %2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+12"/>
         <source>%1 is recording</source>
         <translation>%1 正在录音</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>%1 renamed to %2 by %3.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+240"/>
         <source>%1 disconnected.</source>
         <translation>%1 离线。</translation>
     </message>
@@ -6212,7 +6248,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>(Tree) </source>
         <translation>(树) </translation>
     </message>
@@ -6227,7 +6263,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>%2%1: %3</source>
         <translation type="unfinished"/>
     </message>
@@ -6257,7 +6293,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>服务器禁止使用按键发言。</translation>
     </message>
     <message>
-        <location line="-519"/>
+        <location line="-464"/>
         <source>You were unmuted by %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6292,18 +6328,18 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2 打开了 %1 麦克风。</translation>
     </message>
     <message>
-        <location line="+422"/>
+        <location line="+367"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-488"/>
+        <location line="-433"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+120"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation type="unfinished"/>
     </message>
@@ -6323,17 +6359,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-80"/>
+        <location line="-270"/>
         <source>You were moved to %1 by %2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+5"/>
         <source>%1 entered channel.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-415"/>
+        <location line="-225"/>
         <source>Server connection rejected: %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6343,17 +6379,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+98"/>
         <source>%1 renamed to %2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+235"/>
         <source>%1 left channel and disconnected.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+132"/>
         <source>Message from %1</source>
         <translation type="unfinished"/>
     </message>
