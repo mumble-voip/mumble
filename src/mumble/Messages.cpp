@@ -700,6 +700,7 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 
 	const QString &plainName = pSrc ? pSrc->qsName : tr("Server", "message from");
 	const QString &name = pSrc ? Log::formatClientUser(pSrc, Log::Source) : tr("Server", "message from");
+	bool privateMessage = false;
 
 	if (msg.tree_id_size() > 0) {
 		target += tr("(Tree) ");
@@ -707,9 +708,11 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		target += tr("(Channel) ");
 	} else if (msg.session_size() > 0) {
 		target += tr("(Private) ");
+		privateMessage = true;
 	}
 
-	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
+	g.l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
+	         tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
 	         tr("Message from %1").arg(plainName));
 }
 

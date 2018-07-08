@@ -44,10 +44,10 @@ class Log : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(Log)
 	public:
-		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, UserJoin, UserLeave, Recording, YouKicked, UserKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage, SelfUnmute, SelfDeaf, SelfUndeaf, UserRenamed, SelfChannelJoin, SelfChannelJoinOther, ChannelJoinConnect, ChannelLeaveDisconnect };
+		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, UserJoin, UserLeave, Recording, YouKicked, UserKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage, SelfUnmute, SelfDeaf, SelfUndeaf, UserRenamed, SelfChannelJoin, SelfChannelJoinOther, ChannelJoinConnect, ChannelLeaveDisconnect, PrivateTextMessage };
 		enum LogColorType { Time, Server, Privilege, Source, Target };
 		static const MsgType firstMsgType = DebugInfo;
-		static const MsgType lastMsgType = ChannelLeaveDisconnect;
+		static const MsgType lastMsgType = PrivateTextMessage;
 		
 		// Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older versions.
 		static const MsgType msgOrder[];

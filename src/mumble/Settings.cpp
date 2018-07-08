@@ -423,6 +423,7 @@ Settings::Settings() {
 	qmMessageSounds[Log::ServerConnected] = QLatin1String(":/ServerConnected.ogg");
 	qmMessageSounds[Log::ServerDisconnected] = QLatin1String(":/ServerDisconnected.ogg");
 	qmMessageSounds[Log::TextMessage] = QLatin1String(":/TextMessage.ogg");
+	qmMessageSounds[Log::PrivateTextMessage] = qmMessageSounds[Log::TextMessage];
 	qmMessageSounds[Log::ChannelJoin] = QLatin1String(":/UserJoinedChannel.ogg");
 	qmMessageSounds[Log::ChannelLeave] = QLatin1String(":/UserLeftChannel.ogg");
 	qmMessageSounds[Log::ChannelJoinConnect] = qmMessageSounds[Log::ChannelJoin];
