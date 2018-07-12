@@ -1167,17 +1167,17 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation type="unfinished"/>
+        <translation>Rauschunterdrückungsfilter von RNNoise anwenden.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dies wendet den Rauschunterdrückungsfilter von RNNoise an.&lt;/b&gt;&lt;br /&gt;RNNoise basiert auf maschinellem Lernen und wird in WebRTC verwendet.</translation>
     </message>
     <message>
         <location/>
         <source>RNNoise</source>
-        <translation type="unfinished"/>
+        <translation>RNNoise</translation>
     </message>
 </context>
 <context>
@@ -3835,7 +3835,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <location/>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"/>
+        <translation>Tastaturkürzel in privilegierten Anwendungen aktivieren</translation>
     </message>
 </context>
 <context>
@@ -3973,12 +3973,12 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <location line="+1"/>
         <source>Mono</source>
-        <translation type="unfinished"/>
+        <translation>Mono</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Stereo</source>
-        <translation type="unfinished"/>
+        <translation>Stereo</translation>
     </message>
 </context>
 <context>
@@ -4204,17 +4204,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"/>
+        <translation>Benutzer hat sich mit dem Server verbunden und betrat den Kanal</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Benutzer verließ den Kanal und hat den Server verlassen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private text message</source>
-        <translation type="unfinished"/>
+        <translation>Private Textnachricht</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4289,7 +4289,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1"/>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Fensterhervorhebung für %1-Ereignisse umschalten (falls nicht aktiv)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4311,7 +4311,7 @@ Wenn gewählt, wird für jedes %1 Ereignis ein Benachrichtigungs-Pop-up erzeugt.
     <message>
         <location line="+1"/>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished"/>
+        <translation>Klicken Sie hier, um die Fensterhervorhebung für %1-Ereignisse umzuschalten.&lt;br /&gt;Falls angekreuzt, wird das Fenster von Mumble für jedes %1-Ereignis hervorgehoben, wenn es nicht aktiv ist.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6166,7 +6166,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+4"/>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
-        <translation type="unfinished"/>
+        <translation>Kanalzahlgrenze erreicht. Sie müssen Kanäle löschen, bevor Sie neue erstellen können.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6176,7 +6176,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+32"/>
         <source>%1 connected and entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 hat sich mit dem Server verbunden und betrat den Kanal.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8835,7 +8835,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location line="+1"/>
         <source>Muted (push-to-mute)</source>
-        <translation type="unfinished"/>
+        <translation>Stummgeschaltet (Push-to-Mute)</translation>
     </message>
     <message>
         <location line="+2"/>

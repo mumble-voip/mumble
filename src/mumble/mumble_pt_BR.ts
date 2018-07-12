@@ -1166,17 +1166,17 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation type="unfinished"/>
+        <translation>Aplicar filtro de ruídos do RNNoise.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Isso aplica o filtro de supressão de ruídos do RNNoise.&lt;/b&gt;&lt;br /&gt;RNNoise é baseado em aprendizado de máquina e usado no WebRTC.</translation>
     </message>
     <message>
         <location/>
         <source>RNNoise</source>
-        <translation type="unfinished"/>
+        <translation>RNNoise</translation>
     </message>
 </context>
 <context>
@@ -2850,7 +2850,7 @@ Você tem certeza de que quer substituir o seu certificado?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;O Mumble pode usar certificados para autenticar com servidores. Usar certificados evita senhas, o que significa que você não precisa expor nenhuma senha com um local remoto. Ele também permite um registro de usuário muito fácil e uma lista de amigos de cliente que independe dos servidores.&lt;/p&gt;&lt;p&gt;Embora o Mumble possa funcionar sem certificados, a maioria dos servidores suporá que você tenha um.&lt;/p&gt;&lt;p&gt;Criar um novo certificado automaticamente é suficiente na maioria dos casos. Mas o Mumble também suporta certificados representando confiança na titulação de um e-mail por parte do usuário. Esses certificados são emitidos por terceiros. Para mais informações consulte nossa &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;documentário de certificado de usuário&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3640,7 +3640,7 @@ dos locais possíveis.</translation>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation>Console de desenvolvimento</translation>
+        <translation>Console de Desenvolvedor</translation>
     </message>
 </context>
 <context>
@@ -3736,7 +3736,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Motores de Atalhos Adicionais&lt;/b&gt;&lt;br /&gt;Essa seção permite a você configurar a utilização de motores adicionais de AtalhosGlobais.</translation>
     </message>
     <message>
         <location/>
@@ -3746,7 +3746,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ativar ganchos de janela&lt;/b&gt;.&lt;br /&gt;Isso permite ganchos de Janela no motor de atalho. Usar esse motor permite ao Mumble suprimir pressionamento de teclas e cliques de mouse.</translation>
     </message>
     <message>
         <location/>
@@ -3756,7 +3756,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ativar GKey&lt;/b&gt;.&lt;br /&gt;Essa opção ativa o suporte para o motor de atalhos GKey, para &quot;G&quot;-keys/teclas encontradas em teclados Logitech.</translation>
     </message>
     <message>
         <location/>
@@ -3766,7 +3766,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ativar XInput&lt;/b&gt;.&lt;br /&gt;Essa opção ativa suporte para o motor de atalhos XInput, para controladores compatíveis com Xbox.</translation>
     </message>
     <message>
         <location/>
@@ -3778,7 +3778,9 @@ dos locais possíveis.</translation>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ativar atalhos em aplicações privilegiadas&lt;/b&gt;.&lt;br /&gt;Também conhecido como &quot;UIAccess&quot;. Isso permite ao Mumble receber eventos globais de atalho de programas executando sob níveis de privilégio elevado, como um Prompt de Comando de Administrador ou jogos antigos que executam com privilégios de administrador.
+&lt;br /&gt;&lt;br /&gt;
+Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações privilegiadas não funcionará. Isso pode parecer inconsistente: por exemplo, se o botão Pressionar-para-Falar é pressionado de um programa não privilegiado, mas solto num aplicativo privilegiado, o Mumble não observará que ele foi solto e você continuará falando até pressionar o botão de Pressionar-para-Falar novamente.</translation>
     </message>
     <message>
         <location/>
@@ -4154,17 +4156,17 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+1"/>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"/>
+        <translation>Usuário conectou e entrou no canal</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Usuário deixou o canal e desconectou</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private text message</source>
-        <translation type="unfinished"/>
+        <translation>Mensagem de texto privada</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4239,7 +4241,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="-1"/>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation>Alterna destaque de janela (se inativo) para eventos %1</translation>
+        <translation>Alterna realce de janela (se inativo) para eventos %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4402,7 +4404,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Highlight</source>
-        <translation>Destaque</translation>
+        <translation>Realce</translation>
     </message>
 </context>
 <context>
@@ -4701,7 +4703,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>User Dragging</source>
-        <translation>Arrastando usuário</translation>
+        <translation>Arrasto de Usuário</translation>
     </message>
     <message>
         <location/>
@@ -4711,12 +4713,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Isso define o comportamento de arrasto de usuário; ele pode ser usado para evitar arrasto acidental. &lt;i&gt;Mover&lt;/i&gt; move o usuário sem confirmação. &lt;i&gt;Fazer nada&lt;/i&gt; faz nada e produz uma mensagem de erro. &lt;i&gt;Perguntar&lt;/i&gt; usa uma caixa de diálogo para confirmar o desejo de mover o usuário.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ativar menu de Desenvolvedor&lt;/b&gt;&lt;br /&gt;Isso ativa o menu de &quot;Desenvolvedor&quot; no Mumble. Esse menu é usado para recursos específicos de desenvolvimento, como no Console de Desenvolvedor.</translation>
     </message>
     <message>
         <location/>
@@ -5080,7 +5082,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Os erros específicos com esse certificado são:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Você quer aceitar o certificado mesmo assim?&lt;br /&gt;(Ele também sera armazenado então você não será perguntado novamente.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -5172,7 +5174,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="+3"/>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation>Enviar mensagem de texto da área de transferência</translation>
+        <translation>Enviar Mensagem da Área de Transferência</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6468,7 +6470,31 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Uso: mumble [opções] [&lt;url&gt;]
+
+&lt;url&gt; especifica uma URL para conectar após iniciar ao invés
+de mostrar a janela de conexão, e tem o formato a seguir:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+O parâmetro version precisa ser definido para invocar
+a versão certa do cliente. Atualmente o padrão é 1.2.0.
+
+São opções válidas:
+  -h, --help    Mostra esse texto de ajuda e fecha.
+  -m, --multiple
+                Permite múltiplas instâncias de cliente.
+  -n, --noidentity
+                Suprime o carregamento de arquivos de identidade
+                (i.e., certificados).
+  --license
+                Mostra a licença do Mumble.
+  --authors
+                Mostra os autores do Mumble.
+  --third-party-licenses
+                Mostra a licenças de software de terceiros usados
+                pelo Mumble.
+
+</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -6742,7 +6768,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation>Mostra o Console de Desenvolvedor Mumble, onde a saída de registro do Mumble pode ser inspecionada.</translation>
+        <translation>Mostra o Console de Desenvolvedor Mumble, no qual a saída de relatório do Mumble pode ser inspecionada.</translation>
     </message>
     <message>
         <location/>
@@ -6802,7 +6828,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&amp;Settings...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Configurações</translation>
     </message>
     <message>
         <location/>
@@ -7220,7 +7246,8 @@ no menu contextual do canal.</translation>
         <location/>
         <source>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
 Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Não envie informação de SO para servidores&lt;/b&gt;&lt;br/&gt;
+Evita que o cliente envie informações potencialmente capazes de identificação sobre o sistema operativo para servidores e web servidores Mumble.</translation>
     </message>
     <message>
         <location/>
