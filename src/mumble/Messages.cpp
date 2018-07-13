@@ -299,6 +299,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				g.l->log(Log::UserJoin, tr("%1 connected.").arg(Log::formatClientUser(pDst, Log::Source)));
 			}
 		}
+		
+		g.mw->updateChatBar();
 	}
 
 	if (msg.has_user_id()) {
@@ -363,6 +365,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				g.l->log(Log::UserRenamed, tr("%1 renamed to %2.").arg(Log::formatClientUser(pDst, Log::Target, oldName),
 					Log::formatClientUser(pDst, Log::Target)));
 			}
+
+			g.mw->qtwLogTabs->updateTab(pDst);
 		}
 	}
 
@@ -596,8 +600,15 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 			g.l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 		}
 	}
-	if (pDst != pSelf)
+
+	if (pDst != pSelf) {
+		const int targetTab = g.mw->qtwLogTabs->searchTab(pDst);
+		if (targetTab != -1) {
+			g.mw->qtwLogTabs->markTabAsRestricted(targetTab);
+		}
+
 		pmModel->removeUser(pDst);
+	}
 }
 
 void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
@@ -721,9 +732,16 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		privateMessage = true;
 	}
 
+	int targetLogTab = -1;
+	if (g.s.bLogTabs && msg.channel_id_size() == 0 && msg.tree_id_size() == 0) {
+		targetLogTab = qtwLogTabs->findTab(pSrc);
+	}
+	
 	g.l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
 	         tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
-	         tr("Message from %1").arg(plainName));
+	         tr("Message from %1").arg(plainName),
+	         false,
+	         targetLogTab);
 }
 
 void MainWindow::msgACL(const MumbleProto::ACL &msg) {

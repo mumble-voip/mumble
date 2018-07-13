@@ -28,6 +28,7 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
 		void themeDirectoryChanged();
+		void on_qcbLogTabs_stateChanged(int);
 	private:
 		/// Reload themes combobox and select given configuredStyle in it
 		void reloadThemes(const boost::optional<ThemeInfo::StyleInfo> configuredStyle);

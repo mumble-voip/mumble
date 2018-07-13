@@ -78,6 +78,7 @@ HEADERS *= BanEditor.h \
     ACLEditor.h \
     ConfigWidget.h \
     Log.h \
+    LogTabs.h \
     AudioConfigDialog.h \
     AudioStats.h \
     AudioInput.h \
@@ -148,6 +149,7 @@ SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
     ConfigWidget.cpp \
     Log.cpp \
+    LogTabs.cpp \
     AudioConfigDialog.cpp \
     AudioStats.cpp \
     AudioInput.cpp \

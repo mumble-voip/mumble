@@ -258,14 +258,7 @@ void MainWindow::setupGui()  {
 	qtvUsers->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qteChat->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qteChat->setFrameShape(QFrame::NoFrame);
-	qteLog->setFrameStyle(QFrame::NoFrame);
 #endif
-
-	LogDocument *ld = new LogDocument(qteLog);
-	qteLog->setDocument(ld);
-
-	qteLog->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
-	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 
 	pmModel = new UserModel(qtvUsers);
 	qtvUsers->setModel(pmModel);
@@ -290,6 +283,8 @@ void MainWindow::setupGui()  {
 	connect(gsResetAudio, SIGNAL(down(QVariant)), qaAudioReset, SLOT(trigger()));
 	connect(gsUnlink, SIGNAL(down(QVariant)), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down(QVariant)), qaConfigMinimal, SLOT(trigger()));
+	connect(qtwLogTabs, SIGNAL(anchorClick(const QUrl&)), this, SLOT(onLogTabAnchorClicked(const QUrl &)));
+	connect(qtwLogTabs, SIGNAL(customContextMenuRequest(const QPoint&)), this, SLOT(onLogTabCustomContextMenuRequested(const QPoint&)));
 
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
@@ -545,7 +540,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 /// and qtvUsers (users tree view).
 void MainWindow::focusNextMainWidget() {
 	QWidget *mainFocusWidgets[] = {
-		qteLog,
+		qtwLogTabs,
 		qteChat,
 		qtvUsers,
 	};
@@ -716,19 +711,20 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 	qpContextPosition = QPoint();
 }
 
-void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
-	QString link = qteLog->anchorAt(mpos);
-	if (! link.isEmpty()) {
+void MainWindow::onLogTabCustomContextMenuRequested(const QPoint &mpos) {
+	LogTextBrowser *tabifiedLog = (LogTextBrowser *)qtwLogTabs->widget(qtwLogTabs->currentIndex());
+	QString link = tabifiedLog->anchorAt(mpos);
+	if (!link.isEmpty()) {
 		QUrl l(link);
-
-		if (handleSpecialContextMenu(l, qteLog->mapToGlobal(mpos)))
+		if (handleSpecialContextMenu(l, tabifiedLog->mapToGlobal(mpos))) {
 			return;
+		}
 	}
 
-	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (qteLog->horizontalScrollBar()->maximum() - qteLog->horizontalScrollBar()->value()) : qteLog->horizontalScrollBar()->value(), qteLog->verticalScrollBar()->value());
-	QMenu *menu = qteLog->createStandardContextMenu(mpos + contentPosition);
+	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (tabifiedLog->horizontalScrollBar()->maximum() - tabifiedLog->horizontalScrollBar()->value()) : tabifiedLog->horizontalScrollBar()->value(), tabifiedLog->verticalScrollBar()->value());
+	QMenu *menu = tabifiedLog->createStandardContextMenu(mpos + contentPosition);
 
-	QTextCursor cursor = qteLog->cursorForPosition(mpos);
+	QTextCursor cursor = tabifiedLog->cursorForPosition(mpos);
 	QTextCharFormat fmt = cursor.charFormat();
 
 	// Work around imprecise cursor image identification
@@ -750,8 +746,8 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	}
 
 	menu->addSeparator();
-	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
-	menu->exec(qteLog->mapToGlobal(mpos));
+	menu->addAction(tr("Clear"), tabifiedLog, SLOT(clear(void)));
+	menu->exec(tabifiedLog->mapToGlobal(mpos));
 	delete menu;
 }
 
@@ -765,7 +761,8 @@ void MainWindow::saveImageAs() {
 	}
 
 	QString resName = qtcSaveImageCursor.charFormat().toImageFormat().name();
-	QVariant res = qteLog->document()->resource(QTextDocument::ImageResource, resName);
+	LogTextBrowser *tabifiedLog = (LogTextBrowser *)qtwLogTabs->widget(qtwLogTabs->currentIndex());
+	QVariant res = tabifiedLog->document()->resource(QTextDocument::ImageResource, resName);
 	QImage img = res.value<QImage>();
 	bool ok = img.save(fname);
 	if (!ok) {
@@ -1082,6 +1079,10 @@ void MainWindow::setupView(bool toggle_minimize) {
 		qtIconToolbar->setVisible(showit);
 	}
 	menuBar()->setVisible(showit);
+	qtwLogTabs->activateTabs(g.s.bLogTabs);
+	if (!g.s.bLogTabs) {
+		qtwLogTabs->setCurrentIndex(qtwLogTabs->getChannelTab());
+	}
 
 	if (toggle_minimize) {
 		if (! showit) {
@@ -1765,7 +1766,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 
 		if (! msg.isEmpty()) {
 			g.sh->sendUserTextMessage(p->uiSession, msg);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->findTab(p));
 		}
 	}
 	delete texm;
@@ -1862,17 +1863,34 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 #endif
 	qsText = TextMessage::autoFormat(qsText);
 
-	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
-		// Channel message
-		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
+	if (g.s.bLogTabs) {
+		if (qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex()) {
 			c = ClientUser::get(g.uiSession)->cChannel;
+			g.sh->sendChannelTextMessage(c->iId, qsText, false);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+		} else {
+			p = pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()));
+			if (p == NULL) {
+				return;
+			}
 
-		g.sh->sendChannelTextMessage(c->iId, qsText, false);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+			g.sh->sendUserTextMessage(p->uiSession, qsText);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->findTab(p));
+		}
 	} else {
-		// User message
-		g.sh->sendUserTextMessage(p->uiSession, qsText);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true);
+		if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
+			// Channel message
+			if (!g.s.bChatBarUseSelection || c == NULL) {
+				c = ClientUser::get(g.uiSession)->cChannel; // If no channel selected fallback to current one
+			}
+
+			g.sh->sendChannelTextMessage(c->iId, qsText, false);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+		} else {
+			// User message
+			g.sh->sendUserTextMessage(p->uiSession, qsText);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true);
+		}
 	}
 
 	qteChat->clear();
@@ -2248,7 +2266,20 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelCopyURL->setEnabled(c);
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelFilter->setEnabled(true);
-	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+
+	if (g.s.bLogTabs) {
+		if (qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex()) {
+			qtwLogTabs->onCurrentChanged(qtwLogTabs->currentIndex());
+			qteChat->setEnabled(homep & (ChanACL::Write | ChanACL::TextMessage));
+		} else if (pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex())) == NULL) {
+			qteChat->setEnabled(false);
+			qtwLogTabs->markTabAsRestricted(qtwLogTabs->currentIndex());
+		} else {
+			qteChat->setEnabled(true);
+		}
+	} else {
+		qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+	}
 }
 
 void MainWindow::userStateChanged() {
@@ -3136,15 +3167,30 @@ void MainWindow::updateChatBar() {
 
 	if (g.uiSession == 0) {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
+        qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("Not connected"));
+	} else if (g.s.bLogTabs) {
+		c = ClientUser::get(g.uiSession)->cChannel;
+		if (qtwLogTabs->getChannelTab() != qtwLogTabs->currentIndex()) {
+			qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(qtwLogTabs->tabText(qtwLogTabs->currentIndex())));
+		} else {
+			qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
+		}	
 	} else if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
-		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
-			c = ClientUser::get(g.uiSession)->cChannel;
+		if (!g.s.bChatBarUseSelection || c == NULL) {
+			c = ClientUser::get(g.uiSession)->cChannel; // If no channel selected fallback to current one
+		}
 
 		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(Qt::escape(c->qsName)));
 	} else {
 		// User target
 		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(Qt::escape(p->qsName)));
+	}
+
+	if (c != NULL) {
+		qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), QString::fromUtf8("%1").arg(c->qsName));
+	} else {
+		qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("Not connected"));
 	}
 
 	updateMenuPermissions();
@@ -3192,7 +3238,7 @@ void MainWindow::customEvent(QEvent *evt) {
 }
 
 
-void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
+void MainWindow::onLogTabAnchorClicked(const QUrl &url) {
 	if (!handleSpecialContextMenu(url, QCursor::pos(), true)) {
 #ifdef Q_OS_MAC
 		// Clicking a link can cause the user's default browser to pop up while
@@ -3207,19 +3253,6 @@ void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
 		        && url.scheme() != QLatin1String("qrc")
 		        && !url.isRelative())
 			QDesktopServices::openUrl(url);
-	}
-}
-
-void MainWindow::on_qteLog_highlighted(const QUrl &url) {
-	if (url.scheme() == QString::fromLatin1("clientid") || url.scheme() == QString::fromLatin1("channelid"))
-		return;
-
-	if (! url.isValid())
-		QToolTip::hideText();
-	else {
-		if (isActiveWindow()) {
-			QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
-		}
 	}
 }
 
@@ -3299,3 +3332,6 @@ void MainWindow::destroyUserInformation() {
 	}
 }
 
+void MainWindow::on_qtwLogTabs_currentChanged(int) {
+	updateChatBar();
+}

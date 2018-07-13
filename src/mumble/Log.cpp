@@ -150,7 +150,7 @@ void LogConfig::save() const {
 
 void LogConfig::accept() const {
 	g.l->tts->setVolume(s.iTTSVolume);
-	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
+	g.mw->qtwLogTabs->handleDocumentSetMaximumBlockCount(s.iMaxLogBlocks);
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
@@ -451,7 +451,7 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	}
 }
 
-void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage) {
+void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, int tabToLog) {
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
@@ -467,9 +467,14 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		QTextCursor tc = g.mw->qteLog->textCursor();
+		if (tabToLog == -1 || tabToLog > g.mw->qtwLogTabs->count()) {
+			tabToLog = g.mw->qtwLogTabs->getChannelTab();
+		}
 
-		LogTextBrowser *tlog = g.mw->qteLog;
+		LogTab *tlog = dynamic_cast<LogTab *>(g.mw->qtwLogTabs->widget(tabToLog));
+		g.mw->qtwLogTabs->markTabAsUpdated(tabToLog);
+		QTextCursor tc = tlog->textCursor();
+
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
 
@@ -488,13 +493,13 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			qttf.setPadding(2);
 			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
 			tc.insertFrame(qttf);
-		} else if (! g.mw->qteLog->document()->isEmpty()) {
+		} else if (!tlog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(Qt::escape(dt.time().toString())), Log::Time));
 		validHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
-		g.mw->qteLog->setTextCursor(tc);
+		tlog->setTextCursor(tc);
 
 		if (scroll || ownMessage)
 			tlog->scrollLogToBottom();

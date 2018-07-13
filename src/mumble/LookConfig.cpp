@@ -172,6 +172,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
+	loadCheckBox(qcbLogTabs, r.bLogTabs);
 	
 	const boost::optional<ThemeInfo::StyleInfo> configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
@@ -220,6 +221,7 @@ void LookConfig::save() const {
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
+	s.bLogTabs = qcbLogTabs->isChecked();
 	
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
@@ -241,4 +243,8 @@ void LookConfig::themeDirectoryChanged() {
 	} else {
 		reloadThemes(themeData.value<ThemeInfo::StyleInfo>());
 	}
+}
+
+void LookConfig::on_qcbLogTabs_stateChanged(int v) {
+	qcbChatBarUseSelection->setDisabled(v);
 }

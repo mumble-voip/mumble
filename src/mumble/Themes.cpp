@@ -109,7 +109,7 @@ bool Themes::apply() {
 	}
 	
 	if (g.mw != NULL) {
-		g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+		g.mw->qtwLogTabs->handleDocumentSetDefaultStyleSheet(qApp->styleSheet());
 	}
 	return result;
 }
