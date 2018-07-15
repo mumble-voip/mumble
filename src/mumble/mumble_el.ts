@@ -1102,7 +1102,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Πόση ώρα παραμένει ανοιχτό το μικρόφωνο μετά την απελευθέρωση του πλήκτρου PTT</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Το μέγιστο εύρος ζώνης δικτύου του διακομιστή είναι μόνο %1 kbit/δ. Η ποιότητα ήχου ρυθμίστηκε αυτόματα σε %2 kbit/δ (%3 ms)</translation>
     </message>
@@ -2551,7 +2551,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Δεν είναι δυνατή η εισαγωγή. Λείπει ο κωδικός πρόσβασης ή ο τύπος του αρχείου είναι μη συμβατός.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Λήξη πιστοποιητικού:&lt;/b&gt; Το πιστοποιητικό σας πρόκειται να λήξει. Θα πρέπει να το ανανεώσετε αλλιώς δεν θα μπορείτε πλέον να συνδεθείτε σε διακομιστές στους οποίους είστε εγγεγραμμένοι.</translation>
     </message>
@@ -6436,7 +6436,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Άγνωστη λειτουργία σύρσιμου καναλιών στο UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6445,7 +6445,7 @@ Otherwise abort and check your certificate and username.</source>
 </translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6461,6 +6461,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6469,30 +6471,10 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation>Χρήση: mumble [επιλογές] [&lt;url&gt;]
-
-&lt;url&gt; καθορίζει μια διεύθυνση URL για σύνδεση μετά την εκκίνηση, αντί να εμφανίζει
-το παράθυρο σύνδεσης, και έχει την ακόλουθη μορφή:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-Η παράμετρος version/έκδοση πρέπει να οριστεί ώστε να μπορεί να επικαλεσθεί η σωστή έκδοση του προγράμματος-πελάτη.
-Αυτή τη στιγμή είναι προεπιλεγμένη η 1.2.0.
-Έγκυρες επιλογές είναι:
-  -h, --help    Εμφάνιση αυτού του κειμένου βοήθειας και έξοδος.
-  -m, --multiple
-                Να επιτρέπεται η ύπαρξη πολλαπλών instances του προγράμματος-πελάτη.
-  -n, --noidentity
-               Κατάργηση φόρτωσης αρχείων ταυτότητας (δηλ. Πιστοποιητικά.)
-  --license
-                Εμφάνιση της άδειας του Mumble.
-  --authors
-                Εμφάνιση των δημιουργών του Mumble.
-  --third-party-licenses
-                Εμφάνιση αδειών χρήσης του λογισμικού τρίτων που χρησιμοποιεί το Mumble.
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6540,7 +6522,7 @@ Valid actions are:
         <translation>Επίκληση</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Σφάλμα: Δεν καθορίστηκε καμία εντολή RPC</translation>
     </message>
@@ -8005,7 +7987,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Αποτυχία επανεκκίνησης του mumble</translation>
     </message>

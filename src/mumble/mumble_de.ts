@@ -1100,7 +1100,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
         <translation>Zeit, die das Mikrofon aktiv bleibt, nachdem die PTT-Taste losgelassen wurde</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Maximale Netzwerkbandbreite des Servers beträgt nur %1 kbit/s. Audioqualität wurde automatisch auf %2 kbit/s (%3 ms) angepasst</translation>
     </message>
@@ -2569,7 +2569,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
         <translation>Fehler beim Import. Fehlendes Passwort oder inkompatibler Dateityp.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
@@ -6489,7 +6489,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Unbekannter Kanal-Verschiebe-Modus in UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6498,7 +6498,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
 </translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6514,6 +6514,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6522,24 +6524,10 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation>Aufruf: mumble [Optionen] [&lt;url&gt;]
-
-&lt;url&gt; gibt eine URL an, zu welcher verbunden werden soll anstatt
-das Verbindungsfenster nach dem Start anzuzeigen. Die URL hat folgende Form:
-mumble://[&lt;Benutzername&gt;[:&lt;Passwort&gt;]@]&lt;Host&gt;[:&lt;Port&gt;][/&lt;Kanal&gt;[/&lt;Unterkanal&gt;...]][?version=&lt;x.y.z&gt;]
-
-Der Versionsabfrageparameter muss angegeben sein, damit die korrekte Client-
-Version aufgerufen werden kann. Aktuell ist der Standardwert 1.2.0.
-
-Gültige Optionen sind:
--h, --help Diesen Hilfetext anzeigen und dann beenden.
--m, --multiple Erlaubt das Starten mehrerer Instanzen des Clients.
--n, --noidentity
-Das Laden von Identitätsinformationen (z.B. Zertifikaten) unterdrücken.
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6583,7 +6571,7 @@ Dämpfen aufheben
         <translation>Aufruf</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Fehler: Kein RPC-Befehl angegeben</translation>
     </message>
@@ -8051,7 +8039,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Konnte Mumble nicht neustarten</translation>
     </message>

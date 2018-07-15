@@ -1094,7 +1094,7 @@ maksymalna liczba użytkowników wynosi tyle co domyślny limit serwera.</transl
         <translation>Czas, w którym kontynuowana jest transmisja po puszczeniu przycisku aktywacji</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Maksymalne pasmo dźwięku na serwerze to tylko %1 kbit/s. Jakość dźwięku została automatycznie zmieniona na %2 kbit/s (%3 ms)</translation>
     </message>
@@ -2514,7 +2514,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Nie można zaimportować. Brak hasła lub niezgodny typ pliku.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Wygaśnięcie certyfikatu:&lt;/b&gt; Twój certyfikat niedługo straci ważność. Musisz go odnowić, jeżeli tego nie zrobisz nie będziesz w stanie połączyć się z serwerami, na których jesteś zarejestrowany.</translation>
     </message>
@@ -6388,7 +6388,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <translation>Nieznany sposób przeciągania kanałów w UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6397,7 +6397,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
 </translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6413,6 +6413,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6424,27 +6426,32 @@ Valid options are:
         <translation>Użycie: mumble [opcje] [&lt;url&gt;]
 
 &lt;url&gt; Określa URL do nawiązania połączenia po uruchomieniu aplikacji, zamiast wyświetlania
-okna połączenia, ma następującą składnię: mumble://[&lt;nazwa_użytkownika&gt;[:&lt;hasło&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanał&gt;[/&lt;podkanał&gt;...]][?wersja=&lt;x.y.z&gt;]
+okna połączenia, ma następującą składnię:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
 
 Parametr z wersją Mumble musi zostać podany w celu uruchomienia
 poprawnej wersji klienta. Aktualnie domyślną wartością jest 1.2.0.
 
 Dostępne opcje:
--h, --help Wyświetla to okno pomocy i zamyka aplikację.
+-h, --help
+               Wyświetla to okno pomocy i zamyka aplikację.
 -m, --multiple
-Pozwala na uruchomienie kilku instancji programu.
+               Pozwala na uruchomienie kilku instancji programu.
 -n, --noidentity
-Powstrzymuje ładowanie plików identyfikacyjnych (np. certyfikatów).
+               Powstrzymuje ładowanie plików identyfikacyjnych (np. certyfikatów).
+ -jn, --jackname
+               Ustawia niestandardową nazwę klienta Jack.
 --license
-Pokazuje licencję Mumble.
+               Pokazuje licencję Mumble.
 --authors
-Pokazuje autorów Mumble.
+               Pokazuje autorów Mumble.
 --third-party-licenses
-Pokazuje licencje na oprogramowanie firm trzecich używane przez Mumble.
+               Pokazuje licencje na oprogramowanie firm trzecich używane przez Mumble.
+
 </translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6492,7 +6499,7 @@ toggledeaf
         <translation>Wywołanie</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Błąd: Nie podano polecenia RPC</translation>
     </message>
@@ -7958,7 +7965,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Nie udało się zrestartować Mumble</translation>
     </message>
