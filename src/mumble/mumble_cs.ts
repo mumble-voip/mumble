@@ -1099,7 +1099,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>Doba, kdy mikrofon stále přijímá po uvolnění klávesy pro mluvení</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Maximální propustnost sítě na serveru je %1 kbit/s. Kvalita zvuku byla automaticky upravena na %2 kbit/s (%3 ms) </translation>
     </message>
@@ -2549,7 +2549,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vypršení Certifikátu:&lt;/b&gt; Váš certifikát brzy vyprší. Musíte ho obnovit, nebo se už nebudete moci připojit k serverům, na kterých jste registrování.</translation>
     </message>
@@ -6433,14 +6433,14 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Neznámý režim Táhnutí Kanálů v UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
         <translation>Vzdálené ovládání Mumble:</translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6456,6 +6456,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6467,7 +6469,7 @@ Valid options are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6496,7 +6498,7 @@ Valid actions are:
         <translation>Vyvolání</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Chyba: Nezadán příkaz RPC</translation>
     </message>
@@ -7960,7 +7962,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Nelze restartovat Mumble</translation>
     </message>

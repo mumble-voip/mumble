@@ -1099,7 +1099,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
         <translation>Bas ve Konuş tuşunun bırakılmasının ardından mikrofonun açık kalma süresi</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Sunucun azami ses bant genişliği sadece şudur: %1 kbit/s. Ses kalitesi otomatik olarak şuna ayarlanmıştır: %2 kbit/s (%3 ms)</translation>
     </message>
@@ -2548,7 +2548,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
         <translation>İçe aktarım yapılamıyor. Eksik parola ya da uyumsuz dosya türü.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Sertifika Ömrü:&lt;/b&gt; Sertifikanızın süresi dolmak üzere ve yenilemeniz lazım, aksi takdirde oturumunuz bulunan sunuculara bağlanamayacaksınız.</translation>
     </message>
@@ -6433,7 +6433,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>UserModel::dropMimeData&apos;da bilinmeyen Kanal Kaydırma kipi.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6442,7 +6442,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
 </translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6458,6 +6458,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6466,34 +6468,10 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation>Kullanım: mumble [seçenekler] [&lt;bağlantı&gt;]
-
-&lt;bağlantı&gt; başlangıçtan sonra bağlantı ekranı göstermek yerine
-bağlanılacak bir bağlantı belirtir ve şekli şudur:
-mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;altkanal&gt;...]][?version=&lt;x.y.z&gt;]
-
-Sürüm sorgu parametresi doğru istemci sürümünü almak için
-ayarlanmalıdır. Güncel olarak 1.2.0 değeri varsayılır.
-
-Geçerli seçenekler şunlardır:
--h, --help Bu yardımı göster ve çık.
--m, --multiple
-İstemcinin birden çok örneklemesinin başaltımasına izin ver.
--n, --noidentity
-Kimlik dosyalarının (yani sertifikaların) yüklenmesine mani ol.
---license
-Mumble lisansını göster.
---authors
-Mumble geliştiricilerini göster.
---third-party-licenses
-Mumble tarafından kullanılan üçüncü taraf yazılım lisanslarını göster.
-
-
-
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6522,7 +6500,7 @@ Valid actions are:
         <translation>Çağrı</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Hata: Hiçbir RPC komutu belirtilmedi</translation>
     </message>
@@ -7987,7 +7965,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Mumble&apos;ın tekrar başlatılması başarısız oldu</translation>
     </message>

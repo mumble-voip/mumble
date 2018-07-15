@@ -1098,7 +1098,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
         <translation>Tempo que o microfone fica activo após a tecla PPF ser solta</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Largura de banda máxima do servidor é apenas %1 kbit/s. Qualidade do áudio auto-ajustada para %2 kbit/s (%3 ms)</translation>
     </message>
@@ -2543,7 +2543,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está prestes a expirar. Precisa renová-lo, ou não será mais capaz de se conectar aos servidores em que está registado.</translation>
     </message>
@@ -6425,7 +6425,7 @@ o seu certificado e nome de utilizador.</translation>
         <translation>Modo de movimento de canal desconhecido em UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6434,7 +6434,7 @@ o seu certificado e nome de utilizador.</translation>
 </translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6450,6 +6450,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6461,7 +6463,7 @@ Valid options are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6490,7 +6492,7 @@ Valid actions are:
         <translation>Invocação</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Erro: Nenhum comando RPC especificado</translation>
     </message>
@@ -7954,7 +7956,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Falha ao reiniciar mumble</translation>
     </message>

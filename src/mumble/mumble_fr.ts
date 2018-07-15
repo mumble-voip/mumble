@@ -1099,7 +1099,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Délai pendant lequel le microphone restera ouvert après que la touche PTT ait été enfoncée</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>La bande passante maximale du serveur est seulement de %1 kbit/s. La qualité audio a été ajustée automatiquement à %2 kbit/s (%3 ms)</translation>
     </message>
@@ -2549,7 +2549,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Import impossible. Mot de passe manquant ou type de fichier invalide.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs sur lesquels vous êtes enregistré.</translation>
     </message>
@@ -6432,7 +6432,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Mode de déplacement du salon inconnu dans UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6441,7 +6441,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
 </translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6457,6 +6457,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6465,30 +6467,10 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation>Utilisation : mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; spécifie une URL à laquelle une connexion sera établie après le démarrage au lieu de l&apos;affichage de la fenêtre de connexion sous la forme suivante :
-mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;sous-salon&gt;...]][?version=&lt;x.y.z&gt;]
-
-Le paramètre de demande de version doit être réglé afin d&apos;invoquer la version correcte du client. Actuellement, la valeur par défaut est 1.2.0.
-
-Les options valides sont :
-  -h, --help    Afficher ce message d&apos;aide et quitter.
-  -m, --multiple
-                Autoriser le démarrage de multiples instances du client.
-  -n, --noidentity
-                Supprimer le chargement des fichiers d&apos;identité (par exemple des certificats).
-  --license
-                Afficher la license de Mumble.
-  --authors
-                Afficher les auteurs de Mumble.
-  --third-party-licenses
-                Afficher les licenses des programmes tiers utilisés par Mumble.
-
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6517,7 +6499,7 @@ Valid actions are:
         <translation>Invocation</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Erreur : Pas de commande RPC spécifiée</translation>
     </message>
@@ -7982,7 +7964,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Impossible de redémarrer Mumble</translation>
     </message>

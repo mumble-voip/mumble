@@ -1099,7 +1099,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
         <translation>Tiden mikrofonen går for åpent hus etter at trykk-for-å-snakke -knappen har blitt sluppet</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+596"/>
+        <location filename="AudioInput.cpp" line="+597"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Tjenerens maksimumsbåndbredde er bare %1 kbit/s. Lydkvalitet auto-justert til %2 kbit/s (%3 ms)</translation>
     </message>
@@ -2564,7 +2564,7 @@ Ingen snakking. Krysset (Definitivt ikke tale)</translation>
         <translation>Klarer ikke å importere. Manglende passord eller ukompatibel filtype.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+519"/>
+        <location filename="main.cpp" line="+525"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Sertifikatsutløp:&lt;/b&gt;Ditt sertifikat er i ferd med å utløpe. Du må fornye det, ellers vil du ikke lenger kunne koble til tjenere du er registrert på.</translation>
     </message>
@@ -6449,7 +6449,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Ukjent kanaldragingsmodus i UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-351"/>
+        <location filename="main.cpp" line="-354"/>
         <source>Remote controlling Mumble:
 
 </source>
@@ -6458,7 +6458,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
 </translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-26"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6474,6 +6474,8 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname
+                Set custom Jack client name.
   --license
                 Show the Mumble license.
   --authors
@@ -6482,29 +6484,10 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation>Bruk: mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; spesifiserer en URL å koble til etter oppstart i stedet for å vise tilkoblingsvinduet, og har følgende form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-Versjonsspørringsparameteret må settes for å kunne kalle rett klientversjon. Det har 1.2.0 som forvalg nå
-Gyldige valg:
-  -h, --help    Viser denne hjelpeteksten og avslutter.
-  -m, --multiple
-                Tillater å starte flerfoldige utgaver av klienten.
-  -n, --noidentity
-                Undertrykk lasting av identitetsfiler (altså sertifikater.)
-  --license
-                Vis Mumble-lisensen.
-  --authors
-                Vis hvem som har utviklet Mumble.
-  --third-party-licenses
-                Vis lisenser for tredjepartsprogramvare brukt av Mumble.
-
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
 It is possible to remote control a running instance of Mumble by using
@@ -6552,7 +6535,7 @@ Gyldige valg:
         <translation>Påkallelse</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Error: No RPC command specified</source>
         <translation>Feil: Ingen RPC-kommendo oppgitt</translation>
     </message>
@@ -8017,7 +8000,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+126"/>
+        <location filename="main.cpp" line="+127"/>
         <source>Failed to restart mumble</source>
         <translation>Klarte ikke å utføre omstart av Mumble</translation>
     </message>
