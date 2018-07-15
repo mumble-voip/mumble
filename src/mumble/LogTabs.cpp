@@ -192,6 +192,21 @@ void LogTabWidget::onTabCloseRequested(int index) {
 	updateHashMap();
 }
 
+void LogTabWidget::onTabCloseAllRequested() {
+	for (int i = count() - 1; i >= 0; i--) {
+		if (i == getGeneralTab()) {
+			continue;
+		}
+
+		QString hashKey = dynamic_cast<LogTab *>(widget(i))->m_hash;
+		m_hashMap.remove(hashKey);
+		widget(i)->deleteLater();
+		removeTab(i);
+	}
+
+	updateHashMap();
+}
+
 void LogTabWidget::onTabBarCustomContextMenuRequested(const QPoint& point) {
 	QSignalMapper *mapper = new QSignalMapper(this);
 	for (int i = 0; i < count(); i++) {
@@ -201,9 +216,13 @@ void LogTabWidget::onTabBarCustomContextMenuRequested(const QPoint& point) {
 
 		if (tabBar()->tabRect(i).contains(point)) {
 			QMenu *menu = new QMenu();
-			QAction *action = menu->addAction(tr("Close"));
-			mapper->setMapping(action, i);
-			connect(action, SIGNAL(triggered()), mapper, SLOT(map()));
+			QAction *closeAction = menu->addAction(tr("Close"));
+			QAction *closeAllAction = menu->addAction(tr("Close all"));
+
+			mapper->setMapping(closeAction, i);
+
+			connect(closeAllAction, SIGNAL(triggered()), this, SLOT(onTabCloseAllRequested()));
+			connect(closeAction, SIGNAL(triggered()), mapper, SLOT(map()));
 			connect(mapper, SIGNAL(mapped(int)), this, SLOT(onTabCloseRequested(int)));
 			menu->exec(QCursor::pos());
 			break;

@@ -55,6 +55,7 @@ public:
 public slots:
 	void onTabMoved(int, int);
 	void onTabCloseRequested(int);
+	void onTabCloseAllRequested();
 	void onTabBarCustomContextMenuRequested(const QPoint &);
 signals:
 	void anchorClick(const QUrl &);
