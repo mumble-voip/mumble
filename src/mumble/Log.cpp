@@ -500,38 +500,41 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tlog->setLogScroll(oldscrollvalue);
 	}
 
-	if (!g.s.bTTSMessageReadBack && ownMessage)
+	if (!ownMessage) {
+		if (!(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible())) {
+			// Message notification with window highlight
+			if (flags & Settings::LogHighlight) {
+				QApplication::alert(g.mw);
+			}
+
+			// Message notification with balloon tooltips
+			if (flags & Settings::LogBalloon) {
+				postNotification(mt, plain);
+			}
+		}
+
+		// Don't make any noise if we are self deafened (Unless it is the sound for activating self deaf)
+		if (g.s.bDeaf && mt != Log::SelfDeaf) {
+			return;
+		}
+
+		// Message notification with static sounds
+		if ((flags & Settings::LogSoundfile)) {
+			QString sSound = g.s.qmMessageSounds.value(mt);
+			AudioOutputPtr ao = g.ao;
+			if (!ao || !ao->playSample(sSound, false)) {
+				qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
+				flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS
+			}
+		}
+	} else if (!g.s.bTTSMessageReadBack) {
 		return;
-
-	if (!(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible())) {
-		// Message notification with window highlight
-		if (flags & Settings::LogHighlight) {
-			QApplication::alert(g.mw);
-		}
-
-		// Message notification with balloon tooltips
-		if (flags & Settings::LogBalloon) {
-			postNotification(mt, plain);
-		}
-	}
-
-	// Don't make any noise if we are self deafened (Unless it is the sound for activating self deaf)
-	if (g.s.bDeaf && mt != Log::SelfDeaf)
-		return;
-
-	// Message notification with static sounds
-	if ((flags & Settings::LogSoundfile)) {
-		QString sSound = g.s.qmMessageSounds.value(mt);
-		AudioOutputPtr ao = g.ao;
-		if (!ao || !ao->playSample(sSound, false)) {
-			qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
-			flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS
-		}
 	}
 
 	// Message notification with Text-To-Speech
-	if (! g.s.bTTS || !(flags & Settings::LogTTS))
+	if (g.s.bDeaf || !g.s.bTTS || !(flags & Settings::LogTTS)) {
 		return;
+	}
 
 	// Apply simplifications to spoken text
 	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <]*"),
