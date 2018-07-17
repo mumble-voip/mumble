@@ -263,7 +263,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
 
+	ClientUser *pDst = ClientUser::get(msg.session());
 	Channel *channel = NULL;
+
 	if (msg.has_channel_id()) {
 		channel = Channel::get(msg.channel_id());
 		if (!channel) {
@@ -272,22 +274,32 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
-	ClientUser *pDst = ClientUser::get(msg.session());
+	// User just connected
 	if (!pDst) {
-		if (msg.has_name()) {
-			pDst = pmModel->addUser(msg.session(), u8(msg.name()));
+		if (!msg.has_name()) {
+			return;
+		}
 
-			if (channel) {
-				pmModel->moveUser(pDst, channel);
-			}
+		pDst = pmModel->addUser(msg.session(), u8(msg.name()));
 
-			if (pSelf && pDst->cChannel == pSelf->cChannel) {
+		if (channel) {
+			pmModel->moveUser(pDst, channel);
+		}
+
+		if (msg.has_user_id()) {
+			pmModel->setUserId(pDst, msg.user_id());
+		}
+
+		if (msg.has_hash()) {
+			pmModel->setHash(pDst, u8(msg.hash()));
+		}
+
+		if (pSelf) {
+			if (pDst->cChannel == pSelf->cChannel) {
 				g.l->log(Log::ChannelJoinConnect, tr("%1 connected and entered channel.").arg(Log::formatClientUser(pDst, Log::Source)));
 			} else {
 				g.l->log(Log::UserJoin, tr("%1 connected.").arg(Log::formatClientUser(pDst, Log::Source)));
 			}
-		} else {
-			return;
 		}
 	}
 
@@ -352,11 +364,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_user_id())
-		pmModel->setUserId(pDst, msg.user_id());
-
-	if (msg.has_hash()) {
-		pmModel->setHash(pDst, u8(msg.hash()));
+	if (!pDst->qsHash.isEmpty()) {
 		const QString &name = g.db->getFriend(pDst->qsHash);
 		if (! name.isEmpty())
 			pmModel->setFriendName(pDst, name);
