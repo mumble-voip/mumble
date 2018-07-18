@@ -50,7 +50,7 @@ void Themes::applyFallback() {
 	qWarning() << "Applying fallback style sheet";
 	
 	QStringList skinPaths;
-	skinPaths << QLatin1String(":/");
+	skinPaths << QLatin1String(":/themes/Mumble");
 	QDir::setSearchPaths(QLatin1String("skin"), skinPaths);
 	
 	QString userStylesheetFn = userStylesheetPath();
@@ -86,7 +86,7 @@ bool Themes::applyConfigured() {
 	
 	QStringList skinPaths;
 	skinPaths << qssFile.path();
-	skinPaths << QLatin1String(":/"); // Some skins might want to fall-back on our built-in resources
+	skinPaths << QLatin1String(":/themes/Mumble"); // Some skins might want to fall-back on our built-in resources
 	QDir::setSearchPaths(QLatin1String("skin"), skinPaths);
 
 	QString themeQss = QString::fromUtf8(file.readAll());
