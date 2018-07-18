@@ -1,6 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-<qresource prefix="builtin/themes/Mumble">
+<qresource prefix="themes/Mumble">
     <file alias="authenticated.svg">Mumble/authenticated.svg</file>
     <file alias="channel.svg">Mumble/channel.svg</file>
     <file alias="channel_active.svg">Mumble/channel_active.svg</file>
