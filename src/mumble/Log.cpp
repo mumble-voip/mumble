@@ -463,6 +463,19 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
+		if (qdDate != dt.date()) {
+			qdDate = dt.date();
+
+			const LogTabList tabs = g.mw->qtwLogTabs->getTabs();
+			foreach(int tab, tabs) {
+				LogTab *tlog = dynamic_cast<LogTab *>(g.mw->qtwLogTabs->widget(tab));
+				QTextCursor tc = tlog->textCursor();
+				tc.insertBlock();
+				tc.insertHtml(tr("[Date changed to %1]\n").arg(Qt::escape(qdDate.toString(Qt::DefaultLocaleShortDate))));
+				tc.movePosition(QTextCursor::End);
+			}
+		}
+
 		if (tabToLog == -1 || tabToLog > g.mw->qtwLogTabs->count()) {
 			tabToLog = g.mw->qtwLogTabs->getGeneralTab();
 		}
@@ -475,13 +488,6 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
 
 		tc.movePosition(QTextCursor::End);
-
-		if (qdDate != dt.date()) {
-			qdDate = dt.date();
-			tc.insertBlock();
-			tc.insertHtml(tr("[Date changed to %1]\n").arg(Qt::escape(qdDate.toString(Qt::DefaultLocaleShortDate))));
-			tc.movePosition(QTextCursor::End);
-		}
 
 		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
 			QTextFrameFormat qttf;

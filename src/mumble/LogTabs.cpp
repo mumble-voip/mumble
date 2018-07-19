@@ -116,6 +116,17 @@ int LogTabWidget::getTab(QString qsHash) {
 	return iter != m_hashMap.constEnd() ? iter.value() : -1;
 }
 
+LogTabList LogTabWidget::getTabs() {
+	LogTabList tabs;
+	HashMap::const_iterator iter = m_hashMap.constBegin();
+	while (iter != m_hashMap.constEnd()) {
+		tabs.append(iter.value());
+		++iter;
+	}
+
+	return tabs;
+}
+
 int LogTabWidget::getGeneralTab() {
 	return m_hashMap.find(QString::fromUtf8("general")).value();
 }

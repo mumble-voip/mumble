@@ -41,6 +41,7 @@ public:
 	int getTab(QString);
 	int getGeneralTab();
 	int getCurrentTab();
+	LogTabList getTabs();
 	LogTabList getChannelTabs();
 	QString getHash(int);
 	bool isChannelTab(int);
