@@ -6,6 +6,7 @@
 include(../mumble.pri)
 
 TEMPLATE = app
+CONFIG -= app_bundle
 TARGET = protoc-gen-murmur-grpcwrapper
 LANGUAGE = C++
 SOURCES = main.cpp
