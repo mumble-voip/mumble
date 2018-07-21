@@ -129,6 +129,10 @@
   <?ifndef env.MumbleNoG15 ?>
     <?define G15 = true ?> 
   <?endif ?>
+  
+  <?ifndef env.MumbleNoRNNoise ?>
+    <?define RNN = true ?>
+  <?endif ?>
 
   <?ifdef env.MumbleVersionSubDir ?>
     <?define VersionSubDir = "$(env.MumbleVersionSubDir)" ?>

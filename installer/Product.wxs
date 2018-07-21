@@ -131,6 +131,9 @@
       <?ifdef G15 ?>
         <ComponentRef Id="mumble_g15_helper.exe" />
       <?endif ?>
+      <?ifdef RNN ?>
+        <ComponentRef Id="rnnoise.dll" />
+      <?endif ?>
 
       <?ifdef RedistDirVC14 ?>
         <ComponentRef Id="msvcp140.dll" />

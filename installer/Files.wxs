@@ -66,6 +66,12 @@
         </Component>
       <?endif ?>
 
+      <?ifdef RNN ?>
+        <Component Id="rnnoise.dll">
+          <File Source="$(var.SourceDir)\release\rnnoise.dll" KeyPath="yes" />
+        </Component>
+      <?endif ?>    
+          
       <?ifdef RedistDirVC14 ?>
       <Component Id="msvcp140.dll">
         <File Source="$(var.RedistDirVC14)\msvcp140.dll" KeyPath="yes" />
