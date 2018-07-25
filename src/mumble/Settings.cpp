@@ -300,10 +300,8 @@ Settings::Settings() {
 	bStateInTray = true;
 	bUsage = true;
 	bShowUserCount = false;
-	bChatBarUseSelection = false;
 	bFilterHidesEmptyChannels = true;
 	bFilterActive = false;
-	bLogTabs = true;
 
 	wlWindowLayout = LayoutClassic;
 	bShowContextMenuInMenuBar = false;
@@ -746,7 +744,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
-	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
@@ -756,7 +753,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
-	SAVELOAD(bLogTabs, "ui/LogTabs");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
@@ -1085,7 +1081,6 @@ void Settings::save() {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
-	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
@@ -1095,7 +1090,6 @@ void Settings::save() {
 	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
-	SAVELOAD(bLogTabs, "ui/LogTabs");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");

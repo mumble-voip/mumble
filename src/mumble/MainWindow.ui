@@ -111,8 +111,7 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="LogTabWidget" name="qtwLogTabs">
-   </widget>
+   <widget class="LogTabWidget" name="qtwLogTabs"/>
   </widget>
   <widget class="QDockWidget" name="qdwChat">
    <property name="sizePolicy">
@@ -125,7 +124,7 @@
     <string/>
    </property>
    <property name="whatsThis">
-    <string>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</string>
+    <string>This is the chat bar.&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected.</string>
    </property>
    <property name="features">
     <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable</set>
@@ -906,6 +905,10 @@ the channel's context menu.</string>
    </property>
    <property name="toolTip">
     <string>Shows the main Mumble window.</string>
+   </property>
+  <action name="qaChannelOpenTab">
+   <property name="text">
+    <string>Open &amp;tab</string>
    </property>
   </action>
  </widget>

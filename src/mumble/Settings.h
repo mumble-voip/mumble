@@ -306,12 +306,10 @@ struct Settings {
 	bool bStateInTray;
 	bool bUsage;
 	bool bShowUserCount;
-	bool bChatBarUseSelection;
 	bool bFilterHidesEmptyChannels;
 	bool bFilterActive;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
-	bool bLogTabs;
 
 	QString qsUsername;
 	QString qsLastServer;

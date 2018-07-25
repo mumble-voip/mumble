@@ -170,9 +170,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbShowContextMenuInMenuBar, r.bShowContextMenuInMenuBar);
 	loadCheckBox(qcbShowTransmitModeComboBox, r.bShowTransmitModeComboBox);
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
-	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
-	loadCheckBox(qcbLogTabs, r.bLogTabs);
 	
 	const boost::optional<ThemeInfo::StyleInfo> configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
@@ -184,7 +182,7 @@ void LookConfig::save() const {
 		s.qsLanguage = QString();
 	else
 		s.qsLanguage = qcbLanguage->itemData(qcbLanguage->currentIndex()).toString();
-	
+
 	if (s.qsLanguage != oldLanguage) {
 		s.requireRestartToApply = true;
 	}
@@ -208,7 +206,7 @@ void LookConfig::save() const {
 		s.bUserTop = qcbUsersTop->isChecked();
 		s.requireRestartToApply = true;
 	}
-	
+
 	s.aotbAlwaysOnTop = static_cast<Settings::AlwaysOnTopBehaviour>(qcbAlwaysOnTop->currentIndex());
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bEnableDeveloperMenu = qcbEnableDeveloperMenu->isChecked();
@@ -219,10 +217,8 @@ void LookConfig::save() const {
 	s.bShowContextMenuInMenuBar = qcbShowContextMenuInMenuBar->isChecked();
 	s.bShowTransmitModeComboBox = qcbShowTransmitModeComboBox->isChecked();
 	s.bHighContrast = qcbHighContrast->isChecked();
-	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
-	s.bLogTabs = qcbLogTabs->isChecked();
-	
+
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
 		Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
@@ -243,8 +239,4 @@ void LookConfig::themeDirectoryChanged() {
 	} else {
 		reloadThemes(themeData.value<ThemeInfo::StyleInfo>());
 	}
-}
-
-void LookConfig::on_qcbLogTabs_stateChanged(int v) {
-	qcbChatBarUseSelection->setDisabled(v);
 }

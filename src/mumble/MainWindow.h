@@ -120,8 +120,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void focusNextMainWidget();
 		void updateTransmitModeComboBox();
 		QPair<QByteArray, QImage> openImageFile();
-		
-		void updateChatBar();
+
 		void openTextMessageDialog(ClientUser *p);
 		void openUserLocalVolumeDialog(ClientUser *p);
 
@@ -219,6 +218,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelLink_triggered();
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
+		void on_qaChannelOpenTab_triggered();
 		void on_qaChannelSendMessage_triggered();
 		void on_qaChannelFilter_triggered();
 		void on_qaChannelCopyURL_triggered();
@@ -266,7 +266,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 		void voiceRecorderDialog_finished(int);
-		void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
 		void serverConnected();
 		void serverDisconnected(QAbstractSocket::SocketError, QString reason);
 		void resolverError(QAbstractSocket::SocketError, QString reason);
@@ -286,7 +285,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void onResetAudio();
 		void showRaiseWindow();
 		void on_qaFilterToggle_triggered();
-		void on_qtwLogTabs_currentChanged(int index);
 
 		/// Opens a save dialog for the image referenced by qtcSaveImageCursor.
 		void saveImageAs();
@@ -296,6 +294,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		/// Updates the user's image directory to the given path (any included
 		/// filename is discarded).
 		void updateImagePath(QString filepath) const;
+		/// Toggles the chatbar according to the user's permissions.
+		void updateChatBar();
 
 	public:
 		MainWindow(QWidget *parent);

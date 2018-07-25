@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>702</width>
-    <height>706</height>
+    <height>676</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,16 +71,6 @@
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QCheckBox" name="qcbLogTabs">
-        <property name="toolTip">
-         <string>Adds tabs to the log section, for different communication channels</string>
-        </property>
-        <property name="text">
-         <string>Enable tabs for the log area</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -347,13 +337,6 @@
        </widget>
       </item>
       <item row="5" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbChatBarUseSelection">
-        <property name="text">
-         <string>Use selected item as the chat bar target</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbFilterHidesEmptyChannels">
         <property name="text">
          <string>Filter automatically hides empty channels</string>

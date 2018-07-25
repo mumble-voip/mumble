@@ -302,11 +302,7 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &dis
 
 	if (cu) {
 		QString name = Qt::escape(displayName.isNull() ? cu->qsName : displayName);
-		if (cu->qsHash.isEmpty()) {
-			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(name).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
-		} else {
-			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->qsHash).arg(name);
-		}
+		return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->getIdentifier()).arg(name);
 	} else {
 		return QString::fromLatin1("<span class='log-server log-%1'>%2</span>").arg(className).arg(tr("the server"));
 	}
@@ -468,7 +464,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
 		if (tabToLog == -1 || tabToLog > g.mw->qtwLogTabs->count()) {
-			tabToLog = g.mw->qtwLogTabs->getChannelTab();
+			tabToLog = g.mw->qtwLogTabs->getGeneralTab();
 		}
 
 		LogTab *tlog = dynamic_cast<LogTab *>(g.mw->qtwLogTabs->widget(tabToLog));
