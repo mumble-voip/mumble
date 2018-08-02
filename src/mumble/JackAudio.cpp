@@ -252,20 +252,21 @@ void JackAudioSystem::disconnect_ports() {
 		return;
 	}
 
-	const char **ports = jack_get_ports(client, 0, "audio", JackPortIsPhysical);
+	// Disconnect the input port
+	if (in_port != NULL) {
+		int err = jack_port_disconnect(client, in_port);
+		if (err != 0)  {
+			qWarning("JackAudioSystem: unable to disconnect in port - jack_port_disconnect() returned %i", err);
+		}
+	}
 
-	if (ports != NULL) {
-		int i = 0;
-		while (ports[i] != NULL) {
-			jack_port_t * const port = jack_port_by_name(client, ports[i]);
-			if (port == NULL)  {
-				qWarning("JackAudioSystem: jack_port_by_name() returned an invalid port - skipping it");
-				continue;
+	// Disconnect the output ports
+	for (unsigned int i = 0; i < iOutPorts; ++i) {
+		if (out_ports[i] != NULL) {
+			int err = jack_port_disconnect(client, out_ports[i]);
+			if (err != 0)  {
+				qWarning("JackAudioSystem: unable to disconnect out port - jack_port_disconnect() returned %i", err);
 			}
-
-			jack_port_disconnect(client, port);
-
-			++i;
 		}
 	}
 }
