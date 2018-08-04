@@ -505,7 +505,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <location/>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"/>
+        <translation>C&apos;est l&apos;ordre de tri pour le salon</translation>
     </message>
 </context>
 <context>
@@ -1156,12 +1156,12 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <location/>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;action d&apos;absence va être annulée en cas d&apos;entrée du clavier ou de la souris</translation>
     </message>
     <message>
         <location/>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished"/>
+        <translation>Annuler l&apos;activité d&apos;absence</translation>
     </message>
     <message>
         <location/>
@@ -3425,14 +3425,18 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"/>
+        <translation>Vous êtes actuellement connecté à un serveur.
+Souhaitez-vous renseigner les informations de connexion pour ce server ?
+Hôte : %1 Port : %2</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"/>
+        <translation>Vous avez une URL dans votre presse-papier.
+Souhaitez-vous remplir la fenêtre à partir de cette URL ?
+Hôte : %1 Port : %2</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
@@ -3740,7 +3744,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished"/>
+        <translation>Moteurs de raccourcis additionnels</translation>
     </message>
     <message>
         <location/>
@@ -3920,12 +3924,12 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <location line="+1"/>
         <source>Mono</source>
-        <translation type="unfinished"/>
+        <translation>Mono</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Stereo</source>
-        <translation type="unfinished"/>
+        <translation>Stéréo</translation>
     </message>
 </context>
 <context>
@@ -4142,27 +4146,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You Joined Channel</source>
-        <translation type="unfinished"/>
+        <translation>Vous avez rejoint le salon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You Joined Channel (moved)</source>
-        <translation type="unfinished"/>
+        <translation>Vous avez rejoint le salon (déplacé)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"/>
+        <translation>Un utilisateur s&apos;est connecté et est entré dans le salon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Un utilisateur a quitté le salon et s&apos;est déconnecté</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private text message</source>
-        <translation type="unfinished"/>
+        <translation>Message privé textuel</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4194,7 +4198,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>FTP link to %1</source>
-        <translation type="unfinished"/>
+        <translation>Lien FTP pour %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6119,7 +6123,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+32"/>
         <source>%1 connected and entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 s&apos;est connecté et a rejoint le salon</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6240,7 +6244,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="-173"/>
         <source>You joined %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vous avez rejoint %1</translation>
     </message>
     <message>
         <location line="+13"/>
