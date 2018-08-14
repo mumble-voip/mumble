@@ -499,7 +499,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"/>
+        <translation>Это порядок сортировки для канала.</translation>
     </message>
 </context>
 <context>
@@ -3589,7 +3589,7 @@ of the possible locations.</source>
     <message>
         <location filename="DeveloperConsole.cpp" line="+31"/>
         <source>Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Консоль разработчика</translation>
     </message>
 </context>
 <context>
@@ -3870,12 +3870,12 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <location line="+1"/>
         <source>Mono</source>
-        <translation type="unfinished"/>
+        <translation>Моно</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Stereo</source>
-        <translation type="unfinished"/>
+        <translation>Стерео</translation>
     </message>
 </context>
 <context>
@@ -4086,7 +4086,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You Joined Channel</source>
-        <translation type="unfinished"/>
+        <translation>Вы присоединились к каналу</translation>
     </message>
     <message>
         <location line="+1"/>
