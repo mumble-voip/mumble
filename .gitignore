@@ -7,9 +7,10 @@ asio/
 local/
 indent.sh
 *.pdb
-*.sln
 *.sdf
+*.sln
 *.suo
+*.swp
 *.aps
 *.vcxproj
 *.vcxproj.*
