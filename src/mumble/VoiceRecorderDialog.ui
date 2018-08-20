@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>214</height>
+    <height>255</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Recorder</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="mumble_tango.qrc">
+   <iconset>
     <normaloff>:/actions/media-record.svg</normaloff>:/actions/media-record.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
@@ -168,8 +168,7 @@
       <item row="2" column="1">
        <layout class="QHBoxLayout" name="qhblTargetDirectory">
         <item>
-         <widget class="QLineEdit" name="qleTargetDirectory">
-         </widget>
+         <widget class="QLineEdit" name="qleTargetDirectory"/>
         </item>
         <item>
          <widget class="QPushButton" name="qpbTargetDirectoryBrowse">
@@ -181,8 +180,7 @@
        </layout>
       </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="qleFilename">
-       </widget>
+       <widget class="QLineEdit" name="qleFilename"/>
       </item>
      </layout>
     </widget>
@@ -196,8 +194,6 @@
    <header>widgets/MUComboBox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="mumble_tango.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

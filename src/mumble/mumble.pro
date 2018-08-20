@@ -722,10 +722,6 @@ CONFIG(no-update) {
   RESOURCES *= mumble_qt_auto.qrc
 }
 
-!CONFIG(no-embed-tango-icons) {
-  RESOURCES *= mumble_tango.qrc
-}
-
 CONFIG(static_qt_plugins) {
   DEFINES += USE_STATIC_QT_PLUGINS
   

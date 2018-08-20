@@ -1,1 +1,0 @@
-priority_sepaker.svg is a copy of tango/actions/audio-input-microphone.svg

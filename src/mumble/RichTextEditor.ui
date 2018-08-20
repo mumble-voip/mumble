@@ -51,7 +51,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:actions/format-text-bold.svg</normaloff>skin:actions/format-text-bold.svg</iconset>
    </property>
    <property name="text">
@@ -66,7 +66,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:actions/format-text-italic.svg</normaloff>skin:actions/format-text-italic.svg</iconset>
    </property>
    <property name="text">
@@ -84,7 +84,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:actions/format-text-underline.svg</normaloff>skin:actions/format-text-underline.svg</iconset>
    </property>
    <property name="text">
@@ -101,7 +101,7 @@
   </action>
   <action name="qaLink">
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:mimetypes/text-html.svg</normaloff>skin:mimetypes/text-html.svg</iconset>
    </property>
    <property name="text">
@@ -113,7 +113,7 @@
   </action>
   <action name="qaImage">
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:mimetypes/image-x-generic.svg</normaloff>skin:mimetypes/image-x-generic.svg</iconset>
    </property>
    <property name="text">
@@ -128,8 +128,6 @@
    <header>RichTextEditor.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="mumble_tango.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -149,9 +149,6 @@ CONFIG+=no-embed-qt-translations (Mumble)
  Don't embed the translations for Qt, load them from the system. (For
  distributions).
 
-CONFIG+=no-embed-tango-icons (Mumble)
- Don't embed the tango icons at all.
-
 CONFIG+=no-ice (Murmur)
  Don't build support for Ice RPC.
 
