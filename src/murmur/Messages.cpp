@@ -17,6 +17,11 @@
 #include "Version.h"
 #include "CryptState.h"
 
+#define RATELIMIT(user) \
+	if (user->leakyBucket.ratelimit(1)) { \
+		return; \
+	}
+
 #define MSG_SETUP(st) \
 	if (uSource->sState != st) { \
 		return; \
@@ -507,6 +512,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		return;
 	}
 
+	if (uSource == pDstServerUser) {
+		RATELIMIT(uSource);
+	}
+
 	if (msg.has_channel_id()) {
 		Channel *c = qhChannels.value(msg.channel_id());
 		if (!c || (c == pDstServerUser->cChannel))
@@ -830,6 +839,8 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		c = qhChannels.value(msg.channel_id());
 		if (! c)
 			return;
+	} else {
+		RATELIMIT(uSource);
 	}
 
 	// Check if the parent exists
@@ -1123,6 +1134,8 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
+	RATELIMIT(uSource);
+
 	int res = 0;
 	emit textMessageFilterSig(res, uSource, msg);
 	switch (res) {
@@ -1240,6 +1253,8 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
+
+	RATELIMIT(uSource);
 
 	if (msg.has_query() && msg.query()) {
 		QStack<Channel *> chans;
@@ -1497,6 +1512,8 @@ void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &m
 }
 
 void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
+	RATELIMIT(uSource);
+
 	if (msg.has_version())
 		uSource->uiVersion=msg.version();
 	if (msg.has_release())

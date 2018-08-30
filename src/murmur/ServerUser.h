@@ -14,6 +14,13 @@
 #include <winsock2.h>
 #endif
 
+// <chrono> was introduced in C++11
+#if __cplusplus > 199711LL
+#include <chrono>
+#else
+#include <ctime>
+#endif
+
 #include "Connection.h"
 #include "Timer.h"
 #include "User.h"
@@ -54,6 +61,26 @@ struct WhisperTarget {
 };
 
 class Server;
+
+#if __cplusplus > 199711L
+        typedef std::chrono::time_point<std::chrono::steady_clock> time_point;
+#else
+        typedef clock_t time_point;
+#endif
+
+// Simple algorithm for rate limiting
+class LeakyBucket {
+	private:
+		unsigned int tokensPerSec, maxTokens;
+		long currentTokens;
+		time_point lastUpdate;
+
+	public:
+		// Returns true if packets should be dropped
+		bool ratelimit(int tokens);
+
+		LeakyBucket();
+};
 
 class ServerUser : public Connection, public User {
 	private:
@@ -102,6 +129,8 @@ class ServerUser : public Connection, public User {
 		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;
 		QMap<int, TargetCache> qmTargetCache;
 		QMap<QString, QString> qmWhisperRedirect;
+
+		LeakyBucket leakyBucket;
 
 		int iLastPermissionCheck;
 		QMap<int, unsigned int> qmPermissionSent;
