@@ -138,8 +138,8 @@ unsigned long millisecondsBetween(time_point start, time_point end) {
 
 #endif
 
-// Rate limiting: burst up to 30, 4 message per sec limit over longer time
-LeakyBucket::LeakyBucket() : tokensPerSec(4), maxTokens(30), currentTokens(0) {
+// Rate limiting: burst up to 5, 1 message per sec limit over longer time
+LeakyBucket::LeakyBucket() : tokensPerSec(1), maxTokens(5), currentTokens(0) {
 	lastUpdate = now();
 }
 
