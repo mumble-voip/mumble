@@ -94,6 +94,9 @@ public:
 	QRegExp qrUserName;
 	QRegExp qrChannelName;
 
+	unsigned int iMessageLimit;
+	unsigned int iMessageBurst;
+
 	QSslCertificate qscCert;
 	QSslKey qskKey;
 

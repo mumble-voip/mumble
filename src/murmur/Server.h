@@ -128,6 +128,9 @@ class Server : public QThread {
 		QRegExp qrUserName;
 		QRegExp qrChannelName;
 
+		unsigned int iMessageLimit;
+		unsigned int iMessageBurst;
+
 		QVariant qvSuggestVersion;
 		QVariant qvSuggestPositional;
 		QVariant qvSuggestPushToTalk;
