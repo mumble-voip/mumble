@@ -74,6 +74,9 @@ MetaParams::MetaParams() {
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 
+	iMessageLimit = 1;
+	iMessageBurst = 5;
+
 	qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
 
 	qsSettings = NULL;
@@ -368,6 +371,9 @@ void MetaParams::read(QString fname) {
 
 	qrUserName = QRegExp(typeCheckedFromSettings("username", qrUserName.pattern()));
 	qrChannelName = QRegExp(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
+
+	iMessageLimit = typeCheckedFromSettings("messagelimit", 1);
+	iMessageBurst = typeCheckedFromSettings("messageburst", 5);
 
 	bool bObfuscate = typeCheckedFromSettings("obfuscate", false);
 	if (bObfuscate) {

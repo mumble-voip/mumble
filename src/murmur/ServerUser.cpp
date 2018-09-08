@@ -9,7 +9,7 @@
 #include "ServerUser.h"
 #include "Meta.h"
 
-ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User(), s(NULL) {
+ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User(), s(NULL), leakyBucket(p->iMessageLimit, p->iMessageBurst) {
 	sState = ServerUser::Connected;
 	sUdpSocket = INVALID_SOCKET;
 
@@ -139,7 +139,7 @@ unsigned long millisecondsBetween(time_point start, time_point end) {
 #endif
 
 // Rate limiting: burst up to 5, 1 message per sec limit over longer time
-LeakyBucket::LeakyBucket() : tokensPerSec(1), maxTokens(5), currentTokens(0) {
+LeakyBucket::LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens) : tokensPerSec(tokensPerSec), maxTokens(maxTokens), currentTokens(0) {
 	lastUpdate = now();
 }
 

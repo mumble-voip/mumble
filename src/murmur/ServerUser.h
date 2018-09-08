@@ -79,7 +79,7 @@ class LeakyBucket {
 		// Returns true if packets should be dropped
 		bool ratelimit(int tokens);
 
-		LeakyBucket();
+		LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens);
 };
 
 class ServerUser : public Connection, public User {
