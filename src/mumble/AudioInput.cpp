@@ -771,7 +771,12 @@ int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer& buffer) {
 
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 
+#ifdef CELT_SET_VBR_RATE
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_VBR_RATE(iAudioQuality));
+#else
+	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_BITRATE(iAudioQuality));
+	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_VBR(1));
+#endif
 	len = cCodec->encode(ceEncoder, psSource, &buffer[0], qMin<int>(iAudioQuality / (8 * 100), static_cast<int>(buffer.size())));
 	iBitrate = len * 100 * 8;
 
