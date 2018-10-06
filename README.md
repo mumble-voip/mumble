@@ -33,7 +33,9 @@ apt-get upgrade
 Now it's time to get all the necessary dependencies. Note that this list of
 dependencies it NOT identical to the list of mumble dependencies; two
 additional packages are needed to be installed in order to complete a later
-qt-related command. Just copy and paste the following into your linux
+qt-related command.
+
+Just copy and paste the following into your linux
 terminal (inside 'real' linux distros, not just windows subsystems, to paste 
 into terminal, you need to use CTRL+SHIFT+v).
 
@@ -58,14 +60,16 @@ git submodule update
 ```
 
 You now should have all the necessary files on your machine. These next
-couple steps might take a little bit, so keep that in mind. To speed up
-the process `make`, it's recommended that you instead run the command
-`make -j$(nproc)`, which will run `make` but using multiple threads,
+couple steps might take a little bit, so keep that in mind.
+
+To speed up the process `make`, it's recommended that you instead run the 
+command `make -j$(nproc)`, which will run `make` but using multiple threads,
 provided that you have a cpu that supports multithreading. You don't have
 to know if your cpu does support it though, the command calculates how
-many threads your computer can use for `make` and uses those. If for
-whatever reason you don't feel comfortable using multiple threads or you
-get some kind of error, you can definitely just use `make` instead of 
+many threads your computer can use for `make` and uses those.
+ 
+If for whatever reason you don't feel comfortable using multiple threads 
+or you get some kind of error, you can just use `make` instead of 
 `make -j$(nproc)`, though compiling will likely take significantly longer.
 
 ```
