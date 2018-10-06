@@ -12,6 +12,70 @@ server should work on anything Qt can be installed on.
 
 Note that when we say Win32, we mean Windows XP or newer.
 
+## Setting up Mutter on Ubuntu
+
+First, log into your Ubuntu machine. It is recommended that you just change
+your user to root rather than typing sudo at the start of every command.
+
+`sudo -s`
+
+This will change your user to root. It is considered good practice to type
+`exit` as soon as you're done using any kind of commands that require root.
+
+You should update your package manager and make sure all installed packages 
+are up-to-date. Type 'y' if prompted to.
+
+```
+apt-get update
+apt-get upgrade
+```
+
+Now it's time to get all the necessary dependencies. Note that this list of
+dependencies it NOT identical to the list of mumble dependencies; two
+additional packages are needed to be installed in order to complete a later
+qt-related command. Just copy and paste the following into your linux
+terminal (inside 'real' linux distros, not just windows subsystems, to paste 
+into terminal, you need to use CTRL+SHIFT+v).
+
+```
+apt-get install build-essential pkg-config qt5-default libqt5svg5-dev \
+                libboost-dev libasound2-dev libssl-dev \
+                libspeechd-dev libzeroc-ice-dev libpulse-dev \
+                libcap-dev libprotobuf-dev protobuf-compiler \
+                libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \
+                libg15daemon-client-dev libxi-dev qttools5-dev-tools \ 
+                libminiupnpc-dev
+```
+
+The next step is obtaining the source code from the git repository. Install
+git in case you don't already have it with `apt-get install git`. 
+
+```
+git clone https://github.com/2uh/Mutter.git
+cd Mutter
+git submodule init
+git submodule update
+```
+
+You now should have all the necessary files on your machine. These next
+couple steps might take a little bit, so keep that in mind. To speed up
+the process `make`, it's recommended that you instead run the command
+`make -j$(nproc)`, which will run `make` but using multiple threads,
+provided that you have a cpu that supports multithreading. You don't have
+to know if your cpu does support it though, the command calculates how
+many threads your computer can use for `make` and uses those. If for
+whatever reason you don't feel comfortable using multiple threads or you
+get some kind of error, you can definitely just use `make` instead of 
+`make -j$(nproc)`, though compiling will likely take significantly longer.
+
+```
+qmake -recursive main.pro
+make -j$(nproc)
+```
+
+From here, you should be able to run Mutter locally by simply going into
+`./Mutter/release` via `cd release` and running `./mumble`.
+
 ## Running Mumble
 
 On Windows, after installation, you should have a new Mumble folder in your
@@ -65,3 +129,4 @@ To set the superuser password, run murmur with the parameters `-supw <password>`
 Mumble will use 10-40 kbit/s outgoing, and the same incoming for each user.
 So if there are 10 other users on the server with you, your incoming
 bandwidth requirement will be 100-400 kbit/s if they all talk at the same time.
+
