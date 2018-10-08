@@ -45,8 +45,7 @@ apt-get install build-essential pkg-config qt5-default libqt5svg5-dev \
                 libspeechd-dev libzeroc-ice-dev libpulse-dev \
                 libcap-dev libprotobuf-dev protobuf-compiler \
                 libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \
-                libg15daemon-client-dev libxi-dev qttools5-dev-tools \ 
-                libminiupnpc-dev
+                libg15daemon-client-dev libxi-dev qttools5-dev-tools libminiupnpc-dev
 ```
 
 The next step is obtaining the source code from the git repository. Install
