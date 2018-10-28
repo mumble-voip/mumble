@@ -1,12 +1,12 @@
          M U M B L E
 
- A voicechat utility for gamers
+ A voice chat utility for gamers
 
       http://mumble.info/
 
       #mumble on freenode
 
-Mumble is a voicechat program for gamers written on top of Qt and Opus.
+Mumble is a voice chat program for gamers written on top of Qt and Opus.
 
 There are two modules in Mumble; the client (mumble) and the server
 (murmur). The client works on Win32/64, Linux and Mac OS X, while the
@@ -34,12 +34,12 @@ and go to wherever you installed Mumble. Run murmur as
 
 murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
--supw   Set new password for the user SuperUser, which is hardcoded to
+-supw   Set a new password for the user SuperUser, which is hardcoded to
         bypass ACLs. Keep this password safe. Until you set a password,
         the SuperUser is disabled. If you use this option, murmur will
         set the password in the database and then exit.
 
--ini    Use a inifile other than murmur.ini, use this to run several instances
+-ini    Use an inifile other than murmur.ini, use this to run several instances
         of murmur from the same directory. Make sure each instance is using
         a separate database.
 
@@ -50,7 +50,7 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 Running Murmur on Mac OS X
 ==========================
 
-Murmur is distributed seperately from the Mumble client on Mac OS X.
+Murmur is distributed separately from the Mumble client on Mac OS X.
 It is called Static OS X Server and can be downloaded from the main webpage.
 
 Once downloaded it can be run in the same way as on any other Unix-like system.
