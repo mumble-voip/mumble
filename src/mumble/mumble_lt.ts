@@ -291,12 +291,12 @@ This value enables you to change the way mumble arranges the channels in the tre
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"/>
+        <translation>Įrašas turėtų būti taikomas šiam kanalui.</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Tai padaro, kad įrašas būtų pritaikytas šiam kanalui.</translation>
     </message>
     <message>
         <location/>
@@ -397,7 +397,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation type="unfinished"/>
+        <translation>Tai valdo, kuriam naudotojui šis įrašas bus taikomas. Tiesiog, įrašykite naudotojo vardą ir paspauskite enter, norėdami užklausti serverio atitikmens.</translation>
     </message>
     <message>
         <location/>
@@ -1576,7 +1576,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioConfigDialog.cpp" line="+138"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Nėra</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1796,7 +1796,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Echo Analysis</source>
-        <translation type="unfinished"/>
+        <translation>Aido analizė</translation>
     </message>
     <message>
         <location/>
@@ -3902,12 +3902,12 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <location line="+1"/>
         <source>Mono</source>
-        <translation type="unfinished"/>
+        <translation>Mono</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Stereo</source>
-        <translation type="unfinished"/>
+        <translation>Stereo</translation>
     </message>
 </context>
 <context>
@@ -3973,7 +3973,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"/>
+        <translation>Mažiausias stulpelio plotis</translation>
     </message>
     <message>
         <location/>
@@ -4165,12 +4165,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+74"/>
         <source>link to %1</source>
-        <translation type="unfinished"/>
+        <translation>nuoroda į %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>FTP link to %1</source>
-        <translation type="unfinished"/>
+        <translation>FTP nuoroda į %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4695,7 +4695,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Enable Developer menu</source>
-        <translation type="unfinished"/>
+        <translation>Įjungti kūrėjo meniu</translation>
     </message>
     <message>
         <location/>
@@ -5076,7 +5076,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user '%1' here</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Čia įrašykite žinutę, skirta naudotojui &quot;%1&quot;&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+101"/>
@@ -5285,13 +5285,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+266"/>
         <location line="+611"/>
         <source>To %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>Skirta %1: %2</translation>
     </message>
     <message>
         <location line="-984"/>
         <location line="+107"/>
         <source>Message to %1</source>
-        <translation type="unfinished"/>
+        <translation>Žinutė, skirta %1</translation>
     </message>
     <message>
         <location line="-64"/>
@@ -6570,7 +6570,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Piktogramų įrankių juosta</translation>
     </message>
     <message>
         <location/>
@@ -6668,7 +6668,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="MainWindow.cpp" line="-3067"/>
         <source>&amp;Developer</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kūrėjas</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -6688,12 +6688,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti kūrėjo pultą</translation>
     </message>
     <message>
         <location/>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Rodo Mumble kūrėjo pultą, kuriame gali būti išnagrinėta Mumble žurnalo išvestis.</translation>
     </message>
     <message>
         <location/>
@@ -6748,7 +6748,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Audio S&amp;tatistics...</source>
-        <translation type="unfinished"/>
+        <translation>Garso s&amp;tatistika...</translation>
     </message>
     <message>
         <location/>
@@ -6763,7 +6763,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Developer &amp;Console...</source>
-        <translation type="unfinished"/>
+        <translation>Kūrėjo &amp;pultas...</translation>
     </message>
     <message>
         <location/>
@@ -6788,22 +6788,22 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&amp;Register...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Registruoti...</translation>
     </message>
     <message>
         <location/>
         <source>Registered &amp;Users...</source>
-        <translation type="unfinished"/>
+        <translation>Registruoti na&amp;udotojai...</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar...</source>
-        <translation type="unfinished"/>
+        <translation>Keisti &amp;avatarą...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Access Tokens...</source>
-        <translation type="unfinished"/>
+        <translation>P&amp;rieigos raktai...</translation>
     </message>
     <message>
         <location/>
@@ -6828,7 +6828,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>R&amp;egister...</source>
-        <translation type="unfinished"/>
+        <translation>R&amp;egistruoti...</translation>
     </message>
 </context>
 <context>
@@ -6886,17 +6886,17 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Meta data</source>
-        <translation type="unfinished"/>
+        <translation>Metaduomenys</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Kontekstas</translation>
     </message>
     <message>
         <location/>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Tapatybė</translation>
     </message>
     <message>
         <location/>
@@ -6934,7 +6934,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"/>
+        <translation>Atnaujinimai yra privalomi, naudojant momentinių kopijų laidas.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
@@ -7398,41 +7398,45 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <location filename="Overlay.ui"/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Pašalinti perdangą</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"/>
+        <translation>Perdangos įdiegimas</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble aptiko, kad neturite įdiegę Mumble perdangos.
+
+Spustelėkite mygtuką žemiau, norėdami įdiegti perdangą.</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Įdiegti Mumble perdangą</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"/>
+        <translation>Perdangos naujinimas</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble jūsų kompiuteryje aptiko įdiegtą senąją perdangos palaikymo failų versiją.
+
+Norėdami naujinti šiuos failus į naujausią versiją, spustelėkite mygtuką žemiau.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Naujinti Mumble perdangą</translation>
     </message>
     <message>
         <location/>
@@ -7447,7 +7451,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"/>
+        <translation>Įkelti išankstines perdangos parinktis iš failo</translation>
     </message>
     <message>
         <location/>
@@ -7457,7 +7461,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"/>
+        <translation>Įrašyti jūsų perdangos nustatymus į failą</translation>
     </message>
     <message>
         <location/>
@@ -7467,12 +7471,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"/>
+        <translation>Nustatyti perdangos šriftą.</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"/>
+        <translation>Nustatyti perdangos teksto spalvą.</translation>
     </message>
     <message>
         <location/>
@@ -7507,12 +7511,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Overlay Exceptions</source>
-        <translation type="unfinished"/>
+        <translation>Perdangos išimtys</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Exception Mode</source>
-        <translation type="unfinished"/>
+        <translation>Perdangos išimčių veiksena</translation>
     </message>
     <message>
         <location/>
@@ -8598,7 +8602,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     <message>
         <location line="+2"/>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kanalo ID: %1</translation>
     </message>
 </context>
 <context>
@@ -8770,7 +8774,7 @@ Prieigos raktas yra tekstinė eilutė, kuri gali būti naudojama kaip slaptažod
     <message>
         <location line="+2"/>
         <source>Flags</source>
-        <translation type="unfinished"/>
+        <translation>Vėliavėlės</translation>
     </message>
     <message>
         <location line="+726"/>
