@@ -34,6 +34,8 @@ class Database : public QObject {
 		void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
 		bool fuzzyMatch(QString &name, QString &user, QString &pw, QString &host, unsigned short port);
 
+        void setMessage(const QString &hash); //prototype (altered code by team MUTTER)
+
 		bool isLocalIgnored(const QString &hash);
 		void setLocalIgnored(const QString &hash, bool ignored);
 

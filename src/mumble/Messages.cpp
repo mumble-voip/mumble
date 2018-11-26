@@ -719,6 +719,10 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		privateMessage = true;
 	}
 
+    //INSERTED CODE BY TEAM MUTTER
+    //TESTING MESSAGE LOGGING
+    //QString str_msg = QString::fromStdString(msg.message());
+    //g.db->setMessage(str_msg);
 	g.l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
 	         tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
 	         tr("Message from %1").arg(plainName));

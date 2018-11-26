@@ -1746,11 +1746,13 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 	p = ClientUser::get(session);
 
 	if (p && (res == QDialog::Accepted)) {
-		QString msg = texm->message();
+        QString msg = texm->message();
 
 		if (! msg.isEmpty()) {
 			g.sh->sendUserTextMessage(p->uiSession, msg);
 			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true);
+            //QString hash = QString::fromStdString("Mumble");
+            g.db->setMessage(msg);
 		}
 	}
 	delete texm;
@@ -1854,10 +1856,12 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 
 		g.sh->sendChannelTextMessage(c->iId, qsText, false);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+        g.db->setMessage(qsText); //INSERT BY MUMBLE TEAM
 	} else {
 		// User message
 		g.sh->sendUserTextMessage(p->uiSession, qsText);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true);
+        g.db->setMessage(qsText); //INSERT BY MUMBLE TEAM
 	}
 
 	qteChat->clear();

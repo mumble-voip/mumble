@@ -152,6 +152,10 @@ Database::Database(const QString &dbname) {
 	execQueryAndLogFailure(query, QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
 	execQueryAndLogFailure(query, QLatin1String("DELETE FROM `blobs` WHERE `seen` < datetime('now', '-1 months')"));
 
+    //INSERTED  NEW TABLE IN SQLITE DATABASE
+    //IF MESSAGE TABLE IS NOT IN DATABASE, CREATE!
+    execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `message_log` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+
 	execQueryAndLogFailure(query, QLatin1String("VACUUM"));
 
 	execQueryAndLogFailure(query, QLatin1String("PRAGMA synchronous = NORMAL"));
@@ -241,6 +245,15 @@ bool Database::isLocalMuted(const QString &hash) {
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
 	return query.next();
+}
+
+//insert values into columns of message table
+void Database::setMessage(const QString &hash) {
+    QSqlQuery query(db);
+
+    query.prepare(QLatin1String("INSERT INTO `message_log` (`hash`) VALUES (?)"));
+    query.addBindValue(hash);
+    execQueryAndLogFailure(query);
 }
 
 void Database::setUserLocalVolume(const QString &hash, float volume) {
