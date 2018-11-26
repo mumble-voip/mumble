@@ -1246,7 +1246,8 @@ void MainWindow::on_qmServer_aboutToShow() {
 	// Don't add qaHide on macOS.
 	// There is no way to bring the window back (no 'tray' for Mumble on macOS),
 	// and the system has built-in hide functionality via Cmd-H.
-	qmServer->addAction(qaHide);
+	if (qstiIcon->isSystemTrayAvailable())
+		qmServer->addAction(qaHide);
 #endif
 	qmServer->addAction(qaQuit);
 
