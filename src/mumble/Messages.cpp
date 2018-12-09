@@ -286,10 +286,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			pmModel->moveUser(pDst, channel);
 		}
 
-		if (msg.has_user_id()) {
-			pmModel->setUserId(pDst, msg.user_id());
-		}
-
 		if (msg.has_hash()) {
 			pmModel->setHash(pDst, u8(msg.hash()));
 		}
@@ -301,6 +297,10 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				g.l->log(Log::UserJoin, tr("%1 connected.").arg(Log::formatClientUser(pDst, Log::Source)));
 			}
 		}
+	}
+
+	if (msg.has_user_id()) {
+		pmModel->setUserId(pDst, msg.user_id());
 	}
 
 	if (channel) {
