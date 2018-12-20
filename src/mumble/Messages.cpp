@@ -865,7 +865,13 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 	bool pref = msg.prefer_alpha();
 
 #ifdef USE_OPUS
+	static bool warnedOpus = false;
 	g.bOpus = msg.opus();
+
+	if (!g.oCodec && !warnedOpus) {
+		g.l->log(Log::CriticalError, tr("Failed to load Opus, it will not be available for audio encoding/decoding."));
+		warnedOpus = true;
+	}
 #endif
 
 	// Workaround for broken 1.2.2 servers
@@ -890,15 +896,15 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 
 	int willuse = pref ? g.iCodecAlpha : g.iCodecBeta;
 
-	static bool warned = false;
+	static bool warnedCELT = false;
 
 	if (! g.qmCodecs.contains(willuse)) {
-		if (! warned) {
+		if (! warnedCELT) {
 			g.l->log(Log::CriticalError, tr("Unable to find matching CELT codecs with other clients. You will not be able to talk to all users."));
-			warned = true;
+			warnedCELT = true;
 		}
 	} else {
-		warned = false;
+		warnedCELT = false;
 	}
 }
 
