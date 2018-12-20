@@ -82,6 +82,8 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	umtType = MessageHandler::UDPVoiceCELTAlpha;
 
 	activityState = ActivityStateActive;
+	oCodec = NULL;
+	opusState = NULL;
 	cCodec = NULL;
 	ceEncoder = NULL;
 
@@ -743,8 +745,12 @@ bool AudioInput::selectCodec() {
 }
 
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer) {
-	int len = 0;
+	int len;
 #ifdef USE_OPUS
+	if (!oCodec) {
+		return 0;
+	}
+
 	if (bResetEncoder) {
 		oCodec->opus_encoder_ctl(opusState, OPUS_RESET_STATE, NULL);
 		bResetEncoder = false;
@@ -760,9 +766,9 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& b
 }
 
 int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer& buffer) {
-	int len = 0;
+	int len;
 	if (!cCodec)
-		return len;
+		return 0;
 
 	if (bResetEncoder) {
 		cCodec->celt_encoder_ctl(ceEncoder, CELT_RESET_STATE);
