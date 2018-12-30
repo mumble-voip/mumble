@@ -1094,7 +1094,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>隨按即說鍵放開後保持麥克風持續開啟的時間</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>伺服器最大可用頻寬為 %1 kbit/s，語音品質自動調整為 %2 kbit/s (%3 毫秒)  </translation>
     </message>
@@ -4161,7 +4161,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>[日期變更為 %1]</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation>連接到 %1</translation>
     </message>
@@ -4189,7 +4189,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation>為 %1 事件啟用控制台</translation>
     </message>
@@ -4710,12 +4710,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按鍵發話</translation>
@@ -4794,12 +4794,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation>視窗(&amp;W)</translation>
     </message>
@@ -4868,13 +4868,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;未連接&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4931,7 +4931,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>語音發送模式設為連續</translation>
     </message>
@@ -4946,14 +4946,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;h2&gt;語音頻道&lt;/h2&gt;&lt;p&gt;使用 128 bit OCB-AES128 加密&lt;br /&gt;平均延遲 %1 毫秒 (誤差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation>註冊自己成為 %1</translation>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -5100,7 +5100,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>無法辨識圖檔格式。</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation>使用者(&amp;U)</translation>
     </message>
@@ -5199,13 +5199,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>語音發送模式設為語音活動時</translation>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>語音發送模式設為按鍵發話</translation>
     </message>
@@ -5445,8 +5445,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>未註冊使用者的伺服器密碼錯誤，請重試。</translation>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>圖片 (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5943,7 +5943,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>這將啟用簡潔視窗模式，該模式將隱藏日誌欄與選單。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation>你已關閉 %1 麥克風與喇叭。</translation>
     </message>
@@ -5983,7 +5983,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2 抑制了 %1。</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation>%1 移動至 %2。</translation>
     </message>
@@ -5998,12 +5998,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%3 將 %1 從 %2 移動到此。</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 現在被關閉麥克風和關閉喇叭.</translation>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>您的帳戶信息目前無法確認，請稍候重試</translation>
     </message>
@@ -6089,7 +6089,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>沒有權限。</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation type="unfinished"/>
     </message>
@@ -6099,7 +6099,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 已連線。</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation>%1 現在被關閉麥克風。</translation>
     </message>
@@ -6210,7 +6210,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6231,7 +6231,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation>%1 離線。</translation>
     </message>
@@ -6263,7 +6263,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation>伺服器要求使用 %1 以上版本客戶端</translation>
     </message>
@@ -6288,7 +6293,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>伺服器要求關閉按鍵發話。</translation>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation>你被 %1 取消關閉麥克風。</translation>
     </message>
@@ -6323,12 +6328,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 被 %2 取消關閉麥克風。</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>你被 %1 關閉麥克風與喇叭。</translation>
@@ -6354,7 +6359,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%3 被 %1 從服務器踢出並封鎖： %2。</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation>你被從 %1 移動到 %2。</translation>
     </message>
@@ -6364,7 +6369,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 進入頻道。</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation>伺服器拒絕連接: %1。</translation>
     </message>
@@ -6374,12 +6379,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>拒絕: %1。</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 更改名稱為 %2。</translation>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 離開頻道且離線。</translation>
     </message>
@@ -6662,7 +6667,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation type="unfinished"/>
     </message>

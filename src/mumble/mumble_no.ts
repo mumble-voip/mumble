@@ -1099,7 +1099,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
         <translation>Tiden mikrofonen går for åpent hus etter at trykk-for-å-snakke -knappen har blitt sluppet</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Tjenerens maksimumsbåndbredde er bare %1 kbit/s. Lydkvalitet auto-justert til %2 kbit/s (%3 ms)</translation>
     </message>
@@ -4203,7 +4203,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
 </translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation>lenk til %1</translation>
     </message>
@@ -4231,7 +4231,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation>Veksle konsoll for %1-handlinger</translation>
     </message>
@@ -4753,12 +4753,12 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Trykk-for-å-snakke</translation>
@@ -4837,12 +4837,12 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindu</translation>
     </message>
@@ -4911,13 +4911,13 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ikke tilkoblet&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation>Tøm</translation>
     </message>
@@ -4974,7 +4974,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Forsendelsesmodus satt til sammenhengende</translation>
     </message>
@@ -4989,14 +4989,14 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation>&lt;h2&gt;Stemmekanal&lt;/h2&gt;&lt;p&gt;Kryptert med 128 bit OCB-AES128&lt;br /&gt;%1 ms gjennomsnittlig forsinkelse (%4 avvik)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation>Registrer deg selv som %1</translation>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Du er i ferd med å registrere deg selv på denne tjeneren. Dette kan ikke angres, og ditt brukernavn kan ikke endres når dette først er gjort. Du vil for alltid være kjent som &apos;%1&apos; på denne tjeneren.&lt;/p&gt;&lt;p&gt;Er du sikker på at du vil registrere deg?&lt;/p&gt;</translation>
     </message>
@@ -5143,7 +5143,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation>Billedformat ikke gjenkjent.</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation>&amp;Bruker</translation>
     </message>
@@ -5242,13 +5242,13 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Forsendelsesmodus satt til stemmeaktivitet</translation>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Forsendelsesmodus satt til trykk-for-å-snakke</translation>
     </message>
@@ -5490,8 +5490,8 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Feil tjenerpassord for uregistrert brukerkonto, prøv igjen.</translation>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Bilder (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5988,7 +5988,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Dette vil veksle minimal modus, der loggingsvinduet og menyen er gjemt.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation>Du gjorde %1 stum og døv.</translation>
     </message>
@@ -6028,7 +6028,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%1 undertrykt av %2.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation>%1 flyttet til %2.</translation>
     </message>
@@ -6043,12 +6043,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%1 overbragt fra %2 av %3.</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 er nå stum og døv.</translation>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Din kontoinformasjon kan ikke bekreftes for øyeblikket. Prøv igjen senere</translation>
     </message>
@@ -6134,7 +6134,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Tilgang nektet.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation type="unfinished"/>
     </message>
@@ -6144,7 +6144,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%1 tilkoblet.</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation>%1 er nå stum.</translation>
     </message>
@@ -6255,7 +6255,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Du fikk din undertrykking opphevet av %1.</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6276,7 +6276,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%1 gitt nytt navn til %2 av %3.</translation>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation>%1 koblet fra.</translation>
     </message>
@@ -6308,7 +6308,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation>Tjeneren forespør minimum klientversjon %1</translation>
     </message>
@@ -6333,7 +6338,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Tjeneren forespør at trykk-for-å-snakke er avskrudd.</translation>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation>Du fikk din stumhet opphevet av %1.</translation>
     </message>
@@ -6368,12 +6373,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%2 opphevet %1 sin stumhet.</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Kunne ikke finne samsvarende CELT-kodek delt av andre klienter. Du vil ikke kunne snakke med alle brukerne.</translation>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Du ble gjort stum og døv av %1.</translation>
@@ -6399,7 +6404,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%3 ble sparket ut og bannlyst fra tjeneren av %1: %2.</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Du ble flyttet til %1 av %2.</translation>
     </message>
@@ -6409,7 +6414,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>%1 kom inn i kanalen.</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation>Tjenertilkobling avslått: %1</translation>
     </message>
@@ -6419,12 +6424,12 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Nektet: %1.</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 heter nå %2.</translation>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 forlot kanalen og koblet fra.</translation>
     </message>
@@ -6731,7 +6736,7 @@ kanalens kontekstmeny.</translation>
         <translation>Åpner en dialog med en lydstyrkeglidebryter. Bruk denne på andre brukere i samme rom.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation>&amp;Utvikler</translation>
     </message>

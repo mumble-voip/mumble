@@ -1093,7 +1093,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Время, которое микрофон остается включенным после того, как кнопка передачи речи будет отпущена</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Максимальная пропускная способность сервера %1 кбит/с. Качество передачи речи установлено на %2 кбит/с (%3 мс)</translation>
     </message>
@@ -4130,7 +4130,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>[Дата сменилась на %1]</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation>ссылка на %1</translation>
     </message>
@@ -4158,7 +4158,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation>Включение/выключение лога для событий &quot;%1&quot;</translation>
     </message>
@@ -4679,12 +4679,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Активация по кнопке</translation>
@@ -4763,12 +4763,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation>&amp;Окно</translation>
     </message>
@@ -4837,13 +4837,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Нет соединения с сервером&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
@@ -4900,7 +4900,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation type="unfinished"/>
     </message>
@@ -4915,14 +4915,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;h2&gt;Голосовой канал&lt;/h2&gt;&lt;p&gt;Шифрование 128 бит OCB-AES128&lt;br /&gt;%1 мс среднее время задержки (%4 отклонение)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation>Зарегистрироваться как %1</translation>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &lt;b&gt;&apos;%1&apos;&lt;/b&gt; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
     </message>
@@ -5069,7 +5069,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Формат изображения не поддерживается.</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation>&amp;Пользователь</translation>
     </message>
@@ -5168,13 +5168,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Установлен режим активации голосом</translation>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Установлен режим &quot;нажми-чтобы-говорить&quot;</translation>
     </message>
@@ -5416,8 +5416,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Неверный пароль для подключения к серверу. Попробуйте еще раз.</translation>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Изображения (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5914,7 +5914,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Включает минимальный режим, при котором окно лога и меню будут скрыты.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation>Вы выключили звук и микрофон у %1.</translation>
     </message>
@@ -5954,7 +5954,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2 выключил микрофон у %1.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation>%1 перешёл в %2.</translation>
     </message>
@@ -5969,12 +5969,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%3 переместил %1 из %2.</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation>У %1 сейчас выключен звук и микрофон.</translation>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Информация о Вашей учётной записи не может быть проверена. Попробуйте позже</translation>
     </message>
@@ -6060,7 +6060,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Доступ запрещен.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation type="unfinished"/>
     </message>
@@ -6070,7 +6070,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 подключился.</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation>Микрофон выключен у %1.</translation>
     </message>
@@ -6181,7 +6181,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 включил у Вас микрофон.</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6202,7 +6202,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Пользователь %3 переименовал %1 в %2.</translation>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation>%1 покинул сервер.</translation>
     </message>
@@ -6234,7 +6234,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation>Сервер запрашивает минимальную версию клиента %1</translation>
     </message>
@@ -6259,7 +6264,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Сервер запрашивает, чтобы Активация по кнопке была выключена.</translation>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 включил у Вас микрофон.</translation>
     </message>
@@ -6294,12 +6299,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2 включил микрофон у %1.</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Не найдены соответствующие CELT-кодеки у других пользователей. Вы не сможете говорить со всеми пользователями.</translation>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 выключил у Вас звук и микрофон.</translation>
@@ -6325,7 +6330,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 выкинул %3 с сервера и забанил: %2.</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2 переместил Вас в %1.</translation>
     </message>
@@ -6335,7 +6340,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 вошёл на канал.</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation>В подключении отказано: %1.</translation>
     </message>
@@ -6345,12 +6350,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ошибка: %1.</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 переименован в %2.</translation>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 покинул канал и отключился.</translation>
     </message>
@@ -6638,7 +6643,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation type="unfinished"/>
     </message>

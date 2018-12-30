@@ -1102,7 +1102,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Πόση ώρα παραμένει ανοιχτό το μικρόφωνο μετά την απελευθέρωση του πλήκτρου PTT</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Το μέγιστο εύρος ζώνης δικτύου του διακομιστή είναι μόνο %1 kbit/δ. Η ποιότητα ήχου ρυθμίστηκε αυτόματα σε %2 kbit/δ (%3 ms)</translation>
     </message>
@@ -4190,7 +4190,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 </translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation>σύνδεσμος στο %1</translation>
     </message>
@@ -4218,7 +4218,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation>Έμφανιση/Απόκρυψη κονσόλας για τα συμβάντα %1</translation>
     </message>
@@ -4740,12 +4740,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation>Ρίζα</translation>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Πίεση Πλήκτρου για Ομιλία</translation>
@@ -4824,12 +4824,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation>&amp;Παράθυρο</translation>
     </message>
@@ -4898,13 +4898,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Μη συνδεδεμένο&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation>Καθαρισμός</translation>
     </message>
@@ -4961,7 +4961,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Η Λειτουργία Μετάδοσης ρυθμίστηκε σε Συνεχής</translation>
     </message>
@@ -4976,14 +4976,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;h2&gt;Κανάλι φωνής&lt;/h2&gt;&lt;p&gt;Κρυπτογραφημένο με 128 bit OCB-AES128&lt;br /&gt;%1 ms μέση καθυστέρηση (απόκλιση %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation>Εγγραφείτε ως %1</translation>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Πρόκειται να εγγραφείτε σε αυτό το διακομιστή. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί και δεν μπορείτε να αλλάξετε το όνομα χρήστη σας μετά από αυτό. Θα είστε για πάντα γνωστός ως &apos;%1&apos; σε αυτόν τον διακομιστή.&lt;/p&gt;&lt;p&gt;Είστε βέβαιοι ότι θέλετε να εγγραφείτε;&lt;/p&gt;</translation>
     </message>
@@ -5130,7 +5130,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>To format της εικόνας δεν αναγνωρίστηκε.</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation>&amp;Χρήστης</translation>
     </message>
@@ -5229,13 +5229,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Φωνητική Δραστηριότητα</translation>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Πίεση-πλήκτρου-για-Ομιλία </translation>
     </message>
@@ -5477,8 +5477,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Λάθος κωδικός πρόσβασης διακομιστή για μη εγγραμμένο λογαριασμό χρήστη, δοκιμάστε ξανά.</translation>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Εικόνες (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5975,7 +5975,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Αυτό εναλλάσει την κατάσταση μινιμαλ, όπου το μενού και το παράθυρο καταγραφών θα είναι κρυμμένα.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation>Φιμώσατε και κωφώσατε τον %1.</translation>
     </message>
@@ -6015,7 +6015,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 καταστάλθηκε από τον %2.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation>Ο %1 μετακινήθηκε στο %2.</translation>
     </message>
@@ -6030,12 +6030,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 μετακινήθηκε εδώ μέσα από το %2 από τον %3.</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation>Ο %1 είναι τώρα φιμωμένος και κωφωμένος.</translation>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Δεν είναι δυνατή η επαλήθευση των στοιχείων του λογαριασμού σας αυτήν τη στιγμή. Παρακαλώ δοκιμάστε ξανά αργότερα</translation>
     </message>
@@ -6121,7 +6121,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Δεν επιτρέπεται η πρόσβαση </translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation type="unfinished"/>
     </message>
@@ -6131,7 +6131,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 συνδέθηκε.</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation>Ο %1 φιμώθηκε τώρα.</translation>
     </message>
@@ -6242,7 +6242,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Δε σας κατέστειλαν από %1.</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6263,7 +6263,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 μετονομάστηκε σε %2 από τον %3.</translation>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation>Ο %1 αποσυνδέθηκε.</translation>
     </message>
@@ -6295,7 +6295,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation>Η ελάχιστη έκδοση προγράμματος-πελάτη που θέλει ο διακομιστής είναι %1</translation>
     </message>
@@ -6320,7 +6325,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο διακομιστής ζητά να είναι απενεργοποιημένο το Πάτημα-πλήκτρου-για-Ομιλία.</translation>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation>Ξεφιμωθήκατε από τον %1.</translation>
     </message>
@@ -6355,12 +6360,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 ξεφιμώθηκε από τον %2.</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Δεν βρέθηκαν CELT codecs συμβατά με άλλους πελάτες. Δεν θα μπορείτε να μιλήσετε με όλους τους χρήστες.</translation>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Φιμωθήκατε και κωφωθήκατε από τον %1.</translation>
@@ -6386,7 +6391,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %3 πετάχτηκε και του απαγορεύτηκε η είσοδος στον διακομιστή από τον %1: %2.</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Σας μετακίνησε στον %1 ο %2.</translation>
     </message>
@@ -6396,7 +6401,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ο %1 εισήλθε στο κανάλι.</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation>Η σύνδεση στον διακομιστή απορρίφθηκε: %1.</translation>
     </message>
@@ -6406,12 +6411,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Απορρίφθηκε: %1.</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation>Ο %1 μετονομάστηκε σε %2.</translation>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation>Ο %1 έφυγε από το κανάλι και αποσυνδέθηκε.</translation>
     </message>
@@ -6718,7 +6723,7 @@ the channel&apos;s context menu.</source>
         <translation>Ανοίγει ένα παράθυρο διαλόγου με ένα ρυθμιστικό έντασης. Χρησιμοποιήστε το σε άλλους χρήστες στο ίδιο δωμάτιο.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation>&amp;Προγραμματιστής</translation>
     </message>

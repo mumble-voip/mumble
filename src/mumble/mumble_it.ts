@@ -1099,7 +1099,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Tempo che deve passare tra il rilascio del pulsante PTT e la disattivazione del microfono</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>La banda massima del server è %1 kbit/s. Qualità audio impostata su %2 kbit/s (%3 ms)</translation>
     </message>
@@ -4194,7 +4194,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
 </translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation>collegamento a %1</translation>
     </message>
@@ -4222,7 +4222,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation>Imposta console per gli eventi %1</translation>
     </message>
@@ -4743,12 +4743,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation>Canale principale</translation>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -4827,12 +4827,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -4901,13 +4901,13 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -4964,7 +4964,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Modalità di Trasmissione impostata su Continua</translation>
     </message>
@@ -4979,14 +4979,14 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
     </message>
@@ -5133,7 +5133,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Formato dell&apos;immagine non riconosciuto.</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation>&amp;Utente</translation>
     </message>
@@ -5232,13 +5232,13 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Modalità trasmissione impostata su Attività Vocale</translation>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Modalità trasmissione impostata su Push-to-Talk</translation>
     </message>
@@ -5481,8 +5481,8 @@ certificato ed il nome utente.</translation>
         <translation>Password errata per un account non registrato, prova di nuovo.</translation>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Immagini (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5979,7 +5979,7 @@ certificato ed il nome utente.</translation>
         <translation>Attiva/disattiva l&apos;interfaccia minima, dove la finestra del log e il menu sono nascosti.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation>Hai escluso %1.</translation>
     </message>
@@ -6019,7 +6019,7 @@ certificato ed il nome utente.</translation>
         <translation>%2 ha mutato %1.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation>%1 si è spostato su %2.</translation>
     </message>
@@ -6034,12 +6034,12 @@ certificato ed il nome utente.</translation>
         <translation>%3 ha spostato %1 qui dal canale %2.</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 si è escluso.</translation>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Le tue informazioni d&apos;accesso non possono essere verificate attualmente. Sei pregato di riprovare più tardi</translation>
     </message>
@@ -6125,7 +6125,7 @@ certificato ed il nome utente.</translation>
         <translation>Permesso negato.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation>%1 si è connesso ed è entrato nel canale.</translation>
     </message>
@@ -6135,7 +6135,7 @@ certificato ed il nome utente.</translation>
         <translation>Si è connesso %1.</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation>%1 si è mutato.</translation>
     </message>
@@ -6246,7 +6246,7 @@ certificato ed il nome utente.</translation>
         <translation>Sei stato riattivato da %1.</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation>Sei entrato in %1</translation>
     </message>
@@ -6267,7 +6267,7 @@ certificato ed il nome utente.</translation>
         <translation>%3 ha rinominato %1 in %2</translation>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation>%1 si è disconnesso.</translation>
     </message>
@@ -6299,7 +6299,12 @@ certificato ed il nome utente.</translation>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation>Caricamento Opus fallito, non sarà disponibile per la codifica/decodifica audio.</translation>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation>Il server richiede una versione superiore o uguale alla %1</translation>
     </message>
@@ -6324,7 +6329,7 @@ certificato ed il nome utente.</translation>
         <translation>Il server richiede il Push-To-Talk disabilitato.</translation>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 ti ha riattivato il microfono.</translation>
     </message>
@@ -6359,12 +6364,12 @@ certificato ed il nome utente.</translation>
         <translation>%2 ha riattivato il microfono di %1.</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Impossibile trovare una versione del codec CELT uguale a quella degli altri utenti. Non sarai in grado di parlare con gli altri utenti.</translation>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 ti ha mutato.</translation>
@@ -6390,7 +6395,7 @@ certificato ed il nome utente.</translation>
         <translation>%1 ha espulso e bandito %3 dal server per la seguente motivazione: %2.</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2 ti ha spostato sul canale %1.</translation>
     </message>
@@ -6400,7 +6405,7 @@ certificato ed il nome utente.</translation>
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
@@ -6410,12 +6415,12 @@ certificato ed il nome utente.</translation>
         <translation>Negato: %1.</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 rinominato in %2</translation>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 è uscito dal canale e si è disconnesso.</translation>
     </message>
@@ -6746,7 +6751,7 @@ contestuale del canale.</translation>
         <translation>Apre una finestra di dialogo con un cursore del volume. Usalo su utenti nello stesso canale.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation>&amp;Sviluppatore</translation>
     </message>
