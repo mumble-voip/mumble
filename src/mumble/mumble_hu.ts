@@ -1094,7 +1094,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation type="unfinished"/>
     </message>
@@ -4174,7 +4174,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
 </translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation>hivatkozás: %1</translation>
     </message>
@@ -4202,7 +4202,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation>Ki/bekapcsolja a konzolt a(z) %1 eseményekhez</translation>
     </message>
@@ -4723,12 +4723,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation>Gyökér</translation>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Beszédhez-nyomd</translation>
@@ -4807,12 +4807,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation>&amp;Ablak</translation>
     </message>
@@ -4881,13 +4881,13 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation>Töröl</translation>
     </message>
@@ -4944,7 +4944,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation type="unfinished"/>
     </message>
@@ -4959,14 +4959,14 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>&lt;h2&gt;Hangcsatorna&lt;/h2&gt;&lt;p&gt;Titkosítva: 128 bit OCB-AES128&lt;br /&gt;%1 ms átlagos késleltetés (%4 eltérés)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation>Regisztrálja magát mint %1</translation>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ön éppen regisztrálja magát ezen a szerveren. Ez a művelet nem vonható vissza, és az ön felhasználó neve többet már nem módosítható. Ezen a szerveren önt ezentúl &apos;%1&apos; néven fogják ismerni.&lt;/p&gt;&lt;p&gt;Biztos abban, hogy regisztrálni akarja magát?&lt;/p&gt;</translation>
     </message>
@@ -5113,7 +5113,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A kép formátuma nem felismerhető.</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation>&amp;Felhasználó</translation>
     </message>
@@ -5212,13 +5212,13 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation type="unfinished"/>
     </message>
@@ -5458,8 +5458,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>A nem regisztrált felhasználói jelszó hibás, próbálja újra.</translation>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"/>
     </message>
@@ -5956,7 +5956,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ezzel válthatja a minimális nézet módot, amelyben a napló ablaka és a menü nem látszik.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation>Ön kikapcsolta %1 mikrofonját és hangszóróit.</translation>
     </message>
@@ -5996,7 +5996,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 hangját %2 elnyomta.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation>%1 felhasználó át lett helyezve a %2 csatornára.</translation>
     </message>
@@ -6011,12 +6011,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 felhasználót %3 ide helyezte a %2 csatornáról.</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 most némítva és hangszórói kikapcsolva.</translation>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>A belépési adatok ellenőrzése jelenleg sikertelen volt, kérem próbálkozzon újra később</translation>
     </message>
@@ -6102,7 +6102,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Engedély megtagadva.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation type="unfinished"/>
     </message>
@@ -6112,7 +6112,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 kapcsolódott.</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation>%1 most némítva.</translation>
     </message>
@@ -6223,7 +6223,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 megszüntette az ön hangjának elnyomását.</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6244,7 +6244,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation>%1 lekapcsolódott.</translation>
     </message>
@@ -6276,7 +6276,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation type="unfinished"/>
     </message>
@@ -6301,7 +6306,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation>Önt %1 hangosította.</translation>
     </message>
@@ -6336,12 +6341,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2 hangosította %1-t.</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Nem sikerült a többi kliens CELT kódolójának megfelelő kódolót találni. Ön nem lesz képes minden felhasználóval beszélni.</translation>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 kikapcsolta az ön mikrofonját és hangszóróit.</translation>
@@ -6367,7 +6372,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 kidobta és kitiltotta a szerverről %3 felhasználót: %2.</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2 önt áthelyezte a %1 csatornára.</translation>
     </message>
@@ -6377,7 +6382,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 csatlakozott a csatornához.</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation>A kapcsolódást a szerver visszautasította: %1.</translation>
     </message>
@@ -6387,12 +6392,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Megtagadva: %1.</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation type="unfinished"/>
     </message>
@@ -6675,7 +6680,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation type="unfinished"/>
     </message>

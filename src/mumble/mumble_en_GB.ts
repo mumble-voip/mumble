@@ -1099,7 +1099,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation type="unfinished"/>
     </message>
@@ -4159,7 +4159,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation type="unfinished"/>
     </message>
@@ -4187,7 +4187,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"/>
     </message>
@@ -4708,12 +4708,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"/>
@@ -4792,12 +4792,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation type="unfinished"/>
     </message>
@@ -4866,13 +4866,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation type="unfinished"/>
     </message>
@@ -4929,7 +4929,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation type="unfinished"/>
     </message>
@@ -4944,14 +4944,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</translation>
     </message>
@@ -5098,7 +5098,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Image format not recognised.</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation type="unfinished"/>
     </message>
@@ -5197,13 +5197,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation type="unfinished"/>
     </message>
@@ -5443,8 +5443,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"/>
     </message>
@@ -5941,7 +5941,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>This will toggle minimal mode, where the log window and menu is hidden.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -5981,7 +5981,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation type="unfinished"/>
     </message>
@@ -5996,12 +5996,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation type="unfinished"/>
     </message>
@@ -6087,7 +6087,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation type="unfinished"/>
     </message>
@@ -6097,7 +6097,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation type="unfinished"/>
     </message>
@@ -6208,7 +6208,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6229,7 +6229,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation type="unfinished"/>
     </message>
@@ -6261,7 +6261,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation type="unfinished"/>
     </message>
@@ -6286,7 +6291,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6321,12 +6326,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished"/>
@@ -6352,7 +6357,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation type="unfinished"/>
     </message>
@@ -6362,7 +6367,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -6372,12 +6377,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation type="unfinished"/>
     </message>
@@ -6660,7 +6665,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation type="unfinished"/>
     </message>

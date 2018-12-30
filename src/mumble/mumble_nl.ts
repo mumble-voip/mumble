@@ -1098,7 +1098,7 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
         <translation>Tijdsduur dat microfoon openblijft nadat de druk-om-te-praten knop wordt losgelaten.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+597"/>
+        <location filename="AudioInput.cpp" line="+599"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Servers&apos; maximum netwerkbandbreedte is slechts %1 kbit/s. Geluidskwaliteit automatisch versteld naar %2 kbit/s (%3 ms)</translation>
     </message>
@@ -4185,7 +4185,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
 </translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>link to %1</source>
         <translation>koppel aan %1</translation>
     </message>
@@ -4213,7 +4213,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-499"/>
+        <location line="-502"/>
         <source>Toggle console for %1 events</source>
         <translation>Log bij %1-gebeurtenissen tonen</translation>
     </message>
@@ -4734,12 +4734,12 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2701"/>
+        <location line="+2702"/>
         <source>Root</source>
         <translation>Stam</translation>
     </message>
     <message>
-        <location line="-2644"/>
+        <location line="-2645"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Druk-om-te-Praten:</translation>
@@ -4818,12 +4818,12 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+159"/>
-        <location line="+2638"/>
+        <location line="+2639"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2766"/>
+        <location line="-2767"/>
         <source>&amp;Window</source>
         <translation>&amp;Venster</translation>
     </message>
@@ -4892,13 +4892,13 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2797"/>
+        <location line="+2798"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Niet verbonden&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2349"/>
+        <location line="-2350"/>
         <source>Clear</source>
         <translation>Wissen</translation>
     </message>
@@ -4955,7 +4955,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1497"/>
+        <location line="+1498"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Zendmodus staat op Continue</translation>
     </message>
@@ -4970,14 +4970,14 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
         <translation>&lt;h2&gt;Spraakkanaal&lt;/h2&gt;&lt;p&gt;Versleuteld met 128-bit OCB-AES128&lt;br /&gt;%1 ms gemiddelde latentie (%4 afwijking)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+448"/>
+        <location line="-180"/>
+        <location line="+449"/>
         <source>Register yourself as %1</source>
         <translation>Jezelf (%1) registeren</translation>
     </message>
     <message>
-        <location line="-448"/>
-        <location line="+448"/>
+        <location line="-449"/>
+        <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Je staat op het punt om jezelf op de server te registreren. Deze actie kan niet ongedaan gemaakt worden, en je gebruikersnaam kan niet veranderen. Je wordt voor altijd bekend als &apos;%1&apos; op deze server.&lt;/p&gt;&lt;p&gt;Zeker registreren?&lt;/p&gt;</translation>
     </message>
@@ -5124,7 +5124,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
         <translation>Afbeeldingsbestandsindeling kon niet worden herkend.</translation>
     </message>
     <message>
-        <location line="-3103"/>
+        <location line="-3104"/>
         <source>&amp;User</source>
         <translation>&amp;Gebruiker</translation>
     </message>
@@ -5223,13 +5223,13 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1484"/>
+        <location line="+1485"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Zendmodus naar Spraakactivtiteit ingesteld</translation>
     </message>
     <message>
-        <location line="-1479"/>
-        <location line="+1483"/>
+        <location line="-1480"/>
+        <location line="+1484"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Zendmodus op Druk-om-te-Praten ingesteld</translation>
     </message>
@@ -5469,8 +5469,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Verkeerd serverwachtwoord voor ongeregistreerde account; opnieuw proberen.</translation>
     </message>
     <message>
-        <location line="-2238"/>
-        <location line="+2450"/>
+        <location line="-2239"/>
+        <location line="+2451"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Afbeeldingen (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5967,7 +5967,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Wisselt naar minimalistisch venster waar geschiedenisvenster &amp; menu verbergen.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+408"/>
+        <location filename="Messages.cpp" line="+416"/>
         <source>You muted and deafened %1.</source>
         <translation>Je dempte &amp; doofde %1.</translation>
     </message>
@@ -6007,7 +6007,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 onderdrukt (door %2).</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-214"/>
         <source>%1 moved to %2.</source>
         <translation>%1 verplaatst naar %2.</translation>
     </message>
@@ -6022,12 +6022,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 hiernaartoe verplaatst uit %2 (door %3).</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+48"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 gedempt &amp; gedoofd.</translation>
     </message>
     <message>
-        <location line="-296"/>
+        <location line="-304"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Accountinformatie kan nu niet geverifieerd worden. Graag later opnieuw proberen.</translation>
     </message>
@@ -6113,7 +6113,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Geen toestemming.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+42"/>
         <source>%1 connected and entered channel.</source>
         <translation type="unfinished"/>
     </message>
@@ -6123,7 +6123,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 verbindde.</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>%1 is now muted.</source>
         <translation>%1 gedempt.</translation>
     </message>
@@ -6234,7 +6234,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Onderdrukking opgeheven (door %1).</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-169"/>
         <source>You joined %1.</source>
         <translation>Je ging %1 binnen.</translation>
     </message>
@@ -6255,7 +6255,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 hernoemd naar %2 (door %3).</translation>
     </message>
     <message>
-        <location line="+240"/>
+        <location line="+236"/>
         <source>%1 disconnected.</source>
         <translation>%1 verbrak verbinding.</translation>
     </message>
@@ -6287,7 +6287,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+149"/>
+        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>The server requests minimum client version %1</source>
         <translation>Server verwacht minstens Mumble versie %1</translation>
     </message>
@@ -6312,7 +6317,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Server verzoekt Druk-om-te-Praten uit te schakelen...</translation>
     </message>
     <message>
-        <location line="-464"/>
+        <location line="-470"/>
         <source>You were unmuted by %1.</source>
         <translation>Ontdempt (door %1).</translation>
     </message>
@@ -6347,12 +6352,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2 ontdempte %1.</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+373"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Overeenkomende CELT-codecs met andere Mumblers vinden mislukt. Je kunt niet met anderen praten.</translation>
     </message>
     <message>
-        <location line="-433"/>
+        <location line="-439"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Gedempt &amp; gedoofd (door %1).</translation>
@@ -6378,7 +6383,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 weggeschopt %3: %2.</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-266"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Verplaatst naar %1 (door %2).</translation>
     </message>
@@ -6388,7 +6393,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 kwam kanaal binnen.</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-237"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serververbinding afgewezen: %1.</translation>
     </message>
@@ -6398,12 +6403,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Geweigerd: %1.</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+110"/>
         <source>%1 renamed to %2.</source>
         <translation>%1 hernoemd naar %2.</translation>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+231"/>
         <source>%1 left channel and disconnected.</source>
         <translation>%1 verliet kanaal (verbrak verbinding).</translation>
     </message>
@@ -6707,7 +6712,7 @@ Extra kanalen markeerbaar vanuit kanaalcontextmenu.</translation>
         <translation>Opent een venster met een volumeschuifje. Gebruik op andere kanaalgebruiker(s).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3067"/>
+        <location filename="MainWindow.cpp" line="-3068"/>
         <source>&amp;Developer</source>
         <translation>&amp;Ontwikkelaar</translation>
     </message>
