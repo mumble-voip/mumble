@@ -29,8 +29,7 @@ void MumbleSSL::initialize() {
 	// If we detect that no locking callback is configured, we
 	// have to set it up ourselves to allow multi-threaded use
 	// of OpenSSL.
-	void *lockcb = reinterpret_cast<void *>(CRYPTO_get_locking_callback());
-	if (lockcb == NULL) {
+	if (CRYPTO_get_locking_callback() == NULL) {
 		SSLLocks::initialize();
 	}
 }
