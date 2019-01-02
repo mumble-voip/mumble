@@ -2308,7 +2308,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojas</translation>
     </message>
     <message>
         <location/>
@@ -3267,7 +3267,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti visus serverius su naudotojais</translation>
     </message>
     <message>
         <location/>
@@ -6728,12 +6728,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"/>
+        <translation>Vietinio garsio reguliavimas...</translation>
     </message>
     <message>
         <location/>
         <source>Send &amp;Message...</source>
-        <translation type="unfinished"/>
+        <translation>Siųsti &amp;žinutę...</translation>
     </message>
     <message>
         <location/>
@@ -6748,7 +6748,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Taisyti...</translation>
     </message>
     <message>
         <location/>
