@@ -89,7 +89,7 @@ void Server::update() {
 		tag.appendChild(t);
 	}
 
-	QNetworkRequest qnr(QUrl(QLatin1String("https://mumble.info/register.cgi")));
+	QNetworkRequest qnr(QUrl(QLatin1String("https://publist-registration.mumble.info/v1/register")));
 	qnr.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("text/xml"));
 
 	QSslConfiguration ssl = qnr.sslConfiguration();
