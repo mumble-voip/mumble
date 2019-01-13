@@ -7,8 +7,9 @@
 
 #include "WASAPI.h"
 #include "WASAPINotificationClient.h"
-#include "Global.h"
 
+#include "Global.h"
+#include "MainWindow.h"
 
 // Now that Win7 is published, which includes public versions of these
 // interfaces, we simply inherit from those but use the "old" IIDs.
@@ -456,6 +457,9 @@ void WASAPIInput::run() {
 		hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, NULL);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Mic Initialize failed: hr=0x%08lx", hr);
+			if (hr == E_ACCESSDENIED) {
+				g.mw->msgBox(tr("Access to the microphone was denied. Please check that your operating system's microphone settings allow Mumble to use the microphone."));
+			}
 			goto cleanup;
 		}
 	}
