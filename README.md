@@ -1,6 +1,8 @@
 Mumble - A voice chat utility for gamers
 =======================================
 
+[![Build Status](https://dev.azure.com/Mumble-VoIP/Mumble/_apis/build/status/Mumble-CI?branchName=master)](https://dev.azure.com/Mumble-VoIP/Mumble/_build/latest?definitionId=1?branchName=master)
+
 > *http://mumble.info/*  
 > *#mumble on freenode*
 

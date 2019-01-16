@@ -1,0 +1,22 @@
+jobs:
+  - job: Windows
+    strategy:
+      matrix:
+        MSVC_2015:
+          MUMBLE_QT: qt5
+          MUMBLE_HOST: x86_64-pc-windows-msvc
+        MSVC_2015_NO_PCH:
+          MUMBLE_QT: qt5
+          MUMBLE_HOST: x86_64-pc-windows-msvc
+          MUMBLE_NO_PCH: 1
+    steps:
+    - script: git submodule --quiet update --init --recursive
+      displayName: 'Fetch submodules'
+    - powershell: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        choco install 7zip.install -y
+      displayName: 'Install 7-Zip via Chocolatey'
+    - powershell: scripts/azure-pipelines/install-environment.ps1
+      displayName: 'Install build environment'
+    - powershell: scripts/azure-pipelines/build.ps1
+      displayName: 'Build'
