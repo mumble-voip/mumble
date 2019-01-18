@@ -3147,7 +3147,7 @@ Are you sure you wish to replace your certificate?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+1134"/>
+        <location filename="ConnectDialog.cpp" line="+1142"/>
         <source>Connecting to %1</source>
         <translation>Conectando a %1</translation>
     </message>
@@ -3235,8 +3235,13 @@ Are you sure you wish to replace your certificate?
         <translation>&amp;Filtros</translation>
     </message>
     <message>
+        <location line="+740"/>
+        <source>Unknown</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-505"/>
+        <location filename="ConnectDialog.cpp" line="-1245"/>
         <source>Users</source>
         <translation>Usuarios</translation>
     </message>
@@ -8120,7 +8125,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-753"/>
+        <location filename="ConnectDialog.cpp" line="-761"/>
         <source>Favorite</source>
         <translation>Favorito</translation>
     </message>
@@ -8136,6 +8141,11 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <location line="+7"/>
+        <source>Unknown</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Africa</source>
         <translation>África</translation>
     </message>
@@ -9154,9 +9164,17 @@ Por favor, contacte con el administrador de su servidor para más información.<
     </message>
 </context>
 <context>
+    <name>WASAPIInput</name>
+    <message>
+        <location filename="WASAPI.cpp" line="+461"/>
+        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+241"/>
+        <location line="-219"/>
         <source>Default Device</source>
         <translation>Dispositivo por defecto</translation>
     </message>

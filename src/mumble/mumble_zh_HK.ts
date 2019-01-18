@@ -3096,7 +3096,7 @@ Are you sure you wish to replace your certificate?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+1134"/>
+        <location filename="ConnectDialog.cpp" line="+1142"/>
         <source>Connecting to %1</source>
         <translation>正在連線到 %1</translation>
     </message>
@@ -3184,8 +3184,13 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+740"/>
+        <source>Unknown</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-505"/>
+        <location filename="ConnectDialog.cpp" line="-1245"/>
         <source>Users</source>
         <translation type="unfinished"/>
     </message>
@@ -8053,7 +8058,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-753"/>
+        <location filename="ConnectDialog.cpp" line="-761"/>
         <source>Favorite</source>
         <translation>我的最愛</translation>
     </message>
@@ -8069,6 +8074,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location line="+7"/>
+        <source>Unknown</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Africa</source>
         <translation>非洲</translation>
     </message>
@@ -9086,9 +9096,17 @@ Please contact your server administrator for further information.</source>
     </message>
 </context>
 <context>
+    <name>WASAPIInput</name>
+    <message>
+        <location filename="WASAPI.cpp" line="+461"/>
+        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+241"/>
+        <location line="-219"/>
         <source>Default Device</source>
         <translation>預設裝置</translation>
     </message>
