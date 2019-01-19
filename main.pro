@@ -11,7 +11,7 @@ CONFIG *= ordered debug_and_release
 SUBDIRS *= src/mumble_proto
 
 !CONFIG(no-client) {
-  unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
+  unix:!CONFIG(bundled-speex):system($$PKG_CONFIG --atleast-version=1.2 speexdsp):system($$PKG_CONFIG --atleast-version=1.2 speex) {
     CONFIG *= no-bundled-speex
   }
   !CONFIG(no-bundled-speex) {
@@ -21,7 +21,7 @@ SUBDIRS *= src/mumble_proto
   CONFIG(sbcelt) {
     SUBDIRS *= 3rdparty/celt-0.7.0-build 3rdparty/sbcelt-lib-build 3rdparty/sbcelt-helper-build
   } else {
-    unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
+    unix:!CONFIG(bundled-celt):system($$PKG_CONFIG --atleast-version=0.7.0 celt) {
       CONFIG *= no-bundled-celt
     }
     !CONFIG(no-bundled-celt) {
@@ -100,7 +100,7 @@ SUBDIRS *= src/mumble_proto
     SUBDIRS *= src/murmur/murmur_ice
   }
   CONFIG(grpc) {
-    !system(pkg-config --atleast-version=3 protobuf) {
+    !system($$PKG_CONFIG --atleast-version=3 protobuf) {
       error(grpc requires protobuf>=3)
     }
     SUBDIRS *= src/murmur_grpcwrapper_protoc_plugin
