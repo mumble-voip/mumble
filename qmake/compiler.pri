@@ -8,6 +8,7 @@ include(uname.pri)
 include(buildenv.pri)
 include(builddir.pri)
 include(cplusplus.pri)
+include(pkgconfig.pri)
 
 CONFIG *= warn_on
 
