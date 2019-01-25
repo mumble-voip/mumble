@@ -1062,6 +1062,13 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			}
 		}
 
+		if (msg.has_max_users()) {
+			if (! hasPermission(uSource, c, ChanACL::Write)) {
+				PERM_DENIED(uSource, c, ChanACL::Write);
+				return;
+			}
+		}
+
 		// All permission checks done -- the update is good.
 
 		if (p) {
