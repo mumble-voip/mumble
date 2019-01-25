@@ -48,7 +48,6 @@ static void migrateDataDir() {
 
 	if (!QFile::exists(newdir) && QFile::exists(olddir)) {
 		QDir d;
-		d.mkpath(newdir + QLatin1String("/.."));
 		if (d.rename(olddir, newdir)) {
 			qWarning("Migrated application data directory from '%s' to '%s'",
 			         qPrintable(olddir), qPrintable(newdir));
