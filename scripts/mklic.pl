@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #
-# Copyright 2005-2018 The Mumble Developers. All rights reserved.
+# Copyright 2005-2019 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -85,7 +85,6 @@ my @thirdPartyLicenses = (
     ["licenseMinHook", "../3rdparty/minhook-src/LICENSE.txt", "MinHook", "https://github.com/TsudaKageyu/minhook", "Q_OS_WIN64"],
     ["licenseQtTranslations", "../src/mumble/qttranslations/LICENSE",
         "Additional Qt translations", "https://www.virtualbox.org/ticket/2018", "USING_BUNDLED_QT_TRANSLATIONS"],
-    ["licenseFilterSvg", "../icons/filter.txt", "filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg"],
     ["licenseEmojiOne", "../3rdPartyLicenses/cc_by_sa_40_legalcode.txt", "Emoji One artwork", "http://emojione.com/"],
     ["licenseXInputCheck", "../3rdparty/xinputcheck-src/COPYING.txt", "XInputCheck (SDL_IsXInput function)", "https://www.libsdl.org/"],
     ["licenseQQBonjour", "../3rdparty/qqbonjour-src/LICENSE", "QQBonjour", "https://doc.qt.io/archives/qq/qq23-bonjour.html"],
