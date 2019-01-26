@@ -123,7 +123,7 @@ win32-g++ {
 
 unix {
 	CONFIG(static) {
-		PKG_CONFIG = pkg-config --static
+		PKG_CONFIG += --static
 	}
 
 	QMAKE_CFLAGS *= "-I../mumble_proto" "-isystem ../mumble_proto"
