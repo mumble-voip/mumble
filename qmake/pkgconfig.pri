@@ -6,7 +6,12 @@
 # Allow cross-building by making a call to return the pkg-config
 # that the user supplied to the build.
 # pkgConfigExecutable() is part of Qt5.
-PKG_CONFIG = $$pkgConfigExecutable()
+# If building with Qt4, pkg-config is called instead
+isEqual(QT_MAJOR_VERSION, 5) {
+	PKG_CONFIG = $$pkgConfigExecutable()
+} else {
+	PKG_CONFIG = "pkg-config"
+}
 
 # must_pkgconfig(pkg)
 #
