@@ -46,7 +46,7 @@
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ІД: %1</translation>
     </message>
     <message>
         <location line="+46"/>
