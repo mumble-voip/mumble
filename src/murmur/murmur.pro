@@ -199,7 +199,7 @@ bonjour {
     LIBS *= -lDNSSD
   }
   unix:!macx {
-    system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
+    system($$PKG_CONFIG --exists avahi-compat-libdns_sd avahi-client) {
       must_pkgconfig(avahi-compat-libdns_sd)
       must_pkgconfig(avahi-client)
     } else {
