@@ -51,19 +51,9 @@ void Themes::applyFallback() {
 	
 	QStringList skinPaths;
 	skinPaths << QLatin1String(":/themes/Mumble");
-	QDir::setSearchPaths(QLatin1String("skin"), skinPaths);
-	
-	QString userStylesheetFn = userStylesheetPath();
-	QString userStylesheetContent;
-	if (readStylesheet(userStylesheetFn, userStylesheetContent)) {
-		qWarning("Themes: allowing user stylesheet at '%s' to override fallback stylesheet", qPrintable(userStylesheetFn));
-	}
+	QString defaultTheme = getDefaultStylesheet();
+	setTheme(defaultTheme, skinPaths);
 
-	qApp->setStyleSheet(
-		getDefaultStylesheet() +
-		QLatin1String("\n") +
-		userStylesheetContent
-	);
 }
 
 bool Themes::applyConfigured() {
@@ -87,14 +77,19 @@ bool Themes::applyConfigured() {
 	QStringList skinPaths;
 	skinPaths << qssFile.path();
 	skinPaths << QLatin1String(":/themes/Mumble"); // Some skins might want to fall-back on our built-in resources
-	QDir::setSearchPaths(QLatin1String("skin"), skinPaths);
 
 	QString themeQss = QString::fromUtf8(file.readAll());
+	setTheme(themeQss, skinPaths);
+	return true;
+}
 
+void Themes::setTheme(QString &themeQss, QStringList &skinPaths) {
+	QDir::setSearchPaths(QLatin1String("skin"), skinPaths);
+	
 	QString userStylesheetFn = userStylesheetPath();
 	QString userStylesheetContent;
 	if (readStylesheet(userStylesheetFn, userStylesheetContent)) {
-		qWarning("Themes: allowing user stylesheet at '%s' to override the chosen theme", qPrintable(userStylesheetFn));
+		qWarning("Themes: allowing user stylesheet at '%s' to override the stylesheet", qPrintable(userStylesheetFn));
 	}
 	
 	qApp->setStyleSheet(
@@ -103,7 +98,6 @@ bool Themes::applyConfigured() {
 		userStylesheetContent
 	);
 
-	return true;
 }
 
 bool Themes::apply() {

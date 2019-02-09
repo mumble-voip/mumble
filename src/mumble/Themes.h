@@ -45,6 +45,9 @@ private:
 	/// @return True on success. False on failure.
 	static bool applyConfigured();
 	
+	// Sets the theme to a QSS theme
+	static void setTheme(QString &themeQss, QStringList &skinPaths);
+
 	/// Returns list of theme search directories ordered ascending by priorty (lowest first)
 	static QVector<QDir> getSearchDirectories();
 	
