@@ -138,6 +138,9 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
 
+	// Tray
+	connect(qstiIcon, SIGNAL(messageClicked()), this, SLOT(showRaiseWindow()));
+	connect(qaShow, SIGNAL(triggered()), this, SLOT(showRaiseWindow()));
 
 	// Explicitely add actions to mainwindow so their shortcuts are available
 	// if only the main window is visible (e.g. minimal mode)
@@ -3041,6 +3044,7 @@ void MainWindow::trayAboutToShow() {
 	qmTray->clear();
 	if (top) {
 		qmTray->addAction(qaQuit);
+		qmTray->addAction(qaShow);
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
@@ -3048,13 +3052,16 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addSeparator();
+		qmTray->addAction(qaShow);
 		qmTray->addAction(qaQuit);
 	}
 }
 
-void MainWindow::on_Icon_messageClicked() {
-	if (isMinimized())
+void MainWindow::showRaiseWindow() {
+	if (isMinimized()) {
 		setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+	}
+
 	show();
 	raise();
 	activateWindow();
@@ -3065,10 +3072,7 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 		case QSystemTrayIcon::Trigger:
 		case QSystemTrayIcon::DoubleClick:
 		case QSystemTrayIcon::MiddleClick:
-			setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-			show();
-			raise();
-			activateWindow();
+			showRaiseWindow();
 		default: break;
 	}
 }
