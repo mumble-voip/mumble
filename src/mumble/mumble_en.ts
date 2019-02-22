@@ -4680,7 +4680,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2702"/>
+        <location line="+2705"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4838,13 +4838,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+79"/>
-        <location line="+2798"/>
+        <location line="+2799"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2350"/>
+        <location line="-2351"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5035,7 +5035,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+81"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished"></translation>
@@ -5070,7 +5070,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-3104"/>
+        <location line="-3108"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5080,7 +5080,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+65"/>
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
@@ -5416,7 +5416,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location line="-2239"/>
-        <location line="+2451"/>
+        <location line="+2452"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6637,7 +6637,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3068"/>
+        <location filename="MainWindow.cpp" line="-3072"/>
         <source>&amp;Developer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6799,6 +6799,16 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>R&amp;egister...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shows the main Mumble window.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8816,7 +8826,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+19"/>
         <source>Certificate details</source>
         <translation type="unfinished"></translation>
     </message>
