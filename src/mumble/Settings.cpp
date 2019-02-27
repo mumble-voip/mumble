@@ -404,7 +404,7 @@ Settings::Settings() {
 	bSuppressMacEventTapWarning = false;
 	bEnableEvdev = false;
 	bEnableXInput2 = true;
-	bEnableGKey = true;
+	bEnableGKey = false;
 	bEnableXboxInput = true;
 	bEnableWinHooks = true;
 	bDirectInputVerboseLogging = false;
