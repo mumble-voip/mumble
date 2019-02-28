@@ -556,7 +556,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		QMenu *qmObjTrans = qm.addMenu(tr("Object Opacity"));
 		QActionGroup *qagObject = new QActionGroup(&qm);
 		for (int i=0;i<8;++i) {
-			qreal o = i + 1 / 8.0;
+			qreal o = (i + 1) / 8.0;
 
 			objectOpacity[i] = new QAction(tr("%1%").arg(o * 100.0f, 0, 'f', 1), qagObject);
 			objectOpacity[i]->setCheckable(true);
