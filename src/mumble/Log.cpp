@@ -10,12 +10,14 @@
 #include "AudioOutput.h"
 #include "AudioOutputSample.h"
 #include "Channel.h"
-#include "Global.h"
 #include "MainWindow.h"
 #include "NetworkConfig.h"
 #include "RichTextEditor.h"
 #include "ServerHandler.h"
 #include "TextToSpeech.h"
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 static ConfigWidget *LogConfigDialogNew(Settings &st) {
 	return new LogConfig(st);

@@ -9,9 +9,11 @@
 
 #include "Channel.h"
 #include "ClientUser.h"
-#include "Global.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(NULL) {
 	qlsSocket->setParent(this);
