@@ -6,9 +6,11 @@
 #include "mumble_pch.hpp"
 
 #include "Themes.h"
-#include "Global.h"
 #include "MainWindow.h"
 #include "MumbleApplication.h"
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 boost::optional<ThemeInfo::StyleInfo> Themes::getConfiguredStyle(const Settings &settings) {
 	if (settings.themeName.isEmpty() && settings.themeStyleName.isEmpty()) {

@@ -15,7 +15,6 @@
 #include "Connection.h"
 #include "ConnectDialog.h"
 #include "Database.h"
-#include "Global.h"
 #include "GlobalShortcut.h"
 #include "Log.h"
 #include "MainWindow.h"
@@ -29,6 +28,9 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "CryptState.h"
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 #define ACTOR_INIT \
 	ClientUser *pSrc=NULL; \
