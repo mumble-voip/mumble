@@ -224,6 +224,15 @@ void MainWindow::createActions() {
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
 
+	gsTransmitModePushToTalk=new GlobalShortcut(this, idx++, tr("Set Transmit Mode to Push-To-Talk", "Global Shortcut"));
+	gsTransmitModePushToTalk->setObjectName(QLatin1String("gsTransmitModePushToTalk"));
+
+	gsTransmitModeContinuous=new GlobalShortcut(this, idx++, tr("Set Transmit Mode to Continuous", "Global Shortcut"));
+	gsTransmitModeContinuous->setObjectName(QLatin1String("gsTransmitModeContinuous"));
+
+	gsTransmitModeVAD=new GlobalShortcut(this, idx++, tr("Set Transmit Mode to VAD", "Global Shortcut"));
+	gsTransmitModeVAD->setObjectName(QLatin1String("gsTransmitModeVAD"));
+
 	gsSendTextMessage=new GlobalShortcut(this, idx++, tr("Send Text Message", "Global Shortcut"), QVariant(QString()));
 	gsSendTextMessage->setObjectName(QLatin1String("gsSendTextMessage"));
 
@@ -2723,6 +2732,36 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant)
 				g.l->log(Log::Information, tr("Transmit Mode set to Continuous"));
 				break;
 		}
+	}
+
+	updateTransmitModeComboBox();
+}
+
+void MainWindow::on_gsTransmitModePushToTalk_triggered(bool down, QVariant)
+{
+	if (down) {
+		g.s.atTransmit = Settings::PushToTalk;
+		g.l->log(Log::Information, tr("Transmit Mode set to Push-to-Talk"));
+	}
+
+	updateTransmitModeComboBox();
+}
+
+void MainWindow::on_gsTransmitModeContinuous_triggered(bool down, QVariant)
+{
+	if (down) {
+		g.s.atTransmit = Settings::Continuous;
+		g.l->log(Log::Information, tr("Transmit Mode set to Continuous"));
+	}
+
+	updateTransmitModeComboBox();
+}
+
+void MainWindow::on_gsTransmitModeVAD_triggered(bool down, QVariant)
+{
+	if (down) {
+		g.s.atTransmit = Settings::VAD;
+		g.l->log(Log::Information, tr("Transmit Mode set to Voice Activity"));
 	}
 
 	updateTransmitModeComboBox();
