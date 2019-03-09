@@ -77,7 +77,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
 		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
-		GlobalShortcut *gsCycleTransmitMode;
+		GlobalShortcut *gsCycleTransmitMode, *gsTransmitModePushToTalk, *gsTransmitModeContinuous, *gsTransmitModeVAD;
 		GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -259,6 +259,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void addTarget(ShortcutTarget *);
 		void removeTarget(ShortcutTarget *);
 		void on_gsCycleTransmitMode_triggered(bool, QVariant);
+		void on_gsTransmitModePushToTalk_triggered(bool, QVariant);
+		void on_gsTransmitModeContinuous_triggered(bool, QVariant);
+		void on_gsTransmitModeVAD_triggered(bool, QVariant);
 		void on_gsSendTextMessage_triggered(bool, QVariant);
 		void on_gsSendClipboardTextMessage_triggered(bool, QVariant);
 		void on_Reconnect_timeout();
