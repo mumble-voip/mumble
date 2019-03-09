@@ -40,6 +40,10 @@
 #include "License.h"
 #include "EnvUtils.h"
 
+#if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
+#include <shellapi.h> // For CommandLineToArgvW()
+#endif
+
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 # ifdef Q_OS_WIN
@@ -671,19 +675,29 @@ int main(int argc, char **argv) {
 }
 
 #if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
-extern void qWinMain(HINSTANCE, HINSTANCE, LPSTR, int, int &, QVector<char *> &);
-
 extern "C" __declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArg, int cmdShow) {
-	Q_UNUSED(cmdArg);
+	Q_UNUSED(instance)
+	Q_UNUSED(prevInstance)
+	Q_UNUSED(cmdArg)
+	Q_UNUSED(cmdShow)
 
-	QByteArray cmdParam = QString::fromWCharArray(GetCommandLine()).toLocal8Bit();
-	int argc = 0;
+	int argc;
+	wchar_t **argvW = CommandLineToArgvW(GetCommandLineW(), &argc);
+	if (argvW == Q_NULLPTR) {
+		return -1;
+	}
 
-	// qWinMain takes argv as a reference.
-	QVector<char *> argv;
-	qWinMain(instance, prevInstance, cmdParam.data(), cmdShow, argc, argv);
+	QVector<QByteArray> argvS;
+	argvS.reserve(argc);
 
-	int result = main(argc, argv.data());
-	return result;
+	QVector<char *> argvV(argc, Q_NULLPTR);
+	for (int i = 0; i < argc; ++i) {
+		argvS.append(QString::fromWCharArray(argvW[i]).toLocal8Bit());
+		argvV[i] = argvS.back().data();
+	}
+
+	LocalFree(argvW);
+
+	return main(argc, argvV.data());
 }
 #endif
