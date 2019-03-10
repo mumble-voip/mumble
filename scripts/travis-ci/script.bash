@@ -11,7 +11,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
-		qmake-qt4 CONFIG+="release tests g15-emulator qt4-legacy-compat ${EXTRA_CONFIG}" -recursive && make -j2 && make check
+		qmake-qt4 CONFIG+="release tests g15-emulator qt4-legacy-compat no-grpc ${EXTRA_CONFIG}" -recursive && make -j2 && make check
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		EXTRA_CONFIG=
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
@@ -28,7 +28,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
-		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
+		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-grpc no-ice ${EXTRA_CONFIG}"
 		make -j2
 		make check TESTRUNNER="wine"
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
@@ -41,7 +41,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
-		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
+		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-grpc no-ice ${EXTRA_CONFIG}"
 		make -j2
 		make check TESTRUNNER="wine"
 	else
