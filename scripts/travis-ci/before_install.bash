@@ -20,10 +20,12 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		sudo apt-get build-dep -qq mumble
 		sudo apt-get install libjack-jackd2-dev
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
+		# gRPC requires at least Protobuf 3, but Xenial has 2.6.1
+		sudo add-apt-repository ppa:maarten-fonville/protobuf -y
 		sudo apt-get -qq update
 		sudo apt-get build-dep -qq mumble
 		sudo apt-get install qt5-default qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qttranslations5-l10n libqt5svg5-dev
-		sudo apt-get install libjack-jackd2-dev
+		sudo apt-get install libjack-jackd2-dev libgrpc-dev
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
@@ -76,7 +78,7 @@ elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
 	# We don’t use the symlinked "python" installed
 	# by default in the image, so we unlink it to allow
 	# the "python@2" package to be installed without conflict.
-	brew update && brew unlink python && brew install qt5 libogg libvorbis flac libsndfile protobuf openssl ice
+	brew update && brew unlink python && brew install qt5 libogg libvorbis flac libsndfile protobuf openssl grpc ice
 else
 	exit 1
 fi
