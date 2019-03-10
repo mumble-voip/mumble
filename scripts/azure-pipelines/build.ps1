@@ -41,7 +41,7 @@ $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = ""
 
 # We do not sign the Azure Pipelines CI builds, so we must disable
 # uiaccess elevation. Also no intermediary signing is wanted.
-$env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS + " no-elevation"
+$env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS + " no-elevation no-grpc"
 
 # If "MUMBLE_NO_PCH" is enabled, pass "no-pch".
 if ($env:MUMBLE_NO_PCH -eq 1) {
