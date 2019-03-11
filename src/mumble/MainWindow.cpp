@@ -3201,8 +3201,19 @@ void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
 #endif
 		if (url.scheme() != QLatin1String("file")
 		        && url.scheme() != QLatin1String("qrc")
-		        && !url.isRelative())
+				&& !url.isRelative()) {
+#if QT_VERSION >= 0x050000
+			// An exception is thrown in case an handler for the URL type is not set on Windows.
+			// It can happen when there are no internet browsers installed.
+			try {
+				QDesktopServices::openUrl(url);
+			} catch(QException &ex) {
+				qWarning() << "MainWindow: Catched exception from openUrl()";
+			}
+#else
 			QDesktopServices::openUrl(url);
+#endif
+		}
 	}
 }
 
