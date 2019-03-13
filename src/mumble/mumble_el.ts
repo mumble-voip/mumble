@@ -2,7 +2,7 @@
 <context>
     <name>ACLEditor</name>
     <message>
-        <location filename="ACLEditor.cpp" line="+101"/>
+        <location filename="ACLEditor.cpp" line="+103"/>
         <source>Deny</source>
         <translation>Αρνούμαι</translation>
     </message>
@@ -562,14 +562,10 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Η κατάδειξη του προγράμματος οδήγησης ASIO απέτυχε</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location filename="ASIOInput.ui"/>
+        <location filename="ASIOInput.cpp" line="+37"/>
         <source>ASIO</source>
         <translation>ASIO</translation>
-    </message>
-    <message>
-        <location filename="ASIOInput.ui"/>
-        <source>Form</source>
-        <translation>Φόρμα</translation>
     </message>
     <message>
         <location/>
@@ -693,7 +689,7 @@ This value allows you to set the maximum number of users allowed in the channel.
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="About.cpp" line="+15"/>
+        <location filename="About.cpp" line="+17"/>
         <source>About Mumble</source>
         <translation>Σχετικά με το Mumble</translation>
     </message>
@@ -733,11 +729,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioInput</name>
     <message>
         <location filename="AudioInput.ui"/>
-        <source>Form</source>
-        <translation>Φόρμα</translation>
-    </message>
-    <message>
-        <location/>
         <source>Interface</source>
         <translation>Διεπαφή</translation>
     </message>
@@ -1181,6 +1172,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>RNNoise</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>Audio input</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1243,11 +1239,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutput</name>
     <message>
         <location filename="AudioOutput.ui"/>
-        <source>Form</source>
-        <translation>Φόρμα</translation>
-    </message>
-    <message>
-        <location/>
         <source>Interface</source>
         <translation>Διεπαφή</translation>
     </message>
@@ -1578,6 +1569,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
         <translation>Να γίνει εξασθένηση στις μονάδες βρόχου του PulseAudio</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audio output</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2184,7 +2180,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation>Απενεργοποίηση  του Text-To-Speech και χρήση ήχου αντ &apos; αυτού.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+291"/>
+        <location filename="AudioWizard.cpp" line="+293"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2449,7 +2445,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Καθαρισμός</translation>
     </message>
     <message numerus="yes">
-        <location filename="BanEditor.cpp" line="+177"/>
+        <location filename="BanEditor.cpp" line="+179"/>
         <source>Ban List - %n Ban(s)</source>
         <translation><numerusform>Λίστα Ban - %n Ban(s)</numerusform><numerusform>Λίστα Ban - %n Ban(s)</numerusform></translation>
     </message>
@@ -3024,7 +3020,7 @@ Are you sure you wish to replace your certificate?
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+82"/>
+        <location filename="CustomElements.cpp" line="+83"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
         <translation>Επικόλληση και &amp;Αποστολή</translation>
@@ -3150,7 +3146,7 @@ Are you sure you wish to replace your certificate?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+1142"/>
+        <location filename="ConnectDialog.cpp" line="+1144"/>
         <source>Connecting to %1</source>
         <translation>Γίνεται σύνδεση στο %1</translation>
     </message>
@@ -3795,7 +3791,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+533"/>
+        <location filename="GlobalShortcut.cpp" line="+535"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Προς το παρόν, το Mumble μπορεί να χρησιμοποιήσει μόνο τα πλήκτρα του ποντικιού και τα πλήκτρα τροποποίησης στο πληκτρολόγιο (Alt, Ctrl, Cmd κ.λπ.) για γενικές συντομεύσεις.&lt;/p&gt;&lt;p&gt;Εάν θέλετε περισσότερη ευελιξία, μπορείτε να προσθέσετε το Mumble ως πρόγραμμα αξιόπιστης προσβασιμότητας στην ενότητα Ασφάλεια &amp; Απόρρητο στις προτιμήσεις συστήματος του Mac.&lt;/p&gt;&lt;p&gt;Στο παράθυρο των προτιμήσεων Ασφάλεια και Απόρρητο, μεταβείτε στην καρτέλα Απόρρητο. Στη συνέχεια, επιλέξτε Προσβασιμότητα (στο κάτω μέρος) στη λίστα αριστερά. Τέλος, προσθέστε το Mumble στη λίστα των προγραμμάτων αξιόπιστης προσβασιμότητας.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -3938,7 +3934,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>LCD</name>
     <message>
-        <location filename="LCD.cpp" line="+267"/>
+        <location filename="LCD.cpp" line="+269"/>
         <source>Not connected</source>
         <translation>Δεν είναι συνδεδεμένο</translation>
     </message>
@@ -3951,14 +3947,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation>Ενεργοποίηση αυτής της συσκευής</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="LCD.ui"/>
+        <location filename="LCD.cpp" line="+5"/>
         <source>LCD</source>
         <translation>LCD</translation>
-    </message>
-    <message>
-        <location filename="LCD.ui"/>
-        <source>Form</source>
-        <translation>Φόρμα</translation>
     </message>
     <message>
         <location/>
@@ -4028,7 +4020,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+222"/>
+        <location filename="Log.cpp" line="+224"/>
         <source>Debug</source>
         <translation>Εντοπισμός σφαλμάτων</translation>
     </message>
@@ -4415,7 +4407,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LookConfig</name>
     <message>
-        <location filename="LookConfig.cpp" line="+30"/>
+        <location filename="LookConfig.cpp" line="+32"/>
         <source>System default</source>
         <translation>Προεπιλεγμένο του συστήματος</translation>
     </message>
@@ -4744,13 +4736,13 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2702"/>
+        <location filename="MainWindow.cpp" line="+109"/>
+        <location line="+2744"/>
         <source>Root</source>
         <translation>Ρίζα</translation>
     </message>
     <message>
-        <location line="-2645"/>
+        <location line="-2684"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Πίεση Πλήκτρου για Ομιλία</translation>
@@ -4828,13 +4820,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+159"/>
-        <location line="+2639"/>
+        <location line="+168"/>
+        <location line="+2669"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2767"/>
+        <location line="-2797"/>
         <source>&amp;Window</source>
         <translation>&amp;Παράθυρο</translation>
     </message>
@@ -4860,7 +4852,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Το Mumble είναι συνδεδεμένο αυτήν τη στιγμή με έναν διακομιστή. Θέλετε να το Κλείσετε ή να το Ελαχιστοποιήσετε;</translation>
     </message>
     <message>
-        <location line="-252"/>
+        <location line="-261"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Φίμωση του εαυτού σας</translation>
@@ -4902,14 +4894,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ψίθυρος/Κραυγή</translation>
     </message>
     <message>
-        <location line="+79"/>
-        <location line="+2798"/>
+        <location line="+88"/>
+        <location line="+2829"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Μη συνδεδεμένο&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2350"/>
+        <location line="-2381"/>
         <source>Clear</source>
         <translation>Καθαρισμός</translation>
     </message>
@@ -4967,11 +4959,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+76"/>
         <location line="+1498"/>
+        <location line="+22"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Η Λειτουργία Μετάδοσης ρυθμίστηκε σε Συνεχής</translation>
     </message>
     <message>
-        <location line="-1397"/>
+        <location line="-1419"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
@@ -5065,7 +5058,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+76"/>
         <location line="+270"/>
-        <location line="+611"/>
+        <location line="+641"/>
         <source>Message to channel %1</source>
         <translation>Μήνυμα στο κανάλι %1</translation>
     </message>
@@ -5100,7 +5093,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+81"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation>&lt;center&gt;Πληκτρολογήστε μήνυμα στο κανάλι &apos;%1&apos; εδώ&lt;/center&gt;</translation>
@@ -5135,7 +5128,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>To format της εικόνας δεν αναγνωρίστηκε.</translation>
     </message>
     <message>
-        <location line="-3104"/>
+        <location line="-3147"/>
         <source>&amp;User</source>
         <translation>&amp;Χρήστης</translation>
     </message>
@@ -5145,7 +5138,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&amp;Κανάλι</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+65"/>
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
@@ -5168,6 +5161,24 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
         <translation>Κυκλική Λειτουργεία Μετάδοσης</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Set Transmit Mode to Push-To-Talk</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Set Transmit Mode to Continuous</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Set Transmit Mode to VAD</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -5235,17 +5246,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+41"/>
         <location line="+1485"/>
+        <location line="+40"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Φωνητική Δραστηριότητα</translation>
     </message>
     <message>
-        <location line="-1480"/>
+        <location line="-1520"/>
         <location line="+1484"/>
+        <location line="+16"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Η λειτουργία μετάδοσης είναι ρυθμισμένη σε Πίεση-πλήκτρου-για-Ομιλία </translation>
     </message>
     <message>
-        <location line="-1332"/>
+        <location line="-1348"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation>&lt;p&gt;Συνδεδεμένοι χρήστες: %1/%2&lt;/p&gt;</translation>
     </message>
@@ -5296,12 +5309,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1524"/>
+        <location line="+1554"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Προβολή Πιστοποιητικού</translation>
     </message>
     <message>
-        <location line="-1230"/>
+        <location line="-1260"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Εισάγετε λόγο</translation>
@@ -5316,12 +5329,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+103"/>
         <location line="+4"/>
         <location line="+266"/>
-        <location line="+611"/>
+        <location line="+641"/>
         <source>To %1: %2</source>
         <translation>Στον %1: %2</translation>
     </message>
     <message>
-        <location line="-984"/>
+        <location line="-1014"/>
         <location line="+107"/>
         <source>Message to %1</source>
         <translation>Μήνυμα στον %1</translation>
@@ -5403,7 +5416,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Σχετικά με το Qt</translation>
     </message>
     <message>
-        <location line="+469"/>
+        <location line="+499"/>
         <source>SSL Verification failed: %1</source>
         <translation>Η Επαλήθευση με SSL απέτυχε: %1</translation>
     </message>
@@ -5435,7 +5448,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+11"/>
-        <location filename="Messages.cpp" line="+70"/>
+        <location filename="Messages.cpp" line="+72"/>
         <source>Invalid username</source>
         <translation>Μη έγκυρο όνομα χρήστη</translation>
     </message>
@@ -5482,8 +5495,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Λάθος κωδικός πρόσβασης διακομιστή για μη εγγραμμένο λογαριασμό χρήστη, δοκιμάστε ξανά.</translation>
     </message>
     <message>
-        <location line="-2239"/>
-        <location line="+2451"/>
+        <location line="-2269"/>
+        <location line="+2482"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Εικόνες (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -6431,7 +6444,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Μήνυμα από τον %1.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1391"/>
+        <location filename="UserModel.cpp" line="+1393"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation>Έχετε το Σύρσιμο Χρήστη ρυθμισμένο να &quot;Μην κάνει τίποτα&quot;, οπότε ο χρήστης δεν μετακινήθηκε.</translation>
     </message>
@@ -6728,7 +6741,7 @@ the channel&apos;s context menu.</source>
         <translation>Ανοίγει ένα παράθυρο διαλόγου με ένα ρυθμιστικό έντασης. Χρησιμοποιήστε το σε άλλους χρήστες στο ίδιο δωμάτιο.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3068"/>
+        <location filename="MainWindow.cpp" line="-3111"/>
         <source>&amp;Developer</source>
         <translation>&amp;Προγραμματιστής</translation>
     </message>
@@ -6892,6 +6905,16 @@ the channel&apos;s context menu.</source>
         <source>R&amp;egister...</source>
         <translation>Ε&amp;γγραφή...</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Shows the main Mumble window.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -6989,7 +7012,7 @@ the channel&apos;s context menu.</source>
 <context>
     <name>NetworkConfig</name>
     <message>
-        <location filename="NetworkConfig.cpp" line="+29"/>
+        <location filename="NetworkConfig.cpp" line="+31"/>
         <source>Network</source>
         <translation>Δίκτυο</translation>
     </message>
@@ -7245,8 +7268,8 @@ Prevents the client from sending potentially identifying information about the o
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+97"/>
-        <location filename="OverlayUser.cpp" line="+129"/>
+        <location filename="OverlayEditorScene.cpp" line="+99"/>
+        <location filename="OverlayUser.cpp" line="+131"/>
         <source>Silent</source>
         <translation>Σιωπή</translation>
     </message>
@@ -7275,7 +7298,7 @@ Prevents the client from sending potentially identifying information about the o
         <translation>Κανάλι</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+205"/>
+        <location filename="Overlay.cpp" line="+207"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Απέτυχε να δημιουργήσει επικοινωνία με επικάλυψη στις %2: %1. Καμμία επικάλυψη θα είναι διαθέσιμη.</translation>
     </message>
@@ -7283,7 +7306,7 @@ Prevents the client from sending potentially identifying information about the o
 <context>
     <name>OverlayClient</name>
     <message>
-        <location filename="OverlayUserGroup.cpp" line="+76"/>
+        <location filename="OverlayUserGroup.cpp" line="+78"/>
         <source>Filter</source>
         <translation>Φίλτρο</translation>
     </message>
@@ -7361,7 +7384,7 @@ Prevents the client from sending potentially identifying information about the o
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+80"/>
+        <location filename="OverlayConfig.cpp" line="+82"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Για να μετακινήσετε τους χρήστες, σύρετε τη μικρή κόκκινη κουκκίδα.</translation>
     </message>
@@ -7849,7 +7872,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+73"/>
+        <location filename="Plugins.cpp" line="+74"/>
         <source>Plugins</source>
         <translation>Πρόσθετα</translation>
     </message>
@@ -7865,11 +7888,6 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location filename="Plugins.ui"/>
-        <source>Form</source>
-        <translation>Φόρμα</translation>
-    </message>
-    <message>
-        <location/>
         <source>Options</source>
         <translation>Επιλογές</translation>
     </message>
@@ -7984,7 +8002,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+799"/>
+        <location filename="PulseAudio.cpp" line="+800"/>
         <source>Default Input</source>
         <translation>Προεπιλεγμένη Είσοδος</translation>
     </message>
@@ -8010,7 +8028,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+234"/>
+        <location filename="RichTextEditor.cpp" line="+236"/>
         <source>Failed to load image</source>
         <translation>Αποτυχία φόρτωσης εικόνας</translation>
     </message>
@@ -8111,7 +8129,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+299"/>
+        <location filename="ServerHandler.cpp" line="+301"/>
         <source>Unable to resolve hostname</source>
         <translation type="unfinished"/>
     </message>
@@ -8346,7 +8364,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Tokens</name>
     <message>
-        <location filename="Tokens.cpp" line="+42"/>
+        <location filename="Tokens.cpp" line="+44"/>
         <source>Empty Token</source>
         <translation>Άδειο Token</translation>
     </message>
@@ -8555,7 +8573,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Χρόνος σύνδεσης</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+83"/>
+        <location filename="UserInformation.cpp" line="+85"/>
         <source>%1w</source>
         <translation>%1w</translation>
     </message>
@@ -8865,7 +8883,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+118"/>
+        <location filename="VersionCheck.cpp" line="+120"/>
         <source>Upgrade Mumble</source>
         <translation>Να αναβαθμιστεί το Mumble</translation>
     </message>
@@ -8914,7 +8932,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Αλυσίδα πιστοποιητικών</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+19"/>
         <source>Certificate details</source>
         <translation>Στοιχεία πιστοποιητικού</translation>
     </message>
@@ -9017,7 +9035,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+262"/>
+        <location filename="VoiceRecorder.cpp" line="+264"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
         <translation>Η εγγραφή απέτυχε να δημιουργήσει τον κατάλογο &apos;%1&apos;</translation>
     </message>
@@ -9051,7 +9069,7 @@ An access token is a text string, which can be used as a password for very simpl
     <name>VoiceRecorderDialog</name>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
-        <location filename="VoiceRecorderDialog.cpp" line="+108"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+110"/>
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
@@ -9190,7 +9208,7 @@ Please contact your server administrator for further information.</source>
 <context>
     <name>WASAPIInput</name>
     <message>
-        <location filename="WASAPI.cpp" line="+461"/>
+        <location filename="WASAPI.cpp" line="+463"/>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
         <translation type="unfinished"/>
     </message>
