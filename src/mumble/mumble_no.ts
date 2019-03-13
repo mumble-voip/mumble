@@ -2,7 +2,7 @@
 <context>
     <name>ACLEditor</name>
     <message>
-        <location filename="ACLEditor.cpp" line="+101"/>
+        <location filename="ACLEditor.cpp" line="+103"/>
         <source>Deny</source>
         <translation>Nekt</translation>
     </message>
@@ -560,14 +560,10 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
         <translation>Klarte ikke å igangsette ASIO-driver</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location filename="ASIOInput.ui"/>
+        <location filename="ASIOInput.cpp" line="+37"/>
         <source>ASIO</source>
         <translation>ASIO</translation>
-    </message>
-    <message>
-        <location filename="ASIOInput.ui"/>
-        <source>Form</source>
-        <translation>Skjema</translation>
     </message>
     <message>
         <location/>
@@ -691,7 +687,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="About.cpp" line="+15"/>
+        <location filename="About.cpp" line="+17"/>
         <source>About Mumble</source>
         <translation>Om Mumble</translation>
     </message>
@@ -730,11 +726,6 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <name>AudioInput</name>
     <message>
         <location filename="AudioInput.ui"/>
-        <source>Form</source>
-        <translation>Skjema</translation>
-    </message>
-    <message>
-        <location/>
         <source>Interface</source>
         <translation>Grensesnitt</translation>
     </message>
@@ -1178,6 +1169,11 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
         <source>RNNoise</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>Audio input</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1240,11 +1236,6 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     <name>AudioOutput</name>
     <message>
         <location filename="AudioOutput.ui"/>
-        <source>Form</source>
-        <translation>Skjema</translation>
-    </message>
-    <message>
-        <location/>
         <source>Interface</source>
         <translation>Grensesnitt</translation>
     </message>
@@ -1577,6 +1568,11 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
         <translation>Senk lydnivået på PulseAudio nøytrale tilbakekoblingsmoduler</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audio output</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2197,7 +2193,7 @@ Ingen snakking. Rødt (Definitivt ikke tale)</translation>
         <translation>Skru av tekst-til-tale og bruk lyder istedenfor.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+291"/>
+        <location filename="AudioWizard.cpp" line="+293"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2463,7 +2459,7 @@ Ingen snakking. Krysset (Definitivt ikke tale)</translation>
         <translation>Tøm</translation>
     </message>
     <message numerus="yes">
-        <location filename="BanEditor.cpp" line="+177"/>
+        <location filename="BanEditor.cpp" line="+179"/>
         <source>Ban List - %n Ban(s)</source>
         <translation><numerusform>Blokkeringsliste - %n blokkering</numerusform><numerusform>Blokkeringsliste - %n blokkeringer</numerusform></translation>
     </message>
@@ -3037,7 +3033,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+82"/>
+        <location filename="CustomElements.cpp" line="+83"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
         <translation>Lim inn og &amp;send</translation>
@@ -3163,7 +3159,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+1142"/>
+        <location filename="ConnectDialog.cpp" line="+1144"/>
         <source>Connecting to %1</source>
         <translation>Kobler til %1</translation>
     </message>
@@ -3808,7 +3804,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+533"/>
+        <location filename="GlobalShortcut.cpp" line="+535"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kun valgtaster fra tastatur eller mus (Alt, Ctrl, Cmd, osv.) kan brukes for snarveier som gjelder for hele systemet. &lt;/p&gt;&lt;p&gt;Hvis du ønsker mer fleksibilitet kan du legge til Mumble som et betrodd hjelpefunksjons-program i Sikkerhet &amp; Personvern på din Macs systeminnstillinger.&lt;/p&gt;&lt;p&gt;I sikkerhet og personvernsfanen, endre til personvernsfanen. Velg så Tilgjengelighet (nært bunnen) i listen på venstresiden. Til sist, legg til Mumble i listen over betrodde tilgjengelighetsprogrammer.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -3951,7 +3947,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>LCD</name>
     <message>
-        <location filename="LCD.cpp" line="+267"/>
+        <location filename="LCD.cpp" line="+269"/>
         <source>Not connected</source>
         <translation>Ikke tilkoblet</translation>
     </message>
@@ -3964,14 +3960,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation>Aktiver denne enheten</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="LCD.ui"/>
+        <location filename="LCD.cpp" line="+5"/>
         <source>LCD</source>
         <translation>LCD</translation>
-    </message>
-    <message>
-        <location filename="LCD.ui"/>
-        <source>Form</source>
-        <translation>Skjema</translation>
     </message>
     <message>
         <location/>
@@ -4041,7 +4033,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+222"/>
+        <location filename="Log.cpp" line="+224"/>
         <source>Debug</source>
         <translation>Feilretting</translation>
     </message>
@@ -4427,7 +4419,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
 <context>
     <name>LookConfig</name>
     <message>
-        <location filename="LookConfig.cpp" line="+30"/>
+        <location filename="LookConfig.cpp" line="+32"/>
         <source>System default</source>
         <translation>Systemforvalg</translation>
     </message>
@@ -4757,13 +4749,13 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+107"/>
-        <location line="+2702"/>
+        <location filename="MainWindow.cpp" line="+109"/>
+        <location line="+2744"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-2645"/>
+        <location line="-2684"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Trykk-for-å-snakke</translation>
@@ -4841,13 +4833,13 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+159"/>
-        <location line="+2639"/>
+        <location line="+168"/>
+        <location line="+2669"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2767"/>
+        <location line="-2797"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindu</translation>
     </message>
@@ -4873,7 +4865,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation>Mumble er ikke koblet til en tjener. Ønsker du å lukke eller minimere det?</translation>
     </message>
     <message>
-        <location line="-252"/>
+        <location line="-261"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Gjør deg selv stum</translation>
@@ -4915,14 +4907,14 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation>Hvisk/Skrik</translation>
     </message>
     <message>
-        <location line="+79"/>
-        <location line="+2798"/>
+        <location line="+88"/>
+        <location line="+2829"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ikke tilkoblet&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2350"/>
+        <location line="-2381"/>
         <source>Clear</source>
         <translation>Tøm</translation>
     </message>
@@ -4980,11 +4972,12 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location line="+76"/>
         <location line="+1498"/>
+        <location line="+22"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Forsendelsesmodus satt til sammenhengende</translation>
     </message>
     <message>
-        <location line="-1397"/>
+        <location line="-1419"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
@@ -5078,7 +5071,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location line="+76"/>
         <location line="+270"/>
-        <location line="+611"/>
+        <location line="+641"/>
         <source>Message to channel %1</source>
         <translation>Melding til kanal %1</translation>
     </message>
@@ -5113,7 +5106,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+81"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation>&lt;center&gt;Skriv melding til kanalen &apos;%1&apos; her&lt;/center&gt;</translation>
@@ -5148,7 +5141,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation>Billedformat ikke gjenkjent.</translation>
     </message>
     <message>
-        <location line="-3104"/>
+        <location line="-3147"/>
         <source>&amp;User</source>
         <translation>&amp;Bruker</translation>
     </message>
@@ -5158,7 +5151,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation>&amp;Kanal</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+65"/>
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
@@ -5181,6 +5174,24 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
         <translation>Veksle forsendelsesmodus</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Set Transmit Mode to Push-To-Talk</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Set Transmit Mode to Continuous</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Set Transmit Mode to VAD</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -5248,17 +5259,19 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     <message>
         <location line="+41"/>
         <location line="+1485"/>
+        <location line="+40"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Forsendelsesmodus satt til stemmeaktivitet</translation>
     </message>
     <message>
-        <location line="-1480"/>
+        <location line="-1520"/>
         <location line="+1484"/>
+        <location line="+16"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Forsendelsesmodus satt til trykk-for-å-snakke</translation>
     </message>
     <message>
-        <location line="-1332"/>
+        <location line="-1348"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation>&lt;p&gt;Tilkoblede brukere: %1/%2&lt;/p&gt;</translation>
     </message>
@@ -5309,12 +5322,12 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1524"/>
+        <location line="+1554"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Vis sertifikat</translation>
     </message>
     <message>
-        <location line="-1230"/>
+        <location line="-1260"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Oppgi begrunnelse</translation>
@@ -5329,12 +5342,12 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <location line="+103"/>
         <location line="+4"/>
         <location line="+266"/>
-        <location line="+611"/>
+        <location line="+641"/>
         <source>To %1: %2</source>
         <translation>Til %1: %2</translation>
     </message>
     <message>
-        <location line="-984"/>
+        <location line="-1014"/>
         <location line="+107"/>
         <source>Message to %1</source>
         <translation>Melding til %1</translation>
@@ -5416,7 +5429,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location line="+469"/>
+        <location line="+499"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-bekreftelse mislyktes: %1</translation>
     </message>
@@ -5448,7 +5461,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <location line="+11"/>
-        <location filename="Messages.cpp" line="+70"/>
+        <location filename="Messages.cpp" line="+72"/>
         <source>Invalid username</source>
         <translation>Ugyldig brukernavn</translation>
     </message>
@@ -5495,8 +5508,8 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Feil tjenerpassord for uregistrert brukerkonto, prøv igjen.</translation>
     </message>
     <message>
-        <location line="-2239"/>
-        <location line="+2451"/>
+        <location line="-2269"/>
+        <location line="+2482"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Bilder (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -6444,7 +6457,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>Melding fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1391"/>
+        <location filename="UserModel.cpp" line="+1393"/>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation>Du har brukerdraging satt til &quot;Gjør ingenting&quot; så brukeren ble ikke flyttet.</translation>
     </message>
@@ -6741,7 +6754,7 @@ kanalens kontekstmeny.</translation>
         <translation>Åpner en dialog med en lydstyrkeglidebryter. Bruk denne på andre brukere i samme rom.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-3068"/>
+        <location filename="MainWindow.cpp" line="-3111"/>
         <source>&amp;Developer</source>
         <translation>&amp;Utvikler</translation>
     </message>
@@ -6905,6 +6918,16 @@ kanalens kontekstmeny.</translation>
         <source>R&amp;egister...</source>
         <translation>&amp;Registrer…</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Shows the main Mumble window.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7002,7 +7025,7 @@ kanalens kontekstmeny.</translation>
 <context>
     <name>NetworkConfig</name>
     <message>
-        <location filename="NetworkConfig.cpp" line="+29"/>
+        <location filename="NetworkConfig.cpp" line="+31"/>
         <source>Network</source>
         <translation>Nettverk</translation>
     </message>
@@ -7258,8 +7281,8 @@ Forhindrer klienten fra å sende potensielt identifiserende informasjon om opera
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+97"/>
-        <location filename="OverlayUser.cpp" line="+129"/>
+        <location filename="OverlayEditorScene.cpp" line="+99"/>
+        <location filename="OverlayUser.cpp" line="+131"/>
         <source>Silent</source>
         <translation>Stille</translation>
     </message>
@@ -7288,7 +7311,7 @@ Forhindrer klienten fra å sende potensielt identifiserende informasjon om opera
         <translation>Kanal</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+205"/>
+        <location filename="Overlay.cpp" line="+207"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Klarte ikke å opprette kommunikasjon med forgrunnslag på %2: %1. Ingen forgrunnsinformasjonslag vil være tilgjengelige.</translation>
     </message>
@@ -7296,7 +7319,7 @@ Forhindrer klienten fra å sende potensielt identifiserende informasjon om opera
 <context>
     <name>OverlayClient</name>
     <message>
-        <location filename="OverlayUserGroup.cpp" line="+76"/>
+        <location filename="OverlayUserGroup.cpp" line="+78"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
@@ -7374,7 +7397,7 @@ Forhindrer klienten fra å sende potensielt identifiserende informasjon om opera
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+80"/>
+        <location filename="OverlayConfig.cpp" line="+82"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>For å flytte brukerne, dra den lille røde prikken.</translation>
     </message>
@@ -7862,7 +7885,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+73"/>
+        <location filename="Plugins.cpp" line="+74"/>
         <source>Plugins</source>
         <translation>Programtillegg</translation>
     </message>
@@ -7878,11 +7901,6 @@ Trykk på knappen nedefor for å oppgradere.</translation>
     </message>
     <message>
         <location filename="Plugins.ui"/>
-        <source>Form</source>
-        <translation>Skjema</translation>
-    </message>
-    <message>
-        <location/>
         <source>Options</source>
         <translation>Valg</translation>
     </message>
@@ -7997,7 +8015,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+799"/>
+        <location filename="PulseAudio.cpp" line="+800"/>
         <source>Default Input</source>
         <translation>Forvalgt inngang</translation>
     </message>
@@ -8023,7 +8041,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+234"/>
+        <location filename="RichTextEditor.cpp" line="+236"/>
         <source>Failed to load image</source>
         <translation>Klarte ikke å laste inn bilde</translation>
     </message>
@@ -8124,7 +8142,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+299"/>
+        <location filename="ServerHandler.cpp" line="+301"/>
         <source>Unable to resolve hostname</source>
         <translation type="unfinished"/>
     </message>
@@ -8359,7 +8377,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
 <context>
     <name>Tokens</name>
     <message>
-        <location filename="Tokens.cpp" line="+42"/>
+        <location filename="Tokens.cpp" line="+44"/>
         <source>Empty Token</source>
         <translation>Tomt symbol</translation>
     </message>
@@ -8569,7 +8587,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
         <translation>Tilkoblingstid</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+83"/>
+        <location filename="UserInformation.cpp" line="+85"/>
         <source>%1w</source>
         <translation>%1u</translation>
     </message>
@@ -8878,7 +8896,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+118"/>
+        <location filename="VersionCheck.cpp" line="+120"/>
         <source>Upgrade Mumble</source>
         <translation>Oppgrader Mumble</translation>
     </message>
@@ -8927,7 +8945,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
         <translation>Sertifikatskjede</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+19"/>
         <source>Certificate details</source>
         <translation>Sertifikatsdetaljer</translation>
     </message>
@@ -9030,7 +9048,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+262"/>
+        <location filename="VoiceRecorder.cpp" line="+264"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
         <translation>Opptaker klarte ikke å lage mappe &apos;%1&apos;</translation>
     </message>
@@ -9064,7 +9082,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <name>VoiceRecorderDialog</name>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
-        <location filename="VoiceRecorderDialog.cpp" line="+108"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+110"/>
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
@@ -9204,7 +9222,7 @@ Please contact your server administrator for further information.</source>
 <context>
     <name>WASAPIInput</name>
     <message>
-        <location filename="WASAPI.cpp" line="+461"/>
+        <location filename="WASAPI.cpp" line="+463"/>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
         <translation type="unfinished"/>
     </message>
