@@ -2,12 +2,23 @@ jobs:
   - job: Windows
     strategy:
       matrix:
-        MSVC_2015:
+        MSVC_2015_SERVER:
           MUMBLE_QT: qt5
           MUMBLE_HOST: x86_64-pc-windows-msvc
-        MSVC_2015_NO_PCH:
+          MUMBLE_NO_CLIENT: 1
+        MSVC_2015_CLIENT:
           MUMBLE_QT: qt5
           MUMBLE_HOST: x86_64-pc-windows-msvc
+          MUMBLE_NO_SERVER: 1
+        MSVC_2015_SERVER_NO_PCH:
+          MUMBLE_QT: qt5
+          MUMBLE_HOST: x86_64-pc-windows-msvc
+          MUMBLE_NO_PCH: 1
+          MUMBLE_NO_CLIENT: 1
+        MSVC_2015_CLIENT_NO_PCH:
+          MUMBLE_QT: qt5
+          MUMBLE_HOST: x86_64-pc-windows-msvc
+          MUMBLE_NO_SERVER: 1
           MUMBLE_NO_PCH: 1
     steps:
     - script: git submodule --quiet update --init --recursive

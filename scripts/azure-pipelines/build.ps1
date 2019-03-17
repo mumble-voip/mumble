@@ -30,6 +30,8 @@
 # Defined in the YAML configuration:
 #
 #  MUMBLE_NO_PCH              - Indicates whether the build should not use PCH.
+#  MUMBLE_NO_CLIENT
+#  MUMBLE_NO_SERVER
 #
 
 $MUMBLE_BUILD_DIR = $env:AGENT_BUILDDIRECTORY
@@ -46,6 +48,14 @@ $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS + " 
 # If "MUMBLE_NO_PCH" is enabled, pass "no-pch".
 if ($env:MUMBLE_NO_PCH -eq 1) {
 	$env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS + " no-pch"
+}
+
+if ($env:MUMBLE_NO_CLIENT -eq 1) {
+	$env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS + " no-client"
+}
+
+if ($env:MUMBLE_NO_SERVER -eq 1) {
+	$env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS + " no-server"
 }
 
 # Use jom to take advantage of the multiple cores we get on the builder.
