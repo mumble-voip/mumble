@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file alias="rec.svg">../../icons/rec.svg</file>
         <file alias="mumble.svg">../../icons/mumble.svg</file>
         <file alias="mumble.icns">../../icons/mumble.icns</file>
         <file alias="wb_male.oga">../../samples/wb_male.oga</file>
