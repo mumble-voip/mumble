@@ -219,6 +219,11 @@ CONFIG(qtspeech) {
 }
 
 RESOURCES *= mumble.qrc mumble_translations.qrc ../../themes/MumbleTheme.qrc
+
+!CONFIG(no-classic-theme) {
+  RESOURCES *= ../../themes/ClassicTheme.qrc
+}
+
 # Add the various mumble_flags_XX.qrc files to RESOURCES...
 include(flags/mumble_flags.pri)
 
