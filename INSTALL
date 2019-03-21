@@ -205,3 +205,6 @@ CONFIG+=qtspeech (Mumble)
 CONFIG+=dpkg-buildflags
  Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS
  from dpkg-buildflags to Mumble's build flags.
+
+CONFIG+=no-classic-theme
+ Don't include the classic theme.
