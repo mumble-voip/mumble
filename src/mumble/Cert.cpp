@@ -11,8 +11,6 @@
 # pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "mumble_pch.hpp"
-
 #include "Cert.h"
 
 #include "Global.h"

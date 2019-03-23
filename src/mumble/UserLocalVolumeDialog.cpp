@@ -34,8 +34,6 @@
 */
 
 
-#include "mumble_pch.hpp"
-
 #include "UserLocalVolumeDialog.h"
 #include "Global.h"
 #include "ClientUser.h"

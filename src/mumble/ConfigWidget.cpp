@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "ConfigWidget.h"
 
 QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;

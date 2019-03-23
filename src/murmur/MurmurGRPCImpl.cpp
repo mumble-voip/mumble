@@ -7,8 +7,6 @@
 # include <boost/function.hpp>
 #endif
 
-#include "murmur_pch.h"
-
 #include "Mumble.pb.h"
 
 #include "../Message.h"

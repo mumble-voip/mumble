@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
 static bool appNapSuppressed = false;
 #endif

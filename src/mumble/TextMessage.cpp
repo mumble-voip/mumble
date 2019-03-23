@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "TextMessage.h"
 
 TextMessage::TextMessage(QWidget *p, QString title, bool bChannel) : QDialog(p) {

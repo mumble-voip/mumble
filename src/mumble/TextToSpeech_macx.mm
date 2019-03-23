@@ -38,8 +38,6 @@
 
 #import <AppKit/AppKit.h>
 
-#include "mumble_pch.hpp"
-
 #include "Global.h"
 #include "TextToSpeech.h"
 

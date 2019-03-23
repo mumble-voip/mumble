@@ -3,9 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-// Include murmur_pch.h for STACKVAR
-#include "murmur_pch.h"
-
 #include <QtCore>
 #include <QtTest>
 

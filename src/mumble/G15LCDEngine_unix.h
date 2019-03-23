@@ -5,8 +5,6 @@
 
 #ifndef MUMBLE_MUMBLE_G15LCDENGINE_UNIX_H_
 #define MUMBLE_MUMBLE_G15LCDENGINE_UNIX_H_
-
-#include "mumble_pch.hpp"
 #include "LCD.h"
 
 #include <g15daemon_client.h>

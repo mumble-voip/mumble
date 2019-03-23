@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 // MinGW does not support std::future/std::promise
 // at present. Use Boost's implementation for now.
 #define BOOST_THREAD_VERSION 4
