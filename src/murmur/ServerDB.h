@@ -48,7 +48,7 @@ class ServerDB {
 		ServerDB(const ServerDB &);
 		
 	private:
-		static void loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query);
+		static void loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query);
 		static void writeSUPW(int srvnum, const QString &pwHash, const QString &saltHash, const QVariant &kdfIterations);
 };
 

@@ -51,32 +51,32 @@ QSqlDatabase *ServerDB::db = NULL;
 Timer ServerDB::tLogClean;
 QString ServerDB::qsUpgradeSuffix;
 
-void ServerDB::loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query) {
+void ServerDB::loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query) {
 	if (!Meta::mp.legacyPasswordHash) {
 		if (Meta::mp.kdfIterations <= 0) {
 			// Configuration doesn't specify an override, load from db
-			
+
 			SQLDO("SELECT `value` FROM `%1meta` WHERE `keystring` = 'pbkdf2_iterations'");
 			if (query.next()) {
 				Meta::mp.kdfIterations = query.value(0).toInt();
 			}
-			
+
 			if (Meta::mp.kdfIterations <= 0) {
 				// Didn't get a valid iteration count from DB, overwrite
 				Meta::mp.kdfIterations = PBKDF2::benchmark();
-				
-				qWarning() << "Performed initial PBKDF2 benchmark. Will use " << Meta::mp.kdfIterations << " iterations as default";
-				
+
+				qWarning() << "Performed initial PBKDF2 benchmark. Will use" << Meta::mp.kdfIterations << "iterations as default";
+
 				SQLPREP("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('pbkdf2_iterations',?)");
 				query.addBindValue(Meta::mp.kdfIterations);
 				SQLEXEC();
 			}
 		}
-		
+
 		if (Meta::mp.kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
-			qWarning() << "Configured default PBKDF2 iteration count of " << Meta::mp.kdfIterations << " is below minimum recommended value of " << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT << " and could be insecure.";
+			qWarning() << "Configured default PBKDF2 iteration count of" << Meta::mp.kdfIterations << "is below minimum recommended value of" << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT << "and could be insecure.";
 		}
-	}	
+	}
 }
 
 ServerDB::ServerDB() {
@@ -212,8 +212,8 @@ ServerDB::ServerDB() {
 
 	if (query.next())
 		version = query.value(0).toInt();
-	
-	loadOrSetupMetaPKBDF2IterationsCount(query);
+
+	loadOrSetupMetaPBKDF2IterationCount(query);
 
 	if (version < 6) {
 		if (version > 0) {
