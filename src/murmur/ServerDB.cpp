@@ -51,7 +51,7 @@ QSqlDatabase *ServerDB::db = NULL;
 Timer ServerDB::tLogClean;
 QString ServerDB::qsUpgradeSuffix;
 
-void ServerDB::loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query) {
+void ServerDB::loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query) {
 	if (!Meta::mp.legacyPasswordHash) {
 		if (Meta::mp.kdfIterations <= 0) {
 			// Configuration doesn't specify an override, load from db
@@ -212,8 +212,8 @@ ServerDB::ServerDB() {
 
 	if (query.next())
 		version = query.value(0).toInt();
-	
-	loadOrSetupMetaPKBDF2IterationsCount(query);
+
+	loadOrSetupMetaPBKDF2IterationCount(query);
 
 	if (version < 6) {
 		if (version > 0) {
