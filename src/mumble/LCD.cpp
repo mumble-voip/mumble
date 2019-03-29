@@ -360,7 +360,6 @@ void LCD::updateUserView() {
 			--iColumns;
 		}
 
-		QRect bound;
 		int row = 0, col = 0;
 
 
