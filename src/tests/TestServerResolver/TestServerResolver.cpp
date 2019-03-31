@@ -5,6 +5,12 @@
 
 #include <QtCore>
 #include <QtTest>
+#include <QDebug>
+
+#ifndef USE_NO_SRV
+# include <QDnsLookup>
+#endif
+
 #include <QSignalSpy>
 
 #include "ServerResolver.h"
@@ -35,8 +41,7 @@ class TestServerResolver : public QObject {
 void TestServerResolver::simpleSrv() {
 #ifdef USE_NO_SRV
 	return;
-#endif
-
+#else
 	// Qt 5's SRV resolver does not work in Wine.
 	// For more info, see https://bugs.winehq.org/show_bug.cgi?id=44296
 	if (PlatformCheck::IsWine()) {
@@ -54,6 +59,20 @@ void TestServerResolver::simpleSrv() {
 	signalSpyWait(spy);
 
 	QCOMPARE(spy.count(), 1);
+
+	if (r.lastError().first != QDnsLookup::NoError) {
+		qWarning() << "Error:" << r.lastError().second;
+
+		if (r.lastError().first == QDnsLookup::ResolverError) {
+			// There was an error initializing the system's DNS resolver.
+			// If the operating system is FreeBSD, it's probably QTBUG-74844.
+			qWarning() << "Skipping test: the system's DNS resolver couldn't be initialized.";
+#ifdef Q_OS_FREEBSD
+			qWarning() << "The issue is probably related to QTBUG-74844.";
+#endif
+			return;
+		}
+	}
 
 	QList<ServerResolverRecord> records = r.records();
 	QCOMPARE(records.size(), 1);
@@ -83,13 +102,13 @@ void TestServerResolver::simpleSrv() {
 
 	// Require either an IPv4 match, or an IPv6 match.
 	QVERIFY(hasipv4 || hasipv6);
+#endif
 }
 
 void TestServerResolver::srvCustomPort() {
 #ifdef USE_NO_SRV
 	return;
-#endif
-
+#else
 	// Qt 5's SRV resolver does not work in Wine.
 	// For more info, see https://bugs.winehq.org/show_bug.cgi?id=44296
 	if (PlatformCheck::IsWine()) {
@@ -106,6 +125,20 @@ void TestServerResolver::srvCustomPort() {
 	signalSpyWait(spy);
 
 	QCOMPARE(spy.count(), 1);
+
+	if (r.lastError().first != QDnsLookup::NoError) {
+		qWarning() << "Error:" << r.lastError().second;
+
+		if (r.lastError().first == QDnsLookup::ResolverError) {
+			// There was an error initializing the system's DNS resolver.
+			// If the operating system is FreeBSD, it's probably QTBUG-74844.
+			qWarning() << "Skipping test: the system's DNS resolver couldn't be initialized.";
+#ifdef Q_OS_FREEBSD
+			qWarning() << "The issue is probably related to QTBUG-74844.";
+#endif
+			return;
+		}
+	}
 
 	QList<ServerResolverRecord> records = r.records();
 	QCOMPARE(records.size(), 1);
@@ -135,6 +168,7 @@ void TestServerResolver::srvCustomPort() {
 
 	// Require either an IPv4 match, or an IPv6 match.
 	QVERIFY(hasipv4 || hasipv6);
+#endif
 }
 
 
