@@ -23,6 +23,7 @@ class ServerResolverPrivate : public QObject {
 
 		void resolve(QString hostname, quint16 port);
 		QList<ServerResolverRecord> records();
+		ServerResolverError lastError();
 
 		QString m_origHostname;
 		quint16 m_origPort;
@@ -32,6 +33,7 @@ class ServerResolverPrivate : public QObject {
 		int m_srvQueueRemain;
 
 		QList<ServerResolverRecord> m_resolved;
+		ServerResolverError m_lastError;
 
 	signals:
 		void resolved();
@@ -64,13 +66,27 @@ QList<ServerResolverRecord> ServerResolverPrivate::records() {
 	return m_resolved;
 }
 
+ServerResolverError ServerResolverPrivate::lastError() {
+	return m_lastError;
+}
+
 void ServerResolverPrivate::srvResolved() {
 	QDnsLookup *resolver = qobject_cast<QDnsLookup *>(sender());
 
 	m_srvQueue = resolver->serviceRecords();
 	m_srvQueueRemain = m_srvQueue.count();
 
-	if (resolver->error() == QDnsLookup::NoError && m_srvQueueRemain > 0) {
+	bool ok = false;
+
+	if (resolver->error() == QDnsLookup::NoError) {
+		if (m_srvQueueRemain > 0) {
+			ok = true;
+		}
+	} else {
+		m_lastError = ServerResolverError(resolver->error(), resolver->errorString());
+	}
+
+	if (ok) {
 		for (int i = 0; i < m_srvQueue.count(); i++) {
 			QDnsServiceRecord record = m_srvQueue.at(i);
 			int hostInfoId = QHostInfo::lookupHost(record.target(), this, SLOT(hostResolved(QHostInfo)));
@@ -99,6 +115,8 @@ void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
 
 		qint64 priority = normalizeSrvPriority(record.priority(), record.weight());
 		m_resolved << ServerResolverRecord(m_origHostname, record.port(), priority, addresses);
+	} else {
+		m_lastError = ServerResolverError(hostInfo.error(), hostInfo.errorString());
 	}
 
 	m_srvQueueRemain -= 1;
@@ -118,6 +136,8 @@ void ServerResolverPrivate::hostFallbackResolved(QHostInfo hostInfo) {
 		}
 
 		m_resolved << ServerResolverRecord(m_origHostname, m_origPort, 0, addresses);
+	} else {
+		m_lastError = ServerResolverError(hostInfo.error(), hostInfo.errorString());
 	}
 
 	emit resolved();
@@ -156,7 +176,16 @@ QList<ServerResolverRecord> ServerResolver::records() {
 	if (d) {
 		return d->records();
 	}
+
 	return QList<ServerResolverRecord>();
+}
+
+ServerResolverError ServerResolver::lastError() {
+	if (d) {
+		return d->lastError();
+	}
+
+	return ServerResolverError(QDnsLookup::NoError, QString());
 }
 
 #include "ServerResolver_qt5.moc"

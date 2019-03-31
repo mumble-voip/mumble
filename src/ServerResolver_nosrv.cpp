@@ -18,11 +18,13 @@ class ServerResolverPrivate : public QObject {
 
 		void resolve(QString hostname, quint16 port);
 		QList<ServerResolverRecord> records();
+		ServerResolverError lastError();
 
 		QString m_origHostname;
 		quint16 m_origPort;
 
 		QList<ServerResolverRecord> m_resolved;
+		ServerResolverError m_lastError;
 
 	signals:
 		void resolved();
@@ -47,6 +49,10 @@ QList<ServerResolverRecord> ServerResolverPrivate::records() {
 	return m_resolved;
 }
 
+ServerResolverError ServerResolverPrivate::lastError() {
+	return m_lastError;
+}
+
 void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
 	if (hostInfo.error() == QHostInfo::NoError) {
 		QList<QHostAddress> resolvedAddresses = hostInfo.addresses();
@@ -58,6 +64,8 @@ void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
 		}
 
 		m_resolved << ServerResolverRecord(m_origHostname, m_origPort, 0, addresses);
+	} else {
+		m_lastError = ServerResolverError(hostInfo.error(), hostInfo.errorString());
 	}
 
 	emit resolved();
@@ -96,7 +104,16 @@ QList<ServerResolverRecord> ServerResolver::records() {
 	if (d) {
 		return d->records();
 	}
+
 	return QList<ServerResolverRecord>();
+}
+
+ServerResolverError ServerResolver::lastError() {
+	if (d) {
+		return d->lastError();
+	}
+
+	return ServerResolverError(QHostInfo::NoError, QString());
 }
 
 #include "ServerResolver_nosrv.moc"

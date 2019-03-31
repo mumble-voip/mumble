@@ -13,6 +13,8 @@
 #include "Net.h" // for HostAddress
 #include "ServerResolverRecord.h"
 
+typedef QPair<uchar, QString> ServerResolverError;
+
 class ServerResolverPrivate;
 
 class ServerResolver : public QObject {
@@ -27,6 +29,7 @@ class ServerResolver : public QObject {
 
 		void resolve(QString hostname, quint16 port);
 		QList<ServerResolverRecord> records();
+		ServerResolverError lastError();
 
 	signals:
 		/// Resolved is fired once the ServerResolver
