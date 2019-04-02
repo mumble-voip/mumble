@@ -833,36 +833,40 @@ int Server::registerUser(const QMap<int, QString> &info) {
 	if (res == -1)
 		return res;
 
-	TransactionHolder th;
-
-	QSqlQuery &query = *th.qsqQuery;
 	int id = 0;
 
-	if (res < 0) {
-		SQLPREP("SELECT MAX(`user_id`)+1 AS id FROM `%1users` WHERE `server_id`=? AND `user_id` < 1000000000");
-		query.addBindValue(iServerNum);
-		SQLEXEC();
-		if (query.next())
-			id = query.value(0).toInt();
-	} else {
-		id = res;
-	}
+	{
+		TransactionHolder th;
+
+		QSqlQuery &query = *th.qsqQuery;
 	
-	if (Meta::mp.qsDBDriver == "QPSQL") {
-		SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (:server_id,:user_id,:name) ON CONFLICT (`server_id`, `name`) DO UPDATE SET `user_id` = :u_user_id WHERE `%1users`.`server_id` = :u_server_id AND `%1users`.`name` = :u_name");
-		query.bindValue(":server_id", iServerNum);
-		query.bindValue(":user_id", id);
-		query.bindValue(":name", name);
-		query.bindValue(":u_server_id", iServerNum);
-		query.bindValue(":u_user_id", id);
-		query.bindValue(":u_name", name);
-		SQLEXEC();
-	} else {
-		SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?,?,?)");
-		query.addBindValue(iServerNum);
-		query.addBindValue(id);
-		query.addBindValue(name);
-		SQLEXEC();
+
+		if (res < 0) {
+			SQLPREP("SELECT MAX(`user_id`)+1 AS id FROM `%1users` WHERE `server_id`=? AND `user_id` < 1000000000");
+			query.addBindValue(iServerNum);
+			SQLEXEC();
+			if (query.next())
+				id = query.value(0).toInt();
+		} else {
+			id = res;
+		}
+
+		if (Meta::mp.qsDBDriver == "QPSQL") {
+			SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (:server_id,:user_id,:name) ON CONFLICT (`server_id`, `name`) DO UPDATE SET `user_id` = :u_user_id WHERE `%1users`.`server_id` = :u_server_id AND `%1users`.`name` = :u_name");
+			query.bindValue(":server_id", iServerNum);
+			query.bindValue(":user_id", id);
+			query.bindValue(":name", name);
+			query.bindValue(":u_server_id", iServerNum);
+			query.bindValue(":u_user_id", id);
+			query.bindValue(":u_name", name);
+			SQLEXEC();
+		} else {
+			SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?,?,?)");
+			query.addBindValue(iServerNum);
+			query.addBindValue(id);
+			query.addBindValue(name);
+			SQLEXEC();
+		}
 	}
 	
 	qhUserNameCache.remove(id);
