@@ -20,3 +20,13 @@ jobs:
       displayName: 'Install build environment'
     - powershell: scripts/azure-pipelines/build.ps1
       displayName: 'Build'
+  - job: macOS
+    pool:
+      vmImage: 'macOS-10.13'
+    steps:
+    - script: git submodule --quiet update --init --recursive
+      displayName: 'Fetch submodules'
+    - script: scripts/azure-pipelines/install-environment_macos.bash
+      displayName: 'Install build environment'
+    - script: scripts/azure-pipelines/build_macos.bash
+      displayName: 'Build'
