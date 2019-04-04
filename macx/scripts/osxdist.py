@@ -296,7 +296,8 @@ def package_client():
 	a.copy_resources(['icons/mumble.icns'])
 	a.update_plist()
 	if not options.universal:
-		a.add_compat_warning()
+		if options.compat_warning:
+			a.add_compat_warning()
 		a.set_min_macosx_version('10.6.0')
 	else:
 		a.set_min_macosx_version('10.4.8')
@@ -388,6 +389,7 @@ if __name__ == '__main__':
 	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
+	parser.add_option('', '--no-compat-warning', dest='compat_warning', help='No warning message when running the image on x86. This option should only be used when the warning application cannot be built as 32 bit (rendering it useless).', action='store_false', default=True)
 	parser.add_option('', '--developer-id', dest='developer_id', help='Identity (Developer ID) to use for code signing. The name is also used for GPG signing. (If not set, no code signing will occur)')
 	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to login.keychain', default='login.keychain')
 	parser.add_option('', '--server', dest='server', help='Build a Murmur package.', action='store_true', default=False)
