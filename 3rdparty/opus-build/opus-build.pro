@@ -20,6 +20,11 @@ VPATH = ../$$SOURCEDIR
 TARGET = opus
 DEFINES += HAVE_CONFIG_H
 
+CONFIG(static) {
+  CONFIG -= static
+  CONFIG += shared
+}
+
 !CONFIG(third-party-warnings) {
   # We ignore warnings in third party builds. We won't actually look
   # at them and they clutter out our warnings.
@@ -32,9 +37,6 @@ QMAKE_CFLAGS -= -fPIE -pie
 win32 {
   DEFINES += WIN32 _WIN32
   INCLUDEPATH += ../$$BUILDDIR/win32
-
-  CONFIG -= static
-  CONFIG += shared
 
   CONFIG(sse2) {
     TARGET_VERSION_EXT = .sse2
