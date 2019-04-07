@@ -264,6 +264,9 @@ QString MumbleSSL::protocolToString(QSsl::SslProtocol protocol) {
 		case QSsl::TlsV1_0: return QLatin1String("TLS 1.0");
 		case QSsl::TlsV1_1: return QLatin1String("TLS 1.1");
 		case QSsl::TlsV1_2: return QLatin1String("TLS 1.2");
+#if QT_VERSION >= 0x050C00
+		case QSsl::TlsV1_3: return QLatin1String("TLS 1.3");
+#endif
 #else
 		case QSsl::TlsV1: return  QLatin1String("TLS 1.0");
 #endif
