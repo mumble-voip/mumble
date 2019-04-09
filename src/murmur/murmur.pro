@@ -43,7 +43,7 @@ win32 {
   RESOURCES *= murmur.qrc
   SOURCES *= Tray.cpp About.cpp
   HEADERS *= Tray.h About.h
-  LIBS *= -luser32
+  LIBS *= -luser32 -ladvapi32
   win32-msvc* {
     QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../mumble/mumble.appcompat.manifest)
   }
