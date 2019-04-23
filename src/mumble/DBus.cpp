@@ -97,3 +97,11 @@ bool MumbleDBus::isSelfMuted() {
 bool MumbleDBus::isSelfDeaf() {
 	return g.s.bDeaf;
 }
+
+void MumbleDBus::startTalking() {
+    g.mw->on_PushToTalk_triggered(true, QVariant());
+}
+
+void MumbleDBus::stopTalking () {
+    g.mw->on_PushToTalk_triggered(false, QVariant());
+}
