@@ -81,8 +81,18 @@ class JackAudioInit : public DeferInit {
 		JackAudioOutputRegistrar *aorJackAudio;
 		void initialize() {
 			jasys = new JackAudioSystem();
-			airJackAudio = new JackAudioInputRegistrar();
-			aorJackAudio = new JackAudioOutputRegistrar();
+			jasys->qmWait.lock();
+			jasys->qwcWait.wait(&jasys->qmWait, 1000);
+			jasys->qmWait.unlock();
+			if (jasys->bJackIsGood) {
+				airJackAudio = new JackAudioInputRegistrar();
+				aorJackAudio = new JackAudioOutputRegistrar();
+			} else {
+				airJackAudio = NULL;
+				aorJackAudio = NULL;
+				delete jasys;
+				jasys = NULL;
+			}
 		}
 
 		void destroy() {
@@ -91,7 +101,6 @@ class JackAudioInit : public DeferInit {
 			if (aorJackAudio)
 				delete aorJackAudio;
 			if (jasys) {
-				jasys->close_jack();
 				delete jasys;
 				jasys = NULL;
 			}
@@ -116,68 +125,59 @@ JackAudioSystem::JackAudioSystem()
 	} else {
 		iOutPorts = g.s.qsJackAudioOutput.toInt();
 	}
-	memset((void*)&out_ports, 0, sizeof(out_ports));
+	memset(reinterpret_cast<void *>(&out_ports), 0, sizeof(out_ports));
 
 	qhInput.insert(QString(), tr("Hardware Ports"));
 	qhOutput.insert(QString::number(1), tr("Mono"));
 	qhOutput.insert(QString::number(2), tr("Stereo"));
-}
 
-void JackAudioSystem::init_jack() {
-	if (bJackIsGood) {
-		return;
-	}
-
-	output_buffer = NULL;
 	jack_status_t status = static_cast<jack_status_t>(0);
 	int err = 0;
 
 	jack_options_t jack_option = g.s.bJackStartServer ? JackNullOption : JackNoStartServer;
 	client = jack_client_open(g.s.qsJackClientName.toStdString().c_str(), jack_option, &status);
 
-	if (client) {
-		qWarning("JackAudioSystem: client \"%s\" opened successfully", jack_get_client_name(client));
-		iBufferSize = jack_get_buffer_size(client);
-		iSampleRate = jack_get_sample_rate(client);
-
-		err = jack_set_process_callback(client, process_callback, this);
-		if (err != 0) {
-			qWarning("JackAudioSystem: unable to set process callback - jack_set_process_callback() returned %i", err);
-			close_jack();
-			return;
-		}
-
-		err = jack_set_sample_rate_callback(client, srate_callback, this);
-		if (err != 0) {
-			qWarning("JackAudioSystem: unable to set sample rate callback - jack_set_sample_rate_callback() returned %i", err);
-			close_jack();
-			return;
-		}
-
-		err = jack_set_buffer_size_callback(client, buffer_size_callback, this);
-		if (err != 0) {
-			qWarning("JackAudioSystem: unable to set buffer size callback - jack_set_buffer_size_callback() returned %i", err);
-			close_jack();
-			return;
-		}
-
-		jack_on_shutdown(client, shutdown_callback, this);
-
-		// If we made it this far, then everything is okay
-		bJackIsGood = true;
-	} else {
+	if (!client) {
 		QStringList errors = jackStatusToStringList(status);
 		qWarning("JackAudioSystem: unable to open client due to %i errors:", errors.count());
 		for (int i = 0; i < errors.count(); ++i) {
-			qWarning("JackAudioSystem:  %s", qPrintable(errors.at(i)));
+			qWarning("JackAudioSystem: %s", qPrintable(errors.at(i)));
 		}
-		bJackIsGood = false;
-		client = NULL;
+
+		return;
 	}
+
+	qWarning("JackAudioSystem: client \"%s\" opened successfully", jack_get_client_name(client));
+	iBufferSize = jack_get_buffer_size(client);
+	iSampleRate = jack_get_sample_rate(client);
+
+	err = jack_set_process_callback(client, process_callback, this);
+	if (err != 0) {
+		qWarning("JackAudioSystem: unable to set process callback - jack_set_process_callback() returned %i", err);
+		return;
+	}
+
+	err = jack_set_sample_rate_callback(client, srate_callback, this);
+	if (err != 0) {
+		qWarning("JackAudioSystem: unable to set sample rate callback - jack_set_sample_rate_callback() returned %i", err);
+		return;
+	}
+
+	err = jack_set_buffer_size_callback(client, buffer_size_callback, this);
+	if (err != 0) {
+		qWarning("JackAudioSystem: unable to set buffer size callback - jack_set_buffer_size_callback() returned %i", err);
+		return;
+	}
+
+	jack_on_shutdown(client, shutdown_callback, this);
+
+	// If we made it this far, then everything is okay
+	bJackIsGood = true;
 }
 
-void JackAudioSystem::close_jack() {
+JackAudioSystem::~JackAudioSystem() {
 	QMutexLocker lock(&qmWait);
+
 	if (client) {
 		int err = 0;
 		err = jack_deactivate(client);
@@ -197,6 +197,7 @@ void JackAudioSystem::close_jack() {
 
 		client = NULL;
 	}
+
 	bJackIsGood = false;
 }
 
@@ -372,14 +373,16 @@ void JackAudioSystem::allocOutputBuffer(jack_nframes_t frames) {
 void JackAudioSystem::initializeInput() {
 	QMutexLocker lock(&qmWait);
 
+	if (!jasys->bJackIsGood) {
+		return;
+	}
+
 	AudioInputPtr ai = g.ai;
 	JackAudioInput * const jai = dynamic_cast<JackAudioInput *>(ai.get());
 
 	if (jai) {
 		jai->qmMutex.lock();
 	}
-
-	init_jack();
 
 	in_port = jack_port_register(client, "input", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
 	if (in_port == NULL) {
@@ -406,16 +409,11 @@ void JackAudioSystem::destroyInput() {
 		int err = jack_port_unregister(client, in_port);
 		if (err != 0)  {
 			qWarning("JackAudioSystem: unable to unregister in port - jack_port_unregister() returned %i", err);
-			bJackIsGood = false;
 			return;
 		}
 	}
 
 	bInputIsGood = false;
-
-	if (!bOutputIsGood) {
-		close_jack();
-	}
 
 	if (jai) {
 		jai->qmMutex.unlock();
@@ -424,6 +422,11 @@ void JackAudioSystem::destroyInput() {
 
 void JackAudioSystem::initializeOutput() {
 	QMutexLocker lock(&qmWait);
+
+	if (!jasys->bJackIsGood) {
+		return;
+	}
+
 	AudioOutputPtr ao = g.ao;
 	JackAudioOutput * const jao = dynamic_cast<JackAudioOutput *>(ao.get());
 
@@ -433,8 +436,6 @@ void JackAudioSystem::initializeOutput() {
 		jao->qmMutex.lock();
 	}
 
-	init_jack();
-
 	for (unsigned int i = 0; i < iOutPorts; ++i) {
 		char name[10];
 		snprintf(name, 10, "output_%d", i + 1);
@@ -442,7 +443,6 @@ void JackAudioSystem::initializeOutput() {
 		out_ports[i] = jack_port_register(client, name, JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
 		if (out_ports[i] == NULL) {
 			qWarning("JackAudioSystem: unable to register 'output' port");
-			bJackIsGood = false;
 			break;
 		}
 	}
@@ -476,10 +476,6 @@ void JackAudioSystem::destroyOutput() {
 	}
 
 	bOutputIsGood = false;
-
-	if (!bInputIsGood) {
-		close_jack();
-	}
 
 	if (jao) {
 		jao->qmMutex.unlock();
@@ -578,7 +574,7 @@ void JackAudioInput::run() {
 
 	jasys->initializeInput();
 
-	if (!jasys->bJackIsGood) {
+	if (!jasys->bInputIsGood) {
 		exit(1);
 	}
 
@@ -617,7 +613,7 @@ void JackAudioOutput::run() {
 
 	jasys->initializeOutput();
 
-	if (!jasys->bJackIsGood) {
+	if (!jasys->bOutputIsGood) {
 		exit(1);
 	}
 
