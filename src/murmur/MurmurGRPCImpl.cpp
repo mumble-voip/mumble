@@ -1506,8 +1506,10 @@ void V1_ChannelAdd::impl(bool) {
 
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
-		nc = server->addChannel(parent, qsName);
+		nc = server->addChannel(parent, qsName, request.temporary(), request.position());
 	}
+
+	nc->qsDesc = u8(request.description());
 
 	server->updateChannel(nc);
 	int newid = nc->iId;
@@ -1516,6 +1518,9 @@ void V1_ChannelAdd::impl(bool) {
 	mpcs.set_channel_id(newid);
 	mpcs.set_parent(parent->iId);
 	mpcs.set_name(request.name());
+	mpcs.set_temporary(request.temporary());
+	mpcs.set_position(request.position());
+	mpcs.set_description(request.description());
 	server->sendAll(mpcs);
 
 	::MurmurRPC::Channel resChannel;
