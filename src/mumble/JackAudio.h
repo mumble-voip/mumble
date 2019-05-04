@@ -48,9 +48,7 @@ class JackAudioSystem : public QObject {
 		int iSampleRate;
 		unsigned int iOutPorts;
 		QMutex qmWait;
-
-		void init_jack();
-		void close_jack();
+		QWaitCondition qwcWait;
 
 		void activate();
 
@@ -61,6 +59,7 @@ class JackAudioSystem : public QObject {
 		void destroyOutput();
 
 		JackAudioSystem();
+		~JackAudioSystem();
 };
 
 class JackAudioInput : public AudioInput {
