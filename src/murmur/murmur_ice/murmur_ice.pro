@@ -56,11 +56,6 @@ unix:!macx:CONFIG(buildenv) {
   slice.commands = $$(MUMBLE_ICE_PREFIX)/bin/slice2cpp --checksum -I$$(MUMBLE_ICE_PREFIX)/slice/ ../Murmur.ice
 }
 
-unix:!macx:CONFIG(static) {
-  INCLUDEPATH *= /opt/Ice-3.3/include
-  slice.commands = /opt/Ice-3.3/bin/slice2cpp --checksum -I/opt/Ice-3.3/slice ../Murmur.ice
-}
-
 macx:CONFIG(static) {
   LIBS *= -lbz2 -liconv
   QMAKE_CXXFLAGS *= -fPIC

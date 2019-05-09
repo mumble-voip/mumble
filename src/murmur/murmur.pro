@@ -136,8 +136,6 @@ ice {
   }
 
   unix:!macx:CONFIG(static) {
-    INCLUDEPATH *= /opt/Ice-3.3/include
-    QMAKE_LIBDIR *= /opt/Ice-3.3/lib
     LIBS *= -lbz2
     QMAKE_CXXFLAGS *= -fPIC
   }
