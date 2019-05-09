@@ -3113,7 +3113,11 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 		case QSystemTrayIcon::Trigger:
 		case QSystemTrayIcon::DoubleClick:
 		case QSystemTrayIcon::MiddleClick:
+		if (isMinimized()) {
 			showRaiseWindow();
+		} else {
+			showMinimized();
+		}
 		default: break;
 	}
 }
