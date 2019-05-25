@@ -112,31 +112,13 @@ int BandwidthRecord::bandwidth() const {
 	return static_cast<int>((sum * 1000000ULL) / elapsed);
 }
 
-#if __cplusplus > 199711LL
-
-inline static
-time_point now() {
-	return std::chrono::steady_clock::now();
+inline static QTime now() {
+	return QTime::currentTime();
 }
 
-inline static
-unsigned long millisecondsBetween(time_point start, time_point end) {
-	return std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+inline static int millisecondsBetween(const QTime &start, const QTime &end) {
+	return start.msecsTo(end);
 }
-
-#else
-
-inline static
-time_point now() {
-	return clock();
-}
-
-inline static
-unsigned long millisecondsBetween(time_point start, time_point end) {
-	return 1000 * (end - start) / CLOCKS_PER_SEC;
-}
-
-#endif
 
 // Rate limiting: burst up to 5, 1 message per sec limit over longer time
 LeakyBucket::LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens) : tokensPerSec(tokensPerSec), maxTokens(maxTokens), currentTokens(0) {
@@ -145,10 +127,10 @@ LeakyBucket::LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens) : to
 
 bool LeakyBucket::ratelimit(int tokens) {
 	// First remove tokens we leaked over time
-	time_point tnow = now();
-	long ms = millisecondsBetween(lastUpdate, tnow);
+	const QTime tnow = now();
+	const long ms = millisecondsBetween(lastUpdate, tnow);
 
-	long drainTokens = (ms * tokensPerSec) / 1000;
+	const long drainTokens = (ms * tokensPerSec) / 1000;
 
 	// Prevent constant starvation due to too many updates
 	if (drainTokens > 0) {
