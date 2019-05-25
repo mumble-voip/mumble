@@ -120,7 +120,10 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 	return suppress ? NULL : event;
 }
 
-GlobalShortcutMac::GlobalShortcutMac() : modmask(static_cast<CGEventFlags>(0)) {
+GlobalShortcutMac::GlobalShortcutMac()
+    : loop(Q_NULLPTR)
+    , port(Q_NULLPTR)
+    , modmask(static_cast<CGEventFlags>(0)) {
 #ifndef QT_NO_DEBUG
 	qWarning("GlobalShortcutMac: Debug build detected. Disabling shortcut engine.");
 	return;
@@ -186,9 +189,11 @@ GlobalShortcutMac::~GlobalShortcutMac() {
 #ifndef QT_NO_DEBUG
 	return;
 #endif
-	CFRunLoopStop(loop);
-	loop = NULL;
-	wait();
+	if (loop) {
+		CFRunLoopStop(loop);
+		loop = Q_NULLPTR;
+		wait();
+	}
 }
 
 void GlobalShortcutMac::dumpEventTaps() {
@@ -445,10 +450,17 @@ QString GlobalShortcutMac::buttonName(const QVariant &v) {
 }
 
 void GlobalShortcutMac::setEnabled(bool b) {
-	CGEventTapEnable(port, b);
+	// Since Mojave, passing NULL to CGEventTapEnable() segfaults.
+	if (port) {
+		CGEventTapEnable(port, b);
+	}
 }
 
 bool GlobalShortcutMac::enabled() {
+	if (!port) {
+		return false;
+	}
+
 	return CGEventTapIsEnabled(port);
 }
 
