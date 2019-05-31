@@ -2045,7 +2045,7 @@ void V1_DatabaseUserUpdate::impl(bool) {
 				QString name = u->qsName;
 				QString comment = u->qsComment;
 				if (info.contains(ServerDB::User_Name)) {
-					comment = info.value(ServerDB::User_Name);
+					name = info.value(ServerDB::User_Name);
 				}
 				if (info.contains(ServerDB::User_Comment)) {
 					comment = info.value(ServerDB::User_Comment);
