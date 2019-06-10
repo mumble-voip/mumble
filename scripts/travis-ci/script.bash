@@ -17,7 +17,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
-		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" -recursive && make -j2 && make check
+		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" DEFINES+="MUMBLE_VERSION=$TRAVIS_COMMIT" -recursive && make -j2 && make check
 		# The next few lines should really be done by "make install"; https://github.com/mumble-voip/mumble/issues/1029
 		mkdir -p appdir/usr/bin appdir/usr/lib/mumble appdir/usr/share/metainfo/ appdir/usr/share/icons/scalable/apps/ appdir/usr/share/applications/
 		cp release/lib* appdir/usr/lib/
