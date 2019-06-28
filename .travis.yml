@@ -2,6 +2,14 @@ sudo: required # Required for apt-get build-dep
 language: cpp
 compiler: gcc
 
+addons:
+  sonarcloud:
+    organization: "mumble-voip"
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
 matrix:
   include:
     - os: linux
