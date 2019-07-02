@@ -1,0 +1,9 @@
+extraction:
+  cpp:
+    prepare:
+      packages:
+      - "libqt5webengine-data"
+      - "libqt5svg5-dev"
+    configure:
+      command:
+      - "qmake -recursive CONFIG+='release tests g15-emulator'"
