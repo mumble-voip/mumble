@@ -30,13 +30,13 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			make -j2 && make check
 
 			# The next few lines should really be done by "make install"; https://github.com/mumble-voip/mumble/issues/1029
-			mkdir -p appdir/usr/bin appdir/usr/lib/mumble appdir/usr/share/metainfo/ appdir/usr/share/icons/scalable/apps/ appdir/usr/share/applications/
+			mkdir -p appdir/usr/bin appdir/usr/lib/mumble appdir/usr/share/metainfo/ appdir/usr/share/icons/hicolor/scalable/apps/ appdir/usr/share/applications/
 			cp release/lib* appdir/usr/lib/
 			cp release/mumble appdir/usr/bin
 			cp release/plugins/lib* appdir/usr/lib/mumble/
 			cp scripts/mumble.desktop appdir/usr/share/applications/
 			cp scripts/mumble.appdata.xml appdir/usr/share/metainfo/
-			cp icons/mumble.svg appdir/usr/share/icons/scalable/apps/
+			cp icons/mumble.svg appdir/usr/share/icons/hicolor/scalable/apps/
 			wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 			chmod a+x linuxdeployqt-continuous-x86_64.AppImage
 			./linuxdeployqt-continuous-x86_64.AppImage $(find $HOME -type d -name 'appdir'| head -n 1)/usr/share/applications/*.desktop -appimage -extra-plugins=sqldrivers/libqsqlite.so
