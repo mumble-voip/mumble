@@ -5,6 +5,12 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+if [ "${TRAVIS_REPO_SLUG}" == "mumble-voip/mumble" ] && [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then
+		if [ "${TRAVIS_BRANCH}" == "master" ]; then
+			MASTER_BRANCH=1
+		fi
+fi
+
 if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	if [ "${MUMBLE_QT}" == "qt4" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		EXTRA_CONFIG=
@@ -18,7 +24,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" DEFINES+="MUMBLE_VERSION=${TRAVIS_COMMIT:0:7}" -recursive
-		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
+		if [ "${MUMBLE_NO_PCH}" == "1" ] && [ "${MASTER_BRANCH}" = "1" ]; then
 			# Wraps the compilation with the Build Wrapper to generate the configuration used later by the SonarQube Scanner.
 			mkdir build
 			build-wrapper-linux-x86-64 --out-dir build/sonar make -j 2
@@ -29,19 +35,21 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		else
 			make -j2 && make check
 
-			# The next few lines should really be done by "make install"; https://github.com/mumble-voip/mumble/issues/1029
-			mkdir -p appdir/usr/bin appdir/usr/lib/mumble appdir/usr/share/metainfo/ appdir/usr/share/icons/hicolor/scalable/apps/ appdir/usr/share/applications/
-			cp release/lib* appdir/usr/lib/
-			cp release/mumble appdir/usr/bin
-			cp release/plugins/lib* appdir/usr/lib/mumble/
-			cp scripts/mumble.desktop appdir/usr/share/applications/
-			cp scripts/mumble.appdata.xml appdir/usr/share/metainfo/
-			cp icons/mumble.svg appdir/usr/share/icons/hicolor/scalable/apps/
-			wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-			chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-			./linuxdeployqt-continuous-x86_64.AppImage $(find $HOME -type d -name 'appdir'| head -n 1)/usr/share/applications/*.desktop -appimage -extra-plugins=sqldrivers/libqsqlite.so
-			wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-			bash upload.sh Mumble*.AppImage*
+			if [ "${MASTER_BRANCH}" = "1" ]; then
+				# The next few lines should really be done by "make install"; https://github.com/mumble-voip/mumble/issues/1029
+				mkdir -p appdir/usr/bin appdir/usr/lib/mumble appdir/usr/share/metainfo/ appdir/usr/share/icons/hicolor/scalable/apps/ appdir/usr/share/applications/
+				cp release/lib* appdir/usr/lib/
+				cp release/mumble appdir/usr/bin
+				cp release/plugins/lib* appdir/usr/lib/mumble/
+				cp scripts/mumble.desktop appdir/usr/share/applications/
+				cp scripts/mumble.appdata.xml appdir/usr/share/metainfo/
+				cp icons/mumble.svg appdir/usr/share/icons/hicolor/scalable/apps/
+				wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+				chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+				./linuxdeployqt-continuous-x86_64.AppImage $(find $HOME -type d -name 'appdir'| head -n 1)/usr/share/applications/*.desktop -appimage -extra-plugins=sqldrivers/libqsqlite.so
+				wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+				bash upload.sh Mumble*.AppImage*
+			fi
 		fi
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		wget http://www.steinberg.net/sdk_downloads/asiosdk2.3.zip -P ../
