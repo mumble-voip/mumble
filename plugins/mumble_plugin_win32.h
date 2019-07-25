@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_PLUGIN_WIN32_H_
 #define MUMBLE_MUMBLE_PLUGIN_WIN32_H_
 
+#include "mumble_plugin_main.h"
+
 #define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,16 +23,11 @@
 #include <iostream>
 #include <stdint.h>
 
-#include "mumble_plugin.h"
-
-DWORD dwPid;
-int is64Bit;
 static HANDLE hProcess;
-static procptr_t pModule;
 
-static inline DWORD getProcess(const wchar_t *exename) {
+static inline procid_t getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
-	DWORD pid = 0;
+	procid_t pid = 0;
 
 	pe.dwSize = sizeof(pe);
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -49,8 +46,7 @@ static inline DWORD getProcess(const wchar_t *exename) {
 	return pid;
 }
 
-static inline int checkProcessIs64Bit(const DWORD pid)
-{
+static inline int checkProcessIs64Bit(const procid_t &pid) {
 	// This function returns 0 if the process is 32-bit and 1 if it's 64-bit.
 	// In case of failure, it returns -1.
 
@@ -75,7 +71,7 @@ static inline int checkProcessIs64Bit(const DWORD pid)
 	return !is32;
 }
 
-static inline procptr_t getModuleAddr(DWORD pid, const wchar_t *modname) {
+static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modname) {
 	MODULEENTRY32 me;
 	procptr_t ret = 0;
 	me.dwSize = sizeof(me);
@@ -96,70 +92,49 @@ static inline procptr_t getModuleAddr(DWORD pid, const wchar_t *modname) {
 	return ret;
 }
 
-static inline procptr_t getModuleAddr(const wchar_t *modname) {
-	return getModuleAddr(dwPid, modname);
-}
-
-static inline bool peekProc(procptr_t base, VOID *dest, SIZE_T len) {
+static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len) {
 	SIZE_T r;
-	uintptr_t addr = static_cast<uintptr_t>(base);
-	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(addr), dest, len, &r);
+	const BOOL ok = ReadProcessMemory(hProcess, reinterpret_cast<void *>(addr), dest, len, &r);
 	return (ok && (r == len));
-}
-
-template<class T>
-bool peekProc(procptr_t base, T &dest) {
-	SIZE_T r;
-	uintptr_t addr = static_cast<uintptr_t>(base);
-	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(addr), reinterpret_cast<VOID *>(& dest), sizeof(T), &r);
-	return (ok && (r == sizeof(T)));
-}
-
-static inline procptr_t peekProcPtr(procptr_t base) {
-	procptr_t v = 0;
-	
-	if (!peekProc(base, &v, is64Bit ? 8 : 4)) {
-		return 0;
-	}
-	
-	return v;
 }
 
 static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
 	hProcess = NULL;
 	pModule = 0;
 
-	if (! pids.empty()) {
+	if (!pids.empty()) {
 		std::multimap<std::wstring, unsigned long long int>::const_iterator iter = pids.find(std::wstring(procname));
 
 		if (iter != pids.end())
-			dwPid = static_cast<DWORD>(iter->second);
+			pPid = static_cast<procid_t>(iter->second);
 		else
-			dwPid = 0;
+			pPid = 0;
 	} else {
-		dwPid=getProcess(procname);
+		pPid = getProcess(procname);
 	}
 
-	if (!dwPid)
+	if (!pPid)
 		return false;
 
-	int result = checkProcessIs64Bit(dwPid);
+	const int result = checkProcessIs64Bit(pPid);
 	if (result == -1) {
-		dwPid = 0;
+		pPid = 0;
 		return false;
 	}
 
-	is64Bit = result;
+	// We compare to 1 to prevent the following warning:
+	// C4800: 'BOOL': forcing value to bool 'true' or 'false' (performance warning)
+	is64Bit = (result == 1);
 
-	pModule=getModuleAddr(modname ? modname : procname);
+	pModule = getModuleAddr(modname ? modname : procname);
 	if (!pModule) {
-		dwPid = 0;
+		pPid = 0;
 		return false;
 	}
 
-	hProcess=OpenProcess(PROCESS_VM_READ, false, dwPid);
+	hProcess = OpenProcess(PROCESS_VM_READ, false, pPid);
 	if (!hProcess) {
-		dwPid = 0;
+		pPid = 0;
 		pModule = 0;
 		return false;
 	}
@@ -172,7 +147,7 @@ static void generic_unlock() {
 		CloseHandle(hProcess);
 		hProcess = NULL;
 		pModule = 0;
-		dwPid = 0;
+		pPid = 0;
 	}
 }
 
