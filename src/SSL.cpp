@@ -214,7 +214,7 @@ void MumbleSSL::addSystemCA() {
 
 #if QT_VERSION >= 0x040800
 	// Don't perform on-demand loading of root certificates
-	QSslSocket::addDefaultCaCertificates(QSslSocket::systemCaCertificates());
+	QSslSocket::addDefaultCaCertificates(QSslConfiguration::systemCaCertificates());
 #endif
 
 #ifdef Q_OS_WIN
