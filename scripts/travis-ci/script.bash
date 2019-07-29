@@ -28,22 +28,6 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			sonar-scanner
 		else
 			make -j2 && make check
-
-			if [ "${MASTER_BRANCH}" = "1" ]; then
-				# The next few lines should really be done by "make install"; https://github.com/mumble-voip/mumble/issues/1029
-				mkdir -p appdir/usr/bin appdir/usr/lib/mumble appdir/usr/share/metainfo/ appdir/usr/share/icons/hicolor/scalable/apps/ appdir/usr/share/applications/
-				cp release/lib* appdir/usr/lib/
-				cp release/mumble appdir/usr/bin
-				cp release/plugins/lib* appdir/usr/lib/mumble/
-				cp scripts/mumble.desktop appdir/usr/share/applications/
-				cp scripts/mumble.appdata.xml appdir/usr/share/metainfo/
-				cp icons/mumble.svg appdir/usr/share/icons/hicolor/scalable/apps/
-				wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-				chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-				./linuxdeployqt-continuous-x86_64.AppImage $(find $HOME -type d -name 'appdir'| head -n 1)/usr/share/applications/*.desktop -appimage -extra-plugins=sqldrivers/libqsqlite.so
-				wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-				bash upload.sh Mumble*.AppImage*
-			fi
 		fi
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		wget http://www.steinberg.net/sdk_downloads/asiosdk2.3.zip -P ../
