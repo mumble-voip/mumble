@@ -99,7 +99,9 @@ ServerHandler::ServerHandler()
 			qFatal("Invalid 'net/sslciphers' config option. Either the cipher string is invalid or none of the ciphers are available:: \"%s\"", qPrintable(g.s.qsSslCiphers));
 		}
 
-		QSslSocket::setDefaultCiphers(ciphers);
+		QSslConfiguration config = QSslConfiguration::defaultConfiguration();
+		config.setCiphers(ciphers);
+		QSslConfiguration::setDefaultConfiguration(config);
 
 		QStringList pref;
 		foreach (QSslCipher c, ciphers) {
@@ -317,9 +319,11 @@ void ServerHandler::run() {
 		if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
 			qtsSock->setPrivateKey(g.s.kpCertificate.second);
 			qtsSock->setLocalCertificate(g.s.kpCertificate.first.at(0));
-			QList<QSslCertificate> certs = qtsSock->caCertificates();
+			QSslConfiguration config = qtsSock->sslConfiguration();
+			QList<QSslCertificate> certs = config.caCertificates();
 			certs << g.s.kpCertificate.first;
-			qtsSock->setCaCertificates(certs);
+			config.setCaCertificates(certs);
+			qtsSock->setSslConfiguration(config);
 		}
 
 		{
