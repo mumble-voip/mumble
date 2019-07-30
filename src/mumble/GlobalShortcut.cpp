@@ -49,7 +49,7 @@ void ShortcutKeyWidget::focusInEvent(QFocusEvent *) {
 	setText(tr("Press Shortcut"));
 
 	QPalette pal=parentWidget()->palette();
-	pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
+	pal.setColor(QPalette::Base, pal.color(QPalette::Base).darker(120));
 	setPalette(pal);
 
 	setForegroundRole(QPalette::Button);
