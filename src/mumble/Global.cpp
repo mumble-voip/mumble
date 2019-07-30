@@ -135,7 +135,7 @@ Global::Global() {
 	foreach(const QString &dir, qsl) {
 		QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(dir));
 		if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
-			qdBasePath = dir;
+			qdBasePath.setPath(dir);
 			qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
 			break;
 		}
@@ -149,9 +149,9 @@ Global::Global() {
 #else
 		migrateDataDir();
 #if QT_VERSION >= 0x050000
-		qdBasePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+		qdBasePath.setPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
 #else
-		qdBasePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+		qdBasePath.setPath(QDesktopServices::storageLocation(QDesktopServices::DataLocation));
 #endif
 #endif
 		if (! qdBasePath.exists()) {
