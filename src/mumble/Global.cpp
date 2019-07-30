@@ -18,7 +18,7 @@ static void migrateDataDir() {
 #else
 	QString newdir = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif // QT_VERSION
-	QString linksTo = QFile::readLink(olddir);
+	QString linksTo = QFile::symLinkTarget(olddir);
 	if (!QFile::exists(newdir) && QFile::exists(olddir) && linksTo.isEmpty()) {
 		QDir d;
 		d.mkpath(newdir + QLatin1String("/.."));
