@@ -165,7 +165,7 @@ void BanEditor::on_qpbRemove_clicked() {
 void BanEditor::refreshBanList() {
 	qlwBans->clear();
 
-	qSort(qlBans);
+	std::sort(qlBans.begin(), qlBans.end());
 
 	foreach(const Ban &ban, qlBans) {
 		const QHostAddress &addr=ban.haAddress.toAddress();

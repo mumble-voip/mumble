@@ -733,7 +733,7 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 }
 
 void GlobalShortcutConfig::reload() {
-	qStableSort(qlShortcuts);
+	std::stable_sort(qlShortcuts.begin(), qlShortcuts.end());
 	qtwShortcuts->clear();
 	foreach(const Shortcut &sc, qlShortcuts) {
 		QTreeWidgetItem *item = itemForShortcut(sc);

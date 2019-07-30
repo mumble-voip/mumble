@@ -337,12 +337,13 @@ void LCD::updateUserView() {
 			entries << ListEntry(QLatin1String("-") + qmNameCache.value(session), false, false);
 		}
 
-		if (! qmOld.isEmpty() || hasnew || ! qmSpeaking.isEmpty())
+		if (!qmOld.isEmpty() || hasnew || !qmSpeaking.isEmpty()) {
 			qtTimer->start(500);
-		else
+		} else {
 			qtTimer->stop();
+		}
 
-		qSort(++ entries.begin(), entries.end(), entriesSort);
+		std::sort(++entries.begin(), entries.end(), entriesSort);
 
 		const int iWidth = size.width();
 		const int iHeight = size.height();

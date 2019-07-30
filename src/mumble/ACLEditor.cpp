@@ -499,7 +499,7 @@ void ACLEditor::fillWidgetFromSet(QListWidget *qlw, const QSet<int> &qs) {
 	foreach(int pid, qs) {
 		ql << idname(userName(pid), pid);
 	}
-	qStableSort(ql);
+	std::stable_sort(ql.begin(), ql.end());
 	foreach(idname i, ql) {
 		QListWidgetItem *qlwi = new QListWidgetItem(i.first, qlw);
 		qlwi->setData(Qt::UserRole, i.second);

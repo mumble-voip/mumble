@@ -144,7 +144,7 @@ int ModelItem::insertIndex(Channel *c) const {
 			ocount++;
 	}
 	qlpc << c;
-	qSort(qlpc.begin(), qlpc.end(), Channel::lessThan);
+	std::sort(qlpc.begin(), qlpc.end(), Channel::lessThan);
 	return qlpc.indexOf(c) + (bUsersTop ? ocount : 0);
 }
 
@@ -163,7 +163,7 @@ int ModelItem::insertIndex(ClientUser *p) const {
 	}
 
 	qlclientuser << p;
-	qSort(qlclientuser.begin(), qlclientuser.end(), ClientUser::lessThan);
+	std::sort(qlclientuser.begin(), qlclientuser.end(), ClientUser::lessThan);
 
 	return qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount);
 }

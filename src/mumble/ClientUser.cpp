@@ -267,7 +267,7 @@ bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *seco
 void ClientUser::sortUsersOverlay(QList<ClientUser *> &list) {
 	QReadLocker lock(&c_qrwlUsers);
 
-	qSort(list.begin(), list.end(), ClientUser::lessThanOverlay);
+	std::sort(list.begin(), list.end(), ClientUser::lessThanOverlay);
 }
 
 bool ClientUser::isActive() {
