@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_main.h"
 
 /*
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update

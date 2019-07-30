@@ -35,7 +35,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */ 
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_main.h"
+
 #include <algorithm>
 
 procptr_t vects_ptr;

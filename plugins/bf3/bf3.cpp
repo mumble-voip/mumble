@@ -36,7 +36,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_main.h"
+
 static bool ptr_chain_valid = false;
 
 // Magic ptrs

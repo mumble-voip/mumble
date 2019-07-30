@@ -6,7 +6,9 @@
 #ifndef MUMBLE_MUMBLE_PLUGIN_WIN32_H_
 #define MUMBLE_MUMBLE_PLUGIN_WIN32_H_
 
-#include "mumble_plugin_main.h"
+# ifndef MUMBLE_PLUGIN_MAIN_H_
+#  error "Include mumble_plugin_main.h instead of mumble_plugin_win32.h"
+# endif
 
 #define _USE_MATH_DEFINES
 #include <stdio.h>
@@ -98,8 +100,8 @@ static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len
 	return (ok && (r == len));
 }
 
-static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
-	hProcess = NULL;
+static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
+	hProcess = nullptr;
 	pModule = 0;
 
 	if (!pids.empty()) {
@@ -145,7 +147,7 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 static void generic_unlock() {
 	if (hProcess) {
 		CloseHandle(hProcess);
-		hProcess = NULL;
+		hProcess = nullptr;
 		pModule = 0;
 		pPid = 0;
 	}

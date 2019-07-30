@@ -6,6 +6,10 @@
 #ifndef MUMBLE_PLUGIN_LINUX_H_
 #define MUMBLE_PLUGIN_LINUX_H_
 
+# ifndef MUMBLE_PLUGIN_MAIN_H_
+#  error "Include mumble_plugin_main.h instead of mumble_plugin_linux.h"
+# endif
+
 #include <sys/uio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,8 +19,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
-#include "mumble_plugin.h"
 
 static inline std::string readAll(const std::string &fn) {
 	std::ifstream ifs;
@@ -168,7 +170,7 @@ static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modnam
 			if (pathname.size() > lastSlash + 1) {
 				std::string basename = pathname.substr(lastSlash + 1);
 				if (basename == modnameNonWide) {
-					unsigned long addr = strtoul(baseaddr.c_str(), NULL, 16);
+					unsigned long addr = strtoul(baseaddr.c_str(), nullptr, 16);
 					return addr;
 				}
 			}
@@ -192,7 +194,7 @@ static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len
 	return (nread != -1 && static_cast<size_t>(nread) == in.iov_len);
 }
 
-static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
+static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
 	pModule = 0;
 
 	if (! pids.empty()) {

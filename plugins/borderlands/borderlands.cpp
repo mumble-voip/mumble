@@ -34,7 +34,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_main.h"
 
 procptr_t posptr, frontptr, topptr, contextptraddress, stateaddress, loginaddress;
 
