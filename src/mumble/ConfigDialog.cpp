@@ -151,7 +151,11 @@ void ConfigDialog::updateListView() {
 	int configNavbarWidth = 0;
 
 	foreach(ConfigWidget *cw, qmWidgets) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+		configNavbarWidth = qMax(configNavbarWidth, qfm.horizontalAdvance(cw->title()));
+#else
 		configNavbarWidth = qMax(configNavbarWidth, qfm.width(cw->title()));
+#endif
 
 		QListWidgetItem *i = new QListWidgetItem(qlwIcons);
 		i->setIcon(cw->icon());
