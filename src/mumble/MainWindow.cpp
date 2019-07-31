@@ -45,6 +45,7 @@
 #include "Settings.h"
 #include "Themes.h"
 #include "SSLCipherInfo.h"
+#include "Screen.h"
 #include "SvgIcon.h"
 
 #ifdef Q_OS_WIN
@@ -3075,9 +3076,7 @@ void MainWindow::trayAboutToShow() {
 		p = QCursor::pos();
 	}
 
-	QDesktopWidget dw;
-
-	QRect qr = dw.screenGeometry(p);
+	QRect qr = Screen::screenAt(p)->geometry();
 
 	if (p.y() < (qr.height() / 2))
 		top = true;

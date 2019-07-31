@@ -328,20 +328,19 @@ static bool channelFiltered(const Channel *c)
 void UserView::updateChannel(const QModelIndex &idx) {
 	UserModel *um = static_cast<UserModel *>(model());
 
-	if(!idx.isValid())
+	if (!idx.isValid()) {
 		return;
-
-	Channel * c = um->getChannel(idx);
-
-
-	for(int i = 0; idx.child(i, 0).isValid(); ++i) {
-		updateChannel(idx.child(i,0));
 	}
 
-	if(c && idx.parent().isValid()) {
+	Channel *c = um->getChannel(idx);
 
-		if(g.s.bFilterActive == false) {
-			setRowHidden(idx.row(),idx.parent(),false);
+	for (int i = 0; idx.model()->index(i, 0, idx).isValid(); ++i) {
+		updateChannel(idx.model()->index(i, 0, idx));
+	}
+
+	if (c && idx.parent().isValid()) {
+		if (g.s.bFilterActive == false) {
+			setRowHidden(idx.row(), idx.parent(), false);
 		} else {
 			bool isChannelUserIsIn = false;
 			

@@ -61,7 +61,7 @@ void AudioBar::paintEvent(QPaintEvent *) {
 
 	if (g.s.bHighContrast) {
 		// Draw monochrome representation
-		QColor fg = QPalette().foreground().color();
+		QColor fg = QPalette().windowText().color();
 
 		p.fillRect(0, 0, below, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcBelow), Qt::CrossPattern)));
 		p.fillRect(below, 0, above - below, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcInside), Qt::NoBrush)));

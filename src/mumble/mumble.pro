@@ -142,6 +142,7 @@ HEADERS *= BanEditor.h \
     DeveloperConsole.h \
     PathListWidget.h \
     XMLTools.h \
+    Screen.h \
     SvgIcon.h
 
 SOURCES *= BanEditor.cpp \
@@ -212,6 +213,7 @@ SOURCES *= BanEditor.cpp \
     DeveloperConsole.cpp \
     PathListWidget.cpp \
     XMLTools.cpp \
+    Screen.cpp \
     SvgIcon.cpp
 
 CONFIG(qtspeech) {

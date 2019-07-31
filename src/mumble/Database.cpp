@@ -16,7 +16,7 @@
 static void logSQLError(const QSqlQuery &query) {
 	const QSqlError error(query.lastQuery());
 	qWarning() << "SQL Query failed" << query.lastQuery();
-	qWarning() << error.number() << query.lastError().text();
+	qWarning() << error.nativeErrorCode() << query.lastError().text();
 }
 
 static bool execQueryAndLogFailure(QSqlQuery &query) {

@@ -49,7 +49,7 @@ void ShortcutKeyWidget::focusInEvent(QFocusEvent *) {
 	setText(tr("Press Shortcut"));
 
 	QPalette pal=parentWidget()->palette();
-	pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
+	pal.setColor(QPalette::Base, pal.color(QPalette::Base).darker(120));
 	setPalette(pal);
 
 	setForegroundRole(QPalette::Button);
@@ -530,7 +530,12 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 #ifdef Q_OS_MAC
 	// Help Mac users enable accessibility access for Mumble...
+# if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
+	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
+	if (current >= QOperatingSystemVersion::OSXMavericks) {
+# else
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
+# endif
 		qpbOpenAccessibilityPrefs->setHidden(true);
 		label->setText(tr(
 			"<html><head/><body>"
@@ -566,7 +571,12 @@ bool GlobalShortcutConfig::eventFilter(QObject* /*object*/, QEvent *e) {
 bool GlobalShortcutConfig::showWarning() const {
 #ifdef Q_OS_MAC
 # if MAC_OS_X_VERSION_MAX_ALLOWED >= 1090
+#  if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
+	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
+	if (current >= QOperatingSystemVersion::OSXMavericks) {
+#  else
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
+#  endif
 		return !AXIsProcessTrustedWithOptions(NULL);
 	} else
 # endif
@@ -733,7 +743,7 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 }
 
 void GlobalShortcutConfig::reload() {
-	qStableSort(qlShortcuts);
+	std::stable_sort(qlShortcuts.begin(), qlShortcuts.end());
 	qtwShortcuts->clear();
 	foreach(const Shortcut &sc, qlShortcuts) {
 		QTreeWidgetItem *item = itemForShortcut(sc);

@@ -13,6 +13,7 @@
 #include "MainWindow.h"
 #include "NetworkConfig.h"
 #include "RichTextEditor.h"
+#include "Screen.h"
 #include "ServerHandler.h"
 #include "TextToSpeech.h"
 
@@ -380,10 +381,9 @@ QString Log::imageToImg(QImage img) {
 }
 
 QString Log::validHtml(const QString &html, QTextCursor *tc) {
-	QDesktopWidget dw;
 	LogDocument qtd;
 
-	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
+	QRectF qr = Screen::screenFromWidget(*g.mw)->availableGeometry();
 	qtd.setTextWidth(qr.width() / 2);
 	qtd.setDefaultStyleSheet(qApp->styleSheet());
 

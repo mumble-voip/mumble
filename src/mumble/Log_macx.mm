@@ -71,7 +71,12 @@ static bool growl_available() {
 void Log::postNotification(MsgType mt, const QString &plain) {
 	QString title = msgName(mt);
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
+# if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
+	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
+	if (current.majorVersion() > 10 || (current.majorVersion() == 10 && current.minorVersion() >= 8)) {
+# else
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MOUNTAINLION) {
+# endif
 		NSUserNotificationCenter *userNotificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
 		if (userNotificationCenter.delegate == nil) {
 			// We hand the delegate property a delegate with a retain count of 1.  We don't keep

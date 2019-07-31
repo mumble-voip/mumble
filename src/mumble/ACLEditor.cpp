@@ -499,7 +499,7 @@ void ACLEditor::fillWidgetFromSet(QListWidget *qlw, const QSet<int> &qs) {
 	foreach(int pid, qs) {
 		ql << idname(userName(pid), pid);
 	}
-	qStableSort(ql);
+	std::stable_sort(ql.begin(), ql.end());
 	foreach(idname i, ql) {
 		QListWidgetItem *qlwi = new QListWidgetItem(i.first, qlw);
 		qlwi->setData(Qt::UserRole, i.second);
@@ -752,7 +752,11 @@ void ACLEditor::on_qpbACLUp_clicked() {
 	if (idx <= numInheritACL + 1)
 		return;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+	qlACLs.swapItemsAt(idx - 1, idx);
+#else
 	qlACLs.swap(idx - 1, idx);
+#endif
 	qlwACLs->setCurrentRow(qlwACLs->currentRow() - 1);
 	refillACL();
 }
@@ -766,7 +770,11 @@ void ACLEditor::on_qpbACLDown_clicked() {
 	if (idx >= qlACLs.count())
 		return;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+	qlACLs.swapItemsAt(idx - 1, idx);
+#else
 	qlACLs.swap(idx - 1, idx);
+#endif
 	qlwACLs->setCurrentRow(qlwACLs->currentRow() + 1);
 	refillACL();
 }

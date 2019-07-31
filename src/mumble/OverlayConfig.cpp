@@ -20,6 +20,7 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 #include "PathListWidget.h"
+#include "Screen.h"
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -158,7 +159,7 @@ OverlayConfig::OverlayConfig(Settings &st) :
 	qcbOverlayExclusionMode->insertItem(static_cast<int>(OverlaySettings::BlacklistExclusionMode), tr("Blacklist"));
 	qcbOverlayExclusionMode->setCurrentIndex(static_cast<int>(OverlaySettings::LauncherFilterExclusionMode));
 
-	if (! isInstalled()) {
+	if (!isInstalled()) {
 		qswOverlayPage->setCurrentWidget(qwOverlayInstall);
 	} else if (needsUpgrade()) {
 		qswOverlayPage->setCurrentWidget(qwOverlayUpgrade);
@@ -167,26 +168,31 @@ OverlayConfig::OverlayConfig(Settings &st) :
 		qpbUninstall->setVisible(supportsInstallableOverlay());
 	}
 
-	// grab a desktop screenshot as background
-	QRect dsg = QApplication::desktop()->screenGeometry();
+	// Grab a desktop screenshot as background
+	QScreen *screen = qApp->primaryScreen();
 
-#if QT_VERSION > 0x050000
-	qpScreen = QGuiApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId());
-#else
-	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId(), dsg.x(), dsg.y(), dsg.width(), dsg.height());
-#endif
+	if (const QWindow *window = windowHandle()) {
+		screen = window->screen();
+	}
+
+	// From Qt's documentation (Qt Widgets screenshot example):
+	// "Although this is unlikely to happen, applications should check for null
+	// pointers since there might be situations in which no screen is connected."
+	if (screen) {
+		qpScreen = screen->grabWindow(0);
+	}
+
 	if (qpScreen.size().isEmpty()) {
-		qWarning() << __FUNCTION__ << "failed to grab desktop image, trying desktop widget...";
+		qWarning() << __FUNCTION__ << "failed to grab screenshot, falling back.";
 
-		qpScreen = QPixmap::grabWidget(QApplication::desktop(), dsg);
-
-		if (qpScreen.size().isEmpty()) {
-			qWarning() << __FUNCTION__ << "failed to grab desktop widget image, falling back.";
-
-			QRect desktop_size = QApplication::desktop()->screenGeometry();
-			qpScreen = QPixmap(desktop_size.width(), desktop_size.height());
-			qpScreen.fill(Qt::darkGreen);
+		if (screen) {
+			const QRect desktopSize = screen->geometry();
+			qpScreen = QPixmap(desktopSize.width(), desktopSize.height());
+		} else {
+			qpScreen = QPixmap(1280, 720);
 		}
+
+		qpScreen.fill(Qt::darkGreen);
 	}
 
 	initDisplay();

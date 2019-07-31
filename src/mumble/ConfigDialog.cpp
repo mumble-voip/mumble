@@ -56,12 +56,11 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
-	QDesktopWidget dw;
-
 	int w = INT_MAX, h = INT_MAX;
 
-	for (int i=0;i<dw.numScreens();++i) {
-		QRect ds=dw.availableGeometry(i);
+	const QList<QScreen *> screens = qApp->screens();
+	for (int i = 0; i < screens.size(); ++i) {
+		const QRect ds = screens[i]->availableGeometry();
 		if (ds.isValid()) {
 			w = qMin(w, ds.width());
 			h = qMin(h, ds.height());
@@ -151,7 +150,11 @@ void ConfigDialog::updateListView() {
 	int configNavbarWidth = 0;
 
 	foreach(ConfigWidget *cw, qmWidgets) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+		configNavbarWidth = qMax(configNavbarWidth, qfm.horizontalAdvance(cw->title()));
+#else
 		configNavbarWidth = qMax(configNavbarWidth, qfm.width(cw->title()));
+#endif
 
 		QListWidgetItem *i = new QListWidgetItem(qlwIcons);
 		i->setIcon(cw->icon());

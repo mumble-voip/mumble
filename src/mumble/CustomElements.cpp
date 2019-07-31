@@ -197,7 +197,7 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 	foreach(ClientUser *usr, ClientUser::c_qmUsers) {
 		qlsUsernames.append(usr->qsName);
 	}
-	qSort(qlsUsernames);
+	std::sort(qlsUsernames.begin(), qlsUsernames.end());
 
 	QString target = QString();
 	QTextCursor tc = textCursor();
