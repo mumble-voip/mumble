@@ -1245,13 +1245,12 @@ void Server::newClient() {
 		// bundle used for this server's certificate.
 		sock->addCaCertificates(qlIntermediates);
 
-		sock->setCiphers(Meta::mp.qlCiphers);
-
-#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		QSslConfiguration cfg = sock->sslConfiguration();
+		cfg.setCiphers(Meta::mp.qlCiphers);
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 		cfg.setDiffieHellmanParameters(qsdhpDHParams);
-		sock->setSslConfiguration(cfg);
 #endif
+		sock->setSslConfiguration(cfg);
 
 		if (qqIds.isEmpty()) {
 			log(QString("Session ID pool (%1) empty, rejecting connection").arg(iMaxUsers));
