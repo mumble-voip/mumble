@@ -1040,7 +1040,7 @@ TreePtr recurseTree(const ::Channel *c) {
 	TreePtr t = new Tree();
 	channelToChannel(c, t->c);
 	QList< ::User *> users = c->qlUsers;
-	qSort(users.begin(), users.end(), userSort);
+	std::sort(users.begin(), users.end(), userSort);
 
 	foreach(const ::User *p, users) {
 		::Murmur::User mp;
@@ -1049,7 +1049,7 @@ TreePtr recurseTree(const ::Channel *c) {
 	}
 
 	QList< ::Channel *> channels = c->qlChannels;
-	qSort(channels.begin(), channels.end(), channelSort);
+	std::sort(channels.begin(), channels.end(), channelSort);
 
 	foreach(const ::Channel *chn, channels) {
 		t->children.push_back(recurseTree(chn));
