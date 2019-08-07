@@ -7,25 +7,28 @@
 #
 # Predefined variables:
 #
-#  AGENT_BUILDDIRECTORY       - Predefined variable.
-#                               The local path on the agent where all folders
+#  AGENT_BUILDDIRECTORY       - The local path on the agent where all folders
 #                               for a given build pipeline are created
-#                               (e.g. "D:\a\1")
-#  BUILD_SOURCESDIRECTORY     - Predefined variable.
-#                               The local path on the agent where the
+#                               (e.g. "c:\agent_work\1").
+#  BUILD_SOURCESDIRECTORY     - The local path on the agent where the
 #                               repository is downloaded.
-#                               (e.g. "D:\a\1\s")
+#                               (e.g. "c:\agent_work\1\s").
+#  AGENT_TOOLSDIRECTORY       - The directory used by tasks such as
+#                               Node Tool Installer and Use Python Version
+#                               to switch between multiple versions of a tool.
+#                               We store our build environment there, in the
+#                               folder specified by MUMBLE_ENVIRONMENT_DIR.
 #
 # Defined in the visual designer on Azure Pipelines:
 #
-#  MUMBLE_ENVIRONMENT_DIR     - The local path where the build environment
-#                               is stored (e.g. "C:\MumbleBuild").
+#  MUMBLE_ENVIRONMENT_DIR     - Folder where the build environment will be stored
+#                               (e.g. "MumbleBuild").
 #  MUMBLE_ENVIRONMENT_VERSION - Full build environment version
 #                               (e.g. win64-static-no-ltcg-1.3.x-2017-02-02-ec94ddb-790).
 #                               Must match .7z and extracted folder name.
 #  MUMBLE_BUILDSCRIPT         - Path to required build script cmd file. Relative to build
 #                               environment's "mumble-releng\buildscripts" path.
-#                               (e.g. "1.3.x/buildenv-win64-static.cmd")
+#                               (e.g. "1.3.x/buildenv-win64-static.cmd").
 #
 # Defined in the YAML configuration:
 #
@@ -34,7 +37,7 @@
 
 $MUMBLE_BUILD_DIR = $env:AGENT_BUILDDIRECTORY
 $MUMBLE_SOURCE_DIR = $env:BUILD_SOURCESDIRECTORY
-$MUMBLE_BUILDENV_DIR = Join-Path $env:MUMBLE_ENVIRONMENT_DIR $env:MUMBLE_ENVIRONMENT_VERSION
+$MUMBLE_BUILDENV_DIR = Join-Path (Join-Path $env:AGENT_TOOLSDIRECTORY $env:MUMBLE_ENVIRONMENT_DIR) $env:MUMBLE_ENVIRONMENT_VERSION
 $MUMBLE_BUILDSCRIPT = Join-Path $MUMBLE_BUILDENV_DIR "mumble-releng\buildscripts\$env:MUMBLE_BUILDSCRIPT"
 
 $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = ""
