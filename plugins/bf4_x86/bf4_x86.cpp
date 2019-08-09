@@ -13,7 +13,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	bool ok, state;
 	char serverid[37], host[22], team[3];
-	BYTE squad, squad_leader, squad_state;
+	uint8_t squad, squad_leader, squad_state;
 
 	// Server ID pointers
 	procptr_t serverid_base = peekProcPtr(pModule + 0x1D39C64);

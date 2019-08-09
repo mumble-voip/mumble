@@ -100,7 +100,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
-	BYTE logincheck;
+	uint8_t logincheck;
 	ok = peekProc(login_ptr, &logincheck, 1);
 	if (! ok)
 		return false;
@@ -108,7 +108,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (logincheck == 0)
 		return false;
 
-	BYTE state;
+	uint8_t state;
 	ok = peekProc(state_ptr , &state, 1); // Magical state value
 	if (! ok)
 		return false;
@@ -126,13 +126,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 
 	char ccontext[128];
-	BYTE is_commander;
-	BYTE is_squad_leader;
-	BYTE is_in_squad;
-	BYTE is_opfor;
-	BYTE on_voip;
-	BYTE on_voip_com;
-	BYTE target_squad_id;
+	uint8_t is_commander;
+	uint8_t is_squad_leader;
+	uint8_t is_in_squad;
+	uint8_t is_opfor;
+	uint8_t on_voip;
+	uint8_t on_voip_com;
+	uint8_t target_squad_id;
 
 	ok = peekProc(pos_ptr, avatar_pos, 12) &&
 	     peekProc(face_ptr, avatar_front, 12) &&

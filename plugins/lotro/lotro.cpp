@@ -42,8 +42,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	bool ok;
 
-	byte l[2];
-	byte r,i;
+	uint8_t l[2];
+	uint8_t r,i;
 	float o[3];
 	procptr_t hPtr;
 	float h;
@@ -51,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	/*
 		Position as represented by /loc command
 
-		lx, ly = 8 * (byte)l;
+		lx, ly = 8 * (uint8_t)l;
 		ox, oy, oz = (float)o;
 
 		0 < ox < 160
