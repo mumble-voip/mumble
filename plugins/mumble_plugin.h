@@ -6,7 +6,10 @@
 #ifndef MUMBLE_MUMBLE_PLUGIN_H_
 #define MUMBLE_MUMBLE_PLUGIN_H_
 
-typedef unsigned long long procptr_t;
+#include <stdint.h>
+
+typedef uint32_t procid_t;
+typedef uint64_t procptr_t;
 
 #define LENGTH_OF(array) (sizeof(array) / sizeof((array)[0]))
 

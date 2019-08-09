@@ -35,7 +35,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_main.h"
 
 const unsigned int off_character_manager = 0xD8FB24;
 const unsigned int off_local_player = 0x3570;

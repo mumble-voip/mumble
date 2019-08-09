@@ -6,6 +6,10 @@
 #ifndef MUMBLE_PLUGIN_LINUX_H_
 #define MUMBLE_PLUGIN_LINUX_H_
 
+# ifndef MUMBLE_PLUGIN_MAIN_H_
+#  error "Include mumble_plugin_main.h instead of mumble_plugin_linux.h"
+# endif
+
 #include <sys/uio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,13 +20,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "mumble_plugin.h"
-
-pid_t pPid;
-int is64Bit;
-static procptr_t pModule;
-
-static inline std::string readAll(std::string fn) {
+static inline std::string readAll(const std::string &fn) {
 	std::ifstream ifs;
 	ifs.open(fn.c_str(), std::ifstream::binary);
 
@@ -42,7 +40,7 @@ static inline std::string readAll(std::string fn) {
 
 // This function returns 0 if the process is 32-bit and 1 if it's 64-bit.
 // In case of failure, it returns -1.
-static inline int checkProcessIs64Bit(const pid_t pid)
+static inline int checkProcessIs64Bit(const procid_t &pid)
 {
 	// We can know the process architecture by looking at its ELF header.
 	char elf[5];
@@ -74,7 +72,7 @@ static inline int checkProcessIs64Bit(const pid_t pid)
 	return elf[4] != 1;
 }
 
-static inline procptr_t getModuleAddr(pid_t pid, const wchar_t *modname) {
+static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modname) {
 	std::wstring modnameWide(modname);
 	std::string modnameNonWide(modnameWide.begin(), modnameWide.end());
 
@@ -172,7 +170,7 @@ static inline procptr_t getModuleAddr(pid_t pid, const wchar_t *modname) {
 			if (pathname.size() > lastSlash + 1) {
 				std::string basename = pathname.substr(lastSlash + 1);
 				if (basename == modnameNonWide) {
-					unsigned long addr = strtoul(baseaddr.c_str(), NULL, 16);
+					unsigned long addr = strtoul(baseaddr.c_str(), nullptr, 16);
 					return addr;
 				}
 			}
@@ -182,13 +180,9 @@ static inline procptr_t getModuleAddr(pid_t pid, const wchar_t *modname) {
 	return 0;
 }
 
-static inline procptr_t getModuleAddr(const wchar_t *modname) {
-	return getModuleAddr(pPid, modname);
-}
-
-static inline bool peekProc(procptr_t base, void *dest, size_t len) {
+static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len) {
 	struct iovec in;
-	in.iov_base = reinterpret_cast<void *>(base); // Address from target process
+	in.iov_base = reinterpret_cast<void *>(addr); // Address from target process
 	in.iov_len = len; // Length
 
 	struct iovec out;
@@ -200,32 +194,7 @@ static inline bool peekProc(procptr_t base, void *dest, size_t len) {
 	return (nread != -1 && static_cast<size_t>(nread) == in.iov_len);
 }
 
-template<class T>
-bool peekProc(procptr_t base, T &dest) {
-	struct iovec in;
-	in.iov_base = reinterpret_cast<void *>(base); // Address from target process
-	in.iov_len = sizeof(T); // Length
-
-	struct iovec out;
-	out.iov_base = &dest;
-	out.iov_len = sizeof(T);
-
-	ssize_t nread = process_vm_readv(pPid, &out, 1, &in, 1, 0);
-
-	return (nread != -1 && static_cast<size_t>(nread) == in.iov_len);
-}
-
-static inline procptr_t peekProcPtr(procptr_t base) {
-	procptr_t v = 0;
-
-	if (!peekProc(base, &v, is64Bit ? 8 : 4)) {
-		return 0;
-	}
-
-	return v;
-}
-
-static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
+static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
 	pModule = 0;
 
 	if (! pids.empty()) {

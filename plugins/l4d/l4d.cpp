@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h" // Include standard plugin header.
+#include "../mumble_plugin_main.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 static procptr_t steamclient, engine; // Variables to contain modules addresses

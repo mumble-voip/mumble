@@ -3,12 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifdef WIN32
-#include "../mumble_plugin_win32.h" // Include standard plugin header.
-#else
-#include "../mumble_plugin_linux.h" // Include standard plugin header.
-#endif
-
+#include "../mumble_plugin_main.h" // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
 // Variables to contain modules addresses

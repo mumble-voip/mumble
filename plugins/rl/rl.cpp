@@ -3,11 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifdef WIN32
-#include "../mumble_plugin_win32.h"
-#else
-#include "../mumble_plugin_linux.h"
-#endif
+#include "../mumble_plugin_main.h"
 
 #ifdef WIN32
 // Memory offsets
