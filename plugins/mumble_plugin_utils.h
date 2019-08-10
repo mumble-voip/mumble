@@ -6,6 +6,14 @@
 #ifndef MUMBLE_MUMBLE_PLUGIN_UTILS_H_
 #define MUMBLE_MUMBLE_PLUGIN_UTILS_H_
 
+#include <codecvt>
+#include <locale>
+
+static inline std::string utf16ToUtf8(const std::wstring &wstr) {
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
+	return conv.to_bytes(wstr);
+}
+
 // escape lossily converts the given
 // string to ASCII, replacing any
 // character not within the printable
