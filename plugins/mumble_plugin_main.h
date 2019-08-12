@@ -17,6 +17,12 @@
 #include "mumble_plugin.h"
 #include "mumble_plugin_win32_internals.h"
 
+#ifdef WIN32
+static const bool isWin32 = true;
+#else
+static bool isWin32;
+#endif
+
 static bool is64Bit;
 static procid_t pPid;
 static procptr_t pModule;

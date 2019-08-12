@@ -38,30 +38,19 @@ static inline std::string readAll(const std::string &fn) {
 	return content;
 }
 
-// This function returns 0 if the process is 32-bit and 1 if it's 64-bit.
-// In case of failure, it returns -1.
-static inline int checkProcessIs64Bit(const procid_t &pid)
-{
+// This function returns:
+// -1 in case of failure.
+// 0 if the process is 32-bit.
+// 1 if the process is 64-bit.
+static inline int isProcess64Bit(const procptr_t &baseAddress) {
+	if (isWin32) {
+		return isWin32Process64Bit(baseAddress);
+	}
+
 	// We can know the process architecture by looking at its ELF header.
-	char elf[5];
+	uint8_t elf[5];
 
-	std::stringstream ss;
-	ss << "/proc/";
-	ss << static_cast<unsigned long>(pid);
-	ss << "/exe";
-
-	std::ifstream ifs;
-	ifs.open(ss.str(), std::ifstream::binary);
-	if (!ifs.is_open()) {
-		return -1;
-	}
-
-	ifs.read(elf, LENGTH_OF(elf));
-	ifs.close();
-
-	if (ifs.gcount() != LENGTH_OF(elf)) {
-		return -1;
-	}
+	peekProc(baseAddress, elf, sizeof(elf));
 
 	// The first 4 bytes constitute the magical number in ASCII: 0x7F 45 4c 46.
 	if (!(elf[0] == 0x7f && elf[1] == 'E' && elf[2] == 'L' && elf[3] == 'F')) {
@@ -70,6 +59,32 @@ static inline int checkProcessIs64Bit(const procid_t &pid)
 
 	// The fifth byte is 1 in case the process is 32-bit or 2 in case it's 64-bit.
 	return elf[4] != 1;
+}
+
+// This function returns:
+// -1 in case of failure.
+// 0 if the process is not running through Wine.
+// 1 if the process is running through Wine.
+static inline int8_t isProcessWin32(const procid_t &pid) {
+	std::stringstream ss;
+	ss << "/proc/";
+	ss << static_cast<unsigned long>(pid);
+	ss << "/exe";
+
+	char *path = realpath(ss.str().c_str(), nullptr);
+	if (!path) {
+		return -1;
+	}
+
+	const char *filename = basename(path);
+
+	free(path);
+
+	if (strcmp(filename, "wine-preloader") == 0 || strcmp(filename, "wine64-preloader") == 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modname) {
@@ -194,43 +209,60 @@ static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len
 	return (nread != -1 && static_cast<size_t>(nread) == in.iov_len);
 }
 
-static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
+static void generic_unlock() {
+	pModule = 0;
+	pPid = 0;
+}
+
+static bool initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
 	pModule = 0;
 
-	if (! pids.empty()) {
-		std::multimap<std::wstring, unsigned long long int>::const_iterator iter = pids.find(std::wstring(procname));
-
-		if (iter != pids.end())
-			pPid = static_cast<pid_t>(iter->second);
-		else
+	if (!pids.empty()) {
+		auto iter = pids.find(std::wstring(procname));
+		if (iter != pids.end()) {
+			pPid = static_cast<procid_t>(iter->second);
+		} else {
 			pPid = 0;
+		}
 	} else {
 		pPid = 0;
 	}
 
-	if (pPid == 0)
-		return false;
-
-	int result = checkProcessIs64Bit(pPid);
-	if (result == -1) {
+	if (!pPid) {
 		return false;
 	}
 
-	is64Bit = result;
-
-	pModule = getModuleAddr(modname ? modname : procname);
-
-	if (pModule == 0) {
+	pModule = getModuleAddr(procname);
+	if (!pModule) {
 		pPid = 0;
 		return false;
 	}
 
-	return true;
-}
+	int8_t ret = isProcessWin32(pPid);
+	if (ret == -1) {
+		generic_unlock();
+		return false;
+	}
 
-static void generic_unlock() {
-	pModule = 0;
-	pPid = 0;
+	isWin32 = ret;
+
+	ret = isProcess64Bit(pModule);
+	if (ret == -1) {
+		generic_unlock();
+		return false;
+	}
+
+	is64Bit = ret;
+
+	if (modname) {
+		pModule = getModuleAddr(modname);
+		if (!pModule) {
+			pPid = 0;
+			return false;
+		}
+	}
+
+	return true;
 }
 
 #endif
