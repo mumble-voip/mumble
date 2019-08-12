@@ -48,31 +48,6 @@ static inline procid_t getProcess(const wchar_t *exename) {
 	return pid;
 }
 
-static inline int checkProcessIs64Bit(const procid_t &pid) {
-	// This function returns 0 if the process is 32-bit and 1 if it's 64-bit.
-	// In case of failure, it returns -1.
-
-	HANDLE handle = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, pid);
-	if (!handle) {
-		return -1;
-	}
-
-	// IsWow64Process() returns true if the process is 32-bit, running on a 64-bit system.
-	// It returns false in case the process is 64-bit, running on a 64-bit system.
-	// It also returns false if the process is 32-bit, running on a 32-bit system.
-
-	BOOL isWow64Process;
-	if (!IsWow64Process(handle, &isWow64Process)) {
-		CloseHandle(handle);
-		return -1;
-	}
-	
-	CloseHandle(handle);
-
-	bool is32 = isWow64Process || sizeof(void*) == 4;
-	return !is32;
-}
-
 static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modname) {
 	MODULEENTRY32 me;
 	procptr_t ret = 0;
@@ -100,57 +75,67 @@ static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len
 	return (ok && (r == len));
 }
 
-static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
+static void generic_unlock() {
+	if (hProcess) {
+		CloseHandle(hProcess);
+		hProcess = nullptr;
+	}
+
+	pPid = 0;
+	pModule = 0;
+}
+
+static bool initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
 	hProcess = nullptr;
 	pModule = 0;
 
 	if (!pids.empty()) {
-		std::multimap<std::wstring, unsigned long long int>::const_iterator iter = pids.find(std::wstring(procname));
+		auto iter = pids.find(std::wstring(procname));
 
-		if (iter != pids.end())
+		if (iter != pids.end()) {
 			pPid = static_cast<procid_t>(iter->second);
-		else
+		} else {
 			pPid = 0;
+		}
 	} else {
 		pPid = getProcess(procname);
 	}
 
-	if (!pPid)
-		return false;
-
-	const int result = checkProcessIs64Bit(pPid);
-	if (result == -1) {
-		pPid = 0;
-		return false;
-	}
-
-	// We compare to 1 to prevent the following warning:
-	// C4800: 'BOOL': forcing value to bool 'true' or 'false' (performance warning)
-	is64Bit = (result == 1);
-
-	pModule = getModuleAddr(modname ? modname : procname);
-	if (!pModule) {
-		pPid = 0;
+	if (!pPid) {
 		return false;
 	}
 
 	hProcess = OpenProcess(PROCESS_VM_READ, false, pPid);
 	if (!hProcess) {
 		pPid = 0;
-		pModule = 0;
 		return false;
 	}
 
-	return true;
-}
-
-static void generic_unlock() {
-	if (hProcess) {
-		CloseHandle(hProcess);
-		hProcess = nullptr;
-		pModule = 0;
-		pPid = 0;
+	pModule = getModuleAddr(procname);
+	if (!pModule) {
+		generic_unlock();
+		return false;
 	}
+
+	const int8_t result = isProcess64Bit(pModule);
+	if (result == -1) {
+		generic_unlock();
+		return false;
+	}
+
+	if (modname) {
+		pModule = getModuleAddr(modname);
+		if (!pModule) {
+			generic_unlock();
+			return false;
+		}
+	}
+
+	// We compare to 1 to prevent the following warning:
+	// C4800: 'BOOL': forcing value to bool 'true' or 'false' (performance warning)
+	is64Bit = (result == 1);
+
+	return true;
 }
 
 #endif
