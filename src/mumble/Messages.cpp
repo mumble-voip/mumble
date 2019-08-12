@@ -139,6 +139,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 	
+	qtwLogTabs->createTab(QString::number(user->cChannel->iId), user->cChannel->qsName, true);
 	qstiIcon->setToolTip(tr("Mumble: %1").arg(Qt::escape(Channel::get(0)->qsName)));
 
 	// Update QActions and menues
@@ -299,6 +300,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				g.l->log(Log::UserJoin, tr("%1 connected.").arg(Log::formatClientUser(pDst, Log::Source)));
 			}
 		}
+		
+		g.mw->updateChatBar();
 	}
 
 	if (msg.has_user_id()) {
@@ -363,6 +366,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				g.l->log(Log::UserRenamed, tr("%1 renamed to %2.").arg(Log::formatClientUser(pDst, Log::Target, oldName),
 					Log::formatClientUser(pDst, Log::Target)));
 			}
+
+			g.mw->qtwLogTabs->setTabName(g.mw->qtwLogTabs->getTab(pDst->getIdentifier()), pDst->qsName);
 		}
 	}
 
@@ -596,8 +601,15 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 			g.l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 		}
 	}
-	if (pDst != pSelf)
+
+	if (pDst != pSelf) {
+		const int targetTab = g.mw->qtwLogTabs->getTab(pDst->getIdentifier());
+		if (targetTab != -1) {
+			g.mw->qtwLogTabs->markTabAsRestricted(targetTab);
+		}
+
 		pmModel->removeUser(pDst);
+	}
 }
 
 void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
@@ -696,34 +708,83 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 				g.db->setChannelFiltered(sh->qbaDigest, c->iId, false);
 			c->bFiltered = false;
 		}
+
+		const int targetTab = g.mw->qtwLogTabs->getTab(QString::number(c->iId));
+		if (targetTab != -1) {
+			g.mw->qtwLogTabs->markTabAsRestricted(targetTab);
+		}
+
 		pmModel->removeChannel(c);
 	}
 }
 
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	ACTOR_INIT;
-	QString target;
+
+	// Message from the server
+	if (!pSrc) {
+		const QString name = tr("Server", "message from");
+		g.l->log(Log::TextMessage,
+		         tr("%1: %2").arg(name).arg(u8(msg.message())),
+		         tr("Message from %1").arg(name));
+		return;
+	}
 
 	// Silently drop the message if this user is set to "ignore"
-	if (pSrc && pSrc->bLocalIgnore)
+	if (pSrc->bLocalIgnore) {
 		return;
+	}
 
-	const QString &plainName = pSrc ? pSrc->qsName : tr("Server", "message from");
-	const QString &name = pSrc ? Log::formatClientUser(pSrc, Log::Source) : tr("Server", "message from");
 	bool privateMessage = false;
+	LogTabList targetLogTabs;
+	QString prefix;
 
 	if (msg.tree_id_size() > 0) {
-		target += tr("(Tree) ");
+		prefix += tr("(Tree) ");
+
+		QList<Channel *> channels;
+		for (int i = 0; i < msg.tree_id_size(); i++) {
+			Channel *channel = Channel::get(msg.tree_id(i));
+			channels << channel << channel->qlChannels;
+		}
+
+		const LogTabList logTabs = qtwLogTabs->getChannelTabs();
+		foreach(int logTab, logTabs) {
+			Channel *channel = Channel::get(qtwLogTabs->getHash(logTab).toInt());
+			if (!channel) {
+				continue;
+			}
+
+			if (channels.contains(channel)) {
+				targetLogTabs.append(logTab);
+			}
+		}
 	} else if (msg.channel_id_size() > 0) {
-		target += tr("(Channel) ");
+		for (int i = 0; i < msg.channel_id_size(); i++) {
+			const Channel *channel = Channel::get(msg.channel_id(i));
+			const int targetLogTab = qtwLogTabs->getTab(QString::number(channel->iId));
+			if (targetLogTab != -1) {
+				targetLogTabs.append(targetLogTab);
+			}
+		}
 	} else if (msg.session_size() > 0) {
-		target += tr("(Private) ");
+		const int targetLogTab = qtwLogTabs->createTab(pSrc->getIdentifier(), pSrc->qsName, false);
+		targetLogTabs.append(targetLogTab);
 		privateMessage = true;
 	}
 
-	g.l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
-	         tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
-	         tr("Message from %1").arg(plainName));
+	const QString &plainName = pSrc->qsName;
+	const QString &name = Log::formatClientUser(pSrc, Log::Source);
+
+	foreach (int targetLogTab, targetLogTabs) {
+		g.l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
+		         tr("%2%1: %3").arg(name).arg(prefix).arg(u8(msg.message())),
+		         tr("Message from %1").arg(plainName),
+		         false,
+		         targetLogTab);
+
+		qtwLogTabs->markTabAsUpdated(targetLogTab);
+	}
 }
 
 void MainWindow::msgACL(const MumbleProto::ACL &msg) {

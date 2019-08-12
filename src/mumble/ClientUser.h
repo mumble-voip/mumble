@@ -32,6 +32,8 @@ class ClientUser : public QObject, public User {
 		QByteArray qbaTextureFormat;
 		QString qsFriendName;
 
+		QString getIdentifier();
+
 		QString getFlagsString() const;
 		ClientUser(QObject *p = NULL);
 

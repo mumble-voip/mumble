@@ -120,8 +120,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void focusNextMainWidget();
 		void updateTransmitModeComboBox();
 		QPair<QByteArray, QImage> openImageFile();
-		
-		void updateChatBar();
+
 		void openTextMessageDialog(ClientUser *p);
 		void openUserLocalVolumeDialog(ClientUser *p);
 
@@ -219,6 +218,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelLink_triggered();
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
+		void on_qaChannelOpenTab_triggered();
 		void on_qaChannelSendMessage_triggered();
 		void on_qaChannelFilter_triggered();
 		void on_qaChannelCopyURL_triggered();
@@ -246,9 +246,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteChat_backtabPressed();
 		void on_qteChat_ctrlSpacePressed();
 		void on_qtvUsers_customContextMenuRequested(const QPoint &mpos);
-		void on_qteLog_customContextMenuRequested(const QPoint &pos);
-		void on_qteLog_anchorClicked(const QUrl &);
-		void on_qteLog_highlighted(const QUrl & link);
+		void onLogTabCustomContextMenuRequested(const QPoint &pos);
+		void onLogTabAnchorClicked(const QUrl &);
 		void on_PushToTalk_triggered(bool, QVariant);
 		void on_PushToMute_triggered(bool, QVariant);
 		void on_VolumeUp_triggered(bool, QVariant);
@@ -267,7 +266,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 		void voiceRecorderDialog_finished(int);
-		void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
 		void serverConnected();
 		void serverDisconnected(QAbstractSocket::SocketError, QString reason);
 		void resolverError(QAbstractSocket::SocketError, QString reason);
@@ -287,6 +285,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void onResetAudio();
 		void showRaiseWindow();
 		void on_qaFilterToggle_triggered();
+
 		/// Opens a save dialog for the image referenced by qtcSaveImageCursor.
 		void saveImageAs();
 		/// Returns the path to the user's image directory, optionally with a
@@ -295,6 +294,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		/// Updates the user's image directory to the given path (any included
 		/// filename is discarded).
 		void updateImagePath(QString filepath) const;
+		/// Toggles the chatbar according to the user's permissions.
+		void updateChatBar();
 
 	public:
 		MainWindow(QWidget *parent);

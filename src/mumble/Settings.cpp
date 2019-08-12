@@ -300,7 +300,6 @@ Settings::Settings() {
 	bStateInTray = true;
 	bUsage = true;
 	bShowUserCount = false;
-	bChatBarUseSelection = false;
 	bFilterHidesEmptyChannels = true;
 	bFilterActive = false;
 
@@ -745,7 +744,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
-	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
@@ -1083,7 +1081,6 @@ void Settings::save() {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
-	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");

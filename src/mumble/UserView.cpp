@@ -219,7 +219,8 @@ void UserView::nodeActivated(const QModelIndex &idx) {
 	UserModel *um = static_cast<UserModel *>(model());
 	ClientUser *p = um->getUser(idx);
 	if (p) {
-		g.mw->openTextMessageDialog(p);
+		const int tab = g.mw->qtwLogTabs->createTab(p->getIdentifier(), p->qsName, false);
+		g.mw->qtwLogTabs->openTab(tab);
 		return;
 	}
 

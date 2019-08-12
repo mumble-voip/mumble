@@ -111,17 +111,7 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="LogTextBrowser" name="qteLog">
-    <property name="contextMenuPolicy">
-     <enum>Qt::CustomContextMenu</enum>
-    </property>
-    <property name="whatsThis">
-     <string>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</string>
-    </property>
-    <property name="openLinks">
-     <bool>false</bool>
-    </property>
-   </widget>
+   <widget class="LogTabWidget" name="qtwLogTabs"/>
   </widget>
   <widget class="QDockWidget" name="qdwChat">
    <property name="sizePolicy">
@@ -134,7 +124,7 @@
     <string/>
    </property>
    <property name="whatsThis">
-    <string>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</string>
+    <string>This is the chat bar.&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected.</string>
    </property>
    <property name="features">
     <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable</set>
@@ -916,6 +906,10 @@ the channel's context menu.</string>
    <property name="toolTip">
     <string>Shows the main Mumble window.</string>
    </property>
+  <action name="qaChannelOpenTab">
+   <property name="text">
+    <string>Open &amp;tab</string>
+   </property>
   </action>
  </widget>
  <customwidgets>
@@ -930,9 +924,10 @@ the channel's context menu.</string>
    <header>CustomElements.h</header>
   </customwidget>
   <customwidget>
-   <class>LogTextBrowser</class>
-   <extends>QTextBrowser</extends>
-   <header>CustomElements.h</header>
+   <class>LogTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>LogTabs.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

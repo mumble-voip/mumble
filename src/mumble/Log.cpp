@@ -151,7 +151,7 @@ void LogConfig::save() const {
 
 void LogConfig::accept() const {
 	g.l->tts->setVolume(s.iTTSVolume);
-	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
+	g.mw->qtwLogTabs->handleDocumentSetMaximumBlockCount(s.iMaxLogBlocks);
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
@@ -303,11 +303,7 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &dis
 
 	if (cu) {
 		QString name = Qt::escape(displayName.isNull() ? cu->qsName : displayName);
-		if (cu->qsHash.isEmpty()) {
-			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(name).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
-		} else {
-			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->qsHash).arg(name);
-		}
+		return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->getIdentifier()).arg(name);
 	} else {
 		return QString::fromLatin1("<span class='log-server log-%1'>%2</span>").arg(className).arg(tr("the server"));
 	}
@@ -451,7 +447,7 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	}
 }
 
-void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage) {
+void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, int tabToLog) {
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
@@ -467,20 +463,31 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		QTextCursor tc = g.mw->qteLog->textCursor();
+		if (qdDate != dt.date()) {
+			qdDate = dt.date();
 
-		LogTextBrowser *tlog = g.mw->qteLog;
+			const LogTabList tabs = g.mw->qtwLogTabs->getTabs();
+			foreach(int tab, tabs) {
+				LogTab *tlog = dynamic_cast<LogTab *>(g.mw->qtwLogTabs->widget(tab));
+				QTextCursor tc = tlog->textCursor();
+				tc.insertBlock();
+				tc.insertHtml(tr("[Date changed to %1]\n").arg(Qt::escape(qdDate.toString(Qt::DefaultLocaleShortDate))));
+				tc.movePosition(QTextCursor::End);
+			}
+		}
+
+		if (tabToLog == -1 || tabToLog > g.mw->qtwLogTabs->count()) {
+			tabToLog = g.mw->qtwLogTabs->getGeneralTab();
+		}
+
+		LogTab *tlog = dynamic_cast<LogTab *>(g.mw->qtwLogTabs->widget(tabToLog));
+		g.mw->qtwLogTabs->markTabAsUpdated(tabToLog);
+		QTextCursor tc = tlog->textCursor();
+
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
 
 		tc.movePosition(QTextCursor::End);
-
-		if (qdDate != dt.date()) {
-			qdDate = dt.date();
-			tc.insertBlock();
-			tc.insertHtml(tr("[Date changed to %1]\n").arg(Qt::escape(qdDate.toString(Qt::DefaultLocaleShortDate))));
-			tc.movePosition(QTextCursor::End);
-		}
 
 		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
 			QTextFrameFormat qttf;
@@ -488,13 +495,13 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			qttf.setPadding(2);
 			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
 			tc.insertFrame(qttf);
-		} else if (! g.mw->qteLog->document()->isEmpty()) {
+		} else if (!tlog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(Qt::escape(dt.time().toString())), Log::Time));
 		validHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
-		g.mw->qteLog->setTextCursor(tc);
+		tlog->setTextCursor(tc);
 
 		if (scroll || ownMessage)
 			tlog->scrollLogToBottom();

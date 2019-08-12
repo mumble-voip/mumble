@@ -9,6 +9,7 @@
 
 #include "Channel.h"
 #include "Global.h"
+#include "ServerHandler.h"
 #include "AudioOutput.h"
 
 QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
@@ -34,6 +35,14 @@ ClientUser *ClientUser::get(unsigned int uiSession) {
 	QReadLocker lock(&c_qrwlUsers);
 	ClientUser *p = c_qmUsers.value(uiSession);
 	return p;
+}
+
+QString ClientUser::getIdentifier() {
+	if (qsHash.isEmpty()) {
+		return QString::fromLatin1("%1/%2").arg(uiSession).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+	} else {
+		return qsHash;
+	}
 }
 
 QList<ClientUser *> ClientUser::getTalking() {

@@ -74,7 +74,7 @@ class Log : public QObject {
 		static QString formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName=QString());
 		static QString formatChannel(::Channel *c);
 	public slots:
-		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false);
+		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false, int tabToLog = -1);
 };
 
 class LogDocument : public QTextDocument {
