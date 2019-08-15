@@ -15,24 +15,25 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Memory addresses
 	char game_name[20];
-	procptr_t state_address, in_game_address, avatar_pos_address, camera_pos_address, avatar_base_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
+	procptr_t state_address, in_game_address, avatar_pos_address, camera_pos_address, avatar_base_address, avatar_base, avatar_front_address, avatar_top_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
 
 #define VERSION_EQ(buf, strlit) \
 	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
 
 	// Steam version
-	if (peekProc(pModule + 0x18107F8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
-		state_address = pModule + 0x27377E0;
-		in_game_address = pModule + 0x245F430;
-		avatar_pos_address = pModule + 0x1F82C30;
-		camera_pos_address = pModule + 0x1C5C560;
-		avatar_base_address = pModule + 0x1B99760;
-		camera_front_address = pModule + 0x1F81E20;
-		camera_top_address = pModule + 0x1F81E10;
-		player_address = pModule + 0x2741F7C;
-		vehicle_address = pModule + 0x2335A00;
-		location_address = pModule + 0x23353CB;
-		street_address = pModule + 0x2332110;
+	if (peekProc(pModule + 0x18AFBA8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x28ACB20;
+		in_game_address = pModule + 0x25C7740;
+		avatar_pos_address = pModule + 0x1F3E7A0;
+		camera_pos_address = pModule + 0x1F3B110;
+		avatar_front_address = pModule + 0x1FDDB50;
+		avatar_top_address = pModule + 0x1FDDB40;
+		camera_front_address = pModule + 0x1F3D990;
+		camera_top_address = pModule + 0x1F3D980;
+		player_address = pModule + 0x28B9E5C;
+		vehicle_address = pModule + 0x2499C10;
+		location_address = pModule + 0x249956B;
+		street_address = pModule + 0x24963B0;
 	// Retail version
 	} else if (peekProc(pModule + 0x180D4D8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
 		state_address = pModule + 0x2733490;
@@ -40,6 +41,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos_address = pModule + 0x1F7EAA0;
 		camera_pos_address = pModule + 0x1C58630;
 		avatar_base_address = pModule + 0x1B956C0;
+		// Avatar pointer
+		avatar_base = peekProcPtr(avatar_base_address);
+		if (!avatar_base) return false;
+		avatar_front_address = avatar_base + 0x70;
+		avatar_top_address = avatar_base + 0x80;
 		camera_front_address = pModule + 0x1C5A0F0;
 		camera_top_address = pModule + 0x1F7D9F0;
 		player_address = pModule + 0x273DBAC;
@@ -52,9 +58,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 	}
 
-	// Avatar pointer
-	procptr_t avatar_base = peekProcPtr(avatar_base_address);
-	if (!avatar_base) return false;
 
 	// Boolean value to check if game addresses retrieval is successful
 	bool ok;
@@ -68,8 +71,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			peekProc(in_game_address, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
 			peekProc(avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
 			peekProc(camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
-			peekProc(avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
-			peekProc(avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
+			peekProc(avatar_front_address, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
+			peekProc(avatar_top_address, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
 			peekProc(camera_front_address, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
 			peekProc(camera_top_address, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
 			peekProc(player_address, player) && // Player nickname.
@@ -201,10 +204,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto V version 1.38 with identity support."); // Plugin long description
+	return std::wstring(L"Supports Grand Theft Auto V version 1.48 (Steam) and 1.38 (Retail) with identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Grand Theft Auto V (v1.38)"); // Plugin short description
+static std::wstring description(L"Grand Theft Auto V (v1.48 [Steam] & v1.38 [Retail])"); // Plugin short description
 static std::wstring shortname(L"Grand Theft Auto V"); // Plugin short name
 
 static int trylock1() {
