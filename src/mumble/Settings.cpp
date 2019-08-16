@@ -252,7 +252,7 @@ Settings::Settings() {
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
 
-	bUseOpusMusicEncoding = false;
+	bUseOpusMusicEncoding = true;
 
 	bTxAudioCue = false;
 	qsTxAudioCueOn = cqsDefaultPushClickOn;
