@@ -171,6 +171,8 @@ struct Settings {
 	bool bUserTop;
 	bool bWhisperFriends;
 	bool bTTSMessageReadBack;
+	bool bTTSNoScope;
+	bool bTTSNoAuthor;
 	int iTTSVolume, iTTSThreshold;
 	/// The Text-to-Speech language to use. This setting overrides
 	/// the default language for the Text-to-Speech engine, which
