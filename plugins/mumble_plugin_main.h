@@ -15,6 +15,13 @@
 #define MUMBLE_PLUGIN_MAIN_H_
 
 #include "mumble_plugin.h"
+#include "mumble_plugin_win32_internals.h"
+
+#ifdef WIN32
+static const bool isWin32 = true;
+#else
+static bool isWin32;
+#endif
 
 static bool is64Bit;
 static procid_t pPid;
@@ -32,6 +39,17 @@ static inline bool peekProc(const procptr_t &addr, T &dest) {
 	return peekProc(addr, &dest, sizeof(T));
 }
 
+template<class T>
+static inline T peekProc(const procptr_t &addr) {
+	T ret;
+
+	if (!peekProc(addr, &ret, sizeof(T))) {
+		memset(&ret, 0, sizeof(ret));
+	}
+
+	return ret;
+}
+
 static inline procptr_t peekProcPtr(const procptr_t &addr) {
 	procptr_t v = 0;
 
@@ -40,6 +58,37 @@ static inline procptr_t peekProcPtr(const procptr_t &addr) {
 	}
 
 	return v;
+}
+
+// This function returns:
+// -1 in case of failure.
+// 0 if the process is 32-bit.
+// 1 if the process is 64-bit.
+#ifdef WIN32
+static inline int8_t isProcess64Bit(const procptr_t &baseAddress) {
+#else
+// We use a different name because the function is called by the Linux version
+// of isProcess64Bit() in case the process is running through Wine.
+static inline int8_t isWin32Process64Bit(const procptr_t &baseAddress) {
+#endif
+	const auto dos = peekProc<ImageDosHeader>(baseAddress);
+	if (!(dos.magic[0] == 'M' && dos.magic[1] == 'Z')) {
+		// Invalid DOS signature
+		return -1;
+	}
+
+	const auto nt = peekProc<ImageNtHeadersNoOptional>(baseAddress + dos.addressOfNtHeader);
+	if (!(nt.signature[0] == 'P' && nt.signature[1] == 'E' && nt.signature[2] == '\0' && nt.signature[3] == '\0')) {
+		// Invalid NT signature
+		return -1;
+	}
+
+	switch (nt.fileHeader.machine) {
+		case 0x14c: // IMAGE_FILE_MACHINE_I386
+			return 0;
+		default:
+			return 1;
+	}
 }
 
 #ifdef WIN32
