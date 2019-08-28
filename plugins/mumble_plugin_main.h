@@ -17,6 +17,8 @@
 #include "mumble_plugin.h"
 #include "mumble_plugin_win32_internals.h"
 
+#include <cstring>
+
 #ifdef WIN32
 static const bool isWin32 = true;
 #else
