@@ -69,6 +69,9 @@ public:
 	bool bInAudioWizard;
 	OverlayClient *ocIntercept;
 	int iAudioPathTime;
+	/// A unique ID for the current user. It is being assigned by the server right
+	/// after connecting to it. An ID of 0 indicates that the user currently isn't
+	/// connected to a server.
 	unsigned int uiSession;
 	ChanACL::Permissions pPermissions;
 	int iMaxBandwidth;
