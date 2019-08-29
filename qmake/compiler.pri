@@ -241,6 +241,14 @@ unix|win32-g++ {
 		QMAKE_OBJECTIVE_CXXFLAGS *= -Werror
 	}
 
+	# Disable warnings for deprecated stuff, which we are not going to replace
+	# due to 1.3.x being frozen. We also want to keep compatibility with Qt 4,
+	# meaning that we would have to adapt each fix from the master branch.
+	QMAKE_CFLAGS *= -Wno-deprecated
+	QMAKE_CXXFLAGS *= -Wno-deprecated
+	QMAKE_OBJECTIVE_CFLAGS *= -Wno-deprecated
+	QMAKE_OBJECTIVE_CXXFLAGS *= -Wno-deprecated
+
 	CONFIG(opt-gcc) {
 		QMAKE_CC = /opt/gcc/bin/gcc
 		QMAKE_CXX = /opt/gcc/bin/g++
