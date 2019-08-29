@@ -1,3 +1,2780 @@
+2019-08-30
+  Davide Beatrici <davidebeatrici@gmail.com>
+    fc04121  Merge PR #3770: CI: Fix Azure Pipelines build failing
+
+2019-08-29
+  Davide Beatrici <davidebeatrici@gmail.com>
+    44c5e22  Azure Pipelines: store build environment in the proper
+	     directory
+    9f442e1  Merge PR #3772: compiler.pri: disable warnings for deprecated
+	     stuff
+    10be08c  compiler.pri: disable warnings for deprecated stuff
+
+2019-07-26
+  Davide Beatrici <davidebeatrici@gmail.com>
+    2b997d6  Merge PR #3728: Travis CI: only execute SonarScan and AppImage
+	     builder when in our repository
+    82b0aac  Travis CI: only execute SonarScan and AppImage builder when in
+	     our repository
+
+2019-07-20
+  Davide Beatrici <davidebeatrici@gmail.com>
+    c3a9f0d  Merge PR #3726: Correct path to icon
+
+  probonopd <probonopd@users.noreply.github.com>
+    8026d1c  Correct path to icon
+
+2019-07-17
+  Davide Beatrici <davidebeatrici@gmail.com>
+    467cbd9  Merge PR #3655: Add Cirrus CI for continuous integration
+	     (FreeBSD)
+    0bd53d7  Add Cirrus CI for continuous integration (FreeBSD)
+
+2019-07-03
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b36dd3d  Merge PR #3718: Create lgtm.yml to configure C/C++ analysis
+	     for LGTM.com
+    ce76e00  Merge PR #3719: Azure Pipelines: remove macOS build until we
+	     fix the many errors (deprecated stuff)
+
+2019-07-02
+  Bas van Schaik <5082246+sjvs@users.noreply.github.com>
+    16801b8  Create lgtm.yml to configure C/C++ analysis for LGTM.com
+
+  Davide Beatrici <davidebeatrici@gmail.com>
+    bb6416c  Azure Pipelines: remove macOS build until we fix the many
+	     errors (deprecated stuff)
+    da67a1f  .lgtm.yml: override qmake command
+
+2019-07-01
+  Davide Beatrici <davidebeatrici@gmail.com>
+    2fa33c4  Create FUNDING.yml
+
+2019-06-29
+  Davide Beatrici <davidebeatrici@gmail.com>
+    e19aaa1  Merge PR #3715: Travis CI: add SonarCloud integration for
+	     static code analysis
+    b517f01  Travis CI: add SonarCloud integration for static code analysis
+
+2019-06-10
+  Davide Beatrici <davidebeatrici@gmail.com>
+    41b2655  Merge PR #3704: Do not build tags that we create when we
+	     upload to GitHub Releases
+    83bca04  Merge PR #3703: Generate and upload AppImage
+
+  probonopd <probonopd@users.noreply.github.com>
+    3f31c9b  Do not build tags that we create when we upload to GitHub
+	     Releases
+    049f6a2  DEFINES+="MUMBLE_VERSION=${TRAVIS_COMMIT:0:7}"
+    78155c5  DEFINES+="MUMBLE_VERSION=$TRAVIS_COMMIT"
+
+2019-06-09
+  probonopd <probonopd@users.noreply.github.com>
+    6013e8d  AppImage
+
+2019-05-31
+  Constantin Wenger <constantin.wenger@googlemail.com>
+    5207c00  fixed setting comment to username instead of updating username
+	     over grpc when updating database user
+
+  Davide Beatrici <davidebeatrici@gmail.com>
+    41502bb  Merge PR #3698: fixed setting comment to username instead of
+	     updating username
+
+2019-05-26
+  Davide Beatrici <davidebeatrici@gmail.com>
+    02a14f4  Merge PR #3695: ServerUser: use QTime instead of std::chrono
+	     and ctime
+
+2019-05-25
+  Davide Beatrici <davidebeatrici@gmail.com>
+    da7baf5  ServerUser: use QTime instead of std::chrono and ctime
+    4e83913  Merge PR #3603: GlobalShortcutMac: fix segmentation fault in
+	     setEnabled()
+
+2019-05-24
+  Davide Beatrici <davidebeatrici@gmail.com>
+    d7353b7  GlobalShortcutMac: fix segmentation fault in setEnabled()
+
+2019-05-09
+  Davide Beatrici <davidebeatrici@gmail.com>
+    cbbc342  Merge PR #3690: Build/package murmur in a docker image
+    5a4f4cd  Merge PR #3691: Minimize window on tray icon click
+
+  Graeme Lawes <graemelawes@gmail.com>
+    041136d  Build/package murmur in a docker image
+
+2019-05-08
+  Andre <andre.favaro.student.cs@gmail.com>
+    48e793e  Minimize window on tray icon click
+
+2019-05-07
+  Graeme Lawes <graemelawes@gmail.com>
+    f0b393a  Remove Ice version/path locks for static builds
+
+2019-05-04
+  Davide Beatrici <davidebeatrici@gmail.com>
+    d737867  Merge PR #3683: JackAudio: fix segmentation fault, revamp
+	     initialization logic
+    0ee0683  JackAudio: fix segmentation fault, revamp initialization logic
+
+2019-05-03
+  Davide Beatrici <davidebeatrici@gmail.com>
+    0e71f79  Merge PR #3684: Set temporary, position, and description in
+	     GRPC ChannelAdd
+
+2019-05-02
+  Thomas Ross <thomasross@thomasross.io>
+    38a9960  Set temporary, position, and description in GRPC ChannelAdd
+
+2019-04-09
+  Davide Beatrici <davidebeatrici@gmail.com>
+    0f39a12  Merge PR #3633: Add missing ssleay32 library reference in
+	     openssl qmake configuration
+    f90ef83  Merge PR #3632: Add missing advapi32 library reference in
+	     server project
+
+2019-04-07
+  Alexis Jeandeau <alexis.jeandeau@gmail.com>
+    5af3145  Add support for TLS 1.3 in the server information window
+
+  Davide Beatrici <davidebeatrici@gmail.com>
+    4c82dd5  Merge PR #3663: Add support for TLS 1.3 in the server
+	     information window
+
+2019-04-05
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1e3d6a5  Merge PR #3646: Build Opus as shared library in static build,
+	     copy it into App Bundle
+    c75aafc  travis-ci: build installer in macOS build
+    8893126  macx/scripts/osxdist.py: add "--no-compat-warning" option
+    1813fe1  macx/scripts/osxdist.py: copy Opus library into App Bundle
+    b1f8964  3rdparty/opus-build: build as shared library even if it's a
+	     static build
+
+2019-04-03
+  Davide Beatrici <davidebeatrici@gmail.com>
+    c38d77e  Merge PR #3659: Fix transaction handling in
+	     Server::registerUser
+    ca8f3dd  Merge PR #3652: Azure Pipelines: add macOS build
+
+2019-04-02
+  Davide Beatrici <davidebeatrici@gmail.com>
+    2555a87  Azure Pipelines: add macOS build
+    5f43f65  Merge PR #3658: Fixed a bug/typo which prevented audio from
+	     playing on user disconnect
+
+  Thomas Ross <thomasross@thomasross.io>
+    e95617a  Fix transaction handling in Server::registerUser
+
+2019-04-01
+  Elbon <4796255+Elbon@users.noreply.github.com>
+    3f178a4  Fixed a bug/typo which prevented audio from playing on user
+	     disconnect
+
+2019-03-29
+  Davide Beatrici <davidebeatrici@gmail.com>
+    193c01d  Merge PR #3654: LCD.cpp: remove unused "bound" variable
+    efcbb16  LCD.cpp: remove unused "bound" variable
+
+2019-03-25
+  Alexis Jeandeau <alexis.jeandeau@gmail.com>
+    afa9f83  Fix typos in ServerDB::loadOrSetupMetaPKBDF2IterationsCount
+    f66a8d5  Remove unnecessary spaces in the logs when setting up the
+	     PBKDF2 iteration count
+
+  Davide Beatrici <davidebeatrici@gmail.com>
+    15072a4  Merge PR #3645: Fix log spacing and typos when setting up the
+	     PBKDF2 iteration count
+
+2019-03-21
+  Davide Beatrici <davidebeatrici@gmail.com>
+    f8ba6e0  Merge PR #3641: Add "Classic - Old Style" theme
+    4b93a9d  INSTALL: document new "no-classic-theme" CONFIG option
+    9f6d21b  themes: add "Classic - Old Style" theme
+
+2019-03-19
+  Davide Beatrici <davidebeatrici@gmail.com>
+    6ed06bd  Merge PR #3639: Messages: show "You moved user to channel"
+	     message also when the user is not in/moved to own channel
+    8d3521c  Merge PR #3638: Fix pod bay doors trigger system
+    a9b0311  Messages: show "You moved user to channel" message also when
+	     the user is not in/moved to own channel
+    1961ce1  Fix pod bay doors trigger system
+
+2019-03-17
+  Jan Klass <kissaki@posteo.de>
+    5fe390a  Add missing ssleay32 library reference in openssl qmake
+	     configuration
+    bcf4704  Add missing advapi32 library reference in server project
+
+2019-03-13
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1ee050a  Merge PR #3606: Transifex translation update
+
+2019-03-10
+  Davide Beatrici <davidebeatrici@gmail.com>
+    12f3ba1  travis-ci: switch to Xenial for Qt 5 builds, improve matrix,
+	     update MXE mirror
+    d560056  Merge PR #3626: mumble/main.cpp: fix compilation with Qt >=
+	     5.9
+
+  Jan Klass <kissaki@posteo.de>
+    72b4df2  Merge PR #3622: travis-ci: switch to Xenial for Qt 5 builds,
+	     improve matrix, update MXE mirror
+
+2019-03-09
+  Davide Beatrici <davidebeatrici@gmail.com>
+    4f59dd7  mumble/main.cpp: fix compilation with Qt >= 5.9
+    8a1e0e8  Merge PR #3627: Add global shortcuts for setting specific
+	     transmit modes
+    3010e03  Translation update
+
+  David <davidm.faig@gmail.com>
+    307999e  Add global shortcuts for setting specific transmit modes
+
+2019-03-05
+  Davide Beatrici <davidebeatrici@gmail.com>
+    c014e04  Merge PR #3623: Include "Global.h" after "Mumble.pb.h", to
+	     avoid a redefinition issue with protobuf 3.7
+    ce0ecff  Include "Global.h" after "Mumble.pb.h", to avoid a
+	     redefinition issue with protobuf 3.7
+
+2019-03-01
+  Davide Beatrici <davidebeatrici@gmail.com>
+    0325836  Merge PR #3616: OverlayEditorScene: fix object opacity
+	     calculation
+    42ab841  OverlayEditorScene: fix object opacity calculation
+
+2019-02-28
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1974ac0  Merge PR #3614: Default disable GKey
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b0bd029  Default disable GKey
+
+2019-02-26
+  Davide Beatrici <davidebeatrici@gmail.com>
+    c91553c  Merge PR #3612: mumble: change title of windows which have the
+	     default one ("Form")
+    c49301b  Merge PR #3611: AudioWizard: fix speech sample path
+    268a437  mumble: change title of windows which have the default one
+	     ("Form")
+    69864bd  AudioWizard: fix speech sample path
+
+2019-02-22
+  Davide Beatrici <davidebeatrici@gmail.com>
+    755c290  Merge PR #3604: Add tray menu action to show the main window
+    896d51a  Translation update
+
+  trudnorx <trudnorx@protonmail.com>
+    e76140b  Add tray menu action to show the main window
+
+2019-02-09
+  Davide Beatrici <davidebeatrici@gmail.com>
+    ba08786  Merge PR #3595: Refactor themes.cpp and themes.h
+
+  JustABanana <szymon@disroot.org>
+    bdfda03  Refactor themes.cpp and themes.h
+
+2019-02-07
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1fb1e9c  Merge PR #3594: murmur: cross pkg-config build fix
+
+2019-02-06
+  Timo Gurr <timo.gurr@gmail.com>
+    cd55aec  murmur: cross pkg-config build fix
+
+2019-01-26
+  Chris Knadle <Chris.Knadle@coredump.us>
+    4e024a2  qmake/pkgconfig.pri: Update to allow building with Qt4
+
+  Davide Beatrici <davidebeatrici@gmail.com>
+    c176974  Merge PR #3589: Crossbuild fix
+    909c13c  Merge PR #3590: Fix Duplicate Certificates In Chain Viewer
+
+  Maxwell Cody <maxwell@cody.sh>
+    ead94a8  Fix duplicate certificates in certificate chain viewer
+
+2019-01-25
+  Davide Beatrici <davidebeatrici@gmail.com>
+    4976c1a  Merge PR #3577: Update copyright (2019)
+    6e70999  Merge PR #3587: Global: fix migrateDataDir() not migrating the
+	     data directory
+    30ad8ba  Global: fix migrateDataDir() not migrating the data directory
+    e154a1b  src/murmur/MurmurIceWrapper.cpp: update copyright years
+    08ef8ac  Update copyright years in about dialogs for Mumble and Murmur
+    ceed206  Update src/licenses.h via scripts/mklic.pl
+    c4d0b00  scripts/mklic.pl: remove license for icon not present anymore
+    12cf955  Update copyright years in .plist and .rc files
+    b427333  Auto-update LICENSE.header in source files
+    0105626  LICENSE, LICENSE.header: add 2019 to the copyright range
+    15f268c  Merge PR #3586: Murmur: fix Denial of Service vulnerability in
+	     msgChannelState()
+    3edc46f  Murmur: fix Denial of Service vulnerability in
+	     msgChannelState()
+
+2019-01-19
+  Chris Knadle <Chris.Knadle@coredump.us>
+    427c746  src/mumble/mumble.pro: use PKG_CONFIG instead of hardcoding
+	     call to pkg-config
+    e10b155  src/mumble.pri: remove unneeded call to pkg-config to allow
+	     cross building
+    bb61d40  main.pro: use PKG_CONFIG instead of hardcoding call to
+	     pkg-config
+    50e5a2b  qmake/compiler.pri: use PKG_CONFIG instead of hardcoding call
+	     to pkg-config
+    40ba488  qmake/pkgconfig.pri: set PKG_CONFIG to allow making package
+	     cross buildable
+
+2019-01-18
+  Davide Beatrici <davidebeatrici@gmail.com>
+    e31d267  Merge PR #3576: Transifex translation update
+
+2019-01-17
+  Davide Beatrici <davidebeatrici@gmail.com>
+    66f5ae9  Merge PR #3580: ConnectDialog: create "Unknown" continent,
+	     never expand it automatically
+    f041737  Translation update
+    6084223  ConnectDialog: create "Unknown" continent, never expand it
+	     automatically
+
+2019-01-16
+  Davide Beatrici <davidebeatrici@gmail.com>
+    8c14906  Merge PR #3578: Remove AppVeyor configuration
+    2a37f18  Remove AppVeyor configuration
+    17cdab7  Merge PR #3575: Add Azure Pipelines for continuous integration
+	     (Windows)
+    cdecae6  README.md: add Azure Pipelines status badge
+    0383dee  Add Azure Pipelines for continuous integration (Windows)
+
+2019-01-14
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b981566  Merge PR #3572: WASAPI: print log message when the OS blocks
+	     access to the microphone
+
+2019-01-13
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b01639d  Translation update
+    5913171  WASAPI: print log message when the OS blocks access to the
+	     microphone
+
+2019-01-02
+  Davide Beatrici <davidebeatrici@gmail.com>
+    5e1ec5a  Murmur: use dedicated domain for public list registration
+    885187e  Merge PR #3569: Transifex translation update
+
+2018-12-30
+  Davide Beatrici <davidebeatrici@gmail.com>
+    5ff6fdc  Merge PR #3566: Transifex translation update
+
+  Kevin Zheng <kevinz5000@gmail.com>
+    a78cff3  Fix build with OpenSSL 1.1.1a
+    4f0394a  Update gitignore
+
+2018-12-20
+  Davide Beatrici <davidebeatrici@gmail.com>
+    5f370a8  Merge PR #3464: Fix crash when Opus is not available and add
+	     critical error message
+    d63337d  Translation update
+    2a5fa1c  Messages: show critical error message if Opus is not available
+    6d01f1d  Fix crash when Opus is not available
+
+2018-12-18
+  Davide Beatrici <davidebeatrici@gmail.com>
+    16c1145  Merge PR #3564: Don't drop indices on MySQL
+
+2018-12-15
+  Davide Beatrici <davidebeatrici@gmail.com>
+    d7ef517  Merge PR #3418: ALSAAudioInput: use snd_pcm_drop() instead of
+	     snd_pcm_drain() in class destructor
+
+  Lorenz Brun <lorenz@dolansoft.org>
+    e5aadf2  Don't drop indices, this breaks the upgrade process
+
+2018-12-09
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1a95cff  Merge PR #3559: Messages: fix user registration status not
+	     being updated
+    bb245f8  Messages: fix user registration status not being updated
+
+2018-11-26
+  Davide Beatrici <davidebeatrici@gmail.com>
+    9b19e60  Merge PR #3548: Disable hiding when system tray not present
+
+2018-11-25
+  meditator <cycl0ps@tuta.io>
+    c199fe5  Disable hiding when system tray not present
+
+2018-11-04
+  Davide Beatrici <davidebeatrici@gmail.com>
+    bfc8749  Merge PR #3546: Transifex translation update
+
+2018-10-29
+  Prakhar Yadav <pkrc267@users.noreply.github.com>
+    709db1a  corrected spelling/grammar
+    aa0b42e  corrected spellings/grammar for readability
+    b66cdab  corrected spellings and grammar for readability
+
+2018-10-28
+  Davide Beatrici <davidebeatrici@gmail.com>
+    df8b774  Merge PR #3545: Minor corrections for better readability
+
+2018-10-01
+  Davide Beatrici <davidebeatrici@gmail.com>
+    5d6978c  Merge PR #3527: Transifex translation update
+
+2018-09-08
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b44b1f2  Merge PR #3517: Make Rate limiter configurable
+
+  MadMaurice <madmaurice@zom.bi>
+    73a0b2f  Make Rate limiter configurable.
+
+2018-08-31
+  Davide Beatrici <davidebeatrici@gmail.com>
+    f7221c1  Merge PR #3512: Lower bucket params
+
+  MadMaurice <madmaurice@zom.bi>
+    4761ca4  Lower bucket params
+
+2018-08-30
+  Davide Beatrici <davidebeatrici@gmail.com>
+    44b9004  Merge PR #3510: Prevent instability and crash due to message
+	     flood
+
+  MadMaurice <madmaurice@zom.bi>
+    0daec57  Prevent instability and crash due to message flood
+
+2018-08-28
+  Davide Beatrici <davidebeatrici@gmail.com>
+    f672edd  Merge PR #3499: icons: update Mumble icon for macOS
+
+2018-08-20
+  Davide Beatrici <davidebeatrici@gmail.com>
+    94b14fa  icons: remove unused "mumble.osx.png" image
+    0db0ea3  icons: update Mumble icon for macOS
+    7bf387d  Merge PR #3475: Use Mumble theme icons for the system theme
+
+2018-08-14
+  Davide Beatrici <davidebeatrici@gmail.com>
+    3fa973c  Merge PR #3495: Transifex translation update
+
+2018-08-04
+  Davide Beatrici <davidebeatrici@gmail.com>
+    4269b0b  Merge PR #3488: Transifex translation update
+
+2018-08-02
+  Davide Beatrici <davidebeatrici@gmail.com>
+    d3cf441  Merge PR #3490: JackAudio: change disconnect_ports() so that
+	     it uses stored ports instead of retrieving them using
+	     jack_get_ports()
+    84f3488  JackAudio: change disconnect_ports() so that it uses stored
+	     ports instead of retrieving them using jack_get_ports()
+
+2018-07-23
+  Davide Beatrici <davidebeatrici@gmail.com>
+    3c54253  icons: delete third party icons and move our own into
+	     "classic"
+    0f38d4e  Remove icons which are not used anymore from the list of files
+	     to embed
+
+2018-07-22
+  Davide Beatrici <davidebeatrici@gmail.com>
+    fb8466c  Themes: change skins resources path from ":/" to
+	     ":/themes/Mumble"
+    86be682  themes: drop redundant `builtin` path prefix
+
+2018-07-21
+  Davide Beatrici <davidebeatrici@gmail.com>
+    7c08da0  Merge PR #3481: installer: copy rnnoise.dll
+
+2018-07-20
+  Edward <edm7707@gmail.com>
+    09204fe  installer: copy rnnoise.dll
+
+2018-07-17
+  Davide Beatrici <davidebeatrici@gmail.com>
+    adcf9fe  Merge PR #3474: Log: fix notification being triggered for own
+	     messages when TTS readback is enabled
+    b7c9ae6  Log: fix notification being triggered for own messages when
+	     TTS readback is enabled
+    91601a1  Merge PR #2902: installer: quote GUIDs in Settings.wxi.
+    86197ff  Merge PR #3473: Messages: set user hash and ID on join
+    3a51d6b  Messages: set user hash and ID on server join
+
+2018-07-15
+  Davide Beatrici <davidebeatrici@gmail.com>
+    68aae1d  Merge PR #3468: Transifex translation update
+
+2018-07-13
+  Davide Beatrici <davidebeatrici@gmail.com>
+    5039340  Merge PR #3370: Fix Boost library link for MSYS2
+    68cfcc4  Merge PR #3466: Translation update
+
+2018-07-12
+  Davide Beatrici <davidebeatrici@gmail.com>
+    70d336b  Translation update
+    e9600d4  Merge PR #3459: Transifex translation update
+
+2018-07-08
+  Davide Beatrici <davidebeatrici@gmail.com>
+    e21ff85  Merge PR #3445: Transifex translation update
+    f6a6b66  Merge PR #3456: Add "--jackname" and "--jn" parameters to set
+	     a custom Jack client name
+    e981c61  Merge PR #3450: OpusCodec: add "libopus.so.0" (Linux) and
+	     "opus.dll" (Windows) to the library names
+    e3ad955  Merge PR #3454: INSTALL: document "no-jackaudio" option
+    493e4a2  Add "--jackname" and "--jn" parameters to set a custom Jack
+	     client name
+    1781697  Merge PR #3453: AudioInput: calculate audio statistics after
+	     RNNoise processing
+    531e164  INSTALL: document "no-jackaudio" option
+    ec11400  AudioInput: check denoiseState before calling
+	     rnnoise_process_frame()
+    0618356  AudioInput: calculate audio statistics after RNNoise
+	     processing
+    91f5e1c  Merge PR #3451: Add configurable private text message
+	     notification
+    7fb1e50  Translation update
+    a579fc8  Add configurable private text message notification
+    fbe0638  OpusCodec: add "libopus.so.0" (Linux) and "opus.dll" (Windows)
+	     to the library names
+    07c8e00  Merge PR #3442: Add configurable "User connected and entered
+	     channel" and "User left channel and disconnected" messages
+    a3c2242  Translation update
+    fc4368a  Add configurable "User connected and entered channel" and
+	     "User left channel and disconnected" messages
+
+2018-07-07
+  Davide Beatrici <davidebeatrici@gmail.com>
+    e54f60f  Merge PR #3427: RNNoise
+    854d0b2  Translation update
+    37718eb  INSTALL: document RNNoise options
+    b6cc8e7  rnnoise-build: define USE_MALLOC to use malloc() and free()
+	     instead of variable length arrays
+    0e9944f  rnnoise-build: define _USE_MATH_DEFINES for MSVC, to add the
+	     M_PI macro
+
+  main() <main@ehvag.de>
+    8060171  Add RNNoise support
+
+2018-07-06
+  Davide Beatrici <davidebeatrici@gmail.com>
+    42b43ee  Merge PR #3443: installer: remove unused variables
+    e0ee016  Merge PR #3431: Create OpusCodec class, similar to CeltCodec,
+	     in order to load Opus' functions from a shared library
+    8ca51d0  Compile Opus as shared library
+    8adf78d  Introduce OpusCodec to use Opus as shared library
+    23f783d  installer: remove unused variables
+    426cd1e  Merge PR #3441: Transifex translation update
+
+2018-07-05
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1098afc  Merge PR #3426: Messages: revamp channel join/leave logic and
+	     add "User connected and entered channel." message
+    7632305  Translation update
+    c964162  Messages: revamp channel join/leave logic
+
+2018-07-04
+  Davide Beatrici <davidebeatrici@gmail.com>
+    a963fd0  Merge PR #3438: Translation update
+    09c71b4  Merge PR #3437: Settings: enable JACK auto-connect option by
+	     default
+    eded751  Translation update
+    92ed3ee  Settings: enable JACK auto-connect option by default
+    08d9b9c  Merge PR #3435: JACK: don't start the server if using another
+	     backend, create only required ports
+    e450d80  JACK: don't start the server if using another backend, create
+	     only required ports
+    7e15d9e  Merge PR #3436: Comment and status text fixes
+
+2018-07-03
+  Jan Klass <kissaki@posteo.de>
+    5c3c96e  Add descriptive comment to release.pl
+    38e8893  Fix incorrect status text in release.pl
+    cfe8f80  Fix typo in comment
+
+2018-07-02
+  Bernd Buschinski <b.buschinski@googlemail.com>
+    dc64e33  Jack: adapt codestyle
+    7e9a767  Jack: fix possible crash on close
+    00805e9  Jack: add option to autostart jackserver (default on) and
+	     another one to autoconnect Jack ports (default off)
+    bbaed83  Jack: improve error checking
+    db3f041  Jack: fix possible crash on Mumble shutdown
+    c848936  Jack: make number of output channels configurable
+	     (mono/stereo)
+    0017d8b  Jack: fix it always being active
+    6d170c3  Jack: add stereo support
+    5267074  Jack: convert spaces to tabs, to fit better with Mumble's
+	     coding style
+
+  Davide Beatrici <davidebeatrici@gmail.com>
+    6ac6ae8  Fix Boost library link for MSYS2
+    e399de7  Merge PR #3194: Third-party license update
+    1bf549d  Merge PR #3396: Add JACK Audio support
+    702c8a4  Jack: add missing <QtCore/QWaitCondition> include
+    7dce59a  Travis CI: install "libjack-jackd2-dev" for Linux builds
+    9e715f1  Jack: update license header
+
+  Mark Felder <feld@feld.me>
+    a1d1272  Jack: add initial support
+
+2018-07-01
+  Tim Cooper <tim.cooper@layeh.com>
+    c19ac8c  Merge PR #3432: Mark installer as AppVeyor build artifact
+    bf64461  Mark installer as AppVeyor build artifact
+
+2018-06-18
+  Davide Beatrici <davidebeatrici@gmail.com>
+    6195761  Merge PR #3422: Fix #3411: Threaded access to Database
+
+  Jan Klass <kissaki@posteo.de>
+    222def7  Fix #3411: Threaded access to Database
+
+2018-06-16
+  Davide Beatrici <davidebeatrici@gmail.com>
+    fbbdf2e  ALSAAudioInput: use snd_pcm_drop() instead of snd_pcm_drain()
+	     in class destructor
+    a092a44  Merge PR #3405: travis-ci: unlink Python 2 files on MacOS
+
+2018-06-15
+  Davide Beatrici <davidebeatrici@gmail.com>
+    0663833  travis-ci: Fix MacOS build for new images
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5b034be  Accept incompatibility with other 1.3 pre-release snapshots
+
+2018-06-14
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    46cd35c  Fix typo
+    9e0526c  Introduce channelcountlimit to limit max channels per server
+
+2018-06-09
+  Davide Beatrici <davidebeatrici@gmail.com>
+    e85191b  Merge PR #3407: Transifex translation update
+
+2018-04-29
+  Tim Cooper <tim.cooper@layeh.com>
+    2ad8c65  Merge PR #3403: use user leave message when user disconnects
+	     and is in the same channel
+    8f60ca8  use user leave message when user disconnects and is in the
+	     same channel
+
+2018-04-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    00625d6  Merge PR #3399: Transifex translation update
+
+2018-04-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    af4b752  Merge PR #3398: Use Utf8 QStrings for PulseAudio
+
+  Tasos Sahanidis <tasos@tasossah.com>
+    ee08dc0  Use Utf8 QStrings for PulseAudio
+
+2018-04-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    2126495  Merge PR #3393: Add qtaccessiblewidgets to PLUGINS for Qt 4
+	     builds.
+    0fad7ad  Add qtaccessiblewidgets to PLUGINS for Qt 4 builds.
+
+2018-04-01
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b25ea2d  Merge PR #3392: Only invoke Q_IMPORT_PLUGIN(qico) on Windows.
+    03a4d45  Merge PR #3391: XMLTools: include QXmlStream headers to get
+	     proper symbols names on Qt 4.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    f69e776  Only invoke Q_IMPORT_PLUGIN(qico) on Windows.
+
+2018-03-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    fe732bd  XMLTools: include QXmlStream headers to get proper symbols
+	     names on Qt 4.
+
+2018-03-26
+  Davide Beatrici <davidebeatrici@gmail.com>
+    109ddd4  Merge PR #3383: UserModel: show muted/deafened state icon only
+	     in the right hand column
+    0c2a023  UserModel: show muted/deafened state icon only in the right
+	     hand column
+    1971dd0  Merge PR #3382: plugins/rl: update plugin and add avatar top
+	     vector support
+    c45695c  plugins/rl: update plugin and add avatar top vector support
+
+2018-03-25
+  Davide Beatrici <davidebeatrici@gmail.com>
+    26c732f  Merge PR #3381: About: allow text in "About" tab to be
+	     selected
+    3575a4c  About: allow text in "About" tab to be selected
+
+2018-03-18
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b25db3e  Merge PR #3359: SvgIcon: add new class to work around issues
+	     with SVG QIcons in Plasma/KStatusNotifierItem
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    004a105  SvgIcon: add new class to work around issues with SVG QIcons
+	     in Plasma/KStatusNotifierItem
+
+2018-03-16
+  Davide Beatrici <davidebeatrici@gmail.com>
+    208ff15  Merge PR #3372: plugins/rl: single source file for both Linux
+	     and Windows
+
+2018-03-15
+  Davide Beatrici <davidebeatrici@gmail.com>
+    ebb79ee  plugins/rl: single source file for both Linux and Windows
+
+2018-03-12
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b230c28  Merge PR #3364: Correct case of AGL/agl.h to allow compilation
+	     on case-sensitive filesystem
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    e3e3263  Merge PR #3369: installer: only use WiX toolset from
+	     MUMBLE_PREFIX if the MUMBLE_PREFIX env var is set.
+
+2018-03-11
+  Davide Beatrici <davidebeatrici@gmail.com>
+    80f3686  Merge PR #3368: Change icon when muted/deafened
+    4877327  Add push-to-mute status icon
+    f540d9e  Change icon when muted/deafened
+
+  Harald Niesche <harald@niesche.de>
+    481299a  Correct case of AGL/agl.h to allow compilation on
+	     case-sensitive filesystem
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    adccd8c  installer: only use WiX toolset from MUMBLE_PREFIX if the
+	     MUMBLE_PREFIX env var is set.
+
+2018-03-02
+  Davide Beatrici <davidebeatrici@gmail.com>
+    ce8fd36  Merge PR #3354: Add per-notification setting to toggle window
+	     highlight (if not active)
+    dcdf069  Translation update
+    21eb9cc  Add per-notification setting to toggle window highlight
+
+2018-03-01
+  Davide Beatrici <davidebeatrici@gmail.com>
+    651e4d0  Merge PR #3349: Add configurable "You joined channel" and "You
+	     have been moved to channel by..." messages
+    a02084a  Translation update
+    620c67c  Add configurable "You joined channel" and "You have been moved
+	     to channel by..." messages
+    3cd8b98  Merge PR #3355: Translation update
+    8f7c61b  Translation update
+
+2018-02-19
+  Davide Beatrici <davidebeatrici@gmail.com>
+    ec3f2ca  Merge PR #3339: Set custom build folders globally, with
+	     support for shadow builds
+
+2018-02-18
+  Davide Beatrici <davidebeatrici@gmail.com>
+    9a47475  g15helper: don't set custom build directory
+    42e8d60  macx: don't set custom build directory
+    5477e8f  overlay: set custom build directory in relation to the global
+	     one
+    b0974d7  plugins: set custom build directory in relation to the global
+	     one
+    2396580  src: set custom build directory in relation to the global one
+    209255d  3rdparty: don't set custom build directories, aside from the
+	     two CELT versions
+    696e968  qmake: set custom build folders globally, with separated
+	     directories for each build file type
+
+2018-02-13
+  Davide Beatrici <davidebeatrici@gmail.com>
+    a0e2797  Build with PortAudio support only with "portaudio" CONFIG flag
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    48277cb  Merge PR #3338: Build with PortAudio support if the
+	     "portaudio" CONFIG flag is specified
+
+2018-02-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    e25cc49  scripts/mklic.pl, 3rdPartyLicenses: add libffi license.
+    8eb9dfd  scripts/mklic.pl, 3rdPartyLicenses: add libdaemon license.
+    185a0aa  scripts/mklic.pl, 3rdPartyLicenses: add libcap2 license.
+    33a1a05  scripts/mklic.pl, 3rdPartyLicenses: add glib license.
+    c93692c  scripts/mklic.pl, 3rdPartyLicenses: add libfuse license.
+    4a83bb8  scripts/mklic.pl, 3rdPartyLicenses: add squashfuse license.
+    c310c42  scripts/mklic.pl, 3rdPartyLicenses: add AppImage runtime
+	     license.
+    8407b49  scripts/mklic.pl, 3rdPartyLicenses: add D-Bus license.
+    eae5e74  scripts/mklic.pl, 3rdPartyLicenses: add Avahi license.
+    2a2a0e0  scripts/mklic.pl, 3rdPartyLicenses: add XAR license.
+    ec789c6  scripts/mklic.pl, 3rdPartyLicenses: add SQLite3 license.
+    0eb596a  scripts/mklic.pl, 3rdPartyLicenses: add Qt license.
+    ced5a50  scripts/mklic.pl, 3rdPartyLicenses: add PCRE license.
+    9b1f221  scripts/mklic.pl, 3rdPartyLicenses: add mDNSResponder license.
+    1d0e700  scripts/mklic.pl, 3rdPartyLicenses: add mcpp license.
+    4f846c3  scripts/mklic.pl, 3rdPartyLicenses: add ZeroC Ice license.
+    ab20c90  scripts/mklic.pl, 3rdPartyLicenses: add libjpeg-turbo license.
+    ae213d7  scripts/mklic.pl, 3rdPartyLicenses: add libpng license.
+    51907d0  scripts/mklic.pl, 3rdPartyLicenses: add harfbuzz-ng license.
+    bbc0cb5  scripts/mklic.pl, 3rdPartyLicenses: add freetype license.
+    f47335c  scripts/mklic.pl, 3rdPartyLicenses: add BerkeleyDB license.
+    b07551d  scripts/mklic.pl, 3rdPartyLicenses: add bzip2 license.
+    96cd9b9  scripts/mklic.pl, 3rdPartyLicenses: add Boost license.
+    a19b388  scripts/mklic.pl, 3rdPartyLicenses: add expat license.
+    44b1248  scripts/mklic.pl, 3rdPartyLicenses: add protobuf license.
+    717cefc  scripts/mklic.pl, 3rdPartyLicenses: add zlib license.
+    84e0f7d  scripts/mklic.pl: add MariaDB Connector/C license.
+    6fc31cb  scripts/mklic.pl: Use MinHook license from
+	     3rdparty/minhook-src.
+    ada91f1  3rdPartyLicenses: update OpenSSL license.
+    0dddc43  Merge PR #3337: XMLTools: remove unused default argument
+	     'opstyle' in recurseParse().
+    7f52257  XMLTools: remove default argument 'opstyle' in recurseParse().
+
+2018-02-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    39c526a  Merge PR #3335: Update mumble.desktop
+
+  ronnystandtke <ronny.standtke@gmx.net>
+    dfef2eb  Update mumble.desktop
+
+2018-02-08
+  Tim Cooper <tim.cooper@layeh.com>
+    23b171c  ignore connecting users in qhUsers hash in gRPC implementation
+
+2018-01-29
+  Jan Klass <kissaki@posteo.de>
+    c8ed9f9  Fix error when handling TCP tunneled UDP voice packets
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    aa90739  Merge PR #3326: Fix error when handling TCP tunneled UDP voice
+	     packets
+
+2018-01-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    16810dd  Merge PR #3322: SelfSignedCertificate: fix automatic
+	     certificate generator
+    b28c30a  TestSelfSignedCertificate: add tests that exercise new email
+	     SAN behavior.
+    519d04b  SelfSignedCertificate: only add email SAN to client certs if
+	     the passed-in email is non-empty.
+    7dd6ec6  SelfSignedCertificate: add missing 'goto out's.
+
+2018-01-25
+  Davide Beatrici <davidebeatrici@gmail.com>
+    92011a9  TestSelfSignedCertificate: Change empty name and email test to
+	     work with SelfSignedCertificate's new logic
+    e017c40  TestSelfSignedCertificate: Check that both "cert" and "key"
+	     are not empty
+    d47f2e3  SelfSignedCertificate: Fix automatic certificate generator, by
+	     specifying the certificate type with an enum
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    1273ba9  Merge PR #3318: Fix changes made in #3311
+
+2018-01-23
+  Davide Beatrici <davidebeatrici@gmail.com>
+    6d8dcdc  PulseAudio.cpp: Revert changes applied by commit 0b5579c and
+	     comment intentional fallthroughs
+    f2d0a2f  Server.cpp: Remove line of code accidentally added in commit
+	     0b5579c
+
+2018-01-22
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1b203cd  Merge PR #3311: Fix and refactor problems found via GCC 7's
+	     -Wimplicit-fallthrough.
+
+2018-01-21
+  Davide Beatrici <davidebeatrici@gmail.com>
+    0b5579c  Fix and refactor problems found via GCC 7's
+	     -Wimplicit-fallthrough.
+    6bd9bc9  Correctly handle ServerResolver errors, with dedicated signal
+	     and slot
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    e5ff9c5  Merge PR #3310: Correctly handle ServerResolver errors, with
+	     dedicated signal and slot
+
+2018-01-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    71ab5b0  Merge PR #3313: scripts/travis-ci: bump apt timeout in
+	     before_install.bash.
+    031abd0  Merge PR #3315: scripts/travis-ci: fix MUMBLE_NO_PCH checks in
+	     script.bash.
+    6a1663a  scripts/travis-ci: fix MUMBLE_NO_PCH checks in script.bash.
+    edd1de0  scripts/travis-ci: bump apt timeout in before_install.bash.
+
+2018-01-15
+  Mikkel Krautz <mikkel@krautz.dk>
+    a189969  Merge PR #3304: ServerHandler, Settings: add ping interval and
+	     connection timeout duration settings.
+
+2018-01-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    97d776a  ServerHandler: use ping interval and connection timeout
+	     duration from Settings instead of magic numbers.
+    5d4a7d3  Settings: implement settings for ping interval and connection
+	     timeout duration.
+    b7b16cf  Merge PR #3305: scripts/travis-ci: use our own
+	     (Fastly-fronted) mirror of pkg.mxe.info.
+    8b1ef2e  scripts/travis-ci: use our own (Fastly-fronted) mirror of
+	     pkg.mxe.info.
+    2c24ee0  Merge PR #3303: ServerHandler: do not send pings unless the
+	     TLS handshake has completed.
+
+2018-01-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    d188861  ServerHandler: do not send pings unless the TLS handshake has
+	     completed.
+
+2018-01-12
+  Davide Beatrici <davidebeatrici@gmail.com>
+    e348e47  Remove leftover includes from "main" and "macx" project files
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    1844f21  Merge PR #3301: GRPC: fix deadlock in removeChannel
+
+2018-01-09
+  Jonas Herzig <me@johni0702.de>
+    fb4451d  GRPC: fix deadlock in removeChannel
+
+2018-01-08
+  Mikkel Krautz <mikkel@krautz.dk>
+    28a8e64  Merge PR #3298: Update gRPC server to work with recent gRPC
+	     versions
+
+2018-01-07
+  Jonas Herzig <me@johni0702.de>
+    27edcd4  GRPC: remove unsafe calls to IsCancelled
+    76a1757  GRPC: fix flipped logic in removeTextMessageFilter
+    92cd615  GRPC: use AsyncNotifyWhenDone instead of cleanup timer
+
+2018-01-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    76eb586  Merge PR #3277: .travis.yml: remove mingw builds from
+	     allow_failures.
+    f41b058  .travis.yml: remove mingw builds from allow_failures.
+    820ee72  Merge PR #3295: Disable SRV tests when running on Wine
+
+2018-01-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    28f55af  TestServerResolver: reference upstream WineHQ bug in tests
+	     skipped on Wine.
+    3dd8f1d  PlatformCheck: add a reference to the Wine wiki for our Wine
+	     detection code.
+    159be4b  PlatformCheck: do not assign QLibrary::resolve() retval to
+	     variable for wider compatibility.
+    f0c2d8b  TestServerResolver: skip SRV tests when running on Wine.
+    5192831  src/tests: update .pro files to append to SOURCES and HEADERS
+	     instead of overwriting them.
+    29ebd2b  Build PlatformCheck into all test binaries.
+    3c400f4  Add PlatformCheck class, for runtime platform detection.
+
+2018-01-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    3ffd9ad  Merge PR #3291: 2018: Happy New Year
+
+2018-01-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    d007191  Re-generate MurmurIceWrapper.cpp via scripts/mkwrapper.pl.
+    acb43a2  Update copyright years in about dialogs for Mumble and Murmur.
+    cc88443  Update src/licenses.h via scripts/mklic.pl.
+    23261e2  Update copyright years in .plist and .rc files.
+    f6ba3a5  Auto-update LICENSE.header in source files.
+    4c69e1d  LICENSE, LICENSE.header: add 2018 to the copyright range.
+
+2017-12-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    caa1873  Merge PR #3287: AudioOutput: do not use non-existant template
+	     version of std::abs.
+    6ca110a  src/tests: add TestStdAbs test.
+    a221fed  mumble_pch.hpp: explicitly include <cmath>.
+    ea861fe  AudioOutput: do not use non-existant template version of
+	     std::abs.
+    ab5ecba  Merge PR #3289: qmake/compiler.pri: target macOS 10.8 when
+	     building against Qt 5.10 or above.
+    7ed03e6  OSInfo: ignore deprecation warnings for Gestalt.
+    da3222d  qmake/compiler.pri: target macOS 10.8 when building against Qt
+	     5.10 or above.
+
+2017-12-02
+  Davide Beatrici <davidebeatrici@gmail.com>
+    742a5d9  Merge PR #3276: GlobalShortcut_win: fix std::/boost::
+	     confusion in comment.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    53912f6  GlobalShortcut_win: fix std::/boost:: confusion in comment.
+
+2017-11-30
+  Davide Beatrici <davidebeatrici@gmail.com>
+    6bfd039  Merge PR #3272: ManualPlugin.cpp: "MublePluginQt" ->
+	     "MumblePluginQt"
+
+2017-11-29
+  Davide Beatrici <davidebeatrici@gmail.com>
+    60d18cd  ManualPlugin.cpp: "MublePluginQt" -> "MumblePluginQt"
+
+2017-11-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    3125439  Merge PR #3168: Log: remove support for external images.
+    24e437c  Merge PR #3230: overlay_gl: linux: only assume absolute
+	     dynamic entries on glibc.
+    2d89506  Merge PR #3270: Assorted MinGW fixes
+    b65b55c  mumble.pro: add correct Boost libraries to LIBS, now that we
+	     use boost_thread in GlobalShortcut_win.
+    fa981e5  os_early_win: make compat_layer_env const to avoid GCC
+	     writable strings error.
+    ba2a202  os_early_win: use 0 instead of NULL for ulOptions DWORD
+	     parameter in RegOpenKeyEx.
+    e91f282  GlobalShortcut_win: use boost::future/boost::promise instead
+	     of std:: variants for better MinGW compatibility.
+    48f3eb9  Merge PR #3268: Fix SRV port bugs in ServerResolver and
+	     ConnectDialog
+    7acf687  ConnectDialog: use port from ServerResolverRecord instead of
+	     original port from ServerResolver::port().
+    04a8a5d  ServerResolver: fix bug where ServerResolver_qt5 would always
+	     pass on the original port given to the resolver.
+
+2017-11-19
+  Davide Beatrici <davidebeatrici@gmail.com>
+    fba1d65  Merge PR #3262: Plugins: Determine correct pointer size
+	     automatically, without the need of specific headers and
+	     variables
+    2a51c7b  Accomplish changes in all the plugins
+    f397c40  Replace legacy header with the new one
+    7286fb0  Determine correct pointer size automatically, without the need
+	     of specific headers and variables
+
+2017-11-13
+  Davide Beatrici <davidebeatrici@gmail.com>
+    8bf71ba  Merge PR #3264: Ignore "target_wrapper.sh", ".directory" and
+	     all files with ".Debug" and ".Release" extensions
+
+2017-11-12
+  Davide Beatrici <davidebeatrici@gmail.com>
+    ea08127  Ignore "target_wrapper.sh", ".directory" and all files with
+	     ".Debug" and ".Release" extensions
+
+2017-11-11
+  Davide Beatrici <davidebeatrici@gmail.com>
+    3eae0dc  Merge PR #3182: Allow Prefilling Add Server Dialog With HTTP
+	     URLs
+
+  Jan Klass <kissaki@posteo.de>
+    d25feb7  Update theme submodule for changes of PR #3182
+    2a4413e  Do not update fill suggestion on clipboard changes
+
+2017-10-28
+  Davide Beatrici <davidebeatrici@gmail.com>
+    894ade2  Merge PR #3257: ServerHandler.cpp: Remove
+	     "Qt::QueuedConnection" attribute for connection between
+	     "readyRead()" and "udpReady()"
+    1121ef9  ServerHandler.cpp: Remove "Qt::QueuedConnection" attribute for
+	     connection between "readyRead()" and "udpReady()"
+
+2017-10-22
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    12de49e  Switch client DB to sqlite synchronization mode NORMAL
+
+2017-10-17
+  Davide Beatrici <davidebeatrici@gmail.com>
+    d2943a5  Merge PR #3250: Fixed crashing on disconnect
+    04c0578  Merge PR #3252: Check ClientUser pointer before dereference
+
+  pchk <pchk@mail.com>
+    c45957d  Fixed crashing on disconnect
+    86f7815  Check ClientUser pointer before dereference
+
+2017-10-15
+  Jan Klass <kissaki@posteo.de>
+    a8d8c13  Merge PR #3249: Fix travis OSX build
+    ed06886  Fix travis OSX build
+    e03989e  Merge PR #3240: Fix travis osx build; Add Ice 3.7 support
+
+2017-10-02
+  Jan Klass <kissaki@posteo.de>
+    264d1ed  Replace obsolete Ice statements for Ice >= 3.7
+    387fc01  Fix Travis OSX build - add keg slice subpath
+
+2017-09-03
+  Matthias von Faber <mvf@gmx.eu>
+    2903f3b  overlay_gl: linux: only assume absolute dynamic entries on
+	     glibc.
+
+2017-08-24
+  Alexis Jeandeau <alexis.jeandeau@gmail.com>
+    ba6d829  MurmurGRPCImpl.cpp: fix typo
+
+  Davide Beatrici <davidebeatrici@gmail.com>
+    f2cbebd  Merge PR #3227: MurmurGRPCImpl.cpp: fix typo
+
+2017-08-19
+  Jan Klass <kissaki@posteo.de>
+    c33f5de  Fix code formatting
+
+2017-08-12
+  Mikkel Krautz <mikkel@krautz.dk>
+    13bad23  Merge PR #3222: GlobalShortcutWin: fall back to 'Unknown' for
+	     unknown DirectInput buttons.
+    9ff8232  GlobalShortcutWin: fall back to 'Unknown' for unknown
+	     DirectInput buttons.
+    9709ed8  ConnectDialogEdit: layout updates.
+
+2017-08-07
+  Jan Klass <kissaki@posteo.de>
+    cea7064  ConnectDialog: Show fill suggestion for current server
+    2758a7c  ConnectDialog: Try to disable vertical resizability
+    2f609a2  ConnectDialog: Update prefill-ability notice on clipboard
+	     changes
+    0298ac4  ConnectDialog: Handle HTTP URLs from clipboard
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    d196a4b  Merge PR #3219: mumble.pri: make SOURCES and HEADERS
+	     multiline.
+    923d649  Merge PR #3184: murmur/Cert: remove auto-generation of
+	     Diffie-Hellman parameters.
+    9550487  Merge PR #3185: Allow users to specify RFC 7919 Diffie-Hellman
+	     parameters for the sslDHParams murmur.ini option
+    807869b  Merge PR #3208: GlobalShortcutWin, MumbleApplication: add
+	     suppression support for injected Windows keyboard/mouse
+	     message events.
+
+2017-08-06
+  Jan Klass <kissaki@posteo.de>
+    90bf3f9  ConnectDialog: Move ConnectDialogEdit prefill logic into
+	     separate constructor
+    571c84f  ConnectDialog: Move default server name logic to fromMimeData
+    dc01f27  ConnectDialog: Separate fromMimeData and fromUrl
+    f6d25e5  ConnectDialog: Describe parsing of windows URL shortcut files
+    c28a0f7  ConnectDialog: Add missing password label buddy
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    1ea4b92  Meta: fix error message shown when using sslDHParams option
+	     with Qt without DH support.
+    b22f9c3  GlobalShortcutWin, MumbleApplication: add suppression support
+	     for injected Windows keyboard/mouse message events.
+    2a84ae6  Meta: make sslDHParams errors fatal instead of critical.
+    7b4535c  Meta: improve error message when sslDHParams contains unknown
+	     named group.
+    7d83448  FFDHE: add NamedGroups method for getting a list of supported
+	     named groups.
+    1178f64  scripts/murmur.ini: update default murmur.ini to reflect new
+	     FFDHE feature.
+    4098109  Meta: use @ffdhe2048 as default value for sslDHParams.
+    5b3190e  Meta: implement support for named DH parameters for
+	     sslDHParams option.
+    b505857  mumble.pri: make SOURCES and HEADERS multiline.
+    5db1fa4  Merge PR #3218: Remove DIST directive from all .pro files.
+    828d930  Remove DIST directive from all .pro files.
+    ec254df  Merge PR #3217: GlobalShortcut: fix typo in What's This for
+	     'Enable shortcuts in privileged applications'
+    4e1df3b  GlobalShortcut: fix typo in What's This for 'Enable shortcuts
+	     in privileged applications'
+    52ad772  Merge PR #3207: GlobalShortcutWin, MumbleApplication: inject
+	     native WM_* keyboard and mouse messages into
+	     GlobalShortcutWin.
+    cce4851  Merge PR #3214: Add greek translation for installer
+    4411059  Merge PR #3213: Fix indentation and spacing in pro files
+
+  thalieht <yjapysgr@sharklasers.com>
+    608028b  Add greek translation for installer
+
+2017-08-05
+  Jan Klass <kissaki@posteo.de>
+    23e7638  Fix assignment spacing in pro files
+    27a983d  Fix indentation in pro files
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a3f0eb6  Merge PR #3212: Allow users to disable UIAccess via Additional
+	     Shortcut Engines setting.
+    805985d  GlobalShortcut: add UI to allow users to opt-out of UIAccess.
+    4bdf673  os_early_win: implement ability to disable UIAccess via config
+	     option.
+    64a1cb3  os_early: a new mechanism for running OS-specific tasks
+	     immediately upon entering main().
+    cfb7df4  Settings: add 'shortcut/windows/uiaccess/enable' setting.
+
+2017-08-03
+  Giovanni Harting <539@idlegandalf.com>
+    39f861e  fixed major version extraction
+    0452789  refined version checking logic
+    a8e2f93  added include path for ice 3.7, added logic for removed
+	     IceUtils lib
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    f90ab07  Merge PR #3211: [BUILD] ZeroC Ice 3.7 compatibility
+
+2017-08-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    a0ddf8e  GlobalShortcut_win: only allow injection of native
+	     keyboard/mouse messages if Windows hooks are enabled.
+
+2017-07-30
+  Mikkel Krautz <mikkel@krautz.dk>
+    bfb74a6  MumbleApplication: forward native Windows mouse/keyboard
+	     events from nativeEventFilter/winEventFilter into
+	     GlobalShortcutWin.
+    4f0a748  GlobalShortcutWin: implement public API for injecting native
+	     Windows keyboard/mouse events.
+    e4f7256  GlobalShortcutWin: handle incoming InjectKeyboardMessageEvent
+	     and InjectMouseMessageEvent events.
+    22d6396  GlobalShortcutWin: implement InjectKeyboardMessageEvent and
+	     InjectMouseMessageEvent QEvents.
+    1648741  GlobalShortcutWin: refactor HookKeyboard and HookMouse
+	     callbacks into functions.
+    567f33a  GlobalShortcutWin: add comment about button indexes in
+	     HookMouse().
+    4f87be8  Merge PR #3204: GlobalShortcutWin: remove code related to the
+	     in-overlay Mumble client.
+
+2017-07-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    e336368  GlobalShortcut, GlobalShortcutWin: MumbleApplication: remove
+	     GlobalShortcut::prepareInput().
+    4bf0355  GlobalShortcutWin: remove code related to the in-overlay
+	     Mumble client.
+    36cb960  Merge PR #3183: FFDHE: add new class for accessing RFC 7919
+	     Diffie-Hellman parameters.
+
+2017-07-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    d993b83  FFDHE: new class for accessing RFC 7919 FFDHE parameters.
+    a590ad9  scripts: add generate-ffdhe.py for generating FFDHETable.h.
+    5aaf1ed  Merge PR #3199: src/murmur: remove CONFIG(ermine), use
+	     CONFIG(buildenv) instead.
+    4566f09  Merge PR #3198: ConnectDialog: re-arrange lookedUp() code to
+	     avoid recursive runloop problem.
+    2724ff5  Merge PR #3201: MurmurGRPCImpl.h: declare variable for
+	     QMutexLocker in RPCSingleStreamCall class.
+
+2017-07-24
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    ec61c2b  Merge PR #3202: scripts/murmur.ini: fix minor typo in gRPC
+	     comment.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    f3aed2a  src/murmur: remove CONFIG(ermine), use CONFIG(buildenv)
+	     instead.
+    f47562b  scripts/murmur.ini: fix minor typo in gRPC comment.
+    daca82c  MurmurGRPCImpl.h: declare variable for QMutexLocker in
+	     RPCSingleStreamCall class.
+
+2017-07-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    ac9fa64  Merge PR #3195: Update AUTHORS and src/licenses.h.
+    af0b2ec  Merge PR #3196: Merge murmur.grpc.ini and murmur.ini
+    bb4b36d  ConnectDialog: re-arrange lookedUp() code to avoid recursive
+	     runloop problem.
+    c0be50a  Make Murmur warn if any of the grpc options are set, but the
+	     binary is built without gRPC support.
+    863cb3b  scripts: remove gRPC-specific murmur.ini.
+    899e1f4  src/licenses.h: re-run scripts/mklic.pl with new AUTHORS file.
+    e354493  AUTHORS: update via scripts/generate-AUTHORS.py.
+
+2017-07-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    38c525e  Merge PR #3190: GlobalShortcut_win: delete poll timer inside
+	     the GlobalShortcut thread.
+    14ac2b3  Merge PR #3188: Overlay_win: properly terminate our overlay
+	     helper processes.
+    00e1cfc  GlobalShortcut_win: delete poll timer inside the
+	     GlobalShortcut thread.
+    3ea9f08  Overlay_win: properly terminate our overlay helper processes.
+
+2017-07-19
+  Mikkel Krautz <mikkel@krautz.dk>
+    3ee0728  installer: revert "installer: force uninstall before install."
+    bed5763  murmur/Cert: remove auto-generation of Diffie-Hellman
+	     parameters.
+
+2017-07-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    5b82a7a  Merge PR #3174: SSL: register OpenSSL threading callbacks when
+	     we can't access Qt's OpenSSL.
+    80916fd  Merge PR #3181: .gitmodules: always use our own submodule
+	     repos on GitHub.
+    a642894  .gitmodules: always use our own submodule repos on GitHub.
+    f6fb4d8  src/tests: add TestSSLLocks test for testing our OpenSSL
+	     locking implementation.
+    6892c8b  src/tests: update tests to initialize and destroy the
+	     MumbleSSL module to ensure OpenSSL is properly initialized.
+    72e0a78  SSL: register OpenSSL threading callbacks when we can't access
+	     Qt's OpenSSL.
+    f041bdb  SSL: add destroy() function to the SSL module.
+
+2017-07-16
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    6f434d3  Merge PR #3179: UserListModel.cpp: "id" -> "ID"
+    5564901  Merge PR #3178: Log.cpp: "ftp" -> "FTP"
+
+  Allan Nordhøy <epost@anotheragency.no>
+    d001702  ID
+    12b0a16  FTP
+
+2017-07-15
+  Mikkel Krautz <mikkel@krautz.dk>
+    6770eac  Merge PR #3176: SelfSignedCertificate: add missing newline to
+	     SelfSignedCertificate.cpp.
+    b5c17b8  SelfSignedCertificate: add missing newline to
+	     SelfSignedCertificate.cpp.
+    38e647f  Merge PR #3173: scripts/mkini-win32.bat: perform LF -> CRLF
+	     conversion.
+
+2017-07-14
+  Jan Klass <kissaki@posteo.de>
+    d817937  Merge PR #3171: SelfSignedCertificate: new class for creation
+	     of self-signed certificates.
+    9d4691c  Merge PR #3172: ServerResolver: treat SRV lookups that return
+	     NOERROR but no records as errors.
+    d6e327d  Merge PR #3166: TestServerResolver: add CNAME test.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    c2a3e2f  scripts/mkini-win32.bat: perform LF -> CRLF conversion.
+    7578e85  Settings: remove iMaxImageSize and deprecate
+	     'net/maximagesize'.
+    cf93bd6  NetworkConfig: remove 'disable image download' option from the
+	     UI.
+    119bb5c  Log: remove support for external images.
+    a69668a  SelfSignedCertificate: new class for creation of self-signed
+	     certificates.
+
+2017-07-13
+  Jan Klass <kissaki@posteo.de>
+    e79ca50  Merge PR #3169: Settings: add DEPRECATED macro for keeping
+	     old, reserved names around.
+    5357472  Merge PR #3167: Log: remove dead m_valid code from
+	     LogDocument.
+    65bb0e6  Make use of Qt5 QSignalSpy::wait to make tests succeed earlier
+    d3938c1  Fix #3162: Travis builds could fail with timeout
+    36fc0f1  overlay: Use size_t as correct type for memory addresses
+    7689647  Remove type variable prefix
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    350ad28  TestServerResolver: add CNAME test.
+    a318787  Merge PR #3170: Fix #3162: Travis builds could fail with
+	     timeout
+    ea5c038  Merge PR #3160: overlay: Use SIZE_T as correct type for memory
+	     addresses
+    2bd0b7e  ServerResolver: treat SRV lookups that return NOERROR but no
+	     records as errors.
+    8acdb95  Settings: add DEPRECATED macro for keeping old, reserved names
+	     around.
+    708821d  Log: remove dead m_valid code from LogDocument.
+
+2017-07-12
+  Jan Klass <kissaki@posteo.de>
+    49b80d8  Merge PR #3165: Translation update
+    911f957  Merge PR #3164: ServerHandler: avoid leaking ServerResolver in
+	     ::run().
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    f7b7cf4  Translation update
+    37b84ed  ServerHandler: avoid leaking ServerResolver in ::run().
+
+2017-07-11
+  Jan Klass <kissaki@posteo.de>
+    ce864c7  Cast to correct API types
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    9a2fa24  Merge PR #3161: Cast to correct API types
+
+2017-07-09
+  Mikkel Krautz <mikkel@krautz.dk>
+    fcb367f  Merge PR #3157: Log: remove the notion of an invalid
+	     LogDocument.
+    ab783c7  Log: remove the notion of an invalid LogDocument.
+    a4e859e  Merge PR #3156: Add toggle to lock layout when in custom
+	     layout mode
+
+2017-07-08
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    6cd17bd  Merge PR #3154: ServerHandler: ensure only a single connection
+	     timeout timer is active at one time.
+
+  Max Weber <mii7303@gmail.com>
+    e72a22f  Add toggle to lock layout when in custom layout mode
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    ffc8bf1  ServerHandler: ensure only a single connection timeout timer
+	     is active at one time.
+
+2017-07-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    c93b087  Merge PR #3152: ServerHandler: fix broken hostname validation.
+    ae392dc  ServerHandler: fix broken hostname validation.
+
+2017-07-06
+  Davide Beatrici <davidebeatrici@gmail.com>
+    90777a9  ServerAddress.cpp: Fix ServerAddress ports comparison typo
+    2b3d75c  TestServerAddress.pro: HostAddresss.h -> HostAddress.h
+
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    176c041  Merge PR #3150: ServerAddress.cpp: Fix ServerAddress ports
+	     comparison typo
+    8275f77  Merge PR #3149: TestServerAddress.pro: HostAddresss.h ->
+	     HostAddress.h
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3fcd786  Merge PR #3151: ServerHandler: add missing return for hostname
+	     lookup failure case.
+    7f8b2d3  ServerHandler: add missing return for hostname lookup failure
+	     case.
+    cada677  Merge PR #3148: Update Opus to v1.2.1
+
+2017-07-04
+  Davide Beatrici <davidebeatrici@gmail.com>
+    e4bcede  Update Opus to v1.2.1
+
+  James Fraser <fwaggle@fwaggle.org>
+    eba7466  Make comparison case-insensitive in ConnectDialog.cpp
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    455ab19  Merge PR #3147: Make comparison case-insensitive in
+	     ConnectDialog.cpp
+
+2017-06-23
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    8029f3f  Merge PR #3140: Transifex translation update
+
+2017-06-16
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    ae6e08c  Merge PR #3133: Transifex translation update
+
+2017-06-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    e913a44  Merge PR #3127: Implement new hostname resolving
+	     infrastructure
+
+2017-06-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    8f8aa1a  ServerHandler: integrate ServerResolver.
+    edd95a8  ServerHandler: transform run() to a do-while loop in
+	     preparation of server fallback in SRV.
+    5976158  ServerHandler: manually perform the TLS handshake.
+    23b2c52  ServerHandler: use qsHostName as the hostname for the TLS
+	     handshake.
+    9560c23  ServerHandler: ensure pings are only sent when in the
+	     Connected state.
+    d88fb6c  ServerHandler: make qtsSock a member variable.
+    d238eaf  ConnectDialog: update the connect dialog to use ServerResolver
+	     for hostname lookups.
+    8068772  TestServerResolver: make the test Qt 4 compatible.
+    75a4008  TestServerResolver: modify test to work on systems that do not
+	     support both IPv4 and IPv6.
+    ea7af99  ServerResolver: add new class for hostname resolving
+	     (including SRV support).
+    67838db  ConnectDialog, Database: use UnresolvedServerAddress type for
+	     the ping cache.
+    b1d901b  ConnectDialog: use ServerAddress for address list in
+	     ServerItem, and for qhDNSCache.
+    f2ee244a  ConnectDialog: use ServerAddress instead of QPair-based
+	     qpAddress type.
+    332c371  ServerAddress: new struct for containing a HostAddress along
+	     with a port number.
+    ac34059  UnresolvedServerAddress: add new struct for holding an
+	     unresolved hostname/port pair.
+
+2017-06-08
+  Antonio Larrosa <larrosa@kde.org>
+    9fa4922  Initialize siInfo.format
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    d472e06  Merge PR #3125: Initialize siInfo.format
+
+2017-06-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    a0eba81  Merge PR #3123: Transifex translation update
+
+2017-06-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    d66eeeb  Merge PR #3118: WASAPI, Settings: expose 'wasapi/role' setting
+	     to allow users to set WASAPI role.
+    2018934  WASAPI, Settings: expose 'wasapi/role' setting to allow users
+	     to set WASAPI role.
+
+2017-06-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    4de645c  Merge PR #3114: mumble_exe: fix typo and simplify comment
+	     about LoadLibraryEx bug.
+    cff7ce7  mumble_exe: fix typo and simplify comment about LoadLibraryEx
+	     bug.
+    d3bacc5  Merge PR #3113: mumble_exe: document LoadLibraryEx workaround
+	     for mumble-voip/mumble#2837.
+    8ba982f  mumble_exe: document LoadLibraryEx workaround for
+	     mumble-voip/mumble#2837.
+
+2017-06-01
+  Davide Beatrici <davidebeatrici@gmail.com>
+    d0db59b  Remove unnecessary "-ldl" library from Mumble and Murmur
+	     project files
+
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    7c77b8c  Merge PR #3111: Remove unnecessary "-ldl" library from Mumble
+	     and Murmur project files
+    9ef302e  Merge PR #3110: Transifex translation update
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    13bc12d  Merge PR #3109: SSL: remove multi-OpenSSL sanity check.
+    f544524  SSL: remove qsslSanityCheck.
+    dff1557  SSL: also initialize Mumble's copy of libssl/libcrypto.
+
+2017-05-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    30a9176  Merge PR #3107: murmur.ini: Remove extra whitespaces
+    d1baf4f  Merge PR #3037: Replacing grayed out with closed mouth icon
+
+2017-05-30
+  concatime <concatime@users.noreply.github.com>
+    908e17d  Update murmur.ini
+
+2017-05-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    3754898  Merge PR #3099: src/tests: make TestTimer's resolution test
+	     more VM friendly.
+    389d82b  src/tests: make TestTimer's resolution test more VM friendly.
+
+2017-05-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    4481729  Merge PR #3098: AudioInput, Settings: add
+	     'audio/inputchannelmask' setting for selecting which mic
+	     channels should be mixed.
+
+2017-05-21
+  Jan Klass <kissaki@posteo.de>
+    5205818  Merge PR #3083: Move RichTextEditor XML tool methods into
+	     separate class and add Tests
+    41dbb4b  Add XMLTools tests
+    2b62693  Add mumble and murmur paths to VPATH
+    7d081f7  Improve method documentation
+    367fba9  Move XML functions into separate class
+
+2017-05-20
+  Jan Klass <kissaki@posteo.de>
+    d8f7800  Make use of EnvUtils::setenv
+    f7657b5  Make use of EnvUtils in murmur
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a6cae4f  Merge PR #3056: Make EnvUtils available to murmur, implement
+	     setenv
+    03de498  AudioInput, Settings: add 'audio/inputchannelmask' setting for
+	     selecting which mic channels should be mixed.
+    3399a50  Implement EnvUtils::setenv
+    d783c09  EnvUtils: fix documentation comment in header.
+    b8c70b7  EnvUtils: convert EnvUtils to use local 8-bit instead of
+	     UTF-8.
+
+2017-05-15
+  Mikkel Krautz <mikkel@krautz.dk>
+    a7c8344  Merge PR #3095: murmur/Cert: OPENSSL_VERSION ->
+	     OPENSSL_VERSION_NUMBER.
+    cbeed58  murmur/Cert: OPENSSL_VERSION -> OPENSSL_VERSION_NUMBER.
+
+2017-05-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    dde8173  Merge PR #3093: OpenSSL include fixes
+    7e10fc2  murmur_pch: include <openssl/opensslv.h>.
+    7be4861  murmur_pch: explicitly include <openssl/bn.h>.
+    449c797  Merge PR #3059: Recompress png files and ico files
+    5c9a46e  Merge PR #3068: Added a "Undo Idle action upon activity"
+	     setting.
+
+2017-05-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    10511de  Merge PR #3091: src/tests: remove fragile TestTimer tests.
+
+2017-05-12
+  Mikkel Krautz <mikkel@krautz.dk>
+    a221dee  src/tests: remove fragile TestTimer tests.
+
+2017-05-11
+  Jan Klass <kissaki@posteo.de>
+    c7d5d5a  Fix #3021: Update cert wizard introductory text
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    97c34f4  Merge PR #3084: Fix #3021: Update cert wizard introductory
+	     text
+    6aba984  Merge PR #3080: murmur/Cert: check for 'Murmur Autogenerated
+	     Certificate' prefix instead of explicit version in self-signed
+	     cert check.
+    50c94b0  Merge PR #3086: Fix #3085: Display correct, new icon
+    80602a3  Merge PR #3088: add trailing ellipses to each main window
+	     action text that open a window or dialog
+    576c017  Merge PR #3089: Transifex translation update
+
+2017-05-10
+  Jan Klass <kissaki@posteo.de>
+    ebf3b38  Fix #3085: Display correct, new icon
+
+  Tim Cooper <tim.cooper@layeh.com>
+    60a0d3b  add trailing ellipses to each main window action text that
+	     open a window or dialog
+
+2017-05-09
+  Jan Klass <kissaki@posteo.de>
+    650e8f0  Merge PR #3082: Transifex translation update
+
+2017-05-08
+  Andrew Johnson <ajohnson@draster.com>
+    48c2cc3  Added a "Undo Idle action upon activity" setting.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3160fc9  murmur/Cert: check for 'Murmur Autogenerated Certificate'
+	     prefix instead of explicit version in self-signed cert check.
+    d3470c3  Merge PR #3071: TextToSpeech_unix: lazy initialize
+	     speech-dispatcher.
+    c0c5ba7  Merge PR #3076: Use RSA_generate_key_ex instead of
+	     RSA_generate_key for generating Murmur's self-signed
+	     certificate.
+    b928c04  Merge PR #3078: main: fix typo in RPC help output: stauts ->
+	     status.
+    3c25873  main: fix typo in RPC help output: stauts -> status.
+    46fb405  Merge PR #3077: plugins/bf1: update plugin to work with
+	     version 1.0.49.52296
+
+2017-05-07
+  Davide Beatrici <davidebeatrici@gmail.com>
+    75c4de8  plugins/bf1: update plugin to work with version 1.0.49.52296
+
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    ffa3be9  Merge PR #3067: plugins/bf2: extend identity with in-game VoiP
+	     state and selected squad
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a6aba12  Merge PR #3066: SocketRPC: ensure pipe paths match up.
+    44687d5  TextToSpeech_unix: make setVolume not initialize
+	     speech-dispatcher.
+    bf7ce38  TextToSpeech_unix: lazily initialize speech-dispatcher.
+    0d08ab3  selfSignedServerCert_SHA1_RSA_2048: use RSA_generate_key_ex().
+    f0b33c4  murmur/Cert: improve error handling in the add_ext() function.
+    70da3ba  selfSignedServerCert_SHA1_RSA_2048: add error handling.
+    3210091  selfSignedServerCert_SHA1_RSA_2048: refactor variable
+	     declarations.
+    e7c2787  selfSignedServerCert_SHA1_RSA_2048: nullify output variables
+	     on failure.
+    402596b  murmur/Cert: move self-signed server certificate generation to
+	     its own function.
+    81b00bf  Merge PR #3072: Murmur: fix warning about unused
+	     mumble_BN_GENCB_new/mumble_BN_GENCB_free.
+
+2017-05-06
+  Flumble <flumble@home.nl>
+    b47bfc8  Add `target_squad_id` and `ipport` to identity
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    2a08974  Murmur: fix warning about unused
+	     mumble_BN_GENCB_new/mumble_BN_GENCB_free.
+
+2017-05-05
+  Flumble <flumble@home.nl>
+    aa87489  add VoiP state to Battlefield 2 identity
+
+2017-05-04
+  Kyle Wickens <kylewickens@gmail.com>
+    3705494  FIXED: RPC calls to run on a Raspberry Pi
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    0cffca1  Merge PR #3062: Use BN_GENCB_new() and BN_GENCB_free() where
+	     applicable.
+
+2017-05-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    4dabb1b  Use BN_GENCB_new() and BN_GENCB_free() where applicable.
+
+2017-04-30
+  Shen-Ta Hsieh <ibmibmibm.tw@gmail.com>
+    7c059d9  Recompress png files and ico files
+
+2017-04-29
+  Jan Klass <kissaki@posteo.de>
+    a535810  Make EnvUtils available to Murmur
+    5a5a3b2  Merge PR #3054: Fix issues identified by PVS-Studio
+    1f302ad  Remove wrong assert
+
+2017-04-28
+  Jan Klass <kissaki@posteo.de>
+    a8a8236  Simplify returns
+
+  Svyatoslav <razmyslov@viva64.com>
+    2a38c88  Checking with PVS-Studio static analyser.
+
+2017-04-26
+  Jan Klass <kissaki@posteo.de>
+    5489564  Merge PR #3051: Fix Some Issues, Improve Code quality
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    948331e  Merge PR #3050: man: update murmurd.1 to mention SIGHUP and
+	     SIGUSR1.
+
+2017-04-25
+  Jan Klass <kissaki@posteo.de>
+    ce4e3cf  Check env-var function return values for errors
+    89b1ec2  Add comment for workaround from/as in mumble/main.cpp
+    830ea8a  Initialize pointers in constructor
+    386112e  Reduce variable scope
+    c9d6d91  Check for null before pointer use
+    17c7ee0  Check for error on winapi calls
+    03d11d4  Use readable hex version constant for checks
+    f814cc5  Use constants instead of magic numbers
+    248859c  Merge PR #3049: overlay: add LaunchPad.exe (Daybreak Games's
+	     launcher) to the launcher list.
+
+2017-04-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    6749835  man: update murmurd.1 to mention SIGHUP and SIGUSR1.
+    425a994  overlay: add LaunchPad.exe (Daybreak Games's launcher) to the
+	     launcher list.
+
+2017-04-23
+  Jan Klass <kissaki@posteo.de>
+    2968a92  Merge PR #3001: Accept File And Folder Drops In Overlay
+	     Exceptions
+    1464873  Merge PR #3046: Add itch.exe as known overlay launcher
+    ee44430  Add itch.exe as known overlay launcher
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a902dec  Merge PR #3045: Transifex translation update
+
+2017-04-22
+  Jan Klass <kissaki@posteo.de>
+    f2362cb  Code formatting
+    203a6a8  Use PathListWidget for Overlay exception lists
+    edcdc4d  Add PathListWidget with drop functionality
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    8f65051  Merge PR #3044: overlay: remove ability for overlay to decline
+	     being attached to a process.
+    557eacd  overlay: remove ability for overlay to decline being attached
+	     to a process.
+
+2017-04-21
+  lewisca04 <chris.lewis0094@gmail.com>
+    5669cf1  Added fix for murmur check for MySQL, SQLite, and Postgres
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    65c2500  Merge PR #3039: Updating ServerDB.cpp to check for MySQL,
+	     SQLite, and Postgres
+
+2017-04-20
+  Jan Klass <kissaki@posteo.de>
+    b7cb6be  Move code into method addWhitelistPath
+    8ac5db2  Move OverlayAppInfo (creation) logic into OverlayAppInfo
+
+2017-04-19
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    a935808  Merge PR #3040: Update BF2142 plugin, adding identity support
+
+  Flumble <flumble@home.nl>
+    c92b599  Update BF2142 plugin, adding identity support
+
+2017-04-18
+  Jan Klass <kissaki@posteo.de>
+    4d005f0  Merge PR #3038: Fix "Enable XInput" What's This text
+	     formatting
+    cfc2bab  Fix "Enable XInput" What's This text formatting
+
+  mray <mail@mray.de>
+    c582bde  Replacing grayed out with closed mouth icon
+
+2017-04-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    9e834cb  Merge PR #3033: qmake/compiler.pri: add
+	     CONFIG(dpkg-buildflags).
+    e3460f6  qmake/compiler.pri: add CONFIG(dpkg-buildflags).
+
+2017-04-16
+  Mikkel Krautz <mikkel@krautz.dk>
+    eb63d0b  Merge PR #3025: MainWindow: only perform changeEvent's
+	     hide-in-tray logic if there is a system tray available.
+
+2017-04-15
+  Mikkel Krautz <mikkel@krautz.dk>
+    224d0f3  MainWindow: only perform changeEvent's hide-in-tray logic if
+	     there is a system tray available.
+
+2017-04-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    46462cd  Merge PR #3020: Cert: use classic wizard style for the
+	     Certificate Wizard.
+    4e430f7  Merge PR #3015: Do not include OS in HTTP user agent depending
+	     on privacy setting
+    2fe1fb1  Cert: use classic wizard style for the Certificate Wizard.
+
+2017-04-12
+  Piratonym <piratonym@piratonym.cc>
+    710aa60  Do not include OS in HTTP user agent depending on privacy
+	     setting
+
+2017-04-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    eca5d03  Merge PR #3008: Net: split Net.cpp/Net.h into multiple files
+    4e635cc  Merge PR #3016: Transifex translation update
+    5bfd665  Net: refactor Ban class to its own set of files.
+    5ede036  Net: refactor HostAddress class to its own set of files.
+
+2017-04-09
+  Mikkel Krautz <mikkel@krautz.dk>
+    c01ff8c  Net: refactor SWAP64 macro into its own header, ByteSwap.h.
+    65909b8  Merge PR #3009: Add option to hide OS information from server
+	     ("privacy mode")
+    d4c8abd  Merge PR #3013: AppVeyor: add no-pch build for x86_64 MSVC.
+    11b5c28  Merge PR #3014: .travis.yml: add no-pch build for Linux/Qt 4.
+    67653f5  AppVeyor: add no-pch build for x86_64 MSVC.
+    fc1af7a  Merge PR #3012: scripts/appveyor: fix comment about
+	     signing/UIAccess in appveyor-build.ps1.
+    a25d5f4  .travis.yml: add no-pch build for Linux/Qt 4.
+    1b2b642  Merge PR #3011: Fix CONFIG(no-pch) build on MSVC.
+    f0a2ac8  scripts/appveyor: fix comment about signing/UIAccess in
+	     appveyor-build.ps1.
+    dfc0c39  WinGUIDs: include wtypes.h in WinGUIDs to fix no-pch build.
+    d921262  DirectSound: move includes to implementation file to fix moc
+	     in CONFIG(no-pch).
+    27189b6  Merge PR #3010: MainWindow: Don't open tooltips when not
+	     active
+    db4a591  Merge PR #3007: Fix local volume dialog default size
+
+  Piratonym <piratonym@piratonym.cc>
+    d0e2cdc  Add option to hide OS information from server
+
+2017-04-08
+  Jan Klass <kissaki@posteo.de>
+    a3f85fe  Fix local volume dialog default size
+
+  Max Weber <mii7303@gmail.com>
+    9e7fd2e  MainWindow: Don't open tooltips when not active
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    cc30e71  Merge PR #3006: TestTimer: refactor some tests to provide more
+	     useful log output
+    bd6a466  Merge PR #2981: Resolve code issues
+    b54166b  Merge PR #3002: Update description of configuring lib paths
+    2a7a87f  TestTimer: add delta64 function and use it for delta
+	     calculations.
+    da53f52  TestTimer: add logging to atomicity test.
+    55b7b49  TestTimer: refator accuracy test and add logging.
+    bf9ea60  Merge PR #3005: Add new path for winpaths_custom.pri (in
+	     qmake/) to gitignore.
+    c3ae569  Add new path for winpaths_custom.pri (in qmake/) to gitignore.
+    5424496  Merge PR #3004: Fix #2683
+
+2017-04-07
+  Davide Beatrici <davidebeatrici@gmail.com>
+    9f77740  plugins/bf1: update plugin to work with version 1.0.49.28890
+
+  Jan Klass <kissaki@posteo.de>
+    7c8a364  Drop redundant if condition in else case
+    5cd4b09  Initialize variables in constructor
+    fdc1fe1  Update description of configuring lib paths
+
+  Max Weber <mii7303@gmail.com>
+    56151bb  Just use text color
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    50540fd  Merge PR #3003: plugins/bf1: update plugin to work with
+	     version 1.0.49.28890
+
+2017-04-06
+  Davide Beatrici <davidebeatrici@gmail.com>
+    f56074b  plugins/bf4: update plugin to work with version 1.8.2.48475
+
+  Jan Klass <kissaki@posteo.de>
+    79dd6b9  Discard duplicate path exceptions
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    e7e6197  Merge PR #2999: plugins/bf4: update plugin to work with
+	     version 1.8.2.48475
+
+2017-04-05
+  Jan Klass <kissaki@posteo.de>
+    7073b3a  Drop Speex from README
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a69916b  Merge PR #2995: Drop Speex from README
+
+2017-04-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    2a9fa47  Merge PR #2994: MainWindow: avoid floor/ceil in
+	     VolumeUp/VolumeDown global shortcut handlers.
+    9fa4c56  MainWindow: avoid floor/ceil in VolumeUp/VolumeDown global
+	     shortcut handlers.
+
+2017-04-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    f8072e8  Merge PR #2988: Re-run generate-cipherinfo.py to regenerate
+	     SSLCipherInfoTable.h
+    4f8ea24  Merge PR #2990: TestTimer: make resolution test independent of
+	     QTime.
+    7b11430  TestTimer: make resolution test independent of QTime.
+    502cfc4  Update SSLCipherInfoTable.h via
+	     scripts/generate-cipherinfo.py.
+    16dc758  scripts/generate-cipherinfo.py: ensure output is consistently
+	     sorted.
+    62107aa  Convert existing SSLCipherInfoTable.h to Unix-style line
+	     endings.
+    5bbf313  scripts/generate-cipherinfo.py: use correct script name in
+	     comment.
+    4a63973  scripts/generate-cipherinfo.py: add DH_RSA and DH_DSS key
+	     exchanges.
+    15d18ee  Merge PR #2985: overlay: treat launchers as implicitly
+	     blacklisted programs.
+
+2017-03-30
+  Mikkel Krautz <mikkel@krautz.dk>
+    a9bdde0  overlay: treat launchers as implicitly blacklisted programs.
+    fc13fd1  Merge PR #2987: ACLEditor: fix tooltip for channel sort order.
+
+2017-03-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    dc05de7  ACLEditor: fix tooltip for channel sort order.
+    b2455f2  Merge PR #2950: travis-ci: add macOS target.
+    5db8665  travis-ci: add macOS target.
+    8dd4b10  Merge PR #2984: murmur_ice: various fixes in preparation of
+	     macOS Travis-CI PR
+    e0048d8  murmur_ice: accommodate Homebrew slice path in macx block
+    68718fd  murmur_ice: use MUMBLE_ICE_PREFIX in murmur_ice for macx
+    e97adf7  Merge PR #2983: Simplify delta calculation in TestTimer.cpp
+
+2017-03-28
+  Davide Beatrici <davidebeatrici@gmail.com>
+    2244414  overlay: add GTAVLauncher.exe to the default launcher-filter
+	     program blacklist.
+    e878332  overlay_blacklist.h: Add missing comma
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    375ca92  Simplify delta calculation in TestTimer.cpp
+    b47b1da  Merge PR #2975: Overlay_macx: fix code to work with removal of
+	     OverlaySettings::bUseWhitelist.
+    fdd837c  Merge PR #2980: tests: depend on OpenSSL in test.pri instead
+	     of each individual test.
+    7a17c68  Overlay_macx: fix code to work with removal of
+	     OverlaySettings::bUseWhitelist.
+    b7ad9d6  Merge PR #2982: overlay: add GTAVLauncher.exe to the default
+	     launcher-filter program blacklist.
+    57b3aa6  tests: depend on OpenSSL in test.pri instead of each
+	     individual test.
+
+2017-03-27
+  Davide Beatrici <davidebeatrici@gmail.com>
+    bd29b6a  plugins/gtav: update plugin to work with version 1.38 (Retail)
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    888df45  Merge PR #2979: TestPacketDataStream: use UTF-8 instead of
+	     Latin1.
+    dcc6689  TestPacketDataStream: use UTF-8 instead of Latin1.
+    234cbdd  Merge PR #2977: plugins/gtav: update plugin to work with
+	     version 1.38 (Retail)
+
+2017-03-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    19ecc86  Merge PR #2974: Introduce protobuf.pri helper for depending on
+	     protobuf
+    a358d0d  mumble_proto: use protobuf.pri.
+    0500a42  mumble.pri: use protobuf.pri.
+    029f0b8  qmake/protobuf.pri: new file to include in .pro files for
+	     depending on protobuf.
+    623d2af  Merge PR #2973: overlay: add gw2-64.exe to the default
+	     launcher-filter program whitelist.
+    0a497b0  overlay: add gw2-64.exe to the default launcher-filter program
+	     whitelist.
+    b1b3d4f  Merge PR #2920: Add overlay launcher filter
+
+2017-03-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    cb5e34f  Merge PR #2971: Update AUTHORS file (2017-03-25)
+    e84915d  AUTHORS: update.
+    0dfa304  .mailmap: add new hacst mail.
+    45ad52f  Merge PR #2970: .mailmap: add dark_skeleton's preferred author
+	     line.
+    ccbcb0b  .mailmap: add dark_skeleton's preferred author line.
+
+2017-03-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    efd6361  Merge PR #2788: Document workaround in LogTextBrowser
+    a27fbb7  Merge PR #2969: Log_macx: disable Growl fallback on Qt >= 5.8.
+    e51edae  Log_macx: disable Growl fallback on Qt >= 5.8.
+
+2017-03-22
+  Davide Beatrici <davidebeatrici@gmail.com>
+    a1a1ff1  3rdparty/opus-build: remove unnecessary shared library
+	     handling for macOS
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    282d672  Merge PR #2966: 3rdparty/opus-build: remove unnecessary shared
+	     library handling for macOS
+    0962523  Merge PR #2963: Transifex translation update
+
+2017-03-19
+  Mikkel Krautz <mikkel@krautz.dk>
+    8d4d5f0  overlay: hook up new excludecheck-based overlay exclusion
+	     check.
+    58c208c  overlay: implement new overlay exclusion logic in
+	     excludecheck.cpp/excludecheck.h.
+    151bc49  overlay: re-introduce checks for 'debugoverlay' and
+	     'nooverlay'.
+    de6e9ec  overlay: move procname parsing to separate function.
+    2f07778  overlay: allow overlay to decline being attached to a process.
+    bffd2ec  overlay: remove legacy overlay exclusion code.
+    d30ab5b  overlay: refactor bBlacklisted into bEnableOverlay.
+    35c7d13  overlay: add olsettings.cpp/olsettings.h, accessors for
+	     launcher overlay settings.
+    be43c91  overlay: add ancestor.cpp/.h, utilities for getting process
+	     ancestor info.
+    88bfbbb  overlay: add util.h with vector/string/path utilities.
+    06b646d  OverlayConfig: add UI for configuring the launcher filter.
+    be70cee  Settings: add overlay launcher filter settings.
+    3cf2801  overlay: update overlay_blacklist.h.
+    ab298d8  overlay: add overlay_launchers.h and overlay_whitelist.h.
+    e414bd3  Merge PR #2958: Fix no-pch build and add a no-pch
+	     configuration to Travis CI
+    f31bbf3  Merge PR #2959: scripts/rcc-depends.py: fall back to using the
+	     absolute path when os.path.relpath() fails on Windows.
+    b6c6b18  Meta: add QSslCipher header to fix no-pch build.
+    8ec4775  travis-ci: add a no-pch build to the Travis matrix.
+    ac674d9  scripts/rcc-depends.py: fall back to using the absolute path
+	     when os.path.relpath() fails on Windows.
+
+2017-03-18
+  Davide Beatrici <davidebeatrici@gmail.com>
+    942ba6d  travis-ci: Remove unneeded "winpaths_custom" CONFIG option
+    d19fdd5  plugins/gtav: update plugin to work with version 1.38 (Steam)
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3313f9b  Merge PR #2956: MurmurIce: fix signed/unsigned comparison
+	     between string size and std::numeric_limits.
+    c84af26  Merge PR #2955: qmake/compiler.pri: fix value of MUMBLE_ARCH
+	     on Qt 5.
+    37269b1  Merge PR #2954: travis-ci: Remove unneeded "winpaths_custom"
+	     CONFIG option
+    a58815c  qmake/compiler.pri: fix value of MUMBLE_ARCH on Qt 5.
+    8728ea7  MurmurIce: fix signed/unsigned comparison between string size
+	     and std::numeric_limits.
+    69defe5  Merge PR #2953: plugins/gtav: update plugin to work with
+	     version 1.38 (Steam)
+
+2017-03-17
+  Davide Beatrici <davidebeatrici@gmail.com>
+    cb1c1b4  WinGUIDs.cpp: Fix missing symbol linker error
+    b674036  compiler.pri: Use the Unix block for win32-g++ too
+    19c4f9f  Move "getenvQString()" function to a dedicated header and
+	     rename it
+    ad0a3c5  Move Windows GUID initialization to WinGUIDS.cpp file.
+    42134a1  mumble.pro: Fix "avrt" library linkage
+    2c045c8  Timer.cpp: Fix missing Boost symbol for MinGW
+    e07240e  WASAPI.cpp: Fix cross-initialization problem
+    3f8919e  WASAPI.cpp: Manually define GUIDs
+    a913a33  os_win.cpp: Use the "delayHook()" function only with MSVC
+    d01994d  DirectSound.cpp: Replace "LPDIRECTSOUNDNOTIFY8" with
+	     "LPDIRECTSOUNDNOTIFY"
+    bad172f  ServerHandler.cpp: Delay load "qwave.dll" only with MSVC
+    170f284  src: Fix QoS build with MinGW
+    5ce8161  mumble_pch.hpp: Include <ws2tcpip.h> to fix MinGW build
+    e3bc8ff  mumble_pch.hpp: Set up Windows macros _WIN32_WINNT and
+	     NTDDI_VERSION to target Windows 7 on MinGW.
+    bb5c365  opus-build.pro: Don't use MSVC-specific SSE config options
+	     options for MinGW
+    594d010  opus-build: Rename "Win32" folder to "win32"
+    06606f7  mumble_exe.pro: Enable UNICODE for MinGW
+    78717d3  mumble.pro: split MSVC/MinGW libsndfile linking, due to
+	     different ordering and dependency requirements.
+    6aa30d8  mumble.pro: Link against "ksuser" in the MinGW build
+    d8a165b  openssl.pri: Link against "libssl", "libcrypto" and "gdi32"
+	     when targetting MinGWi
+    b44cc7e  mumble.pri: Create configuration for MinGW
+    5754a09  compiler.pri: Enable SSE and SSE2 for MinGW
+    45a40bf  compiler.pri: Define "MINGW_HAS_SECURE_API" to enable secure
+	     functions
+    67422bc  compiler.pri: Add CONFIG(symbols) support to win32-g++ build.
+    886098b  compiler.pri: Use QT_ARCH instead of QMAKE_target.arch with Qt
+	     5
+    0a253c7  mumble_exe.pro: Remove MSVC flags for MinGW
+    633f50b  minhook-build.pro: Remove MSVC flags for MinGW
+    d84dc1a  speex-build.pro: Use Unix-like config.h for the MinGW build,
+	     instead of win32/config.h"
+    322e711  celt-0.7.0-build.pro: Use Unix-like config.h for the MinGW
+	     build, instead of win32/config.h"
+    0e460ba  celt-0.11.0-build.pro: Use Unix-like config.h for the MinGW
+	     build, instead of win32/config.h"
+    a2526bc  g15helper.pro: Don't use "mt.exe" with MinGW
+    e50eefc  murmur.pro: Don't use "mt.exe" with MinGW
+    5257dce  mumble_exe.pro: Don't use "mt.exe" with MinGW
+    756dadc  mumble.pro: Don't use "mt.exe" with MinGW
+    882d972  Connection, Server, ServerHandler: Cast "dwFlow" to DWORD
+	     pointer to fix MinGW build.
+    f03ef98  DirectSound.h: include <mmsystem.h> to fix MinGW build.
+    568915d  os_win.cpp: Include <shobjidl.h> and <shlobj.h> to fix MinGW
+	     build
+    93efd81  os_win.cpp: Include <float.h> to fix MinGW build
+    ac9c6fc  os_win.cpp: Include <share.h> to fix MinGW build
+    2c431b8  murmur_pch.h: Include missing headers
+    2bd9f06  travis-ci: Execute "make check" using Wine
+    1726c81  TextToSpeech.cpp: Fix build problem
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    10079ed  Merge PR #2907: Implement support for building Mumble and
+	     Murmur using the MinGW toolchain.
+    f9cf8da  travis-ci: Use MinGW build envs
+    8758cf5  Merge PR #2952: TextToSpeech.cpp: Fix build problem
+    048d029  Merge PR #2951: Transifex translation update
+
+2017-03-16
+  Davide Beatrici <davidebeatrici@gmail.com>
+    08e2d0a  Use Qt Speech if specified and available
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    b16983f  Merge PR #2922: Mumble: remove expert mode.
+    0d2e891  Settings: document that expert mode has been removed.
+    1017830  Mumble: remove expert mode.
+    b9165ae  Merge PR #2939: Implement QtSpeech-based text-to-speech
+	     backend
+    6b7dfc7  Merge PR #2948: Fixed uname() query on Solaris.
+    562353a  Merge PR #2949: Transifex translation update
+
+  Maxwell Cody <roge@riseup.net>
+    fef7252  OSInfo: Documented Solaris uname() fix.
+
+2017-03-15
+  Jan Klass <kissaki@posteo.de>
+    aa68f5a  By default do not use other-talk attenuation
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    5e7cbca  Merge PR #2935: WASAPI.cpp: Remove unused "numFramesLeft"
+	     variable
+    92b82cf  Merge PR #2943: Murmur: update registration URL to use
+	     mumble.info instead of mumble.hive.no.
+    6898407  Merge PR #2944: Transifex translation update
+
+  Maxwell Cody <roge@riseup.net>
+    41e0652  Fixed uname() query on Solaris.
+
+2017-03-14
+  Davide Beatrici <davidebeatrici@gmail.com>
+    0b4d204  WASAPI.cpp: Remove unused "numFramesLeft" variable
+    48c988c  plugins/sto.cpp: Retract plugin
+    57e3d90  plugins/ql: Fix spectator state offset
+    e284bcc  Overlay_win: Fix "m_active" variable order
+    f7798c3  MurmurIce.cpp: Fix signed/unsigned comparison warning
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    aea841a  Murmur: update registration URL to use mumble.info instead of
+	     mumble.hive.no.
+    2667fe4  Merge PR #2932: Overlay_win: Fix "m_active" variable order
+    9de6718  Merge PR #2941: plugins/sto.cpp: Retract plugin
+    bbceaa6  Merge PR #2942: plugins/ql: Fix spectator state offset
+    47be309  Merge PR #2924: GlobalShortcut: allow users to enable/disable
+	     our additional shortcut engines on Windows.
+    649537f  Merge PR #2938: MurmurIce.cpp: Fix comparison between signed
+	     and unsigned integer
+    50fc0ca  Merge PR #2931: UserView.cpp: Fix deprecated Qt class
+    ec07f61  Merge PR #2936: WASAPI.cpp: Fix print format warnings
+    c495c57  Merge PR #2937: XboxInput: Fix type-punned pointer dereference
+	     warning
+    905461f  Merge PR #2930: Global.cpp: Fix unused "migrateDataDir()"
+	     function on Windows
+    e7c39bb  Merge PR #2940: Transifex translation update
+
+2017-03-13
+  Davide Beatrici <davidebeatrici@gmail.com>
+    49bbe3c  Global.cpp: Fix unused "migrateDataDir()" function on Windows
+    00885e3  WASAPI.cpp: Fix wrong print format
+    179556d  UserView.cpp: use the QStyleOptionViewItem appropriate for the
+	     Qt version we build against.
+    9fa3843  XboxInput: clean up code by introducing XboxInputGetStateFunc
+	     typedef.
+    88654df  ASIOInput.cpp: Fix print format warning
+    357c30e  os_win.cpp: Fix unused "mumbleMessageOutput()" function
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    dbab0f7  Merge PR #2926: Add setting for enabling the Developer menu
+    841bff8  Merge PR #2933: os_win.cpp: Fix unused "mumbleMessageOutput()"
+	     function with Qt 5
+    76d2ea2  Merge PR #2934: ASIOInput.cpp: Fix print format warning
+
+2017-03-12
+  Mikkel Krautz <mikkel@krautz.dk>
+    dda999c  Merge PR #2929: main.pro: use qmake/compiler.pri -- the
+	     compiler.pri in the root does not exist.
+    1a953fc  main.pro: use qmake/compiler.pri -- the compiler.pri in the
+	     root does not exist.
+    7e4205b  MainWindow: implement UI logic for 'ui/developermenu' setting.
+    4a6a2bd  LookConfig: hook up 'ui/developermenu' setting in the User
+	     Interface config dialog.
+    4a62783  Settings: add setting for enabling developer menu.
+    c59ca21  Merge PR #2925: Use 'Third-Party Licenses' in About dialog
+	     instead of "3rd party licenses"
+    845e516  Murmur: use title-case for 'Third-Party Licenses' text in
+	     About dialog.
+    fc606ce  Mumble: use 'Third-Party Licenses' in About dialog.
+    c319d5c  GlobalShortcut: allow users to enable/disable our additional
+	     shortcut engines on Windows.
+    0e49ea3  GlobalShortcut_win: check for gkey != NULL in gkey handling.
+    da41c19  GlobalShortcut_win: check for xboxinput != NULL before use.
+    82e8a33  Settings: add missing save call for the 'shortcut/gkey'
+	     setting.
+    9cb4040  Settings: add setting for winhooks.
+
+2017-03-11
+  Davide Beatrici <davidebeatrici@gmail.com>
+    74710cf  GlobalShortcut_win.cpp: Make the "qHash()" function non-static
+    94d5552  main.cpp: Change "_declspec" to "__declspec"
+    846e1eb  MumbleApplication.h: Remove additional scope resolution for
+	     the "nativeEventFilter()" function
+    9d2cdc0  mumble.pro: Use "3rdparty/asio" instead of "ASIO_PATH", if the
+	     folder exists
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    bed0869  Merge PR #2921: Overlay_win: properly initialize
+	     m_helper_enabled, m_helper64_enabled and m_mumble_handle.
+    b3f2833  Overlay_win: properly initialize m_helper_enabled,
+	     m_helper64_enabled and m_mumble_handle.
+    aef577f  Merge PR #2917: MumbleApplication.h: Remove additional scope
+	     resolution for the "nativeEventFilter()" function
+    5076416  Merge PR #2918: main.cpp: Change "_declspec" to "__declspec"
+    0740c0a  Merge PR #2919: GlobalShortcut_win.cpp: Make the "qHash()"
+	     function non-static
+    91a8c2c  Merge PR #2916: mumble.pro: Use "3rdparty/asio" instead of
+	     "ASIO_PATH", if the folder exists
+
+2017-03-07
+  brooss <brooss.teambb@gmail.com>
+    b651526  add kodi.exe to overlay_blacklist.h
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    4fe90ae  Merge PR #2909: MurmurIce: avoid NUL bytes in Ice messages
+
+2017-03-06
+  Davide Beatrici <davidebeatrici@gmail.com>
+    cc00b21  mumble_pch.hpp: Remove "interface" workaround for Qt 5
+    2f3062a  mumble_pch.hpp: Include "mmreg.h" header
+    9ab67db  mumble_pch.hpp: Define "WIN32_LEAN_AND_MEAN", as in
+	     "murmur_pch.h"
+    d096132  mumble_pch.hpp: Delete _WINSOCKAPI_ definition
+    c8e3283  mumble_pch.hpp: Include "qos2.h" before "windows.h", as in
+	     Murmur
+    4064792  mumble_pch.hpp: Include "winsock2.h" before "windows.h"
+
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    617975e  Merge PR #2781: mumble_pch.hpp: Improve MinGW compatibility.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    63bf486  MurmurIce: base64-encode MurmurUser::context on the wire to
+	     avoid NUL bytes w/o losing data.
+    6e820e8  Merge PR #2912: overlay_blacklist.h: add "kodi.exe"
+
+2017-03-05
+  Davide Beatrici <davidebeatrici@gmail.com>
+    0fdbb5d  rcc.pri: Fix wrong script path
+    d049958  Move .pri files and "toolchain" folder in "qmake"
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    cad1bac  Merge PR #2794: ServerDB, Meta: add support for SQLite WAL.
+    1818476  ServerDB, Meta: add support for SQLite WAL.
+    6f41f4b  MurmurIce: avoid NUL bytes in Ice messages
+    cb952e0  Merge PR #2908: Meta: enable both IPv4 and IPv6 if we're
+	     unable to query network interfaces.
+    a9b9dfe  Meta: enable both IPv4 and IPv6 if we're unable to query
+	     network interfaces.
+    5a31a63  Merge PR #2910: rcc.pri: Fix wrong script path
+    48ca9e0  Merge PR #2905: Move .pri files to the "qmake" folder
+    b3df846  Merge PR #2904: Transifex translation update
+    1742f86  Merge PR #2850: Live reload of Murmur SSL settings via SIGUSR1
+	     (including runtime certificate-swap for Let's Encrypt)
+    c0b0f01  Merge PR #2903: appveyor.yml: use
+	     win64-static-no-ltcg-1.3.x-2017-03-04-1ddd966-811.
+    03e5311  appveyor.yml: use
+	     win64-static-no-ltcg-1.3.x-2017-03-04-1ddd966-811.
+
+2017-03-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    7925c37  Cert: reset Server's SSL state in initializeCert().
+    af172cf  installer: quote guids in Settings.wxi.
+
+2017-03-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    03908a0  Merge PR #2898: Transifex translation update
+
+2017-03-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    a90fc60  Merge PR #2896: src/tests: make all test .pro files 'inherit'
+	     from common test.pri file.
+    839237c  Merge PR #2897: Transifex translation update
+    1560970  src/tests: make all test .pro files 'inherit' from common
+	     test.pri file.
+    09d4bd3  MetaParams: replace SSL settings setup code with a call to
+	     loadSSLSettings().
+    fd78d64  Meta, UnixMurmur: implement live certificate reloading via the
+	     USR1 signal.
+    9ae2a7f  Merge PR #2891: ServerDB: use PasswordGenerator class for
+	     generating initial SuperUser password.
+    218eb18  ServerDB: use PasswordGenerator class for generating initial
+	     SuperUser password.
+    b046d6f  Merge PR #2890: PasswordGenerator: add new class for
+	     generating human-friendly passwords via CryptographicRandom.
+    a9e7ccf  PasswordGenerator: add new class for generating human-friendly
+	     passwords via CryptographicRandom.
+    e848e56  Merge PR #2895: TestCryptographicRandom: add QT_NO_OPENGL to
+	     fix 'make check' for win32-msvc builds.
+    fc878e0  TestCryptographicRandom: add QT_NO_OPENGL to fix 'make check'
+	     for win32-msvc builds.
+    a58d708  Merge PR #2882: CryptographicRandom: new class for acquiring
+	     random data for cryptographic purposes.
+
+2017-03-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    aa25435  CryptographicRandom: new class for acquiring random data for
+	     cryptographic purposes.
+
+2017-02-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    cae5d6d  Merge PR #2885: .gitignore: add target_wrapper.bat.
+    5a785f9  Merge PR #2889: Transifex translation update
+    28d5b8e  Cert: require Qt 5.5 for QSsl::Ec.
+    629dd2d  Add Qt 5 Trusty build to .travis.yml.
+    9ff780b  Merge PR #2886: src/tests: fix various MSVC build issues.
+    d1454a1  qmake/openssl.pri: link against gdi32.dll.
+    cba18e9  src/tests: fix various MSVC build issues.
+    6070c82  Merge PR #2883: ManualPlugin: re-enable unhinge button for Qt
+	     5.
+    360477e  .gitignore: add target_wrapper.bat.
+    d6751e8  ManualPlugin: re-enable unhinge button for Qt 5.
+
+2017-02-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    0be6855  Merge PR #2881: tests: add existing TestCrypt,
+	     TestPacketDataStream and TestTimer tests to the test suite.
+
+2017-02-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    05c79d5  tests: move TestTimer to new testing infrastructure.
+    955ca86  tests: move TestPacketDataStream to the new testing
+	     infrastructure.
+    7b25a05  tests: move TestCrypt to the new testing infrastructure.
+    1a1bd8c  Merge PR #2879: Various minor fixes in preparation for
+	     hot-cert reload
+    85d6239  Merge PR #2880: MurmurIce: remove ad-hoc RSA checks in
+	     updateCertificate with Server::isKeyForCert().
+    01f91ec  MurmurIce: remove ad-hoc RSA checks in updateCertificate with
+	     Server::isKeyForCert().
+    1a0e145  Meta: remove use of global QSslSocket::defaultCiphers() list.
+    947eb90  Move SSL check and version log message to main.cpp from
+	     MetaParams::read().
+    887aa91  Meta: add qAbsSettingsFilePath variable.
+    250a93b  Server: add bUsingMetaCert flag.
+    4fbbdda  Meta: move qmConfig.clear().
+    f2ea3de  UnixMurmur: Add USR1 signal handler for reloading SSL
+	     settings.
+    21888b1  Meta: add 'QSettings *' parameter to
+	     MetaParams::typeCheckedFromSettings().
+    fa98f6d  Merge PR #2876: .travis.yml: add 'make check' to the Travis
+	     Linux build.
+    329dd4e  Merge PR #2864: Fix crash when using the VoiceRecorder with
+	     voice target shortcuts
+    e32f971  Merge PR #2878: TestCryptographicHash: make test GUI-less.
+    fee1934  TestCryptographicHash: make test GUI-less.
+    0df9a37  Merge PR #2877: Translation update
+    4a6074e  Translation update
+    2abd928  .travis.yml: add 'make check' to the Travis Linux build.
+    70bf686  Merge PR #2874: Add make target 'check' to the build.
+    f4dfc4a  Audio, AudioOutput: guard against invalid packet types in
+	     AudioOutput::addFrameToBuffer().
+    aa2683f  AudioOutputSpeech: only process Speex packets as Speex.
+    8294f2d  AudioInput: check iTarget and iPrevTarget for errors before
+	     use in flushCheck().
+    6172477  Add make target 'check' to the build.
+    dcc9236  Merge PR #2875: qmake/openssl.pri: when using OpenSSL via
+	     pkgconfig, ensure link_pkgconfig is in CONFIG.
+
+2017-02-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    260b32d  Merge PR #2860: Murmur: clean up use of the global
+	     QSslSocket::defaultCaCertificates() list.
+    45276e8  Cert: for servers using the cert/key specified in murmur.ini,
+	     also inherit its intermediates.
+    7b500db  Server: treat certs from murmur.ini's sslCA as CA certs for
+	     client verification.
+    ac02f45  Register: treat certs from murmur.ini's sslCA option as CA
+	     certs when registering.
+    1c8b637  Server: rename qlCA to qlIntermediates, to properly reflect
+	     its function.
+    d5f04b4  Meta: avoid cluttering the global
+	     QSslSocket::defaultCaCertificates() list.
+    939f6f1  qmake/openssl.pri: when using OpenSSL via pkgconfig, ensure
+	     link_pkgconfig is in CONFIG.
+    e95dd30  Merge PR #2873: .gitignore: make xxx_plugin_import.cpp a glob
+	     entry.
+    c435f9e  .gitignore: make xxx_plugin_import.cpp a glob entry.
+    accc8fd  Merge PR #2868: CryptographicHash: new class for computing
+	     cryptographic hashes.
+    7c22b84  CryptographicHash: new class for computing cryptographic
+	     hashes.
+
+2017-02-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    c74fc80  Merge PR #2867: mumble.pri: split out OpenSSL depenency lookup
+	     into qmake/openssl.pri for easier use in tests.
+
+2017-02-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    6329ed7  mumble.pri: split out OpenSSL depenency lookup into
+	     qmake/openssl.pri for easier use in tests.
+
+2017-02-21
+  Davide Beatrici <davidebeatrici@gmail.com>
+    707164b  plugins/rl: update plugin to work with version 1.29
+
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    5e73de9  Merge PR #2861: plugins/rl: update plugin to work with version
+	     1.29
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    90a904d  Merge PR #2862: lrelease.pri: add Windows-specific code path,
+	     to fix nmake build.
+    ecdd997  lrelease.pri: add Windows-specific code path, to fix nmake
+	     build.
+    5d036bc  Merge PR #2859: Murmur: refactor private key loading sequence.
+
+2017-02-20
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    a978593  Merge PR #2857: OverlayConfig: handle removal of qWinAppInst()
+	     in Qt 5.8.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    30c4c41  MurmurIce: use Server::privateKeyFromPEM in updateCertificate
+	     RPC method.
+    affa2c4  Meta: use Server::privateKeyFromPEM.
+    32ca3cf  Server, Cert: make use of Server::privateKeyFromPEM() method.
+    441063f  Server, Cert: add Server::privateKeyFromPEM() method.
+    1a4ecd1  OverlayConfig: handle removal of qWinAppInst() in Qt 5.8.
+
+  Steven Noonan <steven@uplinklabs.net>
+    e75e737  murmur: add support for EC private keys
+
+2017-02-19
+  Davide Beatrici <davidebeatrici@gmail.com>
+    b50ab76  Always use lrelease binary from QT_INSTALL_BINS.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    17bae48  Merge PR #2852: Always use lrelease binary from
+	     QT_INSTALL_BINS.
+    d41923d  Merge PR #2851: mumble.pro: handle case where QSQLite a plugin
+	     in static builds.
+    af903fa  Merge PR #2765: python.pri: Fix path search for MinGW on Linux
+
+2017-02-18
+  Davide Beatrici <davidebeatrici@gmail.com>
+    91abad7  mumble.pro: handle case where QSQLite a plugin in static
+	     builds.
+
+2017-02-16
+  Mikkel Krautz <mikkel@krautz.dk>
+    f30e1d6  Merge PR #2853: Transifex translation update
+
+2017-02-14
+  Davide Beatrici <davidebeatrici@gmail.com>
+    c0b6750  Add support for custom "protoc" path and scan using "which" on
+	     Linux
+
+  Jan Klass <kissaki@posteo.de>
+    ef03f56  Add theme push-to-mute icon
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    84044a7  Merge PR #2847: Transifex translation update
+    e0b384b  Merge PR #2844: Add support for custom "protoc" path and scan
+	     using "which" on Linux
+
+2017-02-13
+  Davide Beatrici <davidebeatrici@gmail.com>
+    09cfc1d  python.pri: Fix path search for MinGW on Linux
+
+  Jan Klass <kissaki@posteo.de>
+    bb32763  Add push-to-mute icon
+
+2017-02-12
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    86f8eef  Add appveyor configuration for windows proof builds
+    d9ba3db  Add travis configuration for linux proof builds
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    1619dbb  Merge PR #2840: Add travis configuration for linux proof
+	     builds
+    7bd6b6c  Merge PR #2839: Add appveyor configuration for windows proof
+	     builds
+
+2017-02-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    289d0d4  Merge PR #2838: mumble_exe: when using a versioned root, set
+	     the CWD to it.
+    03cfe38  mumble_exe: when using a versioned root, set the CWD to it.
+
+2017-02-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    5bbd804  Merge PR #2835: installer: don't ship dbghelp.dll anymore.
+    81f36bb  Merge PR #2817: installer: use WiX from buildenv.
+    18caa17  installer: don't ship dbghelp.dll anymore.
+
+2017-02-09
+  Davide Beatrici <davidebeatrici@gmail.com>
+    00f81cb  mumble_proto.pro: fix protoc invocation for out-of-tree builds
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3315e01  Merge PR #2830: mumble_proto.pro: fix protoc invocation for
+	     out-of-tree builds
+    7ebabda  Merge PR #2833: Transifex translation update
+
+2017-02-08
+  Davide Beatrici <davidebeatrici@gmail.com>
+    2dee4ea  minhook-build.pro: Fix paths
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    4eef649  Merge PR #2828: minhook-build.pro: Fix paths
+
+2017-02-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    d15c3f9  Merge PR #2821: Murmur: fix bad interaction with QDBus and
+	     fork().
+    1e9d2b3  Murmur: fix bad interaction with QDBus and fork().
+    ef5f082  Merge PR #2826: 3rdparty/minhook-src: update MinHook to
+	     v1.3.3.
+    b005b71  3rdparty/minhook-src: update MinHook to v1.3.3.
+    2fb5ee7  Merge PR #2825: Revert 91dc3d39f0 ('Move counter variable in
+	     processMsg into Opus condition.').
+    a9330a4  Revert 91dc3d39f0 ('Move counter variable in processMsg into
+	     Opus condition.').
+
+  Piratonym <piratonym@piratonym.cc>
+    0c10bca  Add push-to-mute icon to mumble.qrc
+    9b8e745  Indicate in the tray when the push-to-mute button is pressed
+
+2017-02-06
+  Davide Beatrici <davidebeatrici@gmail.com>
+    7e72e77  GlobalShortcut_win.cpp: Fix MinGW compilation warnings
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    4400a80  Merge PR #2823: GlobalShortcut_win.cpp: Fix MinGW compilation
+	     warnings
+
+2017-02-05
+  Davide Beatrici <davidebeatrici@gmail.com>
+    6afeca6  DirectSound.cpp: Fix MinGW compilation warnings
+    e8c8220  GKey.cpp: Fix MinGW compilation warnings
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    012429c  Merge PR #2818: installer: ship app-local copies of UCRT DLLs.
+    c895dad  installer: ship app-local copies of UCRT DLLs.
+    e4fe8fb  installer: use WiX from buildenv.
+    4ca6f2c  Merge PR #2810: DirectSound.cpp: Fix MinGW compilation
+	     warnings
+    cef2324  Merge PR #2812: GKey.cpp: Fix MinGW compilation warnings
+    78ff4fc  Merge PR #2816: LCD: drop workaround for Qt >= 5.6.2.
+    7a0790b  LCD: drop workaround for Qt >= 5.6.2.
+
+2017-02-04
+  Davide Beatrici <davidebeatrici@gmail.com>
+    aee1469  Overlay_win.cpp: Fix MinGW compilation warning
+
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    b817d3f  Merge PR #2811: Fix MinGW compilation warning
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    43109d1  Fix linking mumble client in static debug mode
+    1773dc7  Integrate review comments on getenvQString
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    11f9244  MumbleApplication: introduce getenvQString and use it in
+	     applicationVersionRoot.
+
+2017-02-03
+  Davide Beatrici <davidebeatrici@gmail.com>
+    625d1ce  OSInfo.cpp: Fix MinGW compilation warnings
+
+  Jan Klass <kissaki@posteo.de>
+    52662d7  Fix usage of QFileInfo for Qt4
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    487e032  Merge PR #2807: Fix usage of QFileInfo for Qt4
+    d871f34  Merge PR #2793: Show fallback icon on missing country flag
+	     icon
+    4886268  Merge PR #2804: OSInfo.cpp: Fix MinGW compilation warnings
+
+2017-02-02
+  Davide Beatrici <davidebeatrici@gmail.com>
+    2966e5f  os_win.cpp: Fix PATH_MAX redefinition warning
+
+  Jan Klass <kissaki@posteo.de>
+    95c7b5e  Show fallback icon on missing country flag icon
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    077cbfd  Merge PR #2796: VoiceRecorder.cpp: Use braces to avoid
+	     ambiguous "else"
+    51bb441  Merge PR #2797: os_win.cpp: Fix PATH_MAX redefinition warning
+    1be562f  Merge PR #2790: mumble_plugin_win32_ptr_type.h: Prevent
+	     redefinition of "NOMINMAX"
+    4d6a813  Refactor Server::supportsDualStack().
+
+2017-02-01
+  Davide Beatrici <davidebeatrici@gmail.com>
+    49f9d61  VoiceRecorder.cpp: Use braces to avoid ambiguous "else"
+
+  Jan Klass <kissaki@posteo.de>
+    c083432  CertWizard: Password requirement notice on import
+
+2017-01-31
+  Davide Beatrici <davidebeatrici@gmail.com>
+    2213d50  plugins: Prevent redefinition of "NOMINMAX"
+
+  Jan Klass <kissaki@posteo.de>
+    b9e9ee9  Reduce SVG icon file size
+
+2017-01-30
+  Jan Klass <kissaki@posteo.de>
+    5dbb124  Update country flag icons
+    475907b  Document workaround in LogTextBrowser
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    039096a  Merge PR #2792: Re-run mkflags.py to remove non-existant
+	     '__.svg' from our flags QRC files.
+    c8d0880  Re-run mkflags.py to remove non-existant '__.svg' from our
+	     flags QRC files.
+    867d4f6  Merge PR #2791: Update country flag icons
+
+2017-01-29
+  Davide Beatrici <davidebeatrici@gmail.com>
+    474b370  plugins: Fix indentation and whitespace
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    c936b99  Merge PR #2785: plugins: Use tabs for indentation, remove
+	     trailing whitespace
+
+2017-01-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    82d385f  Merge PR #2780: installer: use "vcruntime140.dll" instead of
+	     "msvcr140.dll" for vcruntime140.dll's component ID.
+    ea1c1b3  installer: use "vcruntime140.dll" instead of "msvcr140.dll"
+	     for vcruntime140.dll's component ID.
+
+2017-01-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    c3ebc17  Merge PR #2776: installer: use VC140 CRT.
+    452aa61  installer: use VC140 CRT.
+    afd86cf  Merge PR #2775: MVSC2015 toolchain fixes: ignore C4091 on
+	     v140_xp toolchain and fix UCRT lib path in toolchain files
+    09c22a5  toolchain: update win32-msvc2015 x64 and x86 toolchains to
+	     include ucrt lib dir.
+    df4b0d8  compiler.pri: for win32-msvc, ignore C4091 when building
+	     against v140_xp toolset.
+    3cbccc5  Merge PR #2760: Update QSslDiffieHellmanParameters API calls
+	     to final Qt 5.8 API
+
+2017-01-25
+  Davide Beatrici <davidebeatrici@gmail.com>
+    d179468  WASAPI.h: Include missing header for MinGW on Linux
+    28b9b1d  WASAPI.h: Change header name capitalization for MinGW on Linux
+    a4b1f8a  rcc.pri: Fix script path for MinGW on Linux
+    7b31e4f  mumble_pch.hpp: Change header name capitalization for MinGW on
+	     Linux
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    cc4d32f  Merge PR #2774: WASAPI.h: Include missing header for MinGW on
+	     Linux
+    7e1fdaa  Merge PR #2771: rcc.pri: Fix script path for MinGW on Linux
+    8fc69fe  Merge PR #2772: WASAPI.h: Change header name capitalization
+	     for MinGW on Linux
+    cda06e9  Merge PR #2770: mumble_pch.hpp: Change header name
+	     capitalization for MinGW on Linux
+
+2017-01-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    c3e2905  Merge PR #2753: Murmur: set detach=false for -limits (implies
+	     -fg).
+    460f550  Merge PR #2744: Revert PR 2674 and document audio backend
+	     initialization and teardown
+    50be180  Merge PR #2767: Transifex translation update
+    3e777ba  Merge PR #2768: mumble.pro: use forward slash for GENQRC also
+	     on Windows
+    f542989  Merge PR #2769: Use forward slash for paths in .rc files
+
+2017-01-23
+  Davide Beatrici <davidebeatrici@gmail.com>
+    1ba4269  Use forward slash for paths in .rc files
+    3bc58e8  mumble.pro: use forward slash for GENQRC also on Windows
+
+2017-01-22
+  Davide Beatrici <davidebeatrici@gmail.com>
+    63280fc  python.pri: Correct typo "unble" to "unable"
+    f1ba1df  main.pro: don't build minhook if "no-overlay" option specified
+    920244c  main.pro: fix no-overlay to actually work on Windows
+    fda85f4  main.pro: ensure we don't build overlay_gl on Windows.
+    e42e6ca  Make "no-overlay" option available also for Windows
+    6096b74  plugins: Fix MinGW compilation warnings and errors
+    e92b27b  plugins: Fix visibility for plugins compiled with MinGW
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    c2f6865  Merge PR #2764: python.pri: Correct typo "unble" to "unable"
+    b5aef4c  Merge PR #2762: MainWindow: don't include 'Hide Mumble' menu
+	     item on macOS.
+    32030ed  MainWindow: don't include 'Hide Mumble' menu item on macOS.
+    bf90fad  Merge PR #2747: Allow hiding Muble from the menu without
+	     minimizing
+    348d457  Merge PR #2761: main.pro: don't build minhook if "no-overlay"
+	     option specified
+    44790f6  murmur.pro: remove Mumble buildenv requirement for
+	     QSslDiffieHellmanParameters.
+    6456037  Murmur: use final Qt 5.8 API for QSslDiffieHellmanParameters.
+    a08c509  Merge PR #2759: main.pro: fix-ups for "no-overlay" CONFIG
+	     option on Windows
+    98349a1  Merge PR #2755: plugins: Fix visibility, warnings and errors
+	     when compiled with MinGW
+    0e898da  Murmur: set detach=false for -limits (implies -fg).
+    12b9c9b  Merge PR #2749: python.pri: detect missing 'which' command and
+	     try to recover.
+    0c14aae  python.pri: detect missing 'which' command and try to recover.
+
+2017-01-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    63661c0  Merge PR #2746: Remove long-form BSD-license from GKey.cpp/.h.
+
+  Piratonym <piratonym@piratonym.cc>
+    74572fd  Allow hiding Muble from the menu without minimizing
+
+2017-01-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    70573da  Remove long-form BSD-license from GKey.cpp/.h.
+    89036d5  Audio, AudioInput, AudioOutput: add proper documentation about
+	     AudioInput and AudioOutput construction and destruction.
+    a4743f3  Revert PR #2674: Mumble: convert AudioInputPtr and
+	     AudioOutputPtr to use QSharedPointer instead of
+	     boost::shared_ptr.
+    4fe07a5  Merge PR #2742: Mumble.proto: explicitly use proto2 syntax.
+    4e6d3bf  Mumble.proto: explicitly use proto2 syntax.
+    59275f5  Merge PR #2741: CryptState: introduce AES_KEY_SIZE_*
+	     constants.
+    4d256ca  CryptState: introduce AES_KEY_SIZE_* constants.
+
+2017-01-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    fe65beb  Merge PR #2733: Transifex translation update
+
+2017-01-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    9e26fae  Merge PR #2727: Transifex translation update
+
+2017-01-10
+  Davide Beatrici <davidebeatrici@gmail.com>
+    549197a  plugins/rl: update plugin to work with version 1.27
+
+2017-01-08
+  Mikkel Krautz <mikkel@krautz.dk>
+    73fe457  Merge PR #2724: Update tree copyrights to 2017.
+    91ebb8b  Update tree copyrights to 2017.
+    bc01254  Merge PR #2723: Transifex translation update
+
+2016-12-31
+  Davide Beatrici <davidebeatrici@gmail.com>
+    4d3d4d8  plugins/bf1: update plugin to work with version 1.0.47.30570
+
+2016-12-24
+  Davide Beatrici <davidebeatrici@gmail.com>
+    501651b  plugins/gtav: update plugin to work with version 1.37 (Steam
+	     only)
+
 2016-12-23
   Lari Tikkanen <lartza@outlook.com>
     6366ff4  Default case for user dragging is unneeded
@@ -5,6 +2782,8 @@
     7e6c415  Implement configuring user dragging
 
   Mikkel Krautz <mikkel@krautz.dk>
+    df0bd66  Merge PR #2716: Update AUTHORS and CHANGES.
+    f5a053f  Update AUTHORS and CHANGES.
     ddd4764  Merge PR #2709: Add setting to configure user dragging
 
 2016-12-22
@@ -2502,7 +5281,7 @@
     0f072ef  Add missing LSB Description to the init script.
 
 2015-04-26
-  Christopher Knadle <Chris.Knadle@coredump.us>
+  Chris Knadle <Chris.Knadle@coredump.us>
     e24cfe6  Add Keywords to mumble.desktop to satisfy Lintian warning
 
 2015-04-23
@@ -4373,7 +7152,7 @@
     09d5c07  Replaced last traces of MD5 by SHA-1
 
 2012-08-19
-  Piotr Chodań <dark.skeleton@gmail.com>
+  d-rez <dark.skeleton@gmail.com>
     fba76cd  Updated gw plugin for game build 36001
     2668713  New PA plugin: Blacklight: Retribution (v0.9.8.0) Supports
 	     camera position, front and top vectors and context. No support
@@ -4385,7 +7164,7 @@
 	     QMAKE_OBJECTIVE_C(XX)FLAGS for ObjC-flags.
 
 2012-08-18
-  Piotr Chodań <dark.skeleton@gmail.com>
+  d-rez <dark.skeleton@gmail.com>
     8333ba8  Updated League of Legends plugin (v1.0.0.144). * Moved some
 	     static addresses outside functions for clarity Removed top
 	     vectors retrieval which can be problematic and aren't used at
@@ -4532,7 +7311,7 @@
 	     Windows
 
 2012-07-15
-  Piotr Chodań <dark.skeleton@gmail.com>
+  d-rez <dark.skeleton@gmail.com>
     442a9fd  Further updates and optimizations to the LoL plugin - made the
 	     code simplier, less nested in fetch(). - strings are now
 	     ensured to be zero-terminated - replaced calcout() call from
@@ -4660,7 +7439,7 @@
     315b5f5  mumble.pro: Enable Opus on Linux if it's installed
 
 2012-05-20
-  Piotr Chodań <dark.skeleton@gmail.com>
+  d-rez <dark.skeleton@gmail.com>
     317f5a0  New positional audio plugin: Guild Wars Supports context and
 	     identity
 
@@ -4695,7 +7474,7 @@
 	     messages is enabled
 
 2012-05-14
-  Piotr Chodań <dark.skeleton@gmail.com>
+  d-rez <dark.skeleton@gmail.com>
     eef9a67  updated plugin for Team Fortress 2 b4934
     840487d  context support for League of Legends plugin
     f81049d  Added context support for the l4d2 plugin. Changed global
@@ -4708,7 +7487,7 @@
     a919a56  Installer: More plugin installation fixes
 
 2012-05-13
-  Piotr Chodań <dark.skeleton@gmail.com>
+  d-rez <dark.skeleton@gmail.com>
     56fcebb  New plugin for one of my favorite games, League of Legends.
 	     Supports ingame detection (based on a pointer being NULL or
 	     not), reports camera and avatar independent position, front
@@ -10422,7 +13201,7 @@
     b35fdce  Avoid setting duration on WASAPI
     f2e4aff  Fix duplicate string
     3a85112  Language file resync
-    ae2d336  Switch to boost 1.38 for Win32
+    ae2d336c  Switch to boost 1.38 for Win32
 
 2009-03-13
   Mikkel Krautz <mikkel@krautz.dk>
