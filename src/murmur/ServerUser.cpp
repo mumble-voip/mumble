@@ -91,7 +91,6 @@ int BandwidthRecord::bandwidth() const {
 	QMutexLocker ml(&qmMutex);
 
 	int sum = 0;
-	int records = 0;
 	quint64 elapsed = 0ULL;
 
 	for (int i=1;i<N_BANDWIDTH_SLOTS;++i) {
@@ -100,7 +99,6 @@ int BandwidthRecord::bandwidth() const {
 		if (e > 1000000ULL) {
 			break;
 		} else {
-			++records;
 			sum += a_iBW[idx];
 			elapsed = e;
 		}
