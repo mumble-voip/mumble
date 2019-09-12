@@ -14,6 +14,14 @@
 #include "Screen.h"
 #include "ServerHandler.h"
 #include "TextToSpeech.h"
+#include "Utils.h"
+
+#include <QtNetwork/QNetworkReply>
+#include <QtGui/QImageWriter>
+#include <QtGui/QScreen>
+#include <QtGui/QTextBlock>
+#include <QtGui/QTextDocumentFragment>
+#include <QtWidgets/QDesktopWidget>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"

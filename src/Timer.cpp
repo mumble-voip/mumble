@@ -76,7 +76,7 @@ quint64 Timer::now() {
 	return static_cast<quint64>(epochDurationUsec.count());
 }
 #elif defined(Q_OS_WIN)
-#include <windows.h>
+# include "win.h"
 
 quint64 Timer::now() {
 	static double scale = 0;

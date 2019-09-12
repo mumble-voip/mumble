@@ -7,6 +7,10 @@
 
 #include "arc4random_uniform.h"
 
+#include <QtCore/QDebug>
+
+#include <openssl/rand.h>
+
 void CryptographicRandom::fillBuffer(void *buf, int numBytes) {
 	// We treat negative and zero values of numBytes to be
 	// fatal errors in the program. Abort the program if such

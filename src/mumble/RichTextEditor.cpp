@@ -9,6 +9,17 @@
 #include "MainWindow.h"
 #include "XMLTools.h"
 
+#include <QtCore/QMimeData>
+#include <QtGui/QImageReader>
+#include <QtGui/QPainter>
+#include <QtWidgets/QColorDialog>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QToolTip>
+
+#ifdef Q_OS_WIN
+# include <shlobj.h>
+#endif
+
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 

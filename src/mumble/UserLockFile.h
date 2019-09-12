@@ -6,9 +6,13 @@
 #ifndef MUMBLE_MUMBLE_LOCKFILE_H_
 #define MUMBLE_MUMBLE_LOCKFILE_H_
 
-#if defined(Q_OS_WIN)
-# include <windows.h>
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+# include "win.h"
 #endif
+
+#include <QtCore/QString>
 
 /// UserLockFile implements an atomic lock file
 /// that can be used as a mutex between different

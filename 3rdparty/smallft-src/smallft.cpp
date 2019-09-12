@@ -40,6 +40,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "smallft.h"
 
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+
 static void drfti1(int n, float *wa, int *ifac) {
 	static int ntryh[4] = { 4,2,3,5 };
 	static float tpi = 6.28318530717958648f;

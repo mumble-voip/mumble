@@ -8,6 +8,12 @@
 
 #include "Version.h"
 
+
+#include <QtNetwork/QSslConfiguration>
+#include <QtNetwork/QSslSocket>
+
+#include <openssl/ssl.h>
+
 void MumbleSSL::initialize() {
 	// Let Qt initialize its copy of OpenSSL, if it's different than
 	// Mumble's. (Initialization is a side-effect of calling

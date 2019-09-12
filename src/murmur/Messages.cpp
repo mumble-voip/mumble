@@ -15,6 +15,9 @@
 #include "Version.h"
 #include "CryptState.h"
 
+#include <QtCore/QStack>
+#include <QtCore/QtEndian>
+
 #define RATELIMIT(user) \
 	if (user->leakyBucket.ratelimit(1)) { \
 		return; \

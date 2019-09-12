@@ -29,6 +29,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "BonjourServiceRegister.h"
 
+#include <QtCore/QSocketNotifier>
+
 BonjourServiceRegister::BonjourServiceRegister(QObject *p)
 		: QObject(p), dnssref(0), bonjourSocket(0) {
 }

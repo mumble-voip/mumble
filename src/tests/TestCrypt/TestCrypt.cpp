@@ -9,6 +9,7 @@
 #include "SSL.h"
 #include "Timer.h"
 #include "CryptState.h"
+#include "Utils.h"
 
 class TestCrypt : public QObject {
 		Q_OBJECT

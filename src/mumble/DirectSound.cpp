@@ -3,6 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+#include "DirectSound.h"
+
+#include "MainWindow.h"
+#include "Plugins.h"
+#include "User.h"
+
+#include "win.h"
+
 #define DIRECTSOUND_VERSION 0x1000
 
 #include <mmsystem.h>
@@ -10,11 +18,7 @@
 #include <ks.h>
 #include <ksmedia.h>
 
-#include "DirectSound.h"
-
-#include "MainWindow.h"
-#include "Plugins.h"
-#include "User.h"
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 // from os_win.cpp

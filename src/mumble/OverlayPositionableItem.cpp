@@ -5,6 +5,12 @@
 
 #include "OverlayPositionableItem.h"
 
+#include "Utils.h"
+
+#include <QtCore/QEvent>
+#include <QtGui/QPen>
+#include <QtWidgets/QGraphicsScene>
+
 OverlayPositionableItem::OverlayPositionableItem(QRectF *posPtr, const bool isPositionable)
 	: m_position(posPtr)
 	, m_isPositionEditable(isPositionable)

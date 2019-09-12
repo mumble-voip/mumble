@@ -8,6 +8,8 @@
 #include "Group.h"
 #include "ACL.h"
 
+#include <QtCore/QStack>
+
 #ifdef MUMBLE
 QHash<int, Channel *> Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;

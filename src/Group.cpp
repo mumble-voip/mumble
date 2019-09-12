@@ -9,6 +9,8 @@
 #include "User.h"
 #ifdef MURMUR
 #include "ServerUser.h"
+
+#include <QtCore/QStack>
 #endif
 
 Group::Group(Channel *assoc, const QString &name) {

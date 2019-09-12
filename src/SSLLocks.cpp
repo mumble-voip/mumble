@@ -5,6 +5,11 @@
 
 #include "SSLLocks.h"
 
+#include <QtCore/QMutex>
+#include <QtCore/QThread>
+
+#include <openssl/crypto.h>
+
 static QMutex **locks = NULL;
 
 void locking_callback(int mode, int type, const char *, int) {

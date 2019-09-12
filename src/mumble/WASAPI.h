@@ -6,10 +6,14 @@
 #ifndef MUMBLE_MUMBLE_WASAPI_H_
 #define MUMBLE_MUMBLE_WASAPI_H_
 
+#include "AudioInput.h"
+#include "AudioOutput.h"
+
+#include "win.h"
+
 #include <QtCore/QObject>
 #include <QtCore/QUuid>
 
-#include <windows.h>
 #include <mmreg.h>
 #include <strsafe.h>
 #include <mmdeviceapi.h>
@@ -23,9 +27,6 @@
 #include <functiondiscoverykeys_devpkey.h>
 #include <propidl.h>
 #include <audiopolicy.h>
-
-#include "AudioInput.h"
-#include "AudioOutput.h"
 
 class WASAPISystem : public QObject {
 	private:

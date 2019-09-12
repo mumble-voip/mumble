@@ -5,6 +5,14 @@
 
 #include "ViewCert.h"
 
+#include <QtCore/QUrl>
+#include <QtNetwork/QSslKey>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QVBoxLayout>
+
 static QString decode_utf8_qssl_string(const QString &input) {
 	QString i = input;
 	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());

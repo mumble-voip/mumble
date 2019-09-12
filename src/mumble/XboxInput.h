@@ -6,9 +6,11 @@
 #ifndef MUMBLE_MUMBLE_XBOXINPUT_H_
 #define MUMBLE_MUMBLE_XBOXINPUT_H_
 
-#include <windows.h>
-#include <stdint.h>
+#include "win.h"
+
 #include <QUuid>
+
+#include <stdint.h>
 
 /// XBOXINPUT_MAX_DEVICES defines the maximum
 /// number of devices that can be connected

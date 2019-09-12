@@ -16,6 +16,27 @@
 #include "ServerHandler.h"
 #include "WebFetch.h"
 #include "ServerResolver.h"
+#include "Utils.h"
+
+#include <QtCore/QMimeData>
+#include <QtCore/QUrlQuery>
+#include <QtCore/QtEndian>
+#include <QtGui/QClipboard>
+#include <QtGui/QDesktopServices>
+#include <QtGui/QPainter>
+#include <QtNetwork/QUdpSocket>
+#include <QtWidgets/QInputDialog>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QShortcut>
+#include <QtXml/QDomDocument>
+
+#include <boost/accumulators/statistics/extended_p_square.hpp>
+#include <boost/array.hpp>
+
+#ifdef Q_OS_WIN
+# include <shlobj.h>
+#endif
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"

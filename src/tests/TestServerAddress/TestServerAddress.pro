@@ -10,3 +10,5 @@ QT += network
 TARGET = TestServerAddress
 SOURCES *= TestServerAddress.cpp ServerAddress.cpp HostAddress.cpp
 HEADERS *= ServerAddress.h HostAddress.h
+
+win32:LIBS *= -lws2_32

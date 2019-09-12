@@ -16,6 +16,9 @@
 #include "ServerUser.h"
 #include "Server.h"
 #include "Channel.h"
+#include "Utils.h"
+
+#include <QtCore/QStack>
 
 #include "MurmurRPC.proto.Wrapper.cpp"
 

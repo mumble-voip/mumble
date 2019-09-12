@@ -5,6 +5,10 @@
 
 #include "CryptographicHash.h"
 
+#include <QtCore/QString>
+
+#include <openssl/evp.h>
+
 class CryptographicHashPrivate {
 	public:
 		CryptographicHashPrivate(const EVP_MD *type);

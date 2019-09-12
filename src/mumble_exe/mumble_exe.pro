@@ -10,6 +10,8 @@ CONFIG -= qt
 CONFIG += debug_and_release
 TARGET = mumble
 
+INCLUDEPATH *= $$PWD/..
+
 win32 {
   DEFINES += WIN32 _WIN32
   RC_FILE = ../mumble/mumble.rc

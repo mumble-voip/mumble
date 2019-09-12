@@ -6,6 +6,8 @@
 #include "CryptographicRandom.h"
 #include "PasswordGenerator.h"
 
+#include <QtCore/QVector>
+
 // This is a password alphabet that tries to be human-friendly.
 // Most cases of ambiguitiy have been removed.
 //

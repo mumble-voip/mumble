@@ -6,7 +6,7 @@
 #ifndef MUMBLE_MUMBLE_GKEY_H
 #define MUMBLE_MUMBLE_GKEY_H
 
-#include <windows.h>
+#include "win.h"
 
 #include <QtCore/QLibrary>
 #include <QtCore/QString>

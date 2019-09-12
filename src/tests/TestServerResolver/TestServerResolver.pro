@@ -21,3 +21,5 @@ CONFIG(no-srv) {
   SOURCES -= ServerResolver_qt5.cpp
   SOURCES *= ServerResolver_nosrv.cpp
 }
+
+win32:LIBS *= -lws2_32

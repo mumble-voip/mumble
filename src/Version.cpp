@@ -5,6 +5,8 @@
 
 #include "Version.h"
 
+#include <QtCore/QRegExp>
+
 unsigned int MumbleVersion::getRaw(const QString &version) {
 	int major, minor, patch;
 

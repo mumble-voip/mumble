@@ -11,6 +11,13 @@
 #include "Version.h"
 #include "LogEmitter.h"
 
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QTextBrowser>
+
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	le = logger;
 

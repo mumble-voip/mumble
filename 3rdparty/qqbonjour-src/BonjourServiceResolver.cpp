@@ -29,6 +29,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "BonjourServiceResolver.h"
 
+#include <QtCore/QSocketNotifier>
+#include <QtCore/QtEndian>
+
 BonjourServiceResolver::ResolveRecord::ResolveRecord(const BonjourRecord &r, BonjourServiceResolver *p) : record(r), bsr(p), dnssref(NULL), bonjourSocket(NULL), bonjourPort(-1) {
 }
 

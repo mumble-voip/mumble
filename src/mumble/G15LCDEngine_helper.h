@@ -5,8 +5,11 @@
 
 #ifndef MUMBLE_MUMBLE_G15LCDENGINE_HELPER_H_
 #define MUMBLE_MUMBLE_G15LCDENGINE_HELPER_H_
+
 #include "LCD.h"
 #include "../../g15helper/g15helper.h"
+
+#include <QtCore/QProcess>
 
 class G15LCDDeviceHelper;
 

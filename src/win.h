@@ -37,7 +37,11 @@
 #  undef NTDDI_VERSION
 #  define NTDDI_VERSION NTDDI_WIN7
 # endif
+#endif
 
+#include <windows.h>
+
+#ifdef __MINGW32__
 // MinGW's <qos2.h> header does not provide everything we need,
 // so define QOS_FLOWID (and PQOS_FLOWID) as well as QOS_NON_ADAPTIVE_FLOW
 // ourselves to allow us to build with QoS support on MinGW.
@@ -46,7 +50,5 @@ typedef UINT32 QOS_FLOWID, *PQOS_FLOWID;
 #  define QOS_NON_ADAPTIVE_FLOW 0x00000002
 # endif
 #endif
-
-#include <windows.h>
 
 #endif // MUMBLE_WIN_H_

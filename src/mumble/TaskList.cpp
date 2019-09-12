@@ -5,6 +5,15 @@
 
 #include "TaskList.h"
 
+#include "MumbleApplication.h"
+
+#include <QtCore/QFileInfo>
+#include <QtCore/QSettings>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
+
+#include <shlobj.h>
 #include <shobjidl.h>
 #include <propkey.h>
 #include <propvarutil.h>

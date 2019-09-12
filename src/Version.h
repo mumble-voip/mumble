@@ -6,6 +6,8 @@
 #ifndef MUMBLE_VERSION_H_
 #define MUMBLE_VERSION_H_
 
+#include <QtCore/QString>
+
 #define MUMXTEXT(X) #X
 #define MUMTEXT(X) MUMXTEXT(X)
 

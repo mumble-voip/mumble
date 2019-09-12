@@ -3,6 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+// <cmath> includes <math.h>, but only if it isn't already included.
+// We include <cmath> as first header to make sure that we include <math.h> with _USE_MATH_DEFINES.
+#ifdef _MSC_VER
+# define _USE_MATH_DEFINES
+#endif
+
+#include <cmath>
+
 #include "AudioOutput.h"
 
 #include "AudioInput.h"
@@ -14,6 +22,7 @@
 #include "PacketDataStream.h"
 #include "ServerHandler.h"
 #include "Timer.h"
+#include "Utils.h"
 #include "VoiceRecorder.h"
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.

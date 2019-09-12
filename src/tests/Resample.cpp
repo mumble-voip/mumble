@@ -2,16 +2,22 @@
  * Speex resampling test / information.
  */
 
-#define _USE_MATH_DEFINES
-#include <cmath>
-#include <QtCore>
-#include <ipp.h>
-#include <windows.h>
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
+
 #include "Timer.h"
 
-#define ITER 1000
+#include <QtCore>
+
+#define _USE_MATH_DEFINES
+#include <cmath>
 
 #include <speex/speex_resampler.h>
+
+#include <ipp.h>
+
+#define ITER 1000
 
 int main(int argc, char **argv) {
 	ippStaticInit();

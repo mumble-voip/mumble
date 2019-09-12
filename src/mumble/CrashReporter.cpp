@@ -10,6 +10,12 @@
 #include "OSInfo.h"
 #include "EnvUtils.h"
 
+#include <QtCore/QProcess>
+#include <QtCore/QTemporaryFile>
+#include <QtNetwork/QHostAddress>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QPushButton>
+
 CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("Mumble Crash Report"));
 

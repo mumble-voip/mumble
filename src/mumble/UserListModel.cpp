@@ -4,11 +4,18 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "UserListModel.h"
+
 #include "Channel.h"
 #include "Message.h"
+#include "Utils.h"
+
+#include <algorithm>
+
+#ifdef _MSC_VER
+# include <functional>
+#endif
 
 #include <vector>
-#include <algorithm>
 
 UserListModel::UserListModel(const MumbleProto::UserList& userList, QObject *parent_)
 	: QAbstractTableModel(parent_)

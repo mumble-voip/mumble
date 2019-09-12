@@ -3,6 +3,16 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+// We want to include <math.h> with _USE_MATH_DEFINES defined.
+// To make sure we do so before anything else includes the header without it
+// (triggering the guard and effectively preventing a "fix include")
+// we define and include before anything else.
+#ifdef _MSC_VER
+# define _USE_MATH_DEFINES
+#endif
+
+#include <cmath>
+
 #include "AudioOutputSpeech.h"
 
 #include "Audio.h"
@@ -11,6 +21,7 @@
 #include "ClientUser.h"
 #include "Global.h"
 #include "PacketDataStream.h"
+#include "Utils.h"
 
 AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type) : AudioOutputUser(user->qsName) {
 	int err;

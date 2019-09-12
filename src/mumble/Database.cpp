@@ -7,9 +7,15 @@
 
 #include "Global.h"
 #include "Message.h"
+#include "MumbleApplication.h"
 #include "Net.h"
+#include "Utils.h"
 #include "Version.h"
 
+#include <QtCore/QStandardPaths>
+#include <QtSql/QSqlError>
+#include <QtSql/QSqlQuery>
+#include <QtWidgets/QMessageBox>
 
 static void logSQLError(const QSqlQuery &query) {
 	const QSqlError error(query.lastQuery());

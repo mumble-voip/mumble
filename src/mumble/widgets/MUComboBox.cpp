@@ -5,6 +5,8 @@
 
 #include "MUComboBox.h"
 
+#include <QtWidgets/QListView>
+
 MUComboBox::MUComboBox(QWidget *parent)
 	: QComboBox(parent) {
 

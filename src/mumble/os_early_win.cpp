@@ -3,12 +3,13 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include <windows.h>
+#include "win.h"
+
+#include <string>
+
 #include <shlwapi.h>
 #include <stdio.h>
 #include <sddl.h>
-
-#include <string>
 
 // Alert shows a fatal error dialog and waits for the user to click OK.
 static void Alert(LPCWSTR title, LPCWSTR msg) {

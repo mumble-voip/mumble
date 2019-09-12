@@ -6,6 +6,8 @@
 #include "FFDHE.h"
 #include "FFDHETable.h"
 
+#include <QtCore/QStringList>
+
 QStringList FFDHE::NamedGroups() {
 	QStringList ng;
 	ng << QLatin1String("ffdhe2048");

@@ -10,6 +10,8 @@
 
 #ifdef MURMUR
 #include "ServerUser.h"
+
+#include <QtCore/QStack>
 #endif
 
 ChanACL::ChanACL(Channel *chan) : QObject(chan) {

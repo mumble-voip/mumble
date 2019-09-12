@@ -41,6 +41,7 @@
 #include "AudioOutputSample.h"
 #include "Global.h"
 #include "NetworkConfig.h"
+#include "Utils.h"
 
 static ConfigWidget *AudioInputDialogNew(Settings &st) {
 	return new AudioInputDialog(st);

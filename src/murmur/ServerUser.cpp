@@ -3,9 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "Server.h"
 #include "ServerUser.h"
+
 #include "Meta.h"
+#include "Server.h"
+
+#ifdef Q_OS_UNIX
+# include "Utils.h"
+#endif
 
 ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User(), s(NULL), leakyBucket(p->iMessageLimit, p->iMessageBurst) {
 	sState = ServerUser::Connected;

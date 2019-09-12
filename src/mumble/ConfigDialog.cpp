@@ -10,6 +10,11 @@
 #include "Global.h"
 #include "Overlay.h"
 
+#include <QtGui/QScreen>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QPushButton>
+
+
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 

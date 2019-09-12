@@ -5,6 +5,8 @@
 
 #include "SelfSignedCertificate.h"
 
+#include <openssl/x509v3.h>
+
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
 static int add_ext(X509 * crt, int nid, char *value) {

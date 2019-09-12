@@ -5,6 +5,8 @@
 
 #include "UnresolvedServerAddress.h"
 
+#include <QtCore/QHash>
+
 UnresolvedServerAddress::UnresolvedServerAddress()
 	: port(0) {}
 

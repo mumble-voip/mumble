@@ -5,6 +5,8 @@
 
 #include "HTMLFilter.h"
 
+#include <QtCore/QXmlStreamReader>
+
 QString HTMLFilter::escapeTags(const QString &in) {
 	QString out;
 	for (int i = 0; i < in.size(); i++) {

@@ -15,8 +15,25 @@
 #include "EnvUtils.h"
 #include "FFDHE.h"
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QSettings>
+
+#ifdef Q_OS_WIN
+# include <QtCore/QStandardPaths>
+#endif
+
+#include <QtNetwork/QHostInfo>
+#include <QtNetwork/QNetworkInterface>
+
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-# include <QSslDiffieHellmanParameters>
+# include <QtNetwork/QSslDiffieHellmanParameters>
+#endif
+
+#ifdef Q_OS_WIN
+# include <qos2.h>
+#else
+# include <pwd.h>
+# include <sys/resource.h>
 #endif
 
 MetaParams Meta::mp;

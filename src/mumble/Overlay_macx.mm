@@ -2,12 +2,17 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
-#import <ScriptingBridge/ScriptingBridge.h>
-#import <Cocoa/Cocoa.h>
-#include <Carbon/Carbon.h>
+
 #include "OverlayConfig.h"
 #include "OverlayClient.h"
 #include "MainWindow.h"
+
+#include <QtCore/QProcess>
+#include <QtCore/QXmlStreamReader>
+
+#import <ScriptingBridge/ScriptingBridge.h>
+#import <Cocoa/Cocoa.h>
+#include <Carbon/Carbon.h>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"

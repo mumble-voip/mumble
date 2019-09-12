@@ -16,6 +16,7 @@
 #include "Message.h"
 #include "Global.h"
 #include "NetworkConfig.h"
+#include "Utils.h"
 #include "VoiceRecorder.h"
 
 #ifdef USE_RNNOISE

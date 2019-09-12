@@ -8,6 +8,10 @@
 #include "Version.h"
 #include "OSInfo.h"
 
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtXml/QDomDocument>
+
 void Server::initRegister() {
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
 

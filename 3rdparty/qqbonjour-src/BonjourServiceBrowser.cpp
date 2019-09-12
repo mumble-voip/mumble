@@ -28,6 +28,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "BonjourServiceBrowser.h"
 
+#include <QtCore/QSocketNotifier>
+
 BonjourServiceBrowser::BonjourServiceBrowser(QObject *p)
 		: QObject(p), dnssref(0), bonjourSocket(0) {
 }

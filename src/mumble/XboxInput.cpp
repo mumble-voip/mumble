@@ -5,6 +5,8 @@
 
 #include "XboxInput.h"
 
+#include <QtCore/QStringList>
+
 const QUuid XboxInput::s_XboxInputGuid = QUuid(QString::fromLatin1("ca3937e3-640c-4d9e-9ef3-903f8b4fbcab"));
 
 XboxInput::XboxInput()

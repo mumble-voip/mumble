@@ -7,6 +7,13 @@
 #ifndef MUMBLE_MURMUR_MURMURICE_H_
 #define MUMBLE_MURMUR_MURMURICE_H_
 
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+// To prevent <windows.h> (included by Ice) from including <winsock.h>.
+# define WIN32_LEAN_AND_MEAN
+#endif
+
 #include <QtCore/QList>
 #include <QtCore/QMap>
 #include <QtCore/QMutex>

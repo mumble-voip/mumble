@@ -5,6 +5,14 @@
 
 #include "ConfigWidget.h"
 
+#include "MumbleApplication.h"
+
+#include <QtCore/QMap>
+#include <QtGui/QIcon>
+#include <QtWidgets/QAbstractButton>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QSlider>
+
 QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;
 
 ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {

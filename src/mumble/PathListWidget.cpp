@@ -5,12 +5,14 @@
 
 #include "PathListWidget.h"
 
-#include <QDragEnterEvent>
-#include <QDragMoveEvent>
-#include <QDropEvent>
-#include <QFile>
-#include <QDir>
 #include "Overlay.h"
+
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QMimeData>
+#include <QtGui/QDragEnterEvent>
+#include <QtGui/QDragMoveEvent>
+#include <QtGui/QDropEvent>
 
 PathListWidget::PathListWidget(QWidget *parent)
 	: QListWidget(parent)

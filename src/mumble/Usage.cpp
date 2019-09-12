@@ -12,6 +12,12 @@
 #include "OSInfo.h"
 #include "Version.h"
 
+#include <QtCore/QTimer>
+#include <QtNetwork/QHostAddress>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtXml/QDomElement>
+
 Usage::Usage(QObject *p) : QObject(p) {
 	qbReport.open(QBuffer::ReadWrite);
 	qdsReport.setDevice(&qbReport);

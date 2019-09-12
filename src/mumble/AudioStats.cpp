@@ -7,7 +7,12 @@
 
 #include "AudioInput.h"
 #include "Global.h"
+#include "Utils.h"
 #include "smallft.h"
+
+#include <QtGui/QPainter>
+
+#include <cmath>
 
 AudioBar::AudioBar(QWidget *p) : QWidget(p) {
 	qcBelow = Qt::yellow;
