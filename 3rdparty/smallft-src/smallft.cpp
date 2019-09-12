@@ -38,9 +38,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ********************************************************************/
 
-#include "mumble_pch.hpp"
-
 #include "smallft.h"
+
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 static void drfti1(int n, float *wa, int *ifac) {
 	static int ntryh[4] = { 4,2,3,5 };

@@ -3,9 +3,13 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "OverlayPositionableItem.h"
+
+#include "Utils.h"
+
+#include <QtCore/QEvent>
+#include <QtGui/QPen>
+#include <QtWidgets/QGraphicsScene>
 
 OverlayPositionableItem::OverlayPositionableItem(QRectF *posPtr, const bool isPositionable)
 	: m_position(posPtr)

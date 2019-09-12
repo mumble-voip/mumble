@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "AudioInput.h"
 
 #include "AudioOutput.h"
@@ -18,6 +16,7 @@
 #include "Message.h"
 #include "Global.h"
 #include "NetworkConfig.h"
+#include "Utils.h"
 #include "VoiceRecorder.h"
 
 #ifdef USE_RNNOISE

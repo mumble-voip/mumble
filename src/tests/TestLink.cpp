@@ -8,11 +8,11 @@
 
 #include <QtCore>
 
-#ifdef WIN32
-#include <windows.h>
+#ifdef Q_OS_WIN
+# include "win.h"
 #else
-#include <fcntl.h>
-#include <sys/mman.h>
+# include <fcntl.h>
+# include <sys/mman.h>
 #endif
 
 struct LinkedMem {

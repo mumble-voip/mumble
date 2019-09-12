@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include <boost/version.hpp>
 
 // Not all Boost versions can use a header-only
@@ -78,7 +76,7 @@ quint64 Timer::now() {
 	return static_cast<quint64>(epochDurationUsec.count());
 }
 #elif defined(Q_OS_WIN)
-#include <windows.h>
+# include "win.h"
 
 quint64 Timer::now() {
 	static double scale = 0;

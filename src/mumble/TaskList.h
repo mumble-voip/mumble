@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_TASK_LIST_H_
 #define MUMBLE_MUMBLE_TASK_LIST_H_
 
+class QString;
+
 class TaskList {
 	public:
 		static void addToRecentList(QString name, QString user, QString host, int port);

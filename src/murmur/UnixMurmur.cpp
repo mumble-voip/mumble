@@ -3,12 +3,29 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "UnixMurmur.h"
 
 #include "Meta.h"
 #include "EnvUtils.h"
+
+#include <QtCore/QAbstractEventDispatcher>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QMutex>
+#include <QtCore/QSocketNotifier>
+#include <QtCore/QWaitCondition>
+
+#include <grp.h>
+#include <signal.h>
+
+#ifdef Q_OS_LINUX
+# include <sys/capability.h>
+# include <sys/prctl.h>
+# include <sys/resource.h>
+#endif
+
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 QMutex *LimitTest::qm;
 QWaitCondition *LimitTest::qw;

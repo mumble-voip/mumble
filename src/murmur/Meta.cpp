@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "Meta.h"
 
 #include "Connection.h"
@@ -17,8 +15,25 @@
 #include "EnvUtils.h"
 #include "FFDHE.h"
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QSettings>
+
+#ifdef Q_OS_WIN
+# include <QtCore/QStandardPaths>
+#endif
+
+#include <QtNetwork/QHostInfo>
+#include <QtNetwork/QNetworkInterface>
+
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-# include <QSslDiffieHellmanParameters>
+# include <QtNetwork/QSslDiffieHellmanParameters>
+#endif
+
+#ifdef Q_OS_WIN
+# include <qos2.h>
+#else
+# include <pwd.h>
+# include <sys/resource.h>
 #endif
 
 MetaParams Meta::mp;

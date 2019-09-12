@@ -3,7 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
 
 #include "ServerDB.h"
 
@@ -18,6 +22,16 @@
 #include "User.h"
 #include "PBKDF2.h"
 #include "PasswordGenerator.h"
+
+#include <QtCore/QCoreApplication>
+#include <QtSql/QSqlError>
+#include <QtSql/QSqlQuery>
+
+#ifdef Q_OS_WIN
+# include <winsock2.h>
+#else
+# include <arpa/inet.h>
+#endif
 
 #define SQLQUERY(x) ServerDB::query(query, QLatin1String(x), true)
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)

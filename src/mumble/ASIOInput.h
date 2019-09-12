@@ -6,16 +6,21 @@
 #ifndef MUMBLE_MUMBLE_ASIOINPUT_H_
 #define MUMBLE_MUMBLE_ASIOINPUT_H_
 
+#include "ui_ASIOInput.h"
+
+#include "AudioInput.h"
+#include "ConfigDialog.h"
+
+#include "win.h"
+
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QWaitCondition>
 
-#include <windows.h>
+#include <combaseapi.h>
+
 #include <asiodrvr.h>
-#include "AudioInput.h"
-#include "ConfigDialog.h"
-#include "ui_ASIOInput.h"
 
 typedef QPair<QString, QString> ASIODev;
 

@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "SelfSignedCertificate.h"
+
+#include <openssl/x509v3.h>
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 

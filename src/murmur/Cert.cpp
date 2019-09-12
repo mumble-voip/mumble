@@ -3,11 +3,23 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
 
 #include "Meta.h"
 #include "Server.h"
 #include "SelfSignedCertificate.h"
+
+#include <openssl/err.h>
+#include <openssl/evp.h>
+#include <openssl/x509.h>
+
+#ifdef Q_OS_WIN
+# include <winsock2.h>
+#endif
 
 bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	if (key.isNull() || cert.isNull() || (key.type() != QSsl::PrivateKey))

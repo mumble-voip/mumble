@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "Server.h"
 
 #include "ACL.h"
@@ -22,12 +20,30 @@
 #include "HostAddress.h"
 
 #ifdef USE_BONJOUR
-#include "BonjourServer.h"
-#include "BonjourServiceRegister.h"
+# include "BonjourServer.h"
+# include "BonjourServiceRegister.h"
+#endif
+
+#include "Utils.h"
+
+#include <QtCore/QCoreApplication>
+#include <QtCore/QXmlStreamAttributes>
+#include <QtCore/QtEndian>
+#include <QtNetwork/QHostInfo>
+#include <QtNetwork/QSslConfiguration>
+
+#include <boost/bind.hpp>
+
+#ifdef Q_OS_WIN
+# include <qos2.h>
+# include <ws2tcpip.h>
+#else
+# include <netinet/in.h>
+# include <poll.h>
 #endif
 
 #ifndef MAX
-#define MAX(a,b) ((a)>(b) ? (a):(b))
+# define MAX(a,b) ((a)>(b) ? (a):(b))
 #endif
 
 #define UDP_PACKET_SIZE 1024

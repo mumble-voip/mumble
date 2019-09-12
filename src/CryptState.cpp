@@ -12,11 +12,24 @@
  * OCB with something else or get yourself a license.
  */
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
+
+#ifndef __LP64__
+# ifdef Q_OS_WIN
+#  include "win.h"
+#  include <winsock2.h>
+# else
+#  include <arpa/inet.h>
+# endif
+#endif
 
 #include "CryptState.h"
 
 #include "ByteSwap.h"
+
+#include <cstring>
+
+#include <openssl/rand.h>
 
 CryptState::CryptState() {
 	for (int i=0;i<0x100;i++)

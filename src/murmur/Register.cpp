@@ -3,12 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "Server.h"
 #include "Meta.h"
 #include "Version.h"
 #include "OSInfo.h"
+
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtXml/QDomDocument>
 
 void Server::initRegister() {
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));

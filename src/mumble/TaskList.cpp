@@ -3,10 +3,17 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "TaskList.h"
 
+#include "MumbleApplication.h"
+
+#include <QtCore/QFileInfo>
+#include <QtCore/QSettings>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
+
+#include <shlobj.h>
 #include <shobjidl.h>
 #include <propkey.h>
 #include <propvarutil.h>

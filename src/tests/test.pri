@@ -13,15 +13,6 @@ CONFIG += testcase
 CONFIG += thread warn_on
 CONFIG -= app_bundle
 
-# We build this test without 'gui' in QT,
-# but we include the QtGui headers from
-# murmur_pch.h. This causes an error when Qt
-# tries to find the OpenGL headers to use, since
-# we're missing the include paths from QtGui's
-# .pri files. Define QT_NO_OPENGL to avoid these
-# build errors.
-DEFINES += QT_NO_OPENGL
-
 LANGUAGE = C++
 
 VPATH *= ../.. ../../murmur ../../mumble

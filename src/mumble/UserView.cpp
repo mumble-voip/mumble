@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "UserView.h"
 
 #include "Channel.h"
@@ -13,6 +11,11 @@
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "UserModel.h"
+
+#include <QtGui/QDesktopServices>
+#include <QtGui/QHelpEvent>
+#include <QtGui/QPainter>
+#include <QtWidgets/QWhatsThis>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"

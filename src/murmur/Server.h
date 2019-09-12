@@ -6,6 +6,20 @@
 #ifndef MUMBLE_MURMUR_SERVER_H_
 #define MUMBLE_MURMUR_SERVER_H_
 
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
+
+#include "ACL.h"
+#include "Message.h"
+#include "Mumble.pb.h"
+#include "User.h"
+#include "Timer.h"
+#include "HostAddress.h"
+#include "Ban.h"
+
 #ifndef Q_MOC_RUN
 # include <boost/function.hpp>
 #endif
@@ -26,17 +40,10 @@
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 # include <QtNetwork/QSslDiffieHellmanParameters>
 #endif
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
 
-#include "ACL.h"
-#include "Message.h"
-#include "Mumble.pb.h"
-#include "User.h"
-#include "Timer.h"
-#include "HostAddress.h"
-#include "Ban.h"
+#ifdef Q_OS_WIN
+# include <winsock2.h>
+#endif
 
 class BonjourServer;
 class Channel;

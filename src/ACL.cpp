@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "ACL.h"
 #include "Channel.h"
 #include "Group.h"
@@ -12,6 +10,8 @@
 
 #ifdef MURMUR
 #include "ServerUser.h"
+
+#include <QtCore/QStack>
 #endif
 
 ChanACL::ChanACL(Channel *chan) : QObject(chan) {

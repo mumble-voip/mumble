@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "User.h"
 #include "Channel.h"
 #include "ACL.h"
@@ -16,6 +14,9 @@
 #include "ServerUser.h"
 #include "Version.h"
 #include "CryptState.h"
+
+#include <QtCore/QStack>
+#include <QtCore/QtEndian>
 
 #define RATELIMIT(user) \
 	if (user->leakyBucket.ratelimit(1)) { \

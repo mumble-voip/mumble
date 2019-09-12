@@ -2,18 +2,20 @@
  * Overlay drawing test application.
  */
 
+#include "../../overlay/overlay.h"
+
+#include "SharedMemory.h"
+#include "Timer.h"
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
+
 #include <QtCore>
 #include <QtNetwork>
 #include <QtGui>
-#include "SharedMemory.h"
 
-#include "../../overlay/overlay.h"
-
-#include "Timer.h"
 #include <ctime>
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
 
 class OverlayWidget : public QWidget {
 		Q_OBJECT

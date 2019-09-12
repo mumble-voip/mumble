@@ -3,7 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
 
 #include "DBus.h"
 
@@ -12,6 +16,20 @@
 #include "Server.h"
 #include "ServerUser.h"
 #include "ServerDB.h"
+
+#include <QtCore/QCoreApplication>
+#include <QtCore/QStack>
+#include <QtDBus/QDBusConnectionInterface>
+#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusMessage>
+#include <QtDBus/QDBusMetaType>
+#include <QtDBus/QDBusReply>
+
+#ifdef Q_OS_WIN
+# include <winsock2.h>
+#else
+# include <arpa/inet.h>
+#endif
 
 QDBusArgument &operator<<(QDBusArgument &a, const PlayerInfo &s) {
 	a.beginStructure();

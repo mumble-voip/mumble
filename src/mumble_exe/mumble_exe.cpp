@@ -3,7 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include <windows.h>
+#include "win.h"
+
 #include <shlwapi.h>
 #include <stdio.h>
 

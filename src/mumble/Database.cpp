@@ -3,15 +3,19 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "Database.h"
 
 #include "Global.h"
 #include "Message.h"
+#include "MumbleApplication.h"
 #include "Net.h"
+#include "Utils.h"
 #include "Version.h"
 
+#include <QtCore/QStandardPaths>
+#include <QtSql/QSqlError>
+#include <QtSql/QSqlQuery>
+#include <QtWidgets/QMessageBox>
 
 static void logSQLError(const QSqlQuery &query) {
 	const QSqlError error(query.lastQuery());

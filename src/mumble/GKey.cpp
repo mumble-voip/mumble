@@ -65,8 +65,6 @@
  * unless mumble is the active window.
  */
 
-#include "mumble_pch.hpp"
-
 #include "GKey.h"
 
 #ifdef Q_CC_GNU

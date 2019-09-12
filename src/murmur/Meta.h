@@ -6,6 +6,12 @@
 #ifndef MUMBLE_MURMUR_META_H_
 #define MUMBLE_MURMUR_META_H_
 
+#include "Timer.h"
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
+
 #include <QtCore/QDir>
 #include <QtCore/QList>
 #include <QtCore/QUrl>
@@ -14,11 +20,6 @@
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslKey>
 #include <QtNetwork/QSslCipher>
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
-
-#include "Timer.h"
 
 class Server;
 class QSettings;

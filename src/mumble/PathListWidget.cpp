@@ -3,16 +3,16 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "PathListWidget.h"
 
-#include <QDragEnterEvent>
-#include <QDragMoveEvent>
-#include <QDropEvent>
-#include <QFile>
-#include <QDir>
 #include "Overlay.h"
+
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QMimeData>
+#include <QtGui/QDragEnterEvent>
+#include <QtGui/QDragMoveEvent>
+#include <QtGui/QDropEvent>
 
 PathListWidget::PathListWidget(QWidget *parent)
 	: QListWidget(parent)

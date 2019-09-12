@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "MainWindow.h"
 
 #include "About.h"
@@ -47,13 +45,32 @@
 #include "SSLCipherInfo.h"
 #include "Screen.h"
 #include "SvgIcon.h"
+#include "Utils.h"
 
 #ifdef Q_OS_WIN
-#include "TaskList.h"
+# include "TaskList.h"
 #endif
 
 #ifdef Q_OS_MAC
-#include "AppNap.h"
+# include "AppNap.h"
+#endif
+
+#include <QtCore/QStandardPaths>
+#include <QtCore/QUrlQuery>
+#include <QtGui/QClipboard>
+#include <QtGui/QDesktopServices>
+#include <QtGui/QImageReader>
+#include <QtGui/QScreen>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QInputDialog>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QToolTip>
+#include <QtWidgets/QWhatsThis>
+
+#ifdef Q_OS_WIN
+# include <dbt.h>
 #endif
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.

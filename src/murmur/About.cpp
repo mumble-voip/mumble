@@ -3,17 +3,18 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QApplication>
-#else
-# include <QtGui/QApplication>
-#endif
-
 #include "About.h"
 #include "Version.h"
 #include "License.h"
+#include "Utils.h"
+
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
 
 AboutDialog::AboutDialog(QWidget *p, AboutDialogOptions options) : QDialog(p) {
 	setWindowTitle(tr("About Murmur"));

@@ -3,9 +3,12 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "SSLLocks.h"
+
+#include <QtCore/QMutex>
+#include <QtCore/QThread>
+
+#include <openssl/crypto.h>
 
 static QMutex **locks = NULL;
 

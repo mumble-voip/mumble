@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "Usage.h"
 
 #include "ClientUser.h"
@@ -13,6 +11,12 @@
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 #include "Version.h"
+
+#include <QtCore/QTimer>
+#include <QtNetwork/QHostAddress>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtXml/QDomElement>
 
 Usage::Usage(QObject *p) : QObject(p) {
 	qbReport.open(QBuffer::ReadWrite);

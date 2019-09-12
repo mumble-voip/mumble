@@ -3,11 +3,22 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "HostAddress.h"
 
 #include "ByteSwap.h"
+
+#ifdef Q_OS_WIN
+# include "win.h"
+# include <winsock2.h>
+# include <ws2tcpip.h>
+#else
+# include <arpa/inet.h>
+# if defined(Q_OS_FREEBSD) || defined(Q_OS_OPENBSD)
+#  include <netinet/in.h>
+#  include <sys/socket.h>
+#  include <sys/types.h>
+# endif
+#endif
 
 HostAddress::HostAddress() {
 	addr[0] = addr[1] = 0ULL;

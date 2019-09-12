@@ -3,29 +3,40 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
 
 #if defined(Q_OS_WIN)
-#include <intrin.h>
-#endif
-
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
-#include <sys/utsname.h>
-#endif
-
-#if defined(Q_OS_MAC)
-#include <sys/types.h>
-#include <sys/sysctl.h>
-#include <mach-o/arch.h>
-
-// Ignore deprecation warnings for Gestalt.
-// See mumble-voip/mumble#3290 for more information.
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-
+# include "win.h"
 #endif
 
 #include "OSInfo.h"
+
 #include "Version.h"
+
+#include <QtCore/QCryptographicHash>
+#include <QtCore/QProcess>
+#include <QtNetwork/QNetworkInterface>
+#include <QtXml/QDomDocument>
+
+#if defined(Q_OS_WIN)
+# include <intrin.h>
+#endif
+
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
+# include <sys/utsname.h>
+#endif
+
+#if defined(Q_OS_MAC)
+# include <Carbon/Carbon.h>
+# include <sys/types.h>
+# include <sys/sysctl.h>
+# include <mach-o/arch.h>
+
+// Ignore deprecation warnings for Gestalt.
+// See mumble-voip/mumble#3290 for more information.
+# pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+#endif
 
 #if defined(Q_OS_WIN)
 // regString converts a wchar_t string of size to a

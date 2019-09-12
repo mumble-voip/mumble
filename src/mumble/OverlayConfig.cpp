@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "OverlayConfig.h"
 
 #include "Overlay.h"
@@ -22,14 +20,21 @@
 #include "PathListWidget.h"
 #include "Screen.h"
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
-
 #ifdef Q_OS_WIN
 #include "../../overlay/overlay_launchers.h"
 #include "../../overlay/overlay_whitelist.h"
 #include "../../overlay/overlay_blacklist.h"
 #endif
+
+#include <QtGui/QScreen>
+#include <QtGui/QWindow>
+#include <QtWidgets/QColorDialog>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QFontDialog>
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 static const int OVERLAYCONFIG_PATH_ROLE = Qt::UserRole;
 static const int OVERLAYCONFIG_BUILTIN_ROLE = Qt::UserRole + 1;

@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "OverlayClient.h"
 #include "OverlayPositionableItem.h"
 #include "OverlayEditor.h"
@@ -18,6 +16,18 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 #include "Themes.h"
+#include "Utils.h"
+
+#ifdef Q_OS_WIN
+# include <QtGui/QBitmap>
+#endif
+
+#include <QtGui/QImageReader>
+#include <QtWidgets/QGraphicsProxyWidget>
+
+#ifdef Q_OS_WIN
+# include <psapi.h>
+#endif
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"

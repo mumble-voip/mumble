@@ -3,15 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "MurmurIce.h"
-
-#include <limits>
-
-#include <Ice/Ice.h>
-#include <Ice/SliceChecksums.h>
-#include <IceUtil/IceUtil.h>
 
 #include "Channel.h"
 #include "Group.h"
@@ -22,6 +14,21 @@
 #include "ServerDB.h"
 #include "User.h"
 #include "Ban.h"
+#include "Utils.h"
+
+#include <QtCore/QCoreApplication>
+#include <QtCore/QSettings>
+#include <QtCore/QStack>
+
+#include <boost/bind.hpp>
+
+#include <openssl/err.h>
+
+#include <Ice/Ice.h>
+#include <Ice/SliceChecksums.h>
+#include <IceUtil/IceUtil.h>
+
+#include <limits>
 
 using namespace std;
 using namespace Murmur;

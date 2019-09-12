@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "MUComboBox.h"
+
+#include <QtWidgets/QListView>
 
 MUComboBox::MUComboBox(QWidget *parent)
 	: QComboBox(parent) {

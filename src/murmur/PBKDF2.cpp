@@ -34,9 +34,26 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+// <openssl/rand.h> includes <windows.h> without defining NOMINMAX,
+// which breaks our compilation because of the "max" macro.
+#ifndef NOMINMAX
+# define NOMINMAX
+#endif
+#endif
 
 #include "PBKDF2.h"
+
+#include <QtCore/QElapsedTimer>
+#include <QtCore/QLatin1String>
+
+#include <openssl/err.h>
+#include <openssl/evp.h>
+#include <openssl/rand.h>
+
+#include <limits>
 
 int PBKDF2::benchmark() {
 	const QString pseudopass(QLatin1String("aboutAvg"));

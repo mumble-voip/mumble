@@ -6,18 +6,29 @@
 #ifndef MUMBLE_MUMBLE_VOICERECORDER_H_
 #define MUMBLE_MUMBLE_VOICERECORDER_H_
 
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
+
 #ifndef Q_MOC_RUN
 # include <boost/scoped_ptr.hpp>
 # include <boost/shared_array.hpp>
 #endif
 
-#include <sndfile.h>
 #include <QtCore/QDateTime>
 #include <QtCore/QHash>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtCore/QThread>
 #include <QtCore/QWaitCondition>
+
+#ifdef Q_OS_WIN
+# define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
+#endif
+
+#include <sndfile.h>
 
 class ClientUser;
 class RecordUser;

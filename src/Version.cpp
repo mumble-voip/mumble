@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "Version.h"
+
+#include <QtCore/QRegExp>
 
 unsigned int MumbleVersion::getRaw(const QString &version) {
 	int major, minor, patch;

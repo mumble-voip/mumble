@@ -3,20 +3,22 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
-#ifdef Q_OS_UNIX
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#endif
-
 #include "Connection.h"
 #include "Message.h"
 #include "SSL.h"
 #include "Mumble.pb.h"
 
+#include <QtCore/QtEndian>
+#include <QtNetwork/QHostAddress>
+
+#ifdef Q_OS_WIN
+# include <qos2.h>
+#else
+# include <sys/socket.h>
+# include <sys/types.h>
+# include <netinet/in.h>
+# include <netinet/tcp.h>
+#endif
 
 #ifdef Q_OS_WIN
 HANDLE Connection::hQoS = NULL;

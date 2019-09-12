@@ -3,9 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "ThemeInfo.h"
+
+#include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QSettings>
 
 QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 #if defined(Q_OS_WIN)

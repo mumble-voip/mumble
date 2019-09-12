@@ -7,20 +7,28 @@
 #define MUMBLE_CONNECTION_H_
 
 #include <QtCore/QtGlobal>
-#include <QtCore/QMutex>
-#if QT_VERSION >= 0x040700
-#include <QtCore/QElapsedTimer>
-#else
-#include <QtCore/QTime>
-#endif
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtNetwork/QSslSocket>
+
 #ifdef Q_OS_WIN
-#include <windows.h>
+# include "win.h"
 #endif
 
 #include "CryptState.h"
+
+#include <QtCore/QMutex>
+
+#if QT_VERSION >= 0x040700
+# include <QtCore/QElapsedTimer>
+#else
+# include <QtCore/QTime>
+#endif
+
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtNetwork/QSslSocket>
+
+#ifdef Q_OS_WIN
+# include <ws2tcpip.h>
+#endif
 
 namespace google {
 namespace protobuf {

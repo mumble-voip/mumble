@@ -3,12 +3,12 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "Channel.h"
 #include "User.h"
 #include "Group.h"
 #include "ACL.h"
+
+#include <QtCore/QStack>
 
 #ifdef MUMBLE
 QHash<int, Channel *> Channel::c_qhChannels;

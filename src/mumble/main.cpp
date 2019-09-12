@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "Overlay.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
@@ -17,16 +15,15 @@
 #include "Plugins.h"
 #include "LogEmitter.h"
 #include "DeveloperConsole.h"
-#include "Global.h"
 #include "LCD.h"
 #ifdef USE_BONJOUR
-#include "BonjourClient.h"
+# include "BonjourClient.h"
 #endif
 #ifdef USE_DBUS
-#include "DBus.h"
+# include "DBus.h"
 #endif
 #ifdef USE_VLD
-#include "vld.h"
+# include "vld.h"
 #endif
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
@@ -40,9 +37,23 @@
 #include "License.h"
 #include "EnvUtils.h"
 
-#if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
-#include <shellapi.h> // For CommandLineToArgvW()
+#include <QtCore/QLibraryInfo>
+#include <QtCore/QProcess>
+#include <QtCore/QStandardPaths>
+#include <QtCore/QTranslator>
+#include <QtGui/QDesktopServices>
+#include <QtWidgets/QMessageBox>
+
+#ifdef USE_DBUS
+# include <QtDBus/QDBusInterface>
 #endif
+
+#if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
+# include <shellapi.h> // For CommandLineToArgvW()
+#endif
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)

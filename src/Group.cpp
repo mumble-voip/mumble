@@ -3,14 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "Group.h"
 
 #include "Channel.h"
 #include "User.h"
 #ifdef MURMUR
 #include "ServerUser.h"
+
+#include <QtCore/QStack>
 #endif
 
 Group::Group(Channel *assoc, const QString &name) {

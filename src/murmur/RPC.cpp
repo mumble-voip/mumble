@@ -3,7 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
 
 #include "Channel.h"
 #include "Group.h"
@@ -12,6 +16,10 @@
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Version.h"
+
+#ifdef Q_OS_WIN
+# include <winsock2.h>
+#endif
 
 void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name, const QString &comment) {
 	bool changed = false;

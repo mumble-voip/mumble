@@ -3,11 +3,13 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "CryptographicRandom.h"
 
 #include "arc4random_uniform.h"
+
+#include <QtCore/QDebug>
+
+#include <openssl/rand.h>
 
 void CryptographicRandom::fillBuffer(void *buf, int numBytes) {
 	// We treat negative and zero values of numBytes to be

@@ -3,7 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
+#include "GlobalShortcut_win.h"
+
+#include "MainWindow.h"
+#include "OverlayClient.h"
+#include "Utils.h"
 
 // MinGW does not support std::future/std::promise
 // at present. Use Boost's implementation for now.
@@ -11,14 +15,14 @@
 #include <boost/thread.hpp>
 #include <boost/thread/future.hpp>
 
-#include "GlobalShortcut_win.h"
-
-#include "MainWindow.h"
-#include "OverlayClient.h"
-#include "Global.h"
+#include <QtCore/QElapsedTimer>
+#include <QtCore/QTimer>
 
 // 3rdparty/xinputcheck-src.
 #include <xinputcheck.h>
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)

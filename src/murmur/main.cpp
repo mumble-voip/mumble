@@ -3,16 +3,12 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
-#ifdef Q_OS_WIN
-#include "Tray.h"
-#include "About.h"
+#ifdef USE_DBUS
+# include "DBus.h"
 #endif
 
 #include "Server.h"
 #include "ServerDB.h"
-#include "DBus.h"
 #include "Meta.h"
 #include "Version.h"
 #include "SSL.h"
@@ -20,8 +16,31 @@
 #include "LogEmitter.h"
 #include "EnvUtils.h"
 
-#ifdef Q_OS_UNIX
-#include "UnixMurmur.h"
+#ifdef Q_OS_WIN
+# include "About.h"
+# include "Tray.h"
+
+# include <QtWidgets/QApplication>
+#else
+# include "UnixMurmur.h"
+
+# include <QtCore/QCoreApplication>
+#endif
+
+#include <QtCore/QTextCodec>
+
+#ifdef USE_DBUS
+# include <QtDBus/QDBusError>
+# include <QtDBus/QDBusServer>
+#endif
+
+#include <openssl/crypto.h>
+
+#ifdef Q_OS_WIN
+# include <intrin.h>
+#else
+# include <fcntl.h>
+# include <sys/syslog.h>
 #endif
 
 QFile *qfLog = NULL;

@@ -6,17 +6,18 @@
 #ifndef MUMBLE_MUMBLE_PLUGINS_H_
 #define MUMBLE_MUMBLE_PLUGINS_H_
 
+#include "ConfigDialog.h"
+
+#include "ui_Plugins.h"
+
+#ifdef Q_OS_WIN
+# include "win.h"
+#endif
+
 #include <QtCore/QObject>
 #include <QtCore/QMutex>
 #include <QtCore/QReadWriteLock>
 #include <QtCore/QUrl>
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
-
-#include "ConfigDialog.h"
-
-#include "ui_Plugins.h"
 
 struct PluginInfo;
 

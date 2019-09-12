@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "HTMLFilter.h"
+
+#include <QtCore/QXmlStreamReader>
 
 QString HTMLFilter::escapeTags(const QString &in) {
 	QString out;

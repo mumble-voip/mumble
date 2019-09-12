@@ -3,15 +3,13 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-// Include murmur_pch.h for STACKVAR
-#include "murmur_pch.h"
-
 #include <QtCore>
 #include <QtTest>
 
 #include "SSL.h"
 #include "Timer.h"
 #include "CryptState.h"
+#include "Utils.h"
 
 class TestCrypt : public QObject {
 		Q_OBJECT

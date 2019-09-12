@@ -26,9 +26,9 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "murmur_pch.h"
-
 #include "BonjourServiceBrowser.h"
+
+#include <QtCore/QSocketNotifier>
 
 BonjourServiceBrowser::BonjourServiceBrowser(QObject *p)
 		: QObject(p), dnssref(0), bonjourSocket(0) {

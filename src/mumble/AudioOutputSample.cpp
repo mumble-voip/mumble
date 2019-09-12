@@ -3,11 +3,16 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "AudioOutputSample.h"
 
 #include "Audio.h"
+#include "Utils.h"
+
+#include <QtCore/QDebug>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
+
+#include <cmath>
 
 SoundFile::SoundFile(const QString &fname) {
 	siInfo.frames = 0;

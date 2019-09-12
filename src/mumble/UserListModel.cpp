@@ -3,14 +3,19 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "UserListModel.h"
+
 #include "Channel.h"
 #include "Message.h"
+#include "Utils.h"
+
+#include <algorithm>
+
+#ifdef _MSC_VER
+# include <functional>
+#endif
 
 #include <vector>
-#include <algorithm>
 
 UserListModel::UserListModel(const MumbleProto::UserList& userList, QObject *parent_)
 	: QAbstractTableModel(parent_)

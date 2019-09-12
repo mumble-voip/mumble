@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include <G15LCDEngine_unix.h>
 
 static LCDEngine *G15LCDEngineNew() {

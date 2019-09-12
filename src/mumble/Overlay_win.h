@@ -6,15 +6,15 @@
 #ifndef MUMBLE_MUMBLE_OVERLAY_WIN_H_
 #define MUMBLE_MUMBLE_OVERLAY_WIN_H_
 
-#include <windows.h>
+#include "Overlay.h"
+
+#include "win.h"
 
 #include <QString>
 #include <QStringList>
 #include <QProcess>
 #include <QTimer>
 #include <QElapsedTimer>
-
-#include "Overlay.h"
 
 class OverlayPrivateWin : public OverlayPrivate {
 	private:

@@ -3,21 +3,34 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
+#include "LogEmitter.h"
+#include "MumbleApplication.h"
 
-#include <windows.h>
+#ifdef _MSC_VER
+# include "Utils.h"
+#endif
+
+#include "Version.h"
+#include "win.h"
+
+#include <cmath>
+#include <cfloat>
+
+#include <wincrypt.h>
 #include <tlhelp32.h>
 #include <dbghelp.h>
+
+#ifdef _MSC_VER
+# include <delayimp.h>
+#endif
+
 #include <emmintrin.h>
-#include <math.h>
-#include <float.h>
 #include <shobjidl.h>
 #include <shlobj.h>
 #include <share.h> // For share flags for _wfsopen
 
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
-#include "Version.h"
-#include "LogEmitter.h"
 
 extern "C" {
 	void __cpuid(int a[4], int b);

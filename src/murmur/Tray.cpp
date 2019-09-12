@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
-
 #include "Tray.h"
 
 #include "About.h"
@@ -12,6 +10,13 @@
 #include "Server.h"
 #include "Version.h"
 #include "LogEmitter.h"
+
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QTextBrowser>
 
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	le = logger;

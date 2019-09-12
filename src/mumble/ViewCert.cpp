@@ -3,9 +3,15 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "mumble_pch.hpp"
-
 #include "ViewCert.h"
+
+#include <QtCore/QUrl>
+#include <QtNetwork/QSslKey>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QVBoxLayout>
 
 static QString decode_utf8_qssl_string(const QString &input) {
 	QString i = input;

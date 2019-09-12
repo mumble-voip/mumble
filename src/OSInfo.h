@@ -6,8 +6,12 @@
 #ifndef MUMBLE_OSINFO_H_
 #define MUMBLE_OSINFO_H_
 
+#include <QtCore/QList>
+#include <QtCore/QString>
+
 class QDomDocument;
 class QDomElement;
+class QHostAddress;
 
 class OSInfo {
 	public:
