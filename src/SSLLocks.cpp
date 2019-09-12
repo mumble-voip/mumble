@@ -3,7 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "murmur_pch.h"
+#ifdef MUMBLE
+	#include "mumble_pch.hpp"
+#else
+	#include "murmur_pch.h"
+#endif
 
 #include "SSLLocks.h"
 

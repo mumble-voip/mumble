@@ -12,7 +12,11 @@
  * OCB with something else or get yourself a license.
  */
 
-#include "murmur_pch.h"
+#ifdef MUMBLE
+	#include "mumble_pch.hpp"
+#else
+	#include "murmur_pch.h"
+#endif
 
 #include "CryptState.h"
 

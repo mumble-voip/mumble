@@ -84,6 +84,8 @@
 #include <algorithm>
 #include <cmath>
 
+#include "Utils.h"
+
 #ifdef Q_OS_WIN
 #include "../qos2_mingw.h"
 
@@ -100,16 +102,8 @@
 #include <psapi.h>
 #include <math.h>
 #include <mmreg.h>
-
-#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
-
 #else // ifndef Q_OS_WIN
 #include <math.h>
-#define STACKVAR(type, varname, count) type varname[count]
-#define CopyMemory(dst,ptr,len) memcpy(dst,ptr,len)
-#define ZeroMemory(ptr,len) memset(ptr, 0, len)
-#define __cdecl
-typedef WId HWND;
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -120,8 +114,6 @@ typedef WId HWND;
 #if !defined(Q_OS_OPENBSD) && (defined(__MMX__) || defined(Q_OS_WIN))
 #include <mmintrin.h>
 #endif
-
-#define iroundf(x) ( static_cast<int>(x) )
 
 #ifdef USE_BONJOUR
 #include <dns_sd.h>
