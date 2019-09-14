@@ -72,23 +72,13 @@ SOURCES *= \
   EnvUtils.cpp \
   UnresolvedServerAddress.cpp \
   ServerAddress.cpp \
-  ServerResolver_qt5.cpp \
+  ServerResolver.cpp \
   ServerResolverRecord.cpp \
   SelfSignedCertificate.cpp \
   SSLLocks.cpp \
   FFDHE.cpp
 
 LIBS		*= -lmumble_proto
-
-equals(QT_MAJOR_VERSION, 4) {
-	CONFIG *= no-srv
-}
-
-CONFIG(no-srv) {
-	DEFINES += USE_NO_SRV
-	SOURCES -= ServerResolver_qt5.cpp
-	SOURCES *= ServerResolver_nosrv.cpp
-}
 
 # Add arc4random_uniform
 INCLUDEPATH *= ../../3rdparty/arc4random-src
