@@ -130,13 +130,9 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 	if (! uri.isEmpty()) {
 		if (title.isEmpty())
 			title = uri;
-#if QT_VERSION >= 0x050000
+
 		uri = uri.toHtmlEscaped();
 		title = title.toHtmlEscaped();
-#else
-		uri = Qt::escape(uri);
-		title = Qt::escape(title);
-#endif
 
 		insertHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(uri, title));
 		return;
@@ -163,11 +159,7 @@ QString RichTextEditorLink::text() const {
 	QUrl url(qleUrl->text(), QUrl::StrictMode);
 	QString txt = qleText->text();
 
-#if QT_VERSION >= 0x050000
 	txt = txt.toHtmlEscaped();
-#else
-	txt = Qt::escape(txt);
-#endif
 
 	if (url.isValid() && ! url.isRelative() && ! txt.isEmpty()) {
 		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url.toString(), txt);

@@ -173,7 +173,7 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							file.remove();
 						}
 					} else {
-						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(Qt::escape(fetch.toString()), Qt::escape(filename)));
+						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString().toHtmlEscaped(), filename.toHtmlEscaped()));
 						WebFetch::fetch(QLatin1String("dl"), fetch, this, SLOT(fetched(QByteArray,QUrl)));
 						return;
 					}

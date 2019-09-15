@@ -100,7 +100,7 @@ Database::Database(const QString &dbname) {
 	QFileInfo fi(db.databaseName());
 
 	if (! fi.isWritable()) {
-		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("The database '%1' is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.").arg(Qt::escape(fi.filePath())), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
+		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("The database '%1' is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.").arg(fi.filePath().toHtmlEscaped()), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
 		qWarning("Database: Database is read-only");
 	}
 

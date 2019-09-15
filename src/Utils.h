@@ -8,8 +8,6 @@
 #ifndef MUMBLE_UTILS_H_
 #define MUMBLE_UTILS_H_
 
-#include "Qt4Compat.h"
-
 #include <QtCore/QtGlobal>
 
 #define iroundf(x) ( static_cast<int>(x) )

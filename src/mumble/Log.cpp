@@ -301,7 +301,7 @@ QString Log::msgColor(const QString &text, LogColorType t) {
 }
 
 QString Log::formatChannel(::Channel *c) {
-	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(Qt::escape(c->qsName)).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(c->qsName.toHtmlEscaped()).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 }
 
 QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName) {
@@ -313,7 +313,7 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &dis
 	}
 
 	if (cu) {
-		QString name = Qt::escape(displayName.isNull() ? cu->qsName : displayName);
+		QString name = (displayName.isNull() ? cu->qsName : displayName).toHtmlEscaped();
 		if (cu->qsHash.isEmpty()) {
 			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(name).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 		} else {
@@ -489,7 +489,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		if (qdDate != dt.date()) {
 			qdDate = dt.date();
 			tc.insertBlock();
-			tc.insertHtml(tr("[Date changed to %1]\n").arg(Qt::escape(qdDate.toString(Qt::DefaultLocaleShortDate))));
+			tc.insertHtml(tr("[Date changed to %1]\n").arg(qdDate.toString(Qt::DefaultLocaleShortDate).toHtmlEscaped()));
 			tc.movePosition(QTextCursor::End);
 		}
 
@@ -502,7 +502,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(Qt::escape(dt.time().toString())), Log::Time));
+		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(dt.time().toString().toHtmlEscaped()), Log::Time));
 		validHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);

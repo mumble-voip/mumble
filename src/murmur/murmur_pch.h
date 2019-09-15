@@ -35,7 +35,6 @@
 #ifdef Q_OS_WIN
 # include <QtGui/QtGui>
 # if QT_VERSION >= 0x050000
-#  include "Qt4Compat.h"
 #  include <QtWidgets/QtWidgets>
 # endif
 

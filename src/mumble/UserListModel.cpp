@@ -93,7 +93,7 @@ QVariant UserListModel::data(const QModelIndex &dataIndex, int role) const {
 		switch (dataIndex.column()) {
 			case COL_INACTIVEDAYS: return tr("Last seen: %1").arg(user.last_seen().empty() ?
 				                                                      tr("Never")
-				                                                    : Qt::escape(u8(user.last_seen())));
+				                                                    : u8(user.last_seen()).toHtmlEscaped());
 			case COL_LASTCHANNEL:  return tr("Channel ID: %1").arg(user.last_channel());
 			default:               return QVariant();
 		}
