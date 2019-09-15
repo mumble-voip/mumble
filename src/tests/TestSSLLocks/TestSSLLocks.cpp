@@ -7,7 +7,6 @@
 #include <QtTest>
 
 #include "SSL.h"
-#include "QAtomicIntCompat.h"
 
 #include <openssl/rand.h>
 
@@ -30,7 +29,7 @@ public:
 
 	void run() {
 		unsigned char buf[64];
-		while (QAtomicIntLoad(*m_running) == 1) {
+		while (m_running->load() == 1) {
 			for (int i = 0; i < 1024; i++) {
 				if (m_seed) {
 					RAND_seed(buf, sizeof(buf));
