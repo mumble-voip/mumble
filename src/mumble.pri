@@ -8,7 +8,7 @@ include(../qmake/qt.pri)
 include(../qmake/rcc.pri)
 include(../qmake/pkgconfig.pri)
 
-VERSION		= 1.3.0
+VERSION		= 1.4.0
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
