@@ -2,10 +2,24 @@
 <ui version="4.0">
  <class>UserLocalVolumeDialog</class>
  <widget class="QDialog" name="UserLocalVolumeDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>224</height>
+   </rect>
+  </property>
   <property name="minimumSize">
    <size>
     <width>500</width>
-    <height>0</height>
+    <height>224</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>224</height>
    </size>
   </property>
   <layout class="QGridLayout">
