@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>569</width>
-    <height>764</height>
+    <width>588</width>
+    <height>794</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -295,6 +295,71 @@
         </widget>
         <widget class="QWidget" name="qwVAD">
          <layout class="QGridLayout">
+          <item row="1" column="2">
+           <widget class="QLabel" name="qlTransmitHold">
+            <property name="minimumSize">
+             <size>
+              <width>40</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="qliTransmitMin">
+            <property name="text">
+             <string>Silence Below</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSlider" name="qsTransmitHold">
+            <property name="toolTip">
+             <string>How long to keep transmitting after silence</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</string>
+            </property>
+            <property name="minimum">
+             <number>20</number>
+            </property>
+            <property name="maximum">
+             <number>250</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="AudioBar" name="abSpeech" native="true">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>10</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Current speech detection chance</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="qliTransmitHold">
+            <property name="text">
+             <string>Voice &amp;Hold</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsTransmitHold</cstring>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0" colspan="3">
            <layout class="QHBoxLayout">
             <item>
@@ -325,68 +390,10 @@
             </item>
            </layout>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="qliTransmitHold">
+          <item row="4" column="0">
+           <widget class="QLabel" name="qliTransmitMax">
             <property name="text">
-             <string>Voice &amp;Hold</string>
-            </property>
-            <property name="buddy">
-             <cstring>qsTransmitHold</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSlider" name="qsTransmitHold">
-            <property name="toolTip">
-             <string>How long to keep transmitting after silence</string>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</string>
-            </property>
-            <property name="minimum">
-             <number>20</number>
-            </property>
-            <property name="maximum">
-             <number>250</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="qlTransmitHold">
-            <property name="minimumSize">
-             <size>
-              <width>40</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="AudioBar" name="abSpeech" native="true">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>10</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Current speech detection chance</string>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="qliTransmitMin">
-            <property name="text">
-             <string>Silence Below</string>
+             <string>Speech Above</string>
             </property>
            </widget>
           </item>
@@ -412,13 +419,6 @@
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="qliTransmitMax">
-            <property name="text">
-             <string>Speech Above</string>
             </property>
            </widget>
           </item>
@@ -461,57 +461,6 @@
       <string>Compression</string>
      </property>
      <layout class="QGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliQuality">
-        <property name="text">
-         <string>&amp;Quality</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsQuality</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSlider" name="qsQuality">
-        <property name="toolTip">
-         <string>Quality of compression (peak bandwidth)</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
-        </property>
-        <property name="minimum">
-         <number>8000</number>
-        </property>
-        <property name="maximum">
-         <number>96000</number>
-        </property>
-        <property name="singleStep">
-         <number>1000</number>
-        </property>
-        <property name="pageStep">
-         <number>5000</number>
-        </property>
-        <property name="value">
-         <number>32000</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="qlQuality">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="qliFrames">
         <property name="text">
@@ -544,6 +493,19 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="qlQuality">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="2">
        <widget class="QLabel" name="qlFrames">
         <property name="minimumSize">
@@ -557,7 +519,35 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="3">
+      <item row="0" column="1">
+       <widget class="QSlider" name="qsQuality">
+        <property name="toolTip">
+         <string>Quality of compression (peak bandwidth)</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
+        </property>
+        <property name="minimum">
+         <number>8000</number>
+        </property>
+        <property name="maximum">
+         <number>192000</number>
+        </property>
+        <property name="singleStep">
+         <number>1000</number>
+        </property>
+        <property name="pageStep">
+         <number>5000</number>
+        </property>
+        <property name="value">
+         <number>32000</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="3">
        <widget class="QLabel" name="qlBitrate">
         <property name="font">
          <font>
@@ -575,6 +565,29 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliQuality">
+        <property name="text">
+         <string>&amp;Quality</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsQuality</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbAllowLowDelay">
+        <property name="toolTip">
+         <string>Enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </string>
+        </property>
+        <property name="whatsThis">
+         <string>If checked, Mumble will enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</string>
+        </property>
+        <property name="text">
+         <string>Allow low delay mode</string>
         </property>
        </widget>
       </item>

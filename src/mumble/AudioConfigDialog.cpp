@@ -132,6 +132,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadCheckBox(qcbPushWindow, r.bShowPTTButtonWindow);
 	loadCheckBox(qcbPushClick, r.bTxAudioCue);
 	loadSlider(qsQuality, r.iQuality);
+	loadCheckBox(qcbAllowLowDelay, r.bAllowLowDelay);
 	if (r.iNoiseSuppress != 0)
 		loadSlider(qsNoise, - r.iNoiseSuppress);
 	else
@@ -160,6 +161,7 @@ void AudioInputDialog::load(const Settings &r) {
 
 void AudioInputDialog::save() const {
 	s.iQuality = qsQuality->value();
+	s.bAllowLowDelay = qcbAllowLowDelay->isChecked();
 	s.iNoiseSuppress = (qsNoise->value() == 14) ? 0 : - qsNoise->value();
 	s.bDenoise = qcbDenoise->isChecked();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
