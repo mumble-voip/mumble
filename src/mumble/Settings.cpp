@@ -250,6 +250,7 @@ Settings::Settings() {
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
 	bDenoise = false;
+	bAllowLowDelay = true;
 	uiAudioInputChannelMask = 0xffffffffffffffffULL;
 
 	// Idle auto actions
@@ -260,8 +261,6 @@ Settings::Settings() {
 	vsVAD = Amplitude;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
-
-	bUseOpusMusicEncoding = true;
 
 	bTxAudioCue = false;
 	qsTxAudioCueOn = cqsDefaultPushClickOn;
@@ -629,6 +628,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(bDenoise, "audio/denoise");
+	SAVELOAD(bAllowLowDelay, "audio/allowlowdelay");
 	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
@@ -652,8 +652,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
 	SAVELOAD(bTransmitPosition, "audio/postransmit");
-
-	SAVELOAD(bUseOpusMusicEncoding, "codec/opus/encoder/music");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
@@ -972,6 +970,7 @@ void Settings::save() {
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(bDenoise, "audio/denoise");
+	SAVELOAD(bAllowLowDelay, "audio/allowlowdelay");
 	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
@@ -995,8 +994,6 @@ void Settings::save() {
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
 	SAVELOAD(bTransmitPosition, "audio/postransmit");
-
-	SAVELOAD(bUseOpusMusicEncoding, "codec/opus/encoder/music");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");

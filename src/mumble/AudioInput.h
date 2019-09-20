@@ -112,6 +112,7 @@ class AudioInput : public QThread {
 
 		/// Encoded audio rate in bit/s
 		int iAudioQuality;
+		bool bAllowLowDelay;
 		/// Number of 10ms audio "frames" per packet (!= frames in packet)
 		int iAudioFrames;
 
@@ -142,7 +143,7 @@ class AudioInput : public QThread {
 
 		void initializeMixer();
 
-		static void adjustBandwidth(int bitspersec, int &bitrate, int &frames);
+		static void adjustBandwidth(int bitspersec, int &bitrate, int &frames, bool &allowLowDelay);
 	signals:
 		void doDeaf();
 		void doMute();

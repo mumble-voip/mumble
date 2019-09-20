@@ -185,6 +185,7 @@ struct Settings {
 	QString qsTTSLanguage;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
+	bool bAllowLowDelay;
 	bool bDenoise;
 	quint64 uiAudioInputChannelMask;
 
@@ -205,7 +206,6 @@ struct Settings {
 	bool bOnlyAttenuateSameOutput;
 	bool bAttenuateLoopbacks;
 	int iOutputDelay;
-	bool bUseOpusMusicEncoding;
 
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;

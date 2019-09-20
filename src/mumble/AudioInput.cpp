@@ -74,7 +74,7 @@ bool AudioInputRegistrar::canExclusive() const {
 }
 
 AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)) {
-	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames);
+	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames, bAllowLowDelay);
 
 	g.iAudioBandwidth = getNetworkBandwidth(iAudioQuality, iAudioFrames);
 
@@ -92,12 +92,15 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 #ifdef USE_OPUS
 	oCodec = g.oCodec;
 	if (oCodec) {
-		if (!g.s.bUseOpusMusicEncoding) {
-			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
-			qWarning("AudioInput: Opus encoder set for VOIP");
-		} else {
+		if (bAllowLowDelay && iAudioQuality >= 64000) { // > 64 kbit/s bitrate and low delay allowed
+			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_RESTRICTED_LOWDELAY, NULL);
+			qWarning("AudioInput: Opus encoder set for low delay");
+		} else if (iAudioQuality >= 32000) { // > 32 kbit/s bitrate
 			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, NULL);
-			qWarning("AudioInput: Opus encoder set for Music");
+			qWarning("AudioInput: Opus encoder set for high quality speech");
+		} else {
+			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
+			qWarning("AudioInput: Opus encoder set for low quality speech");
 		}
 
 		oCodec->opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
@@ -558,9 +561,10 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 	}
 }
 
-void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames) {
+void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames, bool &allowLowDelay) {
 	frames = g.s.iFramesPerPacket;
 	bitrate = g.s.iQuality;
+	allowLowDelay = g.s.bAllowLowDelay;
 
 	if (bitspersec == -1) {
 		// No limit
@@ -589,7 +593,8 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 
 	int frames;
 	int bitrate;
-	adjustBandwidth(bitspersec, bitrate, frames);
+	bool allowLowDelay;
+	adjustBandwidth(bitspersec, bitrate, frames, allowLowDelay);
 
 	g.iMaxBandwidth = bitspersec;
 
@@ -603,6 +608,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 		g.iAudioBandwidth = getNetworkBandwidth(bitrate, frames);
 		ai->iAudioQuality = bitrate;
 		ai->iAudioFrames = frames;
+		ai->bAllowLowDelay = allowLowDelay;
 		return;
 	}
 
