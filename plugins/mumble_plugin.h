@@ -129,7 +129,7 @@ typedef MumblePlugin2 *(MUMBLE_PLUGIN_CALLING_CONVENTION *mumblePlugin2Func)();
 typedef MumblePluginQt *(MUMBLE_PLUGIN_CALLING_CONVENTION *mumblePluginQtFunc)();
 
 /*
- * All plugins must implement one function called mumbleGetPlugin(), which
+ * All plugins must implement one function called getMumblePlugin(), which
  * follows the mumblePluginFunc type and returns a MumblePlugin struct.
  *
  * magic should be initialized to MUMBLE_PLUGIN_MAGIC. description is the
