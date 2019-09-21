@@ -166,7 +166,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 	}
 }
 
-bool AudioOutputSpeech::needSamples(unsigned int snum) {
+bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];
 	iBufferFilled -= iLastConsume;
@@ -317,7 +317,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					for (unsigned int i=0;i<iFrameSize;++i)
 						pOut[i] *= (1.0f / 32767.f);
 				} else {
-					qWarning("AudioOutputSpeech: encountered unknown message type %li in needSamples().", static_cast<long>(umtType));
+					qWarning("AudioOutputSpeech: encountered unknown message type %li in prepareSampleBuffer().", static_cast<long>(umtType));
 				}
 
 				bool update = true;
