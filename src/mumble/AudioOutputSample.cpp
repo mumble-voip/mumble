@@ -202,7 +202,7 @@ QString AudioOutputSample::browseForSndfile(QString defaultpath) {
 	return file;
 }
 
-bool AudioOutputSample::needSamples(unsigned int snum) {
+bool AudioOutputSample::prepareSampleBuffer(unsigned int snum) {
 	// Forward the buffer
 	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];

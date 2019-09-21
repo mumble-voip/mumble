@@ -66,7 +66,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 		int iMissedFrames;
 		ClientUser *p;
 
-		virtual bool needSamples(unsigned int snum) Q_DECL_OVERRIDE;
+		virtual bool prepareSampleBuffer(unsigned int snum) Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
 		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type);

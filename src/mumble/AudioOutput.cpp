@@ -383,7 +383,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator it = qmOutputs.constBegin();
 	while (it != qmOutputs.constEnd()) {
 		AudioOutputUser *aop = it.value();
-		if (! aop->needSamples(nsamp)) {
+		if (! aop->prepareSampleBuffer(nsamp)) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);

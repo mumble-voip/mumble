@@ -22,7 +22,7 @@ class AudioOutputUser : public QObject {
 		float *pfBuffer;
 		float *pfVolume;
 		float fPos[3];
-		virtual bool needSamples(unsigned int snum) = 0;
+		virtual bool prepareSampleBuffer(unsigned int snum) = 0;
 };
 
 #endif  // AUDIOOUTPUTUSER_H_
