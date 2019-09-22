@@ -2,7 +2,7 @@
 <Include>
   <?define ProductName = "Mumble" ?>
   <?define ProductManufacturer = "The Mumble Developers" ?>
-  <?define ProductVersion = "1.3.0" ?>
+  <?define ProductVersion = "1.4.0" ?>
 
   <?if $(sys.BUILDARCH) = "x86" ?>
     <?define ProductUpgradeCode = "B0EEFCC7-8A9c-4471-AB10-CBD35BE3161D" ?>
