@@ -2,7 +2,7 @@
 <WixLocalization Culture="zh-cn" xmlns="http://schemas.microsoft.com/wix/2006/localization">
   <String Id="LANG">2052</String>
 
-  <String Id="MUMBLE_CREATE_SHORTCUT">创建桌面快捷图标</String>
+  <String Id="MUMBLE_CREATE_SHORTCUT">创建桌面快捷方式</String>
   <String Id="MUMBLE_DONATE">向 Mumble 项目捐款</String>
   <String Id="MUMBLE_TERMINATE_DBUS">Mumble 依赖的 DBus 守护进程目前正在运行。 终止该进程然后继续升级？</String>
   <String Id="MUMBLE_NO_SSE">Mumble 需要 SSE，该功能被 Intel Pentium III， AMD Athlon XP 或者较新的 CPU 所支持。 您的 CPU 不支持 SSE， Mumble 不能正常工作。您依然要继续安装 Mumble 吗？</String>
@@ -30,10 +30,10 @@
   <String Id="DESC_SectionMumble">该 Mumble 客户端用于连接到一个服务器。</String>
   <String Id="DESC_SectionMumble11X">该 Mumble 客户端用于连接到一个老的服务器。</String>
   <String Id="DESC_SectionMurmur">Mumble 服务器端包含所有您运行个人服务器所必须的文件。</String>
-  <String Id="DESC_SectionBonjour">Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer.</String>
-  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
-  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
-  
+  <String Id="DESC_SectionBonjour">Bonjour现在可以在您的网络上报告和发现Murmur服务器。是否下载并运行Bonjour安装程序。</String>
+  <String Id="MUMBLE_SEC_DesktopShortcut">桌面快捷方式</String>
+  <String Id="DESC_DesktopShortcut">创建桌面快捷方式</String>
+
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble 和 Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">个人偏好和数据库</String>
