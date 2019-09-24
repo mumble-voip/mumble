@@ -5,7 +5,9 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-qmake -recursive CONFIG+="release tests warnings-as-errors" DEFINES+="MUMBLE_VERSION=${BUILD_SOURCEVERSION:0:7}"
+ver=$(python scripts/mumble-version.py)
+
+qmake -recursive CONFIG+="release tests warnings-as-errors" DEFINES+="MUMBLE_VERSION=${ver}"
 
 make -j $(nproc) && make check
 
