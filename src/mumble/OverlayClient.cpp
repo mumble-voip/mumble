@@ -59,7 +59,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	// Make sure it has a native window id
 	qgv.winId();
 
-	qgpiCursor = new OverlayMouse();
+	qgpiCursor.reset(new OverlayMouse());
 	qgpiCursor->hide();
 	qgpiCursor->setZValue(10.0f);
 
@@ -67,18 +67,16 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	qgs.addItem(&ougUsers);
 	ougUsers.show();
 
-	qgpiFPS = new OverlayPositionableItem(&g.s.os.qrfFps);
-	qgs.addItem(qgpiFPS);
+	qgpiFPS.reset(new OverlayPositionableItem(&g.s.os.qrfFps));
+	qgs.addItem(qgpiFPS.data());
 	qgpiFPS->setPos(g.s.os.qrfFps.x(), g.s.os.qrfFps.y());
 	qgpiFPS->show();
 
 	// Time
-	qgpiTime = new OverlayPositionableItem(&g.s.os.qrfTime);
-	qgs.addItem(qgpiTime);
+	qgpiTime.reset(new OverlayPositionableItem(&g.s.os.qrfTime));
+	qgs.addItem(qgpiTime.data());
 	qgpiTime->setPos(g.s.os.qrfTime.x(), g.s.os.qrfTime.y());
 	qgpiTime->show();
-
-	qgpiLogo = NULL;
 
 	iOffsetX = iOffsetY = 0;
 
@@ -86,11 +84,6 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 }
 
 OverlayClient::~OverlayClient() {
-	delete qgpiFPS;
-	delete qgpiTime;
-	delete qgpiCursor;
-	delete qgpiLogo;
-
 	qlsSocket->disconnectFromServer();
 	if (!qlsSocket->waitForDisconnected(1000)) {
 		qDebug() << "OverlayClient: Failed to cleanly disconnect: " << qlsSocket->errorString();
@@ -514,8 +507,7 @@ void OverlayClient::reset() {
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
 
-	delete qgpiLogo;
-	qgpiLogo = NULL;
+	qgpiLogo.reset();
 
 	ougUsers.reset();
 
@@ -527,7 +519,7 @@ void OverlayClient::setupScene(bool show) {
 		qgs.setBackgroundBrush(QColor(0,0,0,64));
 
 		if (! qgpiLogo) {
-			qgpiLogo = new OverlayMouse();
+			qgpiLogo.reset(new OverlayMouse());
 			qgpiLogo->hide();
 			qgpiLogo->setOpacity(0.8f);
 			qgpiLogo->setZValue(-5.0f);
@@ -546,20 +538,20 @@ void OverlayClient::setupScene(bool show) {
 		}
 
 		qgpiCursor->show();
-		qgs.addItem(qgpiCursor);
+		qgs.addItem(qgpiCursor.data());
 
 		qgpiLogo->show();
-		qgs.addItem(qgpiLogo);
+		qgs.addItem(qgpiLogo.data());
 	} else {
 		qgs.setBackgroundBrush(Qt::NoBrush);
 
 		if (qgpiCursor->scene())
-			qgs.removeItem(qgpiCursor);
+			qgs.removeItem(qgpiCursor.data());
 		qgpiCursor->hide();
 
 		if (qgpiLogo) {
 			if (qgpiLogo->scene())
-				qgs.removeItem(qgpiLogo);
+				qgs.removeItem(qgpiLogo.data());
 			qgpiLogo->hide();
 		}
 
