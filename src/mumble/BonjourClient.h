@@ -6,10 +6,8 @@
 #ifndef MUMBLE_MUMBLE_BONJOURCLIENT_H_
 #define MUMBLE_MUMBLE_BONJOURCLIENT_H_
 
-#include <QtCore/QObject>
-
-class BonjourServiceBrowser;
-class BonjourServiceResolver;
+#include "BonjourServiceBrowser.h"
+#include "BonjourServiceResolver.h"
 
 class BonjourClient : public QObject {
 	private:
@@ -17,10 +15,9 @@ class BonjourClient : public QObject {
 		Q_DISABLE_COPY(BonjourClient)
 	public:
 		BonjourClient();
-		~BonjourClient() Q_DECL_OVERRIDE;
 
-		BonjourServiceBrowser *bsbBrowser;
-		BonjourServiceResolver *bsrResolver;
+		QScopedPointer<BonjourServiceBrowser> bsbBrowser;
+		QScopedPointer<BonjourServiceResolver> bsrResolver;
 };
 
 #endif

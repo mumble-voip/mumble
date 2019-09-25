@@ -1081,13 +1081,13 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 #ifdef USE_BONJOUR
 	// Make sure the we got the objects we need, then wire them up
 	if (bAllowBonjour && g.bc->bsbBrowser && g.bc->bsrResolver) {
-		connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
+		connect(g.bc->bsbBrowser.data(), SIGNAL(error(DNSServiceErrorType)),
 		        this, SLOT(onLanBrowseError(DNSServiceErrorType)));
-		connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
+		connect(g.bc->bsbBrowser.data(), SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
 		        this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
-		connect(g.bc->bsrResolver, SIGNAL(error(BonjourRecord, DNSServiceErrorType)),
+		connect(g.bc->bsrResolver.data(), SIGNAL(error(BonjourRecord, DNSServiceErrorType)),
 		        this, SLOT(onLanResolveError(BonjourRecord, DNSServiceErrorType)));
-		connect(g.bc->bsrResolver, SIGNAL(bonjourRecordResolved(BonjourRecord, QString, int)),
+		connect(g.bc->bsrResolver.data(), SIGNAL(bonjourRecordResolved(BonjourRecord, QString, int)),
 		        this, SLOT(onResolved(BonjourRecord, QString, int)));
 		onUpdateLanList(g.bc->bsbBrowser->currentRecords());
 	}

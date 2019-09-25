@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_OVERLAYCLIENT_H_
 #define MUMBLE_MUMBLE_OVERLAYCLIENT_H_
 
+#include <QtCore/QScopedPointer>
 #include <QtCore/QUrl>
 #include <QtNetwork/QLocalSocket>
 
@@ -34,10 +35,6 @@ class OverlayClient : public QObject {
 
 		float framesPerSecond;
 		int iOffsetX, iOffsetY;
-		QGraphicsPixmapItem *qgpiCursor;
-		QGraphicsPixmapItem *qgpiLogo;
-		OverlayPositionableItem *qgpiFPS;
-		OverlayPositionableItem *qgpiTime;
 
 		/// The process ID of the process this OverlayClient is connected to.
 		quint64 uiPid;
@@ -45,6 +42,12 @@ class OverlayClient : public QObject {
 		QString qsExecutablePath;
 
 		QGraphicsScene qgs;
+
+		QScopedPointer<QGraphicsPixmapItem> qgpiCursor;
+		QScopedPointer<QGraphicsPixmapItem> qgpiLogo;
+		QScopedPointer<OverlayPositionableItem> qgpiFPS;
+		QScopedPointer<OverlayPositionableItem> qgpiTime;
+
 		OverlayUserGroup ougUsers;
 
 #ifdef Q_OS_MAC
