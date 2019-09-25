@@ -637,11 +637,9 @@ void Server::initBonjour() {
 }
 
 void Server::removeBonjour() {
-	if (bsRegistration) {
-		delete bsRegistration;
-		bsRegistration = NULL;
-		log("Stopped announcing server via bonjour");
-	}
+	delete bsRegistration;
+	bsRegistration = NULL;
+	log("Stopped announcing server via bonjour");
 }
 #endif
 

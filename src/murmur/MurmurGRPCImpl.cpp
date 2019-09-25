@@ -128,9 +128,7 @@ void GRPCStart() {
 }
 
 void GRPCStop() {
-	if (service) {
-		delete service;
-	}
+	delete service;
 }
 
 MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::ServerCredentials> credentials) {

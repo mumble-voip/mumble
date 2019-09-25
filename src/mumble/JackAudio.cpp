@@ -96,10 +96,8 @@ class JackAudioInit : public DeferInit {
 		}
 
 		void destroy() {
-			if (airJackAudio)
-				delete airJackAudio;
-			if (aorJackAudio)
-				delete aorJackAudio;
+			delete airJackAudio;
+			delete aorJackAudio;
 			if (jasys) {
 				delete jasys;
 				jasys = NULL;
