@@ -113,7 +113,7 @@ CONFIG(opus-sse2-sources) {
 CONFIG(opus-sse41-sources) {
   # celt_sources.mk: CELT_SOURCES_SSE4_1
   SOURCES *= \
-  celt/x86/celt_lpc_sse.c \
+  celt/x86/celt_lpc_sse4_1.c \
   celt/x86/pitch_sse4_1.c
 }
 
@@ -228,11 +228,11 @@ silk/float/sort_FLP.c
 CONFIG(opus-sse41-sources) {
   # silk_sources.mk: SILK_SOURCES_SSE4_1
   SOURCES *= \
-  silk/x86/NSQ_sse.c \
-  silk/x86/NSQ_del_dec_sse.c \
+  silk/x86/NSQ_sse4_1.c \
+  silk/x86/NSQ_del_dec_sse4_1.c \
   silk/x86/x86_silk_map.c \
-  silk/x86/VAD_sse.c \
-  silk/x86/VQ_WMat_EC_sse.c
+  silk/x86/VAD_sse4_1.c \
+  silk/x86/VQ_WMat_EC_sse4_1.c
 }
 
 # opus_sources.mk: OPUS_SOURCES + OPUS_SOURCES_FLOAT
@@ -244,6 +244,9 @@ src/opus_multistream.c \
 src/opus_multistream_encoder.c \
 src/opus_multistream_decoder.c \
 src/repacketizer.c \
+src/opus_projection_encoder.c \
+src/opus_projection_decoder.c \
+src/mapping_matrix.c \
 src/analysis.c \
 src/mlp.c \
 src/mlp_data.c
