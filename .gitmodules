@@ -1,6 +1,3 @@
-[submodule "speex"]
-	path = 3rdparty/speex-src
-	url = https://github.com/mumble-voip/speex.git
 [submodule "celt-0.7.0-src"]
 	path = 3rdparty/celt-0.7.0-src
 	url = https://github.com/mumble-voip/celt-0.7.0.git
