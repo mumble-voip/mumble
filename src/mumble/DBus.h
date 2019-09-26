@@ -28,6 +28,8 @@ class MumbleDBus : public QDBusAbstractAdaptor {
 		void setSelfDeaf(bool deafen);
 		bool isSelfMuted();
 		bool isSelfDeaf();
+		void startTalking();
+		void stopTalking();
 };
 
 #endif
