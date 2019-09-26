@@ -75,7 +75,7 @@ print $F "\n\n";
 my @thirdPartyLicenses = (
     ["licenseCELT", "../3rdparty/celt-0.11.0-src/COPYING", "CELT", "http://www.celt-codec.org/"],
     ["licenseOpus", "../3rdparty/opus-src/COPYING", "Opus", "http://www.opus-codec.org/"],
-    ["licenseSPEEX", "../3rdparty/speex-src/COPYING", "Speex", "http://www.speex.org/"],
+    ["licenseSPEEX", "../3rdparty/speexdsp-src/COPYING", "Speex", "http://www.speex.org/"],
     ["licenseOpenSSL", "../3rdPartyLicenses/openssl_license.txt", "OpenSSL", "http://www.openssl.org/"],
     ["licenseLibsndfile", "../3rdPartyLicenses/libsndfile_license.txt", "libsndfile", "http://www.mega-nerd.com/libsndfile/"],
     ["licenseOgg", "../3rdPartyLicenses/libogg_license.txt", "libogg", "http://www.xiph.org/"],
