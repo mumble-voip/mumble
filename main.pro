@@ -11,7 +11,7 @@ CONFIG *= ordered debug_and_release
 SUBDIRS *= src/mumble_proto
 
 !CONFIG(no-client) {
-  unix:!CONFIG(bundled-speex):system($$PKG_CONFIG --atleast-version=1.2 speexdsp):system($$PKG_CONFIG --atleast-version=1.2 speex) {
+  unix:!CONFIG(bundled-speex):system($$PKG_CONFIG --atleast-version=1.2 speexdsp) {
     CONFIG *= no-bundled-speex
   }
   !CONFIG(no-bundled-speex) {

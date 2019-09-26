@@ -288,7 +288,7 @@ CONFIG(static) {
   DEFINES *= USE_MANUAL_PLUGIN
 }
 
-unix:!CONFIG(bundled-speex):system($$PKG_CONFIG --atleast-version=1.2 speexdsp):system($$PKG_CONFIG --atleast-version=1.2 speex) {
+unix:!CONFIG(bundled-speex):system($$PKG_CONFIG --atleast-version=1.2 speexdsp) {
   CONFIG *= no-bundled-speex
 }
 
