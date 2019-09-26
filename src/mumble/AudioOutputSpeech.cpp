@@ -31,7 +31,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	cCodec = NULL;
 	cdDecoder = NULL;
-	dsSpeex = NULL;
 	oCodec = NULL;
 	opusState = NULL;
 
@@ -50,15 +49,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 			opusState = oCodec->opus_decoder_create(iSampleRate, bStereo ? 2 : 1, NULL);
 		}
 #endif
-	} else if (umtType == MessageHandler::UDPVoiceSpeex) {
-		speex_bits_init(&sbBits);
-
-		dsSpeex = speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_UWB));
-		int iArg=1;
-		speex_decoder_ctl(dsSpeex, SPEEX_SET_ENH, &iArg);
-		speex_decoder_ctl(dsSpeex, SPEEX_GET_FRAME_SIZE, &iFrameSize);
-		speex_decoder_ctl(dsSpeex, SPEEX_GET_SAMPLING_RATE, &iSampleRate);
-		iAudioBufferSize = iFrameSize;
 	}
 
 	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iAudioBufferSize * iMixerFreq) / static_cast<float>(iSampleRate)));
@@ -96,18 +86,17 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 AudioOutputSpeech::~AudioOutputSpeech() {
 #ifdef USE_OPUS
-	if (opusState)
+	if (opusState) {
 		oCodec->opus_decoder_destroy(opusState);
+	}
 #endif
 	if (cdDecoder) {
 		cCodec->celt_decoder_destroy(cdDecoder);
-	} else if (dsSpeex) {
-		speex_bits_destroy(&sbBits);
-		speex_decoder_destroy(dsSpeex);
 	}
 
-	if (srs)
+	if (srs) {
 		speex_resampler_destroy(srs);
+	}
 
 	jitter_buffer_destroy(jbJitter);
 
@@ -317,14 +306,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 					}
 #endif
 				} else if (umtType == MessageHandler::UDPVoiceSpeex) {
-					if (qba.isEmpty()) {
-						speex_decode(dsSpeex, NULL, pOut);
-					} else {
-						speex_bits_read_from(&sbBits, qba.data(), qba.size());
-						speex_decode(dsSpeex, &sbBits, pOut);
-					}
-					for (unsigned int i=0;i<iFrameSize;++i)
-						pOut[i] *= (1.0f / 32767.f);
+					qWarning("AudioOutputSpeech: encountered Speex message, ignoring it.");
 				} else {
 					qWarning("AudioOutputSpeech: encountered unknown message type %li in prepareSampleBuffer().", static_cast<long>(umtType));
 				}
@@ -375,9 +357,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 					}
 #endif
 				} else {
-					speex_decode(dsSpeex, NULL, pOut);
-					for (unsigned int i=0;i<iFrameSize;++i)
-						pOut[i] *= (1.0f / 32767.f);
+					// This is not a message type we support, clear the audio buffer.
+					memset(pOut, 0, sizeof(float) * iFrameSize);
 				}
 			}
 

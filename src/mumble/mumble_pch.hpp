@@ -52,7 +52,6 @@
 #ifdef USE_SBCELT
 # include <sbcelt.h>
 #endif
-#include <speex/speex.h>
 #include <speex/speex_jitter.h>
 #include <speex/speex_preprocess.h>
 #include <speex/speex_echo.h>

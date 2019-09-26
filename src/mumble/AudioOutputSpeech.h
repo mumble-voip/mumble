@@ -7,7 +7,6 @@
 #define MUMBLE_MUMBLE_AUDIOOUTPUTSPEECH_H_
 
 #include <stdint.h>
-#include <speex/speex.h>
 #include <speex/speex_resampler.h>
 #include <speex/speex_jitter.h>
 #include <celt.h>
@@ -54,9 +53,6 @@ class AudioOutputSpeech : public AudioOutputUser {
 
 		OpusCodec *oCodec;
 		OpusDecoder *opusState;
-
-		SpeexBits sbBits;
-		void *dsSpeex;
 
 		QList<QByteArray> qlFrames;
 
