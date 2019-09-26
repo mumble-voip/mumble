@@ -311,7 +311,7 @@ CONFIG(no-bundled-speex) {
 }
 
 !CONFIG(no-bundled-speex) {
-  INCLUDEPATH *= ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build ../../3rdparty/speexdsp-src/include ../../3rdparty/speexdsp-src/libspeexdsp
+  INCLUDEPATH *= ../../3rdparty/speex-build ../../3rdparty/speexdsp-src/include ../../3rdparty/speexdsp-src/libspeexdsp
   LIBS   *= -lspeex
 }
 
