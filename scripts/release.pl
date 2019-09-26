@@ -52,13 +52,6 @@ my $exclusions = join(" --exclude=", ("",
      # Exclude the archive we are currently writing to
      "${ballname}.*",
      # Exclude files with Debian FSG licensing issues (#1230)
-     "${ballname}/3rdparty/speex-src/doc/draft-herlein-avt-rtp-speex-00.txt",
-     "${ballname}/3rdparty/speex-src/doc/draft-herlein-speex-rtp-profile-02.txt",
-     "${ballname}/3rdparty/speex-src/doc/draft-herlein-speex-rtp-profile-03.txt",
-     "${ballname}/3rdparty/speex-src/doc/draft-ietf-avt-rtp-speex-00.txt",
-     "${ballname}/3rdparty/speex-src/doc/draft-ietf-avt-rtp-speex-01-tmp.txt",
-     "${ballname}/3rdparty/speex-src/doc/draft-ietf-avt-rtp-speex-05-tmp.txt",
-     "${ballname}/3rdparty/speex-src/doc/manual.lyx",
      "${ballname}/3rdparty/celt-0.11.0-src/doc/ietf/draft-valin-celt-rtp-profile-01.txt",
      "${ballname}/3rdparty/celt-0.7.0-src/doc/ietf/draft-valin-celt-rtp-profile-01.txt"
     )
