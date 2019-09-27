@@ -12,6 +12,7 @@
 #include "MainWindow.h"
 
 #include <QtCore/QProcess>
+#include <QtCore/QSortFilterProxyModel>
 #include <QtGui/QFocusEvent>
 #include <QtWidgets/QItemEditorFactory>
 
@@ -134,6 +135,16 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : MUComboBox(p) {
 			setItemData(idx, gs->qsWhatsThis, Qt::WhatsThisRole);
 		idx++;
 	}
+
+    // Sort the ShortcutActionWidget items
+    QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
+    proxy->setSourceModel(model());
+
+    model()->setParent(proxy);
+    setModel(proxy);
+
+    model()->sort(0);
+
 }
 
 void ShortcutActionWidget::setIndex(int idx) {
