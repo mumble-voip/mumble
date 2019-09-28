@@ -529,13 +529,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	AudioOutputPtr ao = g.ao;
 	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(ao.get());
 
-	unsigned char buffer[bytes];
-
 	if (! pao) {
-		// Transitioning, but most likely transitions back, so just zero.
-		memset(buffer, 0, bytes);
-		pa_stream_write(s, buffer, bytes, NULL, 0, PA_SEEK_RELATIVE);
-		pas->wakeup();
 		return;
 	}
 
@@ -600,6 +594,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	const unsigned int samples = static_cast<unsigned int>(bytes) / iSampleSize;
 	bool oldAttenuation = pas->bAttenuating;
 
+	unsigned char buffer[bytes];
 	// do we have some mixed output?
 	if (pao->mix(buffer, samples)) {
 		// attenuate if instructed to or it's in settings
