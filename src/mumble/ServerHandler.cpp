@@ -188,7 +188,7 @@ void ServerHandler::udpReady() {
 		quint16 senderPort;
 		qusUdp->readDatagram(encrypted, qMin(2048U, buflen), &senderAddr, &senderPort);
 
-		if (!(HostAddress(senderAddr) == HostAddress(qhaRemote)) || (senderPort != usPort))
+		if (!(HostAddress(senderAddr) == HostAddress(qhaRemote)) || (senderPort != usResolvedPort))
 			continue;
 
 		ConnectionPtr connection(cConnection);
@@ -276,7 +276,7 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
 	} else {
 		connection->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), crypto, len);
-		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), len + 4, qhaRemote, usPort);
+		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), len + 4, qhaRemote, usResolvedPort);
 	}
 }
 
@@ -733,6 +733,7 @@ void ServerHandler::serverConnectionConnected() {
 
 		qhaRemote = connection->peerAddress();
 		qhaLocal = connection->localAddress();
+		usResolvedPort = connection->peerPort();
 		if (qhaLocal.isNull()) {
 			qFatal("ServerHandler: qhaLocal is unexpectedly a null addr");
 		}
