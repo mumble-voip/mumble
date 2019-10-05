@@ -460,7 +460,7 @@ int main(int argc, char **argv) {
 
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.
-	// Used by APIs in ASIOInput, DirectSound and GlobalShortcut_win that require a HWND.
+	// Used by APIs in ASIOInput and GlobalShortcut_win that require a HWND.
 	mumble_mw_hwnd = GetForegroundWindow();
 #endif
 
