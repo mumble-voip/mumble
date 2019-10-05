@@ -42,7 +42,7 @@
          <string>Input method for audio</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</string>
+         <string>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</string>
         </property>
        </widget>
       </item>
