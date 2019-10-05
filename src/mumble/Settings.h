@@ -244,8 +244,6 @@ struct Settings {
 	/// from Windows: https://msdn.microsoft.com/en-us/library/windows/desktop/dd370842
 	QString qsWASAPIRole;
 
-	QByteArray qbaDXInput, qbaDXOutput;
-
 	bool bExclusiveInput, bExclusiveOutput;
 	bool bEcho;
 	bool bEchoMulti;
