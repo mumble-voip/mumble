@@ -396,8 +396,7 @@ ASIOInput::ASIOInput() {
 	iNumSpeaker=g.s.qlASIOspeaker.count();
 
 	if ((iNumMic == 0) || (iNumSpeaker == 0)) {
-		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("You need to select at least one microphone and one speaker source to use ASIO. "
-		                     "If you just need microphone sampling, use DirectSound."),  QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("You need to select at least one microphone and one speaker source to use ASIO."),  QMessageBox::Ok, QMessageBox::NoButton);
 		return;
 	}
 
