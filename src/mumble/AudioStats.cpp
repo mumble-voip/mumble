@@ -210,7 +210,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	QPainter paint(this);
 	QPalette pal;
 
-	paint.fillRect(rect(), pal.color(QPalette::Background));
+	paint.fillRect(rect(), pal.color(QPalette::Window));
 
 	AudioInputPtr ai = g.ai;
 	if (ai.get() == NULL || ! ai->sppPreprocess)
