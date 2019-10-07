@@ -559,7 +559,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 
 	if (id->qhNames.count() > 0) {
 		QList<DWORD> types = id->qhNames.keys();
-		qSort(types);
+		std::sort(types.begin(), types.end());
 
 		int nbuttons = types.count();
 		STACKVAR(DIOBJECTDATAFORMAT, rgodf, nbuttons);

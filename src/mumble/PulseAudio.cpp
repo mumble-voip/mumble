@@ -843,7 +843,7 @@ const QList<audioDevice> PulseAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
 	QStringList qlInputDevs = pasys->qhInput.keys();
-	qSort(qlInputDevs);
+	std::sort(qlInputDevs.begin(), qlInputDevs.end());
 
 	if (qlInputDevs.contains(g.s.qsPulseAudioInput)) {
 		qlInputDevs.removeAll(g.s.qsPulseAudioInput);
@@ -876,7 +876,7 @@ const QList<audioDevice> PulseAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
 	QStringList qlOutputDevs = pasys->qhOutput.keys();
-	qSort(qlOutputDevs);
+	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
 
 	if (qlOutputDevs.contains(g.s.qsPulseAudioOutput)) {
 		qlOutputDevs.removeAll(g.s.qsPulseAudioOutput);
