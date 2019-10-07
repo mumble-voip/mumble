@@ -1326,11 +1326,12 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 					group->add_remove(id);
 				}
 			}
-			if (pg)
+			if (pg) {
 				foreach(int id, pg->members()) {
 					qsId.insert(id);
 					group->add_inherited_members(id);
 				}
+			}
 		}
 
 		sendMessage(uSource, msg);
