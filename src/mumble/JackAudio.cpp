@@ -502,7 +502,7 @@ const QList<audioDevice> JackAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
 	QStringList qlInputDevs = jasys->qhInput.keys();
-	qSort(qlInputDevs);
+	std::sort(qlInputDevs.begin(), qlInputDevs.end());
 
 	foreach(const QString &dev, qlInputDevs) {
 		qlReturn << audioDevice(jasys->qhInput.value(dev), dev);
@@ -532,7 +532,7 @@ const QList<audioDevice> JackAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
 	QStringList qlOutputDevs = jasys->qhOutput.keys();
-	qSort(qlOutputDevs);
+	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
 
 	if (qlOutputDevs.contains(g.s.qsJackAudioOutput)) {
 		qlOutputDevs.removeAll(g.s.qsJackAudioOutput);

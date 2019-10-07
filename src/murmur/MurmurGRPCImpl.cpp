@@ -1700,7 +1700,7 @@ void V1_TreeQuery::impl(bool) {
 		ToRPC(server, currentChannel, currentTree->mutable_channel());
 
 		QList< ::User *> users = currentChannel->qlUsers;
-		qSort(users.begin(), users.end(), [] (const ::User *a, const ::User *b) -> bool {
+		std::sort(users.begin(), users.end(), [] (const ::User *a, const ::User *b) -> bool {
 			return ::User::lessThan(a, b);
 		});
 		foreach(const ::User *u, users) {
@@ -1709,7 +1709,7 @@ void V1_TreeQuery::impl(bool) {
 		}
 
 		QList< ::Channel *> channels = currentChannel->qlChannels;
-		qSort(channels.begin(), channels.end(), [] (const ::Channel *a, const ::Channel *b) -> bool {
+		std::sort(channels.begin(), channels.end(), [] (const ::Channel *a, const ::Channel *b) -> bool {
 			return ::Channel::lessThan(a, b);
 		});
 		foreach(const ::Channel *subChannel, channels) {

@@ -91,7 +91,7 @@ const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
 	QStringList qlInputDevs = cards->qhInput.keys();
-	qSort(qlInputDevs);
+	std::sort(qlInputDevs.begin(), qlInputDevs.end());
 
 	if (qlInputDevs.contains(g.s.qsALSAInput)) {
 		qlInputDevs.removeAll(g.s.qsALSAInput);
@@ -125,7 +125,7 @@ const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
 	QStringList qlOutputDevs = cards->qhOutput.keys();
-	qSort(qlOutputDevs);
+	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
 
 	if (qlOutputDevs.contains(g.s.qsALSAOutput)) {
 		qlOutputDevs.removeAll(g.s.qsALSAOutput);

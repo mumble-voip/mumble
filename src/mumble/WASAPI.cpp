@@ -279,7 +279,7 @@ const QList<audioDevice> WASAPISystem::mapToDevice(const QHash<QString, QString>
 	QList<audioDevice> qlReturn;
 
 	QStringList qlDevices = devs.keys();
-	qSort(qlDevices);
+	std::sort(qlDevices.begin(), qlDevices.end());
 
 	if (qlDevices.contains(match)) {
 		qlDevices.removeAll(match);
