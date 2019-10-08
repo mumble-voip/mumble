@@ -223,7 +223,7 @@ module Murmur
 	sequence<Tree> TreeList;
 
 	enum ChannelInfo { ChannelDescription, ChannelPosition };
-	enum UserInfo { UserName, UserEmail, UserComment, UserHash, UserPassword, UserLastActive };
+	enum UserInfo { UserName, UserEmail, UserComment, UserHash, UserPassword, UserLastActive, UserKDFIterations };
 
 	dictionary<int, User> UserMap;
 	dictionary<int, Channel> ChannelMap;
