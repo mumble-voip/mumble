@@ -117,9 +117,6 @@ CONFIG+=no-jackaudio (Mumble)
 CONFIG+=no-asio (Mumble, Win32)
  Don't build support for ASIO audio input.
 
-CONFIG+=no-directsound (Mumble, Win32)
- Don't build support for DirectSound.
-
 CONFIG+=no-wasapi (Mumble, Win32)
  Don't build support for WASAPI.
 

@@ -684,9 +684,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");
 
-	SAVELOAD(qbaDXInput, "directsound/input");
-	SAVELOAD(qbaDXOutput, "directsound/output");
-
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
@@ -1025,9 +1022,6 @@ void Settings::save() {
 
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");
-
-	SAVELOAD(qbaDXInput, "directsound/input");
-	SAVELOAD(qbaDXOutput, "directsound/output");
 
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");

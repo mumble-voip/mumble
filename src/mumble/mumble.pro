@@ -433,9 +433,6 @@ win32 {
   !CONFIG(no-asio) {
     CONFIG *= asio
   }
-  !CONFIG(no-directsound) {
-    CONFIG *= directsound
-  }
   !CONFIG(no-wasapi) {
     CONFIG *= wasapi
   }
@@ -657,21 +654,14 @@ speechd {
   }
 }
 
-directsound {
-  DEFINES *= USE_DIRECTSOUND
-  HEADERS *= DirectSound.h
-  SOURCES *= DirectSound.cpp
-  LIBS *= -ldsound
-  win32-g++ {
-    LIBS *= -lksuser
-  }
-}
-
 wasapi {
   DEFINES *= USE_WASAPI
   HEADERS *= WASAPI.h WASAPINotificationClient.h
   SOURCES *= WASAPI.cpp WASAPINotificationClient.cpp
   LIBS *= -lavrt -delayload:avrt.DLL
+  win32-g++ {
+    LIBS *= -lksuser
+  }
 }
 
 g15 {
