@@ -34,3 +34,13 @@ jobs:
       inputs:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: AppImage
+  - job: macOS
+    pool:
+      vmImage: 'macOS-latest'
+    steps:
+    - script: git submodule --quiet update --init --recursive
+      displayName: 'Fetch submodules'
+    - script: scripts/azure-pipelines/install-environment_macos.bash
+      displayName: 'Install build environment'
+    - script: scripts/azure-pipelines/build_macos.bash
+      displayName: 'Build'
