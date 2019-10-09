@@ -298,7 +298,7 @@ def package_client():
 	if not options.universal:
 		if options.compat_warning:
 			a.add_compat_warning()
-		a.set_min_macosx_version('10.6.0')
+		a.set_min_macosx_version('10.9.0')
 	else:
 		a.set_min_macosx_version('10.4.8')
 	a.done()
