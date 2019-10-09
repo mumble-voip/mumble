@@ -203,14 +203,10 @@ void GlobalShortcutMac::dumpEventTaps() {
 		for (uint32_t i = 0; i < ntaps; i++) {
 			CGEventTapInformation *info = &table[i];
 
-			ProcessSerialNumber psn;
 			NSString *processName = nil;
-			OSStatus err = GetProcessForPID(info->tappingProcess, &psn);
-			if (err == noErr) {
-				CFStringRef str = NULL;
-				CopyProcessName(&psn, &str);
-				processName = (NSString *) str;
-				[processName autorelease];
+			NSRunningApplication *app = [NSRunningApplication runningApplicationWithProcessIdentifier: info->processBeingTapped];
+			if (app) {
+				processName = [app localizedName];
 			}
 
 			qWarning("{");
