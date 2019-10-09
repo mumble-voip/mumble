@@ -38,19 +38,10 @@
 		width = (int)r.size.width;
 		height = (int)r.size.height;
 	} else {
-		if (AVAIL(CGMainDisplayID)) {
-			CGDirectDisplayID md = CGMainDisplayID();
-			if (CGDisplayIsCaptured(md)) {
-				width = CGDisplayPixelsWide(md);
-				height = CGDisplayPixelsHigh(md);
-			}
-		}
-		if (!width && !height) {
-			GLint viewport[4];
-			glGetIntegerv(GL_VIEWPORT, viewport);
-			width = viewport[2];
-			height = viewport[3];
-		}
+		GLint viewport[4];
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		width = viewport[2];
+		height = viewport[3];
 	}
 
 	drawContext(c, width, height);
@@ -101,22 +92,13 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 		newContext(c);
 	}
 
-	int width = 0, height = 0;
-	if (AVAIL(CGMainDisplayID)) {
-		CGDirectDisplayID md = CGMainDisplayID();
-		if (CGDisplayIsCaptured(md)) {
-			width = CGDisplayPixelsWide(md);
-			height = CGDisplayPixelsHigh(md);
-		}
-	}
-	if (!width && !height) {
-		GLint viewport[4];
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		width = viewport[2];
-		height = viewport[3];
-		/* Are the viewport values crazy? Skip them in that case. */
-		if (height < 0 || width < 0 || height > 5000 || width > 5000)
-			goto skip;
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	int width = viewport[2];
+	int height = viewport[3];
+	/* Are the viewport values crazy? Skip them in that case. */
+	if (height < 0 || width < 0 || height > 5000 || width > 5000) {
+		goto skip;
 	}
 
 	drawContext(c, width, height);
