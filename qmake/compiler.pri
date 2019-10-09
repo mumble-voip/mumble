@@ -350,7 +350,7 @@ macx {
 		} else {
 			QMAKE_MAC_SDK = $$system(xcrun --sdk macosx --show-sdk-path 2>/dev/null)
 			isEmpty(QMAKE_MAC_SDK) {
-				QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
+				QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk
 				!exists($$QMAKE_MAC_SDK) {
 					message("Unable to find usable OS X SDK")
 					error("Aborting build")
@@ -362,11 +362,7 @@ macx {
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
 
-		# Set target macOS version to 10.8 for Qt 5.10 and above.
-		MUMBLE_TARGET_MACOS_VERSION = 10.7
-		isEqual(QT_MAJOR_VERSION, 5):greaterThan(QT_MINOR_VERSION, 9) {
-			MUMBLE_TARGET_MACOS_VERSION = 10.8
-		}
+		MUMBLE_TARGET_MACOS_VERSION = 10.9
 
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = $$MUMBLE_TARGET_MACOS_VERSION
 		QMAKE_CFLAGS += -mmacosx-version-min=$$MUMBLE_TARGET_MACOS_VERSION
