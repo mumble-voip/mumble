@@ -8,7 +8,7 @@
 
 include(../../qmake/compiler.pri)
 
-CONFIG += x86_64 x86 debug_and_release
+CONFIG += x86_64 debug_and_release
 CONFIG(universal) {
   CONFIG += ppc
 }
