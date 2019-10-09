@@ -27,6 +27,15 @@ extern "C" {
 static NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
 static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
 
+pid_t getForegroundProcessId() {
+	NSRunningApplication *app = [[NSWorkspace sharedWorkspace] frontmostApplication];
+	if (app) {
+		return [app processIdentifier];
+	}
+
+	return 0;
+}
+
 @interface OverlayInjectorMac : NSObject {
 	BOOL active;
 }

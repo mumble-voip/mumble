@@ -21,6 +21,11 @@
 
 #include "ui_OverlayEditor.h"
 
+#ifdef Q_OS_MAC
+// The function is defined in Overlay_macx.mm because it uses Apple's Objective-C API.
+pid_t getForegroundProcessId();
+#endif
+
 class ClientUser;
 class Overlay;
 class QLocalServer;
@@ -49,7 +54,7 @@ class OverlayGroup : public QGraphicsItem {
 		QRectF boundingRect() const Q_DECL_OVERRIDE;
 		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) Q_DECL_OVERRIDE;
 		int type() const Q_DECL_OVERRIDE;
-		
+
 		template <typename T>
 		QRectF boundingRect() const;
 };

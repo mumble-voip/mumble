@@ -290,11 +290,7 @@ void Overlay::toggleShow() {
 				if (pid != oc->uiPid)
 					continue;
 #elif defined(Q_OS_MAC)
-				pid_t pid = 0;
-				ProcessSerialNumber psn;
-				GetFrontProcess(&psn);
-				GetProcessPID(&psn, &pid);
-				if (static_cast<quint64>(pid) != oc->uiPid)
+				if (static_cast<quint64>(getForegroundProcessId()) != oc->uiPid)
 					continue;
 #if 0
 				// Fullscreen only.
