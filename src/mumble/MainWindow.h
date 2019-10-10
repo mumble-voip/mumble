@@ -7,16 +7,9 @@
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
-# include <QtCore/QPointer>
-# include <QtWidgets/QMainWindow>
-# include <QtWidgets/QSystemTrayIcon>
-#else
-# include <QtCore/QWeakPointer>
-# include <QtGui/QMainWindow>
-# include <QtGui/QSystemTrayIcon>
-#endif
-
+#include <QtCore/QPointer>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QSystemTrayIcon>
 #include <QtNetwork/QAbstractSocket>
 
 #include "CustomElements.h"

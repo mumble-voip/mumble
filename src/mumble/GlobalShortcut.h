@@ -8,13 +8,8 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QThread>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QToolButton>
-# include <QtWidgets/QStyledItemDelegate>
-#else
-# include <QtGui/QToolButton>
-# include <QtGui/QStyledItemDelegate>
-#endif
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QStyledItemDelegate>
 
 #include "ConfigDialog.h"
 #include "Timer.h"

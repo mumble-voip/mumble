@@ -8,11 +8,7 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QObject>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QDialog>
-#else
-# include <QtGui/QDialog>
-#endif
+#include <QtWidgets/QDialog>
 
 class AboutDialog : public QDialog {
 	private:

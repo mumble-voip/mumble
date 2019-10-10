@@ -9,11 +9,7 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QList>
 #include <QtCore/QTimer>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QWidget>
-#else
-# include <QtGui/QWidget>
-#endif
+#include <QtWidgets/QWidget>
 
 class AudioBar : public QWidget {
 	private:

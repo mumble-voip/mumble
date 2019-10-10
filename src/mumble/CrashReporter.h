@@ -9,18 +9,10 @@
 #include <QtCore/QObject>
 #include <QtCore/QEventLoop>
 #include <QtNetwork/QNetworkReply>
-
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QDialog>
-# include <QtWidgets/QProgressDialog>
-# include <QtWidgets/QLineEdit>
-# include <QtWidgets/QTextEdit>
-#else
-# include <QtGui/QDialog>
-# include <QtGui/QProgressDialog>
-# include <QtGui/QLineEdit>
-# include <QtGui/QTextEdit>
-#endif
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QProgressDialog>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QTextEdit>
 
 class CrashReporter : QDialog {
 		Q_OBJECT

@@ -7,15 +7,9 @@
 #define MUMBLE_MUMBLE_MANUALPLUGIN_H_
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QDialog>
-# include <QtWidgets/QGraphicsItem>
-# include <QtWidgets/QGraphicsScene>
-#else
-# include <QDialog>
-# include <QGraphicsItem>
-# include <QGraphicsScene>
-#endif
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGraphicsItem>
+#include <QtWidgets/QGraphicsScene>
 
 #include "ui_ManualPlugin.h"
 

@@ -14,15 +14,9 @@
 
 #include "CryptState.h"
 
-#include <QtCore/QMutex>
-
-#if QT_VERSION >= 0x040700
-# include <QtCore/QElapsedTimer>
-#else
-# include <QtCore/QTime>
-#endif
-
+#include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
+#include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
 

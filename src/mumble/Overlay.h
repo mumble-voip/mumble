@@ -9,11 +9,7 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QUrl>
 #include <QtNetwork/QLocalSocket>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QGraphicsItem>
-#else
-# include <QtGui/QGraphicsItem>
-#endif
+#include <QtWidgets/QGraphicsItem>
 
 #include "ConfigDialog.h"
 #include "OverlayText.h"

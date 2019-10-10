@@ -7,16 +7,9 @@
 #define MUMBLE_MUMBLE_CUSTOMELEMENTS_H_
 
 #include <QtCore/QObject>
-
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QLabel>
-# include <QtWidgets/QTextBrowser>
-# include <QtWidgets/QTextEdit>
-#else
-# include <QtGui/QLabel>
-# include <QtGui/QTextBrowser>
-# include <QtGui/QTextEdit>
-#endif
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QTextEdit>
 
 class LogTextBrowser : public QTextBrowser {
 	private:
