@@ -32,19 +32,14 @@
 # include <QtDBus/QtDBus>
 #endif
 
-#include "QAtomicIntCompat.h"
-
 #ifdef Q_OS_WIN
 # include <QtGui/QtGui>
-# if QT_VERSION >= 0x050000
-#  include "Qt4Compat.h"
-#  include <QtWidgets/QtWidgets>
-# endif
 
 # include <ws2tcpip.h>
 # include <qos2.h>
 # include <shellapi.h>
 # include <delayimp.h>
+
 extern "C" {
 	void __cpuid(int a[4], int b);
 };

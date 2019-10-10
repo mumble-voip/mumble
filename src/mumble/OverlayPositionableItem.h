@@ -7,11 +7,7 @@
 #define MUMBLE_MUMBLE_OVERLAYPOSITIONABLEITEM_H
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QGraphicsItem>
-#else
-# include <QtGui/QGraphicsItem>
-#endif
+#include <QtWidgets/QGraphicsItem>
 
 class OverlayPositionableItem : public QObject, public QGraphicsPixmapItem {
 	Q_OBJECT

@@ -14,15 +14,9 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QStyledItemDelegate>
-# include <QtWidgets/QTreeView>
-# include <QtWidgets/QTreeWidgetItem>
-#else
-# include <QtGui/QStyledItemDelegate>
-# include <QtGui/QTreeView>
-# include <QtGui/QTreeWidgetItem>
-#endif
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QTreeView>
+#include <QtWidgets/QTreeWidgetItem>
 
 #include <QtNetwork/QHostInfo>
 

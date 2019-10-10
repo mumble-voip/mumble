@@ -21,14 +21,12 @@ static QString decode_utf8_qssl_string(const QString &input) {
 	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
 }
 
-#if QT_VERSION >= 0x050000
 static QString decode_utf8_qssl_string(const QStringList &list) {
 	if (list.count() > 0) {
 		return decode_utf8_qssl_string(list.at(0));
 	}
 	return QString();
 }
-#endif
 
 UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -115,12 +113,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 			qpbCertificate->setEnabled(true);
 
 			const QSslCertificate &cert = qlCerts.last();
-
-#if QT_VERSION >= 0x050000
 			const QMultiMap<QSsl::AlternativeNameEntryType, QString> &alts = cert.subjectAlternativeNames();
-#else
-			const QMultiMap<QSsl::AlternateNameEntryType, QString> &alts = cert.alternateSubjectNames();
-#endif
 			if (alts.contains(QSsl::EmailEntry))
 				qlCertificate->setText(QStringList(alts.values(QSsl::EmailEntry)).join(tr(", ")));
 			else

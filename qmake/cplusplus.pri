@@ -18,17 +18,13 @@
 # adds c++11, c++14 or c++1z to CONFIG. If none of
 # these are available, it adds c++03 to CONFIG.
 #
-# In Qt 5, qmake understands the c++11, c++14, and c++1z
+# qmake understands the c++11, c++14, and c++1z
 # CONFIG options, and will automatically populate
 # QMAKE_CXXFLAGS and QMAKE_LFLAGS with the appropriate
 # -std=c++XX values for the chosen C++ standard.
-# For Qt 4, this .pri files will add the proper flags,
-# because Qt 4's qmake doesn't know of the c++XX CONFIG
-# options.
 # 
-# The c++03 option is unknown for both Qt 4 and Qt 5.
-# We handle setting up the proper CXXFLAGS and LFLAGS for
-# both versions of Qt when c++03 is in CONFIG.
+# The c++03 option is unknown for Qt.
+# We handle setting up the proper CXXFLAGS and LFLAGS when c++03 is in CONFIG.
 
 # First, auto-populate CONFIG with the latest C++ standard
 # that Qt has detected support for.
@@ -78,26 +74,9 @@ CONFIG(c++14) {
 
 # Unix-specific handling of modern C++ features.
 unix {
-	# Qt 4, as opposed to Qt 5, doesn't automatically
-	# populate QMAKE_CXXFLAGS and QMAKE_LFLAGS with the
-	# appropriate -std=c++XX flags. So, for Qt 4, we'll
-	# have to set them up manually.
-	lessThan(QT_MAJOR_VERSION, 5) {
-		CONFIG(c++1z) {
-			QMAKE_CXXFLAGS += -std=c++1z
-			QMAKE_LFLAGS += -std=c++1z
-		} else:CONFIG(c++14) {
-			QMAKE_CXXFLAGS += -std=c++14
-			QMAKE_LFLAGS += -std=c++14
-		} else:CONFIG(c++11) {
-			QMAKE_CXXFLAGS += -std=c++11
-			QMAKE_LFLAGS += -std=c++11
-		}
-	}
 	# No Qt versions know about CONFIG(c++03), since
 	# its our own internal hint -- so for CONFIG(c++03)
-	# we set QMAKE_CXXFLAGS and QMAKE_LFLAGS for both Qt 4
-	# and Qt 5.
+	# we set QMAKE_CXXFLAGS and QMAKE_LFLAGS.
 	CONFIG(c++03):!CONFIG(c++11):!CONFIG(c++14):!CONFIG(c++1z) {
 		# Note: we use -std=c++98 to support
 		# older compilers. In GCC, the following

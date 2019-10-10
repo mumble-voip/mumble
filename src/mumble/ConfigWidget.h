@@ -8,11 +8,7 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QObject>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QWidget> 
-#else 
-# include <QtGui/QWidget>
-#endif
+#include <QtWidgets/QWidget>
 
 struct Settings;
 class ConfigDialog;

@@ -12,21 +12,15 @@
 # "$$PWD/.." is the top of the source tree.
 #
 # clean_path() is used to clean the path.
-# It's not available on Qt 4.
-greaterThan(QT_MAJOR_VERSION, 4) {
-  TOP_SRCDIR = $$clean_path($$PWD/..)
-}
+TOP_SRCDIR = $$clean_path($$PWD/..)
 
-# In case absolute_path() doesn't return anything.
+# In case clean_path() doesn't return anything.
 isEmpty(TOP_SRCDIR) {
   TOP_SRCDIR = $$PWD/..
 }
 
 # shadowed() is used to retrieve the shadowed build path.
-# It's not available on Qt 4.
-greaterThan(QT_MAJOR_VERSION, 4) {
-  TOP_BUILDDIR = $$shadowed($$TOP_SRCDIR)
-}
+TOP_BUILDDIR = $$shadowed($$TOP_SRCDIR)
 
 # In case shadowed() doesn't return anything.
 isEmpty(TOP_BUILDDIR) {

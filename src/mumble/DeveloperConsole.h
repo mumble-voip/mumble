@@ -8,12 +8,8 @@
 
 #include <QtCore/QStringList>
 #include <QtCore/QObject>
-# include <QtCore/QPointer>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QMainWindow>
-#else
-# include <QtGui/QMainWindow>
-#endif
+#include <QtCore/QPointer>
+#include <QtWidgets/QMainWindow>
 
 class DeveloperConsole : public QObject {
 	private:

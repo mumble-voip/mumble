@@ -41,12 +41,7 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 
 	painter->save();
 
-#if QT_VERSION >= 0x050000
 	QStyleOptionViewItem o = option;
-#else
-	QStyleOptionViewItemV4 o = option;
-#endif
-
 	initStyleOption(&o, index);
 
 	QStyle *style = o.widget->style();
@@ -375,12 +370,7 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	}
 }
 
-#if QT_VERSION >= 0x050000
-void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &)
-#else
-void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight)
-#endif
-{
+void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &) {
 	UserModel *um = static_cast<UserModel *>(model());
 	int nRowCount = um->rowCount();
 	int i;
@@ -389,4 +379,3 @@ void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bo
 
 	QTreeView::dataChanged(topLeft,bottomRight);
 }
-

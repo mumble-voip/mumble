@@ -91,7 +91,6 @@ static bool gswForward(MSG *msg) {
 	return false;
 }
 
-# if QT_VERSION >= 0x050000
 bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
 	MSG *msg = reinterpret_cast<MSG *>(message);
 	if (QThread::currentThread() == thread()) {
@@ -102,15 +101,4 @@ bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, lon
 	}
 	return false;
 }
-# else
-bool MumbleApplication::winEventFilter(MSG *msg, long *result) {
-	if (QThread::currentThread() == thread()) {
-		bool suppress = gswForward(msg);
-		if (suppress) {
-			return true;
-		}
-	}
-	return QApplication::winEventFilter(msg, result);
-}
-# endif
 #endif

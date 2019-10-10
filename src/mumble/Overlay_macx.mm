@@ -212,13 +212,6 @@ void OverlayClient::updateMouse() {
 				cgimg = [(NSBitmapImageRep *)rep CGImage];
 			}
 		}
-
-#if QT_VERSION < 0x050000
-		if (cgimg) {
-			pm = QPixmap::fromMacCGImageRef(cgimg);
-			qmCursors.insert(csShape, pm);
-		}
-#endif
 	}
 
 	NSPoint p = [cursor hotSpot];

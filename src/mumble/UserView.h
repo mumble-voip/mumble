@@ -7,13 +7,8 @@
 #define MUMBLE_MUMBLE_USERVIEW_H_
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QStyledItemDelegate>
-# include <QtWidgets/QTreeView>
-#else 
-# include <QtGui/QStyledItemDelegate>
-# include <QtGui/QTreeView>
-#endif
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QTreeView>
 
 #include "Timer.h"
 
@@ -52,12 +47,7 @@ class UserView : public QTreeView {
 	public:
 		UserView(QWidget *);
 		void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
-#if QT_VERSION >= 0x050000
 		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles = QVector<int> ()) Q_DECL_OVERRIDE;
-#else
-		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight) Q_DECL_OVERRIDE;
-#endif
-		
 	public slots:
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();

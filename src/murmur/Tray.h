@@ -8,12 +8,7 @@
 
 #include <QtCore/QStringList>
 #include <QtCore/QObject>
-
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QSystemTrayIcon>
-#else
-# include <QtGui/QSystemTrayIcon>
-#endif
+#include <QtWidgets/QSystemTrayIcon>
 
 class LogEmitter;
 class QAction;

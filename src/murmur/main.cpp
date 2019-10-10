@@ -151,16 +151,10 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 	}
 }
 
-#if QT_VERSION >= 0x050000
 static void murmurMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	murmurMessageOutputQString(type, msg);
 }
-#else
-static void murmurMessageOutput(QtMsgType type, const char *msg) {
-	murmurMessageOutputQString(type, QString::fromUtf8(msg));
-}
-#endif
 
 #ifdef USE_ICE
 void IceParse(int &argc, char *argv[]);
@@ -220,9 +214,6 @@ int main(int argc, char **argv) {
 	MumbleSSL::initialize();
 
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
-#if QT_VERSION < 0x050000
-	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-#endif
 
 #ifdef Q_OS_WIN
 	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
@@ -252,11 +243,8 @@ int main(int argc, char **argv) {
 #endif
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
-#if QT_VERSION >= 0x050000
+
 	qInstallMessageHandler(murmurMessageOutputWithContext);
-#else
-	qInstallMsgHandler(murmurMessageOutput);
-#endif
 
 #ifdef Q_OS_WIN
 	Tray tray(NULL, &le);
@@ -618,11 +606,7 @@ int main(int argc, char **argv) {
 
 	delete meta;
 
-#if QT_VERSION >= 0x050000
 	qInstallMessageHandler(NULL);
-#else
-	qInstallMsgHandler(NULL);
-#endif
 
 #ifdef Q_OS_UNIX
 	if (! Meta::mp.qsPid.isEmpty()) {

@@ -83,7 +83,7 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 			reason = tr("Your account information can not be verified currently. Please try again later");
 			break;
 		default:
-			reason = Qt::escape(u8(msg.reason()));
+			reason = u8(msg.reason()).toHtmlEscaped();
 			break;
 	}
 
@@ -138,7 +138,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 	
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Qt::escape(Channel::get(0)->qsName)));
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName.toHtmlEscaped()));
 
 	// Update QActions and menues
 	on_qmServer_aboutToShow();
@@ -205,7 +205,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.s.bTTS = true;
 					quint32 oflags = g.s.qmMessages.value(Log::PermissionDenied);
 					g.s.qmMessages[Log::PermissionDenied] = (oflags | Settings::LogTTS) & (~Settings::LogSoundfile);
-					g.l->log(Log::PermissionDenied, QString::fromUtf8(g.ccHappyEaster + 39).arg(Qt::escape(g.s.qsUsername)));
+					g.l->log(Log::PermissionDenied, QString::fromUtf8(g.ccHappyEaster + 39).arg(g.s.qsUsername.toHtmlEscaped()));
 					g.s.qmMessages[Log::PermissionDenied] = oflags;
 					g.s.bDeaf = bold;
 					g.s.bTTS = bold2;
@@ -230,7 +230,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		case MumbleProto::PermissionDenied_DenyType_UserName: {
 				if (msg.has_name())
-					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(Qt::escape(u8(msg.name()))));
+					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(u8(msg.name()).toHtmlEscaped()));
 				else
 					g.l->log(Log::PermissionDenied, tr("Invalid username."));
 			}
@@ -249,7 +249,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		default: {
 				if (msg.has_reason())
-					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(Qt::escape(u8(msg.reason()))));
+					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason()).toHtmlEscaped()));
 				else
 					g.l->log(Log::PermissionDenied, tr("Permission denied."));
 			}
@@ -575,7 +575,7 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
 
-	QString reason = Qt::escape(u8(msg.reason()));
+	QString reason = u8(msg.reason()).toHtmlEscaped();
 
 	if (pDst == pSelf) {
 		bRetryServer = false;

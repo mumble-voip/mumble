@@ -7,11 +7,7 @@
 #define MUMBLE_MUMBLE_OVERLAYEDITORSCENE_H_
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QGraphicsScene>
-#else
-# include <QtGui/QGraphicsScene>
-#endif
+#include <QtWidgets/QGraphicsScene>
 
 #include "Settings.h"
 

@@ -8,11 +8,7 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QString>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QGroupBox>
-#else
-# include <QtGui/QGroupBox>
-#endif
+#include <QtWidgets/QGroupBox>
 
 #include <QtNetwork/QHostInfo>
 #include <QtNetwork/QSslCertificate>

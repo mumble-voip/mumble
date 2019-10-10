@@ -67,16 +67,10 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 		}
 	}
 
-#if QT_VERSION >= 0x050000
 	QUrlQuery query;
 	query.setQueryItems(queryItems);
 	url.setQuery(query);
-#else
-	for (int i = 0; i < queryItems.size(); i++) {
-		const QPair<QString, QString> &queryPair = queryItems.at(i);
-		url.addQueryItem(queryPair.first, queryPair.second);
-	}
-#endif
+
 	WebFetch::fetch(QLatin1String("update"), url, this, SLOT(fetched(QByteArray,QUrl)));
 }
 
@@ -173,7 +167,7 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							file.remove();
 						}
 					} else {
-						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(Qt::escape(fetch.toString()), Qt::escape(filename)));
+						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString().toHtmlEscaped(), filename.toHtmlEscaped()));
 						WebFetch::fetch(QLatin1String("dl"), fetch, this, SLOT(fetched(QByteArray,QUrl)));
 						return;
 					}

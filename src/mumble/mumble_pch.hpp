@@ -31,10 +31,7 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
-#if QT_VERSION >= 0x050000
-# include "Qt4Compat.h"
-# include <QtWidgets/QtWidgets>
-#endif
+#include <QtWidgets/QtWidgets>
 
 #include <QtSvg/QtSvg>
 #ifdef USE_DBUS

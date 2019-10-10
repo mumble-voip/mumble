@@ -38,9 +38,9 @@ AboutDialog::AboutDialog(QWidget *p, AboutDialogOptions options) : QDialog(p) {
 	QList<LicenseInfo> thirdPartyLicenses = License::thirdPartyLicenses();
 	foreach(LicenseInfo li, thirdPartyLicenses) {
 		qtb3rdPartyLicense->append(QString::fromLatin1("<h3>%1 (<a href=\"%2\">%2</a>)</h3><pre>%3</pre>")
-				.arg(Qt::escape(li.name))
-				.arg(Qt::escape(li.url))
-				.arg(Qt::escape(li.license)));
+				.arg(li.name.toHtmlEscaped())
+				.arg(li.url.toHtmlEscaped())
+				.arg(li.license.toHtmlEscaped()));
 	}
 
 	qtb3rdPartyLicense->moveCursor(QTextCursor::Start);

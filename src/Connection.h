@@ -14,15 +14,9 @@
 
 #include "CryptState.h"
 
-#include <QtCore/QMutex>
-
-#if QT_VERSION >= 0x040700
-# include <QtCore/QElapsedTimer>
-#else
-# include <QtCore/QTime>
-#endif
-
+#include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
+#include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
 
@@ -42,11 +36,7 @@ class Connection : public QObject {
 		Q_DISABLE_COPY(Connection)
 	protected:
 		QSslSocket *qtsSocket;
-#if QT_VERSION >= 0x040700
 		QElapsedTimer qtLastPacket;
-#else
-		QTime qtLastPacket;
-#endif
 		unsigned int uiType;
 		int iPacketLength;
 #ifdef Q_OS_WIN
@@ -99,9 +89,5 @@ class Connection : public QObject {
 		static void setQoS(HANDLE hParentQoS);
 #endif
 };
-
-#if QT_VERSION < 0x050000
-Q_DECLARE_METATYPE(QAbstractSocket::SocketError)
-#endif
 
 #endif

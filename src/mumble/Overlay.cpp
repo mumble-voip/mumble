@@ -141,12 +141,8 @@ OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 	HINSTANCE qWinAppInstValue = GetModuleHandle(NULL);
 	HICON icon = ExtractIcon(qWinAppInstValue, identifier.toStdWString().c_str(), 0);
 	if (icon) {
-#if QT_VERSION >= 0x050000
 		extern QPixmap qt_pixmapFromWinHICON(HICON icon);
 		qiAppIcon = QIcon(qt_pixmapFromWinHICON(icon));
-#else
-		qiAppIcon = QIcon(QPixmap::fromWinHICON(icon));
-#endif
 		DestroyIcon(icon);
 	}
 #endif
@@ -220,7 +216,7 @@ Overlay::Overlay() : QObject() {
 #endif
 
 	if (! qlsServer->listen(pipepath)) {
-		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(Qt::escape(qlsServer->errorString()), Qt::escape(pipepath)), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(qlsServer->errorString().toHtmlEscaped(), pipepath.toHtmlEscaped()), QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
 		qWarning() << "Overlay: Listening on" << qlsServer->fullServerName();
 		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));

@@ -7,11 +7,7 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QMessageBox>
-#else
-# include <QMessageBox>
-#endif
+#include <QtWidgets/QMessageBox>
 
 #include <QPointer>
 #include "ManualPlugin.h"

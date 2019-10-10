@@ -7,16 +7,9 @@
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
-# include <QtCore/QPointer>
-# include <QtWidgets/QMainWindow>
-# include <QtWidgets/QSystemTrayIcon>
-#else
-# include <QtCore/QWeakPointer>
-# include <QtGui/QMainWindow>
-# include <QtGui/QSystemTrayIcon>
-#endif
-
+#include <QtCore/QPointer>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QSystemTrayIcon>
 #include <QtNetwork/QAbstractSocket>
 
 #include "CustomElements.h"
@@ -101,13 +94,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		/// save when activating the "Save Image As..." context menu item.
 		QTextCursor qtcSaveImageCursor;
 
-#if QT_VERSION >= 0x050000
 		QPointer<Channel> cContextChannel;
 		QPointer<ClientUser> cuContextUser;
-#else
-		QWeakPointer<Channel> cContextChannel;
-		QWeakPointer<ClientUser> cuContextUser;
-#endif
 
 		QPoint qpContextPosition;
 
@@ -126,11 +114,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void openUserLocalVolumeDialog(ClientUser *p);
 
 #ifdef Q_OS_WIN
-#if QT_VERSION >= 0x050000
 		bool nativeEvent(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
-#else
-		bool winEvent(MSG *, long *) Q_DECL_OVERRIDE;
-#endif
 		unsigned int uiNewHardware;
 #endif
 	protected:

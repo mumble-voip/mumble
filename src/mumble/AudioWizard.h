@@ -7,13 +7,8 @@
 #define MUMBLE_MUMBLE_AUDIOWIZARD_H_
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
-# include <QtWidgets/QWizard>
-# include <QtWidgets/QWizardPage>
-#else
-# include <QtGui/QWizard>
-# include <QtGui/QWizardPage>
-#endif
+#include <QtWidgets/QWizard>
+#include <QtWidgets/QWizardPage>
 
 #include "AudioStats.h"
 #include "AudioOutput.h"

@@ -9,17 +9,7 @@ include(../../../qmake/qt.pri)
 QT *= network
 
 TARGET = TestServerResolver
-SOURCES *= TestServerResolver.cpp HostAddress.cpp ServerResolver_qt5.cpp ServerResolverRecord.cpp
+SOURCES *= TestServerResolver.cpp HostAddress.cpp ServerResolver.cpp ServerResolverRecord.cpp
 HEADERS *= HostAddress.h ServerResolver.h ServerResolverRecord.h
-
-isEqual(QT_MAJOR_VERSION, 4) {
-  CONFIG *= no-srv
-}
-
-CONFIG(no-srv) {
-  DEFINES += USE_NO_SRV
-  SOURCES -= ServerResolver_qt5.cpp
-  SOURCES *= ServerResolver_nosrv.cpp
-}
 
 win32:LIBS *= -lws2_32

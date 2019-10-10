@@ -79,7 +79,6 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 	} else {
 		QSslCertificate qscCert = qlCert.at(0);
 
-#if QT_VERSION >= 0x050000
 		const QStringList &names = qscCert.subjectInfo(QSslCertificate::CommonName);
 		QString name;
 		if (names.count() > 0) {
@@ -87,10 +86,6 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 		}
 
 		QStringList emails = qscCert.subjectAlternativeNames().values(QSsl::EmailEntry);
-#else
-		const QString &name = qscCert.subjectInfo(QSslCertificate::CommonName);
-		QStringList emails(qscCert.alternateSubjectNames().values(QSsl::EmailEntry));
-#endif
 
 		QString tmpName = name;
 		tmpName = tmpName.replace(QLatin1String("\\x"), QLatin1String("%"));
@@ -104,22 +99,19 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 			qlSubjectEmail->setText(tr("(none)"));
 
 		if (qscCert.expiryDate() <= QDateTime::currentDateTime())
-			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>").arg(Qt::escape(qscCert.expiryDate().toString(Qt::SystemLocaleDate))));
+			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>").arg(qscCert.expiryDate().toString(Qt::SystemLocaleDate).toHtmlEscaped()));
 		else
 			qlExpiry->setText(qscCert.expiryDate().toString(Qt::SystemLocaleDate));
 
 		if (qlCert.count() > 1)
 			qscCert = qlCert.last();
 
-#if QT_VERSION >= 0x050000
 		const QStringList &issuerNames = qscCert.issuerInfo(QSslCertificate::CommonName);
 		QString issuerName;
 		if (issuerNames.count() > 0) {
 			issuerName = issuerNames.at(0);
 		}
-#else
-		const QString &issuerName = qscCert.issuerInfo(QSslCertificate::CommonName);
-#endif
+
 		qlIssuerName->setText((issuerName == name) ? tr("Self-signed") : issuerName);
 	}
 }
