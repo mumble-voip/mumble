@@ -130,13 +130,6 @@ unix {
 	QMAKE_CXXFLAGS *= "-I../mumble_proto" "-isystem ../mumble_proto"
 }
 
-# Make Q_DECL_OVERRIDE and Q_DECL_FINAL no-ops
-# for Qt 4.
-isEqual(QT_MAJOR_VERSION, 4) {
-	DEFINES *= Q_DECL_OVERRIDE=
-	DEFINES *= Q_DECL_FINAL=
-}
-
 CONFIG(debug, debug|release) {
   CONFIG += console
 }

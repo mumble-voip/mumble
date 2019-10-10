@@ -23,18 +23,13 @@ QMAKE_RESOURCE_FLAGS += -compress 9
 # architecture of the compiler via the
 # force-x86_64-toolchain and force-x86-toolchain
 # CONFIG options. Because we have these, qmake's
-# QMAKE_TARGET.arch doesn't suffice any longer, and
+# QT_ARCH doesn't suffice any longer, and
 # we define MUMBLE_ARCH to be used in its place.
-MUMBLE_ARCH = $$QMAKE_TARGET.arch
-# When using Qt 5, use QT_ARCH instead of QMAKE_TARGET.
-# It also works for cross-builds.
-isEqual(QT_MAJOR_VERSION, 5) {
-	MUMBLE_ARCH = $$QT_ARCH
-	# QT_ARCH uses 'i386' instead of 'x86',
-	# so map that value back to what we expect.
-	equals(MUMBLE_ARCH, i386) {
-		MUMBLE_ARCH=x86
-	}
+MUMBLE_ARCH = $$QT_ARCH
+# QT_ARCH uses 'i386' instead of 'x86',
+# so map that value back to what we expect.
+equals(MUMBLE_ARCH, i386) {
+	MUMBLE_ARCH=x86
 }
 
 win32-g++ {
@@ -344,20 +339,7 @@ macx {
 	!CONFIG(universal) {
 		CONFIG += no-pch
 
-		# Qt 5.1 and greater want short-form OS X SDKs.
-		isEqual(QT_MAJOR_VERSION, 5) {
-			QMAKE_MAC_SDK = macosx
-		} else {
-			QMAKE_MAC_SDK = $$system(xcrun --sdk macosx --show-sdk-path 2>/dev/null)
-			isEmpty(QMAKE_MAC_SDK) {
-				QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk
-				!exists($$QMAKE_MAC_SDK) {
-					message("Unable to find usable OS X SDK")
-					error("Aborting build")
-				}
-			}
-		}
-
+		QMAKE_MAC_SDK = macosx
 		QMAKE_CC = $$system(xcrun -find clang)
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
