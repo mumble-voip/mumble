@@ -129,14 +129,11 @@ void Server::initializeCert() {
 #endif
 
 	QString issuer;
-#if QT_VERSION >= 0x050000
+
 	QStringList issuerNames = qscCert.issuerInfo(QSslCertificate::CommonName);
 	if (! issuerNames.isEmpty()) {
 		issuer = issuerNames.first();
 	}
-#else
-	issuer = qscCert.issuerInfo(QSslCertificate::CommonName);
-#endif
 
 	// Really old certs/keys are no good, throw them away so we can
 	// generate a new one below.

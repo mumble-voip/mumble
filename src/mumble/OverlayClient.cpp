@@ -137,19 +137,11 @@ void OverlayClient::updateMouse() {
 	QPixmap pm;
 
 	HICON c = ::GetCursor();
-#if QT_VERSION < 0x050000
-	if (c == NULL)
-		c = qgv.viewport()->cursor().handle();
-#endif
-
 	ICONINFO info;
 	ZeroMemory(&info, sizeof(info));
 	if (c != NULL && ::GetIconInfo(c, &info)) {
-#if QT_VERSION >= 0x050000
 		extern QPixmap qt_pixmapFromWinHBITMAP(HBITMAP bitmap, int format = 0);
-#else
-# define qt_pixmapFromWinHBITMAP(bmp) QPixmap::fromWinHBITMAP(bmp)
-#endif
+
 		if (info.hbmColor) {
 			pm = qt_pixmapFromWinHBITMAP(info.hbmColor);
 			pm.setMask(QBitmap(qt_pixmapFromWinHBITMAP(info.hbmMask)));
@@ -195,19 +187,11 @@ void OverlayClient::updateMouse() {
 }
 #endif
 
-#if QT_VERSION < 0x050000 && (defined(Q_OS_WIN) || defined(Q_OS_MAC))
-extern bool Q_GUI_EXPORT qt_use_native_dialogs;
-#endif
-
 // Qt gets very very unhappy if we embed or unmbed the widget that an event is called from.
 // This means that if any modal dialog is open, we'll be in a event loop of an object
 // that we're about to reparent.
 
 void OverlayClient::showGui() {
-#if defined(QT3_SUPPORT) || (defined(Q_OS_WIN) && QT_VERSION < 0x050000)
-	if (QCoreApplication::loopLevel() > 1)
-		return;
-#else
 	int count = 0;
 
 	{
@@ -221,7 +205,6 @@ void OverlayClient::showGui() {
 	// If there's more than one window up, we're likely deep in a message loop.
 	if (count > 1)
 		return;
-#endif
 
 	g.ocIntercept = this;
 
@@ -294,10 +277,6 @@ outer:
 
 	setupScene(true);
 
-#if QT_VERSION < 0x050000 && (defined(Q_OS_WIN) || defined(Q_OS_MAC))
-	qt_use_native_dialogs = false;
-#endif
-
 	OverlayMsg om;
 	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 	om.omh.uiType = OVERLAY_MSGTYPE_INTERACTIVE;
@@ -309,14 +288,6 @@ outer:
 }
 
 void OverlayClient::hideGui() {
-#if defined(QT3_SUPPORT) || (defined(Q_OS_WIN) && QT_VERSION < 0x050000)
-	if (QCoreApplication::loopLevel() > 1) {
-		QCoreApplication::exit_loop();
-		QMetaObject::invokeMethod(this, "hideGui", Qt::QueuedConnection);
-		return;
-	}
-#endif
-
 	ougUsers.bShowExamples = false;
 
 	QList<QWidget *> widgetlist;
@@ -367,9 +338,6 @@ void OverlayClient::hideGui() {
 	setupScene(false);
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, true);
-#if QT_VERSION < 0x050000 && (defined(Q_OS_WIN) || defined(Q_OS_MAC))
-	qt_use_native_dialogs = true;
-#endif
 
 	OverlayMsg om;
 	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;

@@ -108,120 +108,7 @@ out:
 }
 
 void MumbleSSL::addSystemCA() {
-#if QT_VERSION < 0x040700 && !defined(NO_SYSTEM_CA_OVERRIDE)
-#if defined(Q_OS_WIN)
-	QStringList qsl;
-	qsl << QLatin1String("Ca");
-	qsl << QLatin1String("Root");
-	qsl << QLatin1String("AuthRoot");
-	foreach(const QString &store, qsl) {
-		HCERTSTORE hCertStore;
-		PCCERT_CONTEXT pCertContext = NULL;
-
-		bool found = false;
-
-		hCertStore = CertOpenSystemStore(NULL, store.utf16());
-		if (! hCertStore) {
-			qWarning("SSL: Failed to open CA store %s", qPrintable(store));
-			continue;
-		}
-
-		while (pCertContext = CertEnumCertificatesInStore(hCertStore, pCertContext)) {
-			QByteArray qba(reinterpret_cast<const char *>(pCertContext->pbCertEncoded), pCertContext->cbCertEncoded);
-
-			QList<QSslCertificate> ql = QSslCertificate::fromData(qba, QSsl::Pem);
-			ql += QSslCertificate::fromData(qba, QSsl::Der);
-			if (! ql.isEmpty()) {
-				found = true;
-				QSslSocket::addDefaultCaCertificates(ql);
-			}
-		}
-		if (found)
-			qWarning("SSL: Added CA certificates from system store '%s'", qPrintable(store));
-
-		CertCloseStore(hCertStore, 0);
-	}
-
-#elif defined(Q_OS_MAC)
-	CFArrayRef certs = NULL;
-	bool found = false;
-
-	if (SecTrustCopyAnchorCertificates(&certs) == noErr) {
-		int ncerts = CFArrayGetCount(certs);
-		for (int i = 0; i < ncerts; i++) {
-			CFDataRef data = NULL;
-
-			SecCertificateRef cert = reinterpret_cast<SecCertificateRef>(const_cast<void *>(CFArrayGetValueAtIndex(certs, i)));
-			if (! cert)
-				continue;
-
-			if (SecKeychainItemExport(cert, kSecFormatX509Cert, kSecItemPemArmour, NULL, &data) == noErr) {
-				const char *ptr = reinterpret_cast<const char *>(CFDataGetBytePtr(data));
-				int len = CFDataGetLength(data);
-				QByteArray qba(ptr, len);
-
-				QList<QSslCertificate> ql = QSslCertificate::fromData(qba, QSsl::Pem);
-				if (! ql.isEmpty()) {
-					found = true;
-					QSslSocket::addDefaultCaCertificates(ql);
-				}
-			}
-		}
-
-		CFRelease(certs);
-
-		if (found)
-			qWarning("SSL: Added CA certificates from 'System Roots' store.");
-	}
-#elif defined(Q_OS_UNIX)
-	QStringList qsl;
-
-#ifdef SYSTEM_CA_DIR
-	QSslSocket::addDefaultCaCertificates(QLatin1String(MUMTEXT(SYSTEM_CA_DIR)));
-#else
-#ifdef SYSTEM_CA_BUNDLE
-	qsl << QLatin1String(MUMTEXT(SYSTEM_CA_BUNDLE));
-#else
-#ifdef __FreeBSD__
-	qsl << QLatin1String("/usr/local/share/certs/ca-root-nss.crt");
-#else
-	qsl << QLatin1String("/etc/pki/tls/certs/ca-bundle.crt");
-	qsl << QLatin1String("/etc/ssl/certs/ca-certificates.crt");
-#endif
-#endif
-
-	foreach(const QString &filename, qsl) {
-		QFile f(filename);
-		if (f.exists() && f.open(QIODevice::ReadOnly)) {
-			QList<QSslCertificate> ql = QSslCertificate::fromDevice(&f, QSsl::Pem);
-			ql += QSslCertificate::fromDevice(&f, QSsl::Der);
-			if (! ql.isEmpty()) {
-				qWarning("SSL: Added CA certificates from '%s'", qPrintable(filename));
-				QSslSocket::addDefaultCaCertificates(ql);
-			}
-		}
-	}
-#endif // SYSTEM_CA_DIR
-#endif // Q_OS_UNIX
-
-	QSet<QByteArray> digests;
-	QList<QSslCertificate> ql;
-	foreach(const QSslCertificate &crt, QSslSocket::defaultCaCertificates()) {
-		QByteArray digest = crt.digest(QCryptographicHash::Sha1);
-		if (! digests.contains(digest) && crt.isValid()) {
-			ql << crt;
-			digests.insert(digest);
-		}
-	}
-	QSslSocket::setDefaultCaCertificates(ql);
-#endif // NO_SYSTEM_CA_OVERRIDE
-
-	// Don't perform on-demand loading of root certificates
-#if QT_VERSION >= 0x050500
 	QSslSocket::addDefaultCaCertificates(QSslConfiguration::systemCaCertificates());
-#elif QT_VERSION >= 0x040800
-	QSslSocket::addDefaultCaCertificates(QSslSocket::systemCaCertificates());
-#endif
 
 #ifdef Q_OS_WIN
 	// Work around issue #1271.
@@ -233,7 +120,6 @@ void MumbleSSL::addSystemCA() {
 
 		QList<QSslCertificate> filteredCaList;
 		foreach (QSslCertificate cert, caList) {
-#if QT_VERSION >= 0x050000
 			QStringList orgs = cert.subjectInfo(QSslCertificate::Organization);
 			bool skip = false;
 			foreach (QString ou, orgs) {
@@ -245,12 +131,7 @@ void MumbleSSL::addSystemCA() {
 			if (skip) {
 				continue;
 			}
-#else
-			QString ou = cert.subjectInfo(QSslCertificate::Organization);
-			if (ou.contains(QLatin1String("Skype"), Qt::CaseInsensitive)) {
-				continue;
-			}
-#endif
+
 			filteredCaList.append(cert);
 		}
 
@@ -266,21 +147,15 @@ QString MumbleSSL::protocolToString(QSsl::SslProtocol protocol) {
 	switch(protocol) {
 		case QSsl::SslV3: return QLatin1String("SSL 3");
 		case QSsl::SslV2: return QLatin1String("SSL 2");
-#if QT_VERSION >= 0x050000
 		case QSsl::TlsV1_0: return QLatin1String("TLS 1.0");
 		case QSsl::TlsV1_1: return QLatin1String("TLS 1.1");
 		case QSsl::TlsV1_2: return QLatin1String("TLS 1.2");
 #if QT_VERSION >= 0x050C00
 		case QSsl::TlsV1_3: return QLatin1String("TLS 1.3");
 #endif
-#else
-		case QSsl::TlsV1: return  QLatin1String("TLS 1.0");
-#endif
 		case QSsl::AnyProtocol: return QLatin1String("AnyProtocol");
-#if QT_VERSION >= 0x040800
 		case QSsl::TlsV1SslV3: return QLatin1String("TlsV1SslV3");
 		case QSsl::SecureProtocols: return QLatin1String("SecureProtocols");
-#endif
 		default:
 		case QSsl::UnknownProtocol: return QLatin1String("UnknownProtocol");
 	}

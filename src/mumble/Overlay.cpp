@@ -141,12 +141,8 @@ OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 	HINSTANCE qWinAppInstValue = GetModuleHandle(NULL);
 	HICON icon = ExtractIcon(qWinAppInstValue, identifier.toStdWString().c_str(), 0);
 	if (icon) {
-#if QT_VERSION >= 0x050000
 		extern QPixmap qt_pixmapFromWinHICON(HICON icon);
 		qiAppIcon = QIcon(qt_pixmapFromWinHICON(icon));
-#else
-		qiAppIcon = QIcon(QPixmap::fromWinHICON(icon));
-#endif
 		DestroyIcon(icon);
 	}
 #endif

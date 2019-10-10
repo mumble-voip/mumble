@@ -55,18 +55,6 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-#if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
-Q_IMPORT_PLUGIN(qtaccessiblewidgets)
-# ifdef Q_OS_WIN
-   Q_IMPORT_PLUGIN(qico)
-# endif
-Q_IMPORT_PLUGIN(qsvg)
-Q_IMPORT_PLUGIN(qsvgicon)
-# ifdef Q_OS_MAC
-   Q_IMPORT_PLUGIN(qicnsicon)
-# endif
-#endif
-
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
 	void throw_exception(std::exception const &) {
@@ -120,7 +108,7 @@ int main(int argc, char **argv) {
 	a.setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 
-#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
 	a.installNativeEventFilter(&a);
 #endif
 
@@ -508,12 +496,7 @@ int main(int argc, char **argv) {
 	g.s.uiUpdateCounter = 2;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
-#if QT_VERSION >= 0x050000
 		QDir qd(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
-#else
-		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));
-#endif
-
 		QFile qf(qd.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));
 		if (qf.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
 			Settings::KeyPair kp = CertWizard::importCert(qf.readAll());

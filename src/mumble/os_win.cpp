@@ -81,18 +81,10 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	}
 }
 
-#if QT_VERSION < 0x050000
-static void mumbleMessageOutput(QtMsgType type, const char *msg) {
-	mumbleMessageOutputQString(type, QString::fromUtf8(msg));
-}
-#endif
-
-#if QT_VERSION >= 0x050000
 static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	mumbleMessageOutputQString(type, msg);
 }
-#endif
 
 static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* ExceptionInfo) {
 	MINIDUMP_EXCEPTION_INFORMATION i;
@@ -269,11 +261,7 @@ void os_init() {
 	fConsole = _wfsopen(console.toStdWString().c_str(), L"a+", _SH_DENYWR);
 
 	if (fConsole) {
-#if QT_VERSION >= 0x050000
 		qInstallMessageHandler(mumbleMessageOutputWithContext);
-#else
-		qInstallMsgHandler(mumbleMessageOutput);
-#endif
 	}
 
 	QString hash;

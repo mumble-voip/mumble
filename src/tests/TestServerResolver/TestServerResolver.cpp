@@ -13,13 +13,7 @@
 void signalSpyWait(QSignalSpy &spy) {
 	// We increase the timeout from 5s to 8s because travis builds could fail otherwise (slow network response).
 	const int signalTimeoutS = 8;
-#if QT_VERSION >= 0x050000
 	spy.wait(signalTimeoutS * 1000);
-#else
-	// Equivalent to QSignalSpy::wait() in Qt 5, except we do not return early on a spied on signal result.
-	QTestEventLoop loop;
-	loop.enterLoop(signalTimeoutS);
-#endif
 }
 
 class TestServerResolver : public QObject {

@@ -38,16 +38,10 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	}
 }
 
-#if QT_VERSION < 0x050000
-static void mumbleMessageOutput(QtMsgType type, const char *msg) {
-	mumbleMessageOutputQString(type, QString::fromUtf8(msg));
-}
-#elif QT_VERSION >= 0x050000
 static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	mumbleMessageOutputQString(type, msg);
 }
-#endif
 
 void os_init() {
 	// Make a copy of the global LogEmitter, such that
@@ -55,9 +49,5 @@ void os_init() {
 	// of the Global object and its LogEmitter object.
 	le = g.le;
 
-#if QT_VERSION >= 0x050000
 	qInstallMessageHandler(mumbleMessageOutputWithContext);
-#else
-	qInstallMsgHandler(mumbleMessageOutput);
-#endif
 }

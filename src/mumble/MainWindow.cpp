@@ -135,11 +135,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qwPTTButtonWidget = NULL;
 
-#if QT_VERSION < 0x050000
-	cuContextUser = QWeakPointer<ClientUser>();
-	cContextChannel = QWeakPointer<Channel>();
-#endif
-
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
 	qtReconnect->setSingleShot(true);
@@ -356,9 +351,7 @@ void MainWindow::setupGui()  {
 
 	updateTransmitModeComboBox();
 
-// For Qt >= 5, enable this call (only) for Windows.
-// For Qt < 5, enable for anything but macOS.
-#if (QT_VERSION >= 0x050000 && defined(Q_OS_WIN)) || (QT_VERSION < 0x050000 && !defined(Q_OS_MAC))
+#ifdef Q_OS_WIN
 	setupView(false);
 #endif
 
@@ -383,12 +376,6 @@ void MainWindow::setupGui()  {
 
 #ifdef Q_OS_MAC
 	setWindowOpacity(1.0f);
-#if QT_VERSION < 0x040700
-	// Process pending events.  This is done to force the unified
-	// toolbar to show up as soon as possible (and not wait until
-	// we are back into the Cocoa mainloop)
-	qApp->processEvents();
-#endif
 #endif
 }
 
@@ -437,12 +424,8 @@ void MainWindow::msgBox(QString msg) {
 }
 
 #ifdef Q_OS_WIN
-#if QT_VERSION >= 0x050000
 bool MainWindow::nativeEvent(const QByteArray &, void *message, long *) {
 	MSG *msg = reinterpret_cast<MSG *>(message);
-#else
-bool MainWindow::winEvent(MSG *msg, long *) {
-#endif
 	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
 		uiNewHardware++;
 
@@ -801,11 +784,7 @@ void MainWindow::saveImageAs() {
 
 QString MainWindow::getImagePath(QString filename) const {
 	if (g.s.qsImagePath.isEmpty() || ! QDir(g.s.qsImagePath).exists()) {
-#if QT_VERSION >= 0x050000
 		g.s.qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
-#else
-		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
-#endif
 	}
 	if (filename.isEmpty()) {
 		return g.s.qsImagePath;
@@ -878,12 +857,8 @@ void MainWindow::openUrl(const QUrl &url) {
 	minor = 2;
 	patch = 0;
 
-#if QT_VERSION >= 0x050000
 	QUrlQuery query(url);
 	QString version = query.queryItemValue(QLatin1String("version"));
-#else
-	QString version = url.queryItemValue(QLatin1String("version"));
-#endif
 	MumbleVersion::get(&major, &minor, &patch, version);
 
 	if ((major < 1) || // No pre 1.2.0
@@ -902,13 +877,8 @@ void MainWindow::openUrl(const QUrl &url) {
 	qsDesiredChannel = url.path();
 	QString name;
 
-#if QT_VERSION >= 0x050000
 	if (query.hasQueryItem(QLatin1String("title")))
 		name = query.queryItemValue(QLatin1String("title"));
-#else
-	if (url.hasQueryItem(QLatin1String("title")))
-		name = url.queryItemValue(QLatin1String("title"));
-#endif
 
 	if (g.sh && g.sh->isRunning()) {
 		QString oHost, oUser, oPw;

@@ -73,13 +73,8 @@ struct PluginFetchMeta {
 PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-#if QT_VERSION >= 0x050000
 	qtwPlugins->header()->setSectionResizeMode(0, QHeaderView::Stretch);
 	qtwPlugins->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-#else
-	qtwPlugins->header()->setResizeMode(0, QHeaderView::Stretch);
-	qtwPlugins->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-#endif
 
 	refillPluginList();
 }
@@ -586,16 +581,10 @@ void Plugins::checkUpdates() {
 
 
 #ifdef QT_NO_DEBUG
-#if QT_VERSION >= 0x050000
 	QUrlQuery query;
 	query.setQueryItems(queryItems);
 	url.setQuery(query);
-#else
-	for (int i = 0; i < queryItems.size(); i++) {
-		const QPair<QString, QString> &queryPair = queryItems.at(i);
-		url.addQueryItem(queryPair.first, queryPair.second);
-	}
-#endif
+
 	WebFetch::fetch(QLatin1String("update"), url, this, SLOT(fetchedUpdatePAPlugins(QByteArray,QUrl)));
 #else
 	g.mw->msgBox(tr("Skipping plugin update in debug mode."));

@@ -39,21 +39,12 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qgbTTS->setDisabled(true);
 #endif
 
-#if QT_VERSION >= 0x050000
 	qtwMessages->header()->setSectionResizeMode(ColMessage, QHeaderView::Stretch);
 	qtwMessages->header()->setSectionResizeMode(ColConsole, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColNotification, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColHighlight, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColTTS, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
-#else
-	qtwMessages->header()->setResizeMode(ColMessage, QHeaderView::Stretch);
-	qtwMessages->header()->setResizeMode(ColConsole, QHeaderView::ResizeToContents);
-	qtwMessages->header()->setResizeMode(ColNotification, QHeaderView::ResizeToContents);
-	qtwMessages->header()->setResizeMode(ColHighlight, QHeaderView::ResizeToContents);
-	qtwMessages->header()->setResizeMode(ColTTS, QHeaderView::ResizeToContents);
-	qtwMessages->header()->setResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
-#endif
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {

@@ -47,12 +47,7 @@ class UserView : public QTreeView {
 	public:
 		UserView(QWidget *);
 		void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
-#if QT_VERSION >= 0x050000
 		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles = QVector<int> ()) Q_DECL_OVERRIDE;
-#else
-		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight) Q_DECL_OVERRIDE;
-#endif
-		
 	public slots:
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();

@@ -379,11 +379,10 @@ void ServerHandler::run() {
 		// In Qt 5.4, QSsl::SecureProtocols is equivalent
 		// to "TLSv1.0 or later", which we require.
 		qtsSock->setProtocol(QSsl::SecureProtocols);
-	#elif QT_VERSION >= 0x050000
-		qtsSock->setProtocol(QSsl::TlsV1_0);
 	#else
-		qtsSock->setProtocol(QSsl::TlsV1);
+		qtsSock->setProtocol(QSsl::TlsV1_0);
 	#endif
+
 		qtsSock->connectToHost(saTargetServer.host.toAddress(), saTargetServer.port);
 
 		tTimestamp.restart();

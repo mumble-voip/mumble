@@ -95,11 +95,7 @@ bool SslServer::hasDualStackSupport() {
 	return result;
 }
 
-#if QT_VERSION >= 0x050000
 void SslServer::incomingConnection(qintptr v) {
-#else
-void SslServer::incomingConnection(int v) {
-#endif
 	QSslSocket *s = new QSslSocket(this);
 	s->setSocketDescriptor(v);
 	qlSockets.append(s);
@@ -1299,10 +1295,8 @@ void Server::newClient() {
 		// In Qt 5.4, QSsl::SecureProtocols is equivalent
 		// to "TLSv1.0 or later", which we require.
 		sock->setProtocol(QSsl::SecureProtocols);
-#elif QT_VERSION >= 0x050000
-		sock->setProtocol(QSsl::TlsV1_0);
 #else
-		sock->setProtocol(QSsl::TlsV1);
+		sock->setProtocol(QSsl::TlsV1_0);
 #endif
 		sock->startServerEncryption();
 	}
@@ -1327,14 +1321,9 @@ void Server::encrypted() {
 	QList<QSslCertificate> certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();
-#if QT_VERSION >= 0x050000
 		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
-#else
-		uSource->qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
-#endif
 		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
 		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
-#if QT_VERSION >= 0x050000
 			QString subject;
 			QString issuer;
 
@@ -1347,10 +1336,7 @@ void Server::encrypted() {
 			if (! issuerList.isEmpty()) {
 				issuer = issuerList.first();
 			}
-#else
-			QString subject = cert.subjectInfo(QSslCertificate::CommonName);
-			QString issuer = certs.first().issuerInfo(QSslCertificate::CommonName);
-#endif
+
 			log(uSource, QString::fromUtf8("Strong certificate for %1 <%2> (signed by %3)").arg(subject).arg(uSource->qslEmail.join(", ")).arg(issuer));
 		}
 
@@ -1424,11 +1410,8 @@ void Server::sslError(const QList<QSslError> &errors) {
 		// See
 		// https://bugreports.qt.io/browse/QTBUG-53906
 		// https://github.com/mumble-voip/mumble/issues/2334
-#if QT_VERSION >= 0x050000
+
 		u->disconnectSocket();
-#else
-		u->disconnectSocket(true);
-#endif
 	}
 }
 

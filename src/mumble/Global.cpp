@@ -20,11 +20,7 @@ Global *Global::g_global_struct;
 static void migrateDataDir() {
 #ifdef Q_OS_MAC
 	QString olddir = QDir::homePath() + QLatin1String("/Library/Preferences/Mumble");
-#if QT_VERSION >= 0x050000
 	QString newdir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#else
-	QString newdir = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#endif // QT_VERSION
 	QString linksTo = QFile::symLinkTarget(olddir);
 	if (!QFile::exists(newdir) && QFile::exists(olddir) && linksTo.isEmpty()) {
 		QDir d;
@@ -49,7 +45,6 @@ static void migrateDataDir() {
 // Qt4 used another data directory on Unix-like systems, to ensure a seamless
 // transition we must first move the users data to the new directory.
 #if defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
-#if QT_VERSION >= 0x050000
 	QString olddir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/data/Mumble");
 	QString newdir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/Mumble");
 
@@ -66,7 +61,6 @@ static void migrateDataDir() {
 	}
 
 	qWarning("Application data migration failed.");
-#endif // QT_VERSION
 #endif // defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
 }
 #endif // Q_OS_WIN
@@ -121,11 +115,8 @@ Global::Global() {
 
 	QStringList qsl;
 	qsl << QCoreApplication::instance()->applicationDirPath();
-#if QT_VERSION >= 0x050000
 	qsl << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#else
-	qsl << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#endif
+
 #if defined(Q_OS_WIN)
 	QString appdata;
 	wchar_t appData[MAX_PATH];
@@ -155,11 +146,7 @@ Global::Global() {
 			qdBasePath.setPath(appdata);
 #else
 		migrateDataDir();
-#if QT_VERSION >= 0x050000
 		qdBasePath.setPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
-#else
-		qdBasePath.setPath(QDesktopServices::storageLocation(QDesktopServices::DataLocation));
-#endif
 #endif
 		if (! qdBasePath.exists()) {
 			QDir::root().mkpath(qdBasePath.absolutePath());

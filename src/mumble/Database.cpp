@@ -47,11 +47,7 @@ Database::Database(const QString &dbname) {
 	int i;
 
 	datapaths << g.qdBasePath.absolutePath();
-#if QT_VERSION >= 0x050000
 	datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#else
-	datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#endif
 #if defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
 	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif

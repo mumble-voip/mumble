@@ -140,11 +140,7 @@ void MetaParams::read(QString fname) {
 		QStringList datapaths;
 
 #if defined(Q_OS_WIN)
-#if QT_VERSION >= 0x050000
 		datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#else
-		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#endif
 
 		QDir appdir = QDir(QDir::fromNativeSeparators(EnvUtils::getenv(QLatin1String("APPDATA"))));
 		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
@@ -188,9 +184,8 @@ void MetaParams::read(QString fname) {
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
 	qsSettings = new QSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
-#if QT_VERSION >= 0x040500
 	qsSettings->setIniCodec("UTF-8");
-#endif
+
 	qWarning("Initializing settings from %s (basepath %s)", qPrintable(qsSettings->fileName()), qPrintable(qdBasePath.absolutePath()));
 
 	QString qsHost = qsSettings->value("host", QString()).toString();
@@ -258,7 +253,6 @@ void MetaParams::read(QString fname) {
 			hasipv4 = true;
 		}
 
-#if QT_VERSION >= 0x050000
 		if (hasipv6) {
 			if (SslServer::hasDualStackSupport() && hasipv4) {
 				qlBind << QHostAddress(QHostAddress::Any);
@@ -271,23 +265,6 @@ void MetaParams::read(QString fname) {
 		if (hasipv4) {
 			qlBind << QHostAddress(QHostAddress::AnyIPv4);
 		}
-#else // QT_VERSION < 0x050000
-		// For Qt 4 AnyIPv6 resulted in a dual stack socket on dual stack
-		// capable systems while Any resulted in an IPv4 only socket. For
-		// Qt 5 this has been reworked so that AnyIPv6/v4 are now exclusive
-		// IPv6/4 sockets while Any is the dual stack socket.
-
-		if (hasipv6) {
-			qlBind << QHostAddress(QHostAddress::AnyIPv6);
-			if (SslServer::hasDualStackSupport() && hasipv4) {
-				hasipv4 = false; // No need to add a separate ipv4 socket
-			}
-		}
-
-		if (hasipv4) {
-			qlBind << QHostAddress(QHostAddress::Any);
-		}
-#endif
 	}
 
 	qsPassword = typeCheckedFromSettings("serverpassword", qsPassword);
@@ -444,9 +421,7 @@ void MetaParams::read(QString fname) {
 
 bool MetaParams::loadSSLSettings() {
 	QSettings updatedSettings(qsAbsSettingsFilePath, QSettings::IniFormat);
-#if QT_VERSION >= 0x040500
 	updatedSettings.setIniCodec("UTF-8");
-#endif
 
 	QString tmpCiphersStr = typeCheckedFromSettings("sslCiphers", qsCiphers);
 
