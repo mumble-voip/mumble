@@ -104,6 +104,7 @@ void LogConfig::load(const Settings &r) {
 	}
 
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
+	qcb24HourClock->setChecked(r.bLog24HourClock);
 
 #ifdef USE_NO_TTS
 	qtwMessages->hideColumn(ColTTS);
@@ -140,6 +141,7 @@ void LogConfig::save() const {
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
 	s.iMaxLogBlocks = qsbMaxBlocks->value();
+	s.bLog24HourClock = qcb24HourClock->isChecked();
 
 #ifndef USE_NO_TTS
 	s.iTTSVolume=qsVolume->value();
@@ -493,7 +495,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(dt.time().toString().toHtmlEscaped()), Log::Time));
+
+		const QString timeString = dt.time().toString(QLatin1String(g.s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
+		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timeString.toHtmlEscaped()), Log::Time));
+
 		validHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);

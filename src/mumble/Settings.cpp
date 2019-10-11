@@ -399,6 +399,7 @@ Settings::Settings() {
 	requireRestartToApply = false;
 
 	iMaxLogBlocks = 0;
+	bLog24HourClock = true;
 
 	bShortcutEnable = true;
 	bSuppressMacEventTapWarning = false;
@@ -753,6 +754,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
+	SAVELOAD(bLog24HourClock, "ui/24HourClock");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
@@ -1089,6 +1091,7 @@ void Settings::save() {
 	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
+	SAVELOAD(bLog24HourClock, "ui/24HourClock");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
