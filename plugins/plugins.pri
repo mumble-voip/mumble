@@ -16,6 +16,8 @@ CONFIG(static) {
 	CONFIG += qt_dynamic_lookup
 }
 
+win32:LIBS += -luser32
+
 DESTDIR = $$DESTDIR/plugins
 
 include(../qmake/symbols.pri)

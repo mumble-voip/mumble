@@ -7,5 +7,3 @@ include(../plugins.pri)
 
 TARGET = gtasa
 SOURCES = gtasa.cpp
-
-LIBS += -luser32
