@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>446</width>
-    <height>334</height>
+    <width>554</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -240,6 +240,18 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="qcb24HourClock">
+        <property name="toolTip">
+         <string>If checked the time at the beginning of a message will be displayed in the 24-hour format.
+
+The setting only applies for new messages, the already shown ones will retain the previous time format.</string>
+        </property>
+        <property name="text">
+         <string>Use 24-hour clock</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
