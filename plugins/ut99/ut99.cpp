@@ -35,19 +35,11 @@
 */
 
 #include "../mumble_plugin_main.h"
+#include "../mumble_plugin_utils.h"
 
 procptr_t posptr;
 procptr_t frtptr;
 procptr_t topptr;
-
-static void wcsToMultibyteStdString(wchar_t *wcs, std::string &str) {
-	const int size = WideCharToMultiByte(CP_UTF8, 0, wcs, -1, NULL, 0, NULL, NULL);
-	if (size == 0) return;
-
-	str.resize(size);
-
-	WideCharToMultiByte(CP_UTF8, 0, wcs, -1, &str[0], size, NULL, NULL);
-}
 
 static bool cross(float *a, float *b, float *c) {
 	if (a == 0 || b == 0 || c == 0)
@@ -161,8 +153,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	wservername[sizeof(wservername)/sizeof(wservername[0]) - 1] = '\0';
 
-	std::string servername;
-	wcsToMultibyteStdString(wservername, servername);
+	const std::string servername = utf16ToUtf8(wservername);
 
 	std::ostringstream contextss;
 	contextss << "{"

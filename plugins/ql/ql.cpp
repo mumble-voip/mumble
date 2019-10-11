@@ -18,7 +18,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Char values for extra features
 	char host[22], servername[50], map[30];
 	// Team
-	BYTE team;
+	uint8_t team;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc(pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.

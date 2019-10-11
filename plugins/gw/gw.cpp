@@ -159,15 +159,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
 
 	if (areaid != prev_areaid || location != prev_location) {
-		context.clear();
-
 		prev_areaid = areaid;
 		prev_location = location;
 
-		char buffer[50];
-		sprintf_s(buffer, sizeof(buffer), "{\"instance\": \"%d:%d\"}", areaid, static_cast<int>(location));
-		context.assign(buffer);
+		std::ostringstream contextstream;
+		contextstream << "{\"instance\": \"" << areaid << ":" << static_cast<int>(location) << "\"}";
+		context = contextstream.str();
 	}
+
 	return true;
 }
 

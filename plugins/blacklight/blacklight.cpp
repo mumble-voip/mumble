@@ -59,7 +59,7 @@ static procptr_t camtopptr = camfrontptr + 0xC;
 static procptr_t camptr = camfrontptr + 0x18;
 static procptr_t hostipportptr;
 
-static char prev_hostipport[22];
+static std::string prev_hostipport;
 
 static char state = 0; // 1 if connected to a server, 0 if not
 
@@ -88,7 +88,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float cam[3], camtop[3], camfront[3];
 	bool ok;
-	char hostipport[sizeof(prev_hostipport)];
+	char hostipport[22];
 
 	ok = peekProc(camfrontptr, camfront, 12) &&
 	     peekProc(camtopptr, camtop, 12) &&
@@ -99,16 +99,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 	
 	hostipport[sizeof(hostipport) - 1] = '\0';
-	if (strcmp(hostipport, prev_hostipport) != 0) {
+	if (hostipport != prev_hostipport) {
 		context.clear();
 		state = 0;
 
-		strcpy_s(prev_hostipport, sizeof(prev_hostipport), hostipport);
+		prev_hostipport = hostipport;
 
 		if (strcmp(hostipport, "") != 0 && strcmp(hostipport, "bot") != 0) {
-			char buffer[50];
-			sprintf_s(buffer, sizeof(buffer), "{\"ipport\": \"%s\"}", hostipport);
-			context.assign(buffer);
+			std::ostringstream contextstream;
+			contextstream << "{\"ipport\": \"" << hostipport << "\"}";
+			context = contextstream.str();
+
 			state = 1;
 		}
 	}
@@ -131,15 +132,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	if (refreshPointers()) { // unlink plugin if this fails
-
-		*prev_hostipport = '\0';
+		prev_hostipport.clear();
 		float avatar_pos[3], avatar_front[3], avatar_top[3];
 		float camera_pos[3], camera_front[3], camera_top[3];
 		std::string context;
 		std::wstring identity;
 
 		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
-			*prev_hostipport = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
+			prev_hostipport.clear(); // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 			return true;
 		}
 	}

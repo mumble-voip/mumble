@@ -7,5 +7,3 @@ include(../plugins.pri)
 
 TARGET = rl
 SOURCES = rl.cpp
-
-win32:LIBS += -luser32

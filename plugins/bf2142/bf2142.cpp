@@ -13,7 +13,7 @@ procptr_t RendDX9 = 0;
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	bool ok;
 	char server_name[100], soldier_name[100];
-	BYTE team_id, squad_id, is_commander, is_squad_leader, target_squad_id, on_voip, on_voip_com;
+	uint8_t team_id, squad_id, is_commander, is_squad_leader, target_squad_id, on_voip, on_voip_com;
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;

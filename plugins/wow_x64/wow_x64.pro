@@ -7,4 +7,3 @@ include(../plugins.pri)
 
 TARGET = wow_x64
 SOURCES = wow_x64.cpp
-LIBS += -luser32

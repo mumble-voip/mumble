@@ -89,16 +89,16 @@ inline bool resolve_ptrs() {
 	*/
 	/*
 	Magic:
-	  state : 0x238ABDC                                                        BYTE        1 when playing
+	  state : 0x238ABDC                                                        uint8_t     1 when playing
 	                                                                                       2 while in menu/dead
 
 	Context:
 	  IP:Port of server: 0x0235DB90                                            char[128]   ip:port of the server
 
 	Identity:
-	  Squad state: BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x36C + 0x8 + 0x104      BYTE        0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
-	  SLead state: BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x36C + 0x8 + 0x108      BYTE        0 is not lead; 1 is lead
-	  Team state:  BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x31C                    BYTE        1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
+	  Squad state: BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x36C + 0x8 + 0x104      uint8_t     0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
+	  SLead state: BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x36C + 0x8 + 0x108      uint8_t     0 is not lead; 1 is lead
+	  Team state:  BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x31C                    uint8_t     1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
 	*/
 
 	procptr_t base_bf3 = peekProcPtr(pModule + base_offset);
@@ -126,10 +126,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	char ccontext[128];
-	char state;
-	BYTE squad_state;
-	BYTE is_squadleader;
-	BYTE team_state;
+	uint8_t state;
+	uint8_t squad_state;
+	uint8_t is_squadleader;
+	uint8_t team_state;
 	bool ok;
 
 	ok = peekProc(state_ptr, &state, 1); // State value

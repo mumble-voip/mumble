@@ -67,7 +67,7 @@ static procptr_t gameptr = 0xE22E90;
 static procptr_t hostipptr = 0xAF69D18;
 static procptr_t hostportptr = hostipptr + 0x1C;
 
-static char prev_hostip[16]; // These should never change while the game is running, but just in case...
+static std::string prev_hostip; // These should never change while the game is running, but just in case...
 static int prev_hostport;
 
 static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
@@ -128,18 +128,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	calcout(ipos, cam, avatar_pos, camera_pos); //calculate proper position values
 	
-	if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
-		context.clear();
-
-		strcpy_s(prev_hostip, sizeof(prev_hostip), hostip);
+	if (hostip != prev_hostip || hostport != prev_hostport) {
+		prev_hostip = hostip;
 		prev_hostport = hostport;
 
 		if (strcmp(hostip, "") != 0) {
-			char buffer[50];
-			sprintf_s(buffer, sizeof(buffer), "{\"ipport\": \"%s:%d\"}", hostip, hostport);
-			context.assign(buffer);
+			std::ostringstream contextstream;
+			contextstream << "{\"ipport\": \"" << hostip << ":" << hostport << "\"}";
+			context = contextstream.str();
+		} else {
+			context.clear();
 		}
 	}
+
 	return true;
 }
 
@@ -148,7 +149,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	if (refreshPointers()) { // unlink plugin if this fails
-		*prev_hostip = '\0';
+		prev_hostip.clear();
 		prev_hostport = 0;
 
 		float avatar_pos[3], avatar_front[3], avatar_top[3];
@@ -157,7 +158,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		std::wstring identity;
 
 		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
-			*prev_hostip = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
+			prev_hostip.clear(); // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 			prev_hostport = 0;
 			return true;
 		}
