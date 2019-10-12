@@ -18,7 +18,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" DEFINES+="MUMBLE_VERSION=${TRAVIS_COMMIT:0:7}" -recursive
-		if [ "${MUMBLE_NO_PCH}" == "1" ] && [ "${MASTER_BRANCH}" = "1" ]; then
+		if [ "${MASTER_BRANCH}" = "1" ]; then
 			# Wraps the compilation with the Build Wrapper to generate the configuration used later by the SonarQube Scanner.
 			mkdir build
 			build-wrapper-linux-x86-64 --out-dir build/sonar make -j 2
@@ -29,6 +29,9 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		else
 			make -j2 && make check
 		fi
+	elif [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
+		qmake CONFIG+="release tests warnings-as-errors ${EXTRA_CONFIG}" -recursive
+		make -j $(nproc)
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		wget http://www.steinberg.net/sdk_downloads/asiosdk2.3.zip -P ../
 		unzip ../asiosdk2.3.zip -d ../

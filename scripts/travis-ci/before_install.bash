@@ -20,6 +20,14 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		sudo apt-get build-dep -qq mumble
 		sudo apt-get install libqt5sql5 libqt5sql5-sqlite qt5-default qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qttranslations5-l10n libqt5svg5-dev
 		sudo apt-get install libjack-jackd2-dev
+	elif [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
+		sudo apt-get -qq update
+		sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools libqt5svg5-dev \
+                                libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
+                                libcap-dev libxi-dev \
+                                libjack-jackd2-dev libasound2-dev libpulse-dev \
+                                libogg-dev libsndfile1-dev libspeechd-dev \
+                                libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
