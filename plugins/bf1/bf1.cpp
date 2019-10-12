@@ -107,7 +107,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	oidentity << "{";
 
 	// Team
-	escape(team, sizeof(server_name));
+	escape(team, sizeof(team));
 	if (strcmp(team, "") != 0) {
 		oidentity << std::endl << "\"Team\": \"" << team << "\","; // Set team name in identity.
 	}
