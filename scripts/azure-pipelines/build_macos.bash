@@ -11,4 +11,13 @@ export PATH=$PATH:/usr/local/opt/qt5/bin:/usr/local/bin
 export MUMBLE_PREFIX=/usr/local
 export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
 
-qmake -recursive CONFIG+="release tests warnings-as-errors" && make -j $(sysctl -n hw.ncpu) && make check
+ver=$(python scripts/mumble-version.py)
+
+qmake -recursive CONFIG+="release tests warnings-as-errors" DEFINES+="MUMBLE_VERSION=${ver}"
+
+make -j $(sysctl -n hw.ncpu) && make check
+
+# Build installer
+./macx/scripts/osxdist.py --version=${ver}
+
+mv release/*.dmg ${BUILD_ARTIFACTSTAGINGDIRECTORY}
