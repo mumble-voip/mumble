@@ -44,3 +44,7 @@ jobs:
       displayName: 'Install build environment'
     - script: scripts/azure-pipelines/build_macos.bash
       displayName: 'Build'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: macOS installer
