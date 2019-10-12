@@ -61,18 +61,6 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	else
 		exit 1
 	fi
-elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
-	# We install the protobuf package via brew,
-	# which depends on "python@2".
-	#
-	# The build image upgraded the installed "python",
-	# and now "python@2" conflicts with it when trying
-	# to create symlinks.
-	#
-	# We don’t use the symlinked "python" installed
-	# by default in the image, so we unlink it to allow
-	# the "python@2" package to be installed without conflict.
-	brew update && brew unlink python && brew install qt5 libogg libvorbis flac libsndfile protobuf openssl ice
 else
 	exit 1
 fi
