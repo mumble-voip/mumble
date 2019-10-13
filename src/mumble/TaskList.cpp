@@ -7,6 +7,8 @@
 
 #include "MumbleApplication.h"
 
+#include "win.h"
+
 #include <QtCore/QFileInfo>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
