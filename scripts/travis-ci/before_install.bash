@@ -15,15 +15,10 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	# See mumble-voip/mumble#3312 for more information.
 	echo 'Acquire::http::Timeout "120";' | sudo tee /etc/apt/apt.conf.d/99zzztimeout
 
-	if [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
+	if [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ] || [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
 		sudo apt-get -qq update
-		sudo apt-get build-dep -qq mumble
-		sudo apt-get install libqt5sql5 libqt5sql5-sqlite qt5-default qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qttranslations5-l10n libqt5svg5-dev
-		sudo apt-get install libjack-jackd2-dev
-	elif [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
-		sudo apt-get -qq update
-		sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools libqt5svg5-dev \
-                                libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
+		sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools qttranslations5-l10n \
+                                libqt5svg5-dev libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
                                 libcap-dev libxi-dev \
                                 libjack-jackd2-dev libasound2-dev libpulse-dev \
                                 libogg-dev libsndfile1-dev libspeechd-dev \
@@ -31,11 +26,11 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
-		echo "deb https://dl.mumble.info/mirror/mirror.mxe.cc/repos/apt xenial main" | sudo tee /etc/apt/sources.list.d/mxe.list
+		echo "deb https://dl.mumble.info/mirror/pkg.mxe.cc/repos/apt bionic main" | sudo tee /etc/apt/sources.list.d/mxe.list
 		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 86B72ED9
 		sudo apt-get -qq update
 		sudo apt-get install \
-			wine \
+			wine32-development wine-development \
 			mxe-${MUMBLE_HOST_DEB}.static-qtbase \
 			mxe-${MUMBLE_HOST_DEB}.static-qtsvg \
 			mxe-${MUMBLE_HOST_DEB}.static-qttools \
@@ -50,11 +45,11 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	elif [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
-		echo "deb https://dl.mumble.info/mirror/mirror.mxe.cc/repos/apt xenial main" | sudo tee /etc/apt/sources.list.d/mxe.list
+		echo "deb https://dl.mumble.info/mirror/pkg.mxe.cc/repos/apt bionic main" | sudo tee /etc/apt/sources.list.d/mxe.list
 		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 86B72ED9
 		sudo apt-get -qq update
 		sudo apt-get install \
-			wine \
+			wine64-development wine-development \
 			mxe-${MUMBLE_HOST_DEB}.static-qtbase \
 			mxe-${MUMBLE_HOST_DEB}.static-qtsvg \
 			mxe-${MUMBLE_HOST_DEB}.static-qttools \
