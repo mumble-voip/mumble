@@ -44,7 +44,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		fi
 		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
 		make -j2
-		make check TESTRUNNER="wine"
+		make check TESTRUNNER="wine-development"
 	elif [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
 		wget http://www.steinberg.net/sdk_downloads/asiosdk2.3.zip -P ../
 		unzip ../asiosdk2.3.zip -d ../
@@ -57,7 +57,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		fi
 		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
 		make -j2
-		make check TESTRUNNER="wine"
+		make check TESTRUNNER="wine-development"
 	else
 		exit 1
 	fi
