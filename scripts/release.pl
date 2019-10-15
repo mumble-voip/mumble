@@ -59,7 +59,6 @@ my $exclusions = join(" --exclude=", ("",
      "${ballname}/3rdparty/speex-src/doc/draft-ietf-avt-rtp-speex-01-tmp.txt",
      "${ballname}/3rdparty/speex-src/doc/draft-ietf-avt-rtp-speex-05-tmp.txt",
      "${ballname}/3rdparty/speex-src/doc/manual.lyx",
-     "${ballname}/3rdparty/celt-0.11.0-src/doc/ietf/draft-valin-celt-rtp-profile-01.txt",
      "${ballname}/3rdparty/celt-0.7.0-src/doc/ietf/draft-valin-celt-rtp-profile-01.txt"
     )
 );

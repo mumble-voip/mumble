@@ -73,7 +73,7 @@ print $F "\n\n";
 
 # List of 3rd party licenses  [<variableName>, <pathToLicenseFile>, <DisplayName>, <URL>]
 my @thirdPartyLicenses = (
-    ["licenseCELT", "../3rdparty/celt-0.11.0-src/COPYING", "CELT", "http://www.celt-codec.org/"],
+    ["licenseCELT", "../3rdparty/celt-0.7.0-src/COPYING", "CELT", "http://www.celt-codec.org/"],
     ["licenseOpus", "../3rdparty/opus-src/COPYING", "Opus", "http://www.opus-codec.org/"],
     ["licenseSPEEX", "../3rdparty/speex-src/COPYING", "Speex", "http://www.speex.org/"],
     ["licenseOpenSSL", "../3rdPartyLicenses/openssl_license.txt", "OpenSSL", "http://www.openssl.org/"],

@@ -25,7 +25,7 @@ SUBDIRS *= src/mumble_proto
       CONFIG *= no-bundled-celt
     }
     !CONFIG(no-bundled-celt) {
-      SUBDIRS *= 3rdparty/celt-0.7.0-build 3rdparty/celt-0.11.0-build
+      SUBDIRS *= 3rdparty/celt-0.7.0-build
     }
   }
 
