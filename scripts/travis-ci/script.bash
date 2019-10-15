@@ -18,17 +18,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" DEFINES+="MUMBLE_VERSION=${TRAVIS_COMMIT:0:7}" -recursive
-		if [ "${MASTER_BRANCH}" = "1" ]; then
-			# Wraps the compilation with the Build Wrapper to generate the configuration used later by the SonarQube Scanner.
-			mkdir build
-			build-wrapper-linux-x86-64 --out-dir build/sonar make -j 2
-			make check
-
-			# Run the SonarQube analysis
-			sonar-scanner
-		else
-			make -j2 && make check
-		fi
+		make -j2 && make check
 	elif [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
 		qmake CONFIG+="release tests warnings-as-errors ${EXTRA_CONFIG}" -recursive
 		make -j $(nproc)
