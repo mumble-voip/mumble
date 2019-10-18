@@ -6,4 +6,4 @@ extraction:
       - "libqt5svg5-dev"
     configure:
       command:
-      - "qmake -recursive CONFIG+='release tests g15-emulator'"
+      - "qmake -recursive CONFIG+='release tests no-g15'"
