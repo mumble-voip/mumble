@@ -68,24 +68,6 @@ class CELTCodec070 : public CELTCodec {
 		int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) Q_DECL_OVERRIDE;
 };
 
-class CELTCodec011 : public CELTCodec {
-	protected:
-		CELTMode *(*celt_mode_create)(celt_int32 Fs, int frame_size, int *error);
-		CELTEncoder *(__cdecl *celt_encoder_create_custom)(const CELTMode *mode, int channels, int *error);
-		CELTDecoder *(__cdecl *celt_decoder_create_custom)(const CELTMode *mode, int channels, int *error);
-		int (__cdecl *celt_encode_float)(CELTEncoder *st, const float *pcm, int frame_size, unsigned char *compressed, int nbCompressedBytes);
-		int (__cdecl *celt_encode)(CELTEncoder *st, const celt_int16 *pcm, int frame_size, unsigned char *compressed, int nbCompressedBytes);
-		int (__cdecl *celt_decode_float)(CELTDecoder *st, const unsigned char *data, int len, float *pcm, int frame_size);
-		int (__cdecl *celt_decode)(CELTDecoder *st, const unsigned char *data, int len, celt_int16 *pcm, int frame_size);
-		const char *(__cdecl *celt_strerror)(int error);
-	public:
-		CELTCodec011(const QString &celt_version);
-		CELTEncoder *encoderCreate() Q_DECL_OVERRIDE;
-		CELTDecoder *decoderCreate() Q_DECL_OVERRIDE;
-		int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) Q_DECL_OVERRIDE;
-		int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) Q_DECL_OVERRIDE;
-};
-
 class CELTCodecSBCELT : public CELTCodec {
 	protected:
 		const CELTMode *cmSBCELTMode;

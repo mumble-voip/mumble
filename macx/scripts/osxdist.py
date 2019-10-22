@@ -134,7 +134,7 @@ class AppBundle(object):
 		print ' * Attempting to copy audio codec libraries into App Bundle'
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
 		os.makedirs(dst)
-		codecs = ('release/libcelt0.0.7.0.dylib', 'release/libcelt0.0.11.0.dylib', 'release/libopus.dylib')
+		codecs = ('release/libcelt0.0.7.0.dylib', 'release/libopus.dylib')
 		for codec in codecs:
 			if os.path.exists(codec):
 				shutil.copy(codec, dst)
@@ -298,7 +298,6 @@ def package_client():
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
-			'release/Mumble.app/Contents/Codecs/libcelt0.0.11.0.dylib',
 			'release/Mumble.app/Contents/Codecs/libopus.dylib',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble.app/Contents/MacOS/sbcelt-helper',
