@@ -2738,7 +2738,7 @@ void MainWindow::on_gsSendTextMessage_triggered(bool down, QVariant scdata) {
 }
 
 void MainWindow::on_gsSendClipboardTextMessage_triggered(bool down, QVariant) {
-	if (!down) {
+	if (!down || (QApplication::clipboard()->text().isEmpty())) {
 		return;
 	}
 
