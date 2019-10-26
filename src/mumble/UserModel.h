@@ -30,6 +30,7 @@ public:
 	ModelItem *parent;
 	QList<ModelItem *> qlChildren;
 	QList<ModelItem *> qlHiddenChildren;
+	/// Number of users in this channel (recursive)
 	int iUsers;
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
@@ -126,7 +127,7 @@ class UserModel : public QAbstractItemModel {
 		void setCommentHash(Channel *c, const QByteArray &hash);
 
 		void removeUser(ClientUser *p);
-		void removeChannel(Channel *c);
+		bool removeChannel(Channel *c, const bool onlyIfUnoccupied = false);
 
 		void linkChannels(Channel *c, QList<Channel *> links);
 		void unlinkChannels(Channel *c, QList<Channel *> links);
