@@ -696,7 +696,11 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 				g.db->setChannelFiltered(sh->qbaDigest, c->iId, false);
 			c->bFiltered = false;
 		}
-		pmModel->removeChannel(c);
+		if (!pmModel->removeChannel(c, true)) {
+			g.l->log(Log::CriticalError, tr("Protocol violation. Server sent remove for occupied channel."));
+			g.sh->disconnect();
+			return;
+		}
 	}
 }
 
