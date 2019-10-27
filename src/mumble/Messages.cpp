@@ -92,9 +92,16 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 }
 
 void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
+	const ClientUser *user = ClientUser::get(msg.session());
+	if (!user) {
+		g.l->log(Log::CriticalError, tr("Server sync protocol violation. No user profile received."));
+		g.sh->disconnect();
+		return;
+	}
+	g.uiSession = msg.session();
+
 	g.sh->sendPing(); // Send initial ping to establish UDP connection
 
-	g.uiSession = msg.session();
 	g.pPermissions = ChanACL::Permissions(static_cast<unsigned int>(msg.permissions()));
 	g.l->clearIgnore();
 	if (msg.has_welcome_text()) {
@@ -132,7 +139,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 	}
 
-	const ClientUser *user = ClientUser::get(g.uiSession);
+	
 	connect(user, SIGNAL(talkingStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(muteDeafStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
