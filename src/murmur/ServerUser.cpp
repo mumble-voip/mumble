@@ -113,11 +113,11 @@ int BandwidthRecord::bandwidth() const {
 	return static_cast<int>((sum * 1000000ULL) / elapsed);
 }
 
-inline static QTime now() {
-	return QTime::currentTime();
+inline static QDateTime now() {
+	return QDateTime::currentDateTimeUtc();
 }
 
-inline static int millisecondsBetween(const QTime &start, const QTime &end) {
+inline static int millisecondsBetween(const QDateTime &start, const QDateTime &end) {
 	return start.msecsTo(end);
 }
 
@@ -128,7 +128,7 @@ LeakyBucket::LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens) : to
 
 bool LeakyBucket::ratelimit(int tokens) {
 	// First remove tokens we leaked over time
-	const QTime tnow = now();
+	const QDateTime tnow = now();
 	const long ms = millisecondsBetween(lastUpdate, tnow);
 
 	const long drainTokens = (ms * tokensPerSec) / 1000;
@@ -141,6 +141,11 @@ bool LeakyBucket::ratelimit(int tokens) {
 		if (this->currentTokens < 0) {
 			this->currentTokens = 0;
 		}
+	} else if (ms < 0) {
+
+		// Time went back for some reason. Reset lastUpdate to make sure
+		// it's tracking the current time base.
+		this->lastUpdate = tnow;
 	}
 
 	// Then try to add tokens
