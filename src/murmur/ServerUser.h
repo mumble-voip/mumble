@@ -7,7 +7,7 @@
 #define MUMBLE_MURMUR_SERVERUSER_H_
 
 #include <QtCore/QStringList>
-#include <QtCore/QTime>
+#include <QtCore/QDateTime>
 
 #ifdef Q_OS_UNIX
 #include <sys/socket.h>
@@ -61,7 +61,7 @@ class LeakyBucket {
 	private:
 		unsigned int tokensPerSec, maxTokens;
 		long currentTokens;
-		QTime lastUpdate;
+		QDateTime lastUpdate;
 
 	public:
 		// Returns true if packets should be dropped
