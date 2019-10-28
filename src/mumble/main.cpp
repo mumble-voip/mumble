@@ -276,7 +276,7 @@ int main(int argc, char **argv) {
 
 	{
 		size_t reqSize;
-		if (_wgetenv_s(&reqSize, NULL, 0, L"PATH") != 0)) {
+		if (_wgetenv_s(&reqSize, NULL, 0, L"PATH") != 0) {
 			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
 		} else if (reqSize > 0) {
 			STACKVAR(wchar_t, buff, reqSize+1);
