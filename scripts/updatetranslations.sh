@@ -73,7 +73,7 @@ function main
 	echo "Translation update" > $tmpfile
 	echo "" >> $tmpfile
 	
-	lupdate -no-ui-lines -disable-heuristic similartext -locations relative -no-obsolete mumble.pro -ts $file | tee -a $tmpfile || fatal "lupdate failed"
+	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete mumble.pro -ts $file | tee -a $tmpfile || fatal "lupdate failed"
 	echo
 
 	# Duplicate single numerusform entries in mumble_en.ts to work around #1195
