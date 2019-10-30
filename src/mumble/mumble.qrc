@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file alias="password_lock.svg">../../icons/password_lock.svg</file>
         <file alias="Information_icon.svg">../../icons/publicdomain/Information_icon.svg</file>
         <file alias="self_undeafened.svg">../../icons/self_undeafened.svg</file>
         <file alias="mumble.svg">../../icons/mumble.svg</file>

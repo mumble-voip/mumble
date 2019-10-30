@@ -221,6 +221,7 @@ void ServerItem::init() {
 	setData(0, Qt::DisplayRole, QVariant());
 	setData(1, Qt::DisplayRole, QVariant());
 	setData(2, Qt::DisplayRole, QVariant());
+	setData(3, Qt::DecorationRole, QVariant());
 	emitDataChanged();
 }
 
@@ -489,7 +490,11 @@ QVariant ServerItem::data(int column, int role) const {
 				case 2:
 					return uiUsers ? QString::fromLatin1("%1/%2 ").arg(uiUsers).arg(uiMaxUsers) : QVariant();
 			}
-		} else if (role == Qt::ToolTipRole) {
+		} else if (role == Qt::DecorationRole) {
+			if (column == 3){
+				if (!qsPassword.isEmpty())	return QIcon(QLatin1String(":/password_lock.svg"));
+			}
+		}else if (role == Qt::ToolTipRole) {
 			QStringList qsl;
 			foreach(const ServerAddress &addr, qlAddresses) {
 				qsl << Qt::escape(addr.host.toString() + QLatin1String(":") + QString::number(static_cast<unsigned long>(addr.port)));
