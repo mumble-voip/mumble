@@ -267,14 +267,16 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 	qsUrl = fs.qsUrl;
 
 	bCA = false;
-
+#ifdef USE_BONJOUR
 	if (fs.qsHostname.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = fs.qsHostname.mid(1);
 		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = fs.qsHostname;
 	}
-
+#else
+	qsHostname = fs.qsHostname;
+#endif
 	init();
 }
 
@@ -304,17 +306,20 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 	qsPassword = password;
 
 	bCA = false;
-
+#ifdef USE_BONJOUR
 	if (host.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = host.mid(1);
 		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = host;
 	}
-
+#else
+	qsHostname = host;
+#endif
 	init();
 }
 
+#ifdef USE_BONJOUR
 ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	siParent = NULL;
 	bParent = false;
@@ -327,6 +332,7 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 
 	init();
 }
+#endif
 
 ServerItem::ServerItem(const QString &name, ItemType itype, const QString &continent, const QString &country) {
 	siParent = NULL;
@@ -357,8 +363,10 @@ ServerItem::ServerItem(const ServerItem *si) {
 	qsCountryCode = si->qsCountryCode;
 	qsContinentCode = si->qsContinentCode;
 	qsUrl = si->qsUrl;
+#ifdef USE_BONJOUR
 	qsBonjourHost = si->qsBonjourHost;
 	brRecord = si->brRecord;
+#endif
 	qlAddresses = si->qlAddresses;
 	bCA = si->bCA;
 
@@ -520,10 +528,10 @@ QVariant ServerItem::data(int column, int role) const {
 			    QLatin1String("<table>") +
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), qsName.toHtmlEscaped()) +
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname.toHtmlEscaped());
-
+#ifdef USE_BONJOUR
 			if (! qsBonjourHost.isEmpty())
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost.toHtmlEscaped());
-
+#endif
 			qs +=
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
@@ -620,17 +628,20 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 FavoriteServer ServerItem::toFavoriteServer() const {
 	FavoriteServer fs;
 	fs.qsName = qsName;
+#ifdef USE_BONJOUR
 	if (! qsBonjourHost.isEmpty())
 		fs.qsHostname = QLatin1Char('@') + qsBonjourHost;
 	else
 		fs.qsHostname = qsHostname;
+#else 
+	fs.qsHostname = qsHostname;
+#endif
 	fs.usPort = usPort;
 	fs.qsUsername = qsUsername;
 	fs.qsPassword = qsPassword;
 	fs.qsUrl = qsUrl;
 	return fs;
 }
-
 
 /**
  * This function turns a ServerItem object into a QMimeData object holding a URL to the server.
@@ -1189,11 +1200,14 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 		return;
 
 	QString host;
+#ifdef USE_BONJOUR
 	if (! si->qsBonjourHost.isEmpty())
 		host = QLatin1Char('@') + si->qsBonjourHost;
 	else
 		host = si->qsHostname;
-
+#else
+	host = si->qsHostname;
+#endif
 	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort, si->qsPassword);
 
 	if (cde->exec() == QDialog::Accepted) {
@@ -1208,7 +1222,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 			si->reset();
 
 			si->usPort = cde->usPort;
-
+#ifdef USE_BONJOUR
 			if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
 				si->qsHostname = QString();
 				si->qsBonjourHost = cde->qsHostname.mid(1);
@@ -1218,6 +1232,9 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 				si->qsBonjourHost = QString();
 				si->brRecord = BonjourRecord();
 			}
+#else
+			si->qsHostname = cde->qsHostname;
+#endif
 			startDns(si);
 		}
 		si->setDatas();
