@@ -1626,7 +1626,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		}
 
 		Channel *target = dest;
-		while (target->cParent && ! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter))
+		while (target->cParent && (! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter) || isChannelFull(target, static_cast<ServerUser *>(p))))
 			target = target->cParent;
 
 		MumbleProto::UserState mpus;
