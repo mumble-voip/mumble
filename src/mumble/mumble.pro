@@ -582,9 +582,9 @@ pulseaudio {
 
 jackaudio {
   DEFINES *= USE_JACKAUDIO
-  PKGCONFIG *= jack
   HEADERS *= JackAudio.h
   SOURCES *= JackAudio.cpp
+  INCLUDEPATH *= ../../3rdparty/jack-src
 }
 
 portaudio {

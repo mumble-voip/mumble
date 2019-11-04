@@ -20,7 +20,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools qttranslations5-l10n \
                                 libqt5svg5-dev libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
                                 libcap-dev libxi-dev \
-                                libjack-jackd2-dev libasound2-dev libpulse-dev \
+                                libasound2-dev libpulse-dev \
                                 libogg-dev libsndfile1-dev libspeechd-dev \
                                 libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then

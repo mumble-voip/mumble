@@ -8,6 +8,12 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
+#ifdef Q_CC_GNU
+# define RESOLVE(var) {var = reinterpret_cast<__typeof__(var)>(qlJack.resolve(#var)); if (!var) return; }
+#else
+# define RESOLVE(var) { *reinterpret_cast<void **>(&var) = static_cast<void *>(qlJack.resolve(#var)); if (!var) return; }
+#endif
+
 static std::unique_ptr<JackAudioSystem> jas;
 
 // jackStatusToStringList converts a jack_status_t (a flag type
@@ -138,8 +144,17 @@ void JackAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 
 void JackAudioInit::initialize() {
 	jas.reset(new JackAudioSystem());
-	airJackAudio.reset(new JackAudioInputRegistrar());
-	aorJackAudio.reset(new JackAudioOutputRegistrar());
+
+	jas->qmWait.lock();
+	jas->qwcWait.wait(&jas->qmWait, 1000);
+	jas->qmWait.unlock();
+
+	if (jas->bAvailable) {
+		airJackAudio.reset(new JackAudioInputRegistrar());
+		aorJackAudio.reset(new JackAudioOutputRegistrar());
+	} else {
+		jas.reset();
+	}
 }
 
 void JackAudioInit::destroy() {
@@ -152,12 +167,63 @@ void JackAudioInit::destroy() {
 static JackAudioInit jai;
 
 JackAudioSystem::JackAudioSystem()
-    : users(0)
+    : bAvailable(false)
+    , users(0)
     , client(nullptr)
 {
+	QStringList alternatives;
+#ifdef Q_OS_WIN
+	alternatives << QLatin1String("libjack64.dll");
+	alternatives << QLatin1String("libjack32.dll");
+#elif defined(Q_OS_MAC)
+	alternatives << QLatin1String("libjack.dylib");
+	alternatives << QLatin1String("libjack.0.dylib");
+#else
+	alternatives << QLatin1String("libjack.so");
+	alternatives << QLatin1String("libjack.so.0");
+#endif
+	for (const QString &lib : alternatives) {
+		qlJack.setFileName(lib);
+		if (qlJack.load()) {
+			break;
+		}
+	}
+
+	if (!qlJack.isLoaded()) {
+		return;
+	}
+
+	RESOLVE(jack_get_version_string)
+	RESOLVE(jack_free)
+	RESOLVE(jack_get_client_name)
+	RESOLVE(jack_client_open)
+	RESOLVE(jack_client_close)
+	RESOLVE(jack_activate)
+	RESOLVE(jack_deactivate)
+	RESOLVE(jack_get_sample_rate)
+	RESOLVE(jack_get_buffer_size)
+	RESOLVE(jack_get_client_name)
+	RESOLVE(jack_get_ports)
+	RESOLVE(jack_connect)
+	RESOLVE(jack_port_disconnect)
+	RESOLVE(jack_port_register)
+	RESOLVE(jack_port_unregister)
+	RESOLVE(jack_port_name)
+	RESOLVE(jack_port_by_name)
+	RESOLVE(jack_port_flags)
+	RESOLVE(jack_port_get_buffer)
+	RESOLVE(jack_set_process_callback)
+	RESOLVE(jack_set_sample_rate_callback)
+	RESOLVE(jack_set_buffer_size_callback)
+	RESOLVE(jack_on_shutdown)
+
 	qhInput.insert(QString(), tr("Hardware Ports"));
 	qhOutput.insert(QString::number(1), tr("Mono"));
 	qhOutput.insert(QString::number(2), tr("Stereo"));
+
+	bAvailable = true;
+
+	qDebug("JACK %s from %s", jack_get_version_string(), qPrintable(qlJack.fileName()));
 }
 
 JackAudioSystem::~JackAudioSystem() {
@@ -353,6 +419,14 @@ JackPorts JackAudioSystem::getPhysicalPorts(const uint8_t &flags) {
 	jack_free(ports);
 
 	return ret;
+}
+
+void *JackAudioSystem::getPortBuffer(jack_port_t *port, const jack_nframes_t &frames) {
+	if (!port) {
+		return nullptr;
+	}
+
+	return jack_port_get_buffer(port, frames);
 }
 
 jack_port_t *JackAudioSystem::registerPort(const char *name, const uint8_t &flags) {
@@ -582,12 +656,12 @@ bool JackAudioInput::disconnectPorts() {
 bool JackAudioInput::process(const jack_nframes_t &frames) {
 	QMutexLocker lock(&qmWait);
 
-	auto input = jack_port_get_buffer(port, frames);
-	if (!input) {
+	auto inputBuffer = jas->getPortBuffer(port, frames);
+	if (!inputBuffer) {
 		return false;
 	}
 
-	addMic(input, frames);
+	addMic(inputBuffer, frames);
 
 	return true;
 }
@@ -757,20 +831,20 @@ bool JackAudioOutput::process(const jack_nframes_t &frames) {
 
 	const auto audioToReproduce = mix(buffer.get(), frames);
 
-	QVector<jack_default_audio_sample_t *> inputBuffers;
+	QVector<jack_default_audio_sample_t *> outputBuffers;
 
 	for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
-		auto inputBuffer = reinterpret_cast<jack_default_audio_sample_t *>(jack_port_get_buffer(ports[currentChannel], frames));
-		if (!inputBuffer) {
+		auto outputBuffer = reinterpret_cast<jack_default_audio_sample_t *>(jas->getPortBuffer(ports[currentChannel], frames));
+		if (!outputBuffer) {
 			return false;
 		}
 
 		if (!audioToReproduce) {
 			// Clear buffer
-			memset(inputBuffer, 0, sizeof(jack_default_audio_sample_t) * frames);
+			memset(outputBuffer, 0, sizeof(jack_default_audio_sample_t) * frames);
 		}
 
-		inputBuffers.append(inputBuffer);
+		outputBuffers.append(outputBuffer);
 	}
 
 	if (!audioToReproduce) {
@@ -782,11 +856,11 @@ bool JackAudioOutput::process(const jack_nframes_t &frames) {
 	if (samples > frames) {
 		// De-interleave channels
 		for (auto currentSample = decltype(samples){0}; currentSample < samples; ++currentSample) {
-			inputBuffers[currentSample % iChannels][currentSample / iChannels] = buffer[currentSample];
+			outputBuffers[currentSample % iChannels][currentSample / iChannels] = buffer[currentSample];
 		}
 	} else {
 		// Single channel
-		memcpy(inputBuffers[0], buffer.get(), sizeof(jack_default_audio_sample_t) * samples);
+		memcpy(outputBuffers[0], buffer.get(), sizeof(jack_default_audio_sample_t) * samples);
 	}
 
 	return true;

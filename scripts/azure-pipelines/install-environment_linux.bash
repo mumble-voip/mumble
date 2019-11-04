@@ -10,7 +10,7 @@ sudo apt-get update
 sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools libqt5svg5-dev \
                         libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
                         libcap-dev libxi-dev \
-                        libjack-jackd2-dev libasound2-dev libpulse-dev \
+                        libasound2-dev libpulse-dev \
                         libogg-dev libsndfile1-dev libspeechd-dev \
                         libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev \
                         zsync
