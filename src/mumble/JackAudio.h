@@ -12,12 +12,23 @@
 #include <QtCore/QLibrary>
 #include <QtCore/QVector>
 #include <QtCore/QWaitCondition>
+#include <QtCore/QSemaphore>
 
 #include <jack/types.h>
 
 #define JACK_MAX_OUTPUT_PORTS 2
+#define JACK_BUFFER_PERIODS 3
+
+// Definitions from <jack/ringbuffer.h>
+typedef void *jack_ringbuffer_t;
+
+struct jack_ringbuffer_data_t {
+	char *buf;
+	size_t len;
+};
 
 typedef QVector<jack_port_t *> JackPorts;
+typedef QVector<jack_default_audio_sample_t *> JackBuffers;
 
 class JackAudioInit;
 
@@ -59,10 +70,20 @@ class JackAudioSystem : public QObject {
 		void *(*jack_port_get_buffer)(jack_port_t *port, jack_nframes_t frames);
 		void (*jack_free)(void *ptr);
 		jack_client_t *(*jack_client_open)(const char *client_name, jack_options_t options, jack_status_t *status, ...);
-		jack_nframes_t(*jack_get_sample_rate)(jack_client_t *client);
-		jack_nframes_t(*jack_get_buffer_size)(jack_client_t *client);
+		jack_nframes_t (*jack_get_sample_rate)(jack_client_t *client);
+		jack_nframes_t (*jack_get_buffer_size)(jack_client_t *client);
 		jack_port_t *(*jack_port_by_name)(jack_client_t *client, const char *port_name);
 		jack_port_t *(*jack_port_register)(jack_client_t *client, const char *port_name, const char *port_type, unsigned long flags, unsigned long buffer_size);
+
+		jack_ringbuffer_t *(*jack_ringbuffer_create)(size_t sz);
+		void (*jack_ringbuffer_free)(jack_ringbuffer_t *rb);
+		int (*jack_ringbuffer_mlock)(jack_ringbuffer_t *rb);
+		size_t (*jack_ringbuffer_read)(jack_ringbuffer_t *rb, char *dest, size_t cnt);
+		size_t (*jack_ringbuffer_read_space)(const jack_ringbuffer_t *rb);
+		size_t (*jack_ringbuffer_write)(jack_ringbuffer_t *rb, const char *src, size_t cnt);
+		void (*jack_ringbuffer_get_write_vector)(const jack_ringbuffer_t *rb, jack_ringbuffer_data_t *vec);
+		size_t (*jack_ringbuffer_write_space)(const jack_ringbuffer_t *rb);
+		void (*jack_ringbuffer_write_advance)(jack_ringbuffer_t *rb, size_t cnt);
 
 	public:
 		QHash<QString, QString> qhInput;
@@ -72,12 +93,22 @@ class JackAudioSystem : public QObject {
 		uint8_t outPorts();
 		jack_nframes_t sampleRate();
 		jack_nframes_t bufferSize();
-		JackPorts getPhysicalPorts(const uint8_t &flags);
-		void *getPortBuffer(jack_port_t *port, const jack_nframes_t &frames);
-		jack_port_t *registerPort(const char *name, const uint8_t &flags);
+		JackPorts getPhysicalPorts(const uint8_t flags);
+		void *getPortBuffer(jack_port_t *port, const jack_nframes_t frames);
+		jack_port_t *registerPort(const char *name, const uint8_t flags);
 		bool unregisterPort(jack_port_t *port);
 		bool connectPort(jack_port_t *sourcePort, jack_port_t *destinationPort);
 		bool disconnectPort(jack_port_t *port);
+
+		jack_ringbuffer_t *ringbufferCreate(const size_t size);
+		void ringbufferFree(jack_ringbuffer_t *buffer);
+		int ringbufferMlock(jack_ringbuffer_t *buffer);
+		size_t ringbufferRead(jack_ringbuffer_t *buffer, const size_t size, void *destination);
+		size_t ringbufferReadSpace(const jack_ringbuffer_t *buffer);
+		size_t ringbufferWrite(jack_ringbuffer_t *buffer, const size_t size, const void *source);
+		void ringbufferGetWriteVector(const jack_ringbuffer_t *buffer, jack_ringbuffer_data_t *vector);
+		size_t ringbufferWriteSpace(const jack_ringbuffer_t *buffer);
+		void ringbufferWriteAdvance(jack_ringbuffer_t *buffer, const size_t size);
 
 		bool initialize();
 		void deinitialize();
@@ -94,14 +125,17 @@ class JackAudioInput : public AudioInput {
 		Q_DISABLE_COPY(JackAudioInput)
 
 	protected:
-		bool bReady;
+		volatile bool bReady;
 		QMutex qmWait;
-		QWaitCondition qwcSleep;
+		QSemaphore qsSleep;
 		jack_port_t *port;
+		jack_ringbuffer_t *buffer;
+		size_t bufferSize;
 
 	public:
 		bool isReady();
-		bool process(const jack_nframes_t &frames);
+		bool process(const jack_nframes_t frames);
+		bool allocBuffer(const jack_nframes_t frames);
 		bool activate();
 		void deactivate();
 		bool registerPorts();
@@ -120,16 +154,17 @@ class JackAudioOutput : public AudioOutput {
 		Q_DISABLE_COPY(JackAudioOutput)
 
 	protected:
-		bool bReady;
+		volatile bool bReady;
 		QMutex qmWait;
-		QWaitCondition qwcSleep;
+		QSemaphore qsSleep;
 		JackPorts ports;
-		std::unique_ptr<jack_default_audio_sample_t[]> buffer;
+		JackBuffers outputBuffers;
+		jack_ringbuffer_t *buffer;
 
 	public:
 		bool isReady();
-		bool process(const jack_nframes_t &frames);
-		void allocBuffer(const jack_nframes_t &frames);
+		bool process(const jack_nframes_t frames);
+		bool allocBuffer(const jack_nframes_t frames);
 		bool activate();
 		void deactivate();
 		bool registerPorts();
