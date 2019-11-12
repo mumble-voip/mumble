@@ -7,7 +7,9 @@
 
 #include "AudioOutput.h"
 #include "CELTCodec.h"
-#include "OpusCodec.h"
+#ifdef USE_OPUS
+# include "OpusCodec.h"
+#endif
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "User.h"

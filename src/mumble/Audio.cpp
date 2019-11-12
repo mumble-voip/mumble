@@ -8,7 +8,9 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "CELTCodec.h"
-#include "OpusCodec.h"
+#ifdef USE_OPUS
+# include "OpusCodec.h"
+#endif
 #include "Global.h"
 #include "PacketDataStream.h"
 

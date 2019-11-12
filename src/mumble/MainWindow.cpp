@@ -13,7 +13,9 @@
 #include "AudioWizard.h"
 #include "BanEditor.h"
 #include "CELTCodec.h"
-#include "OpusCodec.h"
+#ifdef USE_OPUS
+# include "OpusCodec.h"
+#endif
 #include "Cert.h"
 #include "Channel.h"
 #include "Connection.h"
