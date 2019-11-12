@@ -17,7 +17,9 @@
 
 #include "Audio.h"
 #include "CELTCodec.h"
-#include "OpusCodec.h"
+#ifdef USE_OPUS
+# include "OpusCodec.h"
+#endif
 #include "ClientUser.h"
 #include "Global.h"
 #include "PacketDataStream.h"
