@@ -1,10 +1,15 @@
 Mumble - A voice chat utility for gamers
 =======================================
+[![#mumble:matrix.org](https://img.shields.io/matrix/mumble:matrix.org?label=%23mumble:matrix.org&style=for-the-badge)](https://riot.im/app/#/room/#mumble:matrix.org)
+[![#mumble@freenode.net](https://img.shields.io/badge/Freenode.net-%23mumble-blue?style=for-the-badge)](https://webchat.freenode.net/#mumble)
 
-[![Build Status](https://dev.azure.com/Mumble-VoIP/Mumble/_apis/build/status/Mumble-CI?branchName=master)](https://dev.azure.com/Mumble-VoIP/Mumble/_build/latest?definitionId=1?branchName=master)
+[![Codacy](https://img.shields.io/codacy/grade/262a5e20c83a40599050e22e700d8a3e?label=Codacy&style=for-the-badge)](https://app.codacy.com/manual/mumble-voip/mumble)
+[![LGTM](https://img.shields.io/lgtm/grade/cpp/github/mumble-voip/mumble?label=LGTM&style=for-the-badge)](https://lgtm.com/projects/g/mumble-voip/mumble)
+[![Azure](https://img.shields.io/azure-devops/build/Mumble-VoIP/c819eb06-7b22-4ef3-bbcd-860094454eb3/1?label=Azure&style=for-the-badge)](https://dev.azure.com/Mumble-VoIP/Mumble)
+[![Cirrus CI](https://img.shields.io/cirrus/github/mumble-voip/mumble?label=Cirrus%20CI&style=for-the-badge)](https://cirrus-ci.com/github/mumble-voip/mumble)
+[![Travis CI](https://img.shields.io/travis/com/mumble-voip/mumble?label=Travis%20CI&style=for-the-badge)](https://travis-ci.com/mumble-voip/mumble)
 
-> *http://mumble.info/*  
-> *#mumble on freenode*
+[https://www.mumble.info](https://www.mumble.info)
 
 Mumble is a voicechat program for gamers written on top of Qt and Opus.
 
