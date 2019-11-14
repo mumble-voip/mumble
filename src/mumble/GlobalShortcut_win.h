@@ -129,6 +129,9 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		/// @return      Returns true if the GlobalShortcut engine signalled that
 		///              the button should be suppressed. Returns false otherwise.
 		bool injectMouseMessage(MSG *msg);
+
+	private:
+		bool areScreenReadersActive();
 };
 
 uint qHash(const GUID &);

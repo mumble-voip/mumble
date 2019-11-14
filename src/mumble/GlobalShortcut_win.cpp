@@ -21,6 +21,9 @@
 // 3rdparty/xinputcheck-src.
 #include <xinputcheck.h>
 
+// Used to detect screen readers
+#include <tlhelp32.h>
+
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
@@ -129,7 +132,8 @@ GlobalShortcutWin::GlobalShortcutWin()
 #endif
 {
 	// Hidden setting to disable hooking
-	bHook = g.qs->value(QLatin1String("winhooks"), true).toBool();
+	// Also disable hooking if a screen reader is running
+	bHook = g.qs->value(QLatin1String("winhooks"), true).toBool() && !areScreenReadersActive();
 
 	moveToThread(this);
 	start(QThread::LowestPriority);
@@ -898,4 +902,26 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 bool GlobalShortcutWin::canSuppress() {
 	return bHook;
+}
+
+bool GlobalShortcutWin::areScreenReadersActive() {
+	// This list contains valid executables we consider to be 'screen readers'.
+	// Todo: perhaps make this a configuration option in mumble to let users dynamically add executables.
+	const QStringList executables = { QLatin1String("nvda.exe"), QLatin1String("jfw.exe") };
+
+	const auto snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (snapshot != INVALID_HANDLE_VALUE) {
+		PROCESSENTRY32 p;
+		p.dwSize = sizeof(p);
+		auto ok = Process32First(snapshot, &p);
+		while (ok) {
+			if (executables.contains(QString::fromWCharArray(p.szExeFile))) {
+				CloseHandle(snapshot);
+				return true;
+			}
+			ok = Process32Next(snapshot, &p);
+		}
+		CloseHandle(snapshot);
+	}
+	return false;
 }
