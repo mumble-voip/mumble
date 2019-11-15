@@ -591,9 +591,9 @@ jackaudio {
 
 portaudio {
   DEFINES *= USE_PORTAUDIO
-  must_pkgconfig(portaudio-2.0)
   HEADERS *= PAAudio.h
   SOURCES *= PAAudio.cpp
+  INCLUDEPATH *= ../../3rdparty/portaudio-src
 }
 
 asio {
