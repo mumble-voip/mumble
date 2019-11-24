@@ -22,8 +22,10 @@
 #include <atomic>
 
 #include <QMultiHash>
+#include <QSet>
 
 #include <grpc++/grpc++.h>
+#include <grpc++/security/auth_context.h>
 
 class RPCCall;
 
@@ -36,6 +38,15 @@ namespace MurmurRPC {
 		class V1_TextMessageFilter;
 	}
 }
+
+class MurmurRPCAuthenticator : public ::grpc_impl::AuthMetadataProcessor {
+	public:
+		MurmurRPCAuthenticator();
+		grpc::Status Process(const InputMetadata&, ::grpc::AuthContext*, OutputMetadata*, OutputMetadata*);
+		bool IsBlocking() const;
+	protected:
+		QSet<QByteArray> m_gRPCUsers;
+};
 
 class MurmurRPCImpl : public QThread {
 		Q_OBJECT;

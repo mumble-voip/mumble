@@ -303,6 +303,7 @@ void MetaParams::read(QString fname) {
 	qsGRPCAddress = typeCheckedFromSettings("grpc", qsGRPCAddress);
 	qsGRPCCert = typeCheckedFromSettings("grpccert", qsGRPCCert);
 	qsGRPCKey = typeCheckedFromSettings("grpckey", qsGRPCKey);
+	qsGRPCAuthorized = typeCheckedFromSettings("grpcauthorized", qsGRPCAuthorized);
 
 	iLogDays = typeCheckedFromSettings("logdays", iLogDays);
 
