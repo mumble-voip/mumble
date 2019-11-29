@@ -140,18 +140,22 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::Ser
 	m_completionQueue = builder.AddCompletionQueue();
 	m_server = builder.BuildAndStart();
 	meta->connectListener(this);
-	b_IsRunning = true;
+	m_isRunning = true;
 	start();
 }
 
 MurmurRPCImpl::~MurmurRPCImpl() {
 	void *ignored_tag;
 	bool ignored_ok;
-	b_IsRunning = false;
+	m_isRunning = false;
 	m_server->Shutdown(std::chrono::system_clock::now());
 	m_completionQueue->Shutdown();
-	while (m_completionQueue->Next(&ignored_tag, &ignored_ok))
-		;
+	while (m_completionQueue->Next(&ignored_tag, &ignored_ok)) {
+		if (ignored_tag) {
+			auto op = static_cast<boost::function<void(bool)> *>(ignored_tag);
+			delete op;
+		}
+	}
 }
 
 // ToRPC/FromRPC methods convert data to/from grpc protocol buffer messages.
@@ -1111,7 +1115,7 @@ void MurmurRPCImpl::customEvent(QEvent *evt) {
 void MurmurRPCImpl::run() {
 	MurmurRPC::Wrapper::V1_Init(this, &m_V1Service);
 
-	while (b_IsRunning) {
+	while (m_isRunning) {
 		void *tag;
 		bool ok;
 		if (!m_completionQueue->Next(&tag, &ok)) {

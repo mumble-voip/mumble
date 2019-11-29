@@ -40,7 +40,7 @@ namespace MurmurRPC {
 class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
 		std::unique_ptr<grpc::Server> m_server;
-		volatile bool b_IsRunning;
+		volatile bool m_isRunning;
 	protected:
 		void customEvent(QEvent *evt);
 	public:
