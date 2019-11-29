@@ -21,10 +21,10 @@
 #include <QtNetwork/QHostInfo>
 
 #ifdef USE_BONJOUR
-#include <dns_sd.h>
+# include <dns_sd.h>
+# include "BonjourRecord.h"
 #endif
 
-#include "BonjourRecord.h"
 #include "Net.h"
 #include "HostAddress.h"
 #include "Timer.h"
@@ -135,10 +135,10 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsContinentCode;
 
 		QString qsUrl;
-
+#ifdef USE_BONJOUR
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
-
+#endif
 		/// Contains the resolved addresses for
 		/// this ServerItem.
 		QList<ServerAddress> qlAddresses;
@@ -148,7 +148,9 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		ServerItem(const FavoriteServer &fs);
 		ServerItem(const PublicInfo &pi);
 		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password = QString());
+#ifdef USE_BONJOUR
 		ServerItem(const BonjourRecord &br);
+#endif
 		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
 		ServerItem(const ServerItem *si);
 		~ServerItem();
