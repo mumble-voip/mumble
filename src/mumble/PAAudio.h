@@ -9,7 +9,8 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 
-#include <QLibrary>
+#include <QtCore/QLibrary>
+#include <QtCore/QWaitCondition>
 
 #include <portaudio.h>
 
