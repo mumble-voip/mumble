@@ -544,7 +544,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"/>
+        <translation>Zur Verwendung von ASIO muss mindestens ein Mikrofon und eine Lautsprecher Quelle gewählt werden.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -938,23 +938,23 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"/>
+        <translation>Audioeingang</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Dies ist die Eingabemethode, die für Audio verwendet werden soll.</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"/>
+        <translation>Aktiviert den Low-Delay-Modus von Opus, wenn die Qualität auf &lt;b&gt;64 kb/s&lt;b/&gt; oder höher eingestellt ist. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"/>
+        <translation>Aktiviert den Low-Delay-Modus von Opus, wenn die Qualität auf &lt;b&gt;64 kb/s&lt;/b&gt; oder höher eingestellt ist. Der Low-Delay-Modus verringert die Latenzzeit im round trip um ~15 Millisekunden. Dieser Modus erfordert möglicherweise eine höhere Bitrate, um die gleiche Qualität im Vergleich zum Musik- oder VOIP-Modus zu erhalten.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"/>
+        <translation>Erlaube Low-Delay-Modus</translation>
     </message>
 </context>
 <context>
@@ -1265,15 +1265,15 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dies ist die Ausgabemethode, die für Audio verwendet wird.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Schwäche andere Benutzer ab, wärend mit dem Bevorzugter-Sprecher-Status gesprochen wird.&lt;/b&gt;&lt;br /&gt;Mumble unterstützt das Herabsetzen der Lautstärke anderer Benutzer während man selbst als &lt;i&gt;bevorzugter Sprecher&lt;/i&gt; spricht, um nicht gestört zu werden. Ein hier gesetzter Haken aktiviert diese Funktion.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Andere Benutzer leiser werden lassen während man als Bevorzugter Sprecher spricht.</translation>
     </message>
 </context>
 <context>
@@ -1858,11 +1858,11 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Dies ist die Eingabemethode, die für Audio verwendet werden soll.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dies ist die Ausgabemethode, die für Audio verwendet wird.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -3078,7 +3078,9 @@ der möglichen Orte initialisieren.</translation>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tastaturkürzel in privilegierten Anwendungen aktivieren&lt;/b&gt;,&lt;br /&gt;auch bekannt als &quot;UIAccess&quot;. Dies ermöglicht es Mumble, globale Tastaturkürzel von Programmen mit hohen Berechtigungsstufen zu empfangen, wie z.B. eine Admin Command Prompt oder ältere Spiele, die mit Administratorrechten ausgeführt werden.
+&lt;br /&gt;&lt;br /&gt;
+Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von Mumble in privilegierten Anwendungen nicht. Dies kann inkonsistent erscheinen: Wenn beispielsweise die Push-to-Talk Taste in einem nicht privilegierten Programm gedrückt, aber in einer privilegierten Anwendung losgelassen wird, bemerkt Mumble nicht, dass sie losgelassen wurde, und Sie werden weiter senden, bis Sie die Push-to-Talk Taste erneut drücken.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
@@ -3394,27 +3396,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Serververbindung abgebrochen</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"/>
+        <translation>Benutzer betrat den Server</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"/>
+        <translation>Benutzer verließ den Server</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"/>
+        <translation>Benutzer betrat Kanal</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"/>
+        <translation>Benutzer verließ den Kanal</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>Erlaubnis verweigert</translation>
     </message>
     <message>
         <source>Text message</source>
@@ -3422,11 +3424,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanal betreten</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"/>
+        <translation>Kanal betreten (verschoben)</translation>
     </message>
 </context>
 <context>
@@ -3586,25 +3588,27 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"/>
+        <translation>Wenn diese Option aktiviert ist, wird TTS Nachrichtenziele nicht vorlesen. </translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"/>
+        <translation>Nachrichtenziel weglassen</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"/>
+        <translation>Wenn diese Option aktiviert ist, wird TTS den Nachrichtenautor nicht vorlesen.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"/>
+        <translation>Nachrichtenautor weglassen</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
-        <translation type="unfinished"/>
+        <translation>Wenn diese Option aktiviert ist, wird die Zeit zu Beginn einer Nachricht im 24-Stunden-Format angezeigt.
+
+Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten das vorherige Zeitformat.</translation>
     </message>
     <message>
         <source>Use 24-hour clock</source>
@@ -4214,17 +4218,17 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Übertragungsmodus auf Push-to-Talk setzen</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Übertragungsmodus auf Kontinuierlich setzen</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Übertragungsmodus auf VAD setzen</translation>
     </message>
     <message>
         <source>Send Text Message</source>
@@ -5120,7 +5124,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished"/>
+        <translation>Das Laden von Opus ist fehlgeschlagen, es ist nicht für die Audiokodierung/Dekodierung verfügbar.</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -5269,7 +5273,31 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Aufruf: mumble [Optionen] [&lt;url&gt;]
+
+&lt;url&gt; gibt eine URL an, zu welcher verbunden werden soll anstatt
+das Verbindungsfenster nach dem Start anzuzeigen. Die URL hat folgende Form:
+mumble://[&lt;Benutzername&gt;[:&lt;Passwort&gt;]@]&lt;Host&gt;[:&lt;Port&gt;][/&lt;Kanal&gt;[/&lt;Unterkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+Der Versionsabfrageparameter muss angegeben sein, damit die korrekte Client-
+Version aufgerufen werden kann. Aktuell ist der Standardwert 1.2.0.
+
+Gültige Optionen sind:
+-h, --help Diesen Hilfetext anzeigen und dann beenden.
+-m, --multiple
+                Erlaubt das Starten mehrerer Instanzen des Clients.
+-n, --noidentity
+                Das Laden von Identitätsinformationen (z.B. Zertifikaten) unterdrücken.
+-jn, jackname
+                Setzt einen benutzerdefinierten Jack Klientennamen.
+--license
+                Zeige Mumble Lizenz.
+--authors
+                Zeige Mumble Autoren.
+--third-party-licenses
+                Zeige Lizenzen für third-party Software die Mumble verwendet.
+
+</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -5612,11 +5640,11 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
-        <translation type="unfinished"/>
+        <translation>Verletzung des Server-Synchronisationsprotokolls. Kein Benutzerprofil erhalten.</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
-        <translation type="unfinished"/>
+        <translation>Protokollverletzung. Server fordert Entfernung von belegtem Kanal.</translation>
     </message>
 </context>
 <context>
@@ -7456,7 +7484,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"/>
+        <translation>Der Zugang zum Mikrofon wurde verweigert. Bitte überprüfen Sie, ob die Mikrofoneinstellungen Ihres Betriebssystems es Mumble ermöglichen, das Mikrofon zu verwenden.</translation>
     </message>
 </context>
 <context>

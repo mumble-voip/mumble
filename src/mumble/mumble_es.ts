@@ -945,15 +945,15 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"/>
+        <translation>Habilitar Opus&apos; en Modo bajo-retardo cuando la calidad esta establecida en &lt;b&gt;64 kb/s&lt;/b&gt; o superior.</translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"/>
+        <translation>Si está marcada, Mumble habilitará el modo de bajo retardo de Opus cuando la calidad se establezca en &lt;b&gt;64 kbit/s&lt;/b&gt; o más. El modo de bajo retardo disminuye la latencia en &lt;b&gt;~15 milisegundos&lt;/b&gt; en el recorrido de ida y vuelta. Este modo puede requerir una tasa de bits más alta para preservar la misma calidad, en comparación con los modos de música y VOIP.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"/>
+        <translation>Permitir el modo retrardo bajo</translation>
     </message>
 </context>
 <context>
@@ -1265,7 +1265,7 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Atenúe a otros usuarios mientras habla como Orador Prioritario&lt;/b&gt;&lt;br /&gt;Mumble admite la disminución del volumen de otros usuarios mientras habla como &lt;i&gt;Orador Prioritario&lt;/i&gt; para evitar ser molestado. Marcar esta casilla de verificación habilitará esta función.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
@@ -1848,7 +1848,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sistema de salida a utilizar para audio.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -2061,7 +2061,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>No se puede importar. Falta la contraseña o el tipo de archivo incompatible.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
@@ -2311,7 +2311,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble puede usar certificados para autenticarse con los servidores. El uso de certificados evita las contraseñas, lo que significa que no necesita revelar ninguna contraseña al sitio remoto. También permite un registro de usuario muy fácil y una lista de amigos del lado del cliente independiente de los servidores.&lt;/p&gt; &lt;p&gt;Mumble puede funcionar sin certificados, la mayoría de los servidores esperan que tenga uno.&lt;/p&gt; &lt;p&gt;Crear un nuevo certificado automáticamente es suficiente para la mayoría de los casos. Mumble también admite certificados que representan confianza en la propiedad de los usuarios de una dirección de correo electrónico. Estos certificados son emitidos por terceros. Para obtener más información, consulte nuestra &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;documentación de certificado de usuario&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2774,7 +2774,9 @@ Nombre de usuario que se envia al servidor. Sepa que el servidor puede imponer r
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"/>
+        <translation>Actualmente estás conectado a un servidor.
+¿Desea llenar el cuadro de diálogo con los datos de conexión de este servidor?
+Host: %1 Puerto: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
@@ -2992,23 +2994,23 @@ de las ubicaciones posibles.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Motor de métodos abreviados adicionales&lt;/b&gt; &lt;br /&gt;Esta sección le permite configurar el uso del motor global de métodos abreviados adicionales.</translation>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
-        <translation>Motor de atajos adicionales</translation>
+        <translation>Motor de métodos abreviados adicionales</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Habilitar los hooks de Windows&lt;/b&gt;. &lt;br /&gt;Esto habilita el motor de métodos abreviados de los hooks de Windows. Este motor permite a Mumble suprimir las pulsaciones de teclas y los clicks del ratón.</translation>
     </message>
     <message>
         <source>Enable Windows hooks</source>
-        <translation type="unfinished"/>
+        <translation>Habilitar Windows hooks</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Habilitar GKey&lt;/b&gt;. &lt;br /&gt;Esta configuración habilita la compatibilidad con el motor de métodos abreviados GKey, para las teclas &quot;Gamer&quot; que se encuentran en los teclados Logitech.</translation>
     </message>
     <message>
         <source>Enable GKey</source>
@@ -3016,21 +3018,23 @@ de las ubicaciones posibles.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Habilitar XInput&lt;/b&gt; &lt;br /&gt;Esta configuración habilita la compatibilidad con el motor de métodos abreviados XInput, para controladores compatibles con Xbox.</translation>
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"/>
+        <translation>Habilitar XInput</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Habilitar los métodos abreviados en aplicaciones con privilegios&lt;/b&gt;. &lt;br /&gt;También conocido como &quot;UIAccess&quot;. Esto permite que Mumble reciba métodos abreviados globales de los eventos programas que se ejecutan en niveles de privilegios altos, como el administrador del símbolo del sistema o juegos más antiguos que se ejecutan con privilegios de administrador.
+&lt;br /&gt;&lt;br /&gt;
+Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplicaciones con privilegios no funcionará. Esto puede parecer inconsistente: por ejemplo, si se presiona el botón Presionar-para-Hablar en un programa sin privilegios, pero se libera en una aplicación con privilegios, Mumble no observará que se ha liberado y continuará hablando hasta que presione el botón Presionar-para-Hablar nuevamente.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"/>
+        <translation>Habilitar los métodos abreviados en las aplicaciones con privilegios</translation>
     </message>
 </context>
 <context>
@@ -3399,7 +3403,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Alternar a ventana resaltada (si no está activado) para %1 eventos</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
@@ -3416,7 +3420,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished"/>
+        <translation>Haga clic aquí para alternar el resaltado de la ventana para %1 eventos.&lt;br /&gt; Si está marcada, la ventana de Mumble se resaltará para cada evento %1, si no está activada.</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
@@ -3530,11 +3534,11 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"/>
+        <translation>Resaltar</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"/>
+        <translation>Si está habilitado, TTS no dictará el ámbito del mensaje.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
@@ -3552,7 +3556,9 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
-        <translation type="unfinished"/>
+        <translation>Si se marca, al comienzo de un mensaje la hora se mostrará en formato de 24 horas.
+
+La configuración solo se aplica a los mensajes nuevos, los que ya se muestran conservarán el formato de hora anterior.</translation>
     </message>
     <message>
         <source>Use 24-hour clock</source>
@@ -3801,11 +3807,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Esto establece el comportamiento de los arrastres del usuario; Se puede utilizar para evitar el arrastre accidental. &lt;i&gt;Mover&lt;/i&gt; mueve al usuario sin preguntar. &lt;i&gt;No hacer nada&lt;/i&gt; no hace nada e imprime un mensaje de error. &lt;i&gt;Preguntar&lt;/i&gt; utiliza un cuadro de mensaje para confirmar si realmente quería mover al usuario.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Habilitar el menú de desarrollador&lt;/b&gt; &lt;br /&gt;Esto habilita el menú &quot;Desarrollador&quot; en Mumble. Este menú se utiliza para funciones específicas del desarrollador, como la Consola del desarrollador.</translation>
     </message>
     <message>
         <source>Enable Developer menu</source>
@@ -3813,7 +3819,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
-        <translation type="unfinished"/>
+        <translation>Cuando está en modo de diseño personalizado, marcando esto se desactiva la reorganización.</translation>
     </message>
     <message>
         <source>Lock layout</source>
@@ -4084,7 +4090,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;li&gt;Resumen del certificado (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <source>Server presented a certificate which failed verification.</source>
@@ -4092,7 +4098,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Los errores específicos de este certificado son:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;¿Desea aceptar este certificado de todos modos?&lt;br /&gt; (También se almacenará para que no se le vuelva a preguntar.)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>SSL Version mismatch</source>
@@ -4179,12 +4185,12 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Enviar mensaje de texto del portapapeles</translation>
     </message>
     <message>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Esto enviará su contenido del Portapapeles al canal en el que se encuentra actualmente.</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -4919,7 +4925,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     </message>
     <message>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
-        <translation type="unfinished"/>
+        <translation>Límite de recuento de canales alcanzado. Necesita eliminar canales antes de crear nuevos.</translation>
     </message>
     <message>
         <source>Permission denied.</source>
@@ -4927,7 +4933,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     </message>
     <message>
         <source>%1 connected and entered channel.</source>
-        <translation>%1 conectado y entro en el canal.</translation>
+        <translation>%1 se a conectado y entro en el canal.</translation>
     </message>
     <message>
         <source>%1 connected.</source>
@@ -5065,7 +5071,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished"/>
+        <translation>No se pudo cargar Opus, no estará disponible para la codificación/decodificación del audio.</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -5170,7 +5176,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     </message>
     <message>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Tiene la opción de Arrastrar Usuario en &quot;No hacer nada&quot;, por lo que el usuario no se movió.</translation>
     </message>
     <message>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
@@ -5214,7 +5220,31 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Usar: mumble [opciones] [&lt;url&gt;]
+
+&lt;url&gt;especifica una URL para conectarse después del inicio en lugar de mostrar
+la ventana de conexión, y tiene la siguiente forma:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+El parámetro de consulta de versión debe establecerse para invocar
+Versión correcta del cliente. Actualmente, el valor predeterminado es 1.2.0.
+
+Las opciones válidas son:
+   -h, --help Muestra este texto de ayuda y sale.
+   -m, --multiple
+                 Permite que se inicien varias instancias del cliente.
+   -n, --noidentity
+                 Suprime la carga de archivos con identidad (i.e., certificados).
+   -jn, --jackname
+                 Establece el nombre del cliente Jack personalizado.
+   --license
+                 Muestra la licencia de Mumble.
+   --authors
+                 Muestra los autores de Mumble.
+   --third-party-licenses
+                 Muestra las licencias de software de terceros utilizado por Mumble.
+
+</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -5237,7 +5267,26 @@ Valid actions are:
                 Toggle self-deafen status
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Uso: mumble rpc&lt;action&gt; [opciones]
+
+Es posible controlar a distancia una instancia en ejecución de Mumble utilizando
+ el comando &apos;mumble rpc&apos;.
+
+Las acciones válidas son:
+   mudo
+                 Enmudecer
+   dejar de silenciar
+                 Desenmudecer
+   alternar enmudecer
+                 Alternar el estado de estar mudo automático
+   sordo
+                 Ensordecer
+   dejar de ensordecer
+                 dejar de ensordecer
+   alternar ensordecer
+                 Alternar estado de poder escuchar
+
+</translation>
     </message>
     <message>
         <source>Invocation</source>
@@ -5415,7 +5464,7 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation>Oculta la ventana principal de Mumble. Restaura haciendo clic en el icono de la bandeja o iniciando Mumble nuevamente.</translation>
     </message>
     <message>
         <source>Show the Developer Console</source>
@@ -5423,7 +5472,7 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Muestra la Consola de desarrollador de Mumble, donde se puede inspeccionar la salida del registro de Mumble.</translation>
     </message>
     <message>
         <source>&amp;Connect...</source>
@@ -5431,7 +5480,7 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>&amp;Ban list...</source>
-        <translation>Lista de &amp;Bans</translation>
+        <translation>Lista de &amp;Vetados</translation>
     </message>
     <message>
         <source>&amp;Information...</source>
@@ -5439,27 +5488,27 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>&amp;Kick...</source>
-        <translation>&amp;Expulsar...</translation>
+        <translation>&amp;Expulsar</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Prohibir</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation>Ajuste Local de Volumen...</translation>
+        <translation>Ajuste Local de Volumen</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
-        <translation>Enviar &amp;Mensaje...</translation>
+        <translation>Enviar &amp;Mensaje</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation>&amp;Agregar...</translation>
+        <translation>&amp;Agregar</translation>
     </message>
     <message>
         <source>&amp;Remove...</source>
-        <translation>Elimina&amp;r...</translation>
+        <translation>Elimina&amp;r</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -5479,7 +5528,7 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>Developer &amp;Console...</source>
-        <translation>&amp;Consola Desarrolladores...</translation>
+        <translation>&amp;Consola Desarrolladores</translation>
     </message>
     <message>
         <source>&amp;About...</source>
@@ -5499,39 +5548,39 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>&amp;Register...</source>
-        <translation>&amp;Registrar...</translation>
+        <translation>&amp;Registrar</translation>
     </message>
     <message>
         <source>Registered &amp;Users...</source>
-        <translation>&amp;Usuarios registrados...</translation>
+        <translation>&amp;Usuarios registrados</translation>
     </message>
     <message>
         <source>Change &amp;Avatar...</source>
-        <translation>Cambiar &amp;Avatar...</translation>
+        <translation>Cambiar &amp;Avatar</translation>
     </message>
     <message>
         <source>&amp;Access Tokens...</source>
-        <translation>Credenciales de &amp;Acceso...</translation>
+        <translation>Credenciales de &amp;Acceso</translation>
     </message>
     <message>
         <source>Reset &amp;Comment...</source>
-        <translation>Restablecer &amp;Comentario...</translation>
+        <translation>Restablecer &amp;Comentario</translation>
     </message>
     <message>
         <source>Reset &amp;Avatar...</source>
-        <translation>Reiniciar &amp;Avatar...</translation>
+        <translation>Reiniciar &amp;Avatar</translation>
     </message>
     <message>
         <source>View Comment...</source>
-        <translation>Ver comentario...</translation>
+        <translation>Ver comentario</translation>
     </message>
     <message>
         <source>&amp;Change Comment...</source>
-        <translation>&amp;Cambiar Comentario...</translation>
+        <translation>&amp;Cambiar Comentario</translation>
     </message>
     <message>
         <source>R&amp;egister...</source>
-        <translation>R&amp;egistrar...</translation>
+        <translation>R&amp;egistrar</translation>
     </message>
     <message>
         <source>Show</source>
@@ -5547,7 +5596,7 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
-        <translation type="unfinished"/>
+        <translation>Violación del protocolo. El servidor enviará la eliminación para el canal ocupado.</translation>
     </message>
 </context>
 <context>
@@ -5823,7 +5872,8 @@ en el menu contextual del canal.</translation>
     <message>
         <source>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
 Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;No envíe información del SO a los servidores&lt;/b&gt;&lt;br/&gt;
+Impide que el cliente envíe información potencialmente identificable sobre el sistema operativo al servidor de Mumble y a los servidores web.</translation>
     </message>
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
