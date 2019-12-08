@@ -84,6 +84,7 @@ public:
 	QString qsGRPCAddress;
 	QString qsGRPCCert;
 	QString qsGRPCKey;
+	QString qsGRPCAuthorized;
 
 	QString qsRegName;
 	QString qsRegPassword;
