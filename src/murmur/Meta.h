@@ -202,6 +202,10 @@ class Meta : public QObject {
 		void getOSInfo();
 		void connectListener(QObject *);
 		static void getVersion(int &major, int &minor, int &patch, QString &string);
+
+	public slots:
+		void aboutToQuit(void);
+
 	signals:
 		void started(Server *);
 		void stopped(Server *);

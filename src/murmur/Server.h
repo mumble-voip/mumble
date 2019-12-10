@@ -269,13 +269,18 @@ class Server : public QThread {
 		///    by itself, it DOES NOT hold a lock on qrwlVoiceThread.
 		///    That is because ownership of data guarantees that no
 		///    other thread can write to that data.
+#ifdef USE_GRPC
+		QReadWriteLock qrwlVoiceThread{QReadWriteLock::Recursive};
+		QMutex qmCache{QMutex::Recursive};
+#else
 		QReadWriteLock qrwlVoiceThread;
+		QMutex qmCache;
+#endif
 		QHash<unsigned int, ServerUser *> qhUsers;
 		QHash<QPair<HostAddress, quint16>, ServerUser *> qhPeerUsers;
 		QHash<HostAddress, QSet<ServerUser *> > qhHostUsers;
 		QHash<unsigned int, Channel *> qhChannels;
 
-		QMutex qmCache;
 		ChanACL::ACLCache acCache;
 
 		QHash<int, QString> qhUserNameCache;

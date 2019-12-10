@@ -162,9 +162,8 @@ grpc {
   DEFINES *= USE_GRPC
   INCLUDEPATH *= murmur_grpc
   LIBS *= -lmurmur_grpc
-
-  HEADERS *= MurmurGRPCImpl.h
-  SOURCES *= MurmurGRPCImpl.cpp
+  HEADERS *= MurmurGRPCImpl.h ./murmur_grpc/FiberScheduler.h
+  SOURCES *= MurmurGRPCImpl.cpp ./murmur_grpc/FiberScheduler.cpp
 
   GRPC_WRAPPER = MurmurRPC.proto
   grpc_wrapper.output = MurmurRPC.proto.Wrapper.cpp

@@ -21,181 +21,71 @@ using namespace google::protobuf::compiler;
 using namespace google::protobuf::io;
 
 const char *CSingle_SSingle = R"(
-class $service$_$method$ : public RPCSingleSingleCall< ::$in$, ::$out$ > {
-public:
-	::$ns$::$service$::AsyncService *service;
+struct $service$_$method$ {
+	typedef Detail::Unary::rpctype RPCType;
+	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	template<typename T>
+		using StreamType = ::grpc::ServerAsyncResponseWriter<T>;
+	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
-	}
+	void impl(rpcPtr, InType&);
 
-	void impl(bool ok);
-
-	void handle(bool ok) {
-		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
-		auto call = new $service$_$method$(rpc, service);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
-		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->request, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
+	static auto getRequestFn() {
+		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };
 )";
 
 const char *CSingle_SStream = R"(
-class $service$_$method$ : public RPCSingleStreamCall< ::$in$, ::$out$ > {
-public:
-	::$ns$::$service$::AsyncService *service;
+struct $service$_$method$ {
+	typedef Detail::ServerStream::rpctype RPCType;
+	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCSingleStreamCall(rpc_impl), service(async_service) {
-	}
+	template<typename T>
+		using StreamType = ::grpc::ServerAsyncWriter<T>;
 
-	void impl(bool ok);
-	void done(bool ok);
+	void impl(rpcPtr, InType&);
+	void onDone(rpcPtr, bool);
 
-	::boost::function<void(bool)> *callback(::boost::function<void($service$_$method$ *, bool)> cb) {
-		auto fn = ::boost::bind(&$service$_$method$::callbackAction, this, cb, _1);
-		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void handle(bool ok) {
-		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	void handleDone(bool ok) {
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::done, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
-		auto call = new $service$_$method$(rpc, service);
-		auto done_fn = ::boost::bind(&$service$_$method$::handleDone, call, _1);
-		auto done_fn_ptr = new ::boost::function<void(bool)>(done_fn);
-		call->context.AsyncNotifyWhenDone(done_fn_ptr);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
-		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->request, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
-	}
-
-private:
-
-	void callbackAction(::boost::function<void($service$_$method$ *, bool)> cb, bool ok) {
-		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+	static auto getRequestFn() {
+		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };
 )";
 
 const char *CStream_SSingle = R"(
-class $service$_$method$ : public RPCCall {
-public:
-	::$ns$::$service$::AsyncService *service;
+struct $service$_$method$ {
+	typedef Detail::ClientStream::rpctype RPCType;
+	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
-	::grpc::ServerAsyncReader< ::$out$, ::$in$ > stream;
-
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
-	}
-
-	void impl(bool ok);
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
-
-	void handle(bool ok) {
-		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
-		auto call = new $service$_$method$(rpc, service);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
-		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
+	static auto getRequestFn() {
+		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };
 )";
 
 const char *CStream_SStream = R"(
-class $service$_$method$ : public RPCStreamStreamCall< ::$in$, ::$out$ > {
-public:
-	::$ns$::$service$::AsyncService *service;
+struct $service$_$method$ {
+	typedef Detail::BidiStream::rpctype RPCType;
+	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
+	template<typename T, typename U>
+		using StreamType = ::grpc::ServerAsyncReaderWriter<T, U>;
+	void impl(rpcPtr);
+	void onDone(rpcPtr, bool);
 
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCStreamStreamCall(rpc_impl), service(async_service) {
-	}
-
-	void impl(bool ok);
-	void done(bool ok);
-
-	bool write() {
-		bool processed = false;
-		bool success;
-		auto cb = [&success, &processed] ($service$_$method$ *, bool ok) {
-			success = ok;
-			processed = true;
-		};
-		stream.Write(response, callback(cb));
-		while (!processed) {
-			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
-		}
-		return success;
-	}
-
-	bool read() {
-		bool processed = false;
-		bool success;
-		auto cb = [&success, &processed] ($service$_$method$ *, bool ok) {
-			success = ok;
-			processed = true;
-		};
-		stream.Read(&request, callback(cb));
-		while (!processed) {
-			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
-		}
-		return success;
-	}
-
-	bool writeRead() {
-		return write() && read();
-	}
-
-	::boost::function<void(bool)> *callback(::boost::function<void($service$_$method$ *, bool)> cb) {
-		auto fn = ::boost::bind(&$service$_$method$::callbackAction, this, cb, _1);
-		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void handle(bool ok) {
-		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	void handleDone(bool ok) {
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::done, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
-		auto call = new $service$_$method$(rpc, service);
-		auto done_fn = ::boost::bind(&$service$_$method$::handleDone, call, _1);
-		auto done_fn_ptr = new ::boost::function<void(bool)>(done_fn);
-		call->context.AsyncNotifyWhenDone(done_fn_ptr);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
-		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
-	}
-
-private:
-
-	void callbackAction(::boost::function<void($service$_$method$ *, bool)> cb, bool ok) {
-		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
+	static auto getRequestFn() {
+		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };
 )";
@@ -221,6 +111,9 @@ class WrapperGenerator : public CodeGenerator {
 			}
 		}
 		cpp.Print("namespace Wrapper {\n", "ns", ns);
+
+		cpp.Print("#ifndef MUMBLE_MURMUR_MURUR_MURMURGRPCWRAPPER_H_\n");
+		cpp.Print("#define MUMBLE_MURMUR_MURUR_MURMURGRPCWRAPPER_H_\n");
 
 		map<string, string> tpl;
 		tpl["ns"] = ns;
@@ -252,13 +145,17 @@ class WrapperGenerator : public CodeGenerator {
 				cpp.Print(tpl, template_str);
 			}
 
+			cpp.Print("#endif\n");
+			cpp.Print("#ifdef MUMBLE_MURMUR_GRPC_WRAPPER_IMPL\n");
 			cpp.Print(tpl, "void $service$_Init(MurmurRPCImpl *impl, ::$ns$::$service$::AsyncService *service) {\n");
 			for (int j = 0; j < service->method_count(); j++) {
 				auto method = service->method(j);
 				tpl["method"] = method->name();
-				cpp.Print(tpl, "\t$service$_$method$::create(impl, service);\n");
+				cpp.Print(tpl, "\tRPCCall<$service$_$method$>::create(impl, service);\n");
 			}
 			cpp.Print("}\n");
+			cpp.Print("#endif\n");
+
 		}
 
 		cpp.Print("\n");

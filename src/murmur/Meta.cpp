@@ -42,6 +42,12 @@ MetaParams Meta::mp;
 HANDLE Meta::hQoS = NULL;
 #endif
 
+#ifdef USE_GRPC
+// From MurmurGRPCImpl.cpp.
+void GRPCStart();
+void GRPCStop();
+#endif
+
 MetaParams::MetaParams() {
 	qsPassword = QString();
 	usPort = DEFAULT_MUMBLE_PORT;
@@ -647,6 +653,7 @@ Meta::Meta() {
 			Connection::setQoS(hQoS);
 	}
 #endif
+	connect(QCoreApplication::instance(), SIGNAL(aboutToQuit()), this, SLOT(aboutToQuit()), Qt::QueuedConnection);
 }
 
 Meta::~Meta() {
@@ -784,4 +791,13 @@ bool Meta::banCheck(const QHostAddress &addr) {
 		return true;
 	}
 	return false;
+}
+
+void Meta::aboutToQuit(void) {
+	qWarning("Killing running servers");
+	meta->killAll();
+	qWarning("Shutting down");
+#ifdef USE_GRPC
+	GRPCStop();
+#endif
 }

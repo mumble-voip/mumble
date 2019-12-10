@@ -37,6 +37,10 @@
 
 #include <boost/bind.hpp>
 
+#ifdef USE_GRPC
+# include <boost/fiber/all.hpp>
+#endif
+
 #ifdef Q_OS_WIN
 # include <qos2.h>
 # include <ws2tcpip.h>
@@ -742,6 +746,9 @@ void Server::run() {
 	++nfds;
 
 	while (bRunning) {
+#ifdef USE_GRPC
+		::boost::this_fiber::yield();
+#endif
 #ifdef Q_OS_UNIX
 		int pret = poll(fds, nfds, -1);
 		if (pret <= 0) {

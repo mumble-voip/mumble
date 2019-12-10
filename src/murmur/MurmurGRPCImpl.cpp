@@ -5,6 +5,8 @@
 
 #ifndef Q_MOC_RUN
 # include <boost/function.hpp>
+# include <boost/range/algorithm/remove_if.hpp>
+# include "./murmur_grpc/FiberScheduler.h"
 #endif
 
 #include "Mumble.pb.h"
@@ -12,6 +14,7 @@
 #include "../Message.h"
 #include "../Group.h"
 #include "MurmurGRPCImpl.h"
+
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Server.h"
@@ -23,8 +26,13 @@
 #include <QtCore/QStack>
 #include <QCryptographicHash>
 #include <QRegularExpression>
+#include <QTimer>
 
-#include "MurmurRPC.proto.Wrapper.cpp"
+#define MUMBLE_MURMUR_GRPC_WRAPPER_IMPL
+#ifndef Q_MOC_RUN
+# include "GRPCall.h"
+#endif
+#undef MUMBLE_MURMUR_GRPC_WRAPPER_IMPL
 
 // GRPC system overview
 // ====================
@@ -89,6 +97,20 @@
 
 static MurmurRPCImpl *service;
 
+void InjectThreadYield() {
+	using MurmurRPC::Wrapper::Detail::qtimer_deleter;
+	static std::function<void()> thisfunc = InjectThreadYield;
+	static std::unique_ptr<QTimer, qtimer_deleter> timer([](){
+		QTimer* t = new QTimer(QCoreApplication::instance());
+		t->setInterval(0);
+		t->setSingleShot(true);
+		t->callOnTimeout(QCoreApplication::instance(), std::ref(thisfunc));
+		return t;}(), qtimer_deleter());
+	QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
+	boost::this_fiber::yield();
+	timer->start();
+}
+
 void GRPCStart() {
 	const auto &address = meta->mp.qsGRPCAddress;
 	if (address.isEmpty()) {
@@ -129,13 +151,16 @@ void GRPCStart() {
 	}
 
 	service = new MurmurRPCImpl(address, credentials);
-
 	qWarning("GRPC: listening on '%s'", qPrintable(address));
+	QTimer::singleShot(0, QCoreApplication::instance(), [](){
+			boost::fibers::use_scheduling_algorithm<MurmurRPC::Scheduler::grpc_scheduler>(true);
+			InjectThreadYield();});
 }
 
 void GRPCStop() {
 	delete service;
 }
+
 
 // Check for valid fingerprints from the config and give a warning
 // if there aren't any valid ones
@@ -220,13 +245,15 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::Ser
 MurmurRPCImpl::~MurmurRPCImpl() {
 	void *ignored_tag;
 	bool ignored_ok;
+	m_server->Shutdown(std::chrono::system_clock::now() + std::chrono::seconds(5));
+	m_server->Wait();
 	m_isRunning = false;
-	m_server->Shutdown(std::chrono::system_clock::now());
 	m_completionQueue->Shutdown();
 	while (m_completionQueue->Next(&ignored_tag, &ignored_ok)) {
 		if (ignored_tag) {
-			auto op = static_cast<boost::function<void(bool)> *>(ignored_tag);
-			delete op;
+			//these should be on the stack now
+			//auto op = static_cast<boost::function<void(bool)> *>(ignored_tag);
+			//delete op;
 		}
 	}
 }
@@ -421,18 +448,15 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 
 // Sends a meta event to any subscribed listeners.
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
-	auto listeners = m_metaServiceListeners;
-
-	for (auto i = listeners.constBegin(); i != listeners.constEnd(); ++i) {
-		auto listener = *i;
-		listener->ref();
-		auto cb = [this, listener] (::MurmurRPC::Wrapper::V1_Events *, bool ok) {
-			if (!ok && m_metaServiceListeners.remove(listener)) {
-				listener->deref();
-			}
-			listener->deref();
-		};
-		listener->write(e, listener->callback(cb));
+	qDebug("sending meta events");
+	for (const auto& [id, listener] : m_metaServiceListeners.getLockedIndex(mwc::rpcid{})) {
+		auto cb = [&m_metaServiceListeners = m_metaServiceListeners, id](bool ok) {
+				if (!ok) {
+					(m_metaServiceListeners.getRPCIdPtr())->erase(id);
+				}
+			};
+		qDebug("sending write event for meta event, listenerid %u", id);
+		listener->Write(e, cb);
 	}
 }
 
@@ -451,6 +475,7 @@ void MurmurRPCImpl::started(::Server *server) {
 
 // Called when a server stops.
 void MurmurRPCImpl::stopped(::Server *server) {
+	qDebug("got server stopped: %d", server->iServerNum);
 	removeActiveContextActions(server);
 
 	::MurmurRPC::Event rpcEvent;
@@ -460,35 +485,68 @@ void MurmurRPCImpl::stopped(::Server *server) {
 }
 
 // Removes a connected text message filter.
-void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
-	auto filter = m_textMessageFilters.value(s->iServerNum);
-	if (!filter) {
+void MurmurRPCImpl::removeTextMessageFilter(int serverNum) {
+	auto idx = m_textMessageFilters.getServerPtr();
+	auto it = idx->find(serverNum);
+	if (it == idx->end()) {
 		return;
 	}
-	filter->error(::grpc::Status(::grpc::CANCELLED, "filter detached"));
-	m_textMessageFilters.remove(s->iServerNum);
+	auto filter = std::get<2>(*it).lock();
+	if (filter != nullptr) {
+		filter->error(::grpc::Status(::grpc::CANCELLED, "filter detached"));
+	}
+	idx->erase(it);
 }
 
-// Removes a connected authenticator.
-void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
-	auto authenticator = m_authenticators.value(s->iServerNum);
-	if (!authenticator) {
+// Removes a connected authenticator by server
+void MurmurRPCImpl::removeAuthenticator(int serverNum) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(serverNum);
+	if (it == idx->end()) {
 		return;
 	}
-	authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
-	m_authenticators.remove(s->iServerNum);
+	auto authenticator = std::get<2>(*it).lock();
+	if (authenticator != nullptr) {
+		authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
+	}
+	idx->erase(it);
+}
+
+// Removes a connected authenticator by worker id
+void MurmurRPCImpl::removeAuthenticator(uint32_t workerId) {
+	auto idx = m_authenticators.getRPCIdPtr();
+	auto it = idx->find(workerId);
+	if (it == idx->end()) {
+		return;
+	}
+	auto authenticator = std::get<2>(*it).lock();
+	if (authenticator != nullptr) {
+		authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
+	}
+	idx->erase(it);
 }
 
 // Called when a connecting user needs to be authenticated.
 void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto serverNum = s->iServerNum;
+	auto it = idx->find(serverNum);
+	if (it == idx->end()) {
 		return;
 	}
+	auto authenticator = std::get<2>(*it).lock();
+	auto authenticatorId = std::get<1>(*it);
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
 
-	auto &request = authenticator->response;
-	request.Clear();
+	bool ok;
+	::MurmurRPC::Authenticator_Response response;
+	::MurmurRPC::Authenticator_Request request;
+
 	request.mutable_authenticate()->set_name(u8(uname));
 	if (!pw.isEmpty()) {
 		request.mutable_authenticate()->set_password(u8(pw));
@@ -502,16 +560,23 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 		request.mutable_authenticate()->set_strong_certificate(certstrong);
 	}
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			res = -1;
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if(!ok) {
+		removeAuthenticator(authenticatorId);
+		// bad responces should be temp fails
+		res = -3;
+		return;
 	}
 
-	auto &response = authenticator->request;
+	s = meta->qhServers.value(serverNum, nullptr);
+	if (s == nullptr) {
+		//server deleted during network delays
+		res = -3;
+		return;
+	}
+
+
 	switch (response.authenticate().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		if (!response.authenticate().has_id()) {
@@ -549,24 +614,44 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 // Called when a user is being registered on the server.
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
+		return;
+	}
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
+	ToRPC(s, info, QByteArray(), request.mutable_register_()->mutable_user());
+
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+
+	if (!ok) {
+		removeAuthenticator(authId);
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
-	ToRPC(s, info, QByteArray(), request.mutable_register_()->mutable_user());
-
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	s = meta->qhServers.value(serverNum, nullptr);
+	if (s == nullptr) {
+		//server deleted during network delays
+		res = -3;
+		return;
 	}
 
-	auto &response = authenticator->request;
 	switch (response.register_().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		if (!response.register_().has_user() || !response.register_().user().has_id()) {
@@ -586,25 +671,38 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 // Called when a user is being deregistered on the server.
 void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
 	request.mutable_deregister()->mutable_user()->mutable_server()->set_id(s->iServerNum);
 	request.mutable_deregister()->mutable_user()->set_id(id);
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
-	}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
 
-	auto &response = authenticator->request;
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
+	}
 
 	if (response.deregister().status() != ::MurmurRPC::Authenticator_Response_Status_Fallthrough) {
 		res = 0;
@@ -614,26 +712,38 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 // Called when a list of registered users is requested.
 void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
 	if (!filter.isEmpty()) {
 		request.mutable_query()->set_filter(u8(filter));
 	}
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
 	}
-
-	auto &response = authenticator->request;
 
 	for (int i = 0; i < response.query().users_size(); i++) {
 		const auto &user = response.query().users(i);
@@ -647,26 +757,38 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 // Called when information about a registered user is requested.
 void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
 	request.mutable_find()->set_id(id);
 
 	res = -1;
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
 	}
 
-	auto &response = authenticator->request;
 	if (response.find().has_user()) {
 		FromRPC(response.find().user(), info);
 		res = 1;
@@ -676,27 +798,40 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 // Called when information about a registered user is being updated.
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
 	request.mutable_update()->mutable_user()->set_id(id);
 	ToRPC(s, info, QByteArray(), request.mutable_update()->mutable_user());
 
 	res = 0;
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
 	}
 
-	auto &response = authenticator->request;
 	switch (response.update().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		res = 1;
@@ -712,25 +847,38 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 // Called when a texture for a registered user is being updated.
 void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
 	request.mutable_update()->mutable_user()->set_id(id);
 	request.mutable_update()->mutable_user()->set_texture(texture.constData(), texture.size());
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
 	}
 
-	auto &response = authenticator->request;
 	if (response.update().status() == ::MurmurRPC::Authenticator_Response_Status_Success) {
 		res = 1;
 	}
@@ -739,24 +887,36 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 // Called when a user name needs to be converted to a user ID.
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
 	request.mutable_find()->set_name(u8(name));
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
 	}
 
-	auto &response = authenticator->request;
 	if (response.find().has_user() && response.find().user().has_id()) {
 		res = response.find().user().id();
 	}
@@ -765,24 +925,37 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 // Called when a user ID needs to be converted to a user name.
 void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
 	request.mutable_find()->set_id(id);
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
 	}
 
-	auto &response = authenticator->request;
 	if (response.find().has_user() && response.find().user().has_name()) {
 		res = u8(response.find().user().name());
 	}
@@ -791,24 +964,37 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 // Called when a texture for a given registered user is requested.
 void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
-	if (!authenticator) {
+	auto idx = m_authenticators.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
 
-	auto &request = authenticator->response;
-	request.Clear();
+	int serverNum;
+	uint32_t authId;
+	std::weak_ptr<RPCCall<::MurmurRPC::Wrapper::V1_AuthenticatorStream>> authWeak;
+	std::tie(serverNum, authId, authWeak) = *it;
+
+	auto authenticator = authWeak.lock();
+	if (authenticator == nullptr) {
+		idx->erase(it);
+		return;
+	}
+	idx = nullptr;
+
+	::MurmurRPC::Authenticator_Request request;
+	::MurmurRPC::Authenticator_Response response;
+	bool ok;
+
 	request.mutable_find()->set_id(id);
 
-	{
-		QMutexLocker l(&qmAuthenticatorsLock);
-		if (!authenticator->writeRead()) {
-			removeAuthenticator(s);
-			return;
-		}
+	auto future = authenticator->writeRead(request);
+	std::tie(ok, response) = future.get();
+	if (!ok) {
+		removeAuthenticator(authId);
+		return;
 	}
 
-	auto &response = authenticator->request;
 	if (response.find().has_user() && response.find().user().has_texture()) {
 		const auto &texture = response.find().user().texture();
 		res = QByteArray(texture.data(), texture.size());
@@ -817,20 +1003,18 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 
 // Sends a server event to subscribed listeners.
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
-	auto listeners = m_serverServiceListeners;
 	auto serverID = s->iServerNum;
-	auto i = listeners.find(serverID);
+	auto&& attached = m_serverServiceListeners.getLocked(
+			[&serverID](const auto& c){const auto& idx = c.getServerIndex();
+								 return idx.equal_range(serverID);});
 
-	for ( ; i != listeners.end() && i.key() == serverID; ++i) {
-		auto listener = i.value();
-		listener->ref();
-		auto cb = [this, listener, serverID] (::MurmurRPC::Wrapper::V1_ServerEvents *, bool ok) {
-			if (!ok && m_serverServiceListeners.remove(serverID, listener) > 0) {
-				listener->deref();
+	for (auto&& [ignore, listenerId, listener] : attached) {
+		auto cb = [this, listenerId](bool ok) {
+			if (!ok) {
+				(this->m_serverServiceListeners.getRPCIdPtr())->erase(listenerId);
 			}
-			listener->deref();
 		};
-		listener->write(e, listener->callback(cb));
+		listener->Write(e, cb);
 	}
 }
 
@@ -917,13 +1101,22 @@ void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 // Called when a user sends a text message.
 void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::TextMessage &message) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto filter = RPCCall::Ref<::MurmurRPC::Wrapper::V1_TextMessageFilter>(m_textMessageFilters.value(s->iServerNum));
-	if (!filter) {
+
+	auto idx = m_textMessageFilters.getServerPtr();
+	auto it = idx->find(s->iServerNum);
+	if (it == idx->end()) {
 		return;
 	}
+	auto filter = std::get<2>(*it).lock();
+	if (filter == nullptr) {
+		return;
+	}
+	auto filterId = filter->getId();
+	idx = nullptr;
 
-	auto &request = filter->response;
-	request.Clear();
+	::MurmurRPC::TextMessage_Filter response;
+	::MurmurRPC::TextMessage_Filter request;
+
 	request.mutable_server()->set_id(s->iServerNum);
 	auto m = request.mutable_message();
 	m->mutable_server()->set_id(s->iServerNum);
@@ -946,15 +1139,12 @@ void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::T
 	}
 	m->set_text(message.message());
 
-	{
-		QMutexLocker l(&qmTextMessageFilterLock);
-		if (!filter->writeRead()) {
-			removeTextMessageFilter(s);
-			return;
-		}
+	bool ok;
+	std::tie(ok, response) = filter->writeRead(request).get();
+	if (!ok) {
+		m_textMessageFilters.getRPCIdPtr()->erase(filterId);
+		return;
 	}
-
-	auto &response = filter->request;
 	res = response.action();
 	switch (response.action()) {
 	case ::MurmurRPC::TextMessage_Filter_Action_Accept:
@@ -969,19 +1159,21 @@ void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::T
 
 // Has the user been sent the given context action?
 bool MurmurRPCImpl::hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
-	const auto &m = m_activeContextActions;
-	if (!m.contains(s->iServerNum)) {
+	const auto &m = this->m_activeContextActions;
+	auto server = m.find(s->iServerNum);
+	if (server == m.end()) {
 		return false;
 	}
-	const auto &n = m.value(s->iServerNum);
-	if (!n.contains(u->uiSession)) {
+	auto sessions = server->equal_range(u->uiSession);
+	if ( sessions.first == server->end()) {
 		return false;
 	}
-	const auto &o = n.value(u->uiSession);
-	if (!o.contains(action)) {
-		return false;
+	for (auto it = sessions.first; it != sessions.second; ++it) {
+		if (it->contains(action)) {
+			return true;
+		}
 	}
-	return true;
+	return false;
 }
 
 // Add the context action to the user's active context actions.
@@ -1041,19 +1233,22 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 		ca.mutable_channel()->set_id(channel);
 	}
 
-	auto serverID = s->iServerNum;
-	auto listeners = this->m_contextActionListeners.value(serverID);
-	auto i = listeners.find(action);
-	for ( ; i != listeners.end() && i.key() == action; ++i) {
-		auto listener = i.value();
-		listener->ref();
-		auto cb = [this, listener, serverID, action] (::MurmurRPC::Wrapper::V1_ContextActionEvents *, bool ok) {
-			if (!ok && m_contextActionListeners[serverID].remove(action, listener) > 0) {
-				listener->deref();
+	uint32_t rpcId;
+	std::shared_ptr<RPCCall<::MurmurRPC::Wrapper::V1_ContextActionEvents>> listener;
+
+	const auto& listeners = m_contextActionListeners.getLocked(
+			[&s, &action] (const auto& c) {
+			const auto& idx = c.getActionIndex();
+			const auto& rng = idx.equal_range(std::forward_as_tuple(s->iServerNum, action.toStdString()));
+			return rng;});
+	for (const auto& item : listeners) {
+		std::tie(std::ignore , std::ignore , rpcId, listener) = item;
+		auto cb = [this, rpcId](bool ok) {
+			if (!ok) {
+				m_contextActionListeners.getRPCIdPtr()->erase(rpcId);
 			}
-			listener->deref();
 		};
-		listener->write(ca, listener->callback(cb));
+		listener->Write(ca, cb);
 	}
 }
 
@@ -1177,32 +1372,47 @@ template <>
 }
 
 // Qt event listener for RPCExecEvents.
+/* this should be obsolete now
 void MurmurRPCImpl::customEvent(QEvent *evt) {
 	if (evt->type() == EXEC_QEVENT) {
 		auto event = static_cast<RPCExecEvent *>(evt);
 		try {
 			event->execute();
 		} catch (::grpc::Status &ex) {
-			event->call->error(ex);
+			event->error(ex);
 		}
 	}
 }
+*/
 
 // QThread::run() implementation that runs the grpc event loop and executes
 // tags as callback functions.
 void MurmurRPCImpl::run() {
-	MurmurRPC::Wrapper::V1_Init(this, &m_V1Service);
+	boost::fibers::use_scheduling_algorithm<MurmurRPC::Scheduler::grpc_scheduler>();
 
+	void *tag;
+	bool ok;
+	grpc::CompletionQueue::NextStatus status;
+
+
+	MurmurRPC::Wrapper::V1_Init(this, &m_V1Service);
 	while (m_isRunning) {
-		void *tag;
-		bool ok;
-		if (!m_completionQueue->Next(&tag, &ok)) {
-			break;
-		}
-		if (tag != nullptr) {
-			auto op = static_cast<boost::function<void(bool)> *>(tag);
-			(*op)(ok);
-			delete op;
+		boost::this_fiber::yield();
+		status = m_completionQueue->AsyncNext(&tag, &ok,
+				std::chrono::system_clock::now() + std::chrono::milliseconds(200));
+
+		switch(status) {
+			case grpc::CompletionQueue::SHUTDOWN:
+				return;
+			case grpc::CompletionQueue::TIMEOUT:
+				continue;
+			case grpc::CompletionQueue::GOT_EVENT:
+			if (tag != nullptr) {
+				auto op = static_cast<boost::function<void(bool)> *>(tag);
+				(*op)(ok);
+				//new plan is to have these all stack allocated
+				//delete op;
+			}
 		}
 	}
 	// TODO(grpc): cleanup allocated memory? not super important, because murmur
@@ -1219,15 +1429,15 @@ void MurmurRPCImpl::run() {
 namespace MurmurRPC {
 namespace Wrapper {
 
-void V1_ServerCreate::impl(bool) {
+void V1_ServerCreate::impl(V1_ServerCreate::rpcPtr rpc, V1_ServerCreate::InType&) {
 	auto id = ServerDB::addServer();
 
 	::MurmurRPC::Server rpcServer;
 	rpcServer.set_id(id);
-	end(rpcServer);
+	rpc->end(rpcServer);
 }
 
-void V1_ServerQuery::impl(bool) {
+void V1_ServerQuery::impl(V1_ServerQuery::rpcPtr rpc, V1_ServerQuery::InType&) {
 	::MurmurRPC::Server_List list;
 
 	foreach(int id, ServerDB::getAllServers()) {
@@ -1241,10 +1451,10 @@ void V1_ServerQuery::impl(bool) {
 		}
 	}
 
-	end(list);
+	rpc->end(list);
 }
 
-void V1_ServerGet::impl(bool) {
+void V1_ServerGet::impl(V1_ServerGet::rpcPtr rpc, V1_ServerGet::InType& request) {
 	auto serverID = MustServerID(request);
 
 	::MurmurRPC::Server rpcServer;
@@ -1256,26 +1466,26 @@ void V1_ServerGet::impl(bool) {
 		rpcServer.mutable_uptime()->set_secs(server->tUptime.elapsed()/1000000LL);
 	} catch (::grpc::Status &ex) {
 	}
-	end(rpcServer);
+	rpc->end(rpcServer);
 }
 
-void V1_ServerStart::impl(bool) {
+void V1_ServerStart::impl(V1_ServerStart::rpcPtr rpc, V1_ServerStart::InType& request) {
 	auto serverID = MustServerID(request);
 
 	if (!meta->boot(serverID)) {
 		throw ::grpc::Status(::grpc::UNKNOWN, "server could not be started, or is already started");
 	}
 
-	end();
+	rpc->end();
 }
 
-void V1_ServerStop::impl(bool) {
+void V1_ServerStop::impl(V1_ServerStop::rpcPtr rpc, V1_ServerStop::InType& request) {
 	auto server = MustServer(request);
 	meta->kill(server->iServerNum);
-	end();
+	rpc->end();
 }
 
-void V1_ServerRemove::impl(bool) {
+void V1_ServerRemove::impl(V1_ServerRemove::rpcPtr rpc, V1_ServerRemove::InType& request) {
 	auto serverID = MustServerID(request);
 
 	if (meta->qhServers.value(serverID)) {
@@ -1283,53 +1493,59 @@ void V1_ServerRemove::impl(bool) {
 	}
 
 	ServerDB::deleteServer(serverID);
-	end();
+	rpc->end();
 }
 
-void V1_ServerEvents::impl(bool) {
+void V1_ServerEvents::impl(V1_ServerEvents::rpcPtr ptr, V1_ServerEvents::InType& request) {
 	auto server = MustServer(request);
-	rpc->m_serverServiceListeners.insert(server->iServerNum, this);
+	ptr->rpc->m_serverServiceListeners.emplace(
+			std::forward_as_tuple(
+				server->iServerNum,
+				ptr->getId(),
+				ptr->getWeakPtr()
+			)
+		);
 }
 
-void V1_ServerEvents::done(bool) {
-	auto &ssls = rpc->m_serverServiceListeners;
-	auto i = std::find(ssls.begin(), ssls.end(), this);
-	if (i != ssls.end()) {
-		ssls.erase(i);
-	}
-	deref();
+void V1_ServerEvents::onDone(V1_ServerEvents::rpcPtr ptr, bool) {
+	ptr->rpc->m_serverServiceListeners.getRPCIdPtr()->erase(ptr->getId());
 }
 
-void V1_GetUptime::impl(bool) {
+void V1_GetUptime::impl(V1_GetUptime::rpcPtr rpc, V1_GetUptime::InType&) {
 	::MurmurRPC::Uptime uptime;
 	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
-	end(uptime);
+	rpc->end(uptime);
 }
 
-void V1_GetVersion::impl(bool) {
+void V1_GetVersion::impl(V1_GetVersion::rpcPtr rpc,  V1_GetVersion::InType&) {
 	::MurmurRPC::Version version;
 	int major, minor, patch;
 	QString release;
 	Meta::getVersion(major, minor, patch, release);
 	version.set_version(major << 16 | minor << 8 | patch);
 	version.set_release(u8(release));
-	end(version);
+	rpc->end(version);
 }
 
-void V1_Events::impl(bool) {
-	rpc->m_metaServiceListeners.insert(this);
+void V1_Events::impl(V1_Events::rpcPtr ptr, V1_Events::InType&) {
+	qDebug("adding meta event listener: %u", ptr->getId());
+	ptr->rpc->m_metaServiceListeners.emplace(
+			std::forward_as_tuple(
+				ptr->getId(),
+				ptr->getWeakPtr()
+			)
+		);
 }
 
-void V1_Events::done(bool) {
-	auto &msls = rpc->m_metaServiceListeners;
-	auto i = std::find(msls.begin(), msls.end(), this);
-	if (i != msls.end()) {
-		msls.erase(i);
+void V1_Events::onDone(V1_Events::rpcPtr ptr, bool) {
+	qDebug("done meta event listener: %u", ptr->getId());
+	auto msls = ptr->rpc->m_metaServiceListeners.getRPCIdPtr();
+	if (msls->erase(ptr->getId()) > 0) {
+		qDebug("removed meta event listener: %u", ptr->getId());
 	}
-	deref();
 }
 
-void V1_ContextActionAdd::impl(bool) {
+void V1_ContextActionAdd::impl(V1_ContextActionAdd::rpcPtr ptr, V1_ContextActionAdd::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1343,7 +1559,7 @@ void V1_ContextActionAdd::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing context");
 	}
 
-	rpc->addActiveContextAction(server, user, u8(request.action()));
+	ptr->rpc->addActiveContextAction(server, user, u8(request.action()));
 
 	::MumbleProto::ContextActionModify mpcam;
 	mpcam.set_action(request.action());
@@ -1352,10 +1568,10 @@ void V1_ContextActionAdd::impl(bool) {
 	mpcam.set_operation(::MumbleProto::ContextActionModify_Operation_Add);
 	server->sendMessage(user, mpcam);
 
-	end();
+	ptr->end();
 }
 
-void V1_ContextActionRemove::impl(bool) {
+void V1_ContextActionRemove::impl(V1_ContextActionRemove::rpcPtr ptr, V1_ContextActionRemove::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
@@ -1371,7 +1587,7 @@ void V1_ContextActionRemove::impl(bool) {
 	if (request.has_user()) {
 		// Remove context action from specific user
 		auto user = MustUser(server, request);
-		rpc->removeActiveContextAction(server, user, action);
+		ptr->rpc->removeActiveContextAction(server, user, action);
 		server->sendMessage(user, mpcam);
 	} else {
 		// Remove context action from all users
@@ -1379,43 +1595,35 @@ void V1_ContextActionRemove::impl(bool) {
 			if (user->sState != ServerUser::Authenticated) {
 				continue;
 			}
-			rpc->removeActiveContextAction(server, user, action);
+			ptr->rpc->removeActiveContextAction(server, user, action);
 			server->sendMessage(user, mpcam);
 		}
 	}
 
-	end();
+	ptr->end();
 }
 
-void V1_ContextActionEvents::impl(bool) {
+void V1_ContextActionEvents::impl(V1_ContextActionEvents::rpcPtr ptr, V1_ContextActionEvents::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
 	}
 
-	rpc->m_contextActionListeners[server->iServerNum].insert(u8(request.action()), this);
-}
-
-void V1_ContextActionEvents::done(bool) {
-	auto server = MustServer(request);
-	auto &cals = rpc->m_contextActionListeners;
-	auto &scals = cals[server->iServerNum];
-
-	auto i = std::find(scals.begin(), scals.end(), this);
-	if (i != scals.end()) {
-		scals.erase(i);
-	}
-	deref();
-	if (scals.isEmpty()) {
-		auto i = std::find(cals.begin(), cals.end(), scals);
-		if (i != cals.end()) {
-			cals.erase(i);
-		}
+	bool ok;
+	std::tie(std::ignore, ok) = ptr->rpc->m_contextActionListeners.emplace( server->iServerNum, request.action(),
+				ptr->getId(), ptr->getWeakPtr());
+	if (!ok) {
+		throw ::grpc::Status(::grpc::ABORTED, "failed to add listener");
 	}
 }
 
-void V1_TextMessageSend::impl(bool) {
+void V1_ContextActionEvents::onDone(V1_ContextActionEvents::rpcPtr ptr, bool) {
+	auto idx = ptr->rpc->m_contextActionListeners.getRPCIdPtr();
+	idx->erase(ptr->getId());
+}
+
+void V1_TextMessageSend::impl(V1_TextMessageSend::rpcPtr rpc, V1_TextMessageSend::InType& request) {
 	auto server = MustServer(request);
 
 	::MumbleProto::TextMessage tm;
@@ -1441,33 +1649,33 @@ void V1_TextMessageSend::impl(bool) {
 
 	server->sendTextMessageGRPC(tm);
 
-	end();
+	rpc->end();
 }
 
-void V1_TextMessageFilter::impl(bool) {
-	auto onInitialize = [this] (V1_TextMessageFilter *, bool ok) {
-		if (!ok) {
-			finish(ok);
-			return;
-		}
-		auto server = MustServer(request);
-		QMutexLocker l(&rpc->qmTextMessageFilterLock);
-		rpc->removeTextMessageFilter(server);
-		rpc->m_textMessageFilters.insert(server->iServerNum, this);
-	};
-	stream.Read(&request, callback(onInitialize));
-}
+void V1_TextMessageFilter::impl(V1_TextMessageFilter::rpcPtr ptr) {
+	bool ok;
+	::MurmurRPC::TextMessage_Filter request;
 
-void V1_TextMessageFilter::done(bool) {
-	auto server = MustServer(request);
-	auto filter = rpc->m_textMessageFilters.value(server->iServerNum);
-	if (filter == this) {
-		rpc->m_textMessageFilters.remove(server->iServerNum);
+	auto future = ptr->read();
+	std::tie(ok, request) = future.get();
+	if ((!ok) || ptr->m_isCancelled) {
+		return;
 	}
-	deref();
+	auto server = MustServer(request);
+	ptr->rpc->removeTextMessageFilter(server->iServerNum);
+	ptr->rpc->m_textMessageFilters.emplace(
+			std::forward_as_tuple(server->iServerNum, ptr->getId(), ptr->getWeakPtr()));
 }
 
-void V1_LogQuery::impl(bool) {
+void V1_TextMessageFilter::onDone(V1_TextMessageFilter::rpcPtr ptr, bool) {
+	auto idx = ptr->rpc->m_textMessageFilters.getRPCIdPtr();
+
+	if( idx->erase( ptr->getId() ) > 0 ) {
+		qDebug("erased worker %u from filter list", ptr->getId());
+	}
+}
+
+void V1_LogQuery::impl(V1_LogQuery::rpcPtr rpc, V1_LogQuery::InType& request) {
 	auto serverID = MustServerID(request);
 
 	int total = ::ServerDB::getLogLen(serverID);
@@ -1480,7 +1688,7 @@ void V1_LogQuery::impl(bool) {
 	list.set_total(total);
 
 	if (!request.has_min() || !request.has_max()) {
-		end(list);
+		rpc->end(list);
 		return;
 	}
 	list.set_min(request.min());
@@ -1492,10 +1700,10 @@ void V1_LogQuery::impl(bool) {
 		ToRPC(serverID, record, rpcLog);
 	}
 
-	end(list);
+	rpc->end(list);
 }
 
-void V1_ConfigGet::impl(bool) {
+void V1_ConfigGet::impl(V1_ConfigGet::rpcPtr rpc, V1_ConfigGet::InType& request) {
 	auto serverID = MustServerID(request);
 	auto config = ServerDB::getAllConf(serverID);
 
@@ -1506,10 +1714,10 @@ void V1_ConfigGet::impl(bool) {
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	end(rpcConfig);
+	rpc->end(rpcConfig);
 }
 
-void V1_ConfigGetField::impl(bool) {
+void V1_ConfigGetField::impl(V1_ConfigGetField::rpcPtr rpc, V1_ConfigGetField::InType& request) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1518,10 +1726,10 @@ void V1_ConfigGetField::impl(bool) {
 	rpcField.mutable_server()->set_id(serverID);
 	rpcField.set_key(request.key());
 	rpcField.set_value(u8(ServerDB::getConf(serverID, u8(request.key()), QVariant()).toString()));
-	end(rpcField);
+	rpc->end(rpcField);
 }
 
-void V1_ConfigSetField::impl(bool) {
+void V1_ConfigSetField::impl(V1_ConfigSetField::rpcPtr rpc, V1_ConfigSetField::InType& request) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1538,20 +1746,20 @@ void V1_ConfigSetField::impl(bool) {
 	} catch (::grpc::Status &ex) {
 	}
 
-	end();
+	rpc->end();
 }
 
-void V1_ConfigGetDefault::impl(bool) {
+void V1_ConfigGetDefault::impl(V1_ConfigGetDefault::rpcPtr rpc, V1_ConfigGetDefault::InType&) {
 	::MurmurRPC::Config rpcConfig;
 	auto &fields = *rpcConfig.mutable_fields();
 	for (auto i = meta->mp.qmConfig.constBegin(); i != meta->mp.qmConfig.constEnd(); ++i) {
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	end(rpcConfig);
+	rpc->end(rpcConfig);
 }
 
-void V1_ChannelQuery::impl(bool) {
+void V1_ChannelQuery::impl(V1_ChannelQuery::rpcPtr rpc, V1_ChannelQuery::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Channel_List list;
@@ -1562,19 +1770,19 @@ void V1_ChannelQuery::impl(bool) {
 		ToRPC(server, channel, rpcChannel);
 	}
 
-	end(list);
+	rpc->end(list);
 }
 
-void V1_ChannelGet::impl(bool) {
+void V1_ChannelGet::impl(V1_ChannelGet::rpcPtr rpc, V1_ChannelGet::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	end(rpcChannel);
+	rpc->end(rpcChannel);
 }
 
-void V1_ChannelAdd::impl(bool) {
+void V1_ChannelAdd::impl(V1_ChannelAdd::rpcPtr rpc, V1_ChannelAdd::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_parent() || !request.has_name()) {
@@ -1616,10 +1824,10 @@ void V1_ChannelAdd::impl(bool) {
 
 	::MurmurRPC::Channel resChannel;
 	ToRPC(server, nc, &resChannel);
-	end(resChannel);
+	rpc->end(resChannel);
 }
 
-void V1_ChannelRemove::impl(bool) {
+void V1_ChannelRemove::impl(V1_ChannelRemove::rpcPtr rpc, V1_ChannelRemove::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1629,10 +1837,10 @@ void V1_ChannelRemove::impl(bool) {
 
 	server->removeChannel(channel);
 
-	end();
+	rpc->end();
 }
 
-void V1_ChannelUpdate::impl(bool) {
+void V1_ChannelUpdate::impl(V1_ChannelUpdate::rpcPtr rpc, V1_ChannelUpdate::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1667,10 +1875,10 @@ void V1_ChannelUpdate::impl(bool) {
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	end(rpcChannel);
+	rpc->end(rpcChannel);
 }
 
-void V1_UserQuery::impl(bool) {
+void V1_UserQuery::impl(V1_UserQuery::rpcPtr rpc, V1_UserQuery::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User_List list;
@@ -1684,10 +1892,10 @@ void V1_UserQuery::impl(bool) {
 		ToRPC(server, user, rpcUser);
 	}
 
-	end(list);
+	rpc->end(list);
 }
 
-void V1_UserGet::impl(bool) {
+void V1_UserGet::impl(V1_UserGet::rpcPtr rpc, V1_UserGet::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User rpcUser;
@@ -1696,7 +1904,7 @@ void V1_UserGet::impl(bool) {
 		// Lookup user by session
 		auto user = MustUser(server, request);
 		ToRPC(server, user, &rpcUser);
-		end(rpcUser);
+		rpc->end(rpcUser);
 		return;
 	} else if (request.has_name()) {
 		// Lookup user by name
@@ -1707,7 +1915,7 @@ void V1_UserGet::impl(bool) {
 			}
 			if (user->qsName == qsName) {
 				ToRPC(server, user, &rpcUser);
-				end(rpcUser);
+				rpc->end(rpcUser);
 				return;
 			}
 		}
@@ -1717,7 +1925,7 @@ void V1_UserGet::impl(bool) {
 	throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "session or name required");
 }
 
-void V1_UserUpdate::impl(bool) {
+void V1_UserUpdate::impl(V1_UserUpdate::rpcPtr rpc, V1_UserUpdate::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1754,10 +1962,10 @@ void V1_UserUpdate::impl(bool) {
 
 	::MurmurRPC::User rpcUser;
 	ToRPC(server, user, &rpcUser);
-	end(rpcUser);
+	rpc->end(rpcUser);
 }
 
-void V1_UserKick::impl(bool) {
+void V1_UserKick::impl(V1_UserKick::rpcPtr rpc, V1_UserKick::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1772,10 +1980,10 @@ void V1_UserKick::impl(bool) {
 	server->sendAll(mpur);
 	user->disconnectSocket();
 
-	end();
+	rpc->end();
 }
 
-void V1_TreeQuery::impl(bool) {
+void V1_TreeQuery::impl(V1_TreeQuery::rpcPtr rpc, V1_TreeQuery::InType& request) {
 	auto server = MustServer(request);
 
 	auto channel = MustChannel(server, 0);
@@ -1810,10 +2018,10 @@ void V1_TreeQuery::impl(bool) {
 		}
 	}
 
-	end(root);
+	rpc->end(root);
 }
 
-void V1_BansGet::impl(bool) {
+void V1_BansGet::impl(V1_BansGet::rpcPtr rpc, V1_BansGet::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Ban_List list;
@@ -1823,10 +2031,10 @@ void V1_BansGet::impl(bool) {
 		ToRPC(server, ban, rpcBan);
 	}
 
-	end(list);
+	rpc->end(list);
 }
 
-void V1_BansSet::impl(bool) {
+void V1_BansSet::impl(V1_BansSet::rpcPtr rpc, V1_BansSet::InType& request) {
 	auto server = MustServer(request);
 	server->qlBans.clear();
 
@@ -1838,10 +2046,10 @@ void V1_BansSet::impl(bool) {
 	}
 	server->saveBans();
 
-	end();
+	rpc->end();
 }
 
-void V1_ACLGet::impl(bool) {
+void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1911,10 +2119,10 @@ void V1_ACLGet::impl(bool) {
 		}
 	}
 
-	end(list);
+	rpc->end(list);
 }
 
-void V1_ACLSet::impl(bool) {
+void V1_ACLSet::impl(V1_ACLSet::rpcPtr rpc, V1_ACLSet::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1971,10 +2179,10 @@ void V1_ACLSet::impl(bool) {
 	server->clearACLCache();
 	server->updateChannel(channel);
 
-	end();
+	rpc->end();
 }
 
-void V1_ACLGetEffectivePermissions::impl(bool) {
+void V1_ACLGetEffectivePermissions::impl(V1_ACLGetEffectivePermissions::rpcPtr rpc, V1_ACLGetEffectivePermissions::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -1983,10 +2191,10 @@ void V1_ACLGetEffectivePermissions::impl(bool) {
 
 	::MurmurRPC::ACL rpcACL;
 	rpcACL.set_allow(::MurmurRPC::ACL_Permission(flags));
-	end(rpcACL);
+	rpc->end(rpcACL);
 }
 
-void V1_ACLAddTemporaryGroup::impl(bool) {
+void V1_ACLAddTemporaryGroup::impl(V1_ACLAddTemporaryGroup::rpcPtr rpc, V1_ACLAddTemporaryGroup::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -2013,10 +2221,10 @@ void V1_ACLAddTemporaryGroup::impl(bool) {
 
 	server->clearACLCache(user);
 
-	end();
+	rpc->end();
 }
 
-void V1_ACLRemoveTemporaryGroup::impl(bool) {
+void V1_ACLRemoveTemporaryGroup::impl(V1_ACLRemoveTemporaryGroup::rpcPtr rpc, V1_ACLRemoveTemporaryGroup::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -2043,35 +2251,44 @@ void V1_ACLRemoveTemporaryGroup::impl(bool) {
 
 	server->clearACLCache(user);
 
-	end();
+	rpc->end();
 }
 
-void V1_AuthenticatorStream::impl(bool) {
-	auto onInitialize = [this] (V1_AuthenticatorStream *, bool ok) {
-		if (!ok) {
-			finish(ok);
-			return;
-		}
-		if (!request.has_initialize()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing initialize");
-		}
-		auto server = MustServer(request.initialize());
-		QMutexLocker l(&rpc->qmAuthenticatorsLock);
-		rpc->removeAuthenticator(server);
-		rpc->m_authenticators.insert(server->iServerNum, this);
-	};
-	stream.Read(&request, callback(onInitialize));
-}
+void V1_AuthenticatorStream::impl(V1_AuthenticatorStream::rpcPtr ptr) {
+	bool ok;
+	::MurmurRPC::Authenticator_Response response;
 
-void V1_AuthenticatorStream::done(bool) {
-	auto i = std::find(rpc->m_authenticators.begin(), rpc->m_authenticators.end(), this);
-	if (i != rpc->m_authenticators.end()) {
-		rpc->m_authenticators.erase(i);
+	auto future = ptr->read();
+	std::tie(ok, response) = future.get();
+
+	if (!ok) {
+		return;
 	}
-	deref();
+
+	if (!response.has_initialize()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing initialize");
+	}
+
+	auto server = MustServer(response.initialize());
+	ptr->rpc->removeAuthenticator(server->iServerNum);
+	std::tie(std::ignore, ok) = ptr->rpc->m_authenticators.emplace(
+		std::forward_as_tuple(server->iServerNum, ptr->getId(), ptr->getWeakPtr())
+	);
+
+	if (!ok) {
+		throw ::grpc::Status(::grpc::ABORTED, "internal update failure");
+	}
 }
 
-void V1_DatabaseUserQuery::impl(bool) {
+void V1_AuthenticatorStream::onDone(V1_AuthenticatorStream::rpcPtr ptr, bool) {
+	auto idx = ptr->rpc->m_authenticators.getRPCIdPtr();
+	auto count = idx->erase(ptr->getId());
+	if(count > 0) {
+		qDebug("erased %lu authenticators from stream with id %u", count, ptr->getId());
+	}
+}
+
+void V1_DatabaseUserQuery::impl(V1_DatabaseUserQuery::rpcPtr rpc, V1_DatabaseUserQuery::InType& request) {
 	auto server = MustServer(request);
 
 	QString filter;
@@ -2090,10 +2307,10 @@ void V1_DatabaseUserQuery::impl(bool) {
 		user->set_name(u8(itr.value()));
 	}
 
-	end(list);
+	rpc->end(list);
 }
 
-void V1_DatabaseUserGet::impl(bool) {
+void V1_DatabaseUserGet::impl(V1_DatabaseUserGet::rpcPtr rpc, V1_DatabaseUserGet::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -2107,10 +2324,10 @@ void V1_DatabaseUserGet::impl(bool) {
 
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	ToRPC(server, info, texture, &rpcDatabaseUser);
-	end(rpcDatabaseUser);
+	rpc->end(rpcDatabaseUser);
 }
 
-void V1_DatabaseUserUpdate::impl(bool) {
+void V1_DatabaseUserUpdate::impl(V1_DatabaseUserUpdate::rpcPtr rpc, V1_DatabaseUserUpdate::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -2147,10 +2364,10 @@ void V1_DatabaseUserUpdate::impl(bool) {
 		}
 	}
 
-	end();
+	rpc->end();
 }
 
-void V1_DatabaseUserRegister::impl(bool) {
+void V1_DatabaseUserRegister::impl(V1_DatabaseUserRegister::rpcPtr rpc, V1_DatabaseUserRegister::InType& request) {
 	auto server = MustServer(request);
 
 	QMap<int, QString> info;
@@ -2169,10 +2386,10 @@ void V1_DatabaseUserRegister::impl(bool) {
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.set_id(userid);
 	ToRPC(server, info, texture, &rpcDatabaseUser);
-	end(rpcDatabaseUser);
+	rpc->end(rpcDatabaseUser);
 }
 
-void V1_DatabaseUserDeregister::impl(bool) {
+void V1_DatabaseUserDeregister::impl(V1_DatabaseUserDeregister::rpcPtr rpc, V1_DatabaseUserDeregister::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -2182,10 +2399,10 @@ void V1_DatabaseUserDeregister::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
 	}
 
-	end();
+	rpc->end();
 }
 
-void V1_DatabaseUserVerify::impl(bool) {
+void V1_DatabaseUserVerify::impl(V1_DatabaseUserVerify::rpcPtr rpc, V1_DatabaseUserVerify::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_name()) {
@@ -2211,10 +2428,10 @@ void V1_DatabaseUserVerify::impl(bool) {
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.mutable_server()->set_id(server->iServerNum);
 	rpcDatabaseUser.set_id(ret);
-	end(rpcDatabaseUser);
+	rpc->end(rpcDatabaseUser);
 }
 
-void V1_RedirectWhisperGroupAdd::impl(bool) {
+void V1_RedirectWhisperGroupAdd::impl(V1_RedirectWhisperGroupAdd::rpcPtr rpc, V1_RedirectWhisperGroupAdd::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -2235,10 +2452,10 @@ void V1_RedirectWhisperGroupAdd::impl(bool) {
 
 	server->clearACLCache(user);
 
-	end();
+	rpc->end();
 }
 
-void V1_RedirectWhisperGroupRemove::impl(bool) {
+void V1_RedirectWhisperGroupRemove::impl(V1_RedirectWhisperGroupRemove::rpcPtr rpc, V1_RedirectWhisperGroupRemove::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -2255,7 +2472,7 @@ void V1_RedirectWhisperGroupRemove::impl(bool) {
 
 	server->clearACLCache(user);
 
-	end();
+	rpc->end();
 }
 
 }
