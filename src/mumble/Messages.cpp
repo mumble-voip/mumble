@@ -190,7 +190,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					return;
 				QString pname = ChanACL::permName(static_cast<ChanACL::Permissions>(msg.permission()));
 				if (pDst == pSelf)
-					g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)));
+					g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2. Update server access tokens").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)));
 				else
 					g.l->log(Log::PermissionDenied, tr("%3 was denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)).arg(Log::formatClientUser(pDst, Log::Target)));
 			}
