@@ -13,7 +13,9 @@
 #include "RichTextEditor.h"
 #include "Screen.h"
 #include "ServerHandler.h"
-#include "TextToSpeech.h"
+#ifndef USE_NO_TTS
+# include "TextToSpeech.h"
+#endif
 #include "Utils.h"
 
 #include <QtNetwork/QNetworkReply>
@@ -154,7 +156,9 @@ void LogConfig::save() const {
 }
 
 void LogConfig::accept() const {
+#ifndef USE_NO_TTS
 	g.l->tts->setVolume(s.iTTSVolume);
+#endif
 	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
 }
 
@@ -202,8 +206,10 @@ void LogConfig::browseForAudioFile() {
 }
 
 Log::Log(QObject *p) : QObject(p) {
-	tts=new TextToSpeech(this);
+#ifndef USE_NO_TTS
+	tts = new TextToSpeech(this);
 	tts->setVolume(g.s.iTTSVolume);
+#endif
 	uiLastId = 0;
 	qdDate = QDate::currentDate();
 }
@@ -583,11 +589,13 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		}
 	}
 
+#ifndef USE_NO_TTS
 	// TTS threshold limiter.
 	if (plain.length() <= g.s.iTTSThreshold)
 		tts->say(plain);
 	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
 		tts->say(terse);
+#endif
 }
 
 // Post a notification using the MainWindow's QSystemTrayIcon.
