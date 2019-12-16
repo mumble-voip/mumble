@@ -13,7 +13,9 @@
 #include "ConfigDialog.h"
 #include "ui_Log.h"
 
+#ifndef USE_NO_TTS
 class TextToSpeech;
+#endif
 
 class LogConfig : public ConfigWidget, public Ui::LogConfig {
 	private:
@@ -56,7 +58,9 @@ class Log : public QObject {
 		QHash<MsgType, int> qmIgnore;
 		static const char *msgNames[];
 		static const char *colorClasses[];
+#ifndef USE_NO_TTS
 		TextToSpeech *tts;
+#endif
 		unsigned int uiLastId;
 		QDate qdDate;
 		static const QStringList allowedSchemes();
