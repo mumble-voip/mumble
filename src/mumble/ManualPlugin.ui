@@ -317,24 +317,14 @@
          <property name="title">
           <string>State</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QPushButton" name="qpbLinked">
-            <property name="text">
-             <string>Linked</string>
-            </property>
-            <property name="checkable">
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="qpbLinked">
+            <property name="enabled">
              <bool>true</bool>
             </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="qpbActivated">
             <property name="text">
-             <string>Activated</string>
+             <string>Link</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -344,14 +334,27 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="qpbUnhinge">
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="qpbActivated">
             <property name="text">
-             <string>Unhinge</string>
+             <string>Activate</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="qpbUnhinge">
+         <property name="text">
+          <string>Unhinge</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -365,6 +368,9 @@
      </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Close|QDialogButtonBox::Reset</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
