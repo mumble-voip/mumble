@@ -10,7 +10,20 @@
 #include <QtCore/QFileSystemWatcher>
 #include <QtCore/QSocketNotifier>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+
+#ifndef NO_XINPUT2
+# include <X11/extensions/XI2.h>
+# include <X11/extensions/XInput2.h>
+#endif
+
+#ifdef Q_OS_LINUX
+# include <linux/input.h>
+# include <fcntl.h>
+#endif
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last incl
 #include "Global.h"
 
 // We have to use a global 'diagnostic ignored' pragmas because
