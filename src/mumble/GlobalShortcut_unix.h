@@ -11,18 +11,11 @@
 #include "Global.h"
 
 #include <X11/X.h>
-#include <X11/Xlib.h>
-#ifndef NO_XINPUT2
-#include <X11/extensions/XI2.h>
-#include <X11/extensions/XInput2.h>
-#endif
-#include <X11/Xutil.h>
-#ifdef Q_OS_LINUX
-#include <linux/input.h>
-#include <fcntl.h>
-#endif
 
 #define NUM_BUTTONS 0x2ff
+
+struct _XDisplay;
+typedef _XDisplay Display;
 
 class GlobalShortcutX : public GlobalShortcutEngine {
 	private:
