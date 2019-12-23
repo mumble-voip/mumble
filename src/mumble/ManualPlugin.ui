@@ -65,6 +65,9 @@
             <height>100.000000000000000</height>
            </rectf>
           </property>
+          <property name="renderHints">
+           <set>QPainter::Antialiasing|QPainter::TextAntialiasing</set>
+          </property>
          </widget>
         </item>
         <item>
