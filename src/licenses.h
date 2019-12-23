@@ -5790,12 +5790,12 @@ static const char *licenseLibffi =
 
 static const ThirdPartyLicense licenses3rdParties[] = {
 	ThirdPartyLicense("CELT", "http://www.celt-codec.org/", licenseCELT),
-	ThirdPartyLicense("Opus", "http://www.opus-codec.org/", licenseOpus),
-	ThirdPartyLicense("Speex", "http://www.speex.org/", licenseSPEEX),
-	ThirdPartyLicense("OpenSSL", "http://www.openssl.org/", licenseOpenSSL),
+	ThirdPartyLicense("Opus", "https://www.opus-codec.org/", licenseOpus),
+	ThirdPartyLicense("Speex", "https://www.speex.org/", licenseSPEEX),
+	ThirdPartyLicense("OpenSSL", "https://www.openssl.org/", licenseOpenSSL),
 	ThirdPartyLicense("libsndfile", "http://www.mega-nerd.com/libsndfile/", licenseLibsndfile),
-	ThirdPartyLicense("libogg", "http://www.xiph.org/", licenseOgg),
-	ThirdPartyLicense("libvorbis", "http://www.xiph.org/", licenseVorbis),
+	ThirdPartyLicense("libogg", "https://www.xiph.org/", licenseOgg),
+	ThirdPartyLicense("libvorbis", "https://www.xiph.org/", licenseVorbis),
 	ThirdPartyLicense("libFLAC", "http://flac.sourceforge.net/", licenseFLAC),
 #ifdef Q_OS_MAC
 	ThirdPartyLicense("mach_override", "https://github.com/rentzsch/mach_star", licenseMachOverride),
