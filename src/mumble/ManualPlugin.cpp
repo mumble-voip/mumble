@@ -44,7 +44,16 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	qgvPosition->viewport()->installEventFilter(this);
 	qgvPosition->scale(1.0f, 1.0f);
 	qgsScene = new QGraphicsScene(QRectF(-5.0f, -5.0f, 10.0f, 10.0f), this);
-	qgiPosition = qgsScene->addEllipse(QRectF(-0.5f, -0.5f, 1.0f, 1.0f), QApplication::palette().text().color(), QBrush(Qt::red));
+
+	const float indicatorDiameter = 4.0f;
+	QPainterPath indicator;
+	// The center of the indicator's circle will represent the current position
+	indicator.addEllipse(QRectF(-indicatorDiameter / 2, -indicatorDiameter / 2, indicatorDiameter, indicatorDiameter));
+	// A line will indicate the indicator's orientation (azimuth)
+	indicator.moveTo(0, indicatorDiameter / 2);
+	indicator.lineTo(0,  indicatorDiameter);
+
+	qgiPosition = qgsScene->addPath(indicator);
 
 	qgvPosition->setScene(qgsScene);
 	qgvPosition->fitInView(-5.0f, -5.0f, 10.0f, 10.0f, Qt::KeepAspectRatio);
@@ -180,6 +189,8 @@ void Manual::on_buttonBox_clicked(QAbstractButton *button) {
 void Manual::updateTopAndFront(int azimuth, int elevation) {
 	iAzimuth = azimuth;
 	iElevation = elevation;
+
+	qgiPosition->setRotation(azimuth);
 
 	double azim = azimuth * M_PI / 180.;
 	double elev = elevation * M_PI / 180.;
