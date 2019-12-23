@@ -129,8 +129,8 @@ void Manual::on_qdsbZ_valueChanged(double d) {
 }
 
 void Manual::on_qsbAzimuth_valueChanged(int i) {
-	if (i > 180)
-		qdAzimuth->setValue(-360 + i);
+	if (i > 360)
+		qdAzimuth->setValue(i % 360);
 	else
 		qdAzimuth->setValue(i);
 
