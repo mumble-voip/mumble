@@ -28,6 +28,9 @@ static bool bActive = true;
 static int iAzimuth = 0;
 static int iElevation = 0;
 
+static const QString defaultContext = QString::fromLatin1("Mumble");
+static const QString defaultIdentity = QString::fromLatin1("Agent47");
+
 static struct {
 	float avatar_pos[3];
 	float avatar_front[3];
@@ -76,6 +79,14 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	qsbAzimuth->setValue(iAzimuth);
 	qsbElevation->setValue(iElevation);
 	updateTopAndFront(iAzimuth, iElevation);
+
+	// Set context and identity to default values in order to
+	// a) make positional audio work out of the box (needs a context)
+	// b) make the user aware of what each field might contain
+	qleContext->setText(defaultContext);
+	qleIdentity->setText(defaultIdentity);
+	my.context = defaultContext.toStdString();
+	my.identity = defaultIdentity.toStdWString();
 }
 
 bool Manual::eventFilter(QObject *obj, QEvent *evt) {
