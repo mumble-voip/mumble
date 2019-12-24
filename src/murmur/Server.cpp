@@ -1007,13 +1007,27 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 	}
 }
 
-#define SENDTO \
-		if ((!pDst->bDeaf) && (!pDst->bSelfDeaf) && (pDst != u)) { \
-			if ((poslen > 0) && (pDst->ssContext == u->ssContext)) \
-				sendMessage(pDst, buffer, len, qba); \
-			else \
-				sendMessage(pDst, buffer, len - poslen, qba_npos); \
+/// Helper function to send audio packets from a user to another one (possibly including positional data.
+/// This function will also check the positional-audio-contexts of the users and based on that it will decide
+/// whether to send positional data with the packets or even don't send the packets themselves at all.
+static void inline sendTo(ServerUser *pDst, ServerUser *u, QByteArray &qba, QByteArray& qba_npos, const char *buffer, unsigned int poslen, int len, Server *server) {
+	if ((!pDst->bDeaf) && (!pDst->bSelfDeaf) && (pDst != u)) {
+		if ((poslen > 0) && pDst->ssContext != "" && (pDst->ssContext == u->ssContext)) {
+			// If there is positional data available and the contexts match, but aren't empty
+			server->sendMessage(pDst, buffer, len, qba);
+		} else {
+			// Either there is no positional data available or the contexts didn't match (or were empty)
+			if (poslen == 0 || pDst->ssContext == "" || u->ssContext == "") {
+				// Send the packets only if not both clients have positional audio enabled. If they had and we reach this point, this means
+				// that their contexts didn't match and thus they shouldn't hear one another.
+				// An indication that this is not the case, is if either of the clients doesn't have a context set or there wasn't
+				// any positional data attached to the packet in the first place
+				server->sendMessage(pDst, buffer, len - poslen, qba_npos);
+			}
 		}
+	}
+}
+
 
 void Server::processMsg(ServerUser *u, const char *data, int len) {
 	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress || u->bSelfMute)
@@ -1076,7 +1090,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		buffer[0] = static_cast<char>(type | 0);
 		foreach(User *p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
-			SENDTO;
+
+			sendTo(pDst, u, qba, qba_npos, buffer, poslen, len, this);
 		}
 
 		if (! c->qhLinks.isEmpty()) {
@@ -1089,7 +1104,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
 					foreach(User *p, l->qlUsers) {
 						ServerUser *pDst = static_cast<ServerUser *>(p);
-						SENDTO;
+
+						sendTo(pDst, u, qba, qba_npos, buffer, poslen, len, this);
 					}
 				}
 			}
@@ -1169,7 +1185,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		if (! channel.isEmpty()) {
 			buffer[0] = static_cast<char>(type | 1);
 			foreach(ServerUser *pDst, channel) {
-				SENDTO;
+				sendTo(pDst, u, qba, qba_npos, buffer, poslen, len, this);
 			}
 			if (! direct.isEmpty()) {
 				qba.clear();
@@ -1179,7 +1195,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		if (! direct.isEmpty()) {
 			buffer[0] = static_cast<char>(type | 2);
 			foreach(ServerUser *pDst, direct) {
-				SENDTO;
+				sendTo(pDst, u, qba, qba_npos, buffer, poslen, len, this);
 			}
 		}
 	}
