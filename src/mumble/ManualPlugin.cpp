@@ -25,7 +25,7 @@ static QPointer<Manual> mDlg = NULL;
 static bool bLinkable = false;
 static bool bActive = true;
 
-static int iAzimuth = 0;
+static int iAzimuth = 180;
 static int iElevation = 0;
 
 static const QString defaultContext = QString::fromLatin1("Mumble");
