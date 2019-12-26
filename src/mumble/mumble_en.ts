@@ -6903,18 +6903,15 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
-        <source>Linked</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Activated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Unhinge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7898,8 +7895,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <location filename="PAAudio.cpp" line="+280"/>
-        <source>Default Device</source>
+        <source>Default device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
