@@ -12,6 +12,11 @@
 
 class ClientUser;
 
+/// This class is used to send usage information to the mumble.info website.
+///
+/// During instantiation of this class a ten minute timer will be started. After that
+/// the object's registerUsage function will be called that sends the respective
+/// information to the server.
 class Usage : public QObject {
 		Q_OBJECT
 	protected:
@@ -20,6 +25,7 @@ class Usage : public QObject {
 	public:
 		Usage(QObject *p = NULL);
 	public slots:
+		/// Performs the actual registration.
 		void registerUsage();
 };
 

@@ -360,7 +360,9 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
+	// A list of users that have audio to contribute
 	QList<AudioOutputUser *> qlMix;
+	// A list of users that no longer have any audio to play and can thus be deleted
 	QList<AudioOutputUser *> qlDel;
 	
 	if (g.s.fVolume < 0.01f) {
@@ -380,6 +382,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	
 	bool prioritySpeakerActive = false;
 	
+	// Get the users that are currently talking (and are thus serving as an audio source)
 	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator it = qmOutputs.constBegin();
 	while (it != qmOutputs.constEnd()) {
 		AudioOutputUser *aop = it.value();
@@ -401,15 +404,20 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	}
 
 	if (! qlMix.isEmpty()) {
+		// There are audio sources available -> mix those sources together and feed them into the audio backend
 		STACKVAR(float, speaker, iChannels*3);
 		STACKVAR(float, svol, iChannels);
 
 		STACKVAR(float, fOutput, iChannels * nsamp);
+
+		// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output. Otherwise we'll have to
+		// use an intermediate buffer which we will convert to an array of shorts later
 		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
 		bool validListener = false;
 
 		memset(output, 0, sizeof(float) * nsamp * iChannels);
 
+		// Initialize recorder if recording is enabled
 		boost::shared_array<float> recbuff;
 		if (recorder) {
 			recbuff = boost::shared_array<float>(new float[nsamp]);
@@ -421,6 +429,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			svol[i] = mul * fSpeakerVolume[i];
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() && (g.bPosTest || g.p->fCameraPosition[0] != 0 || g.p->fCameraPosition[1] != 0 || g.p->fCameraPosition[2] != 0)) {
+			// Calculate the positional audio effects if it is enabled
 
 			float front[3] = { g.p->fCameraFront[0], g.p->fCameraFront[1], g.p->fCameraFront[2] };
 			float top[3] = { g.p->fCameraTop[0], g.p->fCameraTop[1], g.p->fCameraTop[2] };
@@ -486,9 +495,11 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		}
 
 		foreach(AudioOutputUser *aop, qlMix) {
+			// Iterate through all audio sources and mix them together into the output (or the intermediate array)
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float volumeAdjustment = 1;
 
+			// Check if the audio source is a user speaking (instead of a sample playback) and apply potential volume adjustments
 			AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
 			if (speech) {
 				const ClientUser *user = speech->p;
@@ -503,6 +514,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			}
 
+			// If recording is enabled add the current audio source to the recording buffer
 			if (recorder) {
 				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
 
@@ -525,6 +537,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			}
 
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
+				// If positional audio is enabled, calculate the respective audio effect here
 				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1], aop->fPos[2] - g.p->fCameraPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
 				if (len > 0.0f) {
@@ -556,6 +569,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 							o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
 				}
 			} else {
+				// Mix the current audio source into the output by adding it to the elements of the output buffer after having applied
+				// a volume adjustment
 				for (unsigned int s=0;s<nchan;++s) {
 					const float str = svol[s] * volumeAdjustment;
 					float * RESTRICT o = output + s;
@@ -569,20 +584,23 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			recorder->addBuffer(NULL, recbuff, nsamp);
 		}
 
-		// Clip
+		// Clip the output audio
 		if (eSampleFormat == SampleFloat)
 			for (unsigned int i=0;i<nsamp*iChannels;i++)
 				output[i] = qBound(-1.0f, output[i], 1.0f);
 		else
+			// Also convert the intermediate float array into an array of shorts before writing it to the outbuff
 			for (unsigned int i=0;i<nsamp*iChannels;i++)
 				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(qBound(-32768.f, (output[i] * 32768.f), 32767.f));
 	}
 
 	qrwlOutputs.unlock();
 
+	// Delete all AudioOutputUsers that no longer provide any new audio
 	foreach(AudioOutputUser *aop, qlDel)
 		removeBuffer(aop);
 	
+	// Return whether data has been written to the outbuff
 	return (! qlMix.isEmpty());
 }
 
