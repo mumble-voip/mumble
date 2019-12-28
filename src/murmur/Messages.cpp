@@ -77,6 +77,59 @@
 		sendMessage(uSource, mppd); \
 	}
 
+/// A helper class for managing temporary access tokens
+/// It will add the tokens in the comstructor and remove them again in the destructor effectively
+/// turning the tokens into a scope-based property
+class TemporaryAccessTokenHelper {
+	protected:
+		ServerUser *affectedUser;
+		QStringList qslTemporaryTokens;	
+		Server *server;
+
+	public:
+		TemporaryAccessTokenHelper(ServerUser *affectedUser, const QStringList &tokens, Server *server) : affectedUser(affectedUser),
+			qslTemporaryTokens(tokens), server(server) {
+			// Add the temporary tokens
+			QMutableStringListIterator it(this->qslTemporaryTokens);
+
+			{
+				QMutexLocker qml(&server->qmCache);
+
+				while (it.hasNext()) {
+					QString token = it.next();
+					if (!this->affectedUser->qslAccessTokens.contains(token)) {
+						// Add token
+						this->affectedUser->qslAccessTokens << token;
+					} else {
+						// It appears, as if the user already has this token set -> it's not a temporary one or a duplicate
+						it.remove();
+					}
+				}
+			}
+
+			if (!this->qslTemporaryTokens.isEmpty()) {
+				// Clear the cache in order for tokens to take effect
+				server->clearACLCache(this->affectedUser);
+			}
+		}
+
+		~TemporaryAccessTokenHelper() {
+			if (!this->qslTemporaryTokens.isEmpty()) {
+				{
+					QMutexLocker qml(&server->qmCache);
+
+					// remove the temporary tokens
+					foreach(QString token, this->qslTemporaryTokens) {
+						this->affectedUser->qslAccessTokens.removeOne(token);
+					}
+				}
+
+				// Clear cache to actually get rid of the temporary tokens
+				server->clearACLCache(this->affectedUser);
+			}
+		}
+};
+
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
 	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
 		QStringList qsl;
@@ -501,6 +554,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		First check all permissions involved
 	*/
 	if ((pDstServerUser->iId == 0) && (uSource->iId != 0)) {
+		// Don't allow any action on the SuperUser except initiated directly by the SuperUser himself/herself
 		PERM_DENIED_TYPE(SuperUser);
 		return;
 	}
@@ -516,6 +570,13 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	if (uSource == pDstServerUser) {
 		RATELIMIT(uSource);
 	}
+	
+	// Handle potential temporary access tokens
+	QStringList temporaryAccessTokens;
+	for	(int i=0; i < msg.temporary_access_tokens_size(); i++) {
+		temporaryAccessTokens << u8(msg.temporary_access_tokens(i));
+	}
+	TemporaryAccessTokenHelper tempTokenHelper(uSource, temporaryAccessTokens, this);
 
 	if (msg.has_channel_id()) {
 		Channel *c = qhChannels.value(msg.channel_id());
