@@ -96,8 +96,14 @@ class TemporaryAccessTokenHelper {
 				QMutexLocker qml(&server->qmCache);
 
 				while (it.hasNext()) {
-					QString token = it.next();
-					if (!this->affectedUser->qslAccessTokens.contains(token)) {
+					QString &token = it.next();
+
+					// If tokens are treated case-insensitively, transform all temp. tokens to lowercase first
+					if (Group::accessTokenCaseSensitivity == Qt::CaseInsensitive) {
+						token = token.toLower();
+					}
+
+					if (!this->affectedUser->qslAccessTokens.contains(token, Group::accessTokenCaseSensitivity)) {
 						// Add token
 						this->affectedUser->qslAccessTokens << token;
 					} else {
