@@ -736,6 +736,24 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	if (msg.has_max_users()) {
 		c->uiMaxUsers = msg.max_users();
 	}
+
+	bool updateUI = false;
+
+	if (msg.has_is_enter_restricted()) {
+		c->hasEnterRestrictions.store(msg.is_enter_restricted());
+		updateUI = true;
+	}
+
+	if (msg.has_can_enter()) {
+		c->localUserCanEnter.store(msg.can_enter());
+		updateUI = true;
+	}
+
+	if (updateUI) {
+		// Passing nullptr to this function will make it do not much except fire a dataChanged event
+		// which leads to the UI being updated (reflecting the changes that just took effect).
+		this->pmModel->toggleChannelFiltered(nullptr);
+	}
 }
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
