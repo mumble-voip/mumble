@@ -214,11 +214,17 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				Channel *c = Channel::get(msg.channel_id());
 				if (! c)
 					return;
-				QString pname = ChanACL::permName(static_cast<ChanACL::Permissions>(msg.permission()));
-				if (pDst == pSelf)
-					g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)));
-				else
-					g.l->log(Log::PermissionDenied, tr("%3 was denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)).arg(Log::formatClientUser(pDst, Log::Target)));
+				ChanACL::Permissions permission = static_cast<ChanACL::Permissions>(msg.permission());
+				QString pname = ChanACL::permName(permission);
+
+				if ((permission == ChanACL::Perm::Enter) && c->hasEnterRestrictions.load()) {
+					g.l->log(Log::PermissionDenied, tr("Unable to %1 into %2 - Adding the respective access (password) token might grant you access.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)));
+				} else {
+					if (pDst == pSelf)
+						g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)));
+					else
+						g.l->log(Log::PermissionDenied, tr("%3 was denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)).arg(Log::formatClientUser(pDst, Log::Target)));
+				}
 			}
 			break;
 		case MumbleProto::PermissionDenied_DenyType_SuperUser: {
