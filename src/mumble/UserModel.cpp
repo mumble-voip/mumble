@@ -218,6 +218,8 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiComment=QIcon(QLatin1String("skin:comment.svg"));
 	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
 	qiFilter=QIcon(QLatin1String("skin:filter.svg"));
+	qiLock_locked=QIcon(QLatin1String("skin:lock_locked.svg"));
+	qiLock_unlocked=QIcon(QLatin1String("skin:lock_unlocked.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;
 
@@ -443,6 +445,14 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				if (c->bFiltered)
 					l << (qiFilter);
 
+				// Show a lock icon for enter restricted channels
+				if (c->hasEnterRestrictions.load()) {
+					if (c->localUserCanEnter.load()) {
+						l << qiLock_unlocked;
+					} else {
+						l << qiLock_locked;
+					}
+				}
 				return l;
 			case Qt::FontRole:
 				if (g.uiSession) {

@@ -13,6 +13,10 @@
 #include <QtCore/QSet>
 #include <QtCore/QString>
 
+#ifdef MUMBLE
+	#include <atomic>
+#endif
+
 class User;
 class Group;
 class ChanACL;
@@ -37,6 +41,16 @@ class Channel : public QObject {
 		QList<User *> qlUsers;
 		QHash<QString, Group *> qhGroups;
 		QList<ChanACL *> qlACL;
+
+#ifdef MUMBLE
+		/// A flag indicating whether this channel has enter restrictions (ACL denying ENTER) in place
+		std::atomic<bool> hasEnterRestrictions;
+		/// A flag indicating whether the local user is currently able to enter this channel. In theory this should
+		/// represent the correct access state (apart from the time it takes to synchronize ACL changes from the server
+		/// to the client), but in the end, it's the server who decides whether the user can enter. This flag is only
+		/// meant for UI purposes and should not be used influence actual behaviour.
+		std::atomic<bool> localUserCanEnter;
+#endif
 
 		QSet<Channel *> qsPermLinks;
 		QHash<Channel *, int> qhLinks;
