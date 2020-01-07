@@ -59,7 +59,7 @@ AboutDialog::AboutDialog(QWidget *p, AboutDialogOptions options) : QDialog(p) {
 		"<p><tt><a href=\"%2\">%2</a></tt></p>"
 	).arg(QLatin1String(MUMBLE_RELEASE))
 	 .arg(QLatin1String("http://www.mumble.info/"))
-	 .arg(QLatin1String("Copyright 2005-2019 The Mumble Developers")));
+	 .arg(QLatin1String("Copyright 2005-2020 The Mumble Developers")));
 	QHBoxLayout *qhbl = new QHBoxLayout(about);
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
