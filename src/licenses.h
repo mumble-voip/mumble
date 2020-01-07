@@ -19,7 +19,7 @@ struct ThirdPartyLicense {
 };
 
 static const char *licenseMumble = 
-	"Copyright (C) 2005-2019 The Mumble Developers\n"
+	"Copyright (C) 2005-2020 The Mumble Developers\n"
 	"\n"
 	"A list of The Mumble Developers can be found in the\n"
 	"AUTHORS file at the root of the Mumble source tree\n"
@@ -312,6 +312,10 @@ static const char *licenseCELT =
 	"- Redistributions in binary form must reproduce the above copyright\n"
 	"notice, this list of conditions and the following disclaimer in the\n"
 	"documentation and/or other materials provided with the distribution.\n"
+	"\n"
+	"- Neither the name of the Xiph.org Foundation nor the names of its\n"
+	"contributors may be used to endorse or promote products derived from\n"
+	"this software without specific prior written permission.\n"
 	"\n"
 	"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
 	"``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n"
