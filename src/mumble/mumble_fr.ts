@@ -543,7 +543,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"/>
+        <translation>Vous devez sélectionner au moins une source microphone et une source haut-parleur pour utiliser ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -5661,16 +5661,16 @@ Affiche la console développeur Mumble où les logs peuvent être consultés.</t
         <translation>État</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Lié</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Activé</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Détacher</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6458,8 +6458,8 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Périphérique par défaut</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6482,6 +6482,13 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Mumble n&apos;a pas pu redémarrer. Redémarrez le manuellement.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

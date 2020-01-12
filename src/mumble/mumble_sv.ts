@@ -5609,15 +5609,15 @@ kanalens innehållsmeny.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Länkad</translation>
-    </message>
-    <message>
-        <source>Activated</source>
+        <source>Unhinge</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Unhinge</source>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6405,8 +6405,8 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Standardenhet</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6429,6 +6429,13 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Mumble misslyckades att starta om själv. Vänligen starta om manuellt.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

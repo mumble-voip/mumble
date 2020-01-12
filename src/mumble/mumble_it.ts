@@ -5664,16 +5664,16 @@ contestuale del canale.</translation>
         <translation>Stato</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Collegato</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Attivato</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Scollega</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>Collega</translation>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation>Attiva</translation>
     </message>
 </context>
 <context>
@@ -6461,8 +6461,8 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Dispositivo predefinito</translation>
+        <source>Default device</source>
+        <translation>Dispositivo Predefinito</translation>
     </message>
 </context>
 <context>
@@ -6485,6 +6485,13 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Il riavvio automatico di Mumble è fallito. Per favore riavvialo manualmente.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation>CodecInit: Caricamento Opus fallito, non sarà disponibile per la codifica/decodifica audio.</translation>
     </message>
 </context>
 <context>

@@ -5710,16 +5710,16 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
         <translation>Status</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Verlinkt</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Aktiviert</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Trennen</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>Verknüpfen</translation>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation>Aktivieren</translation>
     </message>
 </context>
 <context>
@@ -6511,8 +6511,8 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Standardgerät</translation>
+        <source>Default device</source>
+        <translation>Standarddienst</translation>
     </message>
 </context>
 <context>
@@ -6535,6 +6535,13 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Beim Neustarten von Mumble ist ein Fehler aufgetreten. Bitte starten Sie Mumble manuell neu.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

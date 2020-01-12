@@ -5544,15 +5544,15 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Linked</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Unhinge</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6340,8 +6340,8 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>預設裝置</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6364,6 +6364,13 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Mumble 自我重新啟動失敗。請手動重新啟動。</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
