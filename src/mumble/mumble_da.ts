@@ -5606,15 +5606,15 @@ kanalens genvejsmenu.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Linked</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Unhinge</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6402,8 +6402,8 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Standardenhed</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

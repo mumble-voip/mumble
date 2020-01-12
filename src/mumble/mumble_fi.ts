@@ -5612,16 +5612,16 @@ kanavien alivalikosta.</translation>
         <translation>Tila</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Linkitetyt</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Aktivoidut</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Vapauta</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6408,8 +6408,8 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Oletuslaite</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

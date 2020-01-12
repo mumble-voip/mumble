@@ -5662,16 +5662,16 @@ ilave kanallar ekleyebilirsiniz.</translation>
         <translation>Durum</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Bağlı</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Etkinleştirilmiş</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Ayır</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6459,8 +6459,8 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Varsayılan Cihaz</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

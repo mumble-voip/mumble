@@ -5660,16 +5660,16 @@ no menu contextual do canal.</translation>
         <translation>Estado</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Ligado</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Ativado</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Desarticular</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6457,8 +6457,8 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Dispositivo padrão</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

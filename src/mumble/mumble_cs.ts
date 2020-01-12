@@ -5610,15 +5610,15 @@ kontextové nabídce kanálů.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Linked</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Unhinge</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6406,8 +6406,8 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Výchozí Zařízení</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

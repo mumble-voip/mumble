@@ -5609,15 +5609,15 @@ kanalens innehållsmeny.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Länkad</translation>
-    </message>
-    <message>
-        <source>Activated</source>
+        <source>Unhinge</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Unhinge</source>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6405,8 +6405,8 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Standardenhet</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -5654,16 +5654,16 @@ the channel&apos;s context menu.</source>
         <translation>状态</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>已链接</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>已激活</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>分离窗口</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>链接</translation>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation>激活</translation>
     </message>
 </context>
 <context>
@@ -6451,7 +6451,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
+        <source>Default device</source>
         <translation>默认设备</translation>
     </message>
 </context>

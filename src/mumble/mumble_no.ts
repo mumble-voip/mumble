@@ -5647,16 +5647,16 @@ kanalens kontekstmeny.</translation>
         <translation>Tilstand</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Lenket</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Akivert</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Henglse fra</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6444,8 +6444,8 @@ Trykk på knappen nedefor for å oppgradere.</translation>
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Forvalgt enhet</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

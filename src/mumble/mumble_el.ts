@@ -5634,16 +5634,16 @@ the channel&apos;s context menu.</source>
         <translation>Κατάσταση</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Συσχετισμένο</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Ενεργοποιημένο</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Αναστάτωση</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6431,8 +6431,8 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
-        <translation>Προεπιλεγμένη Συσκευή</translation>
+        <source>Default device</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
