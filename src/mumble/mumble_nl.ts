@@ -6444,7 +6444,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation type="unfinished"/>
+        <translation>Standaardapparaat</translation>
     </message>
 </context>
 <context>
