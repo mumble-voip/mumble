@@ -448,6 +448,7 @@ int main(int argc, char **argv) {
 	// before the MainWindow one, does not make sense. if you need logging before this
 	// point, use Log::logOrDefer()
 	g.l = new Log();
+	g.l->processDeferredLogs();
 
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.

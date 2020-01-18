@@ -7,6 +7,8 @@
 #define MUMBLE_MUMBLE_LOG_H_
 
 #include <QtCore/QDate>
+#include <QtCore/QMutex>
+#include <QtCore/QVector>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextDocument>
 
@@ -39,6 +41,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 
 class ClientUser;
 class Channel;
+class LogMessage;
 
 class Log : public QObject {
 		friend class LogConfig;
@@ -55,6 +58,11 @@ class Log : public QObject {
 		static const MsgType msgOrder[];
 	
 	protected:
+		/// Mutex for qvDeferredLogs
+		static QMutex qmDeferredLogs;
+		/// A vector containing deferred log messages
+		static QVector<LogMessage> qvDeferredLogs;
+
 		QHash<MsgType, int> qmIgnore;
 		static const char *msgNames[];
 		static const char *colorClasses[];
@@ -77,8 +85,25 @@ class Log : public QObject {
 		static QString msgColor(const QString &text, LogColorType t);
 		static QString formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName=QString());
 		static QString formatChannel(::Channel *c);
+		/// Either defers the LogMessage or defers it, depending on whether Global::l is created already
+		/// (if it is, it is used to directly log the msg)
+		static void logOrDefer(Log::MsgType mt, const QString &console, const QString &terse=QString(), bool ownMessage = false, const QString &overrideTTS=QString());
 	public slots:
-		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false, const QString &overrideTTS=QString());
+		void log(MsgType mt, const QString &console, const QString &terse=QString(), bool ownMessage = false, const QString &overrideTTS=QString());
+		/// Logs LogMessages that have been deferred so far
+		void processDeferredLogs();
+};
+
+class LogMessage {
+	public:
+		Log::MsgType mt;
+		QString console;
+		QString terse;
+		bool ownMessage;
+		QString overrideTTS;
+
+		LogMessage() = default;
+		LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS);
 };
 
 class LogDocument : public QTextDocument {
