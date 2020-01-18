@@ -24,6 +24,7 @@
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextDocumentFragment>
 #include <QtWidgets/QDesktopWidget>
+#include <QtCore/QMutexLocker>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -205,6 +206,10 @@ void LogConfig::browseForAudioFile() {
 	}
 }
 
+QMutex Log::qmDeferredLogs;
+QVector<LogMessage> Log::qvDeferredLogs;
+
+
 Log::Log(QObject *p) : QObject(p) {
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
@@ -301,6 +306,18 @@ QString Log::msgColor(const QString &text, LogColorType t) {
 
 QString Log::formatChannel(::Channel *c) {
 	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(c->qsName.toHtmlEscaped()).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+}
+
+void Log::logOrDefer(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS) {
+	if (g.l) {
+		// log directly as it seems the log-UI has been set-up already
+		g.l->log(mt, console, terse, ownMessage, overrideTTS);
+	} else {
+		// defer the log
+		QMutexLocker mLock(&Log::qmDeferredLogs);
+
+		qvDeferredLogs.append(LogMessage(mt, console, terse, ownMessage, overrideTTS));
+	}
 }
 
 QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName) {
@@ -598,6 +615,16 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 #endif
 }
 
+void Log::processDeferredLogs() {
+	QMutexLocker mLocker(&Log::qmDeferredLogs);
+
+	while (!qvDeferredLogs.isEmpty()) {
+		LogMessage msg = qvDeferredLogs.takeFirst();
+
+		log(msg.mt, msg.console, msg.terse, msg.ownMessage, msg.overrideTTS);
+	}
+}
+
 // Post a notification using the MainWindow's QSystemTrayIcon.
 void Log::postQtNotification(MsgType mt, const QString &plain) {
 	if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
@@ -616,6 +643,10 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 		}
 		g.mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 	}
+}
+
+LogMessage::LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS) : mt(mt), console(console),
+	terse(terse), ownMessage(ownMessage), overrideTTS(overrideTTS) {
 }
 
 LogDocument::LogDocument(QObject *p)

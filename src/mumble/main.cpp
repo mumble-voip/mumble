@@ -418,9 +418,6 @@ int main(int argc, char **argv) {
 	delete cr;
 #endif
 
-	// Initialize logger
-	g.l = new Log();
-
 	// Initialize database
 	g.db = new Database(QLatin1String("main"));
 
@@ -445,6 +442,13 @@ int main(int argc, char **argv) {
 	// Main Window
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
+
+	// Initialize logger
+	// Log::log() needs the MainWindow to already exist. Thus creating the Log instance
+	// before the MainWindow one, does not make sense. if you need logging before this
+	// point, use Log::logOrDefer()
+	g.l = new Log();
+	g.l->processDeferredLogs();
 
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.
