@@ -11,8 +11,13 @@
 #ifdef USE_OPUS
 # include "OpusCodec.h"
 #endif
-#include "Global.h"
 #include "PacketDataStream.h"
+#include "Log.h"
+
+#include <QtCore/QObject>
+
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
 
 class CodecInit : public DeferInit {
 	public:
@@ -32,7 +37,7 @@ void CodecInit::initialize() {
 		oCodec->report();
 		g.oCodec = oCodec;
 	} else {
-		qWarning("CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.");
+		Log::logOrDefer(Log::CriticalError, QObject::tr("CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio."));
 		delete oCodec;
 	}
 #endif
