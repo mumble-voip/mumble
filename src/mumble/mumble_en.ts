@@ -6362,6 +6362,13 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
