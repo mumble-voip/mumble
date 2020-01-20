@@ -49,32 +49,60 @@
 //    request after it has finished.
 //
 //    To check the status of asynchronous actions that have been added to the
-//    completion queue, you call its "Next" method. Next returns when there is
-//    a finished action in the completion queue. Next provides two output
-//    variables: the completed action's tag, and a boolean, which indicates if
+//    completion queue, you call its "Next" method. The async version is used
+//    to allow for calls to yield so that fibers in the gRPC worker thread get
+//    to act.
+//    Next provides several output variables: a static indicating if there was
+//    an event found in the timeout, if if there was none found or the server
+//    is shutting down, the completed action's tag, and a boolean, which indicates if
 //    the action was successful. All tags in this project are are
-//    heap-allocated pointers to "boost::function"s that accept a boolean.
+//    stack-allocated pointers to "boost::function"s that accept a boolean.
 //    After Next returns, the tag pointer is dereferenced, executed with the
-//    success variable, and then freed.
+//    success variable.
 //
-//  - Wrapper class: each RPC method that is defined in the .proto has had a
-//    class generated for it (the generator program is located in scripts/).
-//    Each class provides storage for the incoming and outgoing protocol buffer
-//    message, as well as helper methods for registering events with the
-//    completion queue. Each wrapper class also has an "impl(bool)" method;
-//    each one is implemented in this file. This impl method gets executed when
-//    the particular RPC method gets invoked by an RPC client.
+//  - Wrapper class:
+//    Each service has a wrapper class. The wrapper classes are stateless
+//    functor objects which define what type of stream they are providing,
+//    and the specifics of the types involved in the messages.
 //
-//    Each wrapper class extends RPCCall. Among other things, RPCCall provides
-//    reference counting for the object. This is needed for memory management,
-//    as the wrapper objects can be used and stored in several locations (this
-//    is only really true for streaming grpc calls).
+//  - RPC templates:
+//    The core of the system. By using the configuration information from the
+//    wrapper class; it will create a template object that had functions
+//    to support the type of stream that is in use. Since they are all allocated
+//    on the heap, they use an internal shared_ptr to do reference counting.
+//    Containers store weak_ptrs that expire if the primary object is deleted.
+//
+//  - RPC Object Lifetime: gRPC supports an method to call a callback when the
+//    call is over. This starts the deletion processes. All shared/weak pointers
+//    that have been given out have a custom deleter that sets a flag letting the
+//    object know that there are no more references to it and it was marked to be
+//    deleted. The finish method resets the original shared_ptr, then spawns another
+//    fiber to check repeadly until the deleter was invoked on the object.
+//
+//  - Boost Fibers:
+//    The magic that makes this all work. By using clever stack manipulation,
+//    a single threaded program can turn into a cooperative multi-threaded program.
+//    This allows you to use a 'callback' based async system while writing code
+//    as if you were working with a syncronous api.
+//
+//    Fibers also lets you customize the scheduling algorithm by giving the fibers
+//    properties. The current algorithm is a very simple one; there is one fiber
+//    that lives in the even loop and calls yield every time it finishes (so the
+//    other fibers can run). When creating a fiber, you can specify that you want
+//    it to run in this thread instead of the originating thread.
+//
+//    NOTE: THREAD LOCAL STORAGE WILL NOT WORK WITH THIS MODEL
+//
 //
 // The flow of the grpc system is as follows:
 //
 //  - GRPCStart() is called from murmur's main().
 //  - If an address for the grpc has been set in murmur.ini, the grpc service
 //    begins listening on that address for grpc client connections.
+//  - When an incoming request is recieved if TLS is enabled, client certificate
+//    valitation is done. This is done by a simple SHA256 fingerprint defined
+//    in the murmur.ini file. Unauthenticated requests never reach any of the
+//    Wrapper code.
 //  - A new thread is created which handles the grpc completion queue (defined
 //    above). This thread continuously calls the completion queue's Next method
 //    to process the next completed event.
@@ -82,13 +110,13 @@
 //    invokable by grpc clients.
 //  - With the completion queue now running in the background, murmur
 //    continues starting up.
-//
-//  - When a grpc client invokes an RPC method, the previously mentioned thread
-//    is notified of this and executes the "tag" (recall, tags are pointers to
-//    functions). The wrapper method "impl(bool)" for the corresponding RPC
-//    method ends up being called. It is important to note that this impl
-//    method gets executed in the main thread. This prevents data corruption
-//    of murmur's data structures without the need of locks.
+//  - When a grpc client invokes an RPC method, it can execute in either the
+//    polling thread or the main event loop. Realistically, only the impl callback
+//    needs to go into the main event loop. Reading/Writing messages can be done in
+//    the other loop and then retrieved in the thread that originated them. The 'done'
+//    cleanup methods also do not need to be in the main loop as the Boost Multi-Index
+//    container wrapper contains internal locking to prevent data races. Any errors
+//    in use should cause an easy to reproduce deadlock.
 //
 //    Additionally, the execution of tags are wrapped with a try-catch. This
 //    try-catch catches any grpc::Status that is thrown. If one is caught, the
