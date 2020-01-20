@@ -46,7 +46,7 @@
 QFile *qfLog = NULL;
 
 static bool bVerbose = false;
-#ifdef SNIPER_NO_SNIPING
+#ifdef QT_NO_DEBUG
 static bool detach = true;
 #else
 static bool detach = false;
@@ -605,14 +605,6 @@ int main(int argc, char **argv) {
 
 	res=a.exec();
 
-	/*
-	qWarning("Killing running servers");
-
-	meta->killAll();
-
-	qWarning("Shutting down");
-	*/
-
 #ifdef USE_DBUS
 	delete MurmurDBus::qdbc;
 	MurmurDBus::qdbc = NULL;
@@ -621,12 +613,6 @@ int main(int argc, char **argv) {
 #ifdef USE_ICE
 	IceStop();
 #endif
-
-/*
-#ifdef USE_GRPC
-	GRPCStop();
-#endif
-*/
 
 	delete qfLog;
 	qfLog = NULL;
