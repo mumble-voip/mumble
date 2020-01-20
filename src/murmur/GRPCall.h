@@ -483,28 +483,6 @@ namespace MurmurRPC {
 
 #include "MurmurRPC.proto.Wrapper.cpp"
 
-/*
-class RPCExecEvent : public ExecEvent {
-public:
-	boost::function<void(grpc::Status&)> error;
-
-	template<typename T>
-	RPCExecEvent(boost::function<void()> fn, MurmurRPC::Wrapper::RPCCall<T>& rpc_call) : ExecEvent(fn) {
-		auto weak = rpc_call.getWeakPtr();
-		error = [weak](::grpc::Status& err){
-			auto c = weak.lock();
-			if(c != nullptr && !c->isCancelled()) {
-				c->error(err);
-			}
-		};
-	}
-
-private:
-	RPCExecEvent(const RPCExecEvent&) = delete;
-	RPCExecEvent &operator=(const RPCExecEvent&) = delete;
-};
-*/
-
 #endif
 
 #ifdef MUMBLE_MURMUR_GRPC_WRAPPER_IMPL
@@ -538,21 +516,6 @@ namespace MurmurRPC {
 					rpc->m_completionQueue.get(), handleFn);
 		}
 
-		/*
-		template<typename Derived, typename RPCType>
-		template<typename X, std::enable_if_t<std::is_same<X, Unary_t>::value>*>
-		void RPCCall<Derived, RPCType>::handle(bool ok) {
-			RPCCall<Derived>::create(this->rpc, this->service);
-			auto weak_ptr = this->getWeakPtr();
-			auto ie = new RPCExecEvent([this, weak_ptr, ok](){
-				auto ptr = weak_ptr.lock();
-				if (ptr == nullptr) { return; }
-				ptr->impl(this->getSharedPtr(), this->impl_detail.m_Request);
-			}, *this);
-			QCoreApplication::instance()->postEvent(rpc, ie);
-		}
-		*/
-
 		template<typename Derived, typename RPCType>
 		template<typename X, std::enable_if_t<std::is_same<X, Unary_t>::value>*>
 		void RPCCall<Derived, RPCType>::handle(bool ok) {
@@ -562,22 +525,6 @@ namespace MurmurRPC {
 					ptr->impl(ptr, this->impl_detail.m_Request);
 			});
 		}
-
-		/*
-		template<typename Derived, typename RPCType>
-		template<typename X, std::enable_if_t<std::is_same<X, ServerStream_t>::value>*>
-		void RPCCall<Derived, RPCType>::handle(bool ok) {
-			RPCCall<Derived>::create(this->rpc, this->service);
-			auto weak_ptr = this->getWeakPtr();
-			auto ie = new RPCExecEvent([this, weak_ptr, ok](){
-				auto ptr = weak_ptr.lock();
-				if (ptr == nullptr) { return; }
-				ptr->impl(this->getSharedPtr(), this->impl_detail.m_Request);
-			}, *this);
-			QCoreApplication::instance()->postEvent(rpc, ie);
-			impl_detail.createWorker();
-		}
-		*/
 
 		template<typename Derived, typename RPCType>
 		template<typename X, std::enable_if_t<std::is_same<X, ServerStream_t>::value>*>
@@ -589,22 +536,6 @@ namespace MurmurRPC {
 			});
 			impl_detail.createWorker();
 		}
-
-		/*
-		template<typename Derived, typename RPCType>
-		template<typename X, std::enable_if_t<std::is_same<X, BidiStream_t>::value>*>
-		void RPCCall<Derived, RPCType>::handle(bool ok) {
-			RPCCall<Derived>::create(this->rpc, this->service);
-			auto weak_ptr = this->getWeakPtr();
-			auto ie = new RPCExecEvent([this, weak_ptr, ok](){
-				auto ptr = weak_ptr.lock();
-				if (ptr == nullptr) { return; }
-				ptr->impl(this->getSharedPtr());
-			}, *this);
-			QCoreApplication::instance()->postEvent(rpc, ie);
-			impl_detail.createWorker();
-		}
-		*/
 
 		template<typename Derived, typename RPCType>
 		template<typename X, std::enable_if_t<std::is_same<X, BidiStream_t>::value>*>
