@@ -292,9 +292,9 @@ unix:!macx {
 	}
 
 	CONFIG(debug, debug|release) {
-		QMAKE_CFLAGS *= -fstack-protector #-fPIE
-		QMAKE_CXXFLAGS *= -fstack-protector #-fPIE
-	#	QMAKE_LFLAGS *= -pie
+		QMAKE_CFLAGS *= -fstack-protector -fPIE
+		QMAKE_CXXFLAGS *= -fstack-protector -fPIE
+		QMAKE_LFLAGS *= -pie
 		QMAKE_LFLAGS *= -Wl,--no-add-needed
 	}
 
