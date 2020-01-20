@@ -58,7 +58,7 @@ class MurmurRPCImpl : public QThread {
 		std::unique_ptr<grpc::Server> m_server;
 		volatile bool m_isRunning;
 	protected:
-		void customEvent(QEvent *evt);
+//		void customEvent(QEvent *evt);
 	public:
 		MurmurRPCImpl(const QString &address, std::shared_ptr<grpc::ServerCredentials> credentials);
 		~MurmurRPCImpl();
