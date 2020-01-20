@@ -5021,7 +5021,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Załadowanie kodeka Opus nie powiodło się, nie będzie dostępny dla kodowania/dekodowania dźwięku.</translation>
+        <translation>Nie udało się załadować Opus, nie będzie on dostępny do kodowania i dekodowania dźwięku.</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -5613,16 +5613,16 @@ kanały mają być filtrowane.</translation>
         <translation>Stan</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Powiązane</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Aktywowane</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Odczep</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>Połącz</translation>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation>Aktywuj</translation>
     </message>
 </context>
 <context>
@@ -6411,7 +6411,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
+        <source>Default device</source>
         <translation>Domyślne urządzenie</translation>
     </message>
 </context>
@@ -6435,6 +6435,13 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Nie udało się zrestartować Mumble. Proszę samemu zrestartować program.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation>CodecInit: Nie udało się załadować Opus, nie będzie on dostępny do kodowania i dekodowania dźwięku.</translation>
     </message>
 </context>
 <context>

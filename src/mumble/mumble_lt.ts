@@ -3268,11 +3268,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojas išėjo iš kanalo ir atsijungė</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"/>
+        <translation>Privati tekstinė žinutė</translation>
     </message>
     <message>
         <source>the server</source>
@@ -4148,7 +4148,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Siųsti tekstinę žinutę</translation>
     </message>
     <message>
         <source>Send Clipboard Text Message</source>
@@ -5582,15 +5582,15 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Linked</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Unhinge</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6378,7 +6378,7 @@ Norėdami naujinti šiuos failus į naujausią versiją, spustelėkite mygtuką 
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
+        <source>Default device</source>
         <translation>Numatytasis įrenginys</translation>
     </message>
 </context>
@@ -6402,6 +6402,13 @@ Norėdami naujinti šiuos failus į naujausią versiją, spustelėkite mygtuką 
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Programai Mumble nepavyko paleisti savęs iš naujo. Prašome paleisti ją iš naujo rankiniu būdu.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6533,7 +6540,7 @@ Norėdami naujinti šiuos failus į naujausią versiją, spustelėkite mygtuką 
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"/>
+        <translation>Nežinoma</translation>
     </message>
     <message>
         <source>Africa</source>

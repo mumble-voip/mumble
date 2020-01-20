@@ -43,7 +43,7 @@
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation>Kanaal moet een naam hebben</translation>
+        <translation>Kanaal moet naam hebben</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -542,7 +542,7 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"/>
+        <translation>Je dient minstens één microfoon- en luidsprekerbron te selecteren om ASIO te gebruiken.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -924,35 +924,35 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
     </message>
     <message>
         <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation type="unfinished"/>
+        <translation>RNNoise-ruisonderdrukkingsfilter toepassen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit past het RNNoise-ruisonderdrukkingsfilter toe.&lt;/b&gt;&lt;br /&gt;RNRuis is gebaseerd op machinaal leren en vernuttigd in WebRTC.</translation>
     </message>
     <message>
         <source>RNNoise</source>
-        <translation type="unfinished"/>
+        <translation>RNNoise</translation>
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"/>
+        <translation>Geluidsinvoer</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit is de geluidsinvoermethode.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"/>
+        <translation>Opus-traagzaamheidsvermijdingsmodus instellen als de kwaliteit &lt;b&gt;64 kb/s&lt;/b&gt; of hoger is.</translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"/>
+        <translation>Ingeschakeld zet de Opus-traagzaamheidsvermijdingsmodus aan als de kwaliteit &lt;b&gt;64 kb/s&lt;/b&gt; of hoger is. Deze modus vermindert de latentie met &lt;b&gt;~15 milliseconden&lt;/b&gt; in het retourtje. Een hogere bitsnelheid kan nodig zijn om zich met eenzelfde kwaliteit te verhouden, t.o.v. muziek- &amp; VoIP-modi.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"/>
+        <translation>Traagzaamheidsvermijdingsmodus</translation>
     </message>
 </context>
 <context>
@@ -971,7 +971,7 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
     </message>
     <message>
         <source>Audio Input</source>
-        <translation>Geluidsinvoer</translation>
+        <translation>Geluidsbinnenkomst</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1030,7 +1030,7 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
     </message>
     <message>
         <source>Audio Output</source>
-        <translation>Geluidsuitvoer</translation>
+        <translation>Geluidsverlating</translation>
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
@@ -1256,19 +1256,19 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
     </message>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"/>
+        <translation>Geluidsuitvoer</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit is de geluidsuitvoermethode.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Andere gebruikers afzwakken terwijl je met Prioriteit Spreekt&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumevermindering van anderen terwijl je praat als &lt;l&gt;Prioriteitsspreker&lt;/i&gt; om storen te voorkomen. Dit aanvinken zet het aan.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Andere gebruikers afzwakken terwijl je met Prioriteit Spreekt</translation>
     </message>
 </context>
 <context>
@@ -1569,11 +1569,11 @@ Zolang de wizard actief is wordt geluid lokaal doorgelust, zodat je kunt luister
     </message>
     <message>
         <source>Input Device</source>
-        <translation>Invoerapparaat</translation>
+        <translation>Invoersaggregaat</translation>
     </message>
     <message>
         <source>Output Device</source>
-        <translation>Uitvoerapparaat</translation>
+        <translation>Uitvoersaggregaat</translation>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
@@ -1839,11 +1839,11 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit is de geluidsinvoermethode.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit is de gehorigheidsuitvoermethode.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -3290,7 +3290,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker verliet kanaal (verbinding verbroken).</translation>
     </message>
     <message>
         <source>Private text message</source>
@@ -3336,43 +3336,43 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"/>
+        <translation>Serververbinding</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Serververslinding</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker kwam erin.</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker ging eruit.</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker kwam binnen.</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker verliet kanaal.</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>Toegangverbod</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"/>
+        <translation>Tekstbericht</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"/>
+        <translation>Je kwam binnen.</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"/>
+        <translation>Je kwam binnen (versloopt).</translation>
     </message>
 </context>
 <context>
@@ -3530,29 +3530,31 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"/>
+        <translation>Geactiveerd dicteert Tekst-naar-Spraak niet de berichtsscoop.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"/>
+        <translation>Berichtsscoop weglaten</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"/>
+        <translation>Geactiveerd dicteert Tekst-naar-Spraak niet de berichtsauteur.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"/>
+        <translation>Berichtsauteur weglaten</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
-        <translation type="unfinished"/>
+        <translation>Mits aangevinkt wordt de tijdsaanduiding van berichten als 24-uurs getoond.
+
+Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan het oude tijdsaanduidingsformat.</translation>
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"/>
+        <translation>24-uurskloksoort</translation>
     </message>
 </context>
 <context>
@@ -4155,17 +4157,17 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Verzendmodus naar Druk-om-te-Praten instellen</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Verzendmodus naar Continue instellen</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Verzendmodus naar Believen instellen</translation>
     </message>
     <message>
         <source>Send Text Message</source>
@@ -4913,7 +4915,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
-        <translation type="unfinished"/>
+        <translation>Kanalenlimiet bereikt. Eerst kanalen verwijderen alvorens nieuwe te creëren.</translation>
     </message>
     <message>
         <source>Permission denied.</source>
@@ -5059,7 +5061,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation type="unfinished"/>
+        <translation>Kortsluiting bij Opus laden; het is onbeschikbaar voor geluidsen-/decodering.</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -5156,7 +5158,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 left channel and disconnected.</source>
-        <translation>%1 verliet kanaal (verbrak verbinding).</translation>
+        <translation>%1 verliet kanaal (verbinding verbroken).</translation>
     </message>
     <message>
         <source>Message from %1</source>
@@ -5208,7 +5210,27 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Gebruik: mumble [opties] [&lt;url&gt;]
+
+Specificeert een adreslink om mee te verbinden na het opstarten in plaats van
+het verbindingsvenster te tonen, en heeft het volgende format:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+De versie query parameter moet ingesteld zijn om de 
+juiste client versie aan te roepen. Het valt nu terug op 1.2.0.
+
+Valide opties zijn:
+ -h, --help    Toon deze hulptekst en sluit af.
+ -m, --multiple
+                Laat opstarten van meerdere instanties van de client toe.
+ -n, --noidentity
+                Onderdruk laden van identiteitsbestanden (bijv. certificaten.)
+ --license
+                Toon de Mumble-licentie.
+ --authors
+                Toon de Mumble-auteuren.
+ --third-party-licenses
+                Toon licenties voor software van derden gebruikt door Mumble.</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -5553,11 +5575,11 @@ Extra kanalen markeerbaar vanuit kanaalcontextmenu.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
-        <translation type="unfinished"/>
+        <translation>Serversynchronisatie-protocol in het geding. Geen gebruikersprofiel bekend.</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
-        <translation type="unfinished"/>
+        <translation>Protocolhapering. Servergestuurde verwijdering met kanaal dat in gebruik is.</translation>
     </message>
 </context>
 <context>
@@ -5623,16 +5645,16 @@ Extra kanalen markeerbaar vanuit kanaalcontextmenu.</translation>
         <translation>Status</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Gekoppeld</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Geactiveerd</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Ontwrichten</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6091,7 +6113,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>FPS and Clock Display</source>
-        <translation>FPS- &amp; klokscherm</translation>
+        <translation>Fps- &amp; klokscherm</translation>
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
@@ -6421,7 +6443,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
+        <source>Default device</source>
         <translation>Standaardapparaat</translation>
     </message>
 </context>
@@ -6445,6 +6467,13 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Mumble faalde om te her-starten. Graag zelf herstarten...</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7395,7 +7424,7 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"/>
+        <translation>Haperende microfoontoegang. Dubbelcheck dat je microfooninstellingen van je besturingssysteem Mumble toestaan de microfoon te gebruiken.</translation>
     </message>
 </context>
 <context>

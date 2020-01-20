@@ -543,7 +543,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"/>
+        <translation>Você deve selecionar ao menos uma fonte de microfone e uma de alto-falante para usar ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -941,11 +941,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Este é o dispositivo de entrada a ser usado para áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"/>
+        <translation>Habilitar Opus de baixa latência quando a qualidade estiver configurada para64kb/s ou mais alta.</translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
@@ -953,7 +953,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"/>
+        <translation>Permitir modo de baixa latência.</translation>
     </message>
 </context>
 <context>
@@ -1261,7 +1261,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Este é o método de saída para uso do áudio.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
@@ -3358,27 +3358,27 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"/>
+        <translation>Usuário entrou no canal</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"/>
+        <translation>Usuário deixou o canal</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>Permissão negada.</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"/>
+        <translation>Mensagem de texto</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"/>
+        <translation>Você Ingressou no Canal</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"/>
+        <translation>Você Ingressou no Canal (movido)</translation>
     </message>
 </context>
 <context>
@@ -3536,19 +3536,19 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"/>
+        <translation>Se habilitado, TTS não ditará escopo da mensagem.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"/>
+        <translation>Omitir escopo da mensagem.</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"/>
+        <translation>Se habilitado, TTS não ditará escopo da mensagem do autor..</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"/>
+        <translation>Omitir mensagem do autor</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
@@ -3558,7 +3558,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"/>
+        <translation>Usar relógio no formato 24 horas.</translation>
     </message>
 </context>
 <context>
@@ -5590,11 +5590,11 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
-        <translation type="unfinished"/>
+        <translation>Protocolo de sincronia do servidor violado.Perfil de usuário não recebido.</translation>
     </message>
     <message>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
-        <translation type="unfinished"/>
+        <translation>Violação do protocolo. Servidor envia remover para o canal ocupado.</translation>
     </message>
 </context>
 <context>
@@ -5660,16 +5660,16 @@ no menu contextual do canal.</translation>
         <translation>Estado</translation>
     </message>
     <message>
-        <source>Linked</source>
-        <translation>Ligado</translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation>Ativado</translation>
-    </message>
-    <message>
         <source>Unhinge</source>
         <translation>Desarticular</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>Link</translation>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation>Ativado</translation>
     </message>
 </context>
 <context>
@@ -6457,7 +6457,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
+        <source>Default device</source>
         <translation>Dispositivo padrão</translation>
     </message>
 </context>
@@ -6481,6 +6481,13 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Mumble falhou em reiniciar. Por favor reinicie-o manualmente.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

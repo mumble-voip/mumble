@@ -537,7 +537,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"/>
+        <translation>Нужно выбрать минимум один микрофон и один динамик для использования ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -911,23 +911,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"/>
+        <translation>Простой будет прекращен при нажатии любой клавиши клавиатуры или мыши</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished"/>
+        <translation>Прекращать простой при активности</translation>
     </message>
     <message>
         <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation type="unfinished"/>
+        <translation>Включить фильтр подавления шума RNNoise.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Это включает фильтр подавления шума RNNoise.&lt;/b&gt;&lt;br /&gt;RNNoise основан на машинном обучении и используется в WebRTC.</translation>
     </message>
     <message>
         <source>RNNoise</source>
-        <translation type="unfinished"/>
+        <translation>RNNoise</translation>
     </message>
     <message>
         <source>Audio input</source>
@@ -935,7 +935,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Это метод для входящего звука.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
@@ -1227,15 +1227,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Если включено, Mumble будет приглушать только приложения, использующие то же устройство вывода, что и Mumble</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Приглушать только приложения, использующие то же устройство вывода, что и Mumble&lt;/b&gt;&lt;br /&gt;Если включено, приложения будут использовать другое устройство вывода, которое Mumble не будет приглушать.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Приглушать только приложения, использующие то же устройство вывода</translation>
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
@@ -1243,11 +1243,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Приглушать модули обратной связи PulseAudio &lt;/b&gt;&lt;br /&gt;Если модули обратной связи связаны с устройством вывода Mumble, они также будут приглушены.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Приглушать модули обратной связи PulseAudio</translation>
     </message>
     <message>
         <source>Audio output</source>
@@ -1255,15 +1255,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Это метод для выходного звука.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Приглушать других пользователей при наличии приоритета разговора&lt;/b&gt;&lt;br /&gt;Mumble поддерживает уменьшение громкости других пользователей при вашем &lt;i&gt;приоритете разговора&lt;/i&gt;, чтобы они вам не мешали. Включение галочки активирует эту опцию.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Приглушать других пользователей при наличии приоритета разговора.</translation>
     </message>
 </context>
 <context>
@@ -1809,11 +1809,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Это метод для входящего звука.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Это метод для выходного звука.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -2026,7 +2026,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно импортировать. Тип файла не поддерживается, либо отсутствует пароль.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
@@ -2267,7 +2267,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble может использовать сертификаты для авторизации на серверах. Использование сертификатов позволяет не использовать пароли, что значит вам не нужно передавать свой пароль удаленному сайту. Так же это предоставляет очень простую регистрацию пользователей и список друзей на клиентской стороне, независимый от серверов.&lt;/p&gt;&lt;p&gt;Пока Mumble может работать без сертификатов, многие сервера подразумевают, что он у вас есть.&lt;/p&gt;&lt;p&gt;Автоматическое создание нового сертификата достаточно для большинства случаев. Но Mumble также поддерживает сертификаты, подтверждающие владение email-адреса пользователем. Такие сертификаты выпускаются сторонними лицами. Дополнительную информацию смотрите в нашей &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;документации по пользовательским сертификатам&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2576,7 +2576,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"/>
+        <translation>Неизвестно</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2727,13 +2727,17 @@ Username to send to the server. Be aware that the server can impose restrictions
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"/>
+        <translation>В данный момент вы подключены к серверу.
+Вы хотите добавить в диалог данные соединения с сервером?
+Сервер: %1 Порт: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"/>
+        <translation>В вашем буфере обмена находится ссылка.
+Вы хотите добавить в диалог эти данные?
+Сервер: %1 Порт: %2</translation>
     </message>
     <message>
         <source>Password</source>
@@ -2949,19 +2953,19 @@ of the possible locations.</source>
     </message>
     <message>
         <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Включить обработчики Windows&lt;/b&gt;.&lt;br /&gt; Эта функция включает механизм обработчиков Windows. Использование этого режима позволяет Mumble подавлять нажатия клавиш и клики мыши.</translation>
     </message>
     <message>
         <source>Enable Windows hooks</source>
-        <translation type="unfinished"/>
+        <translation>Включить обработчики Windows.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Включить GKey&lt;/b&gt;.&lt;br /&gt; Эта настройка включает поддержку &quot;G&quot;-клавиш, располагаемых на клавиатурах Logitech.</translation>
     </message>
     <message>
         <source>Enable GKey</source>
-        <translation type="unfinished"/>
+        <translation>Включить GKey</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
@@ -2969,7 +2973,7 @@ of the possible locations.</source>
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"/>
+        <translation>Включить XInput</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
@@ -3236,7 +3240,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь вышел из канала и отключился</translation>
     </message>
     <message>
         <source>Private text message</source>
@@ -3281,27 +3285,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"/>
+        <translation>Сервер подключен</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Сервер отключен</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь присоединился к серверу</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь покинул сервер</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь присоединился к каналу</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь покинул канал</translation>
     </message>
     <message>
         <source>Permission denied</source>
@@ -3309,7 +3313,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"/>
+        <translation>Текстовое сообщение</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -3497,7 +3501,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"/>
+        <translation>Использовать 24-часовой формат времени</translation>
     </message>
 </context>
 <context>
@@ -3622,7 +3626,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel Dragging</source>
-        <translation>Перетаскивание</translation>
+        <translation>Перетаскивание канала</translation>
     </message>
     <message>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
@@ -3734,23 +3738,23 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>User Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Перетаскивание пользователя</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"/>
+        <translation>Это меняет поведение при перемещении пользователей.</translation>
     </message>
     <message>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"/>
+        <translation>Настраивает перетаскивание пользователей; может быть полезным для предотвращения случайного перемещения. &lt;i&gt;Переместить&lt;/i&gt; перемещает пользователя без подсказок. &lt;i&gt;Ничего не делать&lt;/i&gt; только выводит сообщение об ошибке. &lt;i&gt;Спрашивать&lt;/i&gt; выдает запрос для подтверждения, действительно ли вы хотите переместить пользователя.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Включить меню разработчиков&lt;/b&gt;&lt;br /&gt;Это включает меню разработчиков в Mumble. Это меню используется для специфических функций разработчиков, таких как консоль разработчика.</translation>
     </message>
     <message>
         <source>Enable Developer menu</source>
-        <translation type="unfinished"/>
+        <translation>Включить меню разработчика</translation>
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
@@ -3965,7 +3969,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Информация о сборке или версии ОС недоступна&lt;/p&gt;</translation>
     </message>
     <message>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
@@ -3989,7 +3993,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Канал управления&lt;/h2&gt;&lt;p&gt;Соединение использует %1&lt;/p&gt;%2%3&lt;p&gt;%4 среднее время задержки в мс (%5 отклонение)&lt;/p&gt;&lt;p&gt;Удаленный сервер %6 (порт %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Voice channel is sent over control channel</source>
@@ -4041,7 +4045,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Server connection failed.</source>
-        <translation type="unfinished"/>
+        <translation>Сбой подключения к серверу.</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
@@ -4120,12 +4124,12 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Send Clipboard Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Отправить текстовое сообщение из буфера обмена</translation>
     </message>
     <message>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Это отправит текстовое сообщение из буфера обмена в канал, в котором вы сейчас находитесь.</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -4868,7 +4872,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 connected and entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь %1 подключился и присоединился к каналу</translation>
     </message>
     <message>
         <source>%1 connected.</source>
@@ -5111,7 +5115,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Включена опция перетаскивания пользователей &quot;Ничего не делать&quot;, поэтому пользователь не был перемещен.</translation>
     </message>
     <message>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
@@ -5155,7 +5159,31 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Использование: mumble [ключи] [&lt;url&gt;]
+
+&lt;url&gt; указывает адрес для подключения после запуска вместо вывода
+окна подключения и имеет следующий вид:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Допустимые ключи:
+  -h, --help    Показать данную справку и выйти.
+  -m, --multiple
+                Разрешить запуск нескольких клиентов.
+  -n, --noidentity
+                Запретить загрузку файлов идентификации (например, сертификатов.)
+  -jn, --jackname
+                Задать имя клиента JACK.
+  --license
+                Показать лицензию Mumble.
+  --authors
+                Показать авторов Mumble.
+  --third-party-licenses
+                Показать лицензии стороннего ПО, используемого Mumble.
+
+</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -5364,7 +5392,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
-        <translation type="unfinished"/>
+        <translation>Показывает консоль разработчика Mumble, с помощью которой можно просмотреть вывод журнала Mumble.</translation>
     </message>
     <message>
         <source>&amp;Connect...</source>
@@ -5515,7 +5543,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>м</translation>
     </message>
     <message>
         <source>Heading</source>
@@ -5554,15 +5582,15 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Linked</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Unhinge</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -5755,20 +5783,20 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"/>
+        <translation>Конфиденциальность</translation>
     </message>
     <message>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
-        <translation type="unfinished"/>
+        <translation>Предотвратить передачу системной информации на сервера Mumble и веб-сервера</translation>
     </message>
     <message>
         <source>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
 Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Не отправлять системную информацию на сервера&lt;/b&gt;&lt;br/&gt;Предотвращает отправку клиентом потенциально идентифицирующей информации об операционной системе на сервера Mumble и веб-сервера.</translation>
     </message>
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
-        <translation type="unfinished"/>
+        <translation>Не отправлять системную информацию на сервера Mumble и веб-сервера</translation>
     </message>
 </context>
 <context>
@@ -5879,7 +5907,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Launcher Filter</source>
-        <translation type="unfinished"/>
+        <translation>Фильтр лаунчеров</translation>
     </message>
     <message>
         <source>Overlay</source>
@@ -5895,7 +5923,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Choose path</source>
-        <translation type="unfinished"/>
+        <translation>Выберите каталог</translation>
     </message>
     <message>
         <source>Load Overlay Presets</source>
@@ -6032,31 +6060,31 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overlay Exceptions</source>
-        <translation type="unfinished"/>
+        <translation>Исключения табло</translation>
     </message>
     <message>
         <source>Overlay Exception Mode</source>
-        <translation type="unfinished"/>
+        <translation>Режим исключений табло</translation>
     </message>
     <message>
         <source>Allowed launchers</source>
-        <translation type="unfinished"/>
+        <translation>Разрешенные лаунчеры</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Добавить</translation>
     </message>
     <message>
         <source>Allowed programs</source>
-        <translation type="unfinished"/>
+        <translation>Разрешенные программы</translation>
     </message>
     <message>
         <source>Allowed paths</source>
-        <translation type="unfinished"/>
+        <translation>Разрешенные каталоги</translation>
     </message>
     <message>
         <source>Blacklisted programs</source>
-        <translation type="unfinished"/>
+        <translation>Запрещенные программы</translation>
     </message>
 </context>
 <context>
@@ -6350,7 +6378,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <source>Default Device</source>
+        <source>Default device</source>
         <translation>Устройство по умолчанию</translation>
     </message>
 </context>
@@ -6374,6 +6402,13 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Ошибка перезапуска Mumble. Сделайте это самостоятельно.</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6462,7 +6497,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно найти имя сервера</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -6911,7 +6946,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID канала: %1</translation>
     </message>
 </context>
 <context>
@@ -6922,7 +6957,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Локально отрегулируйте громкость пользователей.&lt;/b&gt;&lt;br /&gt;Mumble поддерживает локальную регулировку громкости пользователей.</translation>
     </message>
     <message>
         <source>Adjusting local volume for %1</source>
@@ -6934,7 +6969,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Используйте ползунок или текстовое поле, чтобы изменить громкость пользователя.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Внимание!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Чрезмерное увеличение громкости может привести к необратимому повреждению слуха. Также это может увеличить фоновый шум пользователя.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -7054,7 +7089,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Are you sure you want to drag this user?</source>
-        <translation type="unfinished"/>
+        <translation>Вы уверены, что хотите перетащить этого пользователя?</translation>
     </message>
     <message>
         <source>Are you sure you want to drag this channel?</source>
@@ -7323,7 +7358,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"/>
+        <translation>Доступ к микрофону был запрещен. Проверьте, позволяют ли настройки микрофона ОС предоставить Mumble доступ к микрофону.</translation>
     </message>
 </context>
 <context>
