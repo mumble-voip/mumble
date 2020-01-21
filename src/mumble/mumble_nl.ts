@@ -6473,7 +6473,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     <name>QObject</name>
     <message>
         <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"/>
+        <translation>CodecInit: Inlaadfout met Opus, niet paraat om geluiden te en- of decoderen.</translation>
     </message>
 </context>
 <context>
