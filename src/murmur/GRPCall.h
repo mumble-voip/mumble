@@ -162,7 +162,7 @@ namespace MurmurRPC {
 				bool writePrivate (const Out& message) {
 					bf::promise<bool> okPromise;
 					bf::future<bool> okFuture(okPromise.get_future());
-					auto l = [okPromise = std::move(okPromise), &message](bool ok) mutable {
+					auto l = [okPromise = std::move(okPromise)](bool ok) mutable {
 							okPromise.set_value(ok);
 					};
 					auto cb = ::boost::function<void(bool)>(std::ref(l));
@@ -518,20 +518,20 @@ namespace MurmurRPC {
 
 		template<typename Derived, typename RPCType>
 		template<typename X, std::enable_if_t<std::is_same<X, Unary_t>::value>*>
-		void RPCCall<Derived, RPCType>::handle(bool ok) {
+		void RPCCall<Derived, RPCType>::handle(bool /*unused*/) {
 			RPCCall<Derived>::create(this->rpc, this->service);
 			auto ptr = this->getSharedPtr();
-			this->launchInEventLoop([this, ptr, ok](){
+			this->launchInEventLoop([this, ptr](){
 					ptr->impl(ptr, this->impl_detail.m_Request);
 			});
 		}
 
 		template<typename Derived, typename RPCType>
 		template<typename X, std::enable_if_t<std::is_same<X, ServerStream_t>::value>*>
-		void RPCCall<Derived, RPCType>::handle(bool ok) {
+		void RPCCall<Derived, RPCType>::handle(bool /*unused*/) {
 			RPCCall<Derived>::create(this->rpc, this->service);
 			auto ptr = this->getSharedPtr();
-			this->launchInEventLoop([this, ptr, ok](){
+			this->launchInEventLoop([this, ptr](){
 				ptr->impl(ptr, this->impl_detail.m_Request);
 			});
 			impl_detail.createWorker();
@@ -539,10 +539,10 @@ namespace MurmurRPC {
 
 		template<typename Derived, typename RPCType>
 		template<typename X, std::enable_if_t<std::is_same<X, BidiStream_t>::value>*>
-		void RPCCall<Derived, RPCType>::handle(bool ok) {
+		void RPCCall<Derived, RPCType>::handle(bool /*unused*/) {
 			RPCCall<Derived>::create(this->rpc, this->service);
 			auto ptr = this->getSharedPtr();
-			this->launchInEventLoop([this, ptr, ok](){
+			this->launchInEventLoop([this, ptr](){
 				ptr->impl(ptr);
 			});
 			impl_detail.createWorker();
@@ -567,7 +567,7 @@ namespace MurmurRPC {
 		template<typename C>
 		template<typename Idx>
 		auto weakContainer<C>::getLockedIndex(const Idx&) {
-			auto lk = std::lock_guard(m_Mtx);
+			std::lock_guard<decltype(m_Mtx)> lk(m_Mtx);
 			const auto& idx = mi::get<Idx>(container);
 			return getLockedRange(std::make_pair(idx.cbegin(), idx.cend()));
 		}
@@ -579,7 +579,7 @@ namespace MurmurRPC {
 			using voids = mp11::mp_transform<mp11::mp_void, return_type>;
 			static_assert(std::is_same<voids, std::pair<void, void>>::value && 
 					mp11::mp_same<return_type>::value , "func must have signature std::pair<Iter, Iter>(&Container)");
-			auto lk = std::lock_guard(m_Mtx);
+			std::lock_guard<decltype(m_Mtx)> lk(m_Mtx);
 			const auto& range = func(*this);
 			return this->getLockedRange(range);
 		}

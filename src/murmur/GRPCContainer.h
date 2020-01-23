@@ -18,6 +18,7 @@
 #include <boost/range/algorithm/remove_if.hpp>
 #include <boost/range/sub_range.hpp>
 #include <boost/fiber/all.hpp>
+#include <boost/type_traits.hpp>
 
 #include <tuple>
 #include <type_traits>
@@ -28,11 +29,29 @@ namespace MurmurRPC {
 	namespace Wrapper {
 		namespace Container {
 
+			namespace mi = boost::multi_index;
+			namespace mp11 = boost::mp11;
+
+			namespace Detail {
+				template<typename Value, int idx>
+				struct tuple_extractor {
+					using const_lref_t = boost::add_lvalue_reference_t<
+						boost::add_const_t<
+							boost::remove_cv_ref_t<Value>
+						>
+					>;
+
+					typedef decltype(std::get<idx>(const_lref_t{})) result_type;
+
+					auto operator()(const_lref_t x) const {
+						return std::get<idx>(x);
+					}
+				};
+			} //end Detail
+
 			struct server {};
 			struct rpcid {};
 			struct serveraction {};
-
-			namespace mi = boost::multi_index;
 
 			template<typename T>
 			struct mapConfig {
@@ -42,19 +61,11 @@ namespace MurmurRPC {
 				using indices = std::tuple<
 						mi::ordered_unique<
 							mi::tag<server>,
-							mi::global_fun<
-								const value_type&,
-								const int&,
-								static_cast<const int& (*)(const value_type&)>(std::get<0>)
-							>
+							Detail::tuple_extractor<value_type, 0>
 						>,
 						mi::ordered_unique<
 							mi::tag<rpcid>,
-							mi::global_fun<
-								const value_type&,
-								const uint32_t&,
-								static_cast<const uint32_t& (*)(const value_type&)>(std::get<1>)
-							>
+							Detail::tuple_extractor<value_type, 1>
 						>
 					>;
 			};
@@ -67,19 +78,11 @@ namespace MurmurRPC {
 				using indices = std::tuple<
 						mi::ordered_non_unique<
 							mi::tag<server>,
-							mi::global_fun<
-								const value_type&,
-								const int&,
-								static_cast<const int& (*)(const value_type&)>(std::get<0>)
-							>
+							Detail::tuple_extractor<value_type, 0>
 						>,
 						mi::ordered_non_unique<
 							mi::tag<rpcid>,
-							mi::global_fun<
-								const value_type&,
-								const uint32_t&,
-								static_cast<const uint32_t& (*)(const value_type&)>(std::get<1>)
-							>
+							Detail::tuple_extractor<value_type, 1>
 						>
 					>;
 			};
@@ -94,25 +97,13 @@ namespace MurmurRPC {
 							mi::tag<serveraction>,
 							mi::composite_key<
 								value_type,
-								mi::global_fun<
-									const value_type&,
-									const int&,
-									static_cast<const int& (*)(const value_type&)>(std::get<0>)
-								>,
-								mi::global_fun<
-									const value_type&,
-									const std::string&,
-									static_cast<const std::string& (*)(const value_type&)>(std::get<1>)
-								>
+								Detail::tuple_extractor<value_type, 0>,
+								Detail::tuple_extractor<value_type, 1>
 							>
 						>,
 						mi::ordered_non_unique<
 							mi::tag<rpcid>,
-							mi::global_fun<
-								const value_type &,
-								const uint32_t&,
-								static_cast<const uint32_t& (*)(const value_type&)>(std::get<2>)
-							>
+							Detail::tuple_extractor<value_type, 2>
 						>
 					>;
 			};
@@ -127,11 +118,7 @@ namespace MurmurRPC {
 				using indices = std::tuple<
 					mi::ordered_unique<
 							mi::tag<rpcid>,
-							mi::global_fun<
-								const value_type&,
-								const uint32_t&,
-								static_cast<const uint32_t& (*)(const value_type&)>(std::get<0>)
-							>
+							Detail::tuple_extractor<value_type, 0>
 						>
 					>;
 			};
@@ -267,7 +254,7 @@ namespace MurmurRPC {
 
 				template<typename ... Args>
 				std::pair<iterator, bool> emplace(Args&& ... args) {
-					auto lk = std::lock_guard(m_Mtx);
+					std::lock_guard<decltype(m_Mtx)> lk(m_Mtx);
 					return container.emplace(std::forward<Args>(args)...);
 				}
 

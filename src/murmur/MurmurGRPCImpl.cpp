@@ -6,6 +6,7 @@
 #ifndef Q_MOC_RUN
 # include <boost/function.hpp>
 # include <boost/range/algorithm/remove_if.hpp>
+# include <boost/type_traits.hpp>
 # include "./murmur_grpc/FiberScheduler.h"
 #endif
 
@@ -129,7 +130,7 @@ void InjectThreadYield() {
 	using MurmurRPC::Wrapper::Detail::qtimer_deleter;
 	static std::function<void()> thisfunc = InjectThreadYield;
 	static std::unique_ptr<QTimer, qtimer_deleter> timer([](){
-		QTimer* t = new QTimer(QCoreApplication::instance());
+		auto t = new QTimer(QCoreApplication::instance());
 		t->setInterval(0);
 		t->setSingleShot(true);
 		t->callOnTimeout(QCoreApplication::instance(), std::ref(thisfunc));
@@ -278,11 +279,11 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 	m_isRunning = false;
 	m_completionQueue->Shutdown();
 	while (m_completionQueue->Next(&ignored_tag, &ignored_ok)) {
-		if (ignored_tag) {
+		//if (ignored_tag) {
 			//these should be on the stack now
 			//auto op = static_cast<boost::function<void(bool)> *>(ignored_tag);
 			//delete op;
-		}
+		//}
 	}
 }
 
@@ -477,7 +478,9 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 // Sends a meta event to any subscribed listeners.
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	qDebug("sending meta events");
-	for (const auto& [id, listener] : m_metaServiceListeners.getLockedIndex(mwc::rpcid{})) {
+	for (auto&& item : m_metaServiceListeners.getLockedIndex(mwc::rpcid{})) {
+		auto id = std::get<0>(item);
+		auto listener = std::get<1>(item);
 		auto cb = [&m_metaServiceListeners = m_metaServiceListeners, id](bool ok) {
 				if (!ok) {
 					(m_metaServiceListeners.getRPCIdPtr())->erase(id);
@@ -1036,7 +1039,9 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 			[&serverID](const auto& c){const auto& idx = c.getServerIndex();
 								 return idx.equal_range(serverID);});
 
-	for (auto&& [ignore, listenerId, listener] : attached) {
+	for (auto&& item : attached) {
+		auto listenerId = std::get<1>(item);
+		auto listener = std::get<2>(item);
 		auto cb = [this, listenerId](bool ok) {
 			if (!ok) {
 				(this->m_serverServiceListeners.getRPCIdPtr())->erase(listenerId);
@@ -1261,16 +1266,15 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 		ca.mutable_channel()->set_id(channel);
 	}
 
-	uint32_t rpcId;
-	std::shared_ptr<RPCCall<::MurmurRPC::Wrapper::V1_ContextActionEvents>> listener;
-
 	const auto& listeners = m_contextActionListeners.getLocked(
 			[&s, &action] (const auto& c) {
 			const auto& idx = c.getActionIndex();
 			const auto& rng = idx.equal_range(std::forward_as_tuple(s->iServerNum, action.toStdString()));
 			return rng;});
-	for (const auto& item : listeners) {
-		std::tie(std::ignore , std::ignore , rpcId, listener) = item;
+	for (auto&& item : listeners) {
+		auto rpcId = std::get<2>(item);
+		auto listener = std::get<3>(item);
+
 		auto cb = [this, rpcId](bool ok) {
 			if (!ok) {
 				m_contextActionListeners.getRPCIdPtr()->erase(rpcId);

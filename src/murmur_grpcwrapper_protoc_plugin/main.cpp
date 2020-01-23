@@ -30,7 +30,7 @@ struct $service$_$method$ {
 		using StreamType = ::grpc::ServerAsyncResponseWriter<T>;
 	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
-	void impl(rpcPtr, InType&);
+	static void impl(rpcPtr, InType&);
 
 	static auto getRequestFn() {
 		return &::$ns$::$service$::AsyncService::Request$method$;
@@ -49,8 +49,8 @@ struct $service$_$method$ {
 	template<typename T>
 		using StreamType = ::grpc::ServerAsyncWriter<T>;
 
-	void impl(rpcPtr, InType&);
-	void onDone(rpcPtr, bool);
+	static void impl(rpcPtr, InType&);
+	static void onDone(rpcPtr, bool);
 
 	static auto getRequestFn() {
 		return &::$ns$::$service$::AsyncService::Request$method$;
@@ -81,8 +81,8 @@ struct $service$_$method$ {
 	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 	template<typename T, typename U>
 		using StreamType = ::grpc::ServerAsyncReaderWriter<T, U>;
-	void impl(rpcPtr);
-	void onDone(rpcPtr, bool);
+	static void impl(rpcPtr);
+	static void onDone(rpcPtr, bool);
 
 	static auto getRequestFn() {
 		return &::$ns$::$service$::AsyncService::Request$method$;
