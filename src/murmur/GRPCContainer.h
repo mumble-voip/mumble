@@ -21,6 +21,7 @@
 #include <boost/type_traits.hpp>
 
 #include <tuple>
+#include <cstddef>
 #include <type_traits>
 #include <memory>
 #include <mutex>
@@ -43,10 +44,55 @@ namespace MurmurRPC {
 
 					typedef decltype(std::get<idx>(const_lref_t{})) result_type;
 
-					auto operator()(const_lref_t x) const {
+					auto operator()(const_lref_t x) const -> decltype(std::get<idx>(x)) {
 						return std::get<idx>(x);
 					}
 				};
+
+				template<typename Adapter, typename Pred, typename It>
+				struct range_type_it {
+					using pred_t = boost::decay_t<Pred>;
+					using adapter_t = boost::decay_t<Adapter>;
+					using rng_t = boost::iterator_range<It>;
+					using xformed_t = boost::transformed_range<adapter_t, rng_t>;
+					using type = decltype(
+						boost::remove_if<boost::return_begin_found>(
+							std::declval<xformed_t>(),
+							std::declval<adapter_t>()
+							)
+						);
+				};
+
+				template<typename Adapter, typename Pred, typename It>
+					using range_type_it_t = typename range_type_it<Adapter, Pred, It>::type;
+
+				template<typename Adapter, typename Pred, typename Idx>
+				struct range_type_idx {
+					using idx_t = boost::decay_t<Idx>;
+					using It = typename idx_t::const_iterator;
+					using type = range_type_it_t<Adapter, Pred, It>;
+				};
+
+				template<typename Adapter, typename Pred, typename Idx>
+					using range_type_idx_t = typename range_type_idx<Adapter, Pred, Idx>::type;
+
+				template<typename Adapter, typename Pred, typename Functor, typename Container>
+				struct range_type_func {
+					using container_lref_t = boost::add_lvalue_reference_t<
+						boost::add_const_t<
+							boost::decay_t<Container>
+							>
+						>;
+					using pair_t = boost::decay_t<decltype(std::declval<Functor>()(container_lref_t{}))>;
+					static_assert(mp11::mp_is_list<pair_t>::value, "func must have signature std::pair<Iter, Iter>(&Container)");
+					using voids = mp11::mp_transform<mp11::mp_void, pair_t>;
+					static_assert(std::is_same<voids, std::pair<void, void>>::value &&
+						mp11::mp_same<pair_t>::value , "func must have signature std::pair<Iter, Iter>(&Container)");
+					using type = range_type_it_t<Adapter, Pred, mp11::mp_front<pair_t>>;
+				};
+
+				template<typename Adapter, typename Pred, typename Functor, typename Container>
+					using range_type_func_t = typename range_type_func<Adapter, Pred, Functor, Container>::type;
 			} //end Detail
 
 			struct server {};
@@ -144,17 +190,19 @@ namespace MurmurRPC {
 				struct locked_adapter {
 					typedef locked_type result_type;
 
+					template<class Tp1, class Tp2, std::size_t... I>
+					constexpr static Tp1 make_head(Tp2&& tp2, mp11::index_sequence<I...>) {
+						return Tp1(std::get<I>(std::forward<Tp2>(tp2))...);
+					}
+
 					template<class ...T>
 					locked_type operator()(std::tuple<T...> const & arg) const {
-						static_assert(std::is_same<std::remove_cv_t<std::remove_reference_t<decltype(arg)>>, value_type>::value, "arg is not value_type!");
+						static_assert(std::is_same<boost::remove_cv_t<boost::remove_reference_t<decltype(arg)>>, value_type>::value, "arg is not value_type!");
 						namespace mp11 = boost::mp11;
 						using L1 = std::tuple<T...>;
 						using head_t = mp11::mp_pop_back<L1>;
-						auto head = head_t();
-						using head_idx = mp11::mp_iota<mp11::mp_size<head_t>>;
-						mp11::mp_for_each<head_idx>([&head, &arg](auto i){
-									std::get<i>(head) = std::get<i>(arg);
-								});
+						using head_idx = mp11::make_index_sequence<sizeof...(T) - 1>;
+						auto head = make_head<head_t>(arg, head_idx{});
 						mp11::mp_back<locked_type> tail = (std::get<sizeof...(T) - 1>(arg)).lock();
 					    return std::tuple_cat(std::move(head), std::make_tuple(tail));
 					}
@@ -163,7 +211,7 @@ namespace MurmurRPC {
 				struct locked_filter {
 					template<typename... types>
 					bool operator()(const std::tuple<types...>& tup) const {
-						static_assert(std::is_same<std::remove_cv_t<std::remove_reference_t<decltype(tup)>>, locked_type>::value, "arg is not locked_type!");
+						static_assert(std::is_same<boost::remove_cv_t<boost::remove_reference_t<decltype(tup)>>, locked_type>::value, "arg is not locked_type!");
 						return std::get<(sizeof...(types) - 1)>(tup) == nullptr;
 					}
 				};
@@ -203,22 +251,35 @@ namespace MurmurRPC {
 				template<typename Idx>
 				typename std::unique_ptr<Idx, decltype(lock_holder())>
 				makeUniqueIdx(Idx& index) {
-					return std::unique_ptr<Idx, lock_holder>(std::addressof(index),
-							lock_holder(this->m_Mtx));
+					return std::unique_ptr<Idx, lock_holder>(
+							std::addressof(index),
+							lock_holder(this->m_Mtx)
+						);
 				}
 
 				template<typename It>
-				auto getLockedRange(const std::pair<It, It>& rng);
+				auto getLockedRange(const std::pair<It, It>& rng)
+					-> Detail::range_type_it_t<
+						decltype(locked_adapter()),
+						decltype(locked_filter()), It
+					>;
 
 			public:
 
 				typedef typename container_t::iterator iterator;
 
 				template<typename Functor>
-				auto getLocked(Functor&& func);
+				auto getLocked(Functor&& func) -> Detail::range_type_func_t<
+						decltype(locked_adapter()), decltype(locked_filter()),
+						Functor, decltype(*this)>;
 
 				template<typename Idx>
-				auto getLockedIndex(const Idx&);
+				auto getLockedIndex(const Idx&)
+					-> Detail::range_type_idx_t<
+						decltype(locked_adapter()),
+						decltype(locked_filter()),
+						decltype(mi::get<Idx>(container))
+						>;
 
 				template<typename Q = server>
 				auto getServerPtr() -> decltype(makeUniqueIdx(mi::get<Q>(container))) {

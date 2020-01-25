@@ -23,16 +23,16 @@ using namespace google::protobuf::io;
 const char *CSingle_SSingle = R"(
 struct $service$_$method$ {
 	typedef Detail::Unary::rpctype RPCType;
-	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
-	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
-	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	typedef boost::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
 	template<typename T>
 		using StreamType = ::grpc::ServerAsyncResponseWriter<T>;
 	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
 	static void impl(rpcPtr, InType&);
 
-	static auto getRequestFn() {
+	static auto getRequestFn() -> decltype((&::$ns$::$service$::AsyncService::Request$method$)) {
 		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };
@@ -41,9 +41,9 @@ struct $service$_$method$ {
 const char *CSingle_SStream = R"(
 struct $service$_$method$ {
 	typedef Detail::ServerStream::rpctype RPCType;
-	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
-	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
-	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	typedef boost::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
 	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
 	template<typename T>
@@ -52,7 +52,7 @@ struct $service$_$method$ {
 	static void impl(rpcPtr, InType&);
 	static void onDone(rpcPtr, bool);
 
-	static auto getRequestFn() {
+	static auto getRequestFn() -> decltype((&::$ns$::$service$::AsyncService::Request$method$)) {
 		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };
@@ -61,12 +61,12 @@ struct $service$_$method$ {
 const char *CStream_SSingle = R"(
 struct $service$_$method$ {
 	typedef Detail::ClientStream::rpctype RPCType;
-	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
-	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
-	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	typedef boost::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
 	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
-	static auto getRequestFn() {
+	static auto getRequestFn() -> decltype((&::$ns$::$service$::AsyncService::Request$method$)) {
 		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };
@@ -75,16 +75,16 @@ struct $service$_$method$ {
 const char *CStream_SStream = R"(
 struct $service$_$method$ {
 	typedef Detail::BidiStream::rpctype RPCType;
-	typedef std::remove_reference_t<decltype(std::declval<::$in$>())> InType;
-	typedef std::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
-	typedef std::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
+	typedef boost::remove_reference_t<decltype(std::declval<::$in$>())> InType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$out$>())> OutType;
+	typedef boost::remove_reference_t<decltype(std::declval<::$ns$::$service$::AsyncService>())> Service;
 	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 	template<typename T, typename U>
 		using StreamType = ::grpc::ServerAsyncReaderWriter<T, U>;
 	static void impl(rpcPtr);
 	static void onDone(rpcPtr, bool);
 
-	static auto getRequestFn() {
+	static auto getRequestFn() -> decltype((&::$ns$::$service$::AsyncService::Request$method$)) {
 		return &::$ns$::$service$::AsyncService::Request$method$;
 	}
 };

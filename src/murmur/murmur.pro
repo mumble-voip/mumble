@@ -161,7 +161,7 @@ grpc {
 
   DEFINES *= USE_GRPC
   INCLUDEPATH *= murmur_grpc
-  LIBS *= -lmurmur_grpc
+  LIBS *= -lmurmur_grpc -lboost_fiber -lboost_context
   HEADERS *= MurmurGRPCImpl.h ./murmur_grpc/FiberScheduler.h
   SOURCES *= MurmurGRPCImpl.cpp ./murmur_grpc/FiberScheduler.cpp
 

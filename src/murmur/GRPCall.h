@@ -13,7 +13,7 @@
 #include <boost/callable_traits/return_type.hpp>
 #include <boost/callable_traits/args.hpp>
 #include <boost/callable_traits/function_type.hpp>
-#include <boost/type_traits/is_detected.hpp>
+#include <boost/type_traits.hpp>
 #include <boost/mp11.hpp>
 
 #pragma GCC diagnostic push
@@ -162,10 +162,17 @@ namespace MurmurRPC {
 				bool writePrivate (const Out& message) {
 					bf::promise<bool> okPromise;
 					bf::future<bool> okFuture(okPromise.get_future());
+#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+					auto l = std::bind([](bf::promise<bool>& okPromise, bool ok) -> void {
+							okPromise.set_value(ok);
+					}, std::move(okPromise), std::placeholders::_1);
+					boost::function<void(bool)> cb = std::ref(l);
+#else
 					auto l = [okPromise = std::move(okPromise)](bool ok) mutable {
 							okPromise.set_value(ok);
 					};
-					auto cb = ::boost::function<void(bool)>(std::ref(l));
+					auto cb = boost::function<void(bool)>(std::ref(l));
+#endif
 					stream.Write(message, std::addressof(cb));
 					auto ret = okFuture.get();
 					return ret;
@@ -176,10 +183,17 @@ namespace MurmurRPC {
 					bf::promise<bool> okPromise;
 					bf::future<bool> okFuture(okPromise.get_future());
 
-					auto l = [okPromise=std::move(okPromise)](bool ok) mutable {
-									okPromise.set_value(ok);
-								};
-					auto cb = ::boost::function<void(bool)>(std::ref(l));
+#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+					auto l = std::bind([](bf::promise<bool>& okPromise, bool ok) -> void {
+							okPromise.set_value(ok);
+					}, std::move(okPromise), std::placeholders::_1);
+					boost::function<void(bool)> cb = std::ref(l);
+#else
+					auto l = [okPromise = std::move(okPromise)](bool ok) mutable {
+							okPromise.set_value(ok);
+					};
+					auto cb = boost::function<void(bool)>(std::ref(l));
+#endif
 					stream.Read(&request, std::addressof(cb));
 					auto ret = okFuture.get();
 					return std::make_pair(ret, request);
@@ -236,10 +250,24 @@ namespace MurmurRPC {
 					static_assert(std::is_same<ct::function_type_t<Functor>, void(bool)>{},
 							"Write(msg, cb)) expects void(bool) for cb");
 
+#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+					this->queueWork(
+						std::function<void()>(
+							std::bind(
+								[this, msg](Functor& func) -> void {
+									auto ok = this->writePrivate(msg);
+									static_cast<std::function<void(bool)>>(std::ref(func))(ok);
+								},
+								std::move(fn)
+							)
+						)
+					);
+#else
 					(void) this->queueWork([this, msg, fn = std::move(fn)]() mutable -> void {
 								auto ok = this->writePrivate(msg);
 								static_cast<std::function<void(bool)>>(std::ref(fn))(ok);
 							});
+#endif
 				}
 
 				rpcImpl(::grpc::ServerContext *ctx) : work_queue<StreamType<Out>, In, Out>(ctx) {
@@ -366,6 +394,18 @@ namespace MurmurRPC {
 				static_assert(std::is_same<ct::function_type_t<Functor>, void()>{},
 							"launchInEventLoop(Fn) expects void() for fn");
 
+#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+				boost::fibers::fiber f(
+					std::bind([](decltype(m_this) ptr, Functor func) {
+						try {
+							func();
+						} catch (::grpc::Status &ex) {
+							if (!ptr->isCancelled()) {
+								ptr->error(ex);
+							}
+						}
+					}, std::move(this->getSharedPtr()), std::move(fn)));
+#else
 				boost::fibers::fiber f([ptr = this->getSharedPtr(), func = std::move(fn)](){
 					try {
 						func();
@@ -375,28 +415,29 @@ namespace MurmurRPC {
 						}
 					}
 				});
+#endif
 				auto& props( f.properties<MurmurRPC::Scheduler::grpc_props>() );
 				props.run_in_main(true);
 				f.detach();
 			}
 
-			template<typename X = RPCType, std::enable_if_t<std::is_same<X, Unary_t>::value>* = nullptr>
+			template<typename X = RPCType, boost::enable_if_t<std::is_same<X, Unary_t>::value>* = nullptr>
 			void handle(bool ok);
 
-			template<typename X = RPCType, std::enable_if_t<std::is_same<X, ServerStream_t>::value>* = nullptr>
+			template<typename X = RPCType, boost::enable_if_t<std::is_same<X, ServerStream_t>::value>* = nullptr>
 			void handle(bool ok);
 
-			template<typename X = RPCType, std::enable_if_t<std::is_same<X, BidiStream_t>::value>* = nullptr>
+			template<typename X = RPCType, boost::enable_if_t<std::is_same<X, BidiStream_t>::value>* = nullptr>
 			void handle(bool ok);
 
 		protected:
 			template<typename RFn,
-				std::enable_if_t<(std::tuple_size<std::add_const_t<ct::args_t<RFn>>>::value == 7)>* = nullptr>
+				boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 7)>* = nullptr>
 			static void addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc, RFn requestFn, void *handleFn,
 					RPCCall<Derived> *call);
 
 			template<typename RFn,
-				std::enable_if_t<(std::tuple_size<std::add_const_t<ct::args_t<RFn>>>::value == 6)>* = nullptr>
+				boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 6)>* = nullptr>
 			static void addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc, RFn requestFn, void *handleFn,
 					RPCCall<Derived> *call);
 
@@ -454,8 +495,9 @@ namespace MurmurRPC {
 			}
 
 			// stream-stream functions
-			template<typename MsgType>
-			auto write(MsgType message) {
+			template<typename Impl = ImplType, typename MsgType>
+			auto write(MsgType message)
+				-> decltype(std::declval<Impl>().queueWork(std::declval<bool(*)()>())) {
 				return impl_detail.queueWork([&]() -> bool { return impl_detail.writePrivate(message); });
 			}
 
@@ -502,14 +544,14 @@ namespace MurmurRPC {
 		namespace ct = boost::callable_traits;
 
 		template<typename Derived, typename RPCType>
-		template<typename RFn, std::enable_if_t<(std::tuple_size<std::add_const_t<ct::args_t<RFn>>>::value == 7)>*>
+		template<typename RFn, boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 7)>*>
 		void RPCCall<Derived, RPCType>::addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc,
 					RFn requestFn, void *handleFn, RPCCall<Derived> *call) {
 				(svc->*requestFn)(&call->context, &call->impl_detail.m_Request, &call->impl_detail.stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), handleFn);
 		}
 
 		template<typename Derived, typename RPCType>
-		template<typename RFn, std::enable_if_t<(std::tuple_size<std::add_const_t<ct::args_t<RFn>>>::value == 6)>*>
+		template<typename RFn, boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 6)>*>
 		void RPCCall<Derived, RPCType>::addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc,
 					RFn requestFn, void *handleFn, RPCCall<Derived> *call) {
 			(svc->*requestFn)(&call->context, &call->impl_detail.stream, rpc->m_completionQueue.get(),
@@ -517,7 +559,7 @@ namespace MurmurRPC {
 		}
 
 		template<typename Derived, typename RPCType>
-		template<typename X, std::enable_if_t<std::is_same<X, Unary_t>::value>*>
+		template<typename X, boost::enable_if_t<std::is_same<X, Unary_t>::value>*>
 		void RPCCall<Derived, RPCType>::handle(bool /*unused*/) {
 			RPCCall<Derived>::create(this->rpc, this->service);
 			auto ptr = this->getSharedPtr();
@@ -527,7 +569,7 @@ namespace MurmurRPC {
 		}
 
 		template<typename Derived, typename RPCType>
-		template<typename X, std::enable_if_t<std::is_same<X, ServerStream_t>::value>*>
+		template<typename X, boost::enable_if_t<std::is_same<X, ServerStream_t>::value>*>
 		void RPCCall<Derived, RPCType>::handle(bool /*unused*/) {
 			RPCCall<Derived>::create(this->rpc, this->service);
 			auto ptr = this->getSharedPtr();
@@ -538,11 +580,11 @@ namespace MurmurRPC {
 		}
 
 		template<typename Derived, typename RPCType>
-		template<typename X, std::enable_if_t<std::is_same<X, BidiStream_t>::value>*>
+		template<typename X, boost::enable_if_t<std::is_same<X, BidiStream_t>::value>*>
 		void RPCCall<Derived, RPCType>::handle(bool /*unused*/) {
 			RPCCall<Derived>::create(this->rpc, this->service);
 			auto ptr = this->getSharedPtr();
-			this->launchInEventLoop([this, ptr](){
+			this->launchInEventLoop([ptr](){
 				ptr->impl(ptr);
 			});
 			impl_detail.createWorker();
@@ -558,15 +600,23 @@ namespace MurmurRPC {
 
 		template<typename C>
 		template<typename It>
-		auto weakContainer<C>::getLockedRange(const std::pair<It, It>& rng) {
-			auto range = ::boost::iterator_range<It>(rng.first, rng.second);
-			auto locked = ::boost::adaptors::transform(range, locked_adapter());
-			return ::boost::remove_if<::boost::return_begin_found>(locked, locked_filter());
+		auto weakContainer<C>::getLockedRange(const std::pair<It, It>& rng)
+			-> Detail::range_type_it_t<
+				decltype(locked_adapter()),
+				decltype(locked_filter()), It> {
+			auto range = boost::iterator_range<It>(rng.first, rng.second);
+			auto locked = boost::adaptors::transform(range, locked_adapter());
+			return boost::remove_if<boost::return_begin_found>(locked, locked_filter());
 		}
 
 		template<typename C>
 		template<typename Idx>
-		auto weakContainer<C>::getLockedIndex(const Idx&) {
+		auto weakContainer<C>::getLockedIndex(const Idx&)
+			-> Detail::range_type_idx_t<
+				decltype(locked_adapter()),
+				decltype(locked_filter()),
+				decltype(mi::get<Idx>(container))
+				> {
 			std::lock_guard<decltype(m_Mtx)> lk(m_Mtx);
 			const auto& idx = mi::get<Idx>(container);
 			return getLockedRange(std::make_pair(idx.cbegin(), idx.cend()));
@@ -574,11 +624,7 @@ namespace MurmurRPC {
 
 		template<typename C>
 		template<typename Functor>
-		auto weakContainer<C>::getLocked(Functor&& func) {
-			using return_type = std::decay_t<decltype(std::declval<Functor>()(*this))>;
-			using voids = mp11::mp_transform<mp11::mp_void, return_type>;
-			static_assert(std::is_same<voids, std::pair<void, void>>::value && 
-					mp11::mp_same<return_type>::value , "func must have signature std::pair<Iter, Iter>(&Container)");
+		auto weakContainer<C>::getLocked(Functor&& func) -> Detail::range_type_func_t<decltype(locked_adapter()), decltype(locked_filter()), Functor, decltype(*this)> {
 			std::lock_guard<decltype(m_Mtx)> lk(m_Mtx);
 			const auto& range = func(*this);
 			return this->getLockedRange(range);

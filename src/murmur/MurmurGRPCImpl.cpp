@@ -478,12 +478,13 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 // Sends a meta event to any subscribed listeners.
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	qDebug("sending meta events");
+	//for (const auto& [id, listener] : m_metaServiceListeners.getLockedIndex(mwc::rpcid{})) {
 	for (auto&& item : m_metaServiceListeners.getLockedIndex(mwc::rpcid{})) {
 		auto id = std::get<0>(item);
 		auto listener = std::get<1>(item);
-		auto cb = [&m_metaServiceListeners = m_metaServiceListeners, id](bool ok) {
+		auto cb = [this, id](bool ok) {
 				if (!ok) {
-					(m_metaServiceListeners.getRPCIdPtr())->erase(id);
+					(this->m_metaServiceListeners.getRPCIdPtr())->erase(id);
 				}
 			};
 		qDebug("sending write event for meta event, listenerid %u", id);
@@ -1036,13 +1037,13 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
 	auto serverID = s->iServerNum;
 	auto&& attached = m_serverServiceListeners.getLocked(
-			[&serverID](const auto& c){const auto& idx = c.getServerIndex();
+			[&serverID](const decltype(m_serverServiceListeners)& c){const auto& idx = c.getServerIndex();
 								 return idx.equal_range(serverID);});
 
 	for (auto&& item : attached) {
 		auto listenerId = std::get<1>(item);
 		auto listener = std::get<2>(item);
-		auto cb = [this, listenerId](bool ok) {
+		auto cb = [this, listenerId](bool ok) -> void {
 			if (!ok) {
 				(this->m_serverServiceListeners.getRPCIdPtr())->erase(listenerId);
 			}
@@ -1267,7 +1268,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	}
 
 	const auto& listeners = m_contextActionListeners.getLocked(
-			[&s, &action] (const auto& c) {
+			[&s, &action] (const decltype(m_contextActionListeners)& c) {
 			const auto& idx = c.getActionIndex();
 			const auto& rng = idx.equal_range(std::forward_as_tuple(s->iServerNum, action.toStdString()));
 			return rng;});
