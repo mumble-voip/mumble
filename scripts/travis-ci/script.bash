@@ -18,7 +18,8 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
 		qmake CONFIG+="release tests g15-emulator ${EXTRA_CONFIG}" DEFINES+="MUMBLE_VERSION=${TRAVIS_COMMIT:0:7}" -recursive
-		make -j2 && make check
+		make -j2
+		make check
 	elif [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
 		qmake CONFIG+="release tests warnings-as-errors ${EXTRA_CONFIG}" -recursive
 		make -j $(nproc)
