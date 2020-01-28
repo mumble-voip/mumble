@@ -15,7 +15,8 @@ ver=$(python scripts/mumble-version.py)
 
 qmake -recursive CONFIG+="release tests warnings-as-errors" DEFINES+="MUMBLE_VERSION=${ver}"
 
-make -j $(sysctl -n hw.ncpu) && make check
+make -j $(sysctl -n hw.ncpu)
+make check
 
 # Build installer
 ./macx/scripts/osxdist.py --version=${ver}
