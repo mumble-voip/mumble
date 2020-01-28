@@ -397,13 +397,21 @@ int main(int argc, char **argv) {
 	//
 	// See http://doc.qt.io/qt-5/linguist-programmers.html#deploying-translations for more information
 	QTranslator qttranslator;
-	if (qttranslator.load(QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) { // Try system qt translations
+	// First we try and see if there is a translation packaged with Mumble that shall overwrite any potentially existing Qt translations.
+	// If not, we try to load the qt-translations installed on the host-machine and if that fails as well,
+	// we try to load translations bundled in Mumble.
+	// Note: Resource starting with :/ are bundled resources specified in a .qrc file
+	if (qttranslator.load(QLatin1String(":/mumble_overwrite_qt_") + locale)) {
+		a.installTranslator(&qttranslator);
+	} else if (qttranslator.load(QLatin1String(":/mumble_overwrite_qtbase_") + locale)) { 
+		a.installTranslator(&qttranslator);
+	} else if (qttranslator.load(QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 		a.installTranslator(&qttranslator);
 	} else if (qttranslator.load(QLatin1String("qtbase_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 		a.installTranslator(&qttranslator);
-	} else if (qttranslator.load(QLatin1String(":qt_") + locale)) { // Try bundled translations
+	} else if (qttranslator.load(QLatin1String(":/qt_") + locale)) {
 		a.installTranslator(&qttranslator);
-	} else if (qttranslator.load(QLatin1String(":qtbase_") + locale)) {
+	} else if (qttranslator.load(QLatin1String(":/qtbase_") + locale)) {
 		a.installTranslator(&qttranslator);
 	}
 	
