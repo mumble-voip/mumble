@@ -5,4 +5,5 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-brew update && brew install pkg-config qt5 boost libogg libvorbis flac libsndfile protobuf openssl ice
+brew update
+brew install pkg-config qt5 boost libogg libvorbis flac libsndfile protobuf openssl ice
