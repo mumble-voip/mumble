@@ -9,7 +9,8 @@ ver=$(python scripts/mumble-version.py)
 
 qmake -recursive CONFIG+="release tests warnings-as-errors" DEFINES+="MUMBLE_VERSION=${ver}"
 
-make -j $(nproc) && make check
+make -j $(nproc)
+make check
 
 # TODO: The next few lines should be done by "make install": https://github.com/mumble-voip/mumble/issues/1029
 mkdir -p appdir/usr/bin appdir/usr/lib/mumble appdir/usr/share/metainfo/ appdir/usr/share/icons/hicolor/scalable/apps/ appdir/usr/share/applications/
