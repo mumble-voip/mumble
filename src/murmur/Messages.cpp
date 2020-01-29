@@ -403,7 +403,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpsug.set_positional(qvSuggestPositional.toBool());
 	if (! qvSuggestPushToTalk.isNull())
 		mpsug.set_push_to_talk(qvSuggestPushToTalk.toBool());
+#if GOOGLE_PROTOBUF_VERSION >= 3004000
+	if (mpsug.ByteSizeLong() > 0) {
+#else
+	// ByteSize() has been deprecated as of protobuf v3.4
 	if (mpsug.ByteSize() > 0) {
+#endif
 		sendMessage(uSource, mpsug);
 	}
 
