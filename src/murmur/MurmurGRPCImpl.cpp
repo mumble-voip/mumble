@@ -57,7 +57,7 @@
 //    an event found in the timeout, if if there was none found or the server
 //    is shutting down, the completed action's tag, and a boolean, which indicates if
 //    the action was successful. All tags in this project are are
-//    stack-allocated pointers to "boost::function"s that accept a boolean.
+//    stack-allocated pointers to std::function objects that accept a boolean.
 //    After Next returns, the tag pointer is dereferenced, executed with the
 //    success variable.
 //
@@ -126,6 +126,29 @@
 
 static MurmurRPCImpl *service;
 
+/// \brief Used to inject boost::fiber::yield() calls into main event loop.
+///
+/// Started by a single-shot timer in GRPCStart(), this function is used
+/// to make sure that yield() is called in every run of the event loop.
+///
+/// First sets up a static functor to be used in a QTimer object. It then
+/// creates a new QTimer object, storing it in a std::unique_ptr with a
+/// MurmurRPC::Wrapper::Detail::qtimer_deleter as the deleter.
+/// (without the custom deleter murmur will segfault on shutdown)
+/// It is a single-shot timer which means it only fires once, but
+/// because the timeout is 0, it gets called every time the event
+/// loop ends.
+///
+/// It will then call processEvents() on the main application
+/// event loop with the WaitForMoreEvents flag. This will wait
+/// until it gets some events, then process them.
+///
+/// After processing of events, yield() is called which allows
+/// any other fibers running in the main event loop to be processed.
+///
+/// The QTimer is then started again to make sure that on completion
+/// of the next event loop that we get called again.
+///
 void InjectThreadYield() {
 	using MurmurRPC::Wrapper::Detail::qtimer_deleter;
 	static std::function<void()> thisfunc = InjectThreadYield;
@@ -478,7 +501,6 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 // Sends a meta event to any subscribed listeners.
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	qDebug("sending meta events");
-	//for (const auto& [id, listener] : m_metaServiceListeners.getLockedIndex(mwc::rpcid{})) {
 	for (auto&& item : m_metaServiceListeners.getLockedIndex(mwc::rpcid{})) {
 		auto id = std::get<0>(item);
 		auto listener = std::get<1>(item);
@@ -1441,7 +1463,7 @@ void MurmurRPCImpl::run() {
 				continue;
 			case grpc::CompletionQueue::GOT_EVENT:
 			if (tag != nullptr) {
-				auto op = static_cast<boost::function<void(bool)> *>(tag);
+				auto op = static_cast<std::function<void(bool)> *>(tag);
 				(*op)(ok);
 				//new plan is to have these all stack allocated
 				//delete op;

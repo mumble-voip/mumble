@@ -20,6 +20,12 @@ namespace Scheduler {
 
 namespace bf = boost::fibers;
 
+/// \brief Properties class for a fiber.
+///
+/// This class has one purpose: to indicate if a fiber should be
+/// forced into the main event loop. Used by \ref grpc_scheduler
+/// to determine how to schedule a newly awakened fiber
+///
 class grpc_props: public bf::fiber_properties {
 
 	private:
@@ -40,6 +46,16 @@ class grpc_props: public bf::fiber_properties {
 		virtual ~grpc_props() = default;
 };
 
+/// \brief A fiber scheduler that allows forcing a fiber to run in the event loop thread.
+///
+/// Closely resembles the default round_robin scheduler that comes with boost::fibers,
+/// except you can mark one fiber as running in the main event loop thread and request
+/// that any fiber be run in that thread instead of its default thread.
+///
+/// Just read the
+/// [boost documentation](https://www.boost.org/doc/libs/1_72_0/libs/fiber/doc/html/fiber/scheduling.html)
+/// if you really want to know how this thing works.
+///
 class grpc_scheduler : public bf::algo::algorithm_with_properties<grpc_props> {
 private:
 	typedef bf::scheduler::ready_queue_type rqueue_t;
