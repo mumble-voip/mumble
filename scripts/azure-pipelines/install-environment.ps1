@@ -37,7 +37,12 @@ $env_7z = Join-Path $MUMBLE_ENVIRONMENT_STORE "$MUMBLE_ENVIRONMENT_VERSION.7z";
 if (-Not (Test-Path $env_7z)) {
     Write-Host "Environment not cached. Downloading..."
     $env_url = "$MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.7z"
-    Invoke-WebRequest -Uri $env_url -OutFile $env_7z
+	try {
+		Invoke-WebRequest -Uri $env_url -OutFile $env_7z
+	} catch {
+		Write-Host "Failed at downloading build-environment: $PSItem"
+		exit 1
+	}
 }
 
 if (-Not (Test-Path (Join-Path $MUMBLE_ENVIRONMENT_PATH $MUMBLE_ENVIRONMENT_VERSION))) {
