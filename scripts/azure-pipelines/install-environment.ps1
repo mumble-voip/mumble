@@ -38,7 +38,14 @@ if (-Not (Test-Path $env_7z)) {
     Write-Host "Environment not cached. Downloading..."
     $env_url = "$MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.7z"
 	try {
+		# According to https://github.com/PowerShell/PowerShell/issues/2138 disabling the
+		# progressbar can significantly increase the speed of Invoke-Web-Request. 
+		$ProgressPreference = 'SilentlyContinue'
+
 		Invoke-WebRequest -Uri $env_url -OutFile $env_7z
+
+		# Reset progressbar
+		$ProgressPreference = 'Continue'
 	} catch {
 		Write-Host "Failed at downloading build-environment: $PSItem"
 		exit 1
