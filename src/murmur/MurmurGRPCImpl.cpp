@@ -4,10 +4,8 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #ifndef Q_MOC_RUN
-# include <boost/function.hpp>
-# include <boost/range/algorithm/remove_if.hpp>
 # include <boost/type_traits.hpp>
-# include "./murmur_grpc/FiberScheduler.h"
+# include "FiberScheduler.h"
 #endif
 
 #include "Mumble.pb.h"
@@ -28,7 +26,12 @@
 #include <QCryptographicHash>
 #include <QRegularExpression>
 #include <QTimer>
+#include <QDebug>
 
+// this is needed because some of my templates
+// need MurmurGRPCImpl to be fully defined
+// and I didn't want to split everything into
+// a forward declare and implementation part
 #define MUMBLE_MURMUR_GRPC_WRAPPER_IMPL
 #ifndef Q_MOC_RUN
 # include "GRPCall.h"
@@ -53,6 +56,7 @@
 //    completion queue, you call its "Next" method. The async version is used
 //    to allow for calls to yield so that fibers in the gRPC worker thread get
 //    to act.
+//
 //    Next provides several output variables: a static indicating if there was
 //    an event found in the timeout, if if there was none found or the server
 //    is shutting down, the completed action's tag, and a boolean, which indicates if
@@ -88,7 +92,7 @@
 //
 //    Fibers also lets you customize the scheduling algorithm by giving the fibers
 //    properties. The current algorithm is a very simple one; there is one fiber
-//    that lives in the even loop and calls yield every time it finishes (so the
+//    that lives in the event loop and calls yield every time it finishes (so the
 //    other fibers can run). When creating a fiber, you can specify that you want
 //    it to run in this thread instead of the originating thread.
 //
@@ -301,13 +305,7 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 	m_server->Wait();
 	m_isRunning = false;
 	m_completionQueue->Shutdown();
-	while (m_completionQueue->Next(&ignored_tag, &ignored_ok)) {
-		//if (ignored_tag) {
-			//these should be on the stack now
-			//auto op = static_cast<boost::function<void(bool)> *>(ignored_tag);
-			//delete op;
-		//}
-	}
+	while (m_completionQueue->Next(&ignored_tag, &ignored_ok)) { }
 }
 
 // ToRPC/FromRPC methods convert data to/from grpc protocol buffer messages.
@@ -519,7 +517,7 @@ void MurmurRPCImpl::started(::Server *server) {
 	server->connectListener(this);
 	server->connectAuthenticator(this);
 	connect(server, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
-	connect(server, SIGNAL(textMessageFilterSig(int &, const User *, MumbleProto::TextMessage &)), this, SLOT(textMessageFilter(int &, const User *, MumbleProto::TextMessage &)));
+	connect(server, SIGNAL(textMessageFilterSig(int&, unsigned int, MumbleProto::TextMessage &)), this, SLOT(textMessageFilter(int&, unsigned int, MumbleProto::TextMessage &)));
 
 	::MurmurRPC::Event rpcEvent;
 	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStarted);
@@ -598,7 +596,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	idx = nullptr;
 
 	bool ok;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	::MurmurRPC::Authenticator_Request request;
 
 	request.mutable_authenticate()->set_name(u8(uname));
@@ -615,7 +613,13 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	}
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authenticatorId << "cancelled";
+		return;
+	}
+
 	if(!ok) {
 		removeAuthenticator(authenticatorId);
 		// bad responces should be temp fails
@@ -631,20 +635,20 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	}
 
 
-	switch (response.authenticate().status()) {
+	switch (response->authenticate().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
-		if (!response.authenticate().has_id()) {
+		if (!response->authenticate().has_id()) {
 			res = -3;
 			break;
 		}
-		res = response.authenticate().id();
-		if (response.authenticate().has_name()) {
-			uname = u8(response.authenticate().name());
+		res = response->authenticate().id();
+		if (response->authenticate().has_name()) {
+			uname = u8(response->authenticate().name());
 		}
 		{
 			QStringList qsl;
-			for (int i = 0; i < response.authenticate().groups_size(); i++) {
-				auto &group = response.authenticate().groups(i);
+			for (int i = 0; i < response->authenticate().groups_size(); i++) {
+				auto &group = response->authenticate().groups(i);
 				if (group.has_name()) {
 					qsl << u8(group.name());
 				}
@@ -686,13 +690,18 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	ToRPC(s, info, QByteArray(), request.mutable_register_()->mutable_user());
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
 
 	if (!ok) {
 		removeAuthenticator(authId);
@@ -706,13 +715,13 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 		return;
 	}
 
-	switch (response.register_().status()) {
+	switch (response->register_().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
-		if (!response.register_().has_user() || !response.register_().user().has_id()) {
+		if (!response->register_().has_user() || !response->register_().user().has_id()) {
 			res = -1;
 			break;
 		}
-		res = response.register_().user().id();
+		res = response->register_().user().id();
 		break;
 	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
 		break;
@@ -744,21 +753,26 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	request.mutable_deregister()->mutable_user()->mutable_server()->set_id(s->iServerNum);
 	request.mutable_deregister()->mutable_user()->set_id(id);
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
 
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	if (response.deregister().status() != ::MurmurRPC::Authenticator_Response_Status_Fallthrough) {
+	if (response->deregister().status() != ::MurmurRPC::Authenticator_Response_Status_Fallthrough) {
 		res = 0;
 	}
 }
@@ -785,7 +799,7 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	if (!filter.isEmpty()) {
@@ -793,14 +807,20 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 	}
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
+
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	for (int i = 0; i < response.query().users_size(); i++) {
-		const auto &user = response.query().users(i);
+	for (int i = 0; i < response->query().users_size(); i++) {
+		const auto &user = response->query().users(i);
 		if (!user.has_id() || !user.has_name()) {
 			continue;
 		}
@@ -829,7 +849,7 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 	}
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	request.mutable_find()->set_id(id);
@@ -837,14 +857,20 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 	res = -1;
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
+
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	if (response.find().has_user()) {
-		FromRPC(response.find().user(), info);
+	if (response->find().has_user()) {
+		FromRPC(response->find().user(), info);
 		res = 1;
 	}
 }
@@ -871,7 +897,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	request.mutable_update()->mutable_user()->set_id(id);
@@ -880,13 +906,18 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 	res = 0;
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try { 
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	switch (response.update().status()) {
+	switch (response->update().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		res = 1;
 		break;
@@ -920,20 +951,26 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	request.mutable_update()->mutable_user()->set_id(id);
 	request.mutable_update()->mutable_user()->set_texture(texture.constData(), texture.size());
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
+
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	if (response.update().status() == ::MurmurRPC::Authenticator_Response_Status_Success) {
+	if (response->update().status() == ::MurmurRPC::Authenticator_Response_Status_Success) {
 		res = 1;
 	}
 }
@@ -960,19 +997,26 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
+
 	request.mutable_find()->set_name(u8(name));
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
+
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	if (response.find().has_user() && response.find().user().has_id()) {
-		res = response.find().user().id();
+	if (response->find().has_user() && response->find().user().has_id()) {
+		res = response->find().user().id();
 	}
 }
 
@@ -998,20 +1042,26 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	request.mutable_find()->set_id(id);
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
+
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	if (response.find().has_user() && response.find().user().has_name()) {
-		res = u8(response.find().user().name());
+	if (response->find().has_user() && response->find().user().has_name()) {
+		res = u8(response->find().user().name());
 	}
 }
 
@@ -1037,20 +1087,26 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	idx = nullptr;
 
 	::MurmurRPC::Authenticator_Request request;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 	bool ok;
 
 	request.mutable_find()->set_id(id);
 
 	auto future = authenticator->writeRead(request);
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "authenticator" << authId << "cancelled";
+		return;
+	}
+
 	if (!ok) {
 		removeAuthenticator(authId);
 		return;
 	}
 
-	if (response.find().has_user() && response.find().user().has_texture()) {
-		const auto &texture = response.find().user().texture();
+	if (response->find().has_user() && response->find().user().has_texture()) {
+		const auto &texture = response->find().user().texture();
 		res = QByteArray(texture.data(), texture.size());
 	}
 }
@@ -1059,8 +1115,10 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
 	auto serverID = s->iServerNum;
 	auto&& attached = m_serverServiceListeners.getLocked(
-			[&serverID](const decltype(m_serverServiceListeners)& c){const auto& idx = c.getServerIndex();
-								 return idx.equal_range(serverID);});
+			[&serverID](const decltype(m_serverServiceListeners)& c){
+				const auto& idx = c.getServerIndex();
+				return idx.equal_range(serverID);
+			});
 
 	for (auto&& item : attached) {
 		auto listenerId = std::get<1>(item);
@@ -1155,8 +1213,15 @@ void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 }
 
 // Called when a user sends a text message.
-void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::TextMessage &message) {
-	::Server *s = qobject_cast< ::Server *> (sender());
+void MurmurRPCImpl::textMessageFilter(int& res, unsigned int userSession, MumbleProto::TextMessage &message) {
+	Server *s = qobject_cast< ::Server *> (sender());
+	User* user;
+	bool ok;
+
+	std::tie(ok, user) = SERVER_USER_ALIVE(s, userSession);
+	if (!ok) { // user disconnected before we were called
+		return;
+	}
 
 	auto idx = m_textMessageFilters.getServerPtr();
 	auto it = idx->find(s->iServerNum);
@@ -1170,7 +1235,7 @@ void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::T
 	auto filterId = filter->getId();
 	idx = nullptr;
 
-	::MurmurRPC::TextMessage_Filter response;
+	boost::optional<MurmurRPC::TextMessage_Filter> response;
 	::MurmurRPC::TextMessage_Filter request;
 
 	request.mutable_server()->set_id(s->iServerNum);
@@ -1195,17 +1260,25 @@ void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::T
 	}
 	m->set_text(message.message());
 
-	bool ok;
-	std::tie(ok, response) = filter->writeRead(request).get();
+	auto future = filter->writeRead(request);
+	future.wait();
+
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "worker" << filterId << "cancelled; accepting message";
+		return;
+	}
+
 	if (!ok) {
 		m_textMessageFilters.getRPCIdPtr()->erase(filterId);
 		return;
 	}
-	res = response.action();
-	switch (response.action()) {
+	res = response->action();
+	switch (response->action()) {
 	case ::MurmurRPC::TextMessage_Filter_Action_Accept:
-		if (response.has_message() && response.message().has_text()) {
-			message.set_message(response.message().text());
+		if (response->has_message() && response->message().has_text()) {
+			message.set_message(response->message().text());
 		}
 		break;
 	default:
@@ -1290,10 +1363,13 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	}
 
 	const auto& listeners = m_contextActionListeners.getLocked(
-			[&s, &action] (const decltype(m_contextActionListeners)& c) {
+		[&s, &action] (const decltype(m_contextActionListeners)& c) {
 			const auto& idx = c.getActionIndex();
 			const auto& rng = idx.equal_range(std::forward_as_tuple(s->iServerNum, action.toStdString()));
-			return rng;});
+			return rng;
+		}
+	);
+
 	for (auto&& item : listeners) {
 		auto rpcId = std::get<2>(item);
 		auto listener = std::get<3>(item);
@@ -1426,20 +1502,6 @@ template <>
 	return MustChannel(server, msg.id());
 }
 
-// Qt event listener for RPCExecEvents.
-/* this should be obsolete now
-void MurmurRPCImpl::customEvent(QEvent *evt) {
-	if (evt->type() == EXEC_QEVENT) {
-		auto event = static_cast<RPCExecEvent *>(evt);
-		try {
-			event->execute();
-		} catch (::grpc::Status &ex) {
-			event->error(ex);
-		}
-	}
-}
-*/
-
 // QThread::run() implementation that runs the grpc event loop and executes
 // tags as callback functions.
 void MurmurRPCImpl::run() {
@@ -1465,13 +1527,9 @@ void MurmurRPCImpl::run() {
 			if (tag != nullptr) {
 				auto op = static_cast<std::function<void(bool)> *>(tag);
 				(*op)(ok);
-				//new plan is to have these all stack allocated
-				//delete op;
 			}
 		}
 	}
-	// TODO(grpc): cleanup allocated memory? not super important, because murmur
-	// should be exiting now.
 }
 
 // The Wrapper implementation methods are below. Implementation methods are
@@ -1666,8 +1724,8 @@ void V1_ContextActionEvents::impl(V1_ContextActionEvents::rpcPtr ptr, V1_Context
 	}
 
 	bool ok;
-	std::tie(std::ignore, ok) = ptr->rpc->m_contextActionListeners.emplace( server->iServerNum, request.action(),
-				ptr->getId(), ptr->getWeakPtr());
+	std::tie(std::ignore, ok) = ptr->rpc->m_contextActionListeners.emplace(
+			server->iServerNum, request.action(), ptr->getId(), ptr->getWeakPtr());
 	if (!ok) {
 		throw ::grpc::Status(::grpc::ABORTED, "failed to add listener");
 	}
@@ -1709,14 +1767,14 @@ void V1_TextMessageSend::impl(V1_TextMessageSend::rpcPtr rpc, V1_TextMessageSend
 
 void V1_TextMessageFilter::impl(V1_TextMessageFilter::rpcPtr ptr) {
 	bool ok;
-	::MurmurRPC::TextMessage_Filter request;
+	boost::optional<MurmurRPC::TextMessage_Filter> request;
 
 	auto future = ptr->read();
 	std::tie(ok, request) = future.get();
 	if ((!ok) || ptr->m_isCancelled) {
 		return;
 	}
-	auto server = MustServer(request);
+	auto server = MustServer(request.get());
 	ptr->rpc->removeTextMessageFilter(server->iServerNum);
 	ptr->rpc->m_textMessageFilters.emplace(
 			std::forward_as_tuple(server->iServerNum, ptr->getId(), ptr->getWeakPtr()));
@@ -1726,7 +1784,7 @@ void V1_TextMessageFilter::onDone(V1_TextMessageFilter::rpcPtr ptr, bool) {
 	auto idx = ptr->rpc->m_textMessageFilters.getRPCIdPtr();
 
 	if( idx->erase( ptr->getId() ) > 0 ) {
-		qDebug("erased worker %u from filter list", ptr->getId());
+		qDebug() << "erased worker" << ptr->getId() << "from filter list";
 	}
 }
 
@@ -2311,20 +2369,25 @@ void V1_ACLRemoveTemporaryGroup::impl(V1_ACLRemoveTemporaryGroup::rpcPtr rpc, V1
 
 void V1_AuthenticatorStream::impl(V1_AuthenticatorStream::rpcPtr ptr) {
 	bool ok;
-	::MurmurRPC::Authenticator_Response response;
+	boost::optional<MurmurRPC::Authenticator_Response> response;
 
 	auto future = ptr->read();
-	std::tie(ok, response) = future.get();
+	try {
+		std::tie(ok, response) = future.get();
+	} catch (const boost::fibers::broken_promise& ex) {
+		qDebug() << "error reading authenticatorstream request";
+		return;
+	}
 
 	if (!ok) {
 		return;
 	}
 
-	if (!response.has_initialize()) {
+	if (!response->has_initialize()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing initialize");
 	}
 
-	auto server = MustServer(response.initialize());
+	auto server = MustServer(response->initialize());
 	ptr->rpc->removeAuthenticator(server->iServerNum);
 	std::tie(std::ignore, ok) = ptr->rpc->m_authenticators.emplace(
 		std::forward_as_tuple(server->iServerNum, ptr->getId(), ptr->getWeakPtr())
@@ -2531,4 +2594,10 @@ void V1_RedirectWhisperGroupRemove::impl(V1_RedirectWhisperGroupRemove::rpcPtr r
 }
 
 }
+}
+
+/// \brief QDebug can't handle std::string...
+QDebug operator<<(QDebug dbg, const std::string& s) {
+	dbg << s.c_str();
+	return dbg;
 }

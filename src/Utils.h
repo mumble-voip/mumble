@@ -26,4 +26,10 @@
 # define ZeroMemory(ptr,len) memset(ptr, 0, len)
 #endif
 
+#ifdef USE_GRPC
+# include <QDebug>
+# include <string>
+QDebug operator<<(QDebug dbg, const std::string& s);
+#endif
+
 #endif // MUMBLE_UTILS_H_

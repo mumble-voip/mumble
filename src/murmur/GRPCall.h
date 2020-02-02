@@ -9,6 +9,7 @@
 #include <QtCore/QCoreApplication>
 #include <QRandomGenerator>
 
+#include <boost/config.hpp>
 #include <boost/fiber/all.hpp>
 #include <boost/callable_traits/return_type.hpp>
 #include <boost/callable_traits/args.hpp>
@@ -22,13 +23,13 @@
 #pragma GCC diagnostic pop
 
 #include "Server.h"
-#include "murmur_grpc/FiberScheduler.h"
+#include "FiberScheduler.h"
 
 #include <atomic>
 #include <chrono>
+#include <deque>
 #include <functional>
 #include <type_traits>
-#include <queue>
 #include <tuple>
 #include <utility>
 
@@ -37,6 +38,9 @@ class MurmurRPCImpl;
 namespace MurmurRPC {
 	namespace Wrapper {
 		namespace Detail {
+
+			namespace bf = boost::fibers;
+			namespace ct = boost::callable_traits;
 
 			/// \brief Custom deleter for RPCCall objects.
 			///
@@ -74,6 +78,101 @@ namespace MurmurRPC {
 				}
 			};
 
+			/// \brief type-erasing helper for packaged_task deque
+			///
+			/// Takes a boost::fibers::packaged_task of signature `R()` and
+			/// hides the return type so it can be stored in a standard
+			/// container. The boost::fibers::future must have already been
+			/// obtained from this class, as there is no way to retrieve it
+			/// after packaging it.
+			///
+			/// This class cannot be moved, nor copied. It is expected to
+			/// emplace it into a container, then take a const reference
+			/// or pointer for use.
+			///
+			class packaged_node {
+				std::atomic<bool> valid{false};
+				void* task_ptr;
+				void (*task_functor)(void*);
+				void (*delete_functor)(void*);
+			public:
+
+				/// \brief constructs a new packaged_node
+				///
+				/// This will construct a new task. It is expected that
+				/// it will be constructed using the emplace() method
+				/// of the container it is being stored in.
+				///
+				/// \param task rvalue reference to the task to be used.
+				/// This task will be moved into the object should
+				/// not be used after this object is constructed.
+				///
+				/// \exception std::bad_function_call will be thrown
+				/// if the recieved task is not valid.
+				template<typename Signature>
+				packaged_node(bf::packaged_task<Signature>&& task) {
+					using signature_t = ct::function_type_t<decltype(task)>;
+					static_assert(std::is_same<signature_t, void()>::value,
+							"task must have signature R()");
+
+					using task_type_t = bf::packaged_task<Signature>;
+
+					if (!task.valid()) {
+						throw std::bad_function_call();
+					}
+
+					auto tmp_task = new task_type_t(std::move(task));
+					task_ptr = tmp_task;
+					task_functor = [](void* task_ptr){
+						auto tptr = reinterpret_cast<task_type_t*>(task_ptr);
+						(*tptr)();
+					};
+					delete_functor = [](void* task_ptr) {
+						auto tptr = reinterpret_cast<task_type_t*>(task_ptr);
+						delete tptr;
+					};
+					valid.store(true, std::memory_order_release);
+				}
+
+				/// \brief non-copyable
+				packaged_node(const packaged_node& other) = delete;
+				/// \brief non-copyable
+				packaged_node& operator=(const packaged_node& other) = delete;
+				/// \brief non-movable
+				packaged_node(packaged_node&& other) = delete;
+				/// \brief non-movable
+				packaged_node& operator=(packaged_node&& other) = delete;
+
+				/// \brief destroys task if not already completed
+				///
+				/// If the task has already been run, this just deallocates
+				/// the remaing member variables. If the task has not been
+				/// run, it will destroy the task causing a broken_promise
+				/// execption to be stored in the shared state
+				///
+				~packaged_node() noexcept {
+					if (valid.load(std::memory_order_acquire)) {
+						(*delete_functor)(task_ptr);
+					}
+				}
+
+				/// \brief runs the task
+				///
+				/// This function can only be called once. It will run
+				/// the task, then deletes the task object that has been stored.
+				///
+				/// \exception std::bad_function_call if the task has already been run
+				/// \exception boost::fibers::future_error if there is no shared state
+				///
+				void operator()() {
+					if (!valid.exchange(false)) {
+						throw std::bad_function_call();
+					}
+					(*task_functor)(task_ptr);
+					(*delete_functor)(task_ptr);
+				}
+			};
+
 			//tag types for RPC policy objects
 			using Unary_t = std::integral_constant<int, 1>;
 			using ClientStream_t = std::integral_constant<int, 2>;
@@ -93,8 +192,6 @@ namespace MurmurRPC {
 				using rpctype = BidiStream_t;
 			};
 
-			namespace bf = boost::fibers;
-			namespace ct = boost::callable_traits;
 
 			/// \brief Helper class to implement a work queue running in a seperate fiber.
 			///
@@ -113,7 +210,7 @@ namespace MurmurRPC {
 				bf::fiber m_worker;
 				bf::condition_variable m_doWork;
 				std::atomic<bool> m_isWorking{false};
-				std::queue<bf::packaged_task<void()>> m_workQueue;
+				std::deque<packaged_node> m_workQueue;
 				Stream stream;
 
 				/// \brief Constructor.
@@ -149,7 +246,7 @@ namespace MurmurRPC {
 					auto future = task.get_future();
 					{
 						std::unique_lock< bf::mutex > l(m_busyMtx);
-						m_workQueue.emplace(std::move(task));
+						m_workQueue.emplace_back(std::move(task));
 					}
 					m_doWork.notify_one();
 					return future;
@@ -162,9 +259,8 @@ namespace MurmurRPC {
 				/// it will wait on a condition variable until queueWork(Functor&& func)
 				/// is called.
 				///
-				/// cancel() may be called to cancel the processing of work early, but
-				/// does not remove any jobs from the queue, nor alert the worker fiber
-				/// that anything has happened.
+				/// cancel() may be called to cancel the processing of work early and
+				/// alerts the queue, but does not join the fiber.
 				///
 				/// done(bool) cancels the processing of work, alerts the worker fiber to
 				/// return from sleeping, and if the fiber is still joinable, join
@@ -176,38 +272,35 @@ namespace MurmurRPC {
 				auto createWorker() -> void {
 					m_isWorking.store(true);
 					bf::fiber f([&] {
+						std::unique_lock<bf::mutex> lk(m_busyMtx);
 						while(m_isWorking) {
-							bf::packaged_task<void ()> task;
-							{
-								std::unique_lock<bf::mutex> l(m_busyMtx);
-								if (m_workQueue.empty()) {
-									m_doWork.wait(l, [&](){return !m_workQueue.empty() || !m_isWorking.load();});
-									if (!m_isWorking.load()) {
-										//drain work queue my just resetting everything
-										while (!m_workQueue.empty()) {
-											if (m_workQueue.front().valid()) {
-												m_workQueue.front().reset();
-											}
-											m_workQueue.pop();
-										}
-										return;
-									}
+							if (m_workQueue.empty()) {
+								m_doWork.wait(lk, [&](){return !m_workQueue.empty() || !m_isWorking.load();});
+								if (!m_isWorking.load()) {
+									continue;
 								}
-								task = std::move(m_workQueue.front());
-								m_workQueue.pop();
 							}
-							if (task.valid()) {
-								task();
-							}
+							auto task = &m_workQueue.front();
+							lk.unlock();
+							(*task)();
+							// yield while we aren't holding the lock so that
+							// any pending cancel can come in
+							boost::this_fiber::yield();
+							lk.lock();
+							m_workQueue.pop_front();
 						}
+						// drain queue on cancel
+						m_workQueue.clear();
+
 					});
 					m_worker = std::move(f);
 					return;
 				}
 
-				/// cancels processing of work, but does not wake up the worker fiber
+				/// \brief cancels processing of work and wakes up worker fiber
 				void cancel() {
 					m_isWorking.store(false);
+					m_doWork.notify_one();
 				}
 
 				/// \brief cancels processing of work, then joins the worker fiber
@@ -239,7 +332,7 @@ namespace MurmurRPC {
 				bool writePrivate (const Out& message) {
 					bf::promise<bool> okPromise;
 					bf::future<bool> okFuture(okPromise.get_future());
-#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+#if defined(BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES)
 					auto l = std::bind([](bf::promise<bool>& okPromise, bool ok) -> void {
 							okPromise.set_value(ok);
 					}, std::move(okPromise), std::placeholders::_1);
@@ -269,7 +362,7 @@ namespace MurmurRPC {
 					bf::promise<bool> okPromise;
 					bf::future<bool> okFuture(okPromise.get_future());
 
-#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+#if defined(BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES)
 					auto l = std::bind([](bf::promise<bool>& okPromise, bool ok) -> void {
 							okPromise.set_value(ok);
 					}, std::move(okPromise), std::placeholders::_1);
@@ -334,10 +427,6 @@ namespace MurmurRPC {
 				}
 
 				/// does nothing, but needed to satisfy interface
-				void start() {};
-
-
-				/// does nothing, but needed to satisfy interface
 				void cancel() {};
 
 				/// does nothing, but needed to satisfy interface
@@ -366,7 +455,7 @@ namespace MurmurRPC {
 				using queue = work_queue<StreamType<Out>, In, Out>;
 
 				In m_Request{};
-				Out m_Response{};
+
 				using queue::stream;
 
 				using queue::done;
@@ -396,7 +485,7 @@ namespace MurmurRPC {
 					static_assert(std::is_same<ct::function_type_t<Functor>, void(bool)>{},
 							"Write(msg, cb)) expects void(bool) for cb");
 
-#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+#if defined(BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES)
 					this->queueWork(
 						std::function<void()>(
 							std::bind(
@@ -660,6 +749,7 @@ namespace MurmurRPC {
 				(void) bf::fiber([this, &b](){
 					b.wait();
 					while (!this->tryDelete()) {
+						boost::this_fiber::yield();
 						boost::this_fiber::sleep_for(std::chrono::milliseconds(100));
 					}
 				}).detach();
@@ -701,7 +791,7 @@ namespace MurmurRPC {
 				static_assert(std::is_same<ct::function_type_t<Functor>, void()>{},
 							"launchInEventLoop(Fn) expects void() for fn");
 
-#ifdef BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES
+#if defined(BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES)
 				boost::fibers::fiber f(
 					std::bind([](decltype(m_this) ptr, Functor func) {
 						try {
@@ -793,6 +883,18 @@ namespace MurmurRPC {
 				impl_detail(&context) {
 					m_finished.clear();
 			}
+
+			/// \brief non-copyable
+			RPCCall(const RPCCall& other) = delete;
+
+			/// \brief non-copyable
+			RPCCall& operator=(const RPCCall& other) = delete;
+
+			/// \brief un-movable
+			RPCCall(RPCCall && other) = delete;
+
+			/// \brief un-movable
+			RPCCall& operator=(RPCCall&& other) = delete;
 
 			~RPCCall() {
 				qDebug("deleted worker %u", getId());

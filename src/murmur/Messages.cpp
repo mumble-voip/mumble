@@ -79,21 +79,6 @@
 		sendMessage(uSource, mppd); \
 	}
 
-#ifdef USE_GRPC
-#include <boost/fiber/all.hpp>
-#define SERVER_USER_ALIVE(user, session) \
-do { \
-		while(!qrwlVoiceThread.tryLockForRead()) { \
-			::boost::this_fiber::yield(); \
-		} \
-		if (!qhUsers.contains(session)) { \
-			qrwlVoiceThread.unlock(); \
-			return; \
-		} \
-		qrwlVoiceThread.unlock(); \
-	} while (false)
-#endif
-
 /// A helper class for managing temporary access tokens
 /// It will add the tokens in the comstructor and remove them again in the destructor effectively
 /// turning the tokens into a scope-based property.
@@ -1350,31 +1335,30 @@ void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &m
 
 void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
+	const auto userSession = uSource->uiSession;
+
+// in order to prevent slow textMessageFilters blocking the server thread during GRPC this
+// entire function is run in a seperate fiber. This fiber will be in the server thread,
+// and should immediately be launched.
 #ifdef USE_GRPC
 	namespace boostf = ::boost::fibers;
-	const auto userSession = uSource->uiSession;
 	boostf::fiber fibr(boostf::launch::dispatch, [&, uSource, userSession, msg]() mutable -> void {
 #endif
 
-	QMutexLocker qml(&qmCache);
-
 	TextMessage tm; // for signal userTextMessage
-
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
 	RATELIMIT(uSource);
 
 	int res = 0;
+	emit textMessageFilterSig(res, userSession, msg);
 #ifdef USE_GRPC
-	while(!qrwlVoiceThread.tryLockForRead()) {
-		::boost::this_fiber::yield();
+	bool ok;
+	std::tie(ok, std::ignore) = SERVER_USER_ALIVE(this, userSession);
+	if (!ok) { // user disconnected
+		return;
 	}
-#endif
-	emit textMessageFilterSig(res, uSource, msg);
-#ifdef USE_GRPC
-	qrwlVoiceThread.unlock();
-	SERVER_USER_ALIVE(uSource, userSession);
 #endif
 	switch (res) {
 		// Accept
@@ -1412,64 +1396,68 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		}
 	}
 
-	msg.set_actor(uSource->uiSession);
-	for (int i=0;i<msg.channel_id_size(); ++i) {
-		unsigned int id = msg.channel_id(i);
+	{
+		QMutexLocker qml(&qmCache);
 
-		Channel *c = qhChannels.value(id);
-		if (! c)
-			return;
+		msg.set_actor(uSource->uiSession);
+		for (int i=0;i<msg.channel_id_size(); ++i) {
+			unsigned int id = msg.channel_id(i);
 
-		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
-			PERM_DENIED(uSource, c, ChanACL::TextMessage);
-			return;
-		}
+			Channel *c = qhChannels.value(id);
+			if (! c)
+				return;
 
-		foreach(User *p, c->qlUsers)
-			users.insert(static_cast<ServerUser *>(p));
-
-		tm.qlChannels.append(id);
-	}
-
-	for (int i=0;i<msg.tree_id_size(); ++i) {
-		unsigned int id = msg.tree_id(i);
-
-		Channel *c = qhChannels.value(id);
-		if (! c)
-			return;
-
-		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
-			PERM_DENIED(uSource, c, ChanACL::TextMessage);
-			return;
-		}
-
-		q.enqueue(c);
-
-		tm.qlTrees.append(id);
-	}
-
-	while (! q.isEmpty()) {
-		Channel *c = q.dequeue();
-		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
-			foreach(Channel *sub, c->qlChannels)
-				q.enqueue(sub);
-			foreach(User *p, c->qlUsers)
-				users.insert(static_cast<ServerUser *>(p));
-		}
-	}
-
-	for (int i=0;i < msg.session_size(); ++i) {
-		unsigned int session = msg.session(i);
-		ServerUser *u = qhUsers.value(session);
-		if (u) {
-			if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, &acCache)) {
-				PERM_DENIED(uSource, u->cChannel, ChanACL::TextMessage);
+			if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
+				PERM_DENIED(uSource, c, ChanACL::TextMessage);
 				return;
 			}
-			users.insert(u);
+
+			foreach(User *p, c->qlUsers)
+				users.insert(static_cast<ServerUser *>(p));
+
+			tm.qlChannels.append(id);
 		}
 
-		tm.qlSessions.append(session);
+		for (int i=0;i<msg.tree_id_size(); ++i) {
+			unsigned int id = msg.tree_id(i);
+
+			Channel *c = qhChannels.value(id);
+			if (! c)
+				return;
+
+			if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
+				PERM_DENIED(uSource, c, ChanACL::TextMessage);
+				return;
+			}
+
+			q.enqueue(c);
+
+			tm.qlTrees.append(id);
+		}
+
+		while (! q.isEmpty()) {
+			Channel *c = q.dequeue();
+			if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
+				foreach(Channel *sub, c->qlChannels)
+					q.enqueue(sub);
+				foreach(User *p, c->qlUsers)
+					users.insert(static_cast<ServerUser *>(p));
+			}
+		}
+
+		for (int i=0;i < msg.session_size(); ++i) {
+			unsigned int session = msg.session(i);
+			ServerUser *u = qhUsers.value(session);
+			if (u) {
+				if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, &acCache)) {
+					PERM_DENIED(uSource, u->cChannel, ChanACL::TextMessage);
+					return;
+				}
+				users.insert(u);
+			}
+
+			tm.qlSessions.append(session);
+		}
 	}
 
 	users.remove(uSource);

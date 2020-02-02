@@ -368,7 +368,15 @@ class Server : public QThread {
 		void channelCreated(const Channel *);
 		void channelRemoved(const Channel *);
 
-		void textMessageFilterSig(int &, const User *, MumbleProto::TextMessage &);
+		/// \brief signal used by MurmurRPCImpl::textMessageFilter()
+		///
+		/// \param [out] result of the filter:
+		/// * 0 = no-op
+		/// * 1 = reject message, alerting user of failure
+		/// * 2 = drop message
+		/// \param [in] uiSession session identifier of user
+		/// \param [in,out] message reference to message to be filtered; can be modified by the reciever
+		void textMessageFilterSig(int& /*result*/, unsigned int /*uiSession*/, MumbleProto::TextMessage & /*message*/ );
 
 		void contextAction(const User *, const QString &, unsigned int, int);
 	public:
@@ -439,5 +447,35 @@ class Server : public QThread {
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 };
+
+#ifdef USE_GRPC
+#include <boost/fiber/fiber.hpp>
+#include <boost/fiber/operations.hpp>
+#include <utility>
+#include <tuple>
+/// \brief macro to prevent invalid user access during inter-thread communication
+///
+/// textMessageFilter signals can cross thread boundries, and be stalled
+/// during gRPC communication. This means that it cannot be relied on that
+/// a server user has not disconnected while processing was happening.
+///
+/// \param server `Server *` that user should be in
+/// \param session `unsigned int` key for Server::qhUsers to search on
+/// \return `std::pair<bool, User *>` where bool is success
+/// or failure and `User *` is the found user or `nullptr`
+#define SERVER_USER_ALIVE(server, session) \
+	[](Server* s, unsigned int u) -> std::pair<bool, User*> { \
+		while(!s->qrwlVoiceThread.tryLockForRead()) { \
+			boost::this_fiber::yield(); \
+		} \
+		if (s->qhUsers.contains(u)) { \
+			auto us = s->qhUsers.value(u); \
+			s->qrwlVoiceThread.unlock(); \
+			return std::make_pair(true, static_cast<User*>(us)); \
+		} \
+		s->qrwlVoiceThread.unlock(); \
+		return std::make_pair(false, nullptr); \
+	}(server, session)
+#endif
 
 #endif

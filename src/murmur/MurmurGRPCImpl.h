@@ -9,33 +9,22 @@
 
 #include <QtCore/QCoreApplication>
 
-#include <boost/bind.hpp>
-
-/*
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#include "MurmurRPC.grpc.pb.h"
-#pragma GCC diagnostic pop
-*/
-
 #include "Server.h"
 #include "Meta.h"
 
 #ifndef Q_MOC_RUN
 #include "GRPCContainer.h"
 #include "GRPCall.h"
+#include <boost/optional.hpp>
 #endif
 
 #include <atomic>
 #include <chrono>
 #include <functional>
 #include <type_traits>
-#include <queue>
 
-#include <QEventLoopLocker>
 #include <QMultiHash>
 #include <QSet>
-#include <QBasicTimer>
 
 #include <grpc++/grpc++.h>
 #include <grpc++/security/auth_context.h>
@@ -122,7 +111,8 @@ class MurmurRPCImpl : public QThread {
 		void channelCreated(const Channel *channel);
 		void channelRemoved(const Channel *channel);
 
-		void textMessageFilter(int &res, const User *user, MumbleProto::TextMessage &message);
+		/// \brief reciever for Server::textMessageFilterSig()
+		void textMessageFilter(int& res, unsigned int uiSession, MumbleProto::TextMessage &message);
 
 		void contextAction(const User *user, const QString &action, unsigned int session, int channel);
 };
