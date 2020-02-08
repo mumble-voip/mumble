@@ -9,6 +9,13 @@
 #include <QtCore/QHash>
 #include <QtCore/QObject>
 
+#ifdef MURMUR
+#include "murmur/Mumble.pb.h"
+#endif
+#ifdef MUMBLE
+#include "mumble/Mumble.pb.h"
+#endif
+
 class Channel;
 class User;
 class ServerUser;
@@ -19,27 +26,27 @@ class ChanACL : public QObject {
 		Q_DISABLE_COPY(ChanACL)
 	public:
 		enum Perm {
-			None = 0x0,
-			Write = 0x1,
-			Traverse = 0x2,
-			Enter = 0x4,
-			Speak = 0x8,
-			MuteDeafen = 0x10,
-			Move = 0x20,
-			MakeChannel = 0x40,
-			LinkChannel = 0x80,
-			Whisper = 0x100,
-			TextMessage = 0x200,
-			MakeTempChannel = 0x400,
+			None = MumbleProto::ACL::None,
+			Write = MumbleProto::ACL::Write,
+			Traverse = MumbleProto::ACL::Traverse,
+			Enter = MumbleProto::ACL::Enter,
+			Speak = MumbleProto::ACL::Speak,
+			MuteDeafen = MumbleProto::ACL::MuteDeafen,
+			Move = MumbleProto::ACL::Move,
+			MakeChannel = MumbleProto::ACL::MakeChannel,
+			LinkChannel = MumbleProto::ACL::LinkChannel,
+			Whisper = MumbleProto::ACL::Whisper,
+			TextMessage = MumbleProto::ACL::TextMessage,
+			MakeTempChannel = MumbleProto::ACL::MakeTempChannel,
 
 			// Root channel only
-			Kick = 0x10000,
-			Ban = 0x20000,
-			Register = 0x40000,
-			SelfRegister = 0x80000,
+			Kick = MumbleProto::ACL::Kick,
+			Ban = MumbleProto::ACL::Ban,
+			Register = MumbleProto::ACL::Register,
+			SelfRegister = MumbleProto::ACL::SelfRegister,
 
-			Cached = 0x8000000,
-			All = 0xf07ff
+			Cached = MumbleProto::ACL::Cached,
+			All = MumbleProto::ACL::All
 		};
 
 		Q_DECLARE_FLAGS(Permissions, Perm)
