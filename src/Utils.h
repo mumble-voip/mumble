@@ -29,7 +29,9 @@
 #ifdef USE_GRPC
 # include <QDebug>
 # include <string>
+# include <grpcpp/support/string_ref.h>
 QDebug operator<<(QDebug dbg, const std::string& s);
+QDebug operator<<(QDebug dbg, const grpc::string_ref& s);
 #endif
 
 #endif // MUMBLE_UTILS_H_

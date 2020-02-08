@@ -9,8 +9,8 @@
 
 #include <QtCore/QCoreApplication>
 
-#include "Server.h"
 #include "Meta.h"
+#include "Server.h"
 
 #ifndef Q_MOC_RUN
 #include "GRPCContainer.h"
@@ -29,6 +29,7 @@
 #include <grpc++/grpc++.h>
 #include <grpc++/security/auth_context.h>
 
+
 using MurmurRPC::Wrapper::RPCCall;
 namespace mwc = MurmurRPC::Wrapper::Container;
 namespace mw = MurmurRPC::Wrapper;
@@ -36,9 +37,9 @@ namespace mw = MurmurRPC::Wrapper;
 class MurmurRPCAuthenticator : public ::grpc::AuthMetadataProcessor {
 	public:
 		MurmurRPCAuthenticator();
-		grpc::Status Process(const InputMetadata&, ::grpc::AuthContext*, OutputMetadata*, OutputMetadata*);
-		bool IsBlocking() const;
-	protected:
+		grpc::Status Process(const InputMetadata&, ::grpc::AuthContext*, OutputMetadata*, OutputMetadata*) override;
+		BOOST_ATTRIBUTE_NODISCARD bool IsBlocking() const override;
+	private:
 		QSet<QByteArray> m_gRPCUsers;
 };
 
@@ -46,35 +47,50 @@ class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
 		std::unique_ptr<grpc::Server> m_server;
 		volatile bool m_isRunning;
-	protected:
-//		void customEvent(QEvent *evt);
+
+		/// \brief how long we wait for an event in the main gRPC
+		/// polling loop before we call boost::this_fiber::yield()
+		static constexpr std::chrono::milliseconds GRPC_POLL_TIMEOUT{200};
+
+		/// \brief how long we wait before forcefully shutting down gRPC
+		static constexpr std::chrono::seconds GRPC_SHUTDOWN_TIMEOUT{5};
 	public:
 		MurmurRPCImpl(const QString &address, std::shared_ptr<grpc::ServerCredentials> credentials);
-		~MurmurRPCImpl();
-		void run();
-		std::unique_ptr<grpc::ServerCompletionQueue> m_completionQueue;
+		/// \brief non-copy
+		MurmurRPCImpl(const MurmurRPCImpl&) = delete;
+		/// \brief non-copy
+		MurmurRPCImpl& operator=(const MurmurRPCImpl&) = delete;
+		/// \brief non-move
+		MurmurRPCImpl(MurmurRPCImpl&&) = delete;
+		/// \brief non-move
+		MurmurRPCImpl& operator=(MurmurRPCImpl&&) = delete;
+
+
+		~MurmurRPCImpl() override;
+		void run() override;
+		std::unique_ptr<grpc::ServerCompletionQueue> m_completionQueue; // NOLINT needed by RPCCall
 
 		// Services
-		MurmurRPC::V1::AsyncService m_V1Service;
+		MurmurRPC::V1::AsyncService m_V1Service; // NOLINT needed by RPCCall
 
 		// Listeners
-		typedef mwc::weakContainer<mwc::contextActionConfig<RPCCall<mw::V1_ContextActionEvents>>> contextActionMap;
-		contextActionMap m_contextActionListeners;
+		using contextActionMap_t = mwc::weakContainer<mwc::contextActionConfig<RPCCall<mw::V1_ContextActionEvents>>>;
+		contextActionMap_t m_contextActionListeners; // NOLINT needed by RPCCall
 
-		typedef mwc::weakContainer<mwc::setConfig<RPCCall<mw::V1_Events>>> eventSet_t;
-		eventSet_t m_metaServiceListeners;
+		using eventSet_t = mwc::weakContainer<mwc::setConfig<RPCCall<mw::V1_Events> > >;
+		eventSet_t m_metaServiceListeners; // NOLINT needed by RPCCall
 
-		typedef mwc::weakContainer<mwc::multiMapConfig<RPCCall<mw::V1_ServerEvents>>> serverServiceListenersMultiMap;
-		serverServiceListenersMultiMap m_serverServiceListeners;
+		using serverServiceListenersMultiMap_t = mwc::weakContainer<mwc::multiMapConfig<RPCCall<mw::V1_ServerEvents>>>;
+		serverServiceListenersMultiMap_t m_serverServiceListeners; // NOLINT needed by RPCCall
 
-		typedef mwc::weakContainer<mwc::mapConfig<RPCCall<mw::V1_AuthenticatorStream>>> authenticatorMap;
-		authenticatorMap m_authenticators;
+		using authenticatorMap_t = mwc::weakContainer<mwc::mapConfig<RPCCall<mw::V1_AuthenticatorStream>>>;
+		authenticatorMap_t m_authenticators; // NOLINT needed by RPCCall
 
-		typedef mwc::weakContainer<mwc::mapConfig<RPCCall<mw::V1_TextMessageFilter>>> messageFilterMap;
-		messageFilterMap m_textMessageFilters;
+		using messageFilterMap_t = mwc::weakContainer<mwc::mapConfig<RPCCall<mw::V1_TextMessageFilter>>>;
+		messageFilterMap_t m_textMessageFilters; // NOLINT needed by RPCCall
 
 		// Maps server id -> session -> context action
-		QMap<int, QMap<unsigned int, QSet<QString> > > m_activeContextActions;
+		QMap<int, QMap<unsigned int, QSet<QString> > > m_activeContextActions; // NOLINT needed by RPCCall
 
 		bool hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
 		void addActiveContextAction(const ::Server *s, const ::User *u, const QString &action);

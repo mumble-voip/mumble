@@ -6,32 +6,36 @@
 #ifndef MUMBLE_MURMUR_GRPCALL_H
 #define MUMBLE_MURMUR_GRPCALL_H
 
-#include <QtCore/QCoreApplication>
+#include <QDebug>
 #include <QRandomGenerator>
+#include <QtCore/QCoreApplication>
 
-#include <boost/config.hpp>
-#include <boost/fiber/all.hpp>
-#include <boost/callable_traits/return_type.hpp>
 #include <boost/callable_traits/args.hpp>
 #include <boost/callable_traits/function_type.hpp>
-#include <boost/type_traits.hpp>
+#include <boost/callable_traits/return_type.hpp>
+#include <boost/config.hpp>
+#include <boost/container/slist.hpp>
+#include <boost/fiber/all.hpp>
 #include <boost/mp11.hpp>
+#include <boost/type_traits.hpp>
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "MurmurRPC.grpc.pb.h"
 #pragma GCC diagnostic pop
 
-#include "Server.h"
 #include "FiberScheduler.h"
+#include "Server.h"
 
+#include <algorithm>
 #include <atomic>
 #include <chrono>
 #include <deque>
 #include <functional>
-#include <type_traits>
 #include <tuple>
+#include <type_traits>
 #include <utility>
+
 
 class MurmurRPCImpl;
 
@@ -47,7 +51,7 @@ namespace MurmurRPC {
 			/// Instead of deleting the objects, just sets RPCCall::m_alive to false
 			///
 			struct rpc_deleter {
-				typedef void result_type;
+				using result_type = void;
 
 				template<typename T, typename Q = decltype(std::declval<T>().m_alive)>
 				void operator()(T* p) const noexcept {
@@ -93,8 +97,8 @@ namespace MurmurRPC {
 			class packaged_node {
 				std::atomic<bool> valid{false};
 				void* task_ptr;
-				void (*task_functor)(void*);
-				void (*delete_functor)(void*);
+				void (*task_functor)(void*) noexcept;
+				void (*delete_functor)(void*) noexcept;
 			public:
 
 				/// \brief constructs a new packaged_node
@@ -121,14 +125,28 @@ namespace MurmurRPC {
 						throw std::bad_function_call();
 					}
 
+					// We are using raw pointers here to save space,
+					// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 					auto tmp_task = new task_type_t(std::move(task));
-					task_ptr = tmp_task;
-					task_functor = [](void* task_ptr){
-						auto tptr = reinterpret_cast<task_type_t*>(task_ptr);
-						(*tptr)();
+					task_ptr = static_cast<void *>(tmp_task);
+
+					// this *could* throw a future exception if the future
+					// has been deleted. But if that happens something
+					// has gone horribly wrong since the task.valid()
+					// check earlier should prevent this.
+					task_functor = [](void* task_ptr) noexcept -> void {
+						try {
+							auto tptr = static_cast<task_type_t*>(task_ptr);
+							(*tptr)();
+						} catch(...) {
+							std::terminate();
+						}
 					};
-					delete_functor = [](void* task_ptr) {
-						auto tptr = reinterpret_cast<task_type_t*>(task_ptr);
+					delete_functor = [](void* task_ptr) noexcept -> void {
+						auto tptr = static_cast<task_type_t*>(task_ptr);
+						// We are using raw pointers here to save space.
+						// This will always be called.
+						// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 						delete tptr;
 					};
 					valid.store(true, std::memory_order_release);
@@ -162,7 +180,6 @@ namespace MurmurRPC {
 				/// the task, then deletes the task object that has been stored.
 				///
 				/// \exception std::bad_function_call if the task has already been run
-				/// \exception boost::fibers::future_error if there is no shared state
 				///
 				void operator()() {
 					if (!valid.exchange(false)) {
@@ -173,24 +190,25 @@ namespace MurmurRPC {
 				}
 			};
 
-			//tag types for RPC policy objects
-			using Unary_t = std::integral_constant<int, 1>;
-			using ClientStream_t = std::integral_constant<int, 2>;
-			using ServerStream_t = std::integral_constant<int, 3>;
-			using BidiStream_t = std::integral_constant<int, 4>;
 
+			//tag types for RPC policy objects
 			struct Unary {
-				using rpctype = Unary_t;
+				using rpctype = Unary;
 			};
 			struct ClientStream {
-				using rpctype = ClientStream_t;
+				using rpctype = ClientStream;
 			};
 			struct ServerStream {
-				using rpctype = ServerStream_t;
+				using rpctype = ServerStream;
 			};
 			struct BidiStream {
-				using rpctype = BidiStream_t;
+				using rpctype = BidiStream;
 			};
+
+			using Unary_t = typename Unary::rpctype;
+			using ClientStream_t = typename ClientStream::rpctype;
+			using ServerStream_t = typename ServerStream::rpctype;
+			using BidiStream_t = typename BidiStream::rpctype;
 
 
 			/// \brief Helper class to implement a work queue running in a seperate fiber.
@@ -206,13 +224,17 @@ namespace MurmurRPC {
 			///
 			template<typename Stream, typename In, typename Out>
 			struct work_queue {
+			private:
 				bf::mutex m_busyMtx;
 				bf::fiber m_worker;
 				bf::condition_variable m_doWork;
 				std::atomic<bool> m_isWorking{false};
 				std::deque<packaged_node> m_workQueue;
-				Stream stream;
 
+			protected:
+				Stream stream; // NOLINT needed for rpcImpl classes
+
+			public:
 				/// \brief Constructor.
 				///
 				/// You cannot send messages until createWorker() has been called
@@ -221,6 +243,15 @@ namespace MurmurRPC {
 				///
 				work_queue(::grpc::ServerContext *ctx) : stream(ctx){
 				}
+
+				/// \brief non-copy
+				work_queue(const work_queue&) = delete;
+				/// \brief non-copy
+				work_queue& operator=(const work_queue&) = delete;
+				/// \brief non-move
+				work_queue(work_queue&&) = delete;
+				/// \brief non-move
+				work_queue& operator=(work_queue&&) = delete;
 
 				~work_queue() = default;
 
@@ -403,10 +434,10 @@ namespace MurmurRPC {
 			template<template<typename...> class StreamType, typename In, typename Out>
 			struct rpcImpl<Unary_t, StreamType, In, Out>
 			{
-				typedef StreamType<Out> Stream;
+				using Stream = StreamType<Out>;
 
-				In m_Request{};
-				Stream stream;
+				In m_Request{}; // NOLINT needed to add to completion queue
+				Stream stream; // NOLINT needed to add to completion queue
 
 				/// \brief Request the stream be finished with an error code, then returns
 				///
@@ -454,7 +485,7 @@ namespace MurmurRPC {
 					private work_queue<StreamType<Out>, In, Out> {
 				using queue = work_queue<StreamType<Out>, In, Out>;
 
-				In m_Request{};
+				In m_Request{}; // NOLINT needed to add to completion queue
 
 				using queue::stream;
 
@@ -482,7 +513,7 @@ namespace MurmurRPC {
 				///
 				template<typename Functor>
 				void Write(const Out &msg, Functor && fn) {
-					static_assert(std::is_same<ct::function_type_t<Functor>, void(bool)>{},
+					static_assert(std::is_same<ct::function_type_t<Functor>, void(bool)>::value,
 							"Write(msg, cb)) expects void(bool) for cb");
 
 #if defined(BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES)
@@ -493,12 +524,12 @@ namespace MurmurRPC {
 									auto ok = this->writePrivate(msg);
 									static_cast<std::function<void(bool)>>(std::ref(func))(ok);
 								},
-								std::move(fn)
+								std::forward<Functor>(fn)
 							)
 						)
 					);
 #else
-					(void) this->queueWork([this, msg, fn = std::move(fn)]() mutable -> void {
+					(void) this->queueWork([this, msg, fn = std::forward<Functor>(fn)]() mutable -> void {
 								auto ok = this->writePrivate(msg);
 								static_cast<std::function<void(bool)>>(std::ref(fn))(ok);
 							});
@@ -628,7 +659,22 @@ namespace MurmurRPC {
 				rpcImpl(::grpc::ServerContext *ctx) : work_queue<StreamType<Out, In>, In, Out>(ctx) {
 				};
 			};
-		} //end Detail
+
+			/// \brief param number for completion queue call with message to be read in
+			///
+			/// this *should* be declared in RPCCall, but g++ in c++11 mode doesn't seem
+			/// to deal with integral constants well
+			static constexpr std::size_t CQ_ARGS_MESSAGE{7};
+			using cq_message_args_t = std::integral_constant<std::size_t, CQ_ARGS_MESSAGE>;
+
+			/// \brief param number for completion queue call with no message
+			///
+			/// this *should* be declared in RPCCall, but g++ in c++11 mode doesn't seem
+			/// to deal with integral constants well
+			static constexpr std::size_t CQ_ARGS_NO_MESSAGE{6};
+			using cq_no_message_args_t = std::integral_constant<std::size_t, CQ_ARGS_NO_MESSAGE>;
+
+		} // namespace Detail
 
 		namespace bf = boost::fibers;
 		namespace ct = boost::callable_traits;
@@ -668,8 +714,12 @@ namespace MurmurRPC {
 
 
 		private:
+			/// \brief how many milliseconds we wait
+			/// for locks to be released during RPCCall::tryDelete()
+			static constexpr std::chrono::milliseconds TRY_DELETE_WAIT{100};
+
 			std::atomic<bool> m_isCancelled; ///< flag indicating we were cancelled
-			std::atomic_flag m_finished; ///< used to prevent double calls to finish, likely unneeded in current design
+			std::atomic_flag m_finished{}; ///< used to prevent double calls to finish, likely unneeded in current design
 
 			/// The custom deleter of \ref m_this sets this to true when it was supposed to delete us
 			std::atomic<bool> m_alive;
@@ -721,7 +771,7 @@ namespace MurmurRPC {
 			///
 			bool tryDelete() {
 				if(m_alive.load(std::memory_order_acquire)) {
-					qDebug("worker %u still alive, but needs deleted", m_RPCid);
+					qDebug() << "worker" << m_RPCid << "still alive, but needs deleted";
 					return false;
 				}
 				delete this;
@@ -738,10 +788,10 @@ namespace MurmurRPC {
 			///
 			void finish() {
 				if (m_finished.test_and_set()) {
-					qDebug("finished called more than once id %u", m_RPCid);
+					qDebug() << "finished called more than once id:" << m_RPCid;
 					return;
 				}
-				qDebug("attempting to delete id %u", m_RPCid);
+				qDebug() << "attempting to delete id:" << m_RPCid;
 
 				// the first delete always fails....
 				// but without this in place, it deletes me before i'm ready
@@ -750,7 +800,7 @@ namespace MurmurRPC {
 					b.wait();
 					while (!this->tryDelete()) {
 						boost::this_fiber::yield();
-						boost::this_fiber::sleep_for(std::chrono::milliseconds(100));
+						boost::this_fiber::sleep_for(TRY_DELETE_WAIT);
 					}
 				}).detach();
 				b.wait();
@@ -788,12 +838,12 @@ namespace MurmurRPC {
 			///
 			template<typename Functor>
 			void launchInEventLoop(Functor&& fn) {
-				static_assert(std::is_same<ct::function_type_t<Functor>, void()>{},
+				static_assert(std::is_same<ct::function_type_t<Functor>, void()>::value,
 							"launchInEventLoop(Fn) expects void() for fn");
 
 #if defined(BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES)
 				boost::fibers::fiber f(
-					std::bind([](decltype(m_this) ptr, Functor func) {
+					std::bind([](decltype(m_this) ptr, Functor& func) {
 						try {
 							func();
 						} catch (::grpc::Status &ex) {
@@ -801,9 +851,9 @@ namespace MurmurRPC {
 								ptr->error(ex);
 							}
 						}
-					}, std::move(this->getSharedPtr()), std::move(fn)));
+					}, std::move(this->getSharedPtr()), std::forward<Functor>(fn)));
 #else
-				boost::fibers::fiber f([ptr = this->getSharedPtr(), func = std::move(fn)](){
+				boost::fibers::fiber f([ptr = this->getSharedPtr(), func = std::forward<Functor>(fn)](){
 					try {
 						func();
 					} catch (::grpc::Status &ex) {
@@ -857,15 +907,27 @@ namespace MurmurRPC {
 			/// has a slightly different signature for Bidirectional streams than for Unary and Server
 			/// streams.
 			///
+			/// Because g++ doesn't seem to std::integral_constant well, and c++11 has a
+			/// bad specification for constexpr member variables, the type definitions
+			/// are stored in the Detail namespace.
+			///
 			template<typename RFn,
-				boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 7)>* = nullptr>
-			static void addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc, RFn requestFn, void *handleFn,
-					RPCCall<Derived> *call);
+				boost::enable_if_t<
+					std::is_same<
+						boost::mp11::mp_size<ct::args_t<RFn>>,
+						Detail::cq_message_args_t
+					>::value>* = nullptr>
+			static void addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc,
+					RFn requestFn, void *handleFn, RPCCall<Derived> *call);
 
 			template<typename RFn,
-				boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 6)>* = nullptr>
-			static void addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc, RFn requestFn, void *handleFn,
-					RPCCall<Derived> *call);
+				boost::enable_if_t<
+					std::is_same<
+						boost::mp11::mp_size<ct::args_t<RFn>>,
+						Detail::cq_no_message_args_t
+					>::value>* = nullptr>
+			static void addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc,
+					RFn requestFn, void *handleFn, RPCCall<Derived> *call);
 
 			/// \brief Constructor.
 			///
@@ -884,6 +946,16 @@ namespace MurmurRPC {
 					m_finished.clear();
 			}
 
+
+			~RPCCall() {
+				qDebug() << "deleted worker" << m_RPCid;
+			}
+
+			std::shared_ptr<RPCCall<Derived>> getSharedPtr() const {
+				return m_this;
+			}
+
+		public:
 			/// \brief non-copyable
 			RPCCall(const RPCCall& other) = delete;
 
@@ -896,15 +968,6 @@ namespace MurmurRPC {
 			/// \brief un-movable
 			RPCCall& operator=(RPCCall&& other) = delete;
 
-			~RPCCall() {
-				qDebug("deleted worker %u", getId());
-			}
-
-			std::shared_ptr<RPCCall<Derived>> getSharedPtr() const {
-				return m_this;
-			}
-
-		public:
 			/// \brief Gets the unique id associated with this RPCCall.
 			///
 			/// Used in containers as they contain `std::weak_ptr` which you can't compare against.
@@ -1005,7 +1068,7 @@ namespace MurmurRPC {
 			/// \param service pointer to ServiceType, likely MurmurRPC::V1::AsyncService
 			///
 			static void create(MurmurRPCImpl *rpc, ServiceType *service) {
-				auto call = new RPCCall<Derived>(rpc, service);
+				auto call = new RPCCall<Derived>(rpc, service); // NOLINT: We own us
 				auto doneFn = call->getDoneFunctionAddr();
 				call->context.AsyncNotifyWhenDone(doneFn);
 				auto handleFn = call->getHandleFunctionAddr();
@@ -1013,8 +1076,15 @@ namespace MurmurRPC {
 				addCQHandler(service, rpc, requestFn, handleFn, call);
 			}
 		};
-} //end Wrapper
-} //end MurmurRPC
+
+
+		// c++11 makes you define at namespace scope static constexpr member variables..
+		// without this, it fails to link
+		template<typename Derived, typename RPCType>
+		constexpr std::chrono::milliseconds RPCCall<Derived, RPCType>::TRY_DELETE_WAIT;
+
+} // namespace Wrapper
+} // namespace MurmurRPC
 
 #include "MurmurRPC.proto.Wrapper.cpp"
 
@@ -1037,14 +1107,24 @@ namespace MurmurRPC {
 		namespace ct = boost::callable_traits;
 
 		template<typename Derived, typename RPCType>
-		template<typename RFn, boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 7)>*>
+		template<typename RFn,
+				boost::enable_if_t<
+					std::is_same<
+						boost::mp11::mp_size<ct::args_t<RFn>>,
+						Detail::cq_message_args_t
+					>::value>*>
 		void RPCCall<Derived, RPCType>::addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc,
 					RFn requestFn, void *handleFn, RPCCall<Derived> *call) {
 				(svc->*requestFn)(&call->context, &call->impl_detail.m_Request, &call->impl_detail.stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), handleFn);
 		}
 
 		template<typename Derived, typename RPCType>
-		template<typename RFn, boost::enable_if_t<(std::tuple_size<boost::add_const_t<ct::args_t<RFn>>>::value == 6)>*>
+		template<typename RFn,
+				boost::enable_if_t<
+					std::is_same<
+						boost::mp11::mp_size<ct::args_t<RFn>>,
+						Detail::cq_no_message_args_t
+					>::value>*>
 		void RPCCall<Derived, RPCType>::addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc,
 					RFn requestFn, void *handleFn, RPCCall<Derived> *call) {
 			(svc->*requestFn)(&call->context, &call->impl_detail.stream, rpc->m_completionQueue.get(),
@@ -1065,6 +1145,8 @@ namespace MurmurRPC {
 		template<typename X, boost::enable_if_t<std::is_same<X, ServerStream_t>::value>*>
 		void RPCCall<Derived, RPCType>::handle(bool /*unused*/) {
 			RPCCall<Derived>::create(this->rpc, this->service);
+			//bit of a hack, this should really be in impl_detail....
+			this->m_DoneFunction = [this](bool ok){this->onDone(this->getSharedPtr(), ok); this->done(ok);};
 			auto ptr = this->getSharedPtr();
 			this->launchInEventLoop([this, ptr](){
 				ptr->impl(ptr, this->impl_detail.m_Request);
@@ -1082,8 +1164,8 @@ namespace MurmurRPC {
 			});
 			impl_detail.createWorker();
 		}
-	} //end Wrapper
-} //end MurmurRPC
+	} // namespace Wrapper
+} // namespace MurmurRPC
 
 namespace MurmurRPC {
 	namespace Wrapper {
@@ -1093,23 +1175,24 @@ namespace MurmurRPC {
 
 		template<typename C>
 		template<typename It>
-		auto weakContainer<C>::getLockedRange(const std::pair<It, It>& rng)
-			-> Detail::range_type_it_t<
-				decltype(locked_adapter()),
-				decltype(locked_filter()), It> {
-			auto range = boost::iterator_range<It>(rng.first, rng.second);
-			auto locked = boost::adaptors::transform(range, locked_adapter());
-			return boost::remove_if<boost::return_begin_found>(locked, locked_filter());
+		auto weakContainer<C>::getLockedRange(const std::pair<It, It>& rng) -> boost::container::slist<locked_type> {
+			boost::container::slist<locked_type> ret;
+			auto out = ret.before_begin();
+			locked_adapter locked{};
+			locked_filter filter{};
+			std::for_each(rng.first, rng.second,
+					[&ret, &out, &locked, &filter](const value_type& it) -> void {
+						auto&& lkd = locked(it);
+						if (!filter(lkd)) {
+							out = ret.insert_after(out, std::move(lkd));
+						}
+					});
+			return ret;
 		}
 
 		template<typename C>
 		template<typename Idx>
-		auto weakContainer<C>::getLockedIndex(const Idx&)
-			-> Detail::range_type_idx_t<
-				decltype(locked_adapter()),
-				decltype(locked_filter()),
-				decltype(mi::get<Idx>(container))
-				> {
+		auto weakContainer<C>::getLockedIndex(const Idx&) -> boost::container::slist<locked_type> {
 			std::lock_guard<decltype(m_Mtx)> lk(m_Mtx);
 			const auto& idx = mi::get<Idx>(container);
 			return getLockedRange(std::make_pair(idx.cbegin(), idx.cend()));
@@ -1117,13 +1200,14 @@ namespace MurmurRPC {
 
 		template<typename C>
 		template<typename Functor>
-		auto weakContainer<C>::getLocked(Functor&& func) -> Detail::range_type_func_t<decltype(locked_adapter()), decltype(locked_filter()), Functor, decltype(*this)> {
+		auto weakContainer<C>::getLocked(Functor&& func) -> boost::container::slist<locked_type> {
 			std::lock_guard<decltype(m_Mtx)> lk(m_Mtx);
 			const auto& range = func(*this);
 			return this->getLockedRange(range);
 		}
-	}
-}}
+	} // namespace Container
+} // namespace Wrapper
+} // namespace MurmurRPC
 
 #include "MurmurRPC.proto.Wrapper.cpp"
 

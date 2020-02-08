@@ -6,25 +6,24 @@
 #ifndef MUMBLE_MURMUR_GRPCONTAINER_H
 #define MUMBLE_MURMUR_GRPCONTAINER_H
 
+#include <QDebug>
+
+#include <boost/container/slist.hpp>
+#include <boost/container_hash/hash.hpp>
+#include <boost/fiber/all.hpp>
 #include <boost/mp11.hpp>
 #include <boost/mp11/mpl.hpp>
-#include <boost/container_hash/hash.hpp>
-#include <boost/multi_index_container.hpp>
-#include <boost/multi_index/ordered_index.hpp>
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/key_extractors.hpp>
-#include <boost/range.hpp>
-#include <boost/range/adaptors.hpp>
-#include <boost/range/algorithm/remove_if.hpp>
-#include <boost/range/sub_range.hpp>
-#include <boost/fiber/all.hpp>
+#include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index_container.hpp>
 #include <boost/type_traits.hpp>
 
-#include <tuple>
 #include <cstddef>
-#include <type_traits>
 #include <memory>
 #include <mutex>
+#include <tuple>
+#include <type_traits>
 
 namespace MurmurRPC {
 	namespace Wrapper {
@@ -39,6 +38,8 @@ namespace MurmurRPC {
 				/// Only exists because std::get<tuple> cannot be called as
 				/// a global function in older versions of c++
 				///
+				/// \tparam Value typename of tuple to extract from
+				/// \param idx index to be extracted
 				template<typename Value, int idx>
 				struct tuple_extractor {
 					using const_lref_t = boost::add_lvalue_reference_t<
@@ -47,13 +48,14 @@ namespace MurmurRPC {
 						>
 					>;
 
-					typedef decltype(std::get<idx>(const_lref_t{})) result_type;
+					using result_type =decltype(std::get<idx>(const_lref_t{}));
 
 					auto operator()(const_lref_t x) const -> decltype(std::get<idx>(x)) {
 						return std::get<idx>(x);
 					}
 				};
 
+				/* NOT USED ANYMORE, HOPEFULLY
 				///
 				/// helper template to determine the return type of
 				/// weakContainer::getLockedRange()
@@ -110,7 +112,8 @@ namespace MurmurRPC {
 
 				template<typename Adapter, typename Pred, typename Functor, typename Container>
 					using range_type_func_t = typename range_type_func<Adapter, Pred, Functor, Container>::type;
-			} //end Detail
+				*/
+			} // namespace Detail
 
 			struct server {}; ///< used in weakContainer as an index tag
 			struct rpcid {}; ///< used in weakContainer as an index tag
@@ -119,8 +122,8 @@ namespace MurmurRPC {
 			/// \brief Configuration template for weakContainer to resemble a std::map
 			template<typename T>
 			struct mapConfig {
-				typedef std::tuple<int, uint32_t, std::weak_ptr<T>> value_type;
-				typedef std::tuple<int, uint32_t, std::shared_ptr<T>> locked_type;
+				using value_type = std::tuple<int, uint32_t, std::weak_ptr<T>>;
+				using locked_type = std::tuple<int, uint32_t, const std::shared_ptr<T>>;
 
 				using indices = std::tuple<
 						mi::ordered_unique<
@@ -137,8 +140,8 @@ namespace MurmurRPC {
 			/// \brief Configuration template for weakContainer to resemble std::multimap
 			template<typename T>
 			struct multiMapConfig {
-				typedef std::tuple<int, uint32_t, std::weak_ptr<T>> value_type;
-				typedef std::tuple<int, uint32_t, std::shared_ptr<T>> locked_type;
+				using value_type = std::tuple<int, uint32_t, std::weak_ptr<T>>;
+				using locked_type = std::tuple<int, uint32_t, const std::shared_ptr<T>>;
 
 				using indices = std::tuple<
 						mi::ordered_non_unique<
@@ -158,8 +161,8 @@ namespace MurmurRPC {
 			///
 			template<typename T>
 			struct contextActionConfig {
-				typedef std::tuple<int, std::string, uint32_t, std::weak_ptr<T>> value_type;
-				typedef std::tuple<int, std::string, uint32_t, std::shared_ptr<T>> locked_type;
+				using value_type = std::tuple<int, std::string, uint32_t, std::weak_ptr<T>>;
+				using locked_type = std::tuple<int, std::string, uint32_t, const std::shared_ptr<T>>;
 
 				using indices = std::tuple<
 						mi::hashed_non_unique<
@@ -182,8 +185,8 @@ namespace MurmurRPC {
 			template<typename T>
 			struct setConfig {
 
-				typedef std::tuple<uint32_t, std::weak_ptr<T>> value_type;
-				typedef std::tuple<uint32_t, std::shared_ptr<T>> locked_type;
+				using value_type = std::tuple<uint32_t, std::weak_ptr<T>>;
+				using locked_type = std::tuple<uint32_t, const std::shared_ptr<T>>;
 
 				using indices = std::tuple<
 					mi::ordered_unique<
@@ -233,6 +236,8 @@ namespace MurmurRPC {
 				~weakContainer() = default; ///< defaulted deleteter
 				weakContainer(const weakContainer&) = delete; ///< non-copyable
 				weakContainer& operator=(const weakContainer&) = delete; ///< non-copyable
+				weakContainer( weakContainer&&) = delete; ///< non-moveable
+				weakContainer& operator=( weakContainer&&) = delete; ///< non-moveable
 
 			private:
 				using container_t = mi::multi_index_container<value_type, typename C::indices>;
@@ -246,7 +251,7 @@ namespace MurmurRPC {
 				///
 				boost::fibers::recursive_mutex m_Mtx;
 
-				/// \brief Helper class used by the boost Range library.
+				/// \brief helper class to 'lock' tuples.
 				///
 				/// It takes in a tuple
 				/// stored by the container, copies everything except the end. It then calls
@@ -279,7 +284,7 @@ namespace MurmurRPC {
 					}
 				};
 
-				/// \brief Helper class used by boost Range library.
+				/// \brief helper class used to filter for stale pointers
 				///
 				/// Filters a range of 'locked'
 				/// types so that the ones where the std::shared_ptr is nullptr are removed
@@ -301,8 +306,11 @@ namespace MurmurRPC {
 				/// By hiding the mutex lock this way it can be a private member variable.
 				///
 				struct lock_holder{
+
+				private:
 					std::unique_lock<boost::fibers::recursive_mutex> lock;
 
+				public:
 					lock_holder(boost::fibers::recursive_mutex& mtx) : lock(mtx, std::defer_lock) {
 						lock.lock();
 					}
@@ -349,15 +357,15 @@ namespace MurmurRPC {
 
 				///
 				/// helper function to convert a pair of iterators into a
-				/// range from boost Range that can be safely iterated over
+				/// list that can be safely iterated over 
 				/// without holding the lock on the container.
 				///
+				/// Boost Range is no longer used as it wasn't properly filtering.
+				///
+				/// \return `boost::container::slist<locked_type>` a singly-linked list
+				/// designed for forward iteration only.
 				template<typename It>
-				auto getLockedRange(const std::pair<It, It>& rng)
-					-> Detail::range_type_it_t<
-						decltype(locked_adapter()),
-						decltype(locked_filter()), It
-					>;
+				auto getLockedRange(const std::pair<It, It>& rng) -> boost::container::slist<locked_type>;
 
 			public:
 
@@ -372,14 +380,11 @@ namespace MurmurRPC {
 				/// \param func a functor that takes in a const lref to this container,
 				/// and returns an iterator pair of the range it wants to go over.
 				///
-				/// \return a transformed range where all RPCCall pointers are converted to
-				/// std::shared_ptr, none of those pointers are null, and no iterator can
-				/// be invalidated.
+				/// \return `boost::container::slist<locked_type>` with the locked values. This
+				/// list is singly-linked, for forward iteration only.
 				///
 				template<typename Functor>
-				auto getLocked(Functor&& func) -> Detail::range_type_func_t<
-						decltype(locked_adapter()), decltype(locked_filter()),
-						Functor, decltype(*this)>;
+				auto getLocked(Functor&& func) -> boost::container::slist<locked_type>;
 
 				///
 				/// gets a 'safe' range for an index on this container which
@@ -388,15 +393,11 @@ namespace MurmurRPC {
 				///
 				/// \param Idx a reference to the 'tag' of the index you wish to get
 				///
-				/// \return transformed range which can be safely iterated over
+				/// \return `boost::container::slist<locked_type>` a singly-linked
+				/// list with copies of the values you wanted.
 				///
 				template<typename Idx>
-				auto getLockedIndex(const Idx&)
-					-> Detail::range_type_idx_t<
-						decltype(locked_adapter()),
-						decltype(locked_filter()),
-						decltype(mi::get<Idx>(container))
-						>;
+				auto getLockedIndex(const Idx&) -> boost::container::slist<locked_type>;
 
 				/// \brief Only available if the container has an index on a serverId.
 				///
@@ -418,7 +419,7 @@ namespace MurmurRPC {
 				/// \return const lreference that can be used like a standard container
 				///
 				template<typename Q = server>
-				auto getServerIndex() const -> decltype(mi::get<Q>(container)) {
+				BOOST_ATTRIBUTE_NODISCARD auto getServerIndex() const -> decltype(mi::get<Q>(container)) {
 
 					return mi::get<Q>(container);
 				}
@@ -464,7 +465,7 @@ namespace MurmurRPC {
 				/// \return const lreference to what appears to be a std::unordered_map
 				///
 				template<typename Q = serveraction>
-				auto getActionIndex() const -> decltype(mi::get<Q>(container)) {
+				BOOST_ATTRIBUTE_NODISCARD auto getActionIndex() const -> decltype(mi::get<Q>(container)) {
 					return mi::get<Q>(container);
 				}
 
@@ -485,7 +486,7 @@ namespace MurmurRPC {
 				}
 
 			};
-		} //end Container
-	} // wrapper
-}//MurmurRPC
+		} // namespace Container
+	} // namespace Wrapper
+} // namespace MurmurRPC
 #endif
