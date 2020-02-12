@@ -1,0 +1,11 @@
+{
+	"bridge": "AppImageUpdater",
+	"manual-update-check": {
+		"qmenu": {
+			"qobject-name": "qmHelp"
+		},
+		"qaction-to-override": {
+			"qobject-name": "qaHelpVersionCheck"
+		}
+	}
+}
