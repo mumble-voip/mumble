@@ -7,6 +7,9 @@ include(../mumble.pri)
 include(../../qmake/python.pri)
 include(../../qmake/lrelease.pri)
 
+# Add AppImageUpdaterBridge
+include(../../qmake/appimageupdaterbridge.pri)
+
 DEFINES *= MUMBLE
 TEMPLATE = app
 TARGET = mumble
