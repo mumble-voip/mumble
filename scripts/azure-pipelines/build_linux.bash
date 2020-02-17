@@ -20,7 +20,7 @@ DESTDIR=/tmp make install
 cd ..
 rm -rf AppImageUpdaterBridge # cleanup
 
-export PKG_CONFIG_PATH=/tmp/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH=/tmp/usr/local/lib/pkgconfig
 qmake -recursive CONFIG+="release tests warnings-as-errors APPIMAGE_UPDATER_BRIDGE_ENABLED" DEFINES+="MUMBLE_VERSION=${ver}"
 
 make -j $(nproc)
