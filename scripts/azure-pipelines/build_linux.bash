@@ -8,7 +8,8 @@
 ver=$(python scripts/mumble-version.py)
 
 # Use the Qt kit installed through PPA
-source /opt/qt*/bin/qt*-env.sh
+# even though the source executes successfully, it does return code 1
+source /opt/qt*/bin/qt*-env.sh || true
 
 # clone and install AppImageUpdaterBridge to the system
 git clone https://github.com/antony-jr/AppImageUpdaterBridge
@@ -20,7 +21,7 @@ make install
 cd ..
 rm -rf AppImageUpdaterBridge # cleanup
 
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
 qmake -recursive CONFIG+="release tests warnings-as-errors APPIMAGE_UPDATER_BRIDGE_ENABLED" DEFINES+="MUMBLE_VERSION=${ver}"
 
 make -j $(nproc)
