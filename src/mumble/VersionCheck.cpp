@@ -85,7 +85,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 #else // When USE_APPIMAGE_UPDATER_BRIDGE is defined
 // USE_APPIMAGE_UPDATER_BRIDGE implies that we are on a linux machine 
 // so we are going to assume that.
-
+	Q_UNUSED(focus)
 	m_UpdaterDialog = nullptr;
 	m_Revisioner = new AppImageDeltaRevisioner(/*singleThreaded=*/true,/*parent=*/this);
 	

@@ -13,5 +13,10 @@ unix {
 		DEFINES += USE_APPIMAGE_UPDATER_BRIDGE
 		CONFIG *= link_pkgconfig
 		must_pkgconfig(AppImageUpdaterBridge)
+		message(Will be using AppImageUpdaterBridge)
+	}
+} else {
+	APPIMAGE_UPDATER_BRIDGE_ENABLED {
+		error(You cannot use AppImageUpdaterBridge for this type of build)
 	}
 }
