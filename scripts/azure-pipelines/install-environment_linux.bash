@@ -13,4 +13,4 @@ sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tool
                         libasound2-dev libpulse-dev \
                         libogg-dev libsndfile1-dev libspeechd-dev \
                         libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev \
-                        zsync
+                        zsync git cmake
