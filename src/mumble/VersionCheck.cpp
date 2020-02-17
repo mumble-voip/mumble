@@ -224,7 +224,9 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 
 	deleteLater();
 }
-#else // USE_APPIMAGE_UPDATER_BRIDGE
+#endif // USE_APPIMAGE_UPDATER_BRIDGE
+
+#if defined(USE_APPIMAGE_UPDATER_BRIDGE) && defined(Q_OS_LINUX)
 void VersionCheck::handleUpdateCheck(bool updateAvailable,const QJsonObject &info){
 	(void)info;
 	disconnect(m_Revisioner, &AppImageDeltaRevisioner::updateAvailable,
@@ -233,19 +235,19 @@ void VersionCheck::handleUpdateCheck(bool updateAvailable,const QJsonObject &inf
 		   this, &VersionCheck::handleUpdateCheckError);
 
 	if(!updateAvailable){ // Notify the user they are using the latest version.
-		g.mw->msgBox(QString::fromUtf8("You are currently using the latest version of Mumble AppImage."));
+		g.mw->msgBox(QString::fromLatin1("You are currently using the latest version of Mumble AppImage."));
 		//Qt parent to child deallocation should take care of m_Revisioner
 		deleteLater();
 		return;
 	}
 	
-	g.mw->msgBox(QString::fromUtf8("A new version of Mumble AppImage is available."));
+	g.mw->msgBox(QString::fromLatin1("A new version of Mumble AppImage is available."));
 	
 	int flags = AppImageUpdaterDialog::Default;
 	flags ^= AppImageUpdaterDialog::ShowBeforeProgress; // No show before progress
 	flags ^= AppImageUpdaterDialog::NotifyWhenNoUpdateIsAvailable;
 
-	m_UpdaterDialog = new AppImageUpdaterDialog(QPixmap(QString::fromUtf8(":/mumble.svg")), nullptr, flags);
+	m_UpdaterDialog = new AppImageUpdaterDialog(QPixmap(QString::fromLatin1(":/mumble.svg")), nullptr, flags);
 
 	connect(m_UpdaterDialog, &AppImageUpdaterDialog::error,
 		this, &VersionCheck::handleUpdateError);
@@ -286,4 +288,4 @@ void VersionCheck::handleUpdateCancel(){
 	return;
 }
 
-#endif // USE_APPIMAGE_UPDATER_BRIDGE
+#endif // defined(APPIMAGE_UPDATER_BRIDGE) && defined(Q_OS_LINUX)

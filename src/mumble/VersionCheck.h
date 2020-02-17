@@ -27,7 +27,8 @@ class VersionCheck : public QObject {
 #ifndef USE_APPIMAGE_UPDATER_BRIDGE
 	public slots:
 		void fetched(QByteArray data, QUrl url);
-#else
+#endif
+#if defined(USE_APPIMAGE_UPDATER_BRIDGE) && defined(Q_OS_LINUX)
 	public slots:
 		void handleUpdateCheck(bool,const QJsonObject&);
 		void handleUpdateCheckError(short);
@@ -40,4 +41,4 @@ class VersionCheck : public QObject {
 		VersionCheck(bool autocheck, QObject *parent = NULL, bool focus = false);
 };
 
-#endif
+#endif // MUMBLE_MUMBLE_VERSIONCHECK_H_
