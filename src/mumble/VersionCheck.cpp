@@ -4,10 +4,19 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "VersionCheck.h"
-
 #include "MainWindow.h"
 #include "Utils.h"
-#include "WebFetch.h"
+#ifndef USE_APPIMAGE_UPDATER_BRIDGE
+# include "WebFetch.h"
+#else
+# include <AppImageUpdaterBridge>
+# include <AppImageUpdaterDialog>
+# include <QPixmap>
+using AppImageUpdaterBridge::AppImageDeltaRevisioner;
+using AppImageUpdaterBridge::AppImageUpdaterDialog;
+// We can avoid checking if this is a windows 
+// machine since appimage is only for linux machines
+#endif // USE_APPIMAGE_UPDATER_BRIDGE
 
 #ifdef Q_OS_WIN
 # include "win.h"
@@ -26,6 +35,7 @@
 #include "Global.h"
 
 VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) {
+#ifndef USE_APPIMAGE_UPDATER_BRIDGE
 	QUrl url;
 	url.setPath(focus ? QLatin1String("/v1/banner") : QLatin1String("/v1/version-check"));
 
@@ -72,8 +82,26 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 	url.setQuery(query);
 
 	WebFetch::fetch(QLatin1String("update"), url, this, SLOT(fetched(QByteArray,QUrl)));
+#else // When USE_APPIMAGE_UPDATER_BRIDGE is defined
+// USE_APPIMAGE_UPDATER_BRIDGE implies that we are on a linux machine 
+// so we are going to assume that.
+
+	m_UpdaterDialog = nullptr;
+	m_Revisioner = new AppImageDeltaRevisioner(/*singleThreaded=*/true,/*parent=*/this);
+	
+	connect(m_Revisioner, &AppImageDeltaRevisioner::updateAvailable,
+		this, &VersionCheck::handleUpdateCheck);
+	connect(m_Revisioner, &AppImageDeltaRevisioner::error,
+		this, &VersionCheck::handleUpdateCheckError);
+
+	if(!autocheck)
+		g.mw->msgBox(QString::fromUtf8("Checking for update."));
+
+	m_Revisioner->checkForUpdate();
+#endif // if not defined USE_APPIMAGE_UPDATER_BRIDGE
 }
 
+#ifndef USE_APPIMAGE_UPDATER_BRIDGE
 void VersionCheck::fetched(QByteArray a, QUrl url) {
 	if (! a.isNull()) {
 		if (! a.isEmpty()) {
@@ -196,3 +224,66 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 
 	deleteLater();
 }
+#else // USE_APPIMAGE_UPDATER_BRIDGE
+void VersionCheck::handleUpdateCheck(bool updateAvailable,const QJsonObject &info){
+	(void)info;
+	disconnect(m_Revisioner, &AppImageDeltaRevisioner::updateAvailable,
+		   this, &VersionCheck::handleUpdateCheck);
+	disconnect(m_Revisioner, &AppImageDeltaRevisioner::error,
+		   this, &VersionCheck::handleUpdateCheckError);
+
+	if(!updateAvailable){ // Notify the user they are using the latest version.
+		g.mw->msgBox(QString::fromUtf8("You are currently using the latest version of Mumble AppImage."));
+		//Qt parent to child deallocation should take care of m_Revisioner
+		deleteLater();
+		return;
+	}
+	
+	g.mw->msgBox(QString::fromUtf8("A new version of Mumble AppImage is available."));
+	
+	int flags = AppImageUpdaterDialog::Default;
+	flags ^= AppImageUpdaterDialog::ShowBeforeProgress; // No show before progress
+	flags ^= AppImageUpdaterDialog::NotifyWhenNoUpdateIsAvailable;
+
+	m_UpdaterDialog = new AppImageUpdaterDialog(QPixmap(QString::fromUtf8(":/mumble.svg")), nullptr, flags);
+
+	connect(m_UpdaterDialog, &AppImageUpdaterDialog::error,
+		this, &VersionCheck::handleUpdateError);
+	connect(m_UpdaterDialog, &AppImageUpdaterDialog::finished,
+		this, &VersionCheck::handleUpdateFinish);
+	connect(m_UpdaterDialog, &AppImageUpdaterDialog::canceled,
+		this, &VersionCheck::handleUpdateCancel);
+
+	m_UpdaterDialog->init(m_Revisioner);
+}
+
+void VersionCheck::handleUpdateCheckError(short code){
+	g.mw->msgBox(AppImageUpdaterBridge::errorCodeToDescriptionString(code));
+	if(m_UpdaterDialog){ // We don't own the dialog
+		m_UpdaterDialog->deleteLater();
+	}	 
+	deleteLater();
+}
+
+void VersionCheck::handleUpdateFinish(const QJsonObject &info){
+	Q_UNUSED(info);
+	m_UpdaterDialog->deleteLater();
+	deleteLater();
+	return;
+}
+
+void VersionCheck::handleUpdateError(const QString &str, short code){
+	Q_UNUSED(str);
+	Q_UNUSED(code);
+	m_UpdaterDialog->deleteLater();
+	deleteLater();
+	return;
+}
+
+void VersionCheck::handleUpdateCancel(){
+	m_UpdaterDialog->deleteLater();
+	deleteLater();	
+	return;
+}
+
+#endif // USE_APPIMAGE_UPDATER_BRIDGE

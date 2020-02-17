@@ -8,6 +8,9 @@ include(../qmake/qt.pri)
 include(../qmake/rcc.pri)
 include(../qmake/pkgconfig.pri)
 
+# Add AppImageUpdaterBridge
+include(../qmake/appimageupdaterbridge.pri)
+
 VERSION		= 1.4.0
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h
 CONFIG		+= qt thread debug_and_release warn_on
