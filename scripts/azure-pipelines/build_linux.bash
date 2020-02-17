@@ -7,6 +7,9 @@
 
 ver=$(python scripts/mumble-version.py)
 
+# Use the Qt kit installed through PPA
+source /opt/qt*/bin/qt*-env.sh || true
+
 # clone and install AppImageUpdaterBridge to the system
 git clone https://github.com/antony-jr/AppImageUpdaterBridge
 cd AppImageUpdaterBridge
