@@ -17,7 +17,7 @@ cd AppImageUpdaterBridge
 git checkout "v1.1.6" 
 cmake -DLOGGING_DISABLED=ON .
 make -j $(nproc)
-make install
+sudo make install
 cd ..
 rm -rf AppImageUpdaterBridge # cleanup
 
