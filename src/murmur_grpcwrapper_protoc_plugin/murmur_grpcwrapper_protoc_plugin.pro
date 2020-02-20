@@ -12,6 +12,11 @@ SOURCES = main.cpp
 LIBS = -lprotoc
 CONFIG -= qt
 CONFIG += c++11
+unix:!macx {
+	CONFIG(static) {
+		QMAKE_LFLAGS *= -static-pie
+	}
+}
 must_pkgconfig(protobuf)
 
 include(../../qmake/symbols.pri)
