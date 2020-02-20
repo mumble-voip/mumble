@@ -20,7 +20,10 @@
 #include "ServerUser.h"
 #include "Utils.h"
 
+#include <cerrno>
 #include <chrono>
+#include <cstring>
+#include <stdexcept>
 #include <utility>
 
 #include <QCryptographicHash>
@@ -210,7 +213,12 @@ void GRPCStart() {
 		credentials->SetAuthMetadataProcessor(authenticator);
 	}
 
-	service = new MurmurRPCImpl(address, credentials);
+	try {
+		service = new MurmurRPCImpl(address, credentials);
+	} catch (const std::runtime_error& ex) {
+		qCritical() << "Unable to start gRPC:" << ex.what();
+		return;
+	}
 	// NOLINTNEXTLINE cannot avoid varags with qWarning
 	qWarning("GRPC: listening on '%s'", qPrintable(address));
 	QTimer::singleShot(0, QCoreApplication::instance(), [](){
@@ -295,6 +303,9 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::Ser
 	builder.RegisterService(&m_V1Service);
 	m_completionQueue = builder.AddCompletionQueue();
 	m_server = builder.BuildAndStart();
+	if (m_server == nullptr) {
+		throw std::runtime_error(std::strerror(errno));
+	}
 	meta->connectListener(this);
 	m_isRunning = true;
 	start();
@@ -1513,8 +1524,8 @@ void MurmurRPCImpl::run() {
 	bool ok;
 	grpc::CompletionQueue::NextStatus status;
 
-
 	MurmurRPC::Wrapper::V1_Init(this, &m_V1Service);
+
 	while (m_isRunning) {
 		boost::this_fiber::yield();
 		status = m_completionQueue->AsyncNext(&tag, &ok,
@@ -1545,15 +1556,15 @@ void MurmurRPCImpl::run() {
 namespace MurmurRPC {
 namespace Wrapper {
 
-void V1_ServerCreate::impl(V1_ServerCreate::rpcPtr rpc, V1_ServerCreate::InType&) {
+boost::optional<V1_ServerCreate::OutType> V1_ServerCreate::impl(V1_ServerCreate::rpcPtr /*unused*/, V1_ServerCreate::InType&) {
 	auto id = ServerDB::addServer();
 
 	::MurmurRPC::Server rpcServer;
 	rpcServer.set_id(id);
-	rpc->end(rpcServer);
+	return rpcServer;
 }
 
-void V1_ServerQuery::impl(V1_ServerQuery::rpcPtr rpc, V1_ServerQuery::InType&) {
+boost::optional<V1_ServerQuery::OutType> V1_ServerQuery::impl(V1_ServerQuery::rpcPtr /*unused*/, V1_ServerQuery::InType&) {
 	::MurmurRPC::Server_List list;
 
 	for(const auto& id : ServerDB::getAllServers()) {
@@ -1569,10 +1580,10 @@ void V1_ServerQuery::impl(V1_ServerQuery::rpcPtr rpc, V1_ServerQuery::InType&) {
 		}
 	}
 
-	rpc->end(list);
+	return list;
 }
 
-void V1_ServerGet::impl(V1_ServerGet::rpcPtr rpc, V1_ServerGet::InType& request) {
+boost::optional<V1_ServerGet::OutType> V1_ServerGet::impl(V1_ServerGet::rpcPtr /*unused*/, V1_ServerGet::InType& request) {
 	auto serverID = MustServerID(request);
 
 	::MurmurRPC::Server rpcServer;
@@ -1586,26 +1597,26 @@ void V1_ServerGet::impl(V1_ServerGet::rpcPtr rpc, V1_ServerGet::InType& request)
 		rpcServer.mutable_uptime()->set_secs(uptime.count());
 	} catch (::grpc::Status &ex) {
 	}
-	rpc->end(rpcServer);
+	return rpcServer;
 }
 
-void V1_ServerStart::impl(V1_ServerStart::rpcPtr rpc, V1_ServerStart::InType& request) {
+boost::optional<V1_ServerStart::OutType> V1_ServerStart::impl(V1_ServerStart::rpcPtr /*unused*/, V1_ServerStart::InType& request) {
 	auto serverID = MustServerID(request);
 
 	if (!meta->boot(serverID)) {
 		throw ::grpc::Status(::grpc::UNKNOWN, "server could not be started, or is already started");
 	}
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_ServerStop::impl(V1_ServerStop::rpcPtr rpc, V1_ServerStop::InType& request) {
+boost::optional<V1_ServerStop::OutType> V1_ServerStop::impl(V1_ServerStop::rpcPtr /*unused*/, V1_ServerStop::InType& request) {
 	auto server = MustServer(request);
 	meta->kill(server->iServerNum);
-	rpc->end();
+	return boost::none;
 }
 
-void V1_ServerRemove::impl(V1_ServerRemove::rpcPtr rpc, V1_ServerRemove::InType& request) {
+boost::optional<V1_ServerRemove::OutType> V1_ServerRemove::impl(V1_ServerRemove::rpcPtr /*unused*/, V1_ServerRemove::InType& request) {
 	auto serverID = MustServerID(request);
 
 	if (meta->qhServers.value(serverID)) {
@@ -1613,7 +1624,7 @@ void V1_ServerRemove::impl(V1_ServerRemove::rpcPtr rpc, V1_ServerRemove::InType&
 	}
 
 	ServerDB::deleteServer(serverID);
-	rpc->end();
+	return boost::none;
 }
 
 void V1_ServerEvents::impl(V1_ServerEvents::rpcPtr ptr, V1_ServerEvents::InType& request) {
@@ -1631,22 +1642,22 @@ void V1_ServerEvents::onDone(V1_ServerEvents::rpcPtr ptr, bool) {
 	ptr->rpc->m_serverServiceListeners.getRPCIdPtr()->erase(ptr->getId());
 }
 
-void V1_GetUptime::impl(V1_GetUptime::rpcPtr rpc, V1_GetUptime::InType&) {
+boost::optional<V1_GetUptime::OutType> V1_GetUptime::impl(V1_GetUptime::rpcPtr /*unused*/, V1_GetUptime::InType&) {
 	::MurmurRPC::Uptime uptime;
 	auto microtime = std::chrono::microseconds{meta->tUptime.elapsed()};
 	auto utime = std::chrono::duration_cast<std::chrono::seconds>(microtime);
 	uptime.set_secs(utime.count());
-	rpc->end(uptime);
+	return uptime;
 }
 
-void V1_GetVersion::impl(V1_GetVersion::rpcPtr rpc,  V1_GetVersion::InType&) {
+boost::optional<V1_GetVersion::OutType> V1_GetVersion::impl(V1_GetVersion::rpcPtr /*unused*/,  V1_GetVersion::InType&) {
 	::MurmurRPC::Version version;
 	int major, minor, patch;
 	QString release;
 	Meta::getVersion(major, minor, patch, release);
 	version.set_version(major << 16 | minor << 8 | patch); // NOLINT
 	version.set_release(u8(release));
-	rpc->end(version);
+	return version;
 }
 
 void V1_Events::impl(V1_Events::rpcPtr ptr, V1_Events::InType&) {
@@ -1667,7 +1678,7 @@ void V1_Events::onDone(V1_Events::rpcPtr ptr, bool) {
 	}
 }
 
-void V1_ContextActionAdd::impl(V1_ContextActionAdd::rpcPtr ptr, V1_ContextActionAdd::InType& request) {
+boost::optional<V1_ContextActionAdd::OutType> V1_ContextActionAdd::impl(V1_ContextActionAdd::rpcPtr ptr, V1_ContextActionAdd::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1690,10 +1701,10 @@ void V1_ContextActionAdd::impl(V1_ContextActionAdd::rpcPtr ptr, V1_ContextAction
 	mpcam.set_operation(::MumbleProto::ContextActionModify_Operation_Add);
 	server->sendMessage(user, mpcam);
 
-	ptr->end();
+	return boost::none;
 }
 
-void V1_ContextActionRemove::impl(V1_ContextActionRemove::rpcPtr ptr, V1_ContextActionRemove::InType& request) {
+boost::optional<V1_ContextActionRemove::OutType> V1_ContextActionRemove::impl(V1_ContextActionRemove::rpcPtr ptr, V1_ContextActionRemove::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
@@ -1722,7 +1733,7 @@ void V1_ContextActionRemove::impl(V1_ContextActionRemove::rpcPtr ptr, V1_Context
 		}
 	}
 
-	ptr->end();
+	return boost::none;
 }
 
 void V1_ContextActionEvents::impl(V1_ContextActionEvents::rpcPtr ptr, V1_ContextActionEvents::InType& request) {
@@ -1745,7 +1756,7 @@ void V1_ContextActionEvents::onDone(V1_ContextActionEvents::rpcPtr ptr, bool) {
 	idx->erase(ptr->getId());
 }
 
-void V1_TextMessageSend::impl(V1_TextMessageSend::rpcPtr rpc, V1_TextMessageSend::InType& request) {
+boost::optional<V1_TextMessageSend::OutType> V1_TextMessageSend::impl(V1_TextMessageSend::rpcPtr /*unused*/, V1_TextMessageSend::InType& request) {
 	auto server = MustServer(request);
 
 	::MumbleProto::TextMessage tm;
@@ -1771,7 +1782,7 @@ void V1_TextMessageSend::impl(V1_TextMessageSend::rpcPtr rpc, V1_TextMessageSend
 
 	server->sendTextMessageGRPC(tm);
 
-	rpc->end();
+	return boost::none;
 }
 
 void V1_TextMessageFilter::impl(V1_TextMessageFilter::rpcPtr ptr) {
@@ -1797,7 +1808,7 @@ void V1_TextMessageFilter::onDone(V1_TextMessageFilter::rpcPtr ptr, bool) {
 	}
 }
 
-void V1_LogQuery::impl(V1_LogQuery::rpcPtr rpc, V1_LogQuery::InType& request) {
+boost::optional<V1_LogQuery::OutType> V1_LogQuery::impl(V1_LogQuery::rpcPtr /*unused*/, V1_LogQuery::InType& request) {
 	auto serverID = MustServerID(request);
 
 	int total = ::ServerDB::getLogLen(serverID);
@@ -1810,8 +1821,7 @@ void V1_LogQuery::impl(V1_LogQuery::rpcPtr rpc, V1_LogQuery::InType& request) {
 	list.set_total(total);
 
 	if (!request.has_min() || !request.has_max()) {
-		rpc->end(list);
-		return;
+		return list;
 	}
 	list.set_min(request.min());
 	list.set_max(request.max());
@@ -1822,10 +1832,10 @@ void V1_LogQuery::impl(V1_LogQuery::rpcPtr rpc, V1_LogQuery::InType& request) {
 		ToRPC(serverID, record, rpcLog);
 	}
 
-	rpc->end(list);
+	return list;
 }
 
-void V1_ConfigGet::impl(V1_ConfigGet::rpcPtr rpc, V1_ConfigGet::InType& request) {
+boost::optional<V1_ConfigGet::OutType> V1_ConfigGet::impl(V1_ConfigGet::rpcPtr /*unused*/, V1_ConfigGet::InType& request) {
 	auto serverID = MustServerID(request);
 	auto config = ServerDB::getAllConf(serverID);
 
@@ -1836,10 +1846,10 @@ void V1_ConfigGet::impl(V1_ConfigGet::rpcPtr rpc, V1_ConfigGet::InType& request)
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	rpc->end(rpcConfig);
+	return rpcConfig;
 }
 
-void V1_ConfigGetField::impl(V1_ConfigGetField::rpcPtr rpc, V1_ConfigGetField::InType& request) {
+boost::optional<V1_ConfigGetField::OutType> V1_ConfigGetField::impl(V1_ConfigGetField::rpcPtr /*unused*/, V1_ConfigGetField::InType& request) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1848,10 +1858,10 @@ void V1_ConfigGetField::impl(V1_ConfigGetField::rpcPtr rpc, V1_ConfigGetField::I
 	rpcField.mutable_server()->set_id(serverID);
 	rpcField.set_key(request.key());
 	rpcField.set_value(u8(ServerDB::getConf(serverID, u8(request.key()), QVariant()).toString()));
-	rpc->end(rpcField);
+	return rpcField;
 }
 
-void V1_ConfigSetField::impl(V1_ConfigSetField::rpcPtr rpc, V1_ConfigSetField::InType& request) {
+boost::optional<V1_ConfigSetField::OutType> V1_ConfigSetField::impl(V1_ConfigSetField::rpcPtr /*unused*/, V1_ConfigSetField::InType& request) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1868,20 +1878,20 @@ void V1_ConfigSetField::impl(V1_ConfigSetField::rpcPtr rpc, V1_ConfigSetField::I
 	} catch (::grpc::Status &ex) {
 	}
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_ConfigGetDefault::impl(V1_ConfigGetDefault::rpcPtr rpc, V1_ConfigGetDefault::InType&) {
+boost::optional<V1_ConfigGetDefault::OutType> V1_ConfigGetDefault::impl(V1_ConfigGetDefault::rpcPtr /*unused*/, V1_ConfigGetDefault::InType&) {
 	::MurmurRPC::Config rpcConfig;
 	auto &fields = *rpcConfig.mutable_fields();
 	for (auto i = meta->mp.qmConfig.constBegin(); i != meta->mp.qmConfig.constEnd(); ++i) {
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	rpc->end(rpcConfig);
+	return rpcConfig;
 }
 
-void V1_ChannelQuery::impl(V1_ChannelQuery::rpcPtr rpc, V1_ChannelQuery::InType& request) {
+boost::optional<V1_ChannelQuery::OutType> V1_ChannelQuery::impl(V1_ChannelQuery::rpcPtr /*unused*/, V1_ChannelQuery::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Channel_List list;
@@ -1892,19 +1902,19 @@ void V1_ChannelQuery::impl(V1_ChannelQuery::rpcPtr rpc, V1_ChannelQuery::InType&
 		ToRPC(server, channel, rpcChannel);
 	}
 
-	rpc->end(list);
+	return list;
 }
 
-void V1_ChannelGet::impl(V1_ChannelGet::rpcPtr rpc, V1_ChannelGet::InType& request) {
+boost::optional<V1_ChannelGet::OutType> V1_ChannelGet::impl(V1_ChannelGet::rpcPtr /*unused*/, V1_ChannelGet::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	rpc->end(rpcChannel);
+	return rpcChannel;
 }
 
-void V1_ChannelAdd::impl(V1_ChannelAdd::rpcPtr rpc, V1_ChannelAdd::InType& request) {
+boost::optional<V1_ChannelAdd::OutType> V1_ChannelAdd::impl(V1_ChannelAdd::rpcPtr /*unused*/, V1_ChannelAdd::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_parent() || !request.has_name()) {
@@ -1946,10 +1956,10 @@ void V1_ChannelAdd::impl(V1_ChannelAdd::rpcPtr rpc, V1_ChannelAdd::InType& reque
 
 	::MurmurRPC::Channel resChannel;
 	ToRPC(server, nc, &resChannel);
-	rpc->end(resChannel);
+	return resChannel;
 }
 
-void V1_ChannelRemove::impl(V1_ChannelRemove::rpcPtr rpc, V1_ChannelRemove::InType& request) {
+boost::optional<V1_ChannelRemove::OutType> V1_ChannelRemove::impl(V1_ChannelRemove::rpcPtr /*unused*/, V1_ChannelRemove::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1959,10 +1969,10 @@ void V1_ChannelRemove::impl(V1_ChannelRemove::rpcPtr rpc, V1_ChannelRemove::InTy
 
 	server->removeChannel(channel);
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_ChannelUpdate::impl(V1_ChannelUpdate::rpcPtr rpc, V1_ChannelUpdate::InType& request) {
+boost::optional<V1_ChannelUpdate::OutType> V1_ChannelUpdate::impl(V1_ChannelUpdate::rpcPtr /*unused*/, V1_ChannelUpdate::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1997,10 +2007,10 @@ void V1_ChannelUpdate::impl(V1_ChannelUpdate::rpcPtr rpc, V1_ChannelUpdate::InTy
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	rpc->end(rpcChannel);
+	return rpcChannel;
 }
 
-void V1_UserQuery::impl(V1_UserQuery::rpcPtr rpc, V1_UserQuery::InType& request) {
+boost::optional<V1_UserQuery::OutType> V1_UserQuery::impl(V1_UserQuery::rpcPtr /*unused*/, V1_UserQuery::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User_List list;
@@ -2014,10 +2024,10 @@ void V1_UserQuery::impl(V1_UserQuery::rpcPtr rpc, V1_UserQuery::InType& request)
 		ToRPC(server, user, rpcUser);
 	}
 
-	rpc->end(list);
+	return list;
 }
 
-void V1_UserGet::impl(V1_UserGet::rpcPtr rpc, V1_UserGet::InType& request) {
+boost::optional<V1_UserGet::OutType> V1_UserGet::impl(V1_UserGet::rpcPtr /*unused*/, V1_UserGet::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User rpcUser;
@@ -2026,8 +2036,7 @@ void V1_UserGet::impl(V1_UserGet::rpcPtr rpc, V1_UserGet::InType& request) {
 		// Lookup user by session
 		auto user = MustUser(server, request);
 		ToRPC(server, user, &rpcUser);
-		rpc->end(rpcUser);
-		return;
+		return rpcUser;
 	} else if (request.has_name()) {
 		// Lookup user by name
 		QString qsName = u8(request.name());
@@ -2037,8 +2046,7 @@ void V1_UserGet::impl(V1_UserGet::rpcPtr rpc, V1_UserGet::InType& request) {
 			}
 			if (user->qsName == qsName) {
 				ToRPC(server, user, &rpcUser);
-				rpc->end(rpcUser);
-				return;
+				return rpcUser;
 			}
 		}
 		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
@@ -2047,7 +2055,7 @@ void V1_UserGet::impl(V1_UserGet::rpcPtr rpc, V1_UserGet::InType& request) {
 	throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "session or name required");
 }
 
-void V1_UserUpdate::impl(V1_UserUpdate::rpcPtr rpc, V1_UserUpdate::InType& request) {
+boost::optional<V1_UserUpdate::OutType> V1_UserUpdate::impl(V1_UserUpdate::rpcPtr /*unused*/, V1_UserUpdate::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -2084,10 +2092,10 @@ void V1_UserUpdate::impl(V1_UserUpdate::rpcPtr rpc, V1_UserUpdate::InType& reque
 
 	::MurmurRPC::User rpcUser;
 	ToRPC(server, user, &rpcUser);
-	rpc->end(rpcUser);
+	return rpcUser;
 }
 
-void V1_UserKick::impl(V1_UserKick::rpcPtr rpc, V1_UserKick::InType& request) {
+boost::optional<V1_UserKick::OutType> V1_UserKick::impl(V1_UserKick::rpcPtr /*unused*/, V1_UserKick::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -2102,10 +2110,10 @@ void V1_UserKick::impl(V1_UserKick::rpcPtr rpc, V1_UserKick::InType& request) {
 	server->sendAll(mpur);
 	user->disconnectSocket();
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_TreeQuery::impl(V1_TreeQuery::rpcPtr rpc, V1_TreeQuery::InType& request) {
+boost::optional<V1_TreeQuery::OutType> V1_TreeQuery::impl(V1_TreeQuery::rpcPtr /*unused*/, V1_TreeQuery::InType& request) {
 	auto server = MustServer(request);
 
 	auto channel = MustChannel(server, 0);
@@ -2140,10 +2148,10 @@ void V1_TreeQuery::impl(V1_TreeQuery::rpcPtr rpc, V1_TreeQuery::InType& request)
 		}
 	}
 
-	rpc->end(root);
+	return root;
 }
 
-void V1_BansGet::impl(V1_BansGet::rpcPtr rpc, V1_BansGet::InType& request) {
+boost::optional<V1_BansGet::OutType> V1_BansGet::impl(V1_BansGet::rpcPtr /*unused*/, V1_BansGet::InType& request) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Ban_List list;
@@ -2153,10 +2161,10 @@ void V1_BansGet::impl(V1_BansGet::rpcPtr rpc, V1_BansGet::InType& request) {
 		ToRPC(server, ban, rpcBan);
 	}
 
-	rpc->end(list);
+	return list;
 }
 
-void V1_BansSet::impl(V1_BansSet::rpcPtr rpc, V1_BansSet::InType& request) {
+boost::optional<V1_BansSet::OutType> V1_BansSet::impl(V1_BansSet::rpcPtr /*unused*/, V1_BansSet::InType& request) {
 	auto server = MustServer(request);
 	server->qlBans.clear();
 
@@ -2168,10 +2176,10 @@ void V1_BansSet::impl(V1_BansSet::rpcPtr rpc, V1_BansSet::InType& request) {
 	}
 	server->saveBans();
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
+boost::optional<V1_ACLGet::OutType> V1_ACLGet::impl(V1_ACLGet::rpcPtr /*unused*/, V1_ACLGet::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -2240,10 +2248,10 @@ void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
 		}
 	}
 
-	rpc->end(list);
+	return list;
 }
 
-void V1_ACLSet::impl(V1_ACLSet::rpcPtr rpc, V1_ACLSet::InType& request) {
+boost::optional<V1_ACLSet::OutType> V1_ACLSet::impl(V1_ACLSet::rpcPtr /*unused*/, V1_ACLSet::InType& request) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -2300,10 +2308,10 @@ void V1_ACLSet::impl(V1_ACLSet::rpcPtr rpc, V1_ACLSet::InType& request) {
 	server->clearACLCache();
 	server->updateChannel(channel);
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_ACLGetEffectivePermissions::impl(V1_ACLGetEffectivePermissions::rpcPtr rpc, V1_ACLGetEffectivePermissions::InType& request) {
+boost::optional<V1_ACLGetEffectivePermissions::OutType> V1_ACLGetEffectivePermissions::impl(V1_ACLGetEffectivePermissions::rpcPtr /*unused*/, V1_ACLGetEffectivePermissions::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -2312,10 +2320,10 @@ void V1_ACLGetEffectivePermissions::impl(V1_ACLGetEffectivePermissions::rpcPtr r
 
 	::MurmurRPC::ACL rpcACL;
 	rpcACL.set_allow(::MurmurRPC::ACL_Permission(flags));
-	rpc->end(rpcACL);
+	return rpcACL;
 }
 
-void V1_ACLAddTemporaryGroup::impl(V1_ACLAddTemporaryGroup::rpcPtr rpc, V1_ACLAddTemporaryGroup::InType& request) {
+boost::optional<V1_ACLAddTemporaryGroup::OutType> V1_ACLAddTemporaryGroup::impl(V1_ACLAddTemporaryGroup::rpcPtr /*unused*/, V1_ACLAddTemporaryGroup::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -2342,10 +2350,10 @@ void V1_ACLAddTemporaryGroup::impl(V1_ACLAddTemporaryGroup::rpcPtr rpc, V1_ACLAd
 
 	server->clearACLCache(user);
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_ACLRemoveTemporaryGroup::impl(V1_ACLRemoveTemporaryGroup::rpcPtr rpc, V1_ACLRemoveTemporaryGroup::InType& request) {
+boost::optional<V1_ACLRemoveTemporaryGroup::OutType> V1_ACLRemoveTemporaryGroup::impl(V1_ACLRemoveTemporaryGroup::rpcPtr /*unused*/, V1_ACLRemoveTemporaryGroup::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -2372,7 +2380,7 @@ void V1_ACLRemoveTemporaryGroup::impl(V1_ACLRemoveTemporaryGroup::rpcPtr rpc, V1
 
 	server->clearACLCache(user);
 
-	rpc->end();
+	return boost::none;
 }
 
 void V1_AuthenticatorStream::impl(V1_AuthenticatorStream::rpcPtr ptr) {
@@ -2414,7 +2422,7 @@ void V1_AuthenticatorStream::onDone(V1_AuthenticatorStream::rpcPtr ptr, bool) {
 	}
 }
 
-void V1_DatabaseUserQuery::impl(V1_DatabaseUserQuery::rpcPtr rpc, V1_DatabaseUserQuery::InType& request) {
+boost::optional<V1_DatabaseUserQuery::OutType> V1_DatabaseUserQuery::impl(V1_DatabaseUserQuery::rpcPtr /*unused*/, V1_DatabaseUserQuery::InType& request) {
 	auto server = MustServer(request);
 
 	QString filter;
@@ -2433,10 +2441,10 @@ void V1_DatabaseUserQuery::impl(V1_DatabaseUserQuery::rpcPtr rpc, V1_DatabaseUse
 		user->set_name(u8(itr.value()));
 	}
 
-	rpc->end(list);
+	return list;
 }
 
-void V1_DatabaseUserGet::impl(V1_DatabaseUserGet::rpcPtr rpc, V1_DatabaseUserGet::InType& request) {
+boost::optional<V1_DatabaseUserGet::OutType> V1_DatabaseUserGet::impl(V1_DatabaseUserGet::rpcPtr /*unused*/, V1_DatabaseUserGet::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -2450,10 +2458,10 @@ void V1_DatabaseUserGet::impl(V1_DatabaseUserGet::rpcPtr rpc, V1_DatabaseUserGet
 
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	ToRPC(server, info, texture, &rpcDatabaseUser);
-	rpc->end(rpcDatabaseUser);
+	return rpcDatabaseUser;
 }
 
-void V1_DatabaseUserUpdate::impl(V1_DatabaseUserUpdate::rpcPtr rpc, V1_DatabaseUserUpdate::InType& request) {
+boost::optional<V1_DatabaseUserUpdate::OutType> V1_DatabaseUserUpdate::impl(V1_DatabaseUserUpdate::rpcPtr /*unused*/, V1_DatabaseUserUpdate::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -2490,10 +2498,10 @@ void V1_DatabaseUserUpdate::impl(V1_DatabaseUserUpdate::rpcPtr rpc, V1_DatabaseU
 		}
 	}
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_DatabaseUserRegister::impl(V1_DatabaseUserRegister::rpcPtr rpc, V1_DatabaseUserRegister::InType& request) {
+boost::optional<V1_DatabaseUserRegister::OutType> V1_DatabaseUserRegister::impl(V1_DatabaseUserRegister::rpcPtr /*unused*/, V1_DatabaseUserRegister::InType& request) {
 	auto server = MustServer(request);
 
 	QMap<int, QString> info;
@@ -2512,10 +2520,10 @@ void V1_DatabaseUserRegister::impl(V1_DatabaseUserRegister::rpcPtr rpc, V1_Datab
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.set_id(userid);
 	ToRPC(server, info, texture, &rpcDatabaseUser);
-	rpc->end(rpcDatabaseUser);
+	return rpcDatabaseUser;
 }
 
-void V1_DatabaseUserDeregister::impl(V1_DatabaseUserDeregister::rpcPtr rpc, V1_DatabaseUserDeregister::InType& request) {
+boost::optional<V1_DatabaseUserDeregister::OutType> V1_DatabaseUserDeregister::impl(V1_DatabaseUserDeregister::rpcPtr /*unused*/, V1_DatabaseUserDeregister::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -2525,10 +2533,10 @@ void V1_DatabaseUserDeregister::impl(V1_DatabaseUserDeregister::rpcPtr rpc, V1_D
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
 	}
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_DatabaseUserVerify::impl(V1_DatabaseUserVerify::rpcPtr rpc, V1_DatabaseUserVerify::InType& request) {
+boost::optional<V1_DatabaseUserVerify::OutType> V1_DatabaseUserVerify::impl(V1_DatabaseUserVerify::rpcPtr /*unused*/, V1_DatabaseUserVerify::InType& request) {
 	auto server = MustServer(request);
 
 	if (!request.has_name()) {
@@ -2554,10 +2562,11 @@ void V1_DatabaseUserVerify::impl(V1_DatabaseUserVerify::rpcPtr rpc, V1_DatabaseU
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.mutable_server()->set_id(server->iServerNum);
 	rpcDatabaseUser.set_id(ret);
-	rpc->end(rpcDatabaseUser);
+	return rpcDatabaseUser;
 }
 
-void V1_RedirectWhisperGroupAdd::impl(V1_RedirectWhisperGroupAdd::rpcPtr rpc, V1_RedirectWhisperGroupAdd::InType& request) {
+boost::optional<V1_RedirectWhisperGroupAdd::OutType>
+V1_RedirectWhisperGroupAdd::impl(V1_RedirectWhisperGroupAdd::rpcPtr /*unused*/, V1_RedirectWhisperGroupAdd::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -2578,10 +2587,11 @@ void V1_RedirectWhisperGroupAdd::impl(V1_RedirectWhisperGroupAdd::rpcPtr rpc, V1
 
 	server->clearACLCache(user);
 
-	rpc->end();
+	return boost::none;
 }
 
-void V1_RedirectWhisperGroupRemove::impl(V1_RedirectWhisperGroupRemove::rpcPtr rpc, V1_RedirectWhisperGroupRemove::InType& request) {
+boost::optional<V1_RedirectWhisperGroupRemove::OutType>
+V1_RedirectWhisperGroupRemove::impl(V1_RedirectWhisperGroupRemove::rpcPtr /*unused*/, V1_RedirectWhisperGroupRemove::InType& request) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -2598,7 +2608,7 @@ void V1_RedirectWhisperGroupRemove::impl(V1_RedirectWhisperGroupRemove::rpcPtr r
 
 	server->clearACLCache(user);
 
-	rpc->end();
+	return boost::none;
 }
 
 } // namespace Wrapper

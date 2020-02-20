@@ -101,7 +101,7 @@ namespace MurmurRPC {
 				void (*delete_functor)(void*) noexcept;
 
 				template<typename task_t>
-				void setup_node(const boost::mp11::mp_identity<task_t>& /*unused*/ ) {
+				void setup_node(const boost::mp11::mp_identity<task_t>& /*unused*/ ) noexcept {
 					// this *could* throw a future exception if the future
 					// has been deleted. But if that happens something
 					// has gone horribly wrong since the task.valid()
@@ -138,6 +138,7 @@ namespace MurmurRPC {
 				/// \exception std::bad_function_call will be thrown
 				/// if the recieved task is not valid.
 				template<typename Signature>
+				// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init) init in setup_node
 				packaged_node(bf::packaged_task<Signature>&& task) {
 					using signature_t = ct::function_type_t<decltype(task)>;
 					static_assert(std::is_same<signature_t, void()>::value,
@@ -167,6 +168,7 @@ namespace MurmurRPC {
 				/// \param task `std::unique_ptr` with a packaged task that *must* be
 				/// allocated with `new`.
 				template<typename Signature>
+				// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init) init in setup_node
 				packaged_node(std::unique_ptr< bf::packaged_task<Signature>> task) {
 					using signature_t = ct::function_type_t<decltype(*task)>;
 					static_assert(std::is_same<signature_t, void()>::value,
@@ -960,6 +962,19 @@ namespace MurmurRPC {
 			static void addCQHandler(ServiceType* svc, MurmurRPCImpl* rpc,
 					RFn requestFn, void *handleFn, RPCCall<Derived> *call);
 
+			/// \brief only for unary streams
+			///
+			///
+			template<typename Impl = ImplType>
+			auto endInternal(const boost::optional< OutType >& message)
+					-> decltype(std::declval<Impl>().end(OutType())) {
+				if (message) {
+					impl_detail.end(*message);
+				} else {
+					impl_detail.end(OutType());
+				}
+			}
+
 			/// \brief Constructor.
 			///
 			/// Only to be called in create(). Setups up our flags,
@@ -1034,19 +1049,6 @@ namespace MurmurRPC {
 				return m_this;
 			}
 
-			/// \brief only available for unary streams
-			///
-			/// Called at the end of the `Detail::impl()` function to send the outgoing request.
-			///
-			/// This is somewhat bad design as if `impl()` fails to call this or
-			/// throw an exception we are left dangling until we get cancelled due
-			/// to a timeout. This is a likely non-method in the future.
-			///
-			template<typename Impl = ImplType>
-			auto end(const OutType &message = OutType())
-					-> decltype(std::declval<Impl>().end(OutType())) {
-				impl_detail.end(message);
-			}
 
 			/// \brief only for server stream types.
 			///
@@ -1168,7 +1170,7 @@ namespace MurmurRPC {
 			RPCCall<Derived>::create(this->rpc, this->service);
 			auto ptr = this->getSharedPtr();
 			this->launchInEventLoop([this, ptr](){
-					ptr->impl(ptr, this->impl_detail.m_Request);
+				this->endInternal(ptr->impl(ptr, this->impl_detail.m_Request));
 			});
 		}
 
