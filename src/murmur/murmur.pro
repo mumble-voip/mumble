@@ -173,7 +173,7 @@ grpc {
   QMAKE_EXTRA_COMPILERS += grpc_wrapper
 
   unix {
-    QMAKE_CXXFLAGS *= -std=c++11
+  #  QMAKE_CXXFLAGS *= -std=c++11
     must_pkgconfig(grpc)
     must_pkgconfig(grpc++)
   }
