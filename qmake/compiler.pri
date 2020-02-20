@@ -260,6 +260,7 @@ unix|win32-g++ {
 		QMAKE_CFLAGS *= -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
 		QMAKE_CXXFLAGS *= -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
 		LIBS += -ltcmalloc
+		CONFIG *= lto
 	}
 
 	CONFIG(optimize) {
@@ -331,7 +332,7 @@ unix:!macx {
 
 	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
 
-	CONFIG(LTO) {
+	CONFIG(lto) {
 		QMAKE_CFLAGS += $$QMAKE_CFLAGS_LTCG
 		QMAKE_CXXFLAGS += $$QMAKE_CXXFLAGS_LTCG
 		QMAKE_LFLAGS *= $$QMAKE_LFLAGS_LTCG
