@@ -322,7 +322,7 @@ void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
 	}
 	rc->set_description(u8(c->qsDesc));
 	rc->set_position(c->iPosition);
-	foreach(::Channel *chn, c->qsPermLinks) {
+	for(auto* chn : c->qsPermLinks) {
 		::MurmurRPC::Channel *linked = rc->add_links();
 		linked->mutable_server()->set_id(srv->iServerNum);
 		linked->set_id(chn->iId);
@@ -477,19 +477,19 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 	rtm->mutable_actor()->mutable_server()->set_id(srv->iServerNum);
 	rtm->mutable_actor()->set_session(user->uiSession);
 
-	foreach(auto session, message.qlSessions) {
+	for(const auto& session : message.qlSessions) {
 		auto target = rtm->add_users();
 		target->mutable_server()->set_id(srv->iServerNum);
 		target->set_session(session);
 	}
 
-	foreach(auto id, message.qlChannels) {
+	for(const auto& id : message.qlChannels) {
 		auto target = rtm->add_channels();
 		target->mutable_server()->set_id(srv->iServerNum);
 		target->set_id(id);
 	}
 
-	foreach(auto id, message.qlTrees) {
+	for(const auto& id : message.qlTrees) {
 		auto target = rtm->add_trees();
 		target->mutable_server()->set_id(srv->iServerNum);
 		target->set_id(id);
@@ -605,7 +605,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	if (!pw.isEmpty()) {
 		request.mutable_authenticate()->set_password(u8(pw));
 	}
-	foreach(const auto &cert, certlist) {
+	for(const auto &cert : certlist) {
 		auto data = cert.toDer();
 		request.mutable_authenticate()->add_certificates(data.constData(), data.size());
 	}
@@ -1556,7 +1556,7 @@ void V1_ServerCreate::impl(V1_ServerCreate::rpcPtr rpc, V1_ServerCreate::InType&
 void V1_ServerQuery::impl(V1_ServerQuery::rpcPtr rpc, V1_ServerQuery::InType&) {
 	::MurmurRPC::Server_List list;
 
-	foreach(int id, ServerDB::getAllServers()) {
+	for(const auto& id : ServerDB::getAllServers()) {
 		auto rpcServer = list.add_servers();
 		rpcServer->set_id(id);
 		try {
@@ -1713,7 +1713,7 @@ void V1_ContextActionRemove::impl(V1_ContextActionRemove::rpcPtr ptr, V1_Context
 		server->sendMessage(user, mpcam);
 	} else {
 		// Remove context action from all users
-		foreach(::ServerUser *user, server->qhUsers) {
+		for(auto* user :  server->qhUsers) {
 			if (user->sState != ServerUser::Authenticated) {
 				continue;
 			}
@@ -1817,7 +1817,7 @@ void V1_LogQuery::impl(V1_LogQuery::rpcPtr rpc, V1_LogQuery::InType& request) {
 	list.set_max(request.max());
 
 	auto dblog = ::ServerDB::getLog(serverID, request.min(), request.max());
-	foreach(const ::ServerDB::LogRecord &record, dblog) {
+	for(const auto& record : dblog) {
 		auto rpcLog = list.add_entries();
 		ToRPC(serverID, record, rpcLog);
 	}
@@ -1887,7 +1887,7 @@ void V1_ChannelQuery::impl(V1_ChannelQuery::rpcPtr rpc, V1_ChannelQuery::InType&
 	::MurmurRPC::Channel_List list;
 	list.mutable_server()->set_id(server->iServerNum);
 
-	foreach(const ::Channel *channel, server->qhChannels) {
+	for(const auto* channel : server->qhChannels) {
 		auto rpcChannel = list.add_channels();
 		ToRPC(server, channel, rpcChannel);
 	}
@@ -2006,7 +2006,7 @@ void V1_UserQuery::impl(V1_UserQuery::rpcPtr rpc, V1_UserQuery::InType& request)
 	::MurmurRPC::User_List list;
 	list.mutable_server()->set_id(server->iServerNum);
 
-	foreach(const ::ServerUser *user, server->qhUsers) {
+	for(const auto* user : server->qhUsers) {
 		if (user->sState != ServerUser::Authenticated) {
 			continue;
 		}
@@ -2031,7 +2031,7 @@ void V1_UserGet::impl(V1_UserGet::rpcPtr rpc, V1_UserGet::InType& request) {
 	} else if (request.has_name()) {
 		// Lookup user by name
 		QString qsName = u8(request.name());
-		foreach(const ::ServerUser *user, server->qhUsers) {
+		for(const auto* user : server->qhUsers) {
 			if (user->sState != ServerUser::Authenticated) {
 				continue;
 			}
@@ -2125,7 +2125,7 @@ void V1_TreeQuery::impl(V1_TreeQuery::rpcPtr rpc, V1_TreeQuery::InType& request)
 		std::sort(users.begin(), users.end(), [] (const ::User *a, const ::User *b) -> bool {
 			return ::User::lessThan(a, b);
 		});
-		foreach(const ::User *u, users) {
+		for(const auto* u : users) {
 			auto rpcUser = currentTree->add_users();
 			ToRPC(server, u, rpcUser);
 		}
@@ -2134,7 +2134,7 @@ void V1_TreeQuery::impl(V1_TreeQuery::rpcPtr rpc, V1_TreeQuery::InType& request)
 		std::sort(channels.begin(), channels.end(), [] (const ::Channel *a, const ::Channel *b) -> bool {
 			return ::Channel::lessThan(a, b);
 		});
-		foreach(const ::Channel *subChannel, channels) {
+		for(const auto* subChannel : channels) {
 			auto subTree = currentTree->add_children();
 			qQueue.enqueue(qMakePair(subChannel, subTree));
 		}
@@ -2148,7 +2148,7 @@ void V1_BansGet::impl(V1_BansGet::rpcPtr rpc, V1_BansGet::InType& request) {
 
 	::MurmurRPC::Ban_List list;
 	list.mutable_server()->set_id(server->iServerNum);
-	foreach(const ::Ban &ban, server->qlBans) {
+	for(const auto& ban : server->qlBans) {
 		auto rpcBan = list.add_bans();
 		ToRPC(server, ban, rpcBan);
 	}
@@ -2179,7 +2179,6 @@ void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
 	list.set_inherit(channel->bInheritACL);
 
 	QStack< ::Channel *> chans;
-	ChanACL *acl;
 	::Channel *p = channel;
 	while (p) {
 		chans.push(p);
@@ -2192,7 +2191,7 @@ void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
 
 	while (!chans.isEmpty()) {
 		p = chans.pop();
-		foreach(acl, p->qlACL) {
+		for(auto* acl : p->qlACL) {
 			if (p == channel || acl->bApplySubs) {
 				auto rpcACL = list.add_acls();
 				ToRPC(server, acl, rpcACL);
@@ -2205,7 +2204,7 @@ void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
 
 	p = channel->cParent;
 	const QSet<QString> allnames = ::Group::groupNames(channel);
-	foreach(const QString &name, allnames) {
+	for(const auto& name : allnames) {
 		::Group *g = channel->qhGroups.value(name);
 		::Group *pg = p ? ::Group::getGroup(p, name) : nullptr;
 		if (!g && ! pg) {
@@ -2218,12 +2217,12 @@ void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
 			members = pg->members();
 		}
 		if (g) {
-			foreach(auto id, g->qsAdd) {
+			for(const auto& id : g->qsAdd) {
 				auto rpcUser = aclGroup->add_users_add();
 				rpcUser->mutable_server()->set_id(server->iServerNum);
 				rpcUser->set_id(id);
 			}
-			foreach(auto id, g->qsRemove) {
+			for(const auto& id : g->qsRemove) {
 				auto rpcUser = aclGroup->add_users_remove();
 				rpcUser->mutable_server()->set_id(server->iServerNum);
 				rpcUser->set_id(id);
@@ -2234,7 +2233,7 @@ void V1_ACLGet::impl(V1_ACLGet::rpcPtr rpc, V1_ACLGet::InType& request) {
 		} else {
 			aclGroup->set_inherited(true);
 		}
-		foreach(auto id, members) {
+		for(const auto& id : members) {
 			auto rpcUser = aclGroup->add_users();
 			rpcUser->mutable_server()->set_id(server->iServerNum);
 			rpcUser->set_id(id);
@@ -2255,11 +2254,11 @@ void V1_ACLSet::impl(V1_ACLSet::rpcPtr rpc, V1_ACLSet::InType& request) {
 		QWriteLocker wl(&server->qrwlVoiceThread);
 
 		QHash<QString, QSet<int> > hOldTemp;
-		foreach(g, channel->qhGroups) {
+		for(auto* g : channel->qhGroups) {
 			hOldTemp.insert(g->qsName, g->qsTemporary);
 			delete g;
 		}
-		foreach(acl, channel->qlACL) {
+		for(auto* acl : channel->qlACL) {
 			delete acl;
 		}
 
@@ -2475,7 +2474,7 @@ void V1_DatabaseUserUpdate::impl(V1_DatabaseUserUpdate::rpcPtr rpc, V1_DatabaseU
 	}
 
 	if (info.contains(ServerDB::User_Name) || info.contains(ServerDB::User_Comment)) {
-		foreach(::ServerUser *u, server->qhUsers) {
+		for(auto* u : server->qhUsers) {
 			if (static_cast<unsigned int>(u->iId) == request.id()) {
 				QString name = u->qsName;
 				QString comment = u->qsComment;
@@ -2607,16 +2606,18 @@ void V1_RedirectWhisperGroupRemove::impl(V1_RedirectWhisperGroupRemove::rpcPtr r
 
 /// \brief QDebug can't handle std::string...
 QDebug operator<<(QDebug dbg, const std::string& s) {
-	dbg << s.c_str();
+	QDebugStateSaver saver(dbg);
+	dbg.nospace() << '"' << s.c_str() << '"';
 	return dbg;
 }
 
 /// \brief QDebug can't handle grpc::string_ref...
+///
+/// output locate has to be utf8-compat these are not being converted
+///
 QDebug operator<<(QDebug dbg, const grpc::string_ref& s) {
 	QDebugStateSaver saver(dbg);
-	dbg = dbg.nospace();
-	for (const auto& c : s) {
-		dbg << c;
-	}
+	dbg.noquote().nospace() <<
+		'"' << QByteArray::fromRawData(s.data(), s.length()) << '"';
 	return dbg;
 }

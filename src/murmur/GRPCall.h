@@ -99,6 +99,30 @@ namespace MurmurRPC {
 				void* task_ptr;
 				void (*task_functor)(void*) noexcept;
 				void (*delete_functor)(void*) noexcept;
+
+				template<typename task_t>
+				void setup_node(const boost::mp11::mp_identity<task_t>& /*unused*/ ) {
+					// this *could* throw a future exception if the future
+					// has been deleted. But if that happens something
+					// has gone horribly wrong since the task.valid()
+					// check earlier should prevent this.
+					task_functor = [](void* task_ptr) noexcept -> void {
+						try {
+							auto tptr = static_cast<task_t*>(task_ptr);
+							(*tptr)();
+						} catch(...) {
+							std::terminate();
+						}
+					};
+					delete_functor = [](void* task_ptr) noexcept -> void {
+						auto tptr = static_cast<task_t*>(task_ptr);
+						// We are using raw pointers here to save space.
+						// This will always be called.
+						// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
+						delete tptr;
+					};
+					valid.store(true, std::memory_order_release);
+				}
 			public:
 
 				/// \brief constructs a new packaged_node
@@ -129,27 +153,32 @@ namespace MurmurRPC {
 					// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 					auto tmp_task = new task_type_t(std::move(task));
 					task_ptr = static_cast<void *>(tmp_task);
+					setup_node(boost::mp11::mp_identity<task_type_t>{});
 
-					// this *could* throw a future exception if the future
-					// has been deleted. But if that happens something
-					// has gone horribly wrong since the task.valid()
-					// check earlier should prevent this.
-					task_functor = [](void* task_ptr) noexcept -> void {
-						try {
-							auto tptr = static_cast<task_type_t*>(task_ptr);
-							(*tptr)();
-						} catch(...) {
-							std::terminate();
-						}
-					};
-					delete_functor = [](void* task_ptr) noexcept -> void {
-						auto tptr = static_cast<task_type_t*>(task_ptr);
-						// We are using raw pointers here to save space.
-						// This will always be called.
-						// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-						delete tptr;
-					};
-					valid.store(true, std::memory_order_release);
+
+				}
+
+				///
+				/// \overload
+				///
+				/// This constructor is a tad more efficient as the packaged_task gets
+				/// heap allocated anyway.
+				///
+				/// \param task `std::unique_ptr` with a packaged task that *must* be
+				/// allocated with `new`.
+				template<typename Signature>
+				packaged_node(std::unique_ptr< bf::packaged_task<Signature>> task) {
+					using signature_t = ct::function_type_t<decltype(*task)>;
+					static_assert(std::is_same<signature_t, void()>::value,
+							"task must have signature R()");
+
+					using task_type_t = bf::packaged_task<Signature>;
+
+					if (task == nullptr || !task->valid()) {
+						throw std::bad_function_call();
+					}
+					task_ptr = static_cast<void *>(task.release());
+					setup_node(boost::mp11::mp_identity<task_type_t>{});
 				}
 
 				/// \brief non-copyable
@@ -162,6 +191,7 @@ namespace MurmurRPC {
 				packaged_node& operator=(packaged_node&& other) = delete;
 
 				/// \brief destroys task if not already completed
+				///
 				///
 				/// If the task has already been run, this just deallocates
 				/// the remaing member variables. If the task has not been
@@ -272,9 +302,10 @@ namespace MurmurRPC {
 				auto queueWork(Functor&& func) -> bf::future<ct::return_type_t<Functor>> {
 					static_assert(std::tuple_size<ct::args_t<Functor>>::value == 0,
 							"queueWork needs R() signature");
+					using task_type_t = bf::packaged_task< ct::return_type_t<Functor> ()>;
 
-					bf::packaged_task< ct::return_type_t<Functor> () > task(func);
-					auto future = task.get_future();
+					std::unique_ptr<task_type_t> task(new task_type_t(std::forward<Functor>(func)));
+					auto future = task->get_future();
 					{
 						std::unique_lock< bf::mutex > l(m_busyMtx);
 						m_workQueue.emplace_back(std::move(task));
@@ -853,7 +884,7 @@ namespace MurmurRPC {
 						}
 					}, std::move(this->getSharedPtr()), std::forward<Functor>(fn)));
 #else
-				boost::fibers::fiber f([ptr = this->getSharedPtr(), func = std::forward<Functor>(fn)](){
+				boost::fibers::fiber f([ptr = std::move(this->getSharedPtr()), func = std::forward<Functor>(fn)](){
 					try {
 						func();
 					} catch (::grpc::Status &ex) {

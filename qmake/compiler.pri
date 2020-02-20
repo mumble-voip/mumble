@@ -7,7 +7,7 @@ include(qt.pri)
 include(uname.pri)
 include(buildenv.pri)
 include(builddir.pri)
-include(cplusplus.pri)
+#include(cplusplus.pri) lets not mangle the version of c++ we want
 include(pkgconfig.pri)
 
 CONFIG *= warn_on
@@ -256,6 +256,12 @@ unix|win32-g++ {
 		QMAKE_LFLAGS *= -fprofile-generate
 	}
 
+	CONFIG(tcmalloc) {
+		QMAKE_CFLAGS *= -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
+		QMAKE_CXXFLAGS *= -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
+		LIBS += -ltcmalloc
+	}
+
 	CONFIG(optimize) {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 		QMAKE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
@@ -292,8 +298,8 @@ unix:!macx {
 	}
 
 	CONFIG(debug, debug|release) {
-		QMAKE_CFLAGS *= -fstack-protector -fPIE
-		QMAKE_CXXFLAGS *= -fstack-protector -fPIE
+		QMAKE_CFLAGS *= -fstack-protector -Og -fPIE
+		QMAKE_CXXFLAGS *= -fstack-protector -Og -fPIE
 		QMAKE_LFLAGS *= -pie
 		QMAKE_LFLAGS *= -Wl,--no-add-needed
 	}
@@ -324,6 +330,12 @@ unix:!macx {
 	}
 
 	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
+
+	CONFIG(LTO) {
+		QMAKE_CFLAGS += $$QMAKE_CFLAGS_LTCG
+		QMAKE_CXXFLAGS += $$QMAKE_CXXFLAGS_LTCG
+		QMAKE_LFLAGS *= $$QMAKE_LFLAGS_LTCG
+	}
 
 	CONFIG(symbols) {
 		QMAKE_CFLAGS *= -g
