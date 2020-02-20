@@ -7,10 +7,20 @@
 
 sudo apt-get update
 
-sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools libqt5svg5-dev \
+sudo apt-get -y install build-essential pkg-config g++-5 qt5-default qttools5-dev-tools libqt5svg5-dev \
                         libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
                         libcap-dev libxi-dev \
                         libasound2-dev libpulse-dev \
                         libogg-dev libsndfile1-dev libspeechd-dev \
                         libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev \
                         zsync
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
+
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
+
+sudo update-alternatives --set cc /usr/bin/gcc
+sudo update-alternatives --set c++ /usr/bin/g++
+sudo update-alternatives --set g++ "/usr/bin/g++-5"
+sudo update-alternatives --set gcc "/usr/bin/gcc-5"
+
