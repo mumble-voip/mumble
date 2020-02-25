@@ -93,8 +93,8 @@ LoopUser::LoopUser() {
 	bLocalIgnore = bLocalMute = bSelfDeaf = false;
 	tsState = Settings::Passive;
 	cChannel = NULL;
-	qtTicker.start();
-	qtLastFetch.start();
+	qetTicker.start();
+	qetLastFetch.start();
 }
 
 void LoopUser::addFrame(const QByteArray &packet) {
@@ -105,9 +105,9 @@ void LoopUser::addFrame(const QByteArray &packet) {
 
 	{
 		QMutexLocker l(&qmLock);
-		bool restart = (qtLastFetch.elapsed() > 100);
+		bool restart = (qetLastFetch.elapsed() > 100);
 
-		double time = qtTicker.elapsed();
+		double time = qetTicker.elapsed();
 
 		double r;
 		if (restart)
@@ -119,7 +119,7 @@ void LoopUser::addFrame(const QByteArray &packet) {
 	}
 
 	// Restart check
-	if (qtLastFetch.elapsed() > 100) {
+	if (qetLastFetch.elapsed() > 100) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
 			MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((packet.at(0) >> 5) & 0x7);
@@ -137,7 +137,7 @@ void LoopUser::fetchFrames() {
 		return;
 	}
 
-	double cmp = qtTicker.elapsed();
+	double cmp = qetTicker.elapsed();
 
 	QMultiMap<float, QByteArray>::iterator i = qmPackets.begin();
 
@@ -164,7 +164,7 @@ void LoopUser::fetchFrames() {
 		i = qmPackets.erase(i);
 	}
 
-	qtLastFetch.restart();
+	qetLastFetch.restart();
 }
 
 RecordUser::RecordUser() : LoopUser() {
