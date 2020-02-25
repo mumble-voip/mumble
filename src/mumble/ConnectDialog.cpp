@@ -1393,7 +1393,12 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 
 void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 	QSet<ServerItem *> items;
+#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
+	QSet<ServerItem *> old = QSet<ServerItem*>(qtwServers->siLAN->qlChildren.begin(), qtwServers->siLAN->qlChildren.end());
+#else
+	// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
 	QSet<ServerItem *> old = qtwServers->siLAN->qlChildren.toSet();
+#endif
 
 	foreach(const BonjourRecord &record, list) {
 		bool found = false;
@@ -1673,11 +1678,11 @@ void ConnectDialog::lookedUp() {
 			qhPings[addr].insert(si);
 		}
 
-		si->qlAddresses = qs.toList();
+		si->qlAddresses = qs.values();
 	}
 
 	qlDNSLookup.removeAll(unresolved);
-	qhDNSCache.insert(unresolved, qs.toList());
+	qhDNSCache.insert(unresolved, qs.values());
 	qhDNSWait.remove(unresolved);
 
 	foreach(ServerItem *si, waiting) {

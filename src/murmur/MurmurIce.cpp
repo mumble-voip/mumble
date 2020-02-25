@@ -1372,15 +1372,20 @@ static void impl_Server_getACL(const ::Murmur::AMD_Server_getACLPtr cb, int serv
 		if (pg)
 			members = pg->members();
 		if (g) {
-			mg.add = g->qsAdd.toList().toVector().toStdVector();
-			mg.remove = g->qsRemove.toList().toVector().toStdVector();
+			QVector<int> addVec = g->qsAdd.values().toVector();
+			QVector<int> removeVec = g->qsRemove.values().toVector();
+
+			mg.add = std::vector<int>(addVec.begin(), addVec.end());
+			mg.remove = std::vector<int>(removeVec.begin(), removeVec.end());
 			mg.inherited = false;
 			members += g->qsAdd;
 			members -= g->qsRemove;
 		} else {
 			mg.inherited = true;
 		}
-		mg.members = members.toList().toVector().toStdVector();
+
+		QVector<int> memberVec = members.values().toVector();
+		mg.members = std::vector<int>(memberVec.begin(), memberVec.end());
 		groups.push_back(mg);
 	}
 	cb->ice_response(acls, groups, inherit);
@@ -1410,8 +1415,17 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 		g = new ::Group(channel, name);
 		g->bInherit = gi.inherit;
 		g->bInheritable = gi.inheritable;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+		QVector<int> addVec(gi.add.begin(), gi.add.end());
+		QVector<int> removeVec(gi.remove.begin(), gi.remove.end());
+
+		g->qsAdd = QSet<int>(addVec.begin(), addVec.end());
+		g->qsRemove = QSet<int>(removeVec.begin(), removeVec.end());
+#else
+		// Qt 5.14 prefers to use the new range-based constructor for vectors and sets
 		g->qsAdd = QVector<int>::fromStdVector(gi.add).toList().toSet();
 		g->qsRemove = QVector<int>::fromStdVector(gi.remove).toList().toSet();
+#endif
 		g->qsTemporary = hOldTemp.value(name);
 	}
 	foreach(const ::Murmur::ACL &ai, acls) {
