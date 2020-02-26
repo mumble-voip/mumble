@@ -32,7 +32,6 @@ void SvgIcon::addSvgPixmapsToIcon(QIcon &icon, QString fn) {
 		p.setRenderHint(QPainter::Antialiasing);
 		p.setRenderHint(QPainter::TextAntialiasing);
 		p.setRenderHint(QPainter::SmoothPixmapTransform);
-		p.setRenderHint(QPainter::HighQualityAntialiasing);
 		svg.render(&p);
 
 		icon.addPixmap(pm);
