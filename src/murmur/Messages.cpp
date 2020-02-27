@@ -87,8 +87,10 @@ class TemporaryAccessTokenHelper {
 		Server *server;
 
 	public:
-		TemporaryAccessTokenHelper(ServerUser *affectedUser, const QStringList &tokens, Server *server) : affectedUser(affectedUser),
-			qslTemporaryTokens(tokens), server(server) {
+		TemporaryAccessTokenHelper(ServerUser *affectedUser, const QStringList &tokens, Server *server)
+			: affectedUser(affectedUser)
+			 , qslTemporaryTokens(tokens)
+			 , server(server) {
 			// Add the temporary tokens
 			QMutableStringListIterator it(this->qslTemporaryTokens);
 
