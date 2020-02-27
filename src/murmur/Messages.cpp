@@ -127,7 +127,7 @@ class TemporaryAccessTokenHelper {
 					QMutexLocker qml(&server->qmCache);
 
 					// remove the temporary tokens
-					foreach(QString token, this->qslTemporaryTokens) {
+					foreach(const QString &token, this->qslTemporaryTokens) {
 						this->affectedUser->qslAccessTokens.removeOne(token);
 					}
 				}
