@@ -123,7 +123,12 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.udpPing = u->dUDPPingAvg;
 	mp.tcpPing = u->dTCPPingAvg;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+	mp.tcponly = u->aiUdpFlag.loadRelaxed() == 0;
+#else
+	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
 	mp.tcponly = u->aiUdpFlag.load() == 0;
+#endif
 
 	::Murmur::NetAddress addr(16, 0);
 	const Q_IPV6ADDR &a = u->haAddress.qip6;
