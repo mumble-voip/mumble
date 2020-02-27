@@ -10,7 +10,7 @@
 #include <QtCore/QMultiMap>
 #include <QtCore/QMutex>
 #include <QtCore/QString>
-#include <QtCore/QTime>
+#include <QtCore/QElapsedTimer>
 #include <QtCore/QVariant>
 
 #include "ClientUser.h"
@@ -24,8 +24,8 @@ class LoopUser : public ClientUser {
 		Q_DISABLE_COPY(LoopUser)
 	protected:
 		QMutex qmLock;
-		QTime qtTicker;
-		QTime qtLastFetch;
+		QElapsedTimer qetTicker;
+		QElapsedTimer qetLastFetch;
 		QMultiMap<float, QByteArray> qmPackets;
 		LoopUser();
 	public:

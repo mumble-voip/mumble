@@ -299,7 +299,7 @@
               </brush>
              </property>
              <property name="renderHints">
-              <set>QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
+              <set>QPainter::Antialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
              </property>
             </widget>
            </item>

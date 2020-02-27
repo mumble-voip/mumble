@@ -930,7 +930,12 @@ bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsig
 }
 
 void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+	if ((u->aiUdpFlag.loadRelaxed() == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
+#else
+	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
 	if ((u->aiUdpFlag.load() == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
+#endif
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, len+4+16);
 		char *buffer = reinterpret_cast<char *>(((reinterpret_cast<quint64>(ebuffer) + 8) & ~7) + 4);

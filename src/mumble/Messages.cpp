@@ -891,9 +891,16 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 	QString action = u8(msg.action());
 
 	QSet<QAction *> qs;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+	qs += QSet<QAction*>(qlServerActions.begin(), qlServerActions.end());
+	qs += QSet<QAction*>(qlChannelActions.begin(), qlChannelActions.end());
+	qs += QSet<QAction*>(qlUserActions.begin(), qlUserActions.end());
+#else
+	// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
 	qs += qlServerActions.toSet();
 	qs += qlChannelActions.toSet();
 	qs += qlUserActions.toSet();
+#endif
 
 	foreach(QAction *a, qs) {
 		if (a->data() == action) {

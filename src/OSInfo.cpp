@@ -210,7 +210,21 @@ QString OSInfo::getOSVersion() {
 		return QString();
 	}
 
-	os.sprintf("%lu.%lu.%lu.%lu", static_cast<unsigned long>(ovi.dwMajorVersion), static_cast<unsigned long>(ovi.dwMinorVersion), static_cast<unsigned long>(ovi.dwBuildNumber), (ovi.wProductType == VER_NT_WORKSTATION) ? 1UL : 0UL);
+#if QT_VERSION >= 0x050500
+	os.asprintf("%lu.%lu.%lu.%lu",
+		static_cast<unsigned long>(ovi.dwMajorVersion),
+		static_cast<unsigned long>(ovi.dwMinorVersion),
+		static_cast<unsigned long>(ovi.dwBuildNumber),
+		(ovi.wProductType == VER_NT_WORKSTATION) ? 1UL : 0UL);
+#else
+	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+	os.sprintf("%lu.%lu.%lu.%lu",
+		static_cast<unsigned long>(ovi.dwMajorVersion),
+		static_cast<unsigned long>(ovi.dwMinorVersion),
+		static_cast<unsigned long>(ovi.dwBuildNumber),
+		(ovi.wProductType == VER_NT_WORKSTATION) ? 1UL : 0UL);
+#endif // QT_VERSION >= 0x050500
+
 #elif defined(Q_OS_MAC)
 	SInt32 major, minor, bugfix;
 	OSErr err = Gestalt(gestaltSystemVersionMajor, &major);
@@ -229,11 +243,20 @@ QString OSInfo::getOSVersion() {
 		buildno = &buildno_buf[0];
 	}
 
+#if QT_VERSION >= 0x050500
+	os.asprintf("%lu.%lu.%lu %s",
+	           static_cast<unsigned long>(major),
+	           static_cast<unsigned long>(minor),
+	           static_cast<unsigned long>(bugfix),
+	           buildno ? buildno : "unknown");
+#else
+	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
 	os.sprintf("%lu.%lu.%lu %s",
 	           static_cast<unsigned long>(major),
 	           static_cast<unsigned long>(minor),
 	           static_cast<unsigned long>(bugfix),
 	           buildno ? buildno : "unknown");
+#endif // QT_VERSION >= 0x050500
 #else
 #ifdef Q_OS_LINUX
 	QProcess qp;
@@ -262,7 +285,12 @@ QString OSInfo::getOSVersion() {
 		// other UNIX-like systems return a 0 on success.
 		if (uname(&un) == 0) {
 #endif
+#if QT_VERSION >= 0x050500
+			os.asprintf("%s %s", un.sysname, un.release);
+#else
+			// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
 			os.sprintf("%s %s", un.sysname, un.release);
+#endif // QT_VERSION >= 0x050500
 		}
 	}
 #endif
@@ -483,7 +511,18 @@ QString OSInfo::getOSDisplayableVersion() {
 	}
 
 	QString osv;
-	osv.sprintf(" - %lu.%lu.%lu", static_cast<unsigned long>(ovi.dwMajorVersion), static_cast<unsigned long>(ovi.dwMinorVersion), static_cast<unsigned long>(ovi.dwBuildNumber));
+#if QT_VERSION >= 0x050500
+	osv.asprintf(" - %lu.%lu.%lu",
+		static_cast<unsigned long>(ovi.dwMajorVersion),
+		static_cast<unsigned long>(ovi.dwMinorVersion),
+		static_cast<unsigned long>(ovi.dwBuildNumber));
+#else
+	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+	osv.sprintf(" - %lu.%lu.%lu",
+		static_cast<unsigned long>(ovi.dwMajorVersion),
+		static_cast<unsigned long>(ovi.dwMinorVersion),
+		static_cast<unsigned long>(ovi.dwBuildNumber));
+#endif // QT_VERSION >= 0x050500
 	osdispver.append(osv);
 
 	return osdispver;

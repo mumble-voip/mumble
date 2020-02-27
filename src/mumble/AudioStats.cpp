@@ -301,6 +301,12 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 AudioStats::~AudioStats() {
 }
 
+#if QT_VERSION >= 0x050500
+	#define FORMAT_TO_TXT(format, arg) txt.asprintf(format, arg)
+#else
+	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+	#define FORMAT_TO_TXT(format, arg) txt.sprintf(format, arg)
+#endif
 void AudioStats::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
 
@@ -311,13 +317,13 @@ void AudioStats::on_Tick_timeout() {
 
 	QString txt;
 
-	txt.sprintf("%06.2f dB",ai->dPeakMic);
+	FORMAT_TO_TXT("%06.2f dB", ai->dPeakMic);
 	qlMicLevel->setText(txt);
 
-	txt.sprintf("%06.2f dB",ai->dPeakSpeaker);
+	FORMAT_TO_TXT("%06.2f dB", ai->dPeakSpeaker);
 	qlSpeakerLevel->setText(txt);
 
-	txt.sprintf("%06.2f dB",ai->dPeakSignal);
+	FORMAT_TO_TXT("%06.2f dB", ai->dPeakSignal);
 	qlSignalLevel->setText(txt);
 
 	spx_int32_t ps_size = 0;
@@ -340,19 +346,19 @@ void AudioStats::on_Tick_timeout() {
 		n += sqrtf(static_cast<float>(noise[i]));
 	}
 
-	txt.sprintf("%06.3f",s / n);
+	FORMAT_TO_TXT("%06.3f",s / n);
 	qlMicSNR->setText(txt);
 
 	spx_int32_t v;
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &v);
 	float fv = powf(10.0f, (static_cast<float>(v) / 20.0f));
-	txt.sprintf("%03.0f%%",100.0f / fv);
+	FORMAT_TO_TXT("%03.0f%%",100.0f / fv);
 	qlMicVolume->setText(txt);
 
-	txt.sprintf("%03.0f%%",ai->fSpeechProb * 100.0f);
+	FORMAT_TO_TXT("%03.0f%%",ai->fSpeechProb * 100.0f);
 	qlSpeechProb->setText(txt);
 
-	txt.sprintf("%04.1f kbit/s",static_cast<float>(ai->iBitrate) / 1000.0f);
+	FORMAT_TO_TXT("%04.1f kbit/s",static_cast<float>(ai->iBitrate) / 1000.0f);
 	qlBitrate->setText(txt);
 
 	if (nTalking != bTalking) {
@@ -365,7 +371,7 @@ void AudioStats::on_Tick_timeout() {
 	if (g.uiDoublePush > 1000000)
 		txt = tr(">1000 ms");
 	else
-		txt.sprintf("%04llu ms",g.uiDoublePush / 1000);
+		FORMAT_TO_TXT("%04llu ms",g.uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
 	abSpeech->iBelow = iroundf(g.s.fVADmin * 32767.0f + 0.5f);
@@ -383,3 +389,4 @@ void AudioStats::on_Tick_timeout() {
 	if (aewEcho)
 		aewEcho->update();
 }
+#undef FORMAT_TO_TXT

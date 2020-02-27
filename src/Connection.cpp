@@ -154,7 +154,12 @@ void Connection::socketDisconnected() {
 }
 
 void Connection::messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
+#if GOOGLE_PROTOBUF_VERSION >= 3004000
+	int len = msg.ByteSizeLong();
+#else
+	// ByteSize() has been deprecated as of protobuf v3.4
 	int len = msg.ByteSize();
+#endif
 	if (len > 0x7fffff)
 		return;
 	cache.resize(len + 6);

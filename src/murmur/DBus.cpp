@@ -484,15 +484,15 @@ void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList<ACLInfo> &acls, Q
 		if (pg)
 			members = pg->members();
 		if (g) {
-			gi.add = g->qsAdd.toList();
-			gi.remove = g->qsRemove.toList();
+			gi.add = g->qsAdd.values();
+			gi.remove = g->qsRemove.values();
 			gi.inherited = false;
 			members+=g->qsAdd;
 			members-=g->qsRemove;
 		} else {
 			gi.inherited = true;
 		}
-		gi.members = members.toList();
+		gi.members = members.values();
 		groups << gi;
 	}
 }
@@ -522,8 +522,14 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 		g = new Group(cChannel, gi.name);
 		g->bInherit=gi.inherit;
 		g->bInheritable=gi.inheritable;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+		g->qsAdd = QSet<int>(gi.add.begin(), gi.add.end());
+		g->qsRemove = QSet<int>(gi.remove.begin(), gi.remove.end());
+#else
+		// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
 		g->qsAdd = gi.add.toSet();
 		g->qsRemove = gi.remove.toSet();
+#endif
 		g->qsTemporary = hOldTemp.value(gi.name);
 	}
 
