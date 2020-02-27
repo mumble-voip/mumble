@@ -77,9 +77,9 @@
 		sendMessage(uSource, mppd); \
 	}
 
-/// A helper class for managing temporary access tokens
+/// A helper class for managing temporary access tokens.
 /// It will add the tokens in the comstructor and remove them again in the destructor effectively
-/// turning the tokens into a scope-based property
+/// turning the tokens into a scope-based property.
 class TemporaryAccessTokenHelper {
 	protected:
 		ServerUser *affectedUser;
