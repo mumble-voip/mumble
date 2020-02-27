@@ -16,7 +16,7 @@ class Group {
 	private:
 		Q_DISABLE_COPY(Group)
 	public:
-		/// A flag indicatig whether access tokens shall be treated case-sensitive or case-insensitive
+		/// A flag indicating whether access tokens shall be treated case-sensitive or case-insensitive
 		static const Qt::CaseSensitivity accessTokenCaseSensitivity;
 
 		Channel *c;
