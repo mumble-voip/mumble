@@ -826,7 +826,7 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel, co
 	mpus.set_session(uiSession);
 	mpus.set_channel_id(channel);
 
-	foreach(QString tmpToken, temporaryAccessTokens) {
+	foreach(const QString &tmpToken, temporaryAccessTokens) {
 		mpus.add_temporary_access_tokens(tmpToken.toUtf8().constData());
 	}
 
