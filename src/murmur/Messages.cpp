@@ -77,9 +77,9 @@
 		sendMessage(uSource, mppd); \
 	}
 
-/// A helper class for managing temporary access tokens
+/// A helper class for managing temporary access tokens.
 /// It will add the tokens in the comstructor and remove them again in the destructor effectively
-/// turning the tokens into a scope-based property
+/// turning the tokens into a scope-based property.
 class TemporaryAccessTokenHelper {
 	protected:
 		ServerUser *affectedUser;
@@ -87,8 +87,10 @@ class TemporaryAccessTokenHelper {
 		Server *server;
 
 	public:
-		TemporaryAccessTokenHelper(ServerUser *affectedUser, const QStringList &tokens, Server *server) : affectedUser(affectedUser),
-			qslTemporaryTokens(tokens), server(server) {
+		TemporaryAccessTokenHelper(ServerUser *affectedUser, const QStringList &tokens, Server *server)
+			: affectedUser(affectedUser)
+			 , qslTemporaryTokens(tokens)
+			 , server(server) {
 			// Add the temporary tokens
 			QMutableStringListIterator it(this->qslTemporaryTokens);
 
@@ -125,7 +127,7 @@ class TemporaryAccessTokenHelper {
 					QMutexLocker qml(&server->qmCache);
 
 					// remove the temporary tokens
-					foreach(QString token, this->qslTemporaryTokens) {
+					foreach(const QString &token, this->qslTemporaryTokens) {
 						this->affectedUser->qslAccessTokens.removeOne(token);
 					}
 				}

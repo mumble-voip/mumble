@@ -213,7 +213,7 @@ message UserState {
 	optional bool priority_speaker = 18;
 	// True if the user is currently recording.
 	optional bool recording = 19;
-	// a list of temporary acces tokens to be respected when processing this request
+	// A list of temporary acces tokens to be respected when processing this request.
 	repeated string temporary_access_tokens = 20;
 }
 
