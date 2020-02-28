@@ -59,6 +59,10 @@ class ChanACL : public QObject {
 		Permissions pDeny;
 
 		ChanACL(Channel *c);
+
+		/// @returns Whether the given ChanACL represents a password. 
+		bool isPassword() const;
+
 #ifdef MURMUR
 		static bool hasPermission(ServerUser *p, Channel *c, QFlags<Perm> perm, ACLCache *cache);
 		static QFlags<Perm> effectivePermissions(ServerUser *p, Channel *c, ACLCache *cache);

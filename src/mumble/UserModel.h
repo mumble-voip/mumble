@@ -72,6 +72,7 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
 		QIcon qiFriend;
 		QIcon qiComment, qiCommentSeen, qiFilter;
+		QIcon qiLock_locked, qiLock_unlocked;
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;

@@ -28,6 +28,9 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 #ifdef MUMBLE
 	uiPermissions = 0;
 	bFiltered = false;
+
+	hasEnterRestrictions.store(false);
+	localUserCanEnter.store(true);
 #endif
 }
 

@@ -30,6 +30,8 @@
     <file alias="layout_custom.svg">Classic/layout_custom.svg</file>
     <file alias="layout_hybrid.svg">Classic/layout_hybrid.svg</file>
     <file alias="layout_stacked.svg">Classic/layout_stacked.svg</file>
+    <file alias="lock_locked.svg">Classic/lock_locked.svg</file>
+    <file alias="lock_unlocked.svg">Classic/lock_unlocked.svg</file>
     <file alias="muted_local.svg">Classic/muted_local.svg</file>
     <file alias="muted_self.svg">Classic/muted_self.svg</file>
     <file alias="muted_server.svg">Classic/muted_server.svg</file>

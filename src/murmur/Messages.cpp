@@ -138,6 +138,21 @@ class TemporaryAccessTokenHelper {
 		}
 };
 
+/// Checks whether the given channel has restrictions affecting the ENTER privilege
+///
+/// @param c A pointer to the Channel that should be checked
+/// @return Whether the provided channel has an ACL denying ENTER
+bool isChannelEnterRestricted(Channel *c) {
+	// A channel is enter restricted if there's an ACL denying enter privileges
+	foreach(ChanACL *acl, c->qlACL) {
+		if (acl->pDeny & ChanACL::Enter) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
 	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
 		QStringList qsl;
@@ -148,6 +163,16 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			uSource->qslAccessTokens = qsl;
 		}
 		clearACLCache(uSource);
+
+		// Send back updated enter states of all channels
+		MumbleProto::ChannelState mpcs;
+		foreach(Channel *chan, qhChannels) {
+			mpcs.set_channel_id(chan->iId);
+			mpcs.set_can_enter(ChanACL::hasPermission(uSource, chan, ChanACL::Enter, &acCache));
+			// As no ACLs have changed, we don't need to update the is_access_restricted message field
+
+			sendMessage(uSource, mpcs);
+		}
 	}
 	MSG_SETUP(ServerUser::Connected);
 
@@ -323,6 +348,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpcs.set_description(u8(c->qsDesc));
 
 		mpcs.set_max_users(c->uiMaxUsers);
+
+		// Include info about enter restrictions of this channel
+		mpcs.set_is_enter_restricted(isChannelEnterRestricted(c));
+		mpcs.set_can_enter(ChanACL::hasPermission(uSource, c, ChanACL::Enter, &acCache));
 
 		sendMessage(uSource, mpcs);
 
@@ -1507,6 +1536,16 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 		updateChannel(c);
 		log(uSource, QString("Updated ACL in channel %1").arg(*c));
+
+		// Send refreshed enter states of this channel to all clients
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_channel_id(c->iId);
+		foreach(ServerUser *user, qhUsers) {
+			mpcs.set_is_enter_restricted(isChannelEnterRestricted(c));
+			mpcs.set_can_enter(ChanACL::hasPermission(user, c, ChanACL::Enter, &acCache));
+
+			sendMessage(uSource, mpcs);
+		}
 	}
 }
 
