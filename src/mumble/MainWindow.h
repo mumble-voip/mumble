@@ -269,6 +269,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void pttReleased();
 		void whisperReleased(QVariant scdata);
 		void onResetAudio();
+		/// Called whenever the self-mute state may have changed. Dispatches
+		/// corkAudioInputStream() if the desire for audio input has changed.
+		void onChangeMute();
 		void showRaiseWindow();
 		void on_qaFilterToggle_triggered();
 		/// Opens a save dialog for the image referenced by qtcSaveImageCursor.
@@ -279,7 +282,16 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		/// Updates the user's image directory to the given path (any included
 		/// filename is discarded).
 		void updateImagePath(QString filepath) const;
-
+	signals:
+		/// Reports that audio input is now, or is no longer, required.
+		///
+		/// Signal allows an \ref AudioInput to suspend the input stream
+		/// when it is not required.
+		///
+		/// @param cork  If true, the audio backend MAY now cork/suspend
+		/// the input stream. If false, the audio backend MUST immediately
+		/// un-cork/resume the stream.
+		void corkAudioInputStream(const bool cork);
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow() Q_DECL_OVERRIDE;
