@@ -5,6 +5,7 @@ jobs:
         MSVC_2015:
           MUMBLE_QT: qt5
           MUMBLE_HOST: x86_64-pc-windows-msvc
+          MUMBLE_PUBLISH_INSTALLER: 1
         MSVC_2015_NO_PCH:
           MUMBLE_QT: qt5
           MUMBLE_HOST: x86_64-pc-windows-msvc
@@ -20,3 +21,35 @@ jobs:
       displayName: 'Install build environment'
     - powershell: scripts/azure-pipelines/build.ps1
       displayName: 'Build'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: WindowsInstaller
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - script: git submodule --quiet update --init --recursive
+      displayName: 'Fetch submodules'
+    - script: scripts/azure-pipelines/install-environment_linux.bash
+      displayName: 'Install build environment'
+    - script: scripts/azure-pipelines/build_linux.bash
+      displayName: 'Build'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: AppImage
+  - job: macOS
+    pool:
+      vmImage: 'macOS-latest'
+    steps:
+    - script: git submodule --quiet update --init --recursive
+      displayName: 'Fetch submodules'
+    - script: scripts/azure-pipelines/install-environment_macos.bash
+      displayName: 'Install build environment'
+    - script: scripts/azure-pipelines/build_macos.bash
+      displayName: 'Build'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: macOS installer
