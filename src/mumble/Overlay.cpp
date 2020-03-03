@@ -191,6 +191,9 @@ Overlay::Overlay() : QObject() {
 	forceSettings();
 
 	qlsServer = new QLocalServer(this);
+	// Allow anyone to access the pipe in order to communicate with the overlay
+	qlsServer->setSocketOptions(QLocalServer::WorldAccessOption);
+
 	QString pipepath;
 #ifdef Q_OS_WIN
 	pipepath = QLatin1String("MumbleOverlayPipe");
