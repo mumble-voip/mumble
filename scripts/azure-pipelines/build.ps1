@@ -60,4 +60,15 @@ $env:MUMBLE_BUILDENV_DIR = $MUMBLE_BUILDENV_DIR
 Get-ChildItem -Path $MUMBLE_BUILD_DIR
 
 & $MUMBLE_BUILDSCRIPT
+
+if ($lastexitcode -ne 0) {
+	Write-Output "Skipping build-artifatcs due to a build-error"
+	exit $lastexitcode
+}
+
+if ($env:MUMBLE_PUBLISH_INSTALLER -eq 1) {
+	Write-Output "Copying build-artifacts to destination directory '$env:BUILD_ARTIFACTSTAGINGDIRECTORY'"
+	cp installer\bin\x64\Release\*.msi "$env:BUILD_ARTIFACTSTAGINGDIRECTORY"
+}
+
 exit $lastexitcode

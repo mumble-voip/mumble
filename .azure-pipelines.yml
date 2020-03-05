@@ -5,6 +5,7 @@ jobs:
         MSVC_2015:
           MUMBLE_QT: qt5
           MUMBLE_HOST: x86_64-pc-windows-msvc
+          MUMBLE_PUBLISH_INSTALLER: 1
         MSVC_2015_NO_PCH:
           MUMBLE_QT: qt5
           MUMBLE_HOST: x86_64-pc-windows-msvc
@@ -20,6 +21,10 @@ jobs:
       displayName: 'Install build environment'
     - powershell: scripts/azure-pipelines/build.ps1
       displayName: 'Build'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: WindowsInstaller
   - job: Linux
     pool:
       vmImage: 'ubuntu-16.04'
