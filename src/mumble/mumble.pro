@@ -11,6 +11,8 @@ DEFINES *= MUMBLE
 TEMPLATE = app
 TARGET = mumble
 
+QT += concurrent
+
 !CONFIG(qt4-legacy-compat) {
   CONFIG += no-qt4-legacy-compat
 }
