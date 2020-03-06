@@ -3,7 +3,7 @@ freebsd_instance:
 
 freebsd_task:
   update_script: pkg update && pkg upgrade -y
-  install_script: pkg install -y git pkgconf gmake qt5-qmake qt5-l10n qt5-buildtools qt5-linguisttools qt5-testlib qt5-core qt5-gui qt5-network qt5-sql qt5-svg qt5-widgets qt5-xml boost-libs opus libsndfile protobuf ice avahi-libdns speech-dispatcher python
+  install_script: pkg install -y git pkgconf gmake qt5-qmake qt5-l10n qt5-buildtools qt5-linguisttools qt5-testlib qt5-core qt5-gui qt5-network qt5-sql qt5-svg qt5-widgets qt5-xml qt5-concurrent boost-libs opus libsndfile protobuf ice avahi-libdns speech-dispatcher python
   fetch_submodules_script: git submodule --quiet update --init --recursive
   build_script:
   - qmake -recursive CONFIG+="release tests warnings-as-errors no-alsa no-jackaudio no-pulseaudio"
