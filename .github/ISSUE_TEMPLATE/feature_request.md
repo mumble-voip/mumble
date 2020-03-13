@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**Context **
+**Context**
 In which context would you expect your suggested feature to be useful? 
 
 **Describe the feature you have in mind**
