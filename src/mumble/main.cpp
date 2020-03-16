@@ -536,13 +536,18 @@ int main(int argc, char **argv) {
 		g.l->log(Log::Warning, CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on."));
 
 #ifdef QT_NO_DEBUG
+	// Only perform the version-check for non-debug builds
+	if (g.s.bUpdateCheck) {
+		// Use different settings for the version checks depending on whether this is a snapshot build
+		// or a normal release build
 #ifndef SNAPSHOT_BUILD
-	if (g.s.bUpdateCheck)
-#endif
+		// release build
 		new VersionCheck(true, g.mw);
-#ifdef SNAPSHOT_BUILD
-	new VersionCheck(false, g.mw, true);
+#else
+		// snapshot build
+		new VersionCheck(false, g.mw, true);
 #endif
+	}
 #else
 	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
