@@ -63,10 +63,3 @@ Doubleclick the Murmur icon to start murmur. There will be a small icon on your
 taskbar from which you can view the log.
 
 To set the superuser password, run murmur with the parameters '-supw <password>'.
-
-Bandwidth usage
-===============
-
-Mumble will use 10-40 kbit/s outgoing, and the same incoming for each user.
-So if there are 10 other users on the server with you, your incoming
-bandwidth requirement will be 100-400 kbit/s if they all talk at the same time.
