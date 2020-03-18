@@ -302,14 +302,16 @@ int main(int argc, char **argv) {
 			bVerbose = true;
 		} else if ((arg == "-version") || (arg == "--version")) {
 			detach = false;
-			qFatal("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
+			qInfo("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
+			return 0;
 		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 #ifdef Q_OS_WIN
 			AboutDialog ad(NULL, AboutDialogOptionsShowLicense);
 			ad.exec();
 			return 0;
 #else
-			qFatal("%s\n", qPrintable(License::license()));
+			qInfo("%s\n", qPrintable(License::license()));
+			return 0;
 #endif
 		} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
 #ifdef Q_OS_WIN
@@ -317,7 +319,8 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qFatal("%s\n", qPrintable(License::authors()));
+			qInfo("%s\n", qPrintable(License::authors()));
+			return 0;
 #endif
 		} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
 #ifdef Q_OS_WIN
@@ -325,11 +328,12 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qFatal("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+			qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+			return 0;
 #endif
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
-			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
+			qInfo("Usage: %s [-ini <inifile>] [-supw <password>]\n"
 			       "  -ini <inifile>         Specify ini file to use.\n"
 			       "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
@@ -357,6 +361,7 @@ int main(int argc, char **argv) {
 			       "\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", qPrintable(args.at(0)));
+			return 0;
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
 			detach = false;
@@ -376,7 +381,7 @@ int main(int argc, char **argv) {
 	}
 
 	if (QSslSocket::supportsSsl()) {
-		qWarning("SSL: OpenSSL version is '%s'", SSLeay_version(SSLEAY_VERSION));
+		qInfo("SSL: OpenSSL version is '%s'", SSLeay_version(SSLEAY_VERSION));
 	} else {
 		qFatal("SSL: this version of Murmur is built against Qt without SSL Support. Aborting.");
 	}
@@ -458,12 +463,14 @@ int main(int argc, char **argv) {
 			qFatal("Superuser password can not be empty");
 		}
 		ServerDB::setSUPW(sunum, supw);
-		qFatal("Superuser password set on server %d", sunum);
+		qInfo("Superuser password set on server %d", sunum);
+		return 0;
 	}
 
 	if (disableSu) {
 	        ServerDB::disableSU(sunum);
-	        qFatal("SuperUser password disabled on server %d", sunum);
+	        qInfo("SuperUser password disabled on server %d", sunum);
+			return 0;
 	}
 
 	if (wipeSsl) {
