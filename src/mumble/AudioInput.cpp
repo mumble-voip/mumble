@@ -752,8 +752,8 @@ bool AudioInput::selectCodec() {
 }
 
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer) {
-	int len;
 #ifdef USE_OPUS
+	int len;
 	if (!oCodec) {
 		return 0;
 	}
@@ -768,8 +768,10 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& b
 	len = oCodec->opus_encode(opusState, source, size, &buffer[0], static_cast<opus_int32>(buffer.size()));
 	const int tenMsFrameCount = (size / iFrameSize);
 	iBitrate = (len * 100 * 8) / tenMsFrameCount;
-#endif
 	return len;
+#else
+	return 0;
+#endif
 }
 
 int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer& buffer) {
