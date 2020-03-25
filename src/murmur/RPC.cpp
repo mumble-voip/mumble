@@ -16,6 +16,7 @@
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Version.h"
+#include "ChannelListener.h"
 
 #ifdef Q_OS_WIN
 # include <winsock2.h>
@@ -515,6 +516,38 @@ void Server::disconnectListener(QObject *obj) {
 	disconnect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));
 	disconnect(this, SIGNAL(channelCreated(const Channel *)), obj, SLOT(channelCreated(const Channel *)));
 	disconnect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));
+}
+
+void Server::startListeningToChannel(ServerUser *user, Channel *cChannel) {
+	if (ChannelListener::isListening(user, cChannel)) {
+		// The user is already listening to this channel
+		return;
+	}
+
+	ChannelListener::addListener(user, cChannel);
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(user->uiSession);
+
+	mpus.add_listening_channel_add(cChannel->iId);
+
+	sendAll(mpus);
+}
+
+void Server::stopListeningToChannel(ServerUser *user, Channel *cChannel) {
+	if (!ChannelListener::isListening(user, cChannel)) {
+		// The user is not listening to this channel
+		return;
+	}
+
+	ChannelListener::removeListener(user, cChannel);
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(user->uiSession);
+
+	mpus.add_listening_channel_remove(cChannel->iId);
+
+	sendAll(mpus);
 }
 
 void Meta::connectListener(QObject *obj) {

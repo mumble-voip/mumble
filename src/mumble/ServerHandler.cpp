@@ -833,6 +833,48 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel, co
 	sendMessage(mpus);
 }
 
+void ServerHandler::startListeningToChannel(int channel) {
+	startListeningToChannels({ channel });
+}
+
+void ServerHandler::startListeningToChannels(const QList<int> &channelIDs) {
+	if (channelIDs.isEmpty()) {
+		return;
+	}
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(g.uiSession);
+
+	foreach(int currentChannel, channelIDs) {
+		// The naming of the function is a bit unfortunate but what this does is to add
+		// the channel ID to the message field listening_channel_add
+		mpus.add_listening_channel_add(currentChannel);
+	}
+
+	sendMessage(mpus);
+}
+
+void ServerHandler::stopListeningToChannel(int channel) {
+	stopListeningToChannels({ channel });
+}
+
+void ServerHandler::stopListeningToChannels(const QList<int> &channelIDs) {
+	if (channelIDs.isEmpty()) {
+		return;
+	}
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(g.uiSession);
+
+	foreach(int currentChannel, channelIDs) {
+		// The naming of the function is a bit unfortunate but what this does is to add
+		// the channel ID to the message field listening_channel_remove
+		mpus.add_listening_channel_remove(currentChannel);
+	}
+
+	sendMessage(mpus);
+}
+
 void ServerHandler::createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position, bool temporary, unsigned int maxUsers) {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_parent(parent_id);

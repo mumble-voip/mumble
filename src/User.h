@@ -13,12 +13,14 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDateTime>
 #include <QtCore/QString>
+#include <QtCore/QList>
 
 class Channel;
 
 class User {
 	private:
 		Q_DISABLE_COPY(User)
+
 	public:
 		unsigned int uiSession;
 		int iId;

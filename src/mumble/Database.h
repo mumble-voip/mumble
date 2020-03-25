@@ -71,6 +71,12 @@ class Database : public QObject {
 
 		bool getUdp(const QByteArray &digest);
 		void setUdp(const QByteArray &digest, bool udp);
+
+		QList<int> getChannelListeners(const QByteArray &digest);
+		void setChannelListeners(const QByteArray &digest, const QSet<int> &channelIDs);
+
+		QHash<int, float> getChannelListenerLocalVolumeAdjustments(const QByteArray &digest);
+		void setChannelListenerLocalVolumeAdjustments(const QByteArray &digest, const QHash<int, float> &volumeMap);
 };
 
 #endif

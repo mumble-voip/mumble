@@ -226,6 +226,7 @@ const Log::MsgType Log::msgOrder[] = {
 	DebugInfo, CriticalError, Warning, Information,
 	ServerConnected, ServerDisconnected,
 	UserJoin, UserLeave,
+	ChannelListeningAdd, ChannelListeningRemove,
 	Recording,
 	YouKicked, UserKicked,
 	UserRenamed,
@@ -267,7 +268,9 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "You joined channel (moved)"),
 	QT_TRANSLATE_NOOP("Log", "User connected and entered channel"),
 	QT_TRANSLATE_NOOP("Log", "User left channel and disconnected"),
-	QT_TRANSLATE_NOOP("Log", "Private text message")
+	QT_TRANSLATE_NOOP("Log", "Private text message"),
+	QT_TRANSLATE_NOOP("Log", "User started listening to channel"),
+	QT_TRANSLATE_NOOP("Log", "User stopped listening to channel")
 };
 
 QString Log::msgName(MsgType t) const {

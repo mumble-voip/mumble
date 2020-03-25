@@ -409,6 +409,8 @@ nextframe:
 		if (! nextalive)
 			ucFlags = SpeechFlags::Invalid;
 		switch (ucFlags) {
+			case SpeechFlags::Listen:
+				// Fallthrough
 			case SpeechFlags::Normal:
 				ts = Settings::Talking;
 				break;

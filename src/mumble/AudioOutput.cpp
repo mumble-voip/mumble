@@ -24,6 +24,9 @@
 #include "Timer.h"
 #include "Utils.h"
 #include "VoiceRecorder.h"
+#include "Channel.h"
+#include "ChannelListener.h"
+#include "SpeechFlags.h"
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -504,6 +507,14 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			if (speech) {
 				const ClientUser *user = speech->p;
 				volumeAdjustment *= user->fLocalVolume;
+
+				if (user->cChannel && ChannelListener::isListening(g.uiSession, user->cChannel->iId) && (speech->ucFlags & SpeechFlags::Listen)) {
+					// We are receiving this audio packet only because we are listening to the channel
+					// the speaking user is in. Thus we receive the audio via our "listener proxy".
+					// Thus we'll apply the volume adjustment for our listener proxy as well
+					volumeAdjustment *= ChannelListener::getListenerLocalVolumeAdjustment(user->cChannel);
+				}
+
 				if (prioritySpeakerActive) {
 					
 					if (user->tsState != Settings::Whispering

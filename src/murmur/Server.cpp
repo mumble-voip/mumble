@@ -31,6 +31,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QXmlStreamAttributes>
 #include <QtCore/QtEndian>
+#include <QtCore/QSet>
 #include <QtNetwork/QHostInfo>
 #include <QtNetwork/QSslConfiguration>
 
@@ -1023,6 +1024,11 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		}
 
 void Server::processMsg(ServerUser *u, const char *data, int len) {
+	// Note that in this function we never have to aquire a read-lock on qrwlVoiceThread
+	// as all places that call this function will hold that lock at the point of calling
+	// this function.
+	// This function is currently called from Server::msgUDPTunnel, Server::run and
+	// Server::message
 	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress || u->bSelfMute)
 		return;
 
@@ -1073,6 +1079,10 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 	len = pds.size() + 1;
 
+	/// A set of users that'll receive the audio buffer because they are listening
+	/// to a channel that received that audio.
+	QSet<ServerUser *> listeningUsers;
+
 	if (target == 0x1f) { // Server loopback
 		buffer[0] = static_cast<char>(type | SpeechFlags::Normal);
 		sendMessage(u, buffer, len, qba);
@@ -1088,6 +1098,15 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			SENDTO;
 		}
 
+		// Send audio to all users that are listening to the channel
+		foreach(unsigned int currentSession, ChannelListener::getListenersForChannel(c)) {
+			ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+			if (pDst) {
+				listeningUsers << pDst;
+			}
+		}
+
+		// Send audio to all linked channels the user has speak-permission
 		if (! c->qhLinks.isEmpty()) {
 			QSet<Channel *> chans = c->allLinks();
 			chans.remove(c);
@@ -1096,9 +1115,24 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 			foreach(Channel *l, chans) {
 				if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
+					// Send the audio stream to all users that are listening to the linked channel but are not
+					// in the original channel the audio is coming from nor are they listening to the orignal
+					// channel (in these cases they have received the audio already).
+					foreach(unsigned int currentSession, ChannelListener::getListenersForChannel(l)) {
+						ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+						if (pDst && pDst->cChannel != c && !ChannelListener::isListening(pDst, c)) {
+							listeningUsers << pDst;
+						}
+					}
+
+					// Send audio to users in the linked channel but only if they
+					// haven't received the audio already (because they are listening
+					// to the original channel).
 					foreach(User *p, l->qlUsers) {
-						ServerUser *pDst = static_cast<ServerUser *>(p);
-						SENDTO;
+						if (!ChannelListener::isListening(p->uiSession, c->iId)) {
+							ServerUser *pDst = static_cast<ServerUser *>(p);
+							SENDTO;
+						}
 					}
 				}
 			}
@@ -1176,13 +1210,27 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				return;
 		}
 		if (! channel.isEmpty()) {
+			// These users receive the audio because someone is shouting to their channel
+			Channel *c = nullptr;
 			buffer[0] = static_cast<char>(type | SpeechFlags::Shout);
 			foreach(ServerUser *pDst, channel) {
+				c = pDst->cChannel;
 				SENDTO;
 			}
 			if (! direct.isEmpty()) {
 				qba.clear();
 				qba_npos.clear();
+			}
+
+			// listening to this channel, also forward the audio to them.
+			if (c) {
+				foreach(unsigned int currentSession, ChannelListener::getListenersForChannel(c)) {
+					ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+
+					if (pDst) {
+						listeningUsers << pDst;
+					}
+				}
 			}
 		}
 		if (! direct.isEmpty()) {
@@ -1191,6 +1239,12 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				SENDTO;
 			}
 		}
+	}
+
+	// Send the audio to all listening users
+	buffer[0] = static_cast<char>(type | SpeechFlags::Listen); 
+	foreach(ServerUser *pDst, listeningUsers) {
+		SENDTO;
 	}
 }
 
@@ -1451,6 +1505,22 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));
 
 	if (u->sState == ServerUser::Authenticated) {
+		if (ChannelListener::isListeningToAny(u)) {
+			// Send nessage to all other clients that this particular user won't be listening
+			// to any channel anymore
+			MumbleProto::UserState mpus;
+			mpus.set_session(u->uiSession);
+
+			foreach(int channelID, ChannelListener::getListenedChannelsForUser(u)) {
+				mpus.add_listening_channel_remove(channelID);
+
+				// Also remove the client from the list on the server
+				ChannelListener::removeListener(u->uiSession, channelID);
+			}
+
+			sendExcept(u, mpus);
+		}
+
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
 		sendExcept(u, mpur);
@@ -1658,6 +1728,17 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		userEnterChannel(p, target, mpus);
 		sendAll(mpus);
 		emit userStateChanged(p);
+	}
+
+	foreach(unsigned int userSession, ChannelListener::getListenersForChannel(chan)) {
+		ChannelListener::removeListener(userSession, chan->iId);
+
+		// Notify that all clients that have been listening to this channel, will do so no more
+		MumbleProto::UserState mpus;
+		mpus.set_session(userSession);
+		mpus.add_listening_channel_remove(chan->iId);
+
+		sendAll(mpus);
 	}
 
 	MumbleProto::ChannelRemove mpcr;

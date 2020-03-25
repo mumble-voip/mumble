@@ -125,7 +125,7 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 	}
 
 	// Default permissions
-	Permissions def = Traverse | Enter | Speak | Whisper | TextMessage;
+	Permissions def = Traverse | Enter | Speak | Whisper | TextMessage | Listen;
 
 	granted = def;
 
@@ -173,7 +173,7 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 	}
 
 	if (granted & Write) {
-		granted |= Traverse|Enter|MuteDeafen|Move|MakeChannel|LinkChannel|TextMessage|MakeTempChannel;
+		granted |= Traverse|Enter|MuteDeafen|Move|MakeChannel|LinkChannel|TextMessage|MakeTempChannel|Listen;
 		if (chan->iId == 0)
 			granted |= Kick|Ban|Register|SelfRegister;
 	}
@@ -240,6 +240,8 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents the permission to register and unregister users on the server.");
 		case SelfRegister:
 			return tr("This represents the permission to register oneself on the server.");
+		case Listen:
+			return tr("This represents the permission to use the listen-feature allowing to listen to a channel without being in it.");
 		default:
 			break;
 	}
@@ -291,6 +293,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Register User");
 		case SelfRegister:
 			return tr("Register Self");
+		case Listen:
+			return tr("Listen");
 		default:
 			break;
 	}
