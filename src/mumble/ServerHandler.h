@@ -119,6 +119,8 @@ class ServerHandler : public QThread {
 		void requestUserStats(unsigned int uiSession, bool statsOnly);
 		void joinChannel(unsigned int uiSession, unsigned int channel);
 		void joinChannel(unsigned int uiSession, unsigned int channel, const QStringList &temporaryAccessTokens);
+		void startListeningToChannel(unsigned int channel);
+		void stopListeningToChannel(unsigned int channel);
 		void createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position, bool temporary, unsigned int maxUsers);
 		void requestBanList();
 		void requestUserList();

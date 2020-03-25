@@ -1079,11 +1079,25 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		Channel *c = u->cChannel;
 
 		buffer[0] = static_cast<char>(type | 0);
+
+		// Send audio to all users in the same channel
 		foreach(User *p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
 			SENDTO;
 		}
 
+		{
+			QReadLocker lock(&qrwlVoiceThread);
+			// Send audio to all users that are listening to the channel
+			foreach(unsigned int currentSession, c->listeningUserSessions()) {
+				ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+				if (pDst) {
+					SENDTO;
+				}
+			}
+		}
+
+		// Send audio to all linked channels the user has speak-permission
 		if (! c->qhLinks.isEmpty()) {
 			QSet<Channel *> chans = c->allLinks();
 			chans.remove(c);
@@ -1434,6 +1448,26 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));
 
 	if (u->sState == ServerUser::Authenticated) {
+		if (!u->listeningChannelIDs().isEmpty()) {
+			// Send nessage to all other clients that this particular user won't be listening
+			// to any channel anymore
+			MumbleProto::UserState mpus;
+			mpus.set_session(u->uiSession);
+
+			QReadLocker l(&qrwlVoiceThread);
+			foreach(int channelID, u->listeningChannelIDs()) {
+				mpus.add_listening_channel_remove(channelID);
+
+				Channel *chan = qhChannels.value(channelID);
+				if (chan) {
+					// Also remove the client from the list on the server
+					chan->removeListeningUser(u);
+				}
+			}
+
+			sendExcept(u, mpus);
+		}
+
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
 		sendExcept(u, mpur);
@@ -1641,6 +1675,24 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		userEnterChannel(p, target, mpus);
 		sendAll(mpus);
 		emit userStateChanged(p);
+	}
+
+	{
+		QReadLocker l(&qrwlVoiceThread);
+		foreach(unsigned int userSession, chan->listeningUserSessions()) {
+			User *user = qhUsers.value(userSession);
+
+			if (user) {
+				user->removeListeningChannel(chan);
+			}
+
+			// Notify that all clients that have been listening to this channel, will do so no more
+			MumbleProto::UserState mpus;
+			mpus.set_session(userSession);
+			mpus.add_listening_channel_remove(chan->iId);
+
+			sendAll(mpus);
+		}
 	}
 
 	MumbleProto::ChannelRemove mpcr;

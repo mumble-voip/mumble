@@ -706,17 +706,20 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 		qtvUsers->setCurrentIndex(idx);
 	ClientUser *p = pmModel->getUser(idx);
 
-	qpContextPosition = mpos;
-	if (p) {
-		cuContextUser.clear();
-		qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
-		cuContextUser.clear();
-	} else {
-		cContextChannel.clear();
-		qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
-		cContextChannel.clear();
+	// Disable context-menu for channel-listeners
+	if (!pmModel->isChannelListener(idx)) {
+		qpContextPosition = mpos;
+		if (p) {
+			cuContextUser.clear();
+			qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
+			cuContextUser.clear();
+		} else {
+			cContextChannel.clear();
+			qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
+			cContextChannel.clear();
+		}
+		qpContextPosition = QPoint();
 	}
-	qpContextPosition = QPoint();
 }
 
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
@@ -1927,6 +1930,14 @@ void MainWindow::qmChannel_aboutToShow() {
 
 	if (c && c->iId != ClientUser::get(g.uiSession)->cChannel->iId) {
 		qmChannel->addAction(qaChannelJoin);
+
+		if (g.sh->uiVersion >= 0x010400) {
+			// If the server's version is less than 1.4, the listening feature is not supported yet
+			// and thus it doesn't make sense to show the action for it
+			qmChannel->addAction(qaChannelListen);
+			qaChannelListen->setChecked(c->isListening(ClientUser::get(g.uiSession)));
+		}
+
 		qmChannel->addSeparator();
 	}
 
@@ -2005,6 +2016,18 @@ void MainWindow::on_qaChannelJoin_triggered() {
 
 	if (c) {
 		g.sh->joinChannel(g.uiSession, c->iId);
+	}
+}
+
+void MainWindow::on_qaChannelListen_triggered() {
+	Channel *c = getContextMenuChannel();
+
+	if (c) {
+		if (qaChannelListen->isChecked()) {
+			g.sh->startListeningToChannel(c->iId);
+		} else {
+			g.sh->stopListeningToChannel(c->iId);
+		}
 	}
 }
 

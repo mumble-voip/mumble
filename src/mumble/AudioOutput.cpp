@@ -504,6 +504,16 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			if (speech) {
 				const ClientUser *user = speech->p;
 				volumeAdjustment *= user->fLocalVolume;
+
+				const Channel *chan = user->cChannel;
+				const ClientUser *pSelf = ClientUser::get(g.uiSession);
+				if (chan && pSelf && chan->isListening(pSelf)) {
+					// We are receiving this audio packet only because we are listening to the channel
+					// the speaking user is in. Thus we receive the audio via our "listener proxy".
+					// Thus we'll apply the volume adjustment for our listener proxy as well
+					volumeAdjustment *= pSelf->getListeningVolumeAdjustment(chan);
+				}
+
 				if (prioritySpeakerActive) {
 					
 					if (user->tsState != Settings::Whispering

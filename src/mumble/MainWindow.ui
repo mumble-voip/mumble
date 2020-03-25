@@ -48,7 +48,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>22</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmConfig">
@@ -99,7 +99,7 @@
    <property name="minimumSize">
     <size>
      <width>250</width>
-     <height>93</height>
+     <height>121</height>
     </size>
    </property>
    <property name="features">
@@ -915,6 +915,17 @@ the channel's context menu.</string>
    </property>
    <property name="toolTip">
     <string>Shows the main Mumble window.</string>
+   </property>
+  </action>
+  <action name="qaChannelListen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Listen to channel</string>
+   </property>
+   <property name="toolTip">
+    <string>Listen to this channel without joining it</string>
    </property>
   </action>
  </widget>
