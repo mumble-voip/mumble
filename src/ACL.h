@@ -31,6 +31,7 @@ class ChanACL : public QObject {
 			Whisper = 0x100,
 			TextMessage = 0x200,
 			MakeTempChannel = 0x400,
+			Listen = 0x800,
 
 			// Root channel only
 			Kick = 0x10000,
@@ -39,7 +40,9 @@ class ChanACL : public QObject {
 			SelfRegister = 0x80000,
 
 			Cached = 0x8000000,
-			All = 0xf07ff
+			All = Write + Traverse + Enter + Speak + MuteDeafen + Move
+				+ MakeChannel + LinkChannel + Whisper + TextMessage + MakeTempChannel + Listen
+				+ Kick + Ban + Register + SelfRegister
 		};
 
 		Q_DECLARE_FLAGS(Permissions, Perm)

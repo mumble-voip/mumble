@@ -213,6 +213,12 @@ message UserState {
 	optional bool priority_speaker = 18;
 	// True if the user is currently recording.
 	optional bool recording = 19;
+	// A list of temporary acces tokens to be respected when processing this request.
+	repeated string temporary_access_tokens = 20;
+	// A list of channels the user wants to start listening to.
+	repeated uint32 listening_channel_add = 21;
+	// a list of channels the user does no longer want to listen to.
+	repeated uint32 listening_channel_remove = 22;
 }
 
 // Relays information on the bans. The client may send the BanList message to
@@ -284,6 +290,10 @@ message PermissionDenied {
 		NestingLimit = 10;
 		// Maximum channel count reached.
 		ChannelCountLimit = 11;
+		// Amount of listener objects for this channel has been reached
+		ChannelListenerLimit = 12;
+		// Amount of listener proxies for the user has been reached
+		UserListenerLimit = 13;
 	}
 	// The denied permission when type is Permission.
 	optional uint32 permission = 1;

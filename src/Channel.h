@@ -25,6 +25,10 @@ class Channel : public QObject {
 		Q_DISABLE_COPY(Channel)
 	private:
 		QSet<Channel *> qsUnseen;
+	protected:
+		/// A list of user session IDs that are currently listening to this channel without
+		/// being in it.
+		QList<unsigned int> m_listeningUserSessions;
 	public:
 		int iId;
 		int iPosition;
@@ -51,6 +55,14 @@ class Channel : public QObject {
 
 		Channel(int id, const QString &name, QObject *p = NULL);
 		~Channel();
+
+		void addListeningUser(const User *user);
+		void addListeningUser(unsigned int userSession);
+		void removeListeningUser(const User *user);
+		void removeListeningUser(unsigned int userSession);
+		bool isListening(const User *user) const;
+		bool isListening(unsigned int session) const;
+		const QList<unsigned int>& listeningUserSessions() const;
 
 #ifdef MUMBLE
 		unsigned int uiPermissions;

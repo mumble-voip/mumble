@@ -787,6 +787,26 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel) {
 	sendMessage(mpus);
 }
 
+void ServerHandler::startListeningToChannel(unsigned int channel) {
+	MumbleProto::UserState mpus;
+	mpus.set_session(g.uiSession);
+	// The naming of the function is a bit unfortunate but what this does is to add
+	// the channel ID to the message field listening_channel_add
+	mpus.add_listening_channel_add(channel);
+
+	sendMessage(mpus);
+}
+
+void ServerHandler::stopListeningToChannel(unsigned int channel) {
+	MumbleProto::UserState mpus;
+	mpus.set_session(g.uiSession);
+	// The naming of the function is a bit unfortunate but what this does is to add
+	// the channel ID to the message field listening_channel_remove
+	mpus.add_listening_channel_remove(channel);
+
+	sendMessage(mpus);
+}
+
 void ServerHandler::createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position, bool temporary, unsigned int maxUsers) {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_parent(parent_id);

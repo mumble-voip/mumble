@@ -13,12 +13,17 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDateTime>
 #include <QtCore/QString>
+#include <QtCore/QList>
 
 class Channel;
 
 class User {
 	private:
 		Q_DISABLE_COPY(User)
+	protected:
+		/// A list of channel IDs this user is listening to without being in them.
+		QList<int> m_listeningChannelIDs;
+
 	public:
 		unsigned int uiSession;
 		int iId;
@@ -36,6 +41,14 @@ class User {
 
 		User();
 		virtual ~User() {};
+
+		void addListeningChannel(const Channel *chan);
+		void addListeningChannel(int channelID);
+		void removeListeningChannel(const Channel *chan);
+		void removeListeningChannel(int channelID);
+		bool isListeningTo(const Channel *c) const;
+		bool isListeningTo(int channelID) const;
+		const QList<int>& listeningChannelIDs() const;
 
 		static bool lessThan(const User *, const User *);
 };

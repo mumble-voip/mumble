@@ -49,6 +49,34 @@ Channel::~Channel() {
 	Q_ASSERT(children().count() == 0);
 }
 
+void Channel::addListeningUser(const User *user) {
+	addListeningUser(user->uiSession);
+}
+
+void Channel::addListeningUser(unsigned int userSession) {
+	m_listeningUserSessions << userSession;
+}
+
+void Channel::removeListeningUser(const User *user) {
+	removeListeningUser(user->uiSession);
+}
+
+void Channel::removeListeningUser(unsigned int userSession) {
+	m_listeningUserSessions.removeAll(userSession);
+}
+
+bool Channel::isListening(const User *user) const {
+	return isListening(user->uiSession);
+}
+
+bool Channel::isListening(unsigned int userSession) const {
+	return m_listeningUserSessions.contains(userSession);
+}
+
+const QList<unsigned int>& Channel::listeningUserSessions() const {
+	return m_listeningUserSessions;
+}
+
 #ifdef MUMBLE
 Channel *Channel::get(int id) {
 	QReadLocker lock(&c_qrwlChannels);

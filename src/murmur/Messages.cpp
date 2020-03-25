@@ -16,6 +16,7 @@
 #include "ServerUser.h"
 #include "Version.h"
 #include "CryptState.h"
+#include "Meta.h"
 
 #define RATELIMIT(user) \
 	if (user->leakyBucket.ratelimit(1)) { \
@@ -368,6 +369,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (! u->qsHash.isEmpty())
 			mpus.set_hash(u8(u->qsHash));
 
+		foreach(int channelID, u->listeningChannelIDs()) {
+			mpus.add_listening_channel_add(channelID);
+		}
+
 		sendMessage(uSource, mpus);
 	}
 
@@ -536,6 +541,44 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
+	QList<Channel *> listeningChannelsAdd;
+	int passedChannelListener = 0;
+	// Check permission for each channel
+	for (int i = 0; i < msg.listening_channel_add_size(); i++) {
+		Channel *c = qhChannels.value(msg.listening_channel_add(i));
+
+		if (!c) {
+			continue;
+		}
+
+		if (!hasPermission(uSource, c, ChanACL::Listen)) {
+			PERM_DENIED(uSource, c, ChanACL::Listen);
+			continue;
+		}
+
+		if (Meta::mp.iMaxListenersPerChannel >= 0
+				&& Meta::mp.iMaxListenersPerChannel - c->listeningUserSessions().size() - 1 < 0) {
+			// A limit for the amount of listener proxies per channel is set and it has been reached already
+			PERM_DENIED_FALLBACK(ChannelListenerLimit, 0x010400, QLatin1String("No more listeners allowed in this channel"));
+			continue;
+		}
+
+		if (Meta::mp.iMaxListenerProxiesPerUser >= 0
+				&& Meta::mp.iMaxListenerProxiesPerUser - uSource->listeningChannelIDs().size() - passedChannelListener - 1) {
+			// A limit for the amount of listener proxies per user is set and it has been reached already
+			PERM_DENIED_FALLBACK(UserListenerLimit, 0x010400, QLatin1String("No more listeners allowed in this channel"));
+			continue;
+		}
+
+		passedChannelListener++;
+
+		// TODO: Add possibility of specifying a limit to how many users can listen to
+		// a channel / how many channels a single user may listen to / whether a listening
+		// user counts to the user-limit of a channel.
+
+		listeningChannelsAdd << c;
+	}
+
 	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress() || msg.has_priority_speaker()) {
 		if (pDstServerUser->iId == 0) {
 			PERM_DENIED_TYPE(SuperUser);
@@ -607,7 +650,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	// Prevent self-targeting state changes from being applied to others
-	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_plugin_context() || msg.has_plugin_identity() || msg.has_recording())) {
+	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_plugin_context() || msg.has_plugin_identity()
+				|| msg.has_recording() || msg.listening_channel_add_size() > 0 || msg.listening_channel_remove_size() > 0)) {
 		return;
 	}
 
@@ -733,7 +777,35 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		userEnterChannel(pDstServerUser, c, msg);
 		log(uSource, QString("Moved %1 to %2").arg(QString(*pDstServerUser), QString(*c)));
 		bBroadcast = true;
+
+		if (c->isListening(pDstServerUser)) {
+			// If a user joins a channel (s)he has been listening to before, it means that this user will no
+			// longer listen into that channel (as joining it can be viewed as promoting the listening to a join)
+			msg.add_listening_channel_remove(c->iId);
+		}
 	}
+
+	// Handle channel listening
+	// Note that it is important to handle the listening channels after channel-joins
+	foreach(Channel *c, listeningChannelsAdd) {
+		uSource->addListeningChannel(c);
+		c->addListeningUser(uSource);
+
+		log(QString::fromLatin1("\"%1\" is now listening to channel \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
+	}
+	for (int i = 0; i < msg.listening_channel_remove_size(); i++) {
+		Channel *c = qhChannels.value(msg.listening_channel_remove(i));
+
+		if (c) {
+			uSource->removeListeningChannel(c);
+			c->removeListeningUser(uSource);
+
+			log(QString::fromLatin1("\"%1\" is no longer listening to \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
+		}
+	}
+
+	bBroadcast = bBroadcast || !listeningChannelsAdd.isEmpty() || msg.listening_channel_remove_size() > 0;
+
 
 	bool bDstAclChanged = false;
 	if (msg.has_user_id()) {

@@ -19,6 +19,34 @@ User::User() {
 	cChannel = 0;
 }
 
+void User::addListeningChannel(const Channel *chan) {
+	addListeningChannel(chan->iId);
+}
+
+void User::addListeningChannel(int channelID) {
+	m_listeningChannelIDs << channelID;
+}
+
+void User::removeListeningChannel(const Channel *chan) {
+	removeListeningChannel(chan->iId);
+}
+
+void User::removeListeningChannel(int channelID) {
+	m_listeningChannelIDs.removeAll(channelID);
+}
+
+bool User::isListeningTo(const Channel *chan) const {
+	return isListeningTo(chan->iId);
+}
+
+bool User::isListeningTo(int channelID) const {
+	return m_listeningChannelIDs.contains(channelID);
+}
+
 bool User::lessThan(const User *first, const User *second) {
 	return (QString::localeAwareCompare(first->qsName, second->qsName) < 0);
+}
+
+const QList<int>& User::listeningChannelIDs() const {
+	return m_listeningChannelIDs;
 }

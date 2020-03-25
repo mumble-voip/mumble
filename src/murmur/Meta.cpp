@@ -34,6 +34,8 @@ MetaParams::MetaParams() {
 	iMaxBandwidth = 72000;
 	iMaxUsers = 1000;
 	iMaxUsersPerChannel = 0;
+	iMaxListenersPerChannel = -1;
+	iMaxListenerProxiesPerUser = -1;
 	iMaxTextMessageLength = 5000;
 	iMaxImageMessageLength = 131072;
 	legacyPasswordHash = false;
@@ -288,6 +290,8 @@ void MetaParams::read(QString fname) {
 	bRememberChan = typeCheckedFromSettings("rememberchannel", bRememberChan);
 	iMaxUsers = typeCheckedFromSettings("users", iMaxUsers);
 	iMaxUsersPerChannel = typeCheckedFromSettings("usersperchannel", iMaxUsersPerChannel);
+	iMaxListenersPerChannel = typeCheckedFromSettings("listenersperchannel", iMaxListenersPerChannel);
+	iMaxListenerProxiesPerUser = typeCheckedFromSettings("listenersperuser", iMaxListenerProxiesPerUser);
 	qsWelcomeText = typeCheckedFromSettings("welcometext", qsWelcomeText);
 	bCertRequired = typeCheckedFromSettings("certrequired", bCertRequired);
 	bForceExternalAuth = typeCheckedFromSettings("forceExternalAuth", bForceExternalAuth);

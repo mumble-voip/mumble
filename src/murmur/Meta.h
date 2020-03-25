@@ -33,6 +33,8 @@ public:
 	int iMaxBandwidth;
 	int iMaxUsers;
 	int iMaxUsersPerChannel;
+	int iMaxListenersPerChannel;
+	int iMaxListenerProxiesPerUser;
 	int iDefaultChan;
 	bool bRememberChan;
 	int iMaxTextMessageLength;
