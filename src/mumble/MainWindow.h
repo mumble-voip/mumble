@@ -61,11 +61,15 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QSystemTrayIcon *qstiIcon;
 		QMenu *qmUser;
 		QMenu *qmChannel;
+		QMenu *qmListener;
 		QMenu *qmDeveloper;
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMutePushToMute, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 		QMap<unsigned int, UserLocalVolumeDialog *> qmUserVolTracker;
+
+		/// "Action" for when there are no actions available
+		QAction *qaEmpty;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
@@ -177,6 +181,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaSelfRegister_triggered();
 		void qcbTransmitMode_activated(int index);
 		void qmUser_aboutToShow();
+		void qmListener_aboutToShow();
 		void on_qaUserCommentReset_triggered();
 		void on_qaUserTextureReset_triggered();
 		void on_qaUserCommentView_triggered();
@@ -207,6 +212,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelSendMessage_triggered();
 		void on_qaChannelFilter_triggered();
 		void on_qaChannelCopyURL_triggered();
+		void on_qaListenerLocalVolume_triggered();
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();
 		void on_qaAudioDeaf_triggered();

@@ -16,6 +16,7 @@ QList<ClientUser *> ClientUser::c_qlTalking;
 QReadWriteLock ClientUser::c_qrwlTalking;
 
 ClientUser::ClientUser(QObject *p) : QObject(p),
+		m_channelListeningVolumeAdjustments(),
 		tsState(Settings::Passive),
 		tLastTalkStateChange(false),
 		bLocalIgnore(false),
@@ -26,6 +27,14 @@ ClientUser::ClientUser(QObject *p) : QObject(p),
 		fLocalVolume(1.0f),
 		iFrames(0),
 		iSequence(0) {
+}
+
+float ClientUser::getListeningVolumeAdjustment(const Channel *chan) const {
+	return m_channelListeningVolumeAdjustments.value(chan->iId, 1.0f);
+}
+
+void ClientUser::setListeningVolumeAdjustment(const Channel *chan, float adjustment) {
+	m_channelListeningVolumeAdjustments.insert(chan->iId, adjustment);
 }
 
 ClientUser *ClientUser::get(unsigned int uiSession) {
