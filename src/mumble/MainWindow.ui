@@ -928,6 +928,14 @@ the channel's context menu.</string>
     <string>Listen to this channel without joining it</string>
    </property>
   </action>
+  <action name="qaListenerLocalVolume">
+   <property name="text">
+    <string>Local Volume Adjustment...</string>
+   </property>
+   <property name="toolTip">
+    <string>Locally adjust the volume for this virtual ear.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

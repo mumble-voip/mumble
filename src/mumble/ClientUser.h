@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_CLIENTUSER_H_
 
 #include <QtCore/QReadWriteLock>
+#include <QtCore/QHash>
 
 #include "User.h"
 #include "Timer.h"
@@ -16,6 +17,10 @@ class ClientUser : public QObject, public User {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ClientUser)
+	protected:
+		/// A map between channel IDs and the volume adjustments that should be applied to audio
+		/// received via a listener proxy in the corresponding channel.
+		QHash<int, float> m_channelListeningVolumeAdjustments;
 	public:
 		Settings::TalkState tsState;
 		Timer tLastTalkStateChange;
@@ -34,6 +39,18 @@ class ClientUser : public QObject, public User {
 
 		QString getFlagsString() const;
 		ClientUser(QObject *p = NULL);
+
+		/// Gets the local volume adjustment that shall be applied to audio received via a listener
+		/// proxy in the given channel.
+		///
+		/// @param chan A pointer to the respective channel
+		float getListeningVolumeAdjustment(const Channel *chan) const;
+		/// Sets the local volume adjustment that shall be applied to audio received via a listener
+		/// proxy in the given channel.
+		///
+		/// @param chan A pointer to the respective channel
+		/// @param adjustment The adjustment factor to apply for listeners in the given channel
+		void setListeningVolumeAdjustment(const Channel *chan, float adjustment);
 
 		/**
 		 * Determines whether a user is active or not

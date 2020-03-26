@@ -118,6 +118,7 @@ HEADERS *= BanEditor.h \
     UserEdit.h \
     UserListModel.h \
     UserLocalVolumeDialog.h \
+	ListenerLocalVolumeDialog.h \
     Tokens.h \
     UserView.h \
     RichTextEditor.h \
@@ -195,6 +196,7 @@ SOURCES *= BanEditor.cpp \
     UserEdit.cpp \
     UserListModel.cpp \
     UserLocalVolumeDialog.cpp \
+	ListenerLocalVolumeDialog.cpp \
     Tokens.cpp \
     UserView.cpp \
     RichTextEditor.cpp \
