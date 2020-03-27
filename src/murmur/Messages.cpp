@@ -1925,7 +1925,13 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg, 
 		WhisperTarget wt;
 		for (int i=0;i<count;++i) {
 			const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
-			for (int j=0;j<t.session_size(); ++j) {
+            if (t.links()) {
+                log(uSource, QString("shouted with links:true"));
+            }
+            if (t.children() && !t.has_group() && t.channel_id() == 0) {
+                log(uSource, QString("shouted to Root & subchildren with no group set."));
+            }
+            for (int j=0;j<t.session_size(); ++j) {
 				unsigned int s = t.session(j);
 				if (qhUsers.contains(s))
 					wt.qlSessions << s;
