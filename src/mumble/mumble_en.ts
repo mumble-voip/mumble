@@ -2397,6 +2397,14 @@ Are you sure you wish to replace your certificate?
         <source>Write ACL</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This represents the permission to use the listen-feature allowing to listen to a channel without being in it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listen</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatbarTextEdit</name>
@@ -3161,6 +3169,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
 </context>
 <context>
+    <name>ListenerLocalVolumeDialog</name>
+    <message>
+        <source>Adjusting local volume for listening to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Log</name>
     <message>
         <source>Debug</source>
@@ -3313,6 +3328,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You joined channel (moved)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User started listening to channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User stopped listening to channel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5479,6 +5502,54 @@ the channel&apos;s context menu.</source>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Listen to channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listen to this channel without joining it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locally adjust the volume for this virtual ear.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Listener</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No action available...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No more listeners allowed in this channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not allowed to listen to more channels than you currently are.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You started listening to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 started listening to your channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You stopped listening to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 stopped listening to your channel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -5559,10 +5630,6 @@ the channel&apos;s context menu.</source>
     <name>NetworkConfig</name>
     <message>
         <source>Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Updates are mandatory when using snapshot releases.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
