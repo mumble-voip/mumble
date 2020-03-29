@@ -14,6 +14,7 @@
 #include "ServerUser.h"
 #include "Version.h"
 #include "CryptState.h"
+#include "Meta.h"
 
 #include <QtCore/QStack>
 #include <QtCore/QtEndian>
@@ -1363,6 +1364,58 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	emit userTextMessage(uSource, tm);
 }
 
+/// Helper function to log the groups of the given channel.
+///
+/// @param server A pointer to the server object the provided channel lives on
+/// @param c A pointer to the channel the groups should be logged for
+/// @param prefix An optional QString that is being printed before the groups
+void logGroups(Server *server, const Channel *c, QString prefix = QString()) {
+	if (!prefix.isEmpty()) {
+		server->log(prefix);
+	}
+
+	if (c->qhGroups.isEmpty()) {
+		server->log(QString::fromLatin1("Channel %1 (%2) has no groups set").arg(c->qsName).arg(c->iId));
+		return;
+	} else {
+		server->log(QString::fromLatin1("%1Listing groups specified for channel \"%2\" (%3)...").arg(prefix.isEmpty() ? "" : "\t").arg(
+					c->qsName).arg(c->iId));
+	}
+
+	foreach(Group *currentGroup, c->qhGroups) {
+		QString memberList;
+		foreach(int m, currentGroup->members()) {
+			memberList += QString::fromLatin1("\"%1\"").arg(server->getUserName(m));
+			memberList += ", ";
+		}
+
+		if (currentGroup->members().size() > 0) {
+			memberList.remove(memberList.length() -2, 2);
+			server->log(QString::fromLatin1("%1Group: \"%2\" contains following users: %3").arg(prefix.isEmpty() ? "\t" : "\t\t").arg(
+						currentGroup->qsName).arg(memberList));
+		} else {
+			server->log(QString::fromLatin1("%1Group \"%2\" doesn't contain any users").arg(prefix.isEmpty() ? "\t" : "\t\t").arg(
+						currentGroup->qsName));
+		}
+	}
+}
+
+/// Helper function to log the ACLs of the given channel.
+///
+/// @param server A pointer to the server object the provided channel lives on
+/// @param c A pointer to the channel the ACLs should be logged for
+/// @param prefix An optional QString that is being printed before the ACLs
+void logACLs(Server *server, const Channel *c, QString prefix = QString()) {
+	if (!prefix.isEmpty()) {
+		server->log(prefix);
+	}
+
+	foreach(const ChanACL *a, c->qlACL) {
+		server->log(QString::fromLatin1("%1%2").arg(prefix.isEmpty() ? "" : "\t").arg(static_cast<QString>(*a)));
+	}
+}
+
+
 void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 
@@ -1468,19 +1521,34 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 			QHash<QString, QSet<int> > hOldTemp;
 
+			if (Meta::mp.bLogGroupChanges || Meta::mp.bLogACLChanges) {
+				log(uSource, QString::fromLatin1("Updating ACL in channel %1").arg(*c));
+			}
+
+			if (Meta::mp.bLogGroupChanges) {
+				logGroups(this, c, QLatin1String("These are the groups before applying the change:"));
+			}
+
 			foreach(g, c->qhGroups) {
 				hOldTemp.insert(g->qsName, g->qsTemporary);
 				delete g;
 			}
 
-			foreach(a, c->qlACL)
+			if (Meta::mp.bLogACLChanges) {
+				logACLs(this, c, QLatin1String("These are the ACLs before applying the changed:"));
+			}
+
+			// Clear old ACLs
+			foreach(a, c->qlACL) {
 				delete a;
+			}
 
 			c->qhGroups.clear();
 			c->qlACL.clear();
 
 			c->bInheritACL = msg.inherit_acls();
 
+			// Add new groups
 			for (int i = 0; i < msg.groups_size(); ++i) {
 				const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
 				g = new Group(c, u8(group.name()));
@@ -1492,9 +1560,15 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				for (int j = 0; j < group.remove_size(); ++j)
 					if (!getUserName(group.remove(j)).isEmpty())
 						g->qsRemove << group.remove(j);
+
 				g->qsTemporary = hOldTemp.value(g->qsName);
 			}
 
+			if (Meta::mp.bLogGroupChanges) {
+				logGroups(this, c, QLatin1String("And these are the new groups:"));
+			}
+
+			// Add new ACLs
 			for (int i = 0; i < msg.acls_size(); ++i) {
 				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
 				if (mpacl.has_user_id() && getUserName(mpacl.user_id()).isEmpty())
@@ -1510,6 +1584,11 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				a->pDeny = static_cast<ChanACL::Permissions>(mpacl.deny()) & ChanACL::All;
 				a->pAllow = static_cast<ChanACL::Permissions>(mpacl.grant()) & ChanACL::All;
 			}
+
+			if (Meta::mp.bLogACLChanges) {
+				logACLs(this, c, QLatin1String("And these are the new ACLs:"));
+			}
+
 		}
 
 		clearACLCache();
