@@ -63,6 +63,10 @@ class ChanACL : public QObject {
 		/// @returns Whether the given ChanACL represents a password. 
 		bool isPassword() const;
 
+		/// @ereturns A string representation of this ChanACL summarizing what permissions are granted or denied.
+		/// 	If this ACL neither grants nor denies any permissions, an empty String is returned.
+		explicit operator QString() const;
+
 #ifdef MURMUR
 		static bool hasPermission(ServerUser *p, Channel *c, QFlags<Perm> perm, ACLCache *cache);
 		static QFlags<Perm> effectivePermissions(ServerUser *p, Channel *c, ACLCache *cache);
