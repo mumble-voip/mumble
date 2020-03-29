@@ -347,7 +347,7 @@ int main(int argc, char **argv) {
 			       "                         The purpose of this option is to test how many clients Murmur can handle.\n"
 			       "                         Murmur will exit after this test.\n"
 #endif
-			       "  -v                     Add verbose output.\n"
+			       "  -v                     Use verbose logging (include debug-logs).\n"
 #ifdef Q_OS_UNIX
 			       "  -fg                    Don't detach from console.\n"
 #else
