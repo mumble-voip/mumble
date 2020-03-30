@@ -359,6 +359,14 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0) {
+					if (p == pSelf && p->bSelfMute) {
+						// This is a workaround for a bug that can lead to the user having muted him/herself but
+						// the talking icon is stuck at qiTalkingOn for some reason.
+						// Until someone figures out how to fix the root of the problem, we'll have this workaround
+						// to cure the symptoms of the bug.
+						return qiTalkingOff;
+					}
+
 					switch (p->tsState) {
 						case Settings::Talking:
 							return qiTalkingOn;
