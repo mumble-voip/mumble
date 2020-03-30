@@ -26,6 +26,64 @@ ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 		c->qlACL << this;
 }
 
+ChanACL::operator QString() const {
+	QString aclString;
+	bool isFirstEntry = true;
+	// Iterate over all flags and assume none of the important ones (all other than Cached and All)
+	// have a value > 2^32
+	for (int i = 0; i < 32; i++) {
+		int currentPermInt = 1 << i;
+		// If we have a name for the permission, we know it exists.
+		// Note that we won't reach 0 with this tactic but we don't care about the None
+		// permission anyways.
+		QString name = permName(static_cast<Perm>(currentPermInt));
+
+		if (!name.isEmpty()) {
+			if (!((pAllow & currentPermInt) || (pDeny & currentPermInt))) {
+				// The current permission is left unchanged by this ACL -> Don't include it in the
+				// string representation
+				continue;
+			}
+
+			if (!isFirstEntry) {
+				aclString += QLatin1String(", ");
+			}
+
+			isFirstEntry = false;
+
+			aclString += QString::fromLatin1("\"%1\": ").arg(name);
+
+			if ((pAllow & currentPermInt) && (pDeny & currentPermInt)) {
+				// The permissions is allowed and denied. In the current implementation this should
+				// result in i tbeing denied, but for printing purposes we don't make assumptions about
+				// the handling of this in the implementation.
+				aclString += QLatin1String("Allowed && Denied");
+			} else {
+				if (pAllow & currentPermInt) {
+					aclString += QLatin1String("Allowed");
+				} else {
+					aclString += QLatin1String("Denied");
+				}
+			}
+		}
+	}
+
+	if (!aclString.isEmpty()) {
+		// Alos include info about affected user and/or group
+		if (!qsGroup.isEmpty() && iUserId >= 0) {
+			// both group and user-id are set
+			return QString::fromLatin1("ACL for group \"%1\" and user with ID %2: %3").arg(
+					qsGroup).arg(iUserId).arg(aclString);
+		} else if (!qsGroup.isEmpty()) {
+			return QString::fromLatin1("ACL for group \"%1\": %2").arg(qsGroup).arg(aclString);
+		} else if (iUserId >= 0) {
+			return QString::fromLatin1("ACL for user with ID %1: %2").arg(iUserId).arg(qsGroup);
+		}
+	}
+
+	return aclString;
+}
+
 // Check permissions.
 // This will always return true for the superuser,
 // and will return false if a user isn't allowed to

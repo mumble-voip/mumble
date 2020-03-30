@@ -241,6 +241,8 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_UNIX
 	bool readPw = false;
 #endif
+	bool logGroups = false;
+	bool logACL = false;
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
 
@@ -345,7 +347,7 @@ int main(int argc, char **argv) {
 			       "                         The purpose of this option is to test how many clients Murmur can handle.\n"
 			       "                         Murmur will exit after this test.\n"
 #endif
-			       "  -v                     Add verbose output.\n"
+			       "  -v                     Use verbose logging (include debug-logs).\n"
 #ifdef Q_OS_UNIX
 			       "  -fg                    Don't detach from console.\n"
 #else
@@ -353,6 +355,8 @@ int main(int argc, char **argv) {
 #endif
 			       "  -wipessl               Remove SSL certificates from database.\n"
 			       "  -wipelogs              Remove all log entries from database.\n"
+				   "  -loggroups             Turns on logging for group changes for all servers."
+				   "  -logacls               Turns on logging for ACL changes for all servers."
 			       "  -version               Show version information.\n"
 			       "\n"
 			       "  -license               Show Murmur's license.\n"
@@ -370,6 +374,10 @@ int main(int argc, char **argv) {
 			unixhandler.finalcap();
 			LimitTest::testLimits(a);
 #endif
+		} else if (arg == "-loggroups") {
+			logGroups = true;
+		} else if (arg == "-logacls") {
+			logACL = true;
 		} else {
 			detach = false;
 			qFatal("Unknown argument %s", qPrintable(args.at(i)));
@@ -391,6 +399,14 @@ int main(int argc, char **argv) {
 #endif
 
 	Meta::mp.read(inifile);
+
+	// Activating the logging of ACLs and groups via commandLine overwrites whatever is set in the ini file
+	if (logGroups) {
+		Meta::mp.bLogGroupChanges = logGroups;
+	}
+	if (logACL) {
+		Meta::mp.bLogACLChanges = logACL;
+	}
 
 	// need to open log file early so log dir can be root owned:
 	// http://article.gmane.org/gmane.comp.security.oss.general/4404

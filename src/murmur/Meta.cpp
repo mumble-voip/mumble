@@ -94,6 +94,9 @@ MetaParams::MetaParams() {
 
 	qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
 
+	bLogGroupChanges = false;
+	bLogACLChanges = false;
+
 	qsSettings = NULL;
 }
 
@@ -334,6 +337,9 @@ void MetaParams::read(QString fname) {
 	qvSuggestPushToTalk = qsSettings->value("suggestPushToTalk");
 	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
 		qvSuggestPushToTalk = QVariant();
+
+	bLogGroupChanges = typeCheckedFromSettings("loggroupchanges", bLogGroupChanges);
+	bLogACLChanges = typeCheckedFromSettings("logaclchanges", bLogACLChanges);
 
 	iOpusThreshold = typeCheckedFromSettings("opusthreshold", iOpusThreshold);
 

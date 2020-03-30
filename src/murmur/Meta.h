@@ -137,6 +137,11 @@ public:
 	QVariant qvSuggestPositional;
 	QVariant qvSuggestPushToTalk;
 
+	/// A flag indicating whether changes in groups should be logged
+	bool bLogGroupChanges;
+	/// A flag indicating whether changes in ACLs should be logged
+	bool bLogACLChanges;
+
 	/// qsAbsSettingsFilePath is the absolute path to
 	/// the murmur.ini used by this Meta instance.
 	QString qsAbsSettingsFilePath;
