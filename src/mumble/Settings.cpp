@@ -272,7 +272,6 @@ Settings::Settings() {
 
 	uiDoublePush = 0;
 	pttHold = 0;
-	bExpert = true;
 
 #ifdef NO_UPDATE_CHECK
 	bUpdateCheck = false;
@@ -711,7 +710,6 @@ void Settings::load(QSettings* settings_ptr) {
 	// Privacy settings
 	SAVELOAD(bHideOS, "privacy/hideos");
 
-	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(themeName, "ui/theme");
 	SAVELOAD(themeStyleName, "ui/themestyle");
@@ -1050,7 +1048,6 @@ void Settings::save() {
 	// Privacy settings
 	SAVELOAD(bHideOS, "privacy/hideos");
 
-	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(themeName, "ui/theme");
 	SAVELOAD(themeStyleName, "ui/themestyle");
