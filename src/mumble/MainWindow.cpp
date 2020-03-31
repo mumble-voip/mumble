@@ -1993,8 +1993,8 @@ void MainWindow::qmChannel_aboutToShow() {
 	if (c && c->iId != ClientUser::get(g.uiSession)->cChannel->iId) {
 		qmChannel->addAction(qaChannelJoin);
 
-		if (g.sh->uiVersion >= 0x010400) {
-			// If the server's version is less than 1.4, the listening feature is not supported yet
+		if (g.sh->uiVersion >= 0x010300) {
+			// If the server's version is less than 1.3, the listening feature is not supported yet
 			// and thus it doesn't make sense to show the action for it
 			qmChannel->addAction(qaChannelListen);
 			qaChannelListen->setChecked(c->isListening(ClientUser::get(g.uiSession)));
