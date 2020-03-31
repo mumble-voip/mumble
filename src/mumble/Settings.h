@@ -155,10 +155,6 @@ struct Settings {
 	quint64 uiDoublePush;
 	quint64 pttHold;
 
-	/// Removed. This was previously used to configure whether the Mumble
-	/// ConfigDialog should show advanced options or not.
-	bool bExpert;
-
 	bool bTxAudioCue;
 	static const QString cqsDefaultPushClickOn;
 	static const QString cqsDefaultPushClickOff;
