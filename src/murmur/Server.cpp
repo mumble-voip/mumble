@@ -1087,10 +1087,13 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		}
 
 		{
-			QReadLocker lock(&qrwlVoiceThread);
 			// Send audio to all users that are listening to the channel
 			foreach(unsigned int currentSession, c->listeningUserSessions()) {
-				ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+				ServerUser *pDst;
+				{
+					QReadLocker lock(&qrwlVoiceThread);
+					pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+				}
 				if (pDst) {
 					SENDTO;
 				}
