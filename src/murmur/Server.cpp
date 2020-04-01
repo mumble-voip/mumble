@@ -1109,9 +1109,28 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 			foreach(Channel *l, chans) {
 				if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
+					// Send the audio stream to all users that are listening to the linked channel but are not
+					// in the original channel the audio is coming from nor are they listening to the orignal
+					// channel (in these cases they have received the audio already).
+					foreach(unsigned int currentSession, l->listeningUserSessions()) {
+						ServerUser *pDst;
+						{
+							QReadLocker lock(&qrwlVoiceThread);
+							pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+						}
+						if (pDst && pDst->cChannel != c && !c->isListening(currentSession)) {
+							SENDTO;
+						}
+					}
+
+					// Send audio to users in the linked channel but only if they
+					// haven't received the audio already (because they are listening
+					// to the original channel).
 					foreach(User *p, l->qlUsers) {
-						ServerUser *pDst = static_cast<ServerUser *>(p);
-						SENDTO;
+						if (!c->isListening(p->uiSession)) {
+							ServerUser *pDst = static_cast<ServerUser *>(p);
+							SENDTO;
+						}
 					}
 				}
 			}
