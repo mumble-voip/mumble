@@ -3495,6 +3495,14 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Use 24-hour clock</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>How far individual messages are spaced out from one another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message margins</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>
@@ -5479,6 +5487,10 @@ the channel&apos;s context menu.</source>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -5559,10 +5571,6 @@ the channel&apos;s context menu.</source>
     <name>NetworkConfig</name>
     <message>
         <source>Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Updates are mandatory when using snapshot releases.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
