@@ -509,7 +509,14 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tc.movePosition(QTextCursor::End);
 		}
 
-		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
+		// Convert CRLF to unix-style LF and old mac-style LF (single \r) to unix-style as well
+		QString fixedNLPlain = plain.replace(QLatin1String("\r\n"), QLatin1String("\n")).replace(QLatin1String("\r"), QLatin1String("\n"));
+
+		if (fixedNLPlain.contains(QRegExp(QLatin1String("\\n[ \\t]*$")))) {
+			// If the message ends with one or more blank lines (or lines only containing whitespace)
+			// paint a border around the message to make clear that it contains invisible parts.
+			// The beginning of the message is clear anyway (the date and potentially the "To XY" part)
+			// so we don't have to care about that.
 			QTextFrameFormat qttf;
 			qttf.setBorder(1);
 			qttf.setPadding(2);
