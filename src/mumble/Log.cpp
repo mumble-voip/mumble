@@ -515,7 +515,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			qttf.setPadding(2);
 			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
 			tc.insertFrame(qttf);
-		} else if (! g.mw->qteLog->document()->isEmpty()) {
+		} else if (!tc.block().text().isEmpty()) {
+			// Only insert a block if the current block is not empty. It may be empty because
+			// it is the default block of an empty document. Another cause might be that apparently
+			// a new empty block is automatically inserted after a frame.
 			tc.insertBlock();
 		}
 
