@@ -686,10 +686,6 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 		passedChannelListener++;
 
-		// TODO: Add possibility of specifying a limit to how many users can listen to
-		// a channel / how many channels a single user may listen to / whether a listening
-		// user counts to the user-limit of a channel.
-
 		listeningChannelsAdd << c;
 	}
 
