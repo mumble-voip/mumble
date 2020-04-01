@@ -108,6 +108,7 @@ void LogConfig::load(const Settings &r) {
 
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
 	qcb24HourClock->setChecked(r.bLog24HourClock);
+	qsbChatMessageMargins->setValue(r.iChatMessageMargins);
 
 #ifdef USE_NO_TTS
 	qtwMessages->hideColumn(ColTTS);
@@ -145,6 +146,7 @@ void LogConfig::save() const {
 	}
 	s.iMaxLogBlocks = qsbMaxBlocks->value();
 	s.bLog24HourClock = qcb24HourClock->isChecked();
+	s.iChatMessageMargins = qsbChatMessageMargins->value();
 
 #ifndef USE_NO_TTS
 	s.iTTSVolume=qsVolume->value();
@@ -496,6 +498,16 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	if ((flags & Settings::LogConsole)) {
 		QTextCursor tc = g.mw->qteLog->textCursor();
 
+		// We copy the value from the settings in order to make sure that
+		// we use the same margin everywhere while in this method (even if
+		// the setting might change in that time).
+		const int msgMargin = g.s.iChatMessageMargins;
+
+		QTextBlockFormat format = tc.blockFormat();
+		format.setTopMargin(msgMargin);
+		format.setBottomMargin(msgMargin);
+		tc.setBlockFormat(format);
+
 		LogTextBrowser *tlog = g.mw->qteLog;
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
@@ -520,7 +532,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			QTextFrameFormat qttf;
 			qttf.setBorder(1);
 			qttf.setPadding(2);
-			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+			qttf.setMargin(msgMargin);
+			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Dashed);
 			tc.insertFrame(qttf);
 		} else if (!tc.block().text().isEmpty()) {
 			// Only insert a block if the current block is not empty. It may be empty because

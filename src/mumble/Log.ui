@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>554</width>
-    <height>405</height>
+    <height>414</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -202,10 +202,15 @@
       <string>Chat Log</string>
      </property>
      <layout class="QGridLayout" name="_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qlMaxBlocks">
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="qcb24HourClock">
+        <property name="toolTip">
+         <string>If checked the time at the beginning of a message will be displayed in the 24-hour format.
+
+The setting only applies for new messages, the already shown ones will retain the previous time format.</string>
+        </property>
         <property name="text">
-         <string>Maximum chat length</string>
+         <string>Use 24-hour clock</string>
         </property>
        </widget>
       </item>
@@ -228,6 +233,13 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="qlMaxBlocks">
+        <property name="text">
+         <string>Maximum chat length</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="2">
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -241,15 +253,23 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="qcb24HourClock">
+      <item row="2" column="0">
+       <widget class="QLabel" name="qlChatMessageMargins">
         <property name="toolTip">
-         <string>If checked the time at the beginning of a message will be displayed in the 24-hour format.
-
-The setting only applies for new messages, the already shown ones will retain the previous time format.</string>
+         <string>How far individual messages are spaced out from one another.</string>
         </property>
         <property name="text">
-         <string>Use 24-hour clock</string>
+         <string>Message margins</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="qsbChatMessageMargins">
+        <property name="toolTip">
+         <string>How far individual messages are spaced out from one another.</string>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
