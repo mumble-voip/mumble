@@ -789,8 +789,18 @@ module Murmur
 		 */
 		 idempotent void updateCertificate(string certificate, string privateKey, string passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException;
 
+		 /**
+		  * Makes the given user start listening to the given channel.
+		  * @param userid The ID of the user
+		  * @param channelid The ID of the channel
+		  */
 		 idempotent void startListening(int userid, int channelid);
 
+		 /**
+		  * Makes the given user stop listening to the given channel.
+		  * @param userid The ID of the user
+		  * @param channelid The ID of the channel
+		  */
 		 idempotent void stopListening(int userid, int channelid);
 	};
 
