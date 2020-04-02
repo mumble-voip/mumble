@@ -1608,6 +1608,10 @@ void MainWindow::qmListener_aboutToShow() {
 
 	if (self) {
 		qmListener->addAction(qaListenerLocalVolume);
+		if (cContextChannel) {
+			qmListener->addAction(qaChannelListen);
+			qaChannelListen->setChecked(cContextChannel->isListening(ClientUser::get(g.uiSession)));
+		}
 	} else {
 		qmListener->addAction(qaEmpty);
 	}
