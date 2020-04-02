@@ -154,7 +154,9 @@ bool isChannelEnterRestricted(Channel *c) {
 	return false;
 }
 
-void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
+void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
 		QStringList qsl;
 		for (int i=0;i<msg.tokens_size();++i)
@@ -512,7 +514,9 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	emit userConnected(uSource);
 }
 
-void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
+void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	QSet<Ban> previousBans, newBans;
@@ -581,16 +585,18 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 	}
 }
 
-void Server::msgReject(ServerUser *, MumbleProto::Reject &) {
+void Server::msgReject(ServerUser *, MumbleProto::Reject &, bool) {
 }
 
-void Server::msgServerSync(ServerUser *, MumbleProto::ServerSync &) {
+void Server::msgServerSync(ServerUser *, MumbleProto::ServerSync &, bool) {
 }
 
-void Server::msgPermissionDenied(ServerUser *, MumbleProto::PermissionDenied &) {
+void Server::msgPermissionDenied(ServerUser *, MumbleProto::PermissionDenied &, bool) {
 }
 
-void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
+void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	const std::string &str = msg.packet();
@@ -601,7 +607,7 @@ void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
 	processMsg(uSource, str.data(), len);
 }
 
-void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
+void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg, bool rateLimit) {
 	MSG_SETUP(ServerUser::Authenticated);
 	VICTIM_SETUP;
 
@@ -624,7 +630,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		return;
 	}
 
-	if (uSource == pDstServerUser) {
+	if (uSource == pDstServerUser && rateLimit) {
 		RATELIMIT(uSource);
 	}
 	
@@ -973,7 +979,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	emit userStateChanged(pDstServerUser);
 }
 
-void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
+void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP(ServerUser::Authenticated);
 	VICTIM_SETUP;
 
@@ -1010,7 +1018,7 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 	pDstServerUser->disconnectSocket();
 }
 
-void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg) {
+void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg, bool rateLimit) {
 	MSG_SETUP(ServerUser::Authenticated);
 
 	Channel *c = NULL;
@@ -1021,7 +1029,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		c = qhChannels.value(msg.channel_id());
 		if (! c)
 			return;
-	} else {
+	} else if (rateLimit) {
 		RATELIMIT(uSource);
 	}
 
@@ -1297,7 +1305,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	}
 }
 
-void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &msg) {
+void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -1314,7 +1324,7 @@ void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &m
 	removeChannel(c);
 }
 
-void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) {
+void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg, bool rateLimit) {
 	MSG_SETUP(ServerUser::Authenticated);
 	QMutexLocker qml(&qmCache);
 
@@ -1323,7 +1333,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
-	RATELIMIT(uSource);
+	if (rateLimit) {
+		RATELIMIT(uSource);
+	}
 
 	int res = 0;
 	emit textMessageFilterSig(res, uSource, msg);
@@ -1483,7 +1495,7 @@ void logACLs(Server *server, const Channel *c, QString prefix = QString()) {
 }
 
 
-void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
+void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg, bool rateLimit) {
 	MSG_SETUP(ServerUser::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -1495,7 +1507,9 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		return;
 	}
 
-	RATELIMIT(uSource);
+	if (rateLimit) {
+		RATELIMIT(uSource);
+	}
 
 	if (msg.has_query() && msg.query()) {
 		QStack<Channel *> chans;
@@ -1695,7 +1709,9 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 	}
 }
 
-void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
+void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	MumbleProto::QueryUsers reply;
@@ -1724,7 +1740,9 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 	sendMessage(uSource, reply);
 }
 
-void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
+void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	QMutexLocker l(&uSource->qmCrypt);
@@ -1755,7 +1773,9 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 	sendMessage(uSource, msg);
 }
 
-void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
+void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	QMutexLocker l(&uSource->qmCrypt);
@@ -1773,10 +1793,12 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 	}
 }
 
-void Server::msgContextActionModify(ServerUser *, MumbleProto::ContextActionModify &) {
+void Server::msgContextActionModify(ServerUser *, MumbleProto::ContextActionModify &, bool) {
 }
 
-void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &msg) {
+void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	unsigned int session = msg.has_session() ? msg.session() : 0;
@@ -1789,8 +1811,10 @@ void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &m
 	emit contextAction(uSource, u8(msg.action()), session, id);
 }
 
-void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
-	RATELIMIT(uSource);
+void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg, bool rateLimit) {
+	if (rateLimit) {
+		RATELIMIT(uSource);
+	}
 
 	if (msg.has_version())
 		uSource->uiVersion=msg.version();
@@ -1805,7 +1829,9 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 	log(uSource, QString("Client version %1 (%2: %3)").arg(MumbleVersion::toString(uSource->uiVersion)).arg(uSource->qsOS).arg(uSource->qsRelease));
 }
 
-void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
+void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP(ServerUser::Authenticated);
 
 	// The register permission is required on the root channel to be allowed to
@@ -1880,7 +1906,9 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 	}
 }
 
-void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) {
+void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	int target = msg.id();
@@ -1923,7 +1951,9 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 	}
 }
 
-void Server::msgPermissionQuery(ServerUser *uSource, MumbleProto::PermissionQuery &msg) {
+void Server::msgPermissionQuery(ServerUser *uSource, MumbleProto::PermissionQuery &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -1933,10 +1963,12 @@ void Server::msgPermissionQuery(ServerUser *uSource, MumbleProto::PermissionQuer
 	sendClientPermission(uSource, c, true);
 }
 
-void Server::msgCodecVersion(ServerUser *, MumbleProto::CodecVersion &) {
+void Server::msgCodecVersion(ServerUser *, MumbleProto::CodecVersion &, bool) {
 }
 
-void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
+void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 	VICTIM_SETUP;
 	const BandwidthRecord &bwr = pDstServerUser->bwr;
@@ -2022,7 +2054,9 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	sendMessage(uSource, msg);
 }
 
-void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) {
+void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg, bool rateLimit) {
+	Q_UNUSED(rateLimit); // Ratelimiting is not being used here anyways
+
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	int ntextures = msg.session_texture_size();
@@ -2066,8 +2100,8 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 	}
 }
 
-void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &) {
+void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &, bool) {
 }
 
-void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &) {
+void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &, bool) {
 }

@@ -427,7 +427,7 @@ class Server : public QThread {
 		void dblog(const QString &str) const;
 
 		// From msgHandler. Implementation in Messages.cpp
-#define MUMBLE_MH_MSG(x) void msg##x(ServerUser *, MumbleProto:: x &);
+#define MUMBLE_MH_MSG(x) void msg##x(ServerUser *, MumbleProto:: x &, bool rateLimit = true);
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 };
