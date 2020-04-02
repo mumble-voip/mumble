@@ -1674,6 +1674,38 @@ static void impl_Server_stopListening(const ::Murmur::AMD_Server_stopListeningPt
 	cb->ice_response();
 }
 
+static void impl_Server_isListening(const ::Murmur::AMD_Server_isListeningPtr cb, int server_id, int session, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	cb->ice_response(channel->isListening(user));
+}
+
+static void impl_Server_getListeningChannels(const ::Murmur::AMD_Server_getListeningChannelsPtr cb, int server_id, int session) {
+	NEED_SERVER;
+	NEED_PLAYER;
+
+	::Murmur::IntList channelIDs;
+	foreach(int currentChannelID, user->listeningChannelIDs()) {
+		channelIDs.push_back(currentChannelID);
+	}
+
+	cb->ice_response(channelIDs);
+}
+
+static void impl_Server_getListeningUsers(const ::Murmur::AMD_Server_getListeningUsersPtr cb, int server_id, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+
+	::Murmur::IntList userSessions;
+	foreach(int currentSession, channel->listeningUserSessions()) {
+		userSessions.push_back(currentSession);
+	}
+
+	cb->ice_response(userSessions);
+}
+
 static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroupPtr cb, int server_id, ::Ice::Int channelid,  ::Ice::Int session,  const ::std::string& group) {
 	NEED_SERVER;
 	NEED_PLAYER;
