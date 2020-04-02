@@ -788,6 +788,10 @@ module Murmur
 		 *  - The certificate is not usable with the given private key.
 		 */
 		 idempotent void updateCertificate(string certificate, string privateKey, string passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException;
+
+		 idempotent void startListening(int userid, int channelid);
+
+		 idempotent void stopListening(int userid, int channelid);
 	};
 
 	/** Callback interface for Meta. You can supply an implementation of this to receive notifications

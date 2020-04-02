@@ -517,6 +517,40 @@ void Server::disconnectListener(QObject *obj) {
 	disconnect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));
 }
 
+void Server::startListeningToChannel(ServerUser *user, Channel *cChannel) {
+	if (cChannel->isListening(user)) {
+		// The user is already listening to this channel
+		return;
+	}
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(user->uiSession);
+
+	mpus.add_listening_channel_add(cChannel->iId);
+
+	// Send the message to the server's msgUserState function in order
+	// for the server to process the new ChannelListener before it routes
+	// the message to all clients.
+	msgUserState(user, mpus, false);
+}
+
+void Server::stopListeningToChannel(ServerUser *user, Channel *cChannel) {
+	if (!cChannel->isListening(user)) {
+		// The user is not listening to this channel
+		return;
+	}
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(user->uiSession);
+
+	mpus.add_listening_channel_remove(cChannel->iId);
+
+	// Send the message to the server's msgUserState function in order
+	// for the server to process the new ChannelListener before it routes
+	// the message to all clients.
+	msgUserState(user, mpus, false);
+}
+
 void Meta::connectListener(QObject *obj) {
 	connect(this, SIGNAL(started(Server *)), obj, SLOT(started(Server *)));
 	connect(this, SIGNAL(stopped(Server *)), obj, SLOT(stopped(Server *)));

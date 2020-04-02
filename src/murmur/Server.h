@@ -340,6 +340,8 @@ class Server : public QThread {
 		void disconnectListener(QObject *p);
 		void setTempGroups(int userid, int sessionId, Channel *cChannel, const QStringList &groups);
 		void clearTempGroups(User *user, Channel *cChannel = NULL, bool recurse = true);
+		void startListeningToChannel(ServerUser *user, Channel *cChannel);
+		void stopListeningToChannel(ServerUser *user, Channel *cChannel);
 	signals:
 		void registerUserSig(int &, const QMap<int, QString> &);
 		void unregisterUserSig(int &, int);

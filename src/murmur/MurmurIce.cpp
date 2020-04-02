@@ -1654,6 +1654,26 @@ static void impl_Server_updateCertificate(const ::Murmur::AMD_Server_updateCerti
 	cb->ice_response();
 }
 
+static void impl_Server_startListening(const ::Murmur::AMD_Server_startListeningPtr cb, int server_id, int session, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	server->startListeningToChannel(user, channel);
+
+	cb->ice_response();
+}
+
+static void impl_Server_stopListening(const ::Murmur::AMD_Server_stopListeningPtr cb, int server_id, int session, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	server->stopListeningToChannel(user, channel);
+
+	cb->ice_response();
+}
+
 static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroupPtr cb, int server_id, ::Ice::Int channelid,  ::Ice::Int session,  const ::std::string& group) {
 	NEED_SERVER;
 	NEED_PLAYER;
