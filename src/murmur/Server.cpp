@@ -1021,6 +1021,11 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		}
 
 void Server::processMsg(ServerUser *u, const char *data, int len) {
+	// Note that in this function we never have to aquire a read-lock on qrwlVoiceThread
+	// as all places that call this function will hold that lock at the point of calling
+	// this function.
+	// This function is currently called from Server::msgUDPTunnel, Server::run and
+	// Server::message
 	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress || u->bSelfMute)
 		return;
 
@@ -1086,17 +1091,11 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			SENDTO;
 		}
 
-		{
-			// Send audio to all users that are listening to the channel
-			foreach(unsigned int currentSession, c->listeningUserSessions()) {
-				ServerUser *pDst;
-				{
-					QReadLocker lock(&qrwlVoiceThread);
-					pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
-				}
-				if (pDst) {
-					SENDTO;
-				}
+		// Send audio to all users that are listening to the channel
+		foreach(unsigned int currentSession, c->listeningUserSessions()) {
+			ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
+			if (pDst) {
+				SENDTO;
 			}
 		}
 
@@ -1113,11 +1112,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 					// in the original channel the audio is coming from nor are they listening to the orignal
 					// channel (in these cases they have received the audio already).
 					foreach(unsigned int currentSession, l->listeningUserSessions()) {
-						ServerUser *pDst;
-						{
-							QReadLocker lock(&qrwlVoiceThread);
-							pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
-						}
+						ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
 						if (pDst && pDst->cChannel != c && !c->isListening(currentSession)) {
 							SENDTO;
 						}
