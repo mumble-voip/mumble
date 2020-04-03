@@ -80,20 +80,36 @@ ClientUser *ClientUser::match(const ClientUser *other, bool matchname) {
 }
 
 void ClientUser::remove(unsigned int uiSession) {
-	QWriteLocker lock(&c_qrwlUsers);
-	ClientUser *p = c_qmUsers.take(uiSession);
-	if (p) {
-		if (p->cChannel)
-			p->cChannel->removeUser(p);
+	ClientUser *p;
+	{
+		QWriteLocker lock(&c_qrwlUsers);
+		p = c_qmUsers.take(uiSession);
 
-		AudioOutputPtr ao = g.ao;
-		if (ao)
-			ao->removeBuffer(p);
+		if (p) {
+			if (p->cChannel)
+				p->cChannel->removeUser(p);
 
-		if (p->tsState != Settings::Passive) {
-			QWriteLocker writeLock(&c_qrwlTalking);
-			c_qlTalking.removeAll(p);
+			if (p->tsState != Settings::Passive) {
+				QWriteLocker writeLock(&c_qrwlTalking);
+				c_qlTalking.removeAll(p);
+			}
 		}
+	}
+
+	if (p) {
+		AudioOutputPtr ao = g.ao;
+		if (ao) {
+			// It is safe to call this function and to give the ClientUser pointer
+			// to it even though we don't hold the lock anymore as it will only take
+			// the pointer to use as the key in a HashMap lookup. At no point in the
+			// code triggered by this function call will the ClientUser pointer be
+			// dereferenced.
+			// Furthermore ClientUser objects are deleted in UserModel::removeUser which
+			// calls this very function before doing so. Thus the object shouldn't be
+			// deleted before this function returns anyways.
+			ao->removeBuffer(p);
+		}
+
 	}
 }
 
