@@ -15,6 +15,7 @@
 #include "Version.h"
 #include "CryptState.h"
 #include "Meta.h"
+#include "ChannelListener.h"
 
 #include <QtCore/QStack>
 #include <QtCore/QtEndian>
@@ -462,7 +463,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (! u->qsHash.isEmpty())
 			mpus.set_hash(u8(u->qsHash));
 
-		foreach(int channelID, u->listeningChannelIDs()) {
+		foreach(int channelID, ChannelListener::getListenedChannelsForUser(u)) {
 			mpus.add_listening_channel_add(channelID);
 		}
 
@@ -677,14 +678,14 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg, bool
 		}
 
 		if (Meta::mp.iMaxListenersPerChannel >= 0
-				&& Meta::mp.iMaxListenersPerChannel - c->listeningUserSessions().size() - 1 < 0) {
+				&& Meta::mp.iMaxListenersPerChannel - ChannelListener::getListenerCountForChannel(c) - 1 < 0) {
 			// A limit for the amount of listener proxies per channel is set and it has been reached already
 			PERM_DENIED_FALLBACK(ChannelListenerLimit, 0x010400, QLatin1String("No more listeners allowed in this channel"));
 			continue;
 		}
 
 		if (Meta::mp.iMaxListenerProxiesPerUser >= 0
-				&& Meta::mp.iMaxListenerProxiesPerUser - uSource->listeningChannelIDs().size() - passedChannelListener - 1) {
+				&& Meta::mp.iMaxListenerProxiesPerUser - ChannelListener::getListenedChannelCountForUser(uSource) - passedChannelListener - 1 < 0) {
 			// A limit for the amount of listener proxies per user is set and it has been reached already
 			PERM_DENIED_FALLBACK(UserListenerLimit, 0x010400, QLatin1String("No more listeners allowed in this channel"));
 			continue;
@@ -894,7 +895,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg, bool
 		log(uSource, QString("Moved %1 to %2").arg(QString(*pDstServerUser), QString(*c)));
 		bBroadcast = true;
 
-		if (c->isListening(pDstServerUser)) {
+		if (ChannelListener::isListening(pDstServerUser, c)) {
 			// If a user joins a channel (s)he has been listening to before, it means that this user will no
 			// longer listen into that channel (as joining it can be viewed as promoting the listening to a join)
 			msg.add_listening_channel_remove(c->iId);
@@ -904,8 +905,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg, bool
 	// Handle channel listening
 	// Note that it is important to handle the listening channels after channel-joins
 	foreach(Channel *c, listeningChannelsAdd) {
-		uSource->addListeningChannel(c);
-		c->addListeningUser(uSource);
+		ChannelListener::addListener(uSource, c);
 
 		log(QString::fromLatin1("\"%1\" is now listening to channel \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
 	}
@@ -913,8 +913,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg, bool
 		Channel *c = qhChannels.value(msg.listening_channel_remove(i));
 
 		if (c) {
-			uSource->removeListeningChannel(c);
-			c->removeListeningUser(uSource);
+			ChannelListener::removeListener(uSource, c);
 
 			log(QString::fromLatin1("\"%1\" is no longer listening to \"%2\"").arg(QString(*uSource)).arg(QString(*c)));
 		}

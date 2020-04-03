@@ -6,6 +6,7 @@
 #include "ListenerLocalVolumeDialog.h"
 #include "ClientUser.h"
 #include "Channel.h"
+#include "ChannelListener.h"
 
 #include <QtWidgets/QPushButton>
 
@@ -20,7 +21,7 @@ ListenerLocalVolumeDialog::ListenerLocalVolumeDialog(ClientUser *user, Channel *
 	  m_channel(channel) {
 	setupUi(this);
 
-	m_initialAdjustemt = m_user->getListeningVolumeAdjustment(m_channel);
+	m_initialAdjustemt = ChannelListener::getListenerLocalVolumeAdjustment(m_channel);
 
 	// Decibel formula: +6db = *2
 	// Calculate the db-shift from the set volume-faactor
@@ -39,7 +40,7 @@ void ListenerLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int value) {
 
 	// Decibel formula: +6db = *2
 	// Calculate the volume-factor for the set db-shift
-	m_user->setListeningVolumeAdjustment(m_channel,
+	ChannelListener::setListenerLocalVolumeAdjustment(m_channel,
 			static_cast<float>(pow(2.0, qsUserLocalVolume->value() / 6.0)));
 }
 

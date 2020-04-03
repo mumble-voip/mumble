@@ -16,6 +16,7 @@
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
+#include "ChannelListener.h"
 
 #include <QtCore/QMimeData>
 #include <QtCore/QStack>
@@ -1241,8 +1242,7 @@ void UserModel::addChannelListener(ClientUser *p, Channel *c) {
 	int row = citem->insertIndex(p, true);
 
 	beginInsertRows(index(citem), row, row);
-	p->addListeningChannel(c);
-	c->addListeningUser(p);
+	ChannelListener::addListener(p, c);
 	citem->qlChildren.insert(row, item);
 	endInsertRows();
 
@@ -1329,8 +1329,7 @@ void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
 	int row = citem->qlChildren.indexOf(item);
 
 	beginRemoveRows(index(citem), row, row);
-	p->removeListeningChannel(c);
-	c->removeListeningUser(p);
+	ChannelListener::removeListener(p, c);
 	citem->qlChildren.removeAt(row);
 	endRemoveRows();
 
