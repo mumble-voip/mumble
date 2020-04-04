@@ -6,6 +6,18 @@
 include(../../../qmake/compiler.pri)
 include(../../../qmake/protoc.pri)
 
+GRPC_CPP_PLUGIN = $${MUMBLE_GRPC_CPP_PLUGIN}
+
+# If the MUMBLE_GRPC_CPP_PLUGIN environment variable isn't set
+isEmpty(GRPC_CPP_PLUGIN) {
+  # If we're building from Windows, use "grpc_cpp_plugin"
+  equals(QMAKE_HOST.os, "Windows") {
+    GRPC_CPP_PLUGIN = grpc_cpp_plugin
+  } else {
+    $$system(which grpc_cpp_plugin)
+  }
+}
+
 GRPC *= ../MurmurRPC.proto
 
 grpc_pbh.output = ${QMAKE_FILE_BASE}.pb.h
@@ -29,7 +41,7 @@ grpch.CONFIG *= no_link explicit_dependencies target_predeps
 
 grpc.output = ${QMAKE_FILE_BASE}.grpc.pb.cc
 grpc.depends = ${QMAKE_FILE_BASE}.pb.h
-grpc.commands = $${PROTOC} --grpc_out=. --plugin=protoc-gen-grpc=$$system(which grpc_cpp_plugin) -I. -I.. ${QMAKE_FILE_NAME}
+grpc.commands = $${PROTOC} --grpc_out=. --plugin=protoc-gen-grpc=$${GRPC_CPP_PLUGIN} -I. -I.. ${QMAKE_FILE_NAME}
 grpc.input = GRPC
 grpc.CONFIG *= no_link explicit_dependencies
 grpc.variable_out = SOURCES
