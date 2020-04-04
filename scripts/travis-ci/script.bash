@@ -64,7 +64,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
-		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
+		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
 		make -j2
 		make check TESTRUNNER="wine"
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
@@ -77,7 +77,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
-		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests warnings-as-errors g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
+		${MUMBLE_HOST}.static-qmake-qt5 -recursive -Wall CONFIG+="release tests g15-emulator no-overlay no-bonjour no-elevation no-ice ${EXTRA_CONFIG}"
 		make -j2
 		make check TESTRUNNER="wine"
 	else
@@ -89,7 +89,7 @@ elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
 	export PATH=$PATH:/usr/local/opt/qt5/bin:/usr/local/bin
 	export MUMBLE_PREFIX=/usr/local
 	export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
-	qmake CONFIG+="release tests warnings-as-errors"
+	qmake CONFIG+="release tests"
 	make -j2
 	make check
 	./macx/scripts/osxdist.py --no-compat-warning
