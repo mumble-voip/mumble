@@ -76,7 +76,18 @@ elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
 	# We don’t use the symlinked "python" installed
 	# by default in the image, so we unlink it to allow
 	# the "python@2" package to be installed without conflict.
-	brew update && brew unlink python && brew install qt5 libogg libvorbis flac libsndfile protobuf openssl ice
+	brew update && brew unlink python
+
+	# As brew will set a non-zero exit status if one of the packages it is asked to install
+	# is installed already. Thus we have to iterate through every single one and check if it
+	# is installed first.
+	for pkg in qt5 libogg libvorbis flac libsndfile protobuf openssl ice; do
+		if brew ls --versions "$pkg" > /dev/null; then
+			echo "Skipping installation of $pkg as it is already installed"
+		else
+			brew install "$pkg"
+		fi
+	done
 else
 	exit 1
 fi
