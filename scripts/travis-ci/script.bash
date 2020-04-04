@@ -17,7 +17,9 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
 			EXTRA_CONFIG="no-pch ${EXTRA_CONFIG}"
 		fi
-		qmake-qt4 CONFIG+="release tests g15-emulator qt4-legacy-compat ${EXTRA_CONFIG}" -recursive && make -j2 && make check
+		qmake-qt4 CONFIG+="release tests g15-emulator qt4-legacy-compat ${EXTRA_CONFIG}" -recursive
+		make -j2
+		make check
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		EXTRA_CONFIG=PREFIX=/usr
 		if [ "${MUMBLE_NO_PCH}" == "1" ]; then
@@ -33,7 +35,8 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 			# Run the SonarQube analysis
 			sonar-scanner
 		else
-			make -j2 && make check
+			make -j2
+			make check
 
 			if [ "${MASTER_BRANCH}" = "1" ]; then
 				# The next few lines should really be done by "make install"; https://github.com/mumble-voip/mumble/issues/1029
@@ -86,7 +89,9 @@ elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
 	export PATH=$PATH:/usr/local/opt/qt5/bin:/usr/local/bin
 	export MUMBLE_PREFIX=/usr/local
 	export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
-	qmake CONFIG+="release tests warnings-as-errors" && make -j2 && make check
+	qmake CONFIG+="release tests warnings-as-errors"
+	make -j2
+	make check
 	./macx/scripts/osxdist.py --no-compat-warning
 else
 	exit 1
