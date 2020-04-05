@@ -189,8 +189,7 @@ Overlay::~Overlay() {
 	}
 
 	// Need to be deleted first, since destructor references lingering QLocalSockets
-	foreach(OverlayClient *oc, qlClients)
-	{
+	foreach(OverlayClient *oc, qlClients) {
 		// As we're the one closing the connection, we do not need to be
 		// notified of disconnects. This is important because on disconnect we
 		// also remove (and 'delete') the overlay client.
