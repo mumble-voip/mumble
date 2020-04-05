@@ -13,7 +13,7 @@ export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
 
 ver=$(python scripts/mumble-version.py)
 
-qmake -recursive CONFIG+="release tests warnings-as-errors" DEFINES+="MUMBLE_VERSION=${ver}"
+qmake -recursive CONFIG+="release tests warnings-as-errors static" DEFINES+="MUMBLE_VERSION=${ver}"
 
 make -j $(sysctl -n hw.ncpu)
 make check
