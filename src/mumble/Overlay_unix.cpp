@@ -10,7 +10,7 @@ void Overlay::platformInit() {
 	d = NULL;
 }
 
-void Overlay::setActive(bool) {
+void Overlay::setActiveInternal(bool) {
 }
 
 bool OverlayConfig::supportsInstallableOverlay() {

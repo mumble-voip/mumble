@@ -175,8 +175,11 @@ void Overlay::platformInit() {
 	d = new OverlayPrivateMac(this);
 }
 
-void Overlay::setActive(bool act) {
-	static_cast<OverlayPrivateMac *>(d)->setActive(act);
+void Overlay::setActiveInternal(bool act) {
+	if (d) {
+		/// Only act if the private instance has been created already
+		static_cast<OverlayPrivateMac *>(d)->setActive(act);
+	}
 }
 
 bool OverlayConfig::supportsInstallableOverlay() {
