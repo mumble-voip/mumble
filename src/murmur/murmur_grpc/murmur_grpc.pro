@@ -14,7 +14,7 @@ isEmpty(GRPC_CPP_PLUGIN) {
   equals(QMAKE_HOST.os, "Windows") {
     GRPC_CPP_PLUGIN = grpc_cpp_plugin
   } else {
-    $$system(which grpc_cpp_plugin)
+    GRPC_CPP_PLUGIN = $$system(which grpc_cpp_plugin)
   }
 }
 
