@@ -2578,17 +2578,25 @@ void MainWindow::updateTarget() {
 
 			int idx = qmTargets.value(ql);
 			if (idx == 0) {
+				// An idx of 0 means that we don't have a mapping for this shortcut yet
+				// Thus we'll register it here
 				QMap<int, int> qm;
 				QMap<int, int>::const_iterator i;
+				// We reverse the qmTargetsUse map into qm so that each key becomes a value and vice versa
 				for (i=qmTargetUse.constBegin(); i != qmTargetUse.constEnd(); ++i) {
 					qm.insert(i.value(), i.key());
 				}
 
+				// The reversal and the promise that when iterating over a QMap, the keys will appear sorted
+				// leads to us now being able to get the next target ID as the value of the first entry in
+				// the map.
 				i = qm.constBegin();
 				idx = i.value();
 
 
 
+				// Sets up a VoiceTarget (which is identified by the targetID idx) on the server for the given set
+				// of ShortcutTargets
 				MumbleProto::VoiceTarget mpvt;
 				mpvt.set_id(idx);
 
@@ -2609,15 +2617,25 @@ void MainWindow::updateTarget() {
 				}
 				g.sh->sendMessage(mpvt);
 
+				// Store a mapping of the list of ShortcutTargets and the used targetID
 				qmTargets.insert(ql, idx);
 
+				// Advance the iteration of qm (which contains the reverse mapping of qmTargetUse) by two.
+				// Note that qmTargetUse is first populated in Messages.cpp so we will not overflow the map
+				// by this.
 				++i;
 				++i;
+
+				// Get the target ID for the targetID after next
 				int oldidx = i.value();
 				if (oldidx) {
 					QHash<QList<ShortcutTarget>, int>::iterator mi;
 					for (mi = qmTargets.begin(); mi != qmTargets.end(); ++mi) {
 						if (mi.value() == oldidx) {
+							// If we have used the targetID after next before, we clear the VoiceTarget for that
+							// targetID on the server in order to be able to reuse that ID once we need it. We do
+							// it 2 steps in advance as to not run into timing problems where the server might
+							// receive this clearing message too late for us to recycle the ID.
 							qmTargets.erase(mi);
 
 							mpvt.Clear();
@@ -2629,6 +2647,14 @@ void MainWindow::updateTarget() {
 					}
 				}
 			}
+
+			// This is where the magic happens. We replace the old value the used targetID was mapped to with
+			// iTargetCounter. iTargetCounter is guaranteed to be bigger than any number a targetID is currently
+			// mapped to in this map. This causes the mapping for the most recently used targetID to appear last
+			// in the qm map the next time this function gets called. This causes targetIDs to be sorted according
+			// to the time they have been assigned for the last time so that the targetID that comes last in qm will
+			// be the one that has been assigned most recently. This trick turns qmTargetUse (or rather qm) into
+			// something similar to a RingBuffer inside this method.
 			qmTargetUse.insert(idx, iTargetCounter);
 			g.bCenterPosition = center;
 			g.iTarget = idx;
