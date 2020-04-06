@@ -211,13 +211,13 @@ QString OSInfo::getOSVersion() {
 	}
 
 #if QT_VERSION >= 0x050500
-	os.asprintf("%lu.%lu.%lu.%lu",
+	os = QString::asprintf("%lu.%lu.%lu.%lu",
 		static_cast<unsigned long>(ovi.dwMajorVersion),
 		static_cast<unsigned long>(ovi.dwMinorVersion),
 		static_cast<unsigned long>(ovi.dwBuildNumber),
 		(ovi.wProductType == VER_NT_WORKSTATION) ? 1UL : 0UL);
 #else
-	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+	// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
 	os.sprintf("%lu.%lu.%lu.%lu",
 		static_cast<unsigned long>(ovi.dwMajorVersion),
 		static_cast<unsigned long>(ovi.dwMinorVersion),
@@ -244,13 +244,13 @@ QString OSInfo::getOSVersion() {
 	}
 
 #if QT_VERSION >= 0x050500
-	os.asprintf("%lu.%lu.%lu %s",
+	os = QString::asprintf("%lu.%lu.%lu %s",
 	           static_cast<unsigned long>(major),
 	           static_cast<unsigned long>(minor),
 	           static_cast<unsigned long>(bugfix),
 	           buildno ? buildno : "unknown");
 #else
-	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+	// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
 	os.sprintf("%lu.%lu.%lu %s",
 	           static_cast<unsigned long>(major),
 	           static_cast<unsigned long>(minor),
@@ -286,9 +286,9 @@ QString OSInfo::getOSVersion() {
 		if (uname(&un) == 0) {
 #endif
 #if QT_VERSION >= 0x050500
-			os.asprintf("%s %s", un.sysname, un.release);
+			os = QString::asprintf("%s %s", un.sysname, un.release);
 #else
-			// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+			// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
 			os.sprintf("%s %s", un.sysname, un.release);
 #endif // QT_VERSION >= 0x050500
 		}
@@ -512,12 +512,12 @@ QString OSInfo::getOSDisplayableVersion() {
 
 	QString osv;
 #if QT_VERSION >= 0x050500
-	osv.asprintf(" - %lu.%lu.%lu",
+	osv = QString::asprintf(" - %lu.%lu.%lu",
 		static_cast<unsigned long>(ovi.dwMajorVersion),
 		static_cast<unsigned long>(ovi.dwMinorVersion),
 		static_cast<unsigned long>(ovi.dwBuildNumber));
 #else
-	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+	// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
 	osv.sprintf(" - %lu.%lu.%lu",
 		static_cast<unsigned long>(ovi.dwMajorVersion),
 		static_cast<unsigned long>(ovi.dwMinorVersion),

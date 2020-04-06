@@ -302,9 +302,9 @@ AudioStats::~AudioStats() {
 }
 
 #if QT_VERSION >= 0x050500
-	#define FORMAT_TO_TXT(format, arg) txt.asprintf(format, arg)
+	#define FORMAT_TO_TXT(format, arg) txt = QString::asprintf(format, arg)
 #else
-	// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+	// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
 	#define FORMAT_TO_TXT(format, arg) txt.sprintf(format, arg)
 #endif
 void AudioStats::on_Tick_timeout() {

@@ -140,9 +140,9 @@ QString HostAddress::toString() const {
 		if (isValid()) {
 			QString qs;
 #if QT_VERSION >= 0x050500
-			qs.asprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]));
+			qs = QString::asprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]));
 #else
-			// sprintf() has been deprecated in Qt 5.5 in favor for asprintf()
+			// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
 			qs.sprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]));
 #endif
 			return qs.replace(QRegExp(QLatin1String("(:0)+")),QLatin1String(":"));
