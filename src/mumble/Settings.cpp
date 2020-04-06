@@ -399,6 +399,7 @@ Settings::Settings() {
 
 	iMaxLogBlocks = 0;
 	bLog24HourClock = true;
+	iChatMessageMargins = 3;
 
 	bShortcutEnable = true;
 	bSuppressMacEventTapWarning = false;
@@ -753,6 +754,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bLog24HourClock, "ui/24HourClock");
+	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
@@ -1089,6 +1091,7 @@ void Settings::save() {
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bLog24HourClock, "ui/24HourClock");
+	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
