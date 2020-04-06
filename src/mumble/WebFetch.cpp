@@ -79,7 +79,12 @@ void WebFetch::finished() {
 
 		emit fetched(a, url, headers);
 		deleteLater();
-	} else if (url.host() == prefixedServiceHost()) {
+	} else if (url.host() == prefixedServiceHost() && url.host() != serviceHost()) {
+		// We have tried to fetch from a local service domain (e.g. de-update.mumble.info)
+		// which has failed, so naturally we want to try the non-local one (update.mumble.info)
+		// as well as maybe that one will work.
+		// This of course only makes sense, if prefixedServiceHost() and serviceHost() are in fact
+		// different hosts.
 		url.setHost(serviceHost());
 
 		qnr = Network::get(url);

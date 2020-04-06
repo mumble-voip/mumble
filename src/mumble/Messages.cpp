@@ -40,14 +40,17 @@
 
 #define VICTIM_INIT \
 	ClientUser *pDst=ClientUser::get(msg.session()); \
-	 if (! pDst) { \
+	 if (!pDst) { \
  		qWarning("MainWindow: Message for nonexistent victim %d.", msg.session()); \
 		return; \
 	}
 
 #define SELF_INIT \
-	ClientUser *pSelf = ClientUser::get(g.uiSession);
-
+	ClientUser *pSelf = ClientUser::get(g.uiSession); \
+	if (!pSelf) { \
+		qWarning("MainWindow: Received message outside of session (sid %d).", g.uiSession); \
+		return; \
+	}
 
 void MainWindow::msgAuthenticate(const MumbleProto::Authenticate &) {
 }
@@ -263,8 +266,7 @@ void MainWindow::msgUDPTunnel(const MumbleProto::UDPTunnel &) {
 
 void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	ACTOR_INIT;
-	SELF_INIT;
-
+	ClientUser* pSelf = ClientUser::get(g.uiSession);
 	ClientUser *pDst = ClientUser::get(msg.session());
 	Channel *channel = NULL;
 
@@ -696,7 +698,11 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 				g.db->setChannelFiltered(sh->qbaDigest, c->iId, false);
 			c->bFiltered = false;
 		}
-		pmModel->removeChannel(c);
+		if (!pmModel->removeChannel(c, true)) {
+			g.l->log(Log::CriticalError, tr("Protocol violation. Server sent remove for occupied channel."));
+			g.sh->disconnect();
+			return;
+		}
 	}
 }
 

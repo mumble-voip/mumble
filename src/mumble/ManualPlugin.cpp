@@ -25,8 +25,11 @@ static QPointer<Manual> mDlg = NULL;
 static bool bLinkable = false;
 static bool bActive = true;
 
-static int iAzimuth = 0;
+static int iAzimuth = 180;
 static int iElevation = 0;
+
+static const QString defaultContext = QString::fromLatin1("Mumble");
+static const QString defaultIdentity = QString::fromLatin1("Agent47");
 
 static struct {
 	float avatar_pos[3];
@@ -48,7 +51,16 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	qgvPosition->viewport()->installEventFilter(this);
 	qgvPosition->scale(1.0f, 1.0f);
 	qgsScene = new QGraphicsScene(QRectF(-5.0f, -5.0f, 10.0f, 10.0f), this);
-	qgiPosition = qgsScene->addEllipse(QRectF(-0.5f, -0.5f, 1.0f, 1.0f), QApplication::palette().text().color(), QBrush(Qt::red));
+
+	const float indicatorDiameter = 4.0f;
+	QPainterPath indicator;
+	// The center of the indicator's circle will represent the current position
+	indicator.addEllipse(QRectF(-indicatorDiameter / 2, -indicatorDiameter / 2, indicatorDiameter, indicatorDiameter));
+	// A line will indicate the indicator's orientation (azimuth)
+	indicator.moveTo(0, indicatorDiameter / 2);
+	indicator.lineTo(0,  indicatorDiameter);
+
+	qgiPosition = qgsScene->addPath(indicator);
 
 	qgvPosition->setScene(qgsScene);
 	qgvPosition->fitInView(-5.0f, -5.0f, 10.0f, 10.0f, Qt::KeepAspectRatio);
@@ -67,6 +79,14 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	qsbAzimuth->setValue(iAzimuth);
 	qsbElevation->setValue(iElevation);
 	updateTopAndFront(iAzimuth, iElevation);
+
+	// Set context and identity to default values in order to
+	// a) make positional audio work out of the box (needs a context)
+	// b) make the user aware of what each field might contain
+	qleContext->setText(defaultContext);
+	qleIdentity->setText(defaultIdentity);
+	my.context = defaultContext.toStdString();
+	my.identity = defaultIdentity.toStdWString();
 }
 
 bool Manual::eventFilter(QObject *obj, QEvent *evt) {
@@ -124,8 +144,8 @@ void Manual::on_qdsbZ_valueChanged(double d) {
 }
 
 void Manual::on_qsbAzimuth_valueChanged(int i) {
-	if (i > 180)
-		qdAzimuth->setValue(-360 + i);
+	if (i > 360)
+		qdAzimuth->setValue(i % 360);
 	else
 		qdAzimuth->setValue(i);
 
@@ -184,6 +204,8 @@ void Manual::on_buttonBox_clicked(QAbstractButton *button) {
 void Manual::updateTopAndFront(int azimuth, int elevation) {
 	iAzimuth = azimuth;
 	iElevation = elevation;
+
+	qgiPosition->setRotation(azimuth);
 
 	double azim = azimuth * M_PI / 180.;
 	double elev = elevation * M_PI / 180.;

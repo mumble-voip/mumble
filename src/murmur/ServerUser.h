@@ -7,7 +7,7 @@
 #define MUMBLE_MURMUR_SERVERUSER_H_
 
 #include <QtCore/QStringList>
-#include <QtCore/QTime>
+#include <QtCore/QElapsedTimer>
 
 #ifdef Q_OS_UNIX
 #include <sys/socket.h>
@@ -56,15 +56,29 @@ struct WhisperTarget {
 
 class Server;
 
-// Simple algorithm for rate limiting
+/// A simple implementation for rate-limiting.
+/// See https://en.wikipedia.org/wiki/Leaky_bucket
 class LeakyBucket {
 	private:
-		unsigned int tokensPerSec, maxTokens;
-		long currentTokens;
-		QTime lastUpdate;
+		/// The amount of tokens that are drained per second.
+		/// (The sze of the whole in the bucket)
+		unsigned int m_tokensPerSec;
+		/// The maximum amount of tokens that may be encountered.
+		/// (The capacity of the bucket)
+		unsigned int m_maxTokens;
+		/// The amount of tokens currently stored
+		/// (The amount of whater currently in the bucket)
+		long m_currentTokens;
+		/// A timer that is used to measure time intervals. It is essential
+		/// that this timer uses a monotonic clock (which is why QElapsedTimer is
+		/// used instead of QTime or QDateTime).
+		QElapsedTimer m_timer;
 
 	public:
-		// Returns true if packets should be dropped
+		/// @param tokens The amount of tokens that should be added.
+		/// @returns Whether adding this amount of tokens triggers rate
+		/// 	limiting (true means the corresponding packet has to be
+		/// 	discared and false means the packet may be processed)
 		bool ratelimit(int tokens);
 
 		LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens);

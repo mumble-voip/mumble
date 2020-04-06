@@ -2783,7 +2783,7 @@ void MainWindow::on_gsSendTextMessage_triggered(bool down, QVariant scdata) {
 }
 
 void MainWindow::on_gsSendClipboardTextMessage_triggered(bool down, QVariant) {
-	if (!down) {
+	if (!down || (QApplication::clipboard()->text().isEmpty())) {
 		return;
 	}
 
@@ -3077,24 +3077,26 @@ void MainWindow::trayAboutToShow() {
 
 	QDesktopWidget dw;
 
-	QRect qr = dw.screenGeometry(p);
+	if (dw.screenNumber(p) >= 0) {
+		QRect qr = dw.screenGeometry(p);
 
-	if (p.y() < (qr.height() / 2))
-		top = true;
+		if (p.y() < (qr.height() / 2))
+			top = true;
 
-	qmTray->clear();
-	if (top) {
-		qmTray->addAction(qaQuit);
-		qmTray->addAction(qaShow);
-		qmTray->addSeparator();
-		qmTray->addAction(qaAudioDeaf);
-		qmTray->addAction(qaAudioMute);
-	} else {
-		qmTray->addAction(qaAudioMute);
-		qmTray->addAction(qaAudioDeaf);
-		qmTray->addSeparator();
-		qmTray->addAction(qaShow);
-		qmTray->addAction(qaQuit);
+		qmTray->clear();
+		if (top) {
+			qmTray->addAction(qaQuit);
+			qmTray->addAction(qaShow);
+			qmTray->addSeparator();
+			qmTray->addAction(qaAudioDeaf);
+			qmTray->addAction(qaAudioMute);
+		} else {
+			qmTray->addAction(qaAudioMute);
+			qmTray->addAction(qaAudioDeaf);
+			qmTray->addSeparator();
+			qmTray->addAction(qaShow);
+			qmTray->addAction(qaQuit);
+		}
 	}
 }
 

@@ -11,4 +11,6 @@ export PATH=$PATH:/usr/local/opt/qt5/bin:/usr/local/bin
 export MUMBLE_PREFIX=/usr/local
 export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
 
-qmake -recursive CONFIG+="release tests warnings-as-errors" && make -j $(sysctl -n hw.ncpu) && make check
+qmake -recursive CONFIG+="release tests warnings-as-errors"
+make -j $(sysctl -n hw.ncpu)
+make check

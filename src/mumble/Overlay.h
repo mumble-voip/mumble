@@ -83,8 +83,14 @@ class Overlay : public QObject {
 
 		QSet<unsigned int> qsQueried;
 		QSet<unsigned int> qsQuery;
+		/// A flag indicating if the platformInit has been called already
+		bool m_initialized;
 
+		// These 2 functions (among others) are implemented by the system-specific backend
 		void platformInit();
+		void setActiveInternal(bool act);
+
+		void createPipe();
 
 		QMap<QString, QString> qmOverlayHash;
 		QLocalServer *qlsServer;

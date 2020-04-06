@@ -352,6 +352,14 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0) {
+					if (p == pSelf && p->bSelfMute) {
+						// This is a workaround for a bug that can lead to the user having muted him/herself but
+						// the talking icon is stuck at qiTalkingOn for some reason.
+						// Until someone figures out how to fix the root of the problem, we'll have this workaround
+						// to cure the symptoms of the bug.
+						return qiTalkingOff;
+					}
+
 					switch (p->tsState) {
 						case Settings::Talking:
 							return qiTalkingOn;
@@ -1156,12 +1164,12 @@ Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 	return c;
 }
 
-void UserModel::removeChannel(Channel *c) {
-	ModelItem *item, *i;
+bool UserModel::removeChannel(Channel *c, const bool onlyIfUnoccupied) {
+	const ModelItem *item = ModelItem::c_qhChannels.value(c);
+	
+	if (onlyIfUnoccupied && item->iUsers !=0) return false; // Checks full hierarchy
 
-	item=ModelItem::c_qhChannels.value(c);
-
-	foreach(i, item->qlChildren) {
+	foreach(const ModelItem *i, item->qlChildren) {
 		if (i->pUser)
 			removeUser(i->pUser);
 		else
@@ -1171,7 +1179,7 @@ void UserModel::removeChannel(Channel *c) {
 	Channel *p = c->cParent;
 
 	if (! p)
-		return;
+		return true;
 
 	ModelItem *citem = ModelItem::c_qhChannels.value(p);
 
@@ -1187,6 +1195,7 @@ void UserModel::removeChannel(Channel *c) {
 
 	delete item;
 	delete c;
+	return true;
 }
 
 void UserModel::moveChannel(Channel *c, Channel *p) {

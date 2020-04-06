@@ -373,7 +373,7 @@ int main(int argc, char **argv) {
 
 #ifdef Q_OS_MAC
 	if (os_lang) {
-		qWarning("Using Mac OS X system langauge as locale name");
+		qWarning("Using Mac OS X system language as locale name");
 		qsSystemLocale = QLatin1String(os_lang);
 	}
 #endif
@@ -430,9 +430,6 @@ int main(int argc, char **argv) {
 	g.bc = new BonjourClient();
 #endif
 
-	//TODO: This already loads up the DLL and does some initial hooking, even
-	// when the OL is disabled. This should either not be done (object instantiation)
-	// or the dll loading and preparation be delayed to first use.
 	g.o = new Overlay();
 	g.o->setActive(g.s.os.bEnable);
 

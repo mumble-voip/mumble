@@ -58,7 +58,13 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 		path.prepend(c->qsName);
 		c = c->cParent;
 	}
-	u.setPath(path.join(QLatin1String("/")));
+	QString fullpath = path.join(QLatin1String("/"));
+	// Make sure fullpath starts with a slash for non-empty paths. Setting
+	// a path without a leading slash clears the whole QUrl.
+	if (!fullpath.isEmpty()) {
+	    fullpath.prepend(QLatin1String("/"));
+	}
+	u.setPath(fullpath);
 	QDBusConnection::sessionBus().send(msg.createReply(QString::fromLatin1(u.toEncoded())));
 }
 

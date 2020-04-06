@@ -1420,6 +1420,19 @@ void Server::sslError(const QList<QSslError> &errors) {
 }
 
 void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &reason) {
+	if (reason.contains(QLatin1String("140E0197"))) {
+		// A severe bug was introduced in qt/qtbase@93a803a6de27d9eb57931c431b5f3d074914f693.
+		// q_SSL_shutdown() causes Qt to emit "error()" from unrelated QSslSocket(s), in addition to the correct one.
+		// The issue causes this function to disconnect random authenticated clients.
+		//
+		// The workaround consists in ignoring a specific OpenSSL error:
+		// "Error while reading: error:140E0197:SSL routines:SSL_shutdown:shutdown while in init [20]"
+		//
+		// Definitely not ideal, but it fixes a critical vulnerability.
+		qWarning("Ignored OpenSSL error 140E0197 for %p", sender());
+		return;
+	}
+
 	Connection *c = qobject_cast<Connection *>(sender());
 	if (! c)
 		return;
@@ -1630,7 +1643,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		}
 
 		Channel *target = dest;
-		while (target->cParent && ! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter))
+		while (target->cParent && (! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter) || isChannelFull(target, static_cast<ServerUser *>(p))))
 			target = target->cParent;
 
 		MumbleProto::UserState mpus;
