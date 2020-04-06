@@ -320,8 +320,11 @@ void Overlay::platformInit() {
 	d = new OverlayPrivateWin(this);
 }
 
-void Overlay::setActive(bool act) {
-	static_cast<OverlayPrivateWin *>(d)->setActive(act);
+void Overlay::setActiveInternal(bool act) {
+	if (d) {
+		// Only act if the private instance has been created already
+		static_cast<OverlayPrivateWin *>(d)->setActive(act);
+	}
 }
 
 bool OverlayConfig::supportsInstallableOverlay() {

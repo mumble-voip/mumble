@@ -102,7 +102,7 @@ const QString Settings::cqsDefaultPushClickOn = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
 OverlaySettings::OverlaySettings() {
-	bEnable = true;
+	bEnable = false;
 
 	fX = 1.0f;
 	fY = 0.0f;
