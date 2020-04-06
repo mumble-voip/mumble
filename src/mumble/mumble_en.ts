@@ -3013,10 +3013,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Whisper to list of Users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Channel Target</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3061,15 +3057,31 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shout to Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The whisper will also be transmitted to linked channels.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shout/Whisper to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When shouting to channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shout to linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5479,6 +5491,10 @@ the channel&apos;s context menu.</source>
         <source>Protocol violation. Server sent remove for occupied channel.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -5559,10 +5575,6 @@ the channel&apos;s context menu.</source>
     <name>NetworkConfig</name>
     <message>
         <source>Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Updates are mandatory when using snapshot releases.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6609,6 +6621,10 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current selection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
