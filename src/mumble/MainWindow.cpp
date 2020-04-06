@@ -2552,7 +2552,28 @@ void MainWindow::updateTarget() {
 			ShortcutTarget nt;
 			center = center || st.bForceCenter;
 			nt.bUsers = st.bUsers;
-			if (st.bUsers) {
+			nt.bCurrentSelection = st.bCurrentSelection;
+
+			if (nt.bCurrentSelection) {
+				Channel *c = pmModel->getSelectedChannel();
+				if (c) {
+					nt.bUsers = false;
+					nt.iChannel = c->iId;
+					nt.bLinks = st.bLinks;
+					nt.bChildren = st.bChildren;
+
+					ql << nt;
+				} else {
+					ClientUser *user = pmModel->getSelectedUser();
+
+					if (user) {
+						nt.bUsers = true;
+						nt.qlSessions << user->uiSession;
+
+						ql << nt;
+					}
+				}
+			} else if (st.bUsers) {
 				foreach(const QString &hash, st.qlUsers) {
 					ClientUser *p = pmModel->getUser(hash);
 					if (p)
@@ -2602,6 +2623,8 @@ void MainWindow::updateTarget() {
 
 				foreach(const ShortcutTarget &st, ql) {
 					MumbleProto::VoiceTarget_Target *t = mpvt.add_targets();
+					// st.bCurrentSelection has been taken care of at this point already (if it was set) so
+					// we don't have to check for that here.
 					if (st.bUsers) {
 						foreach(unsigned int uisession, st.qlSessions)
 							t->add_session(uisession);

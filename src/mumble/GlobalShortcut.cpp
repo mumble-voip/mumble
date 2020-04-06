@@ -196,16 +196,21 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	qcbForceCenter->setChecked(st.bForceCenter);
 	qgbModifiers->setVisible(true);
 
-	if (st.bUsers) {
-		qrbUsers->setChecked(true);
+	if (st.bCurrentSelection) {
+		qcbTarget->setCurrentIndex(Target::SELECTION);
+		qswStack->setCurrentWidget(qwSelectionPage);
+	} else if (st.bUsers) {
+		qcbTarget->setCurrentIndex(Target::USERLIST);
 		qswStack->setCurrentWidget(qwUserPage);
 	} else {
-		qrbChannel->setChecked(true);
+		qcbTarget->setCurrentIndex(Target::CHANNEL);
 		qswStack->setCurrentWidget(qwChannelPage);
 	}
 
 	qcbLinks->setChecked(st.bLinks);
+	qcbShoutLinks->setChecked(st.bLinks);
 	qcbChildren->setChecked(st.bChildren);
+	qcbShoutSubchans->setChecked(st.bChildren);
 
 	// Insert all known friends into the possible targets list
 	const QMap<QString, QString> &friends = g.db->getFriends();
@@ -314,34 +319,60 @@ ShortcutTarget ShortcutTargetDialog::target() const {
 }
 
 void ShortcutTargetDialog::accept() {
-	stTarget.bLinks = qcbLinks->isChecked();
-	stTarget.bChildren = qcbChildren->isChecked();
+	if (qswStack->currentWidget() == qwSelectionPage) {
+		stTarget.bLinks = qcbShoutLinks->isChecked();
+		stTarget.bChildren = qcbShoutSubchans->isChecked();
+	} else {
+		stTarget.bLinks = qcbLinks->isChecked();
+		stTarget.bChildren = qcbChildren->isChecked();
+	}
 
 	stTarget.bForceCenter = qcbForceCenter->isChecked();
 
 	stTarget.qlUsers.clear();
-	QList<QListWidgetItem *> ql = qlwUsers->findItems(QString(), Qt::MatchStartsWith);
-	foreach(QListWidgetItem *itm, ql) {
-		stTarget.qlUsers << itm->data(Qt::UserRole).toString();
-	}
+	stTarget.qsGroup.clear();
+	stTarget.iChannel = -3; // Reset it to the value it has been assigned in the constructor of ShotcutTarget
 
-	QTreeWidgetItem *qtwi = qtwChannels->currentItem();
-	if (qtwi) {
-		stTarget.iChannel = qtwi->data(0, Qt::UserRole).toInt();
-		stTarget.qsGroup = qleGroup->text().trimmed();
+	if (!stTarget.bCurrentSelection) {
+		QList<QListWidgetItem *> ql = qlwUsers->findItems(QString(), Qt::MatchStartsWith);
+		foreach(QListWidgetItem *itm, ql) {
+			stTarget.qlUsers << itm->data(Qt::UserRole).toString();
+		}
+
+		QTreeWidgetItem *qtwi = qtwChannels->currentItem();
+		if (qtwi) {
+			stTarget.iChannel = qtwi->data(0, Qt::UserRole).toInt();
+			stTarget.qsGroup = qleGroup->text().trimmed();
+		}
 	}
 
 	QDialog::accept();
 }
 
-void ShortcutTargetDialog::on_qrbUsers_clicked() {
-	stTarget.bUsers = true;
-	qswStack->setCurrentWidget(qwUserPage);
-}
+void ShortcutTargetDialog::on_qcbTarget_currentIndexChanged(int index) {
+	switch (index) {
+		default:
+			qWarning("GlobalShortcutDialog: Encountered impossible target index! => bug");
+			// Fallthrough
+		case Target::SELECTION:
+			stTarget.bUsers = false;
+			stTarget.bCurrentSelection = true;
 
-void ShortcutTargetDialog::on_qrbChannel_clicked() {
-	stTarget.bUsers = false;
-	qswStack->setCurrentWidget(qwChannelPage);
+			qswStack->setCurrentWidget(qwSelectionPage);
+			break;
+		case Target::USERLIST:
+			stTarget.bUsers = true;
+			stTarget.bCurrentSelection = false;
+
+			qswStack->setCurrentWidget(qwUserPage);
+			break;
+		case Target::CHANNEL:
+			stTarget.bUsers = false;
+			stTarget.bCurrentSelection = false;
+
+			qswStack->setCurrentWidget(qwChannelPage);
+			break;
+	}
 }
 
 void ShortcutTargetDialog::on_qpbAdd_clicked() {
@@ -379,7 +410,9 @@ ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
  * This function returns a textual representation of the given shortcut target st.
  */
 QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
-	if (st.bUsers) {
+	if (st.bCurrentSelection) {
+		return tr("Current selection");
+	} else if (st.bUsers) {
 		if (! st.qlUsers.isEmpty()) {
 			QMap<QString, QString> hashes;
 

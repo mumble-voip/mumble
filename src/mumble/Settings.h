@@ -35,6 +35,7 @@ struct Shortcut {
 };
 
 struct ShortcutTarget {
+	bool bCurrentSelection;
 	bool bUsers;
 	QStringList qlUsers;
 	QList<unsigned int> qlSessions;
