@@ -25,6 +25,8 @@ public:
 	Channel *cChan;
 	ClientUser *pUser;
 
+	bool isListener;
+
 	bool bCommentSeen;
 
 	ModelItem *parent;
@@ -35,10 +37,11 @@ public:
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
 	static QHash <ClientUser *, ModelItem *> c_qhUsers;
+	static QHash <ClientUser *, QList<ModelItem *>> s_userProxies;
 	static bool bUsersTop;
 
 	ModelItem(Channel *c);
-	ModelItem(ClientUser *p);
+	ModelItem(ClientUser *p, bool isListener = false);
 	ModelItem(ModelItem *);
 	~ModelItem();
 
@@ -52,7 +55,7 @@ public:
 	int rowOfSelf() const;
 	int rows() const;
 	int insertIndex(Channel *c) const;
-	int insertIndex(ClientUser *p) const;
+	int insertIndex(ClientUser *p, bool isListener = false) const;
 	QString hash() const;
 	void wipe();
 };
@@ -73,6 +76,7 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiFriend;
 		QIcon qiComment, qiCommentSeen, qiFilter;
 		QIcon qiLock_locked, qiLock_unlocked;
+		QIcon qiEar;
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
@@ -83,6 +87,14 @@ class UserModel : public QAbstractItemModel {
 		ModelItem *moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item);
 
 		QString stringIndex(const QModelIndex &index) const;
+
+		/// Removes the guven user as a listener to the given channel
+		///
+		/// @param item A pointer to the listener's ModelItem that shall be removed
+		/// @param citem A pointer to the ModelItem that represents the channel the listener
+		/// 	is in. The listener has to be a direct child of this item. If this is nullptr,
+		/// 	the parent of the provided item is used directly.
+		void removeChannelListener(ModelItem *item, ModelItem *citem = nullptr);
 	public:
 		UserModel(QObject *parent = 0);
 		~UserModel() Q_DECL_OVERRIDE;
@@ -109,6 +121,21 @@ class UserModel : public QAbstractItemModel {
 
 		Channel *addChannel(int id, Channel *p, const QString &name);
 		Channel *getChannel(const QModelIndex &idx) const;
+
+		/// Adds the guven user as a listener to the given channel
+		///
+		/// @param p A pointer to the user
+		/// @param c A pointer to the channel
+		void addChannelListener(ClientUser *p, Channel *c);
+		/// Removes the guven user as a listener to the given channel
+		///
+		/// @param p A pointer to the user
+		/// @param c A pointer to the channel. If this is nullptr, then all listeners
+		/// 	for the given user are removed (from all channels).
+		void removeChannelListener(ClientUser *p, Channel *c = nullptr);
+		/// @param idx The QModelIndex to check
+		/// @returns Whether the ModelItem associated with the given index is a listener-proxy
+		bool isChannelListener(const QModelIndex &idx) const;
 
 		Channel *getSubChannel(Channel *p, int idx) const;
 

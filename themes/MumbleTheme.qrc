@@ -21,6 +21,7 @@
     <file alias="deafened_self.svg">Mumble/deafened_self.svg</file>
     <file alias="deafened_server.svg">Mumble/deafened_server.svg</file>
     <file alias="default_avatar.svg">Mumble/default_avatar.svg</file>
+    <file alias="ear.svg">Mumble/ear.svg</file>
     <file alias="filter.svg">Mumble/filter.svg</file>
     <file alias="filter_off.svg">Mumble/filter_off.svg</file>
     <file alias="filter_on.svg">Mumble/filter_on.svg</file>

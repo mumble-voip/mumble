@@ -788,6 +788,39 @@ module Murmur
 		 *  - The certificate is not usable with the given private key.
 		 */
 		 idempotent void updateCertificate(string certificate, string privateKey, string passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException;
+
+		 /**
+		  * Makes the given user start listening to the given channel.
+		  * @param userid The ID of the user
+		  * @param channelid The ID of the channel
+		  */
+		 idempotent void startListening(int userid, int channelid);
+
+		 /**
+		  * Makes the given user stop listening to the given channel.
+		  * @param userid The ID of the user
+		  * @param channelid The ID of the channel
+		  */
+		 idempotent void stopListening(int userid, int channelid);
+
+		 /**
+		  * @param userid The ID of the user
+		  * @param channelid The ID of the channel
+		  * @returns Whether the given user is currently listening to the given channel
+		  */
+		 idempotent bool isListening(int userid, int channelid);
+
+		 /**
+		  * @param userid The ID of the user
+		  * @returns An ID-list of channels the given user is listening to
+		  */
+		 idempotent IntList getListeningChannels(int userid);
+
+		 /**
+		  * @param channelid The ID of the channel
+		  * @returns An ID-list of users listening to the given channel
+		  */
+		 idempotent IntList getListeningUsers(int channelid);
 	};
 
 	/** Callback interface for Meta. You can supply an implementation of this to receive notifications

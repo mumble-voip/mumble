@@ -48,6 +48,8 @@
 #include "Screen.h"
 #include "SvgIcon.h"
 #include "Utils.h"
+#include "ListenerLocalVolumeDialog.h"
+#include "ChannelListener.h"
 
 #ifdef Q_OS_WIN
 # include "TaskList.h"
@@ -144,8 +146,12 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qmUser = new QMenu(tr("&User"), this);
 	qmChannel = new QMenu(tr("&Channel"), this);
+	qmListener = new QMenu(tr("&Listener"), this);
 
 	qmDeveloper = new QMenu(tr("&Developer"), this);
+
+	qaEmpty = new QAction(tr("No action available..."), this);
+	qaEmpty->setEnabled(false);
 
 	createActions();
 	setupUi(this);
@@ -153,6 +159,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
+	connect(qmListener, SIGNAL(aboutToShow()), this, SLOT(qmListener_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
 
 	// Tray
@@ -707,14 +714,29 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 	ClientUser *p = pmModel->getUser(idx);
 
 	qpContextPosition = mpos;
-	if (p) {
+	if (pmModel->isChannelListener(idx)) {
+		// Have a separate context menu for listeners
+		QModelIndex parent = idx.parent();
+
+		if (parent.isValid()) {
+			// Find the channel in which the action was triggered and set it
+			// in order to be able to obtain it in the action itself
+			cContextChannel = pmModel->getChannel(parent);
+		}
 		cuContextUser.clear();
-		qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
+		qmListener->exec(qtvUsers->mapToGlobal(mpos), nullptr);
 		cuContextUser.clear();
+		cContextChannel.clear();
 	} else {
-		cContextChannel.clear();
-		qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
-		cContextChannel.clear();
+		if (p) {
+			cuContextUser.clear();
+			qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
+			cuContextUser.clear();
+		} else {
+			cContextChannel.clear();
+			qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
+			cContextChannel.clear();
+		}
 	}
 	qpContextPosition = QPoint();
 }
@@ -1562,6 +1584,40 @@ void MainWindow::qmUser_aboutToShow() {
 	updateMenuPermissions();
 }
 
+void MainWindow::qmListener_aboutToShow() {
+	ClientUser *p = nullptr;
+	if (g.uiSession != 0) {
+		QModelIndex idx;
+		if (! qpContextPosition.isNull())
+			idx = qtvUsers->indexAt(qpContextPosition);
+
+		if (! idx.isValid())
+			idx = qtvUsers->currentIndex();
+
+		p = pmModel->getUser(idx);
+
+		if (cuContextUser)
+			p = cuContextUser.data();
+	}
+
+	cuContextUser = p;
+	qpContextPosition = QPoint();
+
+	bool self = p && (p->uiSession == g.uiSession);
+
+	qmListener->clear();
+
+	if (self) {
+		qmListener->addAction(qaListenerLocalVolume);
+		if (cContextChannel) {
+			qmListener->addAction(qaChannelListen);
+			qaChannelListen->setChecked(ChannelListener::isListening(g.uiSession, cContextChannel->iId));
+		}
+	} else {
+		qmListener->addAction(qaEmpty);
+	}
+}
+
 void MainWindow::on_qaUserMute_triggered() {
 	ClientUser *p = getContextMenuUser();
 	if (!p)
@@ -1927,6 +1983,14 @@ void MainWindow::qmChannel_aboutToShow() {
 
 	if (c && c->iId != ClientUser::get(g.uiSession)->cChannel->iId) {
 		qmChannel->addAction(qaChannelJoin);
+
+		if (g.sh->uiVersion >= 0x010400) {
+			// If the server's version is less than 1.4, the listening feature is not supported yet
+			// and thus it doesn't make sense to show the action for it
+			qmChannel->addAction(qaChannelListen);
+			qaChannelListen->setChecked(ChannelListener::isListening(g.uiSession, c->iId));
+		}
+
 		qmChannel->addSeparator();
 	}
 
@@ -2005,6 +2069,18 @@ void MainWindow::on_qaChannelJoin_triggered() {
 
 	if (c) {
 		g.sh->joinChannel(g.uiSession, c->iId);
+	}
+}
+
+void MainWindow::on_qaChannelListen_triggered() {
+	Channel *c = getContextMenuChannel();
+
+	if (c) {
+		if (qaChannelListen->isChecked()) {
+			g.sh->startListeningToChannel(c->iId);
+		} else {
+			g.sh->stopListeningToChannel(c->iId);
+		}
 	}
 }
 
@@ -2146,6 +2222,18 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 	}
 
 	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
+}
+
+void MainWindow::on_qaListenerLocalVolume_triggered() {
+	Channel *channel = getContextMenuChannel();
+	ClientUser *user = getContextMenuUser();
+
+	if (!channel || !user) {
+		return;
+	}
+
+	ListenerLocalVolumeDialog dialog(user, channel);	
+	dialog.exec();
 }
 
 /**

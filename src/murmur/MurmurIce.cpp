@@ -15,6 +15,7 @@
 #include "User.h"
 #include "Ban.h"
 #include "Utils.h"
+#include "ChannelListener.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSettings>
@@ -1652,6 +1653,58 @@ static void impl_Server_updateCertificate(const ::Murmur::AMD_Server_updateCerti
 	server->initializeCert();
 
 	cb->ice_response();
+}
+
+static void impl_Server_startListening(const ::Murmur::AMD_Server_startListeningPtr cb, int server_id, int session, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	server->startListeningToChannel(user, channel);
+
+	cb->ice_response();
+}
+
+static void impl_Server_stopListening(const ::Murmur::AMD_Server_stopListeningPtr cb, int server_id, int session, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	server->stopListeningToChannel(user, channel);
+
+	cb->ice_response();
+}
+
+static void impl_Server_isListening(const ::Murmur::AMD_Server_isListeningPtr cb, int server_id, int session, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+	NEED_PLAYER;
+
+	cb->ice_response(ChannelListener::isListening(user, channel));
+}
+
+static void impl_Server_getListeningChannels(const ::Murmur::AMD_Server_getListeningChannelsPtr cb, int server_id, int session) {
+	NEED_SERVER;
+	NEED_PLAYER;
+
+	::Murmur::IntList channelIDs;
+	foreach(int currentChannelID, ChannelListener::getListenedChannelsForUser(user)) {
+		channelIDs.push_back(currentChannelID);
+	}
+
+	cb->ice_response(channelIDs);
+}
+
+static void impl_Server_getListeningUsers(const ::Murmur::AMD_Server_getListeningUsersPtr cb, int server_id, int channelid) {
+	NEED_SERVER;
+	NEED_CHANNEL;
+
+	::Murmur::IntList userSessions;
+	foreach(unsigned int currentSession, ChannelListener::getListenersForChannel(channel)) {
+		userSessions.push_back(currentSession);
+	}
+
+	cb->ice_response(userSessions);
 }
 
 static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroupPtr cb, int server_id, ::Ice::Int channelid,  ::Ice::Int session,  const ::std::string& group) {

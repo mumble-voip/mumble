@@ -16,6 +16,7 @@
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
+#include "ChannelListener.h"
 
 #include <QtCore/QMimeData>
 #include <QtCore/QStack>
@@ -29,22 +30,33 @@
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
+QHash <ClientUser *, QList<ModelItem *>> ModelItem::s_userProxies;
 bool ModelItem::bUsersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
 	this->cChan = c;
 	this->pUser = NULL;
+	this->isListener = false;
 	bCommentSeen = true;
 	c_qhChannels.insert(c, this);
 	parent = c_qhChannels.value(c->cParent);
 	iUsers = 0;
 }
 
-ModelItem::ModelItem(ClientUser *p) {
+ModelItem::ModelItem(ClientUser *p, bool isListener) {
 	this->cChan = NULL;
 	this->pUser = p;
+	this->isListener = isListener;
 	bCommentSeen = true;
-	c_qhUsers.insert(p, this);
+	if (isListener) {
+		// The way operator[] works for a QHash is that it'll insert a default-constructed
+		// object first, before returning a reference to it, in case there is no entry for
+		// the provided key yet. Thus we never have to worry about explicitly adding an empty
+		// list for a new user before accessing it.
+		s_userProxies[p] << this;
+	} else {
+		c_qhUsers.insert(p, this);
+	}
 	parent = c_qhChannels.value(p->cChannel);
 	iUsers = 0;
 }
@@ -55,9 +67,15 @@ ModelItem::ModelItem(ModelItem *i) {
 	this->pUser = i->pUser;
 	this->parent = i->parent;
 	this->bCommentSeen = i->bCommentSeen;
+	this->isListener = i->isListener;
 
-	if (pUser)
-		c_qhUsers.insert(pUser, this);
+	if (pUser) {
+		if (isListener) {
+			s_userProxies[pUser] << this;
+		} else {
+			c_qhUsers.insert(pUser, this);
+		}
+	}
 	else if (cChan)
 		c_qhChannels.insert(cChan, this);
 
@@ -69,8 +87,14 @@ ModelItem::~ModelItem() {
 
 	if (cChan && c_qhChannels.value(cChan) == this)
 		c_qhChannels.remove(cChan);
-	if (pUser && c_qhUsers.value(pUser) == this)
-		c_qhUsers.remove(pUser);
+	if (pUser) {
+		if (isListener) {
+			s_userProxies[pUser].removeAll(this);
+		} else {
+			if (c_qhUsers.value(pUser) == this)
+				c_qhUsers.remove(pUser);
+		}
+	}
 }
 
 void ModelItem::wipe() {
@@ -153,24 +177,37 @@ int ModelItem::insertIndex(Channel *c) const {
 	return qlpc.indexOf(c) + (bUsersTop ? ocount : 0);
 }
 
-int ModelItem::insertIndex(ClientUser *p) const {
+int ModelItem::insertIndex(ClientUser *p, bool isListener) const {
 	QList<ClientUser*> qlclientuser;
 	ModelItem *item;
 
 	int ocount = 0;
+	int listenerCount = 0;
 
 	foreach(item, qlChildren) {
 		if (item->pUser) {
-			if (item->pUser != p)
-				qlclientuser << item->pUser;
-		} else
+			if (item->pUser != p) {
+				// Make sure listeners and non-listeners are all grouped together and not mixed
+				if ((isListener && item->isListener) || (!isListener && !item->isListener)) {
+					qlclientuser << item->pUser;
+				}
+			}
+
+			if (item->isListener) {
+				listenerCount++;
+			}
+		} else {
 			ocount++;
+		}
 	}
 
 	qlclientuser << p;
 	std::sort(qlclientuser.begin(), qlclientuser.end(), ClientUser::lessThan);
 
-	return qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount);
+	// Make sure that the a user is always added to other users either all above or all below
+	// sub-channels) and also make sure that listeners are grouped together and directly above
+	// normal users.
+	return qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount) + (isListener ? 0 : listenerCount);
 }
 
 QString ModelItem::hash() const {
@@ -220,6 +257,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiFilter=QIcon(QLatin1String("skin:filter.svg"));
 	qiLock_locked=QIcon(QLatin1String("skin:lock_locked.svg"));
 	qiLock_unlocked=QIcon(QLatin1String("skin:lock_unlocked.svg"));
+	qiEar=QIcon(QLatin1String("skin:ear.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;
 
@@ -359,24 +397,29 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0) {
-					if (p == pSelf && p->bSelfMute) {
-						// This is a workaround for a bug that can lead to the user having muted him/herself but
-						// the talking icon is stuck at qiTalkingOn for some reason.
-						// Until someone figures out how to fix the root of the problem, we'll have this workaround
-						// to cure the symptoms of the bug.
-						return qiTalkingOff;
-					}
-
-					switch (p->tsState) {
-						case Settings::Talking:
-							return qiTalkingOn;
-						case Settings::Whispering:
-							return qiTalkingWhisper;
-						case Settings::Shouting:
-							return qiTalkingShout;
-						case Settings::Passive:
-						default:
+					if (item->isListener) {
+						return qiEar;
+					} else {
+						// Select the talking-state symbol to display
+						if (p == pSelf && p->bSelfMute) {
+							// This is a workaround for a bug that can lead to the user having muted him/herself but
+							// the talking icon is stuck at qiTalkingOn for some reason.
+							// Until someone figures out how to fix the root of the problem, we'll have this workaround
+							// to cure the symptoms of the bug.
 							return qiTalkingOff;
+						}
+
+						switch (p->tsState) {
+							case Settings::Talking:
+								return qiTalkingOn;
+							case Settings::Whispering:
+								return qiTalkingWhisper;
+							case Settings::Shouting:
+								return qiTalkingShout;
+							case Settings::Passive:
+							default:
+								return qiTalkingOff;
+						}
 					}
 				}
 				break;
@@ -384,6 +427,12 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
 					QFont f = g.mw->font();
 					f.setBold(! f.bold());
+					f.setItalic(item->isListener);
+					return f;
+				}
+				if (item->isListener) {
+					QFont f = g.mw->font();
+					f.setItalic(true);
 					return f;
 				}
 				break;
@@ -394,34 +443,37 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					else
 						return p->qsName;
 				}
-				if (! p->qbaCommentHash.isEmpty())
+				// Most of the following icons are for non-listeners (as listeners are merely proxies) only
+				// but in order to not change the order of the icons, the condition is added to each case
+				// individually instead of checking it up front.
+				if (! p->qbaCommentHash.isEmpty() && !item->isListener)
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
-				if (p->bPrioritySpeaker)
+				if (p->bPrioritySpeaker && !item->isListener)
 					l << qiPrioritySpeaker;
 				if (p->bRecording)
 					l << qiRecording;
 				// ClientUser doesn't contain a push-to-mute
 				// state because it isn't sent to the server.
 				// We can show the icon only for the local user.
-				if (p == pSelf && g.bPushToMute)
+				if (p == pSelf && g.bPushToMute && !item->isListener)
 					l << qiMutedPushToMute;
-				if (p->bMute)
+				if (p->bMute || item->isListener)
 					l << qiMutedServer;
-				if (p->bSuppress)
+				if (p->bSuppress && !item->isListener)
 					l << qiMutedSuppressed;
-				if (p->bSelfMute)
+				if (p->bSelfMute && !item->isListener)
 					l << qiMutedSelf;
-				if (p->bLocalMute)
+				if (p->bLocalMute && !item->isListener)
 					l << qiMutedLocal;
-				if (p->bLocalIgnore)
+				if (p->bLocalIgnore && !item->isListener)
 					l << qiIgnoredLocal;
 				if (p->bDeaf)
 					l << qiDeafenedServer;
 				if (p->bSelfDeaf)
 					l << qiDeafenedSelf;
-				if (p->iId >= 0)
+				if (p->iId >= 0 && !item->isListener)
 					l << qiAuthenticated;
-				if (! p->qsFriendName.isEmpty())
+				if (! p->qsFriendName.isEmpty() && !item->isListener)
 					l << qiFriend;
 				return l;
 			default:
@@ -715,7 +767,6 @@ void UserModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelInde
 
 ModelItem *UserModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item) {
 	// Here's the idea. We insert the item, update persistent indexes, THEN remove it.
-
 	int oldrow = oldparent->qlChildren.indexOf(item);
 	int newrow = -1;
 
@@ -896,6 +947,9 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 }
 
 void UserModel::removeUser(ClientUser *p) {
+	// First remove all listener proxies this user has at the moment
+	removeChannelListener(p);
+
 	if (g.uiSession && p->uiSession == g.uiSession)
 		g.uiSession = 0;
 	Channel *c = p->cChannel;
@@ -1179,16 +1233,134 @@ Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 	return c;
 }
 
+void UserModel::addChannelListener(ClientUser *p, Channel *c) {
+	ModelItem *item = new ModelItem(p, true);
+	ModelItem *citem = ModelItem::c_qhChannels.value(c);
+
+	item->parent = citem;
+
+	int row = citem->insertIndex(p, true);
+
+	beginInsertRows(index(citem), row, row);
+	ChannelListener::addListener(p, c);
+	citem->qlChildren.insert(row, item);
+	endInsertRows();
+
+	while (citem) {
+		citem->iUsers++;
+		citem = citem->parent;
+	}
+
+	updateOverlay();
+}
+
+void UserModel::removeChannelListener(ClientUser *p, Channel *c) {
+	// The way operator[] works for a QHash is that it'll insert a default-constructed
+	// object first, before returning a reference to it, in case there is no entry for
+	// the provided key yet. Thus we never have to worry about explicitly adding an empty
+	// list for a new user before accessing it.
+	const QList<ModelItem *> &items = ModelItem::s_userProxies[p];
+
+	if (items.isEmpty()) {
+		return;
+	}
+
+	if (c) {
+		ModelItem *citem = ModelItem::c_qhChannels.value(c);
+
+		ModelItem *item = nullptr;
+		for (int i = 0; i < items.size(); i++) {
+			if (citem->qlChildren.contains(items[i])) {
+				item = items[i];
+				break;
+			}
+		}
+
+		if (item) {
+			removeChannelListener(item, citem);
+		} else {
+			qCritical("UserModel::removeChannelListener: Can't find item for provided channel");
+		}
+	} else {
+		// remove all items
+		foreach(ModelItem *currentItem, items) {
+			removeChannelListener(currentItem);
+		}
+	}
+}
+
+bool UserModel::isChannelListener(const QModelIndex &idx) const {
+	if (!idx.isValid()) {
+		return false;
+	}
+
+	ModelItem *item;
+	item = static_cast<ModelItem *>(idx.internalPointer());
+
+	return item->isListener;
+}
+
+void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
+	if (!citem) {
+		citem = item->parent;
+	}
+
+	if (!item || !citem) {
+		qCritical("UserModel::removeChannelListener: Invalid state encountered");
+		return;
+	}
+	if (!citem->qlChildren.contains(item)) {
+		qCritical("UserModel::removeChannelListener: Item does not match parent");
+		return;
+	}
+
+	ClientUser *p = item->pUser;
+	Channel *c = citem->cChan;
+
+	if (!p) {
+		qCritical("UserModel::removeChannelListener: Can't find associated ClientUser");
+		return;
+	}
+	if (!c) {
+		qCritical("UserModel::removeChannelListener: Can't find associated Channel");
+		return;
+	}
+
+	int row = citem->qlChildren.indexOf(item);
+
+	beginRemoveRows(index(citem), row, row);
+	ChannelListener::removeListener(p, c);
+	citem->qlChildren.removeAt(row);
+	endRemoveRows();
+
+	while (citem) {
+		citem->iUsers--;
+		citem = citem->parent;
+	}
+
+	if (g.s.ceExpand == Settings::ChannelsWithUsers)
+		collapseEmpty(c);
+
+	updateOverlay();
+
+	delete item;
+}
+
 bool UserModel::removeChannel(Channel *c, const bool onlyIfUnoccupied) {
 	const ModelItem *item = ModelItem::c_qhChannels.value(c);
 	
 	if (onlyIfUnoccupied && item->iUsers !=0) return false; // Checks full hierarchy
 
 	foreach(const ModelItem *i, item->qlChildren) {
-		if (i->pUser)
-			removeUser(i->pUser);
-		else
+		if (i->pUser) {
+			if (i->isListener) {
+				removeChannelListener(i->pUser, c);
+			} else {
+				removeUser(i->pUser);
+			}
+		} else {
 			removeChannel(i->cChan);
+		}
 	}
 
 	Channel *p = c->cParent;
