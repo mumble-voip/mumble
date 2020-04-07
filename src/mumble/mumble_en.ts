@@ -3021,10 +3021,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Whisper to list of Users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Channel Target</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3069,15 +3065,31 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shout to Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The whisper will also be transmitted to linked channels.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shout/Whisper to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When shouting to channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shout to linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6684,6 +6696,10 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current selection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

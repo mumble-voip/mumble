@@ -134,9 +134,12 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	pmModel->ensureSelfVisible();
 	pmModel->recheckLinks();
 
+	// Reset the mechanism for using and recycling target IDs for setting up
+	// VoiceTargets
 	qmTargetUse.clear();
 	qmTargets.clear();
-	for (int i=1;i<6;++i) {
+	const int uniqueTargetIDCount = 5;
+	for (int i = 1; i < uniqueTargetIDCount + 1; ++i) {
 		qmTargetUse.insert(i, i);
 	}
 	iTargetCounter = 100;

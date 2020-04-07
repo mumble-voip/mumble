@@ -130,9 +130,20 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QList<QAction *> qlUserActions;
 
 		QHash<ShortcutTarget, int> qmCurrentTargets;
+		/// A map that contains information about the currently active
+		/// shout/whisper targets. The mapping is between a List of
+		/// ShortcutTargets that are all triggered together and the
+		/// target ID for this specific combination of ShortcutTargets.
+		/// The target ID is what the server uses to identify this specific
+		/// set of ShortcutTargets.
 		QHash<QList<ShortcutTarget>, int> qmTargets;
+		/// This is a map between all target IDs the client will ever use
+		/// and a helper-number (see iTargetCounter).
 		QMap<int, int> qmTargetUse;
 		Channel *mapChannel(int idx) const;
+		/// This is a pure helper number whose job is to always be increased
+		/// if a new VoiceTarget is needed. It will be used as the helper
+		/// number in qmTargetUse.
 		int iTargetCounter;
 		QMap<unsigned int, UserInformation *> qmUserInformations;
 

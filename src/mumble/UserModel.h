@@ -95,6 +95,10 @@ class UserModel : public QAbstractItemModel {
 		/// 	is in. The listener has to be a direct child of this item. If this is nullptr,
 		/// 	the parent of the provided item is used directly.
 		void removeChannelListener(ModelItem *item, ModelItem *citem = nullptr);
+
+		/// @returns The QModelIndex that is currently selected. If there is no selection, the returned index
+		/// 	is invalid.
+		QModelIndex getSelectedIndex() const;
 	public:
 		UserModel(QObject *parent = 0);
 		~UserModel() Q_DECL_OVERRIDE;
@@ -118,9 +122,13 @@ class UserModel : public QAbstractItemModel {
 		ClientUser *addUser(unsigned int id, const QString &name);
 		ClientUser *getUser(const QModelIndex &idx) const;
 		ClientUser *getUser(const QString &hash) const;
+		/// @returns A pointer to the currently selected User or nullptr if there is none
+		ClientUser *getSelectedUser() const;
 
 		Channel *addChannel(int id, Channel *p, const QString &name);
 		Channel *getChannel(const QModelIndex &idx) const;
+		/// @returns A pointer to the currently selected Channel or nullptr if there is none
+		Channel *getSelectedChannel() const;
 
 		/// Adds the guven user as a listener to the given channel
 		///
