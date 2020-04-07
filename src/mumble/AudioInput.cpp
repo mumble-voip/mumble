@@ -794,6 +794,13 @@ void AudioInput::encodeAudioFrame() {
 
 	iFrameCounter++;
 
+	// As g.iTarget is not protected by any locks, we avoid race-conditions by
+	// copying it once at this point and stick to whatever value it is here. Thus
+	// if the value of g.iTarget changes during the execution of this function,
+	// it won't cause any inconsistencies and the change is reflected once this
+	// function is called again.
+	int voiceTargetID = g.iTarget;
+
 	if (! bRunning)
 		return;
 
@@ -885,7 +892,7 @@ void AudioInput::encodeAudioFrame() {
 	bIsSpeech = bIsSpeech || (g.iPushToTalk > 0);
 
 	ClientUser *p = ClientUser::get(g.uiSession);
-	if (g.s.bMute || ((g.s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress)) || g.bPushToMute || (g.iTarget < 0)) {
+	if (g.s.bMute || ((g.s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress)) || g.bPushToMute || (voiceTargetID < 0)) {
 		bIsSpeech = false;
 	}
 
@@ -900,7 +907,7 @@ void AudioInput::encodeAudioFrame() {
 	if (p) {
 		if (! bIsSpeech)
 			p->setTalking(Settings::Passive);
-		else if (g.iTarget == 0)
+		else if (voiceTargetID == 0)
 			p->setTalking(Settings::Talking);
 		else
 			p->setTalking(Settings::Shouting);
@@ -1001,7 +1008,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	if (encoded) {
-		flushCheck(QByteArray(reinterpret_cast<char *>(&buffer[0]), len), !bIsSpeech);
+		flushCheck(QByteArray(reinterpret_cast<char *>(&buffer[0]), len), !bIsSpeech, voiceTargetID);
 	}
 
 	if (! bIsSpeech)
@@ -1024,15 +1031,15 @@ static void sendAudioFrame(const char *data, PacketDataStream &pds) {
 		sh->sendMessage(data, pds.size() + 1);
 }
 
-void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
+void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceTargetID) {
 	qlFrames << frame;
 
 	if (! terminator && iBufferedFrames < iAudioFrames)
 		return;
 
 	int flags = 0;
-	if (g.iTarget > 0) {
-		flags = g.iTarget;
+	if (voiceTargetID > 0) {
+		flags = voiceTargetID;
 	}
 	if (terminator && g.iPrevTarget > 0) {
 		flags = g.iPrevTarget;
