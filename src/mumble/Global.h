@@ -61,7 +61,11 @@ public:
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;
+	/// Holds the current VoiceTarget ID to send audio to
 	int iTarget;
+	/// Holds the value of iTarget before its last change until the current
+	/// audio-stream ends (and it has a value > 0). See the comment in
+	/// AudioInput::flushCheck for further details on this.
 	int iPrevTarget;
 	bool bPushToMute;
 	bool bCenterPosition;
