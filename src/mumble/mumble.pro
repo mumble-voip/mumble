@@ -11,8 +11,6 @@ DEFINES *= MUMBLE
 TEMPLATE = app
 TARGET = mumble
 
-QT += concurrent
-
 !CONFIG(qt4-legacy-compat) {
   CONFIG += no-qt4-legacy-compat
 }
@@ -63,7 +61,7 @@ CONFIG(static) {
   CONFIG += static_qt_plugins
 }
 
-QT  *= network sql xml svg
+QT  *= network sql xml svg concurrent
 isEqual(QT_MAJOR_VERSION, 5) {
   QT *= widgets
 
