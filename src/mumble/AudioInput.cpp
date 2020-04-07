@@ -1043,6 +1043,10 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 	}
 	if (terminator && g.iPrevTarget > 0) {
 		flags = g.iPrevTarget;
+
+		// We reset g.iPrevTarget as it has fulfilled its purpose for this whisper-action. It'll be set
+		// accordingly once the client whispers for the next time.
+		g.iPrevTarget = 0;
 	}
 
 	if (g.s.lmLoopMode == Settings::Server)
