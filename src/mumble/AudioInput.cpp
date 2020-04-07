@@ -871,10 +871,13 @@ void AudioInput::encodeAudioFrame() {
 
 	bool bIsSpeech = false;
 
-	if (level > g.s.fVADmax)
+	if (level > g.s.fVADmax) {
+		// Voice-activation threshold has been reached
 		bIsSpeech = true;
-	else if (level > g.s.fVADmin && bPreviousVoice)
+	} else if (level > g.s.fVADmin && bPreviousVoice) {
+		// Voice-deactivation threshold has not yet been reached
 		bIsSpeech = true;
+	}
 
 	if (! bIsSpeech) {
 		iHoldFrames++;
@@ -884,11 +887,16 @@ void AudioInput::encodeAudioFrame() {
 		iHoldFrames = 0;
 	}
 
-	if (g.s.atTransmit == Settings::Continuous)
+	if (g.s.atTransmit == Settings::Continuous) {
+		// Continous transmission is enabled
 		bIsSpeech = true;
-	else if (g.s.atTransmit == Settings::PushToTalk)
+	} else if (g.s.atTransmit == Settings::PushToTalk) {
+		// PTT is enabled, so check if it is currently active
 		bIsSpeech = g.s.uiDoublePush && ((g.uiDoublePush < g.s.uiDoublePush) || (g.tDoublePush.elapsed() < g.s.uiDoublePush));
+	}
 
+	// If g.iPushToTalk > 0 that means that we are currently in some sort of PTT action. For
+	// instance this could mean we're currently whispering
 	bIsSpeech = bIsSpeech || (g.iPushToTalk > 0);
 
 	ClientUser *p = ClientUser::get(g.uiSession);
@@ -1042,6 +1050,12 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 		flags = voiceTargetID;
 	}
 	if (terminator && g.iPrevTarget > 0) {
+		// If we have been whispering to some target but have just ended, terminator will be true. However
+		// in the case of whispering this means that we just released the whisper key so this here is the
+		// last audio frame that is sent for whispering. The whisper key being released means that g.iTarget
+		// is reset to 0 by now. In order to send the last whisper frame correctly, we have to use
+		// g.iPrevTarget which is set to whatever g.iTarget has been before its last change.
+
 		flags = g.iPrevTarget;
 
 		// We reset g.iPrevTarget as it has fulfilled its purpose for this whisper-action. It'll be set
