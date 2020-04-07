@@ -138,7 +138,7 @@ class AudioInput : public QThread {
 		int iBufferedFrames;
 
 		QList<QByteArray> qlFrames;
-		void flushCheck(const QByteArray &, bool terminator);
+		void flushCheck(const QByteArray &, bool terminator, int voiceTargetID);
 
 		void initializeMixer();
 
