@@ -18,6 +18,8 @@
 #include "Version.h"
 #include "HTMLFilter.h"
 #include "HostAddress.h"
+#include "ChannelListener.h"
+#include "SpeechFlags.h"
 
 #ifdef USE_BONJOUR
 # include "BonjourServer.h"
@@ -1072,13 +1074,15 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	len = pds.size() + 1;
 
 	if (target == 0x1f) { // Server loopback
-		buffer[0] = static_cast<char>(type | 0);
+		buffer[0] = static_cast<char>(type | SpeechFlags::Normal);
 		sendMessage(u, buffer, len, qba);
 		return;
 	} else if (target == 0) { // Normal speech
 		Channel *c = u->cChannel;
 
-		buffer[0] = static_cast<char>(type | 0);
+		buffer[0] = static_cast<char>(type | SpeechFlags::Normal);
+
+		// Send audio to all users in the same channel
 		foreach(User *p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
 			SENDTO;
@@ -1099,7 +1103,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				}
 			}
 		}
-	} else if (u->qmTargets.contains(target)) { // Whisper
+	} else if (u->qmTargets.contains(target)) { // Whisper/Shout
 		QSet<ServerUser *> channel;
 		QSet<ServerUser *> direct;
 
@@ -1172,7 +1176,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				return;
 		}
 		if (! channel.isEmpty()) {
-			buffer[0] = static_cast<char>(type | 1);
+			buffer[0] = static_cast<char>(type | SpeechFlags::Shout);
 			foreach(ServerUser *pDst, channel) {
 				SENDTO;
 			}
@@ -1182,7 +1186,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			}
 		}
 		if (! direct.isEmpty()) {
-			buffer[0] = static_cast<char>(type | 2);
+			buffer[0] = static_cast<char>(type | SpeechFlags::Whisper);
 			foreach(ServerUser *pDst, direct) {
 				SENDTO;
 			}

@@ -24,6 +24,7 @@
 #include "Global.h"
 #include "PacketDataStream.h"
 #include "Utils.h"
+#include "SpeechFlags.h"
 
 AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type) : AudioOutputUser(user->qsName) {
 	int err;
@@ -82,7 +83,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	iMissCount = 0;
 	iMissedFrames = 0;
 
-	ucFlags = 0xFF;
+	ucFlags = SpeechFlags::Invalid;
 
 	jbJitter = jitter_buffer_init(iFrameSize);
 	int margin = g.s.iJitterBufferSize * iFrameSize;
@@ -406,15 +407,15 @@ nextframe:
 	if (p) {
 		Settings::TalkState ts;
 		if (! nextalive)
-			ucFlags = 0xFF;
+			ucFlags = SpeechFlags::Invalid;
 		switch (ucFlags) {
-			case 0:
+			case SpeechFlags::Normal:
 				ts = Settings::Talking;
 				break;
-			case 1:
+			case SpeechFlags::Shout:
 				ts = Settings::Shouting;
 				break;
-			case 0xFF:
+			case SpeechFlags::Invalid:
 				ts = Settings::Passive;
 				break;
 			default:

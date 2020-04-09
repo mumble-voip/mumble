@@ -47,7 +47,8 @@ HEADERS *= \
   SelfSignedCertificate.h \
   SSLLocks.h \
   FFDHETable.h \
-  FFDHE.h
+  FFDHE.h \
+  SpeechFlags.h
 
 SOURCES *= \
   ACL.cpp \
