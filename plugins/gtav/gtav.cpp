@@ -15,29 +15,27 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Memory addresses
 	char game_name[20];
-	procptr_t state_address, in_game_address, avatar_pos_address, camera_pos_address, avatar_base_address, avatar_base, avatar_front_address, avatar_top_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
+	procptr_t state_address, avatar_pos_address, camera_pos_address, avatar_base_address, avatar_base, avatar_front_address, avatar_top_address, camera_front_address, camera_top_address, player_address, vehicle_address, location_address, street_address;
 
 #define VERSION_EQ(buf, strlit) \
 	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
 
 	// Steam version
-	if (peekProc(pModule + 0x18AFBA8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
-		state_address = pModule + 0x28ACB20;
-		in_game_address = pModule + 0x25C7740;
-		avatar_pos_address = pModule + 0x1F3E7A0;
-		camera_pos_address = pModule + 0x1F3B110;
-		avatar_front_address = pModule + 0x1FDDB50;
-		avatar_top_address = pModule + 0x1FDDB40;
-		camera_front_address = pModule + 0x1F3D990;
-		camera_top_address = pModule + 0x1F3D980;
-		player_address = pModule + 0x28B9E5C;
-		vehicle_address = pModule + 0x2499C10;
-		location_address = pModule + 0x249956B;
-		street_address = pModule + 0x24963B0;
+	if (peekProc(pModule + 0x18C0C58, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
+		state_address = pModule + 0x28C3B30;
+		avatar_pos_address = pModule + 0x1F43550;
+		camera_pos_address = pModule + 0x1F4FE90;
+		avatar_front_address = pModule + 0x1FF28F0;
+		avatar_top_address = pModule + 0x1F533F0;
+		camera_front_address = pModule + 0x1D23C30;
+		camera_top_address = pModule + 0x1F52470;
+		player_address = pModule + 0x28D0E8C;
+		vehicle_address = pModule + 0x24AE9A0;
+		location_address = pModule + 0x24AE2DB;
+		street_address = pModule + 0x24AB090;
 	// Retail version
 	} else if (peekProc(pModule + 0x180D4D8, game_name) && VERSION_EQ(game_name, "Grand Theft Auto V")) {
 		state_address = pModule + 0x2733490;
-		in_game_address = pModule + 0x1BC6687;
 		avatar_pos_address = pModule + 0x1F7EAA0;
 		camera_pos_address = pModule + 0x1C58630;
 		avatar_base_address = pModule + 0x1B956C0;
@@ -64,11 +62,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
 	float avatar_pos_corrector[3], camera_pos_corrector[3], avatar_front_corrector[3], avatar_top_corrector[3], camera_front_corrector[3], camera_top_corrector[3];
 	// Char values for extra features
-	char state, in_game, player[50], vehicle[50], location[50], street[50];
+	char state, player[50], vehicle[50], location[50], street[50];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc(state_address, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
-			peekProc(in_game_address, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
 			peekProc(avatar_pos_address, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
 			peekProc(camera_pos_address, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
 			peekProc(avatar_front_address, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
@@ -85,7 +82,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	// State
-	if (state != 2 || in_game == 0) { // If not in-game
+	if (state != 2) { // If not in-game
 		context.clear(); // Clear context
 		identity.clear(); // Clear identity
 		// Set vectors values to 0.
@@ -204,10 +201,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto V version 1.48 (Steam) and 1.38 (Retail) with identity support."); // Plugin long description
+	return std::wstring(L"Supports Grand Theft Auto V version 1.50 Build 1868 (Steam) and 1.38 (Retail) with identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Grand Theft Auto V (v1.48 [Steam] & v1.38 [Retail])"); // Plugin short description
+static std::wstring description(L"Grand Theft Auto V (1.50 Build 1868 [Steam] & v1.38 [Retail])"); // Plugin short description
 static std::wstring shortname(L"Grand Theft Auto V"); // Plugin short name
 
 static int trylock1() {
