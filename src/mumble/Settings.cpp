@@ -40,16 +40,17 @@ bool Shortcut::operator == (const Shortcut &other) const {
 
 ShortcutTarget::ShortcutTarget() {
 	bUsers = true;
+	bCurrentSelection = false;
 	iChannel = -3;
 	bLinks = bChildren = bForceCenter = false;
 }
 
 bool ShortcutTarget::isServerSpecific() const {
-	return (! bUsers && (iChannel >= 0));
+	return !bCurrentSelection && !bUsers && iChannel >= 0;
 }
 
 bool ShortcutTarget::operator == (const ShortcutTarget &o) const {
-	if ((bUsers != o.bUsers) || (bForceCenter != o.bForceCenter))
+	if ((bUsers != o.bUsers) || (bForceCenter != o.bForceCenter) || (bCurrentSelection != o.bCurrentSelection))
 		return false;
 	if (bUsers)
 		return (qlUsers == o.qlUsers) && (qlSessions == o.qlSessions);
@@ -59,6 +60,11 @@ bool ShortcutTarget::operator == (const ShortcutTarget &o) const {
 
 quint32 qHash(const ShortcutTarget &t) {
 	quint32 h = t.bForceCenter ? 0x55555555 : 0xaaaaaaaa;
+
+	if (t.bCurrentSelection) {
+		h ^= 0x20000000;
+	}
+
 	if (t.bUsers) {
 		foreach(unsigned int u, t.qlSessions)
 			h ^= u;
@@ -82,20 +88,64 @@ quint32 qHash(const QList<ShortcutTarget> &l) {
 }
 
 QDataStream &operator<< (QDataStream &qds, const ShortcutTarget &st) {
-	qds << st.bUsers << st.bForceCenter;
+	// Start by the version of this setting. This is needed to make sure we can stay compatible
+	// with older versions (aka don't break existing shortcuts when updating the implementation)
+	qds << QString::fromLatin1("v2");
 
-	if (st.bUsers)
+	qds << st.bCurrentSelection << st.bUsers << st.bForceCenter;
+
+	if (st.bCurrentSelection) {
+		return qds << st.bLinks << st.bChildren;
+	} else if (st.bUsers) {
 		return qds << st.qlUsers;
-	else
+	} else {
 		return qds << st.iChannel << st.qsGroup << st.bLinks << st.bChildren;
+	}
 }
 
 QDataStream &operator>> (QDataStream &qds, ShortcutTarget &st) {
+	// Check for presence of a leading version string
+	QString versionString;
+	QIODevice *device = qds.device();
+
+	if (device) {
+		// Qt's way of serializing the stream requires us to read a few characters into
+		// the stream in order to get accross some leading zeros and other meta stuff.
+		char buf[16];
+
+		// Init buf
+		for (unsigned int i = 0; i < sizeof(buf); i++) {
+			buf[i] = 0;
+		}
+
+		int read = device->peek(buf, sizeof(buf));
+
+		for (int i = 0; i < read; i++) {
+			if (buf[i] >= 31 ) {
+				if (buf[i] == 'v') {
+					qds >> versionString;
+				} else {
+					break;
+				}
+			}
+		}
+	} else {
+		qCritical("Settings: Unable to determine version of setting for ShortcutTarget");
+	}
+
+	if (versionString == QLatin1String("v2")) {
+		qds >> st.bCurrentSelection;
+	}
+
 	qds >> st.bUsers >> st.bForceCenter;
-	if (st.bUsers)
+
+	if (st.bCurrentSelection) {
+		return qds >> st.bLinks >> st.bChildren;
+	} else if (st.bUsers) {
 		return qds >> st.qlUsers;
-	else
+	} else {
 		return qds >> st.iChannel >> st.qsGroup >> st.bLinks >> st.bChildren;
+	}
 }
 
 const QString Settings::cqsDefaultPushClickOn = QLatin1String(":/on.ogg");

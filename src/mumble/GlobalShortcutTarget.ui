@@ -7,25 +7,136 @@
     <x>0</x>
     <y>0</y>
     <width>421</width>
-    <height>310</height>
+    <height>542</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Whisper Target</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QRadioButton" name="qrbUsers">
+   <item row="0" column="0">
+    <widget class="QLabel" name="qlTarget">
      <property name="text">
-      <string>Whisper to list of Users</string>
+      <string>Shout/Whisper to:</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
+   <item row="1" column="0" colspan="2">
     <widget class="QStackedWidget" name="qswStack">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
+     <widget class="QWidget" name="qwSelectionPage">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="qgbSelection">
+         <property name="title">
+          <string>Current selection</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QLabel" name="qlWhenShouting">
+            <property name="text">
+             <string>When shouting to channel:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QCheckBox" name="qcbShoutLinks">
+               <property name="toolTip">
+                <string>The whisper will also be transmitted to linked channels.</string>
+               </property>
+               <property name="text">
+                <string>Shout to linked channels</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="qcbShoutSubchans">
+               <property name="toolTip">
+                <string>The whisper will also be sent to the subchannels of the channel target.</string>
+               </property>
+               <property name="text">
+                <string>Shout to subchannels</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="qwUserPage">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QGroupBox" name="qgbUser">
+         <property name="title">
+          <string>List of users</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0" rowspan="4">
+           <widget class="QListWidget" name="qlwUsers"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="MUComboBox" name="qcbUser"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="qpbAdd">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="qpbRemove">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>94</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="qwChannelPage">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
@@ -102,72 +213,9 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="qwUserPage">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QGroupBox" name="qgbUser">
-         <property name="title">
-          <string>List of users</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0" rowspan="4">
-           <widget class="QListWidget" name="qlwUsers"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="MUComboBox" name="qcbUser"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="qpbAdd">
-            <property name="text">
-             <string>Add</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="qpbRemove">
-            <property name="text">
-             <string>Remove</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>94</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QDialogButtonBox" name="qbbButtons">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QRadioButton" name="qrbChannel">
-     <property name="text">
-      <string>Shout to Channel</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
+   <item row="2" column="0" colspan="2">
     <widget class="QGroupBox" name="qgbModifiers">
      <property name="title">
       <string>Modifiers</string>
@@ -186,11 +234,54 @@
      </layout>
     </widget>
    </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="qcbTarget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Current selection</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>List of users</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="qbbButtons">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MUComboBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/MUComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
-  <tabstop>qrbUsers</tabstop>
-  <tabstop>qrbChannel</tabstop>
   <tabstop>qlwUsers</tabstop>
   <tabstop>qcbUser</tabstop>
   <tabstop>qpbAdd</tabstop>
@@ -237,11 +328,4 @@
    </hints>
   </connection>
  </connections>
- <customwidgets>
-  <customwidget>
-   <class>MUComboBox</class>
-   <extends>QComboBox</extends>
-   <header>widgets/MUComboBox.h</header>
-  </customwidget>
- </customwidgets>
 </ui>
