@@ -19,6 +19,14 @@ make -j $(sysctl -n hw.ncpu)
 make check
 
 # Build installer
+./macx/scripts/osxdist.py --only-appbundle --version=${ver}
+
+echo Applying otool to the AppBundle...
+otool -L release/Mumble.app
+
 ./macx/scripts/osxdist.py --version=${ver}
+
+echo Applying otool to the dmg...
+otool -L release/Mumble.dmg
 
 mv release/*.dmg ${BUILD_ARTIFACTSTAGINGDIRECTORY}
