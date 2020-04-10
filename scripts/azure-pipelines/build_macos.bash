@@ -35,7 +35,7 @@ relink_shared_libs() {
 export -f relink_shared_libs
 
 # print out the shared library the Mumble executable depends on
-otool -L release/Mumble.app/Contents/MacOS/Mumble | tail -n +2 | grep --invert-match "/System\|/usr/lib" | grep ".dylib" | awk '{print $1}' | xargs relink_shared_libs
+otool -L release/Mumble.app/Contents/MacOS/Mumble | tail -n +2 | grep --invert-match "/System\|/usr/lib" | grep ".dylib" | awk '{print $1}' | xargs bash -c 'relink_shared_libs "$@"'
 
 
 otool -L release/Mumble.app/Contents/MacOS/Mumble
