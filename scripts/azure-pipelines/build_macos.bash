@@ -18,16 +18,12 @@ qmake -recursive CONFIG+="release tests warnings-as-errors static" DEFINES+="MUM
 make -j $(sysctl -n hw.ncpu)
 make check
 
-ls -al release/
+ls -al release/Mumble.app
+
+# print out the shared library the Mumble executable depends on
+otool -L release/Mumble.app/Contents/MacOS/Mumble | tail -n +2 | grep --invert-match "/System\|/usr/lib" | grep ".dylib" | awk '{print $1}'
 
 # Build installer
-./macx/scripts/osxdist.py --only-appbundle --version=${ver}
-
-otool -L release/Mumble.app/Contents/MacOS/Mumble | tail -n +2 | grep --invert-match "/System" | awk '{print $1}'
-
 ./macx/scripts/osxdist.py --version=${ver}
-
-echo Applying otool to the dmg...
-otool -L release/Mumble.dmg
 
 mv release/*.dmg ${BUILD_ARTIFACTSTAGINGDIRECTORY}
