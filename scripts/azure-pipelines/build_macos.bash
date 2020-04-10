@@ -21,8 +21,8 @@ make check
 # Build installer
 ./macx/scripts/osxdist.py --only-appbundle --version=${ver}
 
-echo Applying otool to the AppBundle...
-otool -L release/Mumble.app
+ls -al release/Mumble.app/Contents/MacOS
+otool -L release/Mumble.app/Contents/MacOS/Mumble
 
 ./macx/scripts/osxdist.py --version=${ver}
 
