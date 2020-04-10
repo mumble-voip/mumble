@@ -18,10 +18,22 @@ qmake -recursive CONFIG+="release tests warnings-as-errors static" DEFINES+="MUM
 make -j $(sysctl -n hw.ncpu)
 make check
 
-ls -al release/Mumble.app
+ls -al release/Mumble.app/Contents
+
+relink_shared_libs() {
+	targetDir=release/Mumble.app/Contents/MacOS
+
+	for currentLib in "$@"; do
+		echo Processing "$currentLib"
+		# First copy the library to the same dir as the executable
+		cp "$currentLib" $targetDir
+
+		install_name_tool -change "$currentLib" "@executable_path/$(basename $currentLib)" "$targetDir/Mumble"
+	done
+}
 
 # print out the shared library the Mumble executable depends on
-otool -L release/Mumble.app/Contents/MacOS/Mumble | tail -n +2 | grep --invert-match "/System\|/usr/lib" | grep ".dylib" | awk '{print $1}'
+otool -L release/Mumble.app/Contents/MacOS/Mumble | tail -n +2 | grep --invert-match "/System\|/usr/lib" | grep ".dylib" | awk '{print $1}' | xargs relink_shared_libs
 
 # Build installer
 ./macx/scripts/osxdist.py --version=${ver}
