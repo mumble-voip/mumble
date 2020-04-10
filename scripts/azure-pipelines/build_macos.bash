@@ -18,11 +18,12 @@ qmake -recursive CONFIG+="release tests warnings-as-errors static" DEFINES+="MUM
 make -j $(sysctl -n hw.ncpu)
 make check
 
+ls -al release/
+
 # Build installer
 ./macx/scripts/osxdist.py --only-appbundle --version=${ver}
 
-ls -al release/Mumble.app/Contents/MacOS
-otool -L release/Mumble.app/Contents/MacOS/Mumble
+otool -L release/Mumble.app/Contents/MacOS/Mumble | tail -n +2 | grep --invert-match "/System" | awk '{print $1}'
 
 ./macx/scripts/osxdist.py --version=${ver}
 
