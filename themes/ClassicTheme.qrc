@@ -50,6 +50,7 @@
     <file alias="actions/format-text-underline.svg">Classic/tango/actions/format-text-underline.svg</file>
     <file alias="actions/media-record.svg">Classic/tango/actions/media-record.svg</file>
     <file alias="categories/applications-internet.svg">Classic/tango/categories/applications-internet.svg</file>
+    <file alias="places/network-workgroup.svg">Classic/tango/places/network-workgroup.svg</file>
     <file alias="emblems/emblem-favorite.svg">Classic/tango/emblems/emblem-favorite.svg</file>
     <file alias="mimetypes/image-x-generic.svg">Classic/tango/mimetypes/image-x-generic.svg</file>
     <file alias="mimetypes/text-html.svg">Classic/tango/mimetypes/text-html.svg</file>
