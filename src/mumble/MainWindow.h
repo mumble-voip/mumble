@@ -268,6 +268,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_gsSendClipboardTextMessage_triggered(bool, QVariant);
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
+		void on_qaTalkingUIToggle_triggered();
 		void voiceRecorderDialog_finished(int);
 		void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
 		void serverConnected();

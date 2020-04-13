@@ -36,6 +36,7 @@
 #include "UserLockFile.h"
 #include "License.h"
 #include "EnvUtils.h"
+#include "TalkingUI.h"
 
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QProcess>
@@ -448,6 +449,9 @@ int main(int argc, char **argv) {
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
 
+	g.talkingUI = new TalkingUI();
+	g.talkingUI->setVisible(g.s.bShowTalkingUI);
+
 	// Initialize logger
 	// Log::log() needs the MainWindow to already exist. Thus creating the Log instance
 	// before the MainWindow one, does not make sense. if you need logging before this
@@ -589,6 +593,7 @@ int main(int argc, char **argv) {
 		QThread::yieldCurrentThread();
 	sh.reset();
 
+	delete g.talkingUI;
 	delete g.mw;
 
 	delete g.nam;

@@ -144,7 +144,8 @@ HEADERS *= BanEditor.h \
     XMLTools.h \
     Screen.h \
     SvgIcon.h \
-    Markdown.h
+    Markdown.h \
+    TalkingUI.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -216,7 +217,8 @@ SOURCES *= BanEditor.cpp \
     XMLTools.cpp \
     Screen.cpp \
     SvgIcon.cpp \
-    Markdown.cpp
+    Markdown.cpp \
+    TalkingUI.cpp
 
 CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp

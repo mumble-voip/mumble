@@ -177,6 +177,8 @@ void LookConfig::load(const Settings &r) {
 	
 	const boost::optional<ThemeInfo::StyleInfo> configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
+
+	qsbSilentUserLifetime->setValue(r.iTalkingUI_SilentUserLifeTime);
 }
 
 void LookConfig::save() const {
@@ -229,6 +231,8 @@ void LookConfig::save() const {
 	} else {
 		Themes::setConfiguredStyle(s, themeData.value<ThemeInfo::StyleInfo>(), s.requireRestartToApply);
 	}
+
+	s.iTalkingUI_SilentUserLifeTime = qsbSilentUserLifetime->value();
 }
 
 void LookConfig::accept() const {

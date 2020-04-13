@@ -32,6 +32,7 @@ class CELTCodec;
 class OpusCodec;
 class LogEmitter;
 class DeveloperConsole;
+class TalkingUI;
 
 class QNetworkAccessManager;
 
@@ -58,6 +59,7 @@ public:
 	QNetworkAccessManager *nam;
 	QSharedPointer<LogEmitter> le;
 	DeveloperConsole *c;
+	TalkingUI *talkingUI;
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;
