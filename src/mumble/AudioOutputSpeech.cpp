@@ -114,6 +114,10 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 
 	jitter_buffer_destroy(jbJitter);
 
+	if (p) {
+		p->setTalking(Settings::Passive);
+	}
+
 	delete [] fFadeIn;
 	delete [] fFadeOut;
 	delete [] fResamplerBuffer;
