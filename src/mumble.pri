@@ -49,7 +49,8 @@ HEADERS *= \
   SSLLocks.h \
   FFDHETable.h \
   FFDHE.h \
-  SpeechFlags.h
+  SpeechFlags.h \
+  ProtoValidator.h
 
 SOURCES *= \
   ACL.cpp \
@@ -79,7 +80,8 @@ SOURCES *= \
   ServerResolverRecord.cpp \
   SelfSignedCertificate.cpp \
   SSLLocks.cpp \
-  FFDHE.cpp
+  FFDHE.cpp \
+  ProtoValidator.cpp
 
 LIBS		*= -lmumble_proto
 
