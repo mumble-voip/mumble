@@ -32,6 +32,7 @@
 #include "CryptState.h"
 #include "Utils.h"
 #include "ChannelListener.h"
+#include "ProtoValidator.h"
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -58,13 +59,15 @@
 
 /// The authenticate message is being used by the client to send the authentication credentials to the server. Therefore the
 /// server won't send this message type to the client which is why this implementation does nothing.
-void MainWindow::msgAuthenticate(const MumbleProto::Authenticate &) {
+void MainWindow::msgAuthenticate(MumbleProto::Authenticate &) {
 }
 
 /// This message is being received after this client has queried for the ban list (probably by using the BanEditor).
 ///
 /// @param msg The message object containing information about the ban list
-void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
+void MainWindow::msgBanList(MumbleProto::BanList &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (banEdit) {
 		banEdit->reject();
 		delete banEdit;
@@ -77,7 +80,9 @@ void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
 /// This message is being received whenever the server rejects the connection of this client.
 ///
 /// @param msg The message object containing the information about why the connection was rejected
-void MainWindow::msgReject(const MumbleProto::Reject &msg) {
+void MainWindow::msgReject(MumbleProto::Reject &msg) {
+	ProtoValidator::makeValid(msg);
+
 	rtLast = msg.type();
 
 	QString reason;
@@ -113,7 +118,9 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 /// the message may contain a welcome message that is logged to Mumble's console if present.
 ///
 /// @param msg The message object with the respective information
-void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
+void MainWindow::msgServerSync(MumbleProto::ServerSync &msg) {
+	ProtoValidator::makeValid(msg);
+
 	const ClientUser *user = ClientUser::get(msg.session());
 	if (!user) {
 		g.l->log(Log::CriticalError, tr("Server sync protocol violation. No user profile received."));
@@ -202,7 +209,9 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 /// as well as the maximum amount of users that may be connected to this server.
 ///
 /// @param msg The message object
-void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
+void MainWindow::msgServerConfig(MumbleProto::ServerConfig &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (msg.has_welcome_text()) {
 		QString str = u8(msg.welcome_text());
 		if (!str.isEmpty()) {
@@ -225,7 +234,9 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 /// basically informs the user about this denial by printing a message to Mumble's console.
 ///
 /// @param msg The message object containing further details as to why and what Permission has been denied
-void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
+void MainWindow::msgPermissionDenied(MumbleProto::PermissionDenied &msg) {
+	ProtoValidator::makeValid(msg);
+
 	switch (msg.type()) {
 		case MumbleProto::PermissionDenied_DenyType_Permission: {
 				VICTIM_INIT;
@@ -327,7 +338,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 }
 
 /// This message is not used (anymore). Thus the implementation does nothing
-void MainWindow::msgUDPTunnel(const MumbleProto::UDPTunnel &) {
+void MainWindow::msgUDPTunnel(MumbleProto::UDPTunnel &) {
 }
 
 /// This message is being received when the server informs this client about changed users. This might be because there
@@ -336,7 +347,9 @@ void MainWindow::msgUDPTunnel(const MumbleProto::UDPTunnel &) {
 /// This function will match the local user representation (UserModel) to these changes.
 ///
 /// @param msg The message object containing the respective information
-void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
+void MainWindow::msgUserState(MumbleProto::UserState &msg) {
+	ProtoValidator::makeValid(msg);
+
 	ACTOR_INIT;
 	ClientUser* pSelf = ClientUser::get(g.uiSession);
 	ClientUser *pDst = ClientUser::get(msg.session());
@@ -695,7 +708,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 /// the local user about a kick/ban.
 ///
 /// @param msg The message object containing further information
-void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
+void MainWindow::msgUserRemove(MumbleProto::UserRemove &msg) {
+	ProtoValidator::makeValid(msg);
+
 	VICTIM_INIT;
 	ACTOR_INIT;
 	SELF_INIT;
@@ -728,7 +743,9 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 /// to the server or whenever these properties changed).
 ///
 /// @param msg The message object containing the details about the channel properties
-void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
+void MainWindow::msgChannelState(MumbleProto::ChannelState &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (! msg.has_channel_id())
 		return;
 
@@ -833,7 +850,9 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	}
 }
 
-void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
+void MainWindow::msgChannelRemove(MumbleProto::ChannelRemove &msg) {
+	ProtoValidator::makeValid(msg);
+
 	Channel *c = Channel::get(msg.channel_id());
 	if (c && (c->iId != 0)) {
 		if (c->bFiltered) {
@@ -854,7 +873,9 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 /// the user - which is what this function does.
 ///
 /// @param msg The message object that contains information about the received text message
-void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
+void MainWindow::msgTextMessage(MumbleProto::TextMessage &msg) {
+	ProtoValidator::makeValid(msg);
+
 	ACTOR_INIT;
 	QString target;
 	QString overrideTTS = QString();
@@ -898,7 +919,9 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 /// a channel or multiple channels. It seems like this message will only be received after having queried it.
 ///
 /// @param msg The message object holding the ACL and further details
-void MainWindow::msgACL(const MumbleProto::ACL &msg) {
+void MainWindow::msgACL(MumbleProto::ACL &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
@@ -914,16 +937,20 @@ void MainWindow::msgACL(const MumbleProto::ACL &msg) {
 /// received after being explicitly queried by the local client.
 ///
 /// @param msg The message object with the respective information
-void MainWindow::msgQueryUsers(const MumbleProto::QueryUsers &msg) {
+void MainWindow::msgQueryUsers(MumbleProto::QueryUsers &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (aclEdit)
 		aclEdit->returnQuery(msg);
 }
 
 /// Pings are a method to check the server-client connection. This implementation does nothing.
-void MainWindow::msgPing(const MumbleProto::Ping &) {
+void MainWindow::msgPing(MumbleProto::Ping &) {
 }
 
-void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
+void MainWindow::msgCryptSetup(MumbleProto::CryptSetup &msg) {
+	ProtoValidator::makeValid(msg);
+
 	ConnectionPtr c= g.sh->cConnection;
 	if (! c)
 		return;
@@ -948,7 +975,7 @@ void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
 
 /// This messages is only sent by the client if it wants to instantiate a context action. Thus this implementation
 /// does nothing.
-void MainWindow::msgContextAction(const MumbleProto::ContextAction &) {
+void MainWindow::msgContextAction(MumbleProto::ContextAction &) {
 }
 
 /// This message is being received if the server wants to instruct the client to add or remove a given context action.
@@ -956,7 +983,9 @@ void MainWindow::msgContextAction(const MumbleProto::ContextAction &) {
 /// @param msg The message object with further details about the respective context action
 ///
 /// @see MainWindow::removeContextAction
-void MainWindow::msgContextActionModify(const MumbleProto::ContextActionModify &msg) {
+void MainWindow::msgContextActionModify(MumbleProto::ContextActionModify &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (msg.has_operation() && msg.operation() == MumbleProto::ContextActionModify_Operation_Remove) {
 		removeContextAction(msg);
 		return;
@@ -1010,7 +1039,9 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 /// This message is being received in order to set the version information of this client.
 ///
 /// @param msg The message object with the respective information
-void MainWindow::msgVersion(const MumbleProto::Version &msg) {
+void MainWindow::msgVersion(MumbleProto::Version &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (msg.has_version())
 		g.sh->uiVersion = msg.version();
 	if (msg.has_release())
@@ -1025,7 +1056,9 @@ void MainWindow::msgVersion(const MumbleProto::Version &msg) {
 /// This message is being received if the client has queried for the list of all users.
 ///
 /// @param msg The message object containing the user list
-void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
+void MainWindow::msgUserList(MumbleProto::UserList &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (userEdit) {
 		userEdit->reject();
 		delete userEdit;
@@ -1037,14 +1070,16 @@ void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
 
 /// This message is only sent by the client in oder to register/clear whisper targets. Therefore
 /// this implementation does nothing.
-void MainWindow::msgVoiceTarget(const MumbleProto::VoiceTarget &) {
+void MainWindow::msgVoiceTarget(MumbleProto::VoiceTarget &) {
 }
 
 /// This message is being received as an answer to the request for certain permissions or if the
 /// server wants the client to resync all channel permissions.
 ///
 /// @param msg The message object containing the respective information
-void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
+void MainWindow::msgPermissionQuery(MumbleProto::PermissionQuery &msg) {
+	ProtoValidator::makeValid(msg);
+
 	Channel *current = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (msg.flush()) {
@@ -1073,7 +1108,9 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 /// codec it should use.
 ///
 /// @param msg The message object
-void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
+void MainWindow::msgCodecVersion(MumbleProto::CodecVersion &msg) {
+	ProtoValidator::makeValid(msg);
+
 	int alpha = msg.has_alpha() ? msg.alpha() : -1;
 	int beta = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
@@ -1125,7 +1162,9 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 /// This message is being received in order to communicate user stats from the server to the client.
 ///
 /// @param msg The message object containing the stats
-void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
+void MainWindow::msgUserStats(MumbleProto::UserStats &msg) {
+	ProtoValidator::makeValid(msg);
+
 	UserInformation *ui = qmUserInformations.value(msg.session());
 	if (ui) {
 		ui->update(msg);
@@ -1142,14 +1181,16 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 /// This message is only ever sent by the client in order to request binary data that otherwise
 /// wouldn't be included in the normal messages (e.g. big images). Thus this implementation does
 /// nothing.
-void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
+void MainWindow::msgRequestBlob(MumbleProto::RequestBlob &) {
 }
 
 /// This message is being received when the server wants to inform the client about suggested client configurations
 /// made by the server administrator. These suggestions will be logged to Mumble's console (if unmet).
 ///
 /// @param msg The message object containing the suggestions
-void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
+void MainWindow::msgSuggestConfig(MumbleProto::SuggestConfig &msg) {
+	ProtoValidator::makeValid(msg);
+
 	if (msg.has_version() && (msg.version() > MumbleVersion::getRaw())) {
 		g.l->log(Log::Warning, tr("The server requests minimum client version %1").arg(MumbleVersion::toString(msg.version())));
 	}

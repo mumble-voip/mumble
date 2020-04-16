@@ -315,7 +315,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		~MainWindow() Q_DECL_OVERRIDE;
 
 		// From msgHandler. Implementation in Messages.cpp
-#define MUMBLE_MH_MSG(x) void msg##x(const MumbleProto:: x &);
+#define MUMBLE_MH_MSG(x) void msg##x(MumbleProto:: x &);
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 		void removeContextAction(const MumbleProto::ContextActionModify &msg);
