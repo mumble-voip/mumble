@@ -80,8 +80,6 @@ extern "C" {
 #include <errno.h>
 #include <signal.h>
 #include <poll.h>
-#define INVALID_SOCKET -1
-#define SOCKET_ERROR -1
 #ifdef Q_OS_DARWIN
 #include <poll.h>
 #endif
@@ -89,17 +87,12 @@ extern "C" {
 
 #include <math.h>
 
-#if defined (Q_OS_WIN)
-#define snprintf ::_snprintf
-#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
-#else
-#define STACKVAR(type, varname, count) type varname[count]
-#endif
-
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
+
+#include "Utils.h"
 
 #ifdef USE_BONJOUR
 #include <dns_sd.h>

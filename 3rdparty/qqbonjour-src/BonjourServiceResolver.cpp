@@ -27,7 +27,11 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "murmur_pch.h"
+#ifdef MUMBLE
+	#include "mumble_pch.hpp"
+#else
+	#include "murmur_pch.h"
+#endif
 
 #include "BonjourServiceResolver.h"
 
