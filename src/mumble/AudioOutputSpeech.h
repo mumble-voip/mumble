@@ -59,9 +59,8 @@ class AudioOutputSpeech : public AudioOutputUser {
 		void *dsSpeex;
 
 		QList<QByteArray> qlFrames;
-
-		unsigned char ucFlags;
 	public:
+		unsigned char ucFlags;
 		MessageHandler::UDPMessageType umtType;
 		int iMissedFrames;
 		ClientUser *p;

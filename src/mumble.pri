@@ -18,6 +18,7 @@ VPATH		+= $$PWD
 HEADERS *= \
   ACL.h \
   Channel.h \
+  ChannelListener.h \
   CryptState.h \
   Connection.h \
   Group.h \
@@ -47,12 +48,14 @@ HEADERS *= \
   SelfSignedCertificate.h \
   SSLLocks.h \
   FFDHETable.h \
-  FFDHE.h
+  FFDHE.h \
+  SpeechFlags.h
 
 SOURCES *= \
   ACL.cpp \
   Group.cpp \
   Channel.cpp \
+  ChannelListener.cpp \
   Connection.cpp \
   HTMLFilter.cpp \
   User.cpp \

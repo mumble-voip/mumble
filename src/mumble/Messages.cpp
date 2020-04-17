@@ -31,6 +31,7 @@
 #include "ViewCert.h"
 #include "CryptState.h"
 #include "Utils.h"
+#include "ChannelListener.h"
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -179,6 +180,21 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	on_qmConfig_aboutToShow();
 
 	updateTrayIcon();
+
+	// Set-up all ChannelListeners and their volume adjustments as before for this server
+	// Use the timer to execute the code in the main event loop as we have to access
+	// the database.
+	QTimer::singleShot(0, []() {
+		g.sh->startListeningToChannels(g.db->getChannelListeners(g.sh->qbaDigest));
+		
+		QHash<int, float> volumeMap = g.db->getChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest);
+
+		QHashIterator<int, float> it(volumeMap);
+		while(it.hasNext()) {
+			it.next();
+			ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
+		}
+	});
 }
 
 /// This message is being received when the server informs this client about server configuration details. This contains
@@ -292,6 +308,14 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				g.l->log(Log::PermissionDenied, tr("Channel count limit reached. Need to delete channels before creating new ones."));
 			}
 			break;
+		case MumbleProto::PermissionDenied_DenyType_ChannelListenerLimit: {
+				g.l->log(Log::PermissionDenied, tr("No more listeners allowed in this channel."));
+			}
+			break;
+		case MumbleProto::PermissionDenied_DenyType_UserListenerLimit: {
+				g.l->log(Log::PermissionDenied, tr("You are not allowed to listen to more channels than you currently are."));
+			}
+			break;
 		default: {
 				if (msg.has_reason())
 					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason()).toHtmlEscaped()));
@@ -398,6 +422,50 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 					g.l->log(Log::Recording, tr("%1 is recording").arg(Log::formatClientUser(pDst, Log::Target)));
 				}
 			}
+		}
+	}
+
+	// Handle channel listening
+	for (int i = 0; i < msg.listening_channel_add_size(); i++) {
+		Channel *c = Channel::get(msg.listening_channel_add(i));
+
+		if (!c) {
+			qWarning("msgUserState(): Invalid channel ID encountered");
+			continue;
+		}
+
+		pmModel->addChannelListener(pDst, c);
+
+		QString logMsg;
+		if (pDst == pSelf) {
+			logMsg = tr("You started listening to %1").arg(Log::formatChannel(c));
+		} else if (pSelf && pSelf->cChannel == c) {
+			logMsg = tr("%1 started listening to your channel").arg(Log::formatClientUser(pDst, Log::Target));
+		}
+
+		if (!logMsg.isEmpty()) {
+			g.l->log(Log::ChannelListeningAdd, logMsg);
+		}
+	}
+	for (int i = 0; i < msg.listening_channel_remove_size(); i++) {
+		Channel *c = Channel::get(msg.listening_channel_remove(i));
+
+		if (!c) {
+			qWarning("msgUserState(): Invalid channel ID encountered");
+			continue;
+		}
+
+		pmModel->removeChannelListener(pDst, c);
+
+		QString logMsg;
+		if (pDst == pSelf) {
+			logMsg = tr("You stopped listening to %1").arg(Log::formatChannel(c));
+		} else if (pSelf && pSelf->cChannel == c) {
+			logMsg = tr("%1 stopped listening to your channel").arg(Log::formatClientUser(pDst, Log::Target));
+		}
+
+		if (!logMsg.isEmpty()) {
+			g.l->log(Log::ChannelListeningRemove, logMsg);
 		}
 	}
 

@@ -149,6 +149,10 @@ Database::Database(const QString &dbname) {
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
 
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `listener_volume` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `channel_id` INTEGER, `volume` FLOAT)"));
+
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `channel_listeners` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `channel_id` INTEGER)"));
+
 	execQueryAndLogFailure(query, QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
 	execQueryAndLogFailure(query, QLatin1String("DELETE FROM `blobs` WHERE `seen` < datetime('now', '-1 months')"));
 
@@ -581,6 +585,75 @@ void Database::setUdp(const QByteArray &digest, bool udp) {
 		query.prepare(QLatin1String("DELETE FROM `udp` WHERE `digest` = ?"));
 	query.addBindValue(digest);
 	execQueryAndLogFailure(query);
+}
+
+
+QList<int> Database::getChannelListeners(const QByteArray &digest) {
+	QList<int> channelIDs;
+
+	QSqlQuery query(db);
+	query.prepare(QLatin1String("SELECT `channel_id` FROM `channel_listeners` where `digest` = ?"));
+	query.addBindValue(digest);
+
+	execQueryAndLogFailure(query);
+
+	while (query.next()) {
+		channelIDs << query.value(0).toInt();
+	}
+
+	return channelIDs;
+}
+
+void Database::setChannelListeners(const QByteArray &digest, const QSet<int> &channelIDs) {
+	QSqlQuery query(db);
+
+	// Delete old set of ChannelListeners for this server
+	query.prepare(QLatin1String("DELETE FROM `channel_listeners` WHERE `digest` = ?"));
+	query.addBindValue(digest);
+	execQueryAndLogFailure(query);
+
+	query.prepare(QLatin1String("INSERT INTO `channel_listeners` (`digest`, `channel_id`) VALUES (?,?)"));
+	QSetIterator<int> it(channelIDs);
+	while (it.hasNext()) {
+		query.addBindValue(digest);
+		query.addBindValue(it.next());
+		execQueryAndLogFailure(query);
+	}
+}
+
+QHash<int, float> Database::getChannelListenerLocalVolumeAdjustments(const QByteArray &digest) {
+	QHash<int, float> volumeMap;
+
+	QSqlQuery query(db);
+	query.prepare(QLatin1String("SELECT `channel_id`, `volume`  FROM `listener_volume` where `digest` = ?"));
+	query.addBindValue(digest);
+
+	execQueryAndLogFailure(query);
+
+	while (query.next()) {
+		volumeMap.insert(query.value(0).toInt(), query.value(1).toFloat());
+	}
+
+	return volumeMap;
+}
+
+void Database::setChannelListenerLocalVolumeAdjustments(const QByteArray &digest, const QHash<int, float> &volumeMap) {
+	QSqlQuery query(db);
+
+	// Delete old set of volume adjustments for this server
+	query.prepare(QLatin1String("DELETE FROM `listener_volume` WHERE `digest` = ?"));
+	query.addBindValue(digest);
+	execQueryAndLogFailure(query);
+
+	query.prepare(QLatin1String("INSERT INTO `listener_volume` (`digest`, `channel_id`, `volume`) VALUES (?,?,?)"));
+	QHashIterator<int, float> it(volumeMap);
+	while (it.hasNext()) {
+		it.next();
+		query.addBindValue(digest);
+		query.addBindValue(it.key());
+		query.addBindValue(it.value());
+		execQueryAndLogFailure(query);
+	}
 }
 
 bool Database::fuzzyMatch(QString &name, QString &user, QString &pw, QString &hostname, unsigned short port) {

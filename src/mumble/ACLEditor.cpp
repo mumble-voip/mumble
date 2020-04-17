@@ -159,7 +159,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	def->bInherited = true;
 	def->iUserId = -1;
 	def->qsGroup = QLatin1String("all");
-	def->pAllow = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage;
+	def->pAllow = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::Listen;
 	def->pDeny = (~def->pAllow) & ChanACL::All;
 
 	qlACLs << def;
@@ -845,6 +845,7 @@ void ACLEditor::ACLPermissions_clicked() {
 	int denied = 0;
 
 	bool enabled = true;
+	bool modifiedEnter = false;
 	for (int idx = 0; idx < qlACLAllow.count(); idx++) {
 		ChanACL::Perm p = qlPerms[idx];
 		if (qlACLAllow[idx]->isChecked() && qlACLDeny[idx]->isChecked()) {
@@ -852,6 +853,32 @@ void ACLEditor::ACLPermissions_clicked() {
 				qlACLDeny[idx]->setChecked(false);
 			else
 				qlACLAllow[idx]->setChecked(false);
+		}
+
+		if (p == ChanACL::Enter
+				&& (source == qlACLAllow[idx] || source == qlACLDeny[idx])) {
+			// Unchecking a checkbox is not counted as modifying the Enter privilege
+			// in this context
+			modifiedEnter = source->isChecked();
+		}
+
+		if (p == ChanACL::Listen && modifiedEnter) {
+			// If Enter privileges are granted, also grant Listen privilege
+			// and vice versa.
+			// This is to make sure that people don't accidentally forget to
+			// modify the Listen permission when they modify the enter permission.
+			// Especially in the case of denying enter, this could potentially lead
+			// to confusion if people were still able to listen to a channel they can't
+			// enter.
+			// However the user still can allow/deny the Listen permission manually after
+			// having changed the enter permission.
+			if (denied & ChanACL::Enter) {
+				qlACLAllow[idx]->setChecked(false);
+				qlACLDeny[idx]->setChecked(true);
+			} else {
+				qlACLAllow[idx]->setChecked(true);
+				qlACLDeny[idx]->setChecked(false);
+			}
 		}
 
 		qlACLAllow[idx]->setEnabled(enabled || p == ChanACL::Speak);

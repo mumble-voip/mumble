@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_CLIENTUSER_H_
 
 #include <QtCore/QReadWriteLock>
+#include <QtCore/QHash>
 
 #include "User.h"
 #include "Timer.h"

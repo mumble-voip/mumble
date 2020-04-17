@@ -193,6 +193,29 @@ namespace Murmur {
 			                             const std::string&,
 			                             const Ice::Current&);
 
+    		virtual void startListening_async(const ::Murmur::AMD_Server_startListeningPtr&,
+										::Ice::Int,
+										::Ice::Int,
+										const Ice::Current&);
+
+			virtual void stopListening_async(const ::Murmur::AMD_Server_stopListeningPtr&,
+										::Ice::Int,
+										::Ice::Int,
+										const Ice::Current&);
+
+			virtual void isListening_async(const ::Murmur::AMD_Server_isListeningPtr&,
+										::Ice::Int,
+										::Ice::Int,
+										const Ice::Current&);
+
+			virtual void getListeningChannels_async(const ::Murmur::AMD_Server_getListeningChannelsPtr&,
+										::Ice::Int,
+										const Ice::Current&);
+
+			virtual void getListeningUsers_async(const ::Murmur::AMD_Server_getListeningUsersPtr&,
+										::Ice::Int,
+										const Ice::Current&);
+
 			virtual void ice_ping(const Ice::Current&) const;
 	};
 
