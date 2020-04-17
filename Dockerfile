@@ -1,4 +1,4 @@
-FROM ubuntu:disco
+FROM ubuntu:latest
 
 # needed to install tzdata in disco
 ENV DEBIAN_FRONTEND=noninteractive
@@ -33,7 +33,7 @@ RUN qmake -recursive main.pro CONFIG+="no-client grpc"
 RUN make release
 
 # Clean distribution stage
-FROM ubuntu:disco
+FROM ubuntu:latest
 
 RUN adduser murmur
 RUN apt-get update && apt-get install -y \
