@@ -39,8 +39,8 @@ RUN adduser murmur
 RUN apt-get update && apt-get install -y \
 	libcap2 \
 	libzeroc-ice3.7 \
-	libprotobuf17 \
-	libgrpc6 \
+	'^libprotobuf[0-9]+$' \
+	'^libgrpc[0-9]+$' \
 	libgrpc++1 \
 	libavahi-compat-libdnssd1 \
 	libqt5core5a \
