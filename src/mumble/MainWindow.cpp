@@ -50,6 +50,7 @@
 #include "Utils.h"
 #include "ListenerLocalVolumeDialog.h"
 #include "ChannelListener.h"
+#include "Markdown.h"
 
 #ifdef Q_OS_WIN
 # include "TaskList.h"
@@ -1905,7 +1906,7 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	qsText = qsText.toHtmlEscaped();
-	qsText = TextMessage::autoFormat(qsText);
+	qsText = Markdown::markdownToHTML(qsText);
 
 	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel message
