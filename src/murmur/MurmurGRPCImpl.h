@@ -39,7 +39,7 @@ namespace MurmurRPC {
 	}
 }
 
-class MurmurRPCAuthenticator : public ::grpc_impl::AuthMetadataProcessor {
+class MurmurRPCAuthenticator : public ::grpc::AuthMetadataProcessor {
 	public:
 		MurmurRPCAuthenticator();
 		grpc::Status Process(const InputMetadata&, ::grpc::AuthContext*, OutputMetadata*, OutputMetadata*);

@@ -283,7 +283,12 @@ void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	ru->set_udp_ping_msecs(su->dUDPPingAvg);
 	ru->set_tcp_ping_msecs(su->dTCPPingAvg);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+	ru->set_tcp_only(su->aiUdpFlag.loadRelaxed() == 0);
+#else
+	// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
 	ru->set_tcp_only(su->aiUdpFlag.load() == 0);
+#endif
 
 	ru->set_address(su->haAddress.toStdString());
 }

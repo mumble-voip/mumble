@@ -22,7 +22,8 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
                                 libcap-dev libxi-dev \
                                 libasound2-dev libpulse-dev \
                                 libogg-dev libsndfile1-dev libspeechd-dev \
-                                libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev
+                                libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev \
+                                libgrpc++-dev libprotoc-dev protobuf-compiler-grpc
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
