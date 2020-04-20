@@ -763,7 +763,7 @@ void Meta::successfulConnectionFrom(const QHostAddress &addr) {
 }
 
 bool Meta::banCheck(const QHostAddress &addr) {
-	if ((mp.iBanTries == 0) || (mp.iBanTimeframe == 0))
+	if ((mp.iBanTries <= 0) || (mp.iBanTimeframe <= 0))
 		return false;
 
 	if (qhBans.contains(addr)) {
