@@ -3799,6 +3799,18 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Lock layout</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Talking UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove silent user after</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -5570,6 +5582,14 @@ the channel&apos;s context menu.</source>
         <source>%1 stopped listening to your channel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Talking UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles the visibility of the TalkingUI.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -6452,6 +6472,10 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>QObject</name>
     <message>
         <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Talking UI</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
