@@ -1362,6 +1362,8 @@ void Server::newClient() {
 		sock->setProtocol(QSsl::TlsV1_0);
 #endif
 		sock->startServerEncryption();
+
+		meta->successfulConnectionFrom(adr);
 	}
 }
 

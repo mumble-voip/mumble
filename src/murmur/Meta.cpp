@@ -78,6 +78,7 @@ MetaParams::MetaParams() {
 	iBanTries = 10;
 	iBanTimeframe = 120;
 	iBanTime = 300;
+	bBanSuccessful = true;
 
 #ifdef Q_OS_UNIX
 	uiUid = uiGid = 0;
@@ -329,6 +330,7 @@ void MetaParams::read(QString fname) {
 	iBanTries = typeCheckedFromSettings("autobanAttempts", iBanTries);
 	iBanTimeframe = typeCheckedFromSettings("autobanTimeframe", iBanTimeframe);
 	iBanTime = typeCheckedFromSettings("autobanTime", iBanTime);
+	bBanSuccessful = typeCheckedFromSettings("autobanSuccessfulConnections", bBanSuccessful);
 
 	qvSuggestVersion = MumbleVersion::getRaw(qsSettings->value("suggestVersion").toString());
 	if (qvSuggestVersion.toUInt() == 0)
@@ -747,8 +749,21 @@ void Meta::killAll() {
 	qhServers.clear();
 }
 
+void Meta::successfulConnectionFrom(const QHostAddress &addr) {
+	if (!mp.bBanSuccessful) {
+		QList<Timer> &ql = qhAttempts[addr];
+		// Seems like this is the most efficient way to clear the list, given:
+		// 1. ql.clear() allocates a new array
+		// 2. ql has less than iBanAttempts members
+		// 3. seems like ql.removeFirst() might actually copy elements to shift to the front
+		while (!ql.empty()) {
+			ql.removeLast();
+		}
+	}
+}
+
 bool Meta::banCheck(const QHostAddress &addr) {
-	if ((mp.iBanTries == 0) || (mp.iBanTimeframe == 0))
+	if ((mp.iBanTries <= 0) || (mp.iBanTimeframe <= 0))
 		return false;
 
 	if (qhBans.contains(addr)) {

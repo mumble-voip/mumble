@@ -59,6 +59,7 @@ public:
 	int iBanTries;
 	int iBanTimeframe;
 	int iBanTime;
+	bool bBanSuccessful;
 
 	QString qsDatabase;
 	int iSQLiteWAL;
@@ -192,6 +193,10 @@ class Meta : public QObject {
 		void bootAll();
 		bool boot(int);
 		bool banCheck(const QHostAddress &);
+
+		/// Called whenever we get a successful connection from a client.
+		/// Used to reset autoban tracking for the address.
+		void successfulConnectionFrom(const QHostAddress &);
 		void kill(int);
 		void killAll();
 		void getOSInfo();
