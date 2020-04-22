@@ -124,7 +124,7 @@
           <Shortcut Id="MurmurShortcut" Directory="ApplicationProgramsFolder" Name="Murmur" WorkingDirectory="INSTALLDIR" Icon="murmur.ico" IconIndex="0" />
         </File>
       </Component>
-      <Component Id="murmur.ini" NeverOverwrite="yes">
+      <Component Id="murmur.ini" NeverOverwrite="yes" Permanent="yes">
         <File Source="$(var.SourceDir)\scripts\murmur.ini.win32" Name="murmur.ini" KeyPath="yes" />
       </Component>
       <Component Id="Murmur.ice">
