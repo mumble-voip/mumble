@@ -508,6 +508,25 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		sendMessage(uSource, mpsug);
 	}
 
+	if (uSource->uiVersion < 0x010400 && Meta::mp.iMaxListenersPerChannel > 0 && Meta::mp.iMaxListenerProxiesPerUser > 0) {
+		// The server has the ChannelListener feature enabled but the client that connects doesn't have version 1.4.0 or newer
+		// meaning that this client doesn't know what ChannelListeners are. Thus we'll send that user a text-message informing
+		// about this.
+		MumbleProto::TextMessage mptm;
+
+		if (Meta::mp.bAllowHTML) {
+			mptm.set_message("<b>[WARNING]</b>: This server has the <b>ChannelListener</b> feature enabled but your client version does not support it. "
+				"This means that users <b>might be listening to what you are saying in your channel without you noticing!</b> "
+				"You can solve this issue by upgrading to Mumble 1.4.0 or newer.");
+		} else {
+			mptm.set_message("[WARNING]: This server has the ChannelListener feature enabled but your client version does not support it. "
+				"This means that users might be listening to what you are saying in your channel without you noticing! "
+				"You can solve this issue by upgrading to Mumble 1.4.0 or newer.");
+		}
+
+		sendMessage(uSource, mptm);
+	}
+
 	log(uSource, "Authenticated");
 
 	emit userConnected(uSource);
