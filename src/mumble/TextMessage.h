@@ -19,7 +19,6 @@ class TextMessage : public QDialog, public Ui::TextMessage {
 	public:
 		TextMessage(QWidget *parent = NULL, QString title = tr("Enter text"), bool bChannel = false);
 		QString message();
-		static QString autoFormat(QString qsPlain);
 		bool bTreeMessage;
 };
 

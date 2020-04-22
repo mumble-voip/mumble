@@ -143,7 +143,8 @@ HEADERS *= BanEditor.h \
     PathListWidget.h \
     XMLTools.h \
     Screen.h \
-    SvgIcon.h
+    SvgIcon.h \
+    Markdown.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -214,7 +215,8 @@ SOURCES *= BanEditor.cpp \
     PathListWidget.cpp \
     XMLTools.cpp \
     Screen.cpp \
-    SvgIcon.cpp
+    SvgIcon.cpp \
+    Markdown.cpp
 
 CONFIG(qtspeech) {
   SOURCES *= TextToSpeech.cpp
