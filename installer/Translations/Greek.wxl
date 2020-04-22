@@ -33,6 +33,8 @@
   <String Id="DESC_SectionBonjour">Το Bonjour είναι για ανακοίνωση και ανίχνευση διακομιστών Murmur στο τοπικό σας δίκτυο. Αυτό θα κατεβάσει και θα τρέξει την εγκατάσταση του Bonjour.</String>
   <String Id="MUMBLE_SEC_DesktopShortcut">Συντόμευση στην επιφάνεια εργασίας</String>
   <String Id="DESC_DesktopShortcut">Δημιουργεί μια συντόμευση στην επιφάνεια εργασίας</String>
+  <String Id="MUMBLE_SEC_StartMenuShortcut">Start menu shortcut</String>
+  <String Id="DESC_StartMenuShortcut">Creates a shortcut on the start menu</String>
 
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble και Murmur</String>

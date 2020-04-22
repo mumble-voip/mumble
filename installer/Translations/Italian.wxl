@@ -34,6 +34,8 @@
   <String Id="DESC_SectionBonjour">Bonjour abilita la possibilità di trovare un server Murmur all'interno della tua rete LAN. Questa funzione scaricherà e installerà Bonjour</String>
   <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
   <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  <String Id="MUMBLE_SEC_StartMenuShortcut">Start menu shortcut</String>
+  <String Id="DESC_StartMenuShortcut">Creates a shortcut on the start menu</String>
   
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble e Murmur</String>
