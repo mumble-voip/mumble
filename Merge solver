@@ -1,0 +1,5 @@
+git checkout -b mumble-voip-f/ci-client-server-separately 1.2.x
+git pull https://github.com/mumble-voip/mumble.git f/ci-client-server-separately
+git checkout 1.2.x
+git merge --no-ff mumble-voip-f/ci-client-server-separately
+git push origin 1.2.x
