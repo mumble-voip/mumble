@@ -33,6 +33,8 @@
   <String Id="DESC_SectionBonjour">Bonjour 用于启用局域网内的 Mumble 服务器广播与发现。将会下载并运行 Bonjour 安装程序。</String>
   <String Id="MUMBLE_SEC_DesktopShortcut">桌面快捷方式</String>
   <String Id="DESC_DesktopShortcut">在桌面上创建快捷方式</String>
+  <String Id="MUMBLE_SEC_StartMenuShortcut">Start menu shortcut</String>
+  <String Id="DESC_StartMenuShortcut">Creates a shortcut on the start menu</String>
 
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble 和 Murmur</String>

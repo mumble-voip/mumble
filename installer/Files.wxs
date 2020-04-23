@@ -96,11 +96,18 @@
         </Shortcut>
       </Component>
       
+      <Component Id="MumbleStartMenuShortcutComponent" Guid="$(var.MumbleStartMenuShortcutGuid)" KeyPath="yes">
+        <Shortcut Id="MumbleStartMenuShortcut"
+                  Directory="ApplicationProgramsFolder"
+                  Name="Mumble"
+                  WorkingDirectory="INSTALLDIR"
+                  Target="[INSTALLDIR]mumble.exe">
+          <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
+        </Shortcut>
+      </Component>
+      
       <Component Id="mumble.exe" Guid="$(var.MumbleExeGuid)">
         <File Id="mumble.exe" Source="$(var.SourceDir)\release\mumble.exe" KeyPath="yes">
-          <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
-            <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
-          </Shortcut>
         </File>
 
         <RegistryValue Root="HKCR" Key="mumble" Value="URL:Mumble" Type="string" />
@@ -118,10 +125,19 @@
                   Icon="murmur.ico"
                   IconIndex="0" />
       </Component>
+      
+      <Component Id="MurmurStartMenuShortcutComponent" Guid="$(var.MurmurStartMenuShortcutGuid)" KeyPath="yes">
+        <Shortcut Id="MurmurStartMenuShortcut"
+                  Directory="ApplicationProgramsFolder"
+                  Name="Murmur"
+                  WorkingDirectory="INSTALLDIR"
+                  Target="[INSTALLDIR]murmur.exe"
+                  Icon="murmur.ico"
+                  IconIndex="0" />
+      </Component>
         
       <Component Id="murmur.exe">
         <File Id="murmur.exe" Source="$(var.SourceDir)\release\murmur.exe" KeyPath="yes">
-          <Shortcut Id="MurmurShortcut" Directory="ApplicationProgramsFolder" Name="Murmur" WorkingDirectory="INSTALLDIR" Icon="murmur.ico" IconIndex="0" />
         </File>
       </Component>
       <Component Id="murmur.ini" NeverOverwrite="yes" Permanent="yes">

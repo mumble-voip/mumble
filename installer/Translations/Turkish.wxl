@@ -34,6 +34,8 @@
   <String Id="DESC_SectionBonjour">Bonjour yerel ağınızda Murmur sunucularının duyurulmalarına ve keşiflerine imkân sağlar. Bu seçenek Bonjour kurucusunu indirir ve çalıştırır.</String>
   <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
   <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  <String Id="MUMBLE_SEC_StartMenuShortcut">Start menu shortcut</String>
+  <String Id="DESC_StartMenuShortcut">Creates a shortcut on the start menu</String>
   
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble ve Murmur</String>

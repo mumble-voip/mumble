@@ -16,7 +16,9 @@
 
   <?define MumbleExeGuid = "A08F7909-1116-4AC8-9422-051FA1A1BE19" ?>
   <?define MumbleDesktopShortcutGuid = "4448BE21-1AA1-41B8-887E-B3E07B28EFAE" ?>
+  <?define MumbleStartMenuShortcutGuid = "69AC0CC3-D47D-49FC-8C8D-2D0D368394D0" ?>
   <?define MurmurDesktopShortcutGuid = "02936CED-6588-4B7E-880F-241A4CF5E7D3" ?>
+  <?define MurmurStartMenuShortcutGuid = "F6B0A628-BBD5-4D28-BA0D-BB7C74970BAD" ?>
   <?define UninstallerComponentGuid = "CB81DC70-063E-48DD-94C3-593BBBAB20F4" ?>
   <?define LicenseTextGuid = "87C7967B-5E4B-41DD-83F5-A9E9E8AD3B39" ?>
   <?define ReadMeTextGuid = "15878902-B819-4E77-8C1D-0A915D79660B" ?>

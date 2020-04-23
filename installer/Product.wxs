@@ -144,6 +144,10 @@
       <Feature Id="MumbleDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)" InstallDefault="followParent" AllowAdvertise="no">
         <ComponentRef Id="MumbleDesktopShortcutComponent" />
       </Feature>
+
+      <Feature Id="MumbleStartMenuShortcutFeature" Title="!(loc.MUMBLE_SEC_StartMenuShortcut)" Description="!(loc.DESC_StartMenuShortcut)" InstallDefault="followParent" AllowAdvertise="no">
+        <ComponentRef Id="MumbleStartMenuShortcutComponent" />
+      </Feature>
     </Feature>
 
     <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000" ConfigurableDirectory="INSTALLDIR" Display="expand">
@@ -164,7 +168,10 @@
       <Feature Id="MurmurDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)"  InstallDefault="followParent" AllowAdvertise="no">
         <ComponentRef Id="MurmurDesktopShortcutComponent" />
       </Feature>
-      
+
+      <Feature Id="MurmurStartMenuShortcutFeature" Title="!(loc.MUMBLE_SEC_StartMenuShortcut)" Description="!(loc.DESC_StartMenuShortcut)"  InstallDefault="followParent" AllowAdvertise="no">
+        <ComponentRef Id="MurmurStartMenuShortcutComponent" />
+      </Feature>
     </Feature>
 
     <Feature Id="Libraries" Title="Required Libraries" Display="hidden" AllowAdvertise="no" Absent="disallow" Level="1">

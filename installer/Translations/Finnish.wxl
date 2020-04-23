@@ -34,6 +34,8 @@
   <String Id="DESC_SectionBonjour">Bonjour mahdollistaa Mumble-palvelimiesi ilmoittamisen ja löytämisen lähiverkon yli. Tämä lataa ja ajaa Bonjour-asennusohjelman.</String>
   <String Id="MUMBLE_SEC_DesktopShortcut">Työpöydän pikakuvake</String>
   <String Id="DESC_DesktopShortcut">Luo pikakuvakkeen työpöydälle</String>
+  <String Id="MUMBLE_SEC_StartMenuShortcut">Start menu shortcut</String>
+  <String Id="DESC_StartMenuShortcut">Creates a shortcut on the start menu</String>
 
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble ja Murmur</String>
