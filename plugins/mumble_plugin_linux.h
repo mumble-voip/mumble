@@ -78,11 +78,14 @@ static inline int8_t isProcessWin32(const procid_t &pid) {
 
 	const char *filename = basename(path);
 
-	free(path);
-
 	if (strcmp(filename, "wine-preloader") == 0 || strcmp(filename, "wine64-preloader") == 0) {
+		free(path);
 		return 1;
 	}
+
+	// basename() returns a pointer to the basename's position in the string passed as argument.
+	// For that reason we cannot free 'path' before the if statement.
+	free(path);
 
 	return 0;
 }
