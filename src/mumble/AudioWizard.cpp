@@ -161,6 +161,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	aosSource = NULL;
 	qgvView->scale(1.0f, -1.0f);
 	qgvView->viewport()->installEventFilter(this);
+	qgvView->setRenderHints(QPainter::Antialiasing);
 
 	// Volume
 	qsMaxAmp->setValue(g.s.iMinLoudness);
@@ -484,23 +485,78 @@ void AudioWizard::on_Ticker_timeout() {
 	}
 
 	if (! qgsScene) {
+		const float baseRadius = 0.5;
+
 		unsigned int nspeaker = 0;
+
+		// Note: when updating these, make sure the colors in AudioWizard.ui match up.
+		const QColor skyBlueColor(QLatin1String("#56b4e9"));
+		const QColor bluishGreenColor(QLatin1String("#009e73"));
+		const QColor vermillionColor(QLatin1String("#d55e00"));
+
+		// Get the directions of the speakers as unit vectors and also the amount of them
 		const float *spos = ao->getSpeakerPos(nspeaker);
+
 		if ((nspeaker > 0) && spos) {
 			qgsScene = new QGraphicsScene(QRectF(-4.0f, -4.0f, 8.0f, 8.0f), this);
-			qgsScene->addEllipse(QRectF(-0.12f, -0.12f, 0.24f, 0.24f), QPen(Qt::black), QBrush(Qt::darkRed));
+
+			QPen pen;
+			// A width of 0 will cause it to always use a width
+			// of exactly 1 pixel
+			pen.setWidth(0);
+
+			QGraphicsEllipseItem *ownPos = qgsScene->addEllipse(QRectF(-baseRadius, -baseRadius, 2*baseRadius, 2*baseRadius), pen, QBrush(skyBlueColor));
+			ownPos->setPos(0, 0);
+
+			// Good for debugging: This draws a cross at the origin
+			// qgsScene->addLine(QLineF(0,-1,0,1), pen);
+			// qgsScene->addLine(QLineF(-1,0,1,0), pen);
+
+			const float speakerScale = 0.9;
+			const float speakerRadius = baseRadius * speakerScale;
+
+			// nspeaker is in format [x1,y1,z1, x2,y2,z2, ...]
 			for (unsigned int i=0;i<nspeaker;++i) {
-				if ((spos[3*i] != 0.0f) || (spos[3*i+1] != 0.0f) || (spos[3*i+2] != 0.0f))
-					qgsScene->addEllipse(QRectF(spos[3*i] - 0.1f, spos[3*i+2] - 0.1f, 0.2f, 0.2f), QPen(Qt::black), QBrush(Qt::yellow));
+				if ((spos[3*i] != 0.0f) || (spos[3*i+1] != 0.0f) || (spos[3*i+2] != 0.0f)) {
+					float x = spos[3*i];
+					float z = spos[3*i + 2];
+
+					const float lengthInPlane = std::sqrt(x*x + z*z);
+
+					// Scale the vector in the xz plane so that its length is at least enough for
+					// the speaker icons and the icon for the own pos don't overlap
+					if ((baseRadius + speakerRadius) < lengthInPlane) {
+						const float scaleFactor = (baseRadius + speakerRadius) / lengthInPlane;
+
+						x *= scaleFactor;
+						z *= scaleFactor;
+					}
+
+					QGraphicsEllipseItem *ellipse = qgsScene->addEllipse(QRectF(-speakerRadius, -speakerRadius, 2 * speakerRadius , 2 * speakerRadius), pen, QBrush(vermillionColor));
+					ellipse->setPos(x, z);
+				}
 			}
-			qgiSource = qgsScene->addEllipse(QRectF(-.15f, -.15f, 0.3f, 0.3f), QPen(Qt::black), QBrush(Qt::green));
+
+			const float sourceScale = 0.9;
+			const float sourceRadius = baseRadius * sourceScale;
+
+			qgiSource = qgsScene->addEllipse(QRectF(-sourceRadius, -sourceRadius, 2 * sourceRadius, 2 * sourceRadius), pen, QBrush(bluishGreenColor));
+			qgiSource->setPos(0, (sourceRadius + baseRadius) * 1.5);
+
 			qgvView->setScene(qgsScene);
 			qgvView->fitInView(-4.0f, -4.0f, 8.0f, 8.0f, Qt::KeepAspectRatio);
 		}
 	} else if (currentPage() == qwpPositional) {
+		// This block here is responsible for setting the position of
+		// the audio source. Unless the user has clicked on the scene,
+		// the source will rotate around the origin at a radius of 2.
+		// Once the user has clicked on the scene, the sound source
+		// is put where (s)he clicked last.
 		float xp, yp;
 		if ((fX == 0.0f) && (fY == 0.0f)) {
-			fAngle += 0.05f;
+			// increase the angle of the sound source by a certain amount. he higher
+			// this value is, the faster will the source rotate.
+			fAngle += 0.02f;
 
 			xp = sinf(fAngle) * 2.0f;
 			yp = cosf(fAngle) * 2.0f;
