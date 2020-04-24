@@ -32,6 +32,9 @@
       <property name="wordWrap">
        <bool>true</bool>
       </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+      </property>
      </widget>
     </item>
     <item>
@@ -251,6 +254,9 @@ You should hear a voice sample. Change the slider below to the lowest value whic
       <property name="wordWrap">
        <bool>true</bool>
       </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+      </property>
      </widget>
     </item>
     <item row="1" column="0">
@@ -334,6 +340,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       <property name="wordWrap">
        <bool>true</bool>
       </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+      </property>
      </widget>
     </item>
     <item>
@@ -349,6 +358,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
       <property name="wordWrap">
        <bool>true</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
     </item>
@@ -370,6 +382,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       <property name="wordWrap">
        <bool>true</bool>
       </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+      </property>
      </widget>
     </item>
     <item>
@@ -382,6 +397,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
       <property name="wordWrap">
        <bool>true</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
     </item>
@@ -459,6 +477,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       <property name="wordWrap">
        <bool>true</bool>
       </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+      </property>
      </widget>
     </item>
     <item row="1" column="0">
@@ -528,6 +549,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -537,6 +561,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
          </property>
          <property name="wordWrap">
           <bool>true</bool>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -631,6 +658,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item row="1" column="0">
@@ -657,6 +687,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item row="2" column="0">
@@ -680,6 +713,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item row="3" column="0">
@@ -693,6 +729,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <widget class="QLabel" name="qlQualityCustom">
          <property name="text">
           <string>You already set a customized quality configuration in Mumble. Select this setting to keep it.</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -763,6 +802,9 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       <property name="wordWrap">
        <bool>true</bool>
       </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+      </property>
      </widget>
     </item>
     <item>
@@ -817,6 +859,9 @@ Mumble is under continuous development, and the development team wants to focus 
       </property>
       <property name="wordWrap">
        <bool>true</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
     </item>
