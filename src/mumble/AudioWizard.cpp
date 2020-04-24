@@ -547,9 +547,16 @@ void AudioWizard::on_Ticker_timeout() {
 			qgvView->fitInView(-4.0f, -4.0f, 8.0f, 8.0f, Qt::KeepAspectRatio);
 		}
 	} else if (currentPage() == qwpPositional) {
+		// This block here is responsible for setting the position of
+		// the audio source. Unless the user has clicked on the scene,
+		// the source will rotate around the origin at a radius of 2.
+		// Once the user has clicked on the scene, the sound source
+		// is put where (s)he clicked last.
 		float xp, yp;
 		if ((fX == 0.0f) && (fY == 0.0f)) {
-			fAngle += 0.05f;
+			// increase the angle of the sound source by a certain amount. he higher
+			// this value is, the faster will the source rotate.
+			fAngle += 0.02f;
 
 			xp = sinf(fAngle) * 2.0f;
 			yp = cosf(fAngle) * 2.0f;
