@@ -1519,17 +1519,34 @@ void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &m
 	emit contextAction(uSource, u8(msg.action()), session, id);
 }
 
+/// @param str The std::string to convert
+/// @param maxSize The maximum allowed size for this string
+/// @returns The given std::string converted to a QString, if its size is less
+///  	than or equal to the given maxSize. If it is bigger, "[[Invalid]]"
+///  	is returned.
+QString convertWithSizeRestriction(const std::string &str, size_t maxSize) {
+	if (str.size() > maxSize) {
+		return QLatin1String("[[Invalid]]");
+	}
+
+	return QString::fromStdString(str);
+}
+
 void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 	RATELIMIT(uSource);
 
-	if (msg.has_version())
+	if (msg.has_version()) {
 		uSource->uiVersion=msg.version();
-	if (msg.has_release())
-		uSource->qsRelease = u8(msg.release());
+	}
+	if (msg.has_release()) {
+		uSource->qsRelease = convertWithSizeRestriction(msg.release(), 100);
+	}
 	if (msg.has_os()) {
-		uSource->qsOS = u8(msg.os());
-		if (msg.has_os_version())
-			uSource->qsOSVersion = u8(msg.os_version());
+		uSource->qsOS = convertWithSizeRestriction(msg.os(), 40);
+
+		if (msg.has_os_version()) {
+			uSource->qsOSVersion = convertWithSizeRestriction(msg.os_version(), 60);
+		}
 	}
 
 	log(uSource, QString("Client version %1 (%2: %3)").arg(MumbleVersion::toString(uSource->uiVersion)).arg(uSource->qsOS).arg(uSource->qsRelease));
