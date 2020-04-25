@@ -35,6 +35,7 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "crypto/CryptState.h"
+#include "ProtoValidator.h"
 #include "Global.h"
 
 #include <QTextDocumentFragment>
@@ -59,8 +60,15 @@
 		return;                                                                             \
 	}
 
-/// The authenticate message is being used by the client to send the authentication credentials to the server. Therefore
-/// the server won't send this message type to the client which is why this implementation does nothing.
+#define VALIDATE_MESSAGE(msgName) \
+	if (!ProtoValidator::isValid(msg)) { \
+		qWarning("Dropping \"" #msgName "\" message because it is invalid!"); \
+		return; \
+	}
+
+
+/// The authenticate message is being used by the client to send the authentication credentials to the server. Therefore the
+/// server won't send this message type to the client which is why this implementation does nothing.
 void MainWindow::msgAuthenticate(const MumbleProto::Authenticate &) {
 }
 
@@ -68,6 +76,8 @@ void MainWindow::msgAuthenticate(const MumbleProto::Authenticate &) {
 ///
 /// @param msg The message object containing information about the ban list
 void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
+	VALIDATE_MESSAGE(BanList);
+
 	if (banEdit) {
 		banEdit->reject();
 		delete banEdit;
@@ -81,6 +91,8 @@ void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
 ///
 /// @param msg The message object containing the information about why the connection was rejected
 void MainWindow::msgReject(const MumbleProto::Reject &msg) {
+	VALIDATE_MESSAGE(Reject);
+
 	rtLast = msg.type();
 
 	QString reason;
@@ -117,6 +129,8 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 ///
 /// @param msg The message object with the respective information
 void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
+	VALIDATE_MESSAGE(ServerSync);
+
 	const ClientUser *user = ClientUser::get(msg.session());
 	if (!user) {
 		Global::get().l->log(Log::CriticalError, tr("Server sync protocol violation. No user profile received."));
@@ -223,6 +237,8 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 ///
 /// @param msg The message object
 void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
+	VALIDATE_MESSAGE(ServerConfig);
+
 	if (msg.has_welcome_text()) {
 		QString str = u8(msg.welcome_text());
 		if (!str.isEmpty()) {
@@ -246,6 +262,8 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 ///
 /// @param msg The message object containing further details as to why and what Permission has been denied
 void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
+	VALIDATE_MESSAGE(PermissionDenied);
+
 	switch (msg.type()) {
 		case MumbleProto::PermissionDenied_DenyType_Permission: {
 			VICTIM_INIT;
@@ -356,6 +374,8 @@ void MainWindow::msgUDPTunnel(const MumbleProto::UDPTunnel &) {
 ///
 /// @param msg The message object containing the respective information
 void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
+	VALIDATE_MESSAGE(UserState);
+
 	ACTOR_INIT;
 	ClientUser *pSelf = ClientUser::get(Global::get().uiSession);
 	ClientUser *pDst  = ClientUser::get(msg.session());
@@ -806,6 +826,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 ///
 /// @param msg The message object containing further information
 void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
+	VALIDATE_MESSAGE(UserRemove);
+
 	VICTIM_INIT;
 	ACTOR_INIT;
 	SELF_INIT;
@@ -855,6 +877,8 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 ///
 /// @param msg The message object containing the details about the channel properties
 void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
+	VALIDATE_MESSAGE(ChannelState);
+
 	if (!msg.has_channel_id())
 		return;
 
@@ -960,6 +984,8 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 }
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
+	VALIDATE_MESSAGE(ChannelRemove);
+
 	Channel *c = Channel::get(msg.channel_id());
 	if (c && (c->iId != 0)) {
 		if (c->bFiltered) {
@@ -981,6 +1007,8 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 ///
 /// @param msg The message object that contains information about the received text message
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
+	VALIDATE_MESSAGE(TextMessage);
+
 	ACTOR_INIT;
 	QString target;
 
@@ -1026,6 +1054,8 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 ///
 /// @param msg The message object holding the ACL and further details
 void MainWindow::msgACL(const MumbleProto::ACL &msg) {
+	VALIDATE_MESSAGE(ACL);
+
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
@@ -1042,6 +1072,8 @@ void MainWindow::msgACL(const MumbleProto::ACL &msg) {
 ///
 /// @param msg The message object with the respective information
 void MainWindow::msgQueryUsers(const MumbleProto::QueryUsers &msg) {
+	VALIDATE_MESSAGE(QueryUsers);
+
 	if (aclEdit)
 		aclEdit->returnQuery(msg);
 }
@@ -1051,6 +1083,8 @@ void MainWindow::msgPing(const MumbleProto::Ping &) {
 }
 
 void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
+	VALIDATE_MESSAGE(CryptSetup);
+
 	ConnectionPtr c = Global::get().sh->cConnection;
 	if (!c)
 		return;
@@ -1087,6 +1121,8 @@ void MainWindow::msgContextAction(const MumbleProto::ContextAction &) {
 ///
 /// @see MainWindow::removeContextAction
 void MainWindow::msgContextActionModify(const MumbleProto::ContextActionModify &msg) {
+	VALIDATE_MESSAGE(ContextActionModify);
+
 	if (msg.has_operation() && msg.operation() == MumbleProto::ContextActionModify_Operation_Remove) {
 		removeContextAction(msg);
 		return;
@@ -1141,6 +1177,8 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 ///
 /// @param msg The message object with the respective information
 void MainWindow::msgVersion(const MumbleProto::Version &msg) {
+	VALIDATE_MESSAGE(Version);
+
 	if (msg.has_version())
 		Global::get().sh->uiVersion = msg.version();
 	if (msg.has_release())
@@ -1156,6 +1194,8 @@ void MainWindow::msgVersion(const MumbleProto::Version &msg) {
 ///
 /// @param msg The message object containing the user list
 void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
+	VALIDATE_MESSAGE(UserList);
+
 	if (userEdit) {
 		userEdit->reject();
 		delete userEdit;
@@ -1175,6 +1215,8 @@ void MainWindow::msgVoiceTarget(const MumbleProto::VoiceTarget &) {
 ///
 /// @param msg The message object containing the respective information
 void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
+	VALIDATE_MESSAGE(PermissionQuery);
+
 	Channel *current = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (msg.flush()) {
@@ -1204,6 +1246,8 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 ///
 /// @param msg The message object
 void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
+	VALIDATE_MESSAGE(CodecVersion);
+
 	int alpha = msg.has_alpha() ? msg.alpha() : -1;
 	int beta  = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
@@ -1257,6 +1301,8 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 ///
 /// @param msg The message object containing the stats
 void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
+	VALIDATE_MESSAGE(UserStats);
+
 	UserInformation *ui = qmUserInformations.value(msg.session());
 	if (ui) {
 		ui->update(msg);
@@ -1285,6 +1331,8 @@ void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
 ///
 /// @param msg The message object containing the suggestions
 void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
+	VALIDATE_MESSAGE(SuggestConfig);
+
 	if (msg.has_version() && (msg.version() > MumbleVersion::getRaw())) {
 		Global::get().l->log(Log::Warning,
 				 tr("The server requests minimum client version %1").arg(MumbleVersion::toString(msg.version())));

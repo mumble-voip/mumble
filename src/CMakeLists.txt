@@ -14,6 +14,8 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 
 option(dbus "Build support for DBus." ON)
 
+include(proto-validator)
+
 find_pkg(Qt5
 	COMPONENTS
 		Core
@@ -32,6 +34,8 @@ find_pkg(OpenSSL
 find_pkg(Protobuf REQUIRED)
 
 add_library(shared STATIC)
+
+target_include_directories(shared PUBLIC "${MUMBLE_GENERATED_HEADER_DIR}")
 
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
 
@@ -79,6 +83,8 @@ set(SHARED_SOURCES
 	"crypto/CryptStateOCB2.cpp"
 
 	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.cpp"
+
+	"${MUMBLE_PROTO_VALIDATOR_SOURCE}"
 )
 
 set(SHARED_HEADERS
