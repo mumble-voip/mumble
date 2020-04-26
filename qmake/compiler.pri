@@ -201,6 +201,9 @@ win32-msvc* {
 		QMAKE_LFLAGS *= /DEBUG /OPT:REF /OPT:ICF /INCREMENTAL:NO
 	}
 
+	# Ignore LNK4099.
+	QMAKE_LFLAGS *= /ignore:4099
+
 	CONFIG(vld) {
 		CONFIG(debug, debug|release) {
 			DEFINES *= USE_VLD
