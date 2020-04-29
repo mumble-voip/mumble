@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>588</width>
-    <height>794</height>
+    <height>811</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -123,7 +123,7 @@
       <item row="1" column="4">
        <widget class="MUComboBox" name="qcbEcho">
         <property name="toolTip">
-         <string>Cancel echo from speakers</string>
+         <string/>
         </property>
         <property name="whatsThis">
          <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
