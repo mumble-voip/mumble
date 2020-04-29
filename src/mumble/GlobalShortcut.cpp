@@ -24,6 +24,8 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
+const QString GlobalShortcutConfig::name = QLatin1String("GlobalShortcutConfig");
+
 /**
  * Used to save the global, unique, platform specific GlobalShortcutEngine.
  */
@@ -700,6 +702,10 @@ void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, in
 
 QString GlobalShortcutConfig::title() const {
 	return tr("Shortcuts");
+}
+
+const QString &GlobalShortcutConfig::getName() const {
+	return GlobalShortcutConfig::name;
 }
 
 QIcon GlobalShortcutConfig::icon() const {

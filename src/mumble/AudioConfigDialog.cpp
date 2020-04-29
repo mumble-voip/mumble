@@ -43,6 +43,10 @@
 #include "NetworkConfig.h"
 #include "Utils.h"
 
+const QString AudioOutputDialog::name = QLatin1String("AudioOutputWidget");
+const QString AudioInputDialog::name = QLatin1String("AudioInputWidget");
+
+
 static ConfigWidget *AudioInputDialogNew(Settings &st) {
 	return new AudioInputDialog(st);
 }
@@ -93,6 +97,10 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 QString AudioInputDialog::title() const {
 	return tr("Audio Input");
+}
+
+const QString &AudioInputDialog::getName() const {
+	return AudioInputDialog::name;
 }
 
 QIcon AudioInputDialog::icon() const {
@@ -431,6 +439,10 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 
 QString AudioOutputDialog::title() const {
 	return tr("Audio Output");
+}
+
+const QString &AudioOutputDialog::getName() const {
+	return AudioOutputDialog::name;
 }
 
 QIcon AudioOutputDialog::icon() const {
