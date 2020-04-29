@@ -64,6 +64,10 @@ void AudioInputDialog::hideEvent(QHideEvent *) {
 
 void AudioInputDialog::showEvent(QShowEvent *) {
 	qtTick->start(20);
+
+	// In case the user has changed the audio output device and is now coming
+	// back.
+	updateEchoEnableState();
 }
 
 AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
@@ -383,11 +387,27 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 			++idx;
 		}
 
-		qcbEcho->setEnabled(air->canEcho(s.qsAudioOutput));
+		updateEchoEnableState();
+
 		qcbExclusive->setEnabled(air->canExclusive());
 	}
 
 	qcbDevice->setEnabled(ql.count() > 1);
+}
+
+void AudioInputDialog::updateEchoEnableState() {
+	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
+
+	AudioOutputDialog *outputWidget = static_cast<AudioOutputDialog *>(ConfigDialog::getConfigWidget(AudioOutputDialog::name));
+	QString outputInterface;
+	if (outputWidget) {
+		outputInterface = outputWidget->getCurrentlySelectedOutputInterfaceName();
+	} else {
+		// Fallback for when the outputWIdget is not (yet) available -> use the value from the current settings
+		outputInterface = s.qsAudioOutput;
+	}
+
+	qcbEcho->setEnabled(air->canEcho(outputInterface));
 }
 
 void AudioInputDialog::on_Tick_timeout() {
@@ -447,6 +467,14 @@ const QString &AudioOutputDialog::getName() const {
 
 QIcon AudioOutputDialog::icon() const {
 	return QIcon(QLatin1String("skin:config_audio_output.png"));
+}
+
+QString AudioOutputDialog::getCurrentlySelectedOutputInterfaceName() const {
+	if (qcbSystem) {
+		return qcbSystem->currentText();
+	}
+
+	return QString();
 }
 
 void AudioOutputDialog::load(const Settings &r) {
