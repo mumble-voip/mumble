@@ -311,6 +311,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		/// the input stream. If false, the audio backend MUST immediately
 		/// un-cork/resume the stream.
 		void corkAudioInputStream(const bool cork);
+		/// Signal emitted when the server and the client have finished
+		/// synchronizing (after a new connection).
+		void serverSynchronized();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow() Q_DECL_OVERRIDE;

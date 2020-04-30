@@ -277,8 +277,10 @@ struct Settings {
 	int iMaxLogBlocks;
 	bool bLog24HourClock;
 	int iChatMessageMargins;
+
 	bool bShowTalkingUI;
 	int iTalkingUI_SilentUserLifeTime;
+	bool bTalkingUI_LocalUserStaysVisible;
 
 	QMap<int, QString> qmMessageSounds;
 	QMap<int, quint32> qmMessages;

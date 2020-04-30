@@ -103,142 +103,15 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QGroupBox" name="qgbTray">
-     <property name="title">
-      <string>Tray Icon</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QCheckBox" name="qcbHideTray">
-        <property name="toolTip">
-         <string>Hide the main Mumble window in the tray when it is minimized.</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</string>
-        </property>
-        <property name="text">
-         <string>Hide in tray when minimized</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="qcbStateInTray">
-        <property name="toolTip">
-         <string>Displays talking status in system tray</string>
-        </property>
-        <property name="whatsThis">
-         <string/>
-        </property>
-        <property name="text">
-         <string>Show talking status in tray icon</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" rowspan="3">
-    <widget class="QGroupBox" name="qgbLookFeel">
-     <property name="title">
-      <string>Look and Feel</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="3" column="0" colspan="2">
-       <widget class="MUComboBox" name="qcbLanguage">
-        <property name="toolTip">
-         <string>Language to use (requires restart)</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliTheme">
-        <property name="text">
-         <string>Theme</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="MUComboBox" name="qcbTheme">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Theme to use to style the user interface</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbShowTransmitModeComboBox">
-        <property name="text">
-         <string>Show transmit mode dropdown in toolbar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbHighContrast">
-        <property name="toolTip">
-         <string>Apply some high contrast optimizations for visually impaired users</string>
-        </property>
-        <property name="text">
-         <string>Optimize for high contrast</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliLanguage">
-        <property name="text">
-         <string>Language</string>
-        </property>
-        <property name="buddy">
-         <cstring>qcbLanguage</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="qlThemesDirectory">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="5" column="1">
-    <spacer name="verticalSpacer_2">
+    <spacer name="horizontalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>40</width>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -445,43 +318,29 @@
      </layout>
     </widget>
    </item>
+   <item row="6" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="3" column="1">
     <widget class="QGroupBox" name="qgbChannel">
      <property name="title">
       <string>Channel Tree</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliChannelDrag">
-        <property name="text">
-         <string>Channel Dragging</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="MUComboBox" name="qcbChannelDrag">
-        <property name="toolTip">
-         <string>This changes the behavior when moving channels.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="qliUserDrag">
         <property name="text">
          <string>User Dragging</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="MUComboBox" name="qcbUserDrag">
-        <property name="toolTip">
-         <string>This changes the behavior when moving users.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</string>
         </property>
        </widget>
       </item>
@@ -492,13 +351,30 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="MUComboBox" name="qcbExpand">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliChannelDrag">
+        <property name="text">
+         <string>Channel Dragging</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbShowUserCount">
         <property name="toolTip">
-         <string>When to automatically expand channels</string>
+         <string>Show number of users in each channel</string>
+        </property>
+        <property name="text">
+         <string>Show channel user count</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="MUComboBox" name="qcbChannelDrag">
+        <property name="toolTip">
+         <string>This changes the behavior when moving channels.</string>
         </property>
         <property name="whatsThis">
-         <string>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</string>
+         <string>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</string>
         </property>
        </widget>
       </item>
@@ -515,20 +391,20 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbShowUserCount">
-        <property name="toolTip">
-         <string>Show number of users in each channel</string>
-        </property>
-        <property name="text">
-         <string>Show channel user count</string>
-        </property>
-       </widget>
-      </item>
       <item row="5" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbChatBarUseSelection">
         <property name="text">
          <string>Use selected item as the chat bar target</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="MUComboBox" name="qcbExpand">
+        <property name="toolTip">
+         <string>When to automatically expand channels</string>
+        </property>
+        <property name="whatsThis">
+         <string>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</string>
         </property>
        </widget>
       </item>
@@ -539,10 +415,55 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="1">
+       <widget class="MUComboBox" name="qcbUserDrag">
+        <property name="toolTip">
+         <string>This changes the behavior when moving users.</string>
+        </property>
+        <property name="whatsThis">
+         <string>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="2" column="1">
+    <widget class="QGroupBox" name="qgbTray">
+     <property name="title">
+      <string>Tray Icon</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QCheckBox" name="qcbHideTray">
+        <property name="toolTip">
+         <string>Hide the main Mumble window in the tray when it is minimized.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</string>
+        </property>
+        <property name="text">
+         <string>Hide in tray when minimized</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbStateInTray">
+        <property name="toolTip">
+         <string>Displays talking status in system tray</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="text">
+         <string>Show talking status in tray icon</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="1">
     <widget class="QGroupBox" name="groupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -563,6 +484,19 @@
       <property name="horizontalSpacing">
        <number>6</number>
       </property>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="qsbSilentUserLifetime">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="qlSilentUserLifetime">
         <property name="sizePolicy">
@@ -579,8 +513,44 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QSpinBox" name="qsbSilentUserLifetime">
+      <item row="1" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbLocalUserVisible">
+        <property name="toolTip">
+         <string>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</string>
+        </property>
+        <property name="text">
+         <string>Always keep local user visible</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" rowspan="4">
+    <widget class="QGroupBox" name="qgbLookFeel">
+     <property name="title">
+      <string>Look and Feel</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="0" colspan="2">
+       <widget class="MUComboBox" name="qcbLanguage">
+        <property name="toolTip">
+         <string>Language to use (requires restart)</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliTheme">
+        <property name="text">
+         <string>Theme</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="MUComboBox" name="qcbTheme">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -588,25 +558,65 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</string>
+         <string>Theme to use to style the user interface</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbShowTransmitModeComboBox">
+        <property name="text">
+         <string>Show transmit mode dropdown in toolbar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbHighContrast">
+        <property name="toolTip">
+         <string>Apply some high contrast optimizations for visually impaired users</string>
+        </property>
+        <property name="text">
+         <string>Optimize for high contrast</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliLanguage">
+        <property name="text">
+         <string>Language</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbLanguage</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="qlThemesDirectory">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
-   </item>
-   <item row="4" column="1">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

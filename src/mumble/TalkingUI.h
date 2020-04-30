@@ -16,6 +16,9 @@ class QGroupBox;
 class QTimer;
 class QMouseEvent;
 
+class Channel;
+class ClientUser;
+
 /// Smaller auxilary class for holding together two labels representing
 /// the entry for a specific user in the TalkingUI<
 struct Entry {
@@ -39,7 +42,7 @@ class TalkingUI : public QWidget {
 		/// A map betweem user session IDs and the timer used to remove users
 		/// that have stopped speaking for a certain amount of time.
 		QHash<unsigned int, QTimer *> m_timers;
-
+		/// The Entry corresponding to the currently selected user
 		Entry *m_currentSelection;
 
 		/// The icon for a talking user
@@ -53,8 +56,25 @@ class TalkingUI : public QWidget {
 
 		/// Sets up the UI components
 		void setupUI();
-		/// Removes a user from being displayed
-		void removeUser(unsigned int session);
+		/// Hides an user
+		///
+		/// @param session The session ID of the user that shall be hidden
+		void hideUser(unsigned int session);
+		/// Adds an UI entry for the given Channel, if none exists yet.
+		///
+		/// @param channel A pointer to the channel that shall be added
+		void addChannel(const Channel *channel);;
+		/// Adds an UI entry for the given User, if none exists yet.
+		///
+		/// @param channel A pointer to the user that shall be added
+		void addUser(const ClientUser *user);
+		/// Makes sure the user with the given session is visible and
+		/// placed in the channel with the given ID. Note that both the
+		/// user and the channel are expected to have an UI entry already.
+		///
+		/// @paam userSession The session ID of the user
+		/// @param channelID The channel ID of the channel
+		void ensureVisible(unsigned int userSession, int channelID);
 
 		/// Update (resize) the UI to its content
 		void updateUI();
@@ -76,6 +96,9 @@ class TalkingUI : public QWidget {
 	public slots:
 		void on_talkingStateChanged();
 		void on_mainWindowSelectionChanged(const QModelIndex &current, const QModelIndex &previous);
+		void on_serverSynchronized();
+		void on_serverDisconnected();
+		void on_channelChanged(QObject *user);
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUI_H_

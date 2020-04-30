@@ -179,6 +179,7 @@ void LookConfig::load(const Settings &r) {
 	reloadThemes(configuredStyle);
 
 	qsbSilentUserLifetime->setValue(r.iTalkingUI_SilentUserLifeTime);
+	loadCheckBox(qcbLocalUserVisible, r.bTalkingUI_LocalUserStaysVisible);
 }
 
 void LookConfig::save() const {
@@ -233,6 +234,7 @@ void LookConfig::save() const {
 	}
 
 	s.iTalkingUI_SilentUserLifeTime = qsbSilentUserLifetime->value();
+	s.bTalkingUI_LocalUserStaysVisible = qcbLocalUserVisible->isChecked();
 }
 
 void LookConfig::accept() const {
