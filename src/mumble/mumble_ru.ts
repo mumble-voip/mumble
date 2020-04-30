@@ -391,7 +391,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation>Максимальное количество пользователей разрешенное на канале</translation>
+        <translation>Максимальное количество пользователей, разрешенное на канале</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -3730,11 +3730,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Тема, используемая для оформления интерфейса</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Настраивает то, как выглядит интерфейс Mumble.&lt;/b&gt;&lt;br /&gt;Mumble будет импортировать темы из определенных каталогов и показывать их в списке. Та тема, которую вы выберете, будет определять визуальный стиль Mumble. Она включает цвета, иконки и другое.</translation>
     </message>
     <message>
         <source>User Dragging</source>
@@ -4104,12 +4104,12 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Изменить режим передачи на Активацию по кнопке</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Изменить режим передачи на Постоянный</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
@@ -4816,7 +4816,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
-        <translation>Привилегия %1 была запрещена для Вас в %2.</translation>
+        <translation>Привилегия %1 вам недоступна в %2.</translation>
     </message>
     <message>
         <source>%3 was denied %1 privileges in %2.</source>
@@ -5380,11 +5380,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Hides the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Скрывает основное окно Mumble.</translation>
     </message>
     <message>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
-        <translation type="unfinished"/>
+        <translation>Скрывает главное окно Mumble. Чтобы восстановить его, нужно нажать иконку в трее или запустить Mumble снова.</translation>
     </message>
     <message>
         <source>Show the Developer Console</source>
@@ -5508,7 +5508,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation type="unfinished"/>
+        <translation>Показывает главное окно Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -5523,7 +5523,7 @@ the channel&apos;s context menu.</source>
     <name>Manual</name>
     <message>
         <source>Manual Mumble Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Ручное позиционирование звука Mumble</translation>
     </message>
     <message>
         <source>Position</source>
