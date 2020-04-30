@@ -936,6 +936,17 @@ the channel's context menu.</string>
     <string>Locally adjust the volume for this virtual ear.</string>
    </property>
   </action>
+  <action name="qaTalkingUIToggle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Talking UI</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggles the visibility of the TalkingUI.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

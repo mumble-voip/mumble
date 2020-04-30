@@ -451,6 +451,9 @@ Settings::Settings() {
 	bLog24HourClock = true;
 	iChatMessageMargins = 3;
 
+	bShowTalkingUI = false;
+	iTalkingUI_SilentUserLifeTime = 5;
+
 	bShortcutEnable = true;
 	bSuppressMacEventTapWarning = false;
 	bEnableEvdev = false;
@@ -805,6 +808,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bLog24HourClock, "ui/24HourClock");
 	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
+	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
+	SAVELOAD(iTalkingUI_SilentUserLifeTime, "ui/talkingUI_SilentUserLifeTime");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
@@ -1142,6 +1147,8 @@ void Settings::save() {
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bLog24HourClock, "ui/24HourClock");
 	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
+	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
+	SAVELOAD(iTalkingUI_SilentUserLifeTime, "ui/talkingUI_SilentUserLifeTime");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");

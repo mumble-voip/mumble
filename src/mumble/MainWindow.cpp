@@ -51,6 +51,7 @@
 #include "ListenerLocalVolumeDialog.h"
 #include "ChannelListener.h"
 #include "Markdown.h"
+#include "TalkingUI.h"
 
 #ifdef Q_OS_WIN
 # include "TaskList.h"
@@ -1960,6 +1961,10 @@ void MainWindow::on_qmConfig_aboutToShow() {
 	qmConfig->addAction(qaAudioTTS);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
+
+	qaTalkingUIToggle->setChecked(g.talkingUI && g.talkingUI->isVisible());
+
+	qmConfig->addAction(qaTalkingUIToggle);
 	if (g.s.bMinimalView)
 		qmConfig->addAction(qaConfigHideFrame);
 }
@@ -3273,6 +3278,17 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 		}
 		default: break;
 	}
+}
+
+void MainWindow::on_qaTalkingUIToggle_triggered() {
+	if (!g.talkingUI) {
+		qCritical("MainWindow: Attempting to show Talking UI before it has been created!");
+		return;
+	}
+
+	g.talkingUI->setVisible(!g.talkingUI->isVisible());
+
+	g.s.bShowTalkingUI = g.talkingUI->isVisible();
 }
 
 /**

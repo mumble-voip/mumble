@@ -1482,6 +1482,19 @@ ClientUser *UserModel::getSelectedUser() const {
 	return nullptr;
 }
 
+void UserModel::setSelectedUser(unsigned int session) {
+	QModelIndex idx = index(ClientUser::get(session));
+
+	if (!idx.isValid()) {
+		return;
+	}
+
+	QTreeView *v = g.mw->qtvUsers;
+	if (v) {
+		v->setCurrentIndex(idx);
+	}
+}
+
 Channel *UserModel::getChannel(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return NULL;
@@ -1505,6 +1518,19 @@ Channel *UserModel::getSelectedChannel() const {
 	}
 
 	return nullptr;
+}
+
+void UserModel::setSelectedChannel(int id) {
+	QModelIndex idx = index(Channel::get(id));
+
+	if (!idx.isValid()) {
+		return;
+	}
+
+	QTreeView *v = g.mw->qtvUsers;
+	if (v) {
+		v->setCurrentIndex(idx);
+	}
 }
 
 Channel *UserModel::getSubChannel(Channel *p, int idx) const {
