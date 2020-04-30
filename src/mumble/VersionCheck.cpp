@@ -17,7 +17,7 @@
 #include <QtXml/QDomDocument>
 #include <QtWidgets/QMessageBox>
 
-#include <QtConcurrent>
+#include <QtConcurrent/QtConcurrent>
 
 #ifdef Q_OS_WIN
 # include <shellapi.h>
