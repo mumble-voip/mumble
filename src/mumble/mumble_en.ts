@@ -3811,6 +3811,14 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Remove silent user after</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep local user visible</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
