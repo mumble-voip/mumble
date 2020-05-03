@@ -36,6 +36,8 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
+const QString OverlayConfig::name = QLatin1String("OverlayConfig");
+
 static const int OVERLAYCONFIG_PATH_ROLE = Qt::UserRole;
 static const int OVERLAYCONFIG_BUILTIN_ROLE = Qt::UserRole + 1;
 
@@ -414,6 +416,10 @@ void OverlayConfig::load(const Settings &r) {
 
 QString OverlayConfig::title() const {
 	return tr("Overlay");
+}
+
+const QString &OverlayConfig::getName() const {
+	return OverlayConfig::name;
 }
 
 QIcon OverlayConfig::icon() const {

@@ -43,6 +43,10 @@
 #include "NetworkConfig.h"
 #include "Utils.h"
 
+const QString AudioOutputDialog::name = QLatin1String("AudioOutputWidget");
+const QString AudioInputDialog::name = QLatin1String("AudioInputWidget");
+
+
 static ConfigWidget *AudioInputDialogNew(Settings &st) {
 	return new AudioInputDialog(st);
 }
@@ -60,6 +64,10 @@ void AudioInputDialog::hideEvent(QHideEvent *) {
 
 void AudioInputDialog::showEvent(QShowEvent *) {
 	qtTick->start(20);
+
+	// In case the user has changed the audio output device and is now coming
+	// back.
+	updateEchoEnableState();
 }
 
 AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
@@ -93,6 +101,10 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 QString AudioInputDialog::title() const {
 	return tr("Audio Input");
+}
+
+const QString &AudioInputDialog::getName() const {
+	return AudioInputDialog::name;
 }
 
 QIcon AudioInputDialog::icon() const {
@@ -375,11 +387,34 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 			++idx;
 		}
 
-		qcbEcho->setEnabled(air->canEcho(s.qsAudioOutput));
+		updateEchoEnableState();
+
 		qcbExclusive->setEnabled(air->canExclusive());
 	}
 
 	qcbDevice->setEnabled(ql.count() > 1);
+}
+
+void AudioInputDialog::updateEchoEnableState() {
+	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
+
+	AudioOutputDialog *outputWidget = static_cast<AudioOutputDialog *>(ConfigDialog::getConfigWidget(AudioOutputDialog::name));
+	QString outputInterface;
+	if (outputWidget) {
+		outputInterface = outputWidget->getCurrentlySelectedOutputInterfaceName();
+	} else {
+		// Fallback for when the outputWIdget is not (yet) available -> use the value from the current settings
+		outputInterface = s.qsAudioOutput;
+	}
+
+	if (air->canEcho(outputInterface)) {
+		qcbEcho->setEnabled(true);
+		qcbEcho->setToolTip(QObject::tr("Cancel echo from speakers"));
+	} else {
+		qcbEcho->setEnabled(false);
+		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not supported for the interface "
+					"combination \"%1\" (in) and \"%2\" (out).").arg(air->name).arg(outputInterface));
+	}
 }
 
 void AudioInputDialog::on_Tick_timeout() {
@@ -433,8 +468,20 @@ QString AudioOutputDialog::title() const {
 	return tr("Audio Output");
 }
 
+const QString &AudioOutputDialog::getName() const {
+	return AudioOutputDialog::name;
+}
+
 QIcon AudioOutputDialog::icon() const {
 	return QIcon(QLatin1String("skin:config_audio_output.png"));
+}
+
+QString AudioOutputDialog::getCurrentlySelectedOutputInterfaceName() const {
+	if (qcbSystem) {
+		return qcbSystem->currentText();
+	}
+
+	return QString();
 }
 
 void AudioOutputDialog::load(const Settings &r) {

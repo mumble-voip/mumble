@@ -10,20 +10,37 @@
 #include "Global.h"
 #include "Overlay.h"
 
+#include <QtCore/QMutexLocker>
 #include <QtGui/QScreen>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QPushButton>
 
 
+// init static member fields
+QMutex ConfigDialog::s_existingWidgetsMutex;
+QHash<QString, ConfigWidget *> ConfigDialog::s_existingWidgets;
+
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
+
+	{
+		QMutexLocker lock(&s_existingWidgetsMutex);
+		s_existingWidgets.clear();
+	}
+
 
 	s = g.s;
 
 	unsigned int idx = 0;
 	ConfigWidgetNew cwn;
 	foreach(cwn, *ConfigRegistrar::c_qmNew) {
-		addPage(cwn(s), ++idx);
+		ConfigWidget *cw = cwn(s);
+		{
+			QMutexLocker lock(&s_existingWidgetsMutex);
+			s_existingWidgets.insert(cw->getName(), cw);
+		}
+
+		addPage(cw, ++idx);
 	}
 
 	updateListView();
@@ -92,8 +109,19 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 }
 
 ConfigDialog::~ConfigDialog() {
+	{
+		QMutexLocker lock(&s_existingWidgetsMutex);
+		s_existingWidgets.clear();
+	}
+
 	foreach(QWidget *qw, qhPages)
 		delete qw;
+}
+
+ConfigWidget *ConfigDialog::getConfigWidget(const QString &name) {
+	QMutexLocker lock(&s_existingWidgetsMutex);
+
+	return s_existingWidgets.value(name, nullptr);
 }
 
 void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {

@@ -19,10 +19,14 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		QTimer *qtTick;
 		void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
 		void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+		void updateEchoEnableState();
 
 	public:
+		/// The unique name of this ConfigWidget
+		static const QString name;
 		AudioInputDialog(Settings &st);
 		QString title() const Q_DECL_OVERRIDE;
+		const QString &getName() const Q_DECL_OVERRIDE;
 		QIcon icon() const Q_DECL_OVERRIDE;
 
 	public slots:
@@ -55,9 +59,14 @@ class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutputDialog)
 	public:
+		/// The unique name of this ConfigWidget
+		static const QString name;
 		AudioOutputDialog(Settings &st);
 		QString title() const Q_DECL_OVERRIDE;
+		const QString &getName() const Q_DECL_OVERRIDE;
 		QIcon icon() const Q_DECL_OVERRIDE;
+		/// @returns The name of the currently selected audio output interface
+		QString getCurrentlySelectedOutputInterfaceName() const;
 	public slots:
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;

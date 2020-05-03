@@ -18,6 +18,8 @@
 // From os_win.cpp.
 extern HWND mumble_mw_hwnd;
 
+const QString ASIOConfig::name = QLatin1String("ASIOConfig");
+
 class ASIOAudioInputRegistrar : public AudioInputRegistrar {
 	public:
 		ASIOAudioInputRegistrar();
@@ -323,6 +325,10 @@ void ASIOConfig::on_qpbRemSpeaker_clicked() {
 
 QString ASIOConfig::title() const {
 	return tr("ASIO");
+}
+
+const QString &ASIOConfig::getName() const {
+	return ASIOConfig::name;
 }
 
 QIcon ASIOConfig::icon() const {

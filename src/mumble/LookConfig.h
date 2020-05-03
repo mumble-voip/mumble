@@ -19,8 +19,11 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		Q_OBJECT
 		Q_DISABLE_COPY(LookConfig)
 	public:
+		/// The unique name of this ConfigWidget
+		static const QString name;
 		LookConfig(Settings &st);
 		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual const QString &getName() const Q_DECL_OVERRIDE;
 		virtual QIcon icon() const Q_DECL_OVERRIDE;
 
 	public slots:

@@ -32,8 +32,11 @@ class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 		QList<ASIODev> qlDevs;
 		bool bOk;
 	public:
+		/// The unique name of this ConfigWidget
+		static const QString name;
 		ASIOConfig(Settings &st);
 		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual const QString &getName() const Q_DECL_OVERRIDE;
 		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
 		void save() const Q_DECL_OVERRIDE;

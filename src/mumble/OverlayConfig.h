@@ -86,8 +86,11 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void resizeScene(bool force=false);
 
 	public:
+		/// The uniqe name of this ConfigWidget
+		static const QString name;
 		OverlayConfig(Settings &st);
 		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual const QString &getName() const Q_DECL_OVERRIDE;
 		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
 		void accept() const Q_DECL_OVERRIDE;

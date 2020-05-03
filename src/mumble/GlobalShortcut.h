@@ -185,8 +185,11 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		bool showWarning() const;
 		bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
 	public:
+		/// The unique name of this ConfigWidget
+		static const QString name;
 		GlobalShortcutConfig(Settings &st);
 		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual const QString &getName() const Q_DECL_OVERRIDE;
 		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
 		void accept() const Q_DECL_OVERRIDE;

@@ -30,6 +30,7 @@ class ConfigWidget : public QWidget {
 		Settings &s;
 		ConfigWidget(Settings &st);
 		virtual QString title() const = 0;
+		virtual const QString &getName() const = 0;
 		virtual QIcon icon() const;
 	public slots:
 		virtual void accept() const;

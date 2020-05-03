@@ -29,8 +29,11 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		void refillPluginList();
 		PluginInfo *pluginForItem(QTreeWidgetItem *) const;
 	public:
+		/// The unique name of this ConfigWidget
+		static const QString name;
 		PluginConfig(Settings &st);
 		virtual QString title() const Q_DECL_OVERRIDE;
+		const QString &getName() const Q_DECL_OVERRIDE;
 		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
 		void save() const Q_DECL_OVERRIDE;

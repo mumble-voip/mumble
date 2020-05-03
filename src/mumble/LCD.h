@@ -19,8 +19,11 @@ class LCDConfig : public ConfigWidget, public Ui::LCDConfig {
 		Q_OBJECT
 		Q_DISABLE_COPY(LCDConfig)
 	public:
+		/// The unique name of this ConfigWidget
+		static const QString name;
 		LCDConfig(Settings &st);
 		QString title() const Q_DECL_OVERRIDE;
+		const QString &getName() const Q_DECL_OVERRIDE;
 		QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
 		void on_qsMinColWidth_valueChanged(int v);
