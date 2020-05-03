@@ -190,6 +190,12 @@ win32-msvc* {
 	      QMAKE_CFLAGS += -arch:SSE2
 	}
 
+	# The mkspec update for MSVC2015 sets "/Z7",
+	# which bakes debug info into binaries.
+	# We, instead, want that only for the build environment.
+	QMAKE_CFLAGS -= -Z7
+	QMAKE_CXXFLAGS -= -Z7
+
 	CONFIG(symbols) {
 		# Configure build to be able to properly debug release builds
 		# (https://msdn.microsoft.com/en-us/library/fsk896zz.aspx).
