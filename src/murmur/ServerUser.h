@@ -60,6 +60,14 @@ struct WhisperTarget {
 	QList<WhisperTarget::Channel> qlChannels;
 };
 
+class ServerUser;
+
+struct WhisperTargetCache {
+	QSet<ServerUser *> channelTargets;
+	QSet<ServerUser *> directTargets;
+	QSet<ServerUser *> listeningTargets;
+};
+
 class Server;
 
 /// A simple implementation for rate-limiting.
@@ -134,8 +142,7 @@ class ServerUser : public Connection, public User {
 		QStringList qslAccessTokens;
 
 		QMap<int, WhisperTarget> qmTargets;
-		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;
-		QMap<int, TargetCache> qmTargetCache;
+		QMap<int, WhisperTargetCache> qmTargetCache;
 		QMap<QString, QString> qmWhisperRedirect;
 
 		LeakyBucket leakyBucket;

@@ -297,6 +297,7 @@ class Server : public QThread {
 		void sendClientPermission(ServerUser *u, Channel *c, bool updatelast = false);
 		void flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQuery &mpqq);
 		void clearACLCache(User *p = NULL);
+		void clearWhisperTargetCache();
 
 		void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion);
 		void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion);
