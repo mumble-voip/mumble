@@ -1444,6 +1444,13 @@ void UserModel::removeAll() {
 	iChannelDescription = -1;
 	bClicked = false;
 
+	// in order to avoid complications, we remove all ChannelListeners first
+	foreach(i, item->qlChildren) {
+		if (i->pUser && i->isListener) {
+			removeChannelListener(i, item);
+		}
+	}
+
 	foreach(i, item->qlChildren) {
 		if (i->pUser)
 			removeUser(i->pUser);

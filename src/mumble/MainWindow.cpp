@@ -1993,15 +1993,17 @@ void MainWindow::qmChannel_aboutToShow() {
 	if (c && c->iId != ClientUser::get(g.uiSession)->cChannel->iId) {
 		qmChannel->addAction(qaChannelJoin);
 
-		if (g.sh->uiVersion >= 0x010400) {
-			// If the server's version is less than 1.4, the listening feature is not supported yet
-			// and thus it doesn't make sense to show the action for it
-			qmChannel->addAction(qaChannelListen);
-			qaChannelListen->setChecked(ChannelListener::isListening(g.uiSession, c->iId));
-		}
-
 		qmChannel->addSeparator();
 	}
+
+	if (c && g.sh && g.sh->uiVersion >= 0x010400) {
+		// If the server's version is less than 1.4, the listening feature is not supported yet
+		// and thus it doesn't make sense to show the action for it
+		qmChannel->addAction(qaChannelListen);
+		qaChannelListen->setChecked(ChannelListener::isListening(g.uiSession, c->iId));
+	}
+
+	qmChannel->addSeparator();
 
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelACL);
