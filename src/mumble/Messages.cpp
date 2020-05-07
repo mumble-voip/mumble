@@ -196,6 +196,8 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 			ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
 		}
 	});
+
+	emit serverSynchronized();
 }
 
 /// This message is being received when the server informs this client about server configuration details. This contains
@@ -386,6 +388,11 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		Channel *oldChannel = pDst->cChannel;
 		if (channel != oldChannel) {
 			pmModel->moveUser(pDst, channel);
+
+			if (g.talkingUI) {
+				// Pass the pointer as QObject in order to avoid having to register ClientUser as a QMetaType
+				QMetaObject::invokeMethod(g.talkingUI, "on_channelChanged", Qt::QueuedConnection, Q_ARG(QObject *, pDst));
+			}
 
 			if (pSelf) {
 				if (pDst == pSelf) {

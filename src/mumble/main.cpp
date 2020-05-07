@@ -452,6 +452,8 @@ int main(int argc, char **argv) {
 	g.talkingUI = new TalkingUI();
 	g.talkingUI->setVisible(g.s.bShowTalkingUI);
 
+	QObject::connect(g.mw, &MainWindow::serverSynchronized, g.talkingUI, &TalkingUI::on_serverSynchronized);
+
 	// Initialize logger
 	// Log::log() needs the MainWindow to already exist. Thus creating the Log instance
 	// before the MainWindow one, does not make sense. if you need logging before this

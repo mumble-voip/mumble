@@ -846,6 +846,8 @@ static void recreateServerHandler() {
 	g.mw->connect(sh.get(), SIGNAL(connected()), g.mw, SLOT(serverConnected()));
 	g.mw->connect(sh.get(), SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), g.mw, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
 	g.mw->connect(sh.get(), SIGNAL(error(QAbstractSocket::SocketError, QString)), g.mw, SLOT(resolverError(QAbstractSocket::SocketError, QString)));
+
+	QObject::connect(sh.get(), &ServerHandler::disconnected, g.talkingUI, &TalkingUI::on_serverDisconnected);
 }
 
 void MainWindow::openUrl(const QUrl &url) {
