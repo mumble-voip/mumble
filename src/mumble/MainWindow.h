@@ -110,7 +110,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void updateTrayIcon();
 		void updateUserModel();
 		void focusNextMainWidget();
-		void updateTransmitModeComboBox();
 		QPair<QByteArray, QImage> openImageFile();
 		
 		void updateChatBar();
@@ -191,6 +190,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaSelfComment_triggered();
 		void on_qaSelfRegister_triggered();
 		void qcbTransmitMode_activated(int index);
+		void updateTransmitModeComboBox();
 		void qmUser_aboutToShow();
 		void qmListener_aboutToShow();
 		void on_qaUserCommentReset_triggered();

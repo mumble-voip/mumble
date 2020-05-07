@@ -84,6 +84,28 @@ void MumbleDBus::focus() {
 	g.mw->activateWindow();
 }
 
+void MumbleDBus::setTransmitMode(unsigned int mode, const QDBusMessage &msg) {
+	switch (mode) {
+		case 0:
+			g.s.atTransmit = Settings::Continuous;
+			break;
+		case 1:
+			g.s.atTransmit = Settings::VAD;
+			break;
+		case 2:
+			g.s.atTransmit = Settings::PushToTalk;
+			break;
+		default:
+			QDBusConnection::sessionBus().send(msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.transmitMode"), QLatin1String("Invalid transmit mode")));
+			return;
+	}
+	QMetaObject::invokeMethod(g.mw, "updateTransmitModeComboBox", Qt::QueuedConnection);
+}
+
+unsigned int MumbleDBus::getTransmitMode() {
+	return g.s.atTransmit;
+}
+
 void MumbleDBus::setSelfMuted(bool mute) {
 	g.mw->qaAudioMute->setChecked(!mute);
 	g.mw->qaAudioMute->trigger();
