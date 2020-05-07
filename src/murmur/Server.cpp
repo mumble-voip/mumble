@@ -1092,18 +1092,22 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 		buffer[0] = static_cast<char>(type | SpeechFlags::Normal);
 
-		// Send audio to all users in the same channel
-		foreach(User *p, c->qlUsers) {
-			ServerUser *pDst = static_cast<ServerUser *>(p);
-			SENDTO;
-		}
-
 		// Send audio to all users that are listening to the channel
 		foreach(unsigned int currentSession, ChannelListener::getListenersForChannel(c)) {
 			ServerUser *pDst = static_cast<ServerUser *>(qhUsers.value(currentSession));
 			if (pDst) {
 				listeningUsers << pDst;
 			}
+		}
+
+		// Send audio to all users in the same channel
+		foreach(User *p, c->qlUsers) {
+			ServerUser *pDst = static_cast<ServerUser *>(p);
+
+			// As we send the audio to this particular user here, we want to make sure to not send it again due to a listener proxy
+			listeningUsers -= pDst;
+
+			SENDTO;
 		}
 
 		// Send audio to all linked channels the user has speak-permission
@@ -1131,6 +1135,10 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 					foreach(User *p, l->qlUsers) {
 						if (!ChannelListener::isListening(p->uiSession, c->iId)) {
 							ServerUser *pDst = static_cast<ServerUser *>(p);
+
+							// As we send the audio to this particular user here, we want to make sure to not send it again due to a listener proxy
+							listeningUsers -= pDst;
+
 							SENDTO;
 						}
 					}
@@ -1205,7 +1213,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 					}
 				}
 
-				// If a user receives the audio thorugh this shout anyways, we won't send it through the
+				// If a user receives the audio through this shout anyways, we won't send it through the
 				// listening channel again (and thus sending the audio twice)
 				listener -= channel;
 			}

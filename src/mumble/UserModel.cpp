@@ -213,9 +213,9 @@ int ModelItem::insertIndex(ClientUser *p, bool isListener) const {
 QString ModelItem::hash() const {
 	if (pUser) {
 		if (! pUser->qsHash.isEmpty())
-			return pUser->qsHash;
+			return pUser->qsHash + (isListener ? QLatin1String("l"): QString());
 		else
-			return QLatin1String(sha1(pUser->qsName).toHex());
+			return QLatin1String(sha1(pUser->qsName + (isListener ? QLatin1String("l") : QString())).toHex());
 	} else {
 		QCryptographicHash chash(QCryptographicHash::Sha1);
 
@@ -1443,6 +1443,13 @@ void UserModel::removeAll() {
 	uiSessionComment = 0;
 	iChannelDescription = -1;
 	bClicked = false;
+
+	// in order to avoid complications, we remove all ChannelListeners first
+	foreach(i, item->qlChildren) {
+		if (i->pUser && i->isListener) {
+			removeChannelListener(i, item);
+		}
+	}
 
 	foreach(i, item->qlChildren) {
 		if (i->pUser)
