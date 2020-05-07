@@ -10,9 +10,6 @@
 [submodule "opus-src"]
 	path = 3rdparty/opus-src
 	url = https://github.com/mumble-voip/opus.git
-[submodule "sbcelt-src"]
-	path = 3rdparty/sbcelt-src
-	url = https://github.com/mumble-voip/sbcelt.git
 [submodule "3rdparty/minhook-src"]
 	path = 3rdparty/minhook-src
 	url = https://github.com/mumble-voip/minhook.git
