@@ -21,6 +21,7 @@
 #include <QPalette>
 #include <QItemSelectionModel>
 #include <QModelIndex>
+#include <QtCore/QStringList>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -84,10 +85,64 @@ void TalkingUI::hideUser(unsigned int session) {
 	updateUI();
 }
 
+QString createChannelName(const Channel *chan, bool abbreviateName, int minPrefixChars, int minPostfixChars, int idealMaxChars, int parentLevel,
+		const QString &separator, const QString &abbreviationIndicator, bool abbreviateCurrentChannel) {
+	if (!abbreviateName) {
+		return chan->qsName;
+	}
+
+	// Assemble list of relevant channel names (representing the channel hierarchy
+	QStringList nameList;
+	do {
+		nameList << chan->qsName;
+
+		chan = chan->cParent;
+	} while (chan && nameList.size() < (parentLevel + 1));
+
+	const bool reachedRoot = !chan;
+
+	// We also want to abbreviate names that nominally have the same amount of characters before and
+	// after abbreviation. However as we're typically not using mono-spaced fonts, the abbreviation
+	// indicator might still occupy less space than the original text.
+	const int abbreviableSize = minPrefixChars + minPostfixChars + abbreviationIndicator.size();
+
+	// Iterate over all names and check how many of them could be abbreviated
+	int totalCharCount = reachedRoot ? separator.size() : 0;
+	for (int i = 0; i < nameList.size(); i++) {
+		totalCharCount += nameList[i].size();
+
+		if (i + 1 < nameList.size()) {
+			// Account for the separator's size as well
+			totalCharCount += separator.size();
+		}
+	}
+
+	QString groupName = reachedRoot ? separator : QString();
+
+	for (int i = nameList.size() - 1; i >= 0; i--) {
+		if (totalCharCount > idealMaxChars && nameList[i].size() >= abbreviableSize && (abbreviateCurrentChannel || i != 0)) {
+			// Abbreviate the names as much as possible
+			groupName += nameList[i].left(minPrefixChars) + abbreviationIndicator + nameList[i].right(minPostfixChars);
+		} else {
+			groupName += nameList[i];
+		}
+
+		if (i != 0) {
+			groupName += separator;
+		}
+	}
+
+	return groupName;
+}
+
 void TalkingUI::addChannel(const Channel *channel) {
 	if (!m_channels.contains(channel->iId)) {
-		// Create a QGroupBox for this user
-		QGroupBox *box = new QGroupBox(channel->qsName, this);
+		// Create a QGroupBox for this channel
+		const QString channelName = createChannelName(channel, g.s.bTalkingUI_AbbreviateChannelNames, g.s.iTalkingUI_PrefixCharCount,
+				g.s.iTalkingUI_PostfixCharCount, g.s.iTalkingUI_MaxChannelNameLength, g.s.iTalkingUI_ChannelHierarchyDepth,
+				g.s.qsTalkingUI_ChannelSeparator, g.s.qsTalkingUI_AbbreviationReplacement, g.s.bTalkingUI_AbbreviateCurrentChannel);
+
+		QGroupBox *box = new QGroupBox(channelName, this);
 		QVBoxLayout *layout = new QVBoxLayout();
 		layout->setContentsMargins(0, 0, 0, 0);
 		box->setLayout(layout);
@@ -140,6 +195,8 @@ void TalkingUI::addUser(const ClientUser *user) {
 		// Also create a timer for this specific user
 		QTimer *timer = new QTimer(this);
 		timer->setSingleShot(true);
+		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
+		timer->setInterval(g.s.iTalkingUI_SilentUserLifeTime * 1000);
 		const unsigned int session = user->uiSession;
 		QObject::connect(timer, &QTimer::timeout, [this, session](){
 			hideUser(session);
@@ -353,11 +410,6 @@ void TalkingUI::on_talkingStateChanged() {
 
 	addUser(user);
 
-	// * 1000 as the setting is in seconds whereas the timer expects milliseconds
-	// We set the interval every time the talking state of a user has changed, in case the settings for
-	// it have changed during runtime.
-	m_timers[user->uiSession]->setInterval(g.s.iTalkingUI_SilentUserLifeTime * 1000);
-
 	// Get the Entry for this user
 	Entry entry = m_entries[user->uiSession];
 
@@ -479,6 +531,58 @@ void TalkingUI::on_channelChanged(QObject *obj) {
 			// the new channel.
 			addChannel(user->cChannel);
 			ensureVisible(user->uiSession, user->cChannel->iId);
+		}
+	}
+}
+
+void TalkingUI::on_settingsChanged() {
+	// The settings might have affected the way we have to display the channel names
+	// thus we'll update them just in case
+	QHashIterator<int, QGroupBox *> channelIt(m_channels);
+
+	while (channelIt.hasNext()) {
+		channelIt.next();
+
+		const Channel *channel = Channel::get(channelIt.key());
+
+		if (channel) {
+			// Update
+			QGroupBox *box = channelIt.value();
+			box->setTitle(createChannelName(channel, g.s.bTalkingUI_AbbreviateChannelNames, g.s.iTalkingUI_PrefixCharCount,
+				g.s.iTalkingUI_PostfixCharCount, g.s.iTalkingUI_MaxChannelNameLength, g.s.iTalkingUI_ChannelHierarchyDepth,
+				g.s.qsTalkingUI_ChannelSeparator, g.s.qsTalkingUI_AbbreviationReplacement, g.s.bTalkingUI_AbbreviateCurrentChannel)
+			);
+		} else {
+			qCritical("TalkingUI: Can't find channel for stored ID");
+		}
+	}
+
+	// The time that a silent user may stick around might have changed as well
+	QHashIterator<unsigned int, QTimer *> timerIt(m_timers);
+	while (timerIt.hasNext()) {
+		QTimer *timer = timerIt.next().value();
+		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
+		timer->setInterval(g.s.iTalkingUI_SilentUserLifeTime * 1000);
+	}
+
+	// Whether or not the current user should always be displayed might also have changed,
+	// so we'll have to update that as well.
+	const ClientUser *self = ClientUser::get(g.uiSession);
+
+	if (self) {
+		if (m_timers.contains(self->uiSession)) {
+			if (g.s.bTalkingUI_LocalUserStaysVisible) {
+				// Stop any potentially running timers as we don't want to remove the user (anymore)
+				m_timers[self->uiSession]->stop();
+
+				// Make sure local user exists and is visible
+				addUser(self);
+				ensureVisible(self->uiSession, self->cChannel->iId);
+			} else if (self->tsState == Settings::Passive) {
+				// Start the timer as the user may not stay around forever and (s)he is currently not
+				// talking.
+				m_timers[self->uiSession]->start();
+			}
 		}
 	}
 }

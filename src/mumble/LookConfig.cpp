@@ -184,8 +184,16 @@ void LookConfig::load(const Settings &r) {
 	const boost::optional<ThemeInfo::StyleInfo> configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
 
-	qsbSilentUserLifetime->setValue(r.iTalkingUI_SilentUserLifeTime);
 	loadCheckBox(qcbLocalUserVisible, r.bTalkingUI_LocalUserStaysVisible);
+	loadCheckBox(qcbAbbreviateChannelNames, r.bTalkingUI_AbbreviateChannelNames);
+	loadCheckBox(qcbAbbreviateCurrentChannel, r.bTalkingUI_AbbreviateCurrentChannel);
+	qsbSilentUserLifetime->setValue(r.iTalkingUI_SilentUserLifeTime);
+	qsbChannelHierarchyDepth->setValue(r.iTalkingUI_ChannelHierarchyDepth);
+	qsbMaxNameLength->setValue(r.iTalkingUI_MaxChannelNameLength);
+	qsbPrefixCharCount->setValue(r.iTalkingUI_PrefixCharCount);
+	qsbPostfixCharCount->setValue(r.iTalkingUI_PostfixCharCount);
+	qleChannelSeparator->setText(r.qsTalkingUI_ChannelSeparator);
+	qleAbbreviationReplacement->setText(r.qsTalkingUI_AbbreviationReplacement);
 }
 
 void LookConfig::save() const {
@@ -239,8 +247,16 @@ void LookConfig::save() const {
 		Themes::setConfiguredStyle(s, themeData.value<ThemeInfo::StyleInfo>(), s.requireRestartToApply);
 	}
 
-	s.iTalkingUI_SilentUserLifeTime = qsbSilentUserLifetime->value();
 	s.bTalkingUI_LocalUserStaysVisible = qcbLocalUserVisible->isChecked();
+	s.bTalkingUI_AbbreviateChannelNames = qcbAbbreviateChannelNames->isChecked();
+	s.bTalkingUI_AbbreviateCurrentChannel = qcbAbbreviateCurrentChannel->isChecked();
+	s.iTalkingUI_SilentUserLifeTime = qsbSilentUserLifetime->value();
+	s.iTalkingUI_ChannelHierarchyDepth = qsbChannelHierarchyDepth->value();
+	s.iTalkingUI_MaxChannelNameLength = qsbMaxNameLength->value();
+	s.iTalkingUI_PrefixCharCount = qsbPrefixCharCount->value();
+	s.iTalkingUI_PostfixCharCount = qsbPostfixCharCount->value();
+	s.qsTalkingUI_ChannelSeparator = qleChannelSeparator->text();
+	s.qsTalkingUI_AbbreviationReplacement = qleAbbreviationReplacement->text();
 }
 
 void LookConfig::accept() const {
@@ -255,4 +271,17 @@ void LookConfig::themeDirectoryChanged() {
 	} else {
 		reloadThemes(themeData.value<ThemeInfo::StyleInfo>());
 	}
+}
+
+void LookConfig::on_qcbAbbreviateChannelNames_stateChanged(int state) {
+	bool abbreviateNames = state == Qt::Checked;
+
+	// Only enable the abbreviation related settings if abbreviation is actually enabled
+	qcbAbbreviateCurrentChannel->setEnabled(abbreviateNames);
+	qsbChannelHierarchyDepth->setEnabled(abbreviateNames);
+	qsbMaxNameLength->setEnabled(abbreviateNames);
+	qsbPrefixCharCount->setEnabled(abbreviateNames);
+	qsbPostfixCharCount->setEnabled(abbreviateNames);
+	qleChannelSeparator->setEnabled(abbreviateNames);
+	qleAbbreviationReplacement->setEnabled(abbreviateNames);
 }

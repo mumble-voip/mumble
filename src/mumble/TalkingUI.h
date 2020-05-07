@@ -99,6 +99,7 @@ class TalkingUI : public QWidget {
 		void on_serverSynchronized();
 		void on_serverDisconnected();
 		void on_channelChanged(QObject *user);
+		void on_settingsChanged();
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUI_H_
