@@ -947,6 +947,14 @@ the channel's context menu.</string>
     <string>Toggles the visibility of the TalkingUI.</string>
    </property>
   </action>
+  <action name="qaUserJoin">
+   <property name="text">
+    <string>Join user's channel</string>
+   </property>
+   <property name="toolTip">
+    <string>Joins the channel of this user.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

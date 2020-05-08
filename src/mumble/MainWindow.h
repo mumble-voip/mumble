@@ -213,6 +213,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaUserFriendUpdate_triggered();
 		void qmChannel_aboutToShow();
 		void on_qaChannelJoin_triggered();
+		void on_qaUserJoin_triggered();
 		void on_qaChannelListen_triggered();
 		void on_qaChannelAdd_triggered();
 		void on_qaChannelRemove_triggered();

@@ -735,7 +735,7 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 	} else {
 		if (p) {
 			cuContextUser.clear();
-			qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
+			qmUser->exec(qtvUsers->mapToGlobal(mpos), nullptr);
 			cuContextUser.clear();
 		} else {
 			cContextChannel.clear();
@@ -1495,9 +1495,17 @@ void MainWindow::qmUser_aboutToShow() {
 	cuContextUser = p;
 	qpContextPosition = QPoint();
 
-	bool self = p && (p->uiSession == g.uiSession);
+	const ClientUser *self = ClientUser::get(g.uiSession);
+	bool isSelf = p == self;
 
 	qmUser->clear();
+
+	if (self && p && !isSelf) {
+		qmUser->addAction(qaUserJoin);
+		qaUserJoin->setEnabled(self->cChannel != p->cChannel);
+
+		qmUser->addSeparator();
+	}
 
 	if (g.pPermissions & (ChanACL::Kick | ChanACL::Ban | ChanACL::Write))
 		qmUser->addAction(qaUserKick);
@@ -1511,7 +1519,7 @@ void MainWindow::qmUser_aboutToShow() {
 	qmUser->addAction(qaUserLocalIgnore);
 	qmUser->addAction(qaUserLocalVolume);
 
-	if (self)
+	if (isSelf)
 		qmUser->addAction(qaSelfComment);
 	else {
 		qmUser->addAction(qaUserCommentView);
@@ -1523,7 +1531,7 @@ void MainWindow::qmUser_aboutToShow() {
 	if (g.sh && g.sh->uiVersion >= 0x010202)
 		qmUser->addAction(qaUserInformation);
 
-	if (p && (p->iId < 0) && ! p->qsHash.isEmpty() && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
+	if (p && (p->iId < 0) && ! p->qsHash.isEmpty() && (g.pPermissions & ((isSelf ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaUserRegister);
 	}
@@ -1539,7 +1547,7 @@ void MainWindow::qmUser_aboutToShow() {
 		}
 	}
 
-	if (self) {
+	if (isSelf) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaAudioMute);
 		qmUser->addAction(qaAudioDeaf);
@@ -1572,12 +1580,12 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserTextureReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
 	} else {
-		qaUserKick->setEnabled(! self);
-		qaUserBan->setEnabled(! self);
+		qaUserKick->setEnabled(! isSelf);
+		qaUserBan->setEnabled(! isSelf);
 		qaUserTextMessage->setEnabled(true);
-		qaUserLocalMute->setEnabled(! self);
-		qaUserLocalVolume->setEnabled(! self);
-		qaUserLocalIgnore->setEnabled(! self);
+		qaUserLocalMute->setEnabled(! isSelf);
+		qaUserLocalVolume->setEnabled(! isSelf);
+		qaUserLocalIgnore->setEnabled(! isSelf);
 		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 		qaUserTextureReset->setEnabled(! p->qbaTextureHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 		qaUserCommentView->setEnabled(! p->qbaCommentHash.isEmpty());
@@ -2082,6 +2090,18 @@ void MainWindow::on_qaChannelJoin_triggered() {
 
 	if (c) {
 		g.sh->joinChannel(g.uiSession, c->iId);
+	}
+}
+
+void MainWindow::on_qaUserJoin_triggered() {
+	const ClientUser *user = getContextMenuUser();
+
+	if (user) {
+		const Channel *channel = user->cChannel;
+
+		if (channel) {
+			g.sh->joinChannel(g.uiSession, channel->iId);
+		}
 	}
 }
 
