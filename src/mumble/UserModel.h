@@ -51,7 +51,7 @@ public:
 	ClientUser *userAt(int idx) const;
 	Channel *channelAt(int idx) const;
 	int rowOf(Channel *c) const;
-	int rowOf(ClientUser *p) const;
+	int rowOf(ClientUser *p, const bool isListener) const;
 	int rowOfSelf() const;
 	int rows() const;
 	int insertIndex(Channel *c) const;

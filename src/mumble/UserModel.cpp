@@ -136,9 +136,9 @@ int ModelItem::rowOf(Channel *c) const {
 	return -1;
 }
 
-int ModelItem::rowOf(ClientUser *p) const {
+int ModelItem::rowOf(ClientUser *p, const bool isListener) const {
 	for (int i=0;i<qlChildren.count();i++)
-		if (qlChildren.at(i)->pUser == p)
+		if (qlChildren.at(i)->isListener == isListener && qlChildren.at(i)->pUser == p)
 			return i;
 	return -1;
 }
@@ -149,7 +149,7 @@ int ModelItem::rowOfSelf() const {
 		return 0;
 
 	if (pUser)
-		return parent->rowOf(pUser);
+		return parent->rowOf(pUser, isListener);
 	else
 		return parent->rowOf(cChan);
 }
