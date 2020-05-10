@@ -5583,6 +5583,14 @@ the channel&apos;s context menu.</source>
         <source>Toggles the visibility of the TalkingUI.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Join user&apos;s channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Joins the channel of this user.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
