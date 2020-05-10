@@ -394,6 +394,7 @@ void Server::readParams() {
 	bAllowHTML = Meta::mp.bAllowHTML;
 	iDefaultChan = Meta::mp.iDefaultChan;
 	bRememberChan = Meta::mp.bRememberChan;
+	iRememberChanDuration = Meta::mp.iRememberChanDuration;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
 	qlBind = Meta::mp.qlBind;
 	qsRegName = Meta::mp.qsRegName;
@@ -459,6 +460,7 @@ void Server::readParams() {
 	bAllowHTML = getConf("allowhtml", bAllowHTML).toBool();
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
 	bRememberChan = getConf("rememberchannel", bRememberChan).toBool();
+	iRememberChanDuration = getConf("rememberchannelduration", iRememberChanDuration).toInt();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
 
 	qsRegName = getConf("registername", qsRegName).toString();
@@ -560,7 +562,12 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
 	else if (key == "rememberchannel")
 		bRememberChan = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bRememberChan;
-	else if (key == "welcometext") {
+	else if (key == "rememberchannelduration") {
+		iRememberChanDuration = !v.isNull() ? v.toInt() : Meta::mp.iRememberChanDuration;
+		if (iRememberChanDuration < 0) {
+			iRememberChanDuration = 0;
+		}
+	} else if (key == "welcometext") {
 		QString text = !v.isNull() ? v : Meta::mp.qsWelcomeText;
 		if (text != qsWelcomeText) {
 			qsWelcomeText = text;
@@ -1550,6 +1557,8 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	ServerUser *u = static_cast<ServerUser *>(c);
 
 	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));
+
+	setLastDisconnect(u);
 
 	if (u->sState == ServerUser::Authenticated) {
 		if (ChannelListener::isListeningToAny(u)) {

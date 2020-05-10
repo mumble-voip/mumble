@@ -246,11 +246,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	Channel *lc;
-	if (bRememberChan) {
-		lc = qhChannels.value(readLastChannel(uSource->iId));
-	} else {
-		lc = qhChannels.value(iDefaultChan);
-	}
+	lc = qhChannels.value(readLastChannel(uSource->iId));
 
 	if (! lc || ! hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
 		lc = qhChannels.value(iDefaultChan);

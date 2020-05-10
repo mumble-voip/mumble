@@ -38,6 +38,7 @@ public:
 	int iMaxListenerProxiesPerUser;
 	int iDefaultChan;
 	bool bRememberChan;
+	int iRememberChanDuration;
 	int iMaxTextMessageLength;
 	int iMaxImageMessageLength;
 	int iOpusThreshold;

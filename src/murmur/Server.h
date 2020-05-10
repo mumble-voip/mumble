@@ -111,6 +111,7 @@ class Server : public QThread {
 		int iMaxUsersPerChannel;
 		int iDefaultChan;
 		bool bRememberChan;
+		int iRememberChanDuration;
 		int iMaxTextMessageLength;
 		int iMaxImageMessageLength;
 		int iOpusThreshold;
@@ -409,6 +410,9 @@ class Server : public QThread {
 		void readChannelPrivs(Channel *c);
 		void setLastChannel(const User *u);
 		int readLastChannel(int id);
+
+		/// Set last_disconnect of a registered user to the current time
+		void setLastDisconnect(const User *u);
 		void dumpChannel(const Channel *c);
 		int getUserID(const QString &name);
 		QString getUserName(int id);

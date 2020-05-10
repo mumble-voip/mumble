@@ -384,7 +384,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("CREATE TRIGGER `%1channel_info_del_channel` AFTER DELETE on `%1channels` FOR EACH ROW BEGIN DELETE FROM `%1channel_info` WHERE `channel_id` = old.`channel_id` AND `server_id` = old.`server_id`; END;");
 
-			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `pw` TEXT, `salt` TEXT, `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` BLOB, `last_active` DATE)");
+			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `pw` TEXT, `salt` TEXT, `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` BLOB, `last_active` DATE, `last_disconnect` DATE)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
 			SQLDO("CREATE TRIGGER `%1users_server_del` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1users` WHERE `server_id` = old.`server_id`; END;");
@@ -476,7 +476,7 @@ ServerDB::ServerDB() {
 			SQLQUERY("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLQUERY("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 
-			SQLQUERY("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` BYTEA, `last_active` TIMESTAMP)");
+			SQLQUERY("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` BYTEA, `last_active` TIMESTAMP, `last_disconnect` TIMESTAMP)");
 			SQLQUERY("CREATE INDEX `%1users_channel` ON `%1users`(`server_id`, `lastchannel`)");
 			SQLQUERY("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
 			SQLQUERY("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
@@ -544,7 +544,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` LONGBLOB, `last_active` TIMESTAMP) ENGINE=InnoDB");
+			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` LONGBLOB, `last_active` TIMESTAMP, `last_disconnect` TIMESTAMP) ENGINE=InnoDB");
 			SQLDO("CREATE INDEX `%1users_channel` ON `%1users`(`server_id`, `lastchannel`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
@@ -602,8 +602,10 @@ ServerDB::ServerDB() {
 
 			if (version < 4)
 				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`) SELECT `server_id`, `player_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active` FROM `%1players%2`");
-			else
+			else if (version < 8)
 				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`) SELECT `server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active` FROM `%1users%2`");
+			else
+				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`) SELECT `server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`, `last_disconnect` FROM `%1users%2`");
 
 			SQLDO("INSERT INTO `%1groups` (`group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable`) SELECT `group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable` FROM `%1groups%2`");
 
@@ -1982,20 +1984,53 @@ int Server::readLastChannel(int id) {
 	if (id < 0)
 		return -1;
 
+	if (!Meta::mp.bRememberChan)
+		return -1;
+
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	SQLPREP("SELECT `lastchannel` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
+	SQLPREP("SELECT `lastchannel`,`last_disconnect` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
 
 	if (query.next()) {
 		int cid = query.value(0).toInt();
-		if (qhChannels.contains(cid))
-			return cid;
+		if (query.value(1).isNull()) {
+			return qhChannels.contains(cid) ? cid : -1;
+		}
+		QDateTime last_disconnect = QDateTime::fromString(query.value(1).toString(), Qt::ISODate);
+		last_disconnect.setTimeSpec(Qt::UTC);
+		QDateTime now = QDateTime::currentDateTime();
+		now = now.toTimeSpec(Qt::UTC);
+
+		int duration = Meta::mp.iRememberChanDuration;
+		if (duration <= 0 || last_disconnect.secsTo(now) <= duration) {
+			if (qhChannels.contains(cid))
+				return cid;
+		}
 	}
 	return -1;
+}
+
+void Server::setLastDisconnect(const User *p) {
+	// we only want to store last_disconnect for registered users
+	if (p->iId < 0)
+		return;
+
+	TransactionHolder th;
+	QSqlQuery &query = *th.qsqQuery;
+
+	if (Meta::mp.qsDBDriver == "QSQLITE") {
+		SQLPREP("UPDATE `%1users` SET `last_disconnect` = datetime('now') WHERE `server_id` = ? AND `user_id` = ?");
+	} else {
+		// MySQL or PostgreSQL
+		SQLPREP("UPDATE `%1users` SET `last_disconnect` = now() WHERE `server_id` = ? AND `user_id` = ?");
+	}
+	query.addBindValue(iServerNum);
+	query.addBindValue(p->iId);
+	SQLEXEC();
 }
 
 void Server::dumpChannel(const Channel *c) {
@@ -2283,5 +2318,14 @@ void ServerDB::deleteServer(int server_id) {
 	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("DELETE FROM `%1servers` WHERE `server_id` = ?");
 	query.addBindValue(server_id);
+	SQLEXEC();
+}
+
+void ServerDB::clearLastDisconnect(Server *server) {
+	TransactionHolder th;
+	QSqlQuery &query = *th.qsqQuery;
+
+	SQLPREP("UPDATE `%1users` SET `last_disconnect` = NULL WHERE `server_id` = ?");
+	query.addBindValue(server->iServerNum);
 	SQLEXEC();
 }

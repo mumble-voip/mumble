@@ -62,6 +62,7 @@ MetaParams::MetaParams() {
 	bAllowHTML = true;
 	iDefaultChan = 0;
 	bRememberChan = true;
+	iRememberChanDuration = 0;
 	qsWelcomeText = QString();
 	qsDatabase = QString();
 	iSQLiteWAL = 0;
@@ -293,6 +294,7 @@ void MetaParams::read(QString fname) {
 	iMaxBandwidth = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
 	iDefaultChan = typeCheckedFromSettings("defaultchannel", iDefaultChan);
 	bRememberChan = typeCheckedFromSettings("rememberchannel", bRememberChan);
+	iRememberChanDuration = typeCheckedFromSettings("rememberchannelduration", iRememberChanDuration);
 	iMaxUsers = typeCheckedFromSettings("users", iMaxUsers);
 	iMaxUsersPerChannel = typeCheckedFromSettings("usersperchannel", iMaxUsersPerChannel);
 	iMaxListenersPerChannel = typeCheckedFromSettings("listenersperchannel", iMaxListenersPerChannel);
@@ -422,6 +424,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));
 	qmConfig.insert(QLatin1String("defaultchannel"),QString::number(iDefaultChan));
 	qmConfig.insert(QLatin1String("rememberchannel"),bRememberChan ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("rememberchannelduration"),QString::number(iRememberChanDuration));
 	qmConfig.insert(QLatin1String("welcometext"),qsWelcomeText);
 	qmConfig.insert(QLatin1String("registername"),qsRegName);
 	qmConfig.insert(QLatin1String("registerpassword"),qsRegPassword);

@@ -10,20 +10,22 @@
 
 #include "Timer.h"
 
+class Server;
 class Channel;
 class User;
 class Connection;
 class QSqlDatabase;
 class QSqlQuery;
 
-class ServerDB {
+class ServerDB : public QObject {
+	Q_OBJECT;
 	public:
 		/// A version number that allows us to keep track of changes we make to the DB architecture
 		/// in order to provide backwards compatibility and perform automatic updates of older DBs.
 		/// Whenever you change the DB structure (add a new table, added a new column in a table, etc.)
 		/// you have to increase this version number by one and add the respective "backwards compatibility
 		/// code" into the ServerDB code.
-		static const int DB_STRUCTURE_VERSION = 7;
+		static const int DB_STRUCTURE_VERSION = 8;
 
 		enum ChannelInfo { Channel_Description, Channel_Position, Channel_Max_Users };
 		enum UserInfo { User_Name, User_Email, User_Comment, User_Hash, User_Password, User_LastActive, User_KDFIterations };
@@ -57,6 +59,11 @@ class ServerDB {
 	private:
 		static void loadOrSetupMetaPBKDF2IterationCount(QSqlQuery &query);
 		static void writeSUPW(int srvnum, const QString &pwHash, const QString &saltHash, const QVariant &kdfIterations);
+
+	public slots:
+		/// Clear last_disconnect date of every user of the server
+		void clearLastDisconnect(Server *);
+
 };
 
 #endif
