@@ -162,7 +162,7 @@ int main(int argc, char **argv) {
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
-					"  -jn, --jackname\n"
+					"  -jn, --jackname <arg>\n"
 					"                Set custom Jack client name.\n"
 					"  --license\n"
 					"                Show the Mumble license.\n"
@@ -215,8 +215,14 @@ int main(int argc, char **argv) {
 				suppressIdentity = true;
 				g.s.bSuppressIdentity = true;
 			} else if (args.at(i) == QLatin1String("-jn") || args.at(i) == QLatin1String("--jackname")) {
-				g.s.qsJackClientName = QString(args.at(i+1));
-				customJackClientName = true;
+				if (i + 1 < args.count()) {
+					g.s.qsJackClientName = QString(args.at(i+1));
+					customJackClientName = true;
+					++i;
+				} else {
+					qCritical("Missing argument for --jackname!");
+					return 1;
+				}
 			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 				printf("%s\n", qPrintable(License::license()));
 				return 0;
