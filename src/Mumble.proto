@@ -383,6 +383,7 @@ message CryptSetup {
 	optional bytes server_nonce = 3;
 }
 
+// Used to add or remove custom context menu item on client-side. 
 message ContextActionModify {
 	enum Context {
 		// Action is applicable to the server.
@@ -396,12 +397,17 @@ message ContextActionModify {
 		Add = 0;
 		Remove = 1;
 	}
-	// The action name.
+	// The action identifier. Used later to initiate an action.
 	required string action = 1;
 	// The display name of the action.
 	optional string text = 2;
-	// Context bit flags defining where the action should be displayed.
+	// Context bit flags defining where the action should be displayed. 
+	// Flags can be OR-ed to combine different types.
 	optional uint32 context = 3;
+	// Choose either to add or to remove the context action.
+	// Note: This field only exists after Mumble 1.2.4-beta1 release.
+	//       The message will be recognized as Add regardless of this field 
+	//       before said release.
 	optional Operation operation = 4;
 }
 
