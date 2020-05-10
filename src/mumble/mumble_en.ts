@@ -758,10 +758,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel echo from speakers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6473,6 +6469,14 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Talking UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel echo from speakers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

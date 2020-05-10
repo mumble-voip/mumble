@@ -53,3 +53,11 @@ jobs:
       inputs:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: macOS installer
+  - job: Translations
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: scripts/azure-pipelines/install-environment_linux_translations.bash
+      displayName: 'Install Qt tools'
+    - script: scripts/azure-pipelines/assertNoTranslationChanges.sh
+      displayName: 'Checking for translation changes'
