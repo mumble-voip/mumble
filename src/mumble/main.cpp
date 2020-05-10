@@ -170,6 +170,8 @@ int main(int argc, char **argv) {
 					"                Show the Mumble authors.\n"
 					"  --third-party-licenses\n"
 					"                Show licenses for third-party software used by Mumble.\n"
+					"  --window-title-ext <arg>\n"
+					"                Sets a custom window title extension.\n"
 					"\n"
 				);
 				QString rpcHelpBanner = MainWindow::tr(
@@ -221,6 +223,14 @@ int main(int argc, char **argv) {
 					++i;
 				} else {
 					qCritical("Missing argument for --jackname!");
+					return 1;
+				}
+			} else if (args.at(i) == QLatin1String("--window-title-ext")) {
+				if (i + 1 < args.count()) {
+					g.windowTitlePostfix = QString(args.at(i+1));
+					++i;
+				} else {
+					qCritical("Missing argument for --window-title-ext!");
 					return 1;
 				}
 			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
