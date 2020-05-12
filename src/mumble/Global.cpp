@@ -104,11 +104,14 @@ Global::Global() {
 
 	qs = NULL;
 
-	ocIntercept = NULL;
 	bc = NULL;
 	lcd = NULL;
-	o = NULL;
 	l = NULL;
+
+#ifdef USE_OVERLAY
+	ocIntercept = NULL;
+	o = NULL;
+#endif
 
 	bHappyEaster = false;
 

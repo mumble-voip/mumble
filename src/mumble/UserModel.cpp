@@ -12,7 +12,9 @@
 #include "Log.h"
 #include "MainWindow.h"
 #include "Message.h"
-#include "Overlay.h"
+#ifdef USE_OVERLAY
+	#include "Overlay.h"
+#endif
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
@@ -587,7 +589,9 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 										mprb.add_session_texture(p->uiSession);
 										g.sh->sendMessage(mprb);
 									} else {
+#ifdef USE_OVERLAY
 										g.o->verifyTexture(p);
+#endif
 									}
 								}
 								if (! p->qbaTexture.isEmpty()) {
@@ -1835,6 +1839,8 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 }
 
 void UserModel::updateOverlay() const {
+#ifdef USE_OVERLAY
 	g.o->updateOverlay();
+#endif
 	g.lcd->updateUserView();
 }
