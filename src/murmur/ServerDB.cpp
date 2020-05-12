@@ -172,7 +172,7 @@ ServerDB::ServerDB() {
 				minor = splitVersion.at(1).toInt();
 				hasversion = true;
 			}
-			if (major >= 3 || (major == 3 && minor >= 7)) {
+			if (major > 3 || (major == 3 && minor >= 7)) {
 				okversion = true;
 			}
 
