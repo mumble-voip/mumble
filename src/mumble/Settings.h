@@ -279,8 +279,16 @@ struct Settings {
 	int iChatMessageMargins;
 
 	bool bShowTalkingUI;
-	int iTalkingUI_SilentUserLifeTime;
 	bool bTalkingUI_LocalUserStaysVisible;
+	bool bTalkingUI_AbbreviateChannelNames;
+	bool bTalkingUI_AbbreviateCurrentChannel;
+	int iTalkingUI_SilentUserLifeTime;
+	int iTalkingUI_ChannelHierarchyDepth;
+	int iTalkingUI_MaxChannelNameLength;
+	int iTalkingUI_PrefixCharCount;
+	int iTalkingUI_PostfixCharCount;
+	QString qsTalkingUI_ChannelSeparator;
+	QString qsTalkingUI_AbbreviationReplacement;
 
 	QMap<int, QString> qmMessageSounds;
 	QMap<int, quint32> qmMessages;

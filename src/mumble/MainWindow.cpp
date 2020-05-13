@@ -2494,7 +2494,9 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
-	QDialog *dlg = new ConfigDialog(this);
+	ConfigDialog *dlg = new ConfigDialog(this);
+
+	QObject::connect(dlg, &ConfigDialog::settingsAccepted, g.talkingUI, &TalkingUI::on_settingsChanged);
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
