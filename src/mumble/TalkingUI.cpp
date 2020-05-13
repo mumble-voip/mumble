@@ -192,7 +192,7 @@ void TalkingUI::addChannel(const Channel *channel) {
 
 		QGroupBox *box = new QGroupBox(channelName, this);
 		QVBoxLayout *layout = new QVBoxLayout();
-		layout->setContentsMargins(0, 0, 0, 0);
+		layout->setContentsMargins(0, 10, 0, 0);
 		box->setLayout(layout);
 
 		setFontSize(box);
