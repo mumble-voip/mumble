@@ -3804,6 +3804,78 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Always keep local user visible</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String to separate a channel name from its parent&apos;s.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel separator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abbreviated prefix characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How many characters from the original name to display at the end of an abbreviated name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abbreviated postfix characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abbreviate current channel name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel hierarchy depth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String that gets used isntead of the cut-out part of an abbreviated name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abbreviation replacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abbreviate channel names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max. channel name length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative font size to use in the Talking UI in percent.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rel. font size (%)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
