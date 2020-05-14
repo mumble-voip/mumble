@@ -458,8 +458,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					top[2] = 0.0f;
 				}
 
-				if (std::abs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
-					// Not perpendicular. Assume Y up and rotate 90 degrees.
+				const float dotproduct = front[0] * top[0] + front[1] * top[1] + front[2] * top[2];
+				const float error = std::abs(dotproduct);
+				if (error > 0.5f) {
+					// Not perpendicular by a large margin. Assume Y up and rotate 90 degrees.
 
 					float azimuth = 0.0f;
 					if ((front[0] != 0.0f) || (front[2] != 0.0f))
@@ -469,6 +471,19 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					top[0] = sinf(inclination)*cosf(azimuth);
 					top[1] = cosf(inclination);
 					top[2] = sinf(inclination)*sinf(azimuth);
+				} else if (error > 0.01f) {
+					// Not perpendicular by a small margin. Find the nearest perpendicular vector.
+
+					top[0] -= front[0] * dotproduct;
+					top[1] -= front[1] * dotproduct;
+					top[2] -= front[2] * dotproduct;
+
+					// normalize top again
+					tlen = sqrtf(top[0]*top[0]+top[1]*top[1]+top[2]*top[2]);
+					// tlen is guaranteed to be non-zero, otherwise error would have been larger than 0.5
+					top[0] *= (1.0f / tlen);
+					top[1] *= (1.0f / tlen);
+					top[2] *= (1.0f / tlen);
 				}
 			} else {
 				front[0] = 0.0f;
