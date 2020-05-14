@@ -11,6 +11,7 @@
 
 #include <QtCore/QMutexLocker>
 #include <QtGui/QScreen>
+#include <QScrollArea>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QPushButton>
 
