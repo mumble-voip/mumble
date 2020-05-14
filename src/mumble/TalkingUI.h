@@ -11,6 +11,8 @@
 #include <QtCore/QSet>
 #include <QtGui/QIcon>
 
+#include "Settings.h"
+
 class QLabel;
 class QGroupBox;
 class QTimer;
@@ -26,6 +28,7 @@ struct Entry {
 	QLabel *name;
 	QWidget *background;
 	unsigned int userSession;
+	Settings::TalkState talkingState;
 };
 
 /// The talking UI is a widget that will display the users you are currently
@@ -54,6 +57,9 @@ class TalkingUI : public QWidget {
 		/// The icon for a whispering user
 		QIcon m_whisperingIcon;
 
+		/// The current line height of an entry in the TalkingUI
+		int m_currentLineHeight;
+
 		/// Sets up the UI components
 		void setupUI();
 		/// Hides an user
@@ -78,6 +84,16 @@ class TalkingUI : public QWidget {
 
 		/// Update (resize) the UI to its content
 		void updateUI();
+
+		/// Sets the font size according to the settings
+		///
+		/// @param widget a pointer to the widget to set the font size for
+		void setFontSize(QWidget *widget);
+
+		/// Sets the icon for the given entry based on its TalkingState
+		///
+		/// @param entry A reference to the Entry to process
+		void setIcon(Entry &entry) const;
 
 		/// Set the current selection
 		///

@@ -23,6 +23,8 @@
 #include <QModelIndex>
 #include <QtCore/QStringList>
 
+#include <algorithm>
+
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
@@ -51,6 +53,52 @@ void TalkingUI::setupUI() {
 	setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint);
 
 	connect(g.mw->qtvUsers->selectionModel(), &QItemSelectionModel::currentChanged, this, &TalkingUI::on_mainWindowSelectionChanged);
+}
+
+void TalkingUI::setFontSize(QWidget *widget) {
+	const double fontFactor = g.s.iTalkingUI_RelativeFontSize / 100.0;
+	
+	// We have to do this in a complicated way as Qt is very stubborn when it
+	// comes to manipulating fonts.
+	// We have to use stylesheets because this seems to be the only way Qt will
+	// actually change the font size (setFont has no effect). However the font size
+	// won't update the moment the stylesheet is applied, so we have to copy the font
+	// of the widget, set the size and use that to calculate the line height for that
+	// particular font (needed to size the icons appropriately).
+	QFont newFont = widget->font();
+	if (font().pixelSize() >= 0) {
+		// font specified in pixels
+		widget->setStyleSheet(QString::fromLatin1("font-size: %1px;").arg(
+					static_cast<int>(std::max(fontFactor * font().pixelSize(), 1.0))));
+		newFont.setPixelSize(std::max(fontFactor * font().pixelSize(), 1.0));
+	} else {
+		// font specified in points
+		widget->setStyleSheet(QString::fromLatin1("font-size: %1pt;").arg(
+					static_cast<int>(std::max(fontFactor * font().pointSize(), 1.0))));
+		newFont.setPointSize(std::max(fontFactor * font().pointSize(), 1.0));
+	}
+
+	m_currentLineHeight = QFontMetrics(newFont).height();
+}
+
+void TalkingUI::setIcon(Entry &entry) const {
+	const QIcon *icon = nullptr;
+	switch (entry.talkingState) {
+		case Settings::Talking:
+			icon = &m_talkingIcon;
+			break;
+		case Settings::Whispering:
+			icon = &m_whisperingIcon;
+			break;
+		case Settings::Shouting:
+			icon = &m_shoutingIcon;
+			break;
+		default:
+			icon = &m_passiveIcon;
+			break;
+	}
+
+	entry.icon->setPixmap(icon->pixmap(QSize(m_currentLineHeight, m_currentLineHeight), QIcon::Normal, QIcon::On));
 }
 
 void TalkingUI::hideUser(unsigned int session) {
@@ -144,8 +192,10 @@ void TalkingUI::addChannel(const Channel *channel) {
 
 		QGroupBox *box = new QGroupBox(channelName, this);
 		QVBoxLayout *layout = new QVBoxLayout();
-		layout->setContentsMargins(0, 0, 0, 0);
+		layout->setContentsMargins(0, 10, 0, 0);
 		box->setLayout(layout);
+
+		setFontSize(box);
 
 		m_channels.insert(channel->iId, box);
 	}
@@ -162,7 +212,7 @@ void TalkingUI::addUser(const ClientUser *user) {
 		// We initially set the labels to not be visible, so that we'll
 		// enter the code-block further down.
 
-		QWidget *background = new QWidget(this);
+		QWidget *background = new QWidget(m_channels[user->cChannel->iId]);
 		QLayout *backgroundLayout = new QHBoxLayout();
 		backgroundLayout->setContentsMargins(2, 3, 2, 3);
 		background->setLayout(backgroundLayout);
@@ -183,11 +233,11 @@ void TalkingUI::addUser(const ClientUser *user) {
 		icon->setAlignment(Qt::AlignCenter);
 		icon->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-		// As a default use the passive icon
-		const int height = fontMetrics().height(); // Make icon as high as the text
-		icon->setPixmap(m_passiveIcon.pixmap(QSize(height, height), QIcon::Normal, QIcon::On));
+		// As a default use the passive state
+		Entry entry = {icon, name, background, user->uiSession, Settings::Passive};
+		setIcon(entry);
+		m_entries.insert(user->uiSession, entry);
 
-		m_entries.insert(user->uiSession, {icon, name, background, user->uiSession});
 
 		backgroundLayout->addWidget(icon);
 		backgroundLayout->addWidget(name);
@@ -411,28 +461,11 @@ void TalkingUI::on_talkingStateChanged() {
 	addUser(user);
 
 	// Get the Entry for this user
-	Entry entry = m_entries[user->uiSession];
+	Entry &entry = m_entries[user->uiSession];
+	entry.talkingState = user->tsState;
 
 	// Set the icon for this user according to the TalkingState
-	QIcon *icon = nullptr;
-	switch (user->tsState) {
-		case Settings::Talking:
-			icon = &m_talkingIcon;
-			break;
-		case Settings::Whispering:
-			icon = &m_whisperingIcon;
-			break;
-		case Settings::Shouting:
-			icon = &m_shoutingIcon;
-			break;
-		default:
-			icon = &m_passiveIcon;
-			break;
-	}
-
-	const int height = fontMetrics().height(); // Make icon as high as the text
-	entry.icon->setPixmap(icon->pixmap(QSize(height, height), QIcon::Normal, QIcon::On));
-
+	setIcon(entry);
 
 	if (user->tsState == Settings::Passive) {
 		// User stopped talking
@@ -552,9 +585,23 @@ void TalkingUI::on_settingsChanged() {
 				g.s.iTalkingUI_PostfixCharCount, g.s.iTalkingUI_MaxChannelNameLength, g.s.iTalkingUI_ChannelHierarchyDepth,
 				g.s.qsTalkingUI_ChannelSeparator, g.s.qsTalkingUI_AbbreviationReplacement, g.s.bTalkingUI_AbbreviateCurrentChannel)
 			);
+
+			// The font size might have changed as well -> update it
+			// As all other items are children to the channel boxes, the new font
+			// size should propagate through.
+			setFontSize(box);
 		} else {
 			qCritical("TalkingUI: Can't find channel for stored ID");
 		}
+	}
+
+	// If the font has changed, we have to update the icon size as well
+	QMutableHashIterator<unsigned int, Entry> entryIt(m_entries);
+	while(entryIt.hasNext()) {
+		Entry &entry = entryIt.next().value();
+		// The new line height has already been set by setFontSize, so we only have
+		// to call setIcon
+		setIcon(entry);
 	}
 
 	// The time that a silent user may stick around might have changed as well
