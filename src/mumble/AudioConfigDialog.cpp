@@ -409,7 +409,10 @@ void AudioInputDialog::updateEchoEnableState() {
 
 	if (air->canEcho(outputInterface)) {
 		qcbEcho->setEnabled(true);
-		qcbEcho->setToolTip(QObject::tr("Cancel echo from speakers"));
+		qcbEcho->setToolTip(QObject::tr("If enabled this tries to cancel out echo from the audio stream.\n"
+			"Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to "
+			"the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.\n"
+			"Multichannel echo cancellation requires more CPU, so you should try mixed first"));
 	} else {
 		qcbEcho->setEnabled(false);
 		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not supported for the interface "
