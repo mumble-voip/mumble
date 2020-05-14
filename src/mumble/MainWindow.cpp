@@ -182,10 +182,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setOnTop(g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
 	         (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
 	         (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal));
-
-#ifdef NO_UPDATE_CHECK
-	delete qaHelpVersionCheck;
-#endif
 }
 
 void MainWindow::createActions() {

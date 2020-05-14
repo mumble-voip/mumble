@@ -798,10 +798,10 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(qsLastServer, "ui/server");
 	LOADENUM(ssFilter, "ui/serverfilter");
-#ifndef NO_UPDATE_CHECK
+
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
-#endif
+
 	SAVELOAD(bHideInTray, "ui/hidetray");
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
