@@ -9,7 +9,13 @@ ver=$(python scripts/mumble-version.py)
 
 # Use the Qt kit installed through PPA
 # even though the source executes successfully, it does return code 1
-source /opt/qt*/bin/qt*-env.sh || true
+echo "set -x" > test.sh
+cat /opt/qt*/bin/qt*-env.sh >> test.sh
+cat test.sh
+source test.sh
+set +x
+rm -rf test.sh
+# source /opt/qt*/bin/qt*-env.sh || true
 
 # clone and install AppImageUpdaterBridge to the system
 git clone https://github.com/antony-jr/AppImageUpdaterBridge

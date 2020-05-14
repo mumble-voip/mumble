@@ -5,7 +5,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 sudo add-apt-repository ppa:beineri/opt-qt-5.12.7-xenial -y
-sudo apt-get update
+sudo apt-get update -qq
 
 sudo apt-get -y install build-essential pkg-config qt512base qt512svg qt512tools \
 	                qt512translations libboost-dev libssl-dev libprotobuf-dev \
