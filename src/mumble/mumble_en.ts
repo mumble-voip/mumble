@@ -6552,11 +6552,13 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel echo from speakers</source>
+        <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
+        <source>If enabled this tries to cancel out echo from the audio stream.
+Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.
+Multichannel echo cancellation requires more CPU, so you should try mixed first</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

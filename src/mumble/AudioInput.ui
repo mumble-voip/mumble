@@ -115,6 +115,9 @@
       </item>
       <item row="1" column="3">
        <widget class="QLabel" name="qliEcho">
+        <property name="toolTip">
+         <string/>
+        </property>
         <property name="text">
          <string>Echo Cancellation</string>
         </property>
