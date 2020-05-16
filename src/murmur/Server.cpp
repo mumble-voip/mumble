@@ -49,6 +49,8 @@
 # include <poll.h>
 #endif
 
+#include <cstdint>
+
 #ifndef MAX
 # define MAX(a,b) ((a)>(b) ? (a):(b))
 #endif
@@ -663,7 +665,7 @@ void Server::udpActivated(int socket) {
 	iov[0].iov_base = encrypt;
 	iov[0].iov_len = UDP_PACKET_SIZE;
 
-	u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
+	uint8_t controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
 
 	memset(&msg, 0, sizeof(msg));
 	msg.msg_name = reinterpret_cast<struct sockaddr *>(&from);
@@ -801,7 +803,7 @@ void Server::run() {
 				iov[0].iov_base = encrypt;
 				iov[0].iov_len = UDP_PACKET_SIZE;
 
-				u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
+				uint8_t controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
 
 				memset(&msg, 0, sizeof(msg));
 				msg.msg_name = reinterpret_cast<struct sockaddr *>(&from);
@@ -974,7 +976,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		iov[0].iov_base = buffer;
 		iov[0].iov_len = len+4;
 
-		u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
+		uint8_t controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
 		memset(controldata, 0, sizeof(controldata));
 
 		memset(&msg, 0, sizeof(msg));
