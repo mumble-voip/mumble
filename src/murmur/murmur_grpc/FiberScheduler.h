@@ -6,6 +6,9 @@
 #ifndef MUMBLE_MURMUR_GRPC_SCHEDULE_H_
 #define MUMBLE_MURMUR_GRPC_SCHEDULE_H_
 
+#include <QCoreApplication>
+#include <QAbstractEventDispatcher>
+
 #include <boost/fiber/algo/algorithm.hpp>
 #include <boost/fiber/context.hpp>
 #include <boost/fiber/properties.hpp>
