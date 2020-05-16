@@ -18,7 +18,8 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	if [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ] || [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
 		sudo apt-get -qq update
 		sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools qttranslations5-l10n \
-                                libqt5svg5-dev libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
+                                libqt5svg5-dev libboost-dev libboost-context-dev libboost-fiber-dev \
+                                libssl-dev libprotobuf-dev protobuf-compiler \
                                 libcap-dev libxi-dev \
                                 libasound2-dev libpulse-dev \
                                 libogg-dev libsndfile1-dev libspeechd-dev \
