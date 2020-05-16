@@ -30,7 +30,7 @@ struct $service$_$method$ {
 		using StreamType = ::grpc::ServerAsyncResponseWriter<T>;
 	typedef const std::shared_ptr<RPCCall<$service$_$method$>>& rpcPtr;
 
-	static void impl(rpcPtr, InType&);
+	static boost::optional< OutType > impl(rpcPtr, InType&);
 
 	static auto getRequestFn() -> decltype((&::$ns$::$service$::AsyncService::Request$method$)) {
 		return &::$ns$::$service$::AsyncService::Request$method$;
