@@ -12,6 +12,16 @@
 #include "Meta.h"
 #include "Server.h"
 
+#include <boost/config.hpp>
+#if !defined BOOST_ATTRIBUTE_NODISCARD
+# define BOOST_ATTRIBUTE_NODISCARD
+#endif
+#if BOOST_VERSION < 106900L
+namespace boost {
+template<bool B, class T = void>
+	using enable_if_t = typename ::std::enable_if<B, T>::type;
+}
+#endif
 #ifndef Q_MOC_RUN
 #include "GRPCContainer.h"
 #include "GRPCall.h"

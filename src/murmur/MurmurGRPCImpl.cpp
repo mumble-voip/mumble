@@ -165,7 +165,8 @@ void InjectThreadYield() {
 		auto t = new QTimer(QCoreApplication::instance()); // NOLINT this is about to be in a unique_ptr
 		t->setInterval(0);
 		t->setSingleShot(true);
-		t->callOnTimeout(QCoreApplication::instance(), std::ref(thisfunc));
+		//t->callOnTimeout(QCoreApplication::instance(), std::ref(thisfunc));
+		QObject::connect(t, &QTimer::timeout, QCoreApplication::instance(), std::ref(thisfunc));
 		return t;}(), qtimer_deleter());
 	QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
 	boost::this_fiber::yield();
