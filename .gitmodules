@@ -22,3 +22,6 @@
 [submodule "themes/Mumble"]
 	path = themes/Mumble
 	url = https://github.com/mumble-voip/mumble-theme.git
+[submodule "3rdparty/mp11"]
+	path = 3rdparty/mp11
+	url = https://github.com/boostorg/mp11.git
