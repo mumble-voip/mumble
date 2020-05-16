@@ -25,3 +25,6 @@
 [submodule "3rdparty/mp11"]
 	path = 3rdparty/mp11
 	url = https://github.com/boostorg/mp11.git
+[submodule "3rdparty/callable_traits"]
+	path = 3rdparty/callable_traits
+	url = https://github.com/boostorg/callable_traits.git
