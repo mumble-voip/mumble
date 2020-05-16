@@ -9,7 +9,7 @@
 #include <QDebug>
 
 #include <boost/container/slist.hpp>
-#include <boost/container_hash/hash.hpp>
+//#include <boost/container_hash/hash.hpp>
 #include <boost/fiber/all.hpp>
 #include <boost/mp11.hpp>
 #include <boost/mp11/mpl.hpp>
