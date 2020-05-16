@@ -7,7 +7,7 @@
 #define MUMBLE_MURMUR_GRPCALL_H
 
 #include <QDebug>
-#include <QRandomGenerator>
+//#include <QRandomGenerator>
 #include <QtCore/QCoreApplication>
 
 #include <boost/callable_traits/args.hpp>
@@ -693,6 +693,10 @@ namespace MurmurRPC {
 				};
 			};
 
+			static std::random_device r;
+			static std::seed_seq seed{r(), r(), r(), r(), r(), r(), r(), r()};
+			static std::mt19937 mt_rand(seed);
+
 			/// \brief param number for completion queue call with message to be read in
 			///
 			/// this *should* be declared in RPCCall, but g++ in c++11 mode doesn't seem
@@ -715,6 +719,7 @@ namespace MurmurRPC {
 		using Detail::ClientStream_t;
 		using Detail::ServerStream_t;
 		using Detail::BidiStream_t;
+
 
 		/// \brief RPCCall class template. Makes concrete RPCCall objects that can be used.
 		///
@@ -985,7 +990,7 @@ namespace MurmurRPC {
 				m_isCancelled(false),
 				m_alive(true),
 				m_this(static_cast<RPCCall<Derived> *>(this), Detail::rpc_deleter()),
-				m_RPCid(QRandomGenerator::global()->generate()),
+				m_RPCid(Detail::mt_rand()),
 				rpc(rpcImpl),
 				service(svc),
 				impl_detail(&context) {
