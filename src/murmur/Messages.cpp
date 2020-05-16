@@ -79,7 +79,22 @@
 		sendMessage(uSource, mppd); \
 	}
 
-/// A helper class for managing temporary access tokens.
+#ifdef USE_GRPC
+#include <boost/fiber/all.hpp>
+#define SERVER_USER_ALIVE(user, session) \
+do { \
+		while(!qrwlVoiceThread.tryLockForRead()) { \
+			::boost::this_fiber::yield(); \
+		} \
+		if (!qhUsers.contains(session)) { \
+			qrwlVoiceThread.unlock(); \
+			return; \
+		} \
+		qrwlVoiceThread.unlock(); \
+	} while (false)
+#endif
+
+/// A helper class for managing temporary access tokens
 /// It will add the tokens in the comstructor and remove them again in the destructor effectively
 /// turning the tokens into a scope-based property.
 class TemporaryAccessTokenHelper {
@@ -1335,6 +1350,12 @@ void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &m
 
 void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
+#ifdef USE_GRPC
+	namespace boostf = ::boost::fibers;
+	const auto userSession = uSource->uiSession;
+	boostf::fiber fibr(boostf::launch::dispatch, [&, uSource, userSession, msg]() mutable -> void {
+#endif
+
 	QMutexLocker qml(&qmCache);
 
 	TextMessage tm; // for signal userTextMessage
@@ -1345,7 +1366,16 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	RATELIMIT(uSource);
 
 	int res = 0;
+#ifdef USE_GRPC
+	while(!qrwlVoiceThread.tryLockForRead()) {
+		::boost::this_fiber::yield();
+	}
+#endif
 	emit textMessageFilterSig(res, uSource, msg);
+#ifdef USE_GRPC
+	qrwlVoiceThread.unlock();
+	SERVER_USER_ALIVE(uSource, userSession);
+#endif
 	switch (res) {
 		// Accept
 		case 0:
@@ -1448,6 +1478,12 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		sendMessage(u, msg);
 
 	emit userTextMessage(uSource, tm);
+#ifdef USE_GRPC
+	});
+	if (fibr.joinable()) {
+		fibr.detach();
+	}
+#endif
 }
 
 /// Helper function to log the groups of the given channel.
