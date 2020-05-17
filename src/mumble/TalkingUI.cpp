@@ -419,6 +419,17 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 
 	setSelection(entry);
 
+	if (entry && event->button() == Qt::RightButton && g.mw) {
+		// If an entry is selected and the right mouse button was clicked, we pretend as if the user had clicked on the client in
+		// the MainWindow. For this to work we map the global mouse position to the local coordinate system of the UserView in the
+		// MainWindow. The function will use some internal logic to determine the user to invoke the context menu on but if that
+		// fails (which in this case it will), it'll fall back to the currently selected item. This item we have updated to the
+		// correct one with the setSelection() call above resulting in the proper context menu being shown at the position of the
+		// mouse which in this case is in the TalkingUI.
+		QMetaObject::invokeMethod(g.mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection, Q_ARG(QPoint,
+					g.mw->qtvUsers->mapFromGlobal(event->globalPos())));
+	}
+
 	updateUI();
 }
 
