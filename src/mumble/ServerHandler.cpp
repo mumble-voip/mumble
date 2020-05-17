@@ -470,7 +470,7 @@ void ServerHandler::sendPingInternal() {
 		return;
 	}
 
-	if (g.s.iMaxInFlightTCPPings >= 0 && iInFlightTCPPings >= g.s.iMaxInFlightTCPPings) {
+	if (g.s.iMaxInFlightTCPPings > 0 && iInFlightTCPPings >= g.s.iMaxInFlightTCPPings) {
 		serverConnectionClosed(QAbstractSocket::UnknownSocketError, tr("Server is not responding to TCP pings"));
 		return;
 	}
