@@ -97,6 +97,7 @@ public:
 	unsigned int uiImageLength;
 	unsigned int uiMaxUsers;
 	bool bQuit;
+	QString windowTitlePostfix;
 
 	bool bHappyEaster;
 	static const char ccHappyEaster[];

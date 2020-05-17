@@ -393,6 +393,11 @@ void MainWindow::updateWindowTitle() {
 	} else {
 		title = tr("Mumble -- %1");
 	}
+
+	if (!g.windowTitlePostfix.isEmpty()) {
+		title += QString::fromLatin1(" | %1").arg(g.windowTitlePostfix);
+	}
+
 	setWindowTitle(title.arg(QLatin1String(MUMBLE_RELEASE)));
 }
 
