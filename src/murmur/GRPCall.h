@@ -7,7 +7,6 @@
 #define MUMBLE_MURMUR_GRPCALL_H
 
 #include <QDebug>
-//#include <QRandomGenerator>
 #include <QtCore/QCoreApplication>
 
 #include <boost/callable_traits/args.hpp>
@@ -693,9 +692,7 @@ namespace MurmurRPC {
 				};
 			};
 
-			static std::random_device r;
-			static std::seed_seq seed{r(), r(), r(), r(), r(), r(), r(), r()};
-			static std::mt19937 mt_rand(seed);
+			uint32_t mt_random();
 
 			/// \brief param number for completion queue call with message to be read in
 			///
@@ -990,7 +987,7 @@ namespace MurmurRPC {
 				m_isCancelled(false),
 				m_alive(true),
 				m_this(static_cast<RPCCall<Derived> *>(this), Detail::rpc_deleter()),
-				m_RPCid(Detail::mt_rand()),
+				m_RPCid(Detail::mt_random()),
 				rpc(rpcImpl),
 				service(svc),
 				impl_detail(&context) {

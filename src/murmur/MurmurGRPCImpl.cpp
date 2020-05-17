@@ -23,6 +23,7 @@
 #include <cerrno>
 #include <chrono>
 #include <cstring>
+#include <random>
 #include <stdexcept>
 #include <utility>
 
@@ -2612,6 +2613,16 @@ V1_RedirectWhisperGroupRemove::impl(V1_RedirectWhisperGroupRemove::rpcPtr /*unus
 	return boost::none;
 }
 
+namespace Detail {
+	uint32_t mt_random() {
+		thread_local std::mt19937 mt_rand = [](){
+			std::random_device r;
+			std::seed_seq seed{r(), r(), r(), r(), r(), r(), r(), r()};
+			return std::mt19937(seed);
+		}();
+		return mt_rand();
+	}
+} // namespace Detail
 } // namespace Wrapper
 } // namespace MurmurRPC
 
