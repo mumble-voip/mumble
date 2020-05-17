@@ -355,7 +355,7 @@ Settings::Settings() {
 	bAutoConnect = false;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
-	iMaxInFlightTCPPings = 2;
+	iMaxInFlightTCPPings = 4;
 	bUdpForceTcpAddr = true;
 	iPingIntervalMsec = 5000;
 	iConnectionTimeoutDurationMsec = 30000;
