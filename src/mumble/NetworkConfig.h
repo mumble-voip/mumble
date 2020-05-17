@@ -32,6 +32,9 @@ class NetworkConfig : public ConfigWidget, Ui::NetworkConfig {
 		void load(const Settings &r) Q_DECL_OVERRIDE;
 
 		void on_qcbType_currentIndexChanged(int v);
+#ifdef NO_UPDATE_CHECK
+		void on_qcbAutoUpdate_stateChanged(int state);
+#endif
 };
 
 namespace Network {
