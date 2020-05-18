@@ -288,6 +288,12 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 	}
 
 	ClientUser *self = ClientUser::get(g.uiSession);
+	// In case the locals user (self) has changed channel but this method here was called before on_channelChanged
+	// has been called (e.g. triggered via on_talkingStateChanged of another user), we have to make sure that the
+	// channel of the local user actually exists in the TalkingUI. This is necessary because the channel update of
+	// a user and the call to on_channelChanged happen asynchronously (the latter runs through the event loop and
+	// thus typically (significantly) after the channel has been updated already.
+	addChannel(self->cChannel);
 	QGroupBox *localUserBox = m_channels[self->cChannel->iId];
 
 	bool adjust = false;
