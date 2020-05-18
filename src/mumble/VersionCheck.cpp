@@ -7,7 +7,15 @@
 
 #include "MainWindow.h"
 #include "Utils.h"
-#include "WebFetch.h"
+#if !(defined(USE_APPIMAGE_UPDATER_BRIDGE) && defined(Q_OS_LINUX))		
+# include "WebFetch.h"
+#else
+# include <AppImageUpdaterBridge>
+# include <AppImageUpdaterDialog>
+# include <QPixmap>
+using AppImageUpdaterBridge::AppImageDeltaRevisioner;
+using AppImageUpdaterBridge::AppImageUpdaterDialog;
+#endif // USE_APPIMAGE_UPDATER_BRIDGE
 
 #ifdef Q_OS_WIN
 # include "win.h"
@@ -27,6 +35,7 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
+#if !(defined(USE_APPIMAGE_UPDATER_BRIDGE) && defined(Q_OS_LINUX))
 VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p), m_preparationWatcher() {
 	connect(&m_preparationWatcher, &QFutureWatcher<void>::finished, this, &VersionCheck::performRequest);
 
@@ -205,3 +214,83 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 
 	deleteLater();
 }
+#else // USE_APPIMAGE_UPDATER_BRIDGE
+VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) {
+	Q_UNUSED(focus);
+	Q_UNUSED(autocheck);
+
+	m_UpdaterDialog = nullptr;
+	m_Revisioner = new AppImageDeltaRevisioner(/*singleThreaded=*/true,/*parent=*/this);
+	connect(m_Revisioner, &AppImageDeltaRevisioner::updateAvailable,
+		this, &VersionCheck::handleUpdateCheck);
+	connect(m_Revisioner, &AppImageDeltaRevisioner::error,
+		this, &VersionCheck::handleUpdateCheckError);
+	
+	m_Revisioner->checkForUpdate();
+	return;
+}
+
+void VersionCheck::handleUpdateCheck(bool updateAvailable,const QJsonObject &info){
+	Q_UNUSED(info);
+	disconnect(m_Revisioner, &AppImageDeltaRevisioner::updateAvailable,
+		   this, &VersionCheck::handleUpdateCheck);
+	disconnect(m_Revisioner, &AppImageDeltaRevisioner::error,
+		   this, &VersionCheck::handleUpdateCheckError);
+
+	if(!updateAvailable){
+		//Qt parent to child deallocation should take care of m_Revisioner
+		deleteLater();
+		return;
+	}
+	
+	int flags = AppImageUpdaterDialog::Default;
+	flags ^= AppImageUpdaterDialog::ShowBeforeProgress; // No show before progress
+	flags ^= AppImageUpdaterDialog::NotifyWhenNoUpdateIsAvailable;
+
+	m_UpdaterDialog = new AppImageUpdaterDialog(QPixmap(QString::fromLatin1(":/mumble.svg")), nullptr, flags);
+
+	connect(m_UpdaterDialog, &AppImageUpdaterDialog::error,
+		this, &VersionCheck::handleUpdateError);
+	connect(m_UpdaterDialog, &AppImageUpdaterDialog::finished,
+		this, &VersionCheck::handleUpdateFinish);
+	connect(m_UpdaterDialog, &AppImageUpdaterDialog::canceled,
+		this, &VersionCheck::handleUpdateCancel);
+	connect(m_UpdaterDialog, &AppImageUpdaterDialog::quit,
+		g.mw, &MainWindow::on_qaQuit_triggered);
+
+	// Center the updater
+	m_UpdaterDialog->move(QGuiApplication::primaryScreen()->geometry().center() - m_UpdaterDialog->rect().center());
+	
+	// Start the GUI
+	m_UpdaterDialog->init(m_Revisioner);
+}
+
+void VersionCheck::handleUpdateCheckError(short code){
+	g.mw->msgBox(AppImageUpdaterBridge::errorCodeToDescriptionString(code));
+	if(m_UpdaterDialog){ // We don't own the dialog
+		m_UpdaterDialog->deleteLater();
+	}
+	deleteLater();
+}
+
+void VersionCheck::handleUpdateFinish(const QJsonObject &info){
+	Q_UNUSED(info);
+	m_UpdaterDialog->deleteLater();
+	deleteLater();
+	return;
+}
+
+void VersionCheck::handleUpdateError(const QString &str, short code){
+	Q_UNUSED(str);
+	Q_UNUSED(code);
+	m_UpdaterDialog->deleteLater();
+	deleteLater();
+	return;
+}
+
+void VersionCheck::handleUpdateCancel(){
+	m_UpdaterDialog->deleteLater();
+	deleteLater();	
+	return;
+}
+#endif // USE_APPIMAGE_UPDATER_BRIDGE
