@@ -3845,10 +3845,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>String that gets used isntead of the cut-out part of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Abbreviation replacement</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3874,6 +3870,10 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Rel. font size (%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

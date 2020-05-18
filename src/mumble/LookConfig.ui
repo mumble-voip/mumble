@@ -154,7 +154,7 @@
       <item row="13" column="0">
        <widget class="QLabel" name="qlAbbreviationReplacement">
         <property name="toolTip">
-         <string>String that gets used isntead of the cut-out part of an abbreviated name.</string>
+         <string>String that gets used instead of the cut-out part of an abbreviated name.</string>
         </property>
         <property name="text">
          <string>Abbreviation replacement</string>
@@ -197,7 +197,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>String that gets used isntead of the cut-out part of an abbreviated name.</string>
+         <string>String that gets used instead of the cut-out part of an abbreviated name.</string>
         </property>
        </widget>
       </item>
