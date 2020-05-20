@@ -53,7 +53,9 @@ public:
 	Log *l;
 	Plugins *p;
 	QSettings *qs;
+#ifdef USE_OVERLAY
 	Overlay *o;
+#endif
 	LCD *lcd;
 	BonjourClient *bc;
 	QNetworkAccessManager *nam;
@@ -73,7 +75,9 @@ public:
 	bool bCenterPosition;
 	bool bPosTest;
 	bool bInAudioWizard;
+#ifdef USE_OVERLAY
 	OverlayClient *ocIntercept;
+#endif
 	int iAudioPathTime;
 	/// A unique ID for the current user. It is being assigned by the server right
 	/// after connecting to it. An ID of 0 indicates that the user currently isn't

@@ -20,7 +20,9 @@
 #include "GlobalShortcut.h"
 #include "Log.h"
 #include "MainWindow.h"
-#include "Overlay.h"
+#ifdef USE_OVERLAY
+	#include "Overlay.h"
+#endif
 #include "Plugins.h"
 #include "ServerHandler.h"
 #include "User.h"
@@ -681,7 +683,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	if (msg.has_texture_hash()) {
 		pDst->qbaTextureHash = blob(msg.texture_hash());
 		pDst->qbaTexture = QByteArray();
+#ifdef USE_OVERLAY
 		g.o->verifyTexture(pDst);
+#endif
 	}
 	if (msg.has_texture()) {
 		pDst->qbaTexture = blob(msg.texture());
@@ -691,7 +695,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			pDst->qbaTextureHash = sha1(pDst->qbaTexture);
 			g.db->setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
 		}
+#ifdef USE_OVERLAY
 		g.o->verifyTexture(pDst);
+#endif
 	}
 	if (msg.has_comment_hash())
 		pmModel->setCommentHash(pDst, blob(msg.comment_hash()));
@@ -1140,7 +1146,11 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 	if (ui) {
 		ui->update(msg);
 	} else {
+#ifdef USE_OVERLAY
 		ui = new UserInformation(msg, g.ocIntercept ? g.mw : NULL);
+#else
+		ui = new UserInformation(msg, NULL);
+#endif
 		ui->setAttribute(Qt::WA_DeleteOnClose, true);
 		connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
 

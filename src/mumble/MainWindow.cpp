@@ -26,7 +26,9 @@
 #include "Log.h"
 #include "Net.h"
 #include "NetworkConfig.h"
-#include "OverlayClient.h"
+#ifdef USE_OVERLAY
+	#include "OverlayClient.h"
+#endif
 #include "Plugins.h"
 #include "PTTButtonWidget.h"
 #include "RichTextEditor.h"
@@ -215,11 +217,14 @@ void MainWindow::createActions() {
 	gsJoinChannel->setObjectName(QLatin1String("MetaChannel"));
 	gsJoinChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
 
+#ifdef USE_OVERLAY
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"));
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
 	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay.", "Global Shortcut");
+
 	connect(gsToggleOverlay, SIGNAL(down(QVariant)), g.o, SLOT(toggleShow()));
+#endif
 
 	gsMinimal=new GlobalShortcut(this, idx++, tr("Toggle Minimal", "Global Shortcut"));
 	gsMinimal->setObjectName(QLatin1String("ToggleMinimal"));
@@ -495,11 +500,13 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 }
 
 void MainWindow::hideEvent(QHideEvent *e) {
+#ifdef USE_OVERLAY
 	if (g.ocIntercept) {
 		QMetaObject::invokeMethod(g.ocIntercept, "hideGui", Qt::QueuedConnection);
 		e->ignore();
 		return;
 	}
+#endif
 #ifndef Q_OS_MAC
 #ifdef Q_OS_UNIX
 	if (! qApp->activeModalWidget() && ! qApp->activePopupWidget())
@@ -3390,7 +3397,7 @@ void MainWindow::customEvent(QEvent *evt) {
 
 void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
 	if (!handleSpecialContextMenu(url, QCursor::pos(), true)) {
-#ifdef Q_OS_MAC
+#if defined(Q_OS_MAC) && defined(USE_OVERLAY)
 		// Clicking a link can cause the user's default browser to pop up while
 		// we're intercepting all events. This can be very confusing (because
 		// the user can't click on anything before they dismiss the overlay

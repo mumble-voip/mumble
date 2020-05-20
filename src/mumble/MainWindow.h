@@ -72,7 +72,10 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QAction *qaEmpty;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
-		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
+		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel;
+#ifdef USE_OVERLAY
+		GlobalShortcut *gsToggleOverlay;
+#endif
 		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
 		GlobalShortcut *gsCycleTransmitMode, *gsTransmitModePushToTalk, *gsTransmitModeContinuous, *gsTransmitModeVAD;
 		GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;

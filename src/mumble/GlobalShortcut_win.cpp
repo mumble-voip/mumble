@@ -6,7 +6,6 @@
 #include "GlobalShortcut_win.h"
 
 #include "MainWindow.h"
-#include "OverlayClient.h"
 #include "Utils.h"
 
 // MinGW does not support std::future/std::promise

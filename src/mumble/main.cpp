@@ -3,7 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "Overlay.h"
+#ifdef USE_OVERLAY
+	#include "Overlay.h"
+#endif
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "AudioInput.h"
@@ -451,8 +453,10 @@ int main(int argc, char **argv) {
 	g.bc = new BonjourClient();
 #endif
 
+#ifdef USE_OVERLAY
 	g.o = new Overlay();
 	g.o->setActive(g.s.os.bEnable);
+#endif
 
 	g.lcd = new LCD();
 
@@ -625,7 +629,9 @@ int main(int argc, char **argv) {
 	delete g.bc;
 #endif
 
+#ifdef USE_OVERLAY
 	delete g.o;
+#endif
 
 	delete g.c;
 	g.le.clear();

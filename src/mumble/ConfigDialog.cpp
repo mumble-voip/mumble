@@ -8,10 +8,10 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Global.h"
-#include "Overlay.h"
 
 #include <QtCore/QMutexLocker>
 #include <QtGui/QScreen>
+#include <QScrollArea>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QPushButton>
 
@@ -70,7 +70,9 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	                              ));
 
 	if (! g.s.qbaConfigGeometry.isEmpty()) {
+#ifdef USE_OVERLAY
 		if (! g.ocIntercept)
+#endif
 			restoreGeometry(g.s.qbaConfigGeometry);
 	}
 }
@@ -234,7 +236,9 @@ void ConfigDialog::apply() {
 void ConfigDialog::accept() {
 	apply();
 
+#ifdef USE_OVERLAY
 	if (! g.ocIntercept)
+#endif
 		g.s.qbaConfigGeometry=saveGeometry();
 
 	QDialog::accept();
