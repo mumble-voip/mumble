@@ -456,7 +456,7 @@ Settings::Settings() {
 	bTalkingUI_AbbreviateChannelNames = true;
 	bTalkingUI_AbbreviateCurrentChannel = false;
 	iTalkingUI_RelativeFontSize = 100;
-	iTalkingUI_SilentUserLifeTime = 5;
+	iTalkingUI_SilentUserLifeTime = 10;
 	iTalkingUI_ChannelHierarchyDepth = 1;
 	iTalkingUI_MaxChannelNameLength = 20;
 	iTalkingUI_PrefixCharCount = 3;
