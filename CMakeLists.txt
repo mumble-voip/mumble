@@ -44,6 +44,7 @@ option(warnings-as-errors "All warnings are treated as errors." OFF)
 option(dpkg-buildflags "Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS from dpkg-buildflags to the build flags." OFF)
 
 option(overlay "Build overlay." ON)
+option(packaging "Build package." OFF)
 option(plugins "Build plugins." ON)
 
 # We support the "Debug" and "Release" configurations.
@@ -94,4 +95,12 @@ endif()
 
 if(plugins AND client)
 	add_subdirectory(plugins)
+endif()
+
+if(packaging)
+	if(WIN32)
+		file(COPY "${CMAKE_SOURCE_DIR}/scripts/Create-Win32InstallerMUI.ps1" DESTINATION ${CMAKE_BINARY_DIR})
+	endif()
+
+	include(cmake/packaging.cmake)
 endif()
