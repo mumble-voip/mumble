@@ -11,6 +11,7 @@
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QNetworkProxy>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QSignalBlocker>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -62,6 +63,7 @@ void NetworkConfig::load(const Settings &r) {
 
 	loadCheckBox(qcbHideOS, s.bHideOS);
 
+	const QSignalBlocker blocker(qcbAutoUpdate);
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 	loadCheckBox(qcbPluginUpdate, r.bPluginCheck);
 	loadCheckBox(qcbUsage, r.bUsage);
@@ -143,6 +145,23 @@ void NetworkConfig::on_qcbType_currentIndexChanged(int v) {
 
 	s.ptProxyType = pt;
 }
+
+#ifdef NO_UPDATE_CHECK
+void NetworkConfig::on_qcbAutoUpdate_stateChanged(int state) {
+	if (state == Qt::Checked) {
+		QMessageBox msgBox;
+		msgBox.setText(QObject::tr("<p>You're using a Mumble version that <b>explicitly disabled</b> update-checks.<p>" 
+					"<p>This means that the update notification you might receive by using this option will "
+					"<b>most likely be meaningless</b> for you.<p>"));
+		msgBox.setInformativeText(QObject::tr("<p>If you're using Linux this is most likely because you are using a "
+					"version from your distribution's package repository that have their own update cycles.</p>"
+					"<p>If you want to always have the most recent Mumble version, you should consider using a different method of installation.\n"
+					"See <a href=\"https://wiki.mumble.info/wiki/Installing_Mumble\">the Mumble wiki</a> for what alternatives there are.</p>"));
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.exec();
+	}
+}
+#endif
 
 QNetworkReply *Network::get(const QUrl &url) {
 	QNetworkRequest req(url);
