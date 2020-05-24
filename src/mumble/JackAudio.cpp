@@ -1083,12 +1083,14 @@ void JackAudioOutput::run() {
 			writtenFrames += bOk ? wanted : 0;
 		}
 
+		const auto gap = writeVector->len - (wanted * iSampleSize);
+
 		if (!bOk || wanted == iFrameSize) {
 			goto next;
 		}
 
 		// Corner case where one sample wraps around the buffer
-		if (auto gap = writeVector->len - (wanted * iSampleSize); gap != 0) {
+		if (gap != 0) {
 			writeVector->buf += wanted * iSampleSize;
 			bOk = mix(spareSample.get(), 1);
 			if (bOk) {
