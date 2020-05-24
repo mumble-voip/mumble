@@ -100,7 +100,9 @@
                   Directory="DesktopFolder"
                   Name="Mumble"
                   WorkingDirectory="INSTALLDIR"
-                  Target="[INSTALLDIR]mumble.exe">
+                  Target="[INSTALLDIR]mumble.exe"
+                  Icon="mumble.ico"
+                  IconIndex="0">
           <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
         </Shortcut>
       </Component>
