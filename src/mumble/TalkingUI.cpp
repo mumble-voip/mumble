@@ -218,7 +218,8 @@ void TalkingUI::addUser(const ClientUser *user) {
 			return;
 		}
 
-		QWidget *background = new QWidget(channelBox);
+		QWidget *background = new QWidget(m_channels[user->cChannel->iId]);
+		background->setProperty("selected", false);
 		QLayout *backgroundLayout = new QHBoxLayout();
 		backgroundLayout->setContentsMargins(2, 3, 2, 3);
 		background->setLayout(backgroundLayout);
@@ -401,11 +402,16 @@ void TalkingUI::updateUI() {
 void TalkingUI::setSelection(Entry *entry) {
 	if (entry != m_currentSelection) {
 		if (m_currentSelection) {
-			m_currentSelection->background->setStyleSheet(QLatin1String(""));
+			// Set the selected property to false and refresh the style of the widget (letting the
+			// global StyleSheet (theme) take over).
+			m_currentSelection->background->setProperty("selected", false);
+			m_currentSelection->background->style()->unpolish(m_currentSelection->background);
 		}
 		if (entry) {
-			QString colorHex = palette().color(QPalette::Normal, QPalette::Highlight).name(QColor::HexRgb);
-			entry->background->setStyleSheet(QString::fromLatin1("background-color: %1;").arg(colorHex));
+			// Set the selected property to true and refresh the style of the widget (letting the
+			// global StyleSheet (theme) take over).
+			entry->background->setProperty("selected", true);
+			entry->background->style()->unpolish(entry->background);
 
 			if (g.mw && g.mw->pmModel) {
 				g.mw->pmModel->setSelectedUser(entry->userSession);
