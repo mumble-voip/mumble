@@ -1,0 +1,8 @@
+# Copyright 2019-2020 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+add_library(ffxiv_x64 SHARED "../ffxiv/ffxiv.cpp")
+
+target_compile_definitions(ffxiv_x64 PRIVATE "FFXIV_USE_x64")
