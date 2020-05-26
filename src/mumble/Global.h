@@ -102,6 +102,8 @@ public:
 	unsigned int uiMaxUsers;
 	bool bQuit;
 	QString windowTitlePostfix;
+	bool bDebugDumpInput;
+	bool bDebugPrintQueue;
 
 	bool bHappyEaster;
 	static const char ccHappyEaster[];

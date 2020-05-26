@@ -5661,6 +5661,15 @@ Valid options are:
                 Show licenses for third-party software used by Mumble.
   --window-title-ext &lt;arg&gt;
                 Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
 
 </source>
         <translation type="unfinished"></translation>
