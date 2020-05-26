@@ -170,6 +170,15 @@ int main(int argc, char **argv) {
 					"                Show the Mumble authors.\n"
 					"  --third-party-licenses\n"
 					"                Show licenses for third-party software used by Mumble.\n"
+					"  --dump-input-streams\n"
+					"                Dump PCM streams at various parts of the input chain\n"
+					"                (useful for debugging purposes)\n"
+					"                - raw microphone input\n"
+					"                - speaker readback for echo cancelling\n"
+					"                - processed microphone input\n"
+					"  --print-echocancel-queue\n"
+					"                Print on stdout the echo cancellation queue state\n"
+					"                (useful for debugging purposes)\n"
 					"\n"
 				);
 				QString rpcHelpBanner = MainWindow::tr(
@@ -240,6 +249,10 @@ int main(int argc, char **argv) {
 #endif
 					return 1;
 				}
+			} else if (args.at(i) == QLatin1String("--dump-input-streams")) {
+				 g.bDebugDumpInput = true;
+			} else if (args.at(i) == QLatin1String("--print-echocancel-queue")) {
+				 g.bDebugPrintQueue = true;
 			} else {
 				if (!bRpcMode) {
 					QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());

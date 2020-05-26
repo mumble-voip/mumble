@@ -20,11 +20,123 @@
 #include "NetworkConfig.h"
 #include "VoiceRecorder.h"
 
+#include <QtCore/QMutexLocker>
+
 #ifdef USE_RNNOISE
 extern "C" {
 #include "rnnoise.h"
 }
 #endif
+
+AudioChunk::AudioChunk() : mic(NULL), speaker(NULL) {
+}
+
+AudioChunk::AudioChunk(short *mic) : mic(mic), speaker(NULL) {
+}
+
+AudioChunk::AudioChunk(short *mic, short *speaker) : mic(mic), speaker(speaker) {
+}
+
+bool AudioChunk::empty() const {
+	return mic == NULL;
+}
+
+Resynchronizer::Resynchronizer() : bDebugPrintQueue(false), state(S0) {
+}
+
+int Resynchronizer::getNominalLag() const {
+	return 2;
+}
+
+void Resynchronizer::addMic(short *mic)
+{
+	bool drop = false;
+	{
+		QMutexLocker l(&m);
+		micQueue.push_back(mic);
+		switch (state) {
+			case S0:  state = S1a; break;
+			case S1a: state = S2;  break;
+			case S1b: state = S2;  break;
+			case S2:  state = S3;  break;
+			case S3:  state = S4a; break;
+			case S4a: state = S5;  break;
+			case S4b: drop = true; break;            
+			case S5:  drop = true; break;
+		}
+		if (drop) {
+			delete[] micQueue.front();
+			micQueue.pop_front();
+		}
+	}
+	if (bDebugPrintQueue) {
+		if (drop) qWarning("Resynchronizer::addMic(): dropped microphone chunk due to overflow");
+		printQueue('+');
+	}
+}
+
+AudioChunk Resynchronizer::addSpeaker(short *speaker)
+{
+	AudioChunk result;
+	bool drop = false;
+	{
+		QMutexLocker l(&m);
+		switch (state) {
+			case S0:  drop = true; break;
+			case S1a: drop = true; break;
+			case S1b: state = S0;  break;
+			case S2:  state = S1b; break;
+			case S3:  state = S2;  break;
+			case S4a: state = S3;  break;
+			case S4b: state = S3;  break;
+			case S5:  state = S4b; break;
+		}
+		if (drop == false) {
+			result = AudioChunk(micQueue.front(), speaker);
+			micQueue.pop_front();
+		}
+	}
+	if (drop) delete[] speaker;
+	if (bDebugPrintQueue) {
+		if (drop) qWarning("Resynchronizer::addSpeaker(): dropped speaker chunk due to underflow");
+		printQueue('-');
+	}
+	return result;
+}
+
+void Resynchronizer::reset()
+{
+	if (bDebugPrintQueue) qWarning("Resetting echo queue");
+	QMutexLocker l(&m);
+	state = S0;
+	while (!micQueue.empty()) {
+		delete[] micQueue.front();
+		micQueue.pop_front();
+	}
+}
+
+Resynchronizer::~Resynchronizer()
+{
+	reset();
+}
+
+void Resynchronizer::printQueue(char who)
+{
+	unsigned int mic;
+	{
+		QMutexLocker l(&m);
+		mic = static_cast<unsigned int>(micQueue.size());
+	}
+	std::string line;
+	line.reserve(32);
+	line += who;
+	line += " Echo queue [";
+	for(unsigned int i = 0; i < 5; i++) line += i < mic ? '#' : ' ';
+	line += "]\r";
+	// This relies on \r to retrace always on the same line, can't use qWarining
+	printf("%s",line.c_str());
+	fflush(stdout);
+}
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
@@ -75,6 +187,14 @@ bool AudioInputRegistrar::canExclusive() const {
 }
 
 AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)) {
+	bDebugDumpInput = g.bDebugDumpInput;
+	resync.bDebugPrintQueue = g.bDebugPrintQueue;
+	if (bDebugDumpInput) {
+		outMic.open("raw_microphone_dump", std::ios::binary);
+		outSpeaker.open("speaker_dump", std::ios::binary);
+		outProcessed.open("processed_microphone_dump", std::ios::binary);
+	}
+    
 	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames);
 
 	g.iAudioBandwidth = getNetworkBandwidth(iAudioQuality, iAudioFrames);
@@ -86,9 +206,6 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	opusState = NULL;
 	cCodec = NULL;
 	ceEncoder = NULL;
-
-	iSampleRate = SAMPLE_RATE;
-	iFrameSize = SAMPLE_RATE / 100;
 
 #ifdef USE_OPUS
 	oCodec = g.oCodec;
@@ -124,13 +241,6 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	sppPreprocess = NULL;
 	sesEcho = NULL;
 	srsMic = srsEcho = NULL;
-	iJitterSeq = 0;
-	iMinBuffered = 1000;
-
-	psMic = new short[iFrameSize];
-	psClean = new short[iFrameSize];
-
-	psSpeaker = NULL;
 
 	iEchoChannels = iMicChannels = 0;
 	iEchoFilled = iMicFilled = 0;
@@ -141,7 +251,7 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 
 	bResetEncoder = true;
 
-	pfMicInput = pfEchoInput = pfOutput = NULL;
+	pfMicInput = pfEchoInput = NULL;
 
 	iBitrate = 0;
 	dPeakSignal = dPeakSpeaker = dPeakMic = dPeakCleanMic = 0.0;
@@ -176,9 +286,6 @@ AudioInput::~AudioInput() {
 		cCodec->celt_encoder_destroy(ceEncoder);
 	}
 
-	foreach(short *buf, qlEchoFrames)
-		delete [] buf;
-
 	if (sppPreprocess)
 		speex_preprocess_state_destroy(sppPreprocess);
 	if (sesEcho)
@@ -189,13 +296,8 @@ AudioInput::~AudioInput() {
 	if (srsEcho)
 		speex_resampler_destroy(srsEcho);
 
-	delete [] psMic;
-	delete [] psClean;
-	delete [] psSpeaker;
-
 	delete [] pfMicInput;
 	delete [] pfEchoInput;
-	delete [] pfOutput;
 }
 
 bool AudioInput::isTransmitting() const {
@@ -381,7 +483,6 @@ void AudioInput::initializeMixer() {
 		speex_resampler_destroy(srsEcho);
 	delete [] pfMicInput;
 	delete [] pfEchoInput;
-	delete [] pfOutput;
 
 	if (iMicFreq != iSampleRate)
 		srsMic = speex_resampler_init(1, iMicFreq, iSampleRate, 3, &err);
@@ -389,7 +490,6 @@ void AudioInput::initializeMixer() {
 	iMicLength = (iFrameSize * iMicFreq) / iSampleRate;
 
 	pfMicInput = new float[iMicLength];
-	pfOutput = new float[iFrameSize * qMax(1U,iEchoChannels)];
 
 	if (iEchoChannels > 0) {
 		bEchoMulti = g.s.bEchoMulti;
@@ -447,6 +547,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 			iMicFilled = 0;
 
 			// If needed resample frame
+			float *pfOutput = srsMic ? (float*)alloca(iFrameSize*sizeof(float)) : NULL;
 			float *ptr = srsMic ? pfOutput : pfMicInput;
 
 			if (srsMic) {
@@ -455,43 +556,21 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 				speex_resampler_process_float(srsMic, 0, pfMicInput, &inlen, pfOutput, &outlen);
 			}
 
+            // If echo cancellation is enabled the pointer ends up in the resynchronizer queue
+            // and may need to outlive this function's frame
+            short *psMic = iEchoChannels > 0 ? new short[iFrameSize] : (short*)alloca(iFrameSize*sizeof(short));
+            
 			// Convert float to 16bit PCM
 			const float mul = 32768.f;
 			for (int j = 0; j < iFrameSize; ++j)
 				psMic[j] = static_cast<short>(qBound(-32768.f, (ptr[j] * mul), 32767.f));
 
-			// If we have echo chancellation enabled...
+			// If we have echo cancellation enabled...
 			if (iEchoChannels > 0) {
-				short *echo = NULL;
-
-				{
-					QMutexLocker l(&qmEcho);
-
-					if (qlEchoFrames.isEmpty()) {
-						iJitterSeq = 0;
-						iMinBuffered = 1000;
-					} else {
-						// Compensate for drift between the microphone and the echo source
-						iMinBuffered = qMin(iMinBuffered, qlEchoFrames.count());
-
-						if ((iJitterSeq > 100) && (iMinBuffered > 1)) {
-							iJitterSeq = 0;
-							iMinBuffered = 1000;
-							delete [] qlEchoFrames.takeFirst();
-						}
-						echo = qlEchoFrames.takeFirst();
-					}
-				}
-
-				if (echo) {
-					// We have echo data for the current frame, remember that
-					delete [] psSpeaker;
-					psSpeaker = echo;
-				}
+				resync.addMic(psMic);
+			} else {
+				encodeAudioFrame(AudioChunk(psMic));
 			}
-
-			// Encode and send frame
-			encodeAudioFrame();
 		}
 	}
 }
@@ -506,12 +585,12 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 			if (eEchoFormat == SampleFloat) {
 				for (unsigned int i=0;i<samples;++i)
-					pfEchoInput[i] = reinterpret_cast<const float *>(data)[i];
+					pfEchoInput[i + iEchoFilled * iEchoChannels] = reinterpret_cast<const float *>(data)[i];
 			}
 			else {
 				// 16bit PCM -> float
 				for (unsigned int i=0;i<samples;++i)
-					pfEchoInput[i] = static_cast<float>(reinterpret_cast<const short *>(data)[i]) * (1.0f / 32768.f);
+					pfEchoInput[i + iEchoFilled * iEchoChannels] = static_cast<float>(reinterpret_cast<const short *>(data)[i]) * (1.0f / 32768.f);
 			}
 		} else {
 			// Mix echo channels (converts 16bit PCM -> float if needed)
@@ -535,6 +614,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 			iEchoFilled = 0;
 
 			// Resample if necessary
+			float *pfOutput = srsEcho ? (float*)alloca(iEchoFrameSize*sizeof(float)) : NULL;
 			float *ptr = srsEcho ? pfOutput : pfEchoInput;
 
 			if (srsEcho) {
@@ -547,14 +627,16 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 			// float -> 16bit PCM
 			const float mul = 32768.f;
-			for (unsigned int j=0;j<iEchoFrameSize;++j)
-				outbuff[j] = static_cast<short>(ptr[j] * mul);
+			for (int j = 0; j < iEchoFrameSize; ++j) {
+				outbuff[j] = static_cast<short>(qBound(-32768.f, (ptr[j] * mul), 32767.f));
+			}
 
-			// Push frame into the echo chancellers jitter buffer
-			QMutexLocker l(&qmEcho);
-
-			iJitterSeq = qMin(iJitterSeq + 1,10000U);
-			qlEchoFrames.append(outbuff);
+			AudioChunk chunk = resync.addSpeaker(outbuff);
+			if (!chunk.empty()) {
+				encodeAudioFrame(chunk);
+				delete[] chunk.mic;
+				delete[] chunk.speaker;
+			}
 		}
 	}
 }
@@ -631,6 +713,7 @@ void AudioInput::resetAudioProcessor() {
 		speex_preprocess_state_destroy(sppPreprocess);
 	if (sesEcho)
 		speex_echo_state_destroy(sesEcho);
+	resync.reset();
 
 	sppPreprocess = speex_preprocess_state_init(iFrameSize, iSampleRate);
 
@@ -654,7 +737,8 @@ void AudioInput::resetAudioProcessor() {
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
 	if (iEchoChannels > 0) {
-		sesEcho = speex_echo_state_init_mc(iFrameSize, iFrameSize * 10, 1, bEchoMulti ? iEchoChannels : 1);
+		int filterSize = iFrameSize * (10 + resync.getNominalLag());
+		sesEcho = speex_echo_state_init_mc(iFrameSize, filterSize, 1, bEchoMulti ? iEchoChannels : 1);
 		iArg = iSampleRate;
 		speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
@@ -784,7 +868,7 @@ int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer& buffer) {
 	return len;
 }
 
-void AudioInput::encodeAudioFrame() {
+void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	int iArg;
 	int i;
 	float sum;
@@ -807,16 +891,17 @@ void AudioInput::encodeAudioFrame() {
 	sum=1.0f;
 	max = 1;
 	for (i=0;i<iFrameSize;i++) {
-		sum += static_cast<float>(psMic[i] * psMic[i]);
-		max = std::max(static_cast<short>(abs(psMic[i])), max);
+		sum += static_cast<float>(chunk.mic[i] * chunk.mic[i]);
+		max = std::max(static_cast<short>(abs(chunk.mic[i])), max);
 	}
 	dPeakMic = qMax(20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f), -96.0f);
 	dMaxMic = max;
 
-	if (psSpeaker && (iEchoChannels > 0)) {
+	if (chunk.speaker && (iEchoChannels > 0)) {
 		sum=1.0f;
-		for (i=0;i<iFrameSize;i++)
-			sum += static_cast<float>(psSpeaker[i] * psSpeaker[i]);
+		for (i = 0; i < iEchoFrameSize; ++i) {
+			sum += static_cast<float>(chunk.speaker[i] * chunk.speaker[i]);
+		}
 		dPeakSpeaker = qMax(20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f), -96.0f);
 	} else {
 		dPeakSpeaker = 0.0;
@@ -830,13 +915,13 @@ void AudioInput::encodeAudioFrame() {
 	if (g.s.bDenoise && denoiseState && (iFrameSize == 480)) {
 		float denoiseFrames[480];
 		for (int i = 0; i < 480; i++) {
-			denoiseFrames[i] = psMic[i];
+			denoiseFrames[i] = chunk.mic[i];
 		}
 
 		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
 
 		for (int i = 0; i < 480; i++) {
-			psMic[i] = denoiseFrames[i];
+			chunk.mic[i] = denoiseFrames[i];
 		}
 	}
 #endif
@@ -846,13 +931,14 @@ void AudioInput::encodeAudioFrame() {
 	iArg = g.s.iNoiseSuppress - iArg;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
-	if (sesEcho && psSpeaker) {
-		speex_echo_cancellation(sesEcho, psMic, psSpeaker, psClean);
+	short psClean[iFrameSize];
+	if (sesEcho && chunk.speaker) {
+		speex_echo_cancellation(sesEcho, chunk.mic, chunk.speaker, psClean);
 		speex_preprocess_run(sppPreprocess, psClean);
 		psSource = psClean;
 	} else {
-		speex_preprocess_run(sppPreprocess, psMic);
-		psSource = psMic;
+		speex_preprocess_run(sppPreprocess, chunk.mic);
+		psSource = chunk.mic;
 	}
 
 	sum=1.0f;
@@ -860,6 +946,14 @@ void AudioInput::encodeAudioFrame() {
 		sum += static_cast<float>(psSource[i] * psSource[i]);
 	float micLevel = sqrtf(sum / static_cast<float>(iFrameSize));
 	dPeakSignal = qMax(20.0f*log10f(micLevel / 32768.0f), -96.0f);
+    
+	if (bDebugDumpInput) {
+		outMic.write(reinterpret_cast<const char *>(chunk.mic), iFrameSize * sizeof(short));
+		if (chunk.speaker) {
+			outSpeaker.write(reinterpret_cast<const char *>(chunk.speaker), iEchoFrameSize * sizeof(short));
+		}
+		outProcessed.write(reinterpret_cast<const char *>(psSource), iFrameSize * sizeof(short));
+	}
 
 	spx_int32_t prob = 0;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);

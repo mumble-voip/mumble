@@ -92,6 +92,8 @@ public:
 	unsigned int uiImageLength;
 	unsigned int uiMaxUsers;
 	bool bQuit;
+	bool bDebugDumpInput;
+	bool bDebugPrintQueue;
 
 	bool bHappyEaster;
 	static const char ccHappyEaster[];

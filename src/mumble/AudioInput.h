@@ -14,7 +14,11 @@
 #include <speex/speex_resampler.h>
 #include <QtCore/QObject>
 #include <QtCore/QThread>
+#include <QtCore/QMutex>
+
 #include <vector>
+#include <fstream>
+#include <list>
 
 #include "Audio.h"
 #include "Settings.h"
@@ -28,6 +32,97 @@ struct CELTEncoder;
 struct OpusEncoder;
 struct DenoiseState;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
+
+/**
+ * A chunk of audio data to process
+ * This struct wraps pointers to two dynamically allocated arrays, containing
+ * PCM samples of microphone and speaker readback data (for echo cancellation).
+ * Does not handle pointer ownership, so you'll have to deallocate them yourself.
+ */
+struct AudioChunk
+{
+	AudioChunk();
+	explicit AudioChunk(short *mic);
+	AudioChunk(short *mic, short *speaker);
+	bool empty() const;
+
+	short *mic;     ///< Pointer to microphone samples
+	short *speaker; ///< Pointer to speaker samples, NULL if echo cancellation is disabled
+};
+
+/*
+ * According to https://www.speex.org/docs/manual/speex-manual/node7.html
+ * "It is important that, at any time, any echo that is present in the input
+ * has already been sent to the echo canceller as echo_frame."
+ * Thus, we artificially introduce a small lag in the microphone by means of
+ * a queue, so as to be sure the speaker data always precedes the microphone.
+ *
+ * There are conflicting requirements for the queue:
+ * - it has to be small enough not to cause a noticeable lag in the voice
+ * - it has to be large enough not to force us to drop packets frequently
+ *   when the addMic() and addEcho() callbacks are called in a jittery way
+ * - its fill level must be controlled so it does not operate towards zero
+ *   elements size, as this would not provide the lag required for the
+ *   echo canceller to work properly.
+ *
+ * The current implementation uses a 5 elements queue, with a control
+ * statemachine that introduces packet drops to control the fill level
+ * to at least 2 (plus or minus one) and less than 4 elements.
+ * With a 10ms chunk, this queue should introduce a ~20ms lag to the voice.
+ */
+class Resynchronizer
+{
+public:
+	Resynchronizer();
+
+	/**
+	 * Add a microphone sample to the resynchronizer queue
+	 * The resynchronizer may decide to drop the sample, and in that case
+	 * the pointer will be deallocated not lo leak memory
+	 * 
+	 * \param mic pointer to a dynamically allocated  array with PCM data
+	 */
+	void addMic(short *mic);
+
+	/**
+	 * Add a speaker sample to the resynchronizer
+	 * The resynchronizer may decide to drop the sample, and in that case
+	 * the pointer will be deallocated not lo leak memory
+	 * 
+	 * \param mic pointer to a dynamically allocated array with PCM data
+	 * \return If microphone data is available, the resynchronizer will return a
+	 * valid audio chunk to encode, otherwise an empty chunk will be returned
+	 */
+	AudioChunk addSpeaker(short *speaker);
+
+	/**
+	 * Reinitialize the resynchronizer, emptying the queue in the process.
+	 */
+	void reset();
+
+	/**
+	 * \return the nominal lag that the resynchronizer tries to enforce on the
+	 * microphone data, in order to make sure the speaker data is always passed
+	 * first to the echo canceller
+	 */
+	int getNominalLag() const;
+
+	~Resynchronizer();
+
+	bool bDebugPrintQueue; ///< Enables printing queue fill level stats
+
+private:
+	/**
+	 * Print queue level stats for debugging purposes
+	 * \param mic used to distinguish between addMic() and addSpeaker()
+	 */
+	void printQueue(char who);
+
+	mutable QMutex m;
+	std::list<short *> micQueue; ///< Queue of microphone samples
+	enum State { S0, S1a, S1b, S2, S3, S4a, S4b, S5 };
+	State state; ///< Queue fill control statemachine
+};
 
 class AudioInputRegistrar {
 	private:
@@ -62,12 +157,11 @@ class AudioInput : public QThread {
 		typedef enum { SampleShort, SampleFloat } SampleFormat;
 		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int, quint64);
 	private:
+        
+		bool bDebugDumpInput; ///< When true, dump pcm data to debug the echo canceller
+		std::ofstream outMic, outSpeaker, outProcessed; ///< Files to dump raw pcm data
+        
 		SpeexResamplerState *srsMic, *srsEcho;
-
-		QMutex qmEcho;
-		QList<short *> qlEchoFrames;
-		unsigned int iJitterSeq;
-		int iMinBuffered;
 
 		unsigned int iMicFilled, iEchoFilled;
 		inMixerFunc imfMic, imfEcho;
@@ -87,16 +181,16 @@ class AudioInput : public QThread {
 		MessageHandler::UDPMessageType umtType;
 		SampleFormat eMicFormat, eEchoFormat;
 
-		unsigned int iSampleRate;
 		unsigned int iMicChannels, iEchoChannels;
 		unsigned int iMicFreq, iEchoFreq;
 		unsigned int iMicLength, iEchoLength;
 		unsigned int iMicSampleSize, iEchoSampleSize;
-		unsigned int iEchoMCLength, iEchoFrameSize;
+		int iEchoMCLength, iEchoFrameSize;
 		quint64 uiMicChannelMask, uiEchoChannelMask;
 
 		bool bEchoMulti;
-		int	iFrameSize;
+		static const unsigned int iSampleRate = SAMPLE_RATE;
+		static const int iFrameSize = SAMPLE_RATE / 100;
 
 		QMutex qmSpeex;
 		SpeexPreprocessState *sppPreprocess;
@@ -115,17 +209,13 @@ class AudioInput : public QThread {
 		/// Number of 10ms audio "frames" per packet (!= frames in packet)
 		int iAudioFrames;
 
-		short *psMic;
-		short *psSpeaker;
-		short *psClean;
-
 		float *pfMicInput;
 		float *pfEchoInput;
-		float *pfOutput;
 
+		Resynchronizer resync;
 		std::vector<short> opusBuffer;
 
-		void encodeAudioFrame();
+		void encodeAudioFrame(AudioChunk chunk);
 		void addMic(const void *data, unsigned int nsamp);
 		void addEcho(const void *data, unsigned int nsamp);
 

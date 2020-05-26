@@ -111,6 +111,8 @@ Global::Global() {
 	bHappyEaster = false;
 
 	bQuit = false;
+	bDebugDumpInput = false;
+	bDebugPrintQueue = false;
 
 	QStringList qsl;
 	qsl << QCoreApplication::instance()->applicationDirPath();

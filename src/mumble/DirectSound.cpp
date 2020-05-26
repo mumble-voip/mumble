@@ -580,11 +580,20 @@ void DXAudioInput::run() {
 					break;
 				}
 
-				if (aptr1 && nbytes1)
-					CopyMemory(psMic, aptr1, nbytes1);
+				if (aptr1 && nbytes1 && aptr2 && nbytes2) {
+					// Use char as there is no byte datatype
+					char *data = new char[nbytes1 + nbytes2];
+					std::memcpy(data, aptr1, nbytes1);
+					std::memcpy(data + nbytes1, aptr2, nbytes2);
 
-				if (aptr2 && nbytes2)
-					CopyMemory(psMic+nbytes1/2, aptr2, nbytes2);
+					addMic(data, nbytes1 + nbytes2);
+
+					delete data;
+				} else if (aptr1 && nbytes1) {
+					addMic(aptr1, nbytes1);
+				} else if (aptr2 && nbytes2) {
+					addMic(aptr2, nbytes2);
+				}
 
 				if (FAILED(hr = pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
 					qWarning("DXAudioInput: Unlock failed: hr=0x%08lx", hr);
