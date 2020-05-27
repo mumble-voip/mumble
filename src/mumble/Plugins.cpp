@@ -74,7 +74,7 @@ struct PluginFetchMeta {
 
 PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-
+	qtwPlugins->setAccessibleName(tr("Plugins"));
 	qtwPlugins->header()->setSectionResizeMode(0, QHeaderView::Stretch);
 	qtwPlugins->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 

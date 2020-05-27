@@ -279,6 +279,11 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qtTick->start(50);
 
 	setupUi(this);
+
+	abSpeech->setAccessibleName(tr("Current speech detection chance"));
+	anwNoise->setAccessibleName(tr("Power spectrum of input signal and noise estimate"));
+	aewEcho->setAccessibleName(tr("Weights of the echo canceller"));
+	
 	AudioInputPtr ai = g.ai;
 
 	if (ai && ai->sesEcho) {

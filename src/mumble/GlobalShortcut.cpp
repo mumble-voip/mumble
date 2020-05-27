@@ -194,6 +194,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	stTarget = st;
 	setupUi(this);
 
+
 	// Load current shortcut configuration
 	qcbForceCenter->setChecked(st.bForceCenter);
 	qgbModifiers->setVisible(true);
@@ -548,6 +549,7 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
+	qtwShortcuts->setAccessibleName(tr("Configured shortcuts"));
 	installEventFilter(this);
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();

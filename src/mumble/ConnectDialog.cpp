@@ -958,6 +958,7 @@ void ConnectDialogEdit::on_qcbShowPassword_toggled(bool checked) {
 
 ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoConnect(autoconnect) {
 	setupUi(this);
+	qtwServers->setAccessibleName(tr("Server list"));
 #ifdef Q_OS_MAC
 	setWindowModality(Qt::WindowModal);
 #endif

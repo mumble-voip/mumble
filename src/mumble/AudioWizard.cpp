@@ -43,6 +43,15 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	setupUi(this);
 
+	qcbInput->setAccessibleName(tr("Input system"));
+	qcbInputDevice->setAccessibleName(tr("Input device"));
+	qcbOutput->setAccessibleName(tr("Output system"));
+	qcbOutputDevice->setAccessibleName(tr("Output device"));
+	qsOutputDelay->setAccessibleName(tr("Output delay"));
+	qsMaxAmp->setAccessibleName(tr("Maximum amplification"));
+	skwPTT->setAccessibleName(tr("PTT key"));
+	qsVAD->setAccessibleName(tr("VAD level"));
+
 	// Done
 	qcbUsage->setChecked(g.s.bUsage);
 

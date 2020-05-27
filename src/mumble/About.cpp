@@ -24,14 +24,17 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QTextEdit *qteLicense = new QTextEdit(qtwTab);
 	qteLicense->setReadOnly(true);
 	qteLicense->setPlainText(License::license());
+	qteLicense->setAccessibleName(tr("License agreement"));
 
 	QTextEdit *qteAuthors = new QTextEdit(qtwTab);
 	qteAuthors->setReadOnly(true);
 	qteAuthors->setPlainText(License::authors());
+	qteAuthors->setAccessibleName(tr("Authors"));
 
 	QTextBrowser *qtb3rdPartyLicense = new QTextBrowser(qtwTab);
 	qtb3rdPartyLicense->setReadOnly(true);
 	qtb3rdPartyLicense->setOpenExternalLinks(true);
+	qtb3rdPartyLicense->setAccessibleName(tr("Third-party license agreements"));
 
 	QList<LicenseInfo> thirdPartyLicenses = License::thirdPartyLicenses();
 	foreach(LicenseInfo li, thirdPartyLicenses) {

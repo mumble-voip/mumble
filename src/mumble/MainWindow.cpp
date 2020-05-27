@@ -160,7 +160,9 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	createActions();
 	setupUi(this);
 	setupGui();
-
+	qtvUsers->setAccessibleName(tr("Channels and users"));
+	qteLog->setAccessibleName(tr("Activity log"));
+	qteChat->setAccessibleName(tr("Chat message"));
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qmListener, SIGNAL(aboutToShow()), this, SLOT(qmListener_aboutToShow()));

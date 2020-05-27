@@ -15,6 +15,17 @@
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p)
 	, maskDefaultValue(32) {
 	setupUi(this);
+
+	qleSearch->setAccessibleName(tr("Search"));
+	qleUser->setAccessibleName(tr("User"));
+	qleIP->setAccessibleName(tr("IP Address"));
+	qsbMask->setAccessibleName(tr("Mask"));
+	qleReason->setAccessibleName(tr("Reason"));
+	qdteStart->setAccessibleName(tr("Start date/time"));
+	qdteEnd->setAccessibleName(tr("End date/time"));
+	qleHash->setAccessibleName(tr("Certificate hash"));
+	qlwBans->setAccessibleName(tr("Banned users"));
+
 	qlwBans->setFocus();
 
 	qlBans.clear();

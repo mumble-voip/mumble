@@ -7,6 +7,7 @@
 
 TextMessage::TextMessage(QWidget *p, QString title, bool bChannel) : QDialog(p) {
 	setupUi(this);
+	rteMessage->setAccessibleName(tr("Message"));
 	if (!bChannel)
 		qcbTreeMessage->setHidden(true);
 	setWindowTitle(title);
