@@ -91,6 +91,7 @@ AudioOutput::AudioOutput()
     : fSpeakers(NULL)
     , fSpeakerVolume(NULL)
     , bSpeakerPositional(NULL)
+    , fStereoPanningFactor(NULL)
 
     , eSampleFormat(SampleFloat)
 
@@ -115,6 +116,7 @@ AudioOutput::~AudioOutput() {
 	delete [] fSpeakers;
 	delete [] fSpeakerVolume;
 	delete [] bSpeakerPositional;
+	delete [] fStereoPanningFactor;
 }
 
 // Here's the theory.
@@ -252,10 +254,12 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	delete[] fSpeakers;
 	delete[] bSpeakerPositional;
 	delete[] fSpeakerVolume;
+	delete[] fStereoPanningFactor;
 
 	fSpeakers = new float[iChannels * 3];
 	bSpeakerPositional = new bool[iChannels];
 	fSpeakerVolume = new float[iChannels];
+	fStereoPanningFactor = new float[iChannels * 2];
 
 	memset(fSpeakers, 0, sizeof(float) * iChannels * 3);
 	memset(bSpeakerPositional, 0, sizeof(bool) * iChannels);
@@ -263,7 +267,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	for (unsigned int i=0;i<iChannels;++i)
 		fSpeakerVolume[i] = 1.0f;
 
-	if (g.s.bPositionalAudio && (iChannels > 1)) {
+	if (iChannels > 1) {
 		for (unsigned int i=0;i<iChannels;i++) {
 			float *s = &fSpeakers[3*i];
 			bSpeakerPositional[i] = true;
@@ -359,7 +363,13 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 				fSpeakers[3*i+1] /= d;
 				fSpeakers[3*i+2] /= d;
 			}
+            float *spf = &fStereoPanningFactor[2*i];
+            spf[0] = (1.0 - fSpeakers[i*3+0]) / 2.0;
+            spf[1] = (1.0 + fSpeakers[i*3+0]) / 2.0;
 		}
+	} else if (iChannels == 1) {
+		fStereoPanningFactor[0] = 0.5;
+		fStereoPanningFactor[1] = 0.5;
 	}
 	iSampleSize = static_cast<int>(iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
@@ -617,10 +627,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 					if (speech && speech->bStereo){
 						// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
 						// direction.
-						float left_factor = (1.0 - fSpeakers[s*3+0]) / 2.0;
-						float right_factor = (1.0 + fSpeakers[s*3+0]) / 2.0;
 						for (unsigned int i=0;i<frameNumber;++i)
-							o[i*nchan] += (pfBuffer[2*i] * left_factor + pfBuffer[2*i+1] * right_factor) * str;
+							o[i*nchan] += (pfBuffer[2*i] * fStereoPanningFactor[2*s+0] + pfBuffer[2*i+1] * fStereoPanningFactor[2*s+1]) * str;
 					} else {
 						for (unsigned int i=0;i<frameNumber;++i)
 							o[i*nchan] += pfBuffer[i] * str;

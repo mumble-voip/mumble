@@ -73,9 +73,10 @@ class AudioOutput : public QThread {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutput)
 	private:
-		float *fSpeakers;
+		float *fSpeakers; // Speaker positional vector
 		float *fSpeakerVolume;
 		bool *bSpeakerPositional;
+		float * fStereoPanningFactor; // Used when panning stereo stream w.r.t. each speaker.
 	protected:
 		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;
