@@ -699,14 +699,14 @@ void AudioInput::resetAudioProcessor() {
 		speex_preprocess_state_destroy(sppPreprocess);
 	if (sesEcho)
 		speex_echo_state_destroy(sesEcho);
-	resync.reset();
 
 	sppPreprocess = speex_preprocess_state_init(iFrameSize, iSampleRate);
+	resync.reset();
+	selectNoiseCancel();
 
 	iArg = 1;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
 
 	iArg = 30000;
@@ -719,8 +719,10 @@ void AudioInput::resetAudioProcessor() {
 	iArg = -60;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_DECREMENT, &iArg);
 
-	iArg = g.s.iNoiseSuppress;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+	if (noiseCancel == Settings::NoiseCancelSpeex) {
+		iArg = g.s.iNoiseSuppress;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+	}
 
 	if (iEchoChannels > 0) {
 		int filterSize = iFrameSize * (10 + resync.getNominalLag());
@@ -814,6 +816,39 @@ bool AudioInput::selectCodec() {
 	return true;
 }
 
+void AudioInput::selectNoiseCancel() {
+
+	//noiseCancel = g.s.noiseCancel;
+	noiseCancel = g.s.bDenoise ? Settings::NoiseCancelRNN : Settings::NoiseCancelSpeex;
+
+	if (noiseCancel == Settings::NoiseCancelRNN) {
+#ifdef USE_RNNOISE
+		if (!denoiseState || iFrameSize != 480) {
+			qWarning("AudioInput: Ignoring request to enable RNNoise: internal error");
+			noiseCancel = Settings::NoiseCancelSpeex;
+		}
+#else
+		qWarning("AudioInput: Ignoring request to enable RNNoise: Mumble was built without support for it");
+		noiseCancel = Settings::NoiseCancelSpeex;
+#endif
+	}
+
+	int iArg = 0;
+	switch (noiseCancel) {
+		case Settings::NoiseCancelOff:
+			qWarning("AudioInput: Noise canceller disabled");
+			break;
+		case Settings::NoiseCancelSpeex:
+			qWarning("AudioInput: Using Speex as noise canceller");
+			iArg = 1;
+			break;
+		case Settings::NoiseCancelRNN:
+			qWarning("AudioInput: Using RNNoise as noise canceller");
+			break;
+	}
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
+}
+
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer) {
 #ifdef USE_OPUS
 	int len;
@@ -898,36 +933,38 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	QMutexLocker l(&qmSpeex);
 	resetAudioProcessor();
 
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
+	float gainValue = static_cast<float>(iArg);
+	if (noiseCancel == Settings::NoiseCancelSpeex) {
+		iArg = g.s.iNoiseSuppress - iArg;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+	}
+
+	short psClean[iFrameSize];
+	if (sesEcho && chunk.speaker) {
+		speex_echo_cancellation(sesEcho, chunk.mic, chunk.speaker, psClean);
+		psSource = psClean;
+	} else {
+		psSource = chunk.mic;
+	}
+
 #ifdef USE_RNNOISE
 	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
-	if (g.s.bDenoise && denoiseState && (iFrameSize == 480)) {
+	if (noiseCancel == Settings::NoiseCancelRNN) {
 		float denoiseFrames[480];
 		for (int i = 0; i < 480; i++) {
-			denoiseFrames[i] = chunk.mic[i];
+			denoiseFrames[i] = psSource[i];
 		}
 
 		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
 
 		for (int i = 0; i < 480; i++) {
-			chunk.mic[i] = denoiseFrames[i];
+			psSource[i] = denoiseFrames[i];
 		}
 	}
 #endif
 
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
-	float gainValue = static_cast<float>(iArg);
-	iArg = g.s.iNoiseSuppress - iArg;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
-
-	short psClean[iFrameSize];
-	if (sesEcho && chunk.speaker) {
-		speex_echo_cancellation(sesEcho, chunk.mic, chunk.speaker, psClean);
-		speex_preprocess_run(sppPreprocess, psClean);
-		psSource = psClean;
-	} else {
-		speex_preprocess_run(sppPreprocess, chunk.mic);
-		psSource = chunk.mic;
-	}
+	speex_preprocess_run(sppPreprocess, psSource);
 
 	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
