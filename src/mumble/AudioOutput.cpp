@@ -91,19 +91,19 @@ AudioOutput::AudioOutput()
     : fSpeakers(NULL)
     , fSpeakerVolume(NULL)
     , bSpeakerPositional(NULL)
-    
+
     , eSampleFormat(SampleFloat)
-    
+
     , bRunning(true)
-    
+
     , iFrameSize(SAMPLE_RATE / 100)
     , iMixerFreq(0)
     , iChannels(0)
     , iSampleSize(0)
-    
+
     , qrwlOutputs()
     , qmOutputs() {
-	
+
 	// Nothing
 }
 
@@ -170,6 +170,9 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 	if (iChannels == 0)
 		return;
 	qrwlOutputs.lockForRead();
+	// qmOutputs is a map of users and their AudioOutputUser objects, which will be create when audio from that user
+	// is received. This map will be iterated in mix(). After one's audio is finished, his AudioOutputUser will be removed
+	// from this map.
 	AudioOutputSpeech *aop = qobject_cast<AudioOutputSpeech *>(qmOutputs.value(user));
 
 	if (!UDPMessageTypeIsValidVoicePacket(type)) {
@@ -362,7 +365,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 }
 
-bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
+bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 	// A list of users that have audio to contribute
 	QList<AudioOutputUser *> qlMix;
 	// A list of users that no longer have any audio to play and can thus be deleted
@@ -389,7 +392,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator it = qmOutputs.constBegin();
 	while (it != qmOutputs.constEnd()) {
 		AudioOutputUser *aop = it.value();
-		if (! aop->prepareSampleBuffer(nsamp)) {
+		if (! aop->prepareSampleBuffer(frameNumber)) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);
@@ -411,27 +414,28 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		STACKVAR(float, speaker, iChannels*3);
 		STACKVAR(float, svol, iChannels);
 
-		STACKVAR(float, fOutput, iChannels * nsamp);
+		STACKVAR(float, fOutput, iChannels * frameNumber);
 
 		// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output. Otherwise we'll have to
 		// use an intermediate buffer which we will convert to an array of shorts later
 		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
 		bool validListener = false;
 
-		memset(output, 0, sizeof(float) * nsamp * iChannels);
+		memset(output, 0, sizeof(float) * frameNumber * iChannels);
 
 		// Initialize recorder if recording is enabled
 		boost::shared_array<float> recbuff;
 		if (recorder) {
-			recbuff = boost::shared_array<float>(new float[nsamp]);
-			memset(recbuff.get(), 0, sizeof(float) * nsamp);
+			recbuff = boost::shared_array<float>(new float[frameNumber]);
+			memset(recbuff.get(), 0, sizeof(float) * frameNumber);
 			recorder->prepareBufferAdds();
 		}
 
 		for (unsigned int i=0;i<iChannels;++i)
 			svol[i] = mul * fSpeakerVolume[i];
 
-		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() && (g.bPosTest || g.p->fCameraPosition[0] != 0 || g.p->fCameraPosition[1] != 0 || g.p->fCameraPosition[2] != 0)) {
+		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()
+			&& (g.bPosTest || g.p->fCameraPosition[0] != 0 || g.p->fCameraPosition[1] != 0 || g.p->fCameraPosition[2] != 0)) {
 			// Calculate the positional audio effects if it is enabled
 
 			float front[3] = { g.p->fCameraFront[0], g.p->fCameraFront[1], g.p->fCameraFront[2] };
@@ -531,10 +535,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 
 				if (prioritySpeakerActive) {
-					
+
 					if (user->tsState != Settings::Whispering
 					    && !user->bPrioritySpeaker) {
-						
+
 						volumeAdjustment *= adjustFactor;
 					}
 				}
@@ -542,21 +546,25 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 			// If recording is enabled add the current audio source to the recording buffer
 			if (recorder) {
-				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
-
-				if (aos) {
-					for (unsigned int i = 0; i < nsamp; ++i) {
-						recbuff[i] += pfBuffer[i] * volumeAdjustment;
+				if (speech) {
+					if (speech->bStereo) {
+						for (unsigned int i = 0; i < frameNumber; ++i) { // Mix down stereo to mono. TODO: stereo record support
+							recbuff[i] += (pfBuffer[2*i] / 2.0 + pfBuffer[2*i+1] / 2.0) * volumeAdjustment;
+						}
+					} else {
+						for (unsigned int i = 0; i < frameNumber; ++i) {
+							recbuff[i] += pfBuffer[i] * volumeAdjustment;
+						}
 					}
 
 					if (!recorder->isInMixDownMode()) {
-						recorder->addBuffer(aos->p, recbuff, nsamp);
-						recbuff = boost::shared_array<float>(new float[nsamp]);
-						memset(recbuff.get(), 0, sizeof(float) * nsamp);
+						recorder->addBuffer(speech->p, recbuff, frameNumber);
+						recbuff = boost::shared_array<float>(new float[frameNumber]);
+						memset(recbuff.get(), 0, sizeof(float) * frameNumber);
 					}
 
 					// Don't add the local audio to the real output
-					if (qobject_cast<RecordUser *>(aos->p)) {
+					if (qobject_cast<RecordUser *>(speech->p)) {
 						continue;
 					}
 				}
@@ -585,14 +593,20 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					const float str = svol[s] * calcGain(dot, len) * volumeAdjustment;
 					float * RESTRICT o = output + s;
 					const float old = (aop->pfVolume[s] >= 0.0f) ? aop->pfVolume[s] : str;
-					const float inc = (str - old) / static_cast<float>(nsamp);
+					const float inc = (str - old) / static_cast<float>(frameNumber);
 					aop->pfVolume[s] = str;
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
 					if ((old >= 0.00000001f) || (str >= 0.00000001f))
-						for (unsigned int i=0;i<nsamp;++i)
-							o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
+                        for (unsigned int i=0;i<frameNumber;++i) {
+                            if (speech && speech->bStereo) {
+                                // Mix stereo user's stream into mono
+                                o[i * nchan] += (pfBuffer[2*i] / 2.0 + pfBuffer[2*i+1] / 2.0) * (old + inc * static_cast<float>(i));
+                            } else {
+                                o[i * nchan] += pfBuffer[i] * (old + inc * static_cast<float>(i));
+                            }
+                        }
 				}
 			} else {
 				// Mix the current audio source into the output by adding it to the elements of the output buffer after having applied
@@ -600,23 +614,32 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				for (unsigned int s=0;s<nchan;++s) {
 					const float str = svol[s] * volumeAdjustment;
 					float * RESTRICT o = output + s;
-					for (unsigned int i=0;i<nsamp;++i)
-						o[i*nchan] += pfBuffer[i] * str;
+					if (speech && speech->bStereo){
+						// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
+						// direction.
+						float left_factor = (1.0 - fSpeakers[s*3+0]) / 2.0;
+						float right_factor = (1.0 + fSpeakers[s*3+0]) / 2.0;
+						for (unsigned int i=0;i<frameNumber;++i)
+							o[i*nchan] += (pfBuffer[2*i] * left_factor + pfBuffer[2*i+1] * right_factor) * str;
+					} else {
+						for (unsigned int i=0;i<frameNumber;++i)
+							o[i*nchan] += pfBuffer[i] * str;
+					}
 				}
 			}
 		}
 
 		if (recorder && recorder->isInMixDownMode()) {
-			recorder->addBuffer(NULL, recbuff, nsamp);
+			recorder->addBuffer(NULL, recbuff, frameNumber);
 		}
 
 		// Clip the output audio
 		if (eSampleFormat == SampleFloat)
-			for (unsigned int i=0;i<nsamp*iChannels;i++)
+			for (unsigned int i=0;i<frameNumber*iChannels;i++)
 				output[i] = qBound(-1.0f, output[i], 1.0f);
 		else
 			// Also convert the intermediate float array into an array of shorts before writing it to the outbuff
-			for (unsigned int i=0;i<nsamp*iChannels;i++)
+			for (unsigned int i=0;i<frameNumber*iChannels;i++)
 				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(qBound(-32768.f, (output[i] * 32768.f), 32767.f));
 	}
 

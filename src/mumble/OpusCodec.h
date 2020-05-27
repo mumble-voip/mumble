@@ -39,8 +39,7 @@ class OpusCodec {
 		int (__cdecl *opus_encode)(OpusEncoder *st, const opus_int16 *pcm, int frame_size, unsigned char *compressed, int nbCompressedBytes);
 		int (__cdecl *opus_decode_float)(OpusDecoder *st, const unsigned char *data, opus_int32 len, float *pcm, int frame_size, int decode_fec);
 
-		int (__cdecl *opus_packet_get_nb_frames)(const unsigned char packet[], opus_int32 len);
-		int (__cdecl *opus_packet_get_samples_per_frame)(const unsigned char *data, opus_int32 Fs);
+        int (__cdecl *opus_decoder_get_nb_samples)(OpusDecoder *st, const unsigned char packet[], opus_int32 len);
 };
 
 #endif  // OPUSCODEC_H_

@@ -42,14 +42,24 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	bStereo = false;
 
 	iSampleRate = SAMPLE_RATE;
-	iFrameSize = iSampleRate / 100;
-	iAudioBufferSize = iFrameSize;
+
+	// opus's "frame" means different from normal audio term "frame"
+	// normally, a frame means a bundle of only one sample from each channel,
+	// e.g. for a stereo stream, ...[LR]LRLRLR.... where the bracket indicates a frame
+	// in opus term, a frame means samples that span a period of time, which can be either stereo or mono
+	// e.g. ...[LRLR....LRLR].... or ...[MMMM....MMMM].... for mono stream
+	// opus supports frames with: 2.5, 5, 10, 20, 40 or 60 ms of audio data.
+	// sample rate / 100 means 10ms mono audio data per frame.
+	iFrameSizePerChannel = iFrameSize = iSampleRate / 100; // for mono stream
+	iAudioBufferSize = iFrameSize * 12; // used to store decoded pcm data. is it too big for 4-bytes float?
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
+		// Always pretend Stereo mode is true by default. since opus will convert mono stream to stereo stream.
+		// https://tools.ietf.org/html/rfc6716#section-2.1.2
+		bStereo = true;
 		oCodec = g.oCodec;
 		if (oCodec) {
-			iAudioBufferSize *= 12;
 			opusState = oCodec->opus_decoder_create(iSampleRate, bStereo ? 2 : 1, NULL);
 		}
 #endif
@@ -66,8 +76,9 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iAudioBufferSize * iMixerFreq) / static_cast<float>(iSampleRate)));
 	if (bStereo) {
-		iAudioBufferSize *= 2;
+		iAudioBufferSize *= 2; // * 2 for stereo to get 10ms per frame
 		iOutputSize *= 2;
+		iFrameSize *= 2;
 	}
 
 	srs = NULL;
@@ -89,12 +100,12 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	int margin = g.s.iJitterBufferSize * iFrameSize;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 
-	fFadeIn = new float[iFrameSize];
-	fFadeOut = new float[iFrameSize];
+	fFadeIn = new float[iFrameSizePerChannel];
+	fFadeOut = new float[iFrameSizePerChannel];
 
-	float mul = static_cast<float>(M_PI / (2.0 * static_cast<double>(iFrameSize)));
-	for (unsigned int i=0;i<iFrameSize;++i)
-		fFadeIn[i] = fFadeOut[iFrameSize-i-1] = sinf(static_cast<float>(i) * mul);
+	float mul = static_cast<float>(M_PI / (2.0 * static_cast<double>(iFrameSizePerChannel)));
+	for (unsigned int i=0;i<iFrameSizePerChannel;++i)
+		fFadeIn[i] = fFadeOut[iFrameSizePerChannel-i-1] = sinf(static_cast<float>(i) * mul);
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
@@ -129,6 +140,8 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 	if (qbaPacket.size() < 2)
 		return;
 
+	// Voice data is transmitted through UDP packets and is not formatted by protobuf.
+	// Structure is: flags + size + audio data + pos*3
 	PacketDataStream pds(qbaPacket);
 
 	// skip flags
@@ -152,8 +165,8 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 
 #ifdef USE_OPUS
 		if (oCodec) {
-			int frames = oCodec->opus_packet_get_nb_frames(packet, size);
-			samples = frames * oCodec->opus_packet_get_samples_per_frame(packet, SAMPLE_RATE);
+			samples = oCodec->opus_decoder_get_nb_samples(opusState, packet, size); // this function return samples per channel
+			samples *= 2; // since we assume all input stream is stereo.
 		}
 #else
 		return;
@@ -162,6 +175,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		// We can't handle frames which are not a multiple of 10ms.
 		Q_ASSERT(samples % iFrameSize == 0);
 	} else {
+		// If packet not in opus format
 		unsigned int header = 0;
 
 		do {
@@ -182,9 +196,18 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 	}
 }
 
-bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
+bool AudioOutputSpeech::prepareSampleBuffer(unsigned int fnum) {
+	unsigned int channels = bStereo ? 2 : 1;
+	// Note: all stereo supports are crafted for opus, since other codecs are deprecated and will soon be removed.
+
+	unsigned int snum = fnum * channels;
+
+    // we can not control exactly how many frames decoder returns
+    // so we need a buffer to keep unused frames
+    // shift the buffer, remove decoded and played frames
 	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];
+
 	iBufferFilled -= iLastConsume;
 
 	iLastConsume = snum;
@@ -235,6 +258,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 
 				if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
 					PacketDataStream pds(jbp.data, jbp.len);
+					// pds structure is: flags + size (14-16 terminator + 1-15 size) + audio data + pos*3
 
 					iMissCount = 0;
 					ucFlags = static_cast<unsigned char>(pds.next());
@@ -246,6 +270,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 
 						bHasTerminator = size & 0x2000;
 						qlFrames << pds.dataBlock(size & 0x1fff);
+						// if using opus, there will be at most only one element in qlFrames
+						// Q_ASSERT(qlFrames.size() == 1);
 					} else {
 						unsigned int header = 0;
 						do {
@@ -273,6 +299,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 							p->fAverageAvailable *= 0.99f;
 					}
 				} else {
+					// Let the jitter buffer know it's the right time to adjust the buffering delay to the network conditions.
 					jitter_buffer_update_delay(jbJitter, &jbp, NULL);
 
 					iMissCount++;
@@ -309,13 +336,14 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 #ifdef USE_OPUS
 					if (oCodec) {
 						decodedSamples = oCodec->opus_decode_float(opusState,
-						                                           qba.isEmpty() ?
-						                                               NULL :
-						                                               reinterpret_cast<const unsigned char *>(qba.constData()),
-						                                           qba.size(),
-						                                           pOut,
-						                                           iAudioBufferSize,
-						                                           0);
+																   qba.isEmpty() ?
+																	   NULL :
+																	   reinterpret_cast<const unsigned char *>(qba.constData()),
+																   qba.size(),
+																   pOut,
+																   iAudioBufferSize,
+																   0);
+						decodedSamples *= channels;
 					}
 
 					if (decodedSamples < 0) {
@@ -344,7 +372,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 					float pow = 0.0f;
 					for (int i = 0; i < decodedSamples; ++i)
 						pow += pOut[i] * pOut[i];
-					pow = sqrtf(pow / static_cast<float>(decodedSamples));
+					pow = sqrtf(pow / static_cast<float>(decodedSamples)); // Average over both L and R channel.
 
 					if (pow >= fPowerMax) {
 						fPowerMax = pow;
@@ -357,8 +385,10 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 						}
 					}
 
-					update = (pow < (fPowerMin + 0.01f * (fPowerMax - fPowerMin)));
+					update = (pow < (fPowerMin + 0.01f * (fPowerMax - fPowerMin))); // Update jitter buffer when quiet.
 				}
+				// qlFrames.isEmpty() will always be true if using opus.
+				// Q_ASSERT(qlFrames.isEmpty());
 				if (qlFrames.isEmpty() && update)
 					jitter_buffer_update_delay(jbJitter, NULL, NULL);
 
@@ -374,6 +404,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 #ifdef USE_OPUS
 					if (oCodec) {
 						decodedSamples = oCodec->opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
+						decodedSamples *= channels;
 					}
 
 					if (decodedSamples < 0) {
@@ -389,11 +420,15 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 			}
 
 			if (! nextalive) {
-				for (unsigned int i=0;i<iFrameSize;++i)
-					pOut[i] *= fFadeOut[i];
+				for (unsigned int i=0; i<static_cast<unsigned int>(iFrameSizePerChannel); ++i) {
+					for (unsigned int s=0; s<channels; ++s)
+						pOut[i*channels + s] *= fFadeOut[i];
+				}
 			} else if (ts == 0) {
-				for (unsigned int i=0;i<iFrameSize;++i)
-					pOut[i] *= fFadeIn[i];
+				for (unsigned int i=0; i<static_cast<unsigned int>(iFrameSizePerChannel); ++i) {
+					for (unsigned int s=0; s<channels; ++s)
+						pOut[i*channels + s] *= fFadeIn[i];
+				}
 			}
 
 			for (int i = decodedSamples / iFrameSize; i > 0; --i) {
@@ -401,11 +436,16 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int snum) {
 			}
 		}
 nextframe:
-		spx_uint32_t inlen = decodedSamples;
-		spx_uint32_t outlen = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples * iMixerFreq) / static_cast<float>(iSampleRate)));
-		if (srs && bLastAlive)
-			speex_resampler_process_float(srs, 0, fResamplerBuffer, &inlen, pfBuffer + iBufferFilled, &outlen);
-		iBufferFilled += outlen;
+		spx_uint32_t inlen = decodedSamples / channels; // per channel
+		spx_uint32_t outlen = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples / channels * iMixerFreq) / static_cast<float>(iSampleRate)));
+		if (srs && bLastAlive) {
+			if (channels == 1) {
+				speex_resampler_process_float(srs, 0, fResamplerBuffer, &inlen, pfBuffer + iBufferFilled, &outlen);
+			} else if (channels == 2) {
+				speex_resampler_process_interleaved_float(srs, fResamplerBuffer, &inlen, pfBuffer + iBufferFilled, &outlen);
+			}
+		}
+		iBufferFilled += outlen * channels;
 	}
 
 	if (p) {

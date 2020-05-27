@@ -88,7 +88,7 @@ class AudioOutput : public QThread {
 
 		virtual void removeBuffer(AudioOutputUser *);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
-		bool mix(void *output, unsigned int nsamp);
+		bool mix(void *output, unsigned int frameNumber);
 	public:
 		void wipe();
 
