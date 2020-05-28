@@ -73,6 +73,7 @@ OpusCodec::OpusCodec() {
 	RESOLVE(opus_encoder_ctl);
 	RESOLVE(opus_encoder_destroy);
 	RESOLVE(opus_decoder_create);
+	RESOLVE(opus_decoder_ctl);
 	RESOLVE(opus_decoder_destroy);
 
 	RESOLVE(opus_decoder_get_nb_samples);

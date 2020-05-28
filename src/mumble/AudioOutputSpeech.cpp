@@ -61,6 +61,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 		oCodec = g.oCodec;
 		if (oCodec) {
 			opusState = oCodec->opus_decoder_create(iSampleRate, bStereo ? 2 : 1, NULL);
+			oCodec->opus_decoder_ctl(opusState, OPUS_SET_PHASE_INVERSION_DISABLED(1)); // Disable phase inversion for better mono downmix.
 		}
 #endif
 	} else if (umtType == MessageHandler::UDPVoiceSpeex) {

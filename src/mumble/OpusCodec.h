@@ -34,12 +34,13 @@ class OpusCodec {
 		int (__cdecl *opus_encoder_ctl)(OpusEncoder *st, int request, ...);
 		void (__cdecl *opus_encoder_destroy)(OpusEncoder *st);
 		OpusDecoder *(__cdecl *opus_decoder_create)(opus_int32 Fs, int channels, int *error);
+		int (__cdecl *opus_decoder_ctl)(OpusDecoder *st, int request, ...);
 		void (__cdecl *opus_decoder_destroy)(OpusDecoder *st);
 
 		int (__cdecl *opus_encode)(OpusEncoder *st, const opus_int16 *pcm, int frame_size, unsigned char *compressed, int nbCompressedBytes);
 		int (__cdecl *opus_decode_float)(OpusDecoder *st, const unsigned char *data, opus_int32 len, float *pcm, int frame_size, int decode_fec);
 
-        int (__cdecl *opus_decoder_get_nb_samples)(OpusDecoder *st, const unsigned char packet[], opus_int32 len);
+		int (__cdecl *opus_decoder_get_nb_samples)(OpusDecoder *st, const unsigned char packet[], opus_int32 len);
 };
 
 #endif  // OPUSCODEC_H_
