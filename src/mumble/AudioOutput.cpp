@@ -64,7 +64,7 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 		return AudioOutputPtr(qmNew->value(choice)->create());
 	}
 
-	AudioOutputRegistrar *r = NULL;
+	AudioOutputRegistrar *r = nullptr;
 	foreach(AudioOutputRegistrar *aor, *qmNew)
 		if (!r || (aor->priority > r->priority))
 			r = aor;
@@ -88,22 +88,22 @@ bool AudioOutputRegistrar::canExclusive() const {
 }
 
 AudioOutput::AudioOutput()
-    : fSpeakers(NULL)
-    , fSpeakerVolume(NULL)
-    , bSpeakerPositional(NULL)
-    , fStereoPanningFactor(NULL)
+	: fSpeakers(nullptr)
+	, fSpeakerVolume(nullptr)
+	, bSpeakerPositional(nullptr)
+	, fStereoPanningFactor(nullptr)
 
-    , eSampleFormat(SampleFloat)
+	, eSampleFormat(SampleFloat)
 
-    , bRunning(true)
+	, bRunning(true)
 
-    , iFrameSize(SAMPLE_RATE / 100)
-    , iMixerFreq(0)
-    , iChannels(0)
-    , iSampleSize(0)
+	, iFrameSize(SAMPLE_RATE / 100)
+	, iMixerFreq(0)
+	, iChannels(0)
+	, iSampleSize(0)
 
-    , qrwlOutputs()
-    , qmOutputs() {
+	, qrwlOutputs()
+	, qmOutputs() {
 
 	// Nothing
 }
@@ -165,7 +165,7 @@ const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
 		speakers = iChannels;
 		return fSpeakers;
 	}
-	return NULL;
+	return nullptr;
 }
 
 void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq, MessageHandler::UDPMessageType type) {
@@ -223,8 +223,8 @@ void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 
 AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	SoundFile *handle = AudioOutputSample::loadSndfile(filename);
-	if (handle == NULL)
-		return NULL;
+	if (handle == nullptr)
+		return nullptr;
 
 	Timer t;
 	const quint64 oneSecond = 1000000;
@@ -236,15 +236,15 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	// If we've waited for more than one second, we declare timeout.
 	if (t.isElapsed(oneSecond)) {
 		qWarning("AudioOutput: playSample() timed out after 1 second: device not ready");
-		return NULL;
+		return nullptr;
 	}
 
 	if (! iMixerFreq)
-		return NULL;
+		return nullptr;
 
 	QWriteLocker locker(&qrwlOutputs);
 	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq);
-	qmOutputs.insert(NULL, aos);
+	qmOutputs.insert(nullptr, aos);
 
 	return aos;
 
@@ -363,9 +363,9 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 				fSpeakers[3*i+1] /= d;
 				fSpeakers[3*i+2] /= d;
 			}
-            float *spf = &fStereoPanningFactor[2*i];
-            spf[0] = (1.0 - fSpeakers[i*3+0]) / 2.0;
-            spf[1] = (1.0 + fSpeakers[i*3+0]) / 2.0;
+			float *spf = &fStereoPanningFactor[2*i];
+			spf[0] = (1.0 - fSpeakers[i*3+0]) / 2.0;
+			spf[1] = (1.0 + fSpeakers[i*3+0]) / 2.0;
 		}
 	} else if (iChannels == 1) {
 		fStereoPanningFactor[0] = 0.5;
@@ -375,7 +375,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 }
 
-bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
+bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	// A list of users that have audio to contribute
 	QList<AudioOutputUser *> qlMix;
 	// A list of users that no longer have any audio to play and can thus be deleted
@@ -402,7 +402,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator it = qmOutputs.constBegin();
 	while (it != qmOutputs.constEnd()) {
 		AudioOutputUser *aop = it.value();
-		if (! aop->prepareSampleBuffer(frameNumber)) {
+		if (! aop->prepareSampleBuffer(frameCount)) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);
@@ -424,20 +424,20 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 		STACKVAR(float, speaker, iChannels*3);
 		STACKVAR(float, svol, iChannels);
 
-		STACKVAR(float, fOutput, iChannels * frameNumber);
+		STACKVAR(float, fOutput, iChannels * frameCount);
 
 		// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output. Otherwise we'll have to
 		// use an intermediate buffer which we will convert to an array of shorts later
 		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
 		bool validListener = false;
 
-		memset(output, 0, sizeof(float) * frameNumber * iChannels);
+		memset(output, 0, sizeof(float) * frameCount * iChannels);
 
 		// Initialize recorder if recording is enabled
 		boost::shared_array<float> recbuff;
 		if (recorder) {
-			recbuff = boost::shared_array<float>(new float[frameNumber]);
-			memset(recbuff.get(), 0, sizeof(float) * frameNumber);
+			recbuff = boost::shared_array<float>(new float[frameCount]);
+			memset(recbuff.get(), 0, sizeof(float) * frameCount);
 			recorder->prepareBufferAdds();
 		}
 
@@ -547,7 +547,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 				if (prioritySpeakerActive) {
 
 					if (user->tsState != Settings::Whispering
-					    && !user->bPrioritySpeaker) {
+						&& !user->bPrioritySpeaker) {
 
 						volumeAdjustment *= adjustFactor;
 					}
@@ -558,19 +558,21 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 			if (recorder) {
 				if (speech) {
 					if (speech->bStereo) {
-						for (unsigned int i = 0; i < frameNumber; ++i) { // Mix down stereo to mono. TODO: stereo record support
+						// Mix down stereo to mono. TODO: stereo record support
+						// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
+						for (unsigned int i = 0; i < frameCount; ++i) {
 							recbuff[i] += (pfBuffer[2*i] / 2.0 + pfBuffer[2*i+1] / 2.0) * volumeAdjustment;
 						}
 					} else {
-						for (unsigned int i = 0; i < frameNumber; ++i) {
+						for (unsigned int i = 0; i < frameCount; ++i) {
 							recbuff[i] += pfBuffer[i] * volumeAdjustment;
 						}
 					}
 
 					if (!recorder->isInMixDownMode()) {
-						recorder->addBuffer(speech->p, recbuff, frameNumber);
-						recbuff = boost::shared_array<float>(new float[frameNumber]);
-						memset(recbuff.get(), 0, sizeof(float) * frameNumber);
+						recorder->addBuffer(speech->p, recbuff, frameCount);
+						recbuff = boost::shared_array<float>(new float[frameCount]);
+						memset(recbuff.get(), 0, sizeof(float) * frameCount);
 					}
 
 					// Don't add the local audio to the real output
@@ -603,20 +605,23 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 					const float str = svol[s] * calcGain(dot, len) * volumeAdjustment;
 					float * RESTRICT o = output + s;
 					const float old = (aop->pfVolume[s] >= 0.0f) ? aop->pfVolume[s] : str;
-					const float inc = (str - old) / static_cast<float>(frameNumber);
+					const float inc = (str - old) / static_cast<float>(frameCount);
 					aop->pfVolume[s] = str;
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
-					if ((old >= 0.00000001f) || (str >= 0.00000001f))
-                        for (unsigned int i=0;i<frameNumber;++i) {
-                            if (speech && speech->bStereo) {
-                                // Mix stereo user's stream into mono
-                                o[i * nchan] += (pfBuffer[2*i] / 2.0 + pfBuffer[2*i+1] / 2.0) * (old + inc * static_cast<float>(i));
-                            } else {
-                                o[i * nchan] += pfBuffer[i] * (old + inc * static_cast<float>(i));
-                            }
-                        }
+					if ((old >= 0.00000001f) || (str >= 0.00000001f)) {
+						for (unsigned int i = 0; i < frameCount; ++i) {
+							if (speech && speech->bStereo) {
+								// Mix stereo user's stream into mono
+								// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
+								o[i * nchan] += (pfBuffer[2 * i] / 2.0 + pfBuffer[2 * i + 1] / 2.0) *
+												(old + inc * static_cast<float>(i));
+							} else {
+								o[i * nchan] += pfBuffer[i] * (old + inc * static_cast<float>(i));
+							}
+						}
+					}
 				}
 			} else {
 				// Mix the current audio source into the output by adding it to the elements of the output buffer after having applied
@@ -627,10 +632,11 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 					if (aop->bStereo){
 						// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
 						// direction.
-						for (unsigned int i=0;i<frameNumber;++i)
+						// frame: for a stereo stream, the [LR] pair inside ...[LR]LRLRLR.... is a frame
+						for (unsigned int i=0;i<frameCount;++i)
 							o[i*nchan] += (pfBuffer[2*i] * fStereoPanningFactor[2*s+0] + pfBuffer[2*i+1] * fStereoPanningFactor[2*s+1]) * str;
 					} else {
-						for (unsigned int i=0;i<frameNumber;++i)
+						for (unsigned int i=0;i<frameCount;++i)
 							o[i*nchan] += pfBuffer[i] * str;
 					}
 				}
@@ -638,16 +644,16 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 		}
 
 		if (recorder && recorder->isInMixDownMode()) {
-			recorder->addBuffer(NULL, recbuff, frameNumber);
+			recorder->addBuffer(nullptr, recbuff, frameCount);
 		}
 
 		// Clip the output audio
 		if (eSampleFormat == SampleFloat)
-			for (unsigned int i=0;i<frameNumber*iChannels;i++)
+			for (unsigned int i=0;i<frameCount*iChannels;i++)
 				output[i] = qBound(-1.0f, output[i], 1.0f);
 		else
 			// Also convert the intermediate float array into an array of shorts before writing it to the outbuff
-			for (unsigned int i=0;i<frameNumber*iChannels;i++)
+			for (unsigned int i=0;i<frameCount*iChannels;i++)
 				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(qBound(-32768.f, (output[i] * 32768.f), 32767.f));
 	}
 

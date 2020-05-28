@@ -73,10 +73,12 @@ class AudioOutput : public QThread {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutput)
 	private:
-		float *fSpeakers; // Speaker positional vector
+		/// Speaker positional vector
+		float *fSpeakers;
 		float *fSpeakerVolume;
 		bool *bSpeakerPositional;
-		float * fStereoPanningFactor; // Used when panning stereo stream w.r.t. each speaker.
+		/// Used when panning stereo stream w.r.t. each speaker.
+		float * fStereoPanningFactor;
 	protected:
 		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;
@@ -89,20 +91,20 @@ class AudioOutput : public QThread {
 
 		virtual void removeBuffer(AudioOutputUser *);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
-		bool mix(void *output, unsigned int frameNumber);
+		bool mix(void *output, unsigned int frameCount);
 	public:
 		void wipe();
 
-                /// Construct an AudioOutput.
-                ///
-                /// This constructor is only ever called by Audio::startOutput(), and is guaranteed
-                /// to be called on the application's main thread.
+				/// Construct an AudioOutput.
+				///
+				/// This constructor is only ever called by Audio::startOutput(), and is guaranteed
+				/// to be called on the application's main thread.
 		AudioOutput();
 
-                /// Destroy an AudioOutput.
-                ///
-                /// This destructor is only ever called by Audio::stopOutput() and Audio::stop(),
-                /// and is guaranteed to be called on the application's main thread.
+				/// Destroy an AudioOutput.
+				///
+				/// This destructor is only ever called by Audio::stopOutput() and Audio::stop(),
+				/// and is guaranteed to be called on the application's main thread.
 		~AudioOutput() Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);

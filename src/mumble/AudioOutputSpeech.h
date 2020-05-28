@@ -65,10 +65,10 @@ class AudioOutputSpeech : public AudioOutputUser {
 		int iMissedFrames;
 		ClientUser *p;
 
-        /// Fetch and decode frames from the jitter buffer. Called in mix().
-        ///
-        /// @param frameNumber Number of frames to decode. frame means a bundle of one sample from each channel.
-		virtual bool prepareSampleBuffer(unsigned int frameNumber) Q_DECL_OVERRIDE;
+		/// Fetch and decode frames from the jitter buffer. Called in mix().
+		///
+		/// @param frameCount Number of frames to decode. frame means a bundle of one sample from each channel.
+		virtual bool prepareSampleBuffer(unsigned int frameCount) Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
 		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type);
