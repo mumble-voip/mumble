@@ -402,6 +402,42 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>This is the sort order for the channel.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inherited group members</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Foreign group members</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inherited channel members</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add members to group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of ACL entries</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -532,6 +568,14 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>Speakers</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>List of microphones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of speakers</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ASIOInput</name>
@@ -572,6 +616,18 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License agreement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Third-party license agreements</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -988,6 +1044,78 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Audio system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Echo cancellation mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transmission mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PTT lock threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PTT hold threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silence below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current speech detection chance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speech above</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speech below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio per packet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality of compression (peak bandwidth)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noise suppression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum amplification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transmission started sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transmission stopped sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initiate idle action after (in minutes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle action</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutput</name>
@@ -1290,6 +1418,58 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 m</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default jitter buffer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume of incoming speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attenuation of other applications during speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bloom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delay variance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Packet loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loopback</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1795,6 +1975,38 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Input system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum amplification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PTT key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VAD level</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BanEditor</name>
@@ -1932,6 +2144,26 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
             <numerusform></numerusform><numerusform></numerusform>
         </translation>
     </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start date/time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End date/time</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CertView</name>
@@ -2012,6 +2244,38 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File to export certificate to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2493,6 +2757,10 @@ Are you sure you wish to replace your certificate?
         <source>Mumble Configuration</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Configuration categories</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConnectDialog</name>
@@ -2650,6 +2918,10 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Show &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server list</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2998,6 +3270,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Configured shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutTarget</name>
@@ -3162,6 +3438,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Splitter Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum column width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Splitter width</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3523,6 +3807,18 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Message margins</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Log messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TTS engine volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chat message marjins</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>
@@ -3874,6 +4170,42 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent userlifetime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prefix character count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postfix character count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum name length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative font size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always on top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically expand channels when</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User dragging behavior</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5674,6 +6006,18 @@ Valid options are:
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Channels and users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activity log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chat message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -6329,6 +6673,10 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Overlay Editor</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Zoom level</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverlayEditorScene</name>
@@ -6859,6 +7207,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>Send recursively to subchannels</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Tokens</name>
@@ -6895,6 +7247,10 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tokens</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6941,6 +7297,14 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">
             <numerusform></numerusform><numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User list</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7144,6 +7508,10 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
