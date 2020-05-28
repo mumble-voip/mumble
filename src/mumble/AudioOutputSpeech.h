@@ -62,7 +62,6 @@ class AudioOutputSpeech : public AudioOutputUser {
 	public:
 		unsigned char ucFlags;
 		MessageHandler::UDPMessageType umtType;
-		bool bStereo;
 		int iMissedFrames;
 		ClientUser *p;
 

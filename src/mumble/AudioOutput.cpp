@@ -624,7 +624,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameNumber) {
 				for (unsigned int s=0;s<nchan;++s) {
 					const float str = svol[s] * volumeAdjustment;
 					float * RESTRICT o = output + s;
-					if (speech && speech->bStereo){
+					if (aop->bStereo){
 						// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
 						// direction.
 						for (unsigned int i=0;i<frameNumber;++i)
