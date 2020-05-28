@@ -374,8 +374,14 @@ Settings::Settings() {
 	bJackStartServer = false;
 	bJackAutoConnect = true;
 
+#ifndef Q_OS_MAC
+	// Enable echo cancellation by default everywhere except for Macs as we currently
+	// on't support echo cancelling on Macs
+	bEcho = true;
+#else
 	bEcho = false;
-	bEchoMulti = true;
+#endif
+	bEchoMulti = false;
 
 	bExclusiveInput = false;
 	bExclusiveOutput = false;
