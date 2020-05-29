@@ -414,7 +414,7 @@ void AudioInputDialog::updateEchoEnableState() {
 			"the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.\n"
 			"Multichannel echo cancellation requires more CPU, so you should try mixed first"));
 	} else {
-		loadComboBox(qcbEcho, 0);
+		qcbEcho->setCurrentIndex(0);
 		qcbEcho->setEnabled(false);
 		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not supported for the interface "
 					"combination \"%1\" (in) and \"%2\" (out).").arg(air->name).arg(outputInterface));
