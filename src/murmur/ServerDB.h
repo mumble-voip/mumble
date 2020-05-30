@@ -18,6 +18,13 @@ class QSqlQuery;
 
 class ServerDB {
 	public:
+		/// A version number that allows us to keep track of changes we make to the DB architecture
+		/// in order to provide backwards compatibility and perform automatic updates of older DBs.
+		/// Whenever you change the DB structure (add a new table, added a new column in a table, etc.)
+		/// you have to increase this version number by one and add the respective "backwards compatibility
+		/// code" into the ServerDB code.
+		static const int DB_STRUCTURE_VERSION = 7;
+
 		enum ChannelInfo { Channel_Description, Channel_Position, Channel_Max_Users };
 		enum UserInfo { User_Name, User_Email, User_Comment, User_Hash, User_Password, User_LastActive, User_KDFIterations };
 		ServerDB();

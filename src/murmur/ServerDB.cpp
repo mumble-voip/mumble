@@ -35,6 +35,7 @@
 
 #define SQLQUERY(x) ServerDB::query(query, QLatin1String(x), true)
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
+#define SQLDO_NO_CONVERSION(x) ServerDB::exec(query, x, true)
 #define SQLMAY(x) ServerDB::exec(query, QLatin1String(x), false, false)
 #define SQLPREP(x) ServerDB::prepare(query, QLatin1String(x))
 #define SQLEXEC() ServerDB::exec(query)
@@ -213,15 +214,75 @@ ServerDB::ServerDB() {
 
 	QSqlQuery &query = *th.qsqQuery;
 
+	// Ensure that a proper encoding is used for the DB
+	if (Meta::mp.qsDBDriver == "QMYSQL") {
+		query.exec(QString::fromLatin1("SELECT default_character_set_name FROM information_schema.SCHEMATA WHERE schema_name = '%1'").arg(Meta::mp.qsDatabase));
+
+		if (query.next()) {
+			QString encoding = query.value(0).toString();
+
+			// Because MySQL's utf8 implementation is not actually utf8, we have to use a different name to access the actual
+			// utf8 implementation. (See https://mathiasbynens.be/notes/mysql-utf8mb4)
+			if (encoding.toLower() != QLatin1String("utf8mb4")) {
+				// Change the database's encoding
+				qWarning("Changing database encoding to utf8mb4...");
+
+				if (!query.exec(QString::fromLatin1("ALTER DATABASE `%1` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci").arg(Meta::mp.qsDatabase))) {
+					qFatal("ServerDB: Failed to set default encoding & collation to UTF-8: %s", qPrintable(query.lastError().text()));
+				}
+			}
+		} else {
+			qFatal("Failed to get character encoding: %s", qPrintable(query.lastError().text()));
+		}
+	} else if (Meta::mp.qsDBDriver == "QSQLITE") {
+		// Verify that the SQLite database has been initialized with UTF-8 or UTF-16
+		SQLQUERY("PRAGMA ENCODING;");
+
+		if (query.next()) {
+			QStringList validEncodings;
+			validEncodings << QLatin1String("utf-8");
+			validEncodings << QLatin1String("utf-16");
+			validEncodings << QLatin1String("utf-16le");
+			validEncodings << QLatin1String("utf-16be");
+
+			QString encoding = query.value(0).toString();
+
+			if (!validEncodings.contains(encoding, Qt::CaseInsensitive)) {
+				qFatal("Invalid character encoding %s for database", qPrintable(encoding));
+			}
+		} else {
+			qFatal("Failed to get character encoding: %s", qPrintable(query.lastError().text()));
+		}
+	} else {
+		// PostgreSQL
+		SQLQUERY("SHOW SERVER_ENCODING");
+
+		if (query.next()) {
+			QString encoding = query.value(0).toString();
+
+			if (encoding.toLower() != QLatin1String("utf8")) {
+				qFatal("Found \"%s\" encoding but we only support UTF8 for PostgreSQL!", qPrintable(encoding));
+			}
+		} else {
+			qFatal("Failed to get character encoding: %s", qPrintable(query.lastError().text()));
+		}
+	}
+
+
 	int version = 0;
 
+	// Make sure a table called "meta" is present
+	// We use the meta table to keep track of various meta information such as the
+	// database structure version this database conforms to.
 	if (Meta::mp.qsDBDriver == "QSQLITE")
 		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta` (`keystring` TEXT PRIMARY KEY, `value` TEXT)");
 	else if (Meta::mp.qsDBDriver == "QPSQL")
 		SQLQUERY("CREATE TABLE IF NOT EXISTS `%1meta` (`keystring` varchar(255) PRIMARY KEY, `value` varchar(255))");
 	else
-		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta`(`keystring` varchar(255) PRIMARY KEY, `value` varchar(255)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+		// MySQL
+		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta`(`keystring` varchar(255) PRIMARY KEY, `value` varchar(255)) ENGINE=InnoDB");
 
+	// Query the database structure version the existing database conforms to
 	SQLDO("SELECT `value` FROM `%1meta` WHERE `keystring` = 'version'");
 
 	if (query.next())
@@ -229,9 +290,17 @@ ServerDB::ServerDB() {
 
 	loadOrSetupMetaPBKDF2IterationCount(query);
 
-	if (version < 6) {
+	// Check if the database structure conforms to what this version of the code expects yb comparing to
+	// DB_STRUCTURE_VERSION. If the queried version is less than that, we might have to perform compatibility
+	// changes or create the tables in the first place.
+	if (version < DB_STRUCTURE_VERSION) {
 		if (version > 0) {
+			// A version > 0 means that there are tables in the DB already but they don't conform to the
+			// most recent structure. That means that we have to update them.
+			// Before doing that though we create backups of the existing tables in case something goes wrong.
 			qWarning("Renaming old tables...");
+			// %s is the table prefix we are using and %2 is the upgrade suffix we defined above.
+			// See ServerDB::query for mor info on the %-notation.
 			SQLQUERY("ALTER TABLE `%1servers` RENAME TO `%1servers%2`");
 			if (version < 2)
 				SQLMAY("ALTER TABLE `%1log` RENAME TO `%1slog`");
@@ -254,6 +323,7 @@ ServerDB::ServerDB() {
 			}
 		}
 
+		// Now we generate new tables that conform to the state-of-the-art structure
 		qWarning("Generating new tables...");
 		if (Meta::mp.qsDBDriver == "QSQLITE") {
 			if (version > 0) {
@@ -438,6 +508,7 @@ ServerDB::ServerDB() {
 			SQLQUERY("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BYTEA, `mask` INTEGER, `name` varchar(255), `hash` CHAR(40), `reason` TEXT, `start` TIMESTAMP, `duration` INTEGER)");
 			SQLQUERY("ALTER TABLE `%1bans` ADD CONSTRAINT `%1bans_del_server` FOREIGN KEY(`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 		} else {
+			// MySQL
 			if (version > 0) {
 				typedef QPair<QString, QString> qsp;
 				QList<qsp> qlForeignKeys;
@@ -454,60 +525,66 @@ ServerDB::ServerDB() {
 						ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP FOREIGN KEY `%2`").arg(key.first).arg(key.second), true);
 				}
 			}
-			SQLDO("CREATE TABLE `%1servers`(`server_id` INTEGER PRIMARY KEY AUTO_INCREMENT) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1servers`(`server_id` INTEGER PRIMARY KEY AUTO_INCREMENT) ENGINE=InnoDB");
 
-			SQLDO("CREATE TABLE `%1slog`(`server_id` INTEGER NOT NULL, `msg` TEXT, `msgtime` TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1slog`(`server_id` INTEGER NOT NULL, `msg` TEXT, `msgtime` TIMESTAMP) ENGINE=InnoDB");
 			SQLDO("CREATE INDEX `%1slog_time` ON `%1slog`(`msgtime`)");
 			SQLDO("ALTER TABLE `%1slog` ADD CONSTRAINT `%1slog_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1config` (`server_id` INTEGER NOT NULL, `key` varchar(255), `value` TEXT) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1config` (`server_id` INTEGER NOT NULL, `key` varchar(255), `value` TEXT) ENGINE=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX `%1config_key` ON `%1config`(`server_id`, `key`)");
 			SQLDO("ALTER TABLE `%1config` ADD CONSTRAINT `%1config_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1channels` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `parent_id` INTEGER, `name` varchar(255), `inheritacl` INTEGER) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1channels` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `parent_id` INTEGER, `name` varchar(255), `inheritacl` INTEGER) ENGINE=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX `%1channel_id` ON `%1channels`(`server_id`, `channel_id`)");
 			SQLDO("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_parent_del` FOREIGN KEY (`server_id`, `parent_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` INTEGER, `value` LONGTEXT) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` INTEGER, `value` LONGTEXT) ENGINE=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` LONGBLOB, `last_active` TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` LONGBLOB, `last_active` TIMESTAMP) ENGINE=InnoDB");
 			SQLDO("CREATE INDEX `%1users_channel` ON `%1users`(`server_id`, `lastchannel`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
 			SQLDO("ALTER TABLE `%1users` ADD CONSTRAINT `%1users_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` INTEGER, `value` LONGTEXT) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` INTEGER, `value` LONGTEXT) ENGINE=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX `%1user_info_id` ON `%1user_info`(`server_id`, `user_id`, `key`)");
 			SQLDO("ALTER TABLE `%1user_info` ADD CONSTRAINT `%1user_info_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`,`user_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1groups` (`group_id` INTEGER PRIMARY KEY AUTO_INCREMENT, `server_id` INTEGER NOT NULL, `name` varchar(255), `channel_id` INTEGER NOT NULL, `inherit` INTEGER, `inheritable` INTEGER) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1groups` (`group_id` INTEGER PRIMARY KEY AUTO_INCREMENT, `server_id` INTEGER NOT NULL, `name` varchar(255), `channel_id` INTEGER NOT NULL, `inherit` INTEGER, `inheritable` INTEGER) ENGINE=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX `%1groups_name_channels` ON `%1groups`(`server_id`, `channel_id`, `name`)");
 			SQLDO("ALTER TABLE `%1groups` ADD CONSTRAINT `%1groups_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1group_members` (`group_id` INTEGER NOT NULL, `server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `addit` INTEGER) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1group_members` (`group_id` INTEGER NOT NULL, `server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `addit` INTEGER) ENGINE=InnoDB");
 			SQLDO("CREATE INDEX `%1group_members_users` ON `%1group_members`(`server_id`, `user_id`)");
 			SQLDO("ALTER TABLE `%1group_members` ADD CONSTRAINT `%1group_members_del_group` FOREIGN KEY (`group_id`) REFERENCES `%1groups`(`group_id`) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE `%1group_members` ADD CONSTRAINT `%1group_members_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`,`user_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1acl` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `priority` INTEGER, `user_id` INTEGER, `group_name` varchar(255), `apply_here` INTEGER, `apply_sub` INTEGER, `grantpriv` INTEGER, `revokepriv` INTEGER) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1acl` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `priority` INTEGER, `user_id` INTEGER, `group_name` varchar(255), `apply_here` INTEGER, `apply_sub` INTEGER, `grantpriv` INTEGER, `revokepriv` INTEGER) ENGINE=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX `%1acl_channel_pri` ON `%1acl`(`server_id`, `channel_id`, `priority`)");
 			SQLDO("CREATE INDEX `%1acl_user` ON `%1acl`(`server_id`, `user_id`)");
 			SQLDO("ALTER TABLE `%1acl` ADD CONSTRAINT `%1acl_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE `%1acl` ADD CONSTRAINT `%1acl_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`, `user_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1channel_links` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `link_id` INTEGER NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1channel_links` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `link_id` INTEGER NOT NULL) ENGINE=InnoDB");
 			SQLDO("ALTER TABLE `%1channel_links` ADD CONSTRAINT `%1channel_links_del_channel` FOREIGN KEY(`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
 			SQLDO("DELETE FROM `%1channel_links`");
 
-			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BINARY(16), `mask` INTEGER, `name` varchar(255), `hash` CHAR(40), `reason` TEXT, `start` DATETIME, `duration` INTEGER) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BINARY(16), `mask` INTEGER, `name` varchar(255), `hash` CHAR(40), `reason` TEXT, `start` DATETIME, `duration` INTEGER) ENGINE=InnoDB");
 			SQLDO("ALTER TABLE `%1bans` ADD CONSTRAINT `%1bans_del_server` FOREIGN KEY(`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 		}
+
 		if (version == 0) {
+			// The database was empty until we started populating it so the first (and so far only)
+			// entries in it will be the server ID (we know it must be 1 as there has been no previous
+			// server) as well as the version info about the database structure version.
 			SQLDO("INSERT INTO `%1servers` (`server_id`) VALUES(1)");
-			SQLDO("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('version','6')");
+			// Calling this function is the same as using the SQLDO macro
+			SQLDO_NO_CONVERSION(QLatin1String("INSERT INTO `%1meta` (`keystring`, `value`) ")
+					+ QString::fromLatin1("VALUES('version','%1')").arg(QString::number(DB_STRUCTURE_VERSION)));
 		} else {
 			qWarning("Importing old data...");
 
