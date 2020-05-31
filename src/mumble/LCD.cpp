@@ -82,7 +82,10 @@ static LCDDeviceManager devmgr;
 
 LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-
+	qtwDevices->setAccessibleName(tr("Devices"));
+	qsMinColWidth->setAccessibleName(tr("Minimum column width"));
+	qsSplitterWidth->setAccessibleName(tr("Splitter width"));
+	
 	QTreeWidgetItem *qtwi;
 	foreach(LCDDevice *d, devmgr.qlDevices) {
 		qtwi = new QTreeWidgetItem(qtwDevices);

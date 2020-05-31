@@ -52,6 +52,8 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
 	, m_clientSession(sessionId)
 	, m_qmUserVolTracker(qmUserVolTracker) {
 	setupUi(this);
+	qsUserLocalVolume->setAccessibleName(tr("User volume"));
+	qsbUserLocalVolume->setAccessibleName(tr("User volume"));
 
 	ClientUser *user = ClientUser::get(sessionId);
 	if (user) {
