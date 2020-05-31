@@ -11,3 +11,7 @@ Depending on the state of the project, version and environments we may patch old
 Please report vulnerabilities in private to security@mumble.info.
 
 We will do our best to respond, verify them and resolve them as quickly as possible.
+
+## Security Advisories
+
+Our security advisories are published at <https://www.mumble.info/security/>.
