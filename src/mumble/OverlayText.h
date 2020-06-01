@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_OVERLAYTEXT_H_
 #define MUMBLE_MUMBLE_OVERLAYTEXT_H_
 
+#include <QtGui/QPainterPath>
 #include <QtGui/QPixmap>
 #include <QtGui/QFont>
 
