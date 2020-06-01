@@ -934,8 +934,9 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 				return;
 			}
 
-			u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer),
-							   len);
+			if (!u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len)) {
+				return;
+			}
 		}
 #ifdef Q_OS_WIN
 		DWORD dwFlow = 0;

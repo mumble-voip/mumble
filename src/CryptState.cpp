@@ -59,7 +59,7 @@ void CryptState::setDecryptIV(const unsigned char *iv) {
 	memcpy(decrypt_iv, iv, AES_BLOCK_SIZE);
 }
 
-void CryptState::encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length) {
+bool CryptState::encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length) {
 	unsigned char tag[AES_BLOCK_SIZE];
 
 	// First, increase our IV.
@@ -67,12 +67,15 @@ void CryptState::encrypt(const unsigned char *source, unsigned char *dst, unsign
 		if (++encrypt_iv[i])
 			break;
 
-	ocb_encrypt(source, dst+4, plain_length, encrypt_iv, tag);
+	if (!ocb_encrypt(source, dst+4, plain_length, encrypt_iv, tag)) {
+		return false;
+	}
 
 	dst[0] = encrypt_iv[0];
 	dst[1] = tag[0];
 	dst[2] = tag[1];
 	dst[3] = tag[2];
+	return true;
 }
 
 bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length) {
@@ -148,9 +151,9 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 		}
 	}
 
-	ocb_decrypt(source+4, dst, plain_length, decrypt_iv, tag);
+	bool ocb_success = ocb_decrypt(source+4, dst, plain_length, decrypt_iv, tag);
 
-	if (memcmp(tag, source+1, 3) != 0) {
+	if (!ocb_success || memcmp(tag, source+1, 3) != 0) {
 		memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
 		return false;
 	}
@@ -215,8 +218,9 @@ static void inline ZERO(keyblock &block) {
 #define AESencrypt(src,dst,key) AES_encrypt(reinterpret_cast<const unsigned char *>(src),reinterpret_cast<unsigned char *>(dst), key);
 #define AESdecrypt(src,dst,key) AES_decrypt(reinterpret_cast<const unsigned char *>(src),reinterpret_cast<unsigned char *>(dst), key);
 
-void CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
+bool CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
 	keyblock checksum, delta, tmp, pad;
+	bool success = true;
 
 	// Initialize
 	AESencrypt(nonce, delta, &encrypt_key);
@@ -228,6 +232,18 @@ void CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypte
 		AESencrypt(tmp, tmp, &encrypt_key);
 		XOR(reinterpret_cast<subblock *>(encrypted), delta, tmp);
 		XOR(checksum, checksum, reinterpret_cast<const subblock *>(plain));
+
+		// Counter-cryptanalysis described in section 9 of https://eprint.iacr.org/2019/311
+		// For an attack, the second to last block (i.e. the last iteration of this loop)
+		// must be all 0 except for the last byte (which may be 0 - 128).
+		if (len - AES_BLOCK_SIZE <= AES_BLOCK_SIZE) {
+			unsigned char sum = 0;
+			for (int i = 0; i < AES_BLOCK_SIZE - 1; ++i) {
+				sum |= plain[i];
+			}
+			success &= sum != 0;
+		}
+
 		len -= AES_BLOCK_SIZE;
 		plain += AES_BLOCK_SIZE;
 		encrypted += AES_BLOCK_SIZE;
@@ -247,10 +263,13 @@ void CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypte
 	S3(delta);
 	XOR(tmp, delta, checksum);
 	AESencrypt(tmp, tag, &encrypt_key);
+
+	return success;
 }
 
-void CryptState::ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
+bool CryptState::ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
 	keyblock checksum, delta, tmp, pad;
+	bool success = true;
 
 	// Initialize
 	AESencrypt(nonce, delta, &encrypt_key);
@@ -278,7 +297,18 @@ void CryptState::ocb_decrypt(const unsigned char *encrypted, unsigned char *plai
 	XOR(checksum, checksum, tmp);
 	memcpy(plain, tmp, len);
 
+	// Counter-cryptanalysis described in section 9 of https://eprint.iacr.org/2019/311
+	// In an attack, the decrypted last block would need to equal `delta ^ len(128)`.
+	// With a bit of luck (or many packets), smaller values than 128 (i.e. non-full blocks) are also
+	// feasible, so we check `tmp` instead of `plain`.
+	// Since our `len` only ever modifies the last byte, we simply check all remaining ones.
+	if (memcmp(tmp, delta, AES_BLOCK_SIZE - 1) == 0) {
+		success = false;
+	}
+
 	S3(delta);
 	XOR(tmp, delta, checksum);
 	AESencrypt(tmp, tag, &encrypt_key);
+
+	return success;
 }
