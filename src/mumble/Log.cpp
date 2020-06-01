@@ -43,7 +43,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qsVolume->setAccessibleName(tr("TTS engine volume"));
 	qsbThreshold->setAccessibleName(tr("Length threshold"));
 	qsbMaxBlocks->setAccessibleName(tr("Maximum chat length"));
-	qsbChatMessageMargins->setAccessibleName(tr("Chat message marjins"));
+	qsbChatMessageMargins->setAccessibleName(tr("Chat message margins"));
 	
 #ifdef USE_NO_TTS
 	qgbTTS->setDisabled(true);
