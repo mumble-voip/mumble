@@ -3816,7 +3816,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chat message marjins</source>
+        <source>Chat message margins</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4173,10 +4173,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Silent userlifetime</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Prefix character count</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4206,6 +4202,10 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>User dragging behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent user lifetime</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
