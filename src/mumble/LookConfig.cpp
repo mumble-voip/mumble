@@ -27,7 +27,7 @@ static ConfigRegistrar registrar(1100, LookConfigNew);
 
 LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-	qsbSilentUserLifetime->setAccessibleName(tr("Silent userlifetime"));
+	qsbSilentUserLifetime->setAccessibleName(tr("Silent user lifetime"));
 	qsbPrefixCharCount->setAccessibleName(tr("Prefix character count"));
 	qsbChannelHierarchyDepth->setAccessibleName(tr("Channel hierarchy depth"));
 	qleChannelSeparator->setAccessibleName(tr("Channel separator"));
