@@ -682,7 +682,8 @@ ServerDB::ServerDB() {
 			SQLQUERY("DROP TABLE IF EXISTS `%1bans%2`");
 			SQLQUERY("DROP TABLE IF EXISTS `%1servers%2`");
 
-			SQLDO("UPDATE `%1meta` SET `value` = '6' WHERE `keystring` = 'version'");
+			SQLDO_NO_CONVERSION(QLatin1String("UPDATE `%1meta` SET `value` = ")
+					+ QString::fromLatin1("'%1' WHERE `keystring` = 'version'").arg(DB_STRUCTURE_VERSION));
 		}
 	}
 	query.clear();
