@@ -1594,8 +1594,14 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(! isSelf);
 		qaUserLocalVolume->setEnabled(! isSelf);
 		qaUserLocalIgnore->setEnabled(! isSelf);
-		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
-		qaUserTextureReset->setEnabled(! p->qbaTextureHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+		// If the server's version is less than 1.4.0 it won't support the new permission to reset a comment/avatar, so fall back to the old method
+		if (g.sh->uiVersion < 0x010400) {
+			qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+			qaUserTextureReset->setEnabled(! p->qbaTextureHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+		} else {
+			qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::ResetUserContent | ChanACL::Write)));
+			qaUserTextureReset->setEnabled(! p->qbaTextureHash.isEmpty() && (g.pPermissions & (ChanACL::ResetUserContent | ChanACL::Write)));
+		}
 		qaUserCommentView->setEnabled(! p->qbaCommentHash.isEmpty());
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
@@ -3501,4 +3507,3 @@ void MainWindow::destroyUserInformation() {
 		}
 	}
 }
-
