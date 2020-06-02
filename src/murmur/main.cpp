@@ -599,9 +599,19 @@ int main(int argc, char **argv) {
 	QString strver;
 	meta->getVersion(major, minor, patch, strver);
 
-	qWarning("Murmur %d.%d.%d (%s) running on %s: %s: Booting servers", major, minor, patch, qPrintable(strver), qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
+	qWarning("Murmur %d.%d.%d (%s) running on %s: %s", major, minor, patch, qPrintable(strver), qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
 
-	meta->bootAll();
+	if (meta->mp.iBootServerID >= 0) {
+		qWarning("Booting server %d...", meta->mp.iBootServerID);
+		if (!meta->boot(meta->mp.iBootServerID)) {
+			qFatal("Failed to boot server!");
+		}
+	} else if (meta->mp.bAutostart) {
+		qWarning("Booting all servers...");
+		meta->bootAll();
+	} else {
+		qWarning("No server booted as autostart is set to false.");
+	}
 
 	res=a.exec();
 

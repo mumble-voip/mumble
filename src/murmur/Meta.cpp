@@ -100,6 +100,9 @@ MetaParams::MetaParams() {
 	bLogGroupChanges = false;
 	bLogACLChanges = false;
 
+	bAutostart = true;
+	iBootServerID = -1;
+
 	qsSettings = NULL;
 }
 
@@ -346,6 +349,9 @@ void MetaParams::read(QString fname) {
 
 	bLogGroupChanges = typeCheckedFromSettings("loggroupchanges", bLogGroupChanges);
 	bLogACLChanges = typeCheckedFromSettings("logaclchanges", bLogACLChanges);
+
+	bAutostart = typeCheckedFromSettings("autostart", bAutostart);
+	iBootServerID = typeCheckedFromSettings("bootserverid", iBootServerID);
 
 	iOpusThreshold = typeCheckedFromSettings("opusthreshold", iOpusThreshold);
 

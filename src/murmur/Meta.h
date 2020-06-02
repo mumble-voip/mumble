@@ -145,6 +145,13 @@ public:
 	/// A flag indicating whether changes in ACLs should be logged
 	bool bLogACLChanges;
 
+	/// A flag indicating whether all configured servers should be automatically
+	/// started (booted) on Mumur's startup.
+	bool bAutostart;
+	/// The ID of the server to boot. If this is < 0, all servers are booted, if
+	/// autostart is set to true.
+	int iBootServerID;
+
 	/// qsAbsSettingsFilePath is the absolute path to
 	/// the murmur.ini used by this Meta instance.
 	QString qsAbsSettingsFilePath;
