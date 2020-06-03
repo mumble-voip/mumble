@@ -6,9 +6,10 @@
 #include <QtCore>
 #include <QtTest>
 
+#include <string>
 #include "SSL.h"
 #include "Timer.h"
-#include "CryptState.h"
+#include "crypto/CryptStateOCB2.h"
 #include "Utils.h"
 
 class TestCrypt : public QObject {
@@ -33,13 +34,14 @@ void TestCrypt::cleanupTestCase() {
 }
 
 void TestCrypt::reverserecovery() {
-	CryptState enc, dec;
+	CryptStateOCB2 enc, dec;
 	enc.genKey();
 
 	// For our testcase, we're going to FORCE iv
-	memset(enc.encrypt_iv, 0x55, AES_BLOCK_SIZE);
-
-	dec.setKey(enc.raw_key, enc.decrypt_iv, enc.encrypt_iv);
+	char encrypt_iv[AES_BLOCK_SIZE];
+	memset(encrypt_iv, 0x55, AES_BLOCK_SIZE);
+	enc.setEncryptIV(std::string(reinterpret_cast<const char*>(encrypt_iv), AES_BLOCK_SIZE));
+	dec.setKey(enc.getRawKey(), enc.getDecryptIV(), enc.getEncryptIV());
 
 	unsigned char secret[10] = "abcdefghi";
 	unsigned char crypted[512][14];
@@ -89,13 +91,14 @@ void TestCrypt::reverserecovery() {
 }
 
 void TestCrypt::ivrecovery() {
-	CryptState enc, dec;
+	CryptStateOCB2 enc, dec;
 	enc.genKey();
 
 	// For our testcase, we're going to FORCE iv
-	memset(enc.encrypt_iv, 0x55, AES_BLOCK_SIZE);
-
-	dec.setKey(enc.raw_key, enc.decrypt_iv, enc.encrypt_iv);
+	char encrypt_iv[AES_BLOCK_SIZE];
+	memset(encrypt_iv, 0x55, AES_BLOCK_SIZE);
+	enc.setEncryptIV(std::string(reinterpret_cast<const char*>(encrypt_iv), AES_BLOCK_SIZE));
+	dec.setKey(enc.getRawKey(), enc.getDecryptIV(), enc.getEncryptIV());
 
 	unsigned char secret[10] = "abcdefghi";
 	unsigned char crypted[14];
@@ -126,7 +129,7 @@ void TestCrypt::ivrecovery() {
 		QCOMPARE(dec.uiLost, 14U);
 	}
 
-	QVERIFY(memcmp(enc.encrypt_iv, dec.decrypt_iv, AES_BLOCK_SIZE)==0);
+	QVERIFY(enc.getEncryptIV() == dec.getDecryptIV());
 
 	// Wrap too far
 	for (int i=0;i<257;i++)
@@ -135,7 +138,7 @@ void TestCrypt::ivrecovery() {
 	QVERIFY(! dec.decrypt(crypted, decr, 14));
 
 	// Sync it
-	dec.setDecryptIV(enc.encrypt_iv);
+	dec.setDecryptIV(enc.getEncryptIV());
 	enc.encrypt(secret, crypted, 10);
 
 	QVERIFY(dec.decrypt(crypted, decr, 14));
@@ -145,8 +148,9 @@ void TestCrypt::testvectors() {
 	// Test vectors are from draft-krovetz-ocb-00.txt
 	const unsigned char rawkey[AES_BLOCK_SIZE] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f};
 
-	CryptState cs;
-	cs.setKey(rawkey, rawkey, rawkey);
+	CryptStateOCB2 cs;
+	std::string rawkey_str = std::string(reinterpret_cast<const char*>(rawkey), AES_BLOCK_SIZE);
+	cs.setKey(rawkey_str, rawkey_str, rawkey_str);
 
 	unsigned char tag[16];
 	QVERIFY(cs.ocb_encrypt(NULL, NULL, 0, rawkey, tag));
@@ -176,8 +180,10 @@ void TestCrypt::authcrypt() {
 	for (int len=0;len<128;len++) {
 		const unsigned char rawkey[AES_BLOCK_SIZE] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f};
 		const unsigned char nonce[AES_BLOCK_SIZE] = {0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x00};
-		CryptState cs;
-		cs.setKey(rawkey, nonce, nonce);
+		std::string rawkey_str = std::string(reinterpret_cast<const char*>(rawkey), AES_BLOCK_SIZE);
+		std::string nonce_str = std::string(reinterpret_cast<const char*>(nonce), AES_BLOCK_SIZE);
+		CryptStateOCB2 cs;
+		cs.setKey(rawkey_str, nonce_str, nonce_str);
 
 		STACKVAR(unsigned char, src, len);
 		for (int i=0;i<len;i++)
@@ -203,8 +209,10 @@ void TestCrypt::authcrypt() {
 void TestCrypt::xexstarAttack() {
 	const unsigned char rawkey[AES_BLOCK_SIZE] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f};
 	const unsigned char nonce[AES_BLOCK_SIZE] = {0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x00};
-	CryptState cs;
-	cs.setKey(rawkey, nonce, nonce);
+	std::string rawkey_str = std::string(reinterpret_cast<const char*>(rawkey), AES_BLOCK_SIZE);
+	std::string nonce_str = std::string(reinterpret_cast<const char*>(nonce), AES_BLOCK_SIZE);
+	CryptStateOCB2 cs;
+	cs.setKey(rawkey_str, nonce_str, nonce_str);
 
 	STACKVAR(unsigned char, src, 2 * AES_BLOCK_SIZE);
 	// Set first block to `len(secondBlock)`
@@ -240,8 +248,10 @@ void TestCrypt::xexstarAttack() {
 void TestCrypt::tamper() {
 	const unsigned char rawkey[AES_BLOCK_SIZE] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f};
 	const unsigned char nonce[AES_BLOCK_SIZE] = {0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x00};
-	CryptState cs;
-	cs.setKey(rawkey, nonce, nonce);
+	std::string rawkey_str = std::string(reinterpret_cast<const char*>(rawkey), AES_BLOCK_SIZE);
+	std::string nonce_str = std::string(reinterpret_cast<const char*>(nonce), AES_BLOCK_SIZE);
+	CryptStateOCB2 cs;
+	cs.setKey(rawkey_str, nonce_str, nonce_str);
 
 	const unsigned char msg[] = "It was a funky funky town!";
 	int len = sizeof(msg);

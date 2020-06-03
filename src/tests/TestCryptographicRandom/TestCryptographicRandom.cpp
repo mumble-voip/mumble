@@ -8,7 +8,7 @@
 
 #include "SSL.h"
 
-#include "CryptographicRandom.h"
+#include "crypto/CryptographicRandom.h"
 
 #include <stdint.h>
 #include <stdlib.h>

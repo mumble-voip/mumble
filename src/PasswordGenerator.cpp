@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "CryptographicRandom.h"
+#include "crypto/CryptographicRandom.h"
 #include "PasswordGenerator.h"
 
 #include <QtCore/QVector>

@@ -9,7 +9,7 @@
 
 #include "SSL.h"
 
-#include "CryptographicHash.h"
+#include "crypto/CryptographicHash.h"
 
 class TestCryptographicHash : public QObject {
 		Q_OBJECT

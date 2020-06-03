@@ -920,12 +920,12 @@ void Server::run() {
 bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
 	QMutexLocker l(&u->qmCrypt);
 
-	if (u->csCrypt.isValid() && u->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypt), reinterpret_cast<unsigned char *>(plain), len))
+	if (u->csCrypt->isValid() && u->csCrypt->decrypt(reinterpret_cast<const unsigned char *>(encrypt), reinterpret_cast<unsigned char *>(plain), len))
 		return true;
 
-	if (u->csCrypt.tLastGood.elapsed() > 5000000ULL) {
-		if (u->csCrypt.tLastRequest.elapsed() > 5000000ULL) {
-			u->csCrypt.tLastRequest.restart();
+	if (u->csCrypt->tLastGood.elapsed() > 5000000ULL) {
+		if (u->csCrypt->tLastRequest.elapsed() > 5000000ULL) {
+			u->csCrypt->tLastRequest.restart();
 			emit reqSync(u->uiSession);
 		}
 	}
@@ -948,11 +948,11 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		{
 			QMutexLocker wl(&u->qmCrypt);
 
-			if (!u->csCrypt.isValid()) {
+			if (!u->csCrypt->isValid()) {
 				return;
 			}
 
-			if (!u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len)) {
+			if (!u->csCrypt->encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len)) {
 				return;
 			}
 		}

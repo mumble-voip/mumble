@@ -8,8 +8,8 @@ include(../test.pri)
 QT += network
 
 TARGET = TestCryptographicRandom
-SOURCES *= SSL.cpp SSLLocks.cpp TestCryptographicRandom.cpp CryptographicRandom.cpp arc4random_uniform.cpp
-HEADERS *= SSL.h SSLLocks.h CryptographicHash.h
+SOURCES *= SSL.cpp SSLLocks.cpp TestCryptographicRandom.cpp crypto/CryptographicRandom.cpp arc4random_uniform.cpp
+HEADERS *= SSL.h SSLLocks.h crypto/CryptographicHash.h
 
 VPATH *= ../../../3rdparty/arc4random-src
 INCLUDEPATH *= ../../../3rdparty/arc4random-src
