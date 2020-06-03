@@ -380,7 +380,7 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 			channelBox->layout()->addWidget(entry.background);
 		}
 
-		if (channelBox == localUserBox) {
+		if (channelBox == localUserBox && localUserBox->layout()->indexOf(localUserEntry.background) > 0) {
 			// Make sure that the local user is always listed first 
 			localUserBox->layout()->removeWidget(localUserEntry.background);
 			static_cast<QVBoxLayout *>(localUserBox->layout())->insertWidget(0, localUserEntry.background);
