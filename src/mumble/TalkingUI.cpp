@@ -104,6 +104,7 @@ void TalkingUI::setIcon(Entry &entry) const {
 void TalkingUI::hideUser(unsigned int session) {
 	QHash<unsigned int, Entry>::iterator iter = m_entries.find(session);
 	if (iter == m_entries.end()) {
+		qWarning("TalkingUI::hideUser: Session ID not found");
 		return;
 	}
 	
@@ -488,6 +489,7 @@ void TalkingUI::on_talkingStateChanged() {
 	ClientUser *user = qobject_cast<ClientUser *>(sender());
 
 	if (!user) {
+		qWarning("TalkingUI::on_talkingStateChanged User not found");
 		return;
 	}
 
@@ -605,7 +607,7 @@ void TalkingUI::on_channelChanged(QObject *obj) {
 	// According to this function's doc, the passed object must be of type ClientUser
 	ClientUser *user = static_cast<ClientUser *>(obj);
 
-	if (m_entries.contains(user->uiSession)) {
+	if (user && m_entries.contains(user->uiSession)) {
 		if (m_entries[user->uiSession].background->isVisible()) {
 			// The user is visible, so we call ensureVisible in order to update
 			// the channel this particular user is being displayed in.
