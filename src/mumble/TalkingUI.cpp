@@ -291,7 +291,7 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 	// Check if the user has changed channel and handle this separately in case
 	// the user is currently still displayed as being in that channel
 	bool changedChannel = false;
-	if (channelBox->layout()->indexOf(entry.name) < 0) {
+	if (channelBox->layout()->indexOf(entry.background) < 0) {
 		changedChannel = true;
 
 		hideUser(userSession);
