@@ -369,7 +369,7 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 			QString userName = currentBackground->property("userName").toString();
 
 			if (userName > currentName) {
-				static_cast<QHBoxLayout *>(channelBox->layout())->insertWidget(i, entry.background);
+				static_cast<QVBoxLayout *>(channelBox->layout())->insertWidget(i, entry.background);
 				inserted = true;
 				break;
 			}
@@ -383,7 +383,7 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 		if (channelBox == localUserBox) {
 			// Make sure that the local user is always listed first 
 			localUserBox->layout()->removeWidget(localUserEntry.background);
-			static_cast<QHBoxLayout *>(localUserBox->layout())->insertWidget(0, localUserEntry.background);
+			static_cast<QVBoxLayout *>(localUserBox->layout())->insertWidget(0, localUserEntry.background);
 		}
 
 		adjust = true;
