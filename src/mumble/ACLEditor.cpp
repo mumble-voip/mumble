@@ -147,6 +147,9 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 		QString name = ChanACL::permName(perm);
 
 		if (! name.isEmpty()) {
+			// If the server's version is less than 1.4.0 then it won't support the new permission to reset a comment/avatar. Skipping this iteration of the loop prevents checkboxes for it being added to the UI.
+			if ((g.sh->uiVersion < 0x010400) && (perm == ChanACL::ResetUserContent)) continue;
+
 			QCheckBox *qcb;
 			l = new QLabel(name, qgbACLpermissions);
 			grid->addWidget(l, idx, 0);

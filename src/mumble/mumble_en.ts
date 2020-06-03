@@ -2654,6 +2654,14 @@ Are you sure you wish to replace your certificate?
         <source>Listen</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This represents the permission to reset the comment or avatar of a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset User Content</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatbarTextEdit</name>
