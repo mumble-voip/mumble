@@ -689,16 +689,17 @@ void Meta::getOSInfo() {
 
 void Meta::bootAll() {
 	QList<int> ql = ServerDB::getBootServers();
-	foreach(int snum, ql)
-		boot(snum);
+	foreach(int snum, ql) {
+		if (ServerDB::getConf(snum, "autostart",Meta::mp.bAutoStart).toBool()) {
+			boot(snum);
+		}
+	}
 }
 
 bool Meta::boot(int srvnum) {
 	if (qhServers.contains(srvnum))
 		return false;
 	if (! ServerDB::serverExists(srvnum))
-		return false;
-	if (! ServerDB::getConf(srvnum, "autostart",Meta::mp.bAutoStart).toBool())
 		return false;
 	Server *s = new Server(srvnum, this);
 	if (! s->bValid) {
