@@ -7,8 +7,8 @@
 
 AudioOutputUser::AudioOutputUser(const QString& name) : qsName(name) {
 	iBufferSize = 0;
-	pfBuffer = NULL;
-	pfVolume = NULL;
+	pfBuffer = nullptr;
+	pfVolume = nullptr;
 	fPos[0]=fPos[1]=fPos[2]=0.0;
 }
 

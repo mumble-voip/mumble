@@ -22,7 +22,7 @@ SoundFile::SoundFile(const QString &fname) {
 	siInfo.seekable = 0;
 	siInfo.format = 0;
 
-	sfFile = NULL;
+	sfFile = nullptr;
 
 	qfFile.setFileName(fname);
 
@@ -39,7 +39,7 @@ SoundFile::~SoundFile() {
 }
 
 bool SoundFile::isOpen() const {
-	return (sfFile != NULL) && qfFile.isOpen();
+	return (sfFile != nullptr) && qfFile.isOpen();
 }
 
 int SoundFile::channels() const {
@@ -124,9 +124,12 @@ AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, b
 	sfHandle = psndfile;
 	iOutSampleRate = freq;
 
-	// Check if the file is good
-	if (sfHandle->channels() <= 0 || sfHandle->channels() > 2) {
-		sfHandle = NULL;
+	if (sfHandle->channels() == 1) {
+		bStereo = false;
+	} else if (sfHandle->channels() == 2) {
+		bStereo = true;
+	} else {
+		sfHandle = nullptr;  // sound file is corrupted
 		return;
 	}
 
@@ -137,15 +140,15 @@ AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, b
 
 	// If the frequencies don't match initialize the resampler
 	if (sfHandle->samplerate() != static_cast<int>(freq)) {
-		srs = speex_resampler_init(1, sfHandle->samplerate(), iOutSampleRate, 3, &err);
+		srs = speex_resampler_init(bStereo ? 2 : 1, sfHandle->samplerate(), iOutSampleRate, 3, &err);
 		if (err != RESAMPLER_ERR_SUCCESS) {
 			qWarning() << "Initialize " << sfHandle->samplerate() << " to " << iOutSampleRate << " resampler failed!";
-			srs = NULL;
-			sfHandle = NULL;
+			srs = nullptr;
+			sfHandle = nullptr;
 			return;
 		}
 	} else {
-		srs = NULL;
+		srs = nullptr;
 	}
 
 	iLastConsume = iBufferFilled = 0;
@@ -158,7 +161,7 @@ AudioOutputSample::~AudioOutputSample() {
 		speex_resampler_destroy(srs);
 
 	delete sfHandle;
-	sfHandle = NULL;
+	sfHandle = nullptr;
 }
 
 SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
@@ -170,31 +173,31 @@ SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
 	if (! sf->isOpen()) {
 		qWarning() << "File " << filename << " failed to open";
 		delete sf;
-		return NULL;
+		return nullptr;
 	}
 
 	if (sf->error() != SF_ERR_NO_ERROR) {
 		qWarning() << "File " << filename << " couldn't be loaded: " << sf->strError();
 		delete sf;
-		return NULL;
+		return nullptr;
 	}
 
 	if (sf->channels() <= 0 || sf->channels() > 2) {
 		qWarning() << "File " << filename << " contains " << sf->channels() << " Channels, only 1 or 2 are supported.";
 		delete sf;
-		return NULL;
+		return nullptr;
 	}
 	return sf;
 }
 
 QString AudioOutputSample::browseForSndfile(QString defaultpath) {
-	QString file = QFileDialog::getOpenFileName(NULL, tr("Choose sound file"), defaultpath, QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
+	QString file = QFileDialog::getOpenFileName(nullptr, tr("Choose sound file"), defaultpath, QLatin1String("*.wav *.ogg *.ogv *.oga *.flac *.aiff"));
 	if (! file.isEmpty()) {
 		SoundFile *sf = AudioOutputSample::loadSndfile(file);
-		if (sf == NULL) {
-			QMessageBox::critical(NULL,
-			                      tr("Invalid sound file"),
-			                      tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(file.toHtmlEscaped()));
+		if (sf == nullptr) {
+			QMessageBox::critical(nullptr,
+					tr("Invalid sound file"),
+					tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(file.toHtmlEscaped()));
 			return QString();
 		}
 		delete sf;
@@ -202,32 +205,31 @@ QString AudioOutputSample::browseForSndfile(QString defaultpath) {
 	return file;
 }
 
-bool AudioOutputSample::prepareSampleBuffer(unsigned int snum) {
+bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
+	unsigned int sampleCount = frameCount * sfHandle->channels();
 	// Forward the buffer
 	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];
 	iBufferFilled -= iLastConsume;
-	iLastConsume = snum;
+	iLastConsume = sampleCount;
 
 	// Check if we can satisfy request with current buffer
-	if (iBufferFilled >= snum)
+	if (iBufferFilled >= sampleCount)
 		return true;
 
 	// Calculate the required buffersize to hold the results
-	unsigned int iInputFrames = static_cast<unsigned int>(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
+	unsigned int iInputFrames = static_cast<unsigned int>(ceilf(static_cast<float>(frameCount * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
 	unsigned int iInputSamples = iInputFrames * sfHandle->channels();
 
-	bool mix = sfHandle->channels() > 1;
 	STACKVAR(float, fOut, iInputSamples);
-	STACKVAR(float, fMix, iInputFrames);
 
 	bool eof = false;
 	sf_count_t read;
 	do {
-		resizeBuffer(iBufferFilled + snum);
+		resizeBuffer(iBufferFilled + sampleCount);
 
-		// If we need to resample or mix write to the buffer on stack
-		float *pOut = (srs || mix) ? fOut : pfBuffer + iBufferFilled;
+		// If we need to resample, write to the buffer on stack
+		float *pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
 
 		// Try to read all samples needed to satifsy this request
 		if ((read = sfHandle->read(pOut, iInputSamples)) < iInputSamples) {
@@ -241,22 +243,19 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int snum) {
 			}
 		}
 
-		if (mix) { // Mix the channels (only two channels)
-			read /= 2;
-			// If we need to resample after this write to extra buffer
-			pOut = srs ? fMix : pfBuffer + iBufferFilled;
-			for (unsigned int i = 0; i < read; i++)
-				pOut[i] = (fOut[i*2] + fOut[i*2 + 1]) * 0.5f;
-
+		spx_uint32_t inlen = static_cast<unsigned int>(read) / sfHandle->channels();
+		spx_uint32_t outlen = sampleCount;
+		if (srs) {
+			// If necessary resample
+			if (!bStereo) {
+				speex_resampler_process_float(srs, 0, pOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+			} else {
+				speex_resampler_process_interleaved_float(srs, pOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+			}
 		}
 
-		spx_uint32_t inlen = static_cast<unsigned int>(read);
-		spx_uint32_t outlen = snum;
-		if (srs) // If necessary resample
-			speex_resampler_process_float(srs, 0, pOut, &inlen, pfBuffer + iBufferFilled, &outlen);
-
 		iBufferFilled += outlen;
-	} while (iBufferFilled < snum);
+	} while (iBufferFilled < sampleCount);
 
 	if (eof && !bEof) {
 		emit playbackFinished();
