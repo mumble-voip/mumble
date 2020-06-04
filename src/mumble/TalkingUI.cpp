@@ -219,7 +219,7 @@ void TalkingUI::addUser(const ClientUser *user) {
 			return;
 		}
 
-		QWidget *background = new QWidget(m_channels[user->cChannel->iId]);
+		QWidget *background = new QWidget(channelBox);
 		background->setProperty("selected", false);
 		QLayout *backgroundLayout = new QHBoxLayout();
 		backgroundLayout->setContentsMargins(2, 3, 2, 3);
