@@ -104,6 +104,7 @@ void TalkingUI::setIcon(Entry &entry) const {
 void TalkingUI::hideUser(unsigned int session) {
 	QHash<unsigned int, Entry>::iterator iter = m_entries.find(session);
 	if (iter == m_entries.end()) {
+		qWarning("TalkingUI::hideUser: Session ID not found");
 		return;
 	}
 	
@@ -218,7 +219,7 @@ void TalkingUI::addUser(const ClientUser *user) {
 			return;
 		}
 
-		QWidget *background = new QWidget(m_channels[user->cChannel->iId]);
+		QWidget *background = new QWidget(channelBox);
 		background->setProperty("selected", false);
 		QLayout *backgroundLayout = new QHBoxLayout();
 		backgroundLayout->setContentsMargins(2, 3, 2, 3);
@@ -291,7 +292,7 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 	// Check if the user has changed channel and handle this separately in case
 	// the user is currently still displayed as being in that channel
 	bool changedChannel = false;
-	if (channelBox->layout()->indexOf(entry.name) < 0) {
+	if (channelBox->layout()->indexOf(entry.background) < 0) {
 		changedChannel = true;
 
 		hideUser(userSession);
@@ -369,7 +370,7 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 			QString userName = currentBackground->property("userName").toString();
 
 			if (userName > currentName) {
-				static_cast<QHBoxLayout *>(channelBox->layout())->insertWidget(i, entry.background);
+				static_cast<QVBoxLayout *>(channelBox->layout())->insertWidget(i, entry.background);
 				inserted = true;
 				break;
 			}
@@ -380,10 +381,10 @@ void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
 			channelBox->layout()->addWidget(entry.background);
 		}
 
-		if (channelBox == localUserBox) {
+		if (channelBox == localUserBox && localUserBox->layout()->indexOf(localUserEntry.background) > 0) {
 			// Make sure that the local user is always listed first 
 			localUserBox->layout()->removeWidget(localUserEntry.background);
-			static_cast<QHBoxLayout *>(localUserBox->layout())->insertWidget(0, localUserEntry.background);
+			static_cast<QVBoxLayout *>(localUserBox->layout())->insertWidget(0, localUserEntry.background);
 		}
 
 		adjust = true;
@@ -488,6 +489,7 @@ void TalkingUI::on_talkingStateChanged() {
 	ClientUser *user = qobject_cast<ClientUser *>(sender());
 
 	if (!user) {
+		qWarning("TalkingUI::on_talkingStateChanged User not found");
 		return;
 	}
 
@@ -605,7 +607,7 @@ void TalkingUI::on_channelChanged(QObject *obj) {
 	// According to this function's doc, the passed object must be of type ClientUser
 	ClientUser *user = static_cast<ClientUser *>(obj);
 
-	if (m_entries.contains(user->uiSession)) {
+	if (user && m_entries.contains(user->uiSession)) {
 		if (m_entries[user->uiSession].background->isVisible()) {
 			// The user is visible, so we call ensureVisible in order to update
 			// the channel this particular user is being displayed in.
