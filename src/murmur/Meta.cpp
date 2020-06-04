@@ -46,6 +46,7 @@ MetaParams::MetaParams() {
 	qsPassword = QString();
 	usPort = DEFAULT_MUMBLE_PORT;
 	iTimeout = 30;
+	bAutoStart = true;
 	iMaxBandwidth = 72000;
 	iMaxUsers = 1000;
 	iMaxUsersPerChannel = 0;
@@ -275,6 +276,7 @@ void MetaParams::read(QString fname) {
 
 	qsPassword = typeCheckedFromSettings("serverpassword", qsPassword);
 	usPort = static_cast<unsigned short>(typeCheckedFromSettings("port", static_cast<uint>(usPort)));
+	bAutoStart = typeCheckedFromSettings("autostart", bAutoStart);
 	iTimeout = typeCheckedFromSettings("timeout", iTimeout);
 	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
@@ -399,6 +401,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("host"),hosts.join(" "));
 	qmConfig.insert(QLatin1String("password"),qsPassword);
 	qmConfig.insert(QLatin1String("port"),QString::number(usPort));
+	qmConfig.insert(QLatin1String("autostart"), bAutoStart ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
 	qmConfig.insert(QLatin1String("textmessagelength"), QString::number(iMaxTextMessageLength));
 	qmConfig.insert(QLatin1String("legacypasswordhash"), legacyPasswordHash ?  QLatin1String("true") : QLatin1String("false"));
@@ -694,6 +697,8 @@ bool Meta::boot(int srvnum) {
 	if (qhServers.contains(srvnum))
 		return false;
 	if (! ServerDB::serverExists(srvnum))
+		return false;
+	if (! ServerDB::getConf(srvnum, "autostart",Meta::mp.bAutoStart).toBool())
 		return false;
 	Server *s = new Server(srvnum, this);
 	if (! s->bValid) {

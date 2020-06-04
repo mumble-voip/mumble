@@ -30,6 +30,9 @@ public:
 
 	QList<QHostAddress> qlBind;
 	unsigned short usPort;
+	/// A flag indicating whether a virtual servers should be automatically
+	/// started (booted) on Mumur's startup.
+	bool bAutoStart;
 	int iTimeout;
 	int iMaxBandwidth;
 	int iMaxUsers;
