@@ -688,10 +688,12 @@ void Meta::getOSInfo() {
 }
 
 void Meta::bootAll() {
-	QList<int> ql = ServerDB::getBootServers();
-	foreach(int snum, ql) {
-		if (ServerDB::getConf(snum, "autostart",Meta::mp.bAutoStart).toBool()) {
-			boot(snum);
+	QList<int> ql = ServerDB::getAllServers();
+	foreach(int srvnum, ql) {
+		if (! ServerDB::getConf(srvnum, "boot", true).toBool()) {
+			qWarning("%d => boot=false has been deprecated, please use autostart=true|false instead", srvnum);
+		} else if (ServerDB::getConf(srvnum, "autostart", Meta::mp.bAutoStart).toBool()) {
+			boot(srvnum);
 		}
 	}
 }

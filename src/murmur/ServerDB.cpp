@@ -2235,24 +2235,6 @@ QList<int> ServerDB::getAllServers() {
 	return ql;
 }
 
-QList<int> ServerDB::getBootServers() {
-	QList<int> ql = getAllServers();
-
-	TransactionHolder th;
-	QSqlQuery &query = *th.qsqQuery;
-
-	QList<int> bootlist;
-	foreach(int i, ql) {
-		SQLPREP("SELECT `value` FROM `%1config` WHERE `server_id` = ? AND `key` = ?");
-		query.addBindValue(i);
-		query.addBindValue(QLatin1String("boot"));
-		SQLEXEC();
-		if (! query.next() || query.value(0).toBool())
-			bootlist << i;
-	}
-	return bootlist;
-}
-
 bool ServerDB::serverExists(int num) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
