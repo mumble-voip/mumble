@@ -58,6 +58,8 @@ class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutputDialog)
+
+		void enablePulseAudioAttenuationOptionsFor(const QString &outputName);
 	public:
 		/// The unique name of this ConfigWidget
 		static const QString name;

@@ -125,32 +125,29 @@
       <string>Audio Output</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliJitter">
+      <item row="1" column="2">
+       <widget class="QLabel" name="qlVolume">
         <property name="text">
-         <string>Default &amp;Jitter Buffer</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsJitter</cstring>
+         <string notr="true">vol</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QSlider" name="qsJitter">
+      <item row="2" column="1">
+       <widget class="QSlider" name="qsDelay">
         <property name="toolTip">
-         <string>Safety margin for jitter buffer</string>
+         <string>Amount of data to buffer</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</string>
+         <string>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
         </property>
         <property name="minimum">
          <number>1</number>
         </property>
         <property name="maximum">
-         <number>5</number>
+         <number>10</number>
         </property>
         <property name="pageStep">
-         <number>2</number>
+         <number>3</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -167,6 +164,16 @@
         </property>
         <property name="text">
          <string notr="true">jb</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliDelay">
+        <property name="text">
+         <string>Output Delay</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsDelay</cstring>
         </property>
        </widget>
       </item>
@@ -202,46 +209,175 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="qlVolume">
+      <item row="2" column="2">
+       <widget class="QLabel" name="qlDelay">
         <property name="text">
-         <string notr="true">vol</string>
+         <string notr="true">od</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliDelay">
-        <property name="text">
-         <string>Output Delay</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsDelay</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSlider" name="qsDelay">
+      <item row="0" column="1">
+       <widget class="QSlider" name="qsJitter">
         <property name="toolTip">
-         <string>Amount of data to buffer</string>
+         <string>Safety margin for jitter buffer</string>
         </property>
         <property name="whatsThis">
-         <string>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
+         <string>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</string>
         </property>
         <property name="minimum">
          <number>1</number>
         </property>
         <property name="maximum">
-         <number>10</number>
+         <number>5</number>
         </property>
         <property name="pageStep">
-         <number>3</number>
+         <number>2</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliJitter">
+        <property name="text">
+         <string>Default &amp;Jitter Buffer</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsJitter</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="qgbAttenuation">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="title">
+      <string>Attenuation</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="6" column="0" colspan="3">
+       <widget class="QCheckBox" name="qcbOnlyAttenuateSameOutput">
+        <property name="toolTip">
+         <string>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</string>
+        </property>
+        <property name="text">
+         <string>Only attenuate applications using the same output device</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="3">
+       <widget class="QLabel" name="qliOtherVolume">
+        <property name="text">
+         <string>Attenuate applications by...</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="buddy">
+         <cstring>qsOtherVolume</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="3">
+       <widget class="QCheckBox" name="qcbAttenuateLoopbacks">
+        <property name="toolTip">
+         <string>If checked, PulseAudio loopback modules will be attenuated</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble's output device/sink, they will also be attenuated.</string>
+        </property>
+        <property name="text">
+         <string>Attenuate PulseAudio loopback modules</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Maximum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="qcbAttenuateOthers">
+          <property name="toolTip">
+           <string>If checked Mumble lowers the volume of other applications while other users talk</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</string>
+          </property>
+          <property name="text">
+           <string>while other users talk</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="qcbAttenuateOthersOnTalk">
+          <property name="toolTip">
+           <string>If checked Mumble lowers the volume of other applications while you talk</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</string>
+          </property>
+          <property name="text">
+           <string>while you talk</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
        <widget class="QSlider" name="qsOtherVolume">
         <property name="toolTip">
          <string>Attenuation of other applications during speech</string>
@@ -263,114 +399,14 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="qlDelay">
-        <property name="text">
-         <string notr="true">od</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
+      <item row="0" column="2">
        <widget class="QLabel" name="qlOtherVolume">
         <property name="text">
          <string notr="true">at</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="qliOtherVolume">
-        <property name="text">
-         <string>Attenuate applications by...</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="buddy">
-         <cstring>qsOtherVolume</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QCheckBox" name="qcbAttenuateOthers">
-          <property name="toolTip">
-           <string>If checked Mumble lowers the volume of other applications while other users talk</string>
-          </property>
-          <property name="whatsThis">
-           <string>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</string>
-          </property>
-          <property name="text">
-           <string>while other users talk</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="qcbAttenuateOthersOnTalk">
-          <property name="toolTip">
-           <string>If checked Mumble lowers the volume of other applications while you talk</string>
-          </property>
-          <property name="whatsThis">
-           <string>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</string>
-          </property>
-          <property name="text">
-           <string>while you talk</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="qgbAdvancedAttenuation">
-     <property name="toolTip">
-      <string/>
-     </property>
-     <property name="title">
-      <string>Advanced Attenuation Options</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QCheckBox" name="qcbOnlyAttenuateSameOutput">
-        <property name="toolTip">
-         <string>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</string>
-        </property>
-        <property name="text">
-         <string>Only attenuate applications using the same output device</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="qcbAttenuateLoopbacks">
-        <property name="toolTip">
-         <string>If checked, PulseAudio loopback modules will be attenuated</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble's output device/sink, they will also be attenuated.</string>
-        </property>
-        <property name="text">
-         <string>Attenuate PulseAudio loopback modules</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="qgbPrioritySpeaker">
-     <property name="title">
-      <string>Priority Speaker</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
+      <item row="5" column="0" colspan="3">
        <widget class="QCheckBox" name="qcbAttenuateUsersOnPrioritySpeak">
         <property name="toolTip">
          <string>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</string>
@@ -480,8 +516,8 @@
           <height>0</height>
          </size>
         </property>
-        <property name="text">
-         <string notr="true">md</string>
+        <property name="whatsThis">
+         <string>Checking this indicates that you don't have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</string>
         </property>
        </widget>
       </item>
@@ -536,7 +572,7 @@
          <string>Minimum Volume</string>
         </property>
         <property name="buddy">
-         <cstring>qsMaxDistVolume</cstring>
+         <cstring>qsMaxDistance</cstring>
         </property>
        </widget>
       </item>
@@ -580,6 +616,36 @@
         </property>
         <property name="text">
          <string>Headphones</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="qliMinDistancce">
+        <property name="text">
+         <string>Minimum Distance</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsMinDistance</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="qliMaxDistVolume">
+        <property name="text">
+         <string>Minimum Volume</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsMaxDistVolume</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="qliBloom">
+        <property name="text">
+         <string>Bloom</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsMaxDistVolume</cstring>
         </property>
        </widget>
       </item>
@@ -700,7 +766,7 @@
     </widget>
    </item>
    <item>
-    <spacer>
+    <spacer name="spacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>

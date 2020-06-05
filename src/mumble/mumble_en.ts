@@ -1338,15 +1338,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Priority Speaker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Advanced Attenuation Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1391,6 +1383,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attenuation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
