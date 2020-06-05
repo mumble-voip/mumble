@@ -694,10 +694,6 @@ void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
 	qlBloom->setText(tr("%1 %").arg(v+100));
 }
 
-void AudioOutputDialog::on_qcbPositional_stateChanged(int v) {
-	qgbVolume->setEnabled(v);
-}
-
 void AudioOutputDialog::on_qcbAttenuateOthersOnTalk_clicked(bool checked) {
 	bool b = qcbAttenuateOthers->isChecked() || checked;
 	qsOtherVolume->setEnabled(b);

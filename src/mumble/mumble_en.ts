@@ -1389,6 +1389,10 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>Attenuate other users while talking as Priority Speaker</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
