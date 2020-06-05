@@ -1771,7 +1771,7 @@ void Server::updateChannel(const Channel *c) {
 				qFatal("ServerDB: internal query failure: PostgreSQL query did not return the inserted group's group_id");
 			}
 		} else {
-			SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES (?,?,?,?,?)");
+			SQLPREP("REPLACE INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES (?,?,?,?,?)");
 			query.addBindValue(iServerNum);
 			query.addBindValue(g->c->iId);
 			query.addBindValue(g->qsName);
