@@ -21,10 +21,10 @@ public:
 
 	virtual bool isValid() const Q_DECL_OVERRIDE;
 	virtual void genKey() Q_DECL_OVERRIDE;
-	virtual void setKey(const std::string& rkey, const std::string& eiv, const std::string& div) Q_DECL_OVERRIDE;
-	virtual void setRawKey(const std::string& rkey) Q_DECL_OVERRIDE;
-	virtual void setEncryptIV(const std::string& iv) Q_DECL_OVERRIDE;
-	virtual void setDecryptIV(const std::string& iv) Q_DECL_OVERRIDE;
+	virtual bool setKey(const std::string& rkey, const std::string& eiv, const std::string& div) Q_DECL_OVERRIDE;
+	virtual bool setRawKey(const std::string& rkey) Q_DECL_OVERRIDE;
+	virtual bool setEncryptIV(const std::string& iv) Q_DECL_OVERRIDE;
+	virtual bool setDecryptIV(const std::string& iv) Q_DECL_OVERRIDE;
 	virtual std::string getRawKey() Q_DECL_OVERRIDE;
 	virtual std::string getEncryptIV() Q_DECL_OVERRIDE;
 	virtual std::string getDecryptIV() Q_DECL_OVERRIDE;

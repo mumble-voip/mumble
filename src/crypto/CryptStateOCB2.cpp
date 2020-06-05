@@ -50,7 +50,7 @@ void CryptStateOCB2::genKey() {
 	bInit = true;
 }
 
-void CryptStateOCB2::setKey(const std::string& rkey, const std::string& eiv, const std::string& div) {
+bool CryptStateOCB2::setKey(const std::string& rkey, const std::string& eiv, const std::string& div) {
 	if(rkey.length() == AES_KEY_SIZE_BYTES && eiv.length() == AES_BLOCK_SIZE && div.length() == AES_BLOCK_SIZE) {
 		memcpy(raw_key, rkey.data(), AES_KEY_SIZE_BYTES);
 		memcpy(encrypt_iv, eiv.data(), AES_BLOCK_SIZE);
@@ -58,25 +58,33 @@ void CryptStateOCB2::setKey(const std::string& rkey, const std::string& eiv, con
 		AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
 		AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 		bInit = true;
+		return true;
 	}
+	return false;
 }
 
-void CryptStateOCB2::setRawKey(const std::string& rkey) {
+bool CryptStateOCB2::setRawKey(const std::string& rkey) {
 	if(rkey.length() == AES_KEY_SIZE_BYTES){
 		memcpy(raw_key, rkey.data(), AES_KEY_SIZE_BYTES);
+		return true;
 	}
+	return false;
 }
 
-void CryptStateOCB2::setEncryptIV(const std::string& iv) {
+bool CryptStateOCB2::setEncryptIV(const std::string& iv) {
 	if(iv.length() == AES_BLOCK_SIZE) {
 		memcpy(encrypt_iv, iv.data(), AES_BLOCK_SIZE);
+		return true;
 	}
+	return false;
 }
 
-void CryptStateOCB2::setDecryptIV(const std::string& iv) {
+bool CryptStateOCB2::setDecryptIV(const std::string& iv) {
 	if(iv.length() == AES_BLOCK_SIZE) {
 		memcpy(decrypt_iv, iv.data(), AES_BLOCK_SIZE);
+		return true;
 	}
+	return false;
 }
 
 std::string CryptStateOCB2::getRawKey() {

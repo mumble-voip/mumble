@@ -1784,7 +1784,9 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 	} else {
 		const std::string &str = msg.client_nonce();
 		uSource->csCrypt->uiResync++;
-		uSource->csCrypt->setDecryptIV(str);
+		if(!uSource->csCrypt->setDecryptIV(str)){
+			qWarning("Messages: Cipher resync failed: Invalid nonce from the client!");
+		}
 	}
 }
 

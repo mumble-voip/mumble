@@ -31,10 +31,10 @@ class CryptState {
 
 		virtual bool isValid() const = 0;
 		virtual void genKey() = 0;
-		virtual void setKey(const std::string& rkey, const std::string& eiv, const std::string& div) = 0;
-		virtual void setRawKey(const std::string& rkey) = 0;
-		virtual void setEncryptIV(const std::string& iv) = 0;
-		virtual void setDecryptIV(const std::string& iv) = 0;
+		virtual bool setKey(const std::string& rkey, const std::string& eiv, const std::string& div) = 0;
+		virtual bool setRawKey(const std::string& rkey) = 0;
+		virtual bool setEncryptIV(const std::string& iv) = 0;
+		virtual bool setDecryptIV(const std::string& iv) = 0;
 		virtual std::string getRawKey() = 0;
 		virtual std::string getEncryptIV() = 0;
 		virtual std::string getDecryptIV() = 0;
