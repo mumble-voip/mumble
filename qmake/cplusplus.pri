@@ -3,45 +3,8 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-# This .pri file implements modern C++ detection for Mumble.
-#
-# With this file, it's possible to pass one of
-#   c++03, c++11, c++14 or c++1z
-# to qmake via CONFIG when building Mumble, to
-# manually specify the C++ standard the build
-# should target.
-#
-# If no C++ standard is explicitly chosen on
-# the command-line, an appropriate default will
-# be chosen by an auto-detection mechanism.
-# This mechanism looks at QT_CONFIG and automatically
-# adds c++11, c++14 or c++1z to CONFIG. If none of
-# these are available, it adds c++03 to CONFIG.
-#
-# qmake understands the c++11, c++14, and c++1z
-# CONFIG options, and will automatically populate
-# QMAKE_CXXFLAGS and QMAKE_LFLAGS with the appropriate
-# -std=c++XX values for the chosen C++ standard.
-# 
-# The c++03 option is unknown for Qt.
-# We handle setting up the proper CXXFLAGS and LFLAGS when c++03 is in CONFIG.
-
-# First, auto-populate CONFIG with the latest C++ standard
-# that Qt has detected support for.
-!CONFIG(c++03):!CONFIG(c++11):!CONFIG(c++14):!CONFIG(c++1z) {
-	contains(QT_CONFIG, c++1z) {
-		CONFIG *= c++1z
-	} else:contains(QT_CONFIG, c++14) {
-		CONFIG *= c++14
-	} else:contains(QT_CONFIG, c++11) {
-		CONFIG *= c++11
-	}
-}
-# If no appropriate C++ standard was found in QT_CONFIG, populate
-# CONFIG with c++03.
-!CONFIG(c++03):!CONFIG(c++11):!CONFIG(c++14):!CONFIG(c++1z) {
-	CONFIG += c++03
-}
+# We enforce (at least) cpp14
+CONFIG *= c++14
 
 # If CONFIG(c++1z) or CONFIG(c++14) is set, we
 # also add the prior "modern" standards to
