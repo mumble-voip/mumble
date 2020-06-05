@@ -24,7 +24,7 @@ namespace Markdown {
 		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
 		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("%1").arg(match.captured(1).toHtmlEscaped());
+			QString replacement = QString::fromLatin1("%1").arg(match.captured(1));
 
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
@@ -53,7 +53,7 @@ namespace Markdown {
 			int sectionLevel = match.captured(1).size();
 			QString sectionName = match.captured(2);
 
-			QString replacement = QString::fromLatin1("<h%1>%2</h%1>").arg(sectionLevel).arg(sectionName.toHtmlEscaped());
+			QString replacement = QString::fromLatin1("<h%1>%2</h%1>").arg(sectionLevel).arg(sectionName);
 
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
@@ -88,7 +88,7 @@ namespace Markdown {
 				url = QLatin1String("http://") + url;
 			}
 
-			QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(match.captured(1).toHtmlEscaped());
+			QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(match.captured(1));
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 			offset += replacement.size();
@@ -112,7 +112,7 @@ namespace Markdown {
 		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
 		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<b>%1</b>").arg(match.captured(1).toHtmlEscaped());
+			QString replacement = QString::fromLatin1("<b>%1</b>").arg(match.captured(1));
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 			offset += replacement.size();
@@ -136,7 +136,7 @@ namespace Markdown {
 		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
 		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<i>%1</i>").arg(match.captured(1).toHtmlEscaped());
+			QString replacement = QString::fromLatin1("<i>%1</i>").arg(match.captured(1));
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 			offset += replacement.size();
@@ -160,7 +160,7 @@ namespace Markdown {
 		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
 		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<s>%1</s>").arg(match.captured(1).toHtmlEscaped());
+			QString replacement = QString::fromLatin1("<s>%1</s>").arg(match.captured(1));
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 			offset += replacement.size();
@@ -199,7 +199,7 @@ namespace Markdown {
 				}
 			}
 
-			QString replacement = QString::fromLatin1("<div><i>%1</i></div>").arg(quote.toHtmlEscaped().replace(QLatin1String("\n"), QLatin1String("<br/>")));
+			QString replacement = QString::fromLatin1("<div><i>%1</i></div>").arg(quote.replace(QLatin1String("\n"), QLatin1String("<br/>")));
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 			offset += replacement.size();
@@ -223,7 +223,7 @@ namespace Markdown {
 		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
 		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<code>%1</code>").arg(match.captured(1).toHtmlEscaped());
+			QString replacement = QString::fromLatin1("<code>%1</code>").arg(match.captured(1));
 			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
 			offset += replacement.size();
@@ -248,7 +248,7 @@ namespace Markdown {
 		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
 		if (match.hasMatch()) {
-			QString code = match.captured(1).toHtmlEscaped();
+			QString code = match.captured(1);
 
 			// Trim away leading linebreaks
 			while (code.size() >= 1 && (code[0] == QLatin1Char('\n') || code[0] == QLatin1Char('\r'))) {
@@ -290,7 +290,7 @@ namespace Markdown {
 
 		if (match.hasMatch()) {
 			QString url = match.captured(0);
-			QString urlText = url.toHtmlEscaped();
+			QString urlText = url;
 
 			if (url.startsWith(QLatin1String("www"), Qt::CaseInsensitive)) {
 				// Link is missing a protocol specification.
