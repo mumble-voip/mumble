@@ -116,6 +116,7 @@ class TalkingUI : public QWidget {
 		void on_serverDisconnected();
 		void on_channelChanged(QObject *user);
 		void on_settingsChanged();
+		void on_clientDisconnected(unsigned int userSession);
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUI_H_

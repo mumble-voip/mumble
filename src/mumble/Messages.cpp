@@ -738,6 +738,8 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	}
 	if (pDst != pSelf)
 		pmModel->removeUser(pDst);
+
+	QMetaObject::invokeMethod(g.talkingUI, "on_clientDisconnected", Qt::QueuedConnection, Q_ARG(unsigned int, pDst->uiSession));
 }
 
 /// This message is being received when the server informs the local client about channel properties (either during connection/login
