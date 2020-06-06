@@ -71,7 +71,6 @@ PulseAudioSystem::PulseAudioSystem() {
 	pasInput = pasOutput = pasSpeaker = NULL;
 	bSourceDone=bSinkDone=bServerDone = false;
 	iDelayCache = 0;
-	bPositionalCache = false;
 	bAttenuating = false;
 	iRemainingOperations = 0;
 	bPulseIsGood = false;
@@ -194,7 +193,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 							pss.format = PA_SAMPLE_FLOAT32NE;
 						if (pss.rate == 0)
 							pss.rate = SAMPLE_RATE;
-						if ((pss.channels == 0) || (! g.s.doPositionalAudio()))
+						if (pss.channels == 0)
 							pss.channels = 1;
 
 						pasOutput = pa_stream_new(pacContext, mumble_sink_input, &pss, (pss.channels == 1) ? NULL : &pcm);
@@ -207,8 +206,6 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					break;
 				case PA_STREAM_READY: {
 						if (g.s.iOutputDelay != iDelayCache) {
-							do_stop = true;
-						} else if (g.s.doPositionalAudio() != bPositionalCache) {
 							do_stop = true;
 						} else if (odev != qsOutputCache) {
 							do_stop = true;
@@ -236,7 +233,6 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			buff.fragsize = iBlockLen;
 
 			iDelayCache = g.s.iOutputDelay;
-			bPositionalCache = g.s.doPositionalAudio();
 			qsOutputCache = odev;
 
 			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, NULL, NULL);

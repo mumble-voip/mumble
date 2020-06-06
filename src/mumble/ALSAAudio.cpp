@@ -414,15 +414,11 @@ void ALSAAudioOutput::run() {
 	ALSA_ERRBAIL(snd_pcm_open(&pcm_handle, device_name.data(), SND_PCM_STREAM_PLAYBACK, 0));
 	ALSA_ERRCHECK(snd_pcm_hw_params_any(pcm_handle, hw_params));
 
-	if (g.s.doPositionalAudio()) {
-		iChannels = 1;
-		ALSA_ERRBAIL(snd_pcm_hw_params_get_channels_max(hw_params, &iChannels));
-		if (iChannels > 9) {
-			qWarning("ALSAAudioOutput: ALSA reports %d output channels. Clamping to 2.",iChannels);
-			iChannels = 2;
-		}
-	} else {
-		iChannels = 1;
+	iChannels = 1;
+	ALSA_ERRBAIL(snd_pcm_hw_params_get_channels_max(hw_params, &iChannels));
+	if (iChannels > 9) {
+		qWarning("ALSAAudioOutput: ALSA reports %d output channels. Clamping to 2.",iChannels);
+		iChannels = 2;
 	}
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
