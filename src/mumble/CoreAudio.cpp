@@ -7,40 +7,11 @@
 
 #include "User.h"
 
-#include <Carbon/Carbon.h>
-
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 // Ignore deprecation warnings for the whole file, for now.
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-
-class CoreAudioInputRegistrar : public AudioInputRegistrar {
-	public:
-		CoreAudioInputRegistrar();
-		virtual AudioInput *create();
-		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &) const;
-};
-
-class CoreAudioOutputRegistrar : public AudioOutputRegistrar {
-	public:
-		CoreAudioOutputRegistrar();
-		virtual AudioOutput *create();
-		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &, Settings &);
-		bool canMuteOthers() const;
-};
-
-class CoreAudioInit : public DeferInit {
-		CoreAudioInputRegistrar *cairReg;
-		CoreAudioOutputRegistrar *caorReg;
-	public:
-		CoreAudioInit() : cairReg(nullptr), caorReg(nullptr) {}
-		void initialize();
-		void destroy();
-};
 
 static CoreAudioInit cainit;
 
@@ -101,11 +72,7 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 	if (err != noErr)
 		return qhReturn;
 
-	if (input) {
-		propertyAddress.mScope = kAudioDevicePropertyScopeInput;
-	} else {
-		propertyAddress.mScope = kAudioDevicePropertyScopeOutput;
-	}
+	propertyAddress.mScope = input ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput;
 
 	for (UInt32 i = 0; i < ndevs; i++) {
 		QString qsDeviceName;
@@ -169,8 +136,6 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 	return qhReturn;
 }
 
-CoreAudioInputRegistrar::CoreAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("CoreAudio"), 10) {
-}
 
 AudioInput *CoreAudioInputRegistrar::create() {
 	return new CoreAudioInput();
@@ -188,9 +153,6 @@ bool CoreAudioInputRegistrar::canEcho(const QString &outputsys) const {
 	Q_UNUSED(outputsys);
 
 	return false;
-}
-
-CoreAudioOutputRegistrar::CoreAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("CoreAudio"), 10) {
 }
 
 AudioOutput *CoreAudioOutputRegistrar::create() {
@@ -270,7 +232,7 @@ CoreAudioInput::CoreAudioInput() {
 	desc.componentFlagsMask = 0;
 
 	comp = FindNextComponent(nullptr, &desc);
-	if (comp == nullptr) {
+	if (!comp) {
 		qWarning("CoreAudioInput: Unable to find AudioUnit.");
 		return;
 	}
@@ -525,7 +487,7 @@ CoreAudioOutput::CoreAudioOutput() {
 	desc.componentFlagsMask = 0;
 
 	comp = FindNextComponent(nullptr, &desc);
-	if (comp == nullptr) {
+	if (!comp) {
 		qWarning("CoreAudioOuput: Unable to find AudioUnit.");
 		return;
 	}

@@ -10,6 +10,9 @@
 #include "AudioOutput.h"
 
 #include <AudioToolbox/AudioToolbox.h>
+#include <Carbon/Carbon.h>
+
+#include "Global.h"
 
 class CoreAudioSystem : public QObject {
 	private:
@@ -52,6 +55,33 @@ class CoreAudioOutput : public AudioOutput {
 		CoreAudioOutput();
 		~CoreAudioOutput() Q_DECL_OVERRIDE;
 		void run() Q_DECL_OVERRIDE;
+};
+
+class CoreAudioInputRegistrar : public AudioInputRegistrar {
+public:
+	CoreAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("CoreAudio"), 10) {}
+	virtual AudioInput *create();
+	virtual const QList<audioDevice> getDeviceChoices();
+	virtual void setDeviceChoice(const QVariant &, Settings &);
+	virtual bool canEcho(const QString &) const;
+};
+
+class CoreAudioOutputRegistrar : public AudioOutputRegistrar {
+public:
+	CoreAudioOutputRegistrar(): AudioOutputRegistrar(QLatin1String("CoreAudio"), 10) {}
+	virtual AudioOutput *create();
+	virtual const QList<audioDevice> getDeviceChoices();
+	virtual void setDeviceChoice(const QVariant &, Settings &);
+	bool canMuteOthers() const;
+};
+
+class CoreAudioInit : public DeferInit {
+	CoreAudioInputRegistrar *cairReg;
+	CoreAudioOutputRegistrar *caorReg;
+public:
+	CoreAudioInit() : cairReg(nullptr), caorReg(nullptr) {}
+	void initialize();
+	void destroy();
 };
 
 #else
