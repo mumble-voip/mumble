@@ -489,7 +489,11 @@ void TalkingUI::on_talkingStateChanged() {
 	ClientUser *user = qobject_cast<ClientUser *>(sender());
 
 	if (!user) {
-		qWarning("TalkingUI::on_talkingStateChanged User not found");
+		// If the user that caused this event doesn't exist anymore, it means that it
+		// got deleted in the meantime. This in turn means that the user disconnected
+		// from the server. In that case it has been removed via on_clientDisconnected
+		// already (or shortly will be), so it is safe to silently ignore this case
+		// here.
 		return;
 	}
 
@@ -692,3 +696,12 @@ void TalkingUI::on_settingsChanged() {
 		}
 	}
 }
+
+void TalkingUI::on_clientDisconnected(unsigned int userSession) {
+	if (m_entries.contains(userSession)) {
+		// If the user that just disconnected is contained in the TalkingUI, make sure
+		// it is hidden.
+		hideUser(userSession);
+	}
+}
+
