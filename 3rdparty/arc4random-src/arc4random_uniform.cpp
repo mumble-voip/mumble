@@ -32,7 +32,7 @@
 // - Disable MSVC warning 4146.
 
 #include <stdint.h>
-#include "CryptographicRandom.h"
+#include "crypto/CryptographicRandom.h"
 
 #if defined(_MSC_VER)
 // Disable "unary minus operator applied to unsigned type, result still unsigned"

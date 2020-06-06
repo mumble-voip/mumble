@@ -8,7 +8,7 @@ include(../test.pri)
 QT *= network
 
 TARGET = TestCrypt
-HEADERS *= SSL.h SSLLocks.h Timer.h CryptState.h
-SOURCES *= SSL.cpp SSLLocks.cpp TestCrypt.cpp CryptState.cpp Timer.cpp
+HEADERS *= SSL.h SSLLocks.h Timer.h crypto/CryptState.h crypto/CryptStateOCB2.h
+SOURCES *= SSL.cpp SSLLocks.cpp TestCrypt.cpp crypto/CryptStateOCB2.cpp Timer.cpp
 
 win32:LIBS *= -lws2_32

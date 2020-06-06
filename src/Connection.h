@@ -12,13 +12,15 @@
 # include "win.h"
 #endif
 
-#include "CryptState.h"
+#include "crypto/CryptState.h"
+#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
+#include <memory>
 
 #ifdef Q_OS_WIN
 # include <ws2tcpip.h>
@@ -70,7 +72,7 @@ class Connection : public QObject {
 		/// qmCrypt locks access to csCrypt.
 		QMutex qmCrypt;
 #endif
-		CryptState csCrypt;
+		std::unique_ptr<CryptState> csCrypt;
 
 		QList<QSslCertificate> peerCertificateChain() const;
 		QSslCipher sessionCipher() const;

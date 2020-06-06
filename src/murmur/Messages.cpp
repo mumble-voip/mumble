@@ -13,7 +13,7 @@
 #include "Server.h"
 #include "ServerUser.h"
 #include "Version.h"
-#include "CryptState.h"
+#include "crypto/CryptState.h"
 #include "Meta.h"
 #include "ChannelListener.h"
 
@@ -292,12 +292,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	{
 		QMutexLocker l(&uSource->qmCrypt);
 
-		uSource->csCrypt.genKey();
+		uSource->csCrypt->genKey();
 
 		MumbleProto::CryptSetup mpcrypt;
-		mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_KEY_SIZE_BYTES));
-		mpcrypt.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
-		mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
+		mpcrypt.set_key(uSource->csCrypt->getRawKey());
+		mpcrypt.set_server_nonce(uSource->csCrypt->getEncryptIV());
+		mpcrypt.set_client_nonce(uSource->csCrypt->getDecryptIV());
 		sendMessage(uSource, mpcrypt);
 	}
 
@@ -1748,12 +1748,10 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 	QMutexLocker l(&uSource->qmCrypt);
 
-	CryptState &cs=uSource->csCrypt;
-
-	cs.uiRemoteGood = msg.good();
-	cs.uiRemoteLate = msg.late();
-	cs.uiRemoteLost = msg.lost();
-	cs.uiRemoteResync = msg.resync();
+	uSource->csCrypt->uiRemoteGood = msg.good();
+	uSource->csCrypt->uiRemoteLate = msg.late();
+	uSource->csCrypt->uiRemoteLost = msg.lost();
+	uSource->csCrypt->uiRemoteResync = msg.resync();
 
 	uSource->dUDPPingAvg = msg.udp_ping_avg();
 	uSource->dUDPPingVar = msg.udp_ping_var();
@@ -1766,10 +1764,10 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 	msg.Clear();
 	msg.set_timestamp(ts);
-	msg.set_good(cs.uiGood);
-	msg.set_late(cs.uiLate);
-	msg.set_lost(cs.uiLost);
-	msg.set_resync(cs.uiResync);
+	msg.set_good(uSource->csCrypt->uiGood);
+	msg.set_late(uSource->csCrypt->uiLate);
+	msg.set_lost(uSource->csCrypt->uiLost);
+	msg.set_resync(uSource->csCrypt->uiResync);
 
 	sendMessage(uSource, msg);
 }
@@ -1781,13 +1779,13 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 
 	if (! msg.has_client_nonce()) {
 		log(uSource, "Requested crypt-nonce resync");
-		msg.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
+		msg.set_server_nonce(uSource->csCrypt->getEncryptIV());
 		sendMessage(uSource, msg);
 	} else {
 		const std::string &str = msg.client_nonce();
-		if (str.size()  == AES_BLOCK_SIZE) {
-			uSource->csCrypt.uiResync++;
-			memcpy(uSource->csCrypt.decrypt_iv, str.data(), AES_BLOCK_SIZE);
+		uSource->csCrypt->uiResync++;
+		if(!uSource->csCrypt->setDecryptIV(str)){
+			qWarning("Messages: Cipher resync failed: Invalid nonce from the client!");
 		}
 	}
 }
@@ -2006,19 +2004,18 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 		MumbleProto::UserStats_Stats *mpusss;
 
 		QMutexLocker l(&pDstServerUser->qmCrypt);
-		const CryptState &cs = pDstServerUser->csCrypt;
 
 		mpusss = msg.mutable_from_client();
-		mpusss->set_good(cs.uiGood);
-		mpusss->set_late(cs.uiLate);
-		mpusss->set_lost(cs.uiLost);
-		mpusss->set_resync(cs.uiResync);
+		mpusss->set_good(pDstServerUser->csCrypt->uiGood);
+		mpusss->set_late(pDstServerUser->csCrypt->uiLate);
+		mpusss->set_lost(pDstServerUser->csCrypt->uiLost);
+		mpusss->set_resync(pDstServerUser->csCrypt->uiResync);
 
 		mpusss = msg.mutable_from_server();
-		mpusss->set_good(cs.uiRemoteGood);
-		mpusss->set_late(cs.uiRemoteLate);
-		mpusss->set_lost(cs.uiRemoteLost);
-		mpusss->set_resync(cs.uiRemoteResync);
+		mpusss->set_good(pDstServerUser->csCrypt->uiRemoteGood);
+		mpusss->set_late(pDstServerUser->csCrypt->uiRemoteLate);
+		mpusss->set_lost(pDstServerUser->csCrypt->uiRemoteLost);
+		mpusss->set_resync(pDstServerUser->csCrypt->uiRemoteResync);
 	}
 
 	msg.set_udp_packets(pDstServerUser->uiUDPPackets);

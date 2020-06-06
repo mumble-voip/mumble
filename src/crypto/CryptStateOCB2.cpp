@@ -23,30 +23,25 @@
 # endif
 #endif
 
-#include "CryptState.h"
-
+#include "CryptStateOCB2.h"
 #include "ByteSwap.h"
 
 #include <cstring>
-
 #include <openssl/rand.h>
 
-CryptState::CryptState() {
+CryptStateOCB2::CryptStateOCB2() : CryptState() {
 	for (int i=0;i<0x100;i++)
 		decrypt_history[i] = 0;
-	bInit = false;
 	memset(raw_key, 0, AES_KEY_SIZE_BYTES);
 	memset(encrypt_iv, 0, AES_BLOCK_SIZE);
 	memset(decrypt_iv, 0, AES_BLOCK_SIZE);
-	uiGood=uiLate=uiLost=uiResync=0;
-	uiRemoteGood=uiRemoteLate=uiRemoteLost=uiRemoteResync=0;
 }
 
-bool CryptState::isValid() const {
+bool CryptStateOCB2::isValid() const {
 	return bInit;
 }
 
-void CryptState::genKey() {
+void CryptStateOCB2::genKey() {
 	RAND_bytes(raw_key, AES_KEY_SIZE_BYTES);
 	RAND_bytes(encrypt_iv, AES_BLOCK_SIZE);
 	RAND_bytes(decrypt_iv, AES_BLOCK_SIZE);
@@ -55,20 +50,56 @@ void CryptState::genKey() {
 	bInit = true;
 }
 
-void CryptState::setKey(const unsigned char *rkey, const unsigned char *eiv, const unsigned char *div) {
-	memcpy(raw_key, rkey, AES_KEY_SIZE_BYTES);
-	memcpy(encrypt_iv, eiv, AES_BLOCK_SIZE);
-	memcpy(decrypt_iv, div, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
-	AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
-	bInit = true;
+bool CryptStateOCB2::setKey(const std::string& rkey, const std::string& eiv, const std::string& div) {
+	if(rkey.length() == AES_KEY_SIZE_BYTES && eiv.length() == AES_BLOCK_SIZE && div.length() == AES_BLOCK_SIZE) {
+		memcpy(raw_key, rkey.data(), AES_KEY_SIZE_BYTES);
+		memcpy(encrypt_iv, eiv.data(), AES_BLOCK_SIZE);
+		memcpy(decrypt_iv, div.data(), AES_BLOCK_SIZE);
+		AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
+		AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
+		bInit = true;
+		return true;
+	}
+	return false;
 }
 
-void CryptState::setDecryptIV(const unsigned char *iv) {
-	memcpy(decrypt_iv, iv, AES_BLOCK_SIZE);
+bool CryptStateOCB2::setRawKey(const std::string& rkey) {
+	if(rkey.length() == AES_KEY_SIZE_BYTES){
+		memcpy(raw_key, rkey.data(), AES_KEY_SIZE_BYTES);
+		return true;
+	}
+	return false;
 }
 
-bool CryptState::encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length) {
+bool CryptStateOCB2::setEncryptIV(const std::string& iv) {
+	if(iv.length() == AES_BLOCK_SIZE) {
+		memcpy(encrypt_iv, iv.data(), AES_BLOCK_SIZE);
+		return true;
+	}
+	return false;
+}
+
+bool CryptStateOCB2::setDecryptIV(const std::string& iv) {
+	if(iv.length() == AES_BLOCK_SIZE) {
+		memcpy(decrypt_iv, iv.data(), AES_BLOCK_SIZE);
+		return true;
+	}
+	return false;
+}
+
+std::string CryptStateOCB2::getRawKey() {
+	return std::string(reinterpret_cast<const char*>(raw_key), AES_KEY_SIZE_BYTES);
+}
+
+std::string CryptStateOCB2::getEncryptIV() {
+	return std::string(reinterpret_cast<const char*>(encrypt_iv), AES_BLOCK_SIZE);
+}
+
+std::string CryptStateOCB2::getDecryptIV() {
+	return std::string(reinterpret_cast<const char*>(decrypt_iv), AES_BLOCK_SIZE);
+}
+
+bool CryptStateOCB2::encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length) {
 	unsigned char tag[AES_BLOCK_SIZE];
 
 	// First, increase our IV.
@@ -87,7 +118,7 @@ bool CryptState::encrypt(const unsigned char *source, unsigned char *dst, unsign
 	return true;
 }
 
-bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length) {
+bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length) {
 	if (crypted_length < 4)
 		return false;
 
@@ -227,7 +258,7 @@ static void inline ZERO(keyblock &block) {
 #define AESencrypt(src,dst,key) AES_encrypt(reinterpret_cast<const unsigned char *>(src),reinterpret_cast<unsigned char *>(dst), key);
 #define AESdecrypt(src,dst,key) AES_decrypt(reinterpret_cast<const unsigned char *>(src),reinterpret_cast<unsigned char *>(dst), key);
 
-bool CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
+bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
 	keyblock checksum, delta, tmp, pad;
 	bool success = true;
 
@@ -276,7 +307,7 @@ bool CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypte
 	return success;
 }
 
-bool CryptState::ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
+bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
 	keyblock checksum, delta, tmp, pad;
 	bool success = true;
 

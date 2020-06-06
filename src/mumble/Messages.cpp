@@ -31,7 +31,7 @@
 #include "UserModel.h"
 #include "VersionCheck.h"
 #include "ViewCert.h"
-#include "CryptState.h"
+#include "crypto/CryptState.h"
 #include "Utils.h"
 #include "ChannelListener.h"
 #include "TalkingUI.h"
@@ -947,17 +947,20 @@ void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
 		const std::string &key = msg.key();
 		const std::string &client_nonce = msg.client_nonce();
 		const std::string &server_nonce = msg.server_nonce();
-		if (key.size() == AES_KEY_SIZE_BYTES && client_nonce.size() == AES_BLOCK_SIZE && server_nonce.size() == AES_BLOCK_SIZE)
-			c->csCrypt.setKey(reinterpret_cast<const unsigned char *>(key.data()), reinterpret_cast<const unsigned char *>(client_nonce.data()), reinterpret_cast<const unsigned char *>(server_nonce.data()));
+		if (!c->csCrypt->setKey(key, client_nonce, server_nonce)){
+			qWarning("Messages: Cipher resync failed: Invalid key/nonce from the server!");
+		}
 	} else if (msg.has_server_nonce()) {
 		const std::string &server_nonce = msg.server_nonce();
 		if (server_nonce.size() == AES_BLOCK_SIZE) {
-			c->csCrypt.uiResync++;
-			memcpy(c->csCrypt.decrypt_iv, server_nonce.data(), AES_BLOCK_SIZE);
+			c->csCrypt->uiResync++;
+			if(!c->csCrypt->setDecryptIV(server_nonce)){
+				qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
+			}
 		}
 	} else {
 		MumbleProto::CryptSetup mpcs;
-		mpcs.set_client_nonce(std::string(reinterpret_cast<const char *>(c->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
+		mpcs.set_client_nonce(c->csCrypt->getEncryptIV());
 		g.sh->sendMessage(mpcs);
 	}
 }
