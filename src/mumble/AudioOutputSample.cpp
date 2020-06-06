@@ -118,20 +118,24 @@ sf_count_t SoundFile::vio_tell(void *user_data) {
 	return sf->qfFile.pos();
 }
 
-AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, bool loop, unsigned int freq) : AudioOutputUser(name) {
+AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, bool loop, unsigned int freq, unsigned int systemMaxBufferSize) : AudioOutputUser(name) {
 	int err;
 
 	sfHandle = psndfile;
 	iOutSampleRate = freq;
 
 	if (sfHandle->channels() == 1) {
+		iBufferSize = systemMaxBufferSize;
 		bStereo = false;
 	} else if (sfHandle->channels() == 2) {
+		iBufferSize = systemMaxBufferSize * 2;
 		bStereo = true;
 	} else {
 		sfHandle = nullptr;  // sound file is corrupted
 		return;
 	}
+
+	pfBuffer = new float[iBufferSize];
 
 	/* qWarning() << "Channels: " << sfHandle->channels();
 	qWarning() << "Samplerate: " << sfHandle->samplerate();

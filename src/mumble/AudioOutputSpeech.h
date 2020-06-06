@@ -71,7 +71,9 @@ class AudioOutputSpeech : public AudioOutputUser {
 		virtual bool prepareSampleBuffer(unsigned int frameCount) Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
-		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type);
+
+		/// @param systemMaxBufferSize maximum number of samples the system audio play back may request each time
+		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type, unsigned int systemMaxBufferSize);
 		~AudioOutputSpeech() Q_DECL_OVERRIDE;
 };
 

@@ -6,10 +6,6 @@
 #include "AudioOutputUser.h"
 
 AudioOutputUser::AudioOutputUser(const QString& name) : qsName(name) {
-	iBufferSize = 0;
-	pfBuffer = nullptr;
-	pfVolume = nullptr;
-	fPos[0]=fPos[1]=fPos[2]=0.0;
 }
 
 AudioOutputUser::~AudioOutputUser() {

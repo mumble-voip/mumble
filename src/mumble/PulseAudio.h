@@ -61,7 +61,8 @@ class PulseAudioSystem : public QObject {
 		static void source_callback(pa_context *c, const pa_source_info *i, int eol, void *userdata);
 		static void server_callback(pa_context *c, const pa_server_info *i, void *userdata);
 		static void sink_info_callback(pa_context *c, const pa_sink_info *i, int eol, void *userdata);
-		static void stream_callback(pa_stream *s, void *userdata);
+		static void write_stream_callback(pa_stream *s, void *userdata);
+		static void read_stream_callback(pa_stream *s, void *userdata);
 		static void read_callback(pa_stream *s, size_t bytes, void *userdata);
 		static void write_callback(pa_stream *s, size_t bytes, void *userdata);
 		static void volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
