@@ -37,7 +37,7 @@ class CoreAudioInit : public DeferInit {
 		CoreAudioInputRegistrar *cairReg;
 		CoreAudioOutputRegistrar *caorReg;
 	public:
-		CoreAudioInit() : cairReg(NULL), caorReg(NULL) {}
+		CoreAudioInit() : cairReg(nullptr), caorReg(nullptr) {}
 		void initialize();
 		void destroy();
 };
@@ -84,16 +84,28 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 	UInt32 len, ndevs;
 	OSStatus err;
 
-	err = AudioHardwareGetPropertyInfo(kAudioHardwarePropertyDevices, &len, NULL);
+	AudioObjectPropertyAddress propertyAddress = {
+			kAudioHardwarePropertyDevices,
+			kAudioObjectPropertyScopeGlobal,
+			kAudioObjectPropertyElementMaster
+	};
+
+	err = AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len);
 	if (err != noErr)
 		return qhReturn;
 
 	ndevs = len / sizeof(AudioDeviceID);
 	AudioDeviceID devs[ndevs];
 
-	err = AudioHardwareGetProperty(kAudioHardwarePropertyDevices, &len, devs);
+	err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, devs);
 	if (err != noErr)
 		return qhReturn;
+
+	if (input) {
+		propertyAddress.mScope = kAudioDevicePropertyScopeInput;
+	} else {
+		propertyAddress.mScope = kAudioDevicePropertyScopeOutput;
+	}
 
 	for (UInt32 i = 0; i < ndevs; i++) {
 		QString qsDeviceName;
@@ -101,16 +113,17 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 		char buf[4096];
 
 		/* Get number of channels, to determine whether we're an input or an output... */
-		AudioBufferList *bufs = NULL;
-
-		err = AudioDeviceGetPropertyInfo(devs[i], 0, input, kAudioDevicePropertyStreamConfiguration, &len, NULL);
+		AudioBufferList *bufs = nullptr;
+		propertyAddress.mSelector = kAudioDevicePropertyStreamConfiguration;
+		err = AudioObjectGetPropertyDataSize(devs[i], &propertyAddress, 0, nullptr, &len);
 		if (err != noErr) {
 			qWarning("CoreAudioSystem: Failed to get length of AudioStreamConfiguration. Unable to allocate.");
 			continue;
 		}
 
 		bufs = reinterpret_cast<AudioBufferList *>(malloc(len));
-		err = AudioDeviceGetProperty(devs[i], 0, input, kAudioDevicePropertyStreamConfiguration, &len, bufs);
+		propertyAddress.mSelector = kAudioDevicePropertyStreamConfiguration;
+		err = AudioObjectGetPropertyData(devs[i], &propertyAddress, 0, nullptr, &len, bufs);
 		if (! bufs || err != noErr) {
 			qWarning("CoreAudioSystem: Failed to get AudioStreamConfiguration from device.");
 			free(bufs);
@@ -129,8 +142,9 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 
 		/* Get device name. */
 		len = sizeof(CFStringRef);
-		CFStringRef devName = NULL;
-		err = AudioDeviceGetProperty(devs[i], 0, 0, kAudioDevicePropertyDeviceNameCFString, &len, &devName);
+		CFStringRef devName = nullptr;
+		propertyAddress.mSelector = kAudioDevicePropertyDeviceNameCFString;
+		err = AudioObjectGetPropertyData(devs[i], &propertyAddress, 0, nullptr, &len, &devName);
 		if (! devName || err != noErr) {
 			qWarning("CoreAudioSystem: Failed to get device name. Skipping device.");
 		}
@@ -139,8 +153,9 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 		CFRelease(devName);
 
 		/* Device UID. */
-		CFStringRef devUid = NULL;
-		err = AudioDeviceGetProperty(devs[i], 0, 0, kAudioDevicePropertyDeviceUID, &len, &devUid);
+		CFStringRef devUid = nullptr;
+		propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
+		err = AudioObjectGetPropertyData(devs[i], &propertyAddress, 0, nullptr, &len, &devUid);
 		if (! devUid || err != noErr) {
 			qWarning("CoreAudioSystem: Failed to get device UID. Skipping device.");
 		}
@@ -198,8 +213,13 @@ CoreAudioInput::CoreAudioInput() {
 	OSStatus err;
 	AudioStreamBasicDescription fmt;
 	AudioDeviceID devId = 0;
-	CFStringRef devUid = NULL;
+	CFStringRef devUid = nullptr;
 	UInt32 val, len;
+	AudioObjectPropertyAddress propertyAddress = {
+			0,
+			kAudioDevicePropertyScopeInput,
+			kAudioObjectPropertyElementMaster
+	};
 
 	memset(&buflist, 0, sizeof(AudioBufferList));
 
@@ -214,7 +234,8 @@ CoreAudioInput::CoreAudioInput() {
 		avt.mOutputDataSize = sizeof(AudioDeviceID);
 
 		len = sizeof(AudioValueTranslation);
-		err = AudioHardwareGetProperty(kAudioHardwarePropertyDeviceForUID, &len, &avt);
+		propertyAddress.mSelector = kAudioHardwarePropertyDeviceForUID;
+		err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &avt);
 		if (err != noErr) {
 			qWarning("CoreAudioInput: Unable to query for AudioDeviceID.");
 			return;
@@ -223,14 +244,16 @@ CoreAudioInput::CoreAudioInput() {
 		qWarning("CoreAudioInput: Set device to 'Default Device'.");
 
 		len = sizeof(AudioDeviceID);
-		err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultInputDevice, &len, &devId);
+		propertyAddress.mSelector = kAudioHardwarePropertyDefaultInputDevice;
+		err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &devId);
 		if (err != noErr) {
 			qWarning("CoreAudioInput: Unable to query for default input AudioDeviceID.");
 			return;
 		}
 
 		len = sizeof(CFStringRef);
-		err = AudioDeviceGetProperty(devId, 0, true, kAudioDevicePropertyDeviceUID, &len, &devUid);
+		propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
+		err = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &devUid);
 		if (err != noErr) {
 			qWarning("CoreAudioInput: Unable to get default device UID.");
 			return;
@@ -246,8 +269,8 @@ CoreAudioInput::CoreAudioInput() {
 	desc.componentFlags = 0;
 	desc.componentFlagsMask = 0;
 
-	comp = FindNextComponent(NULL, &desc);
-	if (comp == NULL) {
+	comp = FindNextComponent(nullptr, &desc);
+	if (comp == nullptr) {
 		qWarning("CoreAudioInput: Unable to find AudioUnit.");
 		return;
 	}
@@ -345,7 +368,8 @@ CoreAudioInput::CoreAudioInput() {
 
 	AudioValueRange range;
 	len = sizeof(AudioValueRange);
-	err = AudioDeviceGetProperty(devId, 0, true, kAudioDevicePropertyBufferFrameSizeRange, &len, &range);
+	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSizeRange;
+	err = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &range);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to query for allowed buffer size ranges.");
 	} else {
@@ -354,7 +378,8 @@ CoreAudioInput::CoreAudioInput() {
 
 	int iActualBufferLength = iMicLength;
 	val = iMicLength;
-	err = AudioDeviceSetProperty(devId, NULL, 0, true, kAudioDevicePropertyBufferFrameSize, sizeof(UInt32), &val);
+	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSize;
+	err = AudioObjectSetPropertyData(devId, &propertyAddress, 0, nullptr, sizeof(UInt32), &val);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to set preferred buffer size on device. Querying for device default.");
 		len = sizeof(UInt32);
@@ -380,7 +405,7 @@ CoreAudioInput::CoreAudioInput() {
 	}
 
 	bRunning = true;
-};
+}
 
 CoreAudioInput::~CoreAudioInput() {
 	OSStatus err;
@@ -444,8 +469,13 @@ CoreAudioOutput::CoreAudioOutput() {
 	AudioStreamBasicDescription fmt;
 	unsigned int chanmasks[32];
 	AudioDeviceID devId = 0;
-	CFStringRef devUid = NULL;
+	CFStringRef devUid = nullptr;
 	UInt32 len;
+	AudioObjectPropertyAddress propertyAddress = {
+			0,
+			kAudioDevicePropertyScopeOutput,
+			kAudioObjectPropertyElementMaster
+	};
 
 	if (! g.s.qsCoreAudioOutput.isEmpty()) {
 		devUid = CoreAudioSystem::QStringToCFString(g.s.qsCoreAudioOutput);
@@ -458,7 +488,8 @@ CoreAudioOutput::CoreAudioOutput() {
 		avt.mOutputDataSize = sizeof(AudioDeviceID);
 
 		len = sizeof(AudioValueTranslation);
-		err = AudioHardwareGetProperty(kAudioHardwarePropertyDeviceForUID, &len, &avt);
+		propertyAddress.mSelector = kAudioHardwarePropertyDeviceForUID;
+		err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &avt);
 		if (err != noErr) {
 			qWarning("CoreAudioOutput: Unable to query for AudioDeviceID.");
 			return;
@@ -467,14 +498,16 @@ CoreAudioOutput::CoreAudioOutput() {
 		qWarning("CoreAudioOutput: Set device to 'Default Device'.");
 
 		len = sizeof(AudioDeviceID);
-		err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice, &len, &devId);
+		propertyAddress.mSelector = kAudioHardwarePropertyDefaultOutputDevice;
+		err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &devId);
 		if (err != noErr) {
 			qWarning("CoreAudioOutput: Unable to query for default output AudioDeviceID");
 			return;
 		}
 
 		len = sizeof(CFStringRef);
-		err = AudioDeviceGetProperty(devId, 0, false, kAudioDevicePropertyDeviceUID, &len, &devUid);
+		propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
+		err = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &devUid);
 		if (err != noErr) {
 			qWarning("CoreAudioOutput: Unable to get default device UID.");
 			return;
@@ -491,8 +524,8 @@ CoreAudioOutput::CoreAudioOutput() {
 	desc.componentFlags = 0;
 	desc.componentFlagsMask = 0;
 
-	comp = FindNextComponent(NULL, &desc);
-	if (comp == NULL) {
+	comp = FindNextComponent(nullptr, &desc);
+	if (comp == nullptr) {
 		qWarning("CoreAudioOuput: Unable to find AudioUnit.");
 		return;
 	}
@@ -575,7 +608,8 @@ CoreAudioOutput::CoreAudioOutput() {
 
 	AudioValueRange range;
 	len = sizeof(AudioValueRange);
-	err = AudioDeviceGetProperty(devId, 0, false, kAudioDevicePropertyBufferFrameSizeRange, &len, &range);
+	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSizeRange;
+	err = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &range);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to query for allowed buffer size ranges.");
 	} else {
@@ -583,7 +617,8 @@ CoreAudioOutput::CoreAudioOutput() {
 	}
 
 	UInt32 val = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
-	err = AudioDeviceSetProperty(devId, NULL, 0, false, kAudioDevicePropertyBufferFrameSize, sizeof(UInt32), &val);
+	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSize;
+	err = AudioObjectSetPropertyData(devId, &propertyAddress, 0, nullptr, sizeof(UInt32), &val);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Could not set requested buffer size for device. Continuing with default.");
 	}
