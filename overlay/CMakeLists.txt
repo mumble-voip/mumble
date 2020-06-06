@@ -153,6 +153,9 @@ if(64_BIT AND MSVC)
 				"-DMUMBLE_SOURCE_DIR=${CMAKE_SOURCE_DIR}/src/mumble"
 				"-DMUMBLE_BINARY_DIR=${CMAKE_BINARY_DIR}"
 				"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+				# Force MSVC, because CMake prioritizes MinGW over it.
+				"-DCMAKE_C_COMPILER=cl.exe"
+				"-DCMAKE_CXX_COMPILER=cl.exe"
 				"-DBUILD_OVERLAY_XCOMPILE=ON"
 				"-Dsymbols=${symbols}"
 				${CMAKE_SOURCE_DIR}/overlay
@@ -172,6 +175,9 @@ if(64_BIT AND MSVC)
 				"-DMUMBLE_SOURCE_DIR=${CMAKE_SOURCE_DIR}/src/mumble"
 				"-DMUMBLE_BINARY_DIR=${CMAKE_BINARY_DIR}"
 				"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+				# Force MSVC, because CMake prioritizes MinGW over it.
+				"-DCMAKE_C_COMPILER=cl.exe"
+				"-DCMAKE_CXX_COMPILER=cl.exe"
 				"-DBUILD_OVERLAY_XCOMPILE=ON"
 				"-Dsymbols=${symbols}"
 				${CMAKE_SOURCE_DIR}/overlay
