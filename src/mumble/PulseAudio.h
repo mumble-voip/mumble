@@ -41,7 +41,6 @@ class PulseAudioSystem : public QObject {
 
 		int iDelayCache;
 		QString qsOutputCache, qsInputCache, qsEchoCache;
-		bool bPositionalCache;
 		bool bEchoMultiCache;
 		QHash<QString, QString> qhEchoMap;
 		QHash<QString, pa_sample_spec> qhSpecMap;

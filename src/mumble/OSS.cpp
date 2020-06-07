@@ -281,12 +281,7 @@ void OSSOutput::run() {
 		return;
 	}
 
-	iChannels = 0;
-
-	if (g.s.doPositionalAudio())
-		iChannels = 2;
-	else
-		iChannels = 1;
+	iChannels = 2;
 
 	ival = iChannels;
 	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) && (ival == static_cast<int>(iChannels))) {
