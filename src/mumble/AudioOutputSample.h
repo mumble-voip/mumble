@@ -60,7 +60,7 @@ class AudioOutputSample : public AudioOutputUser {
 		static SoundFile* loadSndfile(const QString &filename);
 		static QString browseForSndfile(QString defaultpath=QString());
 		virtual bool prepareSampleBuffer(unsigned int frameCount) Q_DECL_OVERRIDE;
-		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq);
+		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq, unsigned int bufferSize);
 		~AudioOutputSample() Q_DECL_OVERRIDE;
 };
 

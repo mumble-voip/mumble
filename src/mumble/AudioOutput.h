@@ -74,18 +74,19 @@ class AudioOutput : public QThread {
 		Q_DISABLE_COPY(AudioOutput)
 	private:
 		/// Speaker positional vector
-		float *fSpeakers;
-		float *fSpeakerVolume;
-		bool *bSpeakerPositional;
+		float *fSpeakers = nullptr;
+		float *fSpeakerVolume = nullptr;
+		bool *bSpeakerPositional = nullptr;
 		/// Used when panning stereo stream w.r.t. each speaker.
-		float * fStereoPanningFactor;
+		float * fStereoPanningFactor = nullptr;
 	protected:
-		enum { SampleShort, SampleFloat } eSampleFormat;
-		volatile bool bRunning;
-		unsigned int iFrameSize;
-		volatile unsigned int iMixerFreq;
-		unsigned int iChannels;
-		unsigned int iSampleSize;
+		enum { SampleShort, SampleFloat } eSampleFormat = SampleFloat;
+		volatile bool bRunning = true;
+		unsigned int iFrameSize = SAMPLE_RATE / 100;
+		volatile unsigned int iMixerFreq = 0;
+		unsigned int iChannels = 0;
+		unsigned int iSampleSize = 0;
+		unsigned int iBufferSize = 0;
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientUser *, AudioOutputUser *> qmOutputs;
 
@@ -99,7 +100,7 @@ class AudioOutput : public QThread {
 				///
 				/// This constructor is only ever called by Audio::startOutput(), and is guaranteed
 				/// to be called on the application's main thread.
-		AudioOutput();
+		AudioOutput() {};
 
 				/// Destroy an AudioOutput.
 				///
@@ -115,6 +116,7 @@ class AudioOutput : public QThread {
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);
 		unsigned int getMixerFreq() const;
+		void setBufferSize(unsigned int bufferSize);
 };
 
 #endif

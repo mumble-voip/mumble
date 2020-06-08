@@ -87,27 +87,6 @@ bool AudioOutputRegistrar::canExclusive() const {
 	return false;
 }
 
-AudioOutput::AudioOutput()
-	: fSpeakers(nullptr)
-	, fSpeakerVolume(nullptr)
-	, bSpeakerPositional(nullptr)
-	, fStereoPanningFactor(nullptr)
-
-	, eSampleFormat(SampleFloat)
-
-	, bRunning(true)
-
-	, iFrameSize(SAMPLE_RATE / 100)
-	, iMixerFreq(0)
-	, iChannels(0)
-	, iSampleSize(0)
-
-	, qrwlOutputs()
-	, qmOutputs() {
-
-	// Nothing
-}
-
 AudioOutput::~AudioOutput() {
 	bRunning = false;
 	wait();
@@ -196,7 +175,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 			return;
 
 		qrwlOutputs.lockForWrite();
-		aop = new AudioOutputSpeech(user, iMixerFreq, type);
+		aop = new AudioOutputSpeech(user, iMixerFreq, type, iBufferSize);
 		qmOutputs.replace(user, aop);
 	}
 
@@ -243,7 +222,7 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 		return nullptr;
 
 	QWriteLocker locker(&qrwlOutputs);
-	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq);
+	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq, iBufferSize);
 	qmOutputs.insert(nullptr, aos);
 
 	return aos;
@@ -675,3 +654,6 @@ unsigned int AudioOutput::getMixerFreq() const {
 	return iMixerFreq;
 }
 
+void AudioOutput::setBufferSize(unsigned int bufferSize) {
+	iBufferSize = bufferSize;
+}

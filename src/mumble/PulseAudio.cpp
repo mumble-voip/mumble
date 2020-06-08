@@ -197,7 +197,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 							pss.channels = 1;
 
 						pasOutput = pa_stream_new(pacContext, mumble_sink_input, &pss, (pss.channels == 1) ? NULL : &pcm);
-						pa_stream_set_state_callback(pasOutput, stream_callback, this);
+						pa_stream_set_state_callback(pasOutput, write_stream_callback, this);
 						pa_stream_set_write_callback(pasOutput, write_callback, this);
 					}
 					// Fallthrough
@@ -262,7 +262,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pss.channels = 1;
 
 						pasInput = pa_stream_new(pacContext, "Microphone", &pss, NULL);
-						pa_stream_set_state_callback(pasInput, stream_callback, this);
+						pa_stream_set_state_callback(pasInput, read_stream_callback, this);
 						pa_stream_set_read_callback(pasInput, read_callback, this);
 					}
 					// Fallthrough
@@ -330,7 +330,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 							pss.channels = 1;
 
 						pasSpeaker = pa_stream_new(pacContext, mumble_echo, &pss, (pss.channels == 1) ? NULL : &pcm);
-						pa_stream_set_state_callback(pasSpeaker, stream_callback, this);
+						pa_stream_set_state_callback(pasSpeaker, read_stream_callback, this);
 						pa_stream_set_read_callback(pasSpeaker, read_callback, this);
 					}
 					// Fallthrough
@@ -457,8 +457,23 @@ void PulseAudioSystem::sink_info_callback(pa_context *, const pa_sink_info *i, i
 	pas->iSinkId = i->index;
 }
 
+void PulseAudioSystem::write_stream_callback(pa_stream *s, void *userdata) {
+	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+	switch (pa_stream_get_state(s)) {
+		case PA_STREAM_FAILED:
+			qWarning("PulseAudio: Stream error: %s", pa_strerror(pa_context_errno(pa_stream_get_context(s))));
+			break;
+		default:
+			break;
+	}
+	const pa_buffer_attr *bufferAttr;
+	if ( (bufferAttr = pa_stream_get_buffer_attr(s)) ) {
+		g.ao->setBufferSize(bufferAttr->maxlength);
+	}
+	pas->wakeup();
+}
 
-void PulseAudioSystem::stream_callback(pa_stream *s, void *userdata) {
+void PulseAudioSystem::read_stream_callback(pa_stream *s, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 	switch (pa_stream_get_state(s)) {
 		case PA_STREAM_FAILED:

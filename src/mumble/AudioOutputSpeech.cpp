@@ -26,7 +26,7 @@
 #include "Utils.h"
 #include "SpeechFlags.h"
 
-AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type) : AudioOutputUser(user->qsName) {
+AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type, unsigned int systemMaxBufferSize) : AudioOutputUser(user->qsName) {
 	int err;
 	p = user;
 	umtType = type;
@@ -51,7 +51,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	// opus supports frames with: 2.5, 5, 10, 20, 40 or 60 ms of audio data.
 	// sample rate / 100 means 10ms mono audio data per frame.
 	iFrameSizePerChannel = iFrameSize = iSampleRate / 100; // for mono stream
-	iAudioBufferSize = iFrameSize * 12; // used to store decoded pcm data. is it too big for 4-bytes float?
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
@@ -75,12 +74,33 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 		iAudioBufferSize = iFrameSize;
 	}
 
+	// iAudioBufferSize: size (in unit of float) of the buffer used to store decoded pcm data.
+	// For opus, the maximum frame size of a packet is 60ms.
+	iAudioBufferSize = iSampleRate * 60 / 1000; // = SampleRate * 60ms = 48000Hz * 0.06s = 2880, ~12KB
+
+	// iBufferSize: size of the buffer to store the resampled audio data.
+	// Note that the number of samples in each opus packet can be different from the number of samples the system
+	// requests from us each time (this is known as the system's audio buffer size).
+	// For example, the maximum size of an opus packet can be 60ms, but the system's audio buffer size is typically
+	// ~5ms on my laptop.
+	// Whenever the system's audio callback is called, we have two choice:
+	//  1. Decode a new opus packet. Then we need a buffer to store unused samples (which don't fit in the system's buffer),
+	//  2. Use unused samples from the buffer (remaining from the last decoded frame).
+	// How large should this buffer be? Consider the case in which remaining samples in the buffer can not fill
+	// the system's audio buffer. In that case, we need to decode a new opus packet. In the worst case, the buffer size
+	// needed is
+	//    60ms of new decoded audio data + system's buffer size - 1.
 	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iAudioBufferSize * iMixerFreq) / static_cast<float>(iSampleRate)));
+	iBufferSize = iOutputSize + systemMaxBufferSize; // -1 has been rounded up
+
 	if (bStereo) {
-		iAudioBufferSize *= 2; // * 2 for stereo to get 10ms per frame
+		iAudioBufferSize *= 2;
 		iOutputSize *= 2;
+		iBufferSize *= 2;
 		iFrameSize *= 2;
 	}
+
+	pfBuffer = new float[iBufferSize];
 
 	srs = nullptr;
 	fResamplerBuffer = nullptr;
@@ -222,6 +242,9 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 	while (iBufferFilled < sampleCount) {
 		int decodedSamples = iFrameSize;
 		resizeBuffer(iBufferFilled + iOutputSize);
+		// TODO: allocating memory in the audio callback will crash mumble in some cases.
+		//       we need to initialize the buffer with an appropriate size when initializing
+		//       this class. See #4250.
 
 		pOut = (srs) ? fResamplerBuffer : (pfBuffer + iBufferFilled);
 

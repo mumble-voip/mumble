@@ -14,14 +14,20 @@ class AudioOutputUser : public QObject {
 		Q_DISABLE_COPY(AudioOutputUser)
 	protected:
 		unsigned int iBufferSize;
+
+		/// Used to resize the buffer.
+		/// WARNING:
+		///          Audio callback is a dedicated place that can be executed
+		///          in a special thread or interrupt handler. Allocating
+		///          memory will probably crash the program!
 		void resizeBuffer(unsigned int newsize);
 	public:
 		AudioOutputUser(const QString& name);
 		~AudioOutputUser() Q_DECL_OVERRIDE;
 		const QString qsName;
-		float *pfBuffer;
-		float *pfVolume;
-		float fPos[3];
+		float *pfBuffer = nullptr;
+		float *pfVolume = nullptr;
+		float fPos[3] = {0.0, 0.0, 0.0};
 		bool bStereo;
 		virtual bool prepareSampleBuffer(unsigned int snum) = 0;
 };
