@@ -210,7 +210,8 @@ QString AudioOutputSample::browseForSndfile(QString defaultpath) {
 }
 
 bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
-	unsigned int sampleCount = frameCount * sfHandle->channels();
+	unsigned int channels = bStereo ? 2 : 1;
+	unsigned int sampleCount = frameCount * channels;
 	// Forward the buffer
 	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];
@@ -223,7 +224,7 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 
 	// Calculate the required buffersize to hold the results
 	unsigned int iInputFrames = static_cast<unsigned int>(ceilf(static_cast<float>(frameCount * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
-	unsigned int iInputSamples = iInputFrames * sfHandle->channels();
+	unsigned int iInputSamples = iInputFrames * channels;
 
 	STACKVAR(float, fOut, iInputSamples);
 
@@ -247,8 +248,8 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 			}
 		}
 
-		spx_uint32_t inlen = static_cast<unsigned int>(read) / sfHandle->channels();
-		spx_uint32_t outlen = sampleCount;
+		spx_uint32_t inlen = static_cast<unsigned int>(read) / channels;
+		spx_uint32_t outlen = frameCount;
 		if (srs) {
 			// If necessary resample
 			if (!bStereo) {
@@ -258,7 +259,7 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 			}
 		}
 
-		iBufferFilled += outlen;
+		iBufferFilled += outlen * channels;
 	} while (iBufferFilled < sampleCount);
 
 	if (eof && !bEof) {
