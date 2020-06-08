@@ -575,6 +575,7 @@ CoreAudioOutput::CoreAudioOutput() {
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to query for allowed buffer size ranges.");
 	} else {
+		setBufferSize(range.mMaximum);
 		qWarning("CoreAudioOutput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 	}
 
