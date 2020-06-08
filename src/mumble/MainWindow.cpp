@@ -166,7 +166,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qmListener, SIGNAL(aboutToShow()), this, SLOT(qmListener_aboutToShow()));
-	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
+	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarText(QString)));
+	connect(qteChat, SIGNAL(pastedImage(QString)), this, SLOT(sendChatbarMessage(QString)));
 
 	// Tray
 	connect(qstiIcon, SIGNAL(messageClicked()), this, SLOT(showRaiseWindow()));
@@ -1942,26 +1943,29 @@ void MainWindow::on_qaQuit_triggered() {
 	this->close();
 }
 
-void MainWindow::sendChatbarMessage(QString qsText) {
+void MainWindow::sendChatbarText(QString qsText) {
+	qsText = qsText.toHtmlEscaped();
+	qsText = Markdown::markdownToHTML(qsText);
+	sendChatbarMessage(qsText);
+}
+
+void MainWindow::sendChatbarMessage(QString qsMessage) {
 	if (g.uiSession == 0) return; // Check if text & connection is available
 
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
-
-	qsText = qsText.toHtmlEscaped();
-	qsText = Markdown::markdownToHTML(qsText);
 
 	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel message
 		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
-		g.sh->sendChannelTextMessage(c->iId, qsText, false);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+		g.sh->sendChannelTextMessage(c->iId, qsMessage, false);
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsMessage), tr("Message to channel %1").arg(c->qsName), true);
 	} else {
 		// User message
-		g.sh->sendUserTextMessage(p->uiSession, qsText);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true);
+		g.sh->sendUserTextMessage(p->uiSession, qsMessage);
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsMessage), tr("Message to %1").arg(p->qsName), true);
 	}
 
 	qteChat->clear();
