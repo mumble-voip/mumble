@@ -47,6 +47,7 @@ class ChatbarTextEdit : public QTextEdit {
 		QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 		QSize sizeHint() const Q_DECL_OVERRIDE;
 		void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
+		void insertFromMimeData(const QMimeData *source) Q_DECL_OVERRIDE;
 	public:
 		void setDefaultText(const QString &, bool = false);
 		unsigned int completeAtCursor();
@@ -55,6 +56,7 @@ class ChatbarTextEdit : public QTextEdit {
 		void backtabPressed(void);
 		void ctrlSpacePressed(void);
 		void entered(QString);
+		void pastedImage(QString);
 	public slots:
 		void pasteAndSend_triggered();
 		void doResize();
