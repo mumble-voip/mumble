@@ -1,0 +1,24 @@
+<!-- Copyright 2020 The Mumble Developers. All rights reserved.
+     Use of this source code is governed by a BSD-style license
+     that can be found in the LICENSE file at the root of the
+     Mumble source tree or at <https://www.mumble.info/LICENSE>. -->
+
+<CPackWiXPatch>
+	<CPackWiXFragment Id="CM_C_mumble_server" Display="expand">
+		<Feature Id="CM_SHORTCUT_F_mumble_server"
+			Title="Program Group"
+			Description="Create Menu Program Group"
+			InstallDefault="followParent"
+			AllowAdvertise="no">
+			<ComponentRef Id="CM_SHORTCUT_mumble_server" />
+		</Feature>
+
+		<Feature Id="CM_SHORTCUT_DESKTOP_F_mumble_server"
+			Title="Desktop Shortcut"
+			Description="Create Desktop Shortcut"
+			InstallDefault="followParent"
+			AllowAdvertise="no">
+			<ComponentRef Id="CM_SHORTCUT_DESKTOP_mumble_server" />
+		</Feature>
+	</CPackWiXFragment>
+</CPackWiXPatch>
