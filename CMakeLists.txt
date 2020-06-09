@@ -1,0 +1,97 @@
+# Copyright 2019-2020 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+cmake_minimum_required(VERSION 3.15)
+
+cmake_policy(SET CMP0079 NEW)
+cmake_policy(SET CMP0091 NEW)
+
+set(version "1.4.0" CACHE STRING "Project version")
+
+string(REGEX MATCH "[0-9].[0-9].[0-9]" version_short ${version})
+
+project(Mumble
+	VERSION ${version_short}
+	DESCRIPTION "Open source, low-latency, high quality voice chat software primarily intended for use while gaming."
+	HOMEPAGE_URL "https://www.mumble.info"
+	LANGUAGES "C" "CXX"
+)
+
+message(STATUS "Mumble version: ${version}")
+
+set(3RDPARTY_DIR "${CMAKE_SOURCE_DIR}/3rdparty")
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
+
+list(APPEND CMAKE_MODULE_PATH
+	"${CMAKE_SOURCE_DIR}/cmake"
+	"${CMAKE_SOURCE_DIR}/cmake/FindModules"
+)
+
+include(pkg-utils)
+include(CTest)
+
+option(BUILD_TESTING "Build tests." OFF)
+
+option(optimize "Build a heavily optimized version, specific to the machine it's being compiled on." OFF)
+option(static "Build static binaries." OFF)
+option(symbols "Build binaries in a way that allows easier debugging." OFF)
+option(warnings-as-errors "All warnings are treated as errors." OFF)
+
+option(dpkg-buildflags "Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS from dpkg-buildflags to the build flags." OFF)
+
+option(overlay "Build overlay." ON)
+option(plugins "Build plugins." ON)
+
+# We support the "Debug" and "Release" configurations.
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+	"Debug"
+	"Release"
+)
+
+# CMAKE_CONFIGURATION_TYPES exists with multi configuration generators, such as Visual Studio.
+if(CMAKE_CONFIGURATION_TYPES)
+	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+endif()
+
+# We set the CMake configuration to "Release", in case it's not set.
+if(NOT CMAKE_CONFIGURATION_TYPES)
+	if(NOT CMAKE_BUILD_TYPE)
+		set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
+	elseif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+		add_definitions(
+			"-DDEBUG"
+			"-DSNAPSHOT_BUILD"
+		)
+	elseif(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+		message(FATAL_ERROR "Unsupported build type! Please choose either \"Debug\" or \"Release\".")
+	endif()
+endif()
+
+include(compiler)
+include(os)
+
+add_subdirectory(src)
+
+if(g15 AND WIN32)
+	add_subdirectory(g15helper)
+endif()
+
+if(overlay AND client)
+	if(WIN32)
+		add_subdirectory(overlay)
+	else()
+		add_subdirectory(overlay_gl)
+
+		if(APPLE)
+			add_subdirectory(macx/osax)
+		endif()
+	endif()
+endif()
+
+if(plugins AND client)
+	add_subdirectory(plugins)
+endif()
