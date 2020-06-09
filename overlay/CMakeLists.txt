@@ -127,6 +127,8 @@ else()
 			${CMAKE_SOURCE_DIR}
 			${CMAKE_CURRENT_BINARY_DIR}
 	)
+
+	install(TARGETS overlay RUNTIME DESTINATION . COMPONENT mumble_client)
 endif()
 
 if(64_BIT)
@@ -185,6 +187,7 @@ if(64_BIT AND MSVC)
 			INSTALL_COMMAND ""
 		)
 	endif()
+	install(FILES ${CMAKE_BINARY_DIR}/mumble_ol.dll ${CMAKE_BINARY_DIR}/mumble_ol_helper.exe DESTINATION . COMPONENT mumble_client)
 endif()
 
 add_subdirectory(overlay_exe)

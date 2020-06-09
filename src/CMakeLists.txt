@@ -155,6 +155,12 @@ endif()
 
 if(client)
 	add_subdirectory(mumble)
+
+	if(UNIX AND NOT APPLE)
+		install(FILES "${CMAKE_SOURCE_DIR}/scripts/mumble.appdata.xml" DESTINATION "share/metainfo")
+		install(FILES "${CMAKE_SOURCE_DIR}/scripts/mumble.desktop" DESTINATION "share/applications")
+		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble.svg" DESTINATION "share/icons/hicolor/scalable/apps")
+	endif()
 endif()
 
 if(server)

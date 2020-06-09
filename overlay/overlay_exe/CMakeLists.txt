@@ -38,6 +38,8 @@ else()
 	set_target_properties(overlay_exe PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 	target_include_directories(overlay_exe PRIVATE ${CMAKE_SOURCE_DIR}/overlay)
+
+	install(TARGETS overlay_exe RUNTIME DESTINATION . COMPONENT mumble_client)
 endif()
 
 if(MSVC)

@@ -288,6 +288,16 @@ set_target_properties(mumble
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
+if(WIN32)
+	install(TARGETS mumble RUNTIME DESTINATION . COMPONENT mumble_client)
+else()
+	if(NOT APPLE)
+		install(TARGETS mumble RUNTIME DESTINATION bin COMPONENT mumble_client)
+	else()
+		install(TARGETS mumble BUNDLE DESTINATION . COMPONENT mumble_client)
+	endif()
+endif()
+
 target_compile_definitions(mumble
 	PRIVATE
 		"MUMBLE"
@@ -480,9 +490,11 @@ if(bundled-opus)
 	if(WIN32)
 		# Shared library on Windows (e.g. ".dll")
 		set_target_properties(opus PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS opus RUNTIME DESTINATION . COMPONENT mumble_client)
 	else()
 		# Shared library on UNIX (e.g. ".so")
 		set_target_properties(opus PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS opus LIBRARY DESTINATION lib)
 	endif()
 else()
 	find_pkg(Opus CONFIG REQUIRED)
@@ -497,11 +509,15 @@ if(bundled-celt)
 
 	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/celt-0.7.0-src/libcelt")
 
-	set_target_properties(celt
-		PROPERTIES
-			LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} # Shared library on UNIX (e.g. ".so")
-			RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} # Shared library on Windows (e.g. ".dll")
-	)
+	if(WIN32)
+		# Shared library on Windows (e.g. ".dll")
+		set_target_properties(celt PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS celt RUNTIME DESTINATION . COMPONENT mumble_client)
+	else()
+		# Shared library on UNIX (e.g. ".so")
+		set_target_properties(celt PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS celt LIBRARY DESTINATION lib)
+	endif()
 else()
 	find_pkg(celt REQUIRED)
 	add_dependencies(mumble PRIVATE ${celt_LIBRARIES})
@@ -510,11 +526,13 @@ endif()
 
 if(bundled-speex)
 	add_subdirectory("${3RDPARTY_DIR}/speex-build" "${CMAKE_CURRENT_BINARY_DIR}/speex")
-
-	# Shared library on Windows (e.g. ".dll")
-	set_target_properties(speex PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-
 	target_link_libraries(mumble PRIVATE speex)
+
+	if(WIN32)
+		# Shared library on Windows (e.g. ".dll")
+		set_target_properties(speex PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS speex RUNTIME DESTINATION . COMPONENT mumble_client)
+	endif()
 else()
 	find_pkg(speex REQUIRED)
 	find_pkg(speexdsp REQUIRED)

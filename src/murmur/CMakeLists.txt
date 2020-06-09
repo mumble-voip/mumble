@@ -301,3 +301,9 @@ if(ice)
 			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
 	)
 endif()
+
+if(WIN32)
+	install(TARGETS murmur RUNTIME DESTINATION . COMPONENT mumble_server)
+else()
+	install(TARGETS murmur RUNTIME DESTINATION bin COMPONENT mumble_server)
+endif()
