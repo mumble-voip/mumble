@@ -57,7 +57,7 @@ def codesign(path):
 	for p in path:
 		identifier = lookup_file_identifier(p)
 		reqs = None
-		with open('macx/scripts/codesign-requirements.tmpl', 'r') as f:
+		with open(os.path.join(options.source_dir, 'macx/scripts/codesign-requirements.tmpl'), 'r') as f:
 			tmplReqs = f.read()
 			reqs = string.Template(tmplReqs).substitute({
 				'identifier': identifier,
@@ -82,21 +82,24 @@ def prodsign(inf, outf):
 def create_overlay_package():
 	print '* Creating overlay installer'
 
-	bundle = os.path.join('release', 'MumbleOverlay.osax')
-	overlaylib = os.path.join('release', 'libmumbleoverlay.dylib')
+	bundle = os.path.join(options.binary_dir, 'MumbleOverlay.osax')
+	overlaylib = os.path.join(options.binary_dir, 'libmumbleoverlay.dylib')
 	if options.developer_id:
 		codesign(bundle)
 		codesign(overlaylib)
-	p = Popen(('./macx/scripts/build-overlay-installer',))
+
+	# Used as background in the installer
+	shutil.copy(os.path.join(options.source_dir, 'icons/mumble.osx.installer.png'), os.path.join(options.binary_dir, 'bg.png'))
+
+	p = Popen(os.path.join(os.path.abspath(options.source_dir), 'macx/scripts/build-overlay-installer'), cwd=options.binary_dir)
 	retval = p.wait()
 	if retval != 0:
 		raise Exception('build-overlay-installer failed')
 	if options.developer_id:
-		os.rename('release/MumbleOverlay.pkg', 'release/MumbleOverlayUnsigned.pkg')
-		prodsign('release/MumbleOverlayUnsigned.pkg', 'release/MumbleOverlay.pkg')
+		os.rename(os.path.join(options.binary_dir, 'MumbleOverlay.pkg'), os.path.join(options.binary_dir, 'MumbleOverlayUnsigned.pkg'))
+		prodsign(os.path.join(options.binary_dir, 'MumbleOverlayUnsigned.pkg'), os.path.join(options.binary_dir, 'MumbleOverlay.pkg'))
 
 class AppBundle(object):
-
 	def copy_helper(self, fn):
 		'''
 			Copy a helper binary into the Mumble app bundle.
@@ -125,7 +128,7 @@ class AppBundle(object):
 				shutil.copy(rsrc, os.path.join(rsrcpath, b))
 
 		# Extras
-		shutil.copy('release/MumbleOverlay.pkg', os.path.join(rsrcpath, 'MumbleOverlay.pkg'))
+		shutil.copy(os.path.join(options.binary_dir, 'MumbleOverlay.pkg'), os.path.join(rsrcpath, 'MumbleOverlay.pkg'))
 
 	def copy_codecs(self):
 		'''
@@ -134,7 +137,7 @@ class AppBundle(object):
 		print ' * Attempting to copy audio codec libraries into App Bundle'
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
 		os.makedirs(dst)
-		codecs = ('release/libcelt0.0.7.0.dylib', 'release/libopus.dylib')
+		codecs = (os.path.join(options.binary_dir, 'libcelt0.0.7.0.dylib'), os.path.join(options.binary_dir, 'libopus.dylib'))
 		for codec in codecs:
 			if os.path.exists(codec):
 				shutil.copy(codec, dst)
@@ -147,7 +150,7 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Plugins')
 		if os.path.exists(dst):
 			shutil.rmtree(dst)
-		shutil.copytree('release/plugins/', dst, symlinks=True)
+		shutil.copytree(os.path.join(options.binary_dir, 'plugins'), dst, symlinks=True)
 
 	def update_plist(self):
 		'''
@@ -261,15 +264,11 @@ def package_client():
 	else:
 		ver = gitrev()
 	if options.universal:
-		fn = 'release/Mumble-Universal-%s.dmg' % ver
+		fn = os.path.join(options.binary_dir, 'Mumble-Universal-%s.dmg') % ver
 		title = 'Mumble %s (Universal)' % ver
 	else:
-		fn = 'release/Mumble-%s.dmg' % ver
+		fn = os.path.join(options.binary_dir, 'Mumble-%s.dmg') % ver
 		title = 'Mumble %s' % ver
-
-	if not os.path.exists('release'):
-		print 'This script needs to be run from the root of the Mumble source tree.'
-		sys.exit(1)
 
 	# Fix overlay installer package
 	create_overlay_package()
@@ -277,12 +276,12 @@ def package_client():
 		sys.exit(0)
 
 	# Do the finishing touches to our Application bundle before release
-	a = AppBundle('release/Mumble.app', ver)
+	a = AppBundle(os.path.join(options.binary_dir, 'Mumble.app'), ver)
 	a.copy_helper('mumble-g15-helper')
 	a.copy_helper('sbcelt-helper')
 	a.copy_codecs()
 	a.copy_plugins()
-	a.copy_resources(['icons/mumble.icns'])
+	a.copy_resources([os.path.join(options.source_dir, 'icons/mumble.icns')])
 	a.update_plist()
 	if not options.universal:
 		a.set_min_macosx_version('10.9.0')
@@ -294,13 +293,13 @@ def package_client():
 	if options.developer_id:
 		print ' * Signing binaries with Developer ID `%s\'' % options.developer_id
 		binaries = (
-			'release/Mumble.app',
-			'release/Mumble.app/Contents/Plugins/liblink.dylib',
-			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
-			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
-			'release/Mumble.app/Contents/Codecs/libopus.dylib',
-			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
-			'release/Mumble.app/Contents/MacOS/sbcelt-helper',
+			os.path.join(options.binary_dir, 'Mumble.app'),
+			os.path.join(options.binary_dir, 'Mumble.app/Contents/Plugins/liblink.dylib'),
+			os.path.join(options.binary_dir, 'Mumble.app/Contents/Plugins/libmanual.dylib'),
+			os.path.join(options.binary_dir, 'Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib'),
+			os.path.join(options.binary_dir, 'Mumble.app/Contents/Codecs/libopus.dylib'),
+			os.path.join(options.binary_dir, 'Mumble.app/Contents/MacOS/mumble-g15-helper'),
+			os.path.join(options.binary_dir, 'Mumble.app/Contents/MacOS/sbcelt-helper'),
 		)
 		availableBinaries = [bin for bin in binaries if os.path.exists(bin)]
 		codesign(availableBinaries)
@@ -311,9 +310,9 @@ def package_client():
 
 	# Create diskimage
 	d = DiskImage(fn, title)
-	d.copy('macx/scripts/DS_Store', '/.DS_Store')
+	d.copy(os.path.join(options.source_dir, 'macx/scripts/DS_Store'), '/.DS_Store')
 	d.symlink('/Applications', '/Applications')
-	d.copy('release/Mumble.app')
+	d.copy(os.path.join(options.binary_dir, 'Mumble.app'))
 	d.create()
 
 def package_server():
@@ -325,37 +324,37 @@ def package_server():
 	name = 'Murmur-OSX-Static-%s' % ver
 
 	# Fix .ini files
-	p = Popen(('bash', 'mkini.sh'), cwd='scripts')
+	p = Popen(('bash', 'mkini.sh'), cwd=os.path.join(options.source_dir, 'scripts'))
 	retval = p.wait()
 	if retval != 0:
-		raise Exception('build-overlay-installer failed')
+		raise Exception('mkini.sh failed')
 
-	destdir = os.path.join('release', name)
+	destdir = os.path.join(options.binary_dir, name)
 	if os.path.exists(destdir):
 		shutil.rmtree(destdir)
 	os.mkdir(destdir)
 
-	shutil.copy('installer/gpl.txt', os.path.join(destdir, 'LICENSE'))
-	shutil.copy('docs/additional-readmes/README.static.osx', os.path.join(destdir, 'README'))
-	shutil.copy('CHANGES', os.path.join(destdir, 'CHANGES'))
-	shutil.copy('scripts/murmur.pl', os.path.join(destdir, 'murmur.pl'))
-	shutil.copy('scripts/weblist.pl', os.path.join(destdir, 'weblist.pl'))
-	shutil.copy('scripts/icedemo.php', os.path.join(destdir, 'icedemo.php'))
-	shutil.copy('scripts/weblist.php', os.path.join(destdir, 'weblist.php'))
-	shutil.copy('scripts/murmur.ini.osx', os.path.join(destdir, 'murmur.ini'))
-	shutil.copy('src/murmur/Murmur.ice', os.path.join(destdir, 'Murmur.ice'))
+	shutil.copy(os.path.join(options.binary_dir, 'installer/gpl.txt'), os.path.join(destdir, 'LICENSE'))
+	shutil.copy(os.path.join(options.binary_dir, 'docs/additional-readmes/README.static.osx'), os.path.join(destdir, 'README'))
+	shutil.copy(os.path.join(options.binary_dir, 'CHANGES'), os.path.join(destdir, 'CHANGES'))
+	shutil.copy(os.path.join(options.binary_dir, 'scripts/murmur.pl'), os.path.join(destdir, 'murmur.pl'))
+	shutil.copy(os.path.join(options.binary_dir, 'scripts/weblist.pl'), os.path.join(destdir, 'weblist.pl'))
+	shutil.copy(os.path.join(options.binary_dir, 'scripts/icedemo.php'), os.path.join(destdir, 'icedemo.php'))
+	shutil.copy(os.path.join(options.binary_dir, 'scripts/weblist.php'), os.path.join(destdir, 'weblist.php'))
+	shutil.copy(os.path.join(options.binary_dir, 'scripts/murmur.ini.osx'), os.path.join(destdir, 'murmur.ini'))
+	shutil.copy(os.path.join(options.binary_dir, 'src/murmur/Murmur.ice'), os.path.join(destdir, 'Murmur.ice'))
 
-	shutil.copy('release/murmurd', os.path.join(destdir, 'murmurd'))
+	shutil.copy(os.path.join(options.binary_dir, 'murmurd'), os.path.join(destdir, 'murmurd'))
 	codesign(os.path.join(destdir, 'murmurd'))
 
 	certname = 'Developer ID Installer: %s' % options.developer_id
-	p = Popen(('xip', '--keychain', options.keychain, '-s', certname, '--timestamp', destdir, os.path.join('release', name+'.xip')))
+	p = Popen(('xip', '--keychain', options.keychain, '-s', certname, '--timestamp', destdir, os.path.join(options.binary_dir, name+'.xip')))
 	retval = p.wait()
 	if retval != 0:
 		print 'Failed to build Murmur XIP package'
 		sys.exit(1)
 
-	absrelease = os.path.join(os.getcwd(), 'release')
+	absrelease = os.path.join(os.getcwd(), 'options.binary_dir')
 
 	p = Popen(('tar', '-cjpf', name+'.tar.bz2', name), cwd=absrelease)
 	retval = p.wait()
@@ -371,15 +370,25 @@ def package_server():
 
 if __name__ == '__main__':
 	parser = OptionParser()
+	parser.add_option('', '--source-dir', dest='source_dir', help='This sets the path to the repository. (Defaults to ".")', default='.')
+	parser.add_option('', '--binary-dir', dest='binary_dir', help='This sets the path to the folder containing binaries. It will also be used as output directory. (Defaults to "build")', default='build')
 	parser.add_option('', '--version', dest='version', help='This overrides the version number of the build.')
 	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
 	parser.add_option('', '--developer-id', dest='developer_id', help='Identity (Developer ID) to use for code signing. The name is also used for GPG signing. (If not set, no code signing will occur)')
-	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to login.keychain', default='login.keychain')
+	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to "login.keychain")', default='login.keychain')
 	parser.add_option('', '--server', dest='server', help='Build a Murmur package.', action='store_true', default=False)
 
 	options, args = parser.parse_args()
+
+	if not os.path.exists(options.source_dir):
+		print 'Please specify a source directory that exists!'
+		sys.exit(1)
+
+	if not os.path.exists(options.binary_dir):
+		print 'Please specify a binary directory that exists!'
+		sys.exit(1)
 
 	if not options.server:
 		package_client()
