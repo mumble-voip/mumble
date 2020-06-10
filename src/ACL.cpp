@@ -104,7 +104,13 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 		return static_cast<Permissions>(All &~ (Speak|Whisper));
 	}
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
+	// Qt 5.15 introduced a default constructor that initializes the flags to be set to no flags
+	Permissions granted;
+#else
+	// Before Qt 5.15 we have emulate the default constructor by assigning a literal zero
 	Permissions granted = 0;
+#endif
 
 	if (cache) {
 		QHash<Channel *, Permissions> *h = cache->value(p);
