@@ -196,7 +196,12 @@ void MetaParams::read(QString fname) {
 
 	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+		foreach(const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
+#else
+		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
 		foreach(const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
+#endif
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(host)) {
 				qlBind << qhaddr;

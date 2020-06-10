@@ -25,7 +25,12 @@ void XMLTools::recurseParse(QXmlStreamReader &reader,
 		QStringRef styleref = a.value(QLatin1String("style"));
 		if (!styleref.isNull()) {
 			QString stylestring = styleref.toString();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+			QStringList styles = stylestring.split(QLatin1String(";"), Qt::SkipEmptyParts);
+#else
+			// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
 			QStringList styles = stylestring.split(QLatin1String(";"), QString::SkipEmptyParts);
+#endif
 			foreach(QString s, styles) {
 				s = s.simplified();
 				int idx = s.indexOf(QLatin1Char(':'));
