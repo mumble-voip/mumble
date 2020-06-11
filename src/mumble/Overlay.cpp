@@ -212,6 +212,11 @@ Overlay::~Overlay() {
 }
 
 void Overlay::setActive(bool act) {
+	if (!act && !m_initialized.load()) {
+		// Disabling when the Overlay hasn't been initialized yet, doesn't make much sense
+		return;
+	}
+
 	if (!m_initialized.load()) {
 		platformInit();
 		forceSettings();
