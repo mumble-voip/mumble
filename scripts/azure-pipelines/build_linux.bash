@@ -26,7 +26,7 @@ chmod a+x linuxdeployqt-continuous-x86_64.AppImage
 
 for f in Mumble*.AppImage; do
 	# Embed update information into AppImage
-	echo -n "zsync|https://dl.mumble.info/snapshot/latest-x86_64.AppImage.zsync" | dd of=$f seek=175720 conv=notrunc oflag=seek_bytes
+	echo -n "zsync|https://dl.mumble.info/nightly/latest-x86_64.AppImage.zsync" | dd of=$f seek=175720 conv=notrunc oflag=seek_bytes
 
 	# Generate zsync file for AppImage
 	zsyncmake $f
