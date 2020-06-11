@@ -215,6 +215,8 @@ void Overlay::setActive(bool act) {
 	if (!m_initialized.load()) {
 		platformInit();
 		forceSettings();
+
+		createPipe();
 	
 		m_initialized.store(true);
 	}
