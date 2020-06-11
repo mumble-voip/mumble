@@ -38,6 +38,10 @@
 # include <shlobj.h>
 #endif
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+	#include <QRandomGenerator>
+#endif
+
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
@@ -1460,7 +1464,12 @@ void ConnectDialog::fillList() {
 	}
 
 	while (! ql.isEmpty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+		ServerItem *si = static_cast<ServerItem *>(ql.takeAt(QRandomGenerator::global()->generate() % ql.count()));
+#else
+		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
 		ServerItem *si = static_cast<ServerItem *>(ql.takeAt(qrand() % ql.count()));
+#endif
 		qlNew << si;
 		qlItems << si;
 	}
@@ -1710,7 +1719,12 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 	if (qhPingRand.contains(addr)) {
 		uiRand = qhPingRand.value(addr);
 	} else {
+#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+		uiRand = QRandomGenerator::global()->generate64() << 32;
+#else
+		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
 		uiRand = (static_cast<quint64>(qrand()) << 32) | static_cast<quint64>(qrand());
+#endif
 		qhPingRand.insert(addr, uiRand);
 	}
 

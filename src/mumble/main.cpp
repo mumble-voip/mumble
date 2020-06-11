@@ -127,7 +127,10 @@ int main(int argc, char **argv) {
 
 	Global::g_global_struct = new Global();
 
+#if QT_VERSION < QT_VERSION_CHECK(5,10,0)
+	// For Qt >= 5.10 we use QRandomNumberGenerator that is seeded automatically
 	qsrand(QDateTime::currentDateTime().toTime_t());
+#endif
 
 	g.le = QSharedPointer<LogEmitter>(new LogEmitter());
 	g.c = new DeveloperConsole();

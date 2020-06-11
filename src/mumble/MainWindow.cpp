@@ -3198,9 +3198,14 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
+		// Qt 5.15 introduced a default constructor that initializes the flags to be set to no flags
+		Qt::WindowFlags wf;
+#elif defined(Q_OS_MAC)
+		Qt::WindowFlags wf = Qt::Sheet;
+#else
+		// Before Qt 5.15 we have emulate the default constructor by assigning a literal zero
 		Qt::WindowFlags wf = 0;
-#ifdef Q_OS_MAC
-		wf = Qt::Sheet;
 #endif
 
 		bool matched = true;

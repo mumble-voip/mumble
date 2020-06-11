@@ -108,8 +108,6 @@ out:
 }
 
 void MumbleSSL::addSystemCA() {
-	QSslSocket::addDefaultCaCertificates(QSslConfiguration::systemCaCertificates());
-
 #ifdef Q_OS_WIN
 	// Work around issue #1271.
 	// Skype's click-to-call feature creates an enormous

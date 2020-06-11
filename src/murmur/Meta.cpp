@@ -36,6 +36,10 @@
 # include <sys/resource.h>
 #endif
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+	#include <QRandomGenerator>
+#endif
+
 MetaParams Meta::mp;
 
 #ifdef Q_OS_WIN
@@ -196,7 +200,12 @@ void MetaParams::read(QString fname) {
 
 	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+		foreach(const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
+#else
+		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
 		foreach(const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
+#endif
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(host)) {
 				qlBind << qhaddr;
@@ -383,7 +392,12 @@ void MetaParams::read(QString fname) {
 	bool bObfuscate = typeCheckedFromSettings("obfuscate", false);
 	if (bObfuscate) {
 		qWarning("IP address obfuscation enabled.");
+#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+		iObfuscate = QRandomGenerator::global()->generate();
+#else
+		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
 		iObfuscate = qrand();
+#endif
 	}
 	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
 	bAllowPing = typeCheckedFromSettings("allowping", bAllowPing);

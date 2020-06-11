@@ -244,7 +244,10 @@ int main(int argc, char **argv) {
 	bool logGroups = false;
 	bool logACL = false;
 
+#if QT_VERSION < QT_VERSION_CHECK(5,10,0)
+	// For Qt >= 5.10 we use QRandomNumberGenerator that is seeded automatically
 	qsrand(QDateTime::currentDateTime().toTime_t());
+#endif
 
 	qInstallMessageHandler(murmurMessageOutputWithContext);
 
