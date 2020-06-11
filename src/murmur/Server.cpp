@@ -1329,6 +1329,25 @@ void Server::newClient() {
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
 
+		QSslConfiguration config = sock->sslConfiguration();
+#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
+		// Qt 5.15 introduced QSslConfiguration::addCaCertificate(s) that should be preferred over the functions in QSslSocket
+
+		// Treat the leaf certificate as a root.
+		// This shouldn't strictly be necessary,
+		// and is a left-over from early on.
+		// Perhaps it is necessary for self-signed
+		// certs?
+		config.addCaCertificate(qscCert);
+
+		// Add CA certificates specified via
+		// murmur.ini's sslCA option.
+		config.addCaCertificates(Meta::mp.qlCA);
+
+		// Add intermediate CAs found in the PEM
+		// bundle used for this server's certificate.
+		config.addCaCertificates(qlIntermediates);
+#else
 		// Treat the leaf certificate as a root.
 		// This shouldn't strictly be necessary,
 		// and is a left-over from early on.
@@ -1343,13 +1362,13 @@ void Server::newClient() {
 		// Add intermediate CAs found in the PEM
 		// bundle used for this server's certificate.
 		sock->addCaCertificates(qlIntermediates);
-
-		QSslConfiguration cfg = sock->sslConfiguration();
-		cfg.setCiphers(Meta::mp.qlCiphers);
-#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-		cfg.setDiffieHellmanParameters(qsdhpDHParams);
 #endif
-		sock->setSslConfiguration(cfg);
+
+		config.setCiphers(Meta::mp.qlCiphers);
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+		config.setDiffieHellmanParameters(qsdhpDHParams);
+#endif
+		sock->setSslConfiguration(config);
 
 		if (qqIds.isEmpty()) {
 			log(QString("Session ID pool (%1) empty, rejecting connection").arg(iMaxUsers));
