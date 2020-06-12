@@ -2674,6 +2674,14 @@ Are you sure you wish to replace your certificate?
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unable to send image: too large.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to send image %1: too large.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
