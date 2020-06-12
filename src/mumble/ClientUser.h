@@ -21,6 +21,7 @@ class ClientUser : public QObject, public User {
 		Settings::TalkState tsState;
 		Timer tLastTalkStateChange;
 		bool bLocalIgnore;
+		bool bLocalIgnoreTTS;
 		bool bLocalMute;
 
 		float fPowerMin, fPowerMax;
@@ -67,6 +68,7 @@ class ClientUser : public QObject, public User {
 		void setDeaf(bool deaf);
 		void setSuppress(bool suppress);
 		void setLocalIgnore(bool ignore);
+		void setLocalIgnoreTTS(bool ignoreTTS);
 		void setLocalMute(bool mute);
 		void setSelfMute(bool mute);
 		void setSelfDeaf(bool deaf);

@@ -37,6 +37,9 @@ class Database : public QObject {
 		bool isLocalIgnored(const QString &hash);
 		void setLocalIgnored(const QString &hash, bool ignored);
 
+		bool isLocalIgnoredTTS(const QString &hash);
+		void setLocalIgnoredTTS(const QString &hash, bool ignoredTTS);
+
 		bool isLocalMuted(const QString &hash);
 		void setLocalMuted(const QString &hash, bool muted);
 

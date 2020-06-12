@@ -1526,6 +1526,8 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 	qmUser->addAction(qaUserLocalIgnore);
+	if (g.s.bTTS)
+		qmUser->addAction(qaUserLocalIgnoreTTS);
 	qmUser->addAction(qaUserLocalVolume);
 
 	if (isSelf)
@@ -1585,6 +1587,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(false);
 		qaUserLocalVolume->setEnabled(false);
 		qaUserLocalIgnore->setEnabled(false);
+		qaUserLocalIgnoreTTS->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
 		qaUserTextureReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
@@ -1595,6 +1598,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(! isSelf);
 		qaUserLocalVolume->setEnabled(! isSelf);
 		qaUserLocalIgnore->setEnabled(! isSelf);
+		qaUserLocalIgnoreTTS->setEnabled(! isSelf);
 		// If the server's version is less than 1.4.0 it won't support the new permission to reset a comment/avatar, so fall back to the old method
 		if (g.sh->uiVersion < 0x010400) {
 			qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
@@ -1610,6 +1614,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserPrioritySpeaker->setChecked(p->bPrioritySpeaker);
 		qaUserLocalMute->setChecked(p->bLocalMute);
 		qaUserLocalIgnore->setChecked(p->bLocalIgnore);
+		qaUserLocalIgnoreTTS->setChecked(p->bLocalIgnoreTTS);
 	}
 	updateMenuPermissions();
 }
@@ -1688,6 +1693,18 @@ void MainWindow::on_qaUserLocalIgnore_triggered() {
 	p->setLocalIgnore(ignored);
 	if (! p->qsHash.isEmpty())
 		g.db->setLocalIgnored(p->qsHash, ignored);
+}
+
+void MainWindow::on_qaUserLocalIgnoreTTS_triggered() {
+	ClientUser *p = getContextMenuUser();
+	if (!p)
+		return;
+
+	bool ignoredTTS = qaUserLocalIgnoreTTS->isChecked();
+
+	p->setLocalIgnoreTTS(ignoredTTS);
+	if (! p->qsHash.isEmpty())
+		g.db->setLocalIgnoredTTS(p->qsHash, ignoredTTS);
 }
 
 void MainWindow::on_qaUserLocalVolume_triggered() {
