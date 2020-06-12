@@ -89,6 +89,9 @@ class Overlay : public QObject {
 		/// A flag indicating if the platformInit has been called already
 		std::atomic<bool> m_initialized;
 
+		/// Initializes the overlay, if it hasn't been initialized yet
+		void initialize();
+
 		// These 2 functions (among others) are implemented by the system-specific backend
 		void platformInit();
 		void setActiveInternal(bool act);

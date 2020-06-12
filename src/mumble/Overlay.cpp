@@ -211,12 +211,7 @@ Overlay::~Overlay() {
 	}
 }
 
-void Overlay::setActive(bool act) {
-	if (!act && !m_initialized.load()) {
-		// Disabling when the Overlay hasn't been initialized yet, doesn't make much sense
-		return;
-	}
-
+void Overlay::initialize() {
 	if (!m_initialized.load()) {
 		platformInit();
 		forceSettings();
@@ -225,6 +220,16 @@ void Overlay::setActive(bool act) {
 	
 		m_initialized.store(true);
 	}
+}
+
+void Overlay::setActive(bool act) {
+	if (!act && !m_initialized.load()) {
+		// Disabling when the Overlay hasn't been initialized yet, doesn't make much sense
+		return;
+	}
+
+	// Make sure the Overlay is initialized
+	initialize();
 
 	setActiveInternal(act);
 }
