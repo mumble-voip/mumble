@@ -1947,6 +1947,8 @@ void MainWindow::sendChatbarText(QString qsText) {
 	qsText = qsText.toHtmlEscaped();
 	qsText = Markdown::markdownToHTML(qsText);
 	sendChatbarMessage(qsText);
+
+	qteChat->clear();
 }
 
 void MainWindow::sendChatbarMessage(QString qsMessage) {
@@ -1967,8 +1969,6 @@ void MainWindow::sendChatbarMessage(QString qsMessage) {
 		g.sh->sendUserTextMessage(p->uiSession, qsMessage);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsMessage), tr("Message to %1").arg(p->qsName), true);
 	}
-
-	qteChat->clear();
 }
 
 /**

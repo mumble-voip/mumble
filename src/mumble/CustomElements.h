@@ -42,12 +42,15 @@ class ChatbarTextEdit : public QTextEdit {
 		void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
 		void focusOutEvent(QFocusEvent *) Q_DECL_OVERRIDE;
 		void contextMenuEvent(QContextMenuEvent *) Q_DECL_OVERRIDE;
+		void dragEnterEvent(QDragEnterEvent *) Q_DECL_OVERRIDE;
+		void dragMoveEvent(QDragMoveEvent *) Q_DECL_OVERRIDE;
 		void dropEvent(QDropEvent *) Q_DECL_OVERRIDE;
 		bool event(QEvent *) Q_DECL_OVERRIDE;
 		QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 		QSize sizeHint() const Q_DECL_OVERRIDE;
 		void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 		void insertFromMimeData(const QMimeData *source) Q_DECL_OVERRIDE;
+		bool sendImagesFromMimeData(const QMimeData *source);
 	public:
 		void setDefaultText(const QString &, bool = false);
 		unsigned int completeAtCursor();
