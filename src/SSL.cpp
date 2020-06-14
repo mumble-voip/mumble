@@ -108,6 +108,17 @@ out:
 }
 
 void MumbleSSL::addSystemCA() {
+#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
+	// Qt 5.15 introduced adding certificates to the QSslConfiguration and deprecated doing so on QSslSocket
+	auto config = QSslConfiguration::defaultConfiguration();
+
+	config.addCaCertificates(QSslConfiguration::systemCaCertificates());
+
+	QSslConfiguration::setDefaultConfiguration(config);
+#else
+	QSslSocket::addDefaultCaCertificates(QSslConfiguration::systemCaCertificates());
+#endif
+
 #ifdef Q_OS_WIN
 	// Work around issue #1271.
 	// Skype's click-to-call feature creates an enormous
