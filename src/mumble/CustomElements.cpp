@@ -16,6 +16,7 @@
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QKeyEvent>
 #include <QtWidgets/QScrollBar>
+#include <QMimeData>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -98,9 +99,23 @@ void ChatbarTextEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	delete menu;
 }
 
+void ChatbarTextEdit::dragEnterEvent(QDragEnterEvent *evt) {
+	inFocus(true);
+	evt->acceptProposedAction();
+}
+
+void ChatbarTextEdit::dragMoveEvent(QDragMoveEvent *evt) {
+	inFocus(true);
+	evt->acceptProposedAction();
+}
+
 void ChatbarTextEdit::dropEvent(QDropEvent *evt) {
 	inFocus(true);
-	QTextEdit::dropEvent(evt);
+	if (sendImagesFromMimeData(evt->mimeData())) {
+		evt->acceptProposedAction();
+	} else {
+		QTextEdit::dropEvent(evt);
+	}
 }
 
 ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p), iHistoryIndex(-1) {
@@ -112,6 +127,7 @@ ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p), iHistoryIndex(-1) {
 
 	bDefaultVisible = true;
 	setDefaultText(tr("<center>Type chat message here</center>"));
+	setAcceptDrops(true);
 }
 
 QSize ChatbarTextEdit::minimumSizeHint() const {
@@ -150,6 +166,54 @@ void ChatbarTextEdit::setDefaultText(const QString &new_default, bool force) {
 		setHtml(qsDefaultText);
 		bDefaultVisible = true;
 	}
+}
+
+void ChatbarTextEdit::insertFromMimeData(const QMimeData *source) {
+	if (! sendImagesFromMimeData(source)){
+		QTextEdit::insertFromMimeData(source);
+	}
+}
+
+bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source){
+	if (source->hasImage()) {
+		// Process the image pasted onto the chatbar.
+		if (g.bAllowHTML) {
+			QImage image = qvariant_cast<QImage>(source->imageData());
+
+			QString imgHtml = QLatin1String("<br />") + Log::imageToImg(image);
+
+			if (static_cast<unsigned int>(imgHtml.length()) < g.uiImageLength) {
+				emit pastedImage(imgHtml);
+				return true;
+			} else {
+				g.l->log(Log::Information, tr("Unable to send image: too large."));
+			}
+		}
+	} else if (source->hasUrls()) {
+		// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
+		QList<QUrl> urlList = source->urls();
+
+		int count = 0;
+		for (int i = 0; i < urlList.size(); ++i)
+		{
+			QString path = urlList[i].toLocalFile();
+			QImage image(path);
+
+			if (image.isNull()) continue;
+
+			QString imgHtml = QLatin1String("<br />") + Log::imageToImg(image);
+
+			if (static_cast<unsigned int>(imgHtml.length()) < g.uiImageLength) {
+				emit pastedImage(imgHtml);
+				++count;
+			} else {
+				g.l->log(Log::Information, tr("Unable to send image %1: too large.").arg(path));
+			}
+		}
+
+		return (count > 0);
+	}
+	return false;
 }
 
 bool ChatbarTextEdit::event(QEvent *evt) {
