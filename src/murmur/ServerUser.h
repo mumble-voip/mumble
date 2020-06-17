@@ -20,6 +20,8 @@
 #include <QtCore/QStringList>
 #include <QtCore/QElapsedTimer>
 
+#include <string>
+
 #ifdef Q_OS_WIN
 # include <winsock2.h>
 #else
@@ -138,6 +140,8 @@ class ServerUser : public Connection, public User {
 
 		QList<int> qlCodecs;
 		bool bOpus;
+
+		QList<VoiceProtocol> qlSupportedVoiceProtocols;
 
 		QStringList qslAccessTokens;
 

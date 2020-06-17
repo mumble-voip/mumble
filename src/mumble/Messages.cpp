@@ -59,6 +59,26 @@
 		return; \
 	}
 
+/// This message is being received after the client send a Capabilities message with its preferred protocols inside.
+/// The server replies with a Capabilities message with only one protocol in it to indicate the protocol it has chosen.
+///
+void MainWindow::msgCapabilities(const MumbleProto::Capabilities &msg) {
+	if (msg.supported_protocols_size() == 0)
+		return;
+
+	ConnectionPtr c = g.sh->cConnection;
+
+	auto protocol_type = msg.supported_protocols(0);
+	switch (protocol_type) {
+		case MumbleProto::Capabilities_VoiceProtocol_UDP_OCB2:
+			c->vptVoiceProtocolType = VoiceProtocolType::UDP_OCB2;
+			c->initializeCipher();
+		case MumbleProto::Capabilities_VoiceProtocol_CUSTOM:
+		default:
+			break;
+	}
+}
+
 /// The authenticate message is being used by the client to send the authentication credentials to the server. Therefore the
 /// server won't send this message type to the client which is why this implementation does nothing.
 void MainWindow::msgAuthenticate(const MumbleProto::Authenticate &) {

@@ -19,6 +19,7 @@
 #include "Timer.h"
 #include "HostAddress.h"
 #include "Ban.h"
+#include "Connection.h"
 
 #ifndef Q_MOC_RUN
 # include <boost/function.hpp>

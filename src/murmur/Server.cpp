@@ -925,6 +925,9 @@ void Server::run() {
 bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
 	QMutexLocker l(&u->qmCrypt);
 
+	if (u->vptVoiceProtocolType == VoiceProtocolType::UNDEFINED)
+		return false;
+
 	if (u->csCrypt->isValid() && u->csCrypt->decrypt(reinterpret_cast<const unsigned char *>(encrypt), reinterpret_cast<unsigned char *>(plain), len))
 		return true;
 

@@ -21,6 +21,7 @@
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
 #include <memory>
+#include <utility>
 
 #ifdef Q_OS_WIN
 # include <ws2tcpip.h>
@@ -31,6 +32,20 @@ namespace protobuf {
 class Message;
 }
 }
+
+enum VoiceProtocolType {UNDEFINED, CUSTOM, UDP_OCB2};
+struct VoiceProtocol {
+	VoiceProtocolType protocolType;
+	std::string customProtocolName;
+	explicit VoiceProtocol (VoiceProtocolType t) {
+		protocolType = t;
+		customProtocolName = "";
+	}
+	explicit VoiceProtocol (std::string s) {
+		protocolType = VoiceProtocolType::CUSTOM;
+		customProtocolName = std::move(s);
+	}
+};
 
 class Connection : public QObject {
 	private:
@@ -68,6 +83,8 @@ class Connection : public QObject {
 		qint64 activityTime() const;
 		void resetActivityTime();
 
+		void initializeCipher();
+
 #ifdef MURMUR
 		/// qmCrypt locks access to csCrypt.
 		QMutex qmCrypt;
@@ -85,6 +102,7 @@ class Connection : public QObject {
 		/// Look up the local port of this Connection.
 		quint16 localPort() const;
 		bool bDisconnectedEmitted;
+		VoiceProtocolType vptVoiceProtocolType = VoiceProtocolType::UNDEFINED;
 
 		void setToS();
 #ifdef Q_OS_WIN

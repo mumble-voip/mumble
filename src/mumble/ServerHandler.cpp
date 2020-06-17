@@ -708,6 +708,14 @@ void ServerHandler::serverConnectionConnected() {
 
 	sendMessage(mpv);
 
+	// Set default cipher, in case the server doesn't support Capabilities message.
+	connection->vptVoiceProtocolType = VoiceProtocolType::UDP_OCB2;
+	connection->initializeCipher();
+	MumbleProto::Capabilities mpc;
+	mpc.add_supported_protocols(MumbleProto::Capabilities_VoiceProtocol_UDP_OCB2);
+
+	sendMessage(mpc);
+
 	MumbleProto::Authenticate mpa;
 	mpa.set_username(u8(qsUserName));
 	mpa.set_password(u8(qsPassword));

@@ -282,6 +282,27 @@ void MetaParams::read(QString fname) {
 		}
 	}
 
+	QString qsVoiceProtocol = qsSettings->value("voiceProtocolPreference", QString()).toString();
+	if (! qsVoiceProtocol.isEmpty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+		foreach(const QString &protocol_name, qsHost.split(',', Qt::SkipEmptyParts)) {
+#else
+		// Qt 5.14 introduced the Qt::SplitBehavior flags deprecating the QString fields
+		foreach(const QString &protocol_name, qsHost.split(',', QString::SkipEmptyParts)) {
+#endif
+			QString protocol_trimmed_lower = protocol_name.trimmed().toLower();
+			if (protocol_trimmed_lower == "udp_ocb2"){
+				qlAllowedVoiceProtocolTypes.append(VoiceProtocolType::UDP_OCB2);
+				qInfo("Meta: Add UDP_OCB2 into voice protocol preference list.");
+			}
+		}
+	} else {
+		// Fall back to default protocol
+		qlAllowedVoiceProtocolTypes.append(VoiceProtocolType::UDP_OCB2);
+		qInfo("Meta: No voice protocol preference set. Use UDP_OCB2 as default voice protocol.");
+	}
+
+
 	qsPassword = typeCheckedFromSettings("serverpassword", qsPassword);
 	usPort = static_cast<unsigned short>(typeCheckedFromSettings("port", static_cast<uint>(usPort)));
 	iTimeout = typeCheckedFromSettings("timeout", iTimeout);

@@ -155,6 +155,61 @@ bool isChannelEnterRestricted(Channel *c) {
 	return false;
 }
 
+/// Process the Capabilities message, used to negotiate voice protocol.
+/// See the doc in Mumble.proto for details about this message.
+///
+/// @param uSource ServerUser that receives this message.
+/// @param msg The message itself.
+void Server::msgCapabilities(ServerUser *uSource, MumbleProto::Capabilities &msg) {
+	MSG_SETUP(ServerUser::Connected);
+	int custom_index = 0;
+	for (int i = 0; i < msg.supported_protocols_size(); ++i){
+		auto protocol_type = msg.supported_protocols(i);
+		switch (protocol_type) {
+			case MumbleProto::Capabilities_VoiceProtocol_UDP_OCB2:
+				uSource->qlSupportedVoiceProtocols.append(VoiceProtocol(VoiceProtocolType::UDP_OCB2));
+				break;
+			case MumbleProto::Capabilities_VoiceProtocol_CUSTOM:
+				uSource->qlSupportedVoiceProtocols.append(VoiceProtocol(msg.custom_protocols(custom_index)));
+				++custom_index;
+				break;
+			default:
+				continue;
+		}
+	}
+	uSource->vptVoiceProtocolType = VoiceProtocolType::UNDEFINED;
+	for (int i = 0; i < Meta::mp.qlAllowedVoiceProtocolTypes.count()
+		&& uSource->vptVoiceProtocolType == VoiceProtocolType::UNDEFINED; ++i) {
+
+		for (int j = 0; j < uSource->qlSupportedVoiceProtocols.count(); ++j) {
+			if (uSource->qlSupportedVoiceProtocols[j].protocolType == Meta::mp.qlAllowedVoiceProtocolTypes[i]) {
+				uSource->vptVoiceProtocolType = Meta::mp.qlAllowedVoiceProtocolTypes[i];
+				break;
+			}
+		}
+	}
+
+	uSource->initializeCipher();
+
+	MumbleProto::Capabilities mpc;
+	switch (uSource->vptVoiceProtocolType) {
+		case VoiceProtocolType::UDP_OCB2:
+			mpc.add_supported_protocols(MumbleProto::Capabilities_VoiceProtocol_UDP_OCB2);
+			break;
+		default:
+			mpc.add_supported_protocols(MumbleProto::Capabilities_VoiceProtocol_UNDEFINED);
+	}
+	sendMessage(uSource, mpc);
+
+	if (uSource->sState == ServerUser::Authenticated) {
+		MumbleProto::CryptSetup mpcrypt;
+		mpcrypt.set_key(uSource->csCrypt->getRawKey());
+		mpcrypt.set_server_nonce(uSource->csCrypt->getEncryptIV());
+		mpcrypt.set_client_nonce(uSource->csCrypt->getDecryptIV());
+		sendMessage(uSource, mpcrypt);
+	}
+}
+
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
 	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
 		QStringList qsl;
@@ -290,6 +345,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	// Setup UDP encryption
 	{
+		if (uSource->vptVoiceProtocolType == VoiceProtocolType::UNDEFINED) {
+			// If no Capabilities message has been received
+			uSource->vptVoiceProtocolType = VoiceProtocolType::UDP_OCB2;
+			uSource->initializeCipher();
+		}
+
 		QMutexLocker l(&uSource->qmCrypt);
 
 		uSource->csCrypt->genKey();

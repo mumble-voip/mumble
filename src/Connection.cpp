@@ -29,7 +29,6 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket->setParent(this);
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
-	csCrypt = std::make_unique<CryptStateOCB2>();
 
 	static bool bDeclared = false;
 	if (! bDeclared) {
@@ -258,3 +257,15 @@ void Connection::setQoS(HANDLE hParentQoS) {
 	hQoS = hParentQoS;
 }
 #endif
+
+void Connection::initializeCipher() {
+	switch (vptVoiceProtocolType) {
+		case VoiceProtocolType::UDP_OCB2:
+			csCrypt = std::make_unique<CryptStateOCB2>();
+			break;
+		case VoiceProtocolType::UNDEFINED:
+		case VoiceProtocolType::CUSTOM:
+		default:
+			break;
+	}
+}

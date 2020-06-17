@@ -20,6 +20,35 @@ message Version {
 	optional string os_version = 4;
 }
 
+// Send after the version packet, indicate the protocol preference of the client.
+// - This message is not required for text-only clients. It can be send before or after
+//   the Authenticate message. However, it has be sent prior to a client attempts to send
+//   or receive any audio data.
+// - As reply, the server will send an Capabilities message as well, with only one item in
+//   the list, indicating the protocol it determines to use.
+// - In the middle of a session, a client can re-perform this negotiation by send a valid
+//   Capabilities packet again. A server may also request the client to use another Capabilities
+//   with the protocol it'd like to use inside.
+message Capabilities {
+	enum VoiceProtocol {
+		UNDEFINED = 0;  // Placeholder used by the server to indicate it doesn't support any protocol the client has provided.
+		CUSTOM = 1;
+		UDP_OCB2 = 2;
+	}
+
+	// A list of supported protocols of the client sent to the server, sort by preference.
+	// If the client wants to include a custom protocol that is not listed in VoiceProtocol,
+	// he can use CUSTOM as placeholders. Server will look up custom_protocols and map CUSTOM
+	// with the protocol names inside custom_protocols in turn.
+	repeated VoiceProtocol supported_protocols = 1;
+	// Protocol names used to fill the CUSTOM placeholders appear in supported_protocols.
+	repeated string custom_protocols = 2;
+
+	// Example. Client's preference: UDP_ChaCha, custom_x, UDP_OCB3, custom_y
+  //          Message it sends: supported_protocols = [UDP_ChaCha, CUSTOM, UDP_OCB3, CUSTOM]
+	//                            custom_protocols = ['custom_x', 'custom_y']
+}
+
 // Not used. Not even for tunneling UDP through TCP.
 message UDPTunnel {
 	// Not used.
