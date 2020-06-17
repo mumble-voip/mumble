@@ -140,6 +140,8 @@ public:
 	QList< int > qlCodecs;
 	bool bOpus;
 
+	QList< VoiceProtocol > supportedVoiceProtocols;
+
 	QStringList qslAccessTokens;
 
 	QMap< int, WhisperTarget > qmTargets;

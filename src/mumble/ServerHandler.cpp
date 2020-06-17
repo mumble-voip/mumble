@@ -29,6 +29,7 @@
 #include "ServerResolverRecord.h"
 #include "User.h"
 #include "Utils.h"
+#include "VoiceProtocolType.h"
 #include "Global.h"
 
 #include <QtCore/QtEndian>
@@ -216,10 +217,7 @@ void ServerHandler::udpReady() {
 			continue;
 
 		ConnectionPtr connection(cConnection);
-		if (!connection)
-			continue;
-
-		if (!connection->csCrypt->isValid())
+		if (!connection || !connection->csCrypt || !connection->csCrypt->isValid())
 			continue;
 
 		if (buflen < 5)
@@ -286,7 +284,7 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 		return;
 
 	ConnectionPtr connection(cConnection);
-	if (!connection || !connection->csCrypt->isValid())
+	if (!connection)
 		return;
 
 	if (!force && (NetworkConfig::TcpModeEnabled() || !bUdp)) {
@@ -300,7 +298,8 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 
 		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
 	} else {
-		if (!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto, len)) {
+		if (!connection->csCrypt || !connection->csCrypt->isValid() ||
+			!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto, len)) {
 			return;
 		}
 		qusUdp->writeDatagram(reinterpret_cast< const char * >(crypto), len + 4, qhaRemote, usResolvedPort);
@@ -564,7 +563,8 @@ void ServerHandler::sendPingInternal() {
 
 	quint64 t = tTimestamp.elapsed();
 
-	if (qusUdp) {
+	// Send UDP ping if UDP socket is ready and we are not in force TCP mode.
+	if (qusUdp && !NetworkConfig::TcpModeEnabled()) {
 		unsigned char buffer[256];
 		PacketDataStream pds(buffer + 1, 255);
 		buffer[0] = MessageHandler::UDPPing << 5;
@@ -575,10 +575,12 @@ void ServerHandler::sendPingInternal() {
 	MumbleProto::Ping mpp;
 
 	mpp.set_timestamp(t);
-	mpp.set_good(connection->csCrypt->uiGood);
-	mpp.set_late(connection->csCrypt->uiLate);
-	mpp.set_lost(connection->csCrypt->uiLost);
-	mpp.set_resync(connection->csCrypt->uiResync);
+	if (connection->csCrypt) {
+		mpp.set_good(connection->csCrypt->uiGood);
+		mpp.set_late(connection->csCrypt->uiLate);
+		mpp.set_lost(connection->csCrypt->uiLost);
+		mpp.set_resync(connection->csCrypt->uiResync);
+	}
 
 
 	if (boost::accumulators::count(accUDP)) {
@@ -622,7 +624,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		MumbleProto::Ping msg;
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
 			ConnectionPtr connection(cConnection);
-			if (!connection)
+			if (!connection || !connection->csCrypt)
 				return;
 
 			// Reset in-flight TCP ping counter to 0.
@@ -770,6 +772,14 @@ void ServerHandler::serverConnectionConnected() {
 
 	sendMessage(mpv);
 
+	// Set default cipher, in case the server doesn't support Capabilities message.
+	connection->voiceProtocolType = VoiceProtocolType::UDP_AES_128_OCB2;
+	connection->initializeCipher();
+	MumbleProto::Capabilities mpc;
+	mpc.add_supported_protocols(VoiceProtocol(VoiceProtocolType::UDP_AES_128_OCB2).toString());
+
+	sendMessage(mpc);
+
 	MumbleProto::Authenticate mpa;
 	mpa.set_username(u8(qsUserName));
 	mpa.set_password(u8(qsPassword));
@@ -788,6 +798,11 @@ void ServerHandler::serverConnectionConnected() {
 #endif
 	sendMessage(mpa);
 
+	// Initialize UDP socket
+	// Normally, UDP socket should be initialized only after the exchange of Capabilities
+	// message (server confirms that client supports UDP).
+	// However, old clients don't send Capabilities packet. Instead, they assume AES_128_OCB2 is used
+	// and wait for the CryptSetup message.
 	{
 		QMutexLocker qml(&qmUdp);
 

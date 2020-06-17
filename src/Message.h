@@ -13,7 +13,8 @@
 /**
   Protobuf packet type enumeration for message handler generation.
 
-  Warning: Only append to the end.
+  Warning: This list will be used to generate an enum so
+           ONLY APPEND NEW MESSAGE TYPE AT THE END OF IT.
  */
 #define MUMBLE_MH_ALL                  \
 	MUMBLE_MH_MSG(Version)             \
@@ -42,7 +43,8 @@
 	MUMBLE_MH_MSG(RequestBlob)         \
 	MUMBLE_MH_MSG(ServerConfig)        \
 	MUMBLE_MH_MSG(SuggestConfig)       \
-	MUMBLE_MH_MSG(PluginDataTransmission)
+    MUMBLE_MH_MSG(PluginDataTransmission) \
+	MUMBLE_MH_MSG(Capabilities)
 
 class MessageHandler {
 public:

@@ -129,6 +129,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	iCodecAlpha = iCodecBeta = 0;
 	bPreferAlpha             = false;
 	bOpus                    = true;
+	bUdp                     = true;
 
 	qnamNetwork = nullptr;
 
@@ -189,6 +190,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		if (sock == INVALID_SOCKET) {
 			log("Failed to create UDP Socket");
 			bValid = false;
+			bUdp = false;
 			return;
 		} else {
 			if (addr.ss_family == AF_INET6) {
@@ -210,6 +212,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 			if (::bind(sock, reinterpret_cast< sockaddr * >(&addr), len) == SOCKET_ERROR) {
 				log(QString("Failed to bind UDP Socket to %1").arg(addressToString(ss->serverAddress(), usPort)));
+				bUdp = false;
 			} else {
 #ifdef Q_OS_UNIX
 				int val = 0xe0;
@@ -980,9 +983,10 @@ void Server::run() {
 bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
 	QMutexLocker l(&u->qmCrypt);
 
-	if (u->csCrypt->isValid()
-		&& u->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypt),
-							   reinterpret_cast< unsigned char * >(plain), len))
+	if (u->voiceProtocolType != VoiceProtocolType::UDP_AES_128_OCB2)
+		return false;
+
+	if (u->csCrypt && u->csCrypt->isValid() && u->csCrypt->decrypt(reinterpret_cast<const unsigned char *>(encrypt), reinterpret_cast<unsigned char *>(plain), len))
 		return true;
 
 	if (u->csCrypt->tLastGood.elapsed() > 5000000ULL) {

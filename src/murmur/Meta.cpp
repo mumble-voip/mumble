@@ -296,10 +296,31 @@ void MetaParams::read(QString fname) {
 		}
 	}
 
-	qsPassword            = typeCheckedFromSettings("serverpassword", qsPassword);
-	usPort                = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
-	iTimeout              = typeCheckedFromSettings("timeout", iTimeout);
-	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
+	QString qsVoiceProtocol = qsSettings->value("voiceProtocolPreference", QString()).toString();
+	if (! qsVoiceProtocol.isEmpty()) {
+		for(const QString &protocol_name: qsHost.split(',')) {
+			QString protocol_upper = protocol_name.trimmed().toUpper();
+			if (protocol_upper.isEmpty()) continue;
+
+			VoiceProtocol protoc(protocol_upper.toStdString());
+			if (protoc.protocolType != VoiceProtocolType::UNSUPPORTED){
+				allowedVoiceProtocolTypes.append(protoc.protocolType);
+				qInfo("Meta: Add %s into voice protocol preference list.", qPrintable(protocol_upper));
+			} else {
+				qWarning("Meta: Ignore unsupported voice protocol %s.", qPrintable(protocol_upper));
+			}
+		}
+	} else {
+		// Fall back to default protocol
+		allowedVoiceProtocolTypes.append(VoiceProtocolType::UDP_AES_128_OCB2);
+		qInfo("Meta: No voice protocol preference set. Use UDP_AES_128_OCB2 as default voice protocol.");
+	}
+
+
+	qsPassword                 = typeCheckedFromSettings("serverpassword", qsPassword);
+	usPort                     = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
+	iTimeout                   = typeCheckedFromSettings("timeout", iTimeout);
+	iMaxTextMessageLength      = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength     = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
 	legacyPasswordHash         = typeCheckedFromSettings("legacypasswordhash", legacyPasswordHash);
 	kdfIterations              = typeCheckedFromSettings("kdfiterations", -1);

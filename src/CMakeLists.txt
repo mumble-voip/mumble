@@ -110,6 +110,7 @@ set(SHARED_HEADERS
 	"UnresolvedServerAddress.h"
 	"User.h"
 	"Version.h"
+	"VoiceProtocolType.h"
 
 	"crypto/CryptographicHash.h"
 	"crypto/CryptographicRandom.h"

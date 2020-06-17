@@ -7,6 +7,7 @@
 #define MUMBLE_MURMUR_META_H_
 
 #include "Timer.h"
+#include "Connection.h"
 
 #ifdef Q_OS_WIN
 #	include "win.h"
@@ -57,6 +58,8 @@ public:
 	QString qsWelcomeTextFile;
 	bool bCertRequired;
 	bool bForceExternalAuth;
+
+	QList<VoiceProtocolType> allowedVoiceProtocolTypes;
 
 	int iBanTries;
 	int iBanTimeframe;
