@@ -422,6 +422,9 @@ struct Settings {
 	
 	/// Removes the add and edit options in the connect dialog if set.
 	bool disableConnectDialogEditing;
+
+	/// Asks the user for consent to ping servers in the public server list if not set.
+	bool bPingServersDialogViewed;
 	
 	// Config updates
 	unsigned int uiUpdateCounter;
