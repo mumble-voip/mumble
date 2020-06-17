@@ -324,15 +324,15 @@ QString Log::formatChannel(::Channel *c) {
 	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(c->qsName.toHtmlEscaped()).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 }
 
-void Log::logOrDefer(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS) {
+void Log::logOrDefer(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS, bool ignoreTTS) {
 	if (g.l) {
 		// log directly as it seems the log-UI has been set-up already
-		g.l->log(mt, console, terse, ownMessage, overrideTTS);
+		g.l->log(mt, console, terse, ownMessage, overrideTTS, ignoreTTS);
 	} else {
 		// defer the log
 		QMutexLocker mLock(&Log::qmDeferredLogs);
 
-		qvDeferredLogs.append(LogMessage(mt, console, terse, ownMessage, overrideTTS));
+		qvDeferredLogs.append(LogMessage(mt, console, terse, ownMessage, overrideTTS, ignoreTTS));
 	}
 }
 
@@ -494,7 +494,7 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	}
 }
 
-void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS) {
+void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS, bool ignoreTTS) {
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
@@ -601,7 +601,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	}
 
 	// Message notification with Text-To-Speech
-	if (g.s.bDeaf || !g.s.bTTS || !(flags & Settings::LogTTS)) {
+	if (g.s.bDeaf || !g.s.bTTS || !(flags & Settings::LogTTS) || ignoreTTS) {
 		return;
 	}
 
@@ -658,7 +658,7 @@ void Log::processDeferredLogs() {
 	while (!qvDeferredLogs.isEmpty()) {
 		LogMessage msg = qvDeferredLogs.takeFirst();
 
-		log(msg.mt, msg.console, msg.terse, msg.ownMessage, msg.overrideTTS);
+		log(msg.mt, msg.console, msg.terse, msg.ownMessage, msg.overrideTTS, msg.ignoreTTS);
 	}
 }
 
@@ -682,8 +682,8 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 	}
 }
 
-LogMessage::LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS) : mt(mt), console(console),
-	terse(terse), ownMessage(ownMessage), overrideTTS(overrideTTS) {
+LogMessage::LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS, bool ignoreTTS) : mt(mt), console(console),
+	terse(terse), ownMessage(ownMessage), overrideTTS(overrideTTS), ignoreTTS(ignoreTTS) {
 }
 
 LogDocument::LogDocument(QObject *p)

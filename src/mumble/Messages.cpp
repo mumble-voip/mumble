@@ -504,6 +504,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			pDst->setLocalMute(true);
 		if (g.db->isLocalIgnored(pDst->qsHash))
 			pDst->setLocalIgnore(true);
+		if (g.db->isLocalIgnoredTTS(pDst->qsHash))
+			pDst->setLocalIgnoreTTS(true);
 		pDst->fLocalVolume = g.db->getUserLocalVolume(pDst->qsHash);
 	}
 
@@ -909,7 +911,8 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	         tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
 	         tr("Message from %1").arg(plainName),
 	         false,
-	         overrideTTS.isNull() ? QString() : overrideTTS);
+	         overrideTTS.isNull() ? QString() : overrideTTS,
+	         pSrc->bLocalIgnoreTTS);
 }
 
 /// This message is being received when the server informs the client about the access control list (ACL) for

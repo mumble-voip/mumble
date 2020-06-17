@@ -137,6 +137,9 @@ Database::Database(const QString &dbname) {
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `ignored` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `ignored_hash` ON `ignored`(`hash`)"));
 
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `ignored_tts` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `ignored_tts_hash` ON `ignored_tts`(`hash`)"));
+
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `volume` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT, `volume` FLOAT)"));
@@ -234,6 +237,26 @@ void Database::setLocalIgnored(const QString &hash, bool ignored) {
 		query.prepare(QLatin1String("INSERT INTO `ignored` (`hash`) VALUES (?)"));
 	else
 		query.prepare(QLatin1String("DELETE FROM `ignored` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	execQueryAndLogFailure(query);
+}
+
+bool Database::isLocalIgnoredTTS(const QString &hash) {
+	QSqlQuery query(db);
+
+	query.prepare(QLatin1String("SELECT `hash` FROM `ignored_tts` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	execQueryAndLogFailure(query);
+	return query.next();
+}
+
+void Database::setLocalIgnoredTTS(const QString &hash, bool ignoredTTS) {
+	QSqlQuery query(db);
+
+	if (ignoredTTS)
+		query.prepare(QLatin1String("INSERT INTO `ignored_tts` (`hash`) VALUES (?)"));
+	else
+		query.prepare(QLatin1String("DELETE FROM `ignored_tts` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	execQueryAndLogFailure(query);
 }

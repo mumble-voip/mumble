@@ -90,9 +90,9 @@ class Log : public QObject {
 		static QString formatChannel(::Channel *c);
 		/// Either defers the LogMessage or defers it, depending on whether Global::l is created already
 		/// (if it is, it is used to directly log the msg)
-		static void logOrDefer(Log::MsgType mt, const QString &console, const QString &terse=QString(), bool ownMessage = false, const QString &overrideTTS=QString());
+		static void logOrDefer(Log::MsgType mt, const QString &console, const QString &terse=QString(), bool ownMessage = false, const QString &overrideTTS=QString(), bool ignoreTTS = false);
 	public slots:
-		void log(MsgType mt, const QString &console, const QString &terse=QString(), bool ownMessage = false, const QString &overrideTTS=QString());
+		void log(MsgType mt, const QString &console, const QString &terse=QString(), bool ownMessage = false, const QString &overrideTTS=QString(), bool ignoreTTS = false);
 		/// Logs LogMessages that have been deferred so far
 		void processDeferredLogs();
 };
@@ -104,9 +104,10 @@ class LogMessage {
 		QString terse;
 		bool ownMessage;
 		QString overrideTTS;
+		bool ignoreTTS;
 
 		LogMessage() = default;
-		LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS);
+		LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS, bool ignoreTTS);
 };
 
 class LogDocument : public QTextDocument {

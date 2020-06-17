@@ -955,6 +955,20 @@ the channel's context menu.</string>
     <string>Joins the channel of this user.</string>
    </property>
   </action>
+  <action name="qaUserLocalIgnoreTTS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Disable Text-To-Speech</string>
+   </property>
+   <property name="toolTip">
+    <string>Locally disable Text-To-Speech for this user's text chat messages.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Silently disables Text-To-Speech for all text messages from the user.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

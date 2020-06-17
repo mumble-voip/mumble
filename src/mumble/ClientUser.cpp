@@ -19,6 +19,7 @@ ClientUser::ClientUser(QObject *p) : QObject(p),
 		tsState(Settings::Passive),
 		tLastTalkStateChange(false),
 		bLocalIgnore(false),
+		bLocalIgnoreTTS(false),
 		bLocalMute(false),
 		fPowerMin(0.0f),
 		fPowerMax(0.0f),
@@ -134,6 +135,8 @@ QString ClientUser::getFlagsString() const {
 		flags << ClientUser::tr("Deafened (server)");
 	if (bLocalIgnore)
 		flags << ClientUser::tr("Local Ignore (Text messages)");
+	if (bLocalIgnoreTTS)
+		flags << ClientUser::tr("Local Ignore (Text-To-Speech)");
 	if (bLocalMute)
 		flags << ClientUser::tr("Local Mute");
 	if (bSelfMute)
@@ -188,6 +191,10 @@ void ClientUser::setLocalIgnore(bool ignore) {
 		return;
 	bLocalIgnore = ignore;
 	emit muteDeafStateChanged();
+}
+
+void ClientUser::setLocalIgnoreTTS(bool ignoreTTS) {
+	bLocalIgnoreTTS = ignoreTTS;
 }
 
 void ClientUser::setLocalMute(bool mute) {

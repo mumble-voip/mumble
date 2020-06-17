@@ -2725,6 +2725,10 @@ Are you sure you wish to replace your certificate?
         <source>Deafened (self)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Local Ignore (Text-To-Speech)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConfigDialog</name>
@@ -6032,6 +6036,18 @@ Valid options are:
     </message>
     <message>
         <source>Chat message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Text-To-Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silently disables Text-To-Speech for all text messages from the user.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
