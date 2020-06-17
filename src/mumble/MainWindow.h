@@ -329,6 +329,12 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 		void removeContextAction(const MumbleProto::ContextActionModify &msg);
+		/// Logs a message that an action could not be saved permanently because
+		/// the user has no certificate and can't be reliably identified.
+		///
+		/// @param actionName  The name of the action that has been executed.
+		/// @param p  The user on which the action was performed.
+		void logChangeNotPermanent(const QString &actionName, ClientUser * const p) const;
 };
 
 #endif
