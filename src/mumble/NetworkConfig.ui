@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>576</width>
-    <height>567</height>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -337,6 +337,19 @@ Prevents the client from sending potentially identifying information about the o
         </property>
         <property name="text">
          <string>Submit anonymous statistics</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbDisablePublicList">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>When toggled this hides the public server list from the connect dialog</string>
+        </property>
+        <property name="text">
+         <string>Hide public server list</string>
         </property>
        </widget>
       </item>
