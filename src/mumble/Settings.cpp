@@ -412,6 +412,7 @@ Settings::Settings() {
 	bQoS = true;
 	bReconnect = true;
 	bAutoConnect = false;
+	bDisablePublicList = false;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 	iMaxInFlightTCPPings = 4;
@@ -437,7 +438,6 @@ Settings::Settings() {
 
 	// Special configuration options not exposed to UI
 	bDisableCELT = false;
-	disablePublicList = false;
 	disableConnectDialogEditing = false;
 	
 	// Config updates
@@ -758,7 +758,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bTCPCompat, "net/tcponly");
 	SAVELOAD(bQoS, "net/qos");
 	SAVELOAD(bReconnect, "net/reconnect");
-	SAVELOAD(bAutoConnect, "net/autoconnect");
+    	SAVELOAD(bAutoConnect, "net/autoconnect");
+    	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
 	SAVELOAD(bSuppressIdentity, "net/suppress");
 	LOADENUM(ptProxyType, "net/proxytype");
 	SAVELOAD(qsProxyHost, "net/proxyhost");
@@ -851,7 +852,6 @@ void Settings::load(QSettings* settings_ptr) {
 
 	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
-	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
 	// OverlayPrivateWin
@@ -1113,6 +1113,7 @@ void Settings::save() {
 	SAVELOAD(bQoS, "net/qos");
 	SAVELOAD(bReconnect, "net/reconnect");
 	SAVELOAD(bAutoConnect, "net/autoconnect");
+	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
 	SAVELOAD(ptProxyType, "net/proxytype");
 	SAVELOAD(qsProxyHost, "net/proxyhost");
 	SAVELOAD(usProxyPort, "net/proxyport");
@@ -1202,7 +1203,6 @@ void Settings::save() {
 
 	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
-	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
 	// OverlayPrivateWin

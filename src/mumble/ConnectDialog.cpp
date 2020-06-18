@@ -110,7 +110,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN = NULL;
 #endif
 
-	if (!g.s.disablePublicList) {
+	if (!g.s.bDisablePublicList) {
 		siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
 		siPublic->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 		addTopLevelItem(siPublic);

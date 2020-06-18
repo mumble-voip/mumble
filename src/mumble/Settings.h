@@ -345,6 +345,7 @@ struct Settings {
 	bool bReconnect;
 	bool bAutoConnect;
 	bool bQoS;
+	bool bDisablePublicList;
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
@@ -416,9 +417,6 @@ struct Settings {
 	
 	/// Codec kill-switch
 	bool bDisableCELT;
-	
-	/// Disables the "Public Internet" section in the connect dialog if set.
-	bool disablePublicList;
 	
 	/// Removes the add and edit options in the connect dialog if set.
 	bool disableConnectDialogEditing;
