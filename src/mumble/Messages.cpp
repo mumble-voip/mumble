@@ -912,7 +912,7 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	         tr("Message from %1").arg(plainName),
 	         false,
 	         overrideTTS.isNull() ? QString() : overrideTTS,
-	         pSrc->bLocalIgnoreTTS);
+	         pSrc ? pSrc->bLocalIgnoreTTS : false);
 }
 
 /// This message is being received when the server informs the client about the access control list (ACL) for
