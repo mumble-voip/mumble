@@ -1674,38 +1674,50 @@ void MainWindow::on_qaUserMute_triggered() {
 
 void MainWindow::on_qaUserLocalMute_triggered() {
 	ClientUser *p = getContextMenuUser();
-	if (!p)
+	if (!p) {
 		return;
+	}
 
 	bool muted = qaUserLocalMute->isChecked();
 
 	p->setLocalMute(muted);
-	if (! p->qsHash.isEmpty())
+	if (! p->qsHash.isEmpty()) {
 		g.db->setLocalMuted(p->qsHash, muted);
+	} else {
+		logChangeNotPermanent(QObject::tr("Local Mute"), p);
+	}
 }
 
 void MainWindow::on_qaUserLocalIgnore_triggered() {
 	ClientUser *p = getContextMenuUser();
-	if (!p)
+	if (!p) {
 		return;
+	}
 
 	bool ignored = qaUserLocalIgnore->isChecked();
 
 	p->setLocalIgnore(ignored);
-	if (! p->qsHash.isEmpty())
+	if (! p->qsHash.isEmpty()) {
 		g.db->setLocalIgnored(p->qsHash, ignored);
+	} else {
+		logChangeNotPermanent(QObject::tr("Ignore Messages"), p);
+	}
 }
 
 void MainWindow::on_qaUserLocalIgnoreTTS_triggered() {
 	ClientUser *p = getContextMenuUser();
-	if (!p)
+	if (!p) {
 		return;
+	}
 
 	bool ignoredTTS = qaUserLocalIgnoreTTS->isChecked();
 
 	p->setLocalIgnoreTTS(ignoredTTS);
-	if (! p->qsHash.isEmpty())
+	if (! p->qsHash.isEmpty()) {
 		g.db->setLocalIgnoredTTS(p->qsHash, ignoredTTS);
+	} else {
+		logChangeNotPermanent(QObject::tr("Disable Text-To-Speech"), p);
+	}
 }
 
 void MainWindow::on_qaUserLocalVolume_triggered() {
@@ -3522,6 +3534,10 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	retval.second = img;
 
 	return retval;
+}
+
+void MainWindow::logChangeNotPermanent(const QString &actionName, ClientUser * const p) const {
+	g.l->log(Log::Warning, QObject::tr("\"%1\" could not be saved permanently and is lost on restart because %2 does not have a certificate.").arg(actionName).arg(Log::formatClientUser(p, Log::Target)));
 }
 
 void MainWindow::destroyUserInformation() {

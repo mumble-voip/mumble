@@ -106,8 +106,12 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 	}
 	if (button == qbbUserLocalVolume->button(QDialogButtonBox::Ok)) {
 		ClientUser *user = ClientUser::get(m_clientSession);
-		if (user && !user->qsHash.isEmpty()) {
-			g.db->setUserLocalVolume(user->qsHash, user->fLocalVolume);
+		if (user) {
+			if (!user->qsHash.isEmpty()) {
+			    g.db->setUserLocalVolume(user->qsHash, user->fLocalVolume);
+			} else {
+			    g.mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
+			}
 		}
 		UserLocalVolumeDialog::close();
 	}
