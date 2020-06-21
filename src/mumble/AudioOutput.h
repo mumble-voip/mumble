@@ -209,6 +209,15 @@ class AudioOutputSample : public AudioOutputUser {
 		~AudioOutputSample();
 };
 
+// Attributes of the listener
+// used to pass data in mix() from positionListener() to locateSource()
+struct AudioListenerData {
+	float fPosition[3];
+	float fRight[3];
+	float fTop[3];
+	float fFront[3];
+};
+
 // Attributes related to the audio source
 struct AudioSourceData {
 	float fDirection[3];
@@ -228,11 +237,6 @@ class AudioOutput : public QThread {
 		bool *bSpeakerDirectional;
 		unsigned int iChannelsPositional;
 		unsigned int *iSpeakerMap;
-		// Attributes of the listener 
-		float fPosition[3];
-		float fRight[3];
-		float fTop[3];
-		float fFront[3];
 	protected:
 		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;
@@ -246,8 +250,8 @@ class AudioOutput : public QThread {
 		virtual void removeBuffer(AudioOutputUser *);
 		void setSpeakerPositions(const unsigned int *, bool);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
-		bool positionListener(float *, float *, float *);
-		boost::optional<AudioSourceData> locateSource(const float * const position);
+		boost::optional<AudioListenerData> positionListener(float *, float *, float *);
+		boost::optional<AudioSourceData> locateSource(const float * const position, const AudioListenerData & listenerData);
 		bool mix(void *output, unsigned int nsamp);
 	public:
 		void wipe();
