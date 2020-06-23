@@ -35,6 +35,7 @@
 #include "Utils.h"
 #include "ChannelListener.h"
 #include "TalkingUI.h"
+#include <QTextDocumentFragment>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -877,7 +878,6 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	ACTOR_INIT;
 	QString target;
-	QString overrideTTS = QString();
 
 	// Silently drop the message if this user is set to "ignore"
 	if (pSrc && pSrc->bLocalIgnore)
@@ -888,30 +888,34 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	bool privateMessage = false;
 
 	if (msg.tree_id_size() > 0) {
-		target += tr("(Tree) ");
+		target += tr("Tree");
 	} else if (msg.channel_id_size() > 0) {
-		target += tr("(Channel) ");
+		target += tr("Channel");
 	} else if (msg.session_size() > 0) {
-		target += tr("(Private) ");
+		target += tr("Private");
 		privateMessage = true;
 	}
 
 	// If NoScope or NoAuthor is selected generate a new string to pass to TTS
-	if (g.s.bTTSNoScope || g.s.bTTSNoAuthor) {
-		if (g.s.bTTSNoScope && g.s.bTTSNoAuthor) {
-			overrideTTS += tr("%2%1: %3").arg(QString()).arg(QString()).arg(u8(msg.message()));
-		} else if (g.s.bTTSNoAuthor) {
-			overrideTTS += tr("%2%1: %3").arg(QString()).arg(target).arg(u8(msg.message()));
-		} else if (g.s.bTTSNoScope) {
-			overrideTTS += tr("%2%1: %3").arg(name).arg(QString()).arg(u8(msg.message()));
+	const QString overrideTTS = [&]() {
+		if (!g.s.bTTSNoScope && !g.s.bTTSNoAuthor) {
+			return QString();
 		}
-	}
+		const QString plainMessage = QTextDocumentFragment::fromHtml(u8(msg.message())).toPlainText();
+		if (g.s.bTTSNoScope && g.s.bTTSNoAuthor) {
+			return plainMessage;
+		}
+		const QString prefixTTS = g.s.bTTSNoScope ? plainName : target;
+		return tr("%1: %2").arg(prefixTTS).arg(plainMessage);
+	}();
+
+	const QString prefixMessage = target.isEmpty() ? name : tr("(%1) %2").arg(target).arg(name);
 
 	g.l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
-	         tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
+	         tr("%1: %2").arg(prefixMessage).arg(u8(msg.message())),
 	         tr("Message from %1").arg(plainName),
 	         false,
-	         overrideTTS.isNull() ? QString() : overrideTTS,
+	         overrideTTS,
 	         pSrc ? pSrc->bLocalIgnoreTTS : false);
 }
 
