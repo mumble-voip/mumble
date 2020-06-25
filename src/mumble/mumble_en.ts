@@ -5455,22 +5455,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(Tree) </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(Channel) </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(Private) </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%2%1: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6048,6 +6032,26 @@ Valid options are:
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(%1) %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
