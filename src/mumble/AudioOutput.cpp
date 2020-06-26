@@ -202,7 +202,7 @@ void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 
 AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	SoundFile *handle = AudioOutputSample::loadSndfile(filename);
-	if (handle == nullptr)
+	if (!handle)
 		return nullptr;
 
 	Timer t;

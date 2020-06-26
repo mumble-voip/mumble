@@ -78,11 +78,11 @@ class Log : public QObject {
 		void postNotification(MsgType mt, const QString &plain);
 		void postQtNotification(MsgType mt, const QString &plain);
 	public:
-		Log(QObject *p = NULL);
+		Log(QObject *p = nullptr);
 		QString msgName(MsgType t) const;
 		void setIgnore(MsgType t, int ignore = 1 << 30);
 		void clearIgnore();
-		static QString validHtml(const QString &html, QTextCursor *tc = NULL);
+		static QString validHtml(const QString &html, QTextCursor *tc = nullptr);
 		static QString imageToImg(const QByteArray &format, const QByteArray &image);
 		static QString imageToImg(QImage img);
 		static QString msgColor(const QString &text, LogColorType t);
@@ -115,7 +115,7 @@ class LogDocument : public QTextDocument {
 		Q_OBJECT
 		Q_DISABLE_COPY(LogDocument)
 	public:
-		LogDocument(QObject *p = NULL);
+		LogDocument(QObject *p = nullptr);
 		QVariant loadResource(int, const QUrl &) Q_DECL_OVERRIDE;
 	public slots:
 		void finished();

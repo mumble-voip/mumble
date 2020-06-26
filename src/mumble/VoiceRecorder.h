@@ -106,7 +106,7 @@ class VoiceRecorder : public QThread {
 		/// Adds an audio buffer which contains |samples| audio samples to the recorder.
 		/// The audio data will be assumed to be recorded at the time
 		/// prepareBufferAdds was last called.
-		/// @param clientUser User for which to add the audio data. NULL in mixdown mode.
+		/// @param clientUser User for which to add the audio data. nullptr in mixdown mode.
 		void addBuffer(const ClientUser *clientUser, boost::shared_array<float> buffer, int samples);
 		
 		/// Returns the elapsed time since the recording started.

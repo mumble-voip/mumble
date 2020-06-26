@@ -27,10 +27,10 @@ bool UserLockFile::acquire() {
 		reinterpret_cast<const wchar_t *>(m_path.utf16()),
 		GENERIC_WRITE,
 		0,
-		NULL,
+		nullptr,
 		CREATE_ALWAYS,
 		FILE_ATTRIBUTE_HIDDEN,
-		NULL
+		nullptr
 	);
 	if (m_handle == INVALID_HANDLE_VALUE && GetLastError() == ERROR_SHARING_VIOLATION) {
 		return false;

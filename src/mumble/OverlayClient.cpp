@@ -40,11 +40,11 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	, iMouseY(0) {
 	
 	qlsSocket = socket;
-	qlsSocket->setParent(NULL);
+	qlsSocket->setParent(nullptr);
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
 	omMsg.omh.iLength = -1;
-	smMem = NULL;
+	smMem = nullptr;
 	uiWidth = uiHeight = 0;
 
 	uiPid = ~0ULL;
@@ -139,7 +139,7 @@ void OverlayClient::updateMouse() {
 	HICON c = ::GetCursor();
 	ICONINFO info;
 	ZeroMemory(&info, sizeof(info));
-	if (c != NULL && ::GetIconInfo(c, &info)) {
+	if (c && ::GetIconInfo(c, &info)) {
 		extern QPixmap qt_pixmapFromWinHBITMAP(HBITMAP bitmap, int format = 0);
 
 		if (info.hbmColor) {
@@ -228,9 +228,9 @@ outer:
 		widgets.prepend(g.mw);
 
 		foreach(QWidget *w, widgets) {
-			if (w->graphicsProxyWidget() == NULL) {
+			if (!w->graphicsProxyWidget()) {
 				if ((w == g.mw) || (! w->isHidden())) {
-					QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
+					QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(nullptr, Qt::Window);
 					qgpw->setOpacity(0.90f);
 					qgpw->setWidget(w);
 					if (w == g.mw) {
@@ -306,13 +306,13 @@ void OverlayClient::hideGui() {
 		QGraphicsProxyWidget *qgpw = w->graphicsProxyWidget();
 		if (qgpw) {
 			qgpw->setVisible(false);
-			qgpw->setWidget(NULL);
+			qgpw->setWidget(nullptr);
 			delete qgpw;
 		}
 	}
 
 	if (g.ocIntercept == this)
-		g.ocIntercept = NULL;
+		g.ocIntercept = nullptr;
 
 	foreach(QWidget *w, widgetlist) {
 		if (bWasVisible)
@@ -374,7 +374,7 @@ void OverlayClient::readyReadMsgInit(unsigned int length) {
 	if (! smMem->data()) {
 		qWarning() << "OverlayClient: Failed to create shared memory" << uiWidth << uiHeight;
 		delete smMem;
-		smMem = NULL;
+		smMem = nullptr;
 		return;
 	}
 	QByteArray key = smMem->name().toUtf8();
@@ -531,7 +531,7 @@ void OverlayClient::setupScene(bool show) {
 
 void OverlayClient::setupRender() {
 	qgs.setSceneRect(0, 0, uiWidth, uiHeight);
-	qgv.setScene(NULL);
+	qgv.setScene(nullptr);
 	qgv.setGeometry(-2, -2, uiWidth + 2, uiHeight + 2);
 	qgv.viewport()->setGeometry(0, 0, uiWidth, uiHeight);
 	qgv.setScene(&qgs);

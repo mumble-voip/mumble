@@ -21,7 +21,7 @@ class DeveloperConsole : public QObject {
 	public slots:
 		void addLogMessage(const QString &);
 	public:
-		DeveloperConsole(QObject *parent = NULL);
+		DeveloperConsole(QObject *parent = nullptr);
 		~DeveloperConsole();
 		void show();
 };

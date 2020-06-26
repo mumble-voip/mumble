@@ -37,7 +37,7 @@ bool ModelItem::bUsersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
 	this->cChan = c;
-	this->pUser = NULL;
+	this->pUser = nullptr;
 	this->isListener = false;
 	bCommentSeen = true;
 	c_qhChannels.insert(c, this);
@@ -46,7 +46,7 @@ ModelItem::ModelItem(Channel *c) {
 }
 
 ModelItem::ModelItem(ClientUser *p, bool isListener) {
-	this->cChan = NULL;
+	this->cChan = nullptr;
 	this->pUser = p;
 	this->isListener = isListener;
 	bCommentSeen = true;
@@ -110,7 +110,7 @@ void ModelItem::wipe() {
 
 ModelItem *ModelItem::child(int idx) const {
 	if (! validRow(idx))
-		return NULL;
+		return nullptr;
 
 	return qlChildren.at(idx);
 }
@@ -121,13 +121,13 @@ bool ModelItem::validRow(int idx) const {
 
 ClientUser *ModelItem::userAt(int idx) const {
 	if (! validRow(idx))
-		return NULL;
+		return nullptr;
 	return qlChildren.at(idx)->pUser;
 }
 
 Channel *ModelItem::channelAt(int idx) const {
 	if (! validRow(idx))
-		return NULL;
+		return nullptr;
 	return qlChildren.at(idx)->cChan;
 }
 
@@ -337,7 +337,7 @@ QModelIndex UserModel::parent(const QModelIndex &idx) const {
 
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 
-	ModelItem *parent_item = (item) ? item->parent : NULL;
+	ModelItem *parent_item = item ? item->parent : nullptr;
 
 	if (! parent_item)
 		return QModelIndex();
@@ -570,7 +570,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 	ClientUser *p = item->pUser;
 	Channel *c = item->cChan;
 	int section = idx.column();
-	bool isUser = p != NULL;
+	bool isUser = p;
 
 	switch (role) {
 		case Qt::ToolTipRole:
@@ -1014,7 +1014,7 @@ void UserModel::removeUser(ClientUser *p) {
 	citem->qlChildren.removeAt(row);
 	endRemoveRows();
 
-	p->cChannel = NULL;
+	p->cChannel = nullptr;
 
 	ClientUser::remove(p);
 	qmHashes.remove(p->qsHash);
@@ -1264,7 +1264,7 @@ Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name);
 
 	if (! c)
-		return NULL;
+		return nullptr;
 
 	ModelItem *item = new ModelItem(c);
 	ModelItem *citem = ModelItem::c_qhChannels.value(p);
@@ -1472,7 +1472,7 @@ void UserModel::unlinkChannels(Channel *c, QList<Channel *> links) {
 }
 
 void UserModel::unlinkAll(Channel *c) {
-	c->unlink(NULL);
+	c->unlink(nullptr);
 	recheckLinks();
 }
 
@@ -1505,7 +1505,7 @@ void UserModel::removeAll() {
 
 ClientUser *UserModel::getUser(const QModelIndex &idx) const {
 	if (! idx.isValid())
-		return NULL;
+		return nullptr;
 
 	ModelItem *item;
 	item = static_cast<ModelItem *>(idx.internalPointer());
@@ -1544,7 +1544,7 @@ void UserModel::setSelectedUser(unsigned int session) {
 
 Channel *UserModel::getChannel(const QModelIndex &idx) const {
 	if (! idx.isValid())
-		return NULL;
+		return nullptr;
 
 	ModelItem *item;
 	item = static_cast<ModelItem *>(idx.internalPointer());
@@ -1583,7 +1583,7 @@ void UserModel::setSelectedChannel(int id) {
 Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 	ModelItem *item=ModelItem::c_qhChannels.value(p);
 	if (! item)
-		return NULL;
+		return nullptr;
 
 	foreach(ModelItem *i, item->qlChildren) {
 		if (i->cChan) {
@@ -1592,12 +1592,12 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 			idx--;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void UserModel::userStateChanged() {
 	ClientUser *user = qobject_cast<ClientUser *>(sender());
-	if (user == NULL)
+	if (!user)
 		return;
 
 	const QModelIndex idx = index(user);

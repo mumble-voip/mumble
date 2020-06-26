@@ -77,7 +77,7 @@ class ServerViewDelegate : public QStyledItemDelegate {
 	Q_OBJECT
 	Q_DISABLE_COPY(ServerViewDelegate)
 public:
-	ServerViewDelegate(QObject *p = NULL);
+	ServerViewDelegate(QObject *p = nullptr);
 	~ServerViewDelegate();
 
 	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
@@ -163,9 +163,9 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		/// @param mime Mime data to analyze
 		/// @param default_name If true the hostname is set as item name if none is given
 		/// @param p Parent widget to use in case the user has to be queried
-		/// @return Server item or NULL if mime data invalid.
+		/// @return Server item or nullptr if mime data invalid.
 		///
-		static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = NULL, bool convertHttpUrls=false);
+		static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = nullptr, bool convertHttpUrls=false);
 		/// Create a ServerItem from a mumble:// URL
 		static ServerItem *fromUrl(QUrl url, QWidget *p);
 

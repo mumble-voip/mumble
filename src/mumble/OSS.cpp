@@ -26,7 +26,7 @@ class OSSEnumerator {
 		OSSEnumerator();
 };
 
-static OSSEnumerator *cards = NULL;
+static OSSEnumerator *cards = nullptr;
 
 class OSSInit : public DeferInit {
 		void initialize() {
@@ -34,7 +34,7 @@ class OSSInit : public DeferInit {
 		};
 		void destroy() {
 			delete cards;
-			cards = NULL;
+			cards = nullptr;
 		};
 };
 
@@ -231,7 +231,7 @@ void OSSInput::run() {
 	}
 
 	qWarning("OSSInput: Releasing.");
-	ioctl(fd, SNDCTL_DSP_RESET, NULL);
+	ioctl(fd, SNDCTL_DSP_RESET, nullptr);
 
 out:
 	close(fd);
@@ -339,6 +339,6 @@ void OSSOutput::run() {
 		}
 	}
 	qWarning("OSSOutput: Releasing device");
-	ioctl(fd, SNDCTL_DSP_RESET, NULL);
+	ioctl(fd, SNDCTL_DSP_RESET, nullptr);
 	close(fd);
 }

@@ -32,7 +32,7 @@ class RichTextEditorLink : public QDialog, Ui::RichTextEditorLink {
 		Q_OBJECT
 		Q_DISABLE_COPY(RichTextEditorLink)
 	public:
-		RichTextEditorLink(const QString &text = QString(), QWidget *p = NULL);
+		RichTextEditorLink(const QString &text = QString(), QWidget *p = nullptr);
 		QString text() const;
 };
 
@@ -48,7 +48,7 @@ class RichTextEditor : public QTabWidget, Ui::RichTextEditor {
 		QColor qcColor;
 		bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 	public:
-		RichTextEditor(QWidget *p = NULL);
+		RichTextEditor(QWidget *p = nullptr);
 		QString text();
 		bool isModified() const;
 	signals:

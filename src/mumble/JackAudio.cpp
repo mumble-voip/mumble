@@ -378,7 +378,7 @@ void JackAudioSystem::deactivate() {
 
 bool JackAudioSystem::isOk() {
 	QMutexLocker lock(&qmWait);
-	return client != nullptr;
+	return (client);
 }
 
 uint8_t JackAudioSystem::outPorts() {
@@ -860,7 +860,7 @@ bool JackAudioOutput::allocBuffer(const jack_nframes_t frames) {
 	QMutexLocker lock(&qmWait);
 
 	iFrameSize = frames;
-	if (buffer != nullptr) {
+	if (buffer) {
 		jas->ringbufferFree(buffer);
 	}
 

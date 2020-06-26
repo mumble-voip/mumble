@@ -63,7 +63,7 @@ class OverlayMouse : public QGraphicsPixmapItem {
 	public:
 		bool contains(const QPointF &) const Q_DECL_OVERRIDE;
 		bool collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode = Qt::IntersectsItemShape) const Q_DECL_OVERRIDE;
-		OverlayMouse(QGraphicsItem * = NULL);
+		OverlayMouse(QGraphicsItem * = nullptr);
 };
 
 class OverlayPrivate : public QObject {

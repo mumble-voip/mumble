@@ -150,7 +150,7 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 		return AudioInputPtr(qmNew->value(choice)->create());
 	}
 
-	AudioInputRegistrar *r = NULL;
+	AudioInputRegistrar *r = nullptr;
 	foreach(AudioInputRegistrar *air, *qmNew)
 		if (!r || (air->priority > r->priority))
 			r = air;
@@ -182,22 +182,22 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	umtType = MessageHandler::UDPVoiceCELTAlpha;
 
 	activityState = ActivityStateActive;
-	oCodec = NULL;
-	opusState = NULL;
-	cCodec = NULL;
-	ceEncoder = NULL;
+	oCodec = nullptr;
+	opusState = nullptr;
+	cCodec = nullptr;
+	ceEncoder = nullptr;
 
 #ifdef USE_OPUS
 	oCodec = g.oCodec;
 	if (oCodec) {
 		if (bAllowLowDelay && iAudioQuality >= 64000) { // > 64 kbit/s bitrate and low delay allowed
-			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_RESTRICTED_LOWDELAY, NULL);
+			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_RESTRICTED_LOWDELAY, nullptr);
 			qWarning("AudioInput: Opus encoder set for low delay");
 		} else if (iAudioQuality >= 32000) { // > 32 kbit/s bitrate
-			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, NULL);
+			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, nullptr);
 			qWarning("AudioInput: Opus encoder set for high quality speech");
 		} else {
-			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
+			opusState = oCodec->opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, nullptr);
 			qWarning("AudioInput: Opus encoder set for low quality speech");
 		}
 
@@ -221,9 +221,9 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 
 	bEchoMulti = false;
 
-	sppPreprocess = NULL;
-	sesEcho = NULL;
-	srsMic = srsEcho = NULL;
+	sppPreprocess = nullptr;
+	sesEcho = nullptr;
+	srsMic = srsEcho = nullptr;
 
 	iEchoChannels = iMicChannels = 0;
 	iEchoFilled = iMicFilled = 0;
@@ -234,7 +234,7 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 
 	bResetEncoder = true;
 
-	pfMicInput = pfEchoInput = NULL;
+	pfMicInput = pfEchoInput = nullptr;
 
 	iBitrate = 0;
 	dPeakSignal = dPeakSpeaker = dPeakMic = dPeakCleanMic = 0.0;
@@ -382,7 +382,7 @@ IN_MIXER_SHORT(8)
 IN_MIXER_SHORT(N)
 
 AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 chanmask) {
-	inMixerFunc r = NULL;
+	inMixerFunc r = nullptr;
 
 	if (chanmask != 0xffffffffffffffffULL) {
 		if (sf == SampleFloat) {
@@ -483,8 +483,8 @@ void AudioInput::initializeMixer() {
 		iEchoFrameSize = bEchoMulti ? iFrameSize * iEchoChannels : iFrameSize;
 		pfEchoInput = new float[iEchoMCLength];
 	} else {
-		srsEcho = NULL;
-		pfEchoInput = NULL;
+		srsEcho = nullptr;
+		pfEchoInput = nullptr;
 	}
 
 	uiMicChannelMask = g.s.uiAudioInputChannelMask;
@@ -731,7 +731,7 @@ void AudioInput::resetAudioProcessor() {
 
 		qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 	} else {
-		sesEcho = NULL;
+		sesEcho = nullptr;
 	}
 
 	bResetEncoder = true;
@@ -754,7 +754,7 @@ bool AudioInput::selectCodec() {
 	}
 
 	if (!useOpus) {
-		CELTCodec *switchto = NULL;
+		CELTCodec *switchto = nullptr;
 		if ((!g.uiSession || (g.s.lmLoopMode == Settings::Local)) && (!g.qmCodecs.isEmpty())) {
 			// Use latest for local loopback
 			QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
@@ -776,7 +776,7 @@ bool AudioInput::selectCodec() {
 		if (switchto != cCodec) {
 			if (cCodec && ceEncoder) {
 				cCodec->celt_encoder_destroy(ceEncoder);
-				ceEncoder = NULL;
+				ceEncoder = nullptr;
 			}
 			cCodec = switchto;
 			if (cCodec)
@@ -822,7 +822,7 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& b
 	}
 
 	if (bResetEncoder) {
-		oCodec->opus_encoder_ctl(opusState, OPUS_RESET_STATE, NULL);
+		oCodec->opus_encoder_ctl(opusState, OPUS_RESET_STATE, nullptr);
 		bResetEncoder = false;
 	}
 

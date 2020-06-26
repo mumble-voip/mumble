@@ -67,7 +67,7 @@ ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsi
 
 #ifdef Q_OS_WIN
 static HANDLE loadQoS() {
-	HANDLE hQoS = NULL;
+	HANDLE hQoS = nullptr;
 
 	HRESULT hr = E_FAIL;
 
@@ -91,7 +91,7 @@ static HANDLE loadQoS() {
 
 		if (! QOSCreateHandle(&qvVer, &hQoS)) {
 			qWarning("ServerHandler: Failed to create QOS2 handle");
-			hQoS = NULL;
+			hQoS = nullptr;
 		} else {
 			qWarning("ServerHandler: QOS2 loaded");
 		}
@@ -103,11 +103,11 @@ static HANDLE loadQoS() {
 ServerHandler::ServerHandler()
     : database(new Database(QLatin1String("ServerHandler"))) {
 	cConnection.reset();
-	qusUdp = NULL;
+	qusUdp = nullptr;
 	bStrong = false;
 	usPort = 0;
 	bUdp = true;
-	tConnectionTimeoutTimer = NULL;
+	tConnectionTimeoutTimer = nullptr;
 	uiVersion = 0;
 	iInFlightTCPPings = 0;
 
@@ -156,7 +156,7 @@ ServerHandler::~ServerHandler() {
 #ifdef Q_OS_WIN
 	if (hQoS) {
 		QOSCloseHandle(hQoS);
-		Connection::setQoS(NULL);
+		Connection::setQoS(nullptr);
 	}
 #endif
 }
@@ -343,7 +343,7 @@ void ServerHandler::run() {
 	do {
 		saTargetServer = qlAddresses.takeFirst();
 
-		tConnectionTimeoutTimer = NULL;
+		tConnectionTimeoutTimer = nullptr;
 		qbaDigest = QByteArray();
 		bStrong = true;
 		qtsSock = new QSslSocket(this);
@@ -414,14 +414,14 @@ void ServerHandler::run() {
 			QMutexLocker qml(&qmUdp);
 
 	#ifdef Q_OS_WIN
-			if (hQoS != NULL) {
+			if (hQoS) {
 				if (! QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0))
 					qWarning("ServerHandler: Failed to remove UDP from QoS");
 				dwFlowUDP = 0;
 			}
 	#endif
 			delete qusUdp;
-			qusUdp = NULL;
+			qusUdp = nullptr;
 		}
 
 		ticker->stop();
@@ -771,7 +771,7 @@ void ServerHandler::serverConnectionConnected() {
 			}
 #endif
 #elif defined(Q_OS_WIN)
-			if (hQoS != NULL) {
+			if (hQoS) {
 				struct sockaddr_in addr;
 				memset(&addr, 0, sizeof(addr));
 				addr.sin_family = AF_INET;

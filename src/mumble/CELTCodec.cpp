@@ -10,9 +10,9 @@
 #include "MumbleApplication.h"
 
 #ifdef Q_CC_GNU
-#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
+#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlCELT.resolve(#var)); bValid = bValid && var; }
 #else
-#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
+#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlCELT.resolve(#var)); bValid = bValid && var; }
 #endif
 
 #ifdef Q_OS_WIN
@@ -23,7 +23,7 @@ extern "C" {
 
 CELTCodec::CELTCodec(const QString &celt_version) {
 	bValid = false;
-	cmMode = NULL;
+	cmMode = nullptr;
 	qsVersion = celt_version;
 	iBitstreamVersion = INT_MIN;
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
@@ -128,20 +128,20 @@ CELTCodec070::CELTCodec070(const QString &celt_version) : CELTCodec(celt_version
 	RESOLVE(celt_strerror);
 
 	if (bValid) {
-		cmMode = celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, NULL);
+		cmMode = celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, nullptr);
 	}
 }
 
 CELTEncoder *CELTCodec070::encoderCreate() {
-	return celt_encoder_create(cmMode, 1, NULL);
+	return celt_encoder_create(cmMode, 1, nullptr);
 }
 
 CELTDecoder *CELTCodec070::decoderCreate() {
-	return celt_decoder_create(cmMode, 1, NULL);
+	return celt_decoder_create(cmMode, 1, nullptr);
 }
 
 int CELTCodec070::encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) {
-	return celt_encode(st, pcm, NULL, compressed, nbCompressedBytes);
+	return celt_encode(st, pcm, nullptr, compressed, nbCompressedBytes);
 }
 
 int CELTCodec070::decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) {

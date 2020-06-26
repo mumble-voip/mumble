@@ -19,7 +19,7 @@ class LogTextBrowser : public QTextBrowser {
 		void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 		bool event(QEvent *e) Q_DECL_OVERRIDE;
 	public:
-		LogTextBrowser(QWidget *p = NULL);
+		LogTextBrowser(QWidget *p = nullptr);
 
 		int getLogScroll();
 		int getLogScrollMaximum();
@@ -68,7 +68,7 @@ class ChatbarTextEdit : public QTextEdit {
 		void historyUp();
 		void historyDown();
 	public:
-		ChatbarTextEdit(QWidget *p = NULL);
+		ChatbarTextEdit(QWidget *p = nullptr);
 };
 
 class DockTitleBar : public QLabel {

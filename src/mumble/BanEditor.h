@@ -25,7 +25,7 @@ class BanEditor : public QDialog, public Ui::BanEditor {
 
 		Ban toBan(bool &);
 	public:
-		BanEditor(const MumbleProto::BanList &msbl, QWidget *p = NULL);
+		BanEditor(const MumbleProto::BanList &msbl, QWidget *p = nullptr);
 	public slots:
 		void accept();
 		void on_qlwBans_currentRowChanged();

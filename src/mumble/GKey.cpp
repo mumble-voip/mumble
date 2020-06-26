@@ -23,7 +23,7 @@
  * Software in a non-standard location.
  *
  * The DLL has an init function, it's called "LogiGkeyInit". It takes a
- * pointer, but the parameter must always be NULL. The function returns a BOOL
+ * pointer, but the parameter must always be nullptr. The function returns a BOOL
  * as a status code.
  *
  * The DLL also has a shutdown function, called "LogiGkeyShutdown". It takes
@@ -49,7 +49,7 @@
  * polling functions above, but do not check whether the button is pressed or
  * not. Instead, they return the name of the button being queried as a pointer
  * to a NUL-terminated array of wchar_t's. Presumably, the pointer will be
- * NULL if the name cannot be retrieved or translated.
+ * nullptr if the name cannot be retrieved or translated.
 */
 
 /* USAGE
@@ -68,9 +68,9 @@
 #include "GKey.h"
 
 #ifdef Q_CC_GNU
-#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlLogiGkey.resolve(#var)); bValid = bValid && (var != NULL); }
+#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlLogiGkey.resolve(#var)); bValid = bValid && var; }
 #else
-#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlLogiGkey.resolve(#var)); bValid = bValid && (var != NULL); }
+#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlLogiGkey.resolve(#var)); bValid = bValid && var; }
 #endif
 
 const QUuid GKeyLibrary::quMouse = QUuid(QString::fromLatin1(GKEY_MOUSE_GUID));
@@ -80,12 +80,12 @@ GKeyLibrary::GKeyLibrary()
 {
 	QStringList alternatives;
 
-	HKEY key = NULL;
+	HKEY key = nullptr;
 	DWORD type = 0;
 	WCHAR wcLocation[510];
 	DWORD len = 510;
 	if (RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, 0, KEY_READ, &key) == ERROR_SUCCESS) {
-		LONG err = RegQueryValueEx(key, L"", NULL, &type, reinterpret_cast<LPBYTE>(wcLocation), &len);
+		LONG err = RegQueryValueEx(key, L"", nullptr, &type, reinterpret_cast<LPBYTE>(wcLocation), &len);
 		if (err == ERROR_SUCCESS && type == REG_SZ) {
 			QString qsLocation = QString::fromUtf16(reinterpret_cast<ushort *>(wcLocation), len / 2);
 			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %lu", qPrintable(qsLocation), static_cast<unsigned long>(len));
@@ -113,11 +113,11 @@ GKeyLibrary::GKeyLibrary()
 	RESOLVE(LogiGkeyGetKeyboardGkeyString);
 
 	if (bValid)
-		bValid = LogiGkeyInit(NULL);
+		bValid = LogiGkeyInit(nullptr);
 }
 
 GKeyLibrary::~GKeyLibrary() {
-	if (LogiGkeyShutdown != NULL)
+	if (LogiGkeyShutdown)
 		LogiGkeyShutdown();
 }
 

@@ -17,7 +17,7 @@ class UserDelegate : public QStyledItemDelegate {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserDelegate)
 	public:
-		UserDelegate(QObject *parent = NULL);
+		UserDelegate(QObject *parent = nullptr);
 		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 		//! Width/height in px of user/channel flag icons

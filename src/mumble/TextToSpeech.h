@@ -19,7 +19,7 @@ class TextToSpeech : public QObject {
 	protected:
 		bool enabled;
 	public:
-		TextToSpeech(QObject *parent = NULL);
+		TextToSpeech(QObject *parent = nullptr);
 		~TextToSpeech() Q_DECL_OVERRIDE;
 		bool isEnabled() const;
 	public slots:

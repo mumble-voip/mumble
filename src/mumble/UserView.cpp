@@ -345,7 +345,7 @@ void UserView::updateChannel(const QModelIndex &idx) {
 			// Check whether user resides in this channel or a subchannel
 			if (g.uiSession != 0) {
 				const ClientUser* user = ClientUser::get(g.uiSession);
-				if (user != NULL) {
+				if (user) {
 					Channel *chan = user->cChannel;
 					while (chan) {
 						if (chan == c) {

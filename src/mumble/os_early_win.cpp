@@ -13,14 +13,14 @@
 
 // Alert shows a fatal error dialog and waits for the user to click OK.
 static void Alert(LPCWSTR title, LPCWSTR msg) {
-	MessageBox(NULL, msg, title, MB_OK|MB_ICONERROR);
+	MessageBox(nullptr, msg, title, MB_OK|MB_ICONERROR);
 }
 
 // GetExecutablePath returns the path to mumble.exe.
 static const std::wstring GetExecutablePath() {
 	wchar_t path[MAX_PATH];
 
-	if (GetModuleFileNameW(NULL, path, MAX_PATH) == 0)
+	if (GetModuleFileNameW(nullptr, path, MAX_PATH) == 0)
 		return std::wstring();
 
 	std::wstring exe_path(path);
@@ -44,9 +44,9 @@ static bool UIAccessDisabledViaConfig() {
 	memset(&buf, 0, sizeof(buf));
 	DWORD sz = sizeof(buf) - 1*sizeof(wchar_t);
 
-	HKEY key = NULL;
+	HKEY key = nullptr;
 	bool success = (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Mumble\\Mumble\\shortcut\\windows\\uiaccess", 0, KEY_READ, &key) == ERROR_SUCCESS) &&
-	               (RegQueryValueExW(key, L"enable" , NULL, NULL, (LPBYTE)&buf, &sz) == ERROR_SUCCESS);
+	               (RegQueryValueExW(key, L"enable" , nullptr, nullptr, (LPBYTE)&buf, &sz) == ERROR_SUCCESS);
 	if (success && _wcsicmp(buf, L"false") == 0) {
 		return true;
 	}
@@ -56,7 +56,7 @@ static bool UIAccessDisabledViaConfig() {
 
 // ProcessHasUIAccess returns true if the current process has UIAccess enabled.
 static bool ProcessHasUIAccess() {
-	HANDLE token = NULL;
+	HANDLE token = nullptr;
 	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token)) {
 		return false;
 	}
@@ -98,7 +98,7 @@ static bool RelaunchWithoutUIAccessIfNecessary() {
 	// restore it (which may be equivalent to not setting it all)
 	// once we've been relaunched.
 	const wchar_t *compat_layer_env = _wgetenv(L"__COMPAT_LAYER");
-	if (compat_layer_env == NULL) {
+	if (!compat_layer_env) {
 		compat_layer_env = L"mumble_exe_none";
 	}
 	_wputenv_s(L"mumble_exe_prev_compat_layer", compat_layer_env);
@@ -119,12 +119,12 @@ static bool RelaunchWithoutUIAccessIfNecessary() {
 
 	if (!CreateProcessW(exe_path.c_str(),
 	              GetCommandLineW(),
-	              NULL,
-	              NULL,
+	              nullptr,
+	              nullptr,
 	              FALSE,
 	              0,
-	              NULL,
-	              NULL,
+	              nullptr,
+	              nullptr,
 	              &startup_info,
 	              &process_info)) {
 		return false;
@@ -140,7 +140,7 @@ static bool RelaunchWithoutUIAccessIfNecessary() {
 // variables set by RelaunchWithoutUIAccessIfNecessary.
 static void CleanupEnvironmentVariables() {
 	wchar_t *prev_compat_layer_env = _wgetenv(L"mumble_exe_prev_compat_layer");
-	if (prev_compat_layer_env != NULL) {
+	if (prev_compat_layer_env) {
 		if (wcscmp(prev_compat_layer_env, L"mumble_exe_none") == 0) {
 			_wputenv_s(L"__COMPAT_LAYER", L"");
 		} else {

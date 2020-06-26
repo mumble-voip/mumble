@@ -10,7 +10,7 @@
 
 CELTCodec::CELTCodec(const QString &version) {
 	bValid = true;
-	cmMode = NULL;
+	cmMode = nullptr;
 	qsVersion = version;
 	iBitstreamVersion = INT_MIN;
 
@@ -47,8 +47,8 @@ void CELTCodec::report() const {
 
 CELTCodecSBCELT::CELTCodecSBCELT() : CELTCodec(QLatin1String("0.7.0")) {
 	if (bValid) {
-		cmMode = ::celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, NULL);
-		cmSBCELTMode = ::sbcelt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, NULL);
+		cmMode = ::celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, nullptr);
+		cmSBCELTMode = ::sbcelt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, nullptr);
 
 		this->celt_decoder_destroy = ::sbcelt_decoder_destroy;
 		this->celt_decoder_ctl = ::sbcelt_decoder_ctl;
@@ -56,15 +56,15 @@ CELTCodecSBCELT::CELTCodecSBCELT() : CELTCodec(QLatin1String("0.7.0")) {
 }
 
 CELTEncoder *CELTCodecSBCELT::encoderCreate() {
-	return ::celt_encoder_create(cmMode, 1, NULL);
+	return ::celt_encoder_create(cmMode, 1, nullptr);
 }
 
 CELTDecoder *CELTCodecSBCELT::decoderCreate() {
-	return ::sbcelt_decoder_create(cmSBCELTMode, 1, NULL);
+	return ::sbcelt_decoder_create(cmSBCELTMode, 1, nullptr);
 }
 
 int CELTCodecSBCELT::encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) {
-	return ::celt_encode(st, pcm, NULL, compressed, nbCompressedBytes);
+	return ::celt_encode(st, pcm, nullptr, compressed, nbCompressedBytes);
 }
 
 int CELTCodecSBCELT::decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) {

@@ -17,7 +17,7 @@ class TextMessage : public QDialog, public Ui::TextMessage {
 	public slots:
 		void on_qcbTreeMessage_stateChanged(int);
 	public:
-		TextMessage(QWidget *parent = NULL, QString title = tr("Enter text"), bool bChannel = false);
+		TextMessage(QWidget *parent = nullptr, QString title = tr("Enter text"), bool bChannel = false);
 		QString message();
 		bool bTreeMessage;
 };

@@ -75,7 +75,7 @@ class Plugins : public QObject {
 		float fPosition[3], fFront[3], fTop[3];
 		float fCameraPosition[3], fCameraFront[3], fCameraTop[3];
 
-		Plugins(QObject *p = NULL);
+		Plugins(QObject *p = nullptr);
 		~Plugins() Q_DECL_OVERRIDE;
 	public slots:
 		void on_Timer_timeout();

@@ -10,9 +10,9 @@
 #include "MumbleApplication.h"
 
 #ifdef Q_CC_GNU
-#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlOpus.resolve(#var)); bValid = bValid && (var != NULL); }
+#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlOpus.resolve(#var)); bValid = bValid && var; }
 #else
-#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlOpus.resolve(#var)); bValid = bValid && (var != NULL); }
+#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlOpus.resolve(#var)); bValid = bValid && var; }
 #endif
 
 OpusCodec::OpusCodec() {

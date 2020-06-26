@@ -51,7 +51,7 @@ class OverlayEditorScene : public QGraphicsScene {
 		unsigned int uiZoom;
 		OverlaySettings os;
 
-		OverlayEditorScene(const OverlaySettings &, QObject *p = NULL);
+		OverlayEditorScene(const OverlaySettings &, QObject *p = nullptr);
 	public slots:
 		void resync();
 		void updateSelected();

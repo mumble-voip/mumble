@@ -134,14 +134,14 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	Channel::add(0, tr("Root"));
 
-	aclEdit = NULL;
-	banEdit = NULL;
-	userEdit = NULL;
-	tokenEdit = NULL;
+	aclEdit = nullptr;
+	banEdit = nullptr;
+	userEdit = nullptr;
+	tokenEdit = nullptr;
 
-	voiceRecorderDialog = NULL;
+	voiceRecorderDialog = nullptr;
 
-	qwPTTButtonWidget = NULL;
+	qwPTTButtonWidget = nullptr;
 
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
@@ -493,7 +493,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	if (qwPTTButtonWidget) {
 		qwPTTButtonWidget->close();
 		qwPTTButtonWidget->deleteLater();
-		qwPTTButtonWidget = NULL;
+		qwPTTButtonWidget = nullptr;
 	}
 	g.bQuit = true;
 
@@ -634,7 +634,7 @@ void MainWindow::updateTrayIcon() {
 void MainWindow::updateUserModel()
 {
 	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-	um->toggleChannelFiltered(NULL); // Force a UI refresh
+	um->toggleChannelFiltered(nullptr); // Force a UI refresh
 }
 
 void MainWindow::updateTransmitModeComboBox() {
@@ -656,21 +656,21 @@ QMenu *MainWindow::createPopupMenu() {
 		return QMainWindow::createPopupMenu();
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 Channel *MainWindow::getContextMenuChannel() {
 	if (cContextChannel)
 		return cContextChannel.data();
 
-	return NULL;
+	return nullptr;
 }
 
 ClientUser *MainWindow::getContextMenuUser() {
 	if (cuContextUser)
 		return cuContextUser.data();
 
-	return NULL;
+	return nullptr;
 }
 
 bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus) {
@@ -695,7 +695,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 				qteChat->setFocus();
 			} else {
 				qpContextPosition = QPoint();
-				qmUser->exec(pos_, NULL);
+				qmUser->exec(pos_, nullptr);
 			}
 		}
 		cuContextUser.clear();
@@ -711,7 +711,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 				qteChat->setFocus();
 			} else {
 				qpContextPosition = QPoint();
-				qmChannel->exec(pos_, NULL);
+				qmChannel->exec(pos_, nullptr);
 			}
 		}
 		cContextChannel.clear();
@@ -750,7 +750,7 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 			cuContextUser.clear();
 		} else {
 			cContextChannel.clear();
-			qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
+			qmChannel->exec(qtvUsers->mapToGlobal(mpos), nullptr);
 			cContextChannel.clear();
 		}
 	}
@@ -1157,7 +1157,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 	} else {
 		if (qwPTTButtonWidget) {
 			qwPTTButtonWidget->deleteLater();
-			qwPTTButtonWidget = NULL;
+			qwPTTButtonWidget = nullptr;
 		}
 	}
 }
@@ -1192,8 +1192,8 @@ void MainWindow::on_Reconnect_timeout() {
 void MainWindow::on_qmSelf_aboutToShow() {
 	ClientUser *user = ClientUser::get(g.uiSession);
 
-	qaServerTexture->setEnabled(user != NULL);
-	qaSelfComment->setEnabled(user != NULL);
+	qaServerTexture->setEnabled(user != nullptr);
+	qaSelfComment->setEnabled(user != nullptr);
 
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTextureHash.isEmpty());
 
@@ -1322,7 +1322,7 @@ void MainWindow::on_qaServerBanList_triggered() {
 	if (banEdit) {
 		banEdit->reject();
 		delete banEdit;
-		banEdit = NULL;
+		banEdit = nullptr;
 	}
 }
 
@@ -1332,7 +1332,7 @@ void MainWindow::on_qaServerUserList_triggered() {
 	if (userEdit) {
 		userEdit->reject();
 		delete userEdit;
-		userEdit = NULL;
+		userEdit = nullptr;
 	}
 }
 
@@ -1474,7 +1474,7 @@ void MainWindow::on_qaServerTokens_triggered() {
 	if (tokenEdit) {
 		tokenEdit->reject();
 		delete tokenEdit;
-		tokenEdit = NULL;
+		tokenEdit = nullptr;
 	}
 
 	tokenEdit = new Tokens(this);
@@ -1483,11 +1483,11 @@ void MainWindow::on_qaServerTokens_triggered() {
 
 void MainWindow::voiceRecorderDialog_finished(int) {
 	voiceRecorderDialog->deleteLater();
-	voiceRecorderDialog = NULL;
+	voiceRecorderDialog = nullptr;
 }
 
 void MainWindow::qmUser_aboutToShow() {
-	ClientUser *p = NULL;
+	ClientUser *p = nullptr;
 	if (g.uiSession != 0) {
 		QModelIndex idx;
 		if (! qpContextPosition.isNull())
@@ -1863,7 +1863,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 	int res = texm->exec();
 
 	// Try to get find the user using the session id.
-	// This will return NULL if the user disconnected while typing the message.
+	// This will return nullptr if the user disconnected while typing the message.
 	p = ClientUser::get(session);
 
 	if (p && (res == QDialog::Accepted)) {
@@ -1969,9 +1969,9 @@ void MainWindow::sendChatbarMessage(QString qsMessage) {
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
-	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
+	if (!g.s.bChatBarUseSelection || !p || p->uiSession == g.uiSession) {
 		// Channel message
-		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
+		if (!g.s.bChatBarUseSelection || !c) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		g.sh->sendChannelTextMessage(c->iId, qsMessage, false);
@@ -2030,7 +2030,7 @@ void MainWindow::on_qmConfig_aboutToShow() {
 void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->clear();
 
-	Channel *c = NULL;
+	Channel *c = nullptr;
 	if (g.uiSession != 0) {
 		QModelIndex idx;
 		if (! qpContextPosition.isNull())
@@ -2179,7 +2179,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
-		aclEdit = NULL;
+		aclEdit = nullptr;
 	}
 
 	aclEdit = new ACLEditor(c ? c->iId : 0, this);
@@ -2230,7 +2230,7 @@ void MainWindow::on_qaChannelACL_triggered() {
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
-		aclEdit = NULL;
+		aclEdit = nullptr;
 	}
 }
 
@@ -2296,7 +2296,7 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
 	// walk back up the channel list to build the URL.
-	while (c->cParent != NULL) {
+	while (c->cParent) {
 		channel.prepend(c->qsName);
 		channel.prepend(QLatin1String("/"));
 		c = c->cParent;
@@ -2324,8 +2324,8 @@ void MainWindow::on_qaListenerLocalVolume_triggered() {
  * @see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
  */
 void MainWindow::updateMenuPermissions() {
-	ClientUser *cu = NULL;
-	Channel *c = NULL;
+	ClientUser *cu = nullptr;
+	Channel *c = nullptr;
 
 	if (g.uiSession) {
 		cu = getContextMenuUser();
@@ -2349,7 +2349,7 @@ void MainWindow::updateMenuPermissions() {
 		c->uiPermissions = p;
 	}
 
-	Channel *cparent = c ? c->cParent : NULL;
+	Channel *cparent = c ? c->cParent : nullptr;
 	ChanACL::Permissions pparent = cparent ? static_cast<ChanACL::Permissions>(cparent->uiPermissions) : ChanACL::None;
 
 	if (cparent && ! pparent) {
@@ -2362,8 +2362,8 @@ void MainWindow::updateMenuPermissions() {
 		cparent->uiPermissions = pparent;
 	}
 
-	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
-	Channel *homec = user ? user->cChannel : NULL;
+	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : nullptr;
+	Channel *homec = user ? user->cChannel : nullptr;
 	ChanACL::Permissions homep = homec ? static_cast<ChanACL::Permissions>(homec->uiPermissions) : ChanACL::None;
 
 	if (homec && ! homep) {
@@ -2412,7 +2412,7 @@ void MainWindow::userStateChanged() {
 	}
 	
 	ClientUser *user = ClientUser::get(g.uiSession);
-	if (user == NULL) {
+	if (!user) {
 		g.bAttenuateOthers = false;
 		g.prioritySpeakerActiveOverride = false;
 		
@@ -2682,9 +2682,9 @@ void MainWindow::on_VolumeDown_triggered(bool down, QVariant) {
 
 Channel *MainWindow::mapChannel(int idx) const {
 	if (! g.uiSession)
-		return NULL;
+		return nullptr;
 
-	Channel *c = NULL;
+	Channel *c = nullptr;
 
 	if (idx < 0) {
 		switch (idx) {
@@ -3126,25 +3126,25 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
-		aclEdit = NULL;
+		aclEdit = nullptr;
 	}
 
 	if (banEdit) {
 		banEdit->reject();
 		delete banEdit;
-		banEdit = NULL;
+		banEdit = nullptr;
 	}
 
 	if (userEdit) {
 		userEdit->reject();
 		delete userEdit;
-		userEdit = NULL;
+		userEdit = nullptr;
 	}
 
 	if (tokenEdit) {
 		tokenEdit->reject();
 		delete tokenEdit;
-		tokenEdit = NULL;
+		tokenEdit = nullptr;
 	}
 
 	QSet<QAction *> qs;
@@ -3312,7 +3312,7 @@ void MainWindow::trayAboutToShow() {
 	}
 
 	QScreen *screen = Screen::screenAt(p);
-	if(screen != nullptr){
+	if(screen){
 		QRect qr = screen->geometry();
 
 		if (p.y() < (qr.height() / 2))
@@ -3384,9 +3384,9 @@ void MainWindow::updateChatBar() {
 
 	if (g.uiSession == 0) {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
-	} else if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
+	} else if (!g.s.bChatBarUseSelection || !p || p->uiSession == g.uiSession) {
 		// Channel tree target
-		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
+		if (!g.s.bChatBarUseSelection || !c) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName.toHtmlEscaped()));

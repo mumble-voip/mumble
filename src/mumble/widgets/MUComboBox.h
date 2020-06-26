@@ -11,7 +11,7 @@
 class MUComboBox : public QComboBox {
 	Q_OBJECT
 public:
-	MUComboBox(QWidget *parent = NULL);
+	MUComboBox(QWidget *parent = nullptr);
 };
 
 #endif

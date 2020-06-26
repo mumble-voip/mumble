@@ -23,7 +23,7 @@ class Usage : public QObject {
 		QBuffer qbReport;
 		QDataStream qdsReport;
 	public:
-		Usage(QObject *p = NULL);
+		Usage(QObject *p = nullptr);
 	public slots:
 		/// Performs the actual registration.
 		void registerUsage();

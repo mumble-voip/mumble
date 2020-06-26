@@ -27,11 +27,11 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 		return;
 
 	HRESULT hr;
-	IShellLink *link = NULL;
-	IPropertyStore *ps = NULL;
+	IShellLink *link = nullptr;
+	IPropertyStore *ps = nullptr;
 	PROPVARIANT pt;
 
-	hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, __uuidof(IShellLink), reinterpret_cast<void **>(&link));
+	hr = CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER, __uuidof(IShellLink), reinterpret_cast<void **>(&link));
 	if (!link || FAILED(hr))
 		return;
 

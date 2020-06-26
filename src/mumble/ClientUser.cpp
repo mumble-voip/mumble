@@ -77,7 +77,7 @@ ClientUser *ClientUser::match(const ClientUser *other, bool matchname) {
 		if (matchname && (p->qsName == other->qsName))
 			return p;
 	}
-	return NULL;
+	return nullptr;
 }
 
 void ClientUser::remove(unsigned int uiSession) {
@@ -269,7 +269,7 @@ bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *seco
 		// If both times are invalid, fall back to alphabetically (continuing below)
 	}
 
-	if (first->cChannel == second->cChannel || first->cChannel == NULL || second->cChannel == NULL)
+	if (first->cChannel == second->cChannel || !first->cChannel || !second->cChannel)
 		return lessThan(first, second);
 
 	// When sorting for the overlay always place the local users

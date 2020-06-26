@@ -106,7 +106,7 @@ bool Themes::apply() {
 		applyFallback();
 	}
 	
-	if (g.mw != NULL) {
+	if (g.mw) {
 		g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 	}
 	return result;

@@ -33,7 +33,7 @@ class UserInformation : public QDialog, Ui::UserInformation {
 		void tick();
 		void on_qpbCertificate_clicked();
 	public:
-		UserInformation(const MumbleProto::UserStats &msg, QWidget *p = NULL);
+		UserInformation(const MumbleProto::UserStats &msg, QWidget *p = nullptr);
 		void update(const MumbleProto::UserStats &msg);
 		unsigned int session() const;
 };

@@ -13,8 +13,8 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-char *os_lang = NULL;
-static FILE *fConsole = NULL;
+char *os_lang = nullptr;
+static FILE *fConsole = nullptr;
 
 static QSharedPointer<LogEmitter> le;
 
@@ -53,8 +53,8 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	le->addLogEntry(fmsg);
 
 	if (type == QtFatalMsg) {
-		CFStringRef csMsg = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%s\n\nThe error has been logged. Please submit your log file to the Mumble project if the problem persists."), qPrintable(msg));
-		CFUserNotificationDisplayAlert(0, 0, NULL,  NULL, NULL, CFSTR("Mumble has encountered a fatal error"), csMsg, CFSTR("OK"), NULL, NULL, NULL);
+		CFStringRef csMsg = CFStringCreateWithFormat(kCFAllocatorDefault, nullptr, CFSTR("%s\n\nThe error has been logged. Please submit your log file to the Mumble project if the problem persists."), qPrintable(msg));
+		CFUserNotificationDisplayAlert(0, 0, nullptr,  nullptr, nullptr, CFSTR("Mumble has encountered a fatal error"), csMsg, CFSTR("OK"), nullptr, nullptr, nullptr);
 		CFRelease(csMsg);
 		exit(0);
 	}
@@ -110,7 +110,7 @@ static void crashhandler_signals_setup() {
 
 static void crashhandler_signals_restore() {
 	for (size_t i = 0; i < NSIGS; i++) {
-		signal(sigs[i], NULL);
+		signal(sigs[i], nullptr);
 	}
 }
 

@@ -176,7 +176,7 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 
 void ConfigDialog::updateListView() {
 	QWidget *ccw = qmIconWidgets.value(qlwIcons->currentItem());
-	QListWidgetItem *sel = NULL;
+	QListWidgetItem *sel = nullptr;
 
 	qmIconWidgets.clear();
 	qlwIcons->clear();

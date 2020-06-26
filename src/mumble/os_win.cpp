@@ -40,7 +40,7 @@ extern "C" {
 #define DUMP_BUFFER_SIZE 1024
 
 static wchar_t wcCrashDumpPath[DUMP_BUFFER_SIZE];
-static FILE *fConsole = NULL;
+static FILE *fConsole = nullptr;
 
 static wchar_t wcComment[DUMP_BUFFER_SIZE] = L"";
 static MINIDUMP_USER_STREAM musComment;
@@ -76,7 +76,7 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	OutputDebugStringA(qPrintable(fmsg));
 	le->addLogEntry(fmsg);
 	if (type == QtFatalMsg) {
-		::MessageBoxA(NULL, qPrintable(msg), "Mumble", MB_OK | MB_ICONERROR);
+		::MessageBoxA(nullptr, qPrintable(msg), "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
 }
@@ -96,9 +96,9 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	musi.UserStreamCount = 1;
 	musi.UserStreamArray = &musComment;
 
-	HANDLE hMinidump = CreateFile(wcCrashDumpPath, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hMinidump = CreateFile(wcCrashDumpPath, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (hMinidump != INVALID_HANDLE_VALUE) {
-		if (MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hMinidump, static_cast<MINIDUMP_TYPE>(MiniDumpWithIndirectlyReferencedMemory | MiniDumpWithThreadInfo), &i, &musi, NULL)) {
+		if (MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hMinidump, static_cast<MINIDUMP_TYPE>(MiniDumpWithIndirectlyReferencedMemory | MiniDumpWithThreadInfo), &i, &musi, nullptr)) {
 			FlushFileBuffers(hMinidump);
 		}
 		CloseHandle(hMinidump);
@@ -140,7 +140,7 @@ static void enableCrashOnCrashes() {
 
 BOOL SetHeapOptions() {
 	HMODULE hLib = LoadLibrary(L"kernel32.dll");
-	if (hLib == NULL)
+	if (!hLib)
 		return FALSE;
 
 	typedef BOOL (WINAPI *HSI)(HANDLE, HEAP_INFORMATION_CLASS, PVOID, SIZE_T);
@@ -154,7 +154,7 @@ BOOL SetHeapOptions() {
 #define HeapEnableTerminationOnCorruption (HEAP_INFORMATION_CLASS)1
 #endif
 
-	BOOL fRet = (pHsi)(NULL, HeapEnableTerminationOnCorruption, NULL, 0) ? TRUE : FALSE;
+	BOOL fRet = (pHsi)(nullptr, HeapEnableTerminationOnCorruption, nullptr, 0) ? TRUE : FALSE;
 	if (hLib)
 		FreeLibrary(hLib);
 
@@ -221,7 +221,7 @@ void os_init() {
 
 #define MMXSSE 0x02800000
 	if ((cpuinfo[3] & MMXSSE) != MMXSSE) {
-		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
+		::MessageBoxA(nullptr, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
 
@@ -320,8 +320,8 @@ DWORD WinVerifySslCert(const QByteArray& cert) {
 	chainParameter.RequestedUsage.Usage.cUsageIdentifier = ARRAYSIZE(usage);
 	chainParameter.RequestedUsage.Usage.rgpszUsageIdentifier = const_cast<LPSTR *>(usage);
 
-	PCCERT_CHAIN_CONTEXT chainContext = NULL;
-	CertGetCertificateChain(NULL, certContext, NULL, NULL, &chainParameter, 0, NULL, &chainContext);
+	PCCERT_CHAIN_CONTEXT chainContext = nullptr;
+	CertGetCertificateChain(nullptr, certContext, nullptr, nullptr, &chainParameter, 0, nullptr, &chainContext);
 
 	if (chainContext) {
 		errorStatus = chainContext->TrustStatus.dwErrorStatus;

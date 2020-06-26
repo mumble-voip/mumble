@@ -150,12 +150,12 @@ void OverlayConfig::refreshTimeLive() {
 
 OverlayConfig::OverlayConfig(Settings &st) :
 		ConfigWidget(st),
-		qgpiScreen(NULL),
+		qgpiScreen(nullptr),
 		qgs(),
 		qgsFpsPreview(),
-		qgpiFpsDemo(NULL),
-		oug(NULL),
-		qgtiInstructions(NULL),
+		qgpiFpsDemo(nullptr),
+		oug(nullptr),
+		qgtiInstructions(nullptr),
 		fViewScale(1.0f) {
 	setupUi(this);
 

@@ -47,7 +47,7 @@ void G15LCDDeviceUnix::setEnabled(bool b) {
 }
 
 void G15LCDDeviceUnix::blitImage(QImage *img, bool) {
-	Q_ASSERT(img != NULL);
+	Q_ASSERT(img);
 
 	const unsigned int len = 6880;
 	uchar buf[len];

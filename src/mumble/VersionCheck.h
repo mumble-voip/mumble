@@ -23,7 +23,7 @@ class VersionCheck : public QObject {
 	public slots:
 		void fetched(QByteArray data, QUrl url);
 	public:
-		VersionCheck(bool autocheck, QObject *parent = NULL, bool focus = false);
+		VersionCheck(bool autocheck, QObject *parent = nullptr, bool focus = false);
 };
 
 #endif

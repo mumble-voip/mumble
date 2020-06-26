@@ -89,14 +89,14 @@ Database::Database(const QString &dbname) {
 	}
 
 	if (! found) {
-		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("Mumble failed to initialize a database in any\nof the possible locations."), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
+		QMessageBox::critical(nullptr, QLatin1String("Mumble"), tr("Mumble failed to initialize a database in any\nof the possible locations."), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
 		qFatal("Database: Failed initialization");
 	}
 
 	QFileInfo fi(db.databaseName());
 
 	if (! fi.isWritable()) {
-		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("The database '%1' is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.").arg(fi.filePath().toHtmlEscaped()), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
+		QMessageBox::critical(nullptr, QLatin1String("Mumble"), tr("The database '%1' is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.").arg(fi.filePath().toHtmlEscaped()), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
 		qWarning("Database: Database is read-only");
 	}
 

@@ -28,7 +28,7 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		Q_DISABLE_COPY(UserEdit)
 	public:
 		/// Constructs a dialog for editing the given userList.
-		UserEdit(const MumbleProto::UserList &userList, QWidget *p = NULL);
+		UserEdit(const MumbleProto::UserList &userList, QWidget *p = nullptr);
 	
 	public slots:
 		void accept() Q_DECL_OVERRIDE;
@@ -60,7 +60,7 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 class UserListFilterProxyModel : public QSortFilterProxyModel {
 	Q_OBJECT
 public:
-	explicit UserListFilterProxyModel(QObject *parent = NULL);
+	explicit UserListFilterProxyModel(QObject *parent = nullptr);
 
 	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
 
