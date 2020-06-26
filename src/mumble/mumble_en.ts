@@ -6326,6 +6326,14 @@ Prevents the client from sending potentially identifying information about the o
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide public-server-list</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Overlay</name>
