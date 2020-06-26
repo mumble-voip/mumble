@@ -207,7 +207,9 @@ void TalkingUI::addUser(const ClientUser *user) {
 	// exists in this UI.
 	addChannel(user->cChannel);
 
-	if (!m_entries.contains(user->uiSession)) {
+	if (!m_entries.contains(user->uiSession) || m_entries[user->uiSession].name->text() != user->qsName) {
+		// We also verify whether the name for that user matches up (if it is contained in m_entries) in case
+		// a user didn't get removed from the map but its ID got reused by a new client.
 		bool isSelf = g.uiSession == user->uiSession;
 		// Create an Entry for this user (alongside the respective labels)
 		// We initially set the labels to not be visible, so that we'll
@@ -702,6 +704,9 @@ void TalkingUI::on_clientDisconnected(unsigned int userSession) {
 		// If the user that just disconnected is contained in the TalkingUI, make sure
 		// it is hidden.
 		hideUser(userSession);
+
+		// Delete the user's entry from the TalkingUI
+		m_entries.remove(userSession);
 	}
 }
 
