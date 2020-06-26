@@ -13,8 +13,15 @@
   <property name="windowTitle">
    <string>Mumble Server Connect</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="0" colspan="3">
+    <widget class="QDialogButtonBox" name="qdbbButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3">
     <widget class="ServerView" name="qtwServers">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
@@ -60,11 +67,69 @@
      </column>
     </widget>
    </item>
-   <item>
-    <widget class="QDialogButtonBox" name="qdbbButtonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <item row="1" column="0" colspan="3">
+    <widget class="QGroupBox" name="qgbSearch">
+     <property name="enabled">
+      <bool>true</bool>
      </property>
+     <property name="title">
+      <string>Search</string>
+     </property>
+     <layout class="QGridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="qlSearchServername">
+        <property name="text">
+         <string>Servername</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="qleSearchServername">
+        <property name="placeholderText">
+         <string>Servername</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qlSearchLocation">
+        <property name="text">
+         <string>Location</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QComboBox" name="qcbSearchLocation"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="qlFilter">
+        <property name="text">
+         <string>Filter</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QComboBox" name="qcbFilter">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>Show All</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Show Populated</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Show Reachable</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -94,45 +159,6 @@
   <action name="qaUrl">
    <property name="text">
     <string>Open &amp;Webpage</string>
-   </property>
-  </action>
-  <action name="qaShowReachable">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show &amp;Reachable</string>
-   </property>
-   <property name="toolTip">
-    <string>Show all servers that respond to ping</string>
-   </property>
-  </action>
-  <action name="qaShowPopulated">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show &amp;Populated</string>
-   </property>
-   <property name="toolTip">
-    <string>Show all servers with users</string>
-   </property>
-  </action>
-  <action name="qaShowAll">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show &amp;All</string>
-   </property>
-   <property name="toolTip">
-    <string>Show all servers</string>
    </property>
   </action>
   <action name="qaFavoriteCopy">

@@ -2849,10 +2849,6 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Filters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2882,18 +2878,6 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Add custom server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show all servers that respond to ping</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show all servers with users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show all servers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2929,19 +2913,67 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show &amp;Reachable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Populated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Server list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Populated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Reachable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Asia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Europe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>North America</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oceania</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>South America</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consent to the transmission of private data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7111,34 +7143,6 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Public Internet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Africa</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Asia</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>North America</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>South America</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Europe</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oceania</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

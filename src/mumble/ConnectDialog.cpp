@@ -116,16 +116,6 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 		addTopLevelItem(siPublic);
 
 		siPublic->setExpanded(false);
-
-		// The continent code is empty when the server's IP address is not in the GeoIP database
-		qmContinentNames.insert(QLatin1String(""), tr("Unknown"));
-
-		qmContinentNames.insert(QLatin1String("af"), tr("Africa"));
-		qmContinentNames.insert(QLatin1String("as"), tr("Asia"));
-		qmContinentNames.insert(QLatin1String("na"), tr("North America"));
-		qmContinentNames.insert(QLatin1String("sa"), tr("South America"));
-		qmContinentNames.insert(QLatin1String("eu"), tr("Europe"));
-		qmContinentNames.insert(QLatin1String("oc"), tr("Oceania"));
 	} else {
 		qWarning()<< "Public list disabled";
 
@@ -206,48 +196,6 @@ bool ServerView::dropMimeData(QTreeWidgetItem *, int, const QMimeData *mime, Qt:
 
 	return true;
 }
-
-ServerItem *ServerView::getParent(const QString &continentcode, const QString &countrycode, const QString &countryname, const QString &usercontinent, const QString &usercountry) {
-	ServerItem *continent = qmContinent.value(continentcode);
-	if (!continent) {
-		QString name = qmContinentNames.value(continentcode);
-		if (name.isEmpty())
-			name = continentcode;
-		continent = new ServerItem(name, ServerItem::PublicType, continentcode);
-		qmContinent.insert(continentcode, continent);
-		siPublic->addServerItem(continent);
-
-		if (!continentcode.isEmpty()) {
-			if (continentcode == usercontinent) {
-				continent->setExpanded(true);
-				scrollToItem(continent, QAbstractItemView::PositionAtTop);
-			}
-		} else {
-			continent->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
-		}
-	}
-
-	// If the continent code is empty, we put the server directly into the "Unknown" continent
-	if (continentcode.isEmpty()) {
-		return continent;
-	}
-
-	ServerItem *country = qmCountry.value(countrycode);
-	if (!country) {
-		country = new ServerItem(countryname, ServerItem::PublicType, continentcode, countrycode);
-		qmCountry.insert(countrycode, country);
-		country->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
-
-		continent->addServerItem(country);
-
-		if (!countrycode.isEmpty() && countrycode == usercountry) {
-			country->setExpanded(true);
-			scrollToItem(country, QAbstractItemView::PositionAtTop);
-		}
-	}
-	return country;
-}
-
 
 void ServerItem::init() {
 	// Without this, columncount is wrong.
@@ -338,15 +286,11 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 }
 #endif
 
-ServerItem::ServerItem(const QString &name, ItemType itype, const QString &continent, const QString &country) {
+ServerItem::ServerItem(const QString &name, ItemType itype) {
 	siParent = NULL;
 	bParent = true;
 	qsName = name;
 	itType = itype;
-	if (itType == PublicType) {
-		qsCountryCode = country;
-		qsContinentCode = continent;
-	}
 	setFlags(flags() & ~Qt::ItemIsDragEnabled);
 	bCA = false;
 
@@ -494,18 +438,23 @@ QVariant ServerItem::data(int column, int role) const {
 						return loadIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 					else if (itType == LANType)
 						return loadIcon(QLatin1String("skin:places/network-workgroup.svg"));
-					else if (! qsCountryCode.isEmpty()) {
-						QString flag = QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode);
-						if (!QFileInfo(flag).exists()) {
-							flag = QLatin1String("skin:categories/applications-internet.svg");
-						}
-						return loadIcon(flag);
-					}
 					else
 						return loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 			}
 		}
 	} else {
+		if (role == Qt::DecorationRole && column == 0) {
+			QString flag;
+			if (! qsCountryCode.isEmpty()) {
+			    flag = QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode);
+			    if (!QFileInfo(flag).exists()) {
+				    flag = QLatin1String("skin:categories/applications-internet.svg");
+				}
+			} else {
+				flag = QLatin1String("skin:categories/applications-internet.svg");
+			}
+			return loadIcon(flag);
+		}
 		if (role == Qt::DisplayRole) {
 			switch (column) {
 				case 0:
@@ -574,28 +523,15 @@ void ServerItem::addServerItem(ServerItem *childitem) {
 
 	childitem->siParent = this;
 	qlChildren.append(childitem);
-	childitem->hideCheck();
-
-	if (bParent && (itType != PublicType) && isHidden())
-		setHidden(false);
-}
-
-// If all child items are hidden, there is no child indicator, regardless of policy, so we have to add/remove instead.
-void ServerItem::hideCheck() {
-	bool hide = false;
-	bool ishidden = (parent() == NULL);
-
-	if (! bParent && (itType == PublicType)) {
-		if (g.s.ssFilter == Settings::ShowReachable)
-			hide = (dPing == 0.0);
-		else if (g.s.ssFilter == Settings::ShowPopulated)
-			hide = (uiUsers == 0);
+	addChild(childitem);
+	// Public servers must initially be hidden for the search to work properly
+	// They will be set to visible later on
+	if (childitem->itType == PublicType) {
+	    childitem->setHidden(true);
 	}
-	if (hide != ishidden) {
-		if (hide)
-			siParent->removeChild(this);
-		else
-			siParent->addChild(this);
+
+	if (bParent && (itType != PublicType) && isHidden()) {
+		setHidden(false);
 	}
 }
 
@@ -637,7 +573,7 @@ FavoriteServer ServerItem::toFavoriteServer() const {
 		fs.qsHostname = QLatin1Char('@') + qsBonjourHost;
 	else
 		fs.qsHostname = qsHostname;
-#else 
+#else
 	fs.qsHostname = qsHostname;
 #endif
 	fs.usPort = usPort;
@@ -988,18 +924,33 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	connect(qpbAdd, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
 	qdbbButtonBox->addButton(qpbAdd, QDialogButtonBox::ActionRole);
 
-	
+
 	qpbEdit = new QPushButton(tr("&Edit..."), this);
 	qpbEdit->setEnabled(false);
 	qpbEdit->setDefault(false);
 	qpbEdit->setAutoDefault(false);
 	connect(qpbEdit, SIGNAL(clicked()), qaFavoriteEdit, SIGNAL(triggered()));
 	qdbbButtonBox->addButton(qpbEdit, QDialogButtonBox::ActionRole);
-	
+
 	qpbAdd->setHidden(g.s.disableConnectDialogEditing);
 	qpbEdit->setHidden(g.s.disableConnectDialogEditing);
 
 	qtwServers->setItemDelegate(new ServerViewDelegate());
+
+	if (!g.s.disablePublicList) {
+		const QIcon qiFlag = ServerItem::loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
+		// Add continents and 'Unknown' to the location combobox
+		qcbSearchLocation->addItem(qiFlag, tr("All"),           QLatin1String("all"));
+		qcbSearchLocation->addItem(qiFlag, tr("Africa"),        QLatin1String("af"));
+		qcbSearchLocation->addItem(qiFlag, tr("Asia"),          QLatin1String("as"));
+		qcbSearchLocation->addItem(qiFlag, tr("Europe"),        QLatin1String("eu"));
+		qcbSearchLocation->addItem(qiFlag, tr("North America"), QLatin1String("na"));
+		qcbSearchLocation->addItem(qiFlag, tr("Oceania"),       QLatin1String("oc"));
+		qcbSearchLocation->addItem(qiFlag, tr("South America"), QLatin1String("sa"));
+		qcbSearchLocation->addItem(qiFlag, tr("Unknown"),       QLatin1String(""));
+		addCountriesToSearchLocation();
+	}
+	qgbSearch->setVisible(false);
 
 	// Hide ping and user count if we are not allowed to ping.
 	if (!bAllowPing) {
@@ -1018,42 +969,23 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	connect(qtwServers->header(), SIGNAL(sortIndicatorChanged(int, Qt::SortOrder)), this, SLOT(OnSortChanged(int, Qt::SortOrder)));
 
-	qaShowAll->setChecked(false);
-	qaShowReachable->setChecked(false);
-	qaShowPopulated->setChecked(false);
-
 	if (bAllowFilters) {
 		switch (g.s.ssFilter) {
 			case Settings::ShowPopulated:
-				qaShowPopulated->setChecked(true);
+				qcbFilter->setCurrentText(tr("Show Populated"));
 				break;
-			case Settings::ShowReachable:
-				qaShowReachable->setChecked(true);
+			case Settings::ShowAll:
+				qcbFilter->setCurrentText(tr("Show All"));
 				break;
 			default:
-				qaShowAll->setChecked(true);
+				qcbFilter->setCurrentText(tr("Show Reachable"));
 				break;
 		}
 	} else {
-		qaShowAll->setChecked(true);
+		qcbFilter->setEnabled(false);
 	}
-
-	qagFilters = new QActionGroup(this);
-	qagFilters->addAction(qaShowAll);
-	qagFilters->addAction(qaShowReachable);
-	qagFilters->addAction(qaShowPopulated);
-
-	connect(qagFilters, SIGNAL(triggered(QAction *)), this, SLOT(onFiltersTriggered(QAction *)));
 
 	qmPopup = new QMenu(this);
-	qmFilters = new QMenu(tr("&Filters"), this);
-	qmFilters->addAction(qaShowAll);
-	qmFilters->addAction(qaShowReachable);
-	qmFilters->addAction(qaShowPopulated);
-
-	if (!bAllowFilters) {
-		qmFilters->setEnabled(false);
-	}
 
 	QList<QTreeWidgetItem *> ql;
 	QList<FavoriteServer> favorites = g.db->getFavorites();
@@ -1284,18 +1216,6 @@ void ConnectDialog::on_qaUrl_triggered() {
 	QDesktopServices::openUrl(QUrl(si->qsUrl));
 }
 
-void ConnectDialog::onFiltersTriggered(QAction *act) {
-	if (act == qaShowAll)
-		g.s.ssFilter = Settings::ShowAll;
-	else if (act == qaShowReachable)
-		g.s.ssFilter = Settings::ShowReachable;
-	else if (act == qaShowPopulated)
-		g.s.ssFilter = Settings::ShowPopulated;
-
-	foreach(ServerItem *si, qlItems)
-		si->hideCheck();
-}
-
 void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos) {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->itemAt(mpos));
 	qmPopup->clear();
@@ -1319,12 +1239,6 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos)
 			qmPopup->addAction(qaUrl);
 		}
 	}
-	
-	if (! qmPopup->isEmpty()) {
-		qmPopup->addSeparator();
-	}
-	
-	qmPopup->addMenu(qmFilters);
 
 	qmPopup->popup(qtwServers->viewport()->mapToGlobal(mpos), NULL);
 }
@@ -1354,14 +1268,41 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 
 void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 	if (qtwServers->siPublic != NULL && item == qtwServers->siPublic) {
+		if (!g.s.bPingServersDialogViewed) {
+			// Ask the user for consent to ping the servers. If the user does
+			// not give consent, disable the public server list and return.
+			int result = QMessageBox::question(this,
+			                                   tr("Consent to the transmission of private data"),
+			                                   tr("<p>To measure the latency (ping) of public servers and determine the number of active users, "
+			                                      "your IP address must be transmitted to each public server.</p>"
+			                                      "<p>Do you consent to the transmission of your IP address? If you answer no, the public server "
+			                                      "list will be deactivated. However, you can reactivate it at any time in the network settings.</p>"),
+			                                   QMessageBox::Yes|QMessageBox::No);
+			g.s.bPingServersDialogViewed = true;
+			if (result == QMessageBox::No) {
+				g.s.disablePublicList = true;
+				item->setExpanded(false);
+				item->setHidden(true);
+				return;
+			}
+		}
+		qgbSearch->setVisible(true);
 		initList();
 		fillList();
 	}
 
 	ServerItem *p = static_cast<ServerItem *>(item);
 
-	foreach(ServerItem *si, p->qlChildren)
+	foreach(ServerItem *si, p->qlChildren) {
 		startDns(si);
+	}
+}
+
+void ConnectDialog::on_qtwServers_itemCollapsed(QTreeWidgetItem *item)
+{
+	if (qtwServers->siPublic != NULL && item == qtwServers->siPublic) {
+		qgbSearch->setVisible(false);
+	}
 }
 
 void ConnectDialog::initList() {
@@ -1476,11 +1417,9 @@ void ConnectDialog::fillList() {
 
 	foreach(QTreeWidgetItem *qtwi, qlNew) {
 		ServerItem *si = static_cast<ServerItem *>(qtwi);
-		ServerItem *p = qtwServers->getParent(si->qsContinentCode, si->qsCountryCode, si->qsCountry, qsUserContinentCode, qsUserCountryCode);
-		p->addServerItem(si);
-
-		if (p->isExpanded() && p->parent()->isExpanded())
-			startDns(si);
+		qtwServers->siPublic->addServerItem(si);
+		filterServer(si);
+		startDns(si);
 	}
 }
 
@@ -1580,6 +1519,50 @@ void ConnectDialog::timeTick() {
 	}
 }
 
+void ConnectDialog::filterPublicServerList() const {
+    foreach(ServerItem * const si, qtwServers->siPublic->qlChildren) {
+		filterServer(si);
+	}
+}
+
+void ConnectDialog::filterServer(ServerItem * const si) const {
+	if (!si->qsName.contains(qsSearchServername, Qt::CaseInsensitive)) {
+		si->setHidden(true);
+		return;
+	}
+	if (qsSearchLocation != QLatin1String("all")) {
+		if (qsSearchLocation != si->qsCountry && qsSearchLocation != si->qsContinentCode) {
+			si->setHidden(true);
+			return;
+		}
+	}
+	if (g.s.ssFilter == Settings::ShowReachable && si->dPing == 0.0) {
+		si->setHidden(true);
+		return;
+	} else if (g.s.ssFilter == Settings::ShowPopulated && si->uiUsers == 0) {
+		si->setHidden(true);
+		return;
+	}
+	si->setHidden(false);
+}
+
+void ConnectDialog::addCountriesToSearchLocation() const
+{
+	QMap <QString, QString> qmCountries;
+
+	foreach(const PublicInfo &pi, qlPublicServers) {
+		if (pi.qsCountry != tr("Unknown") && !qmCountries.contains(pi.qsCountry)) {
+		    qmCountries.insert(pi.qsCountry, pi.qsCountryCode);
+		}
+	}
+
+	foreach (auto location, qmCountries.keys()) {
+		// Set Icon, Text and Data
+		qcbSearchLocation->addItem(ServerItem::loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qmCountries.value(location))),
+		                           location,
+		                           location);
+	}
+}
 
 void ConnectDialog::startDns(ServerItem *si) {
 	if (!bAllowHostLookup) {
@@ -1776,7 +1759,9 @@ void ConnectDialog::udpReply() {
 						si->uiPingSort = qmPingCache.value(UnresolvedServerAddress(si->qsHostname, si->usPort));
 
 					si->setDatas(static_cast<double>(elapsed), users, maxusers);
-					si->hideCheck();
+					if (si->itType == ServerItem::PublicType) {
+					    filterServer(si);
+					}
 				}
 			}
 		}
@@ -1818,8 +1803,31 @@ void ConnectDialog::fetched(QByteArray xmlData, QUrl, QMap<QString, QString> hea
 		}
 		n = n.nextSibling();
 	}
-
+	addCountriesToSearchLocation();
 	tPublicServers.restart();
 
 	fillList();
+}
+
+void ConnectDialog::on_qleSearchServername_textChanged(const QString &searchServername) {
+	qsSearchServername = searchServername;
+	filterPublicServerList();
+}
+
+void ConnectDialog::on_qcbSearchLocation_currentIndexChanged(int searchLocationIndex) {
+	qsSearchLocation = qcbSearchLocation->itemData(searchLocationIndex).toString();
+	filterPublicServerList();
+}
+
+void ConnectDialog::on_qcbFilter_currentIndexChanged(int filterIndex) {
+	const QString filter = qcbFilter->itemText(filterIndex);
+	if (filter == tr("Show All")) {
+		g.s.ssFilter = Settings::ShowAll;
+	} else if (filter == tr("Show Reachable")) {
+		g.s.ssFilter = Settings::ShowReachable;
+	} else if (filter == tr("Show Populated")) {
+		g.s.ssFilter = Settings::ShowPopulated;
+	}
+
+	filterPublicServerList();
 }

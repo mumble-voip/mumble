@@ -439,7 +439,8 @@ Settings::Settings() {
 	bDisableCELT = false;
 	disablePublicList = false;
 	disableConnectDialogEditing = false;
-	
+	bPingServersDialogViewed = false;
+
 	// Config updates
 	uiUpdateCounter = 0;
 
@@ -853,6 +854,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
+	SAVELOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
 
 	// OverlayPrivateWin
 	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
@@ -1204,6 +1206,7 @@ void Settings::save() {
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
+	SAVELOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
 
 	// OverlayPrivateWin
 	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");

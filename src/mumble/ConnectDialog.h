@@ -88,16 +88,11 @@ class ServerView : public QTreeWidget {
 		Q_DISABLE_COPY(ServerView)
 	public:
 		ServerItem *siFavorite, *siLAN, *siPublic;
-		QMap<QString, QString> qmContinentNames;
-		QMap<QString, ServerItem *> qmCountry;
-		QMap<QString, ServerItem *> qmContinent;
 
 		ServerView(QWidget *);
 		~ServerView() Q_DECL_OVERRIDE;
 
 		void fixupName(ServerItem *si);
-
-		ServerItem *getParent(const QString &continent, const QString &countrycode, const QString &countryname, const QString &usercontinentcode, const QString &usercountrycode);
 	protected:
 		QMimeData *mimeData(const QList<QTreeWidgetItem *>) const Q_DECL_OVERRIDE;
 		QStringList mimeTypes() const Q_DECL_OVERRIDE;
@@ -151,7 +146,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 #ifdef USE_BONJOUR
 		ServerItem(const BonjourRecord &br);
 #endif
-		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
+		ServerItem(const QString &name, ItemType itype);
 		ServerItem(const ServerItem *si);
 		~ServerItem();
 
@@ -186,8 +181,6 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		bool operator< (const QTreeWidgetItem &) const Q_DECL_OVERRIDE;
 
 		QVariant data(int column, int role) const Q_DECL_OVERRIDE;
-
-		void hideCheck();
 };
 
 class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
@@ -237,8 +230,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		static QString qsUserCountry, qsUserCountryCode, qsUserContinentCode;
 		static Timer tPublicServers;
 
-		QMenu *qmPopup, *qmFilters;
-		QActionGroup *qagFilters;
+		QMenu *qmPopup;
 		QPushButton *qpbEdit;
 
 		bool bPublicInit;
@@ -263,6 +255,9 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		QMap<UnresolvedServerAddress, unsigned int> qmPingCache;
 
+		QString qsSearchServername;
+		QString qsSearchLocation;
+
 		bool bIPv4;
 		bool bIPv6;
 		int iPingIndex;
@@ -285,7 +280,6 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		/// be chosen.
 		bool bAllowFilters;
 
-		QMap<QString, QIcon> qmIcons;
 
 		void sendPing(const QHostAddress &, unsigned short port);
 
@@ -294,6 +288,25 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		void startDns(ServerItem *);
 		void stopDns(ServerItem *);
+
+		/// Calls ConnectDialog::filterServer for each server in
+		/// the public server list
+		void filterPublicServerList() const;
+		/// Hides the given ServerItem according to the current
+		/// filter settings. It is checked that the name of the
+		/// given server matches ConnectDialog#qsSearchServername
+		/// and the location is equal to ConnectDialog#qsSearchLocation.
+		/// Lastly it is checked that the server is reachable or
+		/// populated, should the respective filters be set.
+		///
+		/// \param si  ServerItem that should be filtered
+		void filterServer(ServerItem * const si) const;
+
+		/// Enumerates all countries in ConnectDialog#qlPublicServers
+		/// and adds an entry to the location filter Combobox with
+		/// with the country name as text, the countrycode as
+		/// data and the flag of the country as the icon.
+		void addCountriesToSearchLocation() const;
 	public slots:
 		void accept();
 		void fetched(QByteArray xmlData, QUrl, QMap<QString, QString>);
@@ -309,11 +322,21 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qaFavoriteCopy_triggered();
 		void on_qaFavoritePaste_triggered();
 		void on_qaUrl_triggered();
-		void onFiltersTriggered(QAction *);
 		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
 		void on_qtwServers_customContextMenuRequested(const QPoint &);
-		void on_qtwServers_itemExpanded(QTreeWidgetItem *);
+		/// If the expanded item is the public server list
+		/// the user is asked (only once) for consent to transmit
+		/// the IP to all public servers. If the user does not
+		/// consent the public server list is disabled. If
+		/// the user does consent the public server list is
+		/// filled and the search dialog is shown.
+		/// Finally name resolution is triggered for all child
+		/// items of the expanded item.
+		void on_qtwServers_itemExpanded(QTreeWidgetItem *item);
+		/// Hides the search dialog if the collapsed item is
+		/// the public server list
+		void on_qtwServers_itemCollapsed(QTreeWidgetItem *item);
 		void OnSortChanged(int, Qt::SortOrder);
 	public:
 		QString qsServer, qsUsername, qsPassword;
@@ -331,6 +354,10 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void onResolved(BonjourRecord, QString, int);
 		void onLanResolveError(BonjourRecord, DNSServiceErrorType);
 #endif
+	private slots:
+		void on_qleSearchServername_textChanged(const QString &searchServername);
+		void on_qcbSearchLocation_currentIndexChanged(int searchLocationIndex);
+		void on_qcbFilter_currentIndexChanged(int filterIndex);
 };
 
 #endif
