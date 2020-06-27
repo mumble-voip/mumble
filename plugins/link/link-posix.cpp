@@ -41,7 +41,7 @@ struct LinkedMem {
 /// Non-monotonic tick count in ms resolution
 static int64_t GetTickCount() {
 	struct timeval tv;
-	gettimeofday(&tv,NULL);
+	gettimeofday(&tv,nullptr);
 
 	return tv.tv_usec / 1000 + tv.tv_sec * 1000;
 }
@@ -164,7 +164,7 @@ static void load_plugin() {
 	}
 
 	lm = static_cast<struct LinkedMem*>(
-	         mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
+	         mmap(nullptr, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
 
 	if ((lm != lm_invalid) && bCreated)
 		memset(lm, 0, sizeof(struct LinkedMem));
@@ -187,8 +187,8 @@ static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	wsPluginName,
-	NULL,
-	NULL,
+	nullptr,
+	nullptr,
 	trylock,
 	unlock,
 	longdesc,

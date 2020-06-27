@@ -73,7 +73,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	oidentity << "{";
 	escape(host, sizeof(host));
 	// Only include host (IP:port) if it is not empty and does not include the string "bot" (which means it's a local server).
-	if (strcmp(host, "") != 0 && strstr(host, "bot") == NULL) {
+	if (strcmp(host, "") != 0 && !strstr(host, "bot")) {
 		oidentity << std::endl << "\"Host\": \"" << host << "\",";
 	}
 
@@ -216,8 +216,8 @@ static MumblePlugin bf4plug = {
     MUMBLE_PLUGIN_MAGIC,
     description,
     shortname,
-    NULL,
-    NULL,
+    nullptr,
+    nullptr,
     trylock1,
     generic_unlock,
     longdesc,
