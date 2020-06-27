@@ -269,10 +269,10 @@ QString UserListModel::pathForChannelId(const int channelId) const {
 		path = QLatin1String("-");
 
 		Channel *channel = Channel::get(channelId);
-		if (channel != NULL) {
+		if (channel) {
 			QStringList pathParts;
 
-			while (channel->cParent != NULL) {
+			while (channel->cParent) {
 				pathParts.prepend(channel->qsName);
 				channel = channel->cParent;
 			}

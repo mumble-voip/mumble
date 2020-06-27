@@ -48,7 +48,7 @@ extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
 static bool growl_available() {
 	static int isAvailable = -1;
 	if (isAvailable == -1)  {
-		OSStatus err = LSFindApplicationForInfo('GRRR', CFSTR("com.Growl.GrowlHelperApp"), CFSTR("GrowlHelperApp.app"), NULL, NULL);
+		OSStatus err = LSFindApplicationForInfo('GRRR', CFSTR("com.Growl.GrowlHelperApp"), CFSTR("GrowlHelperApp.app"), nullptr, nullptr);
 		isAvailable = (err != kLSApplicationNotFoundErr) ? 1 : 0;
 		if (isAvailable) {
 			QStringList qslAllEvents;
@@ -65,7 +65,7 @@ static bool growl_available() {
 				"		default notifications enabledNotificationsList"
 				"		icon of application \"Mumble\"\n"
 				"end tell\n").arg(qslAllEvents.join(QLatin1String(",")));
-			qt_mac_execute_apple_script(qsScript, NULL);
+			qt_mac_execute_apple_script(qsScript, nullptr);
 		}
 	}
 	return isAvailable == 1;
@@ -100,7 +100,7 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 			"	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
 			"end tell\n").arg(title).arg(plain);
 		if (growl_available())
-			qt_mac_execute_apple_script(qsScript, NULL);
+			qt_mac_execute_apple_script(qsScript, nullptr);
 #endif
 	}
 }

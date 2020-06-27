@@ -56,7 +56,7 @@ class ASIOInit : public DeferInit {
 		ASIOAudioInputRegistrar *airASIO;
 		ConfigRegistrar *crASIO;
 	public:
-		ASIOInit() : airASIO(NULL), crASIO(NULL) {}
+		ASIOInit() : airASIO(nullptr), crASIO(nullptr) {}
 		void initialize();
 		void destroy();
 };
@@ -66,8 +66,8 @@ void ASIOInit::initialize() {
 	HKEY hk;
 	FILETIME ft;
 
-	airASIO = NULL;
-	crASIO = NULL;
+	airASIO = nullptr;
+	crASIO = nullptr;
 
 	bool bFound = false;
 
@@ -87,7 +87,7 @@ void ASIOInit::initialize() {
 		DWORD idx = 0;
 		DWORD keynamelen = 255;
 		WCHAR keyname[255];
-		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
+		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, nullptr, nullptr, nullptr, &ft)  == ERROR_SUCCESS) {
 			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
@@ -148,7 +148,7 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 		FILETIME ft;
 		DWORD idx = 0;
 		DWORD keynamelen = keynamebufsize;
-		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft) == ERROR_SUCCESS) {
+		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, nullptr, nullptr, nullptr, &ft) == ERROR_SUCCESS) {
 			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname), keynamelen);
 			HKEY hk;
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
@@ -194,7 +194,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 	clearQuery();
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
-	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
+	if (CoCreateInstance(clsid, nullptr, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
 		if (iasio->init(mumble_mw_hwnd)) {
 			SleepEx(10, false);
@@ -276,7 +276,7 @@ void ASIOConfig::on_qpbConfig_clicked() {
 	IASIO *iasio;
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
-	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
+	if (CoCreateInstance(clsid, nullptr, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
 		if (iasio->init(mumble_mw_hwnd)) {
 			SleepEx(10, false);
@@ -396,9 +396,9 @@ ASIOInput::ASIOInput() {
 	QString qsCls = g.s.qsASIOclass;
 	CLSID clsid;
 
-	iasio = NULL;
-	abiInfo = NULL;
-	aciInfo = NULL;
+	iasio = nullptr;
+	abiInfo = nullptr;
+	aciInfo = nullptr;
 
 	// Sanity check things first.
 
@@ -406,13 +406,13 @@ ASIOInput::ASIOInput() {
 	iNumSpeaker=g.s.qlASIOspeaker.count();
 
 	if ((iNumMic == 0) || (iNumSpeaker == 0)) {
-		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("You need to select at least one microphone and one speaker source to use ASIO."),  QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::warning(nullptr, QLatin1String("Mumble"), tr("You need to select at least one microphone and one speaker source to use ASIO."),  QMessageBox::Ok, QMessageBox::NoButton);
 		return;
 	}
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
-	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
-		if (iasio->init(NULL)) {
+	if (CoCreateInstance(clsid, nullptr, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
+		if (iasio->init(nullptr)) {
 			iasio->setSampleRate(48000.0);
 			ASIOSampleRate srate = 0.0;
 			iasio->getSampleRate(&srate);
@@ -506,10 +506,10 @@ ASIOInput::ASIOInput() {
 
 	if (iasio) {
 		iasio->Release();
-		iasio = NULL;
+		iasio = nullptr;
 	}
 
-	QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("Opening selected ASIO device failed. No input will be done."),
+	QMessageBox::critical(nullptr, QLatin1String("Mumble"), tr("Opening selected ASIO device failed. No input will be done."),
 	                      QMessageBox::Ok, QMessageBox::NoButton);
 
 }
@@ -521,14 +521,14 @@ ASIOInput::~ASIOInput() {
 		iasio->stop();
 		iasio->disposeBuffers();
 		iasio->Release();
-		iasio = NULL;
+		iasio = nullptr;
 	}
 
 	delete [] abiInfo;
-	abiInfo = NULL;
+	abiInfo = nullptr;
 
 	delete [] aciInfo;
-	aciInfo = NULL;
+	aciInfo = nullptr;
 }
 
 void ASIOInput::run() {

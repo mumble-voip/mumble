@@ -26,7 +26,7 @@ ConfigRegistrar::~ConfigRegistrar() {
 	c_qmNew->remove(iPriority);
 	if (c_qmNew->isEmpty()) {
 		delete c_qmNew;
-		c_qmNew = NULL;
+		c_qmNew = nullptr;
 	}
 }
 

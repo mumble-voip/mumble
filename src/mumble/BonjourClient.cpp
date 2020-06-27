@@ -8,7 +8,7 @@
 BonjourClient::BonjourClient() {
 #ifdef Q_OS_WIN
 	HMODULE hLib = LoadLibrary(L"DNSSD.DLL");
-	if (hLib == NULL) {
+	if (!hLib) {
 		qWarning("Bonjour: Failed to load dnssd.dll");
 		return;
 	}

@@ -28,7 +28,7 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		Settings s;
 
 	public:
-		ConfigDialog(QWidget *p = NULL);
+		ConfigDialog(QWidget *p = nullptr);
 		~ConfigDialog() Q_DECL_OVERRIDE;
 
 		/// @returns The pointer to the existing ConfigWidget with the given name or nullptr,

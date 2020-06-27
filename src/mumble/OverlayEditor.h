@@ -23,7 +23,7 @@ class OverlayEditor : public QDialog, public Ui::OverlayEditor {
 		void enterEvent(QEvent *e) Q_DECL_OVERRIDE;
 		void leaveEvent(QEvent *e) Q_DECL_OVERRIDE;
 	public:
-		OverlayEditor(QWidget *p = NULL, QGraphicsItem *qgi = NULL, OverlaySettings *osptr = NULL);
+		OverlayEditor(QWidget *p = nullptr, QGraphicsItem *qgi = nullptr, OverlaySettings *osptr = nullptr);
 		~OverlayEditor() Q_DECL_OVERRIDE;
 	signals:
 		void applySettings();

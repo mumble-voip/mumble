@@ -57,9 +57,9 @@ struct PluginInfo {
 PluginInfo::PluginInfo() {
 	locked = false;
 	enabled = false;
-	p = NULL;
-	p2 = NULL;
-	pqt = NULL;
+	p = nullptr;
+	p2 = nullptr;
+	pqt = nullptr;
 }
 
 struct PluginFetchMeta {
@@ -122,7 +122,7 @@ PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
 				return pi;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void PluginConfig::on_qpbConfig_clicked() {
@@ -182,7 +182,7 @@ void PluginConfig::refillPluginList() {
 		i->setData(0, Qt::UserRole, pi->filename);
 	}
 	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
-	on_qtwPlugins_currentItemChanged(qtwPlugins->topLevelItem(0), NULL);
+	on_qtwPlugins_currentItemChanged(qtwPlugins->topLevelItem(0), nullptr);
 }
 
 void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *) {
@@ -217,7 +217,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	QTimer *timer=new QTimer(this);
 	timer->setObjectName(QLatin1String("Timer"));
 	timer->start(500);
-	locked = prevlocked = NULL;
+	locked = prevlocked = nullptr;
 	bValid = false;
 	iPluginTry = 0;
 	for (int i=0;i<3;i++)
@@ -243,7 +243,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 #ifdef Q_OS_WIN
 	// According to MS KB Q131065, we need this to OpenProcess()
 
-	hToken = NULL;
+	hToken = nullptr;
 
 	if (!OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken)) {
 		if (GetLastError() == ERROR_NO_TOKEN) {
@@ -256,7 +256,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	LUID luid;
 	cbPrevious=sizeof(TOKEN_PRIVILEGES);
 
-	LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &luid);
+	LookupPrivilegeValue(nullptr, SE_DEBUG_NAME, &luid);
 
 	tp.PrivilegeCount           = 1;
 	tp.Privileges[0].Luid       = luid;
@@ -270,7 +270,7 @@ Plugins::~Plugins() {
 	clearPlugins();
 
 #ifdef Q_OS_WIN
-	AdjustTokenPrivileges(hToken, FALSE, &tpPrevious, cbPrevious, NULL, NULL);
+	AdjustTokenPrivileges(hToken, FALSE, &tpPrevious, cbPrevious, nullptr, nullptr);
 	CloseHandle(hToken);
 #endif
 }
@@ -290,7 +290,7 @@ void Plugins::rescanPlugins() {
 	clearPlugins();
 
 	QWriteLocker lock(&g.p->qrwlPlugins);
-	prevlocked = locked = NULL;
+	prevlocked = locked = nullptr;
 	bValid = false;
 
 	QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
@@ -329,7 +329,7 @@ void Plugins::rescanPlugins() {
 						if (mpf2) {
 							pi->p2 = mpf2();
 							if (pi->p2->magic != MUMBLE_PLUGIN_MAGIC_2) {
-								pi->p2 = NULL;
+								pi->p2 = nullptr;
 							}
 						}
 
@@ -337,7 +337,7 @@ void Plugins::rescanPlugins() {
 						if (mpfqt) {
 							pi->pqt = mpfqt();
 							if (pi->pqt->magic != MUMBLE_PLUGIN_MAGIC_QT) {
-								pi->pqt = NULL;
+								pi->pqt = nullptr;
 							}
 						}
 
@@ -416,7 +416,7 @@ bool Plugins::fetch() {
 			locked->p->unlock();
 			locked->locked = false;
 			prevlocked = locked;
-			locked = NULL;
+			locked = nullptr;
 			for (int i=0;i<3;i++)
 				fPosition[i]=fFront[i]=fTop[i]=fCameraPosition[i]=fCameraFront[i]=fCameraTop[i] = 0.0f;
 		}
@@ -432,7 +432,7 @@ void Plugins::on_Timer_timeout() {
 
 	if (prevlocked) {
 		g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname.toHtmlEscaped()));
-		prevlocked = NULL;
+		prevlocked = nullptr;
 	}
 
 

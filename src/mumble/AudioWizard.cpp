@@ -165,9 +165,9 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	fAngle = 0.0f;
 	fX = fY = 0.0f;
-	qgsScene = NULL;
-	qgiSource = NULL;
-	aosSource = NULL;
+	qgsScene = nullptr;
+	qgiSource = nullptr;
+	aosSource = nullptr;
 	qgvView->scale(1.0f, -1.0f);
 	qgvView->viewport()->installEventFilter(this);
 	qgvView->setRenderHints(QPainter::Antialiasing);
@@ -323,7 +323,7 @@ void AudioWizard::showPage(int pageid) {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
-	aosSource = NULL;
+	aosSource = nullptr;
 
 	g.bPosTest = false;
 
@@ -340,8 +340,8 @@ void AudioWizard::showPage(int pageid) {
 		g.bPosTest = true;
 		if (qgsScene) {
 			delete qgsScene;
-			qgiSource = NULL;
-			qgsScene = NULL;
+			qgiSource = nullptr;
+			qgsScene = nullptr;
 		}
 		playChord();
 	} else {
@@ -379,7 +379,7 @@ void AudioWizard::playChord() {
 }
 
 void AudioWizard::restartAudio() {
-	aosSource = NULL;
+	aosSource = nullptr;
 
 	Audio::stop();
 
@@ -390,8 +390,8 @@ void AudioWizard::restartAudio() {
 
 	if (qgsScene) {
 		delete qgsScene;
-		qgiSource = NULL;
-		qgsScene = NULL;
+		qgiSource = nullptr;
+		qgsScene = nullptr;
 	}
 
 	if ((currentPage() == qwpPositional) || (currentPage() == qwpDeviceTuning))
@@ -407,7 +407,7 @@ void AudioWizard::reject() {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
-	aosSource = NULL;
+	aosSource = nullptr;
 	g.bInAudioWizard = false;
 	g.mw->onChangeMute();
 

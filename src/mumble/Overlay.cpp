@@ -42,16 +42,16 @@
 QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 #ifdef Q_OS_MAC
 	QString qsIdentifier;
-	CFDictionaryRef plist = NULL;
-	CFDataRef data = NULL;
+	CFDictionaryRef plist = nullptr;
+	CFDataRef data = nullptr;
 
 	QFile qfAppBundle(QString::fromLatin1("%1/Contents/Info.plist").arg(path));
 	if (qfAppBundle.exists()) {
 		qfAppBundle.open(QIODevice::ReadOnly);
 		QByteArray qbaPlistData = qfAppBundle.readAll();
 
-		data = CFDataCreateWithBytesNoCopy(NULL, reinterpret_cast<UInt8 *>(qbaPlistData.data()), qbaPlistData.count(), kCFAllocatorNull);
-		plist = static_cast<CFDictionaryRef>(CFPropertyListCreateFromXMLData(NULL, data, kCFPropertyListImmutable, NULL));
+		data = CFDataCreateWithBytesNoCopy(nullptr, reinterpret_cast<UInt8 *>(qbaPlistData.data()), qbaPlistData.count(), kCFAllocatorNull);
+		plist = static_cast<CFDictionaryRef>(CFPropertyListCreateFromXMLData(nullptr, data, kCFPropertyListImmutable, nullptr));
 		if (plist) {
 			CFStringRef ident = static_cast<CFStringRef>(CFDictionaryGetValue(plist, CFSTR("CFBundleIdentifier")));
 			if (ident) {
@@ -79,14 +79,14 @@ OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 	QString qsAppName(identifier);
 	QIcon qiAppIcon;
 #if defined(Q_OS_MAC)
-	CFStringRef bundleId = NULL;
-	CFURLRef bundleUrl = NULL;
-	CFBundleRef bundle = NULL;
+	CFStringRef bundleId = nullptr;
+	CFURLRef bundleUrl = nullptr;
+	CFBundleRef bundle = nullptr;
 	OSStatus err = noErr;
 	char buf[4096];
 
 	bundleId = CFStringCreateWithCharacters(kCFAllocatorDefault, reinterpret_cast<const UniChar *>(identifier.unicode()), identifier.length());
-	err = LSFindApplicationForInfo(kLSUnknownCreator, bundleId, NULL, NULL, &bundleUrl);
+	err = LSFindApplicationForInfo(kLSUnknownCreator, bundleId, nullptr, nullptr, &bundleUrl);
 	if (err == noErr) {
 		// Figure out the bundle name of the application.
 		CFStringRef absBundlePath = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
@@ -96,7 +96,7 @@ OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 		qsAppName = QFileInfo(qsBundlePath).bundleName();
 
 		// Load the bundle's icon.
-		bundle = CFBundleCreate(NULL, bundleUrl);
+		bundle = CFBundleCreate(nullptr, bundleUrl);
 		if (bundle) {
 			CFDictionaryRef info = CFBundleGetInfoDictionary(bundle);
 			if (info) {
@@ -138,7 +138,7 @@ OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 	//
 	// To sidestep the removal of the function, we simply
 	// call through to GetModuleHandle() directly.
-	HINSTANCE qWinAppInstValue = GetModuleHandle(NULL);
+	HINSTANCE qWinAppInstValue = GetModuleHandle(nullptr);
 	HICON icon = ExtractIcon(qWinAppInstValue, identifier.toStdWString().c_str(), 0);
 	if (icon) {
 		extern QPixmap qt_pixmapFromWinHICON(HICON icon);
@@ -264,7 +264,7 @@ void Overlay::createPipe() {
 #endif
 
 	if (! qlsServer->listen(pipepath)) {
-		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(qlsServer->errorString().toHtmlEscaped(), pipepath.toHtmlEscaped()), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::warning(nullptr, QLatin1String("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(qlsServer->errorString().toHtmlEscaped(), pipepath.toHtmlEscaped()), QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
 		qWarning() << "Overlay: Listening on" << qlsServer->fullServerName();
 		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));

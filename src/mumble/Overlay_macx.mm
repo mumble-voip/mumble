@@ -207,7 +207,7 @@ void OverlayClient::updateMouse() {
 	QPixmap pm = qmCursors.value(csShape);
 	if (pm.isNull()) {
 		NSImage *img = [cursor image];
-		CGImageRef cgimg = NULL;
+		CGImageRef cgimg = nullptr;
 		NSArray *reps = [img representations];
 		for (NSUInteger i = 0; i < [reps count]; i++) {
 			NSImageRep *rep = [reps objectAtIndex:i];
@@ -238,7 +238,7 @@ bool OverlayConfig::isInstalled() {
 
 	// Determine if the installed bundle is correctly installed (i.e. it's loadable)
 	NSBundle *bundle = [NSBundle bundleWithPath:MumbleOverlayLoaderBundle];
-	ret = [bundle preflightAndReturnError:NULL];
+	ret = [bundle preflightAndReturnError:nullptr];
 
 	// Do the bundle identifiers match?
 	if (ret) {
@@ -252,34 +252,34 @@ bool OverlayConfig::isInstalled() {
 // Also checks whether the new installer is compatiable with the current version of
 // Mumble.
 static bool isInstallerNewer(QString path, NSUInteger curVer) {
-	xar_t pkg = NULL;
-	xar_iter_t iter = NULL;
-	xar_file_t file = NULL;
-	char *data = NULL;
+	xar_t pkg = nullptr;
+	xar_iter_t iter = nullptr;
+	xar_file_t file = nullptr;
+	char *data = nullptr;
 	size_t size = 0;
 	bool ret = false;
 	QString qsMinVer, qsOverlayVer;
 
 	pkg = xar_open(path.toUtf8().constData(), READ);
-	if (pkg == NULL) {
+	if (!pkg) {
 		qWarning("isInstallerNewer: Unable to open pkg.");
 		goto out;
 	}
 
 	iter = xar_iter_new();
-	if (iter == NULL) {
+	if (!iter) {
 		qWarning("isInstallerNewer: Unable to allocate iter");
 		goto out;
 	}
 
 	file = xar_file_first(pkg, iter);
-	while (file != NULL) {
+	while (file) {
 		if (!strcmp(xar_get_path(file), "upgrade.xml"))
 			break;
 		file = xar_file_next(iter);
 	}
 
-	if (file != NULL) {
+	if (file) {
 		if (xar_extract_tobuffersz(pkg, file, &data, &size) == -1) {
 			goto out;
 		}
@@ -345,7 +345,7 @@ static bool authExec(AuthorizationRef ref, const char **argv) {
 	OSStatus err = noErr;
 	int pid = 0, status = 0;
 
-	err = AuthorizationExecuteWithPrivileges(ref, argv[0], kAuthorizationFlagDefaults, const_cast<char * const *>(&argv[1]), NULL);
+	err = AuthorizationExecuteWithPrivileges(ref, argv[0], kAuthorizationFlagDefaults, const_cast<char * const *>(&argv[1]), nullptr);
 	if (err == errAuthorizationSuccess) {
 		do {
 			pid = wait(&status);
@@ -393,10 +393,10 @@ bool OverlayConfig::uninstallFiles() {
 
 	// Perform uninstallation using Authorization Services. (Pops up a dialog asking for admin privileges)
 	if (bundleOk) {
-		err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
+		err = AuthorizationCreate(nullptr, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
 		if (err == errAuthorizationSuccess) {
 			QByteArray tmp = QString::fromLatin1("/tmp/%1_Uninstalled_MumbleOverlay.osax").arg(QDateTime::currentMSecsSinceEpoch()).toLocal8Bit();
-			const char *remove[] = { "/bin/mv", [MumbleOverlayLoaderBundle UTF8String], tmp.constData(), NULL };
+			const char *remove[] = { "/bin/mv", [MumbleOverlayLoaderBundle UTF8String], tmp.constData(), nullptr };
 			ret = authExec(auth, remove);
 		}
 		AuthorizationFree(auth, kAuthorizationFlagDefaults);

@@ -15,7 +15,7 @@ class Tokens : public QDialog, public Ui::Tokens {
 	protected:
 		QByteArray qbaDigest;
 	public:
-		Tokens(QWidget *p = NULL);
+		Tokens(QWidget *p = nullptr);
 	public slots:
 		void accept() Q_DECL_OVERRIDE;
 	public slots:

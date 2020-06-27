@@ -252,7 +252,7 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 
 	QString path;
 	qint64 elapsedMsec = 0;
-	QTimer *restartTimer = NULL;
+	QTimer *restartTimer = nullptr;
 	if (helper == m_helper_process) {
 		path = m_helper_exe_path;
 		elapsedMsec = m_helper_start_time.elapsed();
@@ -302,7 +302,7 @@ void OverlayPrivateWin::onDelayedRestartTimerTriggered() {
 
 	QTimer *timer = qobject_cast<QTimer *>(sender());
 
-	QProcess *helper = NULL;
+	QProcess *helper = nullptr;
 	if (timer == m_helper_restart_timer) {
 		helper = m_helper_process;
 	} else if (timer == m_helper64_restart_timer) {

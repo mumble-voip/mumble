@@ -65,7 +65,7 @@ class WASAPIInit : public DeferInit {
 		WASAPIInputRegistrar *wirReg;
 		WASAPIOutputRegistrar *worReg;
 	public:
-		WASAPIInit() : wirReg(NULL), worReg(NULL) { }
+		WASAPIInit() : wirReg(nullptr), worReg(nullptr) { }
 		void initialize();
 		void destroy();
 };
@@ -75,8 +75,8 @@ static WASAPIInit wasapiinit;
 extern bool bIsWin7, bIsVistaSP1;
 
 void WASAPIInit::initialize() {
-	wirReg = NULL;
-	worReg = NULL;
+	wirReg = nullptr;
+	worReg = nullptr;
 
 	if (! bIsVistaSP1) {
 		qWarning("WASAPIInit: Requires Vista SP1");
@@ -84,7 +84,7 @@ void WASAPIInit::initialize() {
 	}
 
 	HMODULE hLib = LoadLibrary(L"AVRT.DLL");
-	if (hLib == NULL) {
+	if (!hLib) {
 		qWarning("WASAPIInit: Failed to load avrt.dll");
 		return;
 	}
@@ -123,8 +123,8 @@ bool getAndCheckMixFormat(const char* sourceName,
                     WAVEFORMATEXTENSIBLE **waveFormatExtensible,
                     SAMPLEFORMAT *sampleFormat) {
 	
-	*waveFormatEx = NULL;
-	*waveFormatExtensible = NULL;
+	*waveFormatEx = nullptr;
+	*waveFormatExtensible = nullptr;
 	
 	HRESULT hr = audioClient->GetMixFormat(waveFormatEx);
 	if (FAILED(hr)) {
@@ -228,10 +228,10 @@ const QHash<QString, QString> WASAPISystem::getDevices(EDataFlow dataflow) {
 
 	HRESULT hr;
 
-	IMMDeviceEnumerator *pEnumerator = NULL;
-	IMMDeviceCollection *pCollection = NULL;
+	IMMDeviceEnumerator *pEnumerator = nullptr;
+	IMMDeviceCollection *pCollection = nullptr;
 
-	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 
 	if (! pEnumerator || FAILED(hr)) {
 		qWarning("WASAPI: Failed to instatiate enumerator: hr=0x%08lx", hr);
@@ -245,13 +245,13 @@ const QHash<QString, QString> WASAPISystem::getDevices(EDataFlow dataflow) {
 			UINT ndev = 0;
 			pCollection->GetCount(&ndev);
 			for (unsigned int idx=0;idx<ndev;++idx) {
-				IMMDevice *pDevice = NULL;
-				IPropertyStore *pStore = NULL;
+				IMMDevice *pDevice = nullptr;
+				IPropertyStore *pStore = nullptr;
 
 				pCollection->Item(idx, &pDevice);
 				pDevice->OpenPropertyStore(STGM_READ, &pStore);
 
-				LPWSTR strid = NULL;
+				LPWSTR strid = nullptr;
 				pDevice->GetId(&strid);
 
 				PROPVARIANT varName;
@@ -302,15 +302,15 @@ WASAPIInput::~WASAPIInput() {
 
 static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFlow, ERole role) {
 	HRESULT hr;
-	IMMDeviceEnumerator *pEnumerator = NULL;
+	IMMDeviceEnumerator *pEnumerator = nullptr;
 
-	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 	if (!pEnumerator || FAILED(hr)) {
 		qWarning("WASAPI: Failed to instantiate enumerator: hr=0x%08lx", hr);
-		return NULL;
+		return nullptr;
 	}
 
-	IMMDevice *pDevice = NULL;
+	IMMDevice *pDevice = nullptr;
 	// Try to find a device pointer for |name|.
 	if (!name.isEmpty()) {
 		STACKVAR(wchar_t, devname, name.length() + 1);
@@ -324,7 +324,7 @@ static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFl
 		}
 	}
 
-	// Use the default device if |pDevice| is still NULL.
+	// Use the default device if |pDevice| is still nullptr.
 	// We retrieve the actual device name for the currently selected default device and
 	// open the device by it's real name to work around triggering the automatic
 	// ducking behavior.
@@ -334,7 +334,7 @@ static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFl
 			qWarning("WASAPI: Failed to open device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
 			goto cleanup;
 		}
-		wchar_t *devname = NULL;
+		wchar_t *devname = nullptr;
 		hr = pDevice->GetId(&devname);
 		if (FAILED(hr)) {
 			qWarning("WASAPI: Failed to query device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
@@ -359,14 +359,14 @@ cleanup:
 
 void WASAPIInput::run() {
 	HRESULT hr;
-	IMMDevice *pMicDevice = NULL;
-	IAudioClient *pMicAudioClient = NULL;
-	IAudioCaptureClient *pMicCaptureClient = NULL;
-	IMMDevice *pEchoDevice = NULL;
-	IAudioClient *pEchoAudioClient = NULL;
-	IAudioCaptureClient *pEchoCaptureClient = NULL;
-	WAVEFORMATEX *micpwfx = NULL, *echopwfx = NULL;
-	WAVEFORMATEXTENSIBLE *micpwfxe = NULL, *echopwfxe = NULL;
+	IMMDevice *pMicDevice = nullptr;
+	IAudioClient *pMicAudioClient = nullptr;
+	IAudioCaptureClient *pMicCaptureClient = nullptr;
+	IMMDevice *pEchoDevice = nullptr;
+	IAudioClient *pEchoAudioClient = nullptr;
+	IAudioCaptureClient *pEchoCaptureClient = nullptr;
+	WAVEFORMATEX *micpwfx = nullptr, *echopwfx = nullptr;
+	WAVEFORMATEXTENSIBLE *micpwfxe = nullptr, *echopwfxe = nullptr;
 	WAVEFORMATEXTENSIBLE wfe;
 	UINT32 bufferFrameCount;
 	UINT32 numFramesAvailable;
@@ -379,18 +379,18 @@ void WASAPIInput::run() {
 	DWORD flags;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
-	float *tbuff = NULL;
-	short *sbuff = NULL;
+	float *tbuff = nullptr;
+	short *sbuff = nullptr;
 	bool doecho = g.s.doEcho();
 	REFERENCE_TIME def, min, latency, want;
 	bool exclusive = false;
 
-	CoInitialize(NULL);
+	CoInitialize(nullptr);
 
-	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+	hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
 	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
-	if (hMmThread == NULL) {
+	if (!hMmThread) {
 		qWarning("WASAPIInput: Failed to set Pro Audio thread priority");
 	}
 
@@ -406,7 +406,7 @@ void WASAPIInput::run() {
 			doecho = false;
 	}
 
-	hr = pMicDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pMicAudioClient);
+	hr = pMicDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pMicAudioClient);
 	if (FAILED(hr)) {
 		qWarning("WASAPIInput: Activate Mic AudioClient failed: hr=0x%08lx", hr);
 		goto cleanup;
@@ -433,7 +433,7 @@ void WASAPIInput::run() {
 			micpwfxe = &wfe;
 			micpwfx = reinterpret_cast<WAVEFORMATEX *>(&wfe);
 
-			hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, micpwfx, NULL);
+			hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, micpwfx, nullptr);
 			if (SUCCEEDED(hr)) {
 				eMicFormat = SampleShort;
 				exclusive = true;
@@ -441,8 +441,8 @@ void WASAPIInput::run() {
 				break;
 			}
 
-			micpwfxe = NULL;
-			micpwfx = NULL;
+			micpwfxe = nullptr;
+			micpwfx = nullptr;
 		}
 	}
 
@@ -455,7 +455,7 @@ void WASAPIInput::run() {
 			goto cleanup;
 		}
 
-		hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, NULL);
+		hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, nullptr);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Mic Initialize failed: hr=0x%08lx", hr);
 			if (hr == E_ACCESSDENIED) {
@@ -493,7 +493,7 @@ void WASAPIInput::run() {
 	iMicFreq = micpwfx->nSamplesPerSec;
 
 	if (doecho) {
-		hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pEchoAudioClient);
+		hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pEchoAudioClient);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Activate Echo AudioClient failed: hr=0x%08lx", hr);
 			goto cleanup;
@@ -504,7 +504,7 @@ void WASAPIInput::run() {
 			goto cleanup;
 		}
 
-		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0, echopwfx, NULL);
+		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0, echopwfx, nullptr);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Echo Initialize failed: hr=0x%08lx", hr);
 			goto cleanup;
@@ -649,10 +649,10 @@ cleanup:
 	if (pEchoDevice)
 		pEchoDevice->Release();
 
-	if (hMmThread != NULL)
+	if (hMmThread)
 		AvRevertMmThreadCharacteristics(hMmThread);
 
-	if (hEvent != NULL)
+	if (hEvent)
 		CloseHandle(hEvent);
 
 	delete [] tbuff;
@@ -676,14 +676,14 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 			float fVolume = 1.0f;
 			hr = i.key()->GetMasterVolume(&fVolume);
 			if (qFuzzyCompare(i.value().second, fVolume))
-				hr = i.key()->SetMasterVolume(i.value().first, NULL);
+				hr = i.key()->SetMasterVolume(i.value().first, nullptr);
 			i.key()->Release();
 		}
 		qmVolumes.clear();
 		return;
 	}
 
-	IAudioSessionManager2 *pAudioSessionManager = NULL;
+	IAudioSessionManager2 *pAudioSessionManager = nullptr;
 	int max = 0;
 	DWORD dwMumble = GetCurrentProcessId();
 
@@ -693,9 +693,9 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 
 	// FIXME: Try to keep the session object around when returning volume.
 
-	if (SUCCEEDED(hr = pDevice->Activate(bIsWin7 ? __uuidof(IAudioSessionManager2) : __uuidof(IAudioSessionManager), CLSCTX_ALL, NULL, (void **) &pAudioSessionManager))) {
-		IAudioSessionEnumerator *pEnumerator = NULL;
-		IAudioSessionQuery *pMysticQuery = NULL;
+	if (SUCCEEDED(hr = pDevice->Activate(bIsWin7 ? __uuidof(IAudioSessionManager2) : __uuidof(IAudioSessionManager), CLSCTX_ALL, nullptr, (void **) &pAudioSessionManager))) {
+		IAudioSessionEnumerator *pEnumerator = nullptr;
+		IAudioSessionQuery *pMysticQuery = nullptr;
 		if (! bIsWin7) {
 			if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(IID_IAudioSessionQuery, (void **) &pMysticQuery))) {
 				hr = pMysticQuery->GetQueryInterface(&pEnumerator);
@@ -709,7 +709,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 		if (SUCCEEDED(hr)) {
 			if (SUCCEEDED(hr = pEnumerator->GetCount(&max))) {
 				for (int i=0;i<max;++i) {
-					IAudioSessionControl *pControl = NULL;
+					IAudioSessionControl *pControl = nullptr;
 					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
 						setVolumeForSessionControl(pControl, dwMumble, seen);
 						pControl->Release();
@@ -749,7 +749,7 @@ bool WASAPIOutput::setVolumeForSessionControl2(IAudioSessionControl2 *control2, 
 	seen.insert(quuid);
 	
 	// Adjust volume
-	ISimpleAudioVolume *pVolume = NULL;
+	ISimpleAudioVolume *pVolume = nullptr;
 	if (FAILED(hr = control2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume)))
 		return false;
 	
@@ -759,7 +759,7 @@ bool WASAPIOutput::setVolumeForSessionControl2(IAudioSessionControl2 *control2, 
 		float fVolume = 1.0f;
 		if (SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
 			float fSetVolume = fVolume * g.s.fOtherVolume;
-			if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
+			if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, nullptr))) {
 				hr = pVolume->GetMasterVolume(&fSetVolume);
 				qmVolumes.insert(pVolume, VolumePair(fVolume,fSetVolume));
 				keep = true;
@@ -775,7 +775,7 @@ bool WASAPIOutput::setVolumeForSessionControl2(IAudioSessionControl2 *control2, 
 
 bool WASAPIOutput::setVolumeForSessionControl(IAudioSessionControl *control, const DWORD mumblePID, QSet<QUuid> &seen) {
 	HRESULT hr;
-	IAudioSessionControl2 *pControl2 = NULL;
+	IAudioSessionControl2 *pControl2 = nullptr;
 
 	if (!SUCCEEDED(hr = control->QueryInterface(bIsWin7 ? __uuidof(IAudioSessionControl2) : IID_IVistaAudioSessionControl2, (void **) &pControl2)))
 		return false;
@@ -791,18 +791,18 @@ static void SetDuckingOptOut(IMMDevice *pDevice) {
 		return;
 
 	HRESULT hr;
-	IAudioSessionManager2 *pSessionManager2 = NULL;
-	IAudioSessionControl *pSessionControl = NULL;
-	IAudioSessionControl2 *pSessionControl2 = NULL;
+	IAudioSessionManager2 *pSessionManager2 = nullptr;
+	IAudioSessionControl *pSessionControl = nullptr;
+	IAudioSessionControl2 *pSessionControl2 = nullptr;
 
 	// Get session manager & control1+2 to disable ducking
-	hr = pDevice->Activate(__uuidof(IAudioSessionManager2), CLSCTX_ALL, NULL, reinterpret_cast<void**>(&pSessionManager2));
+	hr = pDevice->Activate(__uuidof(IAudioSessionManager2), CLSCTX_ALL, nullptr, reinterpret_cast<void**>(&pSessionManager2));
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: Activate AudioSessionManager2 failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
-	hr = pSessionManager2->GetAudioSessionControl(NULL, 0, &pSessionControl);
+	hr = pSessionManager2->GetAudioSessionControl(nullptr, 0, &pSessionControl);
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: GetAudioSessionControl failed: hr=0x%08lx", hr);
 		goto cleanup;
@@ -833,11 +833,11 @@ cleanup:
 
 void WASAPIOutput::run() {
 	HRESULT hr;
-	IMMDevice *pDevice = NULL;
-	IAudioClient *pAudioClient = NULL;
-	IAudioRenderClient *pRenderClient = NULL;
-	WAVEFORMATEX *pwfx = NULL;
-	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
+	IMMDevice *pDevice = nullptr;
+	IAudioClient *pAudioClient = nullptr;
+	IAudioRenderClient *pRenderClient = nullptr;
+	WAVEFORMATEX *pwfx = nullptr;
+	WAVEFORMATEXTENSIBLE *pwfxe = nullptr;
 	UINT32 bufferFrameCount;
 	REFERENCE_TIME def, min, latency, want;
 	UINT32 numFramesAvailable;
@@ -853,12 +853,12 @@ void WASAPIOutput::run() {
 	bool exclusive = false;
 	bool mixed = false;
 
-	CoInitialize(NULL);
+	CoInitialize(nullptr);
 
-	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+	hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
 	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
-	if (hMmThread == NULL) {
+	if (!hMmThread) {
 		qWarning("WASAPIOutput: Failed to set Pro Audio thread priority");
 	}
 
@@ -870,7 +870,7 @@ void WASAPIOutput::run() {
 	// Opt-out of the Windows 7 ducking behavior
 	SetDuckingOptOut(pDevice);
 
-	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pAudioClient);
+	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pAudioClient);
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: Activate AudioClient failed: hr=0x%08lx", hr);
 		goto cleanup;
@@ -910,7 +910,7 @@ void WASAPIOutput::run() {
 		pwfx->nBlockAlign = pwfx->nChannels * pwfx->wBitsPerSample / 8;
 		pwfx->nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
 
-		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx, NULL);
+		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx, nullptr);
 		if (SUCCEEDED(hr)) {
 			eSampleFormat = SampleShort;
 			exclusive = true;
@@ -918,8 +918,8 @@ void WASAPIOutput::run() {
 		} else {
 			CoTaskMemFree(pwfx);
 
-			pwfxe = NULL;
-			pwfx = NULL;
+			pwfxe = nullptr;
+			pwfx = nullptr;
 		}
 	}
 
@@ -941,7 +941,7 @@ void WASAPIOutput::run() {
 				pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
 			}
 
-			WAVEFORMATEX *closestFormat = NULL;
+			WAVEFORMATEX *closestFormat = nullptr;
 			hr = pAudioClient->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pwfx, &closestFormat);
 			if (hr == S_FALSE) {
 				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %lu kHz", closestFormat->nChannels, static_cast<unsigned long>(closestFormat->nSamplesPerSec));
@@ -961,7 +961,7 @@ void WASAPIOutput::run() {
 			CoTaskMemFree(closestFormat);
 		}
 
-		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
+		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, nullptr);
 		if (FAILED(hr)) {
 			qWarning("WASAPIOutput: Initialize failed: hr=0x%08lx", hr);
 			goto cleanup;
@@ -1096,9 +1096,9 @@ cleanup:
 	if (pDevice)
 		pDevice->Release();
 
-	if (hMmThread != NULL)
+	if (hMmThread)
 		AvRevertMmThreadCharacteristics(hMmThread);
 
-	if (hEvent != NULL)
+	if (hEvent)
 		CloseHandle(hEvent);
 }

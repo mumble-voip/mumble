@@ -15,7 +15,7 @@
 static const char *mumble_sink_input = "Mumble Speakers";
 static const char *mumble_echo = "Mumble Speakers (Echo)";
 
-static PulseAudioSystem *pasys = NULL;
+static PulseAudioSystem *pasys = nullptr;
 
 #define NBLOCKS 8
 
@@ -51,24 +51,24 @@ class PulseAudioInit : public DeferInit {
 				airPulseAudio = new PulseAudioInputRegistrar();
 				aorPulseAudio = new PulseAudioOutputRegistrar();
 			} else {
-				airPulseAudio = NULL;
-				aorPulseAudio = NULL;
+				airPulseAudio = nullptr;
+				aorPulseAudio = nullptr;
 				delete pasys;
-				pasys = NULL;
+				pasys = nullptr;
 			}
 		};
 		void destroy() {
 			delete airPulseAudio;
 			delete aorPulseAudio;
 			delete pasys;
-			pasys = NULL;
+			pasys = nullptr;
 		};
 };
 
 static PulseAudioInit pulseinit;
 
 PulseAudioSystem::PulseAudioSystem() {
-	pasInput = pasOutput = pasSpeaker = NULL;
+	pasInput = pasOutput = pasSpeaker = nullptr;
 	bSourceDone=bSinkDone=bServerDone = false;
 	iDelayCache = 0;
 	bAttenuating = false;
@@ -87,13 +87,13 @@ PulseAudioSystem::PulseAudioSystem() {
 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
 	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "game");
 
-	pacContext = pa_context_new_with_proplist(api, NULL, proplist);
+	pacContext = pa_context_new_with_proplist(api, nullptr, proplist);
 	pa_proplist_free(proplist);
 
 	pa_context_set_subscribe_callback(pacContext, subscribe_callback, this);
 
 	pa_context_set_state_callback(pacContext, context_state_callback, this);
-	pa_context_connect(pacContext, NULL, PA_CONTEXT_NOAUTOSPAWN, NULL);
+	pa_context_connect(pacContext, nullptr, PA_CONTEXT_NOAUTOSPAWN, nullptr);
 
 	pade = api->defer_new(api, defer_event_callback, this);
 	api->defer_enable(pade, false);
@@ -196,7 +196,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						if (pss.channels == 0)
 							pss.channels = 1;
 
-						pasOutput = pa_stream_new(pacContext, mumble_sink_input, &pss, (pss.channels == 1) ? NULL : &pcm);
+						pasOutput = pa_stream_new(pacContext, mumble_sink_input, &pss, (pss.channels == 1) ? nullptr : &pcm);
 						pa_stream_set_state_callback(pasOutput, write_stream_callback, this);
 						pa_stream_set_write_callback(pasOutput, write_callback, this);
 					}
@@ -235,7 +235,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			iDelayCache = g.s.iOutputDelay;
 			qsOutputCache = odev;
 
-			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, NULL, NULL);
+			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, nullptr, nullptr);
 			pa_context_get_sink_info_by_name(pacContext, qPrintable(odev), sink_info_callback, this);
 		}
 	}
@@ -261,7 +261,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 							pss.rate = SAMPLE_RATE;
 						pss.channels = 1;
 
-						pasInput = pa_stream_new(pacContext, "Microphone", &pss, NULL);
+						pasInput = pa_stream_new(pacContext, "Microphone", &pss, nullptr);
 						pa_stream_set_state_callback(pasInput, read_stream_callback, this);
 						pa_stream_set_read_callback(pasInput, read_callback, this);
 					}
@@ -299,7 +299,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			pa_stream_connect_record(pasInput, qPrintable(idev), &buff, PA_STREAM_ADJUST_LATENCY);
 
 			// Ensure stream is initially un-muted
-			pa_stream_cork(pasInput, 0, NULL, NULL);
+			pa_stream_cork(pasInput, 0, nullptr, nullptr);
 
 			connect(g.mw, &MainWindow::corkAudioInputStream, this, &PulseAudioSystem::corkAudioInputStream);
 		}
@@ -329,7 +329,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						if ((pss.channels == 0) || (! g.s.bEchoMulti))
 							pss.channels = 1;
 
-						pasSpeaker = pa_stream_new(pacContext, mumble_echo, &pss, (pss.channels == 1) ? NULL : &pcm);
+						pasSpeaker = pa_stream_new(pacContext, mumble_echo, &pss, (pss.channels == 1) ? nullptr : &pcm);
 						pa_stream_set_state_callback(pasSpeaker, read_stream_callback, this);
 						pa_stream_set_read_callback(pasSpeaker, read_callback, this);
 					}
@@ -489,13 +489,13 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	size_t length = bytes;
-	const void *data = NULL;
+	const void *data = nullptr;
 	pa_stream_peek(s, &data, &length);
-	if (data == NULL && length > 0) {
+	if (!data && length > 0) {
 		qWarning("PulseAudio: pa_stream_peek reports no data at current read index.");
-	} else if (data == NULL && length == 0) {
+	} else if (!data && length == 0) {
 		qWarning("PulseAudio: pa_stream_peek reports empty memblockq.");
-	} else if (data == NULL || length == 0) {
+	} else if (!data || length == 0) {
 		qWarning("PulseAudio: invalid pa_stream_peek state encountered.");
 		return;
 	}
@@ -523,7 +523,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 				pai->eMicFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
-		if (data != NULL) {
+		if (data) {
 			pai->addMic(data, static_cast<unsigned int>(length) / pai->iMicSampleSize);
 		}
 	} else if (s == pas->pasSpeaker) {
@@ -537,7 +537,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 				pai->eEchoFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
-		if (data != NULL) {
+		if (data) {
 			pai->addEcho(data, static_cast<unsigned int>(length) / pai->iEchoSampleSize);
 		}
 	}
@@ -637,7 +637,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pas->setVolumes();
 	}
 
-	pa_stream_write(s, buffer, iSampleSize * samples, NULL, 0, PA_SEEK_RELATIVE);
+	pa_stream_write(s, buffer, iSampleSize * samples, nullptr, 0, PA_SEEK_RELATIVE);
 }
 
 void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata) {
@@ -671,7 +671,7 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 			pa_sw_cvolume_multiply_scalar(&patt.attenuated_volume, &i->volume, adj);
 
 			// set it on the sink input
-			pa_operation_unref(pa_context_set_sink_input_volume(c, i->index, &patt.attenuated_volume, NULL, NULL));
+			pa_operation_unref(pa_context_set_sink_input_volume(c, i->index, &patt.attenuated_volume, nullptr, nullptr));
 
 			// store it
 			pas->qhVolumes[i->index] = patt;
@@ -839,8 +839,8 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 	switch (pa_context_get_state(c)) {
 		case PA_CONTEXT_READY:
 			bPulseIsGood = true;
-			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SOURCE, NULL, this));
-			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SINK, NULL, this));
+			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SOURCE, nullptr, this));
+			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SINK, nullptr, this));
 			query();
 			break;
 		case PA_CONTEXT_TERMINATED:

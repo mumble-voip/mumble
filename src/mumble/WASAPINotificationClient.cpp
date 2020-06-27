@@ -77,7 +77,7 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::QueryInterface(REFIID riid, 
 	}
 	else
 	{
-		*ppvInterface = NULL;
+		*ppvInterface = nullptr;
 		return E_NOINTERFACE;
 	}
 	return S_OK;
@@ -165,7 +165,7 @@ WASAPINotificationClient& WASAPINotificationClient::get() {
 WASAPINotificationClient::WASAPINotificationClient() : QObject(), pEnumerator(0), listsMutex() {
 	AddRef(); // Static singleton, always has a self-reference
 
-	HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+	HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 	if (!pEnumerator || FAILED(hr)) {
 		if (pEnumerator) {
 			pEnumerator->Release();

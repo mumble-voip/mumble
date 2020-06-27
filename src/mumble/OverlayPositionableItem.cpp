@@ -14,12 +14,12 @@
 OverlayPositionableItem::OverlayPositionableItem(QRectF *posPtr, const bool isPositionable)
 	: m_position(posPtr)
 	, m_isPositionEditable(isPositionable)
-	, m_qgeiHandle(NULL) {
+	, m_qgeiHandle(nullptr) {
 }
 
 OverlayPositionableItem::~OverlayPositionableItem() {
 	delete m_qgeiHandle;
-	m_qgeiHandle = NULL;
+	m_qgeiHandle = nullptr;
 }
 
 void OverlayPositionableItem::createPositioningHandle() {
@@ -46,7 +46,7 @@ bool OverlayPositionableItem::sceneEventFilter(QGraphicsItem *watched, QEvent *e
 }
 
 void OverlayPositionableItem::onMove() {
-	if (m_qgeiHandle == NULL) {
+	if (!m_qgeiHandle) {
 		return;
 	}
 
@@ -67,7 +67,7 @@ void OverlayPositionableItem::updateRender() {
 	QPoint absPos(iroundf(sr.width() * m_position->x() + 0.5f), iroundf(sr.height() * m_position->y() + 0.5f));
 
 	if (m_isPositionEditable) {
-		if (m_qgeiHandle == NULL) {
+		if (!m_qgeiHandle) {
 			createPositioningHandle();
 		}
 		m_qgeiHandle->setPos(absPos.x(), absPos.y());
@@ -83,7 +83,7 @@ void OverlayPositionableItem::updateRender() {
 
 void OverlayPositionableItem::setItemVisible(const bool &visible) {
 	setVisible(visible);
-	if (m_qgeiHandle != NULL) {
+	if (m_qgeiHandle) {
 		m_qgeiHandle->setVisible(visible);
 	}
 }

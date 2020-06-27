@@ -56,7 +56,7 @@ OverlayEditorScene::OverlayEditorScene(const OverlaySettings &srcos, QObject *p)
 	qgpiBox = new QGraphicsPathItem(qgiGroup);
 	qgpiBox->hide();
 
-	qgpiSelected = NULL;
+	qgpiSelected = nullptr;
 
 	qgriSelected = new QGraphicsRectItem;
 	qgriSelected->hide();
@@ -209,7 +209,7 @@ void OverlayEditorScene::resync() {
 
 	qgiGroup->setOpacity(os.fUser[tsColor]);
 
-	qgpiSelected = NULL;
+	qgpiSelected = nullptr;
 	qgriSelected->setVisible(false);
 }
 
@@ -253,7 +253,7 @@ void OverlayEditorScene::drawBackground(QPainter *p, const QRectF &rect) {
 }
 
 QGraphicsPixmapItem *OverlayEditorScene::childAt(const QPointF &pos) {
-	QGraphicsItem *item = NULL;
+	QGraphicsItem *item = nullptr;
 
 	if (qgriSelected->isVisible()) {
 		if (qgriSelected->rect().contains(pos)) {
@@ -274,7 +274,7 @@ QGraphicsPixmapItem *OverlayEditorScene::childAt(const QPointF &pos) {
 }
 
 QRectF OverlayEditorScene::selectedRect() const {
-	const QRectF *qrf = NULL;
+	const QRectF *qrf = nullptr;
 
 	if (qgpiSelected == qgpiMuted)
 		qrf = & os.qrfMutedDeafened;
@@ -544,19 +544,19 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		qmTrans->addAction(userOpacity[i]);
 	}
 
-	QAction *color = NULL;
-	QAction *fontAction = NULL;
+	QAction *color = nullptr;
+	QAction *fontAction = nullptr;
 	QAction *objectOpacity[8];
 	for (int i=0;i<8;++i)
-		objectOpacity[i] = NULL;
-	QAction *boxpen[4] = { NULL, NULL, NULL, NULL};
-	QAction *boxpad[4] = { NULL, NULL, NULL, NULL};
-	QAction *boxpencolor = NULL;
-	QAction *boxfillcolor = NULL;
+		objectOpacity[i] = nullptr;
+	QAction *boxpen[4] = { nullptr, nullptr, nullptr, nullptr};
+	QAction *boxpad[4] = { nullptr, nullptr, nullptr, nullptr};
+	QAction *boxpencolor = nullptr;
+	QAction *boxfillcolor = nullptr;
 
 	QAction *align[6];
 	for (int i=0;i<6;++i)
-		align[i] = NULL;
+		align[i] = nullptr;
 
 	if (item) {
 		qm.addSeparator();
@@ -729,7 +729,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		os.qcBoxFill = qc;
 		moveBox();
 	} else if (act == color) {
-		QColor *col = NULL;
+		QColor *col = nullptr;
 		if (item == qgpiChannel)
 			col = & os.qcChannel;
 		else if (item == qgpiName)
@@ -750,7 +750,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 	} else if (act == fontAction) {
 		QFont *fontptr = (item == qgpiChannel) ? &os.qfChannel : &os.qfUserName;
 
-		qgpiSelected = NULL;
+		qgpiSelected = nullptr;
 		qgriSelected->hide();
 
 		// QFontDialog doesn't really like graphics view. At all.
@@ -762,7 +762,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 
 		int ret;
 		if (g.ocIntercept) {
-			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
+			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(nullptr, Qt::Window);
 			qgpw->setWidget(&qfd);
 
 			addItem(qgpw);
@@ -775,7 +775,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 			ret = qfd.exec();
 
 			qgpw->hide();
-			qgpw->setWidget(NULL);
+			qgpw->setWidget(nullptr);
 			delete qgpw;
 		} else {
 			Qt::WindowFlags wf = g.mw->windowFlags();

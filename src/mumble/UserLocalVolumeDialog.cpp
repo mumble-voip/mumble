@@ -49,7 +49,7 @@
 
 UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
                                              QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker)
-	: QDialog(NULL)
+	: QDialog(nullptr)
 	, m_clientSession(sessionId)
 	, m_qmUserVolTracker(qmUserVolTracker) {
 	setupUi(this);

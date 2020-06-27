@@ -20,7 +20,7 @@ class CompletablePage : public QWizardPage {
 	protected:
 		bool bComplete;
 	public:
-		CompletablePage(QWizard *p = NULL);
+		CompletablePage(QWizard *p = nullptr);
 		void setComplete(bool);
 		bool isComplete() const Q_DECL_OVERRIDE;
 };

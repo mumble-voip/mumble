@@ -17,7 +17,7 @@
 
 #include "../../plugins/mumble_plugin.h"
 
-static QPointer<Manual> mDlg = NULL;
+static QPointer<Manual> mDlg = nullptr;
 static bool bLinkable = false;
 static bool bActive = true;
 
@@ -113,7 +113,7 @@ void Manual::changeEvent(QEvent *e) {
 
 void Manual::on_qpbUnhinge_pressed() {
 	qpbUnhinge->setEnabled(false);
-	mDlg->setParent(NULL);
+	mDlg->setParent(nullptr);
 	mDlg->show();
 }
 
@@ -287,8 +287,8 @@ static MumblePlugin manual = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	NULL, // About is handled by MumblePluginQt
-	NULL, // Config is handled by MumblePluginQt
+	nullptr, // About is handled by MumblePluginQt
+	nullptr, // Config is handled by MumblePluginQt
 	trylock,
 	unlock,
 	longdesc,

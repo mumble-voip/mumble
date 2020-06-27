@@ -31,7 +31,7 @@ LCDEngineRegistrar::~LCDEngineRegistrar() {
 	qlInitializers->removeAll(n);
 	if (qlInitializers->isEmpty()) {
 		delete qlInitializers;
-		qlInitializers = NULL;
+		qlInitializers = nullptr;
 	}
 }
 
@@ -63,7 +63,7 @@ void LCDDeviceManager::initialize() {
 	if (qlDevices.count() > 0) {
 		crLCD = new ConfigRegistrar(5900, LCDConfigDialogNew);
 	} else {
-		crLCD = NULL;
+		crLCD = nullptr;
 	}
 }
 
@@ -249,8 +249,8 @@ void LCD::updateUserView() {
 		return;
 
 	QStringList qslTalking;
-	User *me = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
-	Channel *home = me ? me->cChannel : NULL;
+	User *me = g.uiSession ? ClientUser::get(g.uiSession) : nullptr;
+	Channel *home = me ? me->cChannel : nullptr;
 	bool alert = false;
 
 	foreach(const QSize &size, qhImages.keys()) {

@@ -29,7 +29,7 @@ const QString GlobalShortcutConfig::name = QLatin1String("GlobalShortcutConfig")
 /**
  * Used to save the global, unique, platform specific GlobalShortcutEngine.
  */
-GlobalShortcutEngine *GlobalShortcutEngine::engine = NULL;
+GlobalShortcutEngine *GlobalShortcutEngine::engine = nullptr;
 
 static ConfigWidget *GlobalShortcutConfigDialogNew(Settings &st) {
 	return new GlobalShortcutConfig(st);
@@ -515,7 +515,7 @@ ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 
 ShortcutDelegate::~ShortcutDelegate() {
 	delete itemEditorFactory();
-	setItemEditorFactory(NULL);
+	setItemEditorFactory(nullptr);
 }
 
 /**
@@ -623,7 +623,7 @@ bool GlobalShortcutConfig::showWarning() const {
 #  else
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
 #  endif
-		return !AXIsProcessTrustedWithOptions(NULL);
+		return !AXIsProcessTrustedWithOptions(nullptr);
 	} else
 # endif
 	{
@@ -997,7 +997,7 @@ void GlobalShortcutEngine::remove(GlobalShortcut *gs) {
 	engine->needRemap();
 	if (engine->qmShortcuts.isEmpty()) {
 		delete engine;
-		GlobalShortcutEngine::engine = NULL;
+		GlobalShortcutEngine::engine = nullptr;
 	}
 }
 

@@ -41,7 +41,7 @@
 #include "Global.h"
 
 #define ACTOR_INIT \
-	ClientUser *pSrc=NULL; \
+	ClientUser *pSrc=nullptr; \
 	if (msg.has_actor()) \
 		pSrc = ClientUser::get(msg.actor()); \
 	Q_UNUSED(pSrc);
@@ -72,7 +72,7 @@ void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
 	if (banEdit) {
 		banEdit->reject();
 		delete banEdit;
-		banEdit = NULL;
+		banEdit = nullptr;
 	}
 	banEdit = new BanEditor(msg, this);
 	banEdit->show();
@@ -346,7 +346,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	ACTOR_INIT;
 	ClientUser* pSelf = ClientUser::get(g.uiSession);
 	ClientUser *pDst = ClientUser::get(msg.session());
-	Channel *channel = NULL;
+	Channel *channel = nullptr;
 
 	if (msg.has_channel_id()) {
 		channel = Channel::get(msg.channel_id());
@@ -754,14 +754,14 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 		return;
 
 	Channel *c = Channel::get(msg.channel_id());
-	Channel *p = msg.has_parent() ? Channel::get(msg.parent()) : NULL;
+	Channel *p = msg.has_parent() ? Channel::get(msg.parent()) : nullptr;
 
 	if (!c) {
 		// Addresses channel does not exist so create it
 		if (p && msg.has_name()) {
 			c = pmModel->addChannel(msg.channel_id(), p, u8(msg.name()));
 			c->bTemporary = msg.temporary();
-			p = NULL; // No need to move it later
+			p = nullptr; // No need to move it later
 
 			ServerHandlerPtr sh = g.sh;
 			if (sh)
@@ -927,7 +927,7 @@ void MainWindow::msgACL(const MumbleProto::ACL &msg) {
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
-		aclEdit = NULL;
+		aclEdit = nullptr;
 	}
 	if (Channel::get(msg.channel_id())) {
 		aclEdit = new ACLEditor(msg.channel_id(), msg, this);
@@ -1057,7 +1057,7 @@ void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
 	if (userEdit) {
 		userEdit->reject();
 		delete userEdit;
-		userEdit = NULL;
+		userEdit = nullptr;
 	}
 	userEdit = new UserEdit(msg, this);
 	userEdit->show();
@@ -1159,9 +1159,9 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 		ui->update(msg);
 	} else {
 #ifdef USE_OVERLAY
-		ui = new UserInformation(msg, g.ocIntercept ? g.mw : NULL);
+		ui = new UserInformation(msg, g.ocIntercept ? g.mw : nullptr);
 #else
-		ui = new UserInformation(msg, NULL);
+		ui = new UserInformation(msg, nullptr);
 #endif
 		ui->setAttribute(Qt::WA_DeleteOnClose, true);
 		connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));

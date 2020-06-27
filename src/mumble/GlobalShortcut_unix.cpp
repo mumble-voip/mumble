@@ -56,7 +56,7 @@ GlobalShortcutX::GlobalShortcutX() {
 	iXIopcode =  -1;
 	bRunning = false;
 
-	display = XOpenDisplay(NULL);
+	display = XOpenDisplay(nullptr);
 
 	if (! display) {
 		qWarning("GlobalShortcutX: Unable to open dedicated display connection.");

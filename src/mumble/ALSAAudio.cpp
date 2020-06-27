@@ -25,7 +25,7 @@ class ALSAEnumerator {
 		ALSAEnumerator();
 };
 
-static ALSAEnumerator *cards = NULL;
+static ALSAEnumerator *cards = nullptr;
 
 class ALSAAudioInputRegistrar : public AudioInputRegistrar {
 	public:
@@ -58,9 +58,9 @@ static ALSAInit aiInit;
 QMutex qmALSA;
 
 void ALSAInit::initialize() {
-	pairALSA = NULL;
-	paorALSA = NULL;
-	cards = NULL;
+	pairALSA = nullptr;
+	paorALSA = nullptr;
+	cards = nullptr;
 
 	int card = -1;
 	snd_card_next(&card);
@@ -151,9 +151,9 @@ ALSAEnumerator::ALSAEnumerator() {
 	qhOutput.insert(QLatin1String("default"), ALSAAudioOutput::tr("Default ALSA Card"));
 
 #if SND_LIB_VERSION >= 0x01000e
-	void **hints = NULL;
+	void **hints = nullptr;
 	void **hint;
-	snd_config_t *basic = NULL;
+	snd_config_t *basic = nullptr;
 	int r;
 
 	snd_config_update();
@@ -208,14 +208,14 @@ ALSAEnumerator::ALSAEnumerator() {
 	snd_card_next(&card);
 	while (card != -1) {
 		char *name;
-		snd_ctl_t *ctl=NULL;
+		snd_ctl_t *ctl=nullptr;
 		snd_card_get_longname(card, &name);
 		QByteArray dev=QString::fromLatin1("hw:%1").arg(card).toUtf8();
 		if (snd_ctl_open(&ctl, dev.data(), SND_CTL_READONLY) >= 0) {
-			snd_pcm_info_t *info = NULL;
+			snd_pcm_info_t *info = nullptr;
 			snd_pcm_info_malloc(&info);
 
-			char *cname = NULL;
+			char *cname = nullptr;
 			snd_card_get_name(card, &cname);
 
 			int device = -1;
@@ -288,8 +288,8 @@ void ALSAAudioInput::run() {
 	snd_pcm_sframes_t readblapp;
 
 	QByteArray device_name = g.s.qsALSAInput.toLatin1();
-	snd_pcm_hw_params_t *hw_params = NULL;
-	snd_pcm_t *capture_handle = NULL;
+	snd_pcm_hw_params_t *hw_params = nullptr;
+	snd_pcm_t *capture_handle = nullptr;
 
 	unsigned int rrate = SAMPLE_RATE;
 	bool bOk = true;
@@ -306,13 +306,13 @@ void ALSAAudioInput::run() {
 	ALSA_ERRCHECK(snd_pcm_hw_params_any(capture_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(capture_handle, hw_params, SND_PCM_FORMAT_S16));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, nullptr));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(capture_handle, hw_params, &iChannels));
 
 	snd_pcm_uframes_t wantPeriod = (rrate * iFrameSize) / SAMPLE_RATE;
 	snd_pcm_uframes_t wantBuff = wantPeriod * 8;
 
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &wantPeriod, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &wantPeriod, nullptr));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, &wantBuff));
 	ALSA_ERRBAIL(snd_pcm_hw_params(capture_handle, hw_params));
 
@@ -320,7 +320,7 @@ void ALSAAudioInput::run() {
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(capture_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_channels(hw_params, &iMicChannels));
-	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &iMicFreq, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &iMicFreq, nullptr));
 
 #ifdef ALSA_VERBOSE
 	snd_output_t *log;
@@ -336,7 +336,7 @@ void ALSAAudioInput::run() {
 		if (capture_handle) {
 			snd_pcm_drain(capture_handle);
 			snd_pcm_close(capture_handle);
-			capture_handle = NULL;
+			capture_handle = nullptr;
 		}
 		g.mw->msgBox(tr("Opening chosen ALSA Input failed: %1").arg(QString::fromLatin1(snd_strerror(err)).toHtmlEscaped()));
 		return;
@@ -396,7 +396,7 @@ ALSAAudioOutput::~ALSAAudioOutput() {
 
 void ALSAAudioOutput::run() {
 	QMutexLocker qml(&qmALSA);
-	snd_pcm_t *pcm_handle = NULL;
+	snd_pcm_t *pcm_handle = nullptr;
 	struct pollfd fds[16];
 	int count;
 	bool stillRun = true;
@@ -404,8 +404,8 @@ void ALSAAudioOutput::run() {
 	bool bOk = true;
 
 
-	snd_pcm_hw_params_t *hw_params = NULL;
-	snd_pcm_sw_params_t *sw_params = NULL;
+	snd_pcm_hw_params_t *hw_params = nullptr;
+	snd_pcm_sw_params_t *sw_params = nullptr;
 	QByteArray device_name = g.s.qsALSAOutput.toLatin1();
 
 	snd_pcm_hw_params_alloca(&hw_params);
@@ -425,7 +425,7 @@ void ALSAAudioOutput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(pcm_handle, hw_params, &iChannels));
 	unsigned int rrate = SAMPLE_RATE;
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &rrate, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &rrate, nullptr));
 
 	unsigned int iOutputSize = (iFrameSize * rrate) / SAMPLE_RATE;
 
@@ -475,7 +475,7 @@ void ALSAAudioOutput::run() {
 		g.mw->msgBox(tr("Opening chosen ALSA Output failed: %1").arg(QString::fromLatin1(snd_strerror(err)).toHtmlEscaped()));
 		if (pcm_handle) {
 			snd_pcm_close(pcm_handle);
-			pcm_handle = NULL;
+			pcm_handle = nullptr;
 		}
 		return;
 	}
@@ -494,7 +494,7 @@ void ALSAAudioOutput::run() {
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(pcm_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_channels(hw_params, &iChannels));
-	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &rrate, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &rrate, nullptr));
 	iMixerFreq = rrate;
 	eSampleFormat = SampleShort;
 

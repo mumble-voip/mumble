@@ -18,7 +18,7 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(NULL) {
+SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(nullptr) {
 	qlsSocket->setParent(this);
 
 	connect(qlsSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
@@ -59,7 +59,7 @@ void SocketRPCClient::readyRead() {
 					qxsrReader.clear();
 					qxsrReader.setDevice(qlsSocket);
 
-					qxswWriter.setDevice(NULL);
+					qxswWriter.setDevice(nullptr);
 					delete qbBuffer;
 					qbaOutput = QByteArray();
 					qbBuffer = new QBuffer(&qbaOutput, this);
@@ -252,7 +252,7 @@ SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 	if (! qlsServer->listen(pipepath)) {
 		qWarning() << "SocketRPC: Listen failed";
 		delete qlsServer;
-		qlsServer = NULL;
+		qlsServer = nullptr;
 	} else {
 		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
 	}

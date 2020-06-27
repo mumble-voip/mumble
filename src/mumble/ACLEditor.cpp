@@ -22,7 +22,7 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
+ACLGroup::ACLGroup(const QString &name) : Group(nullptr, name) {
 	bInherited = false;
 }
 
@@ -72,7 +72,7 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 
 	qleChannelName->setFocus();
 
-	pcaPassword = NULL;
+	pcaPassword = nullptr;
 	adjustSize();
 }
 
@@ -83,7 +83,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	iChannel = channelid;
 	Channel *pChannel = Channel::get(iChannel);
-	if (pChannel == NULL) {
+	if (!pChannel) {
 		g.l->log(Log::Warning, tr("Failed: Invalid channel"));
 		QDialog::reject();
 		return;
@@ -187,7 +187,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 		}
 	}
 
-	ChanACL *def = new ChanACL(NULL);
+	ChanACL *def = new ChanACL(nullptr);
 
 	def->bApplyHere = true;
 	def->bApplySubs = true;
@@ -202,7 +202,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	for (int i = 0; i < mea.acls_size(); ++i) {
 		const MumbleProto::ACL_ChanACL &as = mea.acls(i);
 
-		ChanACL *acl = new ChanACL(NULL);
+		ChanACL *acl = new ChanACL(nullptr);
 		acl->bApplyHere = as.apply_here();
 		acl->bApplySubs = as.apply_subs();
 		acl->bInherited = as.inherited();
@@ -277,7 +277,7 @@ void ACLEditor::showEvent(QShowEvent *evt) {
 
 void ACLEditor::accept() {
 	Channel *pChannel = Channel::get(iChannel);
-	if (pChannel == NULL) {
+	if (!pChannel) {
 		// Channel gone while editing
 		g.l->log(Log::Warning, tr("Failed: Invalid channel"));
 		QDialog::reject();
@@ -518,13 +518,13 @@ ACLGroup *ACLEditor::currentGroup() {
 		if (gp->qsName == group)
 			return gp;
 
-	return NULL;
+	return nullptr;
 }
 
 ChanACL *ACLEditor::currentACL() {
 	int idx = qlwACLs->currentRow();
 	if (idx < 0)
-		return NULL;
+		return nullptr;
 
 	if (idx && ! bInheritACL)
 		idx += numInheritACL;
@@ -592,7 +592,7 @@ void ACLEditor::groupEnableCheck() {
 	qpbGroupRemoveRemove->setEnabled(enabled);
 	qpbGroupInheritRemove->setEnabled(enabled);
 
-	enabled = (gp != NULL);
+	enabled = gp;
 	qlwGroupAdd->setEnabled(enabled);
 	qcbGroupAdd->setEnabled(enabled);
 	qpbGroupAddAdd->setEnabled(enabled);
@@ -685,7 +685,7 @@ void ACLEditor::on_qtwTab_currentChanged(int index) {
 
 void ACLEditor::updatePasswordField() {
 	// Search for an ACL that represents the current password
-	pcaPassword = NULL;
+	pcaPassword = nullptr;
 	foreach(ChanACL *acl, qlACLs) {
 		if (acl->isPassword()) {
 			pcaPassword = acl;
@@ -705,7 +705,7 @@ void ACLEditor::updatePasswordACL() {
 			delete pcaPassword;
 
 			// Search and remove the @all deny ACL
-			ChanACL *denyall = NULL;
+			ChanACL *denyall = nullptr;
 			foreach(ChanACL *acl, qlACLs) {
 				if (acl->qsGroup == QLatin1String("all") &&
 				        acl->bInherited == false &&
@@ -723,8 +723,8 @@ void ACLEditor::updatePasswordACL() {
 		}
 	} else {
 		// Add or Update
-		if (pcaPassword == NULL || !qlACLs.contains(pcaPassword)) {
-			pcaPassword = new ChanACL(NULL);
+		if (!pcaPassword || !qlACLs.contains(pcaPassword)) {
+			pcaPassword = new ChanACL(nullptr);
 			pcaPassword->bApplyHere = true;
 			pcaPassword->bApplySubs = false;
 			pcaPassword->bInherited = false;
@@ -733,7 +733,7 @@ void ACLEditor::updatePasswordACL() {
 			pcaPassword->qsGroup = QLatin1String("all");
 			qlACLs << pcaPassword;
 
-			pcaPassword = new ChanACL(NULL);
+			pcaPassword = new ChanACL(nullptr);
 			pcaPassword->bApplyHere = true;
 			pcaPassword->bApplySubs = false;
 			pcaPassword->bInherited = false;
@@ -752,7 +752,7 @@ void ACLEditor::on_qlwACLs_currentRowChanged() {
 }
 
 void ACLEditor::on_qpbACLAdd_clicked() {
-	ChanACL *as = new ChanACL(NULL);
+	ChanACL *as = new ChanACL(nullptr);
 	as->bApplyHere = true;
 	as->bApplySubs = true;
 	as->bInherited = false;

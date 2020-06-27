@@ -28,7 +28,7 @@ class SocketRPCClient : public QObject {
 
 		void processXml();
 	public:
-		SocketRPCClient(QLocalSocket *s, QObject *p = NULL);
+		SocketRPCClient(QLocalSocket *s, QObject *p = nullptr);
 	public slots:
 		void disconnected();
 		void error(QLocalSocket::LocalSocketError);
@@ -43,7 +43,7 @@ class SocketRPC : public QObject {
 		QLocalServer *qlsServer;
 	public:
 		typedef QMap<QString, QVariant> ParameterMap;
-		SocketRPC(const QString &basename, QObject *p = NULL);
+		SocketRPC(const QString &basename, QObject *p = nullptr);
 		static bool send(const QString &basename, const QString &request, const ParameterMap &param = ParameterMap());
 	public slots:
 		void newConnection();

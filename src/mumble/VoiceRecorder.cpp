@@ -32,7 +32,7 @@ VoiceRecorder::RecordBuffer::RecordBuffer(
 
 VoiceRecorder::RecordInfo::RecordInfo(const QString& userName_)
     : userName(userName_)
-    , soundFile(NULL)
+    , soundFile(nullptr)
     , lastWrittenAbsoluteSample(0) {
 }
 
@@ -171,7 +171,7 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 }
 
 int VoiceRecorder::indexForUser(const ClientUser *clientUser) const {
-	Q_ASSERT(!m_config.mixDownMode || clientUser == NULL);
+	Q_ASSERT(!m_config.mixDownMode || !clientUser);
 	
 	return (m_config.mixDownMode) ? 0 : clientUser->uiSession;
 }
@@ -231,7 +231,7 @@ SF_INFO VoiceRecorder::createSoundFileInfo() const {
 }
 
 bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO& soundFileInfo, boost::shared_ptr<RecordInfo>& ri) {
-	if (ri->soundFile != NULL) {
+	if (ri->soundFile) {
 		// Nothing to do
 		return true;
 	}
@@ -272,8 +272,8 @@ bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO& soundFileInfo, boost::shared_
 #else
 	ri->soundFile = sf_open(qPrintable(filename), SFM_WRITE, &soundFileInfo);
 #endif
-	if (ri->soundFile == NULL) {
-		qWarning() << "Failed to open file for recorder: "<< sf_strerror(NULL);
+	if (!ri->soundFile) {
+		qWarning() << "Failed to open file for recorder: "<< sf_strerror(nullptr);
 		m_recording = false;
 		emit error(CreateFileFailed, tr("Recorder failed to open file '%1'").arg(filename));
 		emit recording_stopped();
@@ -287,7 +287,7 @@ bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO& soundFileInfo, boost::shared_
 	if ((soundFileInfo.format & SF_FORMAT_SUBMASK) != SF_FORMAT_FLOAT &&
 	    (soundFileInfo.format & SF_FORMAT_SUBMASK) != SF_FORMAT_VORBIS) {
 		
-		sf_command(ri->soundFile, SFC_SET_CLIPPING, NULL, SF_TRUE);
+		sf_command(ri->soundFile, SFC_SET_CLIPPING, nullptr, SF_TRUE);
 	}
 
 	return true;
@@ -397,7 +397,7 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser,
                               boost::shared_array<float> buffer,
                               int samples) {
 	
-	Q_ASSERT(!m_config.mixDownMode || clientUser == NULL);
+	Q_ASSERT(!m_config.mixDownMode || !clientUser);
 
 	if (!m_recording)
 		return;

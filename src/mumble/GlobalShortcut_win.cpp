@@ -118,15 +118,15 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 
 
 GlobalShortcutWin::GlobalShortcutWin()
-	: pDI(NULL)
-	, hhMouse(NULL)
-	, hhKeyboard(NULL)
+	: pDI(nullptr)
+	, hhMouse(nullptr)
+	, hhKeyboard(nullptr)
 	, uiHardwareDevices(0)
 #ifdef USE_GKEY
-	, gkey(NULL)
+	, gkey(nullptr)
 #endif
 #ifdef USE_XBOXINPUT
-	, xboxinput(NULL)
+	, xboxinput(nullptr)
 	, nxboxinput(0)
 #endif
 {
@@ -144,7 +144,7 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 }
 
 void GlobalShortcutWin::run() {
-	if (FAILED(DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), NULL))) {
+	if (FAILED(DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), nullptr))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
 	}
@@ -153,12 +153,12 @@ void GlobalShortcutWin::run() {
 	// On Windows 7 and greater, Windows will silently remove badly behaving hooks
 	// without telling the application. Users can tweak the timeout themselves
 	// with this registry key.
-	HKEY key = NULL;
+	HKEY key = nullptr;
 	DWORD type = 0;
 	DWORD value = 0;
 	DWORD len = sizeof(DWORD);
 	if (RegOpenKeyExA(HKEY_CURRENT_USER, "Control Panel\\Desktop", 0, KEY_READ, &key) == ERROR_SUCCESS) {
-		LONG err = RegQueryValueExA(key, "LowLevelHooksTimeout", NULL, &type, reinterpret_cast<LPBYTE>(&value), &len);
+		LONG err = RegQueryValueExA(key, "LowLevelHooksTimeout", nullptr, &type, reinterpret_cast<LPBYTE>(&value), &len);
 		if (err == ERROR_SUCCESS && type == REG_DWORD) {
 			qWarning("GlobalShortcutWin: Found LowLevelHooksTimeout with value = 0x%lx", static_cast<unsigned long>(value));
 		} else if (err == ERROR_FILE_NOT_FOUND) {
@@ -207,10 +207,10 @@ void GlobalShortcutWin::run() {
 #endif
 
 	if (bHook) {
-		if (hhMouse != NULL) {
+		if (hhMouse) {
 			UnhookWindowsHookEx(hhMouse);
 		}
-		if (hhKeyboard != NULL) {
+		if (hhKeyboard) {
 			UnhookWindowsHookEx(hhKeyboard);
 		}
 	}
@@ -471,7 +471,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 
 	InputDevice *id = new InputDevice;
 
-	id->pDID = NULL;
+	id->pDID = nullptr;
 
 	id->name = name;
 
@@ -555,7 +555,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		}
 	}
 
-	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, NULL)))
+	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, nullptr)))
 		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
 
 	if (FAILED(hr = id->pDID->EnumObjects(EnumDeviceObjectsCallback, static_cast<void *>(id), DIDFT_BUTTON)))
@@ -689,7 +689,7 @@ void GlobalShortcutWin::timeTicked() {
 	}
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey != NULL && gkey->isValid()) {
+	if (g.s.bEnableGKey && gkey && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
 			QList<QVariant> ql;
 			ql << button;
@@ -710,7 +710,7 @@ void GlobalShortcutWin::timeTicked() {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput != NULL && xboxinput->isValid() && nxboxinput > 0) {
+	if (g.s.bEnableXboxInput && xboxinput && xboxinput->isValid() && nxboxinput > 0) {
 		XboxInputState state;
 		for (uint32_t i = 0; i < XBOXINPUT_MAX_DEVICES; i++) {
 			if (xboxinput->GetState(i, &state) == 0) {
@@ -791,7 +791,7 @@ void GlobalShortcutWin::timeTicked() {
 	// As explained above, initializing the hooks here yields a much superior
 	// experience, where this initialization has no observable effect on the
 	// behavior of the system's mouse input.
-	if (bHook && hhMouse == NULL && hhKeyboard == NULL) {
+	if (bHook && !hhMouse && !hhKeyboard) {
 		HMODULE hSelf;
 		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(&HookKeyboard), &hSelf);
 		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
@@ -817,7 +817,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	QString name=QLatin1String("Unknown");
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey != NULL && gkey->isValid()) {
+	if (g.s.bEnableGKey && gkey && gkey->isValid()) {
 		bool isGKey = false;
 		if (guid == GKeyLibrary::quMouse) {
 			isGKey = true;
@@ -834,7 +834,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput != NULL && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
+	if (g.s.bEnableXboxInput && xboxinput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
 		uint32_t idx = (type >> 24) & 0xff;
 		uint32_t button = (type & 0x00ffffff);
 

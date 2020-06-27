@@ -220,7 +220,7 @@ int main(int argc, char **argv) {
 				}
 
 #if defined(Q_OS_WIN)
-				QMessageBox::information(NULL, MainWindow::tr("Invocation"), helpOutput);
+				QMessageBox::information(nullptr, MainWindow::tr("Invocation"), helpOutput);
 #else
 				printf("%s", qPrintable(helpOutput));
 #endif
@@ -264,7 +264,7 @@ int main(int argc, char **argv) {
 				else {
 					QString rpcError = MainWindow::tr("Error: No RPC command specified");
 #if defined(Q_OS_WIN)
-					QMessageBox::information(NULL, MainWindow::tr("RPC"), rpcError);
+					QMessageBox::information(nullptr, MainWindow::tr("RPC"), rpcError);
 #else
 					printf("%s\n", qPrintable(rpcError));
 #endif
@@ -297,7 +297,7 @@ int main(int argc, char **argv) {
 
 	{
 		size_t reqSize;
-		if (_wgetenv_s(&reqSize, NULL, 0, L"PATH") != 0) {
+		if (_wgetenv_s(&reqSize, nullptr, 0, L"PATH") != 0) {
 			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
 		} else if (reqSize > 0) {
 			STACKVAR(wchar_t, buff, reqSize+1);
@@ -482,7 +482,7 @@ int main(int argc, char **argv) {
 	a.processEvents();
 
 	// Main Window
-	g.mw=new MainWindow(NULL);
+	g.mw=new MainWindow(nullptr);
 	g.mw->show();
 
 	g.talkingUI = new TalkingUI();
@@ -514,7 +514,7 @@ int main(int argc, char **argv) {
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
 	// Plugins
-	g.p = new Plugins(NULL);
+	g.p = new Plugins(nullptr);
 	g.p->rescanPlugins();
 
 	Audio::start();
@@ -655,7 +655,7 @@ int main(int argc, char **argv) {
 	DeferInit::run_destroyers();
 
 	delete Global::g_global_struct;
-	Global::g_global_struct = NULL;
+	Global::g_global_struct = nullptr;
 
 #ifndef QT_NO_DEBUG
 #if (GOOGLE_PROTOBUF_VERSION >= 2001000)
@@ -715,7 +715,7 @@ int main(int argc, char **argv) {
 		bool ok = QProcess::startDetached(qApp->applicationFilePath(), arguments);
 #endif
 		if(!ok) {
-			QMessageBox::warning(NULL,
+			QMessageBox::warning(nullptr,
 			                     QApplication::tr("Failed to restart mumble"),
 			                     QApplication::tr("Mumble failed to restart itself. Please restart it manually.")
 			);
@@ -735,14 +735,14 @@ extern "C" __declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE pr
 
 	int argc;
 	wchar_t **argvW = CommandLineToArgvW(GetCommandLineW(), &argc);
-	if (argvW == Q_NULLPTR) {
+	if (!argvW) {
 		return -1;
 	}
 
 	QVector<QByteArray> argvS;
 	argvS.reserve(argc);
 
-	QVector<char *> argvV(argc, Q_NULLPTR);
+	QVector<char *> argvV(argc, nullptr);
 	for (int i = 0; i < argc; ++i) {
 		argvS.append(QString::fromWCharArray(argvW[i]).toLocal8Bit());
 		argvV[i] = argvS.back().data();

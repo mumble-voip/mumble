@@ -443,7 +443,7 @@ void AudioInputDialog::updateEchoEnableState() {
 void AudioInputDialog::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
 
-	if (ai.get() == NULL || ! ai->sppPreprocess)
+	if (!ai.get() || ! ai->sppPreprocess)
 		return;
 
 	abSpeech->iBelow = qsTransmitMin->value();

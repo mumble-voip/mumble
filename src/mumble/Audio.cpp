@@ -47,7 +47,7 @@ void CodecInit::initialize() {
 		return;
 	}
 
-	CELTCodec *codec = NULL;
+	CELTCodec *codec = nullptr;
 
 #ifdef USE_SBCELT
 	codec = new CELTCodecSBCELT();
@@ -92,7 +92,7 @@ LoopUser::LoopUser() {
 	bMute = bDeaf = bSuppress = false;
 	bLocalIgnore = bLocalMute = bSelfDeaf = false;
 	tsState = Settings::Passive;
-	cChannel = NULL;
+	cChannel = nullptr;
 	qetTicker.start();
 	qetLastFetch.start();
 }

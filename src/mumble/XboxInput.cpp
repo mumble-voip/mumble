@@ -10,10 +10,10 @@
 const QUuid XboxInput::s_XboxInputGuid = QUuid(QString::fromLatin1("ca3937e3-640c-4d9e-9ef3-903f8b4fbcab"));
 
 XboxInput::XboxInput()
-	: GetState(NULL)
-	, m_getStateFunc(NULL)
-	, m_getStateExFunc(NULL)
-	, m_xinputlib(NULL)
+	: GetState(nullptr)
+	, m_getStateFunc(nullptr)
+	, m_getStateExFunc(nullptr)
+	, m_xinputlib(nullptr)
 	, m_valid(false) {
 
 	// Load the most suitable XInput DLL available.
@@ -33,7 +33,7 @@ XboxInput::XboxInput()
 
 	foreach(const QString &lib, alternatives) {
 		m_xinputlib = LoadLibraryW(reinterpret_cast<const wchar_t *>(lib.utf16()));
-		if (m_xinputlib != NULL) {
+		if (m_xinputlib) {
 			qWarning("XboxInput: using XInput DLL '%s'", qPrintable(lib));
 			m_valid = true;
 			break;
@@ -51,10 +51,10 @@ XboxInput::XboxInput()
 	// For reference, see SDL's XInput support: http://www.libsdl.org/tmp/SDL/src/core/windows/SDL_xinput.c
 	m_getStateExFunc = reinterpret_cast<XboxInputGetStateFunc>(GetProcAddress(m_xinputlib, (char *)100));
 
-	if (m_getStateExFunc != NULL) {
+	if (m_getStateExFunc) {
 		GetState = m_getStateExFunc;
 		qWarning("XboxInput: using XInputGetStateEx() as querying function.");
-	} else if (m_getStateFunc != NULL) {
+	} else if (m_getStateFunc) {
 		GetState = m_getStateFunc;
 		qWarning("XboxInput: using XInputGetState() as querying function.");
 	} else {

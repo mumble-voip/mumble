@@ -27,7 +27,7 @@ OverlayUser::OverlayUser(ClientUser *cu, unsigned int height, OverlaySettings *o
 	updateLayout();
 }
 
-OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), os(osptr), uiSize(height), cuUser(NULL), tsColor(ts) {
+OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), os(osptr), uiSize(height), cuUser(nullptr), tsColor(ts) {
 	qsChannelName = Overlay::tr("Channel");
 
 	setup();

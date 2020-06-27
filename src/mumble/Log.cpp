@@ -743,7 +743,7 @@ void LogDocument::finished() {
 				// if the QTextDocument has just been set on the
 				// text edit widget.
 				QTextEdit *qte = qobject_cast<QTextEdit *>(parent());
-				if (qte != NULL) {
+				if (qte) {
 					QEvent *e = new QEvent(QEvent::FontChange);
 					QApplication::postEvent(qte, e);
 

@@ -39,13 +39,13 @@ class TextToSpeechPrivate {
 TextToSpeechPrivate::TextToSpeechPrivate() {
 	initialized = false;
 	volume = -1;
-	spd = NULL;
+	spd = nullptr;
 }
 
 TextToSpeechPrivate::~TextToSpeechPrivate() {
 	if (spd) {
 		spd_close(spd);
-		spd = NULL;
+		spd = nullptr;
 	}
 }
 
@@ -54,7 +54,7 @@ void TextToSpeechPrivate::ensureInitialized() {
 		return;
 	}
 
-	spd = spd_open("Mumble", NULL, NULL, SPD_MODE_THREADED);
+	spd = spd_open("Mumble", nullptr, nullptr, SPD_MODE_THREADED);
 	if (! spd) {
 		qWarning("TextToSpeech: Failed to contact speech dispatcher.");
 	} else {

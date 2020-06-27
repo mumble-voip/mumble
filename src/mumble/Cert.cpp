@@ -388,24 +388,24 @@ Settings::KeyPair CertWizard::generateNewCert(QString qsname, const QString &qse
 }
 
 Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
-	X509 *x509 = NULL;
-	EVP_PKEY *pkey = NULL;
-	PKCS12 *pkcs = NULL;
-	BIO *mem = NULL;
-	STACK_OF(X509) *certs = NULL;
+	X509 *x509 = nullptr;
+	EVP_PKEY *pkey = nullptr;
+	PKCS12 *pkcs = nullptr;
+	BIO *mem = nullptr;
+	STACK_OF(X509) *certs = nullptr;
 	Settings::KeyPair kp;
 	int ret = 0;
 
 	mem = BIO_new_mem_buf(data.data(), data.size());
 	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
-	pkcs = d2i_PKCS12_bio(mem, NULL);
+	pkcs = d2i_PKCS12_bio(mem, nullptr);
 	if (pkcs) {
-		ret = PKCS12_parse(pkcs, NULL, &pkey, &x509, &certs);
+		ret = PKCS12_parse(pkcs, nullptr, &pkey, &x509, &certs);
 		if (pkcs && !pkey && !x509 && ! pw.isEmpty()) {
 			if (certs) {
 				if (ret)
 					sk_X509_free(certs);
-				certs = NULL;
+				certs = nullptr;
 			}
 			ret = PKCS12_parse(pkcs, pw.toUtf8().constData(), &pkey, &x509, &certs);
 		}
@@ -413,11 +413,11 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 			unsigned char *dptr;
 			QByteArray key, crt;
 
-			key.resize(i2d_PrivateKey(pkey, NULL));
+			key.resize(i2d_PrivateKey(pkey, nullptr));
 			dptr=reinterpret_cast<unsigned char *>(key.data());
 			i2d_PrivateKey(pkey, &dptr);
 
-			crt.resize(i2d_X509(x509, NULL));
+			crt.resize(i2d_X509(x509, nullptr));
 			dptr=reinterpret_cast<unsigned char *>(crt.data());
 			i2d_X509(x509, &dptr);
 
@@ -431,7 +431,7 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 				for (int i=0;i<sk_X509_num(certs);++i) {
 					X509 *c = sk_X509_value(certs, i);
 
-					crt.resize(i2d_X509(c, NULL));
+					crt.resize(i2d_X509(c, nullptr));
 					dptr=reinterpret_cast<unsigned char *>(crt.data());
 					i2d_X509(c, &dptr);
 
@@ -464,13 +464,13 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 }
 
 QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
-	X509 *x509 = NULL;
-	EVP_PKEY *pkey = NULL;
-	PKCS12 *pkcs = NULL;
-	BIO *mem = NULL;
+	X509 *x509 = nullptr;
+	EVP_PKEY *pkey = nullptr;
+	PKCS12 *pkcs = nullptr;
+	BIO *mem = nullptr;
 	STACK_OF(X509) *certs = sk_X509_new_null();
 	const unsigned char *p;
-	char *data = NULL;
+	char *data = nullptr;
 
 	if (kp.first.isEmpty())
 		return QByteArray();
@@ -480,26 +480,26 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 	QByteArray qba;
 
 	p = reinterpret_cast<const unsigned char *>(key.constData());
-	pkey = d2i_AutoPrivateKey(NULL, &p, key.length());
+	pkey = d2i_AutoPrivateKey(nullptr, &p, key.length());
 
 	if (pkey) {
 		p = reinterpret_cast<const unsigned char *>(crt.constData());
-		x509 = d2i_X509(NULL, &p, crt.length());
+		x509 = d2i_X509(nullptr, &p, crt.length());
 
 		if (x509 && X509_check_private_key(x509, pkey)) {
-			X509_keyid_set1(x509, NULL, 0);
-			X509_alias_set1(x509, NULL, 0);
+			X509_keyid_set1(x509, nullptr, 0);
+			X509_alias_set1(x509, nullptr, 0);
 
 
 			QList<QSslCertificate> qlCerts = kp.first;
 			qlCerts.removeFirst();
 
 			foreach(const QSslCertificate &cert, qlCerts) {
-				X509 *c = NULL;
+				X509 *c = nullptr;
 				crt = cert.toDer();
 				p = reinterpret_cast<const unsigned char *>(crt.constData());
 
-				c = d2i_X509(NULL, &p, crt.length());
+				c = d2i_X509(nullptr, &p, crt.length());
 				if (c)
 					sk_X509_push(certs, c);
 			}

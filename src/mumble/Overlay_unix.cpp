@@ -7,7 +7,7 @@
 #include "OverlayConfig.h"
 
 void Overlay::platformInit() {
-	d = NULL;
+	d = nullptr;
 }
 
 void Overlay::setActiveInternal(bool) {

@@ -63,8 +63,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void showEvent(QShowEvent *) Q_DECL_OVERRIDE;
 		void fillWidgetFromSet(QListWidget *, const QSet<int> &);
 	public:
-		ACLEditor(int parentchannelid, QWidget *p = NULL);
-		ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p = NULL);
+		ACLEditor(int parentchannelid, QWidget *p = nullptr);
+		ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p = nullptr);
 		~ACLEditor();
 		void returnQuery(const MumbleProto::QueryUsers &mqu);
 	public slots:

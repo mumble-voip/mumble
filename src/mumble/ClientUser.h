@@ -35,7 +35,7 @@ class ClientUser : public QObject, public User {
 		QString qsFriendName;
 
 		QString getFlagsString() const;
-		ClientUser(QObject *p = NULL);
+		ClientUser(QObject *p = nullptr);
 
 		/**
 		 * Determines whether a user is active or not
@@ -56,7 +56,7 @@ class ClientUser : public QObject, public User {
 
 		static ClientUser *get(unsigned int);
 		static bool isValid(unsigned int);
-		static ClientUser *add(unsigned int, QObject *p = NULL);
+		static ClientUser *add(unsigned int, QObject *p = nullptr);
 		static ClientUser *match(const ClientUser *p, bool matchname = false);
 		static void remove(unsigned int);
 		static void remove(ClientUser *);

@@ -41,7 +41,7 @@ QRectF OverlayGroup::boundingRect() const {
 OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) :
 		OverlayGroup(),
 		os(osptr),
-		qgeiHandle(NULL),
+		qgeiHandle(nullptr),
 		bShowExamples(false) { }
 
 OverlayUserGroup::~OverlayUserGroup() {
@@ -58,7 +58,7 @@ void OverlayUserGroup::reset() {
 	qmUsers.clear();
 
 	delete qgeiHandle;
-	qgeiHandle = NULL;
+	qgeiHandle = nullptr;
 }
 
 int OverlayUserGroup::type() const {
@@ -69,8 +69,8 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 	e->accept();
 
 #ifdef Q_OS_MAC
-	bool embed = g.ocIntercept != NULL;
-	QMenu qm(embed ? NULL : e->widget());
+	bool embed = g.ocIntercept;
+	QMenu qm(embed ? nullptr : e->widget());
 	if (embed) {
 		QGraphicsScene *scene = g.ocIntercept->qgv.scene();
 		scene->addWidget(&qm);
@@ -146,7 +146,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		if (g.ocIntercept) {
 			QMetaObject::invokeMethod(g.ocIntercept, "openEditor", Qt::QueuedConnection);
 		} else {
-			OverlayEditor oe(qApp->activeModalWidget(), NULL, os);
+			OverlayEditor oe(qApp->activeModalWidget(), nullptr, os);
 			connect(&oe, SIGNAL(applySettings()), this, SLOT(updateLayout()));
 			oe.exec();
 		}
@@ -286,7 +286,7 @@ void OverlayUserGroup::updateUsers() {
 		}
 	} else {
 		delete qgeiHandle;
-		qgeiHandle = NULL;
+		qgeiHandle = nullptr;
 	}
 
 	ClientUser *self = ClientUser::get(g.uiSession);
@@ -356,7 +356,7 @@ void OverlayUserGroup::updateUsers() {
 	unsigned int xPos = 0;
 
 	foreach(OverlayUser *ou, users) {
-		if (ou->parentItem() == NULL)
+		if (!ou->parentItem())
 			ou->setParentItem(this);
 
 		ou->setPos(xPos * (width+4) + xOffset, yPos * (height + 4) + yOffset);

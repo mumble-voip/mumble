@@ -61,7 +61,7 @@ class ShortcutKeyWidget : public QLineEdit {
 	public:
 		QList<QVariant> qlButtons;
 		bool bModified;
-		ShortcutKeyWidget(QWidget *p = NULL);
+		ShortcutKeyWidget(QWidget *p = nullptr);
 		QList<QVariant> getShortcut() const;
 		void displayKeys(bool last = true);
 	public slots:
@@ -83,7 +83,7 @@ class ShortcutActionWidget : public MUComboBox {
 		Q_DISABLE_COPY(ShortcutActionWidget)
 		Q_PROPERTY(unsigned int index READ index WRITE setIndex USER true)
 	public:
-		ShortcutActionWidget(QWidget *p = NULL);
+		ShortcutActionWidget(QWidget *p = nullptr);
 		unsigned int index() const;
 		void setIndex(int);
 };
@@ -94,7 +94,7 @@ class ShortcutToggleWidget : public MUComboBox {
 		Q_DISABLE_COPY(ShortcutToggleWidget)
 		Q_PROPERTY(int index READ index WRITE setIndex USER true)
 	public:
-		ShortcutToggleWidget(QWidget *p = NULL);
+		ShortcutToggleWidget(QWidget *p = nullptr);
 		int index() const;
 		void setIndex(int);
 };
@@ -112,7 +112,7 @@ class ShortcutTargetDialog : public QDialog, public Ui::GlobalShortcutTarget {
 		QMap<QString, QString> qmHashNames;
 		ShortcutTarget stTarget;
 	public:
-		ShortcutTargetDialog(const ShortcutTarget &, QWidget *p = NULL);
+		ShortcutTargetDialog(const ShortcutTarget &, QWidget *p = nullptr);
 		ShortcutTarget target() const;
 	public slots:
 		void accept() Q_DECL_OVERRIDE;
@@ -143,7 +143,7 @@ class ShortcutTargetWidget : public QFrame {
 		QLineEdit *qleTarget;
 		QToolButton *qtbEdit;
 	public:
-		ShortcutTargetWidget(QWidget *p = NULL);
+		ShortcutTargetWidget(QWidget *p = nullptr);
 		ShortcutTarget target() const;
 		void setTarget(const ShortcutTarget &);
 		static QString targetString(const ShortcutTarget &);
@@ -240,7 +240,7 @@ class GlobalShortcutEngine : public QThread {
 		QList<QVariant> qlButtonList;
 		QList<QList<ShortcutKey *> > qlShortcutList;
 
-		GlobalShortcutEngine(QObject *p = NULL);
+		GlobalShortcutEngine(QObject *p = nullptr);
 		~GlobalShortcutEngine() Q_DECL_OVERRIDE;
 		void resetMap();
 		void remap();

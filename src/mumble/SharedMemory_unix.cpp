@@ -18,7 +18,7 @@ struct SharedMemory2Private {
 };
 
 SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &memname) : QObject(p) {
-	a_ucData = NULL;
+	a_ucData = nullptr;
 
 	d = new SharedMemory2Private();
 	d->iShmemFD = -1;
@@ -56,13 +56,13 @@ SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &me
 	} else if (memsize > std::numeric_limits<unsigned int>::max()) {
 		qWarning() << "SharedMemory2: Segment too big" << memsize;
 	} else {
-		a_ucData = reinterpret_cast<unsigned char *>(mmap(NULL, minsize, prot, MAP_SHARED, d->iShmemFD, 0));
+		a_ucData = reinterpret_cast<unsigned char *>(mmap(nullptr, minsize, prot, MAP_SHARED, d->iShmemFD, 0));
 		if (a_ucData != reinterpret_cast<unsigned char *>(-1)) {
 			uiSize = memsize;
 			return;
 		}
 		qWarning() << "SharedMemory2: Failed to map shared memory segment" << qsName;
-		a_ucData = NULL;
+		a_ucData = nullptr;
 	}
 
 	close(d->iShmemFD);
@@ -75,7 +75,7 @@ SharedMemory2::~SharedMemory2() {
 	systemRelease();
 	if (a_ucData) {
 		munmap(a_ucData, uiSize);
-		a_ucData = NULL;
+		a_ucData = nullptr;
 	}
 }
 

@@ -39,7 +39,7 @@ class CertWizard : public QWizard, public Ui::Certificates {
 	protected:
 		Settings::KeyPair kpCurrent, kpNew;
 	public:
-		CertWizard(QWidget *p = NULL);
+		CertWizard(QWidget *p = nullptr);
 		int nextId() const Q_DECL_OVERRIDE;
 		void initializePage(int) Q_DECL_OVERRIDE;
 		bool validateCurrentPage() Q_DECL_OVERRIDE;

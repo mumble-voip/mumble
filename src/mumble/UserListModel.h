@@ -32,7 +32,7 @@ class UserListModel : public QAbstractTableModel {
 		 /// UserListModel constructs a table model representing the userList.
 		 /// @param userList User list protobuf structure (will be copied)
 		 /// @param parent Parent in QObject hierarchy
-		UserListModel(const MumbleProto::UserList& userList, QObject *parent = NULL);
+		UserListModel(const MumbleProto::UserList& userList, QObject *parent = nullptr);
 	
 		int rowCount(const QModelIndex &parentIndex = QModelIndex()) const Q_DECL_OVERRIDE;
 		int columnCount(const QModelIndex &parentIndex = QModelIndex()) const Q_DECL_OVERRIDE;
