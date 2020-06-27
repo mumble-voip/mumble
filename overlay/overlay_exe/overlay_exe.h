@@ -81,7 +81,7 @@ static inline const char *OverlayHelperErrorToString(OverlayHelperError err) {
 		OHE(OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR);
 		OHE(OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL);
 	}
-	return NULL;
+	return nullptr;
 }
 
 #endif

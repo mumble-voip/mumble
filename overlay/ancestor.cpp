@@ -16,7 +16,7 @@
 /// Returns false on failure, and does not touch |parent|.
 static bool findParentProcessForChild(DWORD childpid, PROCESSENTRY32 *parent) {
 	DWORD parentpid = 0;
-	HANDLE hSnap = NULL;
+	HANDLE hSnap = nullptr;
 	bool done = false;
 
 	PROCESSENTRY32 pe;
@@ -78,7 +78,7 @@ static bool findParentProcessForChild(DWORD childpid, PROCESSENTRY32 *parent) {
 /// Returns true on success, and fills out |module| with the proper MODULEENTRY32 entry.
 /// Returns false on failure, and does not touch |module|.
 static bool getModuleForParent(PROCESSENTRY32 *parent, MODULEENTRY32 *module) {
-	HANDLE hSnap = NULL;
+	HANDLE hSnap = nullptr;
 	bool done = false;
 
 	MODULEENTRY32 me;

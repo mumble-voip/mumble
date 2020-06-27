@@ -38,7 +38,7 @@
 #include "lib.h"
 #include <dxgi.h>
 
-DXGIData *dxgi = NULL;
+DXGIData *dxgi = nullptr;
 
 static bool bHooked = false;
 static HardHook hhPresent;
@@ -143,11 +143,11 @@ void checkDXGIHook(bool preonly) {
 /// @param hDXGI must be a valid module handle.
 void hookDXGI(HMODULE hDXGI, bool preonly) {
 	wchar_t modulename[MODULEFILEPATH_BUFLEN];
-	GetModuleFileNameW(NULL, modulename, ARRAY_NUM_ELEMENTS(modulename));
+	GetModuleFileNameW(nullptr, modulename, ARRAY_NUM_ELEMENTS(modulename));
 	ods("DXGI: hookDXGI in App '%ls'", modulename);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	HMODULE hTempSelf = NULL;
+	HMODULE hTempSelf = nullptr;
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookDXGI), &hTempSelf);
 
 	bHooked = true;
@@ -199,7 +199,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 
 	HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
-	if (hDXGI != NULL) {
+	if (hDXGI) {
 		GetModuleFileNameW(hDXGI, dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName));
 
 		CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
@@ -210,7 +210,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 			if (FAILED(hr))
 				ods("DXGI: Call to pCreateDXGIFactory1 failed!");
 			if (pFactory) {
-				IDXGIAdapter1 *pAdapter = NULL;
+				IDXGIAdapter1 *pAdapter = nullptr;
 				pFactory->EnumAdapters1(0, &pAdapter);
 
 				/// Offsets have to be identified and initialized only once.

@@ -6,7 +6,7 @@
 #include "HardHook.h"
 #include "ods.h"
 
-void *HardHook::pCode = NULL;
+void *HardHook::pCode = nullptr;
 unsigned int HardHook::uiCode = 0;
 
 const int HardHook::CODEREPLACESIZE = 6;
@@ -15,7 +15,7 @@ const int HardHook::CODEPROTECTSIZE = 16;
 /**
  * @brief Constructs a new hook without actually injecting.
  */
-HardHook::HardHook() : bTrampoline(false), call(0), baseptr(NULL) {
+HardHook::HardHook() : bTrampoline(false), call(0), baseptr(nullptr) {
 	for (int i = 0; i < CODEREPLACESIZE; ++i) {
 		orig[i] = replace[i] = 0;
 	}
@@ -31,7 +31,7 @@ HardHook::HardHook() : bTrampoline(false), call(0), baseptr(NULL) {
  * @param replacement Function to inject into func.
  */
 HardHook::HardHook(voidFunc func, voidFunc replacement)
-	: bTrampoline(false), call(0), baseptr(NULL) {
+	: bTrampoline(false), call(0), baseptr(nullptr) {
 	for (int i = 0; i < CODEREPLACESIZE; ++i)
 		orig[i] = replace[i] = 0;
 	setup(func, replacement);
@@ -84,7 +84,7 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
  * for all trampolines).
  *
  * If code is encountered that can not be moved into the trampoline (conditionals etc.)
- * construction fails and NULL is returned. If enough commands can be saved the
+ * construction fails and nullptr is returned. If enough commands can be saved the
  * trampoline is finalized by appending a jump back to the original code. The return value
  * in this case will be the address of the newly constructed trampoline.
  *
@@ -92,17 +92,17 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
  *     [SAVED CODE FROM ORIGINAL which is >= CODEREPLACESIZE bytes][JUMP BACK TO ORIGINAL CODE]
  *
  * @param porig Original code
- * @return Pointer to trampoline on success. NULL if trampoline construction failed.
+ * @return Pointer to trampoline on success. nullptr if trampoline construction failed.
  */
 void *HardHook::cloneCode(void **porig) {
 
 	if (! pCode || uiCode > 4000) {
-		pCode = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+		pCode = VirtualAlloc(nullptr, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 		uiCode = 0;
 	}
 	// If we have no memory to clone to, return.
 	if (! pCode) {
-		return NULL;
+		return nullptr;
 	}
 
 	unsigned char *o = (unsigned char *) *porig;
@@ -110,7 +110,7 @@ void *HardHook::cloneCode(void **porig) {
 	DWORD origProtect;
 	if (!VirtualProtect(o, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
 		fods("HardHook: CloneCode failed; failed to make original code read and executable");
-		return NULL;
+		return nullptr;
 	}
 
 	// Follow relative jumps to next instruction. On execution it doesn't make
@@ -129,7 +129,7 @@ void *HardHook::cloneCode(void **porig) {
 		VirtualProtect(tmp, CODEPROTECTSIZE, origProtect, &tempProtect);
 		if (!VirtualProtect(o, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
 			fods("HardHook: CloneCode failed; failed to make jump target code read and executable");
-			return NULL;
+			return nullptr;
 		}
 	}
 
@@ -187,7 +187,7 @@ void *HardHook::cloneCode(void **porig) {
 						opcode, idx, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
 				DWORD tempProtect;
 				VirtualProtect(o, CODEPROTECTSIZE, origProtect, &tempProtect);
-				return NULL;
+				return nullptr;
 				break;
 			}
 		}
@@ -284,7 +284,7 @@ void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacem
 void HardHook::reset() {
 	baseptr = 0;
 	bTrampoline = false;
-	call = NULL;
+	call = nullptr;
 	for (int i = 0; i < CODEREPLACESIZE; ++i) {
 		orig[i] = replace[i] = 0;
 	}

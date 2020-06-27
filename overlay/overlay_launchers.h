@@ -21,7 +21,7 @@ static const char *overlayLaunchers[] = {
 	"LoLPatcher.exe", // League of Legends Patcher (note: this isn't its launcher, but an intermediate process)
 	"GTAVLauncher.exe", // Grand Theft Auto V
 
-	NULL
+	nullptr
 };
 
 #endif

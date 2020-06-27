@@ -7,7 +7,7 @@
 #include <d3d9.h>
 #include <time.h>
 
-Direct3D9Data *d3dd = NULL;
+Direct3D9Data *d3dd = nullptr;
 
 typedef IDirect3D9* (WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
 typedef HRESULT (WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
@@ -79,13 +79,13 @@ static DevMapType devMap;
 static bool bHooked = false;
 
 DevState::DevState() {
-	dev = NULL;
-	pSB = NULL;
+	dev = nullptr;
+	pSB = nullptr;
 	dwMyThread = 0;
 	initRefCount = 0;
 	refCount = 0;
 	myRefCount = 0;
-	texTexture = NULL;
+	texTexture = nullptr;
 
 	timeT = clock();
 	frameCount = 0;
@@ -102,7 +102,7 @@ void DevState::releaseData() {
 
 	if (texTexture) {
 		texTexture->Release();
-		texTexture = NULL;
+		texTexture = nullptr;
 	}
 }
 
@@ -118,7 +118,7 @@ void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 	D3DLOCKED_RECT lr;
 
 	if ((x == 0) && (y == 0) && (w == uiWidth) && (h == uiHeight)) {
-		if (texTexture->LockRect(0, &lr, NULL, D3DLOCK_DISCARD) != D3D_OK)
+		if (texTexture->LockRect(0, &lr, nullptr, D3DLOCK_DISCARD) != D3D_OK)
 			return;
 	} else {
 		RECT r;
@@ -183,10 +183,10 @@ void DevState::newTexture(unsigned int width, unsigned int height) {
 
 	if (texTexture) {
 		texTexture->Release();
-		texTexture = NULL;
+		texTexture = nullptr;
 	}
 
-	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
+	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, nullptr);
 
 	for (int i = 0; i < 4; ++i) {
 		vertices[i].x = vertices[i].y = vertices[i].z = 0.0f;
@@ -200,7 +200,7 @@ void DevState::releaseAll() {
 	releaseData();
 	if (pSB)
 		pSB->Release();
-	pSB = NULL;
+	pSB = nullptr;
 }
 
 void DevState::draw() {
@@ -256,9 +256,9 @@ void DevState::createCleanState() {
 
 	if (pSB)
 		pSB->Release();
-	pSB = NULL;
+	pSB = nullptr;
 
-	IDirect3DStateBlock9* pStateBlock = NULL;
+	IDirect3DStateBlock9* pStateBlock = nullptr;
 	dev->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
 	if (! pStateBlock)
 		return;
@@ -274,8 +274,8 @@ void DevState::createCleanState() {
 	D3DVIEWPORT9 vp;
 	dev->GetViewport(&vp);
 
-	dev->SetVertexShader(NULL);
-	dev->SetPixelShader(NULL);
+	dev->SetVertexShader(nullptr);
+	dev->SetPixelShader(nullptr);
 	dev->SetFVF(D3DFVF_TLVERTEX);
 
 	dev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
@@ -320,10 +320,10 @@ static HardHook hhSwapPresent;
 /// Present the overlay.
 ///
 /// If called via IDirect3DDevice9::present() or IDirect3DDevice9Ex::present(),
-/// idd will be non-NULL and ids ill be NULL.
+/// idd will be non-nullptr and ids ill be nullptr.
 ///
 /// If called via IDirect3DSwapChain9::present(), both idd and ids will be
-/// non-NULL.
+/// non-nullptr.
 ///
 /// The doPresent function expects the following assumptions to be valid:
 ///
@@ -339,7 +339,7 @@ static HardHook hhSwapPresent;
 /// every frame, etc.
 static void doPresent(IDirect3DDevice9 *idd, IDirect3DSwapChain9 *ids) {
 	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	DevState *ds = it != devMap.end() ? it->second : nullptr;
 	HRESULT hres;
 
 	if (ds && ds->pSB) {
@@ -351,7 +351,7 @@ static void doPresent(IDirect3DDevice9 *idd, IDirect3DSwapChain9 *ids) {
 		// Get the back buffer.
 		// If we're called via IDirect3DSwapChain9, acquire it via the swap chain object.
 		// Otherwise, acquire it via the device itself.
-		IDirect3DSurface9 *pTarget = NULL;
+		IDirect3DSurface9 *pTarget = nullptr;
 		if (ids) {
 			hres = ids->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
 			if (FAILED(hres)) {
@@ -372,7 +372,7 @@ static void doPresent(IDirect3DDevice9 *idd, IDirect3DSwapChain9 *ids) {
 			}
 		}
 
-		IDirect3DSurface9 *pRenderTarget = NULL;
+		IDirect3DSurface9 *pRenderTarget = nullptr;
 		hres = idd->GetRenderTarget(0, &pRenderTarget);
 		if (FAILED(hres)) {
 			if (hres == D3DERR_NOTFOUND) {
@@ -389,7 +389,7 @@ static void doPresent(IDirect3DDevice9 *idd, IDirect3DSwapChain9 *ids) {
 		ods("D3D9: doPresent BackB %p RenderT %p", pTarget, pRenderTarget);
 		#endif
 
-		IDirect3DStateBlock9* pStateBlock = NULL;
+		IDirect3DStateBlock9* pStateBlock = nullptr;
 		idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
 		pStateBlock->Capture();
 
@@ -462,7 +462,7 @@ static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 *ids, CONST RECT *pSo
 	ods("D3D9: SwapChain Present");
 	#endif
 
-	IDirect3DDevice9 *idd = NULL;
+	IDirect3DDevice9 *idd = nullptr;
 	ids->GetDevice(&idd);
 	if (idd) {
 		doPresent(idd, ids);
@@ -486,7 +486,7 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 *idd, CONST RECT *pSourceRec
 	ods("D3D9: Device Present");
 	#endif
 
-	doPresent(idd, NULL);
+	doPresent(idd, nullptr);
 
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
@@ -505,7 +505,7 @@ static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex *idd, CONST RECT *pSourc
 	ods("D3D9: Device Present Ex");
 	#endif
 
-	doPresent(idd, NULL);
+	doPresent(idd, nullptr);
 
 	PresentExType oPresentEx = (PresentExType) hhPresentEx.call;
 	hhPresentEx.restore();
@@ -520,7 +520,7 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 *idd, D3DPRESENT_PARAMETERS *p
 	ods("D3D9: Chaining Reset");
 
 	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	DevState *ds = it != devMap.end() ? it->second : nullptr;
 	if (ds) {
 		if (ds->dwMyThread != 0) {
 			ods("D3D9: myReset from other thread");
@@ -548,7 +548,7 @@ static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex *idd, D3DPRESENT_PARAMETER
 	ods("D3D9: Chaining ResetEx");
 
 	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	DevState *ds = it != devMap.end() ? it->second : nullptr;
 	if (ds) {
 		if (ds->dwMyThread) {
 			ods("D3D9: myResetEx from other thread");
@@ -577,7 +577,7 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	DevState *ds = it != devMap.end() ? it->second : nullptr;
 	if (ds) {
 		// AddRef is called very often. Thus, we do not want to always log here.
 		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
@@ -611,7 +611,7 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	DevState *ds = it != devMap.end() ? it->second : nullptr;
 	if (ds && ds->dwMyThread == GetCurrentThreadId()) {
 		// AddRef is called very often. Thus, we do not want to always log here.
 		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
@@ -646,7 +646,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	DevState *ds = it != devMap.end() ? it->second : nullptr;
 	if (ds) {
 		// Release is called very often. Thus, we do not want to always log here.
 		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
@@ -685,7 +685,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 
 		devMap.erase(it);
 		delete ds;
-		ds = NULL;
+		ds = nullptr;
 	}
 
 	//TODO: Move logic to HardHook.
@@ -707,7 +707,7 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	DevState *ds = it != devMap.end() ? it->second : nullptr;
 	if (ds) {
 		// Release is called very often. Thus, we do not want to always log here.
 		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
@@ -738,7 +738,7 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 
 			devMap.erase(it);
 			delete ds;
-			ds = NULL;
+			ds = nullptr;
 		}
 	}
 
@@ -762,11 +762,11 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 
 static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
 
-	IDirect3DSwapChain9 *pSwap = NULL;
+	IDirect3DSwapChain9 *pSwap = nullptr;
 	device->GetSwapChain(0, &pSwap);
 	if (pSwap) {
 
-		IDirect3DDevice9 *originalDevice = NULL;
+		IDirect3DDevice9 *originalDevice = nullptr;
 		if (SUCCEEDED(pSwap->GetDevice(&originalDevice))) {
 
 			if (originalDevice == device) {
@@ -847,7 +847,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 	hhReset.setupInterface(idd, offsetReset, reinterpret_cast<voidFunc>(myReset));
 	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));
 
-	IDirect3DSwapChain9 *pSwap = NULL;
+	IDirect3DSwapChain9 *pSwap = nullptr;
 	idd->GetSwapChain(0, &pSwap);
 	if (pSwap) {
 		// The offset is dependent on the declaration order of the struct.
@@ -919,7 +919,7 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DD
 	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));
 	hhPresentEx.setupInterface(idd, offsetPresentEx, reinterpret_cast<voidFunc>(myPresentEx));
 
-	IDirect3DSwapChain9 *pSwap = NULL;
+	IDirect3DSwapChain9 *pSwap = nullptr;
 	idd->GetSwapChain(0, &pSwap);
 	if (pSwap) {
 		// The offset is dependent on the declaration order of the struct.
@@ -977,7 +977,7 @@ void checkD3D9Hook(bool preonly) {
 
 	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 
-	if (hD3D != NULL) {
+	if (hD3D) {
 		if (! bHooked) {
 			hookD3D9(hD3D, preonly);
 		}
@@ -993,11 +993,11 @@ void checkD3D9Hook(bool preonly) {
 static void hookD3D9(HMODULE hD3D, bool preonly) {
 
 	char procname[MODULEFILEPATH_BUFLEN];
-	GetModuleFileName(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
+	GetModuleFileName(nullptr, procname, ARRAY_NUM_ELEMENTS(procname));
 	ods("D3D9: hookD3D9 in App '%s'", procname);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	HMODULE hTempSelf = NULL;
+	HMODULE hTempSelf = nullptr;
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookD3D9), &hTempSelf);
 
 	bHooked = true;
@@ -1067,7 +1067,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	HMODULE hD3D = LoadLibrary("D3D9.DLL");
 
-	if (hD3D != NULL) {
+	if (hD3D) {
 
 		GetModuleFileNameW(hD3D, d3dd->wcFileName, ARRAY_NUM_ELEMENTS(d3dd->wcFileName));
 
@@ -1105,7 +1105,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 			if (!IsFnInModule(reinterpret_cast<voidFunc>(d3dcreate9ex), d3dd->wcFileName, "D3D9", d3d9exFnName)) {
 				ods(("D3D9: " + d3d9exFnName + " is not in D3D9 library").c_str());
 			} else {
-					IDirect3D9Ex *id3d9 = NULL;
+					IDirect3D9Ex *id3d9 = nullptr;
 					d3dcreate9ex(D3D_SDK_VERSION, &id3d9);
 					if (id3d9) {
 						void ***vtbl = (void ***) id3d9;

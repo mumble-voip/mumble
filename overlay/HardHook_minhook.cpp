@@ -27,9 +27,9 @@ static void EnsureMinHookInitialized() {
  * @brief Constructs a new hook without actually injecting.
  */
 HardHook::HardHook()
-	: m_func(NULL)
-	, m_replacement(NULL)
-	, call(NULL) {
+	: m_func(nullptr)
+	, m_replacement(nullptr)
+	, call(nullptr) {
 	EnsureMinHookInitialized();
 }
 
@@ -40,9 +40,9 @@ HardHook::HardHook()
  * @param replacement Function to inject into func.
  */
 HardHook::HardHook(voidFunc func, voidFunc replacement)
-	: m_func(NULL)
-	, m_replacement(NULL)
-	, call(NULL) {
+	: m_func(nullptr)
+	, m_replacement(nullptr)
+	, call(nullptr) {
 	EnsureMinHookInitialized();
 
 	setup(func, replacement);
@@ -76,9 +76,9 @@ void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacem
 }
 
 void HardHook::reset() {
-	m_func = NULL;
-	m_replacement = NULL;
-	call = NULL;
+	m_func = nullptr;
+	m_replacement = nullptr;
+	call = nullptr;
 }
 
 /**

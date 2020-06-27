@@ -97,40 +97,40 @@ void D11StateBlock::ReleaseObjects()
 {
 	if (pRasterizerState) {
 		pRasterizerState->Release();
-		pRasterizerState = NULL;
+		pRasterizerState = nullptr;
 	}
 
 	for (int i=0; i<D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)
 		if (pRenderTargetViews[i]) {
 			pRenderTargetViews[i]->Release();
-			pRenderTargetViews[i] = NULL;
+			pRenderTargetViews[i] = nullptr;
 		}
 
 
 	if (pDepthStencilView) {
 		pDepthStencilView->Release();
-		pDepthStencilView = NULL;
+		pDepthStencilView = nullptr;
 	}
 
 	if (pBlendState) {
 		pBlendState->Release();
-		pBlendState = NULL;
+		pBlendState = nullptr;
 	}
 
 	if (pInputLayout) {
 		pInputLayout->Release();
-		pInputLayout = NULL;
+		pInputLayout = nullptr;
 	}
 
 	if (pIndexBuffer) {
 		pIndexBuffer->Release();
-		pIndexBuffer = NULL;
+		pIndexBuffer = nullptr;
 	}
 
 	for (int i=0; i<D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT; i++)
 		if (pVertexBuffers[i]) {
 			pVertexBuffers[i]->Release();
-			pVertexBuffers[i] = NULL;
+			pVertexBuffers[i] = nullptr;
 		}
 
 }

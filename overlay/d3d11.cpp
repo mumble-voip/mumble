@@ -42,7 +42,7 @@
 #include <d3d11.h>
 #include <time.h>
 
-D3D11Data *d3d11 = NULL;
+D3D11Data *d3d11 = nullptr;
 
 static bool bHooked = false;
 static HardHook hhAddRef;
@@ -129,18 +129,18 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice)
 
 	ZeroMemory(&vp, sizeof(vp));
 
-	pOrigStateBlock = NULL;
-	pMyStateBlock = NULL;
-	pRTV = NULL;
-	pVertexShader = NULL;
-	pPixelShader = NULL;
-	pVertexLayout = NULL;
-	pVertexBuffer = NULL;
-	pIndexBuffer = NULL;
-	pBlendState = NULL;
-	pTexture = NULL;
-	pSRView = NULL;
-	pDeviceContext = NULL;
+	pOrigStateBlock = nullptr;
+	pMyStateBlock = nullptr;
+	pRTV = nullptr;
+	pVertexShader = nullptr;
+	pPixelShader = nullptr;
+	pVertexLayout = nullptr;
+	pVertexBuffer = nullptr;
+	pIndexBuffer = nullptr;
+	pBlendState = nullptr;
+	pTexture = nullptr;
+	pSRView = nullptr;
+	pDeviceContext = nullptr;
 
 	timeT = clock();
 	frameCount = 0;
@@ -225,11 +225,11 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 
 	if (pTexture) {
 		pTexture->Release();
-		pTexture = NULL;
+		pTexture = nullptr;
 	}
 	if (pSRView) {
 		pSRView->Release();
-		pSRView = NULL;
+		pSRView = nullptr;
 	}
 
 	D3D11_TEXTURE2D_DESC desc;
@@ -243,10 +243,10 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 	desc.Usage = D3D11_USAGE_DYNAMIC;
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
+	hr = pDevice->CreateTexture2D(&desc, nullptr, &pTexture);
 
 	if (FAILED(hr)) {
-		pTexture = NULL;
+		pTexture = nullptr;
 		ods("D3D11: Failed to create texture.");
 		return;
 	}
@@ -260,9 +260,9 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 
 	hr = pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSRView);
 	if (FAILED(hr)) {
-		pSRView = NULL;
+		pSRView = nullptr;
 		pTexture->Release();
-		pTexture = NULL;
+		pTexture = nullptr;
 		ods("D3D11: Failed to create resource view.");
 		return;
 	}
@@ -271,7 +271,7 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 bool D11State::init() {
 	HRESULT hr;
 
-	ID3D11Texture2D* pBackBuffer = NULL;
+	ID3D11Texture2D* pBackBuffer = nullptr;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
 	if (FAILED(hr)) {
 		ods("D3D11: pSwapChain->GetBuffer failure!");
@@ -308,13 +308,13 @@ bool D11State::init() {
 	vp.TopLeftY = 0;
 	pDeviceContext->RSSetViewports(1, &vp);
 
-	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
+	hr = pDevice->CreateRenderTargetView(pBackBuffer, nullptr, &pRTV);
 	if (FAILED(hr)) {
 		ods("D3D11: pDevice->CreateRenderTargetView failed!");
 		return false;
 	}
 
-	pDeviceContext->OMSetRenderTargets(1, &pRTV, NULL);
+	pDeviceContext->OMSetRenderTargets(1, &pRTV, nullptr);
 
 	// Settings for an "over" operation.
 	// https://en.wikipedia.org/w/index.php?title=Alpha_compositing&oldid=580659153#Description
@@ -335,22 +335,22 @@ bool D11State::init() {
 		return false;
 	}
 
-	pDeviceContext->OMSetBlendState(pBlendState, NULL, 0xffffffff);
+	pDeviceContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
 
-	hr = pDevice->CreateVertexShader(g_vertex_shader, sizeof(g_vertex_shader), NULL, &pVertexShader);
+	hr = pDevice->CreateVertexShader(g_vertex_shader, sizeof(g_vertex_shader), nullptr, &pVertexShader);
 	if (FAILED(hr)) {
 		ods("D3D11: Failed to create vertex shader.");
 		return false;
 	}
 
-	hr = pDevice->CreatePixelShader(g_pixel_shader, sizeof(g_pixel_shader), NULL, &pPixelShader);
+	hr = pDevice->CreatePixelShader(g_pixel_shader, sizeof(g_pixel_shader), nullptr, &pPixelShader);
 	if (FAILED(hr)) {
 		ods("D3D11: Failed to create pixel shader.");
 		return false;
 	}
 
-	pTexture = NULL;
-	pSRView = NULL;
+	pTexture = nullptr;
+	pSRView = nullptr;
 
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
@@ -374,7 +374,7 @@ bool D11State::init() {
 	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	bd.MiscFlags = 0;
 
-	hr = pDevice->CreateBuffer(&bd, NULL, &pVertexBuffer);
+	hr = pDevice->CreateBuffer(&bd, nullptr, &pVertexBuffer);
 	if (FAILED(hr)) {
 		ods("D3D11: pDevice->CreateBuffer failure!");
 		return false;
@@ -438,9 +438,9 @@ D11State::~D11State() {
 		pSRView->Release();
 
 	delete pMyStateBlock;
-	pMyStateBlock = NULL;
+	pMyStateBlock = nullptr;
 	delete pOrigStateBlock;
-	pOrigStateBlock = NULL;
+	pOrigStateBlock = nullptr;
 
 	if (pDeviceContext)
 		pDeviceContext->Release();
@@ -476,16 +476,16 @@ void D11State::draw() {
 		UINT offset = 0;
 		pDeviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
-		pDeviceContext->VSSetShader(pVertexShader, NULL, 0);
-		pDeviceContext->GSSetShader(NULL, NULL, 0);
+		pDeviceContext->VSSetShader(pVertexShader, nullptr, 0);
+		pDeviceContext->GSSetShader(nullptr, nullptr, 0);
 		pDeviceContext->PSSetShaderResources(0, 1, &pSRView);
-		pDeviceContext->PSSetShader(pPixelShader, NULL, 0);
+		pDeviceContext->PSSetShader(pPixelShader, nullptr, 0);
 		pDeviceContext->DrawIndexed(6, 0, 0);
 
 		if (bDeferredContext) {
 			ID3D11CommandList *pCommandList;
 			pDeviceContext->FinishCommandList(TRUE, &pCommandList);
-			ID3D11DeviceContext *ctx = NULL;
+			ID3D11DeviceContext *ctx = nullptr;
 			pDevice->GetImmediateContext(&ctx);
 			ctx->ExecuteCommandList(pCommandList, TRUE);
 			ctx->Release();
@@ -502,18 +502,18 @@ void D11State::draw() {
 // D3D11 specific logic for the Present function.
 extern void presentD3D11(IDXGISwapChain *pSwapChain) {
 
-	ID3D11Device *pDevice = NULL;
+	ID3D11Device *pDevice = nullptr;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
 	if (SUCCEEDED(hr) && pDevice) {
 		SwapchainMap::iterator it = chains.find(pSwapChain);
-		D11State *ds = it != chains.end() ? it->second : NULL;
+		D11State *ds = it != chains.end() ? it->second : nullptr;
 		if (ds && ds->pDevice != pDevice) {
 			ods("D3D11: SwapChain device changed");
 			devices.erase(ds->pDevice);
 			delete ds;
-			ds = NULL;
+			ds = nullptr;
 		}
-		if (ds == NULL) {
+		if (!ds) {
 			ods("D3D11: New state");
 			ds = new D11State(pSwapChain, pDevice);
 			if (!ds->init()) {
@@ -586,7 +586,7 @@ static ULONG __stdcall myRelease(ID3D11Device *pDevice) {
 			chains.erase(ds->pSwapChain);
 			delete ds;
 			ods("D3D11: Deleted");
-			ds = NULL;
+			ds = nullptr;
 		}
 	}
 
@@ -638,7 +638,7 @@ void checkDXGI11Hook(bool preonly) {
 void hookD3D11(HMODULE hD3D11, bool preonly) {
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	HMODULE hTempSelf = NULL;
+	HMODULE hTempSelf = nullptr;
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookD3D11), &hTempSelf);
 
 	bHooked = true;
@@ -675,11 +675,11 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 
 	HMODULE hD3D11 = LoadLibrary("D3D11.DLL");
 
-	if (hD3D11 != NULL) {
+	if (hD3D11) {
 
 		HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
 								  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-								  NULL, NULL, 0);
+								  nullptr, nullptr, 0);
 
 		D3D11CreateDeviceAndSwapChainType pD3D11CreateDeviceAndSwapChain = reinterpret_cast<D3D11CreateDeviceAndSwapChainType>(GetProcAddress(hD3D11, "D3D11CreateDeviceAndSwapChain"));
 
@@ -713,11 +713,11 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 
 			desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-			IDXGISwapChain *pSwapChain = NULL;
-			ID3D11Device *pDevice = NULL;
+			IDXGISwapChain *pSwapChain = nullptr;
+			ID3D11Device *pDevice = nullptr;
 			D3D_FEATURE_LEVEL featureLevel;
-			ID3D11DeviceContext *pDeviceContext = NULL;
-			HRESULT hr = pD3D11CreateDeviceAndSwapChain(pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &desc, &pSwapChain, &pDevice, &featureLevel, &pDeviceContext);
+			ID3D11DeviceContext *pDeviceContext = nullptr;
+			HRESULT hr = pD3D11CreateDeviceAndSwapChain(pAdapter, D3D_DRIVER_TYPE_UNKNOWN, nullptr, 0, nullptr, 0, D3D11_SDK_VERSION, &desc, &pSwapChain, &pDevice, &featureLevel, &pDeviceContext);
 			if (FAILED(hr))
 				ods("D3D11: pD3D11CreateDeviceAndSwapChain failure!");
 
