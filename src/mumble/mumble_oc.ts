@@ -1,157 +1,156 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="bg" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="oc" version="2.1">
 <context>
     <name>ACLEditor</name>
     <message>
         <source>Deny</source>
-        <translation>Забрани</translation>
+        <translation>Regetar</translation>
     </message>
     <message>
         <source>Allow</source>
-        <translation>Позволи</translation>
+        <translation>Autorizar</translation>
     </message>
     <message>
         <source>Allow %1</source>
-        <translation>Позволи %1</translation>
+        <translation>Autorizar %1</translation>
     </message>
     <message>
         <source>Deny %1</source>
-        <translation>Забрани %1</translation>
+        <translation>Regetar %1</translation>
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Мъмбъл - Добавяне на канал</translation>
+        <translation>Mumble - ajustar un canal</translation>
     </message>
     <message>
         <source>Default server value</source>
-        <translation>Първоначални стойности на сървъра</translation>
+        <translation>Valor servidor per defaut</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>Неуспех: Невалиден канал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation>Мъмбъл - Редактирай %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>ID: %1</source>
-        <translation>ID: %1</translation>
+        <translation>ID : %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Това дава привилегия на %1. Ако привилегия е едновременно позволена и забранена, то тя е забранена. &lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation>Каналът трябва да има име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Това отхвърля привилегията на %1. Ако привилегия е едновременно позволена и забранена, то тя е забранена. &lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Диалог</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Name</source>
-        <translation>Име</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Въведете името на канала тук.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Description</source>
-        <translation>Описание</translation>
+        <translation>Descripcion</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Парола</translation>
+        <translation>Senhal</translation>
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Въведете паролата на канала тук.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation>Отметнете за създаване на временен канал.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Temporary</source>
-        <translation>Временен</translation>
+        <translation>Temporari</translation>
     </message>
     <message>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Пози;ия&lt;/b&gt;&lt;br/&gt;
-Тази стойност позволява да промените начина, по който Мъмбъл подрежда каналите в списъка. Канал с по-висока стойност &lt;i&gt;Позиция&lt;/i&gt; ще бъде винаги поставен под канал с по-ниска стойност и обратно. Ако стойността &lt;i&gt;Позиция&lt;/i&gt; на два канала е еднаква, те ще бъдат подредени по азбучен ред.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Position</source>
-        <translation>Позиция</translation>
+        <translation>Posicion</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation>&amp;Групи</translation>
+        <translation>&amp;Grops</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Групи</translation>
+        <translation>Grop</translation>
     </message>
     <message>
         <source>List of groups</source>
-        <translation>Списък с групи</translation>
+        <translation>Lista de grops</translation>
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation>Премахване на избраната група</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Премахване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation>Наследяване на членовете на групата от родителя</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Inherit</source>
-        <translation>Наследяване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Правене на групата наследима за подканали</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Inheritable</source>
-        <translation>Наследима</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
-        <translation>Групата беше наследена от родителски канал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Inherited</source>
-        <translation>Наследена</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Members</source>
-        <translation>Членове</translation>
+        <translation>Membres</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Добавяне</translation>
+        <translation>Ajustar</translation>
     </message>
     <message>
         <source>Add member to group</source>
-        <translation>Добавяне на член в групата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation>Премахване на член от групата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -179,7 +178,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Move entry up</source>
-        <translation>Преместване на записа нагоре</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
@@ -191,7 +190,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Move entry down</source>
-        <translation>Преместване на записа надолу</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
@@ -203,7 +202,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Add new entry</source>
-        <translation>Добавяне на нов запис</translation>
+        <translation>Ajustar una nòva entrada</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
@@ -211,23 +210,23 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Добавяне</translation>
+        <translation>&amp;Ajustar</translation>
     </message>
     <message>
         <source>Remove entry</source>
-        <translation>Премахване на записа</translation>
+        <translation>Suprimir l’entrada</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation>Премахва текущо избрания запис.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Премахване</translation>
+        <translation>&amp;Suprimir</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation>Контекст</translation>
+        <translation>Contexte</translation>
     </message>
     <message>
         <source>Entry should apply to this channel.</source>
@@ -248,7 +247,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Add new group</source>
-        <translation>Добавяне на нова група</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
@@ -257,11 +256,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>Inherited members</source>
-        <translation>Наследени членове</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Съдържа списък с хора добавени към групата от този канал.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
@@ -297,7 +296,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Permissions</source>
-        <translation>Позволения</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>User/Group</source>
@@ -309,7 +308,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>User ID</source>
-        <translation>Номер на потребител</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>User this entry applies to</source>
@@ -321,7 +320,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;Свойства</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
@@ -382,15 +381,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation>Номер на канала.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation>Максимален брой потребители</translation>
+        <translation>Maximum utilizaires</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation>Максимален брой потребители в канала</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -399,7 +398,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation>Това е редът на подреждане в този канал.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Properties</source>
@@ -464,7 +463,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ASIOConfig</name>
     <message>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (version %2)</translation>
     </message>
     <message>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
@@ -485,15 +484,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Избор на устройство</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Device</source>
-        <translation>Устройство</translation>
+        <translation>Aparelh</translation>
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"/>
+        <translation>Aparelh d’utilizar pel microfòn</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
@@ -521,11 +520,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation>&amp;Настройване</translation>
+        <translation>&amp;Configurar</translation>
     </message>
     <message>
         <source>Capabilities</source>
-        <translation>Възможности</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Driver name</source>
@@ -545,11 +544,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channels</source>
-        <translation>Канали</translation>
+        <translation>Canals</translation>
     </message>
     <message>
         <source>Microphone</source>
-        <translation>Микрофон</translation>
+        <translation>Microfòn</translation>
     </message>
     <message>
         <source>&lt;-</source>
@@ -561,11 +560,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Unused</source>
-        <translation>Неизползвано</translation>
+        <translation>Inutilizat</translation>
     </message>
     <message>
         <source>Speakers</source>
-        <translation>Колонки</translation>
+        <translation>Naut-parlaires</translation>
     </message>
     <message>
         <source>List of microphones</source>
@@ -591,7 +590,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AboutDialog</name>
     <message>
         <source>About Mumble</source>
-        <translation>За Мъмбъл</translation>
+        <translation>A prepaus de Mumble</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -599,11 +598,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation>&amp;За Мъмбъл</translation>
+        <translation>&amp;A prepaus Mumble</translation>
     </message>
     <message>
         <source>&amp;License</source>
-        <translation>&amp;Разрешително</translation>
+        <translation>&amp;Licéncia</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -615,7 +614,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>OK</source>
-        <translation>Добре</translation>
+        <translation>D’acòrdi</translation>
     </message>
     <message>
         <source>License agreement</source>
@@ -634,23 +633,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
-        <translation>Интерфейс</translation>
+        <translation>Interfàcia</translation>
     </message>
     <message>
         <source>System</source>
-        <translation>Система</translation>
+        <translation>Sistèma</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation>Входен метод за звук</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Device</source>
-        <translation>Устройство</translation>
+        <translation>Aparelh</translation>
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation>Входно устройство за звук</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
@@ -658,11 +657,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Transmission</source>
-        <translation>Предаване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Transmit</source>
-        <translation>&amp;Предаване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When to transmit your speech</source>
@@ -702,11 +701,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Off</source>
-        <translation>Изключено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>On</source>
-        <translation>Включено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Preview the audio cues</source>
@@ -726,7 +725,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Amplitude</source>
-        <translation>Амплитудата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Voice &amp;Hold</source>
@@ -754,11 +753,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Compression</source>
-        <translation>Компресия</translation>
+        <translation>Compression</translation>
     </message>
     <message>
         <source>&amp;Quality</source>
-        <translation>&amp;Качество</translation>
+        <translation>&amp;Qualitat</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
@@ -770,7 +769,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"/>
+        <translation>Àudio per paquet</translation>
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
@@ -818,7 +817,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Забранено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
@@ -858,19 +857,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>R&amp;eset</source>
-        <translation>&amp;Нулиране</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;Разглеждане...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>&amp;Разглеждане...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;Преглед</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
@@ -886,7 +885,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Misc</source>
-        <translation>Разни</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit</source>
@@ -1005,39 +1004,39 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation>Постоянно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Гласова активност</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Натискане за говорене</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Audio Input</source>
-        <translation>Звуков вход</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation>%1 мс</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation>Изключено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%1 s</source>
-        <translation>%1 с</translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>%1 kb/s</source>
-        <translation>%1 кб/с</translation>
+        <translation>%1 kb/s</translation>
     </message>
     <message>
         <source>-%1 dB</source>
-        <translation>-%1 дБ</translation>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
@@ -1120,23 +1119,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation>Интерфейс</translation>
+        <translation>Interfàcia</translation>
     </message>
     <message>
         <source>System</source>
-        <translation>Система</translation>
+        <translation>Sistèma</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation>Изходен метод за звук</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Device</source>
-        <translation>Устройство</translation>
+        <translation>Aparelh</translation>
     </message>
     <message>
         <source>Output device for audio</source>
-        <translation>Изходно устройство за звук</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
@@ -1148,7 +1147,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio Output</source>
-        <translation>Звуков изход</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
@@ -1180,11 +1179,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume</source>
-        <translation>Гръмкост</translation>
+        <translation>Volum</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation>Гръмкост на входящата реч</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
@@ -1229,23 +1228,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Headphones</source>
-        <translation>Слушалки</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Minimum Distance</source>
-        <translation>Минимално разстояние</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Maximum Distance</source>
-        <translation>Максимално разстояние</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Максимално разстояние, отвъд което силата на речта няма да намалява</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Minimum Volume</source>
-        <translation>Минимална гръмкост</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>What should the volume be at the maximum distance?</source>
@@ -1270,7 +1269,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Packet Loss</source>
-        <translation>Загуба на пакети</translation>
+        <translation>Pèrda de paquets</translation>
     </message>
     <message>
         <source>Packet loss for loopback mode</source>
@@ -1401,15 +1400,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Server</source>
-        <translation>Сървър</translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation>Звуков изход</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation>%1 мс</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>%1 %</source>
@@ -1417,7 +1416,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 m</source>
-        <translation>%1 м</translation>
+        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1476,11 +1475,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutputSample</name>
     <message>
         <source>Choose sound file</source>
-        <translation>Изберете звуков файл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Invalid sound file</source>
-        <translation>Недействителен звуков файл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
@@ -1492,11 +1491,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation>&gt;1000 мс</translation>
+        <translation>&gt;1000 ms</translation>
     </message>
     <message>
         <source>Audio Statistics</source>
-        <translation>Статистики за звука</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Input Levels</source>
@@ -1577,7 +1576,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current audio bitrate</source>
-        <translation>Текуща скорост на предаване на звука</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Bitrate of last frame</source>
@@ -1617,7 +1616,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Echo Analysis</source>
-        <translation>Разбор на ехото</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Weights of the echo canceller</source>
@@ -1636,27 +1635,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation>Помощник за настройка на звука</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Introduction</source>
-        <translation>Въведение</translation>
+        <translation>Introduccion</translation>
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Добре дошли в звуковия помощник на Мъмбъл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Finished</source>
-        <translation>Завършено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enjoy using Mumble</source>
-        <translation>Насладете се на използването на Мъмбъл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Избор на устройство</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1668,19 +1667,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>System</source>
-        <translation>Система</translation>
+        <translation>Sistèma</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation>Входен метод за звук</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Device</source>
-        <translation>Устройство</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Input device to use</source>
-        <translation>Входно устройство за използване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
@@ -1704,11 +1703,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation>Изходен метод за звук</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Output device to use</source>
-        <translation>Изходно устройство за използване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
@@ -1725,11 +1724,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input Device</source>
-        <translation>Входно устройство</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Output Device</source>
-        <translation>Изходно устройство</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
@@ -1787,7 +1786,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Use headphones</source>
-        <translation>Използване на слушалки</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
@@ -1848,7 +1847,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
-        <translation>Качество и известия</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Adjust quality and notification settings.</source>
@@ -1856,7 +1855,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Quality settings</source>
-        <translation>Настройки на качеството</translation>
+        <translation>Paramètres de qualitat</translation>
     </message>
     <message>
         <source>Low</source>
@@ -1868,7 +1867,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Notification settings</source>
-        <translation>Настройки на известията</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
@@ -1880,7 +1879,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>%1 ms</source>
-        <translation>%1 мс</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
@@ -2011,31 +2010,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation>Редактиране на забраните</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Address</source>
-        <translation>&amp;Адрес</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Mask</source>
-        <translation>&amp;Маска</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reason</source>
-        <translation>Причина</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Start</source>
-        <translation>Начало</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>End</source>
-        <translation>Край</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>User</source>
-        <translation>Потребител</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Hash</source>
@@ -2043,19 +2042,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Добавяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation>&amp;Обновяване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Премахване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ban List</source>
-        <translation>Списък със забрани</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Search field</source>
@@ -2067,7 +2066,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation>Кого търсите?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>No nickname</source>
@@ -2075,7 +2074,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP address</source>
-        <translation>Адрес по ИП</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>No IP address</source>
@@ -2083,11 +2082,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Reason for the ban</source>
-        <translation>Причина за забраната</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>No reason</source>
-        <translation>Без причина</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ban end date</source>
@@ -2107,35 +2106,35 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Banned users</source>
-        <translation>Потребители със забрана</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation>Това е списъка с потребители, които имат забрана.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
-        <translation>Използвайте това копче, ако искате да добавите нова забрана.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use this button if you want to update ban information.</source>
-        <translation>Използвайте това копче, ако искате да обновите данните на забрана.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation>Използвайте това копче, ако искате да премахнете потребители от списъка.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clear all fields</source>
-        <translation>Изчистване на всички полета</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation>Това копче изчиства всички полета. Използвайте го, ако искате да добавите нова забрана.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Изчистване</translation>
+        <translation type="unfinished"/>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
@@ -2166,19 +2165,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation>Име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Email</source>
-        <translation>Електронна поща</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Issuer</source>
-        <translation>Издал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Expiry Date</source>
-        <translation>Дата на изтичане</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(none)</source>
@@ -2280,63 +2279,63 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation>Управление на удостоверения</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation>Проверка на удостоверения</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Удостоверяване към сървъри без да се използва парола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Current certificate</source>
-        <translation>Текущо удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Това е текущо използваното от Мъмбъл удостоверение.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Current Certificate</source>
-        <translation>Текущо удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create a new certificate</source>
-        <translation>Създаване на ново удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This will create a new certificate.</source>
-        <translation>Това ще създаде ново удостоверение.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation>Внасяне на удостоверение от файл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
-        <translation>Това ще внесе удостоверение от файл.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import a certificate</source>
-        <translation>Внасяне на удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Export Certificate</source>
-        <translation>Изнасяне на удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This will export a certificate to file.</source>
-        <translation>Това ще изнесе удостоверение във файл.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Export current certificate</source>
-        <translation>Изнасяне на текущото удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import Certificate</source>
-        <translation>Внасяне на удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
@@ -2349,11 +2348,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Import from</source>
-        <translation>Внасяне от</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation>Име на файл за внасяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
@@ -2361,7 +2360,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Select file to import from</source>
-        <translation>Изберете файл за внасяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
@@ -2369,11 +2368,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Open...</source>
-        <translation>Отваряне...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Password</source>
-        <translation>Парола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2385,23 +2384,23 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation>Удостоверение за внасяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is the certificate you are importing.</source>
-        <translation>Това е удостоверението, което внасяте.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Certificate Details</source>
-        <translation>Подробности за удостоверението</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Replace Certificate</source>
-        <translation>Заменяне на удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Replace existing certificate with new certificate?</source>
-        <translation>Заменяне на съществуващото удостоверение с ново?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
@@ -2417,27 +2416,27 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>Това е текущо използваното удостоверение. То ще бъде заменено.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>New certificate</source>
-        <translation>Ново удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation>Това е новото удостоверение, което ще замени старото.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>New Certificate</source>
-        <translation>Ново удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
-        <translation>Направете резервно копие на удостоверението ви</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Export to</source>
-        <translation>Изнасяне към</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Filename to export to</source>
@@ -2449,7 +2448,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Save As...</source>
-        <translation>Запазване като...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
@@ -2465,15 +2464,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation>Име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Email</source>
-        <translation>Електронна поща</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Вашата електронна поща (например ivan@mumble.info)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
@@ -2481,7 +2480,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
-        <translation>Вашето име (например Иван Иванов)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
@@ -2489,7 +2488,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Finish</source>
-        <translation>Завършване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Certificate-based authentication is ready for use</source>
@@ -2501,7 +2500,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Automatic certificate creation</source>
-        <translation>Автоматично създаване на удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
@@ -2613,31 +2612,31 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Whisper</source>
-        <translation>Шепнене</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Move</source>
-        <translation>Преместване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Text message</source>
-        <translation>Текстово съобщение</translation>
+        <translation>Messatge tèxt</translation>
     </message>
     <message>
         <source>Kick</source>
-        <translation>Изритване</translation>
+        <translation>Forabandir</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation>Поставяне на забрана</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Register User</source>
-        <translation>Регистриране на потребител</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Register Self</source>
-        <translation>Регистриране на себе си</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Write ACL</source>
@@ -2649,7 +2648,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"/>
+        <translation>Escotar</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
@@ -2665,7 +2664,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished"/>
+        <translation>Pegar e &amp;enviar</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
@@ -2684,7 +2683,7 @@ Are you sure you wish to replace your certificate?
     <name>ClientUser</name>
     <message>
         <source>Friend</source>
-        <translation type="unfinished"/>
+        <translation>Amic</translation>
     </message>
     <message>
         <source>Authenticated</source>
@@ -2696,7 +2695,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Recording</source>
-        <translation>Записване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Muted (server)</source>
@@ -2731,7 +2730,7 @@ Are you sure you wish to replace your certificate?
     <name>ConfigDialog</name>
     <message>
         <source>Accept changes</source>
-        <translation>Приемане на промените</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
@@ -2739,7 +2738,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Reject changes</source>
-        <translation>Отхвърляне на промените</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
@@ -2747,7 +2746,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Apply changes</source>
-        <translation>Прилагане на промените</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This button will immediately apply all changes.</source>
@@ -2783,11 +2782,11 @@ Are you sure you wish to replace your certificate?
     <name>ConnectDialog</name>
     <message>
         <source>Connecting to %1</source>
-        <translation>Свързване към %1</translation>
+        <translation>Connexion a %1</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Въведете потребителско име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -2807,43 +2806,43 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation>Pòrt</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation>Адреси</translation>
+        <translation>Adreças</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation>Сайт</translation>
+        <translation>Site web</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation>Загуба на пакети</translation>
+        <translation>Pèrda paquets</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation>Латентност (80%)</translation>
+        <translation>Laténcia (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation>%1 мс</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation>Латентност (95%)</translation>
+        <translation>Laténcia (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation>Трафик</translation>
+        <translation>Banda passenta</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation>%1 кбит/с</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>&amp;Connect</source>
-        <translation>&amp;Свързване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Unknown</source>
@@ -2851,11 +2850,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Users</source>
-        <translation>Потребители</translation>
+        <translation>Utilizaires</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Версия</translation>
+        <translation>Version</translation>
     </message>
     <message>
         <source>Failed to fetch server list</source>
@@ -2867,11 +2866,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Ping</source>
-        <translation>Латентност</translation>
+        <translation>Laténcia</translation>
     </message>
     <message>
         <source>Remove from Favorites</source>
-        <translation>Премахване от любими</translation>
+        <translation>Tirar dels favorits</translation>
     </message>
     <message>
         <source>Add custom server</source>
@@ -2879,7 +2878,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Копиране</translation>
+        <translation>&amp;Copiar</translation>
     </message>
     <message>
         <source>Copy favorite link to clipboard</source>
@@ -2887,7 +2886,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Поставяне</translation>
+        <translation>&amp;Pegar</translation>
     </message>
     <message>
         <source>Paste favorite from clipboard</source>
@@ -2895,15 +2894,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;Редактиране...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation>&amp;Добавяне на нов...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
-        <translation>Добавяне в &amp;любими</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
@@ -2978,20 +2977,20 @@ Are you sure you wish to replace your certificate?
     <name>ConnectDialogEdit</name>
     <message>
         <source>Edit Server</source>
-        <translation>Редактиране на сървър</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Name of the server</source>
-        <translation>Име на сървъра</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>A&amp;ddress</source>
-        <translation>&amp;Адрес</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation>Адрес на сървъра в интернет</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
@@ -3002,11 +3001,11 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     </message>
     <message>
         <source>&amp;Port</source>
-        <translation>&amp;Порт</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Port on which the server is listening</source>
-        <translation>Порт за слушане на сървъра</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
@@ -3015,11 +3014,11 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>&amp;Username</source>
-        <translation>&amp;Потребителско име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Username to send to the server</source>
-        <translation>Потребителско име, което да се изпрати на сървъра</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
@@ -3028,11 +3027,11 @@ Username to send to the server. Be aware that the server can impose restrictions
     </message>
     <message>
         <source>Label</source>
-        <translation>Надпис</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add Server</source>
-        <translation>Добавяне на сървър</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>You are currently connected to a server.
@@ -3048,11 +3047,11 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation>Парола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation>Парола, която да се изпрати на сървъра</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
@@ -3061,7 +3060,7 @@ Password to be sent to the server on connect. This password is needed when conne
     </message>
     <message>
         <source>Show password</source>
-        <translation>Показване на паролата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
@@ -3074,19 +3073,19 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>64738</source>
-        <translation>64738</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Your username</source>
-        <translation>Вашето потребителско име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Your password</source>
-        <translation>Вашата парола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Fill</source>
@@ -3097,14 +3096,14 @@ Label of the server. This is what the server will be named like in your server l
     <name>CoreAudioSystem</name>
     <message>
         <source>Default Device</source>
-        <translation>Устройство по подразбиране</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
-        <translation>Доклад за срутване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
@@ -3112,32 +3111,32 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation>Електронна поща (по избор)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>Моля, опишете кратко на английски какво правихте по време на срива</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Send Report</source>
-        <translation>Изпращане на доклад</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation>Без изпращане на доклад</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Crash upload successful</source>
-        <translation>Качването на данните за срива е успешно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>Благодарим ви, че помагате за подобряването на програмата!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Crash upload failed</source>
-        <translation>Качването на данните за срива е неуспешно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
@@ -3149,11 +3148,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Uploading crash report</source>
-        <translation>Качване на доклада</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Abort upload</source>
-        <translation>Прекратяване на качването</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3187,23 +3186,23 @@ of the possible locations.</source>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
-        <translation>Преки пътища</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>List of configured shortcuts</source>
-        <translation>Списък с преки пътища</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Function</source>
-        <translation>Функция</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Data</source>
-        <translation>Данни</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Shortcut</source>
-        <translation>Пряк път</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Suppress</source>
@@ -3211,7 +3210,7 @@ of the possible locations.</source>
     </message>
     <message>
         <source>Add new shortcut</source>
-        <translation>Добавяне на нов пряк път</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This will add a new global shortcut</source>
@@ -3219,11 +3218,11 @@ of the possible locations.</source>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Добавяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove selected shortcut</source>
-        <translation>Премахване на избрания пряк път</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This will permanently remove a selected shortcut.</source>
@@ -3231,7 +3230,7 @@ of the possible locations.</source>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Премахване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3243,7 +3242,7 @@ of the possible locations.</source>
     </message>
     <message>
         <source>Skip</source>
-        <translation>Пропускане</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enable Global Shortcuts</source>
@@ -3300,7 +3299,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shortcuts</source>
-        <translation>Преки пътища</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Shortcut button combination.</source>
@@ -3344,15 +3343,15 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>List of users</source>
-        <translation>Списък с потребители</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add</source>
-        <translation>Добавяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Премахване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3444,11 +3443,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Devices</source>
-        <translation>Устройства</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Name</source>
-        <translation>Име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3461,11 +3460,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Size</source>
-        <translation>Размер</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Views</source>
@@ -3509,19 +3508,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>Log</name>
     <message>
         <source>Debug</source>
-        <translation>Отстраняване на грешки</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Critical</source>
-        <translation>Критично</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Внимание</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Information</source>
-        <translation>Сведения</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Other self-muted/deafened</source>
@@ -3533,11 +3532,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation>Потребителят е изритан (вие или от вас)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>User kicked</source>
-        <translation>Потребителят е изритан</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>You self-muted</source>
@@ -3724,23 +3723,23 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Messages</source>
-        <translation>Съобщения</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Message</source>
-        <translation>Съобщение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Console</source>
-        <translation>Конзола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Notification</source>
-        <translation>Известие</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Text-To-Speech</source>
-        <translation>Текст към реч</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Soundfile</source>
@@ -3748,19 +3747,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Path</source>
-        <translation>Път</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation>Текст към реч</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Volume</source>
-        <translation>Гръмкост</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation>Гръмкост на функцията &quot;текст към реч&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
@@ -3784,7 +3783,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Whisper</source>
-        <translation>Шепнене</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
@@ -3897,7 +3896,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Move</source>
-        <translation>Преместване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
@@ -3906,7 +3905,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>User Interface</source>
-        <translation>Потребителски интерфейс</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
@@ -3938,11 +3937,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Language</source>
-        <translation>Език</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation>Език за използване (изисква рестартиране)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
@@ -3950,27 +3949,27 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Look and Feel</source>
-        <translation>Външен вид</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Layout</source>
-        <translation>Оформление</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Classic</source>
-        <translation>Класическо</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Stacked</source>
-        <translation>Натрупано</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Hybrid</source>
-        <translation>Кръстоска</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Custom</source>
-        <translation>По избор</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This changes the behavior when moving channels.</source>
@@ -4023,19 +4022,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Never</source>
-        <translation>Никога</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Always</source>
-        <translation>Винаги</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>In minimal view</source>
-        <translation>В минимален изглед</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>In normal view</source>
-        <translation>В нормален изглед</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Displays talking status in system tray</source>
@@ -4091,11 +4090,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Theme</source>
-        <translation>Тема</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
-        <translation>Тема, която да оформи потребителския интерфейс</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
@@ -4317,20 +4316,20 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation>Увеличаване на гръмкостта (+10%)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation>Намаляване на гръмкостта (-10%)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Mumble</source>
-        <translation>Мъмбъл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Mumble -- %1</source>
-        <translation>Мъмбъл -- %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -4338,7 +4337,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Minimize</source>
-        <translation>Смаляване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ctrl+M</source>
@@ -4346,7 +4345,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Close</source>
-        <translation>Затваряне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
@@ -4394,7 +4393,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clear</source>
-        <translation>Изчистване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Opening URL %1</source>
@@ -4422,19 +4421,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation>Свързване с %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Въведете потребителско име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connecting to server %1.</source>
-        <translation>Свързване със сървър %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reconnecting.</source>
-        <translation>Повторно свързване.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Transmit Mode set to Continuous</source>
@@ -4502,7 +4501,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Kicking user %1</source>
-        <translation>Изритване на потребител %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Banning user %1</source>
@@ -4568,11 +4567,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;User</source>
-        <translation>&amp;Потребител</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Channel</source>
-        <translation>&amp;Канал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use in conjunction with Whisper to.</source>
@@ -4612,7 +4611,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation>Изпращане на текстово съобщение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Send Clipboard Text Message</source>
@@ -4626,11 +4625,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Continuous</source>
-        <translation>Постоянно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Гласова активност</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -4638,19 +4637,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mumble - Minimal View -- %1</source>
-        <translation>Мъмбъл - Минимален изглед -- %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Отказ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save Image As...</source>
-        <translation>Запазване на изображението като...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save Image File</source>
-        <translation>Запазване на изображение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Could not save image: %1</source>
@@ -4706,11 +4705,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mumble Server Information</source>
-        <translation>Сведения за сървъра</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation>&amp;Преглед на удостоверението</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter reason</source>
@@ -4779,11 +4778,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Restart Mumble?</source>
-        <translation>Рестартиране на Мъмбъл?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation>Някои настройки се прилагат само след рестарт на Мъмбъл. Рестартиране на Мъмбъл сега?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>About Qt</source>
@@ -4811,11 +4810,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Disconnected from server.</source>
-        <translation>Връзката със сървъра беше прекъсната.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Invalid username</source>
-        <translation>Недействително потребителско име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
@@ -4823,7 +4822,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Username in use</source>
-        <translation>Потребителското име се използва</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>That username is already in use, please try another username.</source>
@@ -4831,7 +4830,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Wrong certificate or password</source>
-        <translation>Грешно удостоверение или парола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Wrong certificate or password for registered user. If you are
@@ -4841,7 +4840,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation>Грешна парола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
@@ -4849,7 +4848,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Изображения (*.png *.jpg *.jpeg)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -4857,11 +4856,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;Помощ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Log</source>
-        <translation>Журнал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
@@ -4869,15 +4868,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation>&amp;Изход от Мъмбъл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Closes the program</source>
-        <translation>Затваря програмата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Exits the application.</source>
-        <translation>Затваря приложението.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ctrl+Q</source>
@@ -4889,15 +4888,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Disconnect</source>
-        <translation>&amp;Прекъсване на връзката</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Disconnect from server</source>
-        <translation>Прекъсване на връзка със сървъра</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Disconnects you from the server.</source>
-        <translation>Прекъсва връзката със сървъра.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show information about the server connection</source>
@@ -4921,27 +4920,27 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Send a Text Message</source>
-        <translation>Изпращане на текстово съобщение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Sends a text message to another user.</source>
-        <translation>Изпраща текстово съобщение до друг потребител.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add new channel</source>
-        <translation>Добавяне на нов канал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation>Добавя подканал към избрания канал.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove channel</source>
-        <translation>Премахване на канал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This removes a channel and all sub-channels.</source>
-        <translation>Премахва канала и всички подканали.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit Groups and ACL for channel</source>
@@ -4953,7 +4952,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Link</source>
-        <translation>&amp;Връзка</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Link your channel to another channel</source>
@@ -4973,11 +4972,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Kick user (with reason)</source>
-        <translation>Изритай потребител (с основание)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Изритване на потребител от сървъра. Ще бъдете помолени да посочите причина.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Mute user</source>
@@ -4989,11 +4988,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
-        <translation>Изритай и банни потребител (с основание)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Изритване и бан на потребител от сървъра. Ще бъдете помолени да посочите причина.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Deafen user</source>
@@ -5019,7 +5018,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation>&amp;Премахване на връзката</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Unlink your channel from another channel</source>
@@ -5039,7 +5038,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation>&amp;Нулиране</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reset audio preprocessor</source>
@@ -5075,11 +5074,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
-        <translation>&amp;Текст към реч</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Toggle Text-To-Speech</source>
-        <translation>Превключване на функцията &quot;текст към реч&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
@@ -5103,7 +5102,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Configure Mumble</source>
-        <translation>Настройване на програмата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Allows you to change most settings for Mumble.</source>
@@ -5119,7 +5118,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;What&apos;s This?</source>
-        <translation>&amp;Какво е това?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter What&apos;s This? mode</source>
@@ -5131,7 +5130,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Information about Mumble</source>
-        <translation>Сведения за Мъмбъл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Shows a small dialog with information and license for Mumble.</source>
@@ -5139,7 +5138,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Information about Speex</source>
-        <translation>Информация за Speex</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Shows a small dialog with information about Speex.</source>
@@ -5187,7 +5186,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Add &amp;Friend</source>
-        <translation>&amp;Добавяне на приятел</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Adds a user as your friend.</source>
@@ -5199,7 +5198,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Remove Friend</source>
-        <translation>&amp;Премахване на приятел</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Removes a user from your friends.</source>
@@ -5235,7 +5234,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Minimal View</source>
-        <translation>&amp;Минимален изглед</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Toggle minimal window modes</source>
@@ -5303,7 +5302,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation>Мъмбъл: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
@@ -5343,11 +5342,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Invalid username.</source>
-        <translation>Недействително потребителско име.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Channel is full.</source>
-        <translation>Каналът е пълен</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Channel nesting limit reached.</source>
@@ -5476,7 +5475,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 disconnected.</source>
-        <translation>%1 прекъсна връзката.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Server</source>
@@ -5546,19 +5545,19 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>Бяхте изритан от сървъра от %1: %2.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%3 е изритан от сървъра от %1: %2.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Бяхте изритан и баннат от сървъра от %1: %2.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 е изритан и баннат от сървъра от %1: %2.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
@@ -5582,7 +5581,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 left channel and disconnected.</source>
-        <translation>%1 напусна канала и прекъсна връзката.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Message from %1</source>
@@ -5643,7 +5642,7 @@ Valid actions are:
     </message>
     <message>
         <source>Welcome to Mumble.</source>
-        <translation>Добре дошли в Мъмбъл.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Skipping version check in debug mode.</source>
@@ -5814,7 +5813,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Connect...</source>
-        <translation>&amp;Свързване...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Ban list...</source>
@@ -5826,7 +5825,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Kick...</source>
-        <translation>&amp;Изритване...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Ban...</source>
@@ -5850,7 +5849,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;Редактиране...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -5858,7 +5857,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Settings...</source>
-        <translation>&amp;Настройки...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
@@ -6124,15 +6123,15 @@ Valid options are:
     </message>
     <message>
         <source>°</source>
-        <translation>°</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Meta data</source>
-        <translation>Мета данни</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Context</source>
-        <translation>Контекст</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Identity</source>
@@ -6163,11 +6162,11 @@ Valid options are:
     <name>NetworkConfig</name>
     <message>
         <source>Network</source>
-        <translation>Мрежа</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connection</source>
-        <translation>Връзка</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use TCP compatibility mode</source>
@@ -6180,23 +6179,23 @@ Valid options are:
     </message>
     <message>
         <source>Reconnect when disconnected</source>
-        <translation>Потворно свързване при прекъсване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Повторно свързване при прекъсване&lt;/b&gt;.&lt;br /&gt;Mumble автоматично опитва да се свърже след 10 секунди, ако връзката със сървъра е неуспешна.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reconnect automatically</source>
-        <translation>Автоматично повторно свързване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proxy</source>
-        <translation>Посредник</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Type of proxy to connect through</source>
@@ -6204,7 +6203,7 @@ Valid options are:
     </message>
     <message>
         <source>Direct connection</source>
-        <translation>Пряка връзка</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>HTTP(S) proxy</source>
@@ -6260,11 +6259,11 @@ Valid options are:
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Port number of the proxy</source>
-        <translation>Номер на порта на посредника</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
@@ -6272,11 +6271,11 @@ Valid options are:
     </message>
     <message>
         <source>Username</source>
-        <translation>Потребителско име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Username for proxy authentication</source>
-        <translation>Потребителско име за удостоверяване с посредника</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
@@ -6284,11 +6283,11 @@ Valid options are:
     </message>
     <message>
         <source>Password</source>
-        <translation>Парола</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Password for proxy authentication</source>
-        <translation>Парола за удостоверяване с посредника</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
@@ -6300,7 +6299,7 @@ Valid options are:
     </message>
     <message>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation>Автоматична проверка за нови издания на Мъмбъл.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
@@ -6308,11 +6307,11 @@ Valid options are:
     </message>
     <message>
         <source>Check for application updates on startup</source>
-        <translation>Проверка за обновления при пускане на програмата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
-        <translation>Автоматична проверка за нови издания на приставки.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
@@ -6328,7 +6327,7 @@ Valid options are:
     </message>
     <message>
         <source>Submit anonymous statistics</source>
-        <translation>Подаване на анонимни статистики</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reconnect to last used server when starting Mumble</source>
@@ -6336,15 +6335,15 @@ Valid options are:
     </message>
     <message>
         <source>Reconnect to last server on startup</source>
-        <translation>Свързване към последния сървър при пускане на програмата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download plugin and overlay updates on startup</source>
-        <translation>Сваляне на обновления за слоя и приставките при пускане на програмата</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Privacy</source>
-        <translation>Поверителност</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
@@ -6368,19 +6367,19 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Talking</source>
-        <translation>Говор</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Whisper</source>
-        <translation>Шепнене</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Shout</source>
-        <translation>Вик</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Channel</source>
-        <translation>Канал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
@@ -6419,15 +6418,15 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Columns</source>
-        <translation>Колони</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Sort</source>
-        <translation>Подреждане</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Alphabetically</source>
-        <translation>Азбучно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Last state change</source>
@@ -6435,7 +6434,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Редактиране...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reset Zoom</source>
@@ -6472,7 +6471,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Overlay</source>
-        <translation>Слой</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Choose executable</source>
@@ -6500,7 +6499,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Options</source>
-        <translation>Настройки</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enable overlay.</source>
@@ -6517,15 +6516,15 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Layout</source>
-        <translation>Оформление</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Blacklist</source>
-        <translation>Черен списък</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Whitelist</source>
-        <translation>Бял списък</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Uninstall Overlay</source>
@@ -6565,7 +6564,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Show FPS counter</source>
-        <translation>Показване на брояч на кадрите в секунда</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Load an overlay preset from file</source>
@@ -6573,7 +6572,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load…</source>
-        <translation>Зареждане...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6581,7 +6580,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save…</source>
-        <translation>Запазване...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -6593,15 +6592,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Color</source>
-        <translation>Цвят</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Премахване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Font</source>
-        <translation>Шрифт</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>FPS and Clock Display</source>
@@ -6613,11 +6612,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Show Clock</source>
-        <translation>Показване на часовник</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Overlay Exceptions</source>
-        <translation>Изключения за слой</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Overlay Exception Mode</source>
@@ -6684,11 +6683,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Zoom</source>
-        <translation>Мащабиране</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Zoom Factor</source>
-        <translation>Коефициент на мащабиране</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enabled Elements</source>
@@ -6700,15 +6699,15 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Avatar</source>
-        <translation>Снимка</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>User&apos;s name</source>
-        <translation>Име на потребител</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Username</source>
-        <translation>Потребителско име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -6716,7 +6715,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Channel</source>
-        <translation>Канал</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Muted or deafened</source>
@@ -6736,7 +6735,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overlay Editor</source>
-        <translation>Редактор на слой</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Zoom level</source>
@@ -6771,35 +6770,35 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Alignment</source>
-        <translation>Подравняване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Left</source>
-        <translation>Отляво</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Center</source>
-        <translation>В центъра</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Right</source>
-        <translation>Отдясно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Top</source>
-        <translation>Отгоре</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Bottom</source>
-        <translation>Отдолу</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Color...</source>
-        <translation>Цвят...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Font...</source>
-        <translation>Шрифт...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Bounding box</source>
@@ -6842,7 +6841,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
-        <translation>Приставки</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Plugin has no configure function.</source>
@@ -6854,7 +6853,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Options</source>
-        <translation>Настройки</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enable plugins and transmit positional information</source>
@@ -6870,7 +6869,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Reloads all plugins</source>
-        <translation>Презареждане на всички приставки</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
@@ -6878,11 +6877,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Reload plugins</source>
-        <translation>&amp;Презареждане на приставките</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Information about plugin</source>
-        <translation>Сведения за приставката</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This shows a small information message about the plugin.</source>
@@ -6890,7 +6889,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;About</source>
-        <translation>&amp;Относно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show configuration page of plugin</source>
@@ -6906,11 +6905,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name</source>
-        <translation>Име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7039,7 +7038,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&amp;Bold</source>
-        <translation>&amp;Удебеляване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ctrl+B</source>
@@ -7047,11 +7046,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&amp;Italic</source>
-        <translation>&amp;Накланяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Italic</source>
-        <translation>Накланяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ctrl+I</source>
@@ -7059,7 +7058,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Underline</source>
-        <translation>Подчертаване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ctrl+U</source>
@@ -7067,11 +7066,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Color</source>
-        <translation>Цвят</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Insert Link</source>
-        <translation>Вмъкване на връзка</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ctrl+L</source>
@@ -7079,22 +7078,22 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Insert Image</source>
-        <translation>Вмъкване на изображение</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>RichTextEditorLink</name>
     <message>
         <source>Add Link</source>
-        <translation>Добавяне на връзка</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>URL</source>
-        <translation>Адрес</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Text</source>
-        <translation>Текст</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7136,37 +7135,37 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>LAN</source>
-        <translation>Местна мрежа</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Public Internet</source>
-        <translation>Публичен интернет</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ShortcutActionWidget</name>
     <message>
         <source>Unassigned</source>
-        <translation>Необозначено</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation>Включено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Off</source>
-        <translation>Изключено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Toggle</source>
-        <translation>Превключване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Unassigned</source>
-        <translation>Необозначено</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7239,15 +7238,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutToggleWidget</name>
     <message>
         <source>Off</source>
-        <translation>Изключено</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Toggle</source>
-        <translation>Превключване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>On</source>
-        <translation>Включено</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7296,7 +7295,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Добавяне</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove a token</source>
@@ -7304,7 +7303,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Премахване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Tokens</source>
@@ -7319,11 +7318,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation>Премахване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Преименуване</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Who are you looking for?</source>
@@ -7331,19 +7330,19 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Days</source>
-        <translation>Дни</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Weeks</source>
-        <translation>Седмици</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Months</source>
-        <translation>Месеци</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Years</source>
-        <translation>Години</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Inactive for</source>
@@ -7366,27 +7365,27 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserInformation</name>
     <message>
         <source>User Information</source>
-        <translation>Сведения за потребителя</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connection Information</source>
-        <translation>Сведения за връзката</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Version</source>
-        <translation>Версия</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>OS</source>
-        <translation>Операционна система</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Certificate</source>
-        <translation>Удостоверение</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>IP Address</source>
-        <translation>Адрес по ИП</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>CELT Versions</source>
@@ -7394,11 +7393,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Details...</source>
-        <translation>Подробности...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ping Statistics</source>
-        <translation>Статистика за латентността</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Pings received</source>
@@ -7406,7 +7405,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Average ping</source>
-        <translation>Средна латентност</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>TCP (Control)</source>
@@ -7499,7 +7498,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation>%1 кбит/с</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Bandwidth</source>
@@ -7520,7 +7519,7 @@ An access token is a text string, which can be used as a password for very simpl
     <name>UserListModel</name>
     <message>
         <source>Nick</source>
-        <translation>Прякор</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Inactive days</source>
@@ -7679,7 +7678,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation>Име</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Flags</source>
@@ -7802,7 +7801,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Email: %1</source>
-        <translation>Електронна поща: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>DNS: %1</source>
