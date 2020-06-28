@@ -264,6 +264,7 @@ void OverlayUserGroup::updateUsers() {
 		if (qlExampleUsers.isEmpty()) {
 			qlExampleUsers << new OverlayUser(Settings::Passive, uiHeight, os);
 			qlExampleUsers << new OverlayUser(Settings::Talking, uiHeight, os);
+			qlExampleUsers << new OverlayUser(Settings::MutedTalking, uiHeight, os);
 			qlExampleUsers << new OverlayUser(Settings::Whispering, uiHeight, os);
 			qlExampleUsers << new OverlayUser(Settings::Shouting, uiHeight, os);
 		}

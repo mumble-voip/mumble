@@ -50,6 +50,8 @@ class TalkingUI : public QWidget {
 
 		/// The icon for a talking user
 		QIcon m_talkingIcon;
+		/// The icon for a talking user that is currently (locally) muted
+		QIcon m_mutedTalkingIcon;
 		/// The icon for a silent user
 		QIcon m_passiveIcon;
 		/// The icon for a shouting user

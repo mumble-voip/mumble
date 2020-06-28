@@ -613,6 +613,7 @@ void MainWindow::updateTrayIcon() {
 	} else if (p && g.s.bStateInTray) {
 		switch (p->tsState) {
 			case Settings::Talking:
+			case Settings::MutedTalking:
 				qstiIcon->setIcon(qiTalkingOn);
 				break;
 			case Settings::Whispering:
@@ -2431,6 +2432,7 @@ void MainWindow::userStateChanged() {
 			
 			break;
 		case Settings::Passive:
+		case Settings::MutedTalking:
 		default:
 			g.bAttenuateOthers = false;
 			g.prioritySpeakerActiveOverride = false;

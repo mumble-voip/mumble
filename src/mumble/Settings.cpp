@@ -168,6 +168,7 @@ OverlaySettings::OverlaySettings() {
 	osSort = Alphabetical;
 
 	qcUserName[Settings::Passive] = QColor(170, 170, 170);
+	qcUserName[Settings::MutedTalking] = QColor(170, 170, 170);
 	qcUserName[Settings::Talking] = QColor(255, 255, 255);
 	qcUserName[Settings::Whispering] = QColor(128, 255, 128);
 	qcUserName[Settings::Shouting] = QColor(255, 128, 255);
@@ -206,6 +207,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 			qfChannel = qfUserName;
 
 			fUser[Settings::Passive] = 0.5f;
+			fUser[Settings::MutedTalking] = 0.5f;
 			fUser[Settings::Talking] = (7.0f / 8.0f);
 			fUser[Settings::Whispering] = (7.0f / 8.0f);
 			fUser[Settings::Shouting] = (7.0f / 8.0f);
@@ -245,6 +247,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 			qfChannel = qfUserName;
 
 			fUser[Settings::Passive] = 0.5f;
+			fUser[Settings::MutedTalking] = 0.5f;
 			fUser[Settings::Talking] = (7.0f / 8.0f);
 			fUser[Settings::Whispering] = (7.0f / 8.0f);
 			fUser[Settings::Shouting] = (7.0f / 8.0f);

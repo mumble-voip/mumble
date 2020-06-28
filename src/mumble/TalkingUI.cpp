@@ -36,6 +36,7 @@ TalkingUI::TalkingUI(QWidget *parent)
 	  m_timers(),
 	  m_currentSelection(nullptr),
 	  m_talkingIcon(QIcon(QLatin1String("skin:talking_on.svg"))),
+	  m_mutedTalkingIcon(QIcon(QLatin1String("skin:talking_muted.svg"))),
 	  m_passiveIcon(QIcon(QLatin1String("skin:talking_off.svg"))),
 	  m_shoutingIcon(QIcon(QLatin1String("skin:talking_alt.svg"))),
 	  m_whisperingIcon(QIcon(QLatin1String("skin:talking_whisper.svg"))) {
@@ -90,6 +91,9 @@ void TalkingUI::setFontSize(QWidget *widget) {
 void TalkingUI::setIcon(Entry &entry) const {
 	const QIcon *icon = nullptr;
 	switch (entry.talkingState) {
+		case Settings::MutedTalking:
+			icon = &m_mutedTalkingIcon;
+			break;
 		case Settings::Talking:
 			icon = &m_talkingIcon;
 			break;
