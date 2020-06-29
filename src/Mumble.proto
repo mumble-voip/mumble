@@ -200,7 +200,7 @@ message UserState {
 	// Positional audio information is only sent to users who share
 	// identical plugin contexts.
 	//
-	// This value is not trasmitted to clients.
+	// This value is not transmitted to clients.
 	optional bytes plugin_context = 12;
 	// The user's plugin-specific identity.
 	// This value is not transmitted to clients.
@@ -217,7 +217,7 @@ message UserState {
 	optional bool priority_speaker = 18;
 	// True if the user is currently recording.
 	optional bool recording = 19;
-	// A list of temporary acces tokens to be respected when processing this request.
+	// A list of temporary access tokens to be respected when processing this request.
 	repeated string temporary_access_tokens = 20;
 	// A list of channels the user wants to start listening to.
 	repeated uint32 listening_channel_add = 21;
@@ -290,7 +290,7 @@ message PermissionDenied {
 		UserName = 8;
 		// Channel is full.
 		ChannelFull = 9;
-		// Channels are nested too deply.
+		// Channels are nested too deeply.
 		NestingLimit = 10;
 		// Maximum channel count reached.
 		ChannelCountLimit = 11;
@@ -528,7 +528,7 @@ message UserStats {
 	repeated int32 celt_versions = 13;
 	// Client IP address.
 	optional bytes address = 14;
-	// Bandwith used by this client.
+	// Bandwidth used by this client.
 	optional uint32 bandwidth = 15;
 	// Connection duration.
 	optional uint32 onlinesecs = 16;
