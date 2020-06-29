@@ -22,6 +22,7 @@
 #include <QItemSelectionModel>
 #include <QModelIndex>
 #include <QtCore/QStringList>
+#include <QTextDocumentFragment>
 
 #include <algorithm>
 
@@ -207,9 +208,27 @@ void TalkingUI::addUser(const ClientUser *user) {
 	// exists in this UI.
 	addChannel(user->cChannel);
 
-	if (!m_entries.contains(user->uiSession) || m_entries[user->uiSession].name->text() != user->qsName) {
+	bool userContained = m_entries.contains(user->uiSession);
+	bool nameMatches = true;
+
+	if (userContained) {
 		// We also verify whether the name for that user matches up (if it is contained in m_entries) in case
 		// a user didn't get removed from the map but its ID got reused by a new client.
+
+		// Strip HTML from the displayed name
+		const QString name = QTextDocumentFragment::fromHtml(m_entries[user->uiSession].name->text()).toPlainText();
+
+		nameMatches = name == user->qsName;
+
+		if (!nameMatches) {
+			// Hide the stale user
+			hideUser(user->uiSession);
+			// Remove the old user
+			m_entries.remove(user->uiSession);
+		}
+	}
+
+	if (!userContained || !nameMatches) {
 		bool isSelf = g.uiSession == user->uiSession;
 		// Create an Entry for this user (alongside the respective labels)
 		// We initially set the labels to not be visible, so that we'll
