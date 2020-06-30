@@ -8,7 +8,7 @@
 #include <d3d10.h>
 #include <time.h>
 
-D3D10Data *d3d10 = NULL;
+D3D10Data *d3d10 = nullptr;
 
 static bool bHooked = false;
 static HardHook hhAddRef;
@@ -96,18 +96,18 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	lHighMark = initRefCount  = refCount = myRefCount = 0;
 	ZeroMemory(&vp, sizeof(vp));
 
-	pOrigStateBlock = NULL;
-	pMyStateBlock = NULL;
-	pRTV = NULL;
-	pEffect = NULL;
-	pTechnique = NULL;
-	pDiffuseTexture = NULL;
-	pVertexLayout = NULL;
-	pVertexBuffer = NULL;
-	pIndexBuffer = NULL;
-	pBlendState = NULL;
-	pTexture = NULL;
-	pSRView = NULL;
+	pOrigStateBlock = nullptr;
+	pMyStateBlock = nullptr;
+	pRTV = nullptr;
+	pEffect = nullptr;
+	pTechnique = nullptr;
+	pDiffuseTexture = nullptr;
+	pVertexLayout = nullptr;
+	pVertexBuffer = nullptr;
+	pIndexBuffer = nullptr;
+	pBlendState = nullptr;
+	pTexture = nullptr;
+	pSRView = nullptr;
 
 	timeT = clock();
 	frameCount = 0;
@@ -174,7 +174,7 @@ void D10State::setRect() {
 		{ SimpleVec3(left, bottom, 0.5f), SimpleVec2(texl, texb) },
 	};
 
-	void *pData = NULL;
+	void *pData = nullptr;
 
 	hr = pVertexBuffer->Map(D3D10_MAP_WRITE_DISCARD, 0, &pData);
 	memcpy(pData, vertices, sizeof(vertices));
@@ -189,11 +189,11 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 
 	if (pTexture) {
 		pTexture->Release();
-		pTexture = NULL;
+		pTexture = nullptr;
 	}
 	if (pSRView) {
 		pSRView->Release();
-		pSRView = NULL;
+		pSRView = nullptr;
 	}
 
 	D3D10_TEXTURE2D_DESC desc;
@@ -207,10 +207,10 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 	desc.Usage = D3D10_USAGE_DYNAMIC;
 	desc.BindFlags = D3D10_BIND_SHADER_RESOURCE;
 	desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
-	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
+	hr = pDevice->CreateTexture2D(&desc, nullptr, &pTexture);
 
 	if (FAILED(hr)) {
-		pTexture = NULL;
+		pTexture = nullptr;
 		ods("D3D10: Failed to create texture.");
 		return;
 	}
@@ -224,9 +224,9 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 
 	hr = pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSRView);
 	if (FAILED(hr)) {
-		pSRView = NULL;
+		pSRView = nullptr;
 		pTexture->Release();
-		pTexture = NULL;
+		pTexture = nullptr;
 		ods("D3D10: Failed to create resource view.");
 		return;
 	}
@@ -237,9 +237,7 @@ bool D10State::init() {
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10CreateStateBlock);
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10StateBlockMaskEnableAll);
 	
-	if (pD3D10CreateEffectFromMemory == NULL
-	    || pD3D10CreateStateBlock == NULL
-	    || pD3D10StateBlockMaskEnableAll == NULL) {
+	if (!pD3D10CreateEffectFromMemory || !pD3D10CreateStateBlock || !pD3D10StateBlockMaskEnableAll) {
 		ods("D3D10: Could not get handles for all required D3D10 state initialization functions");
 		return false;
 	}
@@ -272,7 +270,7 @@ bool D10State::init() {
 		return false;
 	}
 
-	ID3D10Texture2D *pBackBuffer = NULL;
+	ID3D10Texture2D *pBackBuffer = nullptr;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
 	if (FAILED(hr)) {
 		ods("D3D10: pSwapChain->GetBuffer failure!");
@@ -293,13 +291,13 @@ bool D10State::init() {
 	vp.TopLeftY = 0;
 	pDevice->RSSetViewports(1, &vp);
 
-	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
+	hr = pDevice->CreateRenderTargetView(pBackBuffer, nullptr, &pRTV);
 	if (FAILED(hr)) {
 		ods("D3D10: pDevice->CreateRenderTargetView failed!");
 		return false;
 	}
 
-	pDevice->OMSetRenderTargets(1, &pRTV, NULL);
+	pDevice->OMSetRenderTargets(1, &pRTV, nullptr);
 
 	// Settings for an "over" operation.
 	// https://en.wikipedia.org/w/index.php?title=Alpha_compositing&oldid=580659153#Description
@@ -320,28 +318,28 @@ bool D10State::init() {
 		return false;
 	}
 	
-	pDevice->OMSetBlendState(pBlendState, NULL, 0xffffffff);
+	pDevice->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
 
-	hr = pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
+	hr = pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, nullptr, &pEffect);
 	if (FAILED(hr)) {
 		ods("D3D10: D3D10CreateEffectFromMemory failed!");
 		return false;
 	}
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
-	if (pTechnique == NULL) {
+	if (!pTechnique) {
 		ods("D3D10: Could not get technique for name 'Render'");
 		return false;
 	}
 	
 	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
-	if (pDiffuseTexture == NULL) {
+	if (!pDiffuseTexture) {
 		ods("D3D10: Could not get variable by name 'txDiffuse'");
 		return false;
 	}
 
-	pTexture = NULL;
-	pSRView = NULL;
+	pTexture = nullptr;
+	pSRView = nullptr;
 
 	// Define the input layout
 	D3D10_INPUT_ELEMENT_DESC layout[] = {
@@ -374,7 +372,7 @@ bool D10State::init() {
 	bd.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
 	bd.MiscFlags = 0;
 	
-	hr = pDevice->CreateBuffer(&bd, NULL, &pVertexBuffer);
+	hr = pDevice->CreateBuffer(&bd, nullptr, &pVertexBuffer);
 	if (FAILED(hr)) {
 		ods("D3D10: pDevice->CreateBuffer failure!");
 		return false;
@@ -424,14 +422,14 @@ bool D10State::init() {
 }
 
 D10State::~D10State() {
-	if (pBlendState != NULL)    pBlendState->Release();
-	if (pVertexBuffer != NULL)  pVertexBuffer->Release();
-	if (pIndexBuffer != NULL)   pIndexBuffer->Release();
-	if (pVertexLayout != NULL)  pVertexLayout->Release();
-	if (pEffect != NULL)        pEffect->Release();
-	if (pRTV != NULL)           pRTV->Release();
-	if (pTexture != NULL)       pTexture->Release();
-	if (pSRView != NULL)        pSRView->Release();
+	if (pBlendState)    pBlendState->Release();
+	if (pVertexBuffer)  pVertexBuffer->Release();
+	if (pIndexBuffer)   pIndexBuffer->Release();
+	if (pVertexLayout)  pVertexLayout->Release();
+	if (pEffect)        pEffect->Release();
+	if (pRTV)           pRTV->Release();
+	if (pTexture)       pTexture->Release();
+	if (pSRView)        pSRView->Release();
 
 	if (pMyStateBlock) {
 		pMyStateBlock->ReleaseAllDeviceObjects();
@@ -491,19 +489,19 @@ void D10State::draw() {
 // D3D10 specific logic for the Present function.
 void presentD3D10(IDXGISwapChain *pSwapChain) {
 
-	ID3D10Device *pDevice = NULL;
+	ID3D10Device *pDevice = nullptr;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
 	if (SUCCEEDED(hr) && pDevice) {
 		SwapchainMap::iterator it = chains.find(pSwapChain);
-		D10State *ds = it != chains.end() ? it->second : NULL;
+		D10State *ds = it != chains.end() ? it->second : nullptr;
 
 		if (ds && ds->pDevice != pDevice) {
 			ods("D3D10: SwapChain device changed");
 			devices.erase(ds->pDevice);
 			delete ds;
-			ds = NULL;
+			ds = nullptr;
 		}
-		if (ds == NULL) {
+		if (!ds) {
 			ods("D3D10: New state");
 			ds = new D10State(pSwapChain, pDevice);
 			if (!ds->init()) {
@@ -578,7 +576,7 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 			chains.erase(ds->pSwapChain);
 			delete ds;
 			ods("D3D10: Deleted");
-			ds = NULL;
+			ds = nullptr;
 		}
 	}
 
@@ -629,7 +627,7 @@ void checkDXGI10Hook(bool preonly) {
 void hookD3D10(HMODULE hD3D10, bool preonly) {
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	HMODULE hTempSelf = NULL;
+	HMODULE hTempSelf = nullptr;
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookD3D10), &hTempSelf);
 
 	bHooked = true;
@@ -665,11 +663,11 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 	HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
 
-	if (hD3D10 != NULL) {
+	if (hD3D10) {
 
 		HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
 								  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-								  NULL, NULL, 0);
+								  nullptr, nullptr, 0);
 
 		D3D10CreateDeviceAndSwapChainType pD3D10CreateDeviceAndSwapChain = reinterpret_cast<D3D10CreateDeviceAndSwapChainType>(GetProcAddress(hD3D10, "D3D10CreateDeviceAndSwapChain"));
 
@@ -702,9 +700,9 @@ void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 		desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-		IDXGISwapChain *pSwapChain = NULL;
-		ID3D10Device *pDevice = NULL;
-		HRESULT hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
+		IDXGISwapChain *pSwapChain = nullptr;
+		ID3D10Device *pDevice = nullptr;
+		HRESULT hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, nullptr, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
 		if (FAILED(hr))
 			ods("D3D10: pD3D10CreateDeviceAndSwapChain failure!");
 

@@ -64,7 +64,7 @@ static const char *overlayBlacklist[] = {
 	"mspub.exe", // Publisher
 	"msaccess.exe", // Access
 
-	NULL
+	nullptr
 };
 
 #endif

@@ -21,7 +21,7 @@
 static std::vector<std::string> defaultBlacklistVector() {
 	std::vector<std::string> out;
 	size_t i = 0;
-	while (overlayBlacklist[i] != NULL) {
+	while (overlayBlacklist[i]) {
 		out.push_back(std::string(overlayBlacklist[i]));
 		i++;
 	}
@@ -32,7 +32,7 @@ static std::vector<std::string> defaultBlacklistVector() {
 static std::vector<std::string> defaultWhitelistVector() {
 	std::vector<std::string> out;
 	size_t i = 0;
-	while (overlayWhitelist[i] != NULL) {
+	while (overlayWhitelist[i]) {
 		out.push_back(std::string(overlayWhitelist[i]));
 		i++;
 	}
@@ -43,7 +43,7 @@ static std::vector<std::string> defaultWhitelistVector() {
 static std::vector<std::string> defaultLaunchersVector() {
 	std::vector<std::string> out;
 	size_t i = 0;
-	while (overlayLaunchers[i] != NULL) {
+	while (overlayLaunchers[i]) {
 		out.push_back(std::string(overlayLaunchers[i]));
 		i++;
 	}
@@ -58,17 +58,17 @@ static std::vector<std::string> regReadMultiString(HKEY key,
 {
 	LONG err = 0;
 	std::vector<std::string> out;
-	char *buf = NULL;
+	char *buf = nullptr;
 	HKEY subKeyHandle = 0;
 
-	err = RegOpenKeyExA(key, subKey.c_str(), NULL, KEY_READ, &subKeyHandle);
+	err = RegOpenKeyExA(key, subKey.c_str(), 0, KEY_READ, &subKeyHandle);
 	if (err != ERROR_SUCCESS) {
 		goto err;
 	}
 
 	DWORD sz = 0;
 	DWORD type = 0;
-	err = RegQueryValueExA(subKeyHandle, valueName.c_str(), NULL, &type, NULL, &sz);
+	err = RegQueryValueExA(subKeyHandle, valueName.c_str(), nullptr, &type, nullptr, &sz);
 	if (err != ERROR_SUCCESS) {
 		goto err;
 	}
@@ -83,11 +83,11 @@ static std::vector<std::string> regReadMultiString(HKEY key,
 	}
 
 	buf = reinterpret_cast<char *>(malloc(sz));
-	if (buf == NULL) {
+	if (!buf) {
 		goto err;
 	}
 
-	err = RegQueryValueExA(subKeyHandle, valueName.c_str(), NULL, &type, reinterpret_cast<BYTE *>(buf), &sz);
+	err = RegQueryValueExA(subKeyHandle, valueName.c_str(), nullptr, &type, reinterpret_cast<BYTE *>(buf), &sz);
 	if (err != ERROR_SUCCESS) {
 		goto err;
 	}
@@ -113,16 +113,16 @@ err:
 // Returns -1 if the function could not read the value from the Windows registry.
 static int getModeInternal() {
 	LONG err = 0;
-	HKEY key = NULL;
+	HKEY key = nullptr;
 	DWORD mode = -1;
 
-	err = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key);
+	err = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", 0, KEY_READ, &key);
 	if (err != ERROR_SUCCESS) {
 		return -1;
 	}
 
 	DWORD sz = sizeof(mode);
-	err = RegQueryValueExA(key, "mode", NULL, NULL, reinterpret_cast<BYTE *>(&mode), &sz);
+	err = RegQueryValueExA(key, "mode", nullptr, nullptr, reinterpret_cast<BYTE *>(&mode), &sz);
 	if (err != ERROR_SUCCESS) {
 		return -1;
 	}

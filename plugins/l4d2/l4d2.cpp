@@ -110,7 +110,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Host
 	escape(host, sizeof(host));
-	if (strcmp(host, "") != 0 && strstr(host, "loopback") == NULL) { // Only include host (IP:Port) if it is not empty and does not include the string "loopback" (which means it's a local server).
+	if (strcmp(host, "") != 0 && !strstr(host, "loopback")) { // Only include host (IP:Port) if it is not empty and does not include the string "loopback" (which means it's a local server).
 		oidentity << std::endl << "\"Host\": \"" << host << "\","; // Set host address in identity.
 	} else {
 		oidentity << std::endl << "\"Host\": null,";
@@ -237,8 +237,8 @@ static MumblePlugin l4d2plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	NULL,
-	NULL,
+	nullptr,
+	nullptr,
 	trylock1,
 	generic_unlock,
 	longdesc,

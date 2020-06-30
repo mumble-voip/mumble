@@ -30,10 +30,10 @@ static MumblePlugin nullplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	NULL,
-	NULL,
+	nullptr,
+	nullptr,
 	trylock,
-	NULL,
+	nullptr,
 	longdesc,
 	fetch
 };

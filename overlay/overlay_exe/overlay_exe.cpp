@@ -24,7 +24,7 @@ extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
 
 // Alert shows a fatal error dialog and waits for the user to click OK.
 static void Alert(LPCWSTR title, LPCWSTR msg) {
-	MessageBox(NULL, msg, title, MB_OK|MB_ICONERROR);
+	MessageBox(nullptr, msg, title, MB_OK|MB_ICONERROR);
 }
 
 // GetExecutableDirPath returns the directory that
@@ -32,7 +32,7 @@ static void Alert(LPCWSTR title, LPCWSTR msg) {
 static std::wstring GetExecutableDirPath() {
 	wchar_t path[MAX_PATH];
 
-	if (GetModuleFileNameW(NULL, path, MAX_PATH) == 0)
+	if (GetModuleFileNameW(nullptr, path, MAX_PATH) == 0)
 		return std::wstring();
 
 	if (!PathRemoveFileSpecW(path))
@@ -79,13 +79,13 @@ static std::vector<std::wstring> GetCommandLineArgs() {
 	std::vector<std::wstring> args;
 
 	LPWSTR cmdLine = GetCommandLine();
-	if (cmdLine == NULL) {
+	if (!cmdLine) {
 		return args;
 	}
 
 	int argc = 0;
 	LPWSTR *argv = CommandLineToArgvW(cmdLine, &argc);
-	if (argv == NULL) {
+	if (!argv) {
 		return args;
 	}
 
@@ -170,7 +170,7 @@ int main(int argc, char **argv) {
 		return OVERLAY_HELPER_ERROR_EXE_GET_DLL_PATH;
 	}
 
-	HMODULE dll = LoadLibraryExW(absDLLPath.c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+	HMODULE dll = LoadLibraryExW(absDLLPath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
 	if (!dll) {
 		return OVERLAY_HELPER_ERROR_EXE_LOAD_DLL;
 	}
@@ -189,5 +189,5 @@ int APIENTRY wWinMain(HINSTANCE instance, HINSTANCE prevInstance, wchar_t *cmdAr
 	UNUSED(cmdArg);
 	UNUSED(cmdShow);
 
-	return main(0, NULL);
+	return main(0, nullptr);
 }

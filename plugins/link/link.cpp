@@ -35,8 +35,8 @@ static void about(void *h) {
 	::MessageBox(reinterpret_cast<HWND>(h), L"Reads audio position information from linked game", L"Mumble Link Plugin", MB_OK);
 }
 
-static HANDLE hMapObject = NULL;
-static LinkedMem *lm = NULL;
+static HANDLE hMapObject = nullptr;
+static LinkedMem *lm = nullptr;
 static DWORD last_count = 0;
 static DWORD last_tick = 0;
 
@@ -131,16 +131,16 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 		case DLL_PROCESS_ATTACH:
 			wsPluginName.assign(L"Link");
 			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
-			if (hMapObject == NULL) {
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
+			if (!hMapObject) {
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
 				bCreated = true;
-				if (hMapObject == NULL)
+				if (!hMapObject)
 					return false;
 			}
 			lm = static_cast<LinkedMem *>(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0));
-			if (lm == NULL) {
+			if (!lm) {
 				CloseHandle(hMapObject);
-				hMapObject = NULL;
+				hMapObject = nullptr;
 				return false;
 			}
 			if (bCreated)
@@ -149,11 +149,11 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 		case DLL_PROCESS_DETACH:
 			if (lm) {
 				UnmapViewOfFile(lm);
-				lm = NULL;
+				lm = nullptr;
 			}
 			if (hMapObject) {
 				CloseHandle(hMapObject);
-				hMapObject = NULL;
+				hMapObject = nullptr;
 			}
 			break;
 	}
@@ -167,7 +167,7 @@ static MumblePlugin linkplug = {
 	description,
 	wsPluginName,
 	about,
-	NULL,
+	nullptr,
 	trylock,
 	unlock,
 	getdesc,

@@ -9,7 +9,7 @@
 #include "../3rdparty/GL/glext.h"
 
 #define TDEF(ret, name, arg) typedef ret (__stdcall * t##name) arg
-#define GLDEF(ret, name, arg) TDEF(ret, name, arg); t##name o##name = NULL
+#define GLDEF(ret, name, arg) TDEF(ret, name, arg); t##name o##name = nullptr
 
 GLDEF(HGLRC, wglCreateContext, (HDC));
 GLDEF(void, glGenTextures, (GLsizei, GLuint *));
@@ -285,21 +285,21 @@ static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 ///         Otherwise false.
 static bool lookupSymbols(HMODULE hGL) {
 #define FNFIND(handle, name) {\
-	if (o##name == NULL) {\
+	if (!o##name) {\
 		o##name = reinterpret_cast<t##name>(GetProcAddress(handle, #name));\
-		if (o##name == NULL) {\
+		if (!o##name) {\
 			ods("OpenGL: Could not resolve symbol %s in %s", #name, #handle);\
 			return false;\
 		}\
 	}\
 }
 
-	if (hGL == NULL) {
+	if (!hGL) {
 		return false;
 	}
 
 	HMODULE hGDI = GetModuleHandle("GDI32.DLL");
-	if (hGDI == NULL) {
+	if (!hGDI) {
 		ods("OpenGL: Failed to identify GDI32");
 		return false;
 	}
@@ -351,11 +351,11 @@ void checkOpenGLHook() {
 
 		if (lookupSymbols(hGL)) {
 			char procname[1024];
-			GetModuleFileName(NULL, procname, 1024);
+			GetModuleFileName(nullptr, procname, 1024);
 			ods("OpenGL: Hooking into OpenGL App %s", procname);
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-			HMODULE hTempSelf = NULL;
+			HMODULE hTempSelf = nullptr;
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&checkOpenGLHook), &hTempSelf);
 
 #define INJECT(handle, name) {\

@@ -8,8 +8,8 @@
 
 #include "overlay_exe/overlay_exe.h"
 
-static HANDLE hMapObject = NULL;
-static HANDLE hHookMutex = NULL;
+static HANDLE hMapObject = nullptr;
+static HANDLE hHookMutex = nullptr;
 static HHOOK hhookWnd = 0;
 
 BOOL bIsWin8 = FALSE;
@@ -21,7 +21,7 @@ static BOOL bEnableOverlay = TRUE;
 static HardHook hhLoad;
 static HardHook hhLoadW;
 
-static SharedData *sd = NULL;
+static SharedData *sd = nullptr;
 
 CRITICAL_SECTION Mutex::cs;
 
@@ -61,8 +61,8 @@ void __cdecl checkForWPF() {
 
 Pipe::Pipe() {
 	hSocket = INVALID_HANDLE_VALUE;
-	hMemory = NULL;
-	a_ucTexture = NULL;
+	hMemory = nullptr;
+	a_ucTexture = nullptr;
 
 	omMsg.omh.iLength = -1;
 
@@ -79,10 +79,10 @@ Pipe::~Pipe() {
 void Pipe::release() {
 	if (hMemory) {
 		CloseHandle(hMemory);
-		hMemory = NULL;
+		hMemory = nullptr;
 		if (a_ucTexture) {
 			UnmapViewOfFile(a_ucTexture);
-			a_ucTexture = NULL;
+			a_ucTexture = nullptr;
 		}
 
 		uiLeft = uiRight = uiTop = uiBottom = 0;
@@ -105,7 +105,7 @@ bool Pipe::sendMessage(const OverlayMsg &om) {
 	DWORD dwBytesToWrite = sizeof(OverlayMsgHeader) + om.omh.iLength;
 	DWORD dwBytesWritten = dwBytesToWrite;
 
-	if (WriteFile(hSocket, om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength, &dwBytesWritten, NULL))
+	if (WriteFile(hSocket, om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength, &dwBytesWritten, nullptr))
 		if (dwBytesToWrite == dwBytesWritten)
 			return true;
 
@@ -119,7 +119,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		return;
 
 	if (hSocket == INVALID_HANDLE_VALUE) {
-		hSocket = CreateFileW(L"\\\\.\\pipe\\MumbleOverlayPipe", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+		hSocket = CreateFileW(L"\\\\.\\pipe\\MumbleOverlayPipe", GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, 0, nullptr);
 		if (hSocket == INVALID_HANDLE_VALUE) {
 			ods("Pipe: Connection failed");
 			return;
@@ -169,7 +169,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		DWORD dwBytesLeft;
 		DWORD dwBytesRead;
 
-		if (! PeekNamedPipe(hSocket, NULL, 0, NULL, &dwBytesLeft, NULL)) {
+		if (! PeekNamedPipe(hSocket, nullptr, 0, nullptr, &dwBytesLeft, nullptr)) {
 			ods("Pipe: Could not peek");
 			disconnect();
 			return;
@@ -179,7 +179,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 			break;
 
 		if (omMsg.omh.iLength == -1) {
-			if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.headerbuffer) + dwAlreadyRead, sizeof(OverlayMsgHeader) - dwAlreadyRead, &dwBytesRead, NULL)) {
+			if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.headerbuffer) + dwAlreadyRead, sizeof(OverlayMsgHeader) - dwAlreadyRead, &dwBytesRead, nullptr)) {
 				ods("Pipe: Read header fail");
 				disconnect();
 				return;
@@ -204,7 +204,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 				continue;
 		}
 
-		if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.msgbuffer) + dwAlreadyRead, omMsg.omh.iLength - dwAlreadyRead, &dwBytesRead, NULL)) {
+		if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.msgbuffer) + dwAlreadyRead, omMsg.omh.iLength - dwAlreadyRead, &dwBytesRead, nullptr)) {
 			ods("Pipe: Read data fail");
 			disconnect();
 			return;
@@ -226,13 +226,13 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 
 					release();
 
-					hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, uiWidth * uiHeight * 4, memname);
+					hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, uiWidth * uiHeight * 4, memname);
 
 					if (GetLastError() != ERROR_ALREADY_EXISTS) {
 						ods("Pipe: Memory %s(%d) => %ls doesn't exist", omMsg.oms.a_cName, omMsg.omh.iLength, memname);
 						if (hMemory) {
 							CloseHandle(hMemory);
-							hMemory = NULL;
+							hMemory = nullptr;
 							break;
 						}
 					}
@@ -244,10 +244,10 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 
 					a_ucTexture = reinterpret_cast<unsigned char *>(MapViewOfFile(hMemory, FILE_MAP_ALL_ACCESS, 0, 0, 0));
 
-					if (a_ucTexture == NULL) {
+					if (!a_ucTexture) {
 						ods("Pipe: Failed to map memory");
 						CloseHandle(hMemory);
-						hMemory = NULL;
+						hMemory = nullptr;
 						break;
 					}
 
@@ -257,8 +257,8 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 						ods("Pipe: Memory too small");
 						UnmapViewOfFile(a_ucTexture);
 						CloseHandle(hMemory);
-						a_ucTexture = NULL;
-						hMemory = NULL;
+						a_ucTexture = nullptr;
+						hMemory = nullptr;
 						break;
 					}
 
@@ -373,10 +373,10 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (sd != NULL && sd->bHooked) {
+		if (sd && sd->bHooked) {
 			if (hhookWnd) {
 				UnhookWindowsHookEx(hhookWnd);
-				hhookWnd = NULL;
+				hhookWnd = nullptr;
 			}
 			sd->bHooked = false;
 		}
@@ -387,14 +387,14 @@ extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
 extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (sd != NULL && ! sd->bHooked) {
-			HMODULE hSelf = NULL;
+		if (sd && ! sd->bHooked) {
+			HMODULE hSelf = nullptr;
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(&InstallHooks), &hSelf);
-			if (hSelf == NULL) {
+			if (!hSelf) {
 				ods("Lib: Failed to find myself");
 			} else {
 				hhookWnd = SetWindowsHookEx(WH_CBT, CallWndProc, hSelf, 0);
-				if (hhookWnd == NULL)
+				if (!hhookWnd)
 					ods("Lib: Failed to insert WNDProc hook");
 			}
 
@@ -430,8 +430,8 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 		return OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH;
 	}
 
-	HANDLE pcheckHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) OverlayHelperProcessParentDeathThread,
-	                                   reinterpret_cast<void *>(parent), 0, NULL);
+	HANDLE pcheckHandle = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE) OverlayHelperProcessParentDeathThread,
+	                                   reinterpret_cast<void *>(parent), 0, nullptr);
 	if (pcheckHandle == 0) {
 		return OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR;
 	}
@@ -445,7 +445,7 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 		MSG msg;
 		BOOL ret;
 
-		ret = GetMessage(&msg, NULL, 0, 0);
+		ret = GetMessage(&msg, nullptr, 0, 0);
 
 		// The ret variable is set to 0 on WM_QUIT,
 		// and -1 on error.
@@ -478,7 +478,7 @@ static bool createSharedDataMap();
 // we shouldn't inject into it.
 static void checkNoOverlayFile(const std::string &dir) {
 	std::string nooverlay = dir + "\\nooverlay";
-	HANDLE h = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE h = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
 		ods("Lib: Overlay disable %s found", dir.c_str());
@@ -493,7 +493,7 @@ static void checkNoOverlayFile(const std::string &dir) {
 static void checkDebugOverlayFile(const std::string &dir) {
 	// check for "debugoverlay" file, which would enable overlay debugging
 	std::string debugoverlay = dir + "\\debugoverlay";
-	HANDLE h = CreateFile(debugoverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE h = CreateFile(debugoverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
 		ods("Lib: Overlay debug %s found", debugoverlay.c_str());
@@ -509,12 +509,12 @@ static void checkDebugOverlayFile(const std::string &dir) {
 // Returns true on success and fills out |absExeName|, |dir| and |exeName|.
 // Returns false on failure, and does not touch |absExeName|, |dir| and |exeName|.
 static bool parseProcName(char *procname, std::string &absExeName, std::string &dir, std::string &exeName) {
-	if (procname == NULL) {
+	if (!procname) {
 		return false;
 	}
 
 	char *p = strrchr(procname, '\\');
-	if (p == NULL) {
+	if (!p) {
 		return false;
 	}
 
@@ -535,7 +535,7 @@ static bool dllmainProcAttach(char *procname) {
 
 	if (!ok) {
 		// No blacklisting if the file has no path
-	} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
+	} else if (GetProcAddress(nullptr, "mumbleSelfDetection")) {
 		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
 		bEnableOverlay = FALSE;
 		bMumble = TRUE;
@@ -561,8 +561,8 @@ static bool dllmainProcAttach(char *procname) {
 	ods("Lib: bIsWin8: %i", bIsWin8);
 
 
-	hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
-	if (hHookMutex == NULL) {
+	hHookMutex = CreateMutex(nullptr, false, "MumbleHookMutex");
+	if (!hHookMutex) {
 		ods("Lib: CreateMutex failed");
 		return false;
 	}
@@ -593,8 +593,8 @@ static bool createSharedDataMap() {
 # error Unsupported architecture
 #endif
 
-	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, name);
-	if (hMapObject == NULL) {
+	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, dwSharedSize, name);
+	if (!hMapObject) {
 		ods("Lib: CreateFileMapping failed");
 		return false;
 	}
@@ -605,7 +605,7 @@ static bool createSharedDataMap() {
 	unsigned char *rawSharedPointer = static_cast<unsigned char *>(
 			MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
 
-	if (rawSharedPointer == NULL) {
+	if (!rawSharedPointer) {
 		ods("Lib: MapViewOfFile failed");
 		return false;
 	}
@@ -661,7 +661,7 @@ static void dllmainThreadAttach() {
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	char procname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
-	GetModuleFileNameA(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
+	GetModuleFileNameA(nullptr, procname, ARRAY_NUM_ELEMENTS(procname));
 	// Fix for windows XP; on length nSize does not include null-termination
 	// @see http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
 	procname[ARRAY_NUM_ELEMENTS(procname) - 1] = '\0';
@@ -689,7 +689,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
 
-	HMODULE hModule = NULL;
+	HMODULE hModule = nullptr;
 
 	BOOL success = GetModuleHandleEx(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
@@ -706,7 +706,7 @@ bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &log
 
 boost::optional<size_t> GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName) {
 
-	HMODULE hModule = NULL;
+	HMODULE hModule = nullptr;
 
 	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(fnptr), &hModule)) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());

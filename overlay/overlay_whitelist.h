@@ -11,7 +11,7 @@ static const char *overlayWhitelist[] = {
 	"gw2.exe",
 	"gw2-64.exe",
 
-	NULL
+	nullptr
 };
 
 #endif
