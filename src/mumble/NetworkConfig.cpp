@@ -160,9 +160,9 @@ void NetworkConfig::on_qcbType_currentIndexChanged(int v) {
 void NetworkConfig::on_qcbAutoUpdate_stateChanged(int state) {
 	if (state == Qt::Checked) {
 		QMessageBox msgBox;
-		msgBox.setText(QObject::tr("<p>You're using a Mumble version that <b>explicitly disabled</b> update-checks.<p>" 
+		msgBox.setText(QObject::tr("<p>You're using a Mumble version that <b>explicitly disabled</b> update-checks.</p>" 
 					"<p>This means that the update notification you might receive by using this option will "
-					"<b>most likely be meaningless</b> for you.<p>"));
+					"<b>most likely be meaningless</b> for you.</p>"));
 		msgBox.setInformativeText(QObject::tr("<p>If you're using Linux this is most likely because you are using a "
 					"version from your distribution's package repository that have their own update cycles.</p>"
 					"<p>If you want to always have the most recent Mumble version, you should consider using a different method of installation.\n"
