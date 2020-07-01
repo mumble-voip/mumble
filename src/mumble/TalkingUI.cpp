@@ -23,6 +23,8 @@
 #include <QModelIndex>
 #include <QtCore/QStringList>
 #include <QTextDocumentFragment>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
 
 #include <algorithm>
 
@@ -38,7 +40,12 @@ TalkingUI::TalkingUI(QWidget *parent)
 	  m_talkingIcon(QIcon(QLatin1String("skin:talking_on.svg"))),
 	  m_passiveIcon(QIcon(QLatin1String("skin:talking_off.svg"))),
 	  m_shoutingIcon(QIcon(QLatin1String("skin:talking_alt.svg"))),
-	  m_whisperingIcon(QIcon(QLatin1String("skin:talking_whisper.svg"))) {
+	  m_whisperingIcon(QIcon(QLatin1String("skin:talking_whisper.svg"))),
+	  m_muteIcon(QIcon(QLatin1String("skin:muted_server.svg"))),
+	  m_deafIcon(QIcon(QLatin1String("skin:deafened_server.svg"))),
+	  m_localMuteIcon(QIcon(QLatin1String("skin:muted_local.svg"))),
+	  m_selfMuteIcon(QIcon(QLatin1String("skin:muted_self.svg"))),
+	  m_selfDeafIcon(QIcon(QLatin1String("skin:deafened_self.svg"))) {
 
 	setupUI();
 }
@@ -82,7 +89,7 @@ void TalkingUI::setFontSize(QWidget *widget) {
 	m_currentLineHeight = QFontMetrics(newFont).height();
 }
 
-void TalkingUI::setIcon(Entry &entry) const {
+void TalkingUI::setTalkingIcon(Entry &entry) const {
 	const QIcon *icon = nullptr;
 	switch (entry.talkingState) {
 		case Settings::Talking:
@@ -99,7 +106,82 @@ void TalkingUI::setIcon(Entry &entry) const {
 			break;
 	}
 
-	entry.icon->setPixmap(icon->pixmap(QSize(m_currentLineHeight, m_currentLineHeight), QIcon::Normal, QIcon::On));
+	entry.talkingIcon->setPixmap(icon->pixmap(QSize(m_currentLineHeight, m_currentLineHeight), QIcon::Normal, QIcon::On));
+}
+
+void TalkingUI::updateStatusIcons(const ClientUser *user) {
+	if (!m_entries.contains(user->uiSession)) {
+		return;
+	}
+
+	Entry &userEntry = m_entries[user->uiSession];
+
+	const bool needsIcons = user->bMute || user->bDeaf || user->bLocalMute || user->bSelfMute || user->bSelfDeaf;
+
+	if (needsIcons) {
+		if (userEntry.statusIcons) {
+			// Make sure the icons are visible
+			userEntry.statusIcons->show();
+			userEntry.background->layout()->addWidget(userEntry.statusIcons);
+		} else {
+			// Create the icon's label
+			userEntry.statusIcons = new QLabel(userEntry.background);
+
+			userEntry.statusIcons->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+			// Uncomment the line below if you want to debug the icons
+			// userEntry.statusIcons->setStyleSheet(QLatin1String("border: 1px solid black;"));
+
+			userEntry.background->layout()->addWidget(userEntry.statusIcons);
+		}
+
+		// Now populate with icons as needed
+		QVector<QIcon *> activeIcons;
+
+		if (user->bMute) {
+			// Add mute-icon
+			activeIcons << &m_muteIcon;
+		}
+		if (user->bSelfMute) {
+			// Add self-mute-icon
+			activeIcons << &m_selfMuteIcon;
+		}
+		if (user->bLocalMute) {
+			// Add local-mute-icon
+			activeIcons << &m_localMuteIcon;
+		}
+		if (user->bDeaf) {
+			// Add deaf-icon
+			activeIcons << &m_deafIcon;
+		}
+		if (user->bSelfDeaf) {
+			// Add self-deaf-icon
+			activeIcons << &m_selfDeafIcon;
+		}
+
+		// If we don't have icons to show, this branch of the if-statement shouldn't even have been chosen
+		Q_ASSERT(activeIcons.size() > 0);
+
+		// Create a Pixmap that'll hold all icons
+		const QSize size(m_currentLineHeight * activeIcons.size(), m_currentLineHeight);
+		QPixmap pixmap(size);
+		pixmap.fill(Qt::transparent);
+		
+		// Draw the icons to the Pixmap
+		QPainter painter(&pixmap);
+		for (int i = 0; i < activeIcons.size(); i++) {
+			painter.drawPixmap(i * m_currentLineHeight, 0, activeIcons[i]->pixmap(QSize(m_currentLineHeight, m_currentLineHeight),
+						QIcon::Normal, QIcon::On));
+		}
+
+		userEntry.statusIcons->setPixmap(pixmap);
+	} else {
+		if (userEntry.statusIcons) {
+			// The user has an icon container that is no longer needed -> remove it from the layout
+			userEntry.background->layout()->removeWidget(userEntry.statusIcons);	
+			userEntry.statusIcons->hide();
+		}
+	}
 }
 
 void TalkingUI::hideUser(unsigned int session) {
@@ -263,8 +345,8 @@ void TalkingUI::addUser(const ClientUser *user) {
 		icon->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
 		// As a default use the passive state
-		Entry entry = {icon, name, background, user->uiSession, Settings::Passive};
-		setIcon(entry);
+		Entry entry = {icon, name, background, nullptr, user->uiSession, Settings::Passive};
+		setTalkingIcon(entry);
 		m_entries.insert(user->uiSession, entry);
 
 
@@ -463,7 +545,7 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 		it.next();
 
 		Entry *currentEntry = &it.value();
-		if (currentEntry->icon == widget || currentEntry->name == widget || currentEntry->background == widget) {
+		if (currentEntry->talkingIcon == widget || currentEntry->name == widget || currentEntry->background == widget) {
 			entry = currentEntry;
 			break;
 		}
@@ -533,7 +615,7 @@ void TalkingUI::on_talkingStateChanged() {
 	entry.talkingState = user->tsState;
 
 	// Set the icon for this user according to the TalkingState
-	setIcon(entry);
+	setTalkingIcon(entry);
 
 	if (user->tsState == Settings::Passive) {
 		// User stopped talking
@@ -603,7 +685,7 @@ void TalkingUI::on_serverDisconnected() {
 	while (entryIt.hasNext()) {
 		Entry entry = entryIt.next().value();
 
-		delete entry.icon;
+		delete entry.talkingIcon;
 		delete entry.name;
 		delete entry.background;
 	}
@@ -676,8 +758,8 @@ void TalkingUI::on_settingsChanged() {
 	while(entryIt.hasNext()) {
 		Entry &entry = entryIt.next().value();
 		// The new line height has already been set by setFontSize, so we only have
-		// to call setIcon
-		setIcon(entry);
+		// to call setTalkingIcon
+		setTalkingIcon(entry);
 	}
 
 	// The time that a silent user may stick around might have changed as well
@@ -726,6 +808,15 @@ void TalkingUI::on_clientDisconnected(unsigned int userSession) {
 
 		// Delete the user's entry from the TalkingUI
 		m_entries.remove(userSession);
+	}
+}
+
+void TalkingUI::on_muteDeafStateChanged() {
+	ClientUser *user = qobject_cast<ClientUser *>(sender());
+
+	if (user) {
+		// Update icons for local user only
+		updateStatusIcons(user);
 	}
 }
 
