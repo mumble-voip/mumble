@@ -51,7 +51,12 @@ void TalkingUI::setupUI() {
 	setWindowTitle(QObject::tr("Talking UI"));
 
 	setAttribute(Qt::WA_ShowWithoutActivating);
-	setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint);
+	setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);
+
+	// Hide the "?" (context help) button in the title bar of the widget as we don't want
+	// that due to it taking valuable screen space so that the title can't be displayed
+	// properly and as the TalkingUI doesn't provide context help anyways, this is not a big loss.
+	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
 	connect(g.mw->qtvUsers->selectionModel(), &QItemSelectionModel::currentChanged, this, &TalkingUI::on_mainWindowSelectionChanged);
 }
