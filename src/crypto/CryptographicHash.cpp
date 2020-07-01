@@ -30,30 +30,30 @@ class CryptographicHashPrivate {
 		CryptographicHashPrivate();
 
 		/// If m_mdctx is set, cleanupMdctx will destroy
-		/// the EVP_MD_CTX object and set m_mdctx to NULL.
+		/// the EVP_MD_CTX object and set m_mdctx to nullptr.
 		void cleanupMdctx();
 };
 
 CryptographicHashPrivate::CryptographicHashPrivate()
-	: m_mdctx(NULL) {
+	: m_mdctx(nullptr) {
 }
 
 void CryptographicHashPrivate::cleanupMdctx() {
 	if (m_mdctx) {
 		EVP_MD_CTX_destroy(m_mdctx);
-		m_mdctx = NULL;
+		m_mdctx = nullptr;
 	}
 }
 
 CryptographicHashPrivate::CryptographicHashPrivate(const EVP_MD *type)
-	: m_mdctx(NULL) {
+	: m_mdctx(nullptr) {
 
 	m_mdctx = EVP_MD_CTX_create();
-	if (m_mdctx == NULL) {
+	if (!m_mdctx) {
 		return;
 	}
 
-	int err = EVP_DigestInit_ex(m_mdctx, type, NULL);
+	int err = EVP_DigestInit_ex(m_mdctx, type, nullptr);
 	if (err != 1) {
 		cleanupMdctx();
 		return;
@@ -65,7 +65,7 @@ CryptographicHashPrivate::~CryptographicHashPrivate() {
 }
 
 void CryptographicHashPrivate::addData(const QByteArray &buf) {
-	if (m_mdctx == NULL) {
+	if (!m_mdctx) {
 		return;
 	}
 
@@ -86,7 +86,7 @@ void CryptographicHashPrivate::addData(const QByteArray &buf) {
 }
 
 QByteArray CryptographicHashPrivate::result() {
-	if (m_mdctx == NULL) {
+	if (!m_mdctx) {
 		return QByteArray();
 	}
 
@@ -98,7 +98,7 @@ QByteArray CryptographicHashPrivate::result() {
 	}
 
 	QByteArray digest(EVP_MD_CTX_size(m_mdctx), '\0');
-	int err = EVP_DigestFinal_ex(m_mdctx, reinterpret_cast<unsigned char *>(digest.data()), NULL);
+	int err = EVP_DigestFinal_ex(m_mdctx, reinterpret_cast<unsigned char *>(digest.data()), nullptr);
 	if (err != 1) {
 		cleanupMdctx();
 		return QByteArray();
@@ -136,11 +136,11 @@ QString CryptographicHash::shortAlgorithmName(CryptographicHash::Algorithm algo)
 }
 
 CryptographicHash::CryptographicHash()
-	: d(NULL) {
+	: d(nullptr) {
 }
 
 CryptographicHash::CryptographicHash(CryptographicHash::Algorithm algo)
-	: d(NULL) {
+	: d(nullptr) {
 
 	switch (algo) {
 		case CryptographicHash::Sha1:
