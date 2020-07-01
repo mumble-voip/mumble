@@ -6,7 +6,7 @@
 class Slotter : public QObject {
 		Q_OBJECT;
 	public:
-		Slotter(QObject *p = NULL) : QObject(p) {};
+		Slotter(QObject *p = nullptr) : QObject(p) {};
 	public Q_SLOTS:
 		virtual void slottest(int &res) {
 			res+= 1;

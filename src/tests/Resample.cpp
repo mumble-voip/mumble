@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 		pfOutput[i] = 0;
 
 
-	IppsResamplingPolyphaseFixed_32f *pSpec = NULL;
+	IppsResamplingPolyphaseFixed_32f *pSpec = nullptr;
 	ippsResamplePolyphaseFixedInitAlloc_32f(&pSpec, iMicFreq, iSampleRate, 2*history, 0.90f, 8.0f, ippAlgHintFast);
 
 	t.restart();
