@@ -1069,11 +1069,11 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation type="unfinished"/>
+        <translation>PTT Einrast-Schwellenwert</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation type="unfinished"/>
+        <translation>PTT Halte-Schwellenwert</translation>
     </message>
     <message>
         <source>Silence below</source>
@@ -1109,15 +1109,15 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>Transmission started sound</source>
-        <translation type="unfinished"/>
+        <translation>Übertragungsstart-Sound</translation>
     </message>
     <message>
         <source>Transmission stopped sound</source>
-        <translation type="unfinished"/>
+        <translation>Übertragungsende-Sound</translation>
     </message>
     <message>
         <source>Initiate idle action after (in minutes)</source>
-        <translation type="unfinished"/>
+        <translation>Aktiviere Untätigkeitsaktion nach (in Minuten)</translation>
     </message>
     <message>
         <source>Idle action</source>
@@ -1452,7 +1452,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"/>
+        <translation>Lautstärkedämpfung anderer Anwendungen während des Sprechens</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1468,7 +1468,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"/>
+        <translation>Bloom</translation>
     </message>
     <message>
         <source>Delay variance</source>
@@ -2045,7 +2045,7 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     </message>
     <message>
         <source>VAD level</source>
-        <translation type="unfinished"/>
+        <translation>Sprachaktivierungslevel</translation>
     </message>
 </context>
 <context>
@@ -2728,7 +2728,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>This represents the permission to use the listen-feature allowing to listen to a channel without being in it.</source>
-        <translation type="unfinished"/>
+        <translation>Dies repräsentiert das Recht das Zuhören-Feature, welches es erlaubt den Gesprächen in einem Kanal zuzuhören, ohne dem Kanal beizutreten.</translation>
     </message>
     <message>
         <source>Listen</source>
@@ -2736,11 +2736,11 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
-        <translation type="unfinished"/>
+        <translation>Dies repräsentiert das Recht den Kommentar oder den Avatar eines Benutzers zurück zu setzen.</translation>
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation type="unfinished"/>
+        <translation>Setze Benutzer-Inhalt zurück</translation>
     </message>
 </context>
 <context>
@@ -2756,11 +2756,11 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"/>
+        <translation>Kann Bild nicht senden: Zu groß.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"/>
+        <translation>Kann Bild %1 nicht senden: Zu groß.</translation>
     </message>
 </context>
 <context>
@@ -2807,7 +2807,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
-        <translation type="unfinished"/>
+        <translation>Für Text-zu-Sprache ignorieren (lokal)</translation>
     </message>
 </context>
 <context>
@@ -2998,63 +2998,63 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Suche</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"/>
+        <translation>Region</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Filter</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"/>
+        <translation>Alle anzeigen</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"/>
+        <translation>Server mit Benutzern anzeigen</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"/>
+        <translation>Nur erreichbare Server anzeigen</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Alle</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Afrika</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Asien</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Europa</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>Nordamerika</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Ozeanien</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"/>
+        <translation>Südamerika</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"/>
+        <translation>Einwilligungserklärung zur Übertragung privater Daten</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Um die Latenz (den Ping) und die Benutzeranzahl eines Servers zu bestimmen, muss Ihre IP-Adresse an den jeweiligen Server übermittelt werden.&lt;/p&gt;&lt;p&gt;Stimen Sie der Übertragung ihrer IP-Adresse zu? Wenn Sie mit Nein antworten, wird die Liste öffentlicher Server deaktiviert. Es ist jedoch möglich diese jederzeit über die Netzwerk-Einstellungen wieder zu aktivieren.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3494,7 +3494,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"/>
+        <translation>An verknüpfte Kanäle rufen</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -3594,11 +3594,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Minimum column width</source>
-        <translation type="unfinished"/>
+        <translation>Minimale Spaltenbreite</translation>
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"/>
+        <translation>Splitterbreite</translation>
     </message>
 </context>
 <context>
@@ -3970,11 +3970,11 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>TTS engine volume</source>
-        <translation type="unfinished"/>
+        <translation>Text-zu-Sprache Lautstärke</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"/>
+        <translation>Extra Platz um den Rand von Textnachrichten</translation>
     </message>
 </context>
 <context>
@@ -4239,11 +4239,11 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"/>
+        <translation>Sprecher-Liste</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
-        <translation type="unfinished"/>
+        <translation>Ein Benutzer, der für die angegebene Zeit in Sekunden still war, wird aus der Sprecher-Liste entfernt werden.</translation>
     </message>
     <message>
         <source>Remove silent user after</source>
@@ -4251,7 +4251,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"/>
+        <translation>Wenn diese Option aktiviert ist, wird der lokale Benutzer (Sie selbst) jederzeit in der Sprecher-Liste sichtbar sein (unabhängig davon, ob Sie gerade sprechen).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
@@ -4259,35 +4259,35 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation type="unfinished"/>
+        <translation>Wie viele Buchstaben des ursprünglichen Namen-Anfangs für einen abkekürzten Namen verwendet werden sollen.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
-        <translation type="unfinished"/>
+        <translation>Zeichen(kette), um einen Kanalnamen von dem seines übergeordneten Kanäls zu trennen.</translation>
     </message>
     <message>
         <source>Channel separator</source>
-        <translation type="unfinished"/>
+        <translation>Kanal-Trenner</translation>
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
-        <translation type="unfinished"/>
+        <translation>Anfangsbuchstaben-Anzahl Abkürzungen</translation>
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation type="unfinished"/>
+        <translation>Die Namen wie vieler übergeordneter Kanäle soll im Namen des aktuellen Kanals in der Sprecher-Liste angezeigt werden?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
-        <translation type="unfinished"/>
+        <translation>Wie viele Buchstaben aus dem ursprünglichen Kanalnamenende am Ende der abgekürzten Version erhalten bleiben sollen.</translation>
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
-        <translation type="unfinished"/>
+        <translation>Endbuchstaben-Anzahl Abkürzungen</translation>
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
-        <translation type="unfinished"/>
+        <translation>Ob auch der Name des aktuellen Kanals abgekürzt werden darf (im Gegensatz dazu dies nur für übergeordnete Kanäle zuzulassen).</translation>
     </message>
     <message>
         <source>Abbreviate current channel name</source>
@@ -4295,7 +4295,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Channel hierarchy depth</source>
-        <translation type="unfinished"/>
+        <translation>Kanalhierarchie-Tiefe</translation>
     </message>
     <message>
         <source>Abbreviation replacement</source>
@@ -4303,7 +4303,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
-        <translation type="unfinished"/>
+        <translation>Ob der Kanalname (ggf. inklusive der Kanalhierarchie) abgekürzt werden soll, sobald er die maxmimal zulässige Länge überschreitet.</translation>
     </message>
     <message>
         <source>Abbreviate channel names</source>
@@ -4311,7 +4311,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
-        <translation type="unfinished"/>
+        <translation>Die bevorzugte maximale Länge eines Kanalnamens (ggf. inklusive der Kanalhierarchie) in der Sprecher-Liste. Beachten Sie jedoch, dass es sich hierbei nicht um ein hartes Limit handelt.</translation>
     </message>
     <message>
         <source>Max. channel name length</source>
@@ -4319,7 +4319,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation type="unfinished"/>
+        <translation>Relative Schriftgröße, die in der Sprecher-Liste verwendet werden soll.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
@@ -4327,15 +4327,15 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
-        <translation type="unfinished"/>
+        <translation>Ersatztext, der anstelle des weg gelassenen Teils eines abgekürzten Namens angezeigt wird.</translation>
     </message>
     <message>
         <source>Prefix character count</source>
-        <translation type="unfinished"/>
+        <translation>Anfangsbuchstaben-Anzahl</translation>
     </message>
     <message>
         <source>Postfix character count</source>
-        <translation type="unfinished"/>
+        <translation>Endbuchstaben-Anzahl</translation>
     </message>
     <message>
         <source>Maximum name length</source>
@@ -4355,15 +4355,15 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Automatically expand channels when</source>
-        <translation type="unfinished"/>
+        <translation>Erweitere Kanäle automatisch wenn</translation>
     </message>
     <message>
         <source>User dragging behavior</source>
-        <translation type="unfinished"/>
+        <translation>Benutzer-zieh-Verhalten</translation>
     </message>
     <message>
         <source>Silent user lifetime</source>
-        <translation type="unfinished"/>
+        <translation>Lebenszeit stummer Benutzer</translation>
     </message>
 </context>
 <context>
@@ -6090,7 +6090,7 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
-        <translation type="unfinished"/>
+        <translation>%1 nach %2 konnte nicht ausgeführt werden - Das Hinzufügen von Zugriffscodes (Passwörter) könnte Ihnen Zugang verschaffen.</translation>
     </message>
     <message>
         <source>No more listeners allowed in this channel.</source>
@@ -6118,19 +6118,19 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"/>
+        <translation>Sprecher-Liste</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation type="unfinished"/>
+        <translation>Schaltet die Sichtbarkeit der Sprecher-Liste um.</translation>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanal des Benutzers beitreten</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"/>
+        <translation>Trete dem Kanal des Benutzers bei.</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt;]
@@ -6185,35 +6185,35 @@ Valid options are:
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Text-Zu-Sprache ausschalten</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
-        <translation type="unfinished"/>
+        <translation>Textnachrichten des Benutzers werden nicht über Text-zu-Sprache ausgegeben.</translation>
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
-        <translation type="unfinished"/>
+        <translation>Deaktiviert die Verwendung von Text-zu-Sprache für alle Textnachrichten dieses Benutzers.</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"/>
+        <translation>Baum</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"/>
+        <translation>Privat</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"/>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"/>
+        <translation>(%1) %2</translation>
     </message>
 </context>
 <context>
@@ -6881,7 +6881,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"/>
+        <translation>Vergrößerungsstufe</translation>
     </message>
 </context>
 <context>
@@ -7114,46 +7114,49 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"/>
+        <translation>Sprecher-Liste</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation type="unfinished"/>
+        <translation>Echounterdrückung ist für die Schnittstellenkombination &quot;%1&quot; (input) und &quot;%2&quot; (output) nicht unterstützt.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.
 Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.
 Multichannel echo cancellation requires more CPU, so you should try mixed first</source>
-        <translation type="unfinished"/>
+        <translation>Sofern diese Option aktiviert ist, wird versucht das Echo der Lautsprecher zu unterdrücken.
+Gemischte Echounterdrückung mischt alle Lautsprecherausgaben in einen Mono-Kanal und übergibt diesen an die Echounterdrückung, wohingegen Mehrkanal Echounterdrückung jeden Audio-Kanal einzelnen weiter gibt.
+Mehrkanal Echounterdrückung resultiert in einer höheren CPU-Auslastung, weswegen zunächst die gemischte Echounterdrückung ausprobiert werden sollte.</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Sie verwenden eine Mumble-Version, die Update-Checks &lt;b&gt;explizit deaktiviert&lt;/b&gt; hat.&lt;p&gt;&lt;p&gt;Das bedeutet, dass mögliche Update-Benachrichtigungen &lt;b&gt;sehr wahrscheinlich ohne Bedeutung&lt;/b&gt; für Sie sind.&lt;p&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Wenn Sie Linux verwenden ist dies sehr wahrscheinlich so, weil Sie ein Paket aus den Paketquellen Ihrer Distribution verwenden, welche ihren eigen Update-Zyklus besitzen.&lt;/p&gt;&lt;p&gt;Wenn Sie immer die aktuellste Mumble-Version verwenden wollen, sollten Sie eine andere Installationsart in Erwägung ziehen.
+Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mumble wiki&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"/>
+        <translation>Lokal stumm stellen</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"/>
+        <translation>Textnachrichten ignorieren</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Text-Zu-Sprache ausschalten</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; konnte nicht permanent gespeichert werden und wird bei einem Neustart verloren gehen, da %2 kein Zertifikat verwendet.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"/>
+        <translation>Lokale Lautstärkenanpassung...</translation>
     </message>
 </context>
 <context>
