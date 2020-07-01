@@ -63,7 +63,7 @@ class Channel : public QObject {
 		/// setting.
 		unsigned int uiMaxUsers;
 
-		Channel(int id, const QString &name, QObject *p = NULL);
+		Channel(int id, const QString &name, QObject *p = nullptr);
 		~Channel();
 
 #ifdef MUMBLE
@@ -92,7 +92,7 @@ class Channel : public QObject {
 
 		bool isLinked(Channel *c) const;
 		void link(Channel *c);
-		void unlink(Channel *c = NULL);
+		void unlink(Channel *c = nullptr);
 
 		QSet<Channel *> allLinks();
 		QSet<Channel *> allChildren();

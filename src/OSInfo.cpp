@@ -94,7 +94,7 @@ static QString win10DisplayableVersion() {
 	}
 
 	len = sizeof(buf);
-	err = RegQueryValueEx(key, L"ProductName", NULL, NULL, reinterpret_cast<LPBYTE>(&buf[0]), &len);
+	err = RegQueryValueEx(key, L"ProductName", nullptr, nullptr, reinterpret_cast<LPBYTE>(&buf[0]), &len);
 	if (err != ERROR_SUCCESS) {
 		RegCloseKey(key);
 		return QString();
@@ -102,7 +102,7 @@ static QString win10DisplayableVersion() {
 	productName = regString(buf, static_cast<int>(len / sizeof(buf[0])));
 
 	len = sizeof(buf);
-	err = RegQueryValueEx(key, L"ReleaseId", NULL, NULL, reinterpret_cast<LPBYTE>(&buf[0]), &len);
+	err = RegQueryValueEx(key, L"ReleaseId", nullptr, nullptr, reinterpret_cast<LPBYTE>(&buf[0]), &len);
 	if (err != ERROR_SUCCESS) {
 		RegCloseKey(key);
 		return QString();
@@ -110,7 +110,7 @@ static QString win10DisplayableVersion() {
 	releaseId = regString(buf, static_cast<int>(len / sizeof(buf[0])));
 
 	len = sizeof(buf);
-	err = RegQueryValueEx(key, L"CurrentBuild", NULL, NULL, reinterpret_cast<LPBYTE>(&buf[0]), &len);
+	err = RegQueryValueEx(key, L"CurrentBuild", nullptr, nullptr, reinterpret_cast<LPBYTE>(&buf[0]), &len);
 	if (err != ERROR_SUCCESS) {
 		RegCloseKey(key);
 		return QString();
@@ -118,7 +118,7 @@ static QString win10DisplayableVersion() {
 	currentBuild = regString(buf, static_cast<int>(len / sizeof(buf[0])));
 
 	len = sizeof(dw);
-	err = RegQueryValueEx(key, L"UBR", NULL, NULL, reinterpret_cast<LPBYTE>(&dw), &len);
+	err = RegQueryValueEx(key, L"UBR", nullptr, nullptr, reinterpret_cast<LPBYTE>(&dw), &len);
 	if (err != ERROR_SUCCESS) {
 		RegCloseKey(key);
 		return QString();
@@ -235,10 +235,10 @@ QString OSInfo::getOSVersion() {
 	if (err != noErr)
 		return QString::number(QSysInfo::MacintoshVersion, 16);
 
-	char *buildno = NULL;
+	char *buildno = nullptr;
 	char buildno_buf[32];
 	size_t sz_buildno_buf = sizeof(buildno);
-	int ret = sysctlbyname("kern.osversion", buildno_buf, &sz_buildno_buf, NULL, 0);
+	int ret = sysctlbyname("kern.osversion", buildno_buf, &sz_buildno_buf, nullptr, 0);
 	if (ret == 0) {
 		buildno = &buildno_buf[0];
 	}
@@ -370,7 +370,7 @@ QString OSInfo::getOSDisplayableVersion() {
 
 		typedef BOOL (WINAPI *PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
 		PGPI pGetProductInfo = (PGPI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetProductInfo");
-		if (pGetProductInfo == NULL) {
+		if (!pGetProductInfo) {
 			return QString();
 		}
 
