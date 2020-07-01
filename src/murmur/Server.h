@@ -68,7 +68,7 @@ class SslServer : public QTcpServer {
 		void incomingConnection(qintptr) Q_DECL_OVERRIDE;
 	public:
 		QSslSocket *nextPendingSSLConnection();
-		SslServer(QObject *parent = NULL);
+		SslServer(QObject *parent = nullptr);
 
 		/// Checks whether the AF_INET6 socket on this system has dual-stack support.
 		static bool hasDualStackSupport();
@@ -199,7 +199,7 @@ class Server : public QThread {
 		void newClient();
 		void connectionClosed(QAbstractSocket::SocketError, const QString &);
 		void sslError(const QList<QSslError> &);
-		void message(unsigned int, const QByteArray &, ServerUser *cCon = NULL);
+		void message(unsigned int, const QByteArray &, ServerUser *cCon = nullptr);
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
 		void doSync(unsigned int);
@@ -296,7 +296,7 @@ class Server : public QThread {
 		QFlags<ChanACL::Perm> effectivePermissions(ServerUser *p, Channel *c);
 		void sendClientPermission(ServerUser *u, Channel *c, bool updatelast = false);
 		void flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQuery &mpqq);
-		void clearACLCache(User *p = NULL);
+		void clearACLCache(User *p = nullptr);
 		void clearWhisperTargetCache();
 
 		void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion);
@@ -325,14 +325,14 @@ class Server : public QThread {
 		void log(ServerUser *u, const QString &) const;
 
 		void removeChannel(int id);
-		void removeChannel(Channel *c, Channel *dest = NULL);
+		void removeChannel(Channel *c, Channel *dest = nullptr);
 		void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 		bool unregisterUser(int id);
 
-		Server(int snum, QObject *parent = NULL);
+		Server(int snum, QObject *parent = nullptr);
 		~Server();
 
-		bool canNest(Channel *newParent, Channel *channel = NULL) const;
+		bool canNest(Channel *newParent, Channel *channel = nullptr) const;
 
 		// RPC functions. Implementation in RPC.cpp
 		void connectAuthenticator(QObject *p);
@@ -340,7 +340,7 @@ class Server : public QThread {
 		void connectListener(QObject *p);
 		void disconnectListener(QObject *p);
 		void setTempGroups(int userid, int sessionId, Channel *cChannel, const QStringList &groups);
-		void clearTempGroups(User *user, Channel *cChannel = NULL, bool recurse = true);
+		void clearTempGroups(User *user, Channel *cChannel = nullptr, bool recurse = true);
 		void startListeningToChannel(ServerUser *user, Channel *cChannel);
 		void stopListeningToChannel(ServerUser *user, Channel *cChannel);
 	signals:
@@ -403,7 +403,7 @@ class Server : public QThread {
 		int authenticate(QString &name, const QString &pw, int sessionId = 0, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false, const QList<QSslCertificate> & = QList<QSslCertificate>());
 		Channel *addChannel(Channel *c, const QString &name, bool temporary = false, int position = 0, unsigned int maxUsers = 0);
 		void removeChannelDB(const Channel *c);
-		void readChannels(Channel *p = NULL);
+		void readChannels(Channel *p = nullptr);
 		void readLinks();
 		void updateChannel(const Channel *c);
 		void readChannelPrivs(Channel *c);

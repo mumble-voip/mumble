@@ -98,7 +98,7 @@ QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int ite
 	                      iterationCount,
 	                      EVP_sha384(),
 	                      DERIVED_KEY_LENGTH, reinterpret_cast<unsigned char*>(hash.data())) == 0) {
-		qFatal("PBKDF2: PKCS5_PBKDF2_HMAC failed: %s", ERR_error_string(ERR_get_error(), NULL));
+		qFatal("PBKDF2: PKCS5_PBKDF2_HMAC failed: %s", ERR_error_string(ERR_get_error(), nullptr));
 		return QString();
 	}
 	
@@ -110,7 +110,7 @@ QString PBKDF2::getSalt() {
 	QByteArray salt(SALT_LENGTH, 0);
 	
 	if (RAND_bytes(reinterpret_cast<unsigned char*>(salt.data()), salt.size()) != 1) {
-		qFatal("PBKDF2: RAND_bytes for salt failed: %s", ERR_error_string(ERR_get_error(), NULL));
+		qFatal("PBKDF2: RAND_bytes for salt failed: %s", ERR_error_string(ERR_get_error(), nullptr));
 		return QString();
 	}
 

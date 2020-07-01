@@ -531,7 +531,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 				}
 			}
 			if (!qsl.isEmpty()) {
-				s->setTempGroups(res, sessionId, NULL, qsl);
+				s->setTempGroups(res, sessionId, nullptr, qsl);
 			}
 		}
 		break;
@@ -1856,7 +1856,7 @@ void V1_ACLGet::impl(bool) {
 		if ((p == channel) || p->bInheritACL) {
 			p = p->cParent;
 		} else {
-			p = NULL;
+			p = nullptr;
 		}
 	}
 
@@ -1877,7 +1877,7 @@ void V1_ACLGet::impl(bool) {
 	const QSet<QString> allnames = ::Group::groupNames(channel);
 	foreach(const QString &name, allnames) {
 		::Group *g = channel->qhGroups.value(name);
-		::Group *pg = p ? ::Group::getGroup(p, name) : NULL;
+		::Group *pg = p ? ::Group::getGroup(p, name) : nullptr;
 		if (!g && ! pg) {
 			continue;
 		}

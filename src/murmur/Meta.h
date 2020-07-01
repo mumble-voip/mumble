@@ -162,7 +162,7 @@ public:
 
 private:
 	template <class T>
-	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = NULL);
+	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = nullptr);
 };
 
 class Meta : public QObject {

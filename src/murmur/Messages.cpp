@@ -213,7 +213,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		ok = true;
 	}
 
-	ServerUser *uOld = NULL;
+	ServerUser *uOld = nullptr;
 	foreach(ServerUser *u, qhUsers) {
 		if (u == uSource)
 			continue;
@@ -320,7 +320,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	sendMessage(uSource, mpcv);
 
 	if (!bOpus && uSource->bOpus && fake_celt_support) {
-		sendTextMessage(NULL, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the CELT codec, you won't be able to talk to or hear most clients. Please make sure your client was built with CELT support."));
+		sendTextMessage(nullptr, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the CELT codec, you won't be able to talk to or hear most clients. Please make sure your client was built with CELT support."));
 	}
 
 	// Transmit channel tree
@@ -1032,8 +1032,8 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 
-	Channel *c = NULL;
-	Channel *p = NULL;
+	Channel *c = nullptr;
+	Channel *p = nullptr;
 
 	// If this message relates to an existing channel check if the id is really valid
 	if (msg.has_channel_id()) {
@@ -1534,7 +1534,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			if ((p==c) || p->bInheritACL)
 				p = p->cParent;
 			else
-				p = NULL;
+				p = nullptr;
 		}
 
 		while (! chans.isEmpty()) {
@@ -1561,13 +1561,13 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		QSet<QString> allnames=Group::groupNames(c);
 		foreach(const QString &name, allnames) {
 			Group *g = c->qhGroups.value(name);
-			Group *pg = p ? Group::getGroup(p, name) : NULL;
+			Group *pg = p ? Group::getGroup(p, name) : nullptr;
 
 			MumbleProto::ACL_ChanGroup *group = msg.add_groups();
 			group->set_name(u8(name));
 			group->set_inherit(g ? g->bInherit : true);
 			group->set_inheritable(g ? g->bInheritable : true);
-			group->set_inherited((pg != NULL) && pg->bInheritable);
+			group->set_inherited(pg && pg->bInheritable);
 			if (g) {
 				foreach(int id, g->qsAdd) {
 					qsId.insert(id);

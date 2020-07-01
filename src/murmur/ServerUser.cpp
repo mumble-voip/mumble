@@ -12,7 +12,7 @@
 # include "Utils.h"
 #endif
 
-ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User(), s(NULL), leakyBucket(p->iMessageLimit, p->iMessageBurst) {
+ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst) {
 	sState = ServerUser::Connected;
 	sUdpSocket = INVALID_SOCKET;
 

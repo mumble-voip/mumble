@@ -135,21 +135,21 @@ UnixMurmur::UnixMurmur() {
 	sigemptyset(&hup.sa_mask);
 	hup.sa_flags = SA_RESTART;
 
-	if (sigaction(SIGHUP, &hup, NULL))
+	if (sigaction(SIGHUP, &hup, nullptr))
 		qFatal("Failed to install SIGHUP handler");
 
 	term.sa_handler = termSignalHandler;
 	sigemptyset(&term.sa_mask);
 	term.sa_flags = SA_RESTART;
 
-	if (sigaction(SIGTERM, &term, NULL))
+	if (sigaction(SIGTERM, &term, nullptr))
 		qFatal("Failed to install SIGTERM handler");
 
 	usr1.sa_handler = usr1SignalHandler;
 	sigemptyset(&usr1.sa_mask);
 	usr1.sa_flags = SA_RESTART;
 
-	if (sigaction(SIGUSR1, &usr1, NULL))
+	if (sigaction(SIGUSR1, &usr1, nullptr))
 		qFatal("Failed to install SIGUSR1 handler");
 
 	umask(S_IRWXO);
@@ -160,9 +160,9 @@ UnixMurmur::~UnixMurmur() {
 	delete qsnTerm;
 	delete qsnUsr1;
 
-	qsnHup = NULL;
-	qsnTerm = NULL;
-	qsnUsr1 = NULL;
+	qsnHup = nullptr;
+	qsnTerm = nullptr;
+	qsnUsr1 = nullptr;
 
 	close(iHupFd[0]);
 	close(iHupFd[1]);

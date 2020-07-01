@@ -43,7 +43,7 @@
 MetaParams Meta::mp;
 
 #ifdef Q_OS_WIN
-HANDLE Meta::hQoS = NULL;
+HANDLE Meta::hQoS = nullptr;
 #endif
 
 MetaParams::MetaParams() {
@@ -104,7 +104,7 @@ MetaParams::MetaParams() {
 	bLogGroupChanges = false;
 	bLogACLChanges = false;
 
-	qsSettings = NULL;
+	qsSettings = nullptr;
 }
 
 MetaParams::~MetaParams() {
@@ -129,7 +129,7 @@ template <class T>
 T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue, QSettings *settings) {
 	// Use qsSettings unless a specific QSettings instance
 	// is requested.
-	if (settings == NULL) {
+	if (!settings) {
 		settings = qsSettings;
 	}
 
@@ -648,10 +648,10 @@ Meta::Meta() {
 	qvVer.MajorVersion = 1;
 	qvVer.MinorVersion = 0;
 
-	hQoS = NULL;
+	hQoS = nullptr;
 
 	HMODULE hLib = LoadLibrary(L"qWave.dll");
-	if (hLib == NULL) {
+	if (!hLib) {
 		qWarning("Meta: Failed to load qWave.dll, no QoS available");
 	} else {
 		FreeLibrary(hLib);
@@ -667,7 +667,7 @@ Meta::~Meta() {
 #ifdef Q_OS_WIN
 	if (hQoS) {
 		QOSCloseHandle(hQoS);
-		Connection::setQoS(NULL);
+		Connection::setQoS(nullptr);
 	}
 #endif
 }
