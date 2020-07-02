@@ -10,7 +10,7 @@ cmake_policy(SET CMP0091 NEW)
 
 set(version "1.4.0" CACHE STRING "Project version")
 
-string(REGEX MATCH "[0-9].[0-9].[0-9]" version_short ${version})
+string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]" version_short ${version})
 
 project(Mumble
 	VERSION ${version_short}
