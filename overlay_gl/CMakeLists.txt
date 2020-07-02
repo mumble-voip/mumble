@@ -31,7 +31,15 @@ if(NOT APPLE)
 	)
 
 	if(overlay-xcompile)
-		message(STATUS "\nIf the 32 bit overlay library fails to compile, make sure the requirements are installed (\"g++-multilib\" package on Debian-based distributions).\n")
+		# Just check for this header file while using a 32bit target as a really small and incomplete check whether g++-multilib seems to be
+		# installed. If we don't find it, we can assume it's not there but if we do find it, we still don't know. Thus we still print the
+		# message about the 32bit target potentially failing due to missing g++-multilib.
+		CHECK_INCLUDE_FILE("sys/cdefs.h" FOUND_CDEFS "-m32")
+		if(NOT FOUND_CDEFS)
+			message(FATAL_ERROR "Can't find the 32bit version of sys/cdefs.h - did you install g++-multilib?")
+		else()
+			message(STATUS "\nIf the 32 bit overlay library fails to compile, make sure the requirements are installed (\"g++-multilib\" package on Debian-based distributions).\n")
+		endif()
 
 		set_target_properties(overlay_gl
 			PROPERTIES
