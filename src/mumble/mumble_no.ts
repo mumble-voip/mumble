@@ -3152,6 +3152,10 @@ Hva tjeneren er beskrevet som. Dette er hva tjeneren vil bli navngitt som i din 
         <source>&amp;Fill</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -6254,6 +6258,18 @@ Valid options are:
         <source>Activate</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6455,6 +6471,14 @@ Forhindrer klienten fra å sende potensielt identifiserende informasjon om opera
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>Ikke send OS-informasjon til Mumble-tjenere og vev-tjenere</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7087,10 +7111,6 @@ Multichannel echo cancellation requires more CPU, so you should try mixed first<
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation type="unfinished"/>
@@ -7113,6 +7133,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
         <translation type="unfinished"/>
     </message>
 </context>

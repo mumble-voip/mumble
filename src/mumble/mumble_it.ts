@@ -3141,6 +3141,10 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
         <source>&amp;Fill</source>
         <translation>&amp;Riempi</translation>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>&amp;Ignora</translation>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -4317,7 +4321,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Silent user lifetime</source>
-        <translation type="unfinished"/>
+        <translation>Durata massima inattività</translation>
     </message>
 </context>
 <context>
@@ -6201,11 +6205,11 @@ Scrive su stdout lo stato della coda della cancellazione eco
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"/>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"/>
+        <translation>(%1) %2</translation>
     </message>
 </context>
 <context>
@@ -6281,6 +6285,18 @@ Scrive su stdout lo stato della coda della cancellazione eco
     <message>
         <source>Activate</source>
         <translation>Attiva</translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6483,6 +6499,14 @@ Previene l&apos;invio da parte del client di informazioni potenzialmente identif
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>Non inviare informazioni SO ai server Mumble ed ai server web</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation>Quando abilitato, nasconde la lista dei server pubblici dalla finestra di connessione</translation>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation>Nascondi lista server pubblici</translation>
     </message>
 </context>
 <context>
@@ -7117,10 +7141,6 @@ La cancellazione eco Mista unisce tutti i canali di output in uno stream mono e 
 La cancellazione eco Multicanale richiede più utilizzo di CPU, quindi dovresti prima provare quella Mista.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation>&lt;p&gt;Stai utilizzando una versione di Mumble che &lt;b&gt;esplicitamente disabilita&lt;/b&gt; il controllo aggiornamenti.&lt;p&gt;&lt;p&gt;Questo vuol dire che la notifica di aggiornamento che potresti ricevere utilizzando questa impostazione sarà &lt;b&gt;probabilmente inutile&lt;/b&gt; per te.&lt;p&gt;</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Se stai utilizzando Linux questo avviene probabilmente perché stai utilizzando una versione della repository di pacchetti che ha i propri cicli di aggiornamenti.&lt;/p&gt;&lt;p&gt;Se vuoi avere sempre la versione più recente di Mumble, dovresti considerare l&apos;utilizzo di un differente metodo di installazione.
@@ -7145,6 +7165,14 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     <message>
         <source>Local Volume Adjustment...</source>
         <translation>Regolazione Volume Locale...</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Stai utilizzando una versione di Mumble che &lt;b&gt;esplicitamente disabilita&lt;/b&gt; il controllo aggiornamenti.&lt;/p&gt;&lt;p&gt;Questo vuol dire che la notifica di aggiornamento che potresti ricevere utilizzando questa impostazione sarà &lt;b&gt;probabilmente inutile&lt;/b&gt; per te.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
+        <translation>Attivo (mutato)</translation>
     </message>
 </context>
 <context>

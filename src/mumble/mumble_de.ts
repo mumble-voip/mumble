@@ -3184,6 +3184,10 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
         <source>&amp;Fill</source>
         <translation>&amp;Ausfüllen</translation>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>&amp;Ignorieren</translation>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -6290,6 +6294,18 @@ Valid options are:
         <source>Activate</source>
         <translation>Aktivieren</translation>
     </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6494,6 +6510,14 @@ Verhindert, dass potenziell identifizierende Informationen über das Betriebssys
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>Verhindern, dass OS Informationen zu Mumble-Servern und Web-Servern übermittelt werden</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7129,10 +7153,6 @@ Gemischte Echounterdrückung mischt alle Lautsprecherausgaben in einen Mono-Kana
 Mehrkanal Echounterdrückung resultiert in einer höheren CPU-Auslastung, weswegen zunächst die gemischte Echounterdrückung ausprobiert werden sollte.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation>&lt;p&gt;Sie verwenden eine Mumble-Version, die Update-Checks &lt;b&gt;explizit deaktiviert&lt;/b&gt; hat.&lt;p&gt;&lt;p&gt;Das bedeutet, dass mögliche Update-Benachrichtigungen &lt;b&gt;sehr wahrscheinlich ohne Bedeutung&lt;/b&gt; für Sie sind.&lt;p&gt;</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Wenn Sie Linux verwenden ist dies sehr wahrscheinlich so, weil Sie ein Paket aus den Paketquellen Ihrer Distribution verwenden, welche ihren eigen Update-Zyklus besitzen.&lt;/p&gt;&lt;p&gt;Wenn Sie immer die aktuellste Mumble-Version verwenden wollen, sollten Sie eine andere Installationsart in Erwägung ziehen.
@@ -7157,6 +7177,14 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     <message>
         <source>Local Volume Adjustment...</source>
         <translation>Lokale Lautstärkenanpassung...</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
