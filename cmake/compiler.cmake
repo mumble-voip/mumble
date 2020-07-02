@@ -7,6 +7,8 @@ if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
 	set(64_BIT TRUE)
 elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
 	set(32_BIT TRUE)
+else()
+	message(FATAL_ERROR "Unknown architecture - only 32bit and 64bit are supported")
 endif()
 
 if(MSVC)
