@@ -11,7 +11,7 @@
 # This is a replacement for `git describe` to make snapshots
 # use the future, untagged version number rather than the previous.
 #
-# The version is of form 1.3.0~154~g4f336a2~snapshot.
+# The version is of form 1.3.0~2020-07-02~g4f336a2~snapshot.
 # It includes the target release version rather than the previous
 # release (as git describe does).
 #
@@ -44,13 +44,16 @@
 # This means that snapshots for Mumble 1.3.0 now have the base version
 # '1.3.0'.
 #
-# It also changes the version string slightly. Instead of using dashes
+# It also changes the version string: Instead of using dashes
 # as a separator in the version string, it now uses tildes. This allows
 # Debian's dpkg version comparer to correctly sort snapshot versions
 # before release versions. The new string also includes 'snapshot' in the
 # version string to denote to users that the given version is a pre-release
-# snapshot. A full new-style version string looks like this:
-# 1.3.0~154~g4f336a2~snapshot.
+# snapshot.
+# Furthermore the version number does use the latest commit's date rather
+# than therevision number since the last tag.
+# A full new-style version string looks like this:
+# 1.3.0~2020-07-02~g4f336a2~snapshot.
 
 from __future__ import (unicode_literals, print_function, division)
 
@@ -92,43 +95,36 @@ def readMumblePriVersion():
 	return version
 
 def main():
-	latestTag = cmd(['git', 'describe', '--abbrev=0', '--tags'])
-	latestTag = strip(latestTag)
-	if len(latestTag) == 0:
-		raise Exception('empty latestTag, unable to continue')
+    # Get all tags associated with the latest commit
+    latestCommitTags = [x for x in cmd(['git', 'tag', '--points-at', 'HEAD']).split("\n") if x]
+    
+    if len(latestCommitTags) > 1:
+        raise RuntimeError("Encountered commit with multiple tags: %s" % latestCommitTags)
 
-	latestCommit = cmd(['git', 'rev-parse', 'HEAD'])
-	if len(latestCommit) < 7:
-		raise Exception('bad commit string: {0}'.format(latestCommit))
-	latestCommit = strip(latestCommit)
+    if len(latestCommitTags) == 1:
+        # Most recent commit is tagged -> this is a tagged release version
+        # Use the tag as the version-string
+        version = latestCommitTags[0]
+    else:
+        # This is a snapshot (i.e. built from a non-tagged commit)
 
-	revListStr = cmd(['git', 'rev-list', '{0}..HEAD'.format(latestTag)])
-	revList = revListStr.split('\n')
-	nrevs = len(revList)-1 # Consider the newline at the end.
-	version = ''
-	if nrevs == 0:
-		# The most recent tag is the latest commit. That means this must
-		# be a tagged release version.
-		# We verify that the tag commit is the current HEAD to make sure it is.
-		revListStr = cmd(['git', 'rev-list', latestTag])
-		revList = revListStr.split('\n')
-		if len(revList) == 0:
-			raise Exception('unable to get rev-list for potential release tag')
-		latestCommitForLatestTag = revList[0]
-		if latestCommitForLatestTag != latestCommit:
-			raise Exception('commit-hash mismatch; aborting potential relase version string')
-		version = latestTag
-	else:
-		mumblePriVersion = readMumblePriVersion()
-		if len(mumblePriVersion) == 0 or not '.' in mumblePriVersion:
-			raise Exception('bad mumblePriVersion: "{0}"'.format(mumblePriVersion))
+        # Get the date of the most recent commit
+        latestCommitDate = cmd(['git', 'log', '-1', '--format=%cd', '--date=short']).strip()
 
-		version = '{0}~{1}~g{2}~snapshot'.format(mumblePriVersion, nrevs, latestCommit[0:7])
+        # Get the hash of the most recent commit (shortened)
+        latestCommitHash = cmd(['git', 'rev-parse', '--short'  , 'HEAD']).strip()
 
-	end = ''
-	if '--newline' in sys.argv:
-		end = None
-	print(version, end=end)
+        # Get the Mumble version that is set in the mumble.pri file
+        mumblePriVersion = readMumblePriVersion()
+        if len(mumblePriVersion) == 0 or not '.' in mumblePriVersion:
+            raise Exception('bad mumblePriVersion: "{0}"'.format(mumblePriVersion))
+
+        version = '{0}~{1}~g{2}~snapshot'.format(mumblePriVersion, latestCommitDate, latestCommitHash)
+
+    end = ''
+    if '--newline' in sys.argv:
+            end = None
+    print(version, end=end)
 
 if __name__ == '__main__':
 	main()
