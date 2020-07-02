@@ -62,9 +62,9 @@ Channel *Channel::add(int id, const QString &name) {
 	QWriteLocker lock(&c_qrwlChannels);
 
 	if (c_qhChannels.contains(id))
-		return NULL;
+		return nullptr;
 
-	Channel *c = new Channel(id, name, NULL);
+	Channel *c = new Channel(id, name, nullptr);
 	c_qhChannels.insert(id, c);
 	return c;
 }
@@ -153,8 +153,8 @@ void Channel::addChannel(Channel *c) {
 }
 
 void Channel::removeChannel(Channel *c) {
-	c->cParent = NULL;
-	c->setParent(NULL);
+	c->cParent = nullptr;
+	c->setParent(nullptr);
 	qlChannels.removeAll(c);
 }
 

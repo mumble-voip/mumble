@@ -169,7 +169,7 @@ void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<QList<LogEntry> >();
 }
 
-QDBusConnection *MurmurDBus::qdbc = NULL;
+QDBusConnection *MurmurDBus::qdbc = nullptr;
 
 MurmurDBus::MurmurDBus(Server *srv) : QDBusAbstractAdaptor(srv) {
 	server = srv;
@@ -299,7 +299,7 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, int sessionId, const
 			}
 		}
 		if (ok && (msg.arguments().count() >= 3)) {
-			server->setTempGroups(uid, sessionId, NULL, msg.arguments().at(2).toStringList());
+			server->setTempGroups(uid, sessionId, nullptr, msg.arguments().at(2).toStringList());
 		}
 		if (ok) {
 			server->log(QString("DBus Authenticate success for %1: %2").arg(uname).arg(uid));
@@ -380,13 +380,13 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 void MurmurDBus::sendMessage(unsigned int session, const QString &text, const QDBusMessage &msg) {
 	PLAYER_SETUP;
 
-	server->sendTextMessage(NULL, pUser, false, text);
+	server->sendTextMessage(nullptr, pUser, false, text);
 }
 
 void MurmurDBus::sendMessageChannel(int id, bool tree, const QString &text, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(id);
 
-	server->sendTextMessage(cChannel, NULL, tree, text);
+	server->sendTextMessage(cChannel, nullptr, tree, text);
 }
 
 void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMessage &msg, int &newid) {
@@ -454,7 +454,7 @@ void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList<ACLInfo> &acls, Q
 		if ((p == cChannel) || (p->bInheritACL))
 			p = p->cParent;
 		else
-			p =NULL;
+			p =nullptr;
 	}
 
 	inherit = cChannel->bInheritACL;
@@ -476,7 +476,7 @@ void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList<ACLInfo> &acls, Q
 	QString name;
 	foreach(name, allnames) {
 		Group *g = cChannel->qhGroups.value(name);
-		Group *pg = p ? Group::getGroup(p, name) : NULL;
+		Group *pg = p ? Group::getGroup(p, name) : nullptr;
 		if (!g && ! pg)
 			continue;
 		GroupInfo gi(g ? g : pg);

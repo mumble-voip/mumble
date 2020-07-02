@@ -67,11 +67,11 @@ Group *Group::getGroup(Channel *chan, QString name) {
 			else if (g->bInheritable)
 				return g;
 			else
-				return NULL;
+				return nullptr;
 		}
 		p = p->cParent;
 	}
-	return NULL;
+	return nullptr;
 }
 
 QSet<QString> Group::groupNames(Channel *chan) {

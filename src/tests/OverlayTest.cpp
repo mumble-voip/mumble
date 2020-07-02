@@ -47,12 +47,12 @@ class OverlayWidget : public QWidget {
 		void error(QLocalSocket::LocalSocketError);
 		void update();
 	public:
-		OverlayWidget(QWidget *p = NULL);
+		OverlayWidget(QWidget *p = nullptr);
 };
 
 OverlayWidget::OverlayWidget(QWidget *p) : QWidget(p) {
-	qlsSocket = NULL;
-	smMem = NULL;
+	qlsSocket = nullptr;
+	smMem = nullptr;
 	uiWidth = uiHeight = 0;
 
 	setFocusPolicy(Qt::StrongFocus);
@@ -123,10 +123,10 @@ void OverlayWidget::detach() {
 	if (qlsSocket) {
 		qlsSocket->abort();
 		qlsSocket->deleteLater();
-		qlsSocket = NULL;
+		qlsSocket = nullptr;
 	}
 	if (smMem) {
-		smMem = NULL;
+		smMem = nullptr;
 	}
 }
 
@@ -230,7 +230,7 @@ void OverlayWidget::readyRead() {
 						if (! smMem->data()) {
 							qWarning() << "SHMEM FAIL";
 							delete smMem;
-							smMem = NULL;
+							smMem = nullptr;
 						} else {
 							qWarning() << "SHMEM" << smMem->size();
 						}

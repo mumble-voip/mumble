@@ -16,7 +16,7 @@ class LogEmitter : public QObject {
 	signals:
 		void newLogEntry(const QString &msg);
 	public:
-		LogEmitter(QObject *parent = NULL);
+		LogEmitter(QObject *parent = nullptr);
 		void addLogEntry(const QString &msg);
 };
 

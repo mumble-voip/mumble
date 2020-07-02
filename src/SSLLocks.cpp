@@ -10,7 +10,7 @@
 
 #include <openssl/crypto.h>
 
-static QMutex **locks = NULL;
+static QMutex **locks = nullptr;
 
 void locking_callback(int mode, int type, const char *, int) {
 	if (mode & CRYPTO_LOCK) {
@@ -50,7 +50,7 @@ void SSLLocks::initialize() {
 	int nlocks = CRYPTO_num_locks();
 
 	locks = reinterpret_cast<QMutex **>(calloc(nlocks, sizeof(QMutex *)));
-	if (locks == NULL) {
+	if (!locks) {
 		qFatal("SSLLocks: unable to allocate locks array");
 
 		// This initializer is called early during program
@@ -71,12 +71,12 @@ void SSLLocks::initialize() {
 void SSLLocks::destroy() {
 	// If SSLLocks was never initialized, or has been destroyed already,
 	// don't try to do it again.
-	if (locks == NULL) {
+	if (!locks) {
 		return;
 	}
 
-	CRYPTO_set_locking_callback(NULL);
-	CRYPTO_set_id_callback(NULL);
+	CRYPTO_set_locking_callback(nullptr);
+	CRYPTO_set_id_callback(nullptr);
 
 	int nlocks = CRYPTO_num_locks();
 	for (int i = 0; i < nlocks; i++) {
@@ -84,5 +84,5 @@ void SSLLocks::destroy() {
 	}
 
 	free(locks);
-	locks = NULL;
+	locks = nullptr;
 }

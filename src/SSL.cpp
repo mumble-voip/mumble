@@ -33,7 +33,7 @@ void MumbleSSL::initialize() {
 	// If we detect that no locking callback is configured, we
 	// have to set it up ourselves to allow multi-threaded use
 	// of OpenSSL.
-	if (CRYPTO_get_locking_callback() == NULL) {
+	if (!CRYPTO_get_locking_callback()) {
 		SSLLocks::initialize();
 	}
 }
@@ -49,23 +49,23 @@ QString MumbleSSL::defaultOpenSSLCipherString() {
 QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString) {
 	QList<QSslCipher> chosenCiphers;
 
-	SSL_CTX *ctx = NULL;
-	SSL *ssl = NULL;
-	const SSL_METHOD *meth = NULL;
+	SSL_CTX *ctx = nullptr;
+	SSL *ssl = nullptr;
+	const SSL_METHOD *meth = nullptr;
 	int i = 0;
 
 	QByteArray csbuf = cipherString.toLatin1();
 	const char *ciphers = csbuf.constData();
 
 	meth = SSLv23_server_method();
-	if (meth == NULL) {
+	if (!meth) {
 		qWarning("MumbleSSL: unable to get SSL method");
 		goto out;
 	}
 
 	// We use const_cast to be compatible with OpenSSL 0.9.8.
 	ctx = SSL_CTX_new(const_cast<SSL_METHOD *>(meth));
-	if (ctx == NULL) {
+	if (!ctx) {
 		qWarning("MumbleSSL: unable to allocate SSL_CTX");
 		goto out;
 	}
@@ -76,14 +76,14 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 	}
 
 	ssl = SSL_new(ctx);
-	if (ssl == NULL) {
+	if (!ssl) {
 		qWarning("MumbleSSL: unable to create SSL object in ciphersFromOpenSSLCipherString");
 		goto out;
 	}
 
 	while (1) {
 		const char *name = SSL_get_cipher_list(ssl, i);
-		if (name == NULL) {
+		if (!name) {
 			break;
 		}
 #if QT_VERSION >= 0x050300

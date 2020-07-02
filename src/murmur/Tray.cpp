@@ -38,7 +38,7 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 
 	// Can't construct a QMenu which decends from QObject, and qsti is a QObject.
 	// Qt bug?
-	qm = new QMenu(tr("Murmur"), NULL);
+	qm = new QMenu(tr("Murmur"), nullptr);
 	qm->addAction(qaShowLog);
 	qm->addSeparator();
 	qm->addAction(qaAbout);
@@ -59,13 +59,13 @@ void Tray::on_Tray_activated(QSystemTrayIcon::ActivationReason r) {
 }
 
 void Tray::on_Quit_triggered() {
-	if (QMessageBox::question(NULL, tr("Murmur"), tr("Are you sure you want to quit Murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+	if (QMessageBox::question(nullptr, tr("Murmur"), tr("Are you sure you want to quit Murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
 		qApp->quit();
 	}
 }
 
 void Tray::on_About_triggered() {
-	AboutDialog ad(NULL);
+	AboutDialog ad(nullptr);
 	ad.exec();
 }
 

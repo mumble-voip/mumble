@@ -49,7 +49,7 @@ class PosixLock {
 };
 
 PosixLock::PosixLock() {
-	pthread_mutex_init(&m, NULL);
+	pthread_mutex_init(&m, nullptr);
 }
 
 void PosixLock::lock() {

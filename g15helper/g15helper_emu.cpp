@@ -106,12 +106,12 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	if (lpCmdLine && (strcmp(lpCmdLine, "/detect") == 0)) {
 		return 0;
 	} else if (! lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
-		MessageBox(NULL, L"This program is run by Mumble, and should not be started separately.", L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
+		MessageBox(nullptr, L"This program is run by Mumble, and should not be started separately.", L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
 		return 0;
 	}
 
 	char *argvec[1];
-	argvec[0] = NULL;
+	argvec[0] = nullptr;
 
 	int argc = 0;
 	char **argv = &argvec[0];

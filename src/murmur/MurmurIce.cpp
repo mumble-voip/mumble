@@ -34,7 +34,7 @@
 using namespace std;
 using namespace Murmur;
 
-static MurmurIce *mi = NULL;
+static MurmurIce *mi = nullptr;
 static Ice::ObjectPtr iopServer;
 static Ice::PropertiesPtr ippProperties;
 
@@ -48,7 +48,7 @@ void IceStart() {
 
 void IceStop() {
 	delete mi;
-	mi = NULL;
+	mi = nullptr;
 }
 
 /// Remove all NUL bytes from |s|.
@@ -294,10 +294,10 @@ MurmurIce::~MurmurIce() {
 		communicator->shutdown();
 		communicator->waitForShutdown();
 		communicator->destroy();
-		communicator=NULL;
+		communicator=nullptr;
 		qWarning("MurmurIce: Shutdown complete");
 	}
-	iopServer = NULL;
+	iopServer = nullptr;
 }
 
 void MurmurIce::customEvent(QEvent *evt) {
@@ -707,7 +707,7 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, int sessionId, const 
 			qsl << u8(str);
 		}
 		if (! qsl.isEmpty())
-			server->setTempGroups(res, sessionId, NULL, qsl);
+			server->setTempGroups(res, sessionId, nullptr, qsl);
 	}
 }
 
@@ -866,7 +866,7 @@ void ServerI::ice_ping(const Ice::Current &current) const {
 #define ACCESS_Server_isRunning_READ
 static void impl_Server_isRunning(const ::Murmur::AMD_Server_isRunningPtr cb, int server_id) {
 	NEED_SERVER_EXISTS;
-	cb->ice_response(server != NULL);
+	cb->ice_response(server != nullptr);
 }
 
 static void impl_Server_start(const ::Murmur::AMD_Server_startPtr cb, int server_id) {
@@ -1139,7 +1139,7 @@ static void impl_Server_sendMessage(const ::Murmur::AMD_Server_sendMessagePtr cb
 	NEED_SERVER;
 	NEED_PLAYER;
 
-	server->sendTextMessage(NULL, user, false, u8(text));
+	server->sendTextMessage(nullptr, user, false, u8(text));
 	cb->ice_response();
 }
 
@@ -1250,7 +1250,7 @@ static void impl_Server_sendMessageChannel(const ::Murmur::AMD_Server_sendMessag
 	NEED_SERVER;
 	NEED_CHANNEL;
 
-	server->sendTextMessage(channel, NULL, tree, u8(text));
+	server->sendTextMessage(channel, nullptr, tree, u8(text));
 	cb->ice_response();
 }
 
@@ -1268,7 +1268,7 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 	int channelid = state.id;
 	NEED_SERVER;
 	NEED_CHANNEL;
-	::Channel *np = NULL;
+	::Channel *np = nullptr;
 	if (channel->iId != 0) {
 		NEED_CHANNEL_VAR(np, state.parent);
 	}
@@ -1347,7 +1347,7 @@ static void impl_Server_getACL(const ::Murmur::AMD_Server_getACLPtr cb, int serv
 		if ((p == channel) || (p->bInheritACL))
 			p = p->cParent;
 		else
-			p = NULL;
+			p = nullptr;
 	}
 
 	bool inherit = channel->bInheritACL;
@@ -1369,7 +1369,7 @@ static void impl_Server_getACL(const ::Murmur::AMD_Server_getACLPtr cb, int serv
 	const QSet<QString> allnames = ::Group::groupNames(channel);
 	foreach(const QString &name, allnames) {
 		::Group *g = channel->qhGroups.value(name);
-		::Group *pg = p ? ::Group::getGroup(p, name) : NULL;
+		::Group *pg = p ? ::Group::getGroup(p, name) : nullptr;
 		if (!g && ! pg)
 			continue;
 		::Murmur::Group mg;
@@ -1789,7 +1789,7 @@ static void impl_Meta_getSliceChecksums(const ::Murmur::AMD_Meta_getSliceChecksu
 static void impl_Meta_getServer(const ::Murmur::AMD_Meta_getServerPtr cb, const Ice::ObjectAdapterPtr adapter, ::Ice::Int id) {
 	QList<int> server_list = ServerDB::getAllServers();
 	if (! server_list.contains(id))
-		cb->ice_response(NULL);
+		cb->ice_response(nullptr);
 	else
 		cb->ice_response(idToProxy(id, adapter));
 }

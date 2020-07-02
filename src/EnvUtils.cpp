@@ -36,7 +36,7 @@ QString EnvUtils::getenv(QString name) {
 #else
 	QByteArray name8bit = name.toLocal8Bit();
 	char *val = ::getenv(name8bit.constData());
-	if (val == NULL) {
+	if (!val) {
 		return QString();
 	}
 	return QString::fromLocal8Bit(val);

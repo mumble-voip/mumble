@@ -40,20 +40,20 @@ struct LinkedMem {
 	wchar_t description[2048];
 };
 
-LinkedMem *lm = NULL;
+LinkedMem *lm = nullptr;
 
 
 void initMumble() {
 
 #ifdef WIN32
 	HANDLE hMapObject = OpenFileMappingW(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
-	if (hMapObject == NULL)
+	if (!hMapObject)
 		return;
 
 	lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(LinkedMem));
-	if (lm == NULL) {
+	if (!lm) {
 		CloseHandle(hMapObject);
-		hMapObject = NULL;
+		hMapObject = nullptr;
 		return;
 	}
 #else
@@ -66,10 +66,10 @@ void initMumble() {
 		return;
 	}
 
-	lm = (LinkedMem *)(mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
+	lm = (LinkedMem *)(mmap(nullptr, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
 
 	if (lm == (void *)(-1)) {
-		lm = NULL;
+		lm = nullptr;
 		return;
 	}
 #endif
@@ -133,7 +133,7 @@ int main(int argc, char **argv) {
 	QCoreApplication a(argc, argv);
 
 	initMumble();
-	if (lm == NULL)
+	if (!lm)
 		qFatal("No Link!");
 
 	lm->fAvatarPosition[0];

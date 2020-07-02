@@ -28,20 +28,20 @@ bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	QByteArray qbaKey = key.toDer();
 	QByteArray qbaCert = cert.toDer();
 
-	X509 *x509 = NULL;
-	EVP_PKEY *pkey = NULL;
-	BIO *mem = NULL;
+	X509 *x509 = nullptr;
+	EVP_PKEY *pkey = nullptr;
+	BIO *mem = nullptr;
 
 	mem = BIO_new_mem_buf(qbaKey.data(), qbaKey.size());
 	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
-	pkey = d2i_PrivateKey_bio(mem, NULL);
+	pkey = d2i_PrivateKey_bio(mem, nullptr);
 	BIO_free(mem);
 
 	mem = BIO_new_mem_buf(qbaCert.data(), qbaCert.size());
 	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
-	x509 = d2i_X509_bio(mem, NULL);
+	x509 = d2i_X509_bio(mem, nullptr);
 	BIO_free(mem);
-	mem = NULL;
+	mem = nullptr;
 
 	if (x509 && pkey && X509_check_private_key(x509, pkey)) {
 		EVP_PKEY_free(pkey);

@@ -153,7 +153,7 @@ void TestCrypt::testvectors() {
 	cs.setKey(rawkey_str, rawkey_str, rawkey_str);
 
 	unsigned char tag[16];
-	QVERIFY(cs.ocb_encrypt(NULL, NULL, 0, rawkey, tag));
+	QVERIFY(cs.ocb_encrypt(nullptr, nullptr, 0, rawkey, tag));
 
 	const unsigned char blanktag[AES_BLOCK_SIZE] = {0xBF,0x31,0x08,0x13,0x07,0x73,0xAD,0x5E,0xC7,0x0E,0xC6,0x9E,0x78,0x75,0xA7,0xB0};
 	for (int i=0;i<AES_BLOCK_SIZE;i++)

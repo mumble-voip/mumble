@@ -85,7 +85,7 @@ bool SslServer::hasDualStackSupport() {
 		return false;
 	}
 
-	SOCKET s = ::WSASocket(AF_INET6, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
+	SOCKET s = ::WSASocket(AF_INET6, SOCK_STREAM, IPPROTO_TCP, nullptr, 0, WSA_FLAG_OVERLAPPED);
 	if (s != INVALID_SOCKET) {
 		const int ipv6only = 0;
 		if (setsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<const char*>(&ipv6only), sizeof(ipv6only)) == 0) {
@@ -106,7 +106,7 @@ void SslServer::incomingConnection(qintptr v) {
 
 QSslSocket *SslServer::nextPendingSSLConnection() {
 	if (qlSockets.isEmpty())
-		return NULL;
+		return nullptr;
 	return qlSockets.takeFirst();
 }
 
@@ -114,14 +114,14 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	bValid = true;
 	iServerNum = snum;
 #ifdef USE_BONJOUR
-	bsRegistration = NULL;
+	bsRegistration = nullptr;
 #endif
 	bUsingMetaCert = false;
 
 #ifdef Q_OS_UNIX
 	aiNotify[0] = aiNotify[1] = -1;
 #else
-	hNotify = NULL;
+	hNotify = nullptr;
 #endif
 	qtTimeout = new QTimer(this);
 
@@ -129,7 +129,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	bPreferAlpha = false;
 	bOpus = true;
 
-	qnamNetwork = NULL;
+	qnamNetwork = nullptr;
 
 	readParams();
 	initialize();
@@ -176,10 +176,10 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 #ifndef SIO_UDP_CONNRESET
 #define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR,12)
 #endif
-		SOCKET sock = ::WSASocket(addr.ss_family, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
+		SOCKET sock = ::WSASocket(addr.ss_family, SOCK_DGRAM, IPPROTO_UDP, nullptr, 0, WSA_FLAG_OVERLAPPED);
 		DWORD dwBytesReturned = 0;
 		BOOL bNewBehaviour = FALSE;
-		if (WSAIoctl(sock, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
+		if (WSAIoctl(sock, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), nullptr, 0, &dwBytesReturned, nullptr, nullptr) == SOCKET_ERROR) {
 			log(QString("Failed to set SIO_UDP_CONNRESET: %1").arg(WSAGetLastError()));
 		}
 #endif
@@ -241,7 +241,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		return;
 	}
 #else
-	hNotify = CreateEvent(NULL, FALSE, FALSE, NULL);
+	hNotify = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 #endif
 
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
@@ -642,7 +642,7 @@ void Server::initBonjour() {
 
 void Server::removeBonjour() {
 	delete bsRegistration;
-	bsRegistration = NULL;
+	bsRegistration = nullptr;
 	log("Stopped announcing server via bonjour");
 }
 #endif
@@ -738,7 +738,7 @@ void Server::run() {
 	STACKVAR(HANDLE, events, nfds+1);
 	for (int i=0;i<nfds;++i) {
 		fds[i] = qlUdpSocket.at(i);
-		events[i] = CreateEvent(NULL, FALSE, FALSE, NULL);
+		events[i] = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 		::WSAEventSelect(fds[i], events[i], FD_READ);
 	}
 	events[nfds] = hNotify;
@@ -875,8 +875,8 @@ void Server::run() {
 							}
 							qrwlVoiceThread.unlock();
 							rl.relock();
-							if (u != NULL && !qhUsers.contains(uiSession))
-								u = NULL;
+							if (u && !qhUsers.contains(uiSession))
+								u = nullptr;
 							break;
 						}
 					}
@@ -916,7 +916,7 @@ void Server::run() {
 	}
 #ifdef Q_OS_WIN
 	for (int i=0;i<nfds-1;++i) {
-		::WSAEventSelect(fds[i], NULL, 0);
+		::WSAEventSelect(fds[i], nullptr, 0);
 		CloseHandle(events[i]);
 	}
 #endif
@@ -1512,7 +1512,7 @@ void Server::sslError(const QList<QSslError> &errors) {
 		// Because abort() tears down a lot of internal state
 		// of the QSslSocket, inlcuding the 'SSL *' object
 		// associated with the socket, this is fatal and leads
-		// to crashes, such as attempting to derefernce a NULL
+		// to crashes, such as attempting to derefernce a nullptr
 		// 'SSL *' object.
 		//
 		// To avoid this, we use a non-forceful disconnect
@@ -1609,7 +1609,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 }
 
 void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *u) {
-	if (u == NULL) {
+	if (!u) {
 		u = static_cast<ServerUser *>(sender());
 	}
 
@@ -1726,7 +1726,7 @@ void Server::sendProtoMessage(ServerUser *u, const ::google::protobuf::Message &
 }
 
 void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int version) {
-	sendProtoExcept(NULL, msg, msgType, version);
+	sendProtoExcept(nullptr, msg, msgType, version);
 }
 
 void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int version) {
@@ -1747,12 +1747,12 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	Channel *c;
 	User *p;
 
-	if (dest == NULL)
+	if (!dest)
 		dest = chan->cParent;
 
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
-		chan->unlink(NULL);
+		chan->unlink(nullptr);
 	}
 
 	foreach(c, chan->qlChannels) {
@@ -1855,7 +1855,7 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 		QWriteLocker wl(&qrwlVoiceThread);
 		c->addUser(p);
 
-		bool mayspeak = ChanACL::hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak, NULL);
+		bool mayspeak = ChanACL::hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak, nullptr);
 		bool sup = p->bSuppress;
 
 		if (mayspeak == sup) {
@@ -2076,7 +2076,7 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 			iCodecBeta = version;
 	} else if (bOpus == enableOpus) {
 		if (bOpus && connectingUser && !connectingUser->bOpus) {
-			sendTextMessage(NULL, connectingUser, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is using, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
+			sendTextMessage(nullptr, connectingUser, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is using, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
 		}
 		return;
 	}
@@ -2096,7 +2096,7 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 			// Only authenticated users and the currently connecting user (if recheck is called in that context) have a reliable u->bOpus.
 			if((u->sState == ServerUser::Authenticated || u == connectingUser)
 			   && !u->bOpus) {
-				sendTextMessage(NULL, u, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is switching to, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
+				sendTextMessage(nullptr, u, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is switching to, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
 			}
 		}
 	}

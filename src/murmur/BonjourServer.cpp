@@ -8,13 +8,13 @@
 #include "BonjourServiceRegister.h"
 
 BonjourServer::BonjourServer() {
-	bsrRegister = NULL;
+	bsrRegister = nullptr;
 #ifdef Q_OS_WIN
 	static bool bDelayLoadFailed = false;
 	if (bDelayLoadFailed) return;
 
 	HMODULE hLib = LoadLibrary(L"DNSSD.DLL");
-	if (hLib == NULL) {
+	if (!hLib) {
 		bDelayLoadFailed = true;
 		qWarning("Bonjour: Failed to load dnssd.dll");
 		return;

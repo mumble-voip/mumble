@@ -12,10 +12,10 @@
 static int add_ext(X509 * crt, int nid, char *value) {
 	X509V3_CTX ctx;
 	X509V3_set_ctx_nodb(&ctx);
-	X509V3_set_ctx(&ctx, crt, crt, NULL, NULL, 0);
+	X509V3_set_ctx(&ctx, crt, crt, nullptr, nullptr, 0);
 
-	X509_EXTENSION *ex = X509V3_EXT_conf_nid(NULL, &ctx, nid, value);
-	if (ex == NULL) {
+	X509_EXTENSION *ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, value);
+	if (!ex) {
 		return 0;
 	}
 
@@ -30,14 +30,14 @@ static int add_ext(X509 * crt, int nid, char *value) {
 
 bool SelfSignedCertificate::generate(CertificateType certificateType, QString clientCertName, QString clientCertEmail, QSslCertificate &qscCert, QSslKey &qskKey) {
 	bool ok = true;
-	X509 *x509 = NULL;
-	EVP_PKEY *pkey = NULL;
-	RSA *rsa = NULL;
-	BIGNUM *e = NULL;
-	X509_NAME *name = NULL;
-	ASN1_INTEGER *serialNumber = NULL;
-	ASN1_TIME *notBefore = NULL;
-	ASN1_TIME *notAfter = NULL;
+	X509 *x509 = nullptr;
+	EVP_PKEY *pkey = nullptr;
+	RSA *rsa = nullptr;
+	BIGNUM *e = nullptr;
+	X509_NAME *name = nullptr;
+	ASN1_INTEGER *serialNumber = nullptr;
+	ASN1_TIME *notBefore = nullptr;
+	ASN1_TIME *notAfter = nullptr;
 	QString commonName;
 	bool isServerCert = certificateType == CertificateTypeServerCertificate;
 
@@ -47,25 +47,25 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 	}
 
 	x509 = X509_new();
-	if (x509 == NULL) {
+	if (!x509) {
 		ok = false;
 		goto out;
 	}
 
 	pkey = EVP_PKEY_new();
-	if (pkey == NULL) {
+	if (!pkey) {
 		ok = false;
 		goto out;
 	}
 
 	rsa = RSA_new();
-	if (rsa == NULL) {
+	if (!rsa) {
 		ok = false;
 		goto out;
 	}
 
 	e = BN_new();
-	if (e == NULL) {
+	if (!e) {
 		ok = false;
 		goto out;
 	}
@@ -74,7 +74,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		goto out;
 	}
 
-	if (RSA_generate_key_ex(rsa, 2048, e, NULL) == 0) {
+	if (RSA_generate_key_ex(rsa, 2048, e, nullptr) == 0) {
 		ok = false;
 		goto out;
 	}
@@ -90,7 +90,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 	}
 
 	serialNumber = X509_get_serialNumber(x509);
-	if (serialNumber == NULL) {
+	if (!serialNumber) {
 		ok = false;
 		goto out;
 	}
@@ -100,21 +100,21 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 	}
 
 	notBefore = X509_get_notBefore(x509);
-	if (notBefore == NULL) {
+	if (!notBefore) {
 		ok = false;
 		goto out;
 	}
-	if (X509_gmtime_adj(notBefore, 0) == NULL) {
+	if (!X509_gmtime_adj(notBefore, 0)) {
 		ok = false;
 		goto out;
 	}
 
 	notAfter = X509_get_notAfter(x509);
-	if (notAfter == NULL) {
+	if (!notAfter) {
 		ok = false;
 		goto out;
 	}
-	if (X509_gmtime_adj(notAfter, 60*60*24*365*20) == NULL) {
+	if (!X509_gmtime_adj(notAfter, 60*60*24*365*20)) {
 		ok = false;
 		goto out;
 	}
@@ -125,7 +125,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 	}
 
 	name = X509_get_subject_name(x509);
-	if (name == NULL) {
+	if (!name) {
 		ok = false;
 		goto out;
 	}
@@ -200,7 +200,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 
 	{
 		QByteArray crt;
-		int len = i2d_X509(x509, NULL);
+		int len = i2d_X509(x509, nullptr);
 		if (len <= 0) {
 			ok = false;
 			goto out;
@@ -222,7 +222,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 
 	{
 		QByteArray key;
-		int len = i2d_PrivateKey(pkey, NULL);
+		int len = i2d_PrivateKey(pkey, nullptr);
 		if (len <= 0) {
 			ok = false;
 			goto out;

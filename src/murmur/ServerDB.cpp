@@ -62,7 +62,7 @@ class TransactionHolder {
 		}
 };
 
-QSqlDatabase *ServerDB::db = NULL;
+QSqlDatabase *ServerDB::db = nullptr;
 Timer ServerDB::tLogClean;
 QString ServerDB::qsUpgradeSuffix;
 
@@ -692,7 +692,7 @@ ServerDB::ServerDB() {
 ServerDB::~ServerDB() {
 	db->close();
 	delete db;
-	db = NULL;
+	db = nullptr;
 }
 
 bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool warn) {
@@ -1483,7 +1483,7 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 }
 
 void ServerDB::disableSU(int srvnum) {
-        writeSUPW(srvnum, QString(), QString(), QVariant()); // NULL, NULL, NULL
+        writeSUPW(srvnum, QString(), QString(), QVariant()); // nullptr, nullptr, nullptr
 }
 
 QString ServerDB::getLegacySHA1Hash(const QString &password) {
@@ -2003,7 +2003,7 @@ void Server::dumpChannel(const Channel *c) {
 	ChanACL *acl;
 	int pid;
 
-	if (c == NULL) {
+	if (!c) {
 		c = qhChannels.value(0);
 	}
 

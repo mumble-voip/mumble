@@ -20,7 +20,7 @@ class ServerResolver : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(ServerResolver)
 	public:
-		ServerResolver(QObject *parent = NULL);
+		ServerResolver(QObject *parent = nullptr);
 
 		QString hostname();
 		quint16 port();

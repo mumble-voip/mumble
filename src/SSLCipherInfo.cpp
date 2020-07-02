@@ -18,5 +18,5 @@ const SSLCipherInfo *SSLCipherInfoLookupByOpenSSLName(const char *openSslCipherN
 			return ci;
 		}
 	}
-	return NULL;
+	return nullptr;
 }

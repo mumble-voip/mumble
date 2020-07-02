@@ -43,7 +43,7 @@
 # include <sys/syslog.h>
 #endif
 
-QFile *qfLog = NULL;
+QFile *qfLog = nullptr;
 
 static bool bVerbose = false;
 #ifdef QT_NO_DEBUG
@@ -53,10 +53,10 @@ static bool detach = false;
 #endif
 
 #ifdef Q_OS_UNIX
-static UnixMurmur *unixMurmur = NULL;
+static UnixMurmur *unixMurmur = nullptr;
 #endif
 
-Meta *meta = NULL;
+Meta *meta = nullptr;
 
 static LogEmitter le;
 
@@ -145,7 +145,7 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 			fprintf(stderr, "%s", qPrintable(m));
 		}
 #else
-		::MessageBoxA(NULL, qPrintable(m), "Murmur", MB_OK | MB_ICONWARNING);
+		::MessageBoxA(nullptr, qPrintable(m), "Murmur", MB_OK | MB_ICONWARNING);
 #endif
 		exit(1);
 	}
@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
 
 #define MMXSSE 0x02800000
 	if ((cpuinfo[3] & MMXSSE) != MMXSSE) {
-		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
+		::MessageBoxA(nullptr, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
 
@@ -252,7 +252,7 @@ int main(int argc, char **argv) {
 	qInstallMessageHandler(murmurMessageOutputWithContext);
 
 #ifdef Q_OS_WIN
-	Tray tray(NULL, &le);
+	Tray tray(nullptr, &le);
 #endif
 
 	QStringList args = a.arguments();
@@ -311,7 +311,7 @@ int main(int argc, char **argv) {
 			return 0;
 		} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
 #ifdef Q_OS_WIN
-			AboutDialog ad(NULL, AboutDialogOptionsShowLicense);
+			AboutDialog ad(nullptr, AboutDialogOptionsShowLicense);
 			ad.exec();
 			return 0;
 #else
@@ -320,7 +320,7 @@ int main(int argc, char **argv) {
 #endif
 		} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
 #ifdef Q_OS_WIN
-			AboutDialog ad(NULL, AboutDialogOptionsShowAuthors);
+			AboutDialog ad(nullptr, AboutDialogOptionsShowAuthors);
 			ad.exec();
 			return 0;
 #else
@@ -329,7 +329,7 @@ int main(int argc, char **argv) {
 #endif
 		} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
 #ifdef Q_OS_WIN
-			AboutDialog ad(NULL, AboutDialogOptionsShowThirdPartyLicenses);
+			AboutDialog ad(nullptr, AboutDialogOptionsShowThirdPartyLicenses);
 			ad.exec();
 			return 0;
 #else
@@ -422,7 +422,7 @@ int main(int argc, char **argv) {
 		qfLog = new QFile(Meta::mp.qsLogfile);
 		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete qfLog;
-			qfLog = NULL;
+			qfLog = nullptr;
 #ifdef Q_OS_UNIX
 			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n", qPrintable(Meta::mp.qsLogfile));
 #else
@@ -463,7 +463,7 @@ int main(int argc, char **argv) {
 		char *p;
 
 		printf("Password: ");
-		fflush(NULL);
+		fflush(nullptr);
 		if (fgets(password, 255, stdin) != password)
 			qFatal("No password provided");
 		p = strchr(password, '\r');
@@ -616,7 +616,7 @@ int main(int argc, char **argv) {
 
 #ifdef USE_DBUS
 	delete MurmurDBus::qdbc;
-	MurmurDBus::qdbc = NULL;
+	MurmurDBus::qdbc = nullptr;
 #endif
 
 #ifdef USE_ICE
@@ -628,11 +628,11 @@ int main(int argc, char **argv) {
 #endif
 
 	delete qfLog;
-	qfLog = NULL;
+	qfLog = nullptr;
 
 	delete meta;
 
-	qInstallMessageHandler(NULL);
+	qInstallMessageHandler(nullptr);
 
 #ifdef Q_OS_UNIX
 	if (! Meta::mp.qsPid.isEmpty()) {

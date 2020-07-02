@@ -21,7 +21,7 @@
 #endif
 
 #ifdef Q_OS_WIN
-HANDLE Connection::hQoS = NULL;
+HANDLE Connection::hQoS = nullptr;
 #endif
 
 Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
@@ -68,7 +68,7 @@ void Connection::setToS() {
 		return;
 
 	dwFlow = 0;
-	if (! QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), NULL, QOSTrafficTypeAudioVideo, QOS_NON_ADAPTIVE_FLOW, reinterpret_cast<PQOS_FLOWID>(&dwFlow)))
+	if (! QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), nullptr, QOSTrafficTypeAudioVideo, QOS_NON_ADAPTIVE_FLOW, reinterpret_cast<PQOS_FLOWID>(&dwFlow)))
 		qWarning("Connection: Failed to add flow to QOS");
 #elif defined(Q_OS_UNIX)
 	int val = 0xa0;
