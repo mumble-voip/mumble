@@ -14,7 +14,7 @@ string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]" version_short ${version})
 
 project(Mumble
 	VERSION ${version_short}
-	DESCRIPTION "Open source, low-latency, high quality voice chat software primarily intended for use while gaming."
+	DESCRIPTION "Open source, low-latency, high quality voice chat."
 	HOMEPAGE_URL "https://www.mumble.info"
 	LANGUAGES "C" "CXX"
 )
