@@ -106,6 +106,9 @@ void OverlayEditorScene::updateUserName() {
 		case Settings::Talking:
 			qsName = Overlay::tr("Talking");
 			break;
+		case Settings::MutedTalking:
+			qsName = QObject::tr("Talking (muted)");
+			break;
 		case Settings::Whispering:
 			qsName = Overlay::tr("Whisper");
 			break;

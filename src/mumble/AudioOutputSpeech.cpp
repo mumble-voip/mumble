@@ -359,7 +359,11 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
 					if (oCodec) {
-						decodedSamples = oCodec->opus_decode_float(opusState,
+						if (qba.isEmpty() || !(p && p->bLocalMute)) {
+							// If qba is empty, we have to let Opus know about the packet loss
+							// Otherwise if the associated user is not locally muted, we want to decode the audio packet
+							// normally in order to be able to play it.
+							decodedSamples = oCodec->opus_decode_float(opusState,
 																   qba.isEmpty() ?
 																	   nullptr :
 																	   reinterpret_cast<const unsigned char *>(qba.constData()),
@@ -367,6 +371,17 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 																   pOut,
 																   iAudioBufferSize,
 																   0);
+						} else {
+							// If the packet is non-empty, but the associated user is locally muted,
+							// we don't have to decode the packet. Instead it is enough to know how many
+							// samples it contained so that we can then mute the appropriate output length
+							decodedSamples = oCodec->opus_packet_get_samples_per_frame(
+								reinterpret_cast<const unsigned char *>(qba.constData()),
+								SAMPLE_RATE);
+						}
+
+						// The returned sample count we get from the Opus functions refer to samples per channel.
+						// Thus in order to get the total amount, we have to multiply by the channel count.
 						decodedSamples *= channels;
 					}
 
@@ -460,6 +475,14 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 			}
 		}
 nextframe:
+		if (p && p->bLocalMute) {
+			// Overwrite the output with zeros as this user is muted
+			// NOTE: If Opus is used, then in this case no samples have actually been decoded and thus
+			// we don't discard previously done work (in form of decoding the audio stream) by overwriting
+			// it with zeros.
+			memset(pOut, 0, decodedSamples * sizeof(float));
+		}
+
 		spx_uint32_t inlen = decodedSamples / channels; // per channel
 		spx_uint32_t outlen = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples / channels * iMixerFreq) / static_cast<float>(iSampleRate)));
 		if (srs && bLastAlive) {
@@ -492,6 +515,11 @@ nextframe:
 				ts = Settings::Whispering;
 				break;
 		}
+
+		if (ts != Settings::Passive && p->bLocalMute) {
+			ts = Settings::MutedTalking;
+		}
+
 		p->setTalking(ts);
 	}
 

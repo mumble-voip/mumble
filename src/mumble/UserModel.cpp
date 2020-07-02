@@ -237,6 +237,7 @@ QString ModelItem::hash() const {
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.svg"));
 	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
+	qiTalkingMuted=QIcon(QLatin1String("skin:talking_muted.svg"));
 	qiTalkingShout=QIcon(QLatin1String("skin:talking_alt.svg"));
 	qiTalkingWhisper=QIcon(QLatin1String("skin:talking_whisper.svg"));
 	qiPrioritySpeaker=QIcon(QLatin1String("skin:priority_speaker.svg"));
@@ -425,6 +426,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 						switch (p->tsState) {
 							case Settings::Talking:
 								return qiTalkingOn;
+							case Settings::MutedTalking:
+								return qiTalkingMuted;
 							case Settings::Whispering:
 								return qiTalkingWhisper;
 							case Settings::Shouting:

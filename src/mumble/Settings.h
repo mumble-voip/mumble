@@ -81,7 +81,7 @@ struct OverlaySettings {
 	qreal fZoom;
 	unsigned int uiColumns;
 
-	QColor qcUserName[4];
+	QColor qcUserName[5];
 	QFont qfUserName;
 
 	QColor qcChannel;
@@ -107,7 +107,7 @@ struct OverlaySettings {
 	qreal fChannel;
 	qreal fMutedDeafened;
 	qreal fAvatar;
-	qreal fUser[4];
+	qreal fUser[5];
 	qreal fFps;
 
 	QRectF qrfUserName;
@@ -148,7 +148,7 @@ struct Settings {
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
-	enum TalkState { Passive, Talking, Whispering, Shouting };
+	enum TalkState { Passive, Talking, Whispering, Shouting, MutedTalking };
 	enum IdleAction { Nothing, Deafen, Mute };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 

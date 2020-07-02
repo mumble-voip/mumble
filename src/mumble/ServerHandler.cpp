@@ -241,7 +241,7 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 	pds >> uiSession;
 	ClientUser *p = ClientUser::get(uiSession);
 	AudioOutputPtr ao = g.ao;
-	if (ao && p && ! p->bLocalMute && !(((msgFlags & 0x1f) == 2) && g.s.bWhisperFriends && p->qsFriendName.isEmpty())) {
+	if (ao && p && !(((msgFlags & 0x1f) == 2) && g.s.bWhisperFriends && p->qsFriendName.isEmpty())) {
 		unsigned int iSeq;
 		pds >> iSeq;
 		QByteArray qba;

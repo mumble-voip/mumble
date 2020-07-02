@@ -44,6 +44,7 @@
     <file alias="talking_alt.svg">Classic/talking_alt.svg</file>
     <file alias="talking_off.svg">Classic/talking_off.svg</file>
     <file alias="talking_on.svg">Classic/talking_on.svg</file>
+    <file alias="talking_muted.svg">Classic/talking_off.svg</file>
     <file alias="talking_whisper.svg">Classic/talking_whisper.svg</file>
     <file alias="theme.ini">Classic/theme.ini</file>
     <file alias="actions/audio-input-microphone-muted.svg">Classic/tango/actions/audio-input-microphone-muted.svg</file>

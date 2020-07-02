@@ -50,6 +50,7 @@
     <file alias="talking_alt.svg">Mumble/talking_alt.svg</file>
     <file alias="talking_off.svg">Mumble/talking_off.svg</file>
     <file alias="talking_on.svg">Mumble/talking_on.svg</file>
+    <file alias="talking_muted.svg">Mumble/talking_muted.svg</file>
     <file alias="talking_whisper.svg">Mumble/talking_whisper.svg</file>
     <file alias="theme.ini">Mumble/theme.ini</file>
     <file alias="actions/audio-input-microphone-muted.svg">Mumble/actions/audio-input-microphone-muted.svg</file>

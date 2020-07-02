@@ -77,6 +77,8 @@ OpusCodec::OpusCodec() {
 	RESOLVE(opus_decoder_destroy);
 
 	RESOLVE(opus_decoder_get_nb_samples);
+
+	RESOLVE(opus_packet_get_samples_per_frame);
 }
 
 OpusCodec::~OpusCodec() {
