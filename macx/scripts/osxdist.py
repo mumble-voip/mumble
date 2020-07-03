@@ -336,7 +336,7 @@ def package_server():
 	os.mkdir(destdir)
 
 	shutil.copy('installer/gpl.txt', os.path.join(destdir, 'LICENSE'))
-	shutil.copy('README.static.osx', os.path.join(destdir, 'README'))
+	shutil.copy('docs/additional-readmes/README.static.osx', os.path.join(destdir, 'README'))
 	shutil.copy('CHANGES', os.path.join(destdir, 'CHANGES'))
 	shutil.copy('scripts/murmur.pl', os.path.join(destdir, 'murmur.pl'))
 	shutil.copy('scripts/weblist.pl', os.path.join(destdir, 'weblist.pl'))
