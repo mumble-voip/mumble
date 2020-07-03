@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>436</height>
+    <width>731</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,16 +72,6 @@
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="1" column="0">
-           <widget class="QLabel" name="qlX">
-            <property name="text">
-             <string>X</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="1">
            <widget class="QLabel" name="qlY">
             <property name="text">
@@ -92,13 +82,10 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="qlZ">
-            <property name="text">
-             <string>Z</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
+          <item row="2" column="2">
+           <widget class="QDoubleSpinBox" name="qdsbZ">
+            <property name="suffix">
+             <string>m</string>
             </property>
            </widget>
           </item>
@@ -112,15 +99,28 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QDoubleSpinBox" name="qdsbY">
-            <property name="suffix">
-             <string>m</string>
+          <item row="1" column="2">
+           <widget class="QLabel" name="qlZ">
+            <property name="text">
+             <string>Z</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QDoubleSpinBox" name="qdsbZ">
+          <item row="1" column="0">
+           <widget class="QLabel" name="qlX">
+            <property name="text">
+             <string>X</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QDoubleSpinBox" name="qdsbY">
             <property name="suffix">
              <string>m</string>
             </property>
@@ -133,6 +133,38 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="qhlVertical">
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Display</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="qlSilentUserDisplaytime">
+            <property name="toolTip">
+             <string>How long silent user's positions should stay marked after they have stopped talking (in seconds).</string>
+            </property>
+            <property name="text">
+             <string>Silent user displaytime:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="qsbSilentUserDisplaytime">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>How long silent user's positions should stay marked after they have stopped talking (in seconds).</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item>
         <widget class="QGroupBox" name="qgbHeading">
          <property name="sizePolicy">

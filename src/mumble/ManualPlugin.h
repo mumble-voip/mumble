@@ -15,10 +15,36 @@
 
 #include "../../plugins/mumble_plugin.h"
 
+#include <atomic>
+#include <chrono>
+
+struct Position2D {
+	float x;
+	float y;
+};
+
+// We need this typedef in order to be able to pass this hash as an argument
+// to QMetaObject::invokeMethod
+using PositionMap = QHash<unsigned int, Position2D>;
+Q_DECLARE_METATYPE(PositionMap);
+
+
+/// A struct holding information about a stale entry in the
+/// manual plugin's position window
+struct StaleEntry {
+	/// The time point since when this entry is considered stale
+	std::chrono::time_point<std::chrono::steady_clock> staleSince;
+	/// The pointer to the stale item
+	QGraphicsItem *staleItem;
+};
+
 class Manual : public QDialog, public Ui::Manual {
 		Q_OBJECT
 	public:
 		Manual(QWidget *parent = 0);
+
+		static void setSpeakerPositions(const QHash<unsigned int, Position2D> &positions);
+
 
 	public slots:
 		void on_qpbUnhinge_pressed();
@@ -34,9 +60,19 @@ class Manual : public QDialog, public Ui::Manual {
 		void on_qleContext_editingFinished();
 		void on_qleIdentity_editingFinished();
 		void on_buttonBox_clicked(QAbstractButton *);
+		void on_qsbSilentUserDisplaytime_valueChanged(int);
+
+		void on_speakerPositionUpdate(PositionMap positions);
+
+		void on_updateStaleSpeakers();
 	protected:
 		QGraphicsScene *qgsScene;
 		QGraphicsItem *qgiPosition;
+
+		std::atomic<bool> updateLoopRunning;
+
+		QHash<unsigned int, QGraphicsItem *> speakerPositions;
+		QHash<unsigned int, StaleEntry> staleSpeakerPositions;
 
 		bool eventFilter(QObject *, QEvent *);
 		void changeEvent(QEvent *e);

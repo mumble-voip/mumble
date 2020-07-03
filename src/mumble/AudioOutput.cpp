@@ -355,6 +355,8 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
+	positions.clear();
+
 	// A list of users that have audio to contribute
 	QList<AudioOutputUser *> qlMix;
 	// A list of users that no longer have any audio to play and can thus be deleted
@@ -562,6 +564,14 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			}
 
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
+				// Add position to position map
+				AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
+				if (speech) {
+					const ClientUser *user = speech->p;
+					// The coordinates in the plane are actually given by x and z instead of x and y (y is up)
+				 	positions.insert(user->uiSession, {aop->fPos[0], aop->fPos[2]});
+				}
+
 				// If positional audio is enabled, calculate the respective audio effect here
 				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1], aop->fPos[2] - g.p->fCameraPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
@@ -641,6 +651,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	// Delete all AudioOutputUsers that no longer provide any new audio
 	foreach(AudioOutputUser *aop, qlDel)
 		removeBuffer(aop);
+
+	Manual::setSpeakerPositions(positions);
 	
 	// Return whether data has been written to the outbuff
 	return (! qlMix.isEmpty());
