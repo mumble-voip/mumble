@@ -22,11 +22,14 @@ class Channel;
 class ClientUser;
 
 /// Smaller auxilary class for holding together two labels representing
-/// the entry for a specific user in the TalkingUI<
+/// the entry for a specific user in the TalkingUI
 struct Entry {
-	QLabel *icon;
+	QLabel *talkingIcon;
 	QLabel *name;
 	QWidget *background;
+	/// A label that'll show a user's status icons. If no icons are displayed,
+	/// this may be null!
+	QLabel *statusIcons;
 	unsigned int userSession;
 	Settings::TalkState talkingState;
 };
@@ -58,6 +61,17 @@ class TalkingUI : public QWidget {
 		QIcon m_shoutingIcon;
 		/// The icon for a whispering user
 		QIcon m_whisperingIcon;
+
+		/// The icon for a muted user
+		QIcon m_muteIcon;
+		/// The icon for a deafened user
+		QIcon m_deafIcon;
+		/// The icon for a locally muted user
+		QIcon m_localMuteIcon;
+		/// The icon for the local user if muted
+		QIcon m_selfMuteIcon;
+		/// The icon for the local user if deafened
+		QIcon m_selfDeafIcon;
 
 		/// The current line height of an entry in the TalkingUI
 		int m_currentLineHeight;
@@ -95,7 +109,12 @@ class TalkingUI : public QWidget {
 		/// Sets the icon for the given entry based on its TalkingState
 		///
 		/// @param entry A reference to the Entry to process
-		void setIcon(Entry &entry) const;
+		void setTalkingIcon(Entry &entry) const;
+
+		/// Updates the user's status icons (reflecting e.g. its mut-state)
+		///
+		/// @param user A pointer to the user that shall be processed
+		void updateStatusIcons(const ClientUser *user);
 
 		/// Set the current selection
 		///
@@ -119,6 +138,7 @@ class TalkingUI : public QWidget {
 		void on_channelChanged(QObject *user);
 		void on_settingsChanged();
 		void on_clientDisconnected(unsigned int userSession);
+		void on_muteDeafStateChanged();
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUI_H_
