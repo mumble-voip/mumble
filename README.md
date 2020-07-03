@@ -29,6 +29,10 @@ Start Menu, from which you can start Mumble.
 On Mac OS X, to install Mumble, drag the application from the downloaded
 disk image into your `/Applications` folder.
 
+On Linux, if you have installed Mumble through your distributon's package
+repostory, you should be able to find Mumble in your start menu. No
+additional steps necessary.
+
 Once Mumble is launched, you need a server to connect to. Either create your
 own or join a friend's.
 
