@@ -1,7 +1,7 @@
 ![Mumble screenshot](screenshots/Mumble.png)
 
-Mumble - A voice chat utility for gamers
-=======================================
+# Mumble - Open Source voice-chat software 
+
 [![https://www.mumble.info](https://img.shields.io/badge/Website-https%3A%2F%2Fwww.mumble.info-blue?style=for-the-badge)](https://www.mumble.info)
 
 [![#mumble:matrix.org](https://img.shields.io/matrix/mumble:matrix.org?label=%23mumble:matrix.org&style=for-the-badge)](https://riot.im/app/#/room/#mumble:matrix.org)
@@ -13,7 +13,8 @@ Mumble - A voice chat utility for gamers
 [![Cirrus CI](https://img.shields.io/cirrus/github/mumble-voip/mumble?label=Cirrus%20CI&style=for-the-badge)](https://cirrus-ci.com/github/mumble-voip/mumble)
 [![Travis CI](https://img.shields.io/travis/com/mumble-voip/mumble?label=Travis%20CI&style=for-the-badge)](https://travis-ci.com/mumble-voip/mumble)
 
-Mumble is a voicechat program for gamers written on top of Qt and Opus.
+Mumble is an Open Source, low-latency and high-quality voice-chat program
+written on top of Qt and Opus.
 
 There are two modules in Mumble; the client (mumble) and the server
 (murmur). The client works on Win32/64, Linux and Mac OS X, while the
