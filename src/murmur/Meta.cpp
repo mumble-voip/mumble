@@ -63,6 +63,7 @@ MetaParams::MetaParams() {
 	iDefaultChan = 0;
 	bRememberChan = true;
 	qsWelcomeText = QString();
+	qsWelcomeTextFile = QString();
 	qsDatabase = QString();
 	iSQLiteWAL = 0;
 	iDBPort = 0;
@@ -298,6 +299,7 @@ void MetaParams::read(QString fname) {
 	iMaxListenersPerChannel = typeCheckedFromSettings("listenersperchannel", iMaxListenersPerChannel);
 	iMaxListenerProxiesPerUser = typeCheckedFromSettings("listenersperuser", iMaxListenerProxiesPerUser);
 	qsWelcomeText = typeCheckedFromSettings("welcometext", qsWelcomeText);
+	qsWelcomeTextFile = typeCheckedFromSettings("welcometextfile", qsWelcomeTextFile);
 	bCertRequired = typeCheckedFromSettings("certrequired", bCertRequired);
 	bForceExternalAuth = typeCheckedFromSettings("forceExternalAuth", bForceExternalAuth);
 
@@ -423,6 +425,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("defaultchannel"),QString::number(iDefaultChan));
 	qmConfig.insert(QLatin1String("rememberchannel"),bRememberChan ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("welcometext"),qsWelcomeText);
+	qmConfig.insert(QLatin1String("welcometextfile"),qsWelcomeTextFile);
 	qmConfig.insert(QLatin1String("registername"),qsRegName);
 	qmConfig.insert(QLatin1String("registerpassword"),qsRegPassword);
 	qmConfig.insert(QLatin1String("registerhostname"),qsRegHost);

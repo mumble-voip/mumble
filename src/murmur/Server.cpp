@@ -395,6 +395,7 @@ void Server::readParams() {
 	iDefaultChan = Meta::mp.iDefaultChan;
 	bRememberChan = Meta::mp.bRememberChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
+	qsWelcomeTextFile = Meta::mp.qsWelcomeTextFile;
 	qlBind = Meta::mp.qlBind;
 	qsRegName = Meta::mp.qsRegName;
 	qsRegPassword = Meta::mp.qsRegPassword;
@@ -460,6 +461,22 @@ void Server::readParams() {
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
 	bRememberChan = getConf("rememberchannel", bRememberChan).toBool();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
+	qsWelcomeTextFile = getConf("welcometextfile", qsWelcomeTextFile).toString();
+
+	if (!qsWelcomeTextFile.isEmpty()) {
+		if (qsWelcomeText.isEmpty()) {
+			QFile f(qsWelcomeTextFile);
+			if (f.open(QFile::ReadOnly | QFile::Text)) {
+				QTextStream in(&f);
+				qsWelcomeText = in.readAll();
+				f.close();
+			} else {
+				log(QString("Failed to open welcome text file %1").arg(qsWelcomeTextFile));
+			}
+		} else {
+			log(QString("Ignoring welcometextfile %1 because welcometext is defined").arg(qsWelcomeTextFile));
+		}
+	}
 
 	qsRegName = getConf("registername", qsRegName).toString();
 	qsRegPassword = getConf("registerpassword", qsRegPassword).toString();
