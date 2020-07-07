@@ -27,7 +27,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
-		echo "deb https://dl.mumble.info/mirror/mirror.mxe.cc/repos/apt xenial main" | sudo tee /etc/apt/sources.list.d/mxe.list
+		echo "deb https://dl.mumble.info/mirror/pkg.mxe.cc/repos/apt xenial main" | sudo tee /etc/apt/sources.list.d/mxe.list
 		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 86B72ED9
 		sudo apt-get -qq update
 		sudo apt-get install \
@@ -46,7 +46,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	elif [ "${MUMBLE_QT}" == "qt5" ] && [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
-		echo "deb https://dl.mumble.info/mirror/mirror.mxe.cc/repos/apt xenial main" | sudo tee /etc/apt/sources.list.d/mxe.list
+		echo "deb https://dl.mumble.info/mirror/pkg.mxe.cc/repos/apt xenial main" | sudo tee /etc/apt/sources.list.d/mxe.list
 		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 86B72ED9
 		sudo apt-get -qq update
 		sudo apt-get install \
