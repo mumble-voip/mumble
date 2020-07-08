@@ -20,6 +20,7 @@
 #include "HostAddress.h"
 #include "ChannelListener.h"
 #include "SpeechFlags.h"
+#include "EnvUtils.h"
 
 #ifdef USE_BONJOUR
 # include "BonjourServer.h"
@@ -1326,6 +1327,17 @@ void Server::newClient() {
 			}
 		}
 
+#ifdef Q_OS_MAC
+		// One unexpected behavior of Qt's SSL backend is: it will add the key pair
+		// it uses in a connection into the default keychain, and when access the private
+		// key afterwards, a pop up will show up asking for user's permission.
+		// In some case (OS X 10.15.5), this pop up will be suppressed somehow and no private
+		// key is returned.
+		// This env variable will avoid Qt directly adding the key pair into the default keychain,
+		// using a temporary keychain instead.
+		// See #4298 and https://codereview.qt-project.org/c/qt/qtbase/+/184243
+		EnvUtils::setenv("QT_SSL_USE_TEMPORARY_KEYCHAIN", "1");
+#endif
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
 
