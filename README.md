@@ -22,22 +22,46 @@ server should work on anything Qt can be installed on.
 
 Note that when we say Win32, we mean Windows XP or newer.
 
-## Running Mumble
+## Windows
 
-On Windows, after installation, you should have a new Mumble folder in your
+### Running Mumble
+
+After installation, you should have a new Mumble folder in your
 Start Menu, from which you can start Mumble.
 
-On Mac OS X, to install Mumble, drag the application from the downloaded
+### Running Murmur
+
+Doubleclick the Murmur icon to start murmur. There will be a small icon on your
+taskbar from which you can view the log.
+
+To set the superuser password, run murmur with the parameters `-supw <password>`.
+
+
+## MacOS
+
+### Running Mumble
+
+To install Mumble, drag the application from the downloaded
 disk image into your `/Applications` folder.
 
-On Linux, if you have installed Mumble through your distributon's package
+### Running Murmur
+
+Murmur is distributed separately from the Mumble client on MacOS.
+It is called Static OS X Server and can be downloaded from the main webpage.
+
+Once downloaded it can be run in the same way as on any other Unix-like system.
+For more information please see the "Running Murmur" in the Linux/Unix section below.
+
+
+## Linux/Unix
+
+### Running Mumble
+
+If you have installed Mumble through your distributon's package
 repostory, you should be able to find Mumble in your start menu. No
 additional steps necessary.
 
-Once Mumble is launched, you need a server to connect to. Either create your
-own or join a friend's.
-
-## Running Murmur on Unix-like systems
+### Running Murmur
 
 Murmur should be run from the command line, so start a shell (command prompt)
 and go to wherever you installed Mumble. Run murmur as
@@ -59,17 +83,32 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 -v      More verbose logging.
 ```
 
-## Running Murmur on Mac OS X
+### OpenGL Overlay
 
-Murmur is distributed separately from the Mumble client on Mac OS X.
-It is called Static OS X Server and can be downloaded from the main webpage.
+The OpenGL overlay works by intercepting the call to switch buffers, and just
+before the buffer switch, we draw our nice GUI.
 
-Once downloaded it can be run in the same way as on any other Unix-like system.
-For more information please see the 'Running Murmur on Unix-like systems' above.
+To load a game with the overlay enabled, start the game like this:
+  LD_PRELOAD=/path/to/libmumble.so.1.1 gamename
 
-## Running Murmur on Win32
+If you have Mumble installed through the binary packages, this can be done by
+simply typing:
+  mumble-overlay gamename
 
-Doubleclick the Murmur icon to start murmur. There will be a small icon on your
-taskbar from which you can view the log.
+### Global Keyboard Events
 
-To set the superuser password, run murmur with the parameters `-supw <password>`.
+On Linux, Mumble supports reading the kernel input devices. To use this,
+make sure mumble can open `/dev/input/event*` for reading. To test it out,
+that should only require:
+
+```
+  sudo chmod a+r /dev/input/event*
+```
+
+However, be aware that this will most likely only last until the next reboot
+(at which point devfs is recreated) and you also allow any program run by any
+user to monitor the physical keyboard.
+
+Without this, Mumble will continuously poll the mouse and keyboard state for
+changes, which will use a tiny bit of processing power.
+
