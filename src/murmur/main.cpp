@@ -457,6 +457,8 @@ int main(int argc, char **argv) {
 
 	meta = new Meta();
 
+	QObject::connect(meta, SIGNAL(started(Server *)), &db, SLOT(clearLastDisconnect(Server *)));
+
 #ifdef Q_OS_UNIX
 	if (readPw) {
 		char password[256];
