@@ -6,4 +6,15 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 brew update
-brew install pkg-config qt5 boost libogg libvorbis flac libsndfile protobuf openssl ice
+
+# As brew will set a non-zero exit status if one of the packages it is asked to install
+# is installed already. Thus we have to iterate through every single one and check if it
+# is installed first.
+for pkg in pkg-config qt5 boost libogg libvorbis flac libsndfile protobuf openssl ice; do
+	if brew ls --versions "$pkg" > /dev/null; then
+		echo "Skipping installation of $pkg as it is already installed"
+	else
+		brew install "$pkg"
+	fi
+done
+
