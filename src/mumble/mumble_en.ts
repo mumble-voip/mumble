@@ -6161,6 +6161,18 @@ Valid options are:
         <source>Activate</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
