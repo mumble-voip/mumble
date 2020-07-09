@@ -10,7 +10,7 @@ include(../qmake/compiler.pri)
 TEMPLATE = lib
 CONFIG -= qt gui
 CONFIG *= debug_and_release
-VERSION = 1.3.1
+VERSION = 1.3.2
 SOURCES = overlay.c
 
 CONFIG(static) {
