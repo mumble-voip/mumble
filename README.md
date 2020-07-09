@@ -22,6 +22,9 @@ server should work on anything Qt can be installed on.
 
 Note that when we say Win32, we mean Windows XP or newer.
 
+The documentation of the project can be found on the [wiki](https://wiki.mumble.info/wiki/Main_Page). The
+[FAQ](https://wiki.mumble.info/wiki/FAQ/English) can also be found there.
+
 ## Windows
 
 ### Running Mumble
