@@ -415,6 +415,7 @@ Settings::Settings() {
 	bQoS = true;
 	bReconnect = true;
 	bAutoConnect = false;
+	bDisablePublicList = false;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 	iMaxInFlightTCPPings = 4;
@@ -440,7 +441,6 @@ Settings::Settings() {
 
 	// Special configuration options not exposed to UI
 	bDisableCELT = false;
-	disablePublicList = false;
 	disableConnectDialogEditing = false;
 	bPingServersDialogViewed = false;
 
@@ -828,6 +828,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bLog24HourClock, "ui/24HourClock");
 	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
+	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
 
 	// TalkingUI
 	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
@@ -855,7 +856,6 @@ void Settings::load(QSettings* settings_ptr) {
 
 	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
-	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 	SAVELOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
 
@@ -1180,6 +1180,7 @@ void Settings::save() {
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bLog24HourClock, "ui/24HourClock");
 	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
+	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
 
 	// TalkingUI
 	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
@@ -1207,7 +1208,6 @@ void Settings::save() {
 
 	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
-	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 	SAVELOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
 

@@ -110,7 +110,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN = nullptr;
 #endif
 
-	if (!g.s.disablePublicList) {
+	if (!g.s.bDisablePublicList) {
 		siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
 		siPublic->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 		addTopLevelItem(siPublic);
@@ -936,7 +936,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qtwServers->setItemDelegate(new ServerViewDelegate());
 
-	if (!g.s.disablePublicList) {
+	if (!g.s.bDisablePublicList) {
 		const QIcon qiFlag = ServerItem::loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 		// Add continents and 'Unknown' to the location combobox
 		qcbSearchLocation->addItem(qiFlag, tr("All"),           QLatin1String("all"));
@@ -1279,7 +1279,7 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 			                                   QMessageBox::Yes|QMessageBox::No);
 			g.s.bPingServersDialogViewed = true;
 			if (result == QMessageBox::No) {
-				g.s.disablePublicList = true;
+				g.s.bDisablePublicList = true;
 				item->setExpanded(false);
 				item->setHidden(true);
 				return;
@@ -1519,8 +1519,10 @@ void ConnectDialog::timeTick() {
 }
 
 void ConnectDialog::filterPublicServerList() const {
-    foreach(ServerItem * const si, qtwServers->siPublic->qlChildren) {
-		filterServer(si);
+	if (!g.s.bDisablePublicList) {
+		foreach(ServerItem * const si, qtwServers->siPublic->qlChildren) {
+			filterServer(si);
+		}
 	}
 }
 
