@@ -3095,6 +3095,10 @@ Label of the server. This is what the server will be named like in your server l
         <source>&amp;Fill</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
