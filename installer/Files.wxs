@@ -169,7 +169,7 @@
         <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes" />
       </Component>
       <Component Id="Readme.txt" Guid="$(var.ReadMeTextGuid)">
-        <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes" />
+        <File Source="$(var.SourceDir)\README.md" Name="Readme.md" KeyPath="yes" />
       </Component>
       <Component Id="Changes.txt">
         <File Source="$(var.SourceDir)\CHANGES" Name="Changes.txt" KeyPath="yes" />
