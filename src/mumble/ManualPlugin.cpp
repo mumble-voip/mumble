@@ -17,6 +17,9 @@
 
 #include "../../plugins/mumble_plugin.h"
 
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#include "Global.h"
+
 static QPointer<Manual> mDlg = nullptr;
 static bool bLinkable = false;
 static bool bActive = true;
@@ -83,6 +86,16 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	qleIdentity->setText(defaultIdentity);
 	my.context = defaultContext.toStdString();
 	my.identity = defaultIdentity.toStdWString();
+
+	qsbSilentUserDisplaytime->setValue(g.s.manualPlugin_silentUserDisplaytime);
+
+	updateLoopRunning.store(false);
+}
+
+void Manual::setSpeakerPositions(const QHash<unsigned int, Position2D> &positions) {
+	if (mDlg) {
+		QMetaObject::invokeMethod(mDlg, "on_speakerPositionUpdate", Qt::QueuedConnection, Q_ARG(PositionMap, positions));
+	}
 }
 
 bool Manual::eventFilter(QObject *obj, QEvent *evt) {
@@ -194,6 +207,111 @@ void Manual::on_buttonBox_clicked(QAbstractButton *button) {
 
 		qsbElevation->setValue(0);
 		qsbAzimuth->setValue(0);
+	}
+}
+
+void Manual::on_qsbSilentUserDisplaytime_valueChanged(int value) {
+	g.s.manualPlugin_silentUserDisplaytime = value;
+}
+
+void Manual::on_speakerPositionUpdate(QHash<unsigned int, Position2D> positions) {
+	// First iterate over the stale items to check whether one of them is actually no longer stale
+	QMutableHashIterator<unsigned int, StaleEntry> staleIt(staleSpeakerPositions);
+	while (staleIt.hasNext()) {
+		staleIt.next();
+
+		const unsigned int sessionID = staleIt.key();
+		QGraphicsItem *staleItem = staleIt.value().staleItem;
+
+		if (positions.contains(sessionID)) {
+			// The item is no longer stale -> restore opacity and re-insert into speakerPositions
+			staleItem->setOpacity(1.0);
+			
+			staleIt.remove();
+			speakerPositions.insert(sessionID, staleItem);
+		} else if (!updateLoopRunning.load()) {
+			QMetaObject::invokeMethod(this, "on_updateStaleSpeakers", Qt::QueuedConnection);
+			updateLoopRunning.store(true);
+		}
+	}
+
+	// Now iterate over all active items and check whether they have become stale or whether their
+	// position can be updated
+	QMutableHashIterator<unsigned int, QGraphicsItem *> speakerIt(speakerPositions);
+	while (speakerIt.hasNext()) {
+		speakerIt.next();
+
+		const unsigned int sessionID = speakerIt.key();
+		QGraphicsItem *speakerItem = speakerIt.value();
+
+		if (positions.contains(sessionID)) {
+			Position2D newPos = positions.take(sessionID);
+
+			// Update speaker's position (remember that y-axis is inverted in screen-coordinates
+			speakerItem->setPos(newPos.x, - newPos.y);
+		} else {
+			// Remove the stale item
+			speakerIt.remove();
+			if (g.s.manualPlugin_silentUserDisplaytime == 0) {
+				// Delete it immediately
+				delete speakerItem;
+			} else {
+				staleSpeakerPositions.insert(sessionID, { std::chrono::steady_clock::now(), speakerItem });
+			}
+		}
+	}
+
+	// Finally iterate over the remaining new speakers and create new items for them
+	QHashIterator<unsigned int, Position2D> remainingIt(positions);
+	while (remainingIt.hasNext()) {
+		remainingIt.next();
+
+		const float speakerRadius = 1.2;
+		QGraphicsItem *speakerItem = qgsScene->addEllipse(-speakerRadius, -speakerRadius, 2 * speakerRadius, 2 * speakerRadius, QPen(), QBrush(Qt::red));
+
+		Position2D pos = remainingIt.value();
+
+		// y-axis is inverted in screen-space
+		speakerItem->setPos(pos.x, -pos.y);
+
+		speakerPositions.insert(remainingIt.key(), speakerItem);
+	}
+}
+
+void Manual::on_updateStaleSpeakers() {
+	if (staleSpeakerPositions.isEmpty()) {
+		// If there are no stale speakers, this loop doesn't have to run
+		updateLoopRunning.store(false);
+		return;
+	}
+
+	// Iterate over all stale items and check whether they have to be removed entirely. If not, update
+	// their opacity.
+	QMutableHashIterator<unsigned int, StaleEntry> staleIt(staleSpeakerPositions);
+	while (staleIt.hasNext()) {
+		staleIt.next();
+
+		StaleEntry entry = staleIt.value();
+
+		double elapsedTime = static_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - entry.staleSince).count();
+
+		if (elapsedTime >= g.s.manualPlugin_silentUserDisplaytime) {
+			// The item has been around long enough - remove it now
+			staleIt.remove();
+			delete entry.staleItem;
+		} else {
+			// Let the item fade out
+			double opacity = (g.s.manualPlugin_silentUserDisplaytime - elapsedTime) / static_cast<double>(g.s.manualPlugin_silentUserDisplaytime);
+			entry.staleItem->setOpacity(opacity);
+		}
+	}
+
+	if (!staleSpeakerPositions.isEmpty()) {
+		updateLoopRunning.store(true);
+		// Call this function again in the next iteration of the event loop
+		QMetaObject::invokeMethod(this, "on_updateStaleSpeakers", Qt::QueuedConnection);
+	} else {
+		updateLoopRunning.store(false);
 	}
 }
 

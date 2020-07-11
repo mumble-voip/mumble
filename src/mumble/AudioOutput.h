@@ -10,6 +10,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QThread>
 
+#include "ManualPlugin.h"
+
 // AudioOutput depends on User being valid. This means it's important
 // to removeBuffer from here BEFORE MainWindow gets any UserLeft
 // messages. Any decendant user should feel free to remove unused
@@ -89,6 +91,8 @@ class AudioOutput : public QThread {
 		unsigned int iBufferSize = 0;
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientUser *, AudioOutputUser *> qmOutputs;
+
+		QHash<unsigned int, Position2D> positions;
 
 		virtual void removeBuffer(AudioOutputUser *);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);

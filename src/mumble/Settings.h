@@ -292,6 +292,8 @@ struct Settings {
 	QString qsTalkingUI_ChannelSeparator;
 	QString qsTalkingUI_AbbreviationReplacement;
 
+	int manualPlugin_silentUserDisplaytime;
+
 	QMap<int, QString> qmMessageSounds;
 	QMap<int, quint32> qmMessages;
 
