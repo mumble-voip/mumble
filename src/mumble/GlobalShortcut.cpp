@@ -681,6 +681,12 @@ void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
 	int idx = qtwShortcuts->indexOfTopLevelItem(qtwi);
 	delete qtwi;
 	qlShortcuts.removeAt(idx);
+
+	// Clear the selected item. If we don't do this, the next shortcut in the list will be
+	// automatically selected. This allows for the user to accidentally hit remove a second
+	// time (as the mouse is over the remove button at this point already) leading to
+	// another shortcut being deleted accidentally.
+	qtwShortcuts->setCurrentItem(nullptr);
 }
 
 void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
