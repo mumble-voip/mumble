@@ -6,6 +6,14 @@
 #include "WASAPI.h"
 #include "WASAPINotificationClient.h"
 
+#ifdef __MINGW32__
+// Fix a redefinition issue in protobuf's "strutil.h" include file:
+// "redefinition of 'std::__cxx11::string google::protobuf::StrCat_instead_use_StringCbCat_or_StringCchCat'"
+# ifdef StrCat
+#  undef StrCat
+# endif
+#endif
+
 #include "MainWindow.h"
 #include "Utils.h"
 

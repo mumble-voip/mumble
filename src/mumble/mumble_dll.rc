@@ -18,8 +18,8 @@
 #endif
 
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION		1,4,0,0
-	PRODUCTVERSION	1,4,0,0
+	FILEVERSION		@PROJECT_VERSION_MAJOR@,@PROJECT_VERSION_MINOR@,@PROJECT_VERSION_PATCH@,0
+	PRODUCTVERSION	@PROJECT_VERSION_MAJOR@,@PROJECT_VERSION_MINOR@,@PROJECT_VERSION_PATCH@,0
 	FILEFLAGSMASK	VS_FFI_FILEFLAGSMASK
 	FILEFLAGS		(VER_DEBUG|VER_RELEASE)
 	FILEOS			VOS_NT_WINDOWS32
@@ -32,8 +32,8 @@ VS_VERSION_INFO VERSIONINFO
 			BEGIN
 				VALUE "CompanyName", "The Mumble Developers"
 				VALUE "FileDescription", "Mumble - Low-latency VoIP client"
-				VALUE "FileVersion", "1.4.0"
-				VALUE "ProductVersion", "1.4.0"
+				VALUE "FileVersion", "@PROJECT_VERSION@"
+				VALUE "ProductVersion", "@PROJECT_VERSION@"
 				VALUE "LegalCopyright", "Copyright (c) 2005-2020 The Mumble Developers"
 				VALUE "OriginalFilename", "mumble_app.dll"
 				VALUE "ProductName", "Mumble"

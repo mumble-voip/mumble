@@ -51,8 +51,8 @@
 # include <QtDBus/QDBusInterface>
 #endif
 
-#if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
-# include <shellapi.h> // For CommandLineToArgvW()
+#ifdef Q_OS_WIN
+# include <shellapi.h>
 #endif
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.

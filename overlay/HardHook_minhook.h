@@ -6,18 +6,16 @@
 #ifndef MUMBLE_HARDHOOK_MINHOOK_H_
 #define MUMBLE_HARDHOOK_MINHOOK_H_
 
-#define _UNICODE
-#ifndef _WIN32_WINNT
-#define  _WIN32_WINNT 0x0501
-#endif
 #include <stdio.h>
 #include <stdarg.h>
 #include <ctype.h>
-#include <windows.h>
-#include <math.h>
+#include <cmath>
 #include <map>
 #include <vector>
 #include <string>
+
+#include <windows.h>
+#include <unknwn.h>
 
 typedef void *(*voidFunc)();
 

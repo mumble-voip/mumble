@@ -1,30 +1,37 @@
-sudo: required # Required for apt-get build-dep
+os: linux
+dist: bionic
 language: cpp
 compiler: gcc
 
-matrix:
+jobs:
   include:
-    - os: linux
-      arch: arm64
-      dist: bionic
+    - arch: arm64
       env: MUMBLE_HOST=aarch64-linux-gnu
-    - os: linux
-      dist: bionic
-      env: MUMBLE_HOST=x86_64-linux-gnu MUMBLE_NO_PCH=1
-    - os: linux
-      dist: bionic
-      env: MUMBLE_HOST=i686-w64-mingw32 MUMBLE_NO_PCH=1
-    - os: linux
-      dist: bionic
-      env: MUMBLE_HOST=x86_64-w64-mingw32 MUMBLE_NO_PCH=1
+      cache:
+        directories:
+          - $HOME/cmake-3.17.2
+    - arch: amd64
+      env: MUMBLE_HOST=x86_64-linux-gnu
+      addons:
+        apt:
+          sources:
+            - sourceline: 'deb https://apt.kitware.com/ubuntu/ bionic main'
+              key_url: 'https://apt.kitware.com/keys/kitware-archive-latest.asc'
+          packages:
+            - cmake
+    - arch: amd64
+      env: MUMBLE_HOST=i686-w64-mingw32
+      cache:
+        directories:
+          - $HOME/mxe
+    - arch: amd64
+      env: MUMBLE_HOST=x86_64-w64-mingw32
+      cache:
+        directories:
+          - $HOME/mxe
 
 before_install:
-    - ./scripts/travis-ci/before_install.bash
+  - ./scripts/travis-ci/before_install.bash
 
 script:
-    - ./scripts/travis-ci/script.bash
-
-branches:
-  except:
-    - # Do not build tags that we create when we upload to GitHub Releases
-    - /^(?i:continuous)/
+  - ./scripts/travis-ci/script.bash

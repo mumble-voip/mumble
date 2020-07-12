@@ -5,16 +5,24 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-brew update
+cd $AGENT_TEMPDIRECTORY
 
-# As brew will set a non-zero exit status if one of the packages it is asked to install
-# is installed already. Thus we have to iterate through every single one and check if it
-# is installed first.
-for pkg in pkg-config qt5 boost libogg libvorbis flac libsndfile protobuf openssl ice; do
-	if brew ls --versions "$pkg" > /dev/null; then
-		echo "Skipping installation of $pkg as it is already installed"
-	else
-		brew install "$pkg"
-	fi
-done
+brew install ninja
 
+if [ -d $MUMBLE_ENVIRONMENT_PATH ]; then
+	exit 0
+fi
+
+echo "Environment not cached. Downloading..."
+
+wget "$MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
+
+echo "Extracting build environment to $MUMBLE_ENVIRONMENT_STORE..."
+
+mkdir -p $MUMBLE_ENVIRONMENT_STORE
+
+tar xf "$MUMBLE_ENVIRONMENT_VERSION.tar.xz" -C $MUMBLE_ENVIRONMENT_STORE
+
+chmod +x "$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx/tools/Ice/slice2cpp"
+
+ls -l $MUMBLE_ENVIRONMENT_STORE

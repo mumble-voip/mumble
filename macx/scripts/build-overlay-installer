@@ -5,18 +5,18 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-cp release/libmumbleoverlay.dylib release/MumbleOverlay.osax/Contents/MacOS/
+cp libmumbleoverlay.dylib MumbleOverlay.osax/Contents/MacOS/
 
 productbuild \
-	--component release/MumbleOverlay.osax /Library/ScriptingAdditions \
-	release/synth.pkg
+	--component MumbleOverlay.osax /Library/ScriptingAdditions \
+	synth.pkg
 
 root=$(mktemp -d -t mumble-overlay-installer)
-/usr/bin/xar -f release/synth.pkg -x -C ${root}
+/usr/bin/xar -f synth.pkg -x -C ${root}
 mkdir -p ${root}/Resources
-cp icons/mumble.osx.installer.png ${root}/Resources/bg.png
-VERSION=`defaults read "${PWD}/macx/osax/osax" "MumbleOverlayVersion"`
-MINCLIENT=`defaults read "${PWD}/macx/osax/osax" "MumbleOverlayMinMumbleVersion"`
+mv bg.png ${root}/Resources/
+VERSION=`/usr/libexec/PlistBuddy -c "print MumbleOverlayVersion" MumbleOverlay.osax/Contents/Info.plist`
+MINCLIENT=`/usr/libexec/PlistBuddy -c "print MumbleOverlayMinMumbleVersion" MumbleOverlay.osax/Contents/Info.plist`
 echo "<upgrade version=\"${VERSION}\" minclient=\"${MINCLIENT}\" />" > ${root}/upgrade.xml
 
 sed -i '' -e 's,<installer-gui-script minSpecVersion="1">,<installer-gui-script minSpecVersion="1"><title>Mumble Overlay</title><background mime-type="image/png" file="bg.png" />,' ${root}/Distribution
@@ -25,4 +25,4 @@ pushd ${root}
 /usr/bin/xar -f MumbleOverlay.pkg --no-compress "^.*$" -c ./*
 popd
 
-cp ${root}/MumbleOverlay.pkg release/MumbleOverlay.pkg
+cp ${root}/MumbleOverlay.pkg MumbleOverlay.pkg

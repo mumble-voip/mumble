@@ -1,26 +1,34 @@
+variables:
+  MUMBLE_ENVIRONMENT_STORE: '$(Agent.ToolsDirectory)/MumbleBuild'
+  MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
+  MUMBLE_ENVIRONMENT_PATH: '$(MUMBLE_ENVIRONMENT_STORE)/$(MUMBLE_ENVIRONMENT_VERSION)'
+  MUMBLE_ENVIRONMENT_TOOLCHAIN: '$(MUMBLE_ENVIRONMENT_PATH)/scripts/buildsystems/vcpkg.cmake'
+
 jobs:
   - job: Windows
-    strategy:
-      matrix:
-        MSVC_2015:
-          MUMBLE_QT: qt5
-          MUMBLE_HOST: x86_64-pc-windows-msvc
-          MUMBLE_PUBLISH_INSTALLER: 1
-        MSVC_2015_NO_PCH:
-          MUMBLE_QT: qt5
-          MUMBLE_HOST: x86_64-pc-windows-msvc
-          MUMBLE_NO_PCH: 1
+    pool:
+      vmImage: 'windows-latest'
+    variables:
+      MUMBLE_ENVIRONMENT_VERSION: 'win64-static-1.4.x-2020-05-27-ecb3c64-1151'
     steps:
     - script: git submodule --quiet update --init --recursive
       displayName: 'Fetch submodules'
-    - powershell: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-        choco install 7zip.install -y
-      displayName: 'Install 7-Zip via Chocolatey'
-    - powershell: scripts/azure-pipelines/install-environment.ps1
+    - task: Cache@2
+      inputs:
+        key: '"$(MUMBLE_ENVIRONMENT_VERSION)"'
+        path: '$(MUMBLE_ENVIRONMENT_PATH)'
+      displayName: 'Environment storage'
+    - powershell: scripts/azure-pipelines/install-environment_windows.ps1
       displayName: 'Install build environment'
-    - powershell: scripts/azure-pipelines/build.ps1
+    - script: scripts/azure-pipelines/build_windows.bat
       displayName: 'Build'
+    - powershell: |
+        cd $(Agent.BuildDirectory)
+        .\Create-Win32InstallerMUI.ps1 -PackageName 'Mumble' -Version '1.4.0'
+        cp *.sha* $(Build.ArtifactStagingDirectory)
+        cp *.msi $(Build.ArtifactStagingDirectory)
+        cp *.pdb $(Build.ArtifactStagingDirectory)
+      displayName: Build installer
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -42,9 +50,16 @@ jobs:
   - job: macOS
     pool:
       vmImage: 'macOS-latest'
+    variables:
+      MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.4.x-2020-05-27-ecb3c64-1151'
     steps:
     - script: git submodule --quiet update --init --recursive
       displayName: 'Fetch submodules'
+    - task: Cache@2
+      inputs:
+        key: '"$(MUMBLE_ENVIRONMENT_VERSION)"'
+        path: '$(MUMBLE_ENVIRONMENT_PATH)'
+      displayName: 'Environment storage'
     - script: scripts/azure-pipelines/install-environment_macos.bash
       displayName: 'Install build environment'
     - script: scripts/azure-pipelines/build_macos.bash
