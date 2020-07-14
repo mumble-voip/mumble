@@ -54,6 +54,7 @@ public:
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;
+	QString qsWelcomeTextFile;
 	bool bCertRequired;
 	bool bForceExternalAuth;
 
