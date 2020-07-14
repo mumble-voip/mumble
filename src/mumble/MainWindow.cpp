@@ -475,11 +475,6 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	}
 	sh.reset();
 #endif
-	// Save ChannelListeners (has to be done before resetting g.uiSession
-	ChannelListener::saveToDB();
-
-	g.uiSession = 0;
-	g.pPermissions = ChanACL::None;
 
 	if (g.s.bMinimalView) {
 		g.s.qbaMinimalViewGeometry = saveGeometry();

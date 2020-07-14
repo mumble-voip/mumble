@@ -614,15 +614,25 @@ int main(int argc, char **argv) {
 	url.clear();
 	
 	ServerHandlerPtr sh = g.sh;
-	if (sh && sh->isRunning()) {
-		url = sh->getServerURL();
-		g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
+	if (sh) {
+		if (sh->isRunning()) {
+			url = sh->getServerURL();
+			sh->disconnect();
+		}
+
+		// Wait for the ServerHandler thread to exit before proceeding shutting down. This is so that
+		// all events that the ServerHandler might emit are enqueued into Qt's event loop before we
+		// ask it to pocess all of them below.
+		if (!sh->wait(2000)) {
+			qCritical("main: ServerHandler did not exit within specified time interval");
+		}
 	}
 
-	Audio::stop();
+	QCoreApplication::processEvents();
 
-	if (sh)
-		sh->disconnect();
+	// Only start deleting items once all pending events have been processed (Audio::stop deletes the audio
+	// input and output)
+	Audio::stop();
 
 	delete srpc;
 
