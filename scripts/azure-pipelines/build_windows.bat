@@ -12,8 +12,8 @@
 ::
 :: Predefined variables:
 ::
-::  AGENT_BUILDDIRECTORY         - The local path on the agent where all folders
-::                                 for a given build pipeline are created
+::  BUILD_BINARIESDIRECTORY      - The local path on the agent that can be used
+::                                 as an output folder for compiled binaries.
 ::  BUILD_SOURCESDIRECTORY       - The local path on the agent where the
 ::                                 repository is downloaded.
 ::  AGENT_TOOLSDIRECTORY         - The directory used by tasks such as
@@ -35,7 +35,7 @@
 
 for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (SET "VER=%%g")
 
-cd /d %AGENT_BUILDDIRECTORY%
+cd /d %BUILD_BINARIESDIRECTORY%
 
 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
 

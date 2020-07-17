@@ -7,15 +7,15 @@
 #
 # Below is a list of configuration variables used from environment.
 #
-#  AGENT_BUILDDIRECTORY       - The local path on the agent where all folders
-#                               for a given build pipeline are created
-#  BUILD_SOURCESDIRECTORY     - The local path on the agent where the
-#                               repository is downloaded.
+#  BUILD_BINARIESDIRECTORY - The local path on the agent that can be used
+#                            as an output folder for compiled binaries.
+#  BUILD_SOURCESDIRECTORY  - The local path on the agent where the
+#                            repository is downloaded.
 #
 
 VER=$(python scripts/mumble-version.py)
 
-cd $AGENT_BUILDDIRECTORY
+cd $BUILD_BINARIESDIRECTORY
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$MUMBLE_ENVIRONMENT_TOOLCHAIN -DIce_HOME="$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -Dversion=$VER -Dstatic=ON -Dsymbols=ON $BUILD_SOURCESDIRECTORY
 cmake --build .
