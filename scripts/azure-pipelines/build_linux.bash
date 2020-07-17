@@ -7,15 +7,15 @@
 #
 # Below is a list of configuration variables used from environment.
 #
-#  AGENT_BUILDDIRECTORY       - The local path on the agent where all folders
-#                               for a given build pipeline are created
-#  BUILD_SOURCESDIRECTORY     - The local path on the agent where the
-#                               repository is downloaded.
+#  BUILD_BINARIESDIRECTORY - The local path on the agent that can be used
+#                            as an output folder for compiled binaries.
+#  BUILD_SOURCESDIRECTORY  - The local path on the agent where the
+#                            repository is downloaded.
 #
 
 VER=$(python scripts/mumble-version.py)
 
-cd $AGENT_BUILDDIRECTORY
+cd $BUILD_BINARIESDIRECTORY
 
 # QSslDiffieHellmanParameters was introduced in Qt 5.8, Ubuntu 16.04 has 5.5.
 cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=appdir/usr -DBUILD_TESTING=ON -Dversion=$VER -Dsymbols=ON -Dqssldiffiehellmanparameters=OFF $BUILD_SOURCESDIRECTORY
