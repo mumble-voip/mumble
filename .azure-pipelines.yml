@@ -18,9 +18,9 @@ jobs:
         key: '"$(MUMBLE_ENVIRONMENT_VERSION)"'
         path: '$(MUMBLE_ENVIRONMENT_PATH)'
       displayName: 'Environment storage'
-    - powershell: scripts/azure-pipelines/install-environment_windows.ps1
+    - powershell: .ci/azure-pipelines/install-environment_windows.ps1
       displayName: 'Install build environment'
-    - script: scripts/azure-pipelines/build_windows.bat
+    - script: .ci/azure-pipelines/build_windows.bat
       displayName: 'Build'
     - powershell: |
         cd $(Build.BinariesDirectory)
@@ -39,9 +39,9 @@ jobs:
     steps:
     - script: git submodule --quiet update --init --recursive
       displayName: 'Fetch submodules'
-    - script: scripts/azure-pipelines/install-environment_linux.bash
+    - script: .ci/azure-pipelines/install-environment_linux.bash
       displayName: 'Install build environment'
-    - script: scripts/azure-pipelines/build_linux.bash
+    - script: .ci/azure-pipelines/build_linux.bash
       displayName: 'Build'
     - task: PublishBuildArtifacts@1
       inputs:
@@ -60,9 +60,9 @@ jobs:
         key: '"$(MUMBLE_ENVIRONMENT_VERSION)"'
         path: '$(MUMBLE_ENVIRONMENT_PATH)'
       displayName: 'Environment storage'
-    - script: scripts/azure-pipelines/install-environment_macos.bash
+    - script: .ci/azure-pipelines/install-environment_macos.bash
       displayName: 'Install build environment'
-    - script: scripts/azure-pipelines/build_macos.bash
+    - script: .ci/azure-pipelines/build_macos.bash
       displayName: 'Build'
     - task: PublishBuildArtifacts@1
       inputs:
@@ -72,7 +72,7 @@ jobs:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - script: scripts/azure-pipelines/install-environment_linux_translations.bash
+    - script: .ci/azure-pipelines/install-environment_linux_translations.bash
       displayName: 'Install Qt tools'
-    - script: scripts/azure-pipelines/assertNoTranslationChanges.sh
+    - script: .ci/azure-pipelines/assertNoTranslationChanges.sh
       displayName: 'Checking for translation changes'
