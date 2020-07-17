@@ -1,0 +1,10 @@
+steps:
+  - script: git submodule --quiet update --init --recursive
+    displayName: 'Fetch submodules'
+  - script: .ci/azure-pipelines/install-environment_linux.bash
+    displayName: 'Install build environment'
+  - script: .ci/azure-pipelines/build_linux.bash
+    displayName: 'Build'
+  - template: task-publish-artifacts.yml
+    parameters:
+      name: "AppImage" 

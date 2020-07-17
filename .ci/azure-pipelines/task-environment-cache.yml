@@ -1,0 +1,6 @@
+steps:
+- task: Cache@2
+  inputs:
+    key: '"$(MUMBLE_ENVIRONMENT_VERSION)"'
+    path: '$(MUMBLE_ENVIRONMENT_PATH)'
+  displayName: 'Environment storage'
