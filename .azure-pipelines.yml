@@ -11,63 +11,19 @@ jobs:
     variables:
       MUMBLE_ENVIRONMENT_VERSION: 'win64-static-1.4.x-2020-05-27-ecb3c64-1151'
     steps:
-    - script: git submodule --quiet update --init --recursive
-      displayName: 'Fetch submodules'
-    - task: Cache@2
-      inputs:
-        key: '"$(MUMBLE_ENVIRONMENT_VERSION)"'
-        path: '$(MUMBLE_ENVIRONMENT_PATH)'
-      displayName: 'Environment storage'
-    - powershell: .ci/azure-pipelines/install-environment_windows.ps1
-      displayName: 'Install build environment'
-    - script: .ci/azure-pipelines/build_windows.bat
-      displayName: 'Build'
-    - powershell: |
-        cd $(Build.BinariesDirectory)
-        .\Create-Win32InstallerMUI.ps1 -PackageName 'Mumble' -Version '1.4.0'
-        cp *.sha* $(Build.ArtifactStagingDirectory)
-        cp *.msi $(Build.ArtifactStagingDirectory)
-        cp *.pdb $(Build.ArtifactStagingDirectory)
-      displayName: Build installer
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        artifactName: WindowsInstaller
+    - template: .ci/azure-pipelines/steps_windows.yml
   - job: Linux
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - script: git submodule --quiet update --init --recursive
-      displayName: 'Fetch submodules'
-    - script: .ci/azure-pipelines/install-environment_linux.bash
-      displayName: 'Install build environment'
-    - script: .ci/azure-pipelines/build_linux.bash
-      displayName: 'Build'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        artifactName: AppImage
+    - template: .ci/azure-pipelines/steps_linux.yml
   - job: macOS
     pool:
       vmImage: 'macOS-latest'
     variables:
       MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.4.x-2020-05-27-ecb3c64-1151'
     steps:
-    - script: git submodule --quiet update --init --recursive
-      displayName: 'Fetch submodules'
-    - task: Cache@2
-      inputs:
-        key: '"$(MUMBLE_ENVIRONMENT_VERSION)"'
-        path: '$(MUMBLE_ENVIRONMENT_PATH)'
-      displayName: 'Environment storage'
-    - script: .ci/azure-pipelines/install-environment_macos.bash
-      displayName: 'Install build environment'
-    - script: .ci/azure-pipelines/build_macos.bash
-      displayName: 'Build'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        artifactName: macOS installer
+    - template: .ci/azure-pipelines/steps_macos.yml
   - job: Translations
     pool:
       vmImage: 'ubuntu-latest'

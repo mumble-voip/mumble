@@ -1,0 +1,18 @@
+steps:
+  - script: git submodule --quiet update --init --recursive
+    displayName: 'Fetch submodules'
+  - template: task-environment-cache.yml
+  - powershell: .ci/azure-pipelines/install-environment_windows.ps1
+    displayName: 'Install build environment'
+  - script: .ci/azure-pipelines/build_windows.bat
+    displayName: 'Build'
+  - powershell: |
+      cd $(Build.BinariesDirectory)
+      .\Create-Win32InstallerMUI.ps1 -PackageName 'Mumble' -Version '1.4.0'
+      cp *.sha* $(Build.ArtifactStagingDirectory)
+      cp *.msi $(Build.ArtifactStagingDirectory)
+      cp *.pdb $(Build.ArtifactStagingDirectory)
+    displayName: Build installer
+  - template: task-publish-artifacts.yml
+    parameters:
+      name: "Windows installer"
