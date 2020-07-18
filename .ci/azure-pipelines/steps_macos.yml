@@ -1,9 +1,16 @@
+parameters:
+- name: installEnvironment
+  type: boolean
+  default: false
+
 steps:
   - script: git submodule --quiet update --init --recursive
     displayName: 'Fetch submodules'
-  - template: task-environment-cache.yml
-  - script: .ci/azure-pipelines/install-environment_macos.bash
-    displayName: 'Install build environment'
+  - ${{if eq(parameters.installEnvironment, true)}}:
+    - template: task-environment-cache.yml
+  - ${{if eq(parameters.installEnvironment, true)}}:
+    - script: .ci/azure-pipelines/install-environment_macos.bash
+      displayName: 'Install build environment'
   - script: .ci/azure-pipelines/build_macos.bash
     displayName: 'Build'
   - template: task-publish-artifacts.yml
