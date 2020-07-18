@@ -11,16 +11,16 @@ jobs:
     variables:
       MUMBLE_ENVIRONMENT_VERSION: 'win64-static-1.4.x-2020-05-27-ecb3c64-1151'
     steps:
-    - template: .ci/azure-pipelines/steps_windows.yml
+    - template: steps_windows.yml
   - job: Linux
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - template: .ci/azure-pipelines/steps_linux.yml
+    - template: steps_linux.yml
   - job: macOS
     pool:
       vmImage: 'macOS-latest'
     variables:
       MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.4.x-2020-05-27-ecb3c64-1151'
     steps:
-    - template: .ci/azure-pipelines/steps_macos.yml
+    - template: steps_macos.yml
