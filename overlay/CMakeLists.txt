@@ -131,7 +131,7 @@ else()
 	install(TARGETS overlay RUNTIME DESTINATION . COMPONENT mumble_client)
 endif()
 
-if(64_BIT)
+if(64_BIT AND NOT BUILD_OVERLAY_XCOMPILE)
 	add_subdirectory("${3RDPARTY_DIR}/minhook-src" "${CMAKE_CURRENT_BINARY_DIR}/minhook" EXCLUDE_FROM_ALL)
 	target_compile_definitions(overlay PRIVATE "USE_MINHOOK")
 	target_link_libraries(overlay PRIVATE minhook)
