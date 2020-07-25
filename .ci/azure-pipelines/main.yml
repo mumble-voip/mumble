@@ -19,8 +19,11 @@ jobs:
     - template: steps_linux.yml
   - job: macOS
     pool:
-      vmImage: 'macOS-latest'
+      name: "Default"
+      demands:
+      - agent.os -equals Darwin
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.4.x-2020-05-27-ecb3c64-1151'
+      MUMBLE_ENVIRONMENT_STORE: '~/MumbleBuild'
+      MUMBLE_ENVIRONMENT_VERSION: 'latest-1.4.x'
     steps:
     - template: steps_macos.yml
