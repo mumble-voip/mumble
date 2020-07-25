@@ -14,6 +14,7 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <windows.h>
+#include <unknwn.h>
 #include <cmath>
 #include <map>
 #include <vector>
