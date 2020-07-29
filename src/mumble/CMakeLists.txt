@@ -177,6 +177,8 @@ set(MUMBLE_SOURCES
 	"SvgIcon.h"
 	"TalkingUI.cpp"
 	"TalkingUI.h"
+	"TalkingUISelection.cpp"
+	"TalkingUISelection.h"
 	"TextMessage.cpp"
 	"TextMessage.h"
 	"TextMessage.ui"

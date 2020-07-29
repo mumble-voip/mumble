@@ -135,7 +135,8 @@ HEADERS *= BanEditor.h \
     Screen.h \
     SvgIcon.h \
     Markdown.h \
-    TalkingUI.h
+    TalkingUI.h \
+	TalkingUISelection.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -198,7 +199,8 @@ SOURCES *= BanEditor.cpp \
     Screen.cpp \
     SvgIcon.cpp \
     Markdown.cpp \
-    TalkingUI.cpp
+    TalkingUI.cpp \
+	TalkingUISelection.cpp
 
 !CONFIG(no-overlay) {
 	DEFINES *= USE_OVERLAY
