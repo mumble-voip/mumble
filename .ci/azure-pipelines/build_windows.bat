@@ -61,7 +61,7 @@ if errorlevel 1 (
 	exit /b %errorlevel%
 )
 
-ctest
+ctest --verbose
 
 if errorlevel 1 (
 	exit /b %errorlevel%

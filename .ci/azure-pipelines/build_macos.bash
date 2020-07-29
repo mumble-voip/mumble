@@ -19,7 +19,7 @@ cd $BUILD_BINARIESDIRECTORY
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$MUMBLE_ENVIRONMENT_TOOLCHAIN -DIce_HOME="$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -Dversion=$VER -Dstatic=ON -Dsymbols=ON $BUILD_SOURCESDIRECTORY
 cmake --build .
-ctest
+ctest --verbose
 
 $BUILD_SOURCESDIRECTORY/macx/scripts/osxdist.py --version=$VER --source-dir=$BUILD_SOURCESDIRECTORY --binary-dir=.
 

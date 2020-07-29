@@ -20,7 +20,7 @@ cd $BUILD_BINARIESDIRECTORY
 # QSslDiffieHellmanParameters was introduced in Qt 5.8, Ubuntu 16.04 has 5.5.
 cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=appdir/usr -DBUILD_TESTING=ON -Dversion=$VER -Dsymbols=ON -Dqssldiffiehellmanparameters=OFF $BUILD_SOURCESDIRECTORY
 cmake --build .
-ctest
+ctest --verbose
 cmake --install .
 
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
