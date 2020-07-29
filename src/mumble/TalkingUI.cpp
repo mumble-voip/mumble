@@ -377,9 +377,10 @@ void TalkingUI::addUser(const ClientUser *user) {
 		// If this user is currently selected, mark him/her as such
 		if (g.mw && g.mw->pmModel && g.mw->pmModel->getSelectedUser() == user) {
 			if (m_entries.contains(user->uiSession)) {
-				setSelection(&m_entries[user->uiSession]);
+				Entry &entry = m_entries[user->uiSession];
+				setSelection(UserSelection(entry.background, entry.userSession));
 			} else {
-				setSelection(nullptr);
+				setSelection(EmptySelection());
 				qCritical("TalkingUI::addUser requested entry for unknown user!");
 			}
 		}
@@ -512,26 +513,30 @@ void TalkingUI::updateUI() {
 	QTimer::singleShot(0, [this]() { adjustSize(); });
 }
 
-void TalkingUI::setSelection(Entry *entry) {
-	if (entry != m_currentSelection) {
+void TalkingUI::setSelection(const TalkingUISelection &selection) {
+	if (dynamic_cast<const EmptySelection *>(&selection)) {
+		// The selection is set to an empty selection
 		if (m_currentSelection) {
-			// Set the selected property to false and refresh the style of the widget (letting the
-			// global StyleSheet (theme) take over).
-			m_currentSelection->background->setProperty("selected", false);
-			m_currentSelection->background->style()->unpolish(m_currentSelection->background);
+			// There currently is a selection -> clear and remove it
+			m_currentSelection->discard();
+			m_currentSelection.reset();
 		}
-		if (entry) {
-			// Set the selected property to true and refresh the style of the widget (letting the
-			// global StyleSheet (theme) take over).
-			entry->background->setProperty("selected", true);
-			entry->background->style()->unpolish(entry->background);
-
-			if (g.mw && g.mw->pmModel) {
-				g.mw->pmModel->setSelectedUser(entry->userSession);
+	} else {
+		if (m_currentSelection) {
+			if (selection == *m_currentSelection) {
+				// Selection hasn't actually changed
+				return;
 			}
+
+			// Discard old selection (it'll get deleted on re-assignment below)
+			m_currentSelection->discard();
 		}
 
-		m_currentSelection = entry;
+		// Use the new selection (which at this point we know is not the empty selection)
+		m_currentSelection = selection.cloneToHeap();
+
+		m_currentSelection->apply();
+		m_currentSelection->syncToMainWindow();
 	}
 }
 
@@ -541,36 +546,53 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	QWidget *widget = qApp->widgetAt(event->globalPos());
 
 	if (!widget) {
-		setSelection(nullptr);
+		setSelection(EmptySelection());
 		return;
 	}
 
+	bool foundTarget = false;
+
 	// iterate all available entries
-	QMutableHashIterator<unsigned int, Entry> it(m_entries);
+	QHashIterator<unsigned int, Entry> userIt(m_entries);
+	while (userIt.hasNext()) {
+		userIt.next();
 
-	Entry *entry = nullptr;
-
-	while (it.hasNext()) {
-		it.next();
-
-		Entry *currentEntry = &it.value();
-		if (currentEntry->talkingIcon == widget || currentEntry->name == widget || currentEntry->background == widget) {
-			entry = currentEntry;
+		const Entry &currentEntry = userIt.value();
+		if (currentEntry.talkingIcon == widget || currentEntry.name == widget || currentEntry.background == widget) {
+			foundTarget = true;
+			// Select user's entry
+			setSelection(UserSelection(currentEntry.background, currentEntry.userSession));
 			break;
 		}
 	}
 
-	setSelection(entry);
+	if (!foundTarget) {
+		QHashIterator<int, QGroupBox *> channelIt(m_channels);
+		while (channelIt.hasNext()) {
+			channelIt.next();
+			if (widget == channelIt.value()) {
+				foundTarget = true;
+				// Select channel's box
+				setSelection(ChannelSelection(channelIt.value(), channelIt.key()));
+			}
+		}
+	}
 
-	if (entry && event->button() == Qt::RightButton && g.mw) {
-		// If an entry is selected and the right mouse button was clicked, we pretend as if the user had clicked on the client in
-		// the MainWindow. For this to work we map the global mouse position to the local coordinate system of the UserView in the
-		// MainWindow. The function will use some internal logic to determine the user to invoke the context menu on but if that
-		// fails (which in this case it will), it'll fall back to the currently selected item. This item we have updated to the
-		// correct one with the setSelection() call above resulting in the proper context menu being shown at the position of the
-		// mouse which in this case is in the TalkingUI.
-		QMetaObject::invokeMethod(g.mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection, Q_ARG(QPoint,
-					g.mw->qtvUsers->mapFromGlobal(event->globalPos())));
+
+	if (foundTarget) {
+		if (event->button() == Qt::RightButton && g.mw) {
+			// If an entry is selected and the right mouse button was clicked, we pretend as if the user had clicked on the client in
+			// the MainWindow. For this to work we map the global mouse position to the local coordinate system of the UserView in the
+			// MainWindow. The function will use some internal logic to determine the user to invoke the context menu on but if that
+			// fails (which in this case it will), it'll fall back to the currently selected item. This item we have updated to the
+			// correct one with the setSelection() call above resulting in the proper context menu being shown at the position of the
+			// mouse which in this case is in the TalkingUI.
+			QMetaObject::invokeMethod(g.mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection, Q_ARG(QPoint,
+						g.mw->qtvUsers->mapFromGlobal(event->globalPos())));
+		}
+	} else {
+		// Clear selection
+		setSelection(EmptySelection());
 	}
 
 	updateUI();
@@ -657,12 +679,23 @@ void TalkingUI::on_mainWindowSelectionChanged(const QModelIndex &current, const 
 
 	// Sync the selection in the MainWindow to the TalkingUI
 	if (g.mw && g.mw->pmModel) {
-		ClientUser *user = g.mw->pmModel->getUser(current);
+		const ClientUser *user = g.mw->pmModel->getUser(current);
+		const Channel *channel = g.mw->pmModel->getChannel(current);
 
-		if (user && m_entries.contains(user->uiSession)) {
-			setSelection(&m_entries[user->uiSession]);
+		if (user) {
+			addUser(user);
+
+			Entry &entry = m_entries[user->uiSession];
+			setSelection(UserSelection(entry.background, entry.userSession));
+		} else if (!user && channel) {
+			addChannel(channel);
+
+			// if user != nullptr, the selection is actually a user, but UserModel::getChannel still returns
+			// the channel of that user. However we only want to select the channel if the user has indeed
+			// selected the channel and not just one of the users in it.
+			setSelection(ChannelSelection(m_channels[channel->iId], channel->iId));
 		} else {
-			setSelection(nullptr);
+			setSelection(EmptySelection());
 		}
 	}
 }
@@ -714,7 +747,7 @@ void TalkingUI::on_serverDisconnected() {
 	}
 	m_timers.clear();
 
-	setSelection(nullptr);
+	setSelection(EmptySelection());
 
 	updateUI();
 }

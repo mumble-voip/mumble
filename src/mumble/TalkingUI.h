@@ -11,7 +11,10 @@
 #include <QtCore/QSet>
 #include <QtGui/QIcon>
 
+#include <memory>
+
 #include "Settings.h"
+#include "TalkingUISelection.h"
 
 class QLabel;
 class QGroupBox;
@@ -49,7 +52,7 @@ class TalkingUI : public QWidget {
 		/// that have stopped speaking for a certain amount of time.
 		QHash<unsigned int, QTimer *> m_timers;
 		/// The Entry corresponding to the currently selected user
-		Entry *m_currentSelection;
+		std::unique_ptr<TalkingUISelection> m_currentSelection;
 
 		/// The icon for a talking user
 		QIcon m_talkingIcon;
@@ -118,8 +121,8 @@ class TalkingUI : public QWidget {
 
 		/// Set the current selection
 		///
-		/// @param entry A pointer to the Entry that shall be selected or nullptr to clear the selection
-		void setSelection(Entry *entry);
+		/// @param selection The new selection
+		void setSelection(const TalkingUISelection &selection);
 
 		void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
