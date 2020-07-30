@@ -5,11 +5,24 @@ variables:
   MUMBLE_ENVIRONMENT_TOOLCHAIN: '$(MUMBLE_ENVIRONMENT_PATH)/scripts/buildsystems/vcpkg.cmake'
 
 jobs:
-  - job: Windows
+  - job: Windows_x86_64
+    displayName: Windows (x86_64)
     pool:
       vmImage: 'windows-latest'
     variables:
       MUMBLE_ENVIRONMENT_VERSION: 'win64-static-1.4.x-2020-05-27-ecb3c64-1151'
+      MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
+      VCVARS_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat'
+    steps:
+    - template: steps_windows.yml
+  - job: Windows_x86
+    displayName: Windows (x86)
+    pool:
+      vmImage: 'windows-latest'
+    variables:
+      MUMBLE_ENVIRONMENT_VERSION: 'win32-static-1.4.x-2020-07-22-dbd6271-1162'
+      MUMBLE_ENVIRONMENT_TRIPLET: 'x86-windows-static-md'
+      VCVARS_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsamd64_x86.bat'
     steps:
     - template: steps_windows.yml
   - job: Linux
