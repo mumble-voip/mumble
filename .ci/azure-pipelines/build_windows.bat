@@ -34,7 +34,7 @@
 
 @echo on
 
-for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (SET "VER=%%g")
+for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (set "VER=%%g")
 
 cd /d %BUILD_BINARIESDIRECTORY%
 
@@ -61,6 +61,8 @@ if errorlevel 1 (
 	exit /b %errorlevel%
 )
 
+:: Set timeout for tests to 10min
+set QTEST_FUNCTION_TIMEOUT=600000
 ctest --verbose
 
 if errorlevel 1 (
