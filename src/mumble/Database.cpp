@@ -40,11 +40,10 @@ static bool execQueryAndLogFailure(QSqlQuery &query, const QString &queryString)
 }
 
 
-Database::Database(const QString &dbname) {
-	db = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), dbname);
+bool Database::findOrCreateDatabase()
+{
 	QSettings qs;
 	QStringList datapaths;
-	int i;
 
 	datapaths << g.qdBasePath.absolutePath();
 	datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
@@ -55,42 +54,65 @@ Database::Database(const QString &dbname) {
 	datapaths << QDir::currentPath();
 	datapaths << qApp->applicationDirPath();
 	datapaths << qs.value(QLatin1String("InstPath")).toString();
-	bool found = false;
+	datapaths.removeAll(QLatin1String(""));
+	datapaths.removeDuplicates();
 
-	for (i = 0; (i < datapaths.size()) && ! found; i++) {
-		if (!datapaths[i].isEmpty()) {
-			// Try the legacy path first, and use it if it exists.
-			// If it doesn't, use the new, non-hidden version.
-			QFile legacyDatabaseFile(datapaths[i] + QLatin1String("/.mumble.sqlite"));
-			if (legacyDatabaseFile.exists()) {
-				db.setDatabaseName(legacyDatabaseFile.fileName());
-				found = db.open();
+	// Try to find an existing database
+	foreach(const QString &datapath, datapaths) {
+		// Try the legacy path first, and use it if it exists.
+		// If it doesn't, use the new, non-hidden version.
+		QFile legacyDatabaseFile(datapath + QLatin1String("/.mumble.sqlite"));
+		if (legacyDatabaseFile.exists()) {
+			db.setDatabaseName(legacyDatabaseFile.fileName());
+			if (db.open()) {
+				return true;
 			}
-			if (found) {
-				break;
-			}
-			QFile databaseFile(datapaths[i] + QLatin1String("/mumble.sqlite"));
-			if (databaseFile.exists()) {
-				db.setDatabaseName(databaseFile.fileName());
-				found = db.open();
+		}
+		QFile databaseFile(datapath + QLatin1String("/mumble.sqlite"));
+		if (databaseFile.exists()) {
+			db.setDatabaseName(databaseFile.fileName());
+			if (db.open()) {
+				return true;
 			}
 		}
 	}
 
-	if (! found) {
-		for (i = 0; (i < datapaths.size()) && ! found; i++) {
-			if (!datapaths[i].isEmpty()) {
-				QDir::root().mkpath(datapaths[i]);
-				QFile f(datapaths[i] + QLatin1String("/mumble.sqlite"));
-				db.setDatabaseName(f.fileName());
-				found = db.open();
+	// There is no existing database, so we create one
+	foreach(const QString &datapath, datapaths) {
+		QDir::root().mkpath(datapath);
+		QFile f(datapath + QLatin1String("/mumble.sqlite"));
+		db.setDatabaseName(f.fileName());
+		if (db.open()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+Database::Database(const QString &dbname) {
+	db = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), dbname);
+	if (!g.s.qsDatabaseLocation.isEmpty()) {
+		QFile configuredLocation(g.s.qsDatabaseLocation);
+		if (configuredLocation.exists()) {
+			db.setDatabaseName(g.s.qsDatabaseLocation);
+			db.open();
+		} else {
+			int result = QMessageBox::critical(nullptr, QLatin1String("Mumble"), tr("The database file '%1' set in the configuration file does not exist. Do you want to create a new database file at this location?").arg(g.s.qsDatabaseLocation), QMessageBox::Yes | QMessageBox::No);
+			if (result == QMessageBox::Yes) {
+				db.setDatabaseName(g.s.qsDatabaseLocation);
+				db.open();
+			} else {
+				qFatal("Database: File not found");
 			}
 		}
 	}
-
-	if (! found) {
-		QMessageBox::critical(nullptr, QLatin1String("Mumble"), tr("Mumble failed to initialize a database in any\nof the possible locations."), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
-		qFatal("Database: Failed initialization");
+	if (!db.isOpen()) {
+		if (findOrCreateDatabase()) {
+			g.s.qsDatabaseLocation = db.databaseName();
+		} else {
+			QMessageBox::critical(nullptr, QLatin1String("Mumble"), tr("Mumble failed to initialize a database in any of the possible locations."), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
+			qFatal("Database: Failed initialization");
+		}
 	}
 
 	QFileInfo fi(db.databaseName());

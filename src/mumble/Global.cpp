@@ -65,7 +65,7 @@ static void migrateDataDir() {
 }
 #endif // Q_OS_WIN
 
-Global::Global() {
+Global::Global(const QString &qsConfigPath) {
 	mw = 0;
 	db = 0;
 	p = 0;
@@ -119,29 +119,37 @@ Global::Global() {
 	bDebugDumpInput = false;
 	bDebugPrintQueue = false;
 
-	QStringList qsl;
-	qsl << QCoreApplication::instance()->applicationDirPath();
-	qsl << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-
 #if defined(Q_OS_WIN)
 	QString appdata;
 	wchar_t appData[MAX_PATH];
-	if (SUCCEEDED(SHGetFolderPath(nullptr, CSIDL_APPDATA, nullptr, SHGFP_TYPE_CURRENT, appData))) {
-		appdata = QDir::fromNativeSeparators(QString::fromWCharArray(appData));
-
-		if (!appdata.isEmpty()) {
-			appdata.append(QLatin1String("/Mumble"));
-			qsl << appdata;
-		}
-	}
 #endif
 
-	foreach(const QString &dir, qsl) {
-		QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(dir));
-		if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
-			qdBasePath.setPath(dir);
-			qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
-			break;
+	if (!qsConfigPath.isEmpty()) {
+		QFile inifile(qsConfigPath);
+		qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
+	} else {
+		QStringList qsl;
+		qsl << QCoreApplication::instance()->applicationDirPath();
+		qsl << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+
+#if defined(Q_OS_WIN)
+		if (SUCCEEDED(SHGetFolderPath(nullptr, CSIDL_APPDATA, nullptr, SHGFP_TYPE_CURRENT, appData))) {
+			appdata = QDir::fromNativeSeparators(QString::fromWCharArray(appData));
+
+			if (!appdata.isEmpty()) {
+				appdata.append(QLatin1String("/Mumble"));
+				qsl << appdata;
+			}
+		}
+#endif
+
+		foreach(const QString &dir, qsl) {
+			QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(dir));
+			if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
+				qdBasePath.setPath(dir);
+				qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
+				break;
+			}
 		}
 	}
 

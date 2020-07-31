@@ -125,7 +125,26 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	Global::g_global_struct = new Global();
+	// This argument has to be parsed first, since it's value is needed to create the global struct,
+	// which other switches are modifying. If it is parsed first, the order of the arguments does not matter.
+	QStringList args = a.arguments();
+	const int index = std::max(args.lastIndexOf(QLatin1String("-c")), args.lastIndexOf(QLatin1String("--config")));
+	if (index >= 0) {
+		if (index + 1 < args.count()) {
+			QFile inifile(args.at(index + 1));
+			if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
+				Global::g_global_struct = new Global(args.at(index + 1));
+			} else {
+				printf("%s", qPrintable(MainWindow::tr("Configuration file %1 does not exist or is not writable.\n").arg(args.at(index + 1))));
+				return 1;
+			}
+		} else {
+			qCritical("Missing argument for --config!");
+			return 1;
+		}
+	} else {
+		Global::g_global_struct = new Global();
+	}
 
 #if QT_VERSION < QT_VERSION_CHECK(5,10,0)
 	// For Qt >= 5.10 we use QRandomNumberGenerator that is seeded automatically
@@ -143,8 +162,8 @@ int main(int argc, char **argv) {
 	bool bRpcMode = false;
 	QString rpcCommand;
 	QUrl url;
+
 	if (a.arguments().count() > 1) {
-		QStringList args = a.arguments();
 		for (int i = 1; i < args.count(); ++i) {
 			if (args.at(i) == QLatin1String("-h") || args.at(i) == QLatin1String("--help")
 #if defined(Q_OS_WIN)
@@ -165,6 +184,10 @@ int main(int argc, char **argv) {
 					"  -h, --help    Show this help text and exit.\n"
 					"  -m, --multiple\n"
 					"                Allow multiple instances of the client to be started.\n"
+					"  -c, --config\n"
+					"                Specify an alternative configuration file.\n"
+					"                If you use this to run multiple instances of Mumble at once,\n"
+					"                make sure to set an alternative 'database' value in the config.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
 					"  -jn, --jackname <arg>\n"

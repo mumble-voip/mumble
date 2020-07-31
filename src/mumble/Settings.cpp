@@ -674,6 +674,8 @@ void Settings::load(QSettings* settings_ptr) {
 	// Config updates
 	SAVELOAD(uiUpdateCounter, "lastupdate");
 
+	SAVELOAD(qsDatabaseLocation, "databaselocation");
+
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
@@ -1030,6 +1032,8 @@ void Settings::save() {
 
 	// Config updates
 	SAVELOAD(uiUpdateCounter, "lastupdate");
+
+	SAVELOAD(qsDatabaseLocation, "databaselocation");
 
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
