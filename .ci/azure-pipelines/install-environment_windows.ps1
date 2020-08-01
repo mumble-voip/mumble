@@ -42,20 +42,17 @@ if (-Not (Test-Path $MUMBLE_ENVIRONMENT_STORE)) {
 	New-Item $MUMBLE_ENVIRONMENT_STORE -ItemType Directory | Out-Null
 }
 
+# According to https://github.com/PowerShell/PowerShell/issues/2138 disabling the
+# progress bar can significantly increase the speed of Invoke-Web-Request.
+$ProgressPreference = 'SilentlyContinue'
+
 if (-Not (Test-Path (Join-Path $MUMBLE_ENVIRONMENT_STORE $MUMBLE_ENVIRONMENT_VERSION))) {
 	Write-Host "Environment not cached. Downloading..."
 
 	$env_url = "$env:MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.7z"
 	$env_7z = Join-Path $MUMBLE_ENVIRONMENT_STORE "$MUMBLE_ENVIRONMENT_VERSION.7z";
 	try {
-		# According to https://github.com/PowerShell/PowerShell/issues/2138 disabling the
-		# progress bar can significantly increase the speed of Invoke-Web-Request.
-		$ProgressPreference = 'SilentlyContinue'
-
 		Invoke-WebRequest -Uri $env_url -OutFile $env_7z
-
-		# Reset progress bar
-		$ProgressPreference = 'Continue'
 	} catch {
 		Write-Host "Failed to download build-environment: $PSItem"
 		exit 1
