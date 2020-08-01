@@ -5,7 +5,8 @@
 
 param(
 	[Parameter(Mandatory=$true)]$packageName,
-	[Parameter(Mandatory=$true)]$version
+	[Parameter(Mandatory=$true)]$version,
+	[switch]$allCultures
 )
 
 Function Build-Installer {
@@ -50,25 +51,32 @@ if(-Not (Test-Path -Path "EmbedTransform.exe")) {
 }
 
 $mainCulture = "en-US"
-$extraCultures =
-	"cs-CZ",
-	"da-DK",
-	"de-DE",
-	"el-GR",
-	"es-ES",
-	"fi-FI",
-	"fr-FR",
-	"it-IT",
-	"ja-JP",
-	"nb-NO",
-	"nl-NL",
-	"pl-PL",
-	"pt-PT",
-	"ru-RU",
-	"sv-SE",
-	"tr-TR",
-	"zh-CN",
-	"zh-TW"
+if ($allCultures.isPresent) {
+	$extraCultures =
+		"cs-CZ",
+		"da-DK",
+		"de-DE",
+		"el-GR",
+		"es-ES",
+		"fi-FI",
+		"fr-FR",
+		"it-IT",
+		"ja-JP",
+		"nb-NO",
+		"nl-NL",
+		"pl-PL",
+		"pt-PT",
+		"ru-RU",
+		"sv-SE",
+		"tr-TR",
+		"zh-CN",
+		"zh-TW"
+} else {
+	# Only use a few languages in order to save time
+	$extraCultures =
+		"de-DE",
+		"es-ES"
+}
 
 $wixBinaryDir = $env:WIX + "bin"
 $installerName = "$packageName-$version"
