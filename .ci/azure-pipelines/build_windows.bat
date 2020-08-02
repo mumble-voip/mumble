@@ -25,19 +25,20 @@
 :: Defined in .azure-pipelines.yml:
 ::
 ::  MUMBLE_ENVIRONMENT_STORE     - Path to the folder the build environment is stored in.
-::  MUMBLE_ENVIRONMENT_SOURCE    - Build environment web source folder URL
+::  MUMBLE_ENVIRONMENT_SOURCE    - Build environment web source folder URL.
+::  MUMBLE_ENVIRONMENT_TRIPLET   - vcpkg triplet.
 ::  MUMBLE_ENVIRONMENT_VERSION   - Full build environment version
 ::                                 Must match archive and extracted folder name.
 ::  MUMBLE_ENVIRONMENT_TOOLCHAIN - Path to the vcpkg CMake toolchain, used for CMake.
-::
+::  VCVARS_PATH                  - Path to the Visual Studio environment initialization script.
 
 @echo on
 
-for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (SET "VER=%%g")
+for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (set "VER=%%g")
 
 cd /d %BUILD_BINARIESDIRECTORY%
 
-call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+call "%VCVARS_PATH%"
 
 :: Delete MinGW, otherwise CMake picks it over MSVC.
 :: We don't delete the (Chocolatey) packages because it takes ~10 minutes...
@@ -48,7 +49,7 @@ del C:\Strawberry\c\bin\gcc.exe
 del C:\Strawberry\c\bin\g++.exe
 del C:\Strawberry\c\bin\c++.exe
 
-cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=x64-windows-static-md -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\x64-windows-static-md" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -Dversion=%VER% -Dpackaging=ON -Dstatic=ON -Dsymbols=ON -Dasio=ON -Dg15=ON "%BUILD_SOURCESDIRECTORY%"
+cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=%MUMBLE_ENVIRONMENT_TRIPLET% -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -Dversion=%VER% -Dpackaging=ON -Dstatic=ON -Dsymbols=ON -Dasio=ON -Dg15=ON "%BUILD_SOURCESDIRECTORY%"
 
 if errorlevel 1 (
 	exit /b %errorlevel%
@@ -60,7 +61,9 @@ if errorlevel 1 (
 	exit /b %errorlevel%
 )
 
-ctest
+:: Set timeout for tests to 10min
+set QTEST_FUNCTION_TIMEOUT=600000
+ctest --verbose
 
 if errorlevel 1 (
 	exit /b %errorlevel%

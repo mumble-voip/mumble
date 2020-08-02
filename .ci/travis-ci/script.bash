@@ -27,7 +27,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		# We specify the absolute path because otherwise Travis CI's CMake is used.
 		/usr/bin/cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -Dversion=$VER -Dsymbols=ON ..
 		/usr/bin/cmake --build .
-		/usr/bin/ctest
+		/usr/bin/ctest --verbose
 		sudo /usr/bin/cmake --install .
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ] || [ "${MUMBLE_HOST}" == "x86_64-w64-mingw32" ]; then
 		wget https://dl.mumble.info/build/extra/asio_sdk.zip -P /tmp/
