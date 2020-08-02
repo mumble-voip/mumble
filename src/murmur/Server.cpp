@@ -1517,8 +1517,10 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 
 	if (uiType == MessageHandler::UDPTunnel) {
 		int len = qbaMsg.size();
-		if (len < 2)
+		if (len < 2 || len > UDP_PACKET_SIZE) {
+			// Drop messages that are too small to be senseful or that are bigger than allowed
 			return;
+		}
 
 		QReadLocker rl(&qrwlVoiceThread);
 
