@@ -136,7 +136,9 @@ QSize ChatbarTextEdit::minimumSizeHint() const {
 
 QSize ChatbarTextEdit::sizeHint() const {
 	QSize sh = QTextEdit::sizeHint();
-	sh.setHeight(static_cast<qint32>(document()->documentLayout()->documentSize().height()));
+	const int minHeight = minimumSizeHint().height();
+	const int documentHeight = document()->documentLayout()->documentSize().height();
+	sh.setHeight(std::max(minHeight, documentHeight));
 	const_cast<ChatbarTextEdit *>(this)->setMaximumHeight(sh.height());
 	return sh;
 }
