@@ -180,9 +180,10 @@ void ServerHandler::customEvent(QEvent *evt) {
 }
 
 void ServerHandler::udpReady() {
+	const unsigned int UDP_MAX_SIZE = 2048;
 	while (qusUdp->hasPendingDatagrams()) {
-		char encrypted[2048];
-		char buffer[2048];
+		char encrypted[UDP_MAX_SIZE];
+		char buffer[UDP_MAX_SIZE];
 		unsigned int buflen = static_cast<unsigned int>(qusUdp->pendingDatagramSize());
 		QHostAddress senderAddr;
 		quint16 senderPort;
