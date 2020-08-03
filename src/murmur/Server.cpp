@@ -1110,6 +1110,14 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 	len = pds.size() + 1;
 
+	if (poslen > static_cast<unsigned int>(len)) {
+		// poslen must never ever be bigger than len as this could lead to negative buffer sizes (len - poslen) being
+		// used when further processing the packet.
+		// Usually this shouldn't happen in the first place but can happen with malformed/malicious packets in certain
+		// cases.
+		poslen = 0;
+	}
+
 	/// A set of users that'll receive the audio buffer because they are listening
 	/// to a channel that received that audio.
 	QSet<ServerUser *> listeningUsers;
@@ -1657,8 +1665,10 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 
 	if (uiType == MessageHandler::UDPTunnel) {
 		int len = qbaMsg.size();
-		if (len < 2)
+		if (len < 2 || len > UDP_PACKET_SIZE) {
+			// Drop messages that are too small to be senseful or that are bigger than allowed
 			return;
+		}
 
 		QReadLocker rl(&qrwlVoiceThread);
 
