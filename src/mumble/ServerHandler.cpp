@@ -180,13 +180,24 @@ void ServerHandler::customEvent(QEvent *evt) {
 }
 
 void ServerHandler::udpReady() {
+	const unsigned int UDP_MAX_SIZE = 2048;
 	while (qusUdp->hasPendingDatagrams()) {
-		char encrypted[2048];
-		char buffer[2048];
+		char encrypted[UDP_MAX_SIZE];
+		char buffer[UDP_MAX_SIZE];
 		unsigned int buflen = static_cast<unsigned int>(qusUdp->pendingDatagramSize());
+
+		if (buflen > UDP_MAX_SIZE) {
+			// Discard datagrams that exceed our buffer's size as we'd have to trim them down anyways and it is not very
+			// likely that the data is valid in the trimmed down form.
+			// As we're using a maxSize of 0 it is okay to pass nullptr as the data buffer. Qt's docs (5.15) ensures that
+			// a maxSize of 0 means discarding the datagram.
+			qusUdp->readDatagram(nullptr, 0);
+			continue;
+		}
+
 		QHostAddress senderAddr;
 		quint16 senderPort;
-		qusUdp->readDatagram(encrypted, qMin(2048U, buflen), &senderAddr, &senderPort);
+		qusUdp->readDatagram(encrypted, buflen, &senderAddr, &senderPort);
 
 		if (!(HostAddress(senderAddr) == HostAddress(qhaRemote)) || (senderPort != usResolvedPort))
 			continue;
