@@ -108,7 +108,7 @@ public:
 	bool bHappyEaster;
 	static const char ccHappyEaster[];
 
-	Global();
+	Global(const QString &qsConfigPath = QString());
 	~Global();
 };
 

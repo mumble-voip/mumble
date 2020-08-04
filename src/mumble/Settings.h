@@ -430,6 +430,9 @@ struct Settings {
 	// Config updates
 	unsigned int uiUpdateCounter;
 
+	/// Path to SQLite-DB
+	QString qsDatabaseLocation;
+
 	// Nonsaved
 	LoopMode lmLoopMode;
 	float dPacketLoss;

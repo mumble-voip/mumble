@@ -25,6 +25,10 @@ class Database : public QObject {
 		Q_DISABLE_COPY(Database)
 
 		QSqlDatabase db;
+		/// This function is called when no database location is configured
+		/// in the config file. It tries to find an existing database file and
+		/// creates a new one if none was found.
+		bool findOrCreateDatabase();
 	public:
 		Database(const QString &dbname);
 		~Database() Q_DECL_OVERRIDE;
