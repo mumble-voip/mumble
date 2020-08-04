@@ -11,7 +11,8 @@ steps:
       .\Create-Win32InstallerMUI.ps1 -PackageName 'Mumble_${{parameters.arch}}' -Version '1.4.0'
       cp *.sha* $(Build.ArtifactStagingDirectory)
       cp *.msi $(Build.ArtifactStagingDirectory)
-      cp *.pdb $(Build.ArtifactStagingDirectory)
+      7z a PDBs.7z *.pdb 
+      cp PDBs.7z $(Build.ArtifactStagingDirectory)
     displayName: Build installer
   - template: task-publish-artifacts.yml
     parameters:
