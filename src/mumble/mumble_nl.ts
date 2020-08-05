@@ -2949,63 +2949,63 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Opzoeken</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"/>
+        <translation>Locatie</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Zeef</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"/>
+        <translation>Alles zichtbaar</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"/>
+        <translation>Ingenomen tonen</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"/>
+        <translation>Bereikbaren tonen</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>All</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation>Wadilya</translation>
+        <translation>Afrikaas</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Aziën</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Europaige</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>Noord-Amerikap</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Australazië</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"/>
+        <translation>Zut-Amerikans</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"/>
+        <translation>Toestemmen om toegang te vergeven te transmissie van de privé gegevens.</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Om de latentie (ping) van publieke servers en het aantal actieve gebruikers te bepalen, dient je IP adres verzonden te worden naar publieke servers.&lt;/p&gt;&lt;p&gt;Geef je toestemming om je IP adres door te versturen? Als het antwoord nee is, zal de publieke server lijst gedeactiveerd worden. Echter, je kan het elk moment reactiveren als netwerkinstelling.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3134,6 +3134,10 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
     <message>
         <source>&amp;Fill</source>
         <translation>&amp;Vullen</translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>&amp;Negeren</translation>
     </message>
 </context>
 <context>
@@ -6175,23 +6179,23 @@ Valide opties zijn:
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"/>
+        <translation>Tak</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Knaal</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"/>
+        <translation>Privé</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"/>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"/>
+        <translation>(1%) %2</translation>
     </message>
 </context>
 <context>
@@ -6267,6 +6271,18 @@ Valide opties zijn:
     <message>
         <source>Activate</source>
         <translation>Actipur</translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation>Billboard</translation>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation>Hoeveel seconden de stilte van een gebruikers gemarkeerd is na het praten.</translation>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation>Gebruikers toonstiltetijd:</translation>
     </message>
 </context>
 <context>
@@ -6470,6 +6486,14 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>Geen systeeminformatie delen met Mumble-servers of webservers</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation>Het verbindingsvenster bergt openbare serverlijsten nadien jouw aanvinking.</translation>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation>Publieke serverlijst opbergen.</translation>
     </message>
 </context>
 <context>
@@ -7104,10 +7128,6 @@ Gemixte galm-tegengang bundelt geluidsuitgangen naar monotoom stramen en paast d
 Multikanaalsechouitsluiting kost meer processorkracht; probeer gemixt eerst.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation>&lt;p&gt;Je gebruikt een Mumble-versie die update-checks &lt;b&gt;expliciet weigert&lt;/b&gt;.&lt;p&gt;&lt;p&gt;Dat betekent dat de update-notificatie die je wellicht ontvangt met deze optie &lt;b&gt;hoogstwaarschijnlijk betekenisloos&lt;/b&gt; is voor jou.&lt;p&gt;</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Als je Linux gebruikt is dit waarschijnlijkste omdat je een versie gebruikt van je distributie&apos;s pakket-repositoir welke eigen update-cycleringen hebben.&lt;/p&gt;&lt;p&gt;Als je altijd de meest recente Mumble-versie wilt hebben, bedien je een verschillende methode van installatie in acht nemen.
@@ -7132,6 +7152,14 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     <message>
         <source>Local Volume Adjustment...</source>
         <translation>Lokale Volume-verscherping...</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Je gebruikt een Mumble-versie met &lt;b&gt;expliciet uitgeschakelde&lt;/b&gt; update-controles.&lt;/p&gt;&lt;p&gt;Dit betekent dat de update melding die je e.v.t. ontvangt door deze optie te gebruiken &lt;b&gt; nutteloos is&lt;/b&gt; voor jou.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
+        <translation>Pratend (gedempt)</translation>
     </message>
 </context>
 <context>

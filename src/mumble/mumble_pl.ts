@@ -2540,7 +2540,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Traverse</source>
-        <translation>Wejście na pod-kanał</translation>
+        <translation>Wejście na podkanał</translation>
     </message>
     <message>
         <source>Enter</source>
@@ -2580,7 +2580,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation>Uprawnienie to umożliwia wejście na kanał. Jeżeli posiadasz hierarchiczną strukturę kanałów, możesz nadać każdemu uprawnienie wejścia na pod-kanały jednocześnie blokując dostęp do głównego kanału w hierarchii.</translation>
+        <translation>Uprawnienie to umożliwia wejście na kanał. Jeżeli posiadasz hierarchiczną strukturę kanałów, możesz nadać każdemu uprawnienie wejścia na podkanały, jednocześnie blokując dostęp do głównego kanału w hierarchii.</translation>
     </message>
     <message>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
@@ -3114,6 +3114,10 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>&amp;Fill</source>
         <translation>&amp;Wypełnij</translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>&amp;Ignoruj</translation>
     </message>
 </context>
 <context>
@@ -3956,7 +3960,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Users above Channels</source>
-        <translation>Wyświetlaj nazwy użytkowników ponad pod-kanałami</translation>
+        <translation>Wyświetlaj nazwy użytkowników ponad kanałami</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
@@ -4289,7 +4293,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Silent user lifetime</source>
-        <translation>Trwanie milczącego użytkownika</translation>
+        <translation>Czas trwania milczącego użytkownika</translation>
     </message>
 </context>
 <context>
@@ -6254,6 +6258,18 @@ Dostępne opcje:
         <source>Activate</source>
         <translation>Aktywuj</translation>
     </message>
+    <message>
+        <source>Display</source>
+        <translation>Wyświetlanie</translation>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation>Jak długo pozycje milczących użytkowników powinny pozostać oznaczone po tym, jak przestaną mówić (w sekundach).</translation>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation>Czas wyświetlania milczącego użytkownika</translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6455,6 +6471,14 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>Nie przesyłaj informacji o systemie operacyjnym do serwerów Mumble i serwerów sieciowych</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation>Po przełączeniu ukrywa listę serwerów publicznych w oknie dialogowym połączenia</translation>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation>Ukryj listę serwerów publicznych</translation>
     </message>
 </context>
 <context>
@@ -7090,10 +7114,6 @@ Mieszane usuwanie echa miesza wszystkie wyjścia głośnikowe w jednym strumieni
 Wielokanałowe usuwanie echa wymaga więcej mocy obliczeniowej procesora, dlatego najpierw należy spróbować mieszanego</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation>&lt;p&gt;Używasz wersji Mumble, która &lt;b&gt;jawnie wyłączyła&lt;/b&gt; sprawdzanie aktualizacji.&lt;p&gt;&lt;p&gt;Oznacza to, że powiadomienie o aktualizacji, które możesz otrzymać za pomocą tej opcji, &lt;b&gt;najprawdopodobniej będzie bez znaczenia&lt;/b&gt; dla ciebie.&lt;p&gt;</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Jeśli używasz Linuksa, najprawdopodobniej używasz wersji z repozytorium pakietów twojej dystrybucji, która ma własne cykle aktualizacji.&lt;/p&gt;&lt;p&gt;Jeśli chcesz zawsze mieć najnowszą wersję Mumble, powinieneś rozważyć zastosowanie innej metody instalacji.
@@ -7118,6 +7138,14 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <message>
         <source>Local Volume Adjustment...</source>
         <translation>Lokalne dopasowanie głośności...</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Używasz wersji Mumble, która &lt;b&gt;jawnie wyłączyła&lt;/b&gt; sprawdzanie aktualizacji.&lt;/p&gt;&lt;p&gt;Oznacza to, że powiadomienie o aktualizacji, które możesz otrzymać za pomocą tej opcji, &lt;b&gt;najprawdopodobniej będzie bez znaczenia&lt;/b&gt; dla ciebie.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
+        <translation>Mówiący (wyciszony)</translation>
     </message>
 </context>
 <context>

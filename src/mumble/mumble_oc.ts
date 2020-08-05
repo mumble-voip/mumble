@@ -110,7 +110,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Suprimir</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
@@ -162,7 +162,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>Lista d’entradas</translation>
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
@@ -247,12 +247,13 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>Ajustar un grop novèl</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ajustar&lt;/b&gt;&lt;br/&gt;
+Ajustar un grop novèl.</translation>
     </message>
     <message>
         <source>Inherited members</source>
@@ -300,7 +301,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>Utilizaire/Grop</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
@@ -308,7 +309,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>ID utilizaire</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
@@ -320,7 +321,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Proprietats</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
@@ -381,7 +382,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>ID del canal.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
@@ -389,7 +390,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Nombre maximum autorizat dins lo canal</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -402,19 +403,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Proprietats</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"/>
+        <translation>Senhal del canal</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"/>
+        <translation>Maximum utilizaires</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"/>
+        <translation>Nom del canal</translation>
     </message>
     <message>
         <source>Inherited group members</source>
@@ -430,7 +431,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"/>
+        <translation>Ajustar membres al grop</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
@@ -484,7 +485,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>Causida periferic</translation>
     </message>
     <message>
         <source>Device</source>
@@ -528,7 +529,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Driver name</source>
-        <translation type="unfinished"/>
+        <translation>Nom del pilòt</translation>
     </message>
     <message>
         <source>Buffer size</source>
@@ -568,7 +569,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"/>
+        <translation>Lista dels microfòns</translation>
     </message>
     <message>
         <source>List of speakers</source>
@@ -594,7 +595,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Un utilitari de discutida vocala pels jogaires&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -606,7 +607,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"/>
+        <translation>A&amp;utors</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
@@ -622,7 +623,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"/>
+        <translation>Autor</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
@@ -657,7 +658,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Transmission</source>
-        <translation type="unfinished"/>
+        <translation>Transmission</translation>
     </message>
     <message>
         <source>&amp;Transmit</source>
@@ -793,7 +794,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"/>
+        <translation>Supression del bruch</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
@@ -917,7 +918,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"/>
+        <translation>La banda passenta del servidor a un maximum de sonque %1 kbit/s. Qualitat àudio auto ajustada a %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <source>Max. Amplification</source>
@@ -1084,7 +1085,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"/>
+        <translation>Àudio per paquet</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
@@ -1867,7 +1868,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>Paramètres de notificacions</translation>
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
@@ -3091,6 +3092,10 @@ Label of the server. This is what the server will be named like in your server l
         <source>&amp;Fill</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -3299,7 +3304,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Acorchis</translation>
     </message>
     <message>
         <source>Shortcut button combination.</source>
@@ -3343,15 +3348,15 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>List of users</source>
-        <translation type="unfinished"/>
+        <translation>Lista d’utilizaires</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ajustar</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Suprimir</translation>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3399,7 +3404,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Canal</translation>
     </message>
 </context>
 <context>
@@ -3428,7 +3433,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>LCD</name>
     <message>
         <source>Not connected</source>
-        <translation type="unfinished"/>
+        <translation>Pas connectat</translation>
     </message>
 </context>
 <context>
@@ -3443,11 +3448,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Devices</source>
-        <translation type="unfinished"/>
+        <translation>Periferics</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3460,7 +3465,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Talha</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -3516,11 +3521,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>Avertiment</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation>Informacions</translation>
     </message>
     <message>
         <source>Other self-muted/deafened</source>
@@ -3649,7 +3654,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"/>
+        <translation>Messatge tèxt</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -3723,19 +3728,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Messages</source>
-        <translation type="unfinished"/>
+        <translation>Messatges</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"/>
+        <translation>Messatge</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"/>
+        <translation>Consòla</translation>
     </message>
     <message>
         <source>Notification</source>
-        <translation type="unfinished"/>
+        <translation>Notificacions</translation>
     </message>
     <message>
         <source>Text-To-Speech</source>
@@ -3755,7 +3760,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>Volum</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
@@ -3901,11 +3906,11 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Percórrer&lt;/a&gt;</translation>
     </message>
     <message>
         <source>User Interface</source>
-        <translation type="unfinished"/>
+        <translation>Interfàcia utilizaire</translation>
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
@@ -3937,11 +3942,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Lenga</translation>
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"/>
+        <translation>Lenga d’utilizar (requerís una reaviada)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
@@ -4062,7 +4067,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Application</source>
-        <translation type="unfinished"/>
+        <translation>Aplicacion</translation>
     </message>
     <message>
         <source>Adds user and channel context menus into the menu bar</source>
@@ -4090,7 +4095,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tèma</translation>
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
@@ -4325,7 +4330,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble</translation>
     </message>
     <message>
         <source>Mumble -- %1</source>
@@ -4345,7 +4350,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Tampar</translation>
     </message>
     <message>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
@@ -4389,11 +4394,11 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Pas connectat&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Escafar</translation>
     </message>
     <message>
         <source>Opening URL %1</source>
@@ -4401,7 +4406,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Lo fichièr existís pas</translation>
     </message>
     <message>
         <source>File is not a configuration file.</source>
@@ -4421,7 +4426,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished"/>
+        <translation>Connectat a %1</translation>
     </message>
     <message>
         <source>Enter username</source>
@@ -4441,11 +4446,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Canal de votz&lt;/h2&gt;&lt;p&gt;Chifrat amb 128 bit OCB-AES128&lt;br /&gt;%1 ms laténcia mejana (%4 escart)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Register yourself as %1</source>
@@ -4457,7 +4462,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocòl %1&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
@@ -4517,7 +4522,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Connected.</source>
-        <translation type="unfinished"/>
+        <translation>Connectat.</translation>
     </message>
     <message>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
@@ -4567,11 +4572,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;User</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Utilizaire</translation>
     </message>
     <message>
         <source>&amp;Channel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Canal</translation>
     </message>
     <message>
         <source>Use in conjunction with Whisper to.</source>
@@ -4641,7 +4646,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anullar</translation>
     </message>
     <message>
         <source>Save Image As...</source>
@@ -4701,15 +4706,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Banda passenta àudio&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Actuala %2 kbit/s&lt;br /&gt;Codec : %3&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Mumble Server Information</source>
-        <translation type="unfinished"/>
+        <translation>Informacions servidor Mumble</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Veire certificat</translation>
     </message>
     <message>
         <source>Enter reason</source>
@@ -4786,7 +4791,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished"/>
+        <translation>A prepaus de Qt</translation>
     </message>
     <message>
         <source>SSL Verification failed: %1</source>
@@ -4840,7 +4845,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation type="unfinished"/>
+        <translation>Marrit senhal</translation>
     </message>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
@@ -4848,15 +4853,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"/>
+        <translation>Imatges (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
-        <translation type="unfinished"/>
+        <translation>C&amp;onfigurar</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ajuda</translation>
     </message>
     <message>
         <source>Log</source>
@@ -4868,7 +4873,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Quitar Mumble</translation>
     </message>
     <message>
         <source>Closes the program</source>
@@ -4880,7 +4885,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>Open the server connection dialog</source>
@@ -4888,11 +4893,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Disconnect</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Desconnexion</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
-        <translation type="unfinished"/>
+        <translation>Se desconnectar del servidor</translation>
     </message>
     <message>
         <source>Disconnects you from the server.</source>
@@ -4900,7 +4905,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Show information about the server connection</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar las informacions tocant la connexion al servidor</translation>
     </message>
     <message>
         <source>This will show extended information about the connection to the server.</source>
@@ -4952,7 +4957,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Link</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ligam</translation>
     </message>
     <message>
         <source>Link your channel to another channel</source>
@@ -5102,7 +5107,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Configure Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Configurar Mumble</translation>
     </message>
     <message>
         <source>Allows you to change most settings for Mumble.</source>
@@ -5130,7 +5135,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Information about Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Informacions a prepaus de Mumble</translation>
     </message>
     <message>
         <source>Shows a small dialog with information and license for Mumble.</source>
@@ -5138,7 +5143,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Information about Speex</source>
-        <translation type="unfinished"/>
+        <translation>Informacions a prepaus de Speex</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Speex.</source>
@@ -5146,7 +5151,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Information about Qt</source>
-        <translation type="unfinished"/>
+        <translation>Informacions a prepaus de Qt</translation>
     </message>
     <message>
         <source>Shows a small dialog with information about Qt.</source>
@@ -5298,11 +5303,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"/>
+        <translation>Messatge de benvenguda : %1</translation>
     </message>
     <message>
         <source>Mumble: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble : %1</translation>
     </message>
     <message>
         <source>You were denied %1 privileges in %2.</source>
@@ -5480,7 +5485,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"/>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
@@ -5642,7 +5647,7 @@ Valid actions are:
     </message>
     <message>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>La benvenguda a Mumble.</translation>
     </message>
     <message>
         <source>Skipping version check in debug mode.</source>
@@ -5769,7 +5774,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>&amp;Hide Channel when Filtering</source>
@@ -5857,7 +5862,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Settings...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Paramètres...</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
@@ -5869,15 +5874,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;About...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;A prepaus...</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
-        <translation type="unfinished"/>
+        <translation>A prepaus de &amp;Speex...</translation>
     </message>
     <message>
         <source>About &amp;Qt...</source>
-        <translation type="unfinished"/>
+        <translation>A prepaus de &amp;Qt...</translation>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
@@ -5921,7 +5926,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
@@ -6076,11 +6081,11 @@ Valid options are:
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 : %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"/>
+        <translation>(%1) %2</translation>
     </message>
 </context>
 <context>
@@ -6091,19 +6096,19 @@ Valid options are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Posicion</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <source>m</source>
@@ -6135,7 +6140,7 @@ Valid options are:
     </message>
     <message>
         <source>Identity</source>
-        <translation type="unfinished"/>
+        <translation>Identitat</translation>
     </message>
     <message>
         <source>Set</source>
@@ -6157,16 +6162,28 @@ Valid options are:
         <source>Activate</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
     <message>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>Ret</translation>
     </message>
     <message>
         <source>Connection</source>
-        <translation type="unfinished"/>
+        <translation>Connexion</translation>
     </message>
     <message>
         <source>Use TCP compatibility mode</source>
@@ -6191,11 +6208,11 @@ Valid options are:
     </message>
     <message>
         <source>Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Servidor mandatari</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Tipe</translation>
     </message>
     <message>
         <source>Type of proxy to connect through</source>
@@ -6203,7 +6220,7 @@ Valid options are:
     </message>
     <message>
         <source>Direct connection</source>
-        <translation type="unfinished"/>
+        <translation>Connexion dirècta</translation>
     </message>
     <message>
         <source>HTTP(S) proxy</source>
@@ -6259,7 +6276,7 @@ Valid options are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>Pòrt</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
@@ -6283,7 +6300,7 @@ Valid options are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Senhal</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -6295,7 +6312,7 @@ Valid options are:
     </message>
     <message>
         <source>Mumble services</source>
-        <translation type="unfinished"/>
+        <translation>Servicis Mumble</translation>
     </message>
     <message>
         <source>Check for new releases of Mumble automatically.</source>
@@ -6356,6 +6373,14 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide public server list</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6499,7 +6524,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>Opcions</translation>
     </message>
     <message>
         <source>Enable overlay.</source>
@@ -6572,7 +6597,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load…</source>
-        <translation type="unfinished"/>
+        <translation>Cargament…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6592,7 +6617,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Color</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -6600,7 +6625,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Font</source>
-        <translation type="unfinished"/>
+        <translation>Poliça</translation>
     </message>
     <message>
         <source>FPS and Clock Display</source>
@@ -6699,7 +6724,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Avatar</translation>
     </message>
     <message>
         <source>User&apos;s name</source>
@@ -6715,7 +6740,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Canal</translation>
     </message>
     <message>
         <source>Muted or deafened</source>
@@ -6853,7 +6878,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>Opcions</translation>
     </message>
     <message>
         <source>Enable plugins and transmit positional information</source>
@@ -6889,7 +6914,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;A prepaus</translation>
     </message>
     <message>
         <source>Show configuration page of plugin</source>
@@ -6985,10 +7010,6 @@ Multichannel echo cancellation requires more CPU, so you should try mixed first<
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation type="unfinished"/>
@@ -7011,6 +7032,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7042,7 +7071,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ctrl+B</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <source>&amp;Italic</source>
@@ -7054,7 +7083,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ctrl+I</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -7062,11 +7091,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ctrl+U</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Color</translation>
     </message>
     <message>
         <source>Insert Link</source>
@@ -7074,7 +7103,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ctrl+L</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <source>Insert Image</source>
@@ -7089,11 +7118,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Tèxt</translation>
     </message>
 </context>
 <context>
@@ -7135,7 +7164,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>LAN</source>
-        <translation type="unfinished"/>
+        <translation>LAN</translation>
     </message>
     <message>
         <source>Public Internet</source>
@@ -7198,7 +7227,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutTargetWidget</name>
     <message>
         <source>...</source>
-        <translation type="unfinished"/>
+        <translation>...</translation>
     </message>
     <message>
         <source>, </source>
@@ -7265,14 +7294,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"/>
+        <translation>Messatge</translation>
     </message>
 </context>
 <context>
     <name>Tokens</name>
     <message>
         <source>Empty Token</source>
-        <translation type="unfinished"/>
+        <translation>Geton void</translation>
     </message>
     <message>
         <source>Mumble - Access Tokens</source>
@@ -7330,23 +7359,23 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Days</source>
-        <translation type="unfinished"/>
+        <translation>Jorns</translation>
     </message>
     <message>
         <source>Weeks</source>
-        <translation type="unfinished"/>
+        <translation>Setmanas</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation type="unfinished"/>
+        <translation>Meses</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation type="unfinished"/>
+        <translation>Ans</translation>
     </message>
     <message>
         <source>Inactive for</source>
-        <translation type="unfinished"/>
+        <translation>Inactiu depuèi</translation>
     </message>
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
@@ -7354,11 +7383,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Recercar</translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"/>
+        <translation>Lista d’utilizaires</translation>
     </message>
 </context>
 <context>
@@ -7369,23 +7398,23 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Connection Information</source>
-        <translation type="unfinished"/>
+        <translation>Informacions de connexion</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>Version</translation>
     </message>
     <message>
         <source>OS</source>
-        <translation type="unfinished"/>
+        <translation>OS</translation>
     </message>
     <message>
         <source>Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Certificat</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"/>
+        <translation>Adreça IP</translation>
     </message>
     <message>
         <source>CELT Versions</source>
@@ -7393,7 +7422,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Details...</source>
-        <translation type="unfinished"/>
+        <translation>Detalhs...</translation>
     </message>
     <message>
         <source>Ping Statistics</source>
@@ -7678,7 +7707,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>Flags</source>
@@ -7757,7 +7786,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>País</translation>
     </message>
     <message>
         <source>Locality</source>
@@ -7785,11 +7814,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>RSA</source>
-        <translation type="unfinished"/>
+        <translation>RSA</translation>
     </message>
     <message>
         <source>DSA</source>
-        <translation type="unfinished"/>
+        <translation>DSA</translation>
     </message>
     <message>
         <source>Digest (SHA-1): %1</source>
@@ -7805,7 +7834,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>DNS: %1</source>
-        <translation type="unfinished"/>
+        <translation>DNS : %1</translation>
     </message>
     <message>
         <source>Issued by:</source>

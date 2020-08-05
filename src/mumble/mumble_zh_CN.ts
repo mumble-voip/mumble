@@ -3139,6 +3139,10 @@ Label of the server. This is what the server will be named like in your server l
         <source>&amp;Fill</source>
         <translation>填写(&amp;F)</translation>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>忽略(&amp;I)</translation>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -6272,6 +6276,18 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <source>Activate</source>
         <translation>激活</translation>
     </message>
+    <message>
+        <source>Display</source>
+        <translation>显示</translation>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation>用户在不发言多久（单位为秒）之后，其位置仍被标记。</translation>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation>沉默用户显示时间：</translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6473,6 +6489,14 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>请勿向 Mumble 服务器和网页服务器发送操作系统信息</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation>启用时，在连接对话框隐藏公共服务器列表</translation>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation>隐藏公共服务器列表</translation>
     </message>
 </context>
 <context>
@@ -7107,10 +7131,6 @@ Multichannel echo cancellation requires more CPU, so you should try mixed first<
 多通道回声消除需要更多 CPU 资源，所以您应该先尝试混合回声消除。</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation>&lt;p&gt;您正在使用&lt;b&gt;显式禁用&lt;/b&gt;更新检查的 Mumble 版本。&lt;p&gt;&lt;p&gt;这意味着您通过此选项收到的更新提醒对您来说&lt;b&gt;很可能是无意义的&lt;/b&gt;。&lt;p&gt;</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;如果您正在使用 Linux，这很可能是因为您使用的版本来自发行版的软件包仓库，它们有自己的更新周期。&lt;/p&gt;&lt;p&gt;如果您希望始终使用最新版本的 Mumble，就应该考虑使用其他安装方式。
@@ -7135,6 +7155,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Local Volume Adjustment...</source>
         <translation>本地音量调整...</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;您正在使用&lt;b&gt;显式禁用&lt;/b&gt;更新检查的 Mumble 版本。&lt;p&gt;这意味着您通过此选项收到的更新提醒对您来说&lt;b&gt;很可能是无意义的&lt;/b&gt;。&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
+        <translation>正在发言（已屏蔽）</translation>
     </message>
 </context>
 <context>

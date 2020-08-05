@@ -2485,11 +2485,11 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Új tanúsítvány készítése erős titkosítással</translation>
+        <translation>Új tanúsítvány készítése erős hitelesítéssel</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;A mumble a szervereken való hitelesítéshez készíteni fog egy erős titkosítású tanúsítványt.&lt;/p&gt;&lt;p&gt;Ha szeretné, a tanúsítványhoz megadhat néhány további információt, amely kapcsolódáskor megjelenik a szervereken. Ha megad egy érvényes email címet, akkor később lecserélheti a jelenlegi tanúsítványt egy tanúsítványkiadó központ (CA) által hitelesítettre, amely erősebb titkosítást biztosít.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;A mumble a szervereken való hitelesítéshez készíteni fog egy erős hitelesítésű tanúsítványt.&lt;/p&gt;&lt;p&gt;Ha szeretné, a tanúsítványhoz megadhat néhány további információt, amely kapcsolódáskor megjelenik a szervereken. Ha megad egy érvényes email címet, akkor később lecserélheti a jelenlegi tanúsítványt egy tanúsítványkiadó központ (CA) által hitelesítettre, amely erősebb azonosítást biztosít.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2505,7 +2505,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Ez az ön email címe. Erősen ajánlott, hogy egy valódi email címet adjon meg, mert ez teszi lehetővé, hogy lecserélje a tanúsítványát erősebbre, amellyel probléma mentes a hitelesítés.</translation>
+        <translation>Ez az Ön email címe. Erősen ajánlott, hogy egy érvényes email címet adjon meg, mert ezzel lehetővé teszi, hogy később hitelesítési problémák nélkül továbbfejleszthesse a tanúsítványát egy erősebbre.</translation>
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
@@ -2534,11 +2534,12 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Ha valaha is elveszítené a jelenlegi tanúsítványát, ami megtörténhet ha a számítógépének hardvere meghibásodik vagy újratelepíti a gépét, akkor Ön nem lesz képes hitelesíteni magát egyik kiszolgálóra sem amelyre korábban regisztrált. Ezért &lt;b&gt;kötelező&lt;/b&gt; a tanúsítványáról biztonsági másolatot készíteni. Erősen ajánljuk hogy tárolja ezt a biztonsági másolatot egy eltávolítható tárolóeszközön, mint például egy USB pendrive-on.&lt;/p&gt;
+&lt;p&gt;Vegye figyelembe, hogy ez a fájl nem lesz titkosítva, és ha azt bárki megszerzi, úgy képes lesz Önt megszemélyesíteni, tehát vigyázzon rá.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;A Mumble képes tanúsítványokat használni a kiszolgálóval való hitelesítéshez. Tanúsítványok használatával elkerülheti a jelszavakat, azaz nem kell felfednie semmilyen jelszót sem a távoli helynek. Ez lehetővé teszi továbbá a nagyon egyszerű felhasználói regisztrációt és a kiszolgálóktól független kliensoldali barátlistát.&lt;/p&gt;&lt;p&gt;Habár a Mumble képes tanúsítványok nélkül is működni, a kiszolgálók többsége elvárja hogy legyen Önnek is egy.&lt;/p&gt;&lt;p&gt;Új tanúsítvány létrehozása automatikusan a legtöbb használati esetben elégséges. De a Mumble támogatja továbbá az email cím birtoklását képviselő tanúsítványokat is. Ezeket a tanúsítványokat harmadik felek bocsájtják ki. További információért tekintse meg a &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;felhasználói tanúsítvány dokumentációját&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3088,7 +3089,8 @@ Host: %1 Port: %2</source>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Jelszó&lt;/b&gt;&lt;br/&gt;
+A kapcsolódás során a kiszolgálónak elküldött jelszó. Erre a jelszóra szükség van ha &lt;i&gt;SuperUser&lt;/i&gt;-ként kapcsolódik, vagy ha a kiszolgáló jelszavas hitelesítést használ. Ha nincs itt megadva akkor a kapcsolódás során lesz kérve.</translation>
     </message>
     <message>
         <source>Show password</source>
@@ -3121,6 +3123,10 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Fill</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -4506,11 +4512,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>A kapcsolat titkosított és hitelesített %1 használatával és a kulcscseréhez használt mechanizmus: %2 (%3)</translation>
     </message>
     <message>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>A kapcsolat %1 használatával lett titkosítva, %2 az üzenet hitelesítéséhez és %3 a kulcscserélési mechanizmushoz (%4)</translation>
     </message>
     <message>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
@@ -6198,6 +6204,18 @@ Valid options are:
         <source>Activate</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6397,6 +6415,14 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide public server list</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7026,10 +7052,6 @@ Multichannel echo cancellation requires more CPU, so you should try mixed first<
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation type="unfinished"/>
@@ -7052,6 +7074,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
         <translation type="unfinished"/>
     </message>
 </context>

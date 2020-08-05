@@ -3141,6 +3141,10 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
         <source>&amp;Fill</source>
         <translation>Compléter</translation>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -6283,6 +6287,18 @@ Les options valides sont :
         <source>Activate</source>
         <translation>Activer</translation>
     </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6484,6 +6500,14 @@ Empêche le client d&apos;envoyer des informations pouvant identifier le systèm
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>Ne pas envoyer d&apos;informations du système d&apos;exploitation aux serveurs Mumble et aux serveurs web</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7118,10 +7142,6 @@ L&apos;annulation mélangée d&apos;écho regroupe les différents flux audios e
 L&apos;annulation multicanal d&apos;écho regroupe les différents flux audios en un seul &lt;b&gt;après&lt;/b&gt; avoir annulé l&apos;écho.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation>&lt;p&gt;Vous utilisez une version de Mumble dont les mises à jour automatiquement ont été &lt;b&gt;explicitement désactivées&lt;/b&gt;&lt;p&gt;&lt;p&gt;Cela signifie que les notifications affichées par cette fonctionalité ne reflèteront probablement pas la disponibilité d&apos;une mise à jour pour vous.&lt;p&gt;</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si vous utilisez Linux, la raison probable est qu&apos;il y a un délai entre la sortie d&apos;une mise à jour et sa disponibilité dans les dépôts de votre distribution.&lt;/p&gt;&lt;p&gt;Si vous voulez profitez instantanément des nouvelles versions de Mumble, vous devriez considérer une méthode d&apos;installation différente. Voyez &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;le wiki&lt;/a&gt; (anglais) pour une liste des alternatives disponibles.&lt;/p&gt;</translation>
@@ -7145,6 +7165,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Local Volume Adjustment...</source>
         <translation>Ajustement du volume local</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

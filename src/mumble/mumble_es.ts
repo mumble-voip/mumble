@@ -3141,6 +3141,10 @@ Etiqueta de este servidor. Así es como se llamará el servidor en su lista del 
         <source>&amp;Fill</source>
         <translation>&amp;Llenar</translation>
     </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>&amp;Ignorar</translation>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -6278,6 +6282,18 @@ Las opciones válidas son:
         <source>Activate</source>
         <translation>Activar</translation>
     </message>
+    <message>
+        <source>Display</source>
+        <translation>Visualización</translation>
+    </message>
+    <message>
+        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <translation>Por cuánto tiempo la posición de usuarios silenciosos debiese permanecer marcada, después de que hayan dejado de hablar (en segundos)</translation>
+    </message>
+    <message>
+        <source>Silent user displaytime:</source>
+        <translation>Tiempo de visualización de un usuario silencioso/a</translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6479,6 +6495,14 @@ Impide que el cliente envíe información potencialmente identificable sobre el 
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
         <translation>No envíe información del SO a servidores Mumble y servidores web</translation>
+    </message>
+    <message>
+        <source>When toggled this hides the public server list from the connect dialog</source>
+        <translation>Al activar, esto esconde la lista de servidores públicos del diálogo de conexión</translation>
+    </message>
+    <message>
+        <source>Hide public server list</source>
+        <translation>Esconder la lista de servidores públicos</translation>
     </message>
 </context>
 <context>
@@ -7113,10 +7137,6 @@ Cancelación mixta de eco mezcla todas las salidas del parlante en un stream mon
 Cancelación multicanal de eco utiliza más CPU; se recomienda que pruebe la cancelación mixta primero.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;p&gt;</source>
-        <translation>&lt;p&gt;Usted está utilizando una versión de Mumble que &lt;b&gt;explícitamente desactivó&lt;/b&gt; la búsqueda de actualizaciones.&lt;p&gt;&lt;p&gt; Esto significa que las notificaciones de actualización que reciba al usar esta opción serán &lt;b&gt;muy probablemente, irrelevantes&lt;/b&gt; para usted.&lt;p&gt;</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si usted está usando Linux, esto probablemente pasa porque usted está utilizando una versión obtenida del repositorio de paquetes de vuestra distribución de Linux, quienes suelen tener sus propios ciclos de actualización.&lt;/p&gt;&lt;p&gt;Si prefiere tener siempre instalada la última versión de Mumble, debiera considerar utilizar un método distinto de instalación.
@@ -7141,6 +7161,14 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     <message>
         <source>Local Volume Adjustment...</source>
         <translation>Ajuste Local de Volumen...</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Usted está utilizando una versión de Mumble que &lt;b&gt;explícitamente desactivó&lt;/b&gt; la búsqueda de actualizaciones.&lt;/p&gt;&lt;p&gt;Esto significa que las notificaciones de actualización que reciba al usar esta opción serán &lt;b&gt;muy probablemente, irrelevantes&lt;/b&gt; para usted.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Talking (muted)</source>
+        <translation>Hablando (enmudecido)</translation>
     </message>
 </context>
 <context>
