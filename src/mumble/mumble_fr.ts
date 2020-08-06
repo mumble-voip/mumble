@@ -796,10 +796,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Processeur audio</translation>
     </message>
     <message>
-        <source>Noise Suppression</source>
-        <translation>Suppression du bruit</translation>
-    </message>
-    <message>
         <source>Noise suppression</source>
         <translation>Suppression du bruit</translation>
     </message>
@@ -976,18 +972,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Annuler l&apos;activité d&apos;absence</translation>
     </message>
     <message>
-        <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation>Appliquer le filtre de suppression de bruit de RNNoise.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation>&lt;b&gt;Ceci applique le filtre de suppression de bruit de RNNoise.&lt;/b&gt;&lt;br /&gt;RNNoise est basé sur le machine learning et utilisé dans WebRTC.</translation>
-    </message>
-    <message>
-        <source>RNNoise</source>
-        <translation>RNNoise</translation>
-    </message>
-    <message>
         <source>Audio input</source>
         <translation>Entrée audio</translation>
     </message>
@@ -1006,6 +990,34 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <source>Allow low delay mode</source>
         <translation>Autoriser le mode délai réduit</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use noise suppression.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by Speex.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by RNNoise.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Both</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This controls the amount by which Speex will suppress noise.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Speex suppression strength</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3143,7 +3155,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ignorer</translation>
     </message>
 </context>
 <context>
@@ -3212,15 +3224,17 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
 <context>
     <name>Database</name>
     <message>
-        <source>Mumble failed to initialize a database in any
-of the possible locations.</source>
-        <translation>Mumble n&apos;a pas réussi à initialiser la base de données
-à aucun des emplacements possibles.</translation>
-    </message>
-    <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
         <translation>La base de données &apos;%1&apos; est en lecture seule. Mumble ne peut pas enregistrer les paramètres du serveur (ex. le certificat SSL) tant que vous n&apos;aurez pas résolu le problème.</translation>
+    </message>
+    <message>
+        <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
+        <translation>Le fichier de base de données &apos;%1&apos; défini dans le fichier de configuration n&apos;existe pas. Voulez-vous en créer un nouveau à cet emplacement ?</translation>
+    </message>
+    <message>
+        <source>Mumble failed to initialize a database in any of the possible locations.</source>
+        <translation>Mumble a échoué l&apos;initialisation de la base de données dans chacun des emplacements possibles</translation>
     </message>
 </context>
 <context>
@@ -4321,6 +4335,22 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     <message>
         <source>Silent user lifetime</source>
         <translation>Durée de rétention d&apos;utilisateurs silencieux</translation>
+    </message>
+    <message>
+        <source>Show the local volume adjustment for each user (if any).</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show volume adjustments</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show local user&apos;s listeners (ears)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6093,82 +6123,6 @@ Affiche la console développeur Mumble où les logs peuvent être consultés.</t
         <translation>Rejoins le salon de cet utilisateur.</translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-
-</source>
-        <translation>Usage : mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; spécifie une URL à laquelle se connecter après le démarrage, plutôt que
-de montrer la fenêtre de connexion, et a la forme suivante :
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-Le paramètre de requête &quot;version&quot; doit être défini afin d&apos;appeler la
-correcte version du client. C&apos;est actuellement 1.2.0 par défaut.
-
-Les options valides sont :
-  -h, --help    Affiche cette aide et quitte.
-  -m, --multiple
-                Autorise plusieurs instances du clients à être démarrée.
-  -n, --noidentity
-                Dissimule le chargement des fichiers d&apos;intentité
-                (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Définie le nom du client Jack personnalisé.
-  --license
-                Affiche la licence Mumble.
-  --authors
-                Affiche les auteurs de Mumble.
-  --third-party-licenses
-                Affiche les licences logicielles tierces utilisées par
-                Mumble.
-  --window-title-ext &lt;arg&gt;
-                Définie une extension de titre de fenêtre persionnalisée.
-  --dump-input-streams
-                Dump les flux PCM à divers endroits de la chaine d&apos;entrée
-                (utile à des fins de débogage)
-                - entrée microphone brute
-                - &quot;readback&quot; haut-parleur pour suppression d&apos;écho
-                - entrée microphone traitée
-  --print-echocancel-queue
-                Affiche sur stdout l&apos;état de la file de suppression d&apos;écho
-                (utile à des fins de débogage)
-
-</translation>
-    </message>
-    <message>
         <source>Channels and users</source>
         <translation>Salons et utilisateurs</translation>
     </message>
@@ -6211,6 +6165,95 @@ Les options valides sont :
     <message>
         <source>(%1) %2</source>
         <translation>(%1) %2</translation>
+    </message>
+    <message>
+        <source>Configuration file %1 does not exist or is not writable.
+</source>
+        <translation>Le fichier de configuration %1 n&apos;existe pas ou ne peut être modifié.
+</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative 'database' value in the config.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+
+</source>
+        <translation>Usage : mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; spécifie une URL à laquelle se connecter après le démarrage, plutôt que de montrer la fenêtre de connexion, et a la forme suivante :
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+Le paramètre de requête &quot;version&quot; doit être défini afin d&apos;appeler la bonne version du client. C&apos;est actuellement 1.2.0 par défaut.
+
+Les options valides sont :
+  -h, --help    Affiche cette aide et quitte.
+  -m, --multiple
+                Autorise plusieurs instances du client à être démarrées.
+   -c, --config
+                Spécifie un fichier de configuration alternatif.
+                Si vous utilisez cette option pour faire fonctionner plusieurs
+                instances de Mumble, soyez certain de définir une une valeur
+                &apos;database&quot; alternative dans la configuration.
+  -n, --noidentity
+                Dissimule le chargement des fichiers d&apos;identités
+                (i.e., certificats.)
+  -jn, --jackname &lt;arg&gt;
+                Définie le nom du client Jack personnalisé.
+  --license
+                Affiche la licence Mumble.
+  --authors
+                Affiche les auteurs de Mumble.
+  --third-party-licenses
+                Affiche les licences logicielles tierces utilisées par
+                Mumble.
+  --window-title-ext &lt;arg&gt;
+                Définit une extension de titre de fenêtre personnalisée.
+  --dump-input-streams
+                Dump les flux PCM à divers endroits de la chaine d&apos;entrée
+                (utile à des fins de débogage)
+                - entrée microphone brute
+                - &quot;readback&quot; haut-parleur pour suppression d&apos;écho
+                - entrée microphone traitée
+  --print-echocancel-queue
+                Affiche sur stdout l&apos;état de la file de suppression d&apos;écho
+                (utile à des fins de débogage)
+
+</translation>
     </message>
 </context>
 <context>
@@ -6289,15 +6332,15 @@ Les options valides sont :
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"/>
+        <translation>Affichage</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation type="unfinished"/>
+        <translation>Combien de temps l&apos;emplacement des utilisateurs silencieux doit être indiquée après qu&apos;ils aient arrêté de parler (en secondes).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
-        <translation type="unfinished"/>
+        <translation>Affichage du temps d&apos;utilisateur silencieux</translation>
     </message>
 </context>
 <context>
@@ -6503,11 +6546,11 @@ Empêche le client d&apos;envoyer des informations pouvant identifier le systèm
     </message>
     <message>
         <source>When toggled this hides the public server list from the connect dialog</source>
-        <translation type="unfinished"/>
+        <translation>Quand activé, cela cache la liste des serveurs publics dans la fenêtre de dialogue</translation>
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation type="unfinished"/>
+        <translation>Cacher la liste des serveurs publics</translation>
     </message>
 </context>
 <context>
@@ -7168,10 +7211,38 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Vous utilisez une version de Mumble dont les mises à jour automatiquement ont été &lt;b&gt;explicitement désactivées&lt;/b&gt;&lt;p&gt;Cela signifie que les notifications affichées par cette fonctionnalité ne reflèteront probablement pas la disponibilité d&apos;une mise à jour pour vous.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Talking (muted)</source>
+        <translation>Parle (muet)</translation>
+    </message>
+    <message>
+        <source>All messages</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Toggle console for all events</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Toggle pop-up notifications for all events</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Toggle window highlight (if not active) for all events</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Click here to toggle sound notifications for all events</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Toggle Text-to-Speech for all events</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
 </context>

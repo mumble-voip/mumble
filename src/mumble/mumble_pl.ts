@@ -791,10 +791,6 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
         <translation>Przetwarzanie dźwięku</translation>
     </message>
     <message>
-        <source>Noise Suppression</source>
-        <translation>Tłumienie hałasu</translation>
-    </message>
-    <message>
         <source>Noise suppression</source>
         <translation>Tłumienie hałasu</translation>
     </message>
@@ -971,18 +967,6 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
         <translation>Cofnij akcję bezczynności po aktywności</translation>
     </message>
     <message>
-        <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation>Zastosuj filtr tłumienia szumów RNNoise.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation>&lt;b&gt;Stosuje filtr tłumienia szumów RNNoise.&lt;/b&gt;&lt;br /&gt;RNNoise opiera się na uczeniu maszynowym i jest używany w WebRTC.</translation>
-    </message>
-    <message>
-        <source>RNNoise</source>
-        <translation>RNNoise</translation>
-    </message>
-    <message>
         <source>Audio input</source>
         <translation>Wejście audio</translation>
     </message>
@@ -1001,6 +985,34 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     <message>
         <source>Allow low delay mode</source>
         <translation>Zezwalaj na tryb niskiego opóźnienia</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use noise suppression.</source>
+        <translation>Nie używaj tłumienia hałasu.</translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by Speex.</source>
+        <translation>Użyj algorytmu tłumienia hałasu dostarczonego przez Speex.</translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by RNNoise.</source>
+        <translation>Użyj algorytmu tłumienia hałasu dostarczonego przez RNNoise.</translation>
+    </message>
+    <message>
+        <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
+        <translation>Użyj kombinacji Speex i RNNoise, aby tłumić hałas.</translation>
+    </message>
+    <message>
+        <source>Both</source>
+        <translation>Obu</translation>
+    </message>
+    <message>
+        <source>This controls the amount by which Speex will suppress noise.</source>
+        <translation>To kontroluje stopień, o jaki Speex będzie tłumił hałas.</translation>
+    </message>
+    <message>
+        <source>Speex suppression strength</source>
+        <translation>Siła tłumienia Speex</translation>
     </message>
 </context>
 <context>
@@ -3186,14 +3198,17 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>Database</name>
     <message>
-        <source>Mumble failed to initialize a database in any
-of the possible locations.</source>
-        <translation>Nie udało się zainicjalizować bazy danych w żadnej z podanych lokacji.</translation>
-    </message>
-    <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
         <translation>Baza danych &apos;%1&apos; jest tylko do odczytu. Mumble nie może przechowywać ustawień serwera (np. certyfikatów SSL) dopóki nie naprawisz tego problemu.</translation>
+    </message>
+    <message>
+        <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
+        <translation>Plik bazy danych &apos;%1&apos; ustawiony w pliku konfiguracyjnym nie istnieje. Czy chcesz utworzyć nowy plik bazy danych w tej lokalizacji?</translation>
+    </message>
+    <message>
+        <source>Mumble failed to initialize a database in any of the possible locations.</source>
+        <translation>Mumble nie udało się zainicjować bazy danych w żadnej z możliwych lokalizacji.</translation>
     </message>
 </context>
 <context>
@@ -3709,23 +3724,23 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <name>LogConfig</name>
     <message>
         <source>Toggle console for %1 events</source>
-        <translation>Włącz konsolę dla zdarzeń: %1</translation>
+        <translation>Przełącz konsolę dla %1 zdarzeń</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>Włącz powiadomienia dla zdarzeń: %1</translation>
+        <translation>Przełącz powiadomienia dla %1 zdarzeń</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation>Włącz Tekst-Na-Mowę dla %1</translation>
+        <translation>Przełącz Tekst-Na-Mowę dla %1 zdarzeń</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation>Kliknij tutaj, aby włączyć powiadomienia dźwiękowe dla %1</translation>
+        <translation>Kliknij tutaj, aby przełączać powiadomienia dźwiękowe dla %1 zdarzeń</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation>Przełącz wyróżnienie okna (jeśli nie jest aktywne) dla zdarzeń %1</translation>
+        <translation>Przełącz wyróżnienie okna (jeśli nie jest aktywne) dla %1 zdarzeń</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
@@ -3751,12 +3766,12 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Kliknij tutaj, aby przełączać stan Tekstu-Na-Mowę dla %1.&lt;br /&gt;Gdy zaznaczone Mumble będzie używać Tekstu-Na-Mowę dla %1. Tekst-Na-Mowę jest również w stanie odczytywać zawartość zdarzeń, które nie są przeznaczone dla plików dźwiękowych. Tekst-Na-Mowę nie może być aktywny razem z powiadomieniami dźwiękowymi.</translation>
+        <translation>Kliknij tutaj, aby przełączać stan Tekstu-Na-Mowę dla %1 zdarzeń.&lt;br /&gt;Gdy zaznaczone - Mumble będzie używać Tekstu-Na-Mowę dla %1. Tekst-Na-Mowę jest również w stanie odczytywać zawartość zdarzeń, które nie są przeznaczone dla plików dźwiękowych. Tekst-Na-Mowę nie może być aktywny razem z powiadomieniami dźwiękowymi.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Ścieżka do pliku użytego do powiadomień dźwiękowych w przypadku dla %1.&lt;br /&gt;Gdy zaznaczone - Mumble użyje dźwięku, aby powiadomić o zdarzeniach typu %1. Pliki dźwiękowe oraz Tekst-Na-Mowę nie mogą działać razem.</translation>
+        <translation>Kliknij tutaj, aby przełączać powiadomienie dźwiękowe dla %1 zdarzeń.&lt;br /&gt;Gdy zaznaczone - Mumble użyje dźwięku, aby powiadomić o zdarzeniach typu %1. Pliki dźwiękowe oraz Tekst-Na-Mowę nie mogą działać razem.</translation>
     </message>
     <message>
         <source>Messages</source>
@@ -4295,6 +4310,22 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
         <source>Silent user lifetime</source>
         <translation>Czas trwania milczącego użytkownika</translation>
     </message>
+    <message>
+        <source>Show the local volume adjustment for each user (if any).</source>
+        <translation>Wyświetlaj lokalne dopasowanie głośności dla każdego użytkownika (jeśli istnieje).</translation>
+    </message>
+    <message>
+        <source>Show volume adjustments</source>
+        <translation>Wyświetlaj dopasowania głośności</translation>
+    </message>
+    <message>
+        <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
+        <translation>Określa, czy pokazywać wszystkich słuchaczy (uszy) lokalnego użytkownika w Mówiącym interfejsie (a tym samym także kanały, w których się znajdują).</translation>
+    </message>
+    <message>
+        <source>Show local user&apos;s listeners (ears)</source>
+        <translation>Pokaż słuchaczy (uszy) lokalnego użytkownika</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -4340,17 +4371,17 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Włącz nakładkę</translation>
+        <translation>Przełącz nakładkę</translation>
     </message>
     <message>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Włącz tryb nakładki w grze.</translation>
+        <translation>Przełącz tryb nakładki w grze.</translation>
     </message>
     <message>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation>Tryb minimalny</translation>
+        <translation>Przełącz tryb minimalny</translation>
     </message>
     <message>
         <source>Volume Up (+10%)</source>
@@ -5119,7 +5150,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Toggle Text-To-Speech</source>
-        <translation>Włącz/Wyłącz Tekst-Na-Mowę</translation>
+        <translation>Przełącz Tekst-Na-Mowę</translation>
     </message>
     <message>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
@@ -5279,7 +5310,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Toggle minimal window modes</source>
-        <translation>Włącz/Wyłącz widok minimalny</translation>
+        <translation>Przełącz widok minimalny</translation>
     </message>
     <message>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
@@ -5716,7 +5747,7 @@ toggledeaf
     </message>
     <message>
         <source>Toggle showing frame on minimal window</source>
-        <translation>Uaktywnia obramowanie okna w trybie minimalnym</translation>
+        <translation>Przełącz wyświetlanie obramowania okna w trybie minimalnym</translation>
     </message>
     <message>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
@@ -6065,81 +6096,6 @@ kanały mają być filtrowane.</translation>
         <translation>Dołącza do kanału tego użytkownika.</translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-
-</source>
-        <translation>Użycie: mumble [opcje] [&lt;url&gt;]
-
-&lt;url&gt; Określa URL do nawiązania połączenia po uruchomieniu aplikacji, zamiast wyświetlania
-okna połączenia, ma następującą składnię:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-Parametr z wersją Mumble musi zostać podany w celu uruchomienia
-poprawnej wersji klienta. Aktualnie domyślną wartością jest 1.2.0.
-
-Dostępne opcje:
--h, --help
-               Wyświetla to okno pomocy i zamyka aplikację.
--m, --multiple
-               Pozwala na uruchomienie kilku instancji programu.
--n, --noidentity
-               Powstrzymuje ładowanie plików identyfikacyjnych (np. certyfikatów).
- -jn, --jackname &lt;arg&gt;
-               Ustawia niestandardową nazwę klienta Jack.
---license
-               Pokazuje licencję Mumble.
---authors
-               Pokazuje autorów Mumble.
---third-party-licenses
-               Pokazuje licencje na oprogramowanie firm trzecich używane przez Mumble.
- --window-title-ext &lt;arg&gt;
-                Ustawia niestandardowe rozszerzenie tytułu okna. 
-  --dump-input-streams
-                Zrzuca strumienie PCM w różnych częściach łańcucha wejściowego
-                (przydatne do celów debugowania)
-                - surowe wejście mikrofonowe
-                - odczyt głośników w celu usuwania echa
-                - przetworzone wejście mikrofonowe
-  --print-echocancel-queue
-                Drukuje na wyjściu stan kolejki usuwania echa
-                 (przydatne do celów debugowania)
-
-</translation>
-    </message>
-    <message>
         <source>Channels and users</source>
         <translation>Kanały i użytkownicy</translation>
     </message>
@@ -6182,6 +6138,95 @@ Dostępne opcje:
     <message>
         <source>(%1) %2</source>
         <translation>(%1) %2</translation>
+    </message>
+    <message>
+        <source>Configuration file %1 does not exist or is not writable.
+</source>
+        <translation>Plik konfiguracyjny %1 nie istnieje lub nie można go zapisać.
+</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative 'database' value in the config.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+
+</source>
+        <translation>Użycie: mumble [opcje] [&lt;url&gt;]
+
+&lt;url&gt; Określa URL do nawiązania połączenia po uruchomieniu aplikacji, zamiast wyświetlania
+okna połączenia, ma następującą składnię:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+Parametr z wersją Mumble musi zostać podany w celu uruchomienia
+poprawnej wersji klienta. Aktualnie domyślną wartością jest 1.2.0.
+
+Dostępne opcje:
+-h, --help
+               Wyświetla to okno pomocy i zamyka aplikację.
+-m, --multiple
+               Pozwala na uruchomienie kilku instancji programu.
+-c, --config
+                Określa alternatywny plik konfiguracyjny.
+                Jeśli używasz tego do uruchamiania wielu wystąpień Mumble jednocześnie,
+                upewnij się, że ustawiłeś alternatywną wartość &apos;database&apos; w konfiguracji.
+-n, --noidentity
+               Powstrzymuje ładowanie plików identyfikacyjnych (np. certyfikatów).
+ -jn, --jackname &lt;arg&gt;
+               Ustawia niestandardową nazwę klienta Jack.
+--license
+               Pokazuje licencję Mumble.
+--authors
+               Pokazuje autorów Mumble.
+--third-party-licenses
+               Pokazuje licencje na oprogramowanie firm trzecich używane przez Mumble.
+ --window-title-ext &lt;arg&gt;
+                Ustawia niestandardowe rozszerzenie tytułu okna. 
+  --dump-input-streams
+                Zrzuca strumienie PCM w różnych częściach łańcucha wejściowego
+                (przydatne do celów debugowania)
+                - surowe wejście mikrofonowe
+                - odczyt głośników w celu usuwania echa
+                - przetworzone wejście mikrofonowe
+  --print-echocancel-queue
+                Drukuje na wyjściu stan kolejki usuwania echa
+                 (przydatne do celów debugowania)
+
+</translation>
     </message>
 </context>
 <context>
@@ -7146,6 +7191,34 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <message>
         <source>Talking (muted)</source>
         <translation>Mówiący (wyciszony)</translation>
+    </message>
+    <message>
+        <source>All messages</source>
+        <translation>Wszystkie wiadomości</translation>
+    </message>
+    <message>
+        <source>Toggle console for all events</source>
+        <translation>Przełącz konsolę dla wszystkich zdarzeń</translation>
+    </message>
+    <message>
+        <source>Toggle pop-up notifications for all events</source>
+        <translation>Przełącz powiadomienia dla wszystkich zdarzeń</translation>
+    </message>
+    <message>
+        <source>Toggle window highlight (if not active) for all events</source>
+        <translation>Przełącz wyróżnienie okna (jeśli nie jest aktywne) dla wszystkich zdarzeń</translation>
+    </message>
+    <message>
+        <source>Click here to toggle sound notifications for all events</source>
+        <translation>Kliknij tutaj, aby przełączać powiadomienia dźwiękowe dla wszystkich zdarzeń</translation>
+    </message>
+    <message>
+        <source>Toggle Text-to-Speech for all events</source>
+        <translation>Przełącz Tekst-Na-Mowę dla wszystkich zdarzeń</translation>
+    </message>
+    <message>
+        <source>RNNoise is not available due to a sample rate mismatch.</source>
+        <translation>RNNoise jest niedostępny z powodu niedopasowania częstotliwości próbkowania.</translation>
     </message>
 </context>
 <context>

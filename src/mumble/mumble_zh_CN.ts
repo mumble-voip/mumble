@@ -796,10 +796,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>音频处理</translation>
     </message>
     <message>
-        <source>Noise Suppression</source>
-        <translation>噪声抑制</translation>
-    </message>
-    <message>
         <source>Noise suppression</source>
         <translation>噪声抑制</translation>
     </message>
@@ -976,18 +972,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>在活动时撤消空闲操作</translation>
     </message>
     <message>
-        <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation>应用 RNNoise 的噪声抑制滤波器。</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation>&lt;b&gt;应用 RNNoise 的噪声抑制滤波器。&lt;/b&gt;&lt;br /&gt;RNNoise 基于机器学习技术，并已在 WebRTC 中应用。</translation>
-    </message>
-    <message>
-        <source>RNNoise</source>
-        <translation>RNNoise</translation>
-    </message>
-    <message>
         <source>Audio input</source>
         <translation>音频输入</translation>
     </message>
@@ -1006,6 +990,34 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Allow low delay mode</source>
         <translation>允许低延迟模式</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use noise suppression.</source>
+        <translation>不使用噪声抑制。</translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by Speex.</source>
+        <translation>使用 Speex 提供的噪声抑制算法。</translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by RNNoise.</source>
+        <translation>使用 RNNoise 提供的噪声抑制算法。</translation>
+    </message>
+    <message>
+        <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
+        <translation>使用 Speex 与 RNNoise 组合的噪声抑制。</translation>
+    </message>
+    <message>
+        <source>Both</source>
+        <translation>同时</translation>
+    </message>
+    <message>
+        <source>This controls the amount by which Speex will suppress noise.</source>
+        <translation>此选项控制 Speex 噪声抑制量。</translation>
+    </message>
+    <message>
+        <source>Speex suppression strength</source>
+        <translation>Speex 抑制强度</translation>
     </message>
 </context>
 <context>
@@ -3210,14 +3222,17 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>Database</name>
     <message>
-        <source>Mumble failed to initialize a database in any
-of the possible locations.</source>
-        <translation>Mumble 从某处初始化数据库时失败。</translation>
-    </message>
-    <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
         <translation>数据库“%1”是只读的。在修复此错误前，Mumble 将无法保存服务器设置（即 SSL 证书）。</translation>
+    </message>
+    <message>
+        <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
+        <translation>配置文件中设置的数据库文件“%1”不存在。您希望在该位置新建数据库吗？</translation>
+    </message>
+    <message>
+        <source>Mumble failed to initialize a database in any of the possible locations.</source>
+        <translation>Mumble 无法从任何可能的位置初始化数据库。</translation>
     </message>
 </context>
 <context>
@@ -4319,6 +4334,22 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Silent user lifetime</source>
         <translation>未发言用户显示时间</translation>
+    </message>
+    <message>
+        <source>Show the local volume adjustment for each user (if any).</source>
+        <translation>显示每名用户的本地音量调整（如果有）。</translation>
+    </message>
+    <message>
+        <source>Show volume adjustments</source>
+        <translation>显示音量调整</translation>
+    </message>
+    <message>
+        <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
+        <translation>是否在对话界面显示本地用户的所有监听者（以及他们所在频道）。</translation>
+    </message>
+    <message>
+        <source>Show local user&apos;s listeners (ears)</source>
+        <translation>显示本地用户的监听者</translation>
     </message>
 </context>
 <context>
@@ -6086,78 +6117,6 @@ the channel&apos;s context menu.</source>
         <translation>加入此用户所在的频道</translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-
-</source>
-        <translation>用法：mumble [选项] [&lt;URL&gt;]
-
-&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，URL 的格式为：
-mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
-
-必须设置 version 请求参数以调用正确的客户端版本，当前的默认值为 1.2.0。
-
-可用的选项：
-  -h, --help    显示此帮助信息并退出。
-  -m, --multiple
-                允许启动多个客户端实例。
-  -n, --noidentity
-                禁止加载身份认证文件（即证书）。
-  -jn, --jackname &lt;参数&gt;
-                设置自定义 Jack 客户端名称。
-  --license
-                显示 Mumble 许可。
-  --authors
-                显示 Mumble 作者。
-  --third-party-licenses
-                显示 Mumble 使用的第三方软件的许可。
-  --window-title-ext &lt;参数&gt;
-                设置自定义窗口标题后缀名。
-  --dump-input-streams
-                转储输入链上各部分的 PCM 流。
-                （适用于调试目的）
-                - 原始麦克风输入
-                - 扬声器回声消除重读取
-                - 已处理麦克风输入
-  --print-echocancel-queue
-                向标准输出打印回声消除队列状态。
-                （适用于调试目的）
-
-</translation>
-    </message>
-    <message>
         <source>Channels and users</source>
         <translation>频道与用户</translation>
     </message>
@@ -6200,6 +6159,92 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>(%1) %2</source>
         <translation>（%1）%2</translation>
+    </message>
+    <message>
+        <source>Configuration file %1 does not exist or is not writable.
+</source>
+        <translation>配置文件 %1 不存在或不可写。
+</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative 'database' value in the config.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+
+</source>
+        <translation>用法：mumble [选项] [&lt;URL&gt;]
+
+&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，URL 的格式为：
+mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
+
+必须设置 version 请求参数以调用正确的客户端版本，当前的默认值为 1.2.0。
+
+可用的选项：
+  -h, --help    显示此帮助信息并退出。
+  -m, --multiple
+                允许启动多个客户端实例。
+  -c, --config
+                指定替代配置文件。
+                如果您使用此参数同时运行多个 Mumble 实例，
+                请确保在配置文件内设置替代 &apos;database&apos; 选项。
+  -n, --noidentity
+                禁止加载身份认证文件（即证书）。
+  -jn, --jackname &lt;参数&gt;
+                设置自定义 Jack 客户端名称。
+  --license
+                显示 Mumble 许可。
+  --authors
+                显示 Mumble 作者。
+  --third-party-licenses
+                显示 Mumble 使用的第三方软件的许可。
+  --window-title-ext &lt;参数&gt;
+                设置自定义窗口标题后缀名。
+  --dump-input-streams
+                转储输入链上各部分的 PCM 流。
+                （适用于调试目的）
+                - 原始麦克风输入
+                - 扬声器回声消除重读取
+                - 已处理麦克风输入
+  --print-echocancel-queue
+                向标准输出打印回声消除队列状态。
+                （适用于调试目的）
+
+</translation>
     </message>
 </context>
 <context>
@@ -7163,6 +7208,34 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Talking (muted)</source>
         <translation>正在发言（已屏蔽）</translation>
+    </message>
+    <message>
+        <source>All messages</source>
+        <translation>所有消息</translation>
+    </message>
+    <message>
+        <source>Toggle console for all events</source>
+        <translation>开关所有事件的控制台输出</translation>
+    </message>
+    <message>
+        <source>Toggle pop-up notifications for all events</source>
+        <translation>开关所有事件的弹出通知</translation>
+    </message>
+    <message>
+        <source>Toggle window highlight (if not active) for all events</source>
+        <translation>开关所有事件的窗口高亮（如果未激活）</translation>
+    </message>
+    <message>
+        <source>Click here to toggle sound notifications for all events</source>
+        <translation>开关所有事件的提示音</translation>
+    </message>
+    <message>
+        <source>Toggle Text-to-Speech for all events</source>
+        <translation>开关所有事件的语音播报</translation>
+    </message>
+    <message>
+        <source>RNNoise is not available due to a sample rate mismatch.</source>
+        <translation>由于采样率不匹配，RNNoise 不可用。</translation>
     </message>
 </context>
 <context>

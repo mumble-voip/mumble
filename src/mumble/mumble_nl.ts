@@ -795,10 +795,6 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
         <translation>Geluidsverwerking</translation>
     </message>
     <message>
-        <source>Noise Suppression</source>
-        <translation>Ruisonderdrukking</translation>
-    </message>
-    <message>
         <source>Noise suppression</source>
         <translation>Ruisonderdrukking</translation>
     </message>
@@ -975,18 +971,6 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
         <translation>Inactiviteitsactie ongedaan maken bij activiteit</translation>
     </message>
     <message>
-        <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation>RNNoise-ruisonderdrukkingsfilter toepassen.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation>&lt;b&gt;Dit past het RNNoise-ruisonderdrukkingsfilter toe.&lt;/b&gt;&lt;br /&gt;RNRuis is gebaseerd op machinaal leren en vernuttigd in WebRTC.</translation>
-    </message>
-    <message>
-        <source>RNNoise</source>
-        <translation>RNNoise</translation>
-    </message>
-    <message>
         <source>Audio input</source>
         <translation>Geluidsinvoer</translation>
     </message>
@@ -1005,6 +989,34 @@ Waarde bepaalt het maximale aantal toegestane gebruikers in het kanaal. Mits waa
     <message>
         <source>Allow low delay mode</source>
         <translation>Traagzaamheidsvermijdingsmodus</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use noise suppression.</source>
+        <translation>Geen ruis onderdrukken.</translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by Speex.</source>
+        <translation>Gebruik het door Speex aanbevolen algoritme voor onderdrukkings van ruis.</translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by RNNoise.</source>
+        <translation>Gebruik het door RNNoise aangeraden algortime ter onderdrukking van ruis.</translation>
+    </message>
+    <message>
+        <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
+        <translation>Gebruik bijzondere combinaties tussen Speex of RNBoise ter onderdrukking.</translation>
+    </message>
+    <message>
+        <source>Both</source>
+        <translation>Allebei</translation>
+    </message>
+    <message>
+        <source>This controls the amount by which Speex will suppress noise.</source>
+        <translation>Dit controleert de aantallen voorn welke Speex ruis belooft te onderdrukken.</translation>
+    </message>
+    <message>
+        <source>Speex suppression strength</source>
+        <translation>Speex-onderdrukkingssterkte</translation>
     </message>
 </context>
 <context>
@@ -3206,14 +3218,17 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
 <context>
     <name>Database</name>
     <message>
-        <source>Mumble failed to initialize a database in any
-of the possible locations.</source>
-        <translation>Mumble-database initialiseren van alle locaties mislukt.</translation>
-    </message>
-    <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
         <translation>Database &apos;%1&apos; is alleen-lezen. Mumble slaat o.a. SSL-certificaten niet op tot je het probleem oplost.</translation>
+    </message>
+    <message>
+        <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
+        <translation>Het databasebestand &apos;%1&apos; ingesteld met configuratiebestand bestaat niet. Wil je mogelijkerwijs een nieuw databasebestandje met deze locatie aanmaken?</translation>
+    </message>
+    <message>
+        <source>Mumble failed to initialize a database in any of the possible locations.</source>
+        <translation>Mumble verdoemde vanuit welke locatie dan ook je database te initialiseren.</translation>
     </message>
 </context>
 <context>
@@ -4314,6 +4329,22 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Silent user lifetime</source>
         <translation>Gebruiksstilteduur</translation>
+    </message>
+    <message>
+        <source>Show the local volume adjustment for each user (if any).</source>
+        <translation>De lokale volumeaanpassingsafstelling voor elke gebruiker tonen (indien v.t.)</translation>
+    </message>
+    <message>
+        <source>Show volume adjustments</source>
+        <translation>Volumeaanpassingen tonen</translation>
+    </message>
+    <message>
+        <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
+        <translation>Of alle lokale gebruikers&apos; luisteraars (oren) in de PratenInterface (en daarmee ook kanalen waar ze inzitten) vertonen.</translation>
+    </message>
+    <message>
+        <source>Show local user&apos;s listeners (ears)</source>
+        <translation>Toon eigen luisteraars (descartheldjes)</translation>
     </message>
 </context>
 <context>
@@ -6080,80 +6111,6 @@ Extra kanalen markeerbaar vanuit kanaalcontextmenu.</translation>
         <translation>Gaat het kanaal van deze gebruiker binnen.</translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-
-</source>
-        <translation>Gebruik: mumble [opties] [&lt;url&gt;]
-
-specificeert een adreslink om mee te verbinden na het opstarten in plaats van
-het verbindingsvenster te tonen, en heeft het volgende format:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-De versie query parameter moet ingesteld zijn om de 
-juiste client versie aan te roepen. Het valt nu terug op 1.2.0.
-
-Valide opties zijn:
- -h, --help    Toon deze hulptekst en sluit af.
- -m, --multiple
-                Laat opstarten van meerdere instanties van de client toe.
- -n, --noidentity
-                Onderdruk laden van identiteitsbestanden (bijv. certificaten.)
- -jn, --jackname &lt;arg&gt;
-                Stel gepersonaliseerde client naam in.
- --license
-                Toon de Mumble-licentie.
- --authors
-                Toon de Mumble-auteuren.
- --third-party-licenses
-                Toon licenties voor software van derden gebruikt door Mumble.
- --window-title-ext &lt;arg&gt;
-                Vult met een extensie een aangepaste venstertitel aan.
---dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
---print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-
-</translation>
-    </message>
-    <message>
         <source>Channels and users</source>
         <translation>Kanalen en gebruikers</translation>
     </message>
@@ -6196,6 +6153,93 @@ Valide opties zijn:
     <message>
         <source>(%1) %2</source>
         <translation>(1%) %2</translation>
+    </message>
+    <message>
+        <source>Configuration file %1 does not exist or is not writable.
+</source>
+        <translation>Configuratiebestand %1 lijkt niet te bestaan of is wellicht ook onbeschrijfbaar.</translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative 'database' value in the config.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+
+</source>
+        <translation>Gebruik: mumble [opties] [&lt;url&gt;]
+
+&lt;url&gt; specificeert een adreslink om mee te verbinden na het opstarten in plaats van
+het verbindingsvenster te tonen, en heeft het volgende format:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The versie query parameter moet ingesteld zijn om de
+juiste client versie aan te roepen. Het valt nu terug op 1.2.0.
+
+Valide opties zijn:
+  -h, --help    Toon deze hulptekst en sluit af.
+  -m, --multiple
+                Laat opstarten van meerdere instanties van de client toe.
+  -c, --config
+                Specificeer een alternatief configuratiebestand.
+                Als je dit gebruikt om meerdere instanties van Mumble tegelijk te draaien,
+                vul dan een alternatieve &apos;database&apos; waarde in de configuratie in.
+  -n, --noidentity
+                Onderdruk laden van identiteitsbestanden (bijv. certificaten.)
+  -jn, --jackname &lt;arg&gt;
+                Stel gecustomiseerde client naam in.
+  --license
+               Toon de Mumble licentie.
+  --authors
+               Toon de Mumble autheuren.
+  --third-party-licenses
+                 Toon licenties voor software van derden gebruikt door Mumble.
+  --window-title-ext &lt;arg&gt;
+                Vult met een extensie een aangepaste venstertitel aan.
+  --dump-input-streams
+                 Dump PCM streams op verscheidene delen van de inputketen
+                (nuttig voor foutopsporingsdoeleinden)
+                - ruwe microfoon input
+                - speaker leesterug voor echodemping
+                - verwerkte microfoon input
+  --print-echocancel-queue
+                Print op stdout de echo dempende wachtrij staat
+                (nuttig voor foutopsporingsdoeleinden)
+
+</translation>
     </message>
 </context>
 <context>
@@ -7160,6 +7204,34 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     <message>
         <source>Talking (muted)</source>
         <translation>Pratend (gedempt)</translation>
+    </message>
+    <message>
+        <source>All messages</source>
+        <translation>Alle berichten</translation>
+    </message>
+    <message>
+        <source>Toggle console for all events</source>
+        <translation>Logsvertoning voor alle gebeurtenissen.</translation>
+    </message>
+    <message>
+        <source>Toggle pop-up notifications for all events</source>
+        <translation>Venstermeldingsmeldingen (voor gebeurtenissen) in alle gevallen opmerken.</translation>
+    </message>
+    <message>
+        <source>Toggle window highlight (if not active) for all events</source>
+        <translation>Schakel de venstermarkering (indien niet actief) bij in elkere gebeurtenissen.</translation>
+    </message>
+    <message>
+        <source>Click here to toggle sound notifications for all events</source>
+        <translation>Klik hier om geluidsnotificaties in te schakelen (voor &quot;allerijl&quot; gebeurtenissen).</translation>
+    </message>
+    <message>
+        <source>Toggle Text-to-Speech for all events</source>
+        <translation>Text-naar-Spraak gebruiken (voor alle gebeurtenissen)</translation>
+    </message>
+    <message>
+        <source>RNNoise is not available due to a sample rate mismatch.</source>
+        <translation>RNWoise helaas niet beschikbaar wegens een voorbeeld-&apos;interval&apos;-mismatch.</translation>
     </message>
 </context>
 <context>
