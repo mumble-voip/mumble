@@ -33,6 +33,8 @@ list(APPEND CMAKE_MODULE_PATH
 
 include(pkg-utils)
 include(CTest)
+include(project-utils)
+
 
 option(BUILD_TESTING "Build tests." OFF)
 
