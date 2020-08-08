@@ -38,7 +38,7 @@ jobs:
     pool:
       vmImage: 'macOS-latest'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.4.x-2020-05-27-ecb3c64-1151'
+      MUMBLE_ENVIRONMENT_VERSION: 'macos-static-1.4.x-2020-07-22-dbd6271-1162'
     steps:
     - template: steps_macos.yml
       parameters:
