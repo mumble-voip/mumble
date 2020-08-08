@@ -10,7 +10,7 @@ jobs:
     pool:
       vmImage: 'windows-latest'
     variables:
-      MUMBLE_ENVIRONMENT_VERSION: 'win64-static-1.4.x-2020-05-27-ecb3c64-1151'
+      MUMBLE_ENVIRONMENT_VERSION: 'win64-static-1.4.x-2020-07-22-dbd6271-1162'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
       VCVARS_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat'
     steps:
