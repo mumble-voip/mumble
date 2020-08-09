@@ -382,6 +382,10 @@ if(WIN32)
 	endif()
 
 	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck")
+
+	# Disable all warnings that the xinputcheck code may emit
+	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/xinputcheck-build")
+
 	target_link_libraries(mumble PRIVATE xinputcheck)
 
 	if(MSVC)
@@ -481,6 +485,9 @@ if(bundled-opus)
 
 	add_subdirectory("${3RDPARTY_DIR}/opus-src" "${CMAKE_CURRENT_BINARY_DIR}/opus")
 
+	# Disable all warnings that the Opus code may emit
+	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus-src")
+
 	add_dependencies(mumble opus)
 
 	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/opus-src/include")
@@ -507,6 +514,9 @@ endif()
 if(bundled-celt)
 	add_subdirectory("${3RDPARTY_DIR}/celt-0.7.0-build" "${CMAKE_CURRENT_BINARY_DIR}/celt")
 
+	# Disable all warnings that the Celt code may emit
+	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/celt-0.7.0-build")
+
 	add_dependencies(mumble celt)
 
 	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/celt-0.7.0-src/libcelt")
@@ -528,6 +538,10 @@ endif()
 
 if(bundled-speex)
 	add_subdirectory("${3RDPARTY_DIR}/speex-build" "${CMAKE_CURRENT_BINARY_DIR}/speex")
+
+	# Disable all warnings that the speex code may emit
+	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/speex-build")
+
 	target_link_libraries(mumble PRIVATE speex)
 
 	if(WIN32)
@@ -548,6 +562,10 @@ endif()
 
 if(rnnoise)
 	add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise")
+
+	# Disable all warnings that the RNNoise code may emit
+	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/rnnoise-build")
+
 	target_compile_definitions(mumble PRIVATE "USE_RNNOISE")
 	target_link_libraries(mumble PRIVATE rnnoise)
 
