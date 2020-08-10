@@ -28,6 +28,7 @@ endfunction()
 # This function gets all defined targets in the given DIR or any of its
 # subdirectories as returned by get_subdirectories. The found targets are
 # written into DEFINED_TARGETS.
+# Note: Only return compilable targets
 function(get_targets DEFINED_TARGETS DIR)
 	# First get all defined subdirectories
 	get_subdirectories(SUBDIRS "${DIR}")
@@ -43,7 +44,15 @@ function(get_targets DEFINED_TARGETS DIR)
 	# respective directory property.
 	foreach(CURRENT_SUBDIR IN LISTS SUBDIRS)
 		get_directory_property(NEW_TARGETS DIRECTORY "${CURRENT_SUBDIR}" BUILDSYSTEM_TARGETS)
-		list(APPEND DEFINED_TARGETS ${NEW_TARGETS})
+
+		foreach(CURRENT_TARGET IN LISTS NEW_TARGETS)
+			get_target_property(TARGET_TYPE "${CURRENT_TARGET}" TYPE)
+
+			# Only add the target if it is compilable
+			if("${TARGET_TYPE}" MATCHES "STATIC_LIBRARY|MODULE_LIBRARY|SHARED_LIBRARY|EXECUTABLE")
+				list(APPEND DEFINED_TARGETS ${CURRENT_TARGET})
+			endif()
+		endforeach()
 	endforeach()
 
 	# "Return" DEFINED_TARGETS
