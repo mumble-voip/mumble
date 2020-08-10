@@ -150,7 +150,7 @@ struct Settings {
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
 	enum TalkState { Passive, Talking, Whispering, Shouting, MutedTalking };
 	enum IdleAction { Nothing, Deafen, Mute };
-	enum NoiseCancel { NoiseCancelOff, NoiseCancelSpeex, NoiseCancelRNN };
+	enum NoiseCancel { NoiseCancelOff, NoiseCancelSpeex, NoiseCancelRNN, NoiseCancelBoth };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
 	AudioTransmit atTransmit;

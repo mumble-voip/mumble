@@ -821,7 +821,7 @@ void AudioInput::selectNoiseCancel() {
 	//noiseCancel = g.s.noiseCancel;
 	noiseCancel = g.s.bDenoise ? Settings::NoiseCancelRNN : Settings::NoiseCancelSpeex;
 
-	if (noiseCancel == Settings::NoiseCancelRNN) {
+	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
 #ifdef USE_RNNOISE
 		if (!denoiseState || iFrameSize != 480) {
 			qWarning("AudioInput: Ignoring request to enable RNNoise: internal error");
@@ -844,6 +844,10 @@ void AudioInput::selectNoiseCancel() {
 			break;
 		case Settings::NoiseCancelRNN:
 			qWarning("AudioInput: Using RNNoise as noise canceller");
+			break;
+		case Settings::NoiseCancelBoth:
+			iArg = 1;
+			qWarning("AudioInput: Using RNNoise and Speex as noise canceller");
 			break;
 	}
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
@@ -935,7 +939,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
 	float gainValue = static_cast<float>(iArg);
-	if (noiseCancel == Settings::NoiseCancelSpeex) {
+	if (noiseCancel == Settings::NoiseCancelSpeex || noiseCancel == Settings::NoiseCancelBoth) {
 		iArg = g.s.iNoiseSuppress - iArg;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 	}
@@ -950,7 +954,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 #ifdef USE_RNNOISE
 	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
-	if (noiseCancel == Settings::NoiseCancelRNN) {
+	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
 		float denoiseFrames[480];
 		for (int i = 0; i < 480; i++) {
 			denoiseFrames[i] = psSource[i];
