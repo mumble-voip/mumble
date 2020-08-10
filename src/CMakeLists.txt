@@ -121,7 +121,7 @@ target_sources(shared
 target_compile_definitions(shared
 	PUBLIC
 		"MUMBLE_VERSION=${version}"
-		"MUMBLE_VERSION_STRING=${version}"
+		"MUMBLE_VERSION_STRING=${version_short}"
 )
 
 target_include_directories(shared
