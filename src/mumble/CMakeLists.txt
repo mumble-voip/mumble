@@ -629,6 +629,19 @@ if(NOT update)
 	target_compile_definitions(mumble PRIVATE "NO_UPDATE_CHECK")
 endif()
 
+if(dbus AND NOT WIN32 AND NOT APPLE)
+	find_pkg(Qt5 COMPONENTS DBus REQUIRED)
+
+	target_sources(mumble
+		PRIVATE
+			"DBus.cpp"
+			"DBus.h"
+	)
+
+	target_compile_definitions(mumble PRIVATE "USE_DBUS")
+	target_link_libraries(mumble PRIVATE Qt5::DBus)
+endif()
+
 if(translations)
 	set(ts_files
 		"mumble_ar.ts"
