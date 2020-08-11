@@ -1373,8 +1373,9 @@ void Server::newClient() {
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
 
-		QSslConfiguration config = sock->sslConfiguration();
+		QSslConfiguration config;
 #if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
+		config = sock->sslConfiguration();
 		// Qt 5.15 introduced QSslConfiguration::addCaCertificate(s) that should be preferred over the functions in QSslSocket
 
 		// Treat the leaf certificate as a root.
@@ -1406,6 +1407,9 @@ void Server::newClient() {
 		// Add intermediate CAs found in the PEM
 		// bundle used for this server's certificate.
 		sock->addCaCertificates(qlIntermediates);
+
+		// Must not get config from socket before setting CA certificates
+		config = sock->sslConfiguration();
 #endif
 
 		config.setCiphers(Meta::mp.qlCiphers);
