@@ -426,8 +426,10 @@ void ServerHandler::run() {
 
 	#ifdef Q_OS_WIN
 			if (hQoS) {
-				if (! QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0))
-					qWarning("ServerHandler: Failed to remove UDP from QoS");
+				if (!QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0)) {
+					qWarning("ServerHandler: Failed to remove UDP from QoS. QOSRemoveSocketFromFlow() failed with error %u!", GetLastError());
+				}
+
 				dwFlowUDP = 0;
 			}
 	#endif
