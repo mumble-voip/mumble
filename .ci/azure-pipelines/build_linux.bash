@@ -18,8 +18,9 @@ VER=$(python scripts/mumble-version.py)
 cd $BUILD_BINARIESDIRECTORY
 
 # QSslDiffieHellmanParameters was introduced in Qt 5.8, Ubuntu 16.04 has 5.5.
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=appdir/usr -Dtests=ON -Dversion=$VER -Dsymbols=ON \
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=appdir/usr -Dtests=ON Donline-tests=ON -Dversion=$VER -Dsymbols=ON \
 	-Dqssldiffiehellmanparameters=OFF -Donline-tests=ON $BUILD_SOURCESDIRECTORY
+
 cmake --build .
 ctest --verbose
 cmake --install .
