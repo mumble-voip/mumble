@@ -24,9 +24,18 @@ cmake --build .
 ctest --verbose
 cmake --install .
 
-wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-ARCH=x86_64 ./linuxdeployqt-continuous-x86_64.AppImage $(find $HOME -type d -name 'appdir'| head -n 1)/usr/share/applications/*.desktop -appimage -extra-plugins=sqldrivers/libqsqlite.so
+# Get the AppImage-tool - always use the latest available version
+wget -c https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep "appimagetool-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2)
+chmod +x appimagetool-*.AppImage
+
+# find the appdir that was created by cmake --install
+appDir=$(find $HOME -type d -name 'appdir'| head -n 1)
+
+# Bundle the AppDir
+./appimagetool-*.AppImage -s deploy $appDir/usr/share/applications/*.desktop # Bundle EVERYTHING
+
+# Actually create the AppImage
+VERSION="$VER" ARCH="x86_64" ./appimagetool-*.AppImage $appDir
 
 for f in Mumble*.AppImage; do
 	# Embed update information into AppImage

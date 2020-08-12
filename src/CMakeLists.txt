@@ -170,6 +170,7 @@ if(client)
 		install(FILES "${CMAKE_SOURCE_DIR}/scripts/org.mumble_voip.mumble.appdata.xml" DESTINATION "share/metainfo")
 		install(FILES "${CMAKE_SOURCE_DIR}/scripts/org.mumble_voip.mumble.desktop" DESTINATION "share/applications")
 		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble.svg" DESTINATION "share/icons/hicolor/scalable/apps")
+		install(FILES "${CMAKE_SOURCE_DIR}/icons/mumble_256x256.png" DESTINATION "share/icons/hicolor/256x256/apps" RENAME "mumble.png")
 	endif()
 endif()
 
