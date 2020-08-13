@@ -355,7 +355,9 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
+#ifdef USE_MANUAL_PLUGIN
 	positions.clear();
+#endif
 
 	// A list of users that have audio to contribute
 	QList<AudioOutputUser *> qlMix;
@@ -566,11 +568,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				// Add position to position map
 				AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
+#ifdef USE_MANUAL_PLUGIN
 				if (speech) {
 					const ClientUser *user = speech->p;
 					// The coordinates in the plane are actually given by x and z instead of x and y (y is up)
 				 	positions.insert(user->uiSession, {aop->fPos[0], aop->fPos[2]});
 				}
+#endif
 
 				// If positional audio is enabled, calculate the respective audio effect here
 				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1], aop->fPos[2] - g.p->fCameraPosition[2] };
@@ -652,7 +656,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	foreach(AudioOutputUser *aop, qlDel)
 		removeBuffer(aop);
 
+#ifdef USE_MANUAL_PLUGIN
 	Manual::setSpeakerPositions(positions);
+#endif
 	
 	// Return whether data has been written to the outbuff
 	return (! qlMix.isEmpty());
