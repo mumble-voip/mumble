@@ -12,8 +12,10 @@
 #include "../../plugins/mumble_plugin.h"
 #include "WebFetch.h"
 #include "MumbleApplication.h"
-#include "ManualPlugin.h"
 #include "Utils.h"
+#ifdef USE_MANUAL_PLUGIN
+	#include "ManualPlugin.h"
+#endif
 
 #include <QtCore/QLibrary>
 #include <QtCore/QUrlQuery>
