@@ -1,0 +1,47 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        # We must fetch at least the immediate parents so that if this is
+        # a pull request then we can checkout the head.
+        fetch-depth: 2
+
+    # If this run was triggered by a pull request event, then checkout
+    # the head of the pull request instead of the merge commit.
+    - run: git checkout HEAD^2
+      if: ${{ github.event_name == 'pull_request' }}
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: cpp, python
+
+    - run: |
+        sudo apt install build-essential g++-multilib ninja-build pkg-config \
+                         qt5-default qttools5-dev qttools5-dev-tools libqt5svg5-dev \
+                         libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
+                         libcap-dev libxi-dev \
+                         libasound2-dev libpulse-dev \
+                         libogg-dev libsndfile1-dev libspeechd-dev \
+                         libavahi-compat-libdnssd-dev libzeroc-ice-dev
+        git submodule update --init --recursive
+        mkdir build && cd build
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON ..
+        cmake --build .
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
