@@ -136,7 +136,8 @@ class AppBundle(object):
 		'''
 		print ' * Attempting to copy audio codec libraries into App Bundle'
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
-		os.makedirs(dst)
+ 		if not os.path.exists(dst):
+			os.makedirs(dst)
 		codecs = (os.path.join(options.binary_dir, 'libcelt0.0.7.0.dylib'), os.path.join(options.binary_dir, 'libopus.dylib'))
 		for codec in codecs:
 			if os.path.exists(codec):
@@ -247,7 +248,7 @@ class DiskImage(FolderObject):
 		'''
 		print ' * Creating diskimage. Please wait...'
 		if os.path.exists(self.filename):
-			shutil.rmtree(self.filename)
+			os.remove(self.filename)
 		p = Popen(['hdiutil', 'create',
 		           '-srcfolder', self.tmp,
 		           '-format', 'UDBZ',
