@@ -1,7 +1,6 @@
 steps:
   - script: git submodule --quiet update --init --recursive
     displayName: 'Fetch submodules'
-  - template: task-environment-cache.yml
   - powershell: .ci/azure-pipelines/install-environment_windows.ps1
     displayName: 'Install build environment'
   - script: .ci/azure-pipelines/build_windows.bat
