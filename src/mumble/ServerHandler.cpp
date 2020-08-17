@@ -276,6 +276,20 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 	}
 }
 
+bool ServerHandler::isConnected() const {
+	// If the digest isn't empty, then we are currently connected to a server (the digest being a hash
+	// of the server's certificate)
+	return !qbaDigest.isEmpty();
+}
+
+bool ServerHandler::hasSynchronized() const {
+	return serverSyncronized;
+}
+
+void ServerHandler::setServerSynchronized(bool synchronized) {
+	serverSyncronized = synchronized;
+}
+
 void ServerHandler::hostnameResolved() {
 	ServerResolver *sr = qobject_cast<ServerResolver *>(QObject::sender());
 	QList<ServerResolverRecord> records = sr->records();
@@ -338,6 +352,11 @@ void ServerHandler::run() {
 		{
 			ConnectionPtr connection(new Connection(this, qtsSock));
 			cConnection = connection;
+
+			// Technically it isn't necessary to reset this flag here since a ServerHandler will not be used
+			// for multiple connections in a row but just in case that at some point it will, we'll reset the
+			// flag here.
+			serverSyncronized = false;
 
 			qlErrors.clear();
 			qscCert.clear();
@@ -624,6 +643,7 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 	}
 
 	emit disconnected(err, reason);
+
 	exit(0);
 }
 
