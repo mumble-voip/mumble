@@ -200,6 +200,8 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		}
 	});
 
+	g.sh->setServerSynchronized(true);
+
 	emit serverSynchronized();
 }
 
