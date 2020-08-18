@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>AudioWizard</class>
  <widget class="QWizard" name="AudioWizard">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
