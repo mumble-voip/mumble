@@ -689,6 +689,46 @@ void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
 	qtwShortcuts->setCurrentItem(nullptr);
 }
 
+void GlobalShortcutConfig::on_qpbImport_clicked() {
+	commit();
+	const QString filePath = QFileDialog::getOpenFileName(this, tr("Import shortcuts"), QString(), QLatin1String("*.ini"));
+	if (filePath.isEmpty()) {
+		return;
+	}
+	const int userAction = QMessageBox::warning(this
+	                                      , tr("Shortcut Replacement")
+	                                      , tr("Importing the shortcuts will drop and replace all current shortcuts, including server specific shortcuts.\nYou may want to export the current shortcuts before importing to have a backup to come back to.\n\nDo you want to continue the import?")
+	                                      , QMessageBox::Ok | QMessageBox::Cancel
+	                                      , QMessageBox::Ok);
+	if (userAction != QMessageBox::Ok) {
+		return;
+	}
+	QSettings s(filePath, QSettings::IniFormat);
+	bool importOk = false;
+	QList<Shortcut> importedShortcuts  = Settings::loadShortcutsFromFile(&s, &importOk);
+	if (!importOk)
+	{
+		QMessageBox::warning(this, tr("Import Failure"), tr("The file could not be imported as Mumble shortcuts.\nAre you sure this is a valid Mumble shortcuts file?"));
+		return;
+	}
+	qlShortcuts = importedShortcuts;
+	reload();
+}
+
+void GlobalShortcutConfig::on_qpbExport_clicked() {
+	commit();
+	const QString filePath = QFileDialog::getSaveFileName(this, tr("Save shortcuts"), QLatin1String("mumble-shortcuts.ini"), QLatin1String("*.ini"));
+	if (filePath.isEmpty()) {
+		return;
+	}
+	QSettings s(filePath, QSettings::IniFormat);
+	Settings::saveShortcuts(qlShortcuts, &s);
+	s.sync();
+	if (s.status() != QSettings::NoError) {
+		QMessageBox::warning(this, tr("Export Failure"), tr("Writing the export file failed."));
+	}
+}
+
 void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
 	qpbRemove->setEnabled(item ? true : false);
 }

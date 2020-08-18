@@ -11,6 +11,7 @@
 #include <QtCore/QPair>
 #include <QtCore/QRectF>
 #include <QtCore/QSettings>
+#include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtGui/QColor>
 #include <QtGui/QFont>
@@ -151,6 +152,8 @@ struct Settings {
 	enum TalkState { Passive, Talking, Whispering, Shouting, MutedTalking };
 	enum IdleAction { Nothing, Deafen, Mute };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
+
+	static const QString SHORTCUTS_FILE_VERSION_FIELDNAME;
 
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
@@ -446,7 +449,26 @@ struct Settings {
 	Settings();
 	void load();
 	void load(QSettings*);
+	/// \brief loadShortcuts Parses the passed settings for shortcuts. The shortcuts are returned in a list.
+	/// \param settings QSettings to load the shortcuts into
+	/// \param ok if passed, will hold true for a successful import, false for a failure
+	/// \return A list of shortcuts (if param ok is false of undefined contents)
+	static QList<Shortcut> loadShortcuts(QSettings *settings_ptr, bool *ok=NULL);
+	/// \brief loadShortcutsFromFile Parses the passed settings for shortcuts. The shortcuts are returned in a list.
+	/// The Parsing is guarded with a file version field to be more robust against accidental imports overwriting shortcut settings.
+	/// \param settings QSettings to load the shortcuts into
+	/// \param ok if passed, will hold true for a successful import, false for a failure
+	/// \return A list of shortcuts (if param ok is false of undefined contents)
+	static QList<Shortcut> loadShortcutsFromFile(QSettings *settings_ptr, bool *ok=NULL);
 	void save();
+	/// \brief saveShortcuts Save qlShortcuts into settings
+	/// \param qlShortcuts list of shortcuts to store
+	/// \param settings settings object to save into
+	static void saveShortcuts(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr);
+	/// \brief saveShortcutsToFile Save qlShortcuts into settings, including a file version guard field
+	/// \param qlShortcuts list of shortcuts to store
+	/// \param settings settings object to save into
+	static void saveShortcutsToFile(const QList<Shortcut> &qlShortcuts, QSettings *settings_ptr);
 };
 
 #endif
