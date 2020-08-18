@@ -246,6 +246,8 @@ set(MUMBLE_SOURCES
 if(static AND WIN32)
 	# On Windows, building a static client means building the main app into a DLL.
 	add_library(mumble SHARED ${MUMBLE_SOURCES})
+	add_compile_definitions(mumble PRIVATE "MUMBLEAPP_DLL")
+
 	set_target_properties(mumble PROPERTIES OUTPUT_NAME "mumble_app")
 	if(MINGW)
 		# Remove "lib" prefix.

@@ -76,7 +76,7 @@ extern int os_early_init();
 extern HWND mumble_mw_hwnd;
 #endif // Q_OS_WIN
 
-#if defined(Q_OS_WIN) && !defined(QT_NO_DEBUG)
+#if defined(Q_OS_WIN) && !defined(MUMBLEAPP_DLL)
 extern "C" __declspec(dllexport) int main(int argc, char **argv) {
 #else
 int main(int argc, char **argv) {
@@ -759,7 +759,7 @@ int main(int argc, char **argv) {
 	return res;
 }
 
-#if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
+#if defined(Q_OS_WIN) && defined(MUMBLEAPP_DLL)
 extern "C" __declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArg, int cmdShow) {
 	Q_UNUSED(instance)
 	Q_UNUSED(prevInstance)
