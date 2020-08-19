@@ -834,6 +834,9 @@ void MainWindow::updateImagePath(QString filepath) const {
 }
 
 static void recreateServerHandler() {
+	// New server connection, so the sync has not happened yet
+	ChannelListener::setInitialServerSyncDone(false);
+
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning()) {
 		g.mw->on_qaServerDisconnect_triggered();

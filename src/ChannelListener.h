@@ -11,6 +11,8 @@
 #include <QtCore/QSet>
 #include <QtCore/QReadWriteLock>
 
+#include <atomic>
+
 class User;
 class Channel;
 
@@ -35,6 +37,9 @@ class ChannelListener : public QObject {
 		/// A map between channel IDs and local volume adjustments to be made for ChannelListeners
 		/// in that channel
 		QHash<int, float> m_listenerVolumeAdjustments;
+
+		/// A flag indicating whether the initial synchronization with the server has finished yet
+		std::atomic<bool> m_initialSyncDone;
 #endif
 
 		/// The static ChannelListener instance returned by ChannelListener::get()
@@ -99,6 +104,9 @@ class ChannelListener : public QObject {
 		/// @param filter Whether to filter out adjustments of 1 (which have no effect)
 		/// @returns A map between channel IDs and the currently set volume adjustment
 		QHash<int, float> getAllListenerLocalVolumeAdjustmentsImpl(bool filter = false) const;
+
+		/// @done Whether the initial synchronization with the server is done yet
+		void setInitialServerSyncDoneImpl(bool done);
 #endif
 
 		/// Clears all ChannelListeners and volume adjustments
@@ -226,6 +234,9 @@ class ChannelListener : public QObject {
 		/// @param filter Whether to filter out adjustments of 1 (which have no effect)
 		/// @returns A map between channel IDs and the currently set volume adjustment
 		static QHash<int, float> getAllListenerLocalVolumeAdjustments(bool filter = false);
+
+		/// @done Whether the initial synchronization with the server is done yet
+		static void setInitialServerSyncDone(bool done);
 
 		/// Saves the current ChannelListener state to the database.
 		/// NOTE: This function may only be called from the main thread!

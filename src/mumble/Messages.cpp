@@ -189,7 +189,15 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	// Use the timer to execute the code in the main event loop as we have to access
 	// the database.
 	QTimer::singleShot(0, []() {
-		g.sh->startListeningToChannels(g.db->getChannelListeners(g.sh->qbaDigest));
+		QList<int> localListeners = g.db->getChannelListeners(g.sh->qbaDigest);
+
+		if (!localListeners.isEmpty()) {
+			ChannelListener::setInitialServerSyncDone(false);
+			g.sh->startListeningToChannels(localListeners);
+		} else {
+			// If there are no listeners, then no synchronization is needed in the first place
+			ChannelListener::setInitialServerSyncDone(true);
+		}
 		
 		QHash<int, float> volumeMap = g.db->getChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest);
 
@@ -455,6 +463,13 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		QString logMsg;
 		if (pDst == pSelf) {
 			logMsg = tr("You started listening to %1").arg(Log::formatChannel(c));
+
+			// Since ChannelListeners are sent out in bulks (all in a single message), the fact that we received
+			// a message that contains information about a ChannelListener of the local user means that we have
+			// succecssfully told the server that we are listening to the respective channels. Even if this message
+			// here has nothing to do with the actual initial synchronization, this means that we have been connected
+			// to the server long enough for the synchronization to be done.
+			ChannelListener::setInitialServerSyncDone(true);
 		} else if (pSelf && pSelf->cChannel == c) {
 			logMsg = tr("%1 started listening to your channel").arg(Log::formatClientUser(pDst, Log::Target));
 		}
