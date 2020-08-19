@@ -186,27 +186,24 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	updateTrayIcon();
 
 	// Set-up all ChannelListeners and their volume adjustments as before for this server
-	// Use the timer to execute the code in the main event loop as we have to access
-	// the database.
-	QTimer::singleShot(0, []() {
-		QList<int> localListeners = g.db->getChannelListeners(g.sh->qbaDigest);
+	QList<int> localListeners = g.db->getChannelListeners(g.sh->qbaDigest);
 
-		if (!localListeners.isEmpty()) {
-			ChannelListener::setInitialServerSyncDone(false);
-			g.sh->startListeningToChannels(localListeners);
-		} else {
-			// If there are no listeners, then no synchronization is needed in the first place
-			ChannelListener::setInitialServerSyncDone(true);
-		}
-		
-		QHash<int, float> volumeMap = g.db->getChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest);
+	if (!localListeners.isEmpty()) {
+		ChannelListener::setInitialServerSyncDone(false);
+		g.sh->startListeningToChannels(localListeners);
+	} else {
+		// If there are no listeners, then no synchronization is needed in the first place
+		ChannelListener::setInitialServerSyncDone(true);
+	}
 
-		QHashIterator<int, float> it(volumeMap);
-		while(it.hasNext()) {
-			it.next();
-			ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
-		}
-	});
+	QHash<int, float> volumeMap = g.db->getChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest);
+
+	QHashIterator<int, float> it(volumeMap);
+	while(it.hasNext()) {
+		it.next();
+		ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
+	}
+
 
 	g.sh->setServerSynchronized(true);
 
