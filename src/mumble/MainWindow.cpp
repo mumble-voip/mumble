@@ -2896,8 +2896,15 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	QString uname, pw, host;
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	if (g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
-		GlobalShortcutEngine::engine->bNeedRemap = true;
+
+	if (g.sh->hasSynchronized()) {
+		// Only save server-specific shortcuts if the client and server have been synchronized before as only then
+		// did the client actually load them from the DB. If we store them without having loaded them, we will effectively
+		// clear the server-specific shortcuts for this server.
+		if (g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts)) {
+			GlobalShortcutEngine::engine->bNeedRemap = true;
+		}
+	}
 
 	if (aclEdit) {
 		aclEdit->reject();

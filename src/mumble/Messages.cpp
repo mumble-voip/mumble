@@ -152,6 +152,8 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	on_qmConfig_aboutToShow();
 
 	updateTrayIcon();
+
+	g.sh->setServerSynchronized(true);
 }
 
 
