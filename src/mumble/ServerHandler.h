@@ -70,6 +70,10 @@ class ServerHandler : public QThread {
 		bool bUdp;
 		bool bStrong;
 
+		/// Flag indicating whether the server we are currently connected to has
+		/// finished synchronizing already.
+		bool serverSynchronized = false;
+
 #ifdef Q_OS_WIN
 		HANDLE hQoS;
 		DWORD dwFlowUDP;
@@ -111,6 +115,16 @@ class ServerHandler : public QThread {
 
 		void sendProtoMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
 		void sendMessage(const char *data, int len, bool force = false);
+
+		/// @returns Whether this handler is currently connected to a server.
+		bool isConnected() const;
+
+		/// @returns Whether the server this handler is currently connected to, has finished
+		/// 	synchronizing yet.
+		bool hasSynchronized() const;
+
+		/// @param synchronized Whether the server has finished synchronization
+		void setServerSynchronized(bool synchronized);
 
 #define MUMBLE_MH_MSG(x) void sendMessage(const MumbleProto:: x &msg) { sendProtoMessage(msg, MessageHandler:: x); }
 		MUMBLE_MH_ALL

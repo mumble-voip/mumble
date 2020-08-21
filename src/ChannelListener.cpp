@@ -32,6 +32,7 @@ ChannelListener::ChannelListener()
 #ifdef MUMBLE
 	, m_volumeLock()
 	, m_listenerVolumeAdjustments()
+	, m_initialSyncDone(false)
 #endif
 {}
 
@@ -124,6 +125,10 @@ QHash<int, float> ChannelListener::getAllListenerLocalVolumeAdjustmentsImpl(bool
 
 		return volumeMap;
 	}
+}
+
+void ChannelListener::setInitialServerSyncDoneImpl(bool done) {
+	m_initialSyncDone.store(done);
 }
 #endif
 
@@ -241,9 +246,20 @@ QHash<int, float> ChannelListener::getAllListenerLocalVolumeAdjustments(bool fil
 	return get().getAllListenerLocalVolumeAdjustmentsImpl(filter);
 }
 
+void ChannelListener::setInitialServerSyncDone(bool done) {
+	get().setInitialServerSyncDoneImpl(done);
+}
+
 void ChannelListener::saveToDB() {
 	if (!g.sh || g.sh->qbaDigest.isEmpty() || g.uiSession == 0) {
 		// Can't save as we don't have enough context
+		return;
+	}
+
+	if (!get().m_initialSyncDone.load()) {
+		// If we were to save the listeners before the sync is done, we'd overwrite the list of listeners in the
+		// DB with an empty set, effectively erasing all set-up listeners.
+		qWarning("ChannelListener: Aborting save of user's listeners as initial ServerSync is not done yet");
 		return;
 	}
 

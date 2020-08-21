@@ -834,6 +834,9 @@ void MainWindow::updateImagePath(QString filepath) const {
 }
 
 static void recreateServerHandler() {
+	// New server connection, so the sync has not happened yet
+	ChannelListener::setInitialServerSyncDone(false);
+
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning()) {
 		g.mw->on_qaServerDisconnect_triggered();
@@ -3093,9 +3096,12 @@ void MainWindow::serverConnected() {
 }
 
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
-	// Note that the saving of the ChannelListeners has to be done, before resetting g.uiSession
-	// Save ChannelListeners
-	ChannelListener::saveToDB();
+	if (g.sh->hasSynchronized()) {
+		// Note that the saving of the ChannelListeners has to be done, before resetting g.uiSession
+		// Save ChannelListeners
+		ChannelListener::saveToDB();
+	}
+
 	// clear ChannelListener
 	ChannelListener::clear();
 
@@ -3117,8 +3123,15 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	QString uname, pw, host;
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	if (g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
-		GlobalShortcutEngine::engine->bNeedRemap = true;
+
+	if (g.sh->hasSynchronized()) {
+		// Only save server-specific shortcuts if the client and server have been synchronized before as only then
+		// did the client actually load them from the DB. If we store them without having loaded them, we will effectively
+		// clear the server-specific shortcuts for this server.
+		if (g.db->setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts)) {
+			GlobalShortcutEngine::engine->bNeedRemap = true;
+		}
+	}
 
 	if (aclEdit) {
 		aclEdit->reject();
