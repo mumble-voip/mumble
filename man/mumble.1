@@ -1,51 +1,94 @@
-.TH MUMBLE 1 "2016 May 9"
+.TH MUMBLE 1 "2020 August 19"
 .SH NAME
 mumble - a low-latency, high quality voice chat program
 .SH SYNOPSIS
 .B mumble
-[\fB\-m\fR|\fB\-\-multiple\fR] [\fB\-n\fR|\fB\-\-noidentity\fR] [\fBURL\fR]
-.br
-.B mumble
-\fB\-h\fR|\fB\-\-help
+[\fI\,options\/\fR] [\fI\,<url>\/\fR]
 .SH DESCRIPTION
 Mumble is an open source, low-latency, high quality voice chat software
 primarily intended for use while gaming.
 .SH OPTIONS
 .TP
-.B \-h, \-\-help
-Display help and exit.
-.TP
-.B \-m, \-\-multiple
+\fB\-h\fR, \fB\-\-help\fR
+Show the help text and exit.
+.HP
+\fB\-m\fR, \fB\-\-multiple\fR
+.IP
 Allow multiple instances of the client to be started.
-.TP
-.B \-n, \-\-noidentity
+.HP
+\fB\-c\fR, \fB\-\-config\fR
+.IP
+Specify an alternative configuration file.
+If you use this to run multiple instances of Mumble at once,
+make sure to set an alternative \fIdatabase\fR value in the config.
+.HP
+\fB\-n\fR, \fB\-\-noidentity\fR
+.IP
 Suppress loading of identity files (i.e., certificates.)
-.P
-.B URL
-specifies a URL to connect to after startup instead of showing the connection
-window.
+.HP
+\fB\-jn\fR, \fB\-\-jackname\fR \fI<arg>\fR
+.IP
+Set custom Jack client name.
+.HP
+\fB\-\-license\fR
+.IP
+Show the Mumble license.
+.HP
+\fB\-\-authors\fR
+.IP
+Show the Mumble authors.
+.HP
+\fB\-\-third\-party\-licenses\fR
+.IP
+Show licenses for third\-party software used by Mumble.
+.HP
+\fB\-\-window\-title\-ext\fR \fI<arg>\fR
+.IP
+Sets a custom window title extension.
+.HP
+\fB\-\-dump\-input\-streams\fR
+.IP
+Dump PCM streams at various parts of the input chain
+(useful for debugging purposes).
+.IP \[bu]
+raw microphone input
+.IP \[bu]
+speaker readback for echo cancelling
+.IP \[bu]
+processed microphone input
+.HP
+\fB\-\-print\-echocancel\-queue\fR
+.IP
+Print on stdout the echo cancellation queue state
+(useful for debugging purposes).
+.SH URL
+\fI<url>\fR specifies a URL to connect to after startup instead of showing the
+connection  window, and has the following form:
+.br
+mumble://[<username>[:<password>]@]<host>[:<port>][/<channel>[/<subchannel>...]][?version=<x.y.z>]
+
+The version query parameter has to be set in order to invoke  the  correct
+client version. It currently defaults to 1.2.0.
 .SH RPC CONTROL
 .P
 It is possible to remote control a running instance of Mumble using the
 following command:
 .P
 .B mumble rpc
-[\fBACTION\fR]
+[\fIaction\fR]
 .P
-Where \fBACTION\fR is one of the following:
+Where \fIaction\fR is one of the following:
 .RS
-.TP
-.B mute
+.IP \fBmute\fR 0.4i
 Mute self
-.TP
-.B unmute
+.IP \fBunmute\fR
 Unmute self
-.TP
-.B deaf
+.IP \fBdeaf\fR
 Deafen self
-.TP
-.B undeaf
+.IP \fBundeaf\fR
 Undeafen self
+.IP \fBtoggledeaf\fR
+Toggle self-deafen status
 .RE
 .SH SEE ALSO
 .BR mumble\-overlay (1),
