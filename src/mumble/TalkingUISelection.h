@@ -41,6 +41,9 @@ class TalkingUISelection {
 		bool operator==(const TalkingUISelection &other) const;
 		bool operator!=(const TalkingUISelection &other) const;
 
+		bool operator==(const QWidget *widget) const;
+		bool operator!=(const QWidget *widget) const;
+
 		virtual std::unique_ptr<TalkingUISelection> cloneToHeap() const = 0;	
 };
 

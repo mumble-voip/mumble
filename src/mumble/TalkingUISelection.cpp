@@ -41,6 +41,13 @@ bool TalkingUISelection::operator!=(const TalkingUISelection &other) const {
 	return m_widget != other.m_widget;
 }
 
+bool TalkingUISelection::operator==(const QWidget *widget) const {
+	return m_widget == widget;
+}
+
+bool TalkingUISelection::operator!=(const QWidget *widget) const {
+	return m_widget != widget;
+}
 
 
 UserSelection::UserSelection(QWidget *widget, unsigned int userSession)

@@ -12,9 +12,12 @@
 #include <QtGui/QIcon>
 
 #include <memory>
+#include <vector>
 
 #include "Settings.h"
 #include "TalkingUISelection.h"
+#include "TalkingUIContainer.h"
+#include "TalkingUIEntry.h"
 
 class QLabel;
 class QGroupBox;
@@ -23,62 +26,33 @@ class QMouseEvent;
 
 class Channel;
 class ClientUser;
-
-/// Smaller auxilary class for holding together two labels representing
-/// the entry for a specific user in the TalkingUI
-struct Entry {
-	QLabel *talkingIcon;
-	QLabel *name;
-	QWidget *background;
-	/// A label that'll show a user's status icons. If no icons are displayed,
-	/// this may be null!
-	QLabel *statusIcons;
-	unsigned int userSession;
-	Settings::TalkState talkingState;
-	QString qsName;
-};
+class TalkingUIComponent;
 
 /// The talking UI is a widget that will display the users you are currently
 /// hearing to you.
 class TalkingUI : public QWidget {
+	friend class TalkingUIUser;
+
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(TalkingUI);
 
-		/// A map between user session ID and the corresponding Entry
-		QHash<unsigned int, Entry> m_entries;
-		/// A map between channel ID and the QGroupBox used to represent it
-		QHash<int, QGroupBox *> m_channels;
-		/// A map betweem user session IDs and the timer used to remove users
-		/// that have stopped speaking for a certain amount of time.
-		QHash<unsigned int, QTimer *> m_timers;
+		std::vector<std::unique_ptr<TalkingUIContainer>> m_containers;
 		/// The Entry corresponding to the currently selected user
 		std::unique_ptr<TalkingUISelection> m_currentSelection;
 
-		/// The icon for a talking user
-		QIcon m_talkingIcon;
-		/// The icon for a talking user that is currently (locally) muted
-		QIcon m_mutedTalkingIcon;
-		/// The icon for a silent user
-		QIcon m_passiveIcon;
-		/// The icon for a shouting user
-		QIcon m_shoutingIcon;
-		/// The icon for a whispering user
-		QIcon m_whisperingIcon;
-
-		/// The icon for a muted user
-		QIcon m_muteIcon;
-		/// The icon for a deafened user
-		QIcon m_deafIcon;
-		/// The icon for a locally muted user
-		QIcon m_localMuteIcon;
-		/// The icon for the local user if muted
-		QIcon m_selfMuteIcon;
-		/// The icon for the local user if deafened
-		QIcon m_selfDeafIcon;
-
 		/// The current line height of an entry in the TalkingUI
 		int m_currentLineHeight;
+
+		int findContainer(int associatedChannelID, ContainerType type) const;
+		std::unique_ptr<TalkingUIContainer> removeContainer(const TalkingUIContainer &container);
+		std::unique_ptr<TalkingUIContainer> removeContainer(int associatedChannelID, ContainerType type);
+		std::unique_ptr<TalkingUIContainer> removeIfSuperfluous(const TalkingUIContainer &container);
+
+		void sortContainers();
+
+		TalkingUIUser *findUser(unsigned int userSession);
+		void removeUser(unsigned int userSession);
 
 		/// Sets up the UI components
 		void setupUI();
@@ -94,13 +68,11 @@ class TalkingUI : public QWidget {
 		///
 		/// @param channel A pointer to the user that shall be added
 		void addUser(const ClientUser *user);
-		/// Makes sure the user with the given session is visible and
-		/// placed in the channel with the given ID. Note that both the
-		/// user and the channel are expected to have an UI entry already.
+		/// Moves the given user into the given channel
 		///
 		/// @paam userSession The session ID of the user
 		/// @param channelID The channel ID of the channel
-		void ensureVisible(unsigned int userSession, int channelID);
+		void moveUserToChannel(unsigned int userSession, int channelID);
 
 		/// Update (resize) the UI to its content
 		void updateUI();
@@ -109,11 +81,6 @@ class TalkingUI : public QWidget {
 		///
 		/// @param widget a pointer to the widget to set the font size for
 		void setFontSize(QWidget *widget);
-
-		/// Sets the icon for the given entry based on its TalkingState
-		///
-		/// @param entry A reference to the Entry to process
-		void setTalkingIcon(Entry &entry) const;
 
 		/// Updates the user's status icons (reflecting e.g. its mut-state)
 		///
@@ -124,6 +91,8 @@ class TalkingUI : public QWidget {
 		///
 		/// @param selection The new selection
 		void setSelection(const TalkingUISelection &selection);
+
+		bool isSelected(const TalkingUIComponent &component) const;
 
 		void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
