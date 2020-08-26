@@ -1552,7 +1552,13 @@ Channel *UserModel::getChannel(const QModelIndex &idx) const {
 	item = static_cast<ModelItem *>(idx.internalPointer());
 
 	if (item->pUser)
-		return item->pUser->cChannel;
+		if (item->parent && item->parent->cChan) {
+			return item->parent->cChan;
+		} else {
+			// Failsafe in case the item does not have a parent
+			qWarning("UserModel::getChannel encountered weird program flow - that's a bug (please report)!");
+			return item->pUser->cChannel;
+		}
 	else
 		return item->cChan;
 }
