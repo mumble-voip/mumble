@@ -35,9 +35,9 @@ public:
 	/// Number of users in this channel (recursive)
 	int iUsers;
 
-	static QHash <Channel *, ModelItem *> c_qhChannels;
-	static QHash <ClientUser *, ModelItem *> c_qhUsers;
-	static QHash <ClientUser *, QList<ModelItem *>> s_userProxies;
+	static QHash <const Channel *, ModelItem *> c_qhChannels;
+	static QHash <const ClientUser *, ModelItem *> c_qhUsers;
+	static QHash <const ClientUser *, QList<ModelItem *>> s_userProxies;
 	static bool bUsersTop;
 
 	ModelItem(Channel *c);
@@ -148,7 +148,7 @@ class UserModel : public QAbstractItemModel {
 		/// @param p A pointer to the user
 		/// @param c A pointer to the channel. If this is nullptr, then all listeners
 		/// 	for the given user are removed (from all channels).
-		void removeChannelListener(ClientUser *p, Channel *c = nullptr);
+		void removeChannelListener(const ClientUser *p, const Channel *c = nullptr);
 		/// @param idx The QModelIndex to check
 		/// @returns Whether the ModelItem associated with the given index is a listener-proxy
 		bool isChannelListener(const QModelIndex &idx) const;

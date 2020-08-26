@@ -30,9 +30,9 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
-QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
-QHash <ClientUser *, QList<ModelItem *>> ModelItem::s_userProxies;
+QHash <const Channel *, ModelItem *> ModelItem::c_qhChannels;
+QHash <const ClientUser *, ModelItem *> ModelItem::c_qhUsers;
+QHash <const ClientUser *, QList<ModelItem *>> ModelItem::s_userProxies;
 bool ModelItem::bUsersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
@@ -1297,7 +1297,6 @@ void UserModel::addChannelListener(ClientUser *p, Channel *c) {
 	int row = citem->insertIndex(p, true);
 
 	beginInsertRows(index(citem), row, row);
-	ChannelListener::addListener(p, c);
 	citem->qlChildren.insert(row, item);
 	endInsertRows();
 
@@ -1309,7 +1308,7 @@ void UserModel::addChannelListener(ClientUser *p, Channel *c) {
 	updateOverlay();
 }
 
-void UserModel::removeChannelListener(ClientUser *p, Channel *c) {
+void UserModel::removeChannelListener(const ClientUser *p, const Channel *c) {
 	// The way operator[] works for a QHash is that it'll insert a default-constructed
 	// object first, before returning a reference to it, in case there is no entry for
 	// the provided key yet. Thus we never have to worry about explicitly adding an empty
@@ -1384,7 +1383,6 @@ void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
 	int row = citem->qlChildren.indexOf(item);
 
 	beginRemoveRows(index(citem), row, row);
-	ChannelListener::removeListener(p, c);
 	citem->qlChildren.removeAt(row);
 	endRemoveRows();
 
