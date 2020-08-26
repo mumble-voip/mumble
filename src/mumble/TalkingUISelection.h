@@ -75,6 +75,20 @@ class ChannelSelection : public TalkingUISelection {
 		virtual std::unique_ptr<TalkingUISelection> cloneToHeap() const override;	
 };
 
+class ListenerSelection : public TalkingUISelection {
+	protected:
+		unsigned int m_userSession;
+		const int m_channelID;
+
+	public:
+		explicit ListenerSelection(QWidget *widget, unsigned int userSession, int channelID);
+		explicit ListenerSelection(const ListenerSelection &) = default;
+
+		virtual void syncToMainWindow() const override;
+
+		virtual std::unique_ptr<TalkingUISelection> cloneToHeap() const override;
+};
+
 /// A class representing an empty selection in the TalkingUI
 class EmptySelection : public TalkingUISelection {
 	public:

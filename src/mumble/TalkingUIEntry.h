@@ -20,6 +20,7 @@ class QWidget;
 class QLabel;
 class TalkingUIContainer;
 class ClientUser;
+class Channel;
 
 enum class EntryType {
 	USER,
@@ -59,6 +60,8 @@ class TalkingUIEntry : public TalkingUIComponent {
 		virtual EntryPriority getPriority() const;
 
 		virtual void setIconSize(int size) = 0;
+
+		virtual void setDisplayString(const QString &displayString) = 0;
 
 		virtual int compare(const TalkingUIEntry &other) const;
 
@@ -107,18 +110,45 @@ class TalkingUIUser : public TalkingUIEntry {
 
 		virtual QString getName() const;
 
-		virtual void setDisplayString(const QString &displayString);
-
 		virtual int compare(const TalkingUIEntry &other) const override;
 
 		virtual void setTalkingState(Settings::TalkState talkState);
 
 		virtual void setIconSize(int size) override;
 
+		virtual void setDisplayString(const QString &displayString) override;
+
 		virtual void setLifeTime(unsigned int time);
 		virtual void restrictLifetime(bool restrict);
 
 		virtual void setStatus(UserStatus status);
+};
+
+
+class TalkingUIChannelListener : public TalkingUIEntry {
+	protected:
+		QWidget *m_backgroundWidget = nullptr;
+
+		QLabel *m_icon = nullptr;
+		QLabel *m_nameLabel = nullptr;
+
+		int m_channelID;
+		QString m_name;
+
+	public:
+		TalkingUIChannelListener(const ClientUser &user, const Channel &channel);
+		virtual ~TalkingUIChannelListener() override;
+
+		virtual EntryType getType() const override;
+
+		virtual QWidget *getWidget() override;
+		virtual const QWidget *getWidget() const override;
+
+		virtual void setIconSize(int size) override;
+
+		virtual void setDisplayString(const QString &displayString) override;
+
+		virtual int getAssociatedChannelID() const;
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUIENTRY_H_

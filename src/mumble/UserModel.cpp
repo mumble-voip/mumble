@@ -332,6 +332,30 @@ QModelIndex UserModel::index(ModelItem *item) const {
 	return createIndex(item->rowOfSelf(), 0, item);
 }
 
+QModelIndex UserModel::channelListenerIndex(const ClientUser *user, const Channel *channel, int column) const {
+	QList<ModelItem *> items = ModelItem::s_userProxies.value(user);
+
+	ModelItem *item = nullptr;
+	for (ModelItem *currentItem : items) {
+		ModelItem *parent = currentItem->parent;
+		if (currentItem->isListener && parent && parent->cChan == channel) {
+			item = currentItem;
+			break;
+		}
+	}
+
+	Q_ASSERT(user);
+	Q_ASSERT(channel);
+	Q_ASSERT(item);
+	if (!item || !channel || !user) {
+		return QModelIndex();
+	}
+
+	QModelIndex idx = createIndex(item->rowOfSelf(), column, item);
+
+	return idx;
+}
+
 QModelIndex UserModel::parent(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return QModelIndex();
@@ -1352,6 +1376,19 @@ bool UserModel::isChannelListener(const QModelIndex &idx) const {
 	item = static_cast<ModelItem *>(idx.internalPointer());
 
 	return item->isListener;
+}
+
+void UserModel::setSelectedChannelListener(unsigned int userSession, int channelID) {
+	QModelIndex idx = channelListenerIndex(ClientUser::get(userSession), Channel::get(channelID));
+
+	if (!idx.isValid()) {
+		return;
+	}
+
+	QTreeView *v = g.mw->qtvUsers;
+	if (v) {
+		v->setCurrentIndex(idx);
+	}
 }
 
 void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {

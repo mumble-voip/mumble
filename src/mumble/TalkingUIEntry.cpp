@@ -8,6 +8,7 @@
 #include "TalkingUI.h"
 #include "ClientUser.h"
 #include "UserModel.h"
+#include "Channel.h"
 
 #include <QWidget>
 #include <QLabel>
@@ -199,15 +200,6 @@ QString TalkingUIUser::getName() const {
 	return m_name;
 }
 
-void TalkingUIUser::setDisplayString(const QString &displayString) {
-	if (g.uiSession == getAssociatedUserSession()) {
-		// Display own name in bold
-		m_nameLabel->setText(QString::fromLatin1("<b>%1</b>").arg(displayString));
-	} else {
-		m_nameLabel->setText(displayString);
-	}
-}
-
 int TalkingUIUser::compare(const TalkingUIEntry &other) const {
 	if (other.getType() != getType()) {
 		return static_cast<int>(other.getType()) - static_cast<int>(getType());
@@ -263,6 +255,15 @@ void TalkingUIUser::setIconSize(int size) {
 	m_iconSize = size;
 
 	updateTalkingIcon();
+}
+
+void TalkingUIUser::setDisplayString(const QString &displayString) {
+	if (g.uiSession == getAssociatedUserSession()) {
+		// Display own name in bold
+		m_nameLabel->setText(QString::fromLatin1("<b>%1</b>").arg(displayString));
+	} else {
+		m_nameLabel->setText(displayString);
+	}
 }
 
 void TalkingUIUser::setLifeTime(unsigned int time) {
@@ -332,4 +333,76 @@ void TalkingUIUser::setStatus(UserStatus status) {
 			m_backgroundWidget->layout()->addWidget(m_statusIcons);
 		}
 	}
+}
+
+
+
+
+
+TalkingUIChannelListener::TalkingUIChannelListener(const ClientUser &user, const Channel &channel)
+	: TalkingUIEntry(user.uiSession),
+	  m_channelID(channel.iId),
+	  m_name(user.qsName) {
+
+	// Create background widget and its layout that we'll use to place all other
+	// components on
+	m_backgroundWidget = new QWidget();
+	m_backgroundWidget->setProperty("selected", false);
+	QLayout *backgroundLayout = new QHBoxLayout();
+	backgroundLayout->setContentsMargins(USER_CONTAINER_HORIZONTAL_MARGIN,
+			USER_CONTAINER_VERTICAL_MARGIN,
+			USER_CONTAINER_HORIZONTAL_MARGIN,
+			USER_CONTAINER_VERTICAL_MARGIN);
+	m_backgroundWidget->setLayout(backgroundLayout);
+	m_backgroundWidget->setAutoFillBackground(true);
+
+
+	// Create the label we use to display the icon
+	m_icon = new QLabel(m_backgroundWidget);
+	m_icon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+	int iconSize = QFontMetrics(m_backgroundWidget->font()).height();
+	// setIconSize will not only set the size but also the icon itself
+	setIconSize(iconSize);
+
+	// Create the label we use to display the user's name
+	m_nameLabel = new QLabel(m_backgroundWidget);
+	const QString displayString = UserModel::createDisplayString(user, true, &channel);
+	setDisplayString(displayString);
+
+
+	backgroundLayout->addWidget(m_icon);
+	backgroundLayout->addWidget(m_nameLabel);
+}
+
+TalkingUIChannelListener::~TalkingUIChannelListener() {
+	m_backgroundWidget->deleteLater();
+	m_icon->deleteLater();
+	m_nameLabel->deleteLater();
+}
+
+EntryType TalkingUIChannelListener::getType() const {
+	return EntryType::LISTENER;
+}
+
+QWidget *TalkingUIChannelListener::getWidget() {
+	return m_backgroundWidget;
+}
+
+const QWidget *TalkingUIChannelListener::getWidget() const {
+	return m_backgroundWidget;
+}
+
+void TalkingUIChannelListener::setIconSize(int size) {
+	static const QIcon s_earIcon = QIcon(QLatin1String("skin:ear.svg"));
+
+	m_icon->setPixmap(s_earIcon.pixmap(QSize(size, size), QIcon::Normal, QIcon::On));
+}
+
+void TalkingUIChannelListener::setDisplayString(const QString &displayString) {
+	m_nameLabel->setText(QString::fromLatin1("<i>%1</i>").arg(displayString));
+}
+
+int TalkingUIChannelListener::getAssociatedChannelID() const {
+	return m_channelID;
 }

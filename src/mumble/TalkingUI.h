@@ -54,6 +54,11 @@ class TalkingUI : public QWidget {
 		TalkingUIUser *findUser(unsigned int userSession);
 		void removeUser(unsigned int userSession);
 
+		void addListener(const ClientUser *user, const Channel *channel);
+		TalkingUIChannelListener *findListener(unsigned int userSession, int channelID);
+		void removeListener(unsigned int userSession, int channelID);
+		void removeAllListeners();
+
 		/// Sets up the UI components
 		void setupUI();
 		/// Hides an user
@@ -113,6 +118,9 @@ class TalkingUI : public QWidget {
 		void on_clientDisconnected(unsigned int userSession);
 		void on_muteDeafStateChanged();
 		void on_userLocalVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
+		void on_channelListenerAdded(const ClientUser *user, const Channel *channel);
+		void on_channelListenerRemoved(const ClientUser *user, const Channel *channel);
+		void on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float newAdjustment, float oldAdjustment);
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUI_H_

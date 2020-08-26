@@ -84,6 +84,24 @@ std::unique_ptr<TalkingUISelection> ChannelSelection::cloneToHeap() const {
 
 
 
+ListenerSelection::ListenerSelection(QWidget *widget, unsigned int userSession, int channelID)
+	: TalkingUISelection(widget),
+	  m_userSession(userSession),
+	  m_channelID(channelID) {
+}
+
+void ListenerSelection::syncToMainWindow() const {
+	if (g.mw && g.mw->pmModel) {
+		g.mw->pmModel->setSelectedChannelListener(m_userSession, m_channelID);
+	}
+}
+
+std::unique_ptr<TalkingUISelection> ListenerSelection::cloneToHeap() const {
+	return std::make_unique<ListenerSelection>(*this);
+}
+
+
+
 void EmptySelection::syncToMainWindow() const {
 	// Do nothing
 }

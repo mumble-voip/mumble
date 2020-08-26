@@ -39,6 +39,9 @@
 #include "License.h"
 #include "EnvUtils.h"
 #include "TalkingUI.h"
+#include "Channel.h"
+#include "ClientUser.h"
+#include "ChannelListener.h"
 
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QProcess>
@@ -521,6 +524,11 @@ int main(int argc, char **argv) {
 	// By setting the TalkingUI's position **before** making it visible tends to more reliably include the
 	// window's frame to be included in the positioning calculation on X11 (at least using KDE Plasma)
 	g.talkingUI->setVisible(g.s.bShowTalkingUI);
+
+	QObject::connect(g.mw, &MainWindow::userAddedChannelListener, g.talkingUI, &TalkingUI::on_channelListenerAdded);
+	QObject::connect(g.mw, &MainWindow::userRemovedChannelListener, g.talkingUI, &TalkingUI::on_channelListenerRemoved);
+	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged,
+			g.talkingUI, &TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged);
 
 	QObject::connect(g.mw, &MainWindow::serverSynchronized, g.talkingUI, &TalkingUI::on_serverSynchronized);
 

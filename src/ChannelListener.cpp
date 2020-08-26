@@ -94,9 +94,17 @@ int ChannelListener::getListenedChannelCountForUserImpl(unsigned int userSession
 
 #ifdef MUMBLE
 void ChannelListener::setListenerLocalVolumeAdjustmentImpl(int channelID, float volumeAdjustment) {
-	QWriteLocker lock(&m_volumeLock);
+	float oldValue;
+	{
+		QWriteLocker lock(&m_volumeLock);
 
-	m_listenerVolumeAdjustments.insert(channelID, volumeAdjustment);
+		oldValue = m_listenerVolumeAdjustments.value(channelID, 1.0f);
+		m_listenerVolumeAdjustments.insert(channelID, volumeAdjustment);
+	}
+
+	if (oldValue != volumeAdjustment)  {
+		emit localVolumeAdjustmentsChanged(channelID, volumeAdjustment, oldValue);
+	}
 }
 
 float ChannelListener::getListenerLocalVolumeAdjustmentImpl(int channelID) const {

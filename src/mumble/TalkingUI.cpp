@@ -9,6 +9,7 @@
 #include "Channel.h"
 #include "MainWindow.h"
 #include "UserModel.h"
+#include "ChannelListener.h"
 
 #include <QGroupBox>
 #include <QLabel>
@@ -131,9 +132,90 @@ void TalkingUI::removeUser(unsigned int userSession) {
 		userContainer->removeEntry(userEntry);
 
 		removeIfSuperfluous(*userContainer);
+
+		updateUI();
+	}
+}
+
+void TalkingUI::addListener(const ClientUser *user, const Channel *channel) {
+	TalkingUIChannelListener *existingEntry = findListener(user->uiSession, channel->iId);
+
+	if (!existingEntry) {
+		// Only create entry if it doesn't exist yet
+
+		// First make sure the channel exists
+		addChannel(channel);
+
+		std::unique_ptr<TalkingUIContainer> &channelContainer = m_containers[findContainer(channel->iId, ContainerType::CHANNEL)];
+
+		std::unique_ptr<TalkingUIChannelListener> listenerEntry
+			= std::make_unique<TalkingUIChannelListener>(*user, *channel);
+
+		channelContainer->addEntry(std::move(listenerEntry));
+
+		sortContainers();
+	}
+}
+
+TalkingUIChannelListener *TalkingUI::findListener(unsigned int userSession, int channelID) {
+	int channelIndex = findContainer(channelID, ContainerType::CHANNEL);
+
+	if (channelIndex >= 0) {
+		std::unique_ptr<TalkingUIContainer> &channelContainer = m_containers[channelIndex];
+
+		TalkingUIEntry *entry = channelContainer->get(userSession, EntryType::LISTENER);
+
+		if (entry) {
+			return static_cast<TalkingUIChannelListener *>(entry);
+		}
 	}
 
-	updateUI();
+	return nullptr;
+}
+
+void TalkingUI::removeListener(unsigned int userSession, int channelID) {
+	TalkingUIChannelListener *listenerEntry = findListener(userSession, channelID);
+
+	if (listenerEntry) {
+		// If the user that is going to be deleted is currently selected, clear the selection
+		if (isSelected(*listenerEntry)) {
+			setSelection(EmptySelection());
+		}
+
+		TalkingUIContainer *userContainer = listenerEntry->getContainer();
+
+		userContainer->removeEntry(listenerEntry);
+
+		removeIfSuperfluous(*userContainer);
+
+		updateUI();
+	}
+}
+
+void TalkingUI::removeAllListeners() {
+	// Find all listener entries
+	std::vector<TalkingUIEntry *> entriesToBeRemoved;
+	for (auto &currentContainer : m_containers) {
+		for (auto &currentEntry : currentContainer->getEntries()) {
+			if (currentEntry->getType() == EntryType::LISTENER) {
+				entriesToBeRemoved.push_back(currentEntry.get());
+			}
+		}
+	}
+
+	// remove the individual entries
+	for (auto currentEntry : entriesToBeRemoved) {
+		TalkingUIContainer *container = currentEntry->getContainer();
+
+		container->removeEntry(currentEntry);
+
+		removeIfSuperfluous(*container);
+	}
+
+	// if we removed something, update the UI
+	if (entriesToBeRemoved.size() > 0) {
+		updateUI();
+	}
 }
 
 void TalkingUI::setupUI() {
@@ -423,9 +505,13 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 				if (entryArea.contains(event->globalPos())) {
 					switch(currentEntry->getType()) {
 						case EntryType::USER:
-						case EntryType::LISTENER:
-							// For listeners we simply pretend for them to be users as well
 							setSelection(UserSelection(currentEntry->getWidget(), currentEntry->getAssociatedUserSession()));
+							break;
+						case EntryType::LISTENER:
+							TalkingUIChannelListener *listenerEntry = static_cast<TalkingUIChannelListener *>(currentEntry.get());
+							setSelection(ListenerSelection(listenerEntry->getWidget(),
+										listenerEntry->getAssociatedUserSession(), listenerEntry->getAssociatedChannelID()));
+							break;
 					}
 
 					foundTarget = true;
@@ -522,33 +608,43 @@ void TalkingUI::on_mainWindowSelectionChanged(const QModelIndex &current, const 
 
 	// Sync the selection in the MainWindow to the TalkingUI
 	if (g.mw && g.mw->pmModel) {
+		bool clearSelection = true;
+
 		const ClientUser *user = g.mw->pmModel->getUser(current);
 		const Channel *channel = g.mw->pmModel->getChannel(current);
 
-		bool clearSelection = true;
+		if (g.mw->pmModel->isChannelListener(current)) {
+			TalkingUIChannelListener *listenerEntry = findListener(user->uiSession, channel->iId);
 
-		if (user) {
-			TalkingUIUser *userEntry = findUser(user->uiSession);
-
-			if (userEntry) {
-				// Only select the user if there is an actual entry for it in the TalkingUI
-				setSelection(UserSelection(userEntry->getWidget(), userEntry->getAssociatedUserSession()));
+			if (listenerEntry) {
+				setSelection(ListenerSelection(listenerEntry->getWidget(), user->uiSession, channel->iId));
 
 				clearSelection = false;
 			}
-		} else if (!user && channel) {
-			// if user != nullptr, the selection is actually a user, but UserModel::getChannel still returns
-			// the channel of that user. However we only want to select the channel if the user has indeed
-			// selected the channel and not just one of the users in it.
-			int index = findContainer(channel->iId, ContainerType::CHANNEL);
+		} else {
+			if (user) {
+				TalkingUIUser *userEntry = findUser(user->uiSession);
 
-			if (index >= 0) {
-				// Only select the channel if there is present in the TalkingUI
-				std::unique_ptr<TalkingUIContainer> &targetContainer = m_containers[index];
+				if (userEntry) {
+					// Only select the user if there is an actual entry for it in the TalkingUI
+					setSelection(UserSelection(userEntry->getWidget(), userEntry->getAssociatedUserSession()));
 
-				setSelection(ChannelSelection(targetContainer->getWidget(), targetContainer->getAssociatedChannelID()));
+					clearSelection = false;
+				}
+			} else if (!user && channel) {
+				// if user != nullptr, the selection is actually a user, but UserModel::getChannel still returns
+				// the channel of that user. However we only want to select the channel if the user has indeed
+				// selected the channel and not just one of the users in it.
+				int index = findContainer(channel->iId, ContainerType::CHANNEL);
 
-				clearSelection = false;
+				if (index >= 0) {
+					// Only select the channel if there is present in the TalkingUI
+					std::unique_ptr<TalkingUIContainer> &targetContainer = m_containers[index];
+
+					setSelection(ChannelSelection(targetContainer->getWidget(), targetContainer->getAssociatedChannelID()));
+
+					clearSelection = false;
+				}
 			}
 		}
 
@@ -650,6 +746,25 @@ void TalkingUI::on_settingsChanged() {
 	if (localUserEntry) {
 		localUserEntry->restrictLifetime(!g.s.bTalkingUI_LocalUserStaysVisible);
 	}
+
+
+	// Furthermore whether or not to display the local user's listeners might have changed -> clear all
+	// listeners from the TalkingUI and add them again if appropriate
+	removeAllListeners();
+	if (g.s.bTalkingUI_ShowLocalListeners) {
+		const ClientUser *self = ClientUser::get(g.uiSession);
+		if (self) {
+			const QSet<int> channels = ChannelListener::getListenedChannelsForUser(self->uiSession);
+
+			for (int currentChannelID : channels) { 
+				const Channel *channel = Channel::get(currentChannelID);
+				
+				if (channel) {
+					addListener(self, channel);
+				}
+			}
+		}
+	}
 }
 
 void TalkingUI::on_clientDisconnected(unsigned int userSession) {
@@ -673,5 +788,26 @@ void TalkingUI::on_userLocalVolumeAdjustmentsChanged(float, float) {
 		if (userEntry) {
 			userEntry->setDisplayString(UserModel::createDisplayString(*user, false, nullptr));
 		}
+	}
+}
+
+void TalkingUI::on_channelListenerAdded(const ClientUser *user, const Channel *channel) {
+	if (user->uiSession == g.uiSession && g.s.bTalkingUI_ShowLocalListeners) {
+		addListener(user, channel);
+	}
+}
+
+void TalkingUI::on_channelListenerRemoved(const ClientUser *user, const Channel *channel) {
+	removeListener(user->uiSession, channel->iId);
+}
+
+void TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float, float) {
+	TalkingUIChannelListener *listenerEntry = findListener(g.uiSession, channelID);
+
+	const Channel *channel = Channel::get(channelID);
+	const ClientUser *self = ClientUser::get(g.uiSession);
+
+	if (listenerEntry && channel && self) {
+		listenerEntry->setDisplayString(UserModel::createDisplayString(*self, true, channel));
 	}
 }

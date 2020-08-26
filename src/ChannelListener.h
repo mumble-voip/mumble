@@ -112,10 +112,10 @@ class ChannelListener : public QObject {
 		/// Clears all ChannelListeners and volume adjustments
 		void clearImpl();
 
+	public:
 		/// @returns The static ChannelListener instance
 		static ChannelListener& get();
 
-	public:
 		/// Adds a listener to the channel.
 		///
 		/// @param userSession The session ID of the user
@@ -245,6 +245,11 @@ class ChannelListener : public QObject {
 
 		/// Clears all ChannelListeners and volume adjustments
 		static void clear();
+
+	signals:
+#ifdef MUMBLE
+		void localVolumeAdjustmentsChanged(int channelID, float newAdjustment, float oldAdjustment);
+#endif
 };
 
 #endif // MUMBLE_CHANNEL_LISTENER_H_

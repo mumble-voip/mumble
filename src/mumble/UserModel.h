@@ -106,6 +106,7 @@ class UserModel : public QAbstractItemModel {
 		QModelIndex index(ClientUser *, int column = 0) const;
 		QModelIndex index(Channel *, int column = 0) const;
 		QModelIndex index(ModelItem *) const;
+		QModelIndex channelListenerIndex(const ClientUser *, const Channel *, int column = 0) const;
 
 		QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
 		Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
@@ -152,6 +153,12 @@ class UserModel : public QAbstractItemModel {
 		/// @param idx The QModelIndex to check
 		/// @returns Whether the ModelItem associated with the given index is a listener-proxy
 		bool isChannelListener(const QModelIndex &idx) const;
+
+		/// Sets the selection to the ChannelListener of the given user in the given channel
+		///
+		/// @param userSession The session ID of the respective User
+		/// @param channelID The ID of the respective Channel
+		void setSelectedChannelListener(unsigned int userSession, int channelID);
 
 		Channel *getSubChannel(Channel *p, int idx) const;
 
