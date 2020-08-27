@@ -306,10 +306,7 @@ void TalkingUI::addUser(const ClientUser *user) {
 		// We also verify whether the name for that user matches up (if it is contained in m_entries) in case
 		// a user didn't get removed from the map but its ID got reused by a new client.
 
-		// Strip HTML from the displayed name
-		const QString name = QTextDocumentFragment::fromHtml(m_entries[user->uiSession].name->text()).toPlainText();
-
-		nameMatches = name == user->qsName;
+		nameMatches = m_entries[user->uiSession].qsName == user->qsName;
 
 		if (!nameMatches) {
 			// Hide the stale user
@@ -342,11 +339,12 @@ void TalkingUI::addUser(const ClientUser *user) {
 		background->setProperty("userName", user->qsName);
 
 		QLabel *name = new QLabel(background);
+		const QString displayString = UserModel::createDisplayString(*user, false, nullptr);
 		if (isSelf) {
 			// Indicate self by bold name
-			name->setText(QString::fromLatin1("<b>%1</b>").arg(user->qsName));
+			name->setText(QString::fromLatin1("<b>%1</b>").arg(displayString));
 		} else {
-			name->setText(user->qsName);
+			name->setText(displayString);
 		}
 
 		QLabel *icon = new QLabel(background);
@@ -354,7 +352,7 @@ void TalkingUI::addUser(const ClientUser *user) {
 		icon->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
 		// As a default use the passive state
-		Entry entry = {icon, name, background, nullptr, user->uiSession, Settings::Passive};
+		Entry entry = {icon, name, background, nullptr, user->uiSession, Settings::Passive, user->qsName};
 		setTalkingIcon(entry);
 		m_entries.insert(user->uiSession, entry);
 
@@ -373,6 +371,8 @@ void TalkingUI::addUser(const ClientUser *user) {
 		});
 
 		m_timers.insert(user->uiSession, timer);
+
+		QObject::connect(user, &ClientUser::localVolumeAdjustmentsChanged, this, &TalkingUI::on_userLocalVolumeAdjustmentsChanged);
 
 		// If this user is currently selected, mark him/her as such
 		if (g.mw && g.mw->pmModel && g.mw->pmModel->getSelectedUser() == user) {
@@ -862,3 +862,12 @@ void TalkingUI::on_muteDeafStateChanged() {
 	}
 }
 
+void TalkingUI::on_userLocalVolumeAdjustmentsChanged(float, float) {
+	ClientUser *user = qobject_cast<ClientUser *>(sender());
+
+	if (user && m_entries.contains(user->uiSession)) {
+		Entry entry = m_entries[user->uiSession];
+
+		entry.name->setText(UserModel::createDisplayString(*user, false, nullptr));
+	}
+}

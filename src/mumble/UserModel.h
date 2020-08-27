@@ -186,6 +186,9 @@ class UserModel : public QAbstractItemModel {
 
 		unsigned int uiSessionComment;
 		int iChannelDescription;
+
+
+		static QString createDisplayString(const ClientUser &user, bool isChannelListener, const Channel *parentChannel);
 	public slots:
 		/// Invalidates the model data of the ClientUser triggering this slot.
 		void userStateChanged();

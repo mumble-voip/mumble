@@ -35,6 +35,7 @@ struct Entry {
 	QLabel *statusIcons;
 	unsigned int userSession;
 	Settings::TalkState talkingState;
+	QString qsName;
 };
 
 /// The talking UI is a widget that will display the users you are currently
@@ -142,6 +143,7 @@ class TalkingUI : public QWidget {
 		void on_settingsChanged();
 		void on_clientDisconnected(unsigned int userSession);
 		void on_muteDeafStateChanged();
+		void on_userLocalVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUI_H_
