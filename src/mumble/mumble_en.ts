@@ -4267,6 +4267,14 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Silent user lifetime</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show the local volume adjustment for each user (if any).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show volume adjustments</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
