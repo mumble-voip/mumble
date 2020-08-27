@@ -278,6 +278,8 @@ struct Settings {
 	bool bLog24HourClock;
 	int iChatMessageMargins;
 
+	static const QPoint UNSPECIFIED_POSITION;
+	QPoint qpTalkingUI_Position;
 	bool bShowTalkingUI;
 	bool bTalkingUI_LocalUserStaysVisible;
 	bool bTalkingUI_AbbreviateChannelNames;

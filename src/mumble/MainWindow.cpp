@@ -485,6 +485,13 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		g.s.qbaHeaderState = qtvUsers->header()->saveState();
 	}
 
+	if (g.talkingUI && g.talkingUI->isVisible()) {
+		// Save the TalkingUI's position if it is visible
+		// Note that we explicitly don't save the whole geometry as the TalkingUI's size
+		// is a flexible thing that'll adjust automatically anyways.
+		g.s.qpTalkingUI_Position = g.talkingUI->pos();
+	}
+
 	if (qwPTTButtonWidget) {
 		qwPTTButtonWidget->close();
 		qwPTTButtonWidget->deleteLater();
