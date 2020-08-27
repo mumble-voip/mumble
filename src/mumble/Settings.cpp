@@ -19,8 +19,14 @@
 
 #include <boost/typeof/typeof.hpp>
 
+#include <limits>
+
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
+
+
+
+const QPoint Settings::UNSPECIFIED_POSITION = QPoint(std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
 
 bool Shortcut::isServerSpecific() const {
 	if (qvData.canConvert<ShortcutTarget>()) {
@@ -461,6 +467,7 @@ Settings::Settings() {
 	bLog24HourClock = true;
 	iChatMessageMargins = 3;
 
+	qpTalkingUI_Position = UNSPECIFIED_POSITION;
 	bShowTalkingUI = false;
 	bTalkingUI_LocalUserStaysVisible = false;
 	bTalkingUI_AbbreviateChannelNames = true;
@@ -835,6 +842,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
 
 	// TalkingUI
+	SAVELOAD(qpTalkingUI_Position, "ui/talkingUIPosition");
 	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
 	SAVELOAD(bTalkingUI_LocalUserStaysVisible, "ui/talkingUI_LocalUserStaysVisible");
 	SAVELOAD(bTalkingUI_AbbreviateChannelNames, "ui/talkingUI_AbbreviateChannelNames");
@@ -1191,6 +1199,7 @@ void Settings::save() {
 	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
 
 	// TalkingUI
+	SAVELOAD(qpTalkingUI_Position, "ui/talkingUIPosition");
 	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
 	SAVELOAD(bTalkingUI_LocalUserStaysVisible, "ui/talkingUI_LocalUserStaysVisible");
 	SAVELOAD(bTalkingUI_AbbreviateChannelNames, "ui/talkingUI_AbbreviateChannelNames");

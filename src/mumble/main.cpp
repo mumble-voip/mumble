@@ -509,6 +509,17 @@ int main(int argc, char **argv) {
 	g.mw->show();
 
 	g.talkingUI = new TalkingUI();
+	if (g.s.qpTalkingUI_Position != Settings::UNSPECIFIED_POSITION) {
+		// Restore last position
+		g.talkingUI->move(g.s.qpTalkingUI_Position);
+	} else {
+		// Place the TalkingUI next to the MainWindow by default by default
+		const QPoint mainWindowPos = g.mw->pos();
+		const int horizontalBuffer = 10;
+		g.talkingUI->move(mainWindowPos.x() + g.mw->size().width() + horizontalBuffer, mainWindowPos.y());
+	}
+	// By setting the TalkingUI's position **before** making it visible tends to more reliably include the
+	// window's frame to be included in the positioning calculation on X11 (at least using KDE Plasma)
 	g.talkingUI->setVisible(g.s.bShowTalkingUI);
 
 	QObject::connect(g.mw, &MainWindow::serverSynchronized, g.talkingUI, &TalkingUI::on_serverSynchronized);
