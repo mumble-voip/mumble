@@ -518,7 +518,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
 			if (speech) {
 				const ClientUser *user = speech->p;
-				volumeAdjustment *= user->fLocalVolume;
+				volumeAdjustment *= user->getLocalVolumeAdjustments();
 
 				if (user->cChannel && ChannelListener::isListening(g.uiSession, user->cChannel->iId) && (speech->ucFlags & SpeechFlags::Listen)) {
 					// We are receiving this audio packet only because we are listening to the channel

@@ -17,6 +17,10 @@ class ClientUser : public QObject, public User {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ClientUser)
+
+	protected:
+		float m_localVolume = 1.0f;
+
 	public:
 		Settings::TalkState tsState;
 		Timer tLastTalkStateChange;
@@ -26,7 +30,6 @@ class ClientUser : public QObject, public User {
 
 		float fPowerMin, fPowerMax;
 		float fAverageAvailable;
-		float fLocalVolume;
 
 		int iFrames;
 		int iSequence;
@@ -36,6 +39,8 @@ class ClientUser : public QObject, public User {
 
 		QString getFlagsString() const;
 		ClientUser(QObject *p = nullptr);
+
+		float getLocalVolumeAdjustments() const;
 
 		/**
 		 * Determines whether a user is active or not
@@ -74,11 +79,13 @@ class ClientUser : public QObject, public User {
 		void setSelfDeaf(bool deaf);
 		void setPrioritySpeaker(bool priority);
 		void setRecording(bool recording);
+		void setLocalVolumeAdjustment(float adjustment);
 	signals:
 		void talkingStateChanged();
 		void muteDeafStateChanged();
 		void prioritySpeakerStateChanged();
 		void recordingStateChanged();
+		void localVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
 };
 
 #endif

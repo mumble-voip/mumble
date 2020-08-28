@@ -60,7 +60,7 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
 		setWindowTitle(title);
-		qsUserLocalVolume->setValue(qRound(log2(user->fLocalVolume) * 6.0));
+		qsUserLocalVolume->setValue(qRound(log2(user->getLocalVolumeAdjustments()) * 6.0));
 		m_originalVolumeAdjustmentDecibel = qsUserLocalVolume->value();
 	}
 
@@ -92,7 +92,7 @@ void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int value) {
 	ClientUser *user = ClientUser::get(m_clientSession);
 	if (user) {
 		// Decibel formula: +6db = *2
-		user->fLocalVolume = static_cast<float>(pow(2.0, qsUserLocalVolume->value() / 6.0));
+		user->setLocalVolumeAdjustment(static_cast<float>(pow(2.0, qsUserLocalVolume->value() / 6.0)));
 	}
 }
 
@@ -108,7 +108,7 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 		ClientUser *user = ClientUser::get(m_clientSession);
 		if (user) {
 			if (!user->qsHash.isEmpty()) {
-			    g.db->setUserLocalVolume(user->qsHash, user->fLocalVolume);
+			    g.db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
 			} else {
 			    g.mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
 			}
