@@ -13,15 +13,20 @@ if [ -d $MUMBLE_ENVIRONMENT_PATH ]; then
 	exit 0
 fi
 
+# We use axel to download the environment
+brew install axel
+
 echo "Environment not cached. Downloading..."
 
-wget "$MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
+environmentArchive="$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
+
+axel -n 10 --output="$environmentArchive" "$MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
 
 echo "Extracting build environment to $MUMBLE_ENVIRONMENT_STORE..."
 
 mkdir -p $MUMBLE_ENVIRONMENT_STORE
 
-tar xf "$MUMBLE_ENVIRONMENT_VERSION.tar.xz" -C $MUMBLE_ENVIRONMENT_STORE
+tar xf "$environmentArchive" -C $MUMBLE_ENVIRONMENT_STORE
 
 chmod +x "$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx/tools/Ice/slice2cpp"
 
