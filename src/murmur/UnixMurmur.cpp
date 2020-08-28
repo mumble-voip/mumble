@@ -292,7 +292,7 @@ void UnixMurmur::setuid() {
 			// QDir::homePath is broken. It only looks at $HOME
 			// instead of getpwuid() so we have to set our home
 			// ourselves
-			EnvUtils::setenv(QLatin1String("HOME"), qPrintable(Meta::mp.qsHome));
+			EnvUtils::setenv(QLatin1String("HOME"), Meta::mp.qsHome);
 		}
 #endif
 	} else if (bRoot) {

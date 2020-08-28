@@ -124,6 +124,11 @@ target_compile_definitions(shared
 		"MUMBLE_VERSION_STRING=${version_short}"
 )
 
+target_compile_definitions(shared
+	PRIVATE
+		"QT_RESTRICTED_CAST_FROM_ASCII"
+)
+
 target_include_directories(shared
 	PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR}

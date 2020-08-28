@@ -102,7 +102,7 @@ QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int ite
 		return QString();
 	}
 	
-	return hash.toHex();
+	return QString::fromLatin1(hash.toHex());
 }
 
 
@@ -114,5 +114,5 @@ QString PBKDF2::getSalt() {
 		return QString();
 	}
 
-	return salt.toHex();
+	return QString::fromLatin1(salt.toHex());
 }

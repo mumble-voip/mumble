@@ -1460,8 +1460,8 @@ void logGroups(Server *server, const Channel *c, QString prefix = QString()) {
 		server->log(QString::fromLatin1("Channel %1 (%2) has no groups set").arg(c->qsName).arg(c->iId));
 		return;
 	} else {
-		server->log(QString::fromLatin1("%1Listing groups specified for channel \"%2\" (%3)...").arg(prefix.isEmpty() ? "" : "\t").arg(
-					c->qsName).arg(c->iId));
+		server->log(QString::fromLatin1("%1Listing groups specified for channel \"%2\" (%3)...").arg(prefix.isEmpty()
+					? QLatin1String("") : QLatin1String("\t")).arg(c->qsName).arg(c->iId));
 	}
 
 	foreach(Group *currentGroup, c->qhGroups) {
@@ -1473,11 +1473,11 @@ void logGroups(Server *server, const Channel *c, QString prefix = QString()) {
 
 		if (currentGroup->members().size() > 0) {
 			memberList.remove(memberList.length() -2, 2);
-			server->log(QString::fromLatin1("%1Group: \"%2\" contains following users: %3").arg(prefix.isEmpty() ? "\t" : "\t\t").arg(
-						currentGroup->qsName).arg(memberList));
+			server->log(QString::fromLatin1("%1Group: \"%2\" contains following users: %3").arg(prefix.isEmpty()
+						? QLatin1String("\t") : QLatin1String("\t\t")).arg(currentGroup->qsName).arg(memberList));
 		} else {
-			server->log(QString::fromLatin1("%1Group \"%2\" doesn't contain any users").arg(prefix.isEmpty() ? "\t" : "\t\t").arg(
-						currentGroup->qsName));
+			server->log(QString::fromLatin1("%1Group \"%2\" doesn't contain any users").arg(prefix.isEmpty()
+						? QLatin1String("\t") : QLatin1String("\t\t")).arg(currentGroup->qsName));
 		}
 	}
 }
@@ -1493,7 +1493,7 @@ void logACLs(Server *server, const Channel *c, QString prefix = QString()) {
 	}
 
 	foreach(const ChanACL *a, c->qlACL) {
-		server->log(QString::fromLatin1("%1%2").arg(prefix.isEmpty() ? "" : "\t").arg(static_cast<QString>(*a)));
+		server->log(QString::fromLatin1("%1%2").arg(prefix.isEmpty() ? QLatin1String("") : QLatin1String("\t")).arg(static_cast<QString>(*a)));
 	}
 }
 
