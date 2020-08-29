@@ -5,8 +5,11 @@
 
 #include "TextToSpeech.h"
 
+// As the include order seems to make a difference, disable clang-format for them
+// clang-format off
 #include <servprov.h>
 #include <sapi.h>
+// clang-format on
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
