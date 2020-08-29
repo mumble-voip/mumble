@@ -24,9 +24,12 @@ ClientUser::ClientUser(QObject *p) : QObject(p),
 		fPowerMin(0.0f),
 		fPowerMax(0.0f),
 		fAverageAvailable(0.0f),
-		fLocalVolume(1.0f),
 		iFrames(0),
 		iSequence(0) {
+}
+
+float ClientUser::getLocalVolumeAdjustments() const {
+	return m_localVolume;
 }
 
 ClientUser *ClientUser::get(unsigned int uiSession) {
@@ -237,6 +240,13 @@ void ClientUser::setRecording(bool recording) {
 		return;
 	bRecording = recording;
 	emit recordingStateChanged();
+}
+
+void ClientUser::setLocalVolumeAdjustment(float adjustment) {
+	float oldAdjustment = m_localVolume;
+	m_localVolume = adjustment;
+
+	emit localVolumeAdjustmentsChanged(m_localVolume, oldAdjustment);
 }
 
 bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *second) {

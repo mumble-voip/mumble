@@ -324,6 +324,7 @@ struct Settings {
 	bool bStateInTray;
 	bool bUsage;
 	bool bShowUserCount;
+	bool bShowVolumeAdjustments;
 	bool bChatBarUseSelection;
 	bool bFilterHidesEmptyChannels;
 	bool bFilterActive;

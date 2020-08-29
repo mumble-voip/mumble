@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>728</width>
-    <height>1120</height>
+    <height>1148</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -671,6 +671,33 @@
       <string>Channel Tree</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
+      <item row="7" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbFilterHidesEmptyChannels">
+        <property name="text">
+         <string>Filter automatically hides empty channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="MUComboBox" name="qcbExpand">
+        <property name="toolTip">
+         <string>When to automatically expand channels</string>
+        </property>
+        <property name="whatsThis">
+         <string>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="MUComboBox" name="qcbUserDrag">
+        <property name="toolTip">
+         <string>This changes the behavior when moving users.</string>
+        </property>
+        <property name="whatsThis">
+         <string>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="qliUserDrag">
         <property name="text">
@@ -678,17 +705,24 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliExpand">
-        <property name="text">
-         <string>Expand</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="qliChannelDrag">
         <property name="text">
          <string>Channel Dragging</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbChatBarUseSelection">
+        <property name="text">
+         <string>Use selected item as the chat bar target</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliExpand">
+        <property name="text">
+         <string>Expand</string>
         </property>
        </widget>
       </item>
@@ -726,36 +760,12 @@
        </widget>
       </item>
       <item row="5" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbChatBarUseSelection">
-        <property name="text">
-         <string>Use selected item as the chat bar target</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="MUComboBox" name="qcbExpand">
+       <widget class="QCheckBox" name="qcbShowVolumeAdjustments">
         <property name="toolTip">
-         <string>When to automatically expand channels</string>
+         <string>Show the local volume adjustment for each user (if any).</string>
         </property>
-        <property name="whatsThis">
-         <string>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbFilterHidesEmptyChannels">
         <property name="text">
-         <string>Filter automatically hides empty channels</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="MUComboBox" name="qcbUserDrag">
-        <property name="toolTip">
-         <string>This changes the behavior when moving users.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</string>
+         <string>Show volume adjustments</string>
         </property>
        </widget>
       </item>

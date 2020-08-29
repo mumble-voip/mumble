@@ -454,11 +454,12 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				break;
 			case Qt::DisplayRole:
 				if (idx.column() == 0) {
-					if (! p->qsFriendName.isEmpty() && (p->qsFriendName.toLower() != p->qsName.toLower()))
-						return QString::fromLatin1("%1 (%2)").arg(p->qsName).arg(p->qsFriendName);
-					else
-						return p->qsName;
+					// Get the channel the user/listener is in
+					const Channel *parentChannel = item->parent ? item->parent->cChan : nullptr;
+
+					return createDisplayString(*p, item->isListener, parentChannel);
 				}
+
 				// Most of the following icons are for non-listeners (as listeners are merely proxies) only
 				// but in order to not change the order of the icons, the condition is added to each case
 				// individually instead of checking it up front.
@@ -1846,4 +1847,41 @@ void UserModel::updateOverlay() const {
 	g.o->updateOverlay();
 #endif
 	g.lcd->updateUserView();
+}
+
+
+QString UserModel::createDisplayString(const ClientUser &user, bool isChannelListener, const Channel *parentChannel) {
+	// Get the configured volume adjustment. Depending on whether 
+	// this display string is for a ChannelListener or a regular user, we have to fetch
+	// the volume adjustment differently.
+	float volumeAdjustment = isChannelListener && parentChannel
+		? ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId) : user.getLocalVolumeAdjustments();
+
+	// Transform the adjustment into dB
+	// *2 == 6 dB
+	int localVolumeDecibel = std::round(log2f(volumeAdjustment) * 6);
+
+	// Create a friend-tag
+	QString friendTag;
+	if (!user.qsFriendName.isEmpty() && user.qsName.compare(user.qsFriendName, Qt::CaseInsensitive) != 0) {
+		friendTag = QString::fromLatin1("(%2)").arg(user.qsFriendName);
+	}
+
+	// Create a tag that indicates the volume adjustments
+	QString volumeTag;
+	if (std::abs(localVolumeDecibel) > 0 && g.s.bShowVolumeAdjustments) {
+		volumeTag = QString::asprintf("|%+d|", localVolumeDecibel);
+	}
+
+	QString displayString = user.qsName;
+
+	if (!friendTag.isEmpty()) {
+		displayString += " " + friendTag;
+	}
+
+	if (!volumeTag.isEmpty()) {
+		displayString += "   " + volumeTag;
+	}
+
+	return displayString;
 }
