@@ -3,9 +3,13 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+// Needs to be included before GL/gl.h
 #include "lib.h"
-#include <time.h>
+// Needs to be included before glext.h
 #include <GL/gl.h>
+
+#include <ctime>
+
 #include "../3rdparty/GL/glext.h"
 
 #define TDEF(ret, name, arg) typedef ret (__stdcall * t##name) arg
