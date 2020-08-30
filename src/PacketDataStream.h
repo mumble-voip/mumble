@@ -6,6 +6,12 @@
 #ifndef MUMBLE_PACKETDATASTREAM_H_
 #define MUMBLE_PACKETDATASTREAM_H_
 
+#include <QPair>
+#include <QByteArray>
+#include <QString>
+
+#include <cstring>
+
 /*
  * GCC doesn't yet do inter-object-file inlining, so unfortunately, this all has to be defined here.
  */
