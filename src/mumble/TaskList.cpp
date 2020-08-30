@@ -15,10 +15,14 @@
 #include <QtCore/QUrl>
 #include <QtCore/QUrlQuery>
 
+// We disable clang-format for these includes as apparently the order in which they are
+// included is important.
+// clang-format off
 #include <shlobj.h>
 #include <shobjidl.h>
 #include <propkey.h>
 #include <propvarutil.h>
+// clang-format on
 
 extern bool bIsWin7;
 
