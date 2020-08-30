@@ -6,6 +6,9 @@
 #ifndef MUMBLE_ANCESTOR_H_
 #define MUMBLE_ANCESTOR_H_
 
+#include <vector>
+#include <string>
+
 /// Return the absolute and relative exe names of this process's ancestors in
 /// |absAncestorExeNames| and |ancestorExeNames|.
 ///
