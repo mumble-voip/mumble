@@ -6,7 +6,6 @@
 #ifndef MUMBLE_MUMBLE_CELTCODEC_H_
 #define MUMBLE_MUMBLE_CELTCODEC_H_
 
-#include <stdint.h>
 #include <celt.h>
 
 #include <QtCore/QLibrary>

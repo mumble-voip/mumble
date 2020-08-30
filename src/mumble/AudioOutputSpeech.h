@@ -6,7 +6,6 @@
 #ifndef MUMBLE_MUMBLE_AUDIOOUTPUTSPEECH_H_
 #define MUMBLE_MUMBLE_AUDIOOUTPUTSPEECH_H_
 
-#include <stdint.h>
 #include <speex/speex.h>
 #include <speex/speex_resampler.h>
 #include <speex/speex_jitter.h>
