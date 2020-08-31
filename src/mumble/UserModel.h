@@ -195,6 +195,12 @@ class UserModel : public QAbstractItemModel {
 		int iChannelDescription;
 
 
+		/// Creates the display string for the given user/listener
+		///
+		/// @param user The user to create the string for
+		/// @param isChannelListener Whether the display String is in fact for a listener of the given user
+		/// @param parentChannel The channel in which the listener resides. May be nullptr, if isChannelListener is false
+		/// @return The created display string
 		static QString createDisplayString(const ClientUser &user, bool isChannelListener, const Channel *parentChannel);
 	public slots:
 		/// Invalidates the model data of the ClientUser triggering this slot.
