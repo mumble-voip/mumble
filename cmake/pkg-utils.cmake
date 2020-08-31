@@ -3,7 +3,14 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-find_package(PkgConfig QUIET)
+if(debug-dependency-search)
+	# Don't be quiet if the user wants to debug the dependency-search
+	set(QUIET_STR "")
+else()
+	set(QUIET_STR "QUIET")
+endif()
+
+find_package(PkgConfig ${QUIET_STR})
 
 include(FindPackageMessage)
 
@@ -15,7 +22,7 @@ function(pkgconfig_search MODULE)
 	# We don't want pkg_search_module() to write into the variables that will be passed to the pkgconfig_search()'s caller.
 	set(PRIVATE "PRIVATE_${MODULE}")
 
-	pkg_search_module(${PRIVATE} ${MODULE} QUIET)
+	pkg_search_module(${PRIVATE} ${MODULE} ${QUIET_STR})
 
 	if(NOT ${PRIVATE}_FOUND)
 		return()
@@ -67,9 +74,9 @@ macro(find_pkg ARG_ALIASES)
 
 		if(FIND_PACKAGE_COMPONENTS)
 			foreach(COMPONENT ${FIND_PACKAGE_COMPONENTS})
-				find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} QUIET CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+				find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 				if(NOT ${NAME}_FOUND)
-					find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} QUIET MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+					find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 				endif()
 
 				if(NOT ${NAME}_FOUND)
@@ -101,9 +108,9 @@ macro(find_pkg ARG_ALIASES)
 				continue()
 			endif()
 		else()
-			find_package(${NAME} ${FIND_PACKAGE_ARGUMENTS} QUIET CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+			find_package(${NAME} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 			if(NOT ${NAME}_FOUND)
-				find_package(${NAME} ${FIND_PACKAGE_ARGUMENTS} QUIET MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+				find_package(${NAME} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 				if(NOT ${NAME}_FOUND)
 					pkgconfig_search(${NAME})
 				endif()
@@ -136,9 +143,9 @@ macro(find_pkg ARG_ALIASES)
 
 		if(FIND_PACKAGE_OPTIONAL_COMPONENTS)
 			foreach(COMPONENT ${FIND_PACKAGE_OPTIONAL_COMPONENTS})
-				find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} QUIET CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+				find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} CONFIG ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 				if(NOT ${NAME}_FOUND)
-					find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} QUIET MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
+					find_package(${NAME} COMPONENTS ${COMPONENT} ${FIND_PACKAGE_ARGUMENTS} ${QUIET_STR} MODULE ${FIND_PACKAGE_UNPARSED_ARGUMENTS})
 				endif()
 
 				if(${NAME}_FOUND AND NOT FIND_PACKAGE_QUIET)

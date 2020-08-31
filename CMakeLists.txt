@@ -47,6 +47,8 @@ option(overlay "Build overlay." ON)
 option(packaging "Build package." OFF)
 option(plugins "Build plugins." ON)
 
+option(debug-dependency-search "Prints extended information during the search for the needed dependencies" OFF)
+
 # We support the "Debug" and "Release" configurations.
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
 	"Debug"
