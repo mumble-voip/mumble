@@ -4275,6 +4275,14 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Show volume adjustments</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show local user&apos;s listeners (ears)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
