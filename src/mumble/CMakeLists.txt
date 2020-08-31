@@ -306,6 +306,7 @@ target_compile_definitions(mumble
 	PRIVATE
 		"MUMBLE"
 		"USE_OPUS"
+		"QT_RESTRICTED_CAST_FROM_ASCII"
 )
 
 target_include_directories(mumble

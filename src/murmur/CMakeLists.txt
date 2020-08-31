@@ -57,7 +57,11 @@ set_target_properties(murmur
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
-target_compile_definitions(murmur PRIVATE "MURMUR")
+target_compile_definitions(murmur
+	PRIVATE
+		"MURMUR"
+		"QT_RESTRICTED_CAST_FROM_ASCII"
+)
 
 target_include_directories(murmur PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.

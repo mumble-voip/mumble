@@ -379,7 +379,7 @@ void MetaParams::read(QString fname) {
 		if (pw) {
 			uiUid = pw->pw_uid;
 			uiGid = pw->pw_gid;
-			qsHome = pw->pw_dir;
+			qsHome = QString::fromUtf8(pw->pw_dir);
 		} else if (requested) {
 			qFatal("Cannot find username %s", qPrintable(qsName));
 		}
@@ -435,8 +435,8 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("registerlocation"), qsRegLocation);
 	qmConfig.insert(QLatin1String("registerurl"),qurlRegWeb.toString());
 	qmConfig.insert(QLatin1String("bonjour"), bBonjour ? QLatin1String("true") : QLatin1String("false"));
-	qmConfig.insert(QLatin1String("certificate"),qscCert.toPem());
-	qmConfig.insert(QLatin1String("key"),qskKey.toPem());
+	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(qscCert.toPem()));
+	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
 	qmConfig.insert(QLatin1String("obfuscate"),bObfuscate ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("username"),qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"),qrChannelName.pattern());
@@ -640,8 +640,8 @@ bool MetaParams::loadSSLSettings() {
 	qsCiphers = tmpCiphersStr;
 	qlCiphers = tmpCiphers;
 
-	qmConfig.insert(QLatin1String("certificate"), qscCert.toPem());
-	qmConfig.insert(QLatin1String("key"), qskKey.toPem());
+	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(qscCert.toPem()));
+	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
 	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
 	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
 

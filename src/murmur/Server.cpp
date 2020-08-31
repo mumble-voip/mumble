@@ -1480,7 +1480,7 @@ void Server::encrypted() {
 	if (!certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();
 		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
-		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
+		uSource->qsHash = QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex());
 		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
 			QString subject;
 			QString issuer;
@@ -2059,7 +2059,7 @@ QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 			Q_IPV6ADDR num = adr.toIPv6Address();
 			h.addData(reinterpret_cast<const char *>(num.c), sizeof(num.c));
 		}
-		return QString("<<%1:%2>>").arg(QString(h.result().toHex()), QString::number(port));
+		return QString("<<%1:%2>>").arg(QString::fromLatin1(h.result().toHex()), QString::number(port));
 	}
 	return QString("%1:%2").arg(ha.toString(), QString::number(port));
 }
