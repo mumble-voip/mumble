@@ -19,8 +19,6 @@ project(Mumble
 	LANGUAGES "C" "CXX"
 )
 
-message(STATUS "Mumble version: ${version}")
-
 set(3RDPARTY_DIR "${CMAKE_SOURCE_DIR}/3rdparty")
 
 set(CMAKE_CXX_STANDARD 14)
@@ -76,6 +74,15 @@ endif()
 
 include(compiler)
 include(os)
+
+message(STATUS "##################################################")
+message(STATUS "Building Mumble version: ${version}")
+if(64_BIT)
+	message(STATUS "Architecture: 64bit (x64)")
+else()
+	message(STATUS "Architecture: 32bit (x86)")
+endif()
+message(STATUS "##################################################")
 
 add_subdirectory(src)
 
