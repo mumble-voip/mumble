@@ -19,8 +19,6 @@ project(Mumble
 	LANGUAGES "C" "CXX"
 )
 
-message(STATUS "Mumble version: ${version}")
-
 set(3RDPARTY_DIR "${CMAKE_SOURCE_DIR}/3rdparty")
 
 set(CMAKE_CXX_STANDARD 14)
@@ -49,6 +47,8 @@ option(overlay "Build overlay." ON)
 option(packaging "Build package." OFF)
 option(plugins "Build plugins." ON)
 
+option(debug-dependency-search "Prints extended information during the search for the needed dependencies" OFF)
+
 # We support the "Debug" and "Release" configurations.
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
 	"Debug"
@@ -76,6 +76,15 @@ endif()
 
 include(compiler)
 include(os)
+
+message(STATUS "##################################################")
+message(STATUS "Building Mumble version: ${version}")
+if(64_BIT)
+	message(STATUS "Architecture: 64bit (x64)")
+else()
+	message(STATUS "Architecture: 32bit (x86)")
+endif()
+message(STATUS "##################################################")
 
 add_subdirectory(src)
 
