@@ -514,7 +514,7 @@ void ALSAAudioOutput::run() {
 		if (revents & POLLERR) {
 			snd_pcm_prepare(pcm_handle);
 		} else if (revents & POLLOUT) {
-			snd_pcm_sframes_t avail;
+			snd_pcm_sframes_t avail{};
 			ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
 			while (avail >= static_cast<int>(period_size)) {
 				stillRun = mix(outbuff, static_cast<int>(period_size));
