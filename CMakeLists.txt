@@ -55,13 +55,12 @@ set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
 	"Release"
 )
 
-# CMAKE_CONFIGURATION_TYPES exists with multi configuration generators, such as Visual Studio.
-if(CMAKE_CONFIGURATION_TYPES)
+get_property(IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+if(IS_MULTI_CONFIG)
 	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
-endif()
 
-# We set the CMake configuration to "Release", in case it's not set.
-if(NOT CMAKE_CONFIGURATION_TYPES)
+else()
+	# We set the CMake configuration to "Release", in case it's not set.
 	if(NOT CMAKE_BUILD_TYPE)
 		set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
 	elseif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
