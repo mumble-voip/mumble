@@ -236,7 +236,7 @@ set(MUMBLE_SOURCES
 	"${SHARED_SOURCE_DIR}/Group.h"
 	"${SHARED_SOURCE_DIR}/SignalCurry.h"
 
-	"${3RDPARTY_DIR}/smallft-src/smallft.cpp"
+	"${3RDPARTY_DIR}/smallft/smallft.cpp"
 
 	"mumble.qrc"
 	"flags/mumble_flags_0.qrc"
@@ -314,7 +314,7 @@ target_include_directories(mumble
 		${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.
 		"widgets"
 		${SHARED_SOURCE_DIR}
-		"${3RDPARTY_DIR}/smallft-src"
+		"${3RDPARTY_DIR}/smallft"
 )
 
 find_pkg("LibSndFile;sndfile" REQUIRED)
@@ -486,14 +486,14 @@ if(bundled-opus)
 		option(OPUS_STACK_PROTECTOR "" OFF)
 	endif()
 
-	add_subdirectory("${3RDPARTY_DIR}/opus-src" "${CMAKE_CURRENT_BINARY_DIR}/opus")
+	add_subdirectory("${3RDPARTY_DIR}/opus" "${CMAKE_CURRENT_BINARY_DIR}/opus")
 
 	# Disable all warnings that the Opus code may emit
-	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus-src")
+	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus")
 
 	add_dependencies(mumble opus)
 
-	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/opus-src/include")
+	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/opus/include")
 
 	if(BUILD_TESTING)
 		set_target_properties(test_opus_decode test_opus_padding PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
@@ -812,15 +812,15 @@ if(bonjour)
 			"BonjourClient.cpp"
 			"BonjourClient.h"
 
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourRecord.h"
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourServiceBrowser.cpp"
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourServiceBrowser.h"
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourServiceResolver.cpp"
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourServiceResolver.h"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourRecord.h"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceBrowser.cpp"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceBrowser.h"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceResolver.cpp"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceResolver.h"
 	)
 
 	target_compile_definitions(mumble PRIVATE "USE_BONJOUR")
-	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/qqbonjour-src")
+	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/qqbonjour")
 endif()
 
 if(alsa)
@@ -881,7 +881,7 @@ if(jackaudio)
 	)
 
 	target_compile_definitions(mumble PRIVATE "USE_JACKAUDIO")
-	target_include_directories(mumble PRIVATE SYSTEM "${3RDPARTY_DIR}/jack-src")
+	target_include_directories(mumble PRIVATE SYSTEM "${3RDPARTY_DIR}/jack")
 endif()
 
 if(oss)
@@ -903,7 +903,7 @@ if(portaudio)
 	)
 
 	target_compile_definitions(mumble PRIVATE "USE_PORTAUDIO")
-	target_include_directories(mumble PRIVATE SYSTEM "${3RDPARTY_DIR}/portaudio-src")
+	target_include_directories(mumble PRIVATE SYSTEM "${3RDPARTY_DIR}/portaudio")
 endif()
 
 if(pulseaudio)

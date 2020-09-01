@@ -75,23 +75,23 @@ def cmd(args):
         raise Exception('cmd: {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
     return stdout.decode('utf-8')
 
-# Reads the version from src/mumble.pri
-def readMumblePriVersion():
+# Reads the version from CMakeLists.txt
+def readMumbleVersion():
     sourceTreeRoot = strip(cmd(['git', 'rev-parse', '--show-toplevel']))
 
     version = None
-    with open(os.path.join(sourceTreeRoot, 'src', 'mumble.pri'), 'r') as f:
+    with open(os.path.join(sourceTreeRoot, 'CMakeLists.txt'), 'r') as f:
         for line in f:
-            if 'VERSION' in line:
-                line = line.replace('VERSION', '')
-                line = line.replace('=', '')
-                line = line.replace('\t', '')
-                line = line.replace(' ', '')
-                line = strip(line)
+            # The version is specified as e.g. set(version "1.4.0" CACHE STRING "Project version")
+            if 'set(version' in line:
+                line = line.replace('set(version', '')
+                line = line[0 : line.find('CACHE')].strip()
+                # remove quotes
+                line = line[1 : len(line) - 1]
                 version = line
                 break
     if version is None:
-        raise Exception('unable to read version from mumble.pri')
+        raise Exception('unable to read version from CMakeLists.txt')
     return version
 
 def main():
@@ -114,8 +114,8 @@ def main():
         # Get the hash of the most recent commit (shortened)
         latestCommitHash = cmd(['git', 'rev-parse', '--short'  , 'HEAD']).strip()
 
-        # Get the Mumble version that is set in the mumble.pri file
-        mumblePriVersion = readMumblePriVersion()
+        # Get the Mumble version that is set in the CMakeLists.txt file
+        mumblePriVersion = readMumbleVersion()
         if len(mumblePriVersion) == 0 or not '.' in mumblePriVersion:
             raise Exception('bad mumblePriVersion: "{0}"'.format(mumblePriVersion))
 

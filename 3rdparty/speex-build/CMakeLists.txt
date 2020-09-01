@@ -1,5 +1,5 @@
 set(SPEEX_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../speex-src")
-set(SPEEXDSP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../speexdsp-src")
+set(SPEEXDSP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../speexdsp")
 
 set(SPEEX_SRC_DIR "${SPEEX_DIR}/libspeex")
 set(SPEEXDSP_SRC_DIR "${SPEEXDSP_DIR}/libspeexdsp")
