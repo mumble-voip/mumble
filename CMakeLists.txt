@@ -59,7 +59,7 @@ get_property(IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(IS_MULTI_CONFIG)
 	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
-	set(BUILD_STR "<mulit-config>")
+	set(BUILD_STR "<multi-config>")
 else()
 	# We set the CMake configuration to "Release", in case it's not set.
 	if(NOT CMAKE_BUILD_TYPE)
