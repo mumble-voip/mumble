@@ -13,7 +13,7 @@
 	<key>CFBundlePackageType</key>
 	<string>osax</string>
 	<key>CFbundleVersion</key>
-	<string>1.4.0</string>
+	<string>@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@</string>
 	<key>CFBundleSignature</key>
 	<string>MUOL</string>
 	<key>CSResourcesFileMapped</key>

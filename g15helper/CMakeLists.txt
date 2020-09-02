@@ -5,16 +5,18 @@
 
 option(g15-emulator "Build the g15helper executable in emulator mode. This will cause an emulated G15 window to appear on screen. Allows the use of Mumble's G15 support without owning the physical hardware." OFF)
 
-set(G15HELPER_RC "g15helper.rc")
+set(G15HELPER_RC "${CMAKE_CURRENT_BINARY_DIR}/g15helper.rc")
 set(G15HELPER_ICON "${CMAKE_SOURCE_DIR}/icons/g15helper.ico")
+set(G15HELPER_PLIST "${CMAKE_BINARY_DIR}/g15helper.plist")
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/g15helper.plist.in" "${G15HELPER_PLIST}")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/g15helper.rc.in" "${G15HELPER_RC}")
 
 get_target_property(MUMBLE_SOURCE_DIR mumble SOURCE_DIR)
 
-configure_file(${G15HELPER_RC} ${CMAKE_CURRENT_BINARY_DIR})
-
 add_executable(g15-helper WIN32
 	"${MUMBLE_SOURCE_DIR}/mumble.appcompat.manifest"
-	"${CMAKE_CURRENT_BINARY_DIR}/${G15HELPER_RC}"
+	"${G15HELPER_RC}"
 )
 
 set_target_properties(g15-helper

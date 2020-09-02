@@ -7,14 +7,14 @@ add_executable(mumble_exe WIN32)
 
 target_include_directories(mumble_exe PRIVATE "${SHARED_SOURCE_DIR}")
 
-configure_file("${SHARED_SOURCE_DIR}/mumble/${MUMBLE_RC}" ${CMAKE_CURRENT_BINARY_DIR})
+configure_file("${SHARED_SOURCE_DIR}/mumble/mumble.rc.in" "${CMAKE_CURRENT_BINARY_DIR}/mumble.rc")
 
 target_sources(mumble_exe PRIVATE
 	"mumble_exe.cpp"
 	"Overlay.cpp"
 
 	"${SHARED_SOURCE_DIR}/mumble/mumble.appcompat.manifest"
-	"${CMAKE_CURRENT_BINARY_DIR}/${MUMBLE_RC}"
+	"${MUMBLE_RC}"
 )
 
 set_target_properties(mumble_exe

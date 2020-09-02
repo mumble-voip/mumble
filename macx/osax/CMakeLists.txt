@@ -11,13 +11,15 @@ add_library(MumbleOverlay MODULE
 	"MumbleOverlay.sdef"
 )
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/osax.plist.in" "${CMAKE_CURRENT_BINARY_DIR}/osax.plist")
+
 set_target_properties(MumbleOverlay
 	PROPERTIES
 		BUNDLE TRUE
 		BUNDLE_EXTENSION "osax"
 		RESOURCE "MumbleOverlay.sdef"
 		LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
-		MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/osax.plist"
+		MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/osax.plist"
 )
 
 find_library(LIB_COCOA "Cocoa")

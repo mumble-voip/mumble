@@ -34,7 +34,7 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileDescription", "Mumble - Low-latency VoIP client"
 				VALUE "FileVersion", "@PROJECT_VERSION@"
 				VALUE "ProductVersion", "@PROJECT_VERSION@"
-				VALUE "LegalCopyright", "Copyright (c) 2005-2020 The Mumble Developers"
+				VALUE "LegalCopyright", "Copyright (c) 2005-@MUMBLE_BUILD_YEAR@ The Mumble Developers"
 				VALUE "OriginalFilename", "@OUTPUT_NAME@"
 				VALUE "ProductName", "Mumble"
 #ifdef SNAPSHOT_BUILD

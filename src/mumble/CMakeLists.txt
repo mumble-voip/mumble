@@ -3,12 +3,16 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-set(MUMBLE_RC "mumble.rc")
-set(MUMBLE_DLL_RC "mumble_dll.rc")
-set(MUMBLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/mumble.plist")
+set(MUMBLE_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble.rc")
+set(MUMBLE_DLL_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble_dll.rc")
+set(MUMBLE_PLIST "${CMAKE_CURRENT_BINARY_DIR}/mumble.plist")
 
 set(MUMBLE_ICON "${CMAKE_SOURCE_DIR}/icons/mumble.ico")
 set(MUMBLE_ICNS "${CMAKE_SOURCE_DIR}/icons/mumble.icns")
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble.rc.in" "${MUMBLE_RC}")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble_dll.rc.in" "${MUMBLE_DLL_RC}")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble.plist.in" "${MUMBLE_PLIST}")
 
 include(qt-utils)
 
@@ -254,20 +258,17 @@ if(static AND WIN32)
 		set_target_properties(mumble PROPERTIES PREFIX "")
 	endif()
 
-	configure_file(${MUMBLE_DLL_RC} ${CMAKE_CURRENT_BINARY_DIR})
-	target_sources(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${MUMBLE_DLL_RC}")
+	target_sources(mumble PRIVATE "${MUMBLE_DLL_RC}")
 
 	add_subdirectory("${SHARED_SOURCE_DIR}/mumble_exe" "${CMAKE_BINARY_DIR}/mumble_exe")
 else()
 	add_executable(mumble ${MUMBLE_SOURCES})
 
 	if(WIN32)
-		configure_file(${MUMBLE_RC} ${CMAKE_CURRENT_BINARY_DIR})
-
 		target_sources(mumble
 			PRIVATE
 				"mumble.appcompat.manifest"
-				"${CMAKE_CURRENT_BINARY_DIR}/${MUMBLE_RC}"
+				"${MUMBLE_RC}"
 		)
 
 		if(elevation)

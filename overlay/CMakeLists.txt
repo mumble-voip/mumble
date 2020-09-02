@@ -25,7 +25,9 @@ set(COMPILED_DX11_PIXEL_SHADERS "overlay11.ps.h")
 set(COMPILED_DX11_VERTEX_SHADERS "overlay11.vs.h")
 set(COMPILED_EFFECTS "overlay.hex")
 
-set(OVERLAY_RC "mumble_ol.rc")
+set(OVERLAY_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble_ol.rc")
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble_ol.rc.in" "${OVERLAY_RC}")
 
 # We save the output name in a variable because it's used by configure_file()
 if(64_BIT AND NOT BUILD_OVERLAY_XCOMPILE)
@@ -37,8 +39,6 @@ endif()
 remove_definitions("-DUNICODE")
 
 add_library(overlay SHARED)
-
-configure_file(${OVERLAY_RC} ${CMAKE_CURRENT_BINARY_DIR})
 
 find_program(FXC "fxc" DOC "Effect-Compiler tool")
 if(NOT FXC)
@@ -102,7 +102,7 @@ target_sources(overlay
 		"overlay_launchers.h"
 		"overlay_whitelist.h"
 
-		"${CMAKE_CURRENT_BINARY_DIR}/${OVERLAY_RC}"
+		"${OVERLAY_RC}"
 )
 
 set_target_properties(overlay PROPERTIES OUTPUT_NAME ${OUTPUT_NAME})

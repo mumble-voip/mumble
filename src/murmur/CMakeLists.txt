@@ -3,8 +3,12 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-set(MURMUR_RC "murmur.rc")
+set(MURMUR_RC "${CMAKE_CURRENT_BINARY_DIR}/murmur.rc")
 set(MURMUR_ICON "${CMAKE_SOURCE_DIR}/icons/murmur.ico")
+set(MURMUR_PLIST "${CMAKE_CURRENT_BINARY_DIR}/murmur.plist")
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.plist.in" "${MURMUR_PLIST}")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/murmur.rc.in" "${MURMUR_RC}")
 
 set(GRPC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MurmurRPC.proto")
 set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Murmur.ice")
@@ -98,8 +102,6 @@ if(static)
 endif()
 
 if(WIN32)
-	configure_file(${MURMUR_RC} ${CMAKE_CURRENT_BINARY_DIR})
-
 	target_sources(murmur
 		PRIVATE
 			"About.cpp"
@@ -109,7 +111,7 @@ if(WIN32)
 			"murmur.qrc"
 
 			"${SHARED_SOURCE_DIR}/mumble/mumble.appcompat.manifest"
-			"${CMAKE_CURRENT_BINARY_DIR}/${MURMUR_RC}"
+			"${MURMUR_RC}"
 	)
 
 	find_pkg(Qt5 COMPONENTS Widgets REQUIRED)

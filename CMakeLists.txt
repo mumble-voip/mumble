@@ -12,6 +12,9 @@ set(version "1.4.0" CACHE STRING "Project version")
 
 string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]" version_short ${version})
 
+# Get compilation year
+string(TIMESTAMP MUMBLE_BUILD_YEAR "%Y")
+
 project(Mumble
 	VERSION ${version_short}
 	DESCRIPTION "Open source, low-latency, high quality voice chat."
