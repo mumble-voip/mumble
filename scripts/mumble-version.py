@@ -63,41 +63,41 @@ import subprocess
 import sys
 
 def strip(s):
-	s = s.replace('\r', '')
-	s = s.replace('\n', '')
-	return s
+    s = s.replace('\r', '')
+    s = s.replace('\n', '')
+    return s
 
 def cmd(args):
-	shell = platform.system() == 'Windows'
-	p = subprocess.Popen(args, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	stdout, stderr = p.communicate()
-	if p.returncode != 0:
-		raise Exception('cmd: {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
-	return stdout.decode('utf-8')
+    shell = platform.system() == 'Windows'
+    p = subprocess.Popen(args, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    if p.returncode != 0:
+        raise Exception('cmd: {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
+    return stdout.decode('utf-8')
 
 # Reads the version from src/mumble.pri
 def readMumblePriVersion():
-	sourceTreeRoot = strip(cmd(['git', 'rev-parse', '--show-toplevel']))
+    sourceTreeRoot = strip(cmd(['git', 'rev-parse', '--show-toplevel']))
 
-	version = None
-	with open(os.path.join(sourceTreeRoot, 'src', 'mumble.pri'), 'r') as f:
-		for line in f:
-			if 'VERSION' in line:
-				line = line.replace('VERSION', '')
-				line = line.replace('=', '')
-				line = line.replace('\t', '')
-				line = line.replace(' ', '')
-				line = strip(line)
-				version = line
-				break
-	if version is None:
-		raise Exception('unable to read version from mumble.pri')
-	return version
+    version = None
+    with open(os.path.join(sourceTreeRoot, 'src', 'mumble.pri'), 'r') as f:
+        for line in f:
+            if 'VERSION' in line:
+                line = line.replace('VERSION', '')
+                line = line.replace('=', '')
+                line = line.replace('\t', '')
+                line = line.replace(' ', '')
+                line = strip(line)
+                version = line
+                break
+    if version is None:
+        raise Exception('unable to read version from mumble.pri')
+    return version
 
 def main():
     # Get all tags associated with the latest commit
     latestCommitTags = [x for x in cmd(['git', 'tag', '--points-at', 'HEAD']).split("\n") if x]
-    
+
     if len(latestCommitTags) > 1:
         raise RuntimeError("Encountered commit with multiple tags: %s" % latestCommitTags)
 
@@ -123,8 +123,8 @@ def main():
 
     end = ''
     if '--newline' in sys.argv:
-            end = None
+        end = None
     print(version, end=end)
 
 if __name__ == '__main__':
-	main()
+    main()
