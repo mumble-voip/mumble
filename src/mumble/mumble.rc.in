@@ -5,10 +5,12 @@
 
 #include <winver.h>
 
+IDI_ICON1 ICON DISCARDABLE "@MUMBLE_ICON@"
+
 #ifndef DEBUG
-#define VER_DEBUG                   0L
+#define VER_DEBUG 0L
 #else
-#define VER_DEBUG                   VS_FF_DEBUG
+#define VER_DEBUG VS_FF_DEBUG
 #endif
 
 #ifdef SNAPSHOT_BUILD
@@ -34,8 +36,8 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileDescription", "Mumble - Low-latency VoIP client"
 				VALUE "FileVersion", "@PROJECT_VERSION@"
 				VALUE "ProductVersion", "@PROJECT_VERSION@"
-				VALUE "LegalCopyright", "Copyright (c) 2005-2020 The Mumble Developers"
-				VALUE "OriginalFilename", "@OUTPUT_NAME@"
+				VALUE "LegalCopyright", "Copyright (c) 2005-@MUMBLE_BUILD_YEAR@ The Mumble Developers"
+				VALUE "OriginalFilename", "mumble.exe"
 				VALUE "ProductName", "Mumble"
 #ifdef SNAPSHOT_BUILD
 				VALUE "SpecialBuild", "Snapshot development release"

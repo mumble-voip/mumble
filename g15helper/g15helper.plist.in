@@ -13,8 +13,8 @@
 	<key>CFBundleSignature</key>
 	<string>G15H</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.0</string>
+	<string>@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright (c) 2005-2020 The Mumble Developers</string>
+	<string>Copyright (c) 2005-@MUMBLE_BUILD_YEAR@ The Mumble Developers</string>
 </dict>
 </plist>

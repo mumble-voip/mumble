@@ -3,7 +3,9 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-set(OVERLAY_EXE_RC "overlay_exe.rc")
+set(OVERLAY_EXE_RC "${CMAKE_CURRENT_BINARY_DIR}/overlay_exe.rc")
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/overlay_exe.rc.in" "${OVERLAY_EXE_RC}")
 
 add_definitions("-DUNICODE" "-DWIN32_LEAN_AND_MEAN")
 
@@ -18,14 +20,12 @@ if(NOT BUILD_OVERLAY_XCOMPILE)
 	get_target_property(MUMBLE_SOURCE_DIR mumble SOURCE_DIR)
 endif()
 
-configure_file(${OVERLAY_EXE_RC} ${CMAKE_CURRENT_BINARY_DIR})
-
 add_executable(overlay_exe WIN32
 	"overlay_exe.cpp"
 	"overlay_exe.h"
 
 	"${MUMBLE_SOURCE_DIR}/mumble.appcompat.manifest"
-	"${CMAKE_CURRENT_BINARY_DIR}/${OVERLAY_EXE_RC}"
+	"${OVERLAY_EXE_RC}"
 )
 
 set_target_properties(overlay_exe PROPERTIES OUTPUT_NAME ${OUTPUT_NAME})
