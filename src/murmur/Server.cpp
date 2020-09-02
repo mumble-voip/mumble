@@ -1584,7 +1584,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		// "Error while reading: error:140E0197:SSL routines:SSL_shutdown:shutdown while in init [20]"
 		//
 		// Definitely not ideal, but it fixes a critical vulnerability.
-		qWarning("Ignored OpenSSL error 140E0197 for %p", sender());
+		qWarning("Ignored OpenSSL error 140E0197 for %p", static_cast<void *>(sender()));
 		return;
 	}
 
