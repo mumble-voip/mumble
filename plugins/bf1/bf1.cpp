@@ -64,15 +64,25 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!squad_offset_3) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(state_offset_3 + 0x50, &state, 1) && // Magical state value: 1 when in-game and 0 when not spawned or playing.
-			peekProc(pModule + 0x36B1500, avatar_pos, 12) && // Avatar position values (X, Y and Z).
-			peekProc(camera_base + 0x2B0, camera_pos, 12) && // Camera position values (X, Y and Z).
-			peekProc(camera_base + 0x260, camera_front, 12) && // Avatar front vector values (X, Y and Z).
-			peekProc(camera_base + 0x250, camera_top, 12) && // Avatar top vector values (X, Y and Z).
-			peekProc(server_name_offset_2, server_name) && // Server name.
-			peekProc(team_offset_2 + 0x13, team) && // Team name.
-			peekProc(squad_offset_3 + 0x240, squad) && // Squad value: 0 (not in a squad), 1 (Apples), 2 (Butter), 3 (Charlie)... 26 (Zebra).
-			peekProc(squad_offset_3 + 0x244, squad_leader); // Squad leader value: 0 (False), 1 (True).
+
+ 	// Magical state value: 1 when in-game and 0 when not spawned or playing.
+	ok = peekProc(state_offset_3 + 0x50, &state, 1)
+ 			// Avatar position values (X, Y and Z).
+			&& peekProc(pModule + 0x36B1500, avatar_pos, 12)
+			// Camera position values (X, Y and Z).
+			&& peekProc(camera_base + 0x2B0, camera_pos, 12)
+			// Avatar front vector values (X, Y and Z).
+			&& peekProc(camera_base + 0x260, camera_front, 12)
+			// Avatar top vector values (X, Y and Z).
+			&& peekProc(camera_base + 0x250, camera_top, 12)
+			// Server name.
+			&& peekProc(server_name_offset_2, server_name)
+			// Team name.
+			&& peekProc(team_offset_2 + 0x13, team)
+			// Squad value: 0 (not in a squad), 1 (Apples), 2 (Butter), 3 (Charlie)... 26 (Zebra).
+			&& peekProc(squad_offset_3 + 0x240, squad)
+			// Squad leader value: 0 (False), 1 (True).
+			&& peekProc(squad_offset_3 + 0x244, squad_leader);
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (!ok) {
