@@ -63,41 +63,41 @@ import subprocess
 import sys
 
 def strip(s):
-	s = s.replace('\r', '')
-	s = s.replace('\n', '')
-	return s
+    s = s.replace('\r', '')
+    s = s.replace('\n', '')
+    return s
 
 def cmd(args):
-	shell = platform.system() == 'Windows'
-	p = subprocess.Popen(args, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	stdout, stderr = p.communicate()
-	if p.returncode != 0:
-		raise Exception('cmd: {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
-	return stdout.decode('utf-8')
+    shell = platform.system() == 'Windows'
+    p = subprocess.Popen(args, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    if p.returncode != 0:
+        raise Exception('cmd: {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
+    return stdout.decode('utf-8')
 
-# Reads the version from src/mumble.pri
-def readMumblePriVersion():
-	sourceTreeRoot = strip(cmd(['git', 'rev-parse', '--show-toplevel']))
+# Reads the version from CMakeLists.txt
+def readMumbleVersion():
+    sourceTreeRoot = strip(cmd(['git', 'rev-parse', '--show-toplevel']))
 
-	version = None
-	with open(os.path.join(sourceTreeRoot, 'src', 'mumble.pri'), 'r') as f:
-		for line in f:
-			if 'VERSION' in line:
-				line = line.replace('VERSION', '')
-				line = line.replace('=', '')
-				line = line.replace('\t', '')
-				line = line.replace(' ', '')
-				line = strip(line)
-				version = line
-				break
-	if version is None:
-		raise Exception('unable to read version from mumble.pri')
-	return version
+    version = None
+    with open(os.path.join(sourceTreeRoot, 'CMakeLists.txt'), 'r') as f:
+        for line in f:
+            # The version is specified as e.g. set(version "1.4.0" CACHE STRING "Project version")
+            if 'set(version' in line:
+                line = line.replace('set(version', '')
+                line = line[0 : line.find('CACHE')].strip()
+                # remove quotes
+                line = line[1 : len(line) - 1]
+                version = line
+                break
+    if version is None:
+        raise Exception('unable to read version from CMakeLists.txt')
+    return version
 
 def main():
     # Get all tags associated with the latest commit
     latestCommitTags = [x for x in cmd(['git', 'tag', '--points-at', 'HEAD']).split("\n") if x]
-    
+
     if len(latestCommitTags) > 1:
         raise RuntimeError("Encountered commit with multiple tags: %s" % latestCommitTags)
 
@@ -114,8 +114,8 @@ def main():
         # Get the hash of the most recent commit (shortened)
         latestCommitHash = cmd(['git', 'rev-parse', '--short'  , 'HEAD']).strip()
 
-        # Get the Mumble version that is set in the mumble.pri file
-        mumblePriVersion = readMumblePriVersion()
+        # Get the Mumble version that is set in the CMakeLists.txt file
+        mumblePriVersion = readMumbleVersion()
         if len(mumblePriVersion) == 0 or not '.' in mumblePriVersion:
             raise Exception('bad mumblePriVersion: "{0}"'.format(mumblePriVersion))
 
@@ -123,8 +123,8 @@ def main():
 
     end = ''
     if '--newline' in sys.argv:
-            end = None
+        end = None
     print(version, end=end)
 
 if __name__ == '__main__':
-	main()
+    main()

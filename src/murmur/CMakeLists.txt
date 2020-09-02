@@ -158,16 +158,16 @@ if(bonjour)
 
 	target_compile_definitions(murmur PRIVATE "USE_BONJOUR")
 
-	target_include_directories(murmur PRIVATE "${3RDPARTY_DIR}/qqbonjour-src")
+	target_include_directories(murmur PRIVATE "${3RDPARTY_DIR}/qqbonjour")
 
 	target_sources(murmur
 		PRIVATE
 			"BonjourServer.cpp"
 			"BonjourServer.h"
 
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourRecord.h"
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourServiceRegister.cpp"
-			"${3RDPARTY_DIR}/qqbonjour-src/BonjourServiceRegister.h"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourRecord.h"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceRegister.cpp"
+			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceRegister.h"
 	)
 endif()
 

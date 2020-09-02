@@ -72,7 +72,7 @@ set(SHARED_SOURCES
 	"crypto/CryptographicRandom.cpp"
 	"crypto/CryptStateOCB2.cpp"
 
-	"${3RDPARTY_DIR}/arc4random-src/arc4random_uniform.cpp"
+	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.cpp"
 )
 
 set(SHARED_HEADERS
@@ -108,7 +108,7 @@ set(SHARED_HEADERS
 	"crypto/CryptState.h"
 	"crypto/CryptStateOCB2.h"
 
-	"${3RDPARTY_DIR}/arc4random-src/arc4random_uniform.h"
+	"${3RDPARTY_DIR}/arc4random/arc4random_uniform.h"
 )
 
 target_sources(shared
@@ -134,7 +134,7 @@ target_include_directories(shared
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}
 	PRIVATE
-		"${3RDPARTY_DIR}/arc4random-src"
+		"${3RDPARTY_DIR}/arc4random"
 )
 
 target_link_libraries(shared
