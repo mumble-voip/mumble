@@ -194,8 +194,9 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_channel_map pcm = qhChanMap.value(odev);
 						if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 							pss.format = PA_SAMPLE_FLOAT32NE;
-						if (pss.rate == 0)
-							pss.rate = SAMPLE_RATE;
+
+						pss.rate = SAMPLE_RATE;
+
 						if ((pss.channels == 0) || (! g.s.doPositionalAudio()))
 							pss.channels = 1;
 
@@ -231,7 +232,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasOutput);
 			const size_t sampleSize = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
-			const unsigned int iBlockLen = ((pao->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * static_cast<unsigned int>(sampleSize);
+			const unsigned int iBlockLen = pao->iFrameSize * pss->channels * static_cast<unsigned int>(sampleSize);
 			buff.tlength = iBlockLen * (g.s.iOutputDelay+1);
 			buff.minreq = iBlockLen;
 			buff.maxlength = -1;
@@ -264,8 +265,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_sample_spec pss = qhSpecMap.value(idev);
 						if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 							pss.format = PA_SAMPLE_FLOAT32NE;
-						if (pss.rate == 0)
-							pss.rate = SAMPLE_RATE;
+						pss.rate = SAMPLE_RATE;
 						pss.channels = 1;
 
 						pasInput = pa_stream_new(pacContext, "Microphone", &pss, NULL);
@@ -296,7 +296,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasInput);
 			const size_t sampleSize = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
-			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * static_cast<unsigned int>(sampleSize);
+			const unsigned int iBlockLen = pai->iFrameSize * pss->channels * static_cast<unsigned int>(sampleSize);
 			buff.tlength = iBlockLen;
 			buff.minreq = iBlockLen;
 			buff.maxlength = -1;
@@ -328,8 +328,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_channel_map pcm = qhChanMap.value(edev);
 						if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 							pss.format = PA_SAMPLE_FLOAT32NE;
-						if (pss.rate == 0)
-							pss.rate = SAMPLE_RATE;
+						pss.rate = SAMPLE_RATE;
 						if ((pss.channels == 0) || (! g.s.bEchoMulti))
 							pss.channels = 1;
 
@@ -362,7 +361,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasSpeaker);
 			const size_t sampleSize = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
-			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * static_cast<unsigned int>(sampleSize);
+			const unsigned int iBlockLen = pai->iFrameSize * pss->channels * static_cast<unsigned int>(sampleSize);
 			buff.tlength = iBlockLen;
 			buff.minreq = iBlockLen;
 			buff.maxlength = -1;
