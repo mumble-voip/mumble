@@ -47,7 +47,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(128, 128))));
 
 	QLabel *text = new QLabel(about);
-	text->setTextInteractionFlags(Qt::TextSelectableByMouse);
+	text->setTextInteractionFlags(Qt::TextBrowserInteraction);
 	text->setOpenExternalLinks(true);
 	text->setText(tr(
 		"<h3>Mumble (%1)</h3>"
