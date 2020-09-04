@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>607</width>
-    <height>509</height>
+    <width>881</width>
+    <height>503</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="qtwTab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="qwChannel">
       <attribute name="title">
@@ -27,23 +27,6 @@
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
-       <item row="5" column="0">
-        <widget class="QLabel" name="qlChannelDescription">
-         <property name="text">
-          <string>Description</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="RichTextEditor" name="rteChannelDescription" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>1</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
        <item row="6" column="0">
         <widget class="QLabel" name="qlChannelPassword">
          <property name="text">
@@ -154,6 +137,23 @@ When checked the channel created will be marked as temporary. This means when th
         <widget class="QLabel" name="qlChannelName">
          <property name="text">
           <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="RichTextEditor" name="rteChannelDescription" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="qlChannelDescription">
+         <property name="text">
+          <string>Description</string>
          </property>
         </widget>
        </item>
@@ -274,6 +274,19 @@ Add a new group.</string>
             </property>
            </widget>
           </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </widget>
        </item>
@@ -282,153 +295,207 @@ Add a new group.</string>
          <property name="title">
           <string>Members</string>
          </property>
-         <layout class="QGridLayout">
-          <item row="0" column="0" colspan="3">
-           <widget class="QLabel" name="qliGroupAdd">
-            <property name="text">
-             <string>Members</string>
-            </property>
-            <property name="buddy">
-             <cstring>qlwGroupAdd</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="6">
-           <widget class="QLabel" name="qliGroupInherit">
-            <property name="text">
-             <string>Inherited members</string>
-            </property>
-            <property name="buddy">
-             <cstring>qlwGroupInherit</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" colspan="3">
-           <widget class="QListWidget" name="qlwGroupAdd">
-            <property name="toolTip">
-             <string>Contains the list of members added to the group by this channel.</string>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QWidget" name="qwMembersContainer" native="true">
+            <layout class="QGridLayout" name="gridLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="1" column="0" colspan="2">
+              <widget class="QListWidget" name="qlwGroupAdd">
+               <property name="toolTip">
+                <string>Contains the list of members added to the group by this channel.</string>
+               </property>
+               <property name="whatsThis">
+                <string>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</string>
-            </property>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="MUComboBox" name="qcbGroupAdd">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Add member to group</string>
+               </property>
+               <property name="whatsThis">
+                <string>Type in the name of a user you wish to add to the group and click Add.</string>
+               </property>
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+               <property name="insertPolicy">
+                <enum>QComboBox::NoInsert</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QComboBox::AdjustToContents</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QPushButton" name="qpbGroupAddAdd">
+               <property name="text">
+                <string>Add</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="qliGroupAdd">
+               <property name="text">
+                <string>Members</string>
+               </property>
+               <property name="buddy">
+                <cstring>qlwGroupAdd</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="2">
+              <widget class="QPushButton" name="qpbGroupAddRemove">
+               <property name="text">
+                <string>Remove</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="1" column="3" colspan="3">
-           <widget class="QListWidget" name="qlwGroupRemove">
-            <property name="toolTip">
-             <string>Contains a list of members whose group membership will not be inherited from the parent channel.</string>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
+          <item>
+           <widget class="QWidget" name="qwExcludedMembersContainer" native="true">
+            <layout class="QGridLayout" name="gridLayout_2">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="1" column="0" colspan="2">
+              <widget class="QListWidget" name="qlwGroupRemove">
+               <property name="toolTip">
+                <string>Contains a list of members whose group membership will not be inherited from the parent channel.</string>
+               </property>
+               <property name="whatsThis">
+                <string>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</string>
-            </property>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="MUComboBox" name="qcbGroupRemove">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Remove member from group</string>
+               </property>
+               <property name="whatsThis">
+                <string>Type in the name of a user you wish to remove from the group and click Add.</string>
+               </property>
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+               <property name="insertPolicy">
+                <enum>QComboBox::NoInsert</enum>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QComboBox::AdjustToContents</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QPushButton" name="qpbGroupRemoveAdd">
+               <property name="text">
+                <string>Add</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="2">
+              <widget class="QPushButton" name="qpbGroupRemoveRemove">
+               <property name="text">
+                <string>Remove</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="qliGroupRemove">
+               <property name="text">
+                <string>Excluded members</string>
+               </property>
+               <property name="buddy">
+                <cstring>qlwGroupRemove</cstring>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="1" column="6" rowspan="2">
-           <widget class="QListWidget" name="qlwGroupInherit">
-            <property name="toolTip">
-             <string>Contains the list of members inherited by other channels.</string>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
+          <item>
+           <widget class="QWidget" name="qwInheritedMembersContainer" native="true">
+            <layout class="QGridLayout" name="gridLayout_3">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="qliGroupInherit">
+               <property name="text">
+                <string>Inherited members</string>
+               </property>
+               <property name="buddy">
+                <cstring>qlwGroupInherit</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QListWidget" name="qlwGroupInherit">
+               <property name="toolTip">
+                <string>Contains the list of members inherited by other channels.</string>
+               </property>
+               <property name="whatsThis">
+                <string>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="2">
-           <widget class="MUComboBox" name="qcbGroupAdd">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>Add member to group</string>
-            </property>
-            <property name="whatsThis">
-             <string>Type in the name of a user you wish to add to the group and click Add.</string>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-            <property name="insertPolicy">
-             <enum>MUComboBox::NoInsert</enum>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="qpbGroupAddAdd">
-            <property name="text">
-             <string>Add</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3" colspan="2">
-           <widget class="MUComboBox" name="qcbGroupRemove">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>Remove member from group</string>
-            </property>
-            <property name="whatsThis">
-             <string>Type in the name of a user you wish to remove from the group and click Add.</string>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-            <property name="insertPolicy">
-             <enum>MUComboBox::NoInsert</enum>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="5">
-           <widget class="QPushButton" name="qpbGroupRemoveAdd">
-            <property name="text">
-             <string>Add</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" colspan="3">
-           <widget class="QPushButton" name="qpbGroupAddRemove">
-            <property name="text">
-             <string>Remove</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3" colspan="3">
-           <widget class="QPushButton" name="qpbGroupRemoveRemove">
-            <property name="text">
-             <string>Remove</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="6">
-           <widget class="QPushButton" name="qpbGroupInheritRemove">
-            <property name="text">
-             <string>Exclude</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3" colspan="3">
-           <widget class="QLabel" name="qliGroupRemove">
-            <property name="text">
-             <string>Excluded members</string>
-            </property>
-            <property name="buddy">
-             <cstring>qlwGroupRemove</cstring>
-            </property>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QPushButton" name="qpbGroupInheritRemove">
+               <property name="text">
+                <string>Exclude</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -649,7 +716,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
                <bool>true</bool>
               </property>
               <property name="sizeAdjustPolicy">
-               <enum>MUComboBox::AdjustToMinimumContentsLength</enum>
+               <enum>QComboBox::AdjustToContents</enum>
               </property>
              </widget>
             </item>
