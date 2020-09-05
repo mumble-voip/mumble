@@ -300,6 +300,10 @@ void MainWindow::setupGui()  {
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 	qtvUsers->ensurePolished();
 
+	QObject::connect(this, &MainWindow::userAddedChannelListener, pmModel, &UserModel::addChannelListener);
+	QObject::connect(this, &MainWindow::userRemovedChannelListener, pmModel,
+			static_cast<void (UserModel::*)(const ClientUser *, const Channel *)>(&UserModel::removeChannelListener));
+
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 #ifdef USE_NO_TTS

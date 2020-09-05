@@ -4,10 +4,12 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "TalkingUI.h"
+#include "TalkingUIComponent.h"
 #include "ClientUser.h"
 #include "Channel.h"
 #include "MainWindow.h"
 #include "UserModel.h"
+#include "ChannelListener.h"
 
 #include <QGroupBox>
 #include <QLabel>
@@ -33,22 +35,187 @@
 
 TalkingUI::TalkingUI(QWidget *parent)
 	: QWidget(parent),
-	  m_entries(),
-	  m_channels(),
-	  m_timers(),
-	  m_currentSelection(nullptr),
-	  m_talkingIcon(QIcon(QLatin1String("skin:talking_on.svg"))),
-	  m_mutedTalkingIcon(QIcon(QLatin1String("skin:talking_muted.svg"))),
-	  m_passiveIcon(QIcon(QLatin1String("skin:talking_off.svg"))),
-	  m_shoutingIcon(QIcon(QLatin1String("skin:talking_alt.svg"))),
-	  m_whisperingIcon(QIcon(QLatin1String("skin:talking_whisper.svg"))),
-	  m_muteIcon(QIcon(QLatin1String("skin:muted_server.svg"))),
-	  m_deafIcon(QIcon(QLatin1String("skin:deafened_server.svg"))),
-	  m_localMuteIcon(QIcon(QLatin1String("skin:muted_local.svg"))),
-	  m_selfMuteIcon(QIcon(QLatin1String("skin:muted_self.svg"))),
-	  m_selfDeafIcon(QIcon(QLatin1String("skin:deafened_self.svg"))) {
+	  m_containers(),
+	  m_currentSelection(nullptr) {
 
 	setupUI();
+}
+
+int TalkingUI::findContainer(int associatedChannelID, ContainerType type) const {
+	for (std::size_t i = 0; i < m_containers.size(); i++) {
+		const std::unique_ptr<TalkingUIContainer> &currentContainer = m_containers[i];
+
+		if (currentContainer->getType() == type && currentContainer->getAssociatedChannelID() == associatedChannelID) {
+			return static_cast<int>(i);
+		}
+	}
+
+	return -1;
+}
+
+std::unique_ptr<TalkingUIContainer> TalkingUI::removeContainer(const TalkingUIContainer &container) {
+	return removeContainer(container.getAssociatedChannelID(), container.getType());
+}
+
+std::unique_ptr<TalkingUIContainer> TalkingUI::removeContainer(int associatedChannelID, ContainerType type) {
+	int index = findContainer(associatedChannelID, type);
+
+	std::unique_ptr<TalkingUIContainer> container(nullptr);
+
+	if (index >= 0) {
+		// Move the container out of the vector
+		container = std::move(m_containers[index]);
+		m_containers.erase(m_containers.begin() + index);
+
+		// If the container is currently selected, clear the selection
+		if (isSelected(*container)) {
+			setSelection(EmptySelection());
+		}
+	}
+
+	return container;
+}
+
+std::unique_ptr<TalkingUIContainer> TalkingUI::removeIfSuperfluous(const TalkingUIContainer &container) {
+	if (container.isEmpty() && !container.isPermanent()) {
+		return removeContainer(container);
+	}
+
+	return nullptr;
+}
+
+struct container_ptr_less {
+	bool operator()(const std::unique_ptr<TalkingUIContainer> &first, const std::unique_ptr<TalkingUIContainer> &second) {
+		return *first < *second;
+	}
+};
+
+void TalkingUI::sortContainers() {
+	// Remove all containers from the UI
+	for (auto &currentContainer : m_containers) {
+		layout()->removeWidget(currentContainer->getWidget());
+	}
+
+	// Sort the containers
+	std::sort(m_containers.begin(), m_containers.end(), container_ptr_less());
+
+	// Add them again in the order they appear in the vector
+	for (auto &currentContainer : m_containers) {
+		layout()->addWidget(currentContainer->getWidget());
+	}
+}
+
+TalkingUIUser *TalkingUI::findUser(unsigned int userSession) {
+	for(auto &currentContainer : m_containers) {
+		TalkingUIEntry *entry = currentContainer->get(userSession, EntryType::USER);
+
+		if (entry) {
+			// We know that it must be a TalkingUIUser since that is what we searched for
+			return static_cast<TalkingUIUser *>(entry);
+		}
+	}
+
+	return nullptr;
+}
+
+void TalkingUI::removeUser(unsigned int userSession) {
+	TalkingUIUser *userEntry = findUser(userSession);
+
+	if (userEntry) {
+		// If the user that is going to be deleted is currently selected, clear the selection
+		if (isSelected(*userEntry)) {
+			setSelection(EmptySelection());
+		}
+
+		TalkingUIContainer *userContainer = userEntry->getContainer();
+
+		userContainer->removeEntry(userEntry);
+
+		removeIfSuperfluous(*userContainer);
+
+		updateUI();
+	}
+}
+
+void TalkingUI::addListener(const ClientUser *user, const Channel *channel) {
+	TalkingUIChannelListener *existingEntry = findListener(user->uiSession, channel->iId);
+
+	if (!existingEntry) {
+		// Only create entry if it doesn't exist yet
+
+		// First make sure the channel exists
+		addChannel(channel);
+
+		std::unique_ptr<TalkingUIContainer> &channelContainer = m_containers[findContainer(channel->iId, ContainerType::CHANNEL)];
+
+		std::unique_ptr<TalkingUIChannelListener> listenerEntry
+			= std::make_unique<TalkingUIChannelListener>(*user, *channel);
+
+		channelContainer->addEntry(std::move(listenerEntry));
+
+		sortContainers();
+	}
+}
+
+TalkingUIChannelListener *TalkingUI::findListener(unsigned int userSession, int channelID) {
+	int channelIndex = findContainer(channelID, ContainerType::CHANNEL);
+
+	if (channelIndex >= 0) {
+		std::unique_ptr<TalkingUIContainer> &channelContainer = m_containers[channelIndex];
+
+		TalkingUIEntry *entry = channelContainer->get(userSession, EntryType::LISTENER);
+
+		if (entry) {
+			return static_cast<TalkingUIChannelListener *>(entry);
+		}
+	}
+
+	return nullptr;
+}
+
+void TalkingUI::removeListener(unsigned int userSession, int channelID) {
+	TalkingUIChannelListener *listenerEntry = findListener(userSession, channelID);
+
+	if (listenerEntry) {
+		// If the user that is going to be deleted is currently selected, clear the selection
+		if (isSelected(*listenerEntry)) {
+			setSelection(EmptySelection());
+		}
+
+		TalkingUIContainer *userContainer = listenerEntry->getContainer();
+
+		userContainer->removeEntry(listenerEntry);
+
+		removeIfSuperfluous(*userContainer);
+
+		updateUI();
+	}
+}
+
+void TalkingUI::removeAllListeners() {
+	// Find all listener entries
+	std::vector<TalkingUIEntry *> entriesToBeRemoved;
+	for (auto &currentContainer : m_containers) {
+		for (auto &currentEntry : currentContainer->getEntries()) {
+			if (currentEntry->getType() == EntryType::LISTENER) {
+				entriesToBeRemoved.push_back(currentEntry.get());
+			}
+		}
+	}
+
+	// remove the individual entries
+	for (auto currentEntry : entriesToBeRemoved) {
+		TalkingUIContainer *container = currentEntry->getContainer();
+
+		container->removeEntry(currentEntry);
+
+		removeIfSuperfluous(*container);
+	}
+
+	// if we removed something, update the UI
+	if (entriesToBeRemoved.size() > 0) {
+		updateUI();
+	}
 }
 
 void TalkingUI::setupUI() {
@@ -95,133 +262,25 @@ void TalkingUI::setFontSize(QWidget *widget) {
 	m_currentLineHeight = QFontMetrics(newFont).height();
 }
 
-void TalkingUI::setTalkingIcon(Entry &entry) const {
-	const QIcon *icon = nullptr;
-	switch (entry.talkingState) {
-		case Settings::MutedTalking:
-			icon = &m_mutedTalkingIcon;
-			break;
-		case Settings::Talking:
-			icon = &m_talkingIcon;
-			break;
-		case Settings::Whispering:
-			icon = &m_whisperingIcon;
-			break;
-		case Settings::Shouting:
-			icon = &m_shoutingIcon;
-			break;
-		default:
-			icon = &m_passiveIcon;
-			break;
-	}
-
-	entry.talkingIcon->setPixmap(icon->pixmap(QSize(m_currentLineHeight, m_currentLineHeight), QIcon::Normal, QIcon::On));
-}
-
 void TalkingUI::updateStatusIcons(const ClientUser *user) {
-	if (!m_entries.contains(user->uiSession)) {
+	TalkingUIUser *userEntry = findUser(user->uiSession);
+
+	if (!userEntry) {
 		return;
 	}
 
-	Entry &userEntry = m_entries[user->uiSession];
+	TalkingUIUser::UserStatus status;
+	status.muted = user->bMute;
+	status.selfMuted = user->bSelfMute;
+	status.localMuted = user->bLocalMute;
+	status.deafened = user->bDeaf;
+	status.selfDeafened = user->bSelfDeaf;
 
-	const bool needsIcons = user->bMute || user->bDeaf || user->bLocalMute || user->bSelfMute || user->bSelfDeaf;
-
-	if (needsIcons) {
-		if (userEntry.statusIcons) {
-			// Make sure the icons are visible
-			userEntry.statusIcons->show();
-			userEntry.background->layout()->addWidget(userEntry.statusIcons);
-		} else {
-			// Create the icon's label
-			userEntry.statusIcons = new QLabel(userEntry.background);
-
-			userEntry.statusIcons->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-
-			// Uncomment the line below if you want to debug the icons
-			// userEntry.statusIcons->setStyleSheet(QLatin1String("border: 1px solid black;"));
-
-			userEntry.background->layout()->addWidget(userEntry.statusIcons);
-		}
-
-		// Now populate with icons as needed
-		QVector<QIcon *> activeIcons;
-
-		if (user->bMute) {
-			// Add mute-icon
-			activeIcons << &m_muteIcon;
-		}
-		if (user->bSelfMute) {
-			// Add self-mute-icon
-			activeIcons << &m_selfMuteIcon;
-		}
-		if (user->bLocalMute) {
-			// Add local-mute-icon
-			activeIcons << &m_localMuteIcon;
-		}
-		if (user->bDeaf) {
-			// Add deaf-icon
-			activeIcons << &m_deafIcon;
-		}
-		if (user->bSelfDeaf) {
-			// Add self-deaf-icon
-			activeIcons << &m_selfDeafIcon;
-		}
-
-		// If we don't have icons to show, this branch of the if-statement shouldn't even have been chosen
-		Q_ASSERT(activeIcons.size() > 0);
-
-		// Create a Pixmap that'll hold all icons
-		const QSize size(m_currentLineHeight * activeIcons.size(), m_currentLineHeight);
-		QPixmap pixmap(size);
-		pixmap.fill(Qt::transparent);
-		
-		// Draw the icons to the Pixmap
-		QPainter painter(&pixmap);
-		for (int i = 0; i < activeIcons.size(); i++) {
-			painter.drawPixmap(i * m_currentLineHeight, 0, activeIcons[i]->pixmap(QSize(m_currentLineHeight, m_currentLineHeight),
-						QIcon::Normal, QIcon::On));
-		}
-
-		userEntry.statusIcons->setPixmap(pixmap);
-	} else {
-		if (userEntry.statusIcons) {
-			// The user has an icon container that is no longer needed -> remove it from the layout
-			userEntry.background->layout()->removeWidget(userEntry.statusIcons);	
-			userEntry.statusIcons->hide();
-		}
-	}
+	userEntry->setStatus(status);
 }
 
 void TalkingUI::hideUser(unsigned int session) {
-	QHash<unsigned int, Entry>::iterator iter = m_entries.find(session);
-	if (iter == m_entries.end()) {
-		qWarning("TalkingUI::hideUser: Session ID not found");
-		return;
-	}
-	
-	Entry &entry = iter.value();
-
-	entry.background->hide();
-
-	// In principle the user could have changed channel since it has been added to
-	// the UI, so we'll iterate over all GroupBoxes and remove the labels from every
-	// single one of them.
-	QHashIterator<int, QGroupBox *> it(m_channels);
-
-	while (it.hasNext()) {
-		it.next();
-
-		QGroupBox *channelBox = it.value();
-
-		channelBox->layout()->removeWidget(entry.background);
-
-		if (channelBox->layout()->count() == 0) {
-			// There are no active speakers in this channel anymore
-			channelBox->hide();
-			layout()->removeWidget(channelBox);
-		}
-	}
+	removeUser(session);
 
 	updateUI();
 }
@@ -277,20 +336,22 @@ QString createChannelName(const Channel *chan, bool abbreviateName, int minPrefi
 }
 
 void TalkingUI::addChannel(const Channel *channel) {
-	if (!m_channels.contains(channel->iId)) {
+	if (findContainer(channel->iId, ContainerType::CHANNEL) < 0) {
 		// Create a QGroupBox for this channel
 		const QString channelName = createChannelName(channel, g.s.bTalkingUI_AbbreviateChannelNames, g.s.iTalkingUI_PrefixCharCount,
 				g.s.iTalkingUI_PostfixCharCount, g.s.iTalkingUI_MaxChannelNameLength, g.s.iTalkingUI_ChannelHierarchyDepth,
 				g.s.qsTalkingUI_ChannelSeparator, g.s.qsTalkingUI_AbbreviationReplacement, g.s.bTalkingUI_AbbreviateCurrentChannel);
 
-		QGroupBox *box = new QGroupBox(channelName, this);
-		QVBoxLayout *layout = new QVBoxLayout();
-		layout->setContentsMargins(0, 10, 0, 0);
-		box->setLayout(layout);
+		std::unique_ptr<TalkingUIChannel> channelContainer = std::make_unique<TalkingUIChannel>(channel->iId, channelName, *this);
 
-		setFontSize(box);
+		QWidget *channelWidget = channelContainer->getWidget();
 
-		m_channels.insert(channel->iId, box);
+		setFontSize(channelWidget);
+
+		layout()->addWidget(channelWidget);
+
+
+		m_containers.push_back(std::move(channelContainer));
 	}
 }
 
@@ -299,213 +360,94 @@ void TalkingUI::addUser(const ClientUser *user) {
 	// exists in this UI.
 	addChannel(user->cChannel);
 
-	bool userContained = m_entries.contains(user->uiSession);
+
+	TalkingUIUser *oldUserEntry = findUser(user->uiSession);
 	bool nameMatches = true;
 
-	if (userContained) {
+	if (oldUserEntry) {
 		// We also verify whether the name for that user matches up (if it is contained in m_entries) in case
 		// a user didn't get removed from the map but its ID got reused by a new client.
 
-		nameMatches = m_entries[user->uiSession].qsName == user->qsName;
+		nameMatches = oldUserEntry->getName() == user->qsName;
 
 		if (!nameMatches) {
 			// Hide the stale user
 			hideUser(user->uiSession);
 			// Remove the old user
-			m_entries.remove(user->uiSession);
+			removeUser(user->uiSession);
+
+			// reset pointer
+			oldUserEntry = nullptr;
 		}
 	}
 
-	if (!userContained || !nameMatches) {
+	if (!oldUserEntry || !nameMatches) {
 		bool isSelf = g.uiSession == user->uiSession;
 		// Create an Entry for this user (alongside the respective labels)
 		// We initially set the labels to not be visible, so that we'll
 		// enter the code-block further down.
 
-		QGroupBox *channelBox = m_channels.value(user->cChannel->iId);
-		if (!channelBox) {
+		std::unique_ptr<TalkingUIContainer> &channelContainer = m_containers[findContainer(user->cChannel->iId, ContainerType::CHANNEL)];
+		if (!channelContainer) {
 			qCritical("TalkingUI::addUser requesting unknown channel!");
 			return;
 		}
 
-		QWidget *background = new QWidget(channelBox);
-		background->setProperty("selected", false);
-		QLayout *backgroundLayout = new QHBoxLayout();
-		backgroundLayout->setContentsMargins(2, 3, 2, 3);
-		background->setLayout(backgroundLayout);
-		background->setAutoFillBackground(true);
-		background->hide();
+		std::unique_ptr<TalkingUIUser> userEntry = std::make_unique<TalkingUIUser>(*user);
 
-		background->setProperty("userName", user->qsName);
-
-		QLabel *name = new QLabel(background);
-		const QString displayString = UserModel::createDisplayString(*user, false, nullptr);
-		if (isSelf) {
-			// Indicate self by bold name
-			name->setText(QString::fromLatin1("<b>%1</b>").arg(displayString));
-		} else {
-			name->setText(displayString);
-		}
-
-		QLabel *icon = new QLabel(background);
-		icon->setAlignment(Qt::AlignCenter);
-		icon->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-
-		// As a default use the passive state
-		Entry entry = {icon, name, background, nullptr, user->uiSession, Settings::Passive, user->qsName};
-		setTalkingIcon(entry);
-		m_entries.insert(user->uiSession, entry);
-
-
-		backgroundLayout->addWidget(icon);
-		backgroundLayout->addWidget(name);
-
-		// Also create a timer for this specific user
-		QTimer *timer = new QTimer(this);
-		timer->setSingleShot(true);
 		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
-		timer->setInterval(g.s.iTalkingUI_SilentUserLifeTime * 1000);
-		const unsigned int session = user->uiSession;
-		QObject::connect(timer, &QTimer::timeout, [this, session](){
-			hideUser(session);
-		});
+		userEntry->setLifeTime(g.s.iTalkingUI_SilentUserLifeTime * 1000);
 
-		m_timers.insert(user->uiSession, timer);
+		userEntry->restrictLifetime(!isSelf || !g.s.bTalkingUI_LocalUserStaysVisible);
+
+		userEntry->setPriority(isSelf ? EntryPriority::HIGH : EntryPriority::DEFAULT);
 
 		QObject::connect(user, &ClientUser::localVolumeAdjustmentsChanged, this, &TalkingUI::on_userLocalVolumeAdjustmentsChanged);
 
 		// If this user is currently selected, mark him/her as such
 		if (g.mw && g.mw->pmModel && g.mw->pmModel->getSelectedUser() == user) {
-			if (m_entries.contains(user->uiSession)) {
-				Entry &entry = m_entries[user->uiSession];
-				setSelection(UserSelection(entry.background, entry.userSession));
-			} else {
-				setSelection(EmptySelection());
-				qCritical("TalkingUI::addUser requested entry for unknown user!");
-			}
+			setSelection(UserSelection(userEntry->getWidget(), userEntry->getAssociatedUserSession()));
 		}
+
+		// Actually add the user to the respective channel
+		channelContainer->addEntry(std::move(userEntry));
+
+		sortContainers();
 	}
 }
 
-void TalkingUI::ensureVisible(unsigned int userSession, int channelID) {
-	if (!m_entries.contains(userSession)) {
-		qCritical("TalkingUI::ensureVisible Requested visibility for unknown user");
-		return;
-	}
-	Entry entry = m_entries[userSession];
+void TalkingUI::moveUserToChannel(unsigned int userSession, int channelID) {
+	int targetChanIndex = findContainer(channelID, ContainerType::CHANNEL);
 
-	// Get the box we'll want to have the user in (representing the current
-	// channel of the user)
-	QGroupBox *channelBox = m_channels.value(channelID);
-	if (!channelBox) {
-		qCritical("TalkingUI::ensureVisible Can't find channel for speaker");
+	if (targetChanIndex < 0) {
+		qCritical("TalkingUI::moveUserToChannel Can't find channel for speaker");
 		return;
 	}
 
-	// Check if the user has changed channel and handle this separately in case
-	// the user is currently still displayed as being in that channel
-	bool changedChannel = false;
-	if (channelBox->layout()->indexOf(entry.background) < 0) {
-		changedChannel = true;
+	std::unique_ptr<TalkingUIContainer> &targetChannel = m_containers[targetChanIndex];
 
-		hideUser(userSession);
-	}
-
-	ClientUser *self = ClientUser::get(g.uiSession);
-	// In case the locals user (self) has changed channel but this method here was called before on_channelChanged
-	// has been called (e.g. triggered via on_talkingStateChanged of another user), we have to make sure that the
-	// channel of the local user actually exists in the TalkingUI. This is necessary because the channel update of
-	// a user and the call to on_channelChanged happen asynchronously (the latter runs through the event loop and
-	// thus typically (significantly) after the channel has been updated already.
-	addChannel(self->cChannel);
-	QGroupBox *localUserBox = m_channels.value(self->cChannel->iId);
-
-	if (!localUserBox) {
-		qCritical("TalkingUI::ensureVisible requested unknown channel!");
+	if (targetChannel->contains(userSession, EntryType::USER)) {
+		// The given user is already in the target channel - nothing to do
 		return;
 	}
 
-	bool adjust = false;
-	if (!channelBox->isVisible()) {
-		// Make sure the channel-box is visible
-		channelBox->show();
+	// Iterate all containers in order to find the one the user is currently in
+	TalkingUIUser *userEntry = findUser(userSession);
 
-		// Sort the channels alphabetically
-		bool inserted = false;
-		for (int i = 0; i < layout()->count(); i++) {
-			QGroupBox *currentBox = static_cast<QGroupBox *>(layout()->itemAt(i)->widget());
+	if (userEntry) {
+		TalkingUIContainer *oldContainer = userEntry->getContainer();
 
-			if (currentBox == localUserBox) {
-				// Exclude the local user's channel as that one is handled separately
-				continue;
-			}
+		targetChannel->addEntry(oldContainer->removeEntry(userEntry));
 
-			if (currentBox->title() > channelBox->title()) {
-				static_cast<QVBoxLayout *>(layout())->insertWidget(i, channelBox);
-				inserted = true;
-				break;
-			}
-		}
+		removeIfSuperfluous(*oldContainer);
 
-		// The channel goes after all other channels
-		if (!inserted) {
-			layout()->addWidget(channelBox);
-		}
-
-		// Make sure that the user's channel is always the first channel in the list
-		layout()->removeWidget(localUserBox);
-		static_cast<QVBoxLayout *>(layout())->insertWidget(0, localUserBox);
-
-		adjust = true;
+		sortContainers();
+	} else {
+		qCritical("TalkingUI::moveUserToChannel Unable to locate user");
+		return;
 	}
 
-	if (!entry.background->isVisible() || changedChannel) {
-		// Make sure the Entry for this user is visible
-		entry.background->show();
-
-		if (!m_entries.contains(self->uiSession)) {
-			qCritical("TalkingUI::ensureVisible mapping for local user not present!");
-			return;
-		}
-		Entry localUserEntry = m_entries.value(self->uiSession);
-
-		// Sort the users alphabetically
-		QString currentName = entry.background->property("userName").toString();
-		bool inserted = false;
-		for (int i = 0; i < channelBox->layout()->count(); i++) {
-			QWidget *currentBackground = static_cast<QWidget *>(channelBox->layout()->itemAt(i)->widget());
-
-			if (currentBackground == localUserEntry.background) {
-				// Exclude the local user from sorting as that one is handled separately
-				continue;
-			}
-
-			QString userName = currentBackground->property("userName").toString();
-
-			if (userName > currentName) {
-				static_cast<QVBoxLayout *>(channelBox->layout())->insertWidget(i, entry.background);
-				inserted = true;
-				break;
-			}
-		}
-
-		// The current user goes after all other users in that channel
-		if (!inserted) {
-			channelBox->layout()->addWidget(entry.background);
-		}
-
-		if (channelBox == localUserBox && localUserBox->layout()->indexOf(localUserEntry.background) > 0) {
-			// Make sure that the local user is always listed first 
-			localUserBox->layout()->removeWidget(localUserEntry.background);
-			static_cast<QVBoxLayout *>(localUserBox->layout())->insertWidget(0, localUserEntry.background);
-		}
-
-		adjust = true;
-	}
-
-	if (adjust) {
-		updateUI();
-	}
+	updateUI();
 }
 
 void TalkingUI::updateUI() {
@@ -540,44 +482,54 @@ void TalkingUI::setSelection(const TalkingUISelection &selection) {
 	}
 }
 
-void TalkingUI::mousePressEvent(QMouseEvent *event) {
-	Q_UNUSED(event);
-
-	QWidget *widget = qApp->widgetAt(event->globalPos());
-
-	if (!widget) {
-		setSelection(EmptySelection());
-		return;
+bool TalkingUI::isSelected(const TalkingUIComponent &component) const {
+	if (m_currentSelection) {
+		return *m_currentSelection == component.getWidget();
 	}
 
+	return false;
+}
+
+void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	bool foundTarget = false;
 
-	// iterate all available entries
-	QHashIterator<unsigned int, Entry> userIt(m_entries);
-	while (userIt.hasNext()) {
-		userIt.next();
+	for (auto &currentContainer : m_containers) {
+		QRect containerArea(currentContainer->getWidget()->mapToGlobal({0, 0}),
+				currentContainer->getWidget()->size());
 
-		const Entry &currentEntry = userIt.value();
-		if (currentEntry.talkingIcon == widget || currentEntry.name == widget || currentEntry.background == widget) {
-			foundTarget = true;
-			// Select user's entry
-			setSelection(UserSelection(currentEntry.background, currentEntry.userSession));
+		if (containerArea.contains(event->globalPos())) {
+			for (auto &currentEntry : currentContainer->getEntries()) {
+				QRect entryArea(currentEntry->getWidget()->mapToGlobal({0, 0}),
+						currentEntry->getWidget()->size());
+
+				if (entryArea.contains(event->globalPos())) {
+					switch(currentEntry->getType()) {
+						case EntryType::USER:
+							setSelection(UserSelection(currentEntry->getWidget(), currentEntry->getAssociatedUserSession()));
+							break;
+						case EntryType::LISTENER:
+							TalkingUIChannelListener *listenerEntry = static_cast<TalkingUIChannelListener *>(currentEntry.get());
+							setSelection(ListenerSelection(listenerEntry->getWidget(),
+										listenerEntry->getAssociatedUserSession(), listenerEntry->getAssociatedChannelID()));
+							break;
+					}
+
+					foundTarget = true;
+
+					break;
+				}
+			}
+
+			if (!foundTarget) {
+				// Select channel itself
+				setSelection(ChannelSelection(currentContainer->getWidget(), currentContainer->getAssociatedChannelID()));
+
+				foundTarget = true;
+			}
+
 			break;
 		}
 	}
-
-	if (!foundTarget) {
-		QHashIterator<int, QGroupBox *> channelIt(m_channels);
-		while (channelIt.hasNext()) {
-			channelIt.next();
-			if (widget == channelIt.value()) {
-				foundTarget = true;
-				// Select channel's box
-				setSelection(ChannelSelection(channelIt.value(), channelIt.key()));
-			}
-		}
-	}
-
 
 	if (foundTarget) {
 		if (event->button() == Qt::RightButton && g.mw) {
@@ -641,37 +593,14 @@ void TalkingUI::on_talkingStateChanged() {
 
 	addUser(user);
 
-	// Get the Entry for this user
-	Entry &entry = m_entries[user->uiSession];
-	entry.talkingState = user->tsState;
+	// addUser puts the user in its current channel, so we can fetch that and know that it'll contain the user
+	std::unique_ptr<TalkingUIContainer> &channel = m_containers[findContainer(user->cChannel->iId, ContainerType::CHANNEL)];
 
-	// Set the icon for this user according to the TalkingState
-	setTalkingIcon(entry);
+	TalkingUIUser *userEntry = static_cast<TalkingUIUser *>(channel->get(user->uiSession, EntryType::USER));
 
-	if (user->tsState == Settings::Passive) {
-		// User stopped talking
-		// Start the timer that will remove this user if the user is not
-		// the local user or if the local user is not configured to be always
-		// visible.
-		if (g.uiSession != user->uiSession || !g.s.bTalkingUI_LocalUserStaysVisible) {
-			if (m_timers.contains(user->uiSession)) {
-				m_timers[user->uiSession]->start();
-			} else {
-				qCritical("TalkingUI::on_talkingStateChanged Can't find timer for user (wanted to start it)!");
-			}
-		}
-	} else {
-		// User started talking
-		// Stop the timer for this user in case it has been started before but the user
-		// started speaking again before having been removed
-		if (m_timers.contains(user->uiSession)) {
-			m_timers[user->uiSession]->stop();
-		} else {
-			qCritical("TalkingUI::on_talkingStateChanged Can't find timer for user (wanted to stop it)!");
-		}
+	userEntry->setTalkingState(user->tsState);
 
-		ensureVisible(user->uiSession, user->cChannel->iId);
-	}
+	updateUI();
 }
 
 void TalkingUI::on_mainWindowSelectionChanged(const QModelIndex &current, const QModelIndex &previous) {
@@ -679,75 +608,70 @@ void TalkingUI::on_mainWindowSelectionChanged(const QModelIndex &current, const 
 
 	// Sync the selection in the MainWindow to the TalkingUI
 	if (g.mw && g.mw->pmModel) {
+		bool clearSelection = true;
+
 		const ClientUser *user = g.mw->pmModel->getUser(current);
 		const Channel *channel = g.mw->pmModel->getChannel(current);
 
-		if (user) {
-			addUser(user);
+		if (g.mw->pmModel->isChannelListener(current)) {
+			TalkingUIChannelListener *listenerEntry = findListener(user->uiSession, channel->iId);
 
-			Entry &entry = m_entries[user->uiSession];
-			setSelection(UserSelection(entry.background, entry.userSession));
-		} else if (!user && channel) {
-			addChannel(channel);
+			if (listenerEntry) {
+				setSelection(ListenerSelection(listenerEntry->getWidget(), user->uiSession, channel->iId));
 
-			// if user != nullptr, the selection is actually a user, but UserModel::getChannel still returns
-			// the channel of that user. However we only want to select the channel if the user has indeed
-			// selected the channel and not just one of the users in it.
-			setSelection(ChannelSelection(m_channels[channel->iId], channel->iId));
+				clearSelection = false;
+			}
 		} else {
+			if (user) {
+				TalkingUIUser *userEntry = findUser(user->uiSession);
+
+				if (userEntry) {
+					// Only select the user if there is an actual entry for it in the TalkingUI
+					setSelection(UserSelection(userEntry->getWidget(), userEntry->getAssociatedUserSession()));
+
+					clearSelection = false;
+				}
+			} else if (!user && channel) {
+				// if user != nullptr, the selection is actually a user, but UserModel::getChannel still returns
+				// the channel of that user. However we only want to select the channel if the user has indeed
+				// selected the channel and not just one of the users in it.
+				int index = findContainer(channel->iId, ContainerType::CHANNEL);
+
+				if (index >= 0) {
+					// Only select the channel if there is present in the TalkingUI
+					std::unique_ptr<TalkingUIContainer> &targetContainer = m_containers[index];
+
+					setSelection(ChannelSelection(targetContainer->getWidget(), targetContainer->getAssociatedChannelID()));
+
+					clearSelection = false;
+				}
+			}
+		}
+
+		if (clearSelection) {
 			setSelection(EmptySelection());
 		}
 	}
 }
 
 void TalkingUI::on_serverSynchronized() {
-	// After the synchronization is done we can also assume that the user has its name
-	// assigned and is in a channel.
-	// By manually adding the local user, we can make sure that the channel and the Entry
-	// for it always exists.
-	ClientUser *self = ClientUser::get(g.uiSession);
-	addUser(self);
-
 	if (g.s.bTalkingUI_LocalUserStaysVisible) {
 		// According to the settings the local user should always be visible and as we
 		// can't count on it to change its talking state right after it has connected to
 		// a server, we have to add it manually.
-		ensureVisible(self->uiSession, self->cChannel->iId);
+		ClientUser *self = ClientUser::get(g.uiSession);
+		addUser(self);
 	}
 }
 
 void TalkingUI::on_serverDisconnected() {
-	// If we disconnect from a server, we have to clear all our users, channels, and so on
-	// Note that strictly speaking we don't have to manually delete the objects as they
-	// are parented to this one and thus Qt takes care of deleting them on the destruction of
-	// the TalkingUI. However we do want to keep the memory footprint small as the time the
-	// TalkingUI is alive, might be rather long.
-
-	QHashIterator<unsigned int, Entry> entryIt(m_entries);
-	while (entryIt.hasNext()) {
-		Entry entry = entryIt.next().value();
-
-		delete entry.talkingIcon;
-		delete entry.name;
-		delete entry.background;
-	}
-	m_entries.clear();
-
-	QHashIterator<int, QGroupBox *> channelIt(m_channels);
-	while (channelIt.hasNext()) {
-		delete channelIt.next().value();
-	}
-	m_channels.clear();
-
-	QHashIterator<unsigned int, QTimer *> timerIt(m_timers);
-	while (timerIt.hasNext()) {
-		QTimer *timer = timerIt.next().value();
-		timer->stop();
-		delete timer;
-	}
-	m_timers.clear();
-
 	setSelection(EmptySelection());
+
+	// If we disconnect from a server, we have to clear all our users, channels, and so on
+	// Since all entries are owned by their respective containers, we only have to delete
+	// all containers. These in turn are managed by smart-pointers and therefore it is
+	// enough to let those go out of scope.
+	m_containers.clear();
 
 	updateUI();
 }
@@ -756,86 +680,87 @@ void TalkingUI::on_channelChanged(QObject *obj) {
 	// According to this function's doc, the passed object must be of type ClientUser
 	ClientUser *user = static_cast<ClientUser *>(obj);
 
-	if (user && m_entries.contains(user->uiSession)) {
-		if (m_entries[user->uiSession].background->isVisible()) {
-			// The user is visible, so we call ensureVisible in order to update
-			// the channel this particular user is being displayed in.
-			// But first we have to make sure there actually exists and entry for
-			// the new channel.
-			addChannel(user->cChannel);
-			ensureVisible(user->uiSession, user->cChannel->iId);
-		}
+	if (!user) {
+		return;
+	}
+
+	TalkingUIUser *userEntry = findUser(user->uiSession);
+
+	if (userEntry) {
+		// The user is visible, so we call moveUserToChannel in order to update
+		// the channel this particular user is being displayed in.
+		// But first we have to make sure there actually exists and entry for
+		// the new channel.
+		addChannel(user->cChannel);
+		moveUserToChannel(user->uiSession, user->cChannel->iId);
 	}
 }
 
 void TalkingUI::on_settingsChanged() {
 	// The settings might have affected the way we have to display the channel names
 	// thus we'll update them just in case
-	QHashIterator<int, QGroupBox *> channelIt(m_channels);
+	for (auto &currentContainer : m_containers) {
+		// The font size might have changed as well -> update it
+		// By the hierarchy in the UI the font-size should propagate to all
+		// sub-elements (entries) as well.
+		setFontSize(currentContainer->getWidget());
 
-	while (channelIt.hasNext()) {
-		channelIt.next();
+		if (currentContainer->getType() != ContainerType::CHANNEL) {
+			continue;
+		}
 
-		const Channel *channel = Channel::get(channelIt.key());
+		TalkingUIChannel *channelContainer = static_cast<TalkingUIChannel *>(currentContainer.get());
+
+		const Channel *channel = Channel::get(currentContainer->getAssociatedChannelID());
 
 		if (channel) {
 			// Update
-			QGroupBox *box = channelIt.value();
-			box->setTitle(createChannelName(channel, g.s.bTalkingUI_AbbreviateChannelNames, g.s.iTalkingUI_PrefixCharCount,
+			channelContainer->setName(createChannelName(channel, g.s.bTalkingUI_AbbreviateChannelNames, g.s.iTalkingUI_PrefixCharCount,
 				g.s.iTalkingUI_PostfixCharCount, g.s.iTalkingUI_MaxChannelNameLength, g.s.iTalkingUI_ChannelHierarchyDepth,
 				g.s.qsTalkingUI_ChannelSeparator, g.s.qsTalkingUI_AbbreviationReplacement, g.s.bTalkingUI_AbbreviateCurrentChannel)
 			);
-
-			// The font size might have changed as well -> update it
-			// As all other items are children to the channel boxes, the new font
-			// size should propagate through.
-			setFontSize(box);
 		} else {
 			qCritical("TalkingUI: Can't find channel for stored ID");
 		}
 	}
 
 	// If the font has changed, we have to update the icon size as well
-	QMutableHashIterator<unsigned int, Entry> entryIt(m_entries);
-	while(entryIt.hasNext()) {
-		Entry &entry = entryIt.next().value();
-		// The new line height has already been set by setFontSize, so we only have
-		// to call setTalkingIcon
-		setTalkingIcon(entry);
+	for (auto &currentContainer : m_containers) {
+		for (auto &currentEntry : currentContainer->getEntries()) {
+			currentEntry->setIconSize(m_currentLineHeight);
+
+			if (currentEntry->getType() == EntryType::USER) {
+				TalkingUIUser *userEntry = static_cast<TalkingUIUser *>(currentEntry.get());
+
+				// The time that a silent user may stick around might have changed as well
+				// * 1000 as the setting is in seconds whereas the timer expects milliseconds
+				userEntry->setLifeTime(g.s.iTalkingUI_SilentUserLifeTime * 1000);
+			}
+		}
 	}
 
-	// The time that a silent user may stick around might have changed as well
-	QHashIterator<unsigned int, QTimer *> timerIt(m_timers);
-	while (timerIt.hasNext()) {
-		QTimer *timer = timerIt.next().value();
-		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
-		timer->setInterval(g.s.iTalkingUI_SilentUserLifeTime * 1000);
-	}
 
 	// Whether or not the current user should always be displayed might also have changed,
 	// so we'll have to update that as well.
-	const ClientUser *self = ClientUser::get(g.uiSession);
+	TalkingUIUser *localUserEntry = findUser(g.uiSession);
+	if (localUserEntry) {
+		localUserEntry->restrictLifetime(!g.s.bTalkingUI_LocalUserStaysVisible);
+	}
 
-	if (self) {
-		if (m_timers.contains(self->uiSession)) {
-			if (g.s.bTalkingUI_LocalUserStaysVisible) {
-				// Stop any potentially running timers as we don't want to remove the user (anymore)
-				if (m_timers.contains(self->uiSession)) {
-					m_timers[self->uiSession]->stop();
-				} else {
-					qCritical("TalkingUI::on_settingsChanged Can't find timer for local user (wanted to stop it)");
-				}
 
-				// Make sure local user exists and is visible
-				addUser(self);
-				ensureVisible(self->uiSession, self->cChannel->iId);
-			} else if (self->tsState == Settings::Passive) {
-				// Start the timer as the user may not stay around forever and (s)he is currently not
-				// talking.
-				if (m_timers.contains(self->uiSession)) {
-					m_timers[self->uiSession]->start();
-				} else {
-					qCritical("TalkingUI::on_settingsChanged Can't find timer for local user (wanted to start it)");
+	// Furthermore whether or not to display the local user's listeners might have changed -> clear all
+	// listeners from the TalkingUI and add them again if appropriate
+	removeAllListeners();
+	if (g.s.bTalkingUI_ShowLocalListeners) {
+		const ClientUser *self = ClientUser::get(g.uiSession);
+		if (self) {
+			const QSet<int> channels = ChannelListener::getListenedChannelsForUser(self->uiSession);
+
+			for (int currentChannelID : channels) { 
+				const Channel *channel = Channel::get(currentChannelID);
+				
+				if (channel) {
+					addListener(self, channel);
 				}
 			}
 		}
@@ -843,14 +768,7 @@ void TalkingUI::on_settingsChanged() {
 }
 
 void TalkingUI::on_clientDisconnected(unsigned int userSession) {
-	if (m_entries.contains(userSession)) {
-		// If the user that just disconnected is contained in the TalkingUI, make sure
-		// it is hidden.
-		hideUser(userSession);
-
-		// Delete the user's entry from the TalkingUI
-		m_entries.remove(userSession);
-	}
+	removeUser(userSession);
 }
 
 void TalkingUI::on_muteDeafStateChanged() {
@@ -865,9 +783,31 @@ void TalkingUI::on_muteDeafStateChanged() {
 void TalkingUI::on_userLocalVolumeAdjustmentsChanged(float, float) {
 	ClientUser *user = qobject_cast<ClientUser *>(sender());
 
-	if (user && m_entries.contains(user->uiSession)) {
-		Entry entry = m_entries[user->uiSession];
+	if (user) {
+		TalkingUIUser *userEntry = findUser(user->uiSession);
+		if (userEntry) {
+			userEntry->setDisplayString(UserModel::createDisplayString(*user, false, nullptr));
+		}
+	}
+}
 
-		entry.name->setText(UserModel::createDisplayString(*user, false, nullptr));
+void TalkingUI::on_channelListenerAdded(const ClientUser *user, const Channel *channel) {
+	if (user->uiSession == g.uiSession && g.s.bTalkingUI_ShowLocalListeners) {
+		addListener(user, channel);
+	}
+}
+
+void TalkingUI::on_channelListenerRemoved(const ClientUser *user, const Channel *channel) {
+	removeListener(user->uiSession, channel->iId);
+}
+
+void TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float, float) {
+	TalkingUIChannelListener *listenerEntry = findListener(g.uiSession, channelID);
+
+	const Channel *channel = Channel::get(channelID);
+	const ClientUser *self = ClientUser::get(g.uiSession);
+
+	if (listenerEntry && channel && self) {
+		listenerEntry->setDisplayString(UserModel::createDisplayString(*self, true, channel));
 	}
 }

@@ -30,9 +30,9 @@
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
-QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
-QHash <ClientUser *, QList<ModelItem *>> ModelItem::s_userProxies;
+QHash <const Channel *, ModelItem *> ModelItem::c_qhChannels;
+QHash <const ClientUser *, ModelItem *> ModelItem::c_qhUsers;
+QHash <const ClientUser *, QList<ModelItem *>> ModelItem::s_userProxies;
 bool ModelItem::bUsersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
@@ -330,6 +330,30 @@ QModelIndex UserModel::index(Channel *c, int column) const {
 
 QModelIndex UserModel::index(ModelItem *item) const {
 	return createIndex(item->rowOfSelf(), 0, item);
+}
+
+QModelIndex UserModel::channelListenerIndex(const ClientUser *user, const Channel *channel, int column) const {
+	QList<ModelItem *> items = ModelItem::s_userProxies.value(user);
+
+	ModelItem *item = nullptr;
+	for (ModelItem *currentItem : items) {
+		ModelItem *parent = currentItem->parent;
+		if (currentItem->isListener && parent && parent->cChan == channel) {
+			item = currentItem;
+			break;
+		}
+	}
+
+	Q_ASSERT(user);
+	Q_ASSERT(channel);
+	Q_ASSERT(item);
+	if (!item || !channel || !user) {
+		return QModelIndex();
+	}
+
+	QModelIndex idx = createIndex(item->rowOfSelf(), column, item);
+
+	return idx;
 }
 
 QModelIndex UserModel::parent(const QModelIndex &idx) const {
@@ -1297,7 +1321,6 @@ void UserModel::addChannelListener(ClientUser *p, Channel *c) {
 	int row = citem->insertIndex(p, true);
 
 	beginInsertRows(index(citem), row, row);
-	ChannelListener::addListener(p, c);
 	citem->qlChildren.insert(row, item);
 	endInsertRows();
 
@@ -1309,7 +1332,7 @@ void UserModel::addChannelListener(ClientUser *p, Channel *c) {
 	updateOverlay();
 }
 
-void UserModel::removeChannelListener(ClientUser *p, Channel *c) {
+void UserModel::removeChannelListener(const ClientUser *p, const Channel *c) {
 	// The way operator[] works for a QHash is that it'll insert a default-constructed
 	// object first, before returning a reference to it, in case there is no entry for
 	// the provided key yet. Thus we never have to worry about explicitly adding an empty
@@ -1355,6 +1378,19 @@ bool UserModel::isChannelListener(const QModelIndex &idx) const {
 	return item->isListener;
 }
 
+void UserModel::setSelectedChannelListener(unsigned int userSession, int channelID) {
+	QModelIndex idx = channelListenerIndex(ClientUser::get(userSession), Channel::get(channelID));
+
+	if (!idx.isValid()) {
+		return;
+	}
+
+	QTreeView *v = g.mw->qtvUsers;
+	if (v) {
+		v->setCurrentIndex(idx);
+	}
+}
+
 void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
 	if (!citem) {
 		citem = item->parent;
@@ -1384,7 +1420,6 @@ void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
 	int row = citem->qlChildren.indexOf(item);
 
 	beginRemoveRows(index(citem), row, row);
-	ChannelListener::removeListener(p, c);
 	citem->qlChildren.removeAt(row);
 	endRemoveRows();
 
@@ -1554,7 +1589,13 @@ Channel *UserModel::getChannel(const QModelIndex &idx) const {
 	item = static_cast<ModelItem *>(idx.internalPointer());
 
 	if (item->pUser)
-		return item->pUser->cChannel;
+		if (item->parent && item->parent->cChan) {
+			return item->parent->cChan;
+		} else {
+			// Failsafe in case the item does not have a parent
+			qWarning("UserModel::getChannel encountered weird program flow - that's a bug (please report)!");
+			return item->pUser->cChannel;
+		}
 	else
 		return item->cChan;
 }

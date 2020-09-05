@@ -41,6 +41,13 @@ bool TalkingUISelection::operator!=(const TalkingUISelection &other) const {
 	return m_widget != other.m_widget;
 }
 
+bool TalkingUISelection::operator==(const QWidget *widget) const {
+	return m_widget == widget;
+}
+
+bool TalkingUISelection::operator!=(const QWidget *widget) const {
+	return m_widget != widget;
+}
 
 
 UserSelection::UserSelection(QWidget *widget, unsigned int userSession)
@@ -73,6 +80,24 @@ void ChannelSelection::syncToMainWindow() const {
 
 std::unique_ptr<TalkingUISelection> ChannelSelection::cloneToHeap() const {
 	return std::make_unique<ChannelSelection>(*this);
+}
+
+
+
+ListenerSelection::ListenerSelection(QWidget *widget, unsigned int userSession, int channelID)
+	: TalkingUISelection(widget),
+	  m_userSession(userSession),
+	  m_channelID(channelID) {
+}
+
+void ListenerSelection::syncToMainWindow() const {
+	if (g.mw && g.mw->pmModel) {
+		g.mw->pmModel->setSelectedChannelListener(m_userSession, m_channelID);
+	}
+}
+
+std::unique_ptr<TalkingUISelection> ListenerSelection::cloneToHeap() const {
+	return std::make_unique<ListenerSelection>(*this);
 }
 
 

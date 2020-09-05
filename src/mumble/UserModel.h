@@ -35,9 +35,9 @@ public:
 	/// Number of users in this channel (recursive)
 	int iUsers;
 
-	static QHash <Channel *, ModelItem *> c_qhChannels;
-	static QHash <ClientUser *, ModelItem *> c_qhUsers;
-	static QHash <ClientUser *, QList<ModelItem *>> s_userProxies;
+	static QHash <const Channel *, ModelItem *> c_qhChannels;
+	static QHash <const ClientUser *, ModelItem *> c_qhUsers;
+	static QHash <const ClientUser *, QList<ModelItem *>> s_userProxies;
 	static bool bUsersTop;
 
 	ModelItem(Channel *c);
@@ -106,6 +106,7 @@ class UserModel : public QAbstractItemModel {
 		QModelIndex index(ClientUser *, int column = 0) const;
 		QModelIndex index(Channel *, int column = 0) const;
 		QModelIndex index(ModelItem *) const;
+		QModelIndex channelListenerIndex(const ClientUser *, const Channel *, int column = 0) const;
 
 		QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
 		Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
@@ -148,10 +149,16 @@ class UserModel : public QAbstractItemModel {
 		/// @param p A pointer to the user
 		/// @param c A pointer to the channel. If this is nullptr, then all listeners
 		/// 	for the given user are removed (from all channels).
-		void removeChannelListener(ClientUser *p, Channel *c = nullptr);
+		void removeChannelListener(const ClientUser *p, const Channel *c = nullptr);
 		/// @param idx The QModelIndex to check
 		/// @returns Whether the ModelItem associated with the given index is a listener-proxy
 		bool isChannelListener(const QModelIndex &idx) const;
+
+		/// Sets the selection to the ChannelListener of the given user in the given channel
+		///
+		/// @param userSession The session ID of the respective User
+		/// @param channelID The ID of the respective Channel
+		void setSelectedChannelListener(unsigned int userSession, int channelID);
 
 		Channel *getSubChannel(Channel *p, int idx) const;
 
@@ -188,6 +195,12 @@ class UserModel : public QAbstractItemModel {
 		int iChannelDescription;
 
 
+		/// Creates the display string for the given user/listener
+		///
+		/// @param user The user to create the string for
+		/// @param isChannelListener Whether the display String is in fact for a listener of the given user
+		/// @param parentChannel The channel in which the listener resides. May be nullptr, if isChannelListener is false
+		/// @return The created display string
 		static QString createDisplayString(const ClientUser &user, bool isChannelListener, const Channel *parentChannel);
 	public slots:
 		/// Invalidates the model data of the ClientUser triggering this slot.

@@ -455,7 +455,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		pmModel->addChannelListener(pDst, c);
+		ChannelListener::addListener(pDst, c);
+		emit userAddedChannelListener(pDst, c);
 
 		QString logMsg;
 		if (pDst == pSelf) {
@@ -483,7 +484,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		pmModel->removeChannelListener(pDst, c);
+		ChannelListener::removeListener(pDst, c);
+		emit userRemovedChannelListener(pDst, c);
 
 		QString logMsg;
 		if (pDst == pSelf) {

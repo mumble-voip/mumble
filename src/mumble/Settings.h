@@ -284,6 +284,7 @@ struct Settings {
 	bool bTalkingUI_LocalUserStaysVisible;
 	bool bTalkingUI_AbbreviateChannelNames;
 	bool bTalkingUI_AbbreviateCurrentChannel;
+	bool bTalkingUI_ShowLocalListeners;
 	/// relative font size in %
 	int iTalkingUI_RelativeFontSize;
 	int iTalkingUI_SilentUserLifeTime;

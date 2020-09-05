@@ -320,6 +320,10 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		/// Signal emitted when the server and the client have finished
 		/// synchronizing (after a new connection).
 		void serverSynchronized();
+		/// Signal emitted whenever a user adds a new ChannelListener
+		void userAddedChannelListener(ClientUser *user, Channel *channel);
+		/// Signal emitted whenever a user removes a ChannelListener
+		void userRemovedChannelListener(ClientUser *user, Channel *channel);
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow() Q_DECL_OVERRIDE;
