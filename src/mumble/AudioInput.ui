@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>588</width>
-    <height>811</height>
+    <height>844</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -94,7 +94,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="1" column="4">
        <widget class="QCheckBox" name="qcbExclusive">
         <property name="minimumSize">
          <size>
@@ -111,41 +111,6 @@
         <property name="text">
          <string>Exclusive</string>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="qliEcho">
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="text">
-         <string>Echo Cancellation</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="MUComboBox" name="qcbEcho">
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="whatsThis">
-         <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>Disabled</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Mixed echo cancellation</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Multichannel echo cancellation</string>
-         </property>
-        </item>
        </widget>
       </item>
      </layout>
@@ -603,13 +568,38 @@
       <string>Audio Processing</string>
      </property>
      <layout class="QGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliNoise">
-        <property name="text">
-         <string>Noise Suppression</string>
+      <item row="1" column="1">
+       <widget class="QSlider" name="qsAmp">
+        <property name="toolTip">
+         <string>Maximum amplification of input sound</string>
         </property>
-        <property name="buddy">
-         <cstring>qsNoise</cstring>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you're speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</string>
+        </property>
+        <property name="maximum">
+         <number>19500</number>
+        </property>
+        <property name="singleStep">
+         <number>500</number>
+        </property>
+        <property name="pageStep">
+         <number>2000</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="qlNoise">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
@@ -635,19 +625,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="qlNoise">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="qliAmp">
         <property name="text">
@@ -655,28 +632,6 @@
         </property>
         <property name="buddy">
          <cstring>qsAmp</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSlider" name="qsAmp">
-        <property name="toolTip">
-         <string>Maximum amplification of input sound</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you're speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</string>
-        </property>
-        <property name="maximum">
-         <number>19500</number>
-        </property>
-        <property name="singleStep">
-         <number>500</number>
-        </property>
-        <property name="pageStep">
-         <number>2000</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -693,7 +648,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QCheckBox" name="qcbDenoise">
         <property name="minimumSize">
          <size>
@@ -710,6 +665,51 @@
         <property name="text">
          <string>RNNoise</string>
         </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliNoise">
+        <property name="text">
+         <string>Noise Suppression</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsNoise</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliEcho">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="text">
+         <string>Echo Cancellation</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="MUComboBox" name="qcbEcho">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Disabled</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Mixed echo cancellation</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Multichannel echo cancellation</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -934,7 +934,6 @@
  <tabstops>
   <tabstop>qcbSystem</tabstop>
   <tabstop>qcbDevice</tabstop>
-  <tabstop>qcbEcho</tabstop>
   <tabstop>qcbTransmit</tabstop>
   <tabstop>qsDoublePush</tabstop>
   <tabstop>qrbSNR</tabstop>
