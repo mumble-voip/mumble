@@ -72,7 +72,7 @@ void ::Murmur::${class}I::${func}_async('. join(", ", @{$wrapargs}).qq') {
 	}
 #endif
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_${class}_$func, ' . join(", ", @${callargs}).qq'));
-	QCoreApplication::instance()->postEvent(mi, ie);
+	QCoreApplication::instance()->postEvent(mi, ie, EXEC_EVENT_PRIORITY);
 }
 ';
 
