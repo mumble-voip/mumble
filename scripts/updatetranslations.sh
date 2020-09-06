@@ -18,6 +18,7 @@
 
 set -u
 set -e
+set -o pipefail
 
 file="mumble_en.ts"
 scriptPath="$(realpath $0)"
