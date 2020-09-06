@@ -21,10 +21,12 @@ set -e
 set -o pipefail
 
 file="mumble_en.ts"
-scriptPath="$(realpath $0)"
-srcDir="$(dirname $scriptPath)/../src"
-dir="$srcDir/mumble"
-# Make sure we are using 
+rootDir="$(dirname $(realpath $0))/.."
+filePath="./src/mumble/$file"
+
+cd "$rootDir"
+
+# Make sure we are using  Qt5
 export QT_SELECT=5
 tmpfile="commitmessage.tmp"
 
@@ -59,48 +61,42 @@ function main
 {
 	checkRequirements
 
-	if ! [[ -f "$dir/$file" ]];
+	if ! [[ -f "$filePath" ]];
 	then
-		printError "Could not find file '${file}'."
+		printError "Could not find file '$filePath'."
 		exit 1
 	fi
 
-	pushd "$dir" >/dev/null
-	trap 'code=$? ; popd >/dev/null; exit $code' INT TERM EXIT
-
-	if [[ -n $(git status --porcelain $file) ]] ; then
-		printError "The file $file has local changes."
+	if [[ -n $(git status --porcelain "$filePath") ]] ; then
+		printError "The file $filePath has local changes."
 		exit 1
 	fi
 
 	echo "TRANSLATION: Update translation files" > $tmpfile
 	echo "" >> $tmpfile
 	
-	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete -no-recursive "$srcDir" "$srcDir/mumble" -ts "$file" | tee -a $tmpfile || fatal "lupdate failed"
-	echo
+	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete -no-recursive "./src" "./src/mumble" -ts "$filePath" \
+		| tee -a $tmpfile || fatal "lupdate failed"
+	echo ""
 
 	# Duplicate single numerusform entries in mumble_en.ts to work around #1195
-	perl -pi -e 's!(^\s*)(<numerusform></numerusform>)$!\1\2\2!' $file || (rm $tmpfile ; fatal "Workardound for #1195 failed - in-place replacement via perl.")
+	perl -pi -e 's!(^\s*)(<numerusform></numerusform>)$!\1\2\2!' $filePath || (rm $tmpfile ; fatal "Workardound for #1195 failed - in-place replacement via perl.")
 	
 
-	if ! [[ -n $(git status --porcelain $file) ]] ; then
+	if ! [[ -n $(git status --porcelain $filePath) ]] ; then
 		echo "No translation changes. Nothing to commit."
 		rm $tmpfile
 		exit 0
 	fi
 
 	echo "Committing changes ..."
-	git commit -F $tmpfile $file || (rm $tmpfile ; fatal "Failed to commit the changes")
+	git commit -F $tmpfile $filePath || (rm $tmpfile ; fatal "Failed to commit the changes")
 	rm $tmpfile || printError "Failed to remove temporary file '$tmpfile'"
 
 	echo "Probably done."
 	echo
 	echo "Before pushing, _manually_ check the output above as well as the commits changes."
 	echo "An lupdate warning about overriding TRANSLATIONS is expected, as well as \"removal of plural forms\". Any project errors (missing qt modules) however are not, and the resulting changes must not be pushed."
-
-	popd >/dev/null
-	trap - INT TERM EXIT
-
 }
 
 main
