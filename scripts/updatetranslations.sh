@@ -18,9 +18,12 @@
 
 set -u
 set -e
+set -o pipefail
 
 file="mumble_en.ts"
-dir="`dirname $0`/../src/mumble"
+scriptPath="$(realpath $0)"
+srcDir="$(dirname $scriptPath)/../src"
+dir="$srcDir/mumble"
 # Make sure we are using 
 export QT_SELECT=5
 tmpfile="commitmessage.tmp"
@@ -70,10 +73,10 @@ function main
 		exit 1
 	fi
 
-	echo "Translation update" > $tmpfile
+	echo "TRANSLATION: Update translation files" > $tmpfile
 	echo "" >> $tmpfile
 	
-	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete mumble.pro -ts $file | tee -a $tmpfile || fatal "lupdate failed"
+	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete -no-recursive "$srcDir" "$srcDir/mumble" -ts "$file" | tee -a $tmpfile || fatal "lupdate failed"
 	echo
 
 	# Duplicate single numerusform entries in mumble_en.ts to work around #1195
