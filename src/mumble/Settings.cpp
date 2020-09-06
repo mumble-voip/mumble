@@ -307,8 +307,12 @@ Settings::Settings() {
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
-	iNoiseSuppress = -30;
-	bDenoise = false;
+#ifdef USE_RNNOISE
+	noiseCancelMode = NoiseCancelRNN;
+#else
+	noiseCancelMode = NoiseCancelSpeex;
+#endif
+	iSpeexNoiseCancelStrength = -30;
 	bAllowLowDelay = true;
 	uiAudioInputChannelMask = 0xffffffffffffffffULL;
 
@@ -564,6 +568,7 @@ BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelExpand)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelDrag)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ServerShow)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::NoiseCancel)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::WindowLayout)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::AlwaysOnTopBehaviour)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::RecordingMode)
@@ -705,8 +710,24 @@ void Settings::load(QSettings* settings_ptr) {
 	LOADENUM(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
-	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
-	SAVELOAD(bDenoise, "audio/denoise");
+
+	int oldNoiseSuppress = 0;
+	SAVELOAD(oldNoiseSuppress, "audio/noisesupress");
+	SAVELOAD(iSpeexNoiseCancelStrength, "audio/speexNoiseCancelStrength");
+
+	// Select the most negative of the 2 (one is expected to be zero as it is
+	// unset). This is for compatibility as we have renamed the setting at some point.
+	iSpeexNoiseCancelStrength = std::min(oldNoiseSuppress, iSpeexNoiseCancelStrength);
+
+	LOADENUM(noiseCancelMode, "audio/noiseCancelMode");
+
+#ifndef USE_RNNOISE
+	if (noiseCancelMode == NoiseCancelRNN || noiseCancelMode == NoiseCancelBoth) {
+		// Use Speex instead as this Mumble build was built without support for RNNoise
+		noiseCancelMode = NoiseCancelSpeex;
+	}
+#endif
+
 	SAVELOAD(bAllowLowDelay, "audio/allowlowdelay");
 	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
@@ -1066,8 +1087,8 @@ void Settings::save() {
 	SAVELOAD(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
-	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
-	SAVELOAD(bDenoise, "audio/denoise");
+	SAVELOAD(noiseCancelMode, "audio/noiseCancelMode");
+	SAVELOAD(iSpeexNoiseCancelStrength, "audio/speexNoiseCancelStrength");
 	SAVELOAD(bAllowLowDelay, "audio/allowlowdelay");
 	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
 	SAVELOAD(iVoiceHold, "audio/voicehold");

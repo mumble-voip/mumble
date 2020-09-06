@@ -720,7 +720,7 @@ void AudioInput::resetAudioProcessor() {
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_DECREMENT, &iArg);
 
 	if (noiseCancel == Settings::NoiseCancelSpeex) {
-		iArg = g.s.iNoiseSuppress;
+		iArg = g.s.iSpeexNoiseCancelStrength;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 	}
 
@@ -818,8 +818,7 @@ bool AudioInput::selectCodec() {
 
 void AudioInput::selectNoiseCancel() {
 
-	//noiseCancel = g.s.noiseCancel;
-	noiseCancel = g.s.bDenoise ? Settings::NoiseCancelRNN : Settings::NoiseCancelSpeex;
+	noiseCancel = g.s.noiseCancelMode;
 
 	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
 #ifdef USE_RNNOISE
@@ -940,7 +939,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
 	float gainValue = static_cast<float>(iArg);
 	if (noiseCancel == Settings::NoiseCancelSpeex || noiseCancel == Settings::NoiseCancelBoth) {
-		iArg = g.s.iNoiseSuppress - iArg;
+		iArg = g.s.iSpeexNoiseCancelStrength - iArg;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 	}
 

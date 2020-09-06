@@ -21,6 +21,8 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 		void updateEchoEnableState();
 
+		void showSpeexNoiseSuppressionSlider(bool show);
+
 	public:
 		/// The unique name of this ConfigWidget
 		static const QString name;
@@ -47,11 +49,13 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		void on_qsAmp_valueChanged(int v);
 		void on_qsDoublePush_valueChanged(int v);
 		void on_qsPTTHold_valueChanged(int v);
-		void on_qsNoise_valueChanged(int v);
+		void on_qsSpeexNoiseSupStrength_valueChanged(int v);
 		void on_qcbTransmit_currentIndexChanged(int v);
 		void on_qcbSystem_currentIndexChanged(int);
 		void on_Tick_timeout();
 		void on_qcbIdleAction_currentIndexChanged(int v);
+		void on_qrbNoiseSupSpeex_toggled(bool checked);
+		void on_qrbNoiseSupBoth_toggled(bool checked);
 };
 
 class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
