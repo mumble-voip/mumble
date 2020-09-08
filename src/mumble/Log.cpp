@@ -25,6 +25,7 @@
 #include <QtGui/QTextDocumentFragment>
 #include <QtWidgets/QDesktopWidget>
 #include <QtCore/QMutexLocker>
+#include <QSignalBlocker>
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
@@ -55,6 +56,22 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->header()->setSectionResizeMode(ColHighlight, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColTTS, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
+
+	// Add a "All messages" entry
+	allMessagesItem = new QTreeWidgetItem(qtwMessages);
+	allMessagesItem->setText(ColMessage, QObject::tr("All messages"));
+	allMessagesItem->setCheckState(ColConsole, Qt::Unchecked);
+	allMessagesItem->setToolTip(ColConsole, QObject::tr("Toggle console for all events"));
+	allMessagesItem->setCheckState(ColNotification, Qt::Unchecked);
+	allMessagesItem->setToolTip(ColNotification, QObject::tr("Toggle pop-up notifications for all events"));
+	allMessagesItem->setCheckState(ColHighlight, Qt::Unchecked);
+	allMessagesItem->setToolTip(ColHighlight, QObject::tr("Toggle window highlight (if not active) for all events"));
+	allMessagesItem->setCheckState(ColStaticSound, Qt::Unchecked);
+	allMessagesItem->setToolTip(ColStaticSound, QObject::tr("Click here to toggle sound notifications for all events"));
+#ifndef USE_NO_TTS
+	allMessagesItem->setCheckState(ColTTS, Qt::Unchecked);
+	allMessagesItem->setToolTip(ColTTS, QObject::tr("Toggle Text-to-Speech for all events"));
+#endif
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
@@ -88,6 +105,58 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	}
 }
 
+void LogConfig::updateSelectAllButtons() {
+	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+	bool allConsoleChecked = true;
+	bool allNotificationChecked = true;
+	bool allHighlightChecked = true;
+#ifndef USE_NO_TTS
+	bool allTTSChecked = true;
+#endif
+	bool allSoundChecked = true;
+	foreach(QTreeWidgetItem *i, qlItems) {
+		if (i == allMessagesItem) {
+			continue;
+		}
+
+		if (i->checkState(ColConsole) != Qt::Checked) {
+			allConsoleChecked = false;
+		}
+		if (i->checkState(ColNotification) != Qt::Checked) {
+			allNotificationChecked = false;
+		}
+		if (i->checkState(ColHighlight) != Qt::Checked) {
+			allHighlightChecked = false;
+		}
+#ifndef USE_NO_TTS
+		if (i->checkState(ColTTS) != Qt::Checked) {
+			allTTSChecked = false;
+		}
+#endif
+		if (i->checkState(ColStaticSound) != Qt::Checked) {
+			allSoundChecked = false;
+		}
+
+		if (!allConsoleChecked && !allNotificationChecked && !allHighlightChecked && !allSoundChecked) {
+#ifndef USE_NO_TTS
+			if (!allTTSChecked) {
+				break;
+			}
+#else	
+			break;
+#endif
+		}
+	}
+
+	allMessagesItem->setCheckState(ColConsole, allConsoleChecked ? Qt::Checked : Qt::Unchecked);
+	allMessagesItem->setCheckState(ColNotification, allNotificationChecked ? Qt::Checked : Qt::Unchecked);
+	allMessagesItem->setCheckState(ColHighlight, allHighlightChecked ? Qt::Checked : Qt::Unchecked);
+#ifndef USE_NO_TTS
+	allMessagesItem->setCheckState(ColTTS, allTTSChecked ? Qt::Checked : Qt::Unchecked);
+#endif
+	allMessagesItem->setCheckState(ColStaticSound, allSoundChecked ? Qt::Checked : Qt::Unchecked);
+}
+
 QString LogConfig::title() const {
 	return windowTitle();
 }
@@ -104,6 +173,9 @@ void LogConfig::load(const Settings &r) {
 	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
 
 	foreach(QTreeWidgetItem *i, qlItems) {
+		if (i == allMessagesItem) {
+			continue;
+		}
 		Log::MsgType mt = static_cast<Log::MsgType>(i->data(ColMessage, Qt::UserRole).toInt());
 		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(mt));
 
@@ -137,6 +209,9 @@ void LogConfig::load(const Settings &r) {
 void LogConfig::save() const {
 	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
 	foreach(QTreeWidgetItem *i, qlItems) {
+		if (i == allMessagesItem) {
+			continue;
+		}
 		Log::MsgType mt = static_cast<Log::MsgType>(i->data(ColMessage, Qt::UserRole).toInt());
 
 		int v = 0;
@@ -177,25 +252,40 @@ void LogConfig::accept() const {
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
-	if (! i->isSelected()) return;
-	switch (column) {
-		case ColTTS:
-			if (i->checkState(ColTTS))
-				i->setCheckState(ColStaticSound, Qt::Unchecked);
-			break;
-		case ColStaticSound:
-			if (i->checkState(ColStaticSound)) {
-				i->setCheckState(ColTTS, Qt::Unchecked);
-				if (i->text(ColStaticSoundPath).isEmpty()) browseForAudioFile();
-			}
-			break;
-		default:
-			break;
+	if (i->isSelected() && i != allMessagesItem) {
+		switch (column) {
+			case ColTTS:
+				if (i->checkState(ColTTS))
+					i->setCheckState(ColStaticSound, Qt::Unchecked);
+				break;
+			case ColStaticSound:
+				if (i->checkState(ColStaticSound)) {
+					i->setCheckState(ColTTS, Qt::Unchecked);
+					if (i->text(ColStaticSoundPath).isEmpty()) browseForAudioFile();
+				}
+				break;
+			default:
+				break;
+		}
+	}
+
+	if (i != allMessagesItem) {
+		updateSelectAllButtons();
+	} else {
+		// Suppress signals on the TreeWidget
+		const QSignalBlocker blocker(qtwMessages);
+		// Select / Unselect all entries of that column
+		QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+		foreach(QTreeWidgetItem *item, qlItems) {
+			if (item != allMessagesItem) {
+				item->setCheckState(column, allMessagesItem->checkState(column));
+			}		
+		}
 	}
 }
 
 void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
-	if (item && column == ColStaticSoundPath) {
+	if (item && item != allMessagesItem && column == ColStaticSoundPath) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
 			if (!ao->playSample(item->text(ColStaticSoundPath), false))
@@ -205,7 +295,7 @@ void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
 }
 
 void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int column) {
-	if (item && column == ColStaticSoundPath)
+	if (item && item != allMessagesItem && column == ColStaticSoundPath)
 		browseForAudioFile();
 }
 

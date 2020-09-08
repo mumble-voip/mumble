@@ -23,6 +23,10 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(LogConfig)
+
+		QTreeWidgetItem *allMessagesItem;
+	protected:
+		void updateSelectAllButtons();
 	public:
 		/// The unique name of this ConfigWidget
 		static const QString name;

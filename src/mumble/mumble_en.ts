@@ -7073,6 +7073,30 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>Talking (muted)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>All messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle console for all events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle pop-up notifications for all events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle window highlight (if not active) for all events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to toggle sound notifications for all events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle Text-to-Speech for all events</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
