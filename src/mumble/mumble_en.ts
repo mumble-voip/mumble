@@ -790,10 +790,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Noise Suppression</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Noise suppression</source>
         <translation type="unfinished"></translation>
     </message>
@@ -970,18 +966,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply RNNoise&apos;s noise suppression filter.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This applies RNNoise&apos;s noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RNNoise</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Audio input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -999,6 +983,34 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Allow low delay mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t use noise suppression.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by Speex.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the noise suppression algorithm provided by RNNoise.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This controls the amount by which Speex will suppress noise.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speex suppression strength</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7095,6 +7107,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
