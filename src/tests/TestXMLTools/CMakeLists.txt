@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-get_target_property(MUMBLE_SOURCE_DIR mumble SOURCE_DIR)
+set(MUMBLE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/mumble")
 
 set(TESTXMLTOOLS_SOURCES
 	TestXMLTools.cpp
