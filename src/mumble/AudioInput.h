@@ -169,6 +169,7 @@ class AudioInput : public QThread {
 		OpusEncoder *opusState;
 		DenoiseState *denoiseState;
 		bool selectCodec();
+		void selectNoiseCancel();
 		
 		typedef boost::array<unsigned char, 960> EncodingOutputBuffer;
 		
@@ -186,6 +187,7 @@ class AudioInput : public QThread {
 		quint64 uiMicChannelMask, uiEchoChannelMask;
 
 		bool bEchoMulti;
+		Settings::NoiseCancel noiseCancel;
 		static const unsigned int iSampleRate = SAMPLE_RATE;
 		static const int iFrameSize = SAMPLE_RATE / 100;
 

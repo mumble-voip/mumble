@@ -150,6 +150,7 @@ struct Settings {
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
 	enum TalkState { Passive, Talking, Whispering, Shouting, MutedTalking };
 	enum IdleAction { Nothing, Deafen, Mute };
+	enum NoiseCancel { NoiseCancelOff, NoiseCancelSpeex, NoiseCancelRNN, NoiseCancelBoth };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
 	AudioTransmit atTransmit;
@@ -181,9 +182,9 @@ struct Settings {
 	///backend.
 	QString qsTTSLanguage;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
-	int iNoiseSuppress;
 	bool bAllowLowDelay;
-	bool bDenoise;
+	NoiseCancel noiseCancelMode;
+	int iSpeexNoiseCancelStrength;
 	quint64 uiAudioInputChannelMask;
 
 	// Idle auto actions

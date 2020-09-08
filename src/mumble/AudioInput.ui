@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>588</width>
-    <height>811</height>
+    <height>940</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -94,7 +94,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="1" column="4">
        <widget class="QCheckBox" name="qcbExclusive">
         <property name="minimumSize">
          <size>
@@ -111,41 +111,6 @@
         <property name="text">
          <string>Exclusive</string>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="qliEcho">
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="text">
-         <string>Echo Cancellation</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="MUComboBox" name="qcbEcho">
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="whatsThis">
-         <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>Disabled</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Mixed echo cancellation</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Multichannel echo cancellation</string>
-         </property>
-        </item>
        </widget>
       </item>
      </layout>
@@ -603,62 +568,7 @@
       <string>Audio Processing</string>
      </property>
      <layout class="QGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliNoise">
-        <property name="text">
-         <string>Noise Suppression</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsNoise</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSlider" name="qsNoise">
-        <property name="toolTip">
-         <string>Noise suppression</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</string>
-        </property>
-        <property name="minimum">
-         <number>14</number>
-        </property>
-        <property name="maximum">
-         <number>60</number>
-        </property>
-        <property name="pageStep">
-         <number>5</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="qlNoise">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="qliAmp">
-        <property name="text">
-         <string>Max. Amplification</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsAmp</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="QSlider" name="qsAmp">
         <property name="toolTip">
          <string>Maximum amplification of input sound</string>
@@ -680,7 +590,17 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliAmp">
+        <property name="text">
+         <string>Max. Amplification</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsAmp</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
        <widget class="QLabel" name="qlAmp">
         <property name="minimumSize">
          <size>
@@ -693,23 +613,150 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QCheckBox" name="qcbDenoise">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>27</height>
-         </size>
-        </property>
+      <item row="3" column="0">
+       <widget class="QLabel" name="qliEcho">
         <property name="toolTip">
-         <string>Apply RNNoise's noise suppression filter.</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This applies RNNoise's noise suppression filter.&lt;/b&gt;&lt;br /&gt;RNNoise is based on machine learning and used in WebRTC.</string>
+         <string/>
         </property>
         <property name="text">
-         <string>RNNoise</string>
+         <string>Echo Cancellation</string>
         </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="3">
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Noise suppression</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QRadioButton" name="qrbNoiseSupDeactivated">
+             <property name="toolTip">
+              <string>Don't use noise suppression.</string>
+             </property>
+             <property name="text">
+              <string>Disabled</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="qrbNoiseSupSpeex">
+             <property name="toolTip">
+              <string>Use the noise suppression algorithm provided by Speex.</string>
+             </property>
+             <property name="text">
+              <string notr="true">Speex</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="qrbNoiseSupRNNoise">
+             <property name="toolTip">
+              <string>Use the noise suppression algorithm provided by RNNoise.</string>
+             </property>
+             <property name="text">
+              <string notr="true">RNNoise</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="qrbNoiseSupBoth">
+             <property name="toolTip">
+              <string>Use a combination of Speex and RNNoise to do noise suppression.</string>
+             </property>
+             <property name="text">
+              <string>Both</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="qlSpeexNoiseSup">
+             <property name="toolTip">
+              <string>This controls the amount by which Speex will suppress noise.</string>
+             </property>
+             <property name="text">
+              <string>Speex suppression strength</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="qsSpeexNoiseSupStrength">
+             <property name="toolTip">
+              <string>This controls the amount by which Speex will suppress noise.</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</string>
+             </property>
+             <property name="minimum">
+              <number>15</number>
+             </property>
+             <property name="maximum">
+              <number>60</number>
+             </property>
+             <property name="pageStep">
+              <number>5</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="qlSpeexNoiseSupStrength">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>30</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>This controls the amount by which Speex will suppress noise.</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="2">
+       <widget class="MUComboBox" name="qcbEcho">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Disabled</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Mixed echo cancellation</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Multichannel echo cancellation</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -934,7 +981,6 @@
  <tabstops>
   <tabstop>qcbSystem</tabstop>
   <tabstop>qcbDevice</tabstop>
-  <tabstop>qcbEcho</tabstop>
   <tabstop>qcbTransmit</tabstop>
   <tabstop>qsDoublePush</tabstop>
   <tabstop>qrbSNR</tabstop>
@@ -943,8 +989,6 @@
   <tabstop>qsTransmitMax</tabstop>
   <tabstop>qsQuality</tabstop>
   <tabstop>qsFrames</tabstop>
-  <tabstop>qsNoise</tabstop>
-  <tabstop>qcbDenoise</tabstop>
   <tabstop>qsAmp</tabstop>
  </tabstops>
  <resources/>

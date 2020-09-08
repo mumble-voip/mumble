@@ -88,7 +88,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	qsTransmitMax->setAccessibleName(tr("Speech below"));
 	qsFrames->setAccessibleName(tr("Audio per packet"));
 	qsQuality->setAccessibleName(tr("Quality of compression (peak bandwidth)"));
-	qsNoise->setAccessibleName(tr("Noise suppression"));
+	qsSpeexNoiseSupStrength->setAccessibleName(tr("Noise suppression"));
 	qsAmp->setAccessibleName(tr("Maximum amplification"));
 	qlePushClickPathOn->setAccessibleName(tr("Transmission started sound"));
 	qlePushClickPathOff->setAccessibleName(tr("Transmission stopped sound"));
@@ -116,6 +116,15 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	on_qcbPushClick_clicked(g.s.bTxAudioCue);
 	on_Tick_timeout();
 	on_qcbIdleAction_currentIndexChanged(g.s.iaeIdleAction);
+
+	// Hide the slider by default
+	showSpeexNoiseSuppressionSlider(false);
+
+#ifndef USE_RNNOISE
+	// Hide options related to RNNoise
+	qrbNoiseSupRNNoise->setVisible(false);
+	qrbNoiseSupBoth->setVisible(false);
+#endif
 }
 
 QString AudioInputDialog::title() const {
@@ -164,17 +173,56 @@ void AudioInputDialog::load(const Settings &r) {
 	loadCheckBox(qcbPushClick, r.bTxAudioCue);
 	loadSlider(qsQuality, r.iQuality);
 	loadCheckBox(qcbAllowLowDelay, r.bAllowLowDelay);
-	if (r.iNoiseSuppress != 0)
-		loadSlider(qsNoise, - r.iNoiseSuppress);
-	else
-		loadSlider(qsNoise, 14);
-	loadCheckBox(qcbDenoise, r.bDenoise);
+	if (r.iSpeexNoiseCancelStrength != 0) {
+		loadSlider(qsSpeexNoiseSupStrength, - r.iSpeexNoiseCancelStrength);
+	} else {
+		loadSlider(qsSpeexNoiseSupStrength, 14);
+	}
 
+	bool allowRNNoise = SAMPLE_RATE == 48000;
+
+	if (!allowRNNoise) {
+		const QString tooltip = QObject::tr("RNNoise is not available due to a sample rate mismatch.");
+		qrbNoiseSupRNNoise->setEnabled(false);
+		qrbNoiseSupRNNoise->setToolTip(tooltip);
+		qrbNoiseSupBoth->setEnabled(false);
+		qrbNoiseSupBoth->setToolTip(tooltip);
+	}
+
+	switch (r.noiseCancelMode) {
+		case Settings::NoiseCancelOff:
+			loadCheckBox(qrbNoiseSupDeactivated, true);
+			break;
+		case Settings::NoiseCancelSpeex:
+			loadCheckBox(qrbNoiseSupSpeex, true);
+			break;
+		case Settings::NoiseCancelRNN:
 #ifdef USE_RNNOISE
-	qcbDenoise->setEnabled(SAMPLE_RATE == 48000);
+			if (allowRNNoise) {
+				loadCheckBox(qrbNoiseSupRNNoise, true);
+			} else {
+				// We have to switch to speex as a fallback
+				loadCheckBox(qrbNoiseSupSpeex, true);
+			}
 #else
-	qcbDenoise->setVisible(false);
+			// We have to switch to speex as a fallback
+			loadCheckBox(qrbNoiseSupSpeex, true);
 #endif
+			break;
+		case Settings::NoiseCancelBoth:
+#ifdef USE_RNNOISE
+			if (allowRNNoise) {
+				loadCheckBox(qrbNoiseSupBoth, true);
+			} else {
+				// We have to switch to speex as a fallback
+				loadCheckBox(qrbNoiseSupSpeex, true);
+			}
+#else
+			// We have to switch to speex as a fallback
+			loadCheckBox(qrbNoiseSupSpeex, true);
+#endif
+			break;
+	}
 
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
 
@@ -193,8 +241,18 @@ void AudioInputDialog::load(const Settings &r) {
 void AudioInputDialog::save() const {
 	s.iQuality = qsQuality->value();
 	s.bAllowLowDelay = qcbAllowLowDelay->isChecked();
-	s.iNoiseSuppress = (qsNoise->value() == 14) ? 0 : - qsNoise->value();
-	s.bDenoise = qcbDenoise->isChecked();
+	s.iSpeexNoiseCancelStrength = (qsSpeexNoiseSupStrength->value() == 14) ? 0 : - qsSpeexNoiseSupStrength->value();
+
+	if (qrbNoiseSupDeactivated->isChecked()) {
+		s.noiseCancelMode = Settings::NoiseCancelOff;
+	} else if (qrbNoiseSupBoth->isChecked()) {
+		s.noiseCancelMode = Settings::NoiseCancelBoth;
+	} else if (qrbNoiseSupRNNoise->isChecked()) {
+		s.noiseCancelMode = Settings::NoiseCancelRNN;
+	} else {
+		s.noiseCancelMode = Settings::NoiseCancelSpeex;
+	}
+
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	s.iVoiceHold = qsTransmitHold->value();
 	s.fVADmin = static_cast<float>(qsTransmitMin->value()) / 32767.0f;
@@ -260,16 +318,16 @@ void AudioInputDialog::on_qsQuality_valueChanged(int v) {
 	updateBitrate();
 }
 
-void AudioInputDialog::on_qsNoise_valueChanged(int v) {
+void AudioInputDialog::on_qsSpeexNoiseSupStrength_valueChanged(int v) {
 	QPalette pal;
 
 	if (v < 15) {
-		qlNoise->setText(tr("Off"));
-		pal.setColor(qlNoise->foregroundRole(), Qt::red);
+		qlSpeexNoiseSupStrength->setText(tr("Off"));
+		pal.setColor(qlSpeexNoiseSupStrength->foregroundRole(), Qt::red);
 	} else {
-		qlNoise->setText(tr("-%1 dB").arg(v));
+		qlSpeexNoiseSupStrength->setText(tr("-%1 dB").arg(v));
 	}
-	qlNoise->setPalette(pal);
+	qlSpeexNoiseSupStrength->setPalette(pal);
 }
 
 void AudioInputDialog::on_qsAmp_valueChanged(int v) {
@@ -440,6 +498,12 @@ void AudioInputDialog::updateEchoEnableState() {
 	}
 }
 
+void AudioInputDialog::showSpeexNoiseSuppressionSlider(bool show) {
+	qlSpeexNoiseSup->setVisible(show);
+	qsSpeexNoiseSupStrength->setVisible(show);
+	qlSpeexNoiseSupStrength->setVisible(show);
+}
+
 void AudioInputDialog::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
 
@@ -467,6 +531,14 @@ void AudioInputDialog::on_qcbIdleAction_currentIndexChanged(int v) {
 	qlIdle2->setEnabled(enabled);
 	qsbIdle->setEnabled(enabled);
 	qcbUndoIdleAction->setEnabled(enabled);
+}
+
+void AudioInputDialog::on_qrbNoiseSupSpeex_toggled(bool checked) {
+	showSpeexNoiseSuppressionSlider(checked);
+}
+
+void AudioInputDialog::on_qrbNoiseSupBoth_toggled(bool checked) {
+	showSpeexNoiseSuppressionSlider(checked);
 }
 
 void AudioOutputDialog::enablePulseAudioAttenuationOptionsFor(const QString &outputName) {
