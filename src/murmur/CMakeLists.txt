@@ -3,6 +3,8 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+include(GNUInstallDirs)
+
 set(MURMUR_RC "${CMAKE_CURRENT_BINARY_DIR}/murmur.rc")
 set(MURMUR_ICON "${CMAKE_SOURCE_DIR}/icons/murmur.ico")
 set(MURMUR_PLIST "${CMAKE_CURRENT_BINARY_DIR}/murmur.plist")
@@ -312,4 +314,8 @@ if(WIN32)
 	install(TARGETS murmur RUNTIME DESTINATION . COMPONENT mumble_server)
 else()
 	install(TARGETS murmur RUNTIME DESTINATION bin COMPONENT mumble_server)
+
+	# Install Murmur man files
+	install(FILES "${CMAKE_SOURCE_DIR}/man/murmurd.1" DESTINATION "${CMAKE_INSTALL_MANDIR}/man1" COMPONENT doc)
+	install(FILES "${CMAKE_SOURCE_DIR}/man/murmur-user-wrapper.1" DESTINATION "${CMAKE_INSTALL_MANDIR}/man1" COMPONENT doc)
 endif()

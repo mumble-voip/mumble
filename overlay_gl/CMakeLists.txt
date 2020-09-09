@@ -5,6 +5,8 @@
 
 # Overlay payload for UNIX-like systems.
 
+include(GNUInstallDirs)
+
 if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "amd64")
 	option(overlay-xcompile "Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes." ON)
 endif()
@@ -116,3 +118,6 @@ else()
 			${LIB_COREFOUNDATION}
 	)
 endif()
+
+# install overlay man-files
+install(FILES "${CMAKE_SOURCE_DIR}/man/mumble-overlay.1" DESTINATION "${CMAKE_INSTALL_MANDIR}/man1" COMPONENT doc)

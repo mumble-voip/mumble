@@ -3,6 +3,8 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+include(GNUInstallDirs)
+
 set(MUMBLE_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble.rc")
 set(MUMBLE_DLL_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble_dll.rc")
 set(MUMBLE_PLIST "${CMAKE_CURRENT_BINARY_DIR}/mumble.plist")
@@ -305,6 +307,9 @@ else()
 	else()
 		install(TARGETS mumble BUNDLE DESTINATION . COMPONENT mumble_client)
 	endif()
+
+	# Install Mumble man files
+	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble.1" DESTINATION "${CMAKE_INSTALL_MANDIR}/man1" COMPONENT doc)
 endif()
 
 target_compile_definitions(mumble
