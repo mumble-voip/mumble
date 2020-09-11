@@ -9,7 +9,7 @@ freebsd_task:
   build_script:
   - mkdir build && cd build
   # We disable translations because of a critical issue in "lupdate": it's very slow and keeps CPU usage at 100%.
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -Dsymbols=ON -Dtranslations=OFF ..
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dsymbols=ON -Dtranslations=OFF ..
   - cmake --build .
   test_script:
   - cd build

@@ -172,6 +172,6 @@ if(server)
 	add_subdirectory(murmur)
 endif()
 
-if(BUILD_TESTING)
+if(tests)
 	add_subdirectory(tests)
 endif()

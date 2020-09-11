@@ -32,12 +32,12 @@ list(APPEND CMAKE_MODULE_PATH
 	"${CMAKE_SOURCE_DIR}/cmake/FindModules"
 )
 
+
 include(pkg-utils)
-include(CTest)
 include(project-utils)
 
 
-option(BUILD_TESTING "Build tests." OFF)
+option(tests "Build tests" OFF)
 
 option(optimize "Build a heavily optimized version, specific to the machine it's being compiled on." OFF)
 option(static "Build static binaries." OFF)
@@ -95,6 +95,21 @@ message(STATUS "Mumble version:  ${version}")
 message(STATUS "Architecture:    ${ARCH}")
 message(STATUS "Build type:      ${BUILD_STR}")
 message(STATUS "##################################################")
+
+# We have to check for BUILD_TESTING before including CTest as CTest defines this variable
+if(DEFINED BUILD_TESTING)
+	message(WARNING "Use of option \"BUILD_TESTING\" is deprecated. Use \"tests\" instead.")
+
+	if(NOT tests)
+		# Allow deprecated option to enable tests if they had been disabled otherwise
+		set(tests "${BUILD_TESTING}")
+	endif()
+endif()
+
+if(tests)
+	include(CTest)
+endif()
+
 
 add_subdirectory(src)
 

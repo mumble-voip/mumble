@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>. 
 
-if(BUILD_TESTING)
+if(tests)
 	if(WIN32 AND NOT ${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
 		# We're building for Windows on a different operating system.
 		find_program(WINE
