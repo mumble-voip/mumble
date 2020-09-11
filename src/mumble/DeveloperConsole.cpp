@@ -9,12 +9,11 @@
 
 #include <QtWidgets/QTextBrowser>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-DeveloperConsole::DeveloperConsole(QObject *parent)
-	: QObject(parent)  {
-
+DeveloperConsole::DeveloperConsole(QObject *parent) : QObject(parent) {
 	connect(g.le.data(), SIGNAL(newLogEntry(const QString &)), this, SLOT(addLogMessage(const QString &)));
 }
 
@@ -34,9 +33,9 @@ void DeveloperConsole::show() {
 
 		connect(g.le.data(), SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
 
-		foreach(const QString &m, m_logEntries)
+		foreach (const QString &m, m_logEntries)
 			tb->append(m);
-		m_window = QPointer<QMainWindow>(mw);
+		m_window = QPointer< QMainWindow >(mw);
 	}
 
 	m_window.data()->show();

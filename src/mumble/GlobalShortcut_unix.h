@@ -6,9 +6,9 @@
 #ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_UNIX_H_
 #define MUMBLE_MUMBLE_GLOBALSHORTCUT_UNIX_H_
 
-#include "GlobalShortcut.h"
 #include "ConfigDialog.h"
 #include "Global.h"
+#include "GlobalShortcut.h"
 
 #include <X11/X.h>
 
@@ -18,29 +18,29 @@ struct _XDisplay;
 typedef _XDisplay Display;
 
 class GlobalShortcutX : public GlobalShortcutEngine {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(GlobalShortcutX)
-	public:
-		Display *display;
-		QSet<Window> qsRootWindows;
-		int iXIopcode;
-		QSet<int> qsMasterDevices;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(GlobalShortcutX)
+public:
+	Display *display;
+	QSet< Window > qsRootWindows;
+	int iXIopcode;
+	QSet< int > qsMasterDevices;
 
-		volatile bool bRunning;
-		QSet<QString> qsKeyboards;
-		QMap<QString, QFile *> qmInputDevices;
+	volatile bool bRunning;
+	QSet< QString > qsKeyboards;
+	QMap< QString, QFile * > qmInputDevices;
 
-		GlobalShortcutX();
-		~GlobalShortcutX() Q_DECL_OVERRIDE;
-		void run() Q_DECL_OVERRIDE;
-		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
+	GlobalShortcutX();
+	~GlobalShortcutX() Q_DECL_OVERRIDE;
+	void run() Q_DECL_OVERRIDE;
+	QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
 
-		void queryXIMasterList();
-	public slots:
-		void displayReadyRead(int);
-		void inputReadyRead(int);
-		void directoryChanged(const QString &);
+	void queryXIMasterList();
+public slots:
+	void displayReadyRead(int);
+	void inputReadyRead(int);
+	void directoryChanged(const QString &);
 };
 
 #endif

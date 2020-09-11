@@ -9,46 +9,43 @@
 #include <QtNetwork/QHostInfo>
 
 static qint64 normalizeSrvPriority(quint16 priority, quint16 weight) {
-	return static_cast<qint64>((65535U * priority) + weight);
+	return static_cast< qint64 >((65535U * priority) + weight);
 }
 
 class ServerResolverPrivate : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ServerResolverPrivate)
-	public:
-		ServerResolverPrivate(QObject *parent);
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(ServerResolverPrivate)
+public:
+	ServerResolverPrivate(QObject *parent);
 
-		void resolve(QString hostname, quint16 port);
-		QList<ServerResolverRecord> records();
+	void resolve(QString hostname, quint16 port);
+	QList< ServerResolverRecord > records();
 
-		QString m_origHostname;
-		quint16 m_origPort;
+	QString m_origHostname;
+	quint16 m_origPort;
 
-		QList<QDnsServiceRecord> m_srvQueue;
-		QMap<int, int> m_hostInfoIdToIndexMap;
-		int m_srvQueueRemain;
+	QList< QDnsServiceRecord > m_srvQueue;
+	QMap< int, int > m_hostInfoIdToIndexMap;
+	int m_srvQueueRemain;
 
-		QList<ServerResolverRecord> m_resolved;
+	QList< ServerResolverRecord > m_resolved;
 
-	signals:
-		void resolved();
+signals:
+	void resolved();
 
-	public slots:
-		void srvResolved();
-		void hostResolved(QHostInfo hostInfo);
-		void hostFallbackResolved(QHostInfo hostInfo);
+public slots:
+	void srvResolved();
+	void hostResolved(QHostInfo hostInfo);
+	void hostFallbackResolved(QHostInfo hostInfo);
 };
 
-ServerResolverPrivate::ServerResolverPrivate(QObject *parent)
-	: QObject(parent)
-	, m_origPort(0)
-	, m_srvQueueRemain(0) {
+ServerResolverPrivate::ServerResolverPrivate(QObject *parent) : QObject(parent), m_origPort(0), m_srvQueueRemain(0) {
 }
 
 void ServerResolverPrivate::resolve(QString hostname, quint16 port) {
 	m_origHostname = hostname;
-	m_origPort = port;
+	m_origPort     = port;
 
 	QDnsLookup *resolver = new QDnsLookup(this);
 	connect(resolver, SIGNAL(finished()), this, SLOT(srvResolved()));
@@ -58,20 +55,20 @@ void ServerResolverPrivate::resolve(QString hostname, quint16 port) {
 	resolver->lookup();
 }
 
-QList<ServerResolverRecord> ServerResolverPrivate::records() {
+QList< ServerResolverRecord > ServerResolverPrivate::records() {
 	return m_resolved;
 }
 
 void ServerResolverPrivate::srvResolved() {
-	QDnsLookup *resolver = qobject_cast<QDnsLookup *>(sender());
+	QDnsLookup *resolver = qobject_cast< QDnsLookup * >(sender());
 
-	m_srvQueue = resolver->serviceRecords();
+	m_srvQueue       = resolver->serviceRecords();
 	m_srvQueueRemain = m_srvQueue.count();
 
 	if (resolver->error() == QDnsLookup::NoError && m_srvQueueRemain > 0) {
 		for (int i = 0; i < m_srvQueue.count(); i++) {
 			QDnsServiceRecord record = m_srvQueue.at(i);
-			int hostInfoId = QHostInfo::lookupHost(record.target(), this, SLOT(hostResolved(QHostInfo)));
+			int hostInfoId           = QHostInfo::lookupHost(record.target(), this, SLOT(hostResolved(QHostInfo)));
 			m_hostInfoIdToIndexMap[hostInfoId] = i;
 		}
 	} else {
@@ -82,18 +79,16 @@ void ServerResolverPrivate::srvResolved() {
 }
 
 void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
-	int lookupId = hostInfo.lookupId();
-	int idx = m_hostInfoIdToIndexMap[lookupId];
+	int lookupId             = hostInfo.lookupId();
+	int idx                  = m_hostInfoIdToIndexMap[lookupId];
 	QDnsServiceRecord record = m_srvQueue.at(idx);
 
 	if (hostInfo.error() == QHostInfo::NoError) {
-		QList<QHostAddress> resolvedAddresses = hostInfo.addresses();
-		
+		QList< QHostAddress > resolvedAddresses = hostInfo.addresses();
+
 		// Convert QHostAddress -> HostAddress.
-		QList<HostAddress> addresses;
-		foreach (QHostAddress ha, resolvedAddresses) {
-			addresses << HostAddress(ha);
-		}
+		QList< HostAddress > addresses;
+		foreach (QHostAddress ha, resolvedAddresses) { addresses << HostAddress(ha); }
 
 		qint64 priority = normalizeSrvPriority(record.priority(), record.weight());
 		m_resolved << ServerResolverRecord(m_origHostname, record.port(), priority, addresses);
@@ -107,13 +102,11 @@ void ServerResolverPrivate::hostResolved(QHostInfo hostInfo) {
 
 void ServerResolverPrivate::hostFallbackResolved(QHostInfo hostInfo) {
 	if (hostInfo.error() == QHostInfo::NoError) {
-		QList<QHostAddress> resolvedAddresses = hostInfo.addresses();
-		
+		QList< QHostAddress > resolvedAddresses = hostInfo.addresses();
+
 		// Convert QHostAddress -> HostAddress.
-		QList<HostAddress> addresses;
-		foreach (QHostAddress ha, resolvedAddresses) {
-			addresses << HostAddress(ha);
-		}
+		QList< HostAddress > addresses;
+		foreach (QHostAddress ha, resolvedAddresses) { addresses << HostAddress(ha); }
 
 		m_resolved << ServerResolverRecord(m_origHostname, m_origPort, 0, addresses);
 	}
@@ -121,9 +114,7 @@ void ServerResolverPrivate::hostFallbackResolved(QHostInfo hostInfo) {
 	emit resolved();
 }
 
-ServerResolver::ServerResolver(QObject *parent)
-	: QObject(parent) {
-
+ServerResolver::ServerResolver(QObject *parent) : QObject(parent) {
 	d = new ServerResolverPrivate(this);
 }
 
@@ -150,11 +141,11 @@ void ServerResolver::resolve(QString hostname, quint16 port) {
 	}
 }
 
-QList<ServerResolverRecord> ServerResolver::records() {
+QList< ServerResolverRecord > ServerResolver::records() {
 	if (d) {
 		return d->records();
 	}
-	return QList<ServerResolverRecord>();
+	return QList< ServerResolverRecord >();
 }
 
 #include "ServerResolver.moc"

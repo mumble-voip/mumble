@@ -6,26 +6,27 @@
 #ifndef MUMBLE_MUMBLE_VIEWCERT_H_
 #define MUMBLE_MUMBLE_VIEWCERT_H_
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QObject>
 #include <QtCore/QList>
-#include <QtWidgets/QDialog>
+#include <QtCore/QObject>
+#include <QtCore/QtGlobal>
 #include <QtNetwork/QSslCertificate>
+#include <QtWidgets/QDialog>
 
 class QListWidget;
 
 class ViewCert : public QDialog {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ViewCert)
-	protected:
-		QList<QSslCertificate> qlCerts;
-		QListWidget *qlwChain, *qlwCert;
-	protected slots:
-		void on_Chain_currentRowChanged(int);
-	public:
-		ViewCert(QList<QSslCertificate> c, QWidget *p);
-		static QString prettifyDigest(QString);
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(ViewCert)
+protected:
+	QList< QSslCertificate > qlCerts;
+	QListWidget *qlwChain, *qlwCert;
+protected slots:
+	void on_Chain_currentRowChanged(int);
+
+public:
+	ViewCert(QList< QSslCertificate > c, QWidget *p);
+	static QString prettifyDigest(QString);
 };
 
 #endif

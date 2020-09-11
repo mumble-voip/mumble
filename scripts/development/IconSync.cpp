@@ -1,10 +1,9 @@
 #include <QtCore>
-#include <QtNetwork>
 #include <QtGui>
+#include <QtNetwork>
 #include <QtSvg>
 
-void svg2png(const QString & svgpath, const QList<int> & sizes, QStringList & qslImages)
-{
+void svg2png(const QString &svgpath, const QList< int > &sizes, QStringList &qslImages) {
 	QSvgRenderer svg(svgpath);
 	QImage original(512, 512, QImage::Format_ARGB32);
 	original.fill(Qt::transparent);
@@ -16,8 +15,8 @@ void svg2png(const QString & svgpath, const QList<int> & sizes, QStringList & qs
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	svg.render(&painter);
 
-	foreach(int size, sizes) {
-		QImage img = original.scaled(size,size,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	foreach (int size, sizes) {
+		QImage img  = original.scaled(size, size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		QString png = QDir::temp().absoluteFilePath(QString::fromLatin1("mumble.%1.png").arg(size));
 
 		QImageWriter qiw(png);
@@ -34,13 +33,13 @@ int main(int argc, char **argv) {
 	QStringList qslImages;
 
 	QString svgSmallPath = QLatin1String("../../icons/mumble_small.svg");
-	QList<int> sizesSmall;
+	QList< int > sizesSmall;
 	sizesSmall << 16;
 	sizesSmall << 24;
 	svg2png(svgSmallPath, sizesSmall, qslImages);
 
 	QLatin1String svgPath("../../icons/mumble.svg");
-	QList<int> sizes;
+	QList< int > sizes;
 	sizes << 32;
 	sizes << 48;
 	sizes << 64;
@@ -59,8 +58,8 @@ int main(int argc, char **argv) {
 	QProcess qp;
 	qp.setProcessChannelMode(QProcess::ForwardedChannels);
 	qp.start("/usr/bin/convert", args);
-	if (! qp.waitForFinished())
+	if (!qp.waitForFinished())
 		qWarning() << "No finish";
-	foreach(const QString &png, qslImages)
+	foreach (const QString &png, qslImages)
 		QDir::temp().remove(png);
 }

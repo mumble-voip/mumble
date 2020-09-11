@@ -5,53 +5,65 @@
 
 #include "PAAudio.h"
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #ifdef Q_CC_GNU
-# define RESOLVE(var) {var = reinterpret_cast<__typeof__(var)>(qlPortAudio.resolve(#var)); if (!var) return; }
+#	define RESOLVE(var)                                                          \
+		{                                                                         \
+			var = reinterpret_cast< __typeof__(var) >(qlPortAudio.resolve(#var)); \
+			if (!var)                                                             \
+				return;                                                           \
+		}
 #else
-# define RESOLVE(var) { *reinterpret_cast<void **>(&var) = static_cast<void *>(qlPortAudio.resolve(#var)); if (!var) return; }
+#	define RESOLVE(var)                                                                           \
+		{                                                                                          \
+			*reinterpret_cast< void ** >(&var) = static_cast< void * >(qlPortAudio.resolve(#var)); \
+			if (!var)                                                                              \
+				return;                                                                            \
+		}
 #endif
 
-static std::unique_ptr<PortAudioSystem> pas;
+static std::unique_ptr< PortAudioSystem > pas;
 
 class PortAudioInputRegistrar : public AudioInputRegistrar {
-	private:
-		AudioInput *create() Q_DECL_OVERRIDE;
-		const QList<audioDevice> getDeviceChoices() Q_DECL_OVERRIDE;
-		void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
-		bool canEcho(const QString &) const Q_DECL_OVERRIDE;
+private:
+	AudioInput *create() Q_DECL_OVERRIDE;
+	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
+	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
+	bool canEcho(const QString &) const Q_DECL_OVERRIDE;
 
-	public:
-		PortAudioInputRegistrar();
+public:
+	PortAudioInputRegistrar();
 };
 
 class PortAudioOutputRegistrar : public AudioOutputRegistrar {
-	private:
-		AudioOutput *create() Q_DECL_OVERRIDE;
-		const QList<audioDevice> getDeviceChoices() Q_DECL_OVERRIDE;
-		void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
+private:
+	AudioOutput *create() Q_DECL_OVERRIDE;
+	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
+	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
 
-	public:
-		PortAudioOutputRegistrar();
+public:
+	PortAudioOutputRegistrar();
 };
 
 class PortAudioInit : public DeferInit {
-	private:
-		std::unique_ptr<PortAudioInputRegistrar> airPortAudio;
-		std::unique_ptr<PortAudioOutputRegistrar> aorPortAudio;
-		void initialize();
-		void destroy();
+private:
+	std::unique_ptr< PortAudioInputRegistrar > airPortAudio;
+	std::unique_ptr< PortAudioOutputRegistrar > aorPortAudio;
+	void initialize();
+	void destroy();
 };
 
-PortAudioInputRegistrar::PortAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PortAudio")) {}
+PortAudioInputRegistrar::PortAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PortAudio")) {
+}
 
 AudioInput *PortAudioInputRegistrar::create() {
 	return new PortAudioInput();
 }
 
-const QList<audioDevice> PortAudioInputRegistrar::getDeviceChoices() {
+const QList< audioDevice > PortAudioInputRegistrar::getDeviceChoices() {
 	return pas->enumerateDevices(true, g.s.iPortAudioInput);
 }
 
@@ -63,13 +75,14 @@ bool PortAudioInputRegistrar::canEcho(const QString &) const {
 	return false;
 }
 
-PortAudioOutputRegistrar::PortAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PortAudio")) {}
+PortAudioOutputRegistrar::PortAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PortAudio")) {
+}
 
 AudioOutput *PortAudioOutputRegistrar::create() {
 	return new PortAudioOutput();
 }
 
-const QList<audioDevice> PortAudioOutputRegistrar::getDeviceChoices() {
+const QList< audioDevice > PortAudioOutputRegistrar::getDeviceChoices() {
 	return pas->enumerateDevices(false, g.s.iPortAudioOutput);
 }
 
@@ -101,9 +114,7 @@ void PortAudioInit::destroy() {
 // Instantiate PortAudioSystem, PortAudioInputRegistrar and PortAudioOutputRegistrar
 static PortAudioInit pai;
 
-PortAudioSystem::PortAudioSystem()
-    : bOk(false)
-{
+PortAudioSystem::PortAudioSystem() : bOk(false) {
 	QStringList alternatives;
 #ifdef Q_OS_WIN
 	alternatives << QLatin1String("portaudio_x64.dll");
@@ -157,13 +168,14 @@ PortAudioSystem::~PortAudioSystem() {
 	if (bOk) {
 		const auto ret = Pa_Terminate();
 		if (ret != paNoError) {
-			qWarning("PortAudioSystem: failed to terminate library - Pa_Terminate() returned: %s", Pa_GetErrorText(ret));
+			qWarning("PortAudioSystem: failed to terminate library - Pa_Terminate() returned: %s",
+					 Pa_GetErrorText(ret));
 		}
 	}
 }
 
-const QList<audioDevice> PortAudioSystem::enumerateDevices(const bool input, const PaDeviceIndex current) {
-	QList<audioDevice> audioDevices;
+const QList< audioDevice > PortAudioSystem::enumerateDevices(const bool input, const PaDeviceIndex current) {
+	QList< audioDevice > audioDevices;
 
 	if (!bOk) {
 		return audioDevices;
@@ -185,7 +197,8 @@ const QList<audioDevice> PortAudioSystem::enumerateDevices(const bool input, con
 			}
 
 			if ((input && (deviceInfo->maxInputChannels > 0)) || (!input && (deviceInfo->maxOutputChannels > 0))) {
-				audioDevices << audioDevice(QLatin1String(apiInfo->name) + QLatin1String(": ") + QLatin1String(deviceInfo->name), deviceIndex);
+				audioDevices << audioDevice(
+					QLatin1String(apiInfo->name) + QLatin1String(": ") + QLatin1String(deviceInfo->name), deviceIndex);
 			}
 		}
 	}
@@ -211,7 +224,8 @@ bool PortAudioSystem::isStreamRunning(PaStream *stream) {
 	if (ret == 1) {
 		return true;
 	} else if (ret != 0) {
-		qWarning("PortAudioSystem: failed to determine stream status - Pa_IsStreamActive() returned: %s", Pa_GetErrorText(ret));
+		qWarning("PortAudioSystem: failed to determine stream status - Pa_IsStreamActive() returned: %s",
+				 Pa_GetErrorText(ret));
 	}
 
 	return false;
@@ -231,13 +245,16 @@ int PortAudioSystem::openStream(PaStream **stream, PaDeviceIndex device, const u
 
 	const auto *devInfo = Pa_GetDeviceInfo(device);
 	if (!devInfo) {
-		qWarning("PortAudioSystem: failed to retrieve info about device %d - Pa_GetDeviceInfo() returned: nullptr", device);
+		qWarning("PortAudioSystem: failed to retrieve info about device %d - Pa_GetDeviceInfo() returned: nullptr",
+				 device);
 		return 0;
 	}
 
 	const auto *apiInfo = Pa_GetHostApiInfo(devInfo->hostApi);
 	if (!apiInfo) {
-		qWarning("PortAudioSystem: failed to retrieve info about API %d (device %d) - Pa_GetHostApiInfo() returned: nullptr", devInfo->hostApi, device);
+		qWarning(
+			"PortAudioSystem: failed to retrieve info about API %d (device %d) - Pa_GetHostApiInfo() returned: nullptr",
+			devInfo->hostApi, device);
 		return 0;
 	}
 
@@ -251,12 +268,14 @@ int PortAudioSystem::openStream(PaStream **stream, PaDeviceIndex device, const u
 		streamPar.channelCount = 2;
 	}
 
-	streamPar.device = device;
-	streamPar.sampleFormat = paFloat32;
+	streamPar.device           = device;
+	streamPar.sampleFormat     = paFloat32;
 	streamPar.suggestedLatency = (isInput ? devInfo->defaultLowInputLatency : devInfo->defaultLowOutputLatency);
 	streamPar.hostApiSpecificStreamInfo = nullptr;
 
-	const auto ret = Pa_OpenStream(stream, isInput ? &streamPar : nullptr, isInput ? nullptr : &streamPar, SAMPLE_RATE, frameSize, paClipOff | paDitherOff, &streamCallback, reinterpret_cast<void *>(isInput));
+	const auto ret =
+		Pa_OpenStream(stream, isInput ? &streamPar : nullptr, isInput ? nullptr : &streamPar, SAMPLE_RATE, frameSize,
+					  paClipOff | paDitherOff, &streamCallback, reinterpret_cast< void * >(isInput));
 	if (ret != paNoError) {
 		qWarning("PortAudioSystem: failed to open stream - Pa_OpenStream() returned: %s", Pa_GetErrorText(ret));
 		*stream = nullptr;
@@ -318,16 +337,17 @@ bool PortAudioSystem::stopStream(PaStream *stream) {
 	return true;
 }
 
-int PortAudioSystem::streamCallback(const void *input, void *output, unsigned long frames, const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *isInput) {
+int PortAudioSystem::streamCallback(const void *input, void *output, unsigned long frames,
+									const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *isInput) {
 	if (isInput) {
-		auto const pai = dynamic_cast<PortAudioInput *>(g.ai.get());
+		auto const pai = dynamic_cast< PortAudioInput * >(g.ai.get());
 		if (!pai) {
 			return paAbort;
 		}
 
 		pai->process(frames, input);
 	} else {
-		auto const pao = dynamic_cast<PortAudioOutput *>(g.ao.get());
+		auto const pao = dynamic_cast< PortAudioOutput * >(g.ao.get());
 		if (!pao) {
 			return paAbort;
 		}
@@ -338,16 +358,14 @@ int PortAudioSystem::streamCallback(const void *input, void *output, unsigned lo
 	return paContinue;
 }
 
-PortAudioInput::PortAudioInput()
-    : stream(nullptr)
-{
+PortAudioInput::PortAudioInput() : stream(nullptr) {
 	iMicChannels = pas->openStream(&stream, g.s.iPortAudioInput, iFrameSize, true);
 	if (!iMicChannels) {
 		qWarning("PortAudioInput: failed to open stream");
 		return;
 	}
 
-	iMicFreq = SAMPLE_RATE;
+	iMicFreq   = SAMPLE_RATE;
 	eMicFormat = SampleFloat;
 	initializeMixer();
 
@@ -391,22 +409,17 @@ void PortAudioInput::run() {
 	qmWait.unlock();
 }
 
-PortAudioOutput::PortAudioOutput()
-    : stream(nullptr)
-{
+PortAudioOutput::PortAudioOutput() : stream(nullptr) {
 	iChannels = pas->openStream(&stream, g.s.iPortAudioOutput, iFrameSize, false);
 	if (!iChannels) {
 		qWarning("PortAudioOutput: failed to open stream");
 		return;
 	}
 
-	iMixerFreq = SAMPLE_RATE;
+	iMixerFreq    = SAMPLE_RATE;
 	eSampleFormat = SampleFloat;
 
-	const uint32_t channelsMask[] {
-		SPEAKER_FRONT_LEFT,
-		SPEAKER_FRONT_RIGHT
-	};
+	const uint32_t channelsMask[]{ SPEAKER_FRONT_LEFT, SPEAKER_FRONT_RIGHT };
 
 	initializeMixer(channelsMask);
 

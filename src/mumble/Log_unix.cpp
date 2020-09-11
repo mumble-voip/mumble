@@ -8,10 +8,11 @@
 #include "Settings.h"
 
 #ifdef USE_DBUS
-#include <QtDBus/QDBusInterface>
+#	include <QtDBus/QDBusInterface>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 void Log::postNotification(MsgType mt, const QString &plain) {
@@ -20,16 +21,16 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 	switch (mt) {
 		case DebugInfo:
 		case CriticalError:
-			qsIcon=QLatin1String("gtk-dialog-error");
+			qsIcon = QLatin1String("gtk-dialog-error");
 			break;
 		case Warning:
-			qsIcon=QLatin1String("gtk-dialog-warning");
+			qsIcon = QLatin1String("gtk-dialog-warning");
 			break;
 		case TextMessage:
-			qsIcon=QLatin1String("gtk-edit");
+			qsIcon = QLatin1String("gtk-edit");
 			break;
 		default:
-			qsIcon=QLatin1String("gtk-dialog-info");
+			qsIcon = QLatin1String("gtk-dialog-info");
 			break;
 	}
 
@@ -39,9 +40,10 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 	hints.insert(QLatin1String("desktop-entry"), QLatin1String("mumble"));
 
 	{
-		QDBusInterface kde(QLatin1String("org.kde.VisualNotifications"), QLatin1String("/VisualNotifications"), QLatin1String("org.kde.VisualNotifications"));
+		QDBusInterface kde(QLatin1String("org.kde.VisualNotifications"), QLatin1String("/VisualNotifications"),
+						   QLatin1String("org.kde.VisualNotifications"));
 		if (kde.isValid()) {
-			QList<QVariant> args;
+			QList< QVariant > args;
 			args.append(QLatin1String("mumble"));
 			args.append(uiLastId);
 			args.append(QString());
@@ -56,13 +58,16 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 		}
 	}
 
-	if (response.type()!=QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt()==0) {
-		QDBusInterface gnome(QLatin1String("org.freedesktop.Notifications"), QLatin1String("/org/freedesktop/Notifications"), QLatin1String("org.freedesktop.Notifications"));
+	if (response.type() != QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt() == 0) {
+		QDBusInterface gnome(QLatin1String("org.freedesktop.Notifications"),
+							 QLatin1String("/org/freedesktop/Notifications"),
+							 QLatin1String("org.freedesktop.Notifications"));
 		if (gnome.isValid())
-			response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), uiLastId, qsIcon, msgName(mt), plain, QStringList(), hints, -1);
+			response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), uiLastId, qsIcon, msgName(mt),
+								  plain, QStringList(), hints, -1);
 	}
 
-	if (response.type()==QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
+	if (response.type() == QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
 		uiLastId = response.arguments().at(0).toUInt();
 	} else {
 #else

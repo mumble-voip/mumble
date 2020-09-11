@@ -9,9 +9,9 @@
 class QWidget;
 
 class TalkingUIComponent {
-	public:
-		virtual QWidget *getWidget() = 0;
-		virtual const QWidget *getWidget() const = 0;
+public:
+	virtual QWidget *getWidget()             = 0;
+	virtual const QWidget *getWidget() const = 0;
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUICOMPONENT_H_

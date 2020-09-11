@@ -14,7 +14,7 @@
 #include <QtCore/QString>
 
 #ifdef MUMBLE
-	#include <atomic>
+#	include <atomic>
 #endif
 
 class User;
@@ -24,80 +24,81 @@ class ChanACL;
 class ClientUser;
 
 class Channel : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(Channel)
-	private:
-		QSet<Channel *> qsUnseen;
-	public:
-		int iId;
-		int iPosition;
-		bool bTemporary;
-		Channel *cParent;
-		QString qsName;
-		QString qsDesc;
-		QByteArray qbaDescHash;
-		QList<Channel *> qlChannels;
-		QList<User *> qlUsers;
-		QHash<QString, Group *> qhGroups;
-		QList<ChanACL *> qlACL;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(Channel)
+private:
+	QSet< Channel * > qsUnseen;
+
+public:
+	int iId;
+	int iPosition;
+	bool bTemporary;
+	Channel *cParent;
+	QString qsName;
+	QString qsDesc;
+	QByteArray qbaDescHash;
+	QList< Channel * > qlChannels;
+	QList< User * > qlUsers;
+	QHash< QString, Group * > qhGroups;
+	QList< ChanACL * > qlACL;
 
 #ifdef MUMBLE
-		/// A flag indicating whether this channel has enter restrictions (ACL denying ENTER) in place
-		std::atomic<bool> hasEnterRestrictions;
-		/// A flag indicating whether the local user is currently able to enter this channel. In theory this should
-		/// represent the correct access state (apart from the time it takes to synchronize ACL changes from the server
-		/// to the client), but in the end, it's the server who decides whether the user can enter. This flag is only
-		/// meant for UI purposes and should not be used influence actual behaviour.
-		std::atomic<bool> localUserCanEnter;
+	/// A flag indicating whether this channel has enter restrictions (ACL denying ENTER) in place
+	std::atomic< bool > hasEnterRestrictions;
+	/// A flag indicating whether the local user is currently able to enter this channel. In theory this should
+	/// represent the correct access state (apart from the time it takes to synchronize ACL changes from the server
+	/// to the client), but in the end, it's the server who decides whether the user can enter. This flag is only
+	/// meant for UI purposes and should not be used influence actual behaviour.
+	std::atomic< bool > localUserCanEnter;
 #endif
 
-		QSet<Channel *> qsPermLinks;
-		QHash<Channel *, int> qhLinks;
+	QSet< Channel * > qsPermLinks;
+	QHash< Channel *, int > qhLinks;
 
-		bool bInheritACL;
+	bool bInheritACL;
 
-		/// Maximum number of users allowed in the channel. If this
-		/// value is zero, the maximum number of users allowed in the
-		/// channel is given by the server's "usersperchannel"
-		/// setting.
-		unsigned int uiMaxUsers;
+	/// Maximum number of users allowed in the channel. If this
+	/// value is zero, the maximum number of users allowed in the
+	/// channel is given by the server's "usersperchannel"
+	/// setting.
+	unsigned int uiMaxUsers;
 
-		Channel(int id, const QString &name, QObject *p = nullptr);
-		~Channel();
+	Channel(int id, const QString &name, QObject *p = nullptr);
+	~Channel();
 
 #ifdef MUMBLE
-		unsigned int uiPermissions;
-		bool bFiltered;
+	unsigned int uiPermissions;
+	bool bFiltered;
 
-		static QHash<int, Channel *> c_qhChannels;
-		static QReadWriteLock c_qrwlChannels;
+	static QHash< int, Channel * > c_qhChannels;
+	static QReadWriteLock c_qrwlChannels;
 
-		static Channel *get(int);
-		static Channel *add(int, const QString &);
-		static void remove(Channel *);
+	static Channel *get(int);
+	static Channel *add(int, const QString &);
+	static void remove(Channel *);
 
-		void addClientUser(ClientUser *p);
+	void addClientUser(ClientUser *p);
 #endif
-		static bool lessThan(const Channel *, const Channel *);
+	static bool lessThan(const Channel *, const Channel *);
 
-		size_t getLevel() const;
-		size_t getDepth() const;
-		QString getPath() const;
+	size_t getLevel() const;
+	size_t getDepth() const;
+	QString getPath() const;
 
-		void addChannel(Channel *c);
-		void removeChannel(Channel *c);
-		void addUser(User *p);
-		void removeUser(User *p);
+	void addChannel(Channel *c);
+	void removeChannel(Channel *c);
+	void addUser(User *p);
+	void removeUser(User *p);
 
-		bool isLinked(Channel *c) const;
-		void link(Channel *c);
-		void unlink(Channel *c = nullptr);
+	bool isLinked(Channel *c) const;
+	void link(Channel *c);
+	void unlink(Channel *c = nullptr);
 
-		QSet<Channel *> allLinks();
-		QSet<Channel *> allChildren();
+	QSet< Channel * > allLinks();
+	QSet< Channel * > allChildren();
 
-		operator QString() const;
+	operator QString() const;
 };
 
 #endif

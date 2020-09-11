@@ -7,9 +7,9 @@
  * G15 Helper Daemon for Win32.
  */
 
+#include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 #include <time.h>
 #include <wchar.h>
 
@@ -51,8 +51,9 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	if (lpCmdLine && (strcmp(lpCmdLine, "/detect") == 0)) {
 		warn("Detect mode!");
 		bDetect = TRUE;
-	} else if (! lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
-		MessageBox(NULL, L"This program is run by Mumble, and should not be started separately.", L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
+	} else if (!lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
+		MessageBox(NULL, L"This program is run by Mumble, and should not be started separately.",
+				   L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
 		return 0;
 	}
 
@@ -71,11 +72,11 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	ZeroMemory(&ctx, sizeof(ctx));
 	ZeroMemory(&bitmap, sizeof(bitmap));
 
-	conn.appFriendlyName = G15_WIDGET_NAME;
-	conn.isAutostartable = FALSE;
-	conn.isPersistent = FALSE;
-	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_BW;
-	conn.connection = LGLCD_INVALID_CONNECTION;
+	conn.appFriendlyName               = G15_WIDGET_NAME;
+	conn.isAutostartable               = FALSE;
+	conn.isPersistent                  = FALSE;
+	conn.dwAppletCapabilitiesSupported = LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_BW;
+	conn.connection                    = LGLCD_INVALID_CONNECTION;
 
 	/*
 	 * Initialize and connect.
@@ -89,8 +90,8 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		die(G15_ERR_CONNECT, "Unable to connect to Logitech LCD manager. (Error: %i)", dwErr);
 
 	ctx.connection = conn.connection;
-	ctx.device = LGLCD_INVALID_DEVICE;
-	ctx.deviceType =LGLCD_DEVICE_BW;
+	ctx.device     = LGLCD_INVALID_DEVICE;
+	ctx.deviceType = LGLCD_DEVICE_BW;
 
 	dwErr = lgLcdOpenByType(&ctx);
 
@@ -130,11 +131,13 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			}
 			bErr = ReadFile(hStdin, bitmap.pixels + dwTotRead, G15_MAX_FBMEM - dwTotRead, &dwRead, NULL);
 			if (bErr == FALSE || dwRead == 0)
-				die(G15_ERR_READFILE, "Error while reading framebuffer. %d %x",dwRead,GetLastError());
+				die(G15_ERR_READFILE, "Error while reading framebuffer. %d %x", dwRead, GetLastError());
 			dwTotRead += dwRead;
 		} while (dwTotRead < G15_MAX_FBMEM);
 
-		dwErr = lgLcdUpdateBitmap(ctx.device, (const lgLcdBitmapHeader *) &bitmap, bPriority ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
+		dwErr = lgLcdUpdateBitmap(ctx.device, (const lgLcdBitmapHeader *) &bitmap,
+								  bPriority ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT)
+											: LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
 		if (dwErr != ERROR_SUCCESS)
 			warn("Unable to update bitmap for device. (Error: %i)", dwErr);
 	}

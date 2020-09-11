@@ -9,7 +9,7 @@
 #include "Timer.h"
 
 #ifdef Q_OS_WIN
-# include "win.h"
+#	include "win.h"
 #endif
 
 #include <QtCore/QDir>
@@ -18,8 +18,8 @@
 #include <QtCore/QVariant>
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QSslCertificate>
-#include <QtNetwork/QSslKey>
 #include <QtNetwork/QSslCipher>
+#include <QtNetwork/QSslKey>
 
 class Server;
 class QSettings;
@@ -28,7 +28,7 @@ class MetaParams {
 public:
 	QDir qdBasePath;
 
-	QList<QHostAddress> qlBind;
+	QList< QHostAddress > qlBind;
 	unsigned short usPort;
 	int iTimeout;
 	int iMaxBandwidth;
@@ -115,22 +115,22 @@ public:
 	/// Simply put: it contains any certificates
 	/// that aren't the main certificate, or "leaf"
 	/// certificate.
-	QList<QSslCertificate> qlIntermediates;
+	QList< QSslCertificate > qlIntermediates;
 
 	/// qlCA contains all certificates read from
 	/// the PEM bundle pointed to by murmur.ini's
 	/// sslCA option.
-	QList<QSslCertificate> qlCA;
+	QList< QSslCertificate > qlCA;
 
 	/// qlCiphers contains the list of supported
 	/// cipher suites.
-	QList<QSslCipher> qlCiphers;
+	QList< QSslCipher > qlCiphers;
 
 	QByteArray qbaDHParams;
 	QByteArray qbaPassPhrase;
 	QString qsCiphers;
 
-	QMap<QString, QString> qmConfig;
+	QMap< QString, QString > qmConfig;
 
 #ifdef Q_OS_UNIX
 	unsigned int uiUid, uiGid;
@@ -163,50 +163,51 @@ public:
 	bool loadSSLSettings();
 
 private:
-	template <class T>
+	template< class T >
 	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = nullptr);
 };
 
 class Meta : public QObject {
-	private:
-		Q_OBJECT;
-		Q_DISABLE_COPY(Meta);
-	public:
-		static MetaParams mp;
-		QHash<int, Server *> qhServers;
-		QHash<QHostAddress, QList<Timer> > qhAttempts;
-		QHash<QHostAddress, Timer> qhBans;
-		QString qsOS, qsOSVersion;
-		Timer tUptime;
+private:
+	Q_OBJECT;
+	Q_DISABLE_COPY(Meta);
+
+public:
+	static MetaParams mp;
+	QHash< int, Server * > qhServers;
+	QHash< QHostAddress, QList< Timer > > qhAttempts;
+	QHash< QHostAddress, Timer > qhBans;
+	QString qsOS, qsOSVersion;
+	Timer tUptime;
 
 #ifdef Q_OS_WIN
-		static HANDLE hQoS;
+	static HANDLE hQoS;
 #endif
 
-		Meta();
-		~Meta();
+	Meta();
+	~Meta();
 
-		/// reloadSSLSettings reloads Murmur's MetaParams's
-		/// SSL settings, and updates the certificate and
-		/// private key for all virtual servers that use the
-		/// Meta server's certificate and private key.
-		bool reloadSSLSettings();
+	/// reloadSSLSettings reloads Murmur's MetaParams's
+	/// SSL settings, and updates the certificate and
+	/// private key for all virtual servers that use the
+	/// Meta server's certificate and private key.
+	bool reloadSSLSettings();
 
-		void bootAll();
-		bool boot(int);
-		bool banCheck(const QHostAddress &);
+	void bootAll();
+	bool boot(int);
+	bool banCheck(const QHostAddress &);
 
-		/// Called whenever we get a successful connection from a client.
-		/// Used to reset autoban tracking for the address.
-		void successfulConnectionFrom(const QHostAddress &);
-		void kill(int);
-		void killAll();
-		void getOSInfo();
-		void connectListener(QObject *);
-		static void getVersion(int &major, int &minor, int &patch, QString &string);
-	signals:
-		void started(Server *);
-		void stopped(Server *);
+	/// Called whenever we get a successful connection from a client.
+	/// Used to reset autoban tracking for the address.
+	void successfulConnectionFrom(const QHostAddress &);
+	void kill(int);
+	void killAll();
+	void getOSInfo();
+	void connectListener(QObject *);
+	static void getVersion(int &major, int &minor, int &patch, QString &string);
+signals:
+	void started(Server *);
+	void stopped(Server *);
 };
 
 extern Meta *meta;

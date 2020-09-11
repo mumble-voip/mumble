@@ -36,13 +36,11 @@ static inline procptr_t getModuleAddr(const wchar_t *modname) {
 	return getModuleAddr(pPid, modname);
 }
 
-template<class T>
-static inline bool peekProc(const procptr_t &addr, T &dest) {
+template< class T > static inline bool peekProc(const procptr_t &addr, T &dest) {
 	return peekProc(addr, &dest, sizeof(T));
 }
 
-template<class T>
-static inline T peekProc(const procptr_t &addr) {
+template< class T > static inline T peekProc(const procptr_t &addr) {
 	T ret;
 
 	if (!peekProc(addr, &ret, sizeof(T))) {
@@ -73,13 +71,13 @@ static inline int8_t isProcess64Bit(const procptr_t &baseAddress) {
 // of isProcess64Bit() in case the process is running through Wine.
 static inline int8_t isWin32Process64Bit(const procptr_t &baseAddress) {
 #endif
-	const auto dos = peekProc<ImageDosHeader>(baseAddress);
+	const auto dos = peekProc< ImageDosHeader >(baseAddress);
 	if (!(dos.magic[0] == 'M' && dos.magic[1] == 'Z')) {
 		// Invalid DOS signature
 		return -1;
 	}
 
-	const auto nt = peekProc<ImageNtHeadersNoOptional>(baseAddress + dos.addressOfNtHeader);
+	const auto nt = peekProc< ImageNtHeadersNoOptional >(baseAddress + dos.addressOfNtHeader);
 	if (!(nt.signature[0] == 'P' && nt.signature[1] == 'E' && nt.signature[2] == '\0' && nt.signature[3] == '\0')) {
 		// Invalid NT signature
 		return -1;
@@ -94,9 +92,9 @@ static inline int8_t isWin32Process64Bit(const procptr_t &baseAddress) {
 }
 
 #ifdef WIN32
-# include "../mumble_plugin_win32.h"
+#	include "../mumble_plugin_win32.h"
 #else
-# include "../mumble_plugin_linux.h"
+#	include "../mumble_plugin_linux.h"
 #endif
 
 #endif

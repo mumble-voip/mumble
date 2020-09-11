@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,23 +36,20 @@
 
 #include "D11StateBlock.h"
 
-void D11CreateStateBlock(ID3D11DeviceContext *pDeviceContext, D11StateBlock **ppStateBlock)
-{
+void D11CreateStateBlock(ID3D11DeviceContext *pDeviceContext, D11StateBlock **ppStateBlock) {
 	*ppStateBlock = new D11StateBlock(pDeviceContext);
 }
 
 D11StateBlock::D11StateBlock(ID3D11DeviceContext *pDC)
-	: pRasterizerState(0), uiSampleMask(0)
-	, Format(DXGI_FORMAT_UNKNOWN), Topology(D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED)
-	, pBlendState(0), pIndexBuffer(0), pInputLayout(0), uiOffset(0)
-	, pDepthStencilView(0) {
+	: pRasterizerState(0), uiSampleMask(0), Format(DXGI_FORMAT_UNKNOWN), Topology(D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED),
+	  pBlendState(0), pIndexBuffer(0), pInputLayout(0), uiOffset(0), pDepthStencilView(0) {
 	uiNumViewports = D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE;
 	ZeroMemory(pViewports, sizeof(pViewports));
-	ZeroMemory(pRenderTargetViews, sizeof (pRenderTargetViews));
-	ZeroMemory(fBlendFactor, sizeof (fBlendFactor));
-	ZeroMemory(pVertexBuffers, sizeof (pVertexBuffers));
-	ZeroMemory(uiStrides, sizeof (uiStrides));
-	ZeroMemory(uiOffsets, sizeof (uiOffsets));
+	ZeroMemory(pRenderTargetViews, sizeof(pRenderTargetViews));
+	ZeroMemory(fBlendFactor, sizeof(fBlendFactor));
+	ZeroMemory(pVertexBuffers, sizeof(pVertexBuffers));
+	ZeroMemory(uiStrides, sizeof(uiStrides));
+	ZeroMemory(uiOffsets, sizeof(uiOffsets));
 
 	pDeviceContext = pDC;
 	pDeviceContext->AddRef();
@@ -63,8 +60,7 @@ D11StateBlock::~D11StateBlock() {
 	pDeviceContext->Release();
 }
 
-void D11StateBlock::Capture()
-{
+void D11StateBlock::Capture() {
 	// Release potential references to make sure we have no leaks.
 	ReleaseObjects();
 
@@ -76,11 +72,11 @@ void D11StateBlock::Capture()
 	pDeviceContext->IAGetInputLayout(&pInputLayout);
 	pDeviceContext->IAGetIndexBuffer(&pIndexBuffer, &Format, &uiOffset);
 	pDeviceContext->IAGetPrimitiveTopology(&Topology);
-	pDeviceContext->IAGetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, pVertexBuffers, uiStrides, uiOffsets);
+	pDeviceContext->IAGetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, pVertexBuffers, uiStrides,
+									   uiOffsets);
 }
 
-void D11StateBlock::Apply()
-{
+void D11StateBlock::Apply() {
 	pDeviceContext->RSSetState(pRasterizerState);
 	pDeviceContext->RSSetViewports(uiNumViewports, pViewports);
 	pDeviceContext->OMSetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT, pRenderTargetViews, pDepthStencilView);
@@ -88,19 +84,19 @@ void D11StateBlock::Apply()
 	pDeviceContext->IASetInputLayout(pInputLayout);
 	pDeviceContext->IASetIndexBuffer(pIndexBuffer, Format, uiOffset);
 	pDeviceContext->IASetPrimitiveTopology(Topology);
-	pDeviceContext->IASetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, pVertexBuffers, uiStrides, uiOffsets);
+	pDeviceContext->IASetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, pVertexBuffers, uiStrides,
+									   uiOffsets);
 	ReleaseObjects();
 }
 
 /// Release state information
-void D11StateBlock::ReleaseObjects()
-{
+void D11StateBlock::ReleaseObjects() {
 	if (pRasterizerState) {
 		pRasterizerState->Release();
 		pRasterizerState = nullptr;
 	}
 
-	for (int i=0; i<D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)
+	for (int i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)
 		if (pRenderTargetViews[i]) {
 			pRenderTargetViews[i]->Release();
 			pRenderTargetViews[i] = nullptr;
@@ -127,10 +123,9 @@ void D11StateBlock::ReleaseObjects()
 		pIndexBuffer = nullptr;
 	}
 
-	for (int i=0; i<D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT; i++)
+	for (int i = 0; i < D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT; i++)
 		if (pVertexBuffers[i]) {
 			pVertexBuffers[i]->Release();
 			pVertexBuffers[i] = nullptr;
 		}
-
 }

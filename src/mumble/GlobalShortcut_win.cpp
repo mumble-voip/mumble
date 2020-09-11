@@ -23,11 +23,12 @@
 // Used to detect screen readers
 #include <tlhelp32.h>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #undef FAILED
-#define FAILED(Status) (static_cast<HRESULT>(Status)<0)
+#define FAILED(Status) (static_cast< HRESULT >(Status) < 0)
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
@@ -43,64 +44,55 @@ extern HWND mumble_mw_hwnd;
 /// the GlobalShortcutWin engine to inject a native Windows keyboard
 /// event into GlobalShortcutWin's event stream.
 class InjectKeyboardMessageEvent : public QEvent {
-		Q_DISABLE_COPY(InjectKeyboardMessageEvent);
+	Q_DISABLE_COPY(InjectKeyboardMessageEvent);
 
-	public:
-		boost::promise<bool> m_suppressionPromise;
-		DWORD m_scancode;
-		DWORD m_vkcode;
-		bool m_extended;
-		bool m_down;
+public:
+	boost::promise< bool > m_suppressionPromise;
+	DWORD m_scancode;
+	DWORD m_vkcode;
+	bool m_extended;
+	bool m_down;
 
-		/// Construct a new InjectKeyboardMessageEvent.
-		///
-		/// @param  scancode            The Windows scancode of the button.
-		/// @param  vkcode              The Windows virtual keycode of the button.
-		/// @param  extended            Indicates whether the button is an extended key in
-		///                             Windows nomenclature. ("[...] such as the right-hand ALT
-		///                             and CTRL keys that appear on an enhanced 101- or 102-key
-		///                             keyboard")
-		/// @param  down                The down/pressed status of the keyboard button.
-		InjectKeyboardMessageEvent(DWORD scancode, DWORD vkcode, bool extended, bool down)
-			: QEvent(static_cast<QEvent::Type>(INJECTKEYBOARDMESSAGE_QEVENT))
-			, m_scancode(scancode)
-			, m_vkcode(vkcode)
-			, m_extended(extended)
-			, m_down(down) {}
+	/// Construct a new InjectKeyboardMessageEvent.
+	///
+	/// @param  scancode            The Windows scancode of the button.
+	/// @param  vkcode              The Windows virtual keycode of the button.
+	/// @param  extended            Indicates whether the button is an extended key in
+	///                             Windows nomenclature. ("[...] such as the right-hand ALT
+	///                             and CTRL keys that appear on an enhanced 101- or 102-key
+	///                             keyboard")
+	/// @param  down                The down/pressed status of the keyboard button.
+	InjectKeyboardMessageEvent(DWORD scancode, DWORD vkcode, bool extended, bool down)
+		: QEvent(static_cast< QEvent::Type >(INJECTKEYBOARDMESSAGE_QEVENT)), m_scancode(scancode), m_vkcode(vkcode),
+		  m_extended(extended), m_down(down) {}
 
-		inline boost::future<bool> shouldSuppress() {
-			return m_suppressionPromise.get_future();
-		}
+	inline boost::future< bool > shouldSuppress() { return m_suppressionPromise.get_future(); }
 };
 
 /// InjectMouseMessageEvent is an event that can be sent to
 /// the GlobalShortcutWin engine to inject a native Windows mouse
 /// event into GlobalShortcutWin's event stream.
 class InjectMouseMessageEvent : public QEvent {
-		Q_DISABLE_COPY(InjectMouseMessageEvent);
+	Q_DISABLE_COPY(InjectMouseMessageEvent);
 
-	public:
-		boost::promise<bool> m_suppressionPromise;
-		unsigned int m_btn;
-		bool m_down;
+public:
+	boost::promise< bool > m_suppressionPromise;
+	unsigned int m_btn;
+	bool m_down;
 
-		/// Construct a new InjectMouseMessageEvent.
-		///
-		/// @param  btn                 The DirectInput button index of the mouse event.
-		/// @param  down                The down/pressed status of the mouse button.
-		InjectMouseMessageEvent(unsigned int btn, bool down)
-			: QEvent(static_cast<QEvent::Type>(INJECTMOUSEMESSAGE_QEVENT))
-			, m_btn(btn)
-			, m_down(down) {}
+	/// Construct a new InjectMouseMessageEvent.
+	///
+	/// @param  btn                 The DirectInput button index of the mouse event.
+	/// @param  down                The down/pressed status of the mouse button.
+	InjectMouseMessageEvent(unsigned int btn, bool down)
+		: QEvent(static_cast< QEvent::Type >(INJECTMOUSEMESSAGE_QEVENT)), m_btn(btn), m_down(down) {}
 
-		inline boost::future<bool> shouldSuppress() {
-			return m_suppressionPromise.get_future();
-		}
+	inline boost::future< bool > shouldSuppress() { return m_suppressionPromise.get_future(); }
 };
 
 uint qHash(const GUID &a) {
 	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
-	for (int i=0;i<8;i++)
+	for (int i = 0; i < 8; i++)
 		val += a.Data4[i];
 	return val;
 }
@@ -118,16 +110,14 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 
 
 GlobalShortcutWin::GlobalShortcutWin()
-	: pDI(nullptr)
-	, hhMouse(nullptr)
-	, hhKeyboard(nullptr)
-	, uiHardwareDevices(0)
+	: pDI(nullptr), hhMouse(nullptr), hhKeyboard(nullptr), uiHardwareDevices(0)
 #ifdef USE_GKEY
-	, gkey(nullptr)
+	  ,
+	  gkey(nullptr)
 #endif
 #ifdef USE_XBOXINPUT
-	, xboxinput(nullptr)
-	, nxboxinput(0)
+	  ,
+	  xboxinput(nullptr), nxboxinput(0)
 #endif
 {
 	// Hidden setting to disable hooking
@@ -144,7 +134,8 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 }
 
 void GlobalShortcutWin::run() {
-	if (FAILED(DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), nullptr))) {
+	if (FAILED(DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8,
+								  reinterpret_cast< void ** >(&pDI), nullptr))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
 	}
@@ -153,24 +144,29 @@ void GlobalShortcutWin::run() {
 	// On Windows 7 and greater, Windows will silently remove badly behaving hooks
 	// without telling the application. Users can tweak the timeout themselves
 	// with this registry key.
-	HKEY key = nullptr;
-	DWORD type = 0;
+	HKEY key    = nullptr;
+	DWORD type  = 0;
 	DWORD value = 0;
-	DWORD len = sizeof(DWORD);
+	DWORD len   = sizeof(DWORD);
 	if (RegOpenKeyExA(HKEY_CURRENT_USER, "Control Panel\\Desktop", 0, KEY_READ, &key) == ERROR_SUCCESS) {
-		LONG err = RegQueryValueExA(key, "LowLevelHooksTimeout", nullptr, &type, reinterpret_cast<LPBYTE>(&value), &len);
+		LONG err =
+			RegQueryValueExA(key, "LowLevelHooksTimeout", nullptr, &type, reinterpret_cast< LPBYTE >(&value), &len);
 		if (err == ERROR_SUCCESS && type == REG_DWORD) {
-			qWarning("GlobalShortcutWin: Found LowLevelHooksTimeout with value = 0x%lx", static_cast<unsigned long>(value));
+			qWarning("GlobalShortcutWin: Found LowLevelHooksTimeout with value = 0x%lx",
+					 static_cast< unsigned long >(value));
 		} else if (err == ERROR_FILE_NOT_FOUND) {
 			qWarning("GlobalShortcutWin: No LowLevelHooksTimeout registry key found.");
 		} else {
-			qWarning("GlobalShortcutWin: Error looking up LowLevelHooksTimeout. (Error: 0x%lx, Type: 0x%lx, Value: 0x%lx)", static_cast<unsigned long>(err), static_cast<unsigned long>(type), static_cast<unsigned long>(value));
+			qWarning(
+				"GlobalShortcutWin: Error looking up LowLevelHooksTimeout. (Error: 0x%lx, Type: 0x%lx, Value: 0x%lx)",
+				static_cast< unsigned long >(err), static_cast< unsigned long >(type),
+				static_cast< unsigned long >(value));
 		}
 	}
 
 	// Wait for MainWindow's constructor to finish before we enumerate DirectInput devices.
 	// We need to do this because adding a new device requires a Window handle. (SetCooperativeLevel())
-	while (! g.mw)
+	while (!g.mw)
 		this->yieldCurrentThread();
 
 #ifdef USE_GKEY
@@ -215,7 +211,7 @@ void GlobalShortcutWin::run() {
 		}
 	}
 
-	foreach(InputDevice *id, qhInputDevices) {
+	foreach (InputDevice *id, qhInputDevices) {
 		if (id->pDID) {
 			id->pDID->Unacquire();
 			id->pDID->Release();
@@ -228,13 +224,13 @@ void GlobalShortcutWin::run() {
 bool GlobalShortcutWin::event(QEvent *event) {
 	QEvent::Type type = event->type();
 	if (type == INJECTKEYBOARDMESSAGE_QEVENT) {
-		InjectKeyboardMessageEvent *ikme = static_cast<InjectKeyboardMessageEvent *>(event);
+		InjectKeyboardMessageEvent *ikme = static_cast< InjectKeyboardMessageEvent * >(event);
 		bool suppress = handleKeyboardMessage(ikme->m_scancode, ikme->m_vkcode, ikme->m_extended, ikme->m_down);
 		ikme->m_suppressionPromise.set_value(suppress);
 		return true;
 	} else if (type == INJECTMOUSEMESSAGE_QEVENT) {
-		InjectMouseMessageEvent *imme = static_cast<InjectMouseMessageEvent *>(event);
-		bool suppress = handleMouseMessage(imme->m_btn, imme->m_down);
+		InjectMouseMessageEvent *imme = static_cast< InjectMouseMessageEvent * >(event);
+		bool suppress                 = handleMouseMessage(imme->m_btn, imme->m_down);
 		imme->m_suppressionPromise.set_value(suppress);
 		return true;
 	}
@@ -258,12 +254,12 @@ bool GlobalShortcutWin::injectKeyboardMessage(MSG *msg) {
 	}
 
 	DWORD scancode = (msg->lParam >> 16) & 0xff;
-	DWORD vkcode = msg->wParam;
-	bool extended = !!(msg->lParam & 0x01000000);
-	bool up = !!(msg->lParam & 0x80000000);
+	DWORD vkcode   = msg->wParam;
+	bool extended  = !!(msg->lParam & 0x01000000);
+	bool up        = !!(msg->lParam & 0x80000000);
 
 	InjectKeyboardMessageEvent *ikme = new InjectKeyboardMessageEvent(scancode, vkcode, extended, !up);
-	boost::future<bool> suppress = ikme->shouldSuppress();
+	boost::future< bool > suppress   = ikme->shouldSuppress();
 	qApp->postEvent(this, ikme);
 	return suppress.get();
 }
@@ -273,7 +269,7 @@ bool GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 		return false;
 	}
 
-	bool down = false;
+	bool down        = false;
 	unsigned int btn = 0;
 
 	// Convert the Windows mouse message into a DirectInput
@@ -298,27 +294,27 @@ bool GlobalShortcutWin::injectMouseMessage(MSG *msg) {
 			down = true;
 		case WM_XBUTTONUP: {
 			unsigned int offset = (msg->wParam >> 16) & 0xffff;
-			btn = 5 + offset;
+			btn                 = 5 + offset;
 		}
 		default:
 			// Non-mouse event. Return early.
 			return false;
 	}
 
-	InjectMouseMessageEvent *imme = new InjectMouseMessageEvent(btn, down);
-	boost::future<bool> suppress = imme->shouldSuppress();
+	InjectMouseMessageEvent *imme  = new InjectMouseMessageEvent(btn, down);
+	boost::future< bool > suppress = imme->shouldSuppress();
 	qApp->postEvent(this, imme);
 	return suppress.get();
 }
 
 bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down) {
-	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
+	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(engine);
 
-	QList<QVariant> ql;
+	QList< QVariant > ql;
 
 	// Convert the low-level key event to
 	// a DirectInput key ID.
-	unsigned int keyid = static_cast<unsigned int>((scancode << 8) | 0x4);
+	unsigned int keyid = static_cast< unsigned int >((scancode << 8) | 0x4);
 	if (extended) {
 		keyid |= 0x8000U;
 	}
@@ -362,26 +358,26 @@ bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool
 }
 
 bool GlobalShortcutWin::handleMouseMessage(unsigned int btn, bool down) {
-	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(engine);
+	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(engine);
 
 	bool suppress = false;
 
 	if (btn > 0) {
-		QList<QVariant> ql;
-		ql << static_cast<unsigned int>((btn << 8) | 0x4);
+		QList< QVariant > ql;
+		ql << static_cast< unsigned int >((btn << 8) | 0x4);
 		ql << QVariant(QUuid(GUID_SysMouse));
 
 		// Do not suppress LBUTTONUP though (so suppression can be deactivated via mouse).
 		bool wantsuppress = gsw->handleButton(ql, down);
-		suppress = wantsuppress && (btn != 3);
+		suppress          = wantsuppress && (btn != 3);
 	}
 
 	return suppress;
 }
 
 LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARAM lParam) {
-	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
-	KBDLLHOOKSTRUCT *key=reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
+	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(engine);
+	KBDLLHOOKSTRUCT *key   = reinterpret_cast< KBDLLHOOKSTRUCT * >(lParam);
 
 #ifndef QT_NO_DEBUG
 	static int safety = 0;
@@ -391,10 +387,10 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 	if (nCode >= 0) {
 #endif
 		DWORD scancode = key->scanCode;
-		DWORD vkcode = key->vkCode;
-		bool extended = !!(key->flags & LLKHF_EXTENDED);
-		bool up = !!(key->flags & LLKHF_UP);
-		bool suppress = handleKeyboardMessage(scancode, vkcode, extended, !up);
+		DWORD vkcode   = key->vkCode;
+		bool extended  = !!(key->flags & LLKHF_EXTENDED);
+		bool up        = !!(key->flags & LLKHF_UP);
+		bool suppress  = handleKeyboardMessage(scancode, vkcode, extended, !up);
 		if (suppress) {
 			return 1;
 		}
@@ -403,15 +399,15 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 }
 
 LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM lParam) {
-	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
-	MSLLHOOKSTRUCT *mouse=reinterpret_cast<MSLLHOOKSTRUCT *>(lParam);
+	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(engine);
+	MSLLHOOKSTRUCT *mouse  = reinterpret_cast< MSLLHOOKSTRUCT * >(lParam);
 
 	if (nCode >= 0) {
 		bool suppress = false;
-		UINT msg = wParam;
+		UINT msg      = wParam;
 		// Convert the hooked Windows mouse message into a DirectInput
 		// button index, and store the pressed state of the button.
-		bool down = false;
+		bool down        = false;
 		unsigned int btn = 0;
 		switch (msg) {
 			case WM_LBUTTONDOWN:
@@ -447,27 +443,25 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 }
 
 BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
-	InputDevice *id=static_cast<InputDevice *>(pvRef);
-	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(lpddoi->tszName));
+	InputDevice *id             = static_cast< InputDevice * >(pvRef);
+	QString name                = QString::fromUtf16(reinterpret_cast< const ushort * >(lpddoi->tszName));
 	id->qhNames[lpddoi->dwType] = name;
 
 	if (g.s.bDirectInputVerboseLogging) {
 		qWarning("GlobalShortcutWin: EnumObjects: device %s %s object 0x%.8lx %s",
-		         qPrintable(QUuid(id->guid).toString()),
-		         qPrintable(id->name),
-		         static_cast<unsigned long>(lpddoi->dwType),
-		         qPrintable(name));
+				 qPrintable(QUuid(id->guid).toString()), qPrintable(id->name),
+				 static_cast< unsigned long >(lpddoi->dwType), qPrintable(name));
 	}
 
 	return DIENUM_CONTINUE;
 }
 
 BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext) {
-	GlobalShortcutWin *cbgsw=static_cast<GlobalShortcutWin *>(pContext);
+	GlobalShortcutWin *cbgsw = static_cast< GlobalShortcutWin * >(pContext);
 	HRESULT hr;
 
-	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszProductName));
-	QString sname = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszInstanceName));
+	QString name  = QString::fromUtf16(reinterpret_cast< const ushort * >(pdidi->tszProductName));
+	QString sname = QString::fromUtf16(reinterpret_cast< const ushort * >(pdidi->tszInstanceName));
 
 	InputDevice *id = new InputDevice;
 
@@ -475,10 +469,10 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 
 	id->name = name;
 
-	id->guid = pdidi->guidInstance;
+	id->guid  = pdidi->guidInstance;
 	id->vguid = QVariant(QUuid(id->guid).toString());
 
-	id->guidproduct = pdidi->guidProduct;
+	id->guidproduct  = pdidi->guidProduct;
 	id->vguidproduct = QVariant(QUuid(id->guidproduct).toString());
 
 	// Is it an XInput device? Skip it.
@@ -494,9 +488,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		cbgsw->nxboxinput += 1;
 #endif
 		qWarning("GlobalShortcutWin: excluded XInput device '%s' (guid %s guid product %s) from DirectInput",
-		         qPrintable(id->name),
-		         qPrintable(id->vguid.toString()),
-		         qPrintable(id->vguidproduct.toString()));
+				 qPrintable(id->name), qPrintable(id->vguid.toString()), qPrintable(id->vguidproduct.toString()));
 		delete id;
 		return DIENUM_CONTINUE;
 	}
@@ -505,13 +497,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// per http://stackoverflow.com/q/25622780.
 	BYTE pidvid[8] = { 0, 0, 'P', 'I', 'D', 'V', 'I', 'D' };
 	if (memcmp(id->guidproduct.Data4, pidvid, 8) == 0) {
-		uint16_t vendor_id = id->guidproduct.Data1 & 0xffff;
+		uint16_t vendor_id  = id->guidproduct.Data1 & 0xffff;
 		uint16_t product_id = (id->guidproduct.Data1 >> 16) & 0xffff;
 
-		id->vendor_id = vendor_id;
+		id->vendor_id  = vendor_id;
 		id->product_id = product_id;
 	} else {
-		id->vendor_id = 0x00;
+		id->vendor_id  = 0x00;
 		id->product_id = 0x00;
 	}
 
@@ -536,19 +528,16 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// blacklist, we need a more structured aproach.
 	{
 		if (id->vendor_id == 0x262A) {
-			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x, TYPE: 0x%.8lx)",
-			         qPrintable(id->name),
-			         qPrintable(id->vguid.toString()),
-			         qPrintable(id->vguidproduct.toString()),
-			         id->vendor_id,
-			         id->product_id,
-			         static_cast<unsigned long>(pdidi->dwDevType));
+			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: "
+					 "0x%.4x, TYPE: 0x%.8lx)",
+					 qPrintable(id->name), qPrintable(id->vguid.toString()), qPrintable(id->vguidproduct.toString()),
+					 id->vendor_id, id->product_id, static_cast< unsigned long >(pdidi->dwDevType));
 			delete id;
 			return DIENUM_CONTINUE;
 		}
 	}
 
-	foreach(InputDevice *dev, cbgsw->qhInputDevices) {
+	foreach (InputDevice *dev, cbgsw->qhInputDevices) {
 		if (dev->guid == id->guid) {
 			delete id;
 			return DIENUM_CONTINUE;
@@ -558,34 +547,34 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, nullptr)))
 		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
 
-	if (FAILED(hr = id->pDID->EnumObjects(EnumDeviceObjectsCallback, static_cast<void *>(id), DIDFT_BUTTON)))
+	if (FAILED(hr = id->pDID->EnumObjects(EnumDeviceObjectsCallback, static_cast< void * >(id), DIDFT_BUTTON)))
 		qFatal("GlobalShortcutWin: EnumObjects: %lx", hr);
 
 	if (id->qhNames.count() > 0) {
-		QList<DWORD> types = id->qhNames.keys();
+		QList< DWORD > types = id->qhNames.keys();
 		std::sort(types.begin(), types.end());
 
 		int nbuttons = types.count();
 		STACKVAR(DIOBJECTDATAFORMAT, rgodf, nbuttons);
 		DIDATAFORMAT df;
 		ZeroMemory(&df, sizeof(df));
-		df.dwSize = sizeof(df);
-		df.dwObjSize = sizeof(DIOBJECTDATAFORMAT);
-		df.dwFlags=DIDF_ABSAXIS;
+		df.dwSize     = sizeof(df);
+		df.dwObjSize  = sizeof(DIOBJECTDATAFORMAT);
+		df.dwFlags    = DIDF_ABSAXIS;
 		df.dwDataSize = (nbuttons + 3) & (~0x3);
-		df.dwNumObjs = nbuttons;
-		df.rgodf = rgodf;
-		for (int i=0;i<nbuttons;i++) {
-			ZeroMemory(& rgodf[i], sizeof(DIOBJECTDATAFORMAT));
-			DWORD dwType = types[i];
-			DWORD dwOfs = i;
-			rgodf[i].dwOfs = dwOfs;
-			rgodf[i].dwType = dwType;
-			id->qhOfsToType[dwOfs] = dwType;
+		df.dwNumObjs  = nbuttons;
+		df.rgodf      = rgodf;
+		for (int i = 0; i < nbuttons; i++) {
+			ZeroMemory(&rgodf[i], sizeof(DIOBJECTDATAFORMAT));
+			DWORD dwType            = types[i];
+			DWORD dwOfs             = i;
+			rgodf[i].dwOfs          = dwOfs;
+			rgodf[i].dwType         = dwType;
+			id->qhOfsToType[dwOfs]  = dwType;
 			id->qhTypeToOfs[dwType] = dwOfs;
 		}
 
-		if (FAILED(hr = id->pDID->SetCooperativeLevel(mumble_mw_hwnd, DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
+		if (FAILED(hr = id->pDID->SetCooperativeLevel(mumble_mw_hwnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
 			qFatal("GlobalShortcutWin: SetCooperativeLevel: %lx", hr);
 
 		if (FAILED(hr = id->pDID->SetDataFormat(&df)))
@@ -602,13 +591,9 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		if (FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
 			qFatal("GlobalShortcutWin: SetProperty: %lx", hr);
 
-		qWarning("Adding device %s %s %s:%d type 0x%.8lx guid product %s",
-		         qPrintable(QUuid(id->guid).toString()),
-		         qPrintable(name),
-		         qPrintable(sname),
-		         id->qhNames.count(),
-		         static_cast<unsigned long>(pdidi->dwDevType),
-		         qPrintable(id->vguidproduct.toString()));
+		qWarning("Adding device %s %s %s:%d type 0x%.8lx guid product %s", qPrintable(QUuid(id->guid).toString()),
+				 qPrintable(name), qPrintable(sname), id->qhNames.count(),
+				 static_cast< unsigned long >(pdidi->dwDevType), qPrintable(id->vguidproduct.toString()));
 
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
@@ -627,15 +612,15 @@ void GlobalShortcutWin::timeTicked() {
 #ifdef USE_XBOXINPUT
 		nxboxinput = 0;
 #endif
-		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ATTACHEDONLY);
+		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast< void * >(this), DIEDFL_ATTACHEDONLY);
 	}
 
 	if (bNeedRemap)
 		remap();
 
-	foreach(InputDevice *id, qhInputDevices) {
+	foreach (InputDevice *id, qhInputDevices) {
 		DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
-		DWORD   dwItems = DX_SAMPLE_BUFFER_SIZE;
+		DWORD dwItems = DX_SAMPLE_BUFFER_SIZE;
 		HRESULT hr;
 
 		hr = id->pDID->Acquire();
@@ -667,7 +652,9 @@ void GlobalShortcutWin::timeTicked() {
 			// a second, warn the user that they
 			// might have a misbehaving device.
 			if (timer.elapsed() > 1000) {
-				qWarning("GlobalShortcut_win: Poll() for device %s took %li msec. This is abnormal, the device is possibly misbehaving...", qPrintable(QUuid(id->guid).toString()), static_cast<long>(timer.elapsed()));
+				qWarning("GlobalShortcut_win: Poll() for device %s took %li msec. This is abnormal, the device is "
+						 "possibly misbehaving...",
+						 qPrintable(QUuid(id->guid).toString()), static_cast< long >(timer.elapsed()));
 			}
 		}
 
@@ -678,8 +665,8 @@ void GlobalShortcutWin::timeTicked() {
 		if (dwItems <= 0)
 			continue;
 
-		for (DWORD j=0; j<dwItems; j++) {
-			QList<QVariant> ql;
+		for (DWORD j = 0; j < dwItems; j++) {
+			QList< QVariant > ql;
 
 			quint32 uiType = id->qhOfsToType.value(rgdod[j].dwOfs);
 			ql << uiType;
@@ -691,14 +678,14 @@ void GlobalShortcutWin::timeTicked() {
 #ifdef USE_GKEY
 	if (g.s.bEnableGKey && gkey && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
-			QList<QVariant> ql;
+			QList< QVariant > ql;
 			ql << button;
 			ql << GKeyLibrary::quMouse;
 			handleButton(ql, gkey->isMouseButtonPressed(button));
 		}
 		for (int mode = GKEY_MIN_KEYBOARD_MODE; mode <= GKEY_MAX_KEYBOARD_MODE; mode++) {
 			for (int key = GKEY_MIN_KEYBOARD_BUTTON; key <= GKEY_MAX_KEYBOARD_BUTTON; key++) {
-				QList<QVariant> ql;
+				QList< QVariant > ql;
 				// Store the key and mode in one int
 				// bit 0..15: mode, bit 16..31: key
 				ql << (key | (mode << 16));
@@ -738,7 +725,7 @@ void GlobalShortcutWin::timeTicked() {
 				// buttons, we assign them the button indexes 16 and 17.
 				uint32_t buttonMask = state.buttons;
 				for (uint32_t j = 0; j < 18; j++) {
-					QList<QVariant> ql;
+					QList< QVariant > ql;
 
 					bool pressed = false;
 					if (j >= 16) {
@@ -749,11 +736,11 @@ void GlobalShortcutWin::timeTicked() {
 						}
 					} else {
 						uint32_t currentButtonMask = (1 << j);
-						pressed = (buttonMask & currentButtonMask) != 0;
+						pressed                    = (buttonMask & currentButtonMask) != 0;
 					}
 
 					uint32_t type = (i << 24) | j;
-					ql << static_cast<uint>(type);
+					ql << static_cast< uint >(type);
 					ql << XboxInput::s_XboxInputGuid;
 					handleButton(ql, pressed);
 				}
@@ -793,38 +780,39 @@ void GlobalShortcutWin::timeTicked() {
 	// behavior of the system's mouse input.
 	if (bHook && !hhMouse && !hhKeyboard) {
 		HMODULE hSelf;
-		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(&HookKeyboard), &hSelf);
-		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+						  reinterpret_cast< LPCTSTR >(&HookKeyboard), &hSelf);
+		hhMouse    = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
 		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
 	}
 }
 
 QString GlobalShortcutWin::buttonName(const QVariant &v) {
-	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
+	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
 
-	const QList<QVariant> &sublist = v.toList();
+	const QList< QVariant > &sublist = v.toList();
 	if (sublist.count() != 2)
 		return QString();
 
-	bool ok = false;
+	bool ok    = false;
 	DWORD type = sublist.at(0).toUInt(&ok);
 	QUuid guid(sublist.at(1).toString());
 
 	if (guid.isNull() || (!ok))
 		return QString();
 
-	QString device=guid.toString();
-	QString name=QLatin1String("Unknown");
+	QString device = guid.toString();
+	QString name   = QLatin1String("Unknown");
 
 #ifdef USE_GKEY
 	if (g.s.bEnableGKey && gkey && gkey->isValid()) {
 		bool isGKey = false;
 		if (guid == GKeyLibrary::quMouse) {
 			isGKey = true;
-			name = gkey->getMouseButtonString(type);
+			name   = gkey->getMouseButtonString(type);
 		} else if (guid == GKeyLibrary::quKeyboard) {
 			isGKey = true;
-			name = gkey->getKeyboardGkeyString(type & 0xFFFF, type >> 16);
+			name   = gkey->getKeyboardGkeyString(type & 0xFFFF, type >> 16);
 		}
 		if (isGKey) {
 			device = QLatin1String("GKey:");
@@ -835,7 +823,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 #ifdef USE_XBOXINPUT
 	if (g.s.bEnableXboxInput && xboxinput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
-		uint32_t idx = (type >> 24) & 0xff;
+		uint32_t idx    = (type >> 24) & 0xff;
 		uint32_t button = (type & 0x00ffffff);
 
 		// Translate from our own button index mapping to
@@ -885,18 +873,18 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 	InputDevice *id = gsw->qhInputDevices.value(guid);
 	if (guid == GUID_SysMouse)
-		device=QLatin1String("M:");
+		device = QLatin1String("M:");
 	else if (guid == GUID_SysKeyboard)
-		device=QLatin1String("K:");
+		device = QLatin1String("K:");
 	else if (id)
-		device=id->name+QLatin1String(":");
+		device = id->name + QLatin1String(":");
 	if (id) {
 		QString result = id->qhNames.value(type);
 		if (!result.isEmpty()) {
 			name = result;
 		}
 	}
-	return device+name;
+	return device + name;
 }
 
 bool GlobalShortcutWin::canSuppress() {
@@ -912,7 +900,7 @@ bool GlobalShortcutWin::areScreenReadersActive() {
 	if (snapshot != INVALID_HANDLE_VALUE) {
 		PROCESSENTRY32 p;
 		p.dwSize = sizeof(p);
-		auto ok = Process32First(snapshot, &p);
+		auto ok  = Process32First(snapshot, &p);
 		while (ok) {
 			if (executables.contains(QString::fromWCharArray(p.szExeFile))) {
 				CloseHandle(snapshot);

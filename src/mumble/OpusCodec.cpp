@@ -6,13 +6,21 @@
 #include "OpusCodec.h"
 
 #include "Audio.h"
-#include "Version.h"
 #include "MumbleApplication.h"
+#include "Version.h"
 
 #ifdef Q_CC_GNU
-#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlOpus.resolve(#var)); bValid = bValid && var; }
+#	define RESOLVE(var)                                                        \
+		{                                                                       \
+			var    = reinterpret_cast< __typeof__(var) >(qlOpus.resolve(#var)); \
+			bValid = bValid && var;                                             \
+		}
 #else
-#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlOpus.resolve(#var)); bValid = bValid && var; }
+#	define RESOLVE(var)                                                                      \
+		{                                                                                     \
+			*reinterpret_cast< void ** >(&var) = static_cast< void * >(qlOpus.resolve(#var)); \
+			bValid                             = bValid && var;                               \
+		}
 #endif
 
 OpusCodec::OpusCodec() {
@@ -34,7 +42,7 @@ OpusCodec::OpusCodec() {
 	alternatives << QString::fromLatin1("opus0.dll");
 	alternatives << QString::fromLatin1("opus.dll");
 #endif
-	foreach(const QString &lib, alternatives) {
+	foreach (const QString &lib, alternatives) {
 		qlOpus.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
 		if (qlOpus.load()) {
 			bValid = true;

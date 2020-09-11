@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -39,9 +39,9 @@
 #ifdef Q_OS_WIN
 // <openssl/rand.h> includes <windows.h> without defining NOMINMAX,
 // which breaks our compilation because of the "max" macro.
-#ifndef NOMINMAX
-# define NOMINMAX
-#endif
+#	ifndef NOMINMAX
+#		define NOMINMAX
+#	endif
 #endif
 
 #include "PBKDF2.h"
@@ -58,28 +58,29 @@
 int PBKDF2::benchmark() {
 	const QString pseudopass(QLatin1String("aboutAvg"));
 	const QString hexSalt = getSalt(); // Could tolerate not getting a salt here, will likely only make it harder.
-	
+
 	int maxIterations = -1;
-	
+
 	QElapsedTimer timer;
 	timer.start();
-	
+
 	for (size_t i = 0; i < BENCHMARK_N; ++i) {
 		int iterations = BENCHMARK_MINIMUM_ITERATION_COUNT / 2;
-	
+
 		timer.restart();
 		do {
 			iterations *= 2;
-			
+
 			// Store return value in a volatile to prevent optimizer
 			// from ever removing these side-effect-free calls. I don't
 			// think the compiler can prove they have no side-effects but
 			// better safe than sorry.
 			volatile QString result = getHash(hexSalt, pseudopass, iterations);
 			Q_UNUSED(result);
-			
-		} while (timer.restart() < BENCHMARK_DURATION_TARGET_IN_MS && (iterations / 2) < std::numeric_limits<int>::max());
-		
+
+		} while (timer.restart() < BENCHMARK_DURATION_TARGET_IN_MS
+				 && (iterations / 2) < std::numeric_limits< int >::max());
+
 		if (iterations > maxIterations) {
 			maxIterations = iterations;
 		}
@@ -89,27 +90,26 @@ int PBKDF2::benchmark() {
 
 QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int iterationCount) {
 	QByteArray hash(DERIVED_KEY_LENGTH, 0);
-	
+
 	const QByteArray utf8Password = password.toUtf8();
-	const QByteArray salt = QByteArray::fromHex(hexSalt.toLatin1());
+	const QByteArray salt         = QByteArray::fromHex(hexSalt.toLatin1());
 
 	if (PKCS5_PBKDF2_HMAC(utf8Password.constData(), utf8Password.size(),
-	                      reinterpret_cast<const unsigned char*>(salt.constData()), salt.size(),
-	                      iterationCount,
-	                      EVP_sha384(),
-	                      DERIVED_KEY_LENGTH, reinterpret_cast<unsigned char*>(hash.data())) == 0) {
+						  reinterpret_cast< const unsigned char * >(salt.constData()), salt.size(), iterationCount,
+						  EVP_sha384(), DERIVED_KEY_LENGTH, reinterpret_cast< unsigned char * >(hash.data()))
+		== 0) {
 		qFatal("PBKDF2: PKCS5_PBKDF2_HMAC failed: %s", ERR_error_string(ERR_get_error(), nullptr));
 		return QString();
 	}
-	
+
 	return QString::fromLatin1(hash.toHex());
 }
 
 
 QString PBKDF2::getSalt() {
 	QByteArray salt(SALT_LENGTH, 0);
-	
-	if (RAND_bytes(reinterpret_cast<unsigned char*>(salt.data()), salt.size()) != 1) {
+
+	if (RAND_bytes(reinterpret_cast< unsigned char * >(salt.data()), salt.size()) != 1) {
 		qFatal("PBKDF2: RAND_bytes for salt failed: %s", ERR_error_string(ERR_get_error(), nullptr));
 		return QString();
 	}

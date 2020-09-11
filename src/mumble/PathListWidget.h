@@ -20,11 +20,12 @@ class PathListWidget : public QListWidget {
 public:
 	enum PathType { FILE_EXE, FOLDER };
 
-	PathListWidget(QWidget *parent=0);
+	PathListWidget(QWidget *parent = 0);
 	void setPathType(PathType type);
 	virtual void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
 	virtual void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
 	virtual void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
+
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(PathListWidget)

@@ -9,7 +9,7 @@
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
-static int add_ext(X509 * crt, int nid, char *value) {
+static int add_ext(X509 *crt, int nid, char *value) {
 	X509V3_CTX ctx;
 	X509V3_set_ctx_nodb(&ctx);
 	X509V3_set_ctx(&ctx, crt, crt, nullptr, nullptr, 0);
@@ -28,16 +28,17 @@ static int add_ext(X509 * crt, int nid, char *value) {
 	return 1;
 }
 
-bool SelfSignedCertificate::generate(CertificateType certificateType, QString clientCertName, QString clientCertEmail, QSslCertificate &qscCert, QSslKey &qskKey) {
-	bool ok = true;
-	X509 *x509 = nullptr;
-	EVP_PKEY *pkey = nullptr;
-	RSA *rsa = nullptr;
-	BIGNUM *e = nullptr;
-	X509_NAME *name = nullptr;
+bool SelfSignedCertificate::generate(CertificateType certificateType, QString clientCertName, QString clientCertEmail,
+									 QSslCertificate &qscCert, QSslKey &qskKey) {
+	bool ok                    = true;
+	X509 *x509                 = nullptr;
+	EVP_PKEY *pkey             = nullptr;
+	RSA *rsa                   = nullptr;
+	BIGNUM *e                  = nullptr;
+	X509_NAME *name            = nullptr;
 	ASN1_INTEGER *serialNumber = nullptr;
-	ASN1_TIME *notBefore = nullptr;
-	ASN1_TIME *notAfter = nullptr;
+	ASN1_TIME *notBefore       = nullptr;
+	ASN1_TIME *notAfter        = nullptr;
 	QString commonName;
 	bool isServerCert = certificateType == CertificateTypeServerCertificate;
 
@@ -114,7 +115,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		ok = false;
 		goto out;
 	}
-	if (!X509_gmtime_adj(notAfter, 60*60*24*365*20)) {
+	if (!X509_gmtime_adj(notAfter, 60 * 60 * 24 * 365 * 20)) {
 		ok = false;
 		goto out;
 	}
@@ -140,7 +141,9 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		}
 	}
 
-	if (X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, reinterpret_cast<unsigned char *>(commonName.toUtf8().data()), -1, -1, 0) == 0) {
+	if (X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+								   reinterpret_cast< unsigned char * >(commonName.toUtf8().data()), -1, -1, 0)
+		== 0) {
 		ok = false;
 		goto out;
 	}
@@ -186,7 +189,9 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 
 	if (!isServerCert) {
 		if (!clientCertEmail.trimmed().isEmpty()) {
-			if (add_ext(x509, NID_subject_alt_name, QString::fromLatin1("email:%1").arg(clientCertEmail).toUtf8().data()) == 0) {
+			if (add_ext(x509, NID_subject_alt_name,
+						QString::fromLatin1("email:%1").arg(clientCertEmail).toUtf8().data())
+				== 0) {
 				ok = false;
 				goto out;
 			}
@@ -207,7 +212,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		}
 		crt.resize(len);
 
-		unsigned char *dptr = reinterpret_cast<unsigned char *>(crt.data());
+		unsigned char *dptr = reinterpret_cast< unsigned char * >(crt.data());
 		if (i2d_X509(x509, &dptr) != len) {
 			ok = false;
 			goto out;
@@ -229,7 +234,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		}
 		key.resize(len);
 
-		unsigned char *dptr = reinterpret_cast<unsigned char *>(key.data());
+		unsigned char *dptr = reinterpret_cast< unsigned char * >(key.data());
 		if (i2d_PrivateKey(pkey, &dptr) != len) {
 			ok = false;
 			goto out;
@@ -259,13 +264,14 @@ out:
 
 	if (!ok) {
 		qscCert = QSslCertificate();
-		qskKey = QSslKey();
+		qskKey  = QSslKey();
 	}
 
 	return ok;
 }
 
-bool SelfSignedCertificate::generateMumbleCertificate(QString name, QString email, QSslCertificate &qscCert, QSslKey &qskKey) {
+bool SelfSignedCertificate::generateMumbleCertificate(QString name, QString email, QSslCertificate &qscCert,
+													  QSslKey &qskKey) {
 	return SelfSignedCertificate::generate(CertificateTypeClientCertificate, name, email, qscCert, qskKey);
 }
 

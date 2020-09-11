@@ -4,9 +4,9 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include <windows.h>
+#include <shellapi.h>
 #include <shlwapi.h>
 #include <stdio.h>
-#include <shellapi.h>
 
 #include <string>
 #include <vector>
@@ -14,17 +14,17 @@
 #include "../overlay.h"
 #include "overlay_exe.h"
 
-#define UNUSED(x) ((void)x)
+#define UNUSED(x) ((void) x)
 
 typedef int (*OverlayHelperProcessMain)(unsigned int magic, HANDLE parent);
 
 // Signal to the overlay DLL that it should not inject
 // into this process.
-extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
+extern "C" __declspec(dllexport) void mumbleSelfDetection(){};
 
 // Alert shows a fatal error dialog and waits for the user to click OK.
 static void Alert(LPCWSTR title, LPCWSTR msg) {
-	MessageBox(nullptr, msg, title, MB_OK|MB_ICONERROR);
+	MessageBox(nullptr, msg, title, MB_OK | MB_ICONERROR);
 }
 
 // GetExecutableDirPath returns the directory that
@@ -75,15 +75,15 @@ static std::wstring GetAbsoluteMumbleOverlayDllPath() {
 // passed to the process.
 // If the returned vector has a length of 0, an unknown
 // error occurred.
-static std::vector<std::wstring> GetCommandLineArgs() {
-	std::vector<std::wstring> args;
+static std::vector< std::wstring > GetCommandLineArgs() {
+	std::vector< std::wstring > args;
 
 	LPWSTR cmdLine = GetCommandLine();
 	if (!cmdLine) {
 		return args;
 	}
 
-	int argc = 0;
+	int argc     = 0;
 	LPWSTR *argv = CommandLineToArgvW(cmdLine, &argc);
 	if (!argv) {
 		return args;
@@ -115,11 +115,11 @@ int main(int argc, char **argv) {
 	// initiated launches by checking if we were passed any
 	// arguments at all. If no parameters are passed, we
 	// display a nice alert dialog directing users to
-	// 'mumble.exe' instead. 
+	// 'mumble.exe' instead.
 	unsigned int magic = 0;
-	HANDLE parent = 0;
+	HANDLE parent      = 0;
 	{
-		std::vector<std::wstring> args = GetCommandLineArgs();
+		std::vector< std::wstring > args = GetCommandLineArgs();
 
 		// If there is only a single argument, it's the program name.
 		// That probably means that a user has double-clicked
@@ -140,19 +140,19 @@ int main(int argc, char **argv) {
 		}
 
 		std::wstring magicNumberStr = args[1];
-		std::wstring handleStr = args[2];
+		std::wstring handleStr      = args[2];
 
 		try {
 			unsigned long passedInMagic = std::stoul(magicNumberStr);
-			magic = static_cast<unsigned int>(passedInMagic);
+			magic                       = static_cast< unsigned int >(passedInMagic);
 		} catch (std::exception &) {
 			return OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT;
 		}
 
 		try {
 			unsigned long long passedInHandle = std::stoull(handleStr);
-			parent = reinterpret_cast<HANDLE>(passedInHandle & 0xFFFFFFFFULL);
-		} catch(std::exception &) {
+			parent                            = reinterpret_cast< HANDLE >(passedInHandle & 0xFFFFFFFFULL);
+		} catch (std::exception &) {
 			return OVERLAY_HELPER_ERROR_EXE_INVALID_HANDLE_ARGUMENT;
 		}
 	}
@@ -175,7 +175,8 @@ int main(int argc, char **argv) {
 		return OVERLAY_HELPER_ERROR_EXE_LOAD_DLL;
 	}
 
-	OverlayHelperProcessMain entryPoint = reinterpret_cast<OverlayHelperProcessMain>(GetProcAddress(dll, "OverlayHelperProcessMain"));
+	OverlayHelperProcessMain entryPoint =
+		reinterpret_cast< OverlayHelperProcessMain >(GetProcAddress(dll, "OverlayHelperProcessMain"));
 	if (!entryPoint) {
 		return OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT;
 	}

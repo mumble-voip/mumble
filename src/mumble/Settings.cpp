@@ -21,33 +21,36 @@
 
 #include <limits>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 
 
-const QPoint Settings::UNSPECIFIED_POSITION = QPoint(std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
+const QPoint Settings::UNSPECIFIED_POSITION =
+	QPoint(std::numeric_limits< int >::min(), std::numeric_limits< int >::max());
 
 bool Shortcut::isServerSpecific() const {
-	if (qvData.canConvert<ShortcutTarget>()) {
-		const ShortcutTarget &sc = qvariant_cast<ShortcutTarget> (qvData);
+	if (qvData.canConvert< ShortcutTarget >()) {
+		const ShortcutTarget &sc = qvariant_cast< ShortcutTarget >(qvData);
 		return sc.isServerSpecific();
 	}
 	return false;
 }
 
-bool Shortcut::operator < (const Shortcut &other) const {
+bool Shortcut::operator<(const Shortcut &other) const {
 	return (iIndex < other.iIndex);
 }
 
-bool Shortcut::operator == (const Shortcut &other) const {
-	return (iIndex == other.iIndex) && (qlButtons == other.qlButtons) && (qvData == other.qvData) && (bSuppress == other.bSuppress);
+bool Shortcut::operator==(const Shortcut &other) const {
+	return (iIndex == other.iIndex) && (qlButtons == other.qlButtons) && (qvData == other.qvData)
+		   && (bSuppress == other.bSuppress);
 }
 
 ShortcutTarget::ShortcutTarget() {
-	bUsers = true;
+	bUsers            = true;
 	bCurrentSelection = false;
-	iChannel = -3;
+	iChannel          = -3;
 	bLinks = bChildren = bForceCenter = false;
 }
 
@@ -55,7 +58,7 @@ bool ShortcutTarget::isServerSpecific() const {
 	return !bCurrentSelection && !bUsers && iChannel >= 0;
 }
 
-bool ShortcutTarget::operator == (const ShortcutTarget &o) const {
+bool ShortcutTarget::operator==(const ShortcutTarget &o) const {
 	if ((bUsers != o.bUsers) || (bForceCenter != o.bForceCenter) || (bCurrentSelection != o.bCurrentSelection))
 		return false;
 	if (bUsers)
@@ -72,7 +75,7 @@ quint32 qHash(const ShortcutTarget &t) {
 	}
 
 	if (t.bUsers) {
-		foreach(unsigned int u, t.qlSessions)
+		foreach (unsigned int u, t.qlSessions)
 			h ^= u;
 	} else {
 		h ^= t.iChannel;
@@ -86,14 +89,14 @@ quint32 qHash(const ShortcutTarget &t) {
 	return h;
 }
 
-quint32 qHash(const QList<ShortcutTarget> &l) {
+quint32 qHash(const QList< ShortcutTarget > &l) {
 	quint32 h = l.count();
-	foreach(const ShortcutTarget &st, l)
+	foreach (const ShortcutTarget &st, l)
 		h ^= qHash(st);
 	return h;
 }
 
-QDataStream &operator<< (QDataStream &qds, const ShortcutTarget &st) {
+QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
 	// Start by the version of this setting. This is needed to make sure we can stay compatible
 	// with older versions (aka don't break existing shortcuts when updating the implementation)
 	qds << QString::fromLatin1("v2");
@@ -109,7 +112,7 @@ QDataStream &operator<< (QDataStream &qds, const ShortcutTarget &st) {
 	}
 }
 
-QDataStream &operator>> (QDataStream &qds, ShortcutTarget &st) {
+QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 	// Check for presence of a leading version string
 	QString versionString;
 	QIODevice *device = qds.device();
@@ -127,7 +130,7 @@ QDataStream &operator>> (QDataStream &qds, ShortcutTarget &st) {
 		int read = device->peek(buf, sizeof(buf));
 
 		for (int i = 0; i < read; i++) {
-			if (buf[i] >= 31 ) {
+			if (buf[i] >= 31) {
 				if (buf[i] == 'v') {
 					qds >> versionString;
 				} else {
@@ -154,44 +157,44 @@ QDataStream &operator>> (QDataStream &qds, ShortcutTarget &st) {
 	}
 }
 
-const QString Settings::cqsDefaultPushClickOn = QLatin1String(":/on.ogg");
+const QString Settings::cqsDefaultPushClickOn  = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
 OverlaySettings::OverlaySettings() {
 	bEnable = false;
 
-	fX = 1.0f;
-	fY = 0.0f;
+	fX    = 1.0f;
+	fY    = 0.0f;
 	fZoom = 0.875f;
 
 #ifdef Q_OS_MAC
 	qsStyle = QLatin1String("Cleanlooks");
 #endif
 
-	osShow = LinkedChannels;
-	bAlwaysSelf = true;
+	osShow       = LinkedChannels;
+	bAlwaysSelf  = true;
 	uiActiveTime = 5;
-	osSort = Alphabetical;
+	osSort       = Alphabetical;
 
-	qcUserName[Settings::Passive] = QColor(170, 170, 170);
+	qcUserName[Settings::Passive]      = QColor(170, 170, 170);
 	qcUserName[Settings::MutedTalking] = QColor(170, 170, 170);
-	qcUserName[Settings::Talking] = QColor(255, 255, 255);
-	qcUserName[Settings::Whispering] = QColor(128, 255, 128);
-	qcUserName[Settings::Shouting] = QColor(255, 128, 255);
-	qcChannel = QColor(255, 255, 128);
-	qcBoxPen = QColor(0, 0, 0, 224);
-	qcBoxFill = QColor(0, 0, 0);
+	qcUserName[Settings::Talking]      = QColor(255, 255, 255);
+	qcUserName[Settings::Whispering]   = QColor(128, 255, 128);
+	qcUserName[Settings::Shouting]     = QColor(255, 128, 255);
+	qcChannel                          = QColor(255, 255, 128);
+	qcBoxPen                           = QColor(0, 0, 0, 224);
+	qcBoxFill                          = QColor(0, 0, 0);
 
 	setPreset();
 
 	// FPS and Time display settings
-	qcFps = Qt::white;
-	fFps = 0.75f;
-	qfFps = qfUserName;
-	qrfFps = QRectF(0.0f, 0.05, -1, 0.023438f);
-	bFps = false;
+	qcFps   = Qt::white;
+	fFps    = 0.75f;
+	qfFps   = qfUserName;
+	qrfFps  = QRectF(0.0f, 0.05, -1, 0.023438f);
+	bFps    = false;
 	qrfTime = QRectF(0.0f, 0.0, -1, 0.023438f);
-	bTime = false;
+	bTime   = false;
 
 	oemOverlayExcludeMode = OverlaySettings::LauncherFilterExclusionMode;
 }
@@ -199,11 +202,11 @@ OverlaySettings::OverlaySettings() {
 void OverlaySettings::setPreset(const OverlayPresets preset) {
 	switch (preset) {
 		case LargeSquareAvatar:
-			uiColumns = 2;
-			fUserName = 0.75f;
-			fChannel = 0.75f;
+			uiColumns      = 2;
+			fUserName      = 0.75f;
+			fChannel       = 0.75f;
 			fMutedDeafened = 0.5f;
-			fAvatar = 1.0f;
+			fAvatar        = 1.0f;
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 			qfUserName = QFont(QLatin1String("Verdana"), 20);
@@ -212,38 +215,38 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 #endif
 			qfChannel = qfUserName;
 
-			fUser[Settings::Passive] = 0.5f;
+			fUser[Settings::Passive]      = 0.5f;
 			fUser[Settings::MutedTalking] = 0.5f;
-			fUser[Settings::Talking] = (7.0f / 8.0f);
-			fUser[Settings::Whispering] = (7.0f / 8.0f);
-			fUser[Settings::Shouting] = (7.0f / 8.0f);
+			fUser[Settings::Talking]      = (7.0f / 8.0f);
+			fUser[Settings::Whispering]   = (7.0f / 8.0f);
+			fUser[Settings::Shouting]     = (7.0f / 8.0f);
 
-			qrfUserName = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);
-			qrfChannel = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
+			qrfUserName      = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);
+			qrfChannel       = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
 			qrfMutedDeafened = QRectF(-0.0625f, -0.0625f, 0.0625f, 0.0625f);
-			qrfAvatar = QRectF(-0.0625f, -0.0625f, 0.125f, 0.125f);
+			qrfAvatar        = QRectF(-0.0625f, -0.0625f, 0.125f, 0.125f);
 
 			fBoxPenWidth = (1.f / 256.0f);
-			fBoxPad = (1.f / 256.0f);
+			fBoxPad      = (1.f / 256.0f);
 
-			bUserName = true;
-			bChannel = true;
+			bUserName      = true;
+			bChannel       = true;
 			bMutedDeafened = true;
-			bAvatar = true;
-			bBox = false;
+			bAvatar        = true;
+			bBox           = false;
 
-			qaUserName = Qt::AlignCenter;
+			qaUserName      = Qt::AlignCenter;
 			qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
-			qaAvatar = Qt::AlignCenter;
-			qaChannel = Qt::AlignCenter;
+			qaAvatar        = Qt::AlignCenter;
+			qaChannel       = Qt::AlignCenter;
 			break;
 		case AvatarAndName:
 		default:
-			uiColumns = 1;
-			fUserName = 1.0f;
-			fChannel = (7.0f / 8.0f);
+			uiColumns      = 1;
+			fUserName      = 1.0f;
+			fChannel       = (7.0f / 8.0f);
 			fMutedDeafened = (7.0f / 8.0f);
-			fAvatar = 1.0f;
+			fAvatar        = 1.0f;
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 			qfUserName = QFont(QLatin1String("Verdana"), 20);
@@ -252,81 +255,81 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 #endif
 			qfChannel = qfUserName;
 
-			fUser[Settings::Passive] = 0.5f;
+			fUser[Settings::Passive]      = 0.5f;
 			fUser[Settings::MutedTalking] = 0.5f;
-			fUser[Settings::Talking] = (7.0f / 8.0f);
-			fUser[Settings::Whispering] = (7.0f / 8.0f);
-			fUser[Settings::Shouting] = (7.0f / 8.0f);
+			fUser[Settings::Talking]      = (7.0f / 8.0f);
+			fUser[Settings::Whispering]   = (7.0f / 8.0f);
+			fUser[Settings::Shouting]     = (7.0f / 8.0f);
 
-			qrfUserName = QRectF(0.015625f, -0.015625f, 0.250f, 0.03125f);
-			qrfChannel = QRectF(0.03125f, -0.015625f, 0.1875f, 0.015625f);
+			qrfUserName      = QRectF(0.015625f, -0.015625f, 0.250f, 0.03125f);
+			qrfChannel       = QRectF(0.03125f, -0.015625f, 0.1875f, 0.015625f);
 			qrfMutedDeafened = QRectF(0.234375f, -0.015625f, 0.03125f, 0.03125f);
-			qrfAvatar = QRectF(-0.03125f, -0.015625f, 0.03125f, 0.03125f);
+			qrfAvatar        = QRectF(-0.03125f, -0.015625f, 0.03125f, 0.03125f);
 
 			fBoxPenWidth = 0.0f;
-			fBoxPad = (1.f / 256.0f);
+			fBoxPad      = (1.f / 256.0f);
 
-			bUserName = true;
-			bChannel = false;
+			bUserName      = true;
+			bChannel       = false;
 			bMutedDeafened = true;
-			bAvatar = true;
-			bBox = true;
+			bAvatar        = true;
+			bBox           = true;
 
-			qaUserName = Qt::AlignLeft | Qt::AlignVCenter;
+			qaUserName      = Qt::AlignLeft | Qt::AlignVCenter;
 			qaMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
-			qaAvatar = Qt::AlignCenter;
-			qaChannel = Qt::AlignLeft | Qt::AlignTop;
+			qaAvatar        = Qt::AlignCenter;
+			qaChannel       = Qt::AlignLeft | Qt::AlignTop;
 			break;
 	}
 }
 
 Settings::Settings() {
-	qRegisterMetaType<ShortcutTarget> ("ShortcutTarget");
-	qRegisterMetaTypeStreamOperators<ShortcutTarget> ("ShortcutTarget");
-	qRegisterMetaType<QVariant> ("QVariant");
+	qRegisterMetaType< ShortcutTarget >("ShortcutTarget");
+	qRegisterMetaTypeStreamOperators< ShortcutTarget >("ShortcutTarget");
+	qRegisterMetaType< QVariant >("QVariant");
 
-	atTransmit = VAD;
+	atTransmit        = VAD;
 	bTransmitPosition = false;
-	bMute = bDeaf = false;
-	bTTS = true;
-	bTTSMessageReadBack = false;
-	bTTSNoScope = false;
-	bTTSNoAuthor = false;
-	iTTSVolume = 75;
-	iTTSThreshold = 250;
-	qsTTSLanguage = QString();
-	iQuality = 40000;
-	fVolume = 1.0f;
-	fOtherVolume = 0.5f;
-	bAttenuateOthersOnTalk = false;
-	bAttenuateOthers = false;
+	bMute = bDeaf                  = false;
+	bTTS                           = true;
+	bTTSMessageReadBack            = false;
+	bTTSNoScope                    = false;
+	bTTSNoAuthor                   = false;
+	iTTSVolume                     = 75;
+	iTTSThreshold                  = 250;
+	qsTTSLanguage                  = QString();
+	iQuality                       = 40000;
+	fVolume                        = 1.0f;
+	fOtherVolume                   = 0.5f;
+	bAttenuateOthersOnTalk         = false;
+	bAttenuateOthers               = false;
 	bAttenuateUsersOnPrioritySpeak = false;
-	bOnlyAttenuateSameOutput = false;
-	bAttenuateLoopbacks = false;
-	iMinLoudness = 1000;
-	iVoiceHold = 50;
-	iJitterBufferSize = 1;
-	iFramesPerPacket = 2;
+	bOnlyAttenuateSameOutput       = false;
+	bAttenuateLoopbacks            = false;
+	iMinLoudness                   = 1000;
+	iVoiceHold                     = 50;
+	iJitterBufferSize              = 1;
+	iFramesPerPacket               = 2;
 #ifdef USE_RNNOISE
 	noiseCancelMode = NoiseCancelRNN;
 #else
 	noiseCancelMode = NoiseCancelSpeex;
 #endif
 	iSpeexNoiseCancelStrength = -30;
-	bAllowLowDelay = true;
-	uiAudioInputChannelMask = 0xffffffffffffffffULL;
+	bAllowLowDelay            = true;
+	uiAudioInputChannelMask   = 0xffffffffffffffffULL;
 
 	// Idle auto actions
-	iIdleTime = 5 * 60;
-	iaeIdleAction = Nothing;
+	iIdleTime                   = 5 * 60;
+	iaeIdleAction               = Nothing;
 	bUndoIdleActionUponActivity = false;
 
-	vsVAD = Amplitude;
+	vsVAD   = Amplitude;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
 
-	bTxAudioCue = false;
-	qsTxAudioCueOn = cqsDefaultPushClickOn;
+	bTxAudioCue     = false;
+	qsTxAudioCueOn  = cqsDefaultPushClickOn;
 	qsTxAudioCueOff = cqsDefaultPushClickOff;
 
 	bUserTop = true;
@@ -334,7 +337,7 @@ Settings::Settings() {
 	bWhisperFriends = false;
 
 	uiDoublePush = 0;
-	pttHold = 0;
+	pttHold      = 0;
 
 #ifdef NO_UPDATE_CHECK
 	bUpdateCheck = false;
@@ -346,32 +349,33 @@ Settings::Settings() {
 
 	qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 
-	ceExpand = ChannelsWithUsers;
-	ceChannelDrag = Ask;
-	ceUserDrag = Move;
-	bMinimalView = false;
-	bHideFrame = false;
-	aotbAlwaysOnTop = OnTopNever;
-	bAskOnQuit = true;
+	ceExpand             = ChannelsWithUsers;
+	ceChannelDrag        = Ask;
+	ceUserDrag           = Move;
+	bMinimalView         = false;
+	bHideFrame           = false;
+	aotbAlwaysOnTop      = OnTopNever;
+	bAskOnQuit           = true;
 	bEnableDeveloperMenu = false;
-	bLockLayout = false;
+	bLockLayout          = false;
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on Windows >= 7
 	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
-	bHideInTray = (winVer < QSysInfo::WV_WINDOWS7);
+	bHideInTray                       = (winVer < QSysInfo::WV_WINDOWS7);
 #else
-	const bool isUnityDesktop = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_CURRENT_DESKTOP")) == QLatin1String("Unity");
+	const bool isUnityDesktop =
+		QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_CURRENT_DESKTOP")) == QLatin1String("Unity");
 	bHideInTray = !isUnityDesktop && QSystemTrayIcon::isSystemTrayAvailable();
 #endif
-	bStateInTray = true;
-	bUsage = true;
-	bShowUserCount = false;
-	bShowVolumeAdjustments = true;
-	bChatBarUseSelection = false;
+	bStateInTray              = true;
+	bUsage                    = true;
+	bShowUserCount            = false;
+	bShowVolumeAdjustments    = true;
+	bChatBarUseSelection      = false;
 	bFilterHidesEmptyChannels = true;
-	bFilterActive = false;
+	bFilterActive             = false;
 
-	wlWindowLayout = LayoutClassic;
+	wlWindowLayout            = LayoutClassic;
 	bShowContextMenuInMenuBar = false;
 
 	ssFilter = ShowReachable;
@@ -380,13 +384,13 @@ Settings::Settings() {
 
 	bASIOEnable = true;
 
-	qsALSAInput=QLatin1String("default");
-	qsALSAOutput=QLatin1String("default");
+	qsALSAInput  = QLatin1String("default");
+	qsALSAOutput = QLatin1String("default");
 
-	qsJackClientName = QLatin1String("mumble");
+	qsJackClientName  = QLatin1String("mumble");
 	qsJackAudioOutput = QLatin1String("1");
-	bJackStartServer = false;
-	bJackAutoConnect = true;
+	bJackStartServer  = false;
+	bJackAutoConnect  = true;
 
 #ifndef Q_OS_MAC
 	// Enable echo cancellation by default everywhere except for Macs as we currently
@@ -397,47 +401,47 @@ Settings::Settings() {
 #endif
 	bEchoMulti = false;
 
-	bExclusiveInput = false;
+	bExclusiveInput  = false;
 	bExclusiveOutput = false;
 
-	iPortAudioInput = -1; // default device
+	iPortAudioInput  = -1; // default device
 	iPortAudioOutput = -1; // default device
 
-	bPositionalAudio = true;
+	bPositionalAudio     = true;
 	bPositionalHeadphone = false;
-	fAudioMinDistance = 1.0f;
-	fAudioMaxDistance = 15.0f;
-	fAudioMaxDistVolume = 0.80f;
-	fAudioBloom = 0.5f;
+	fAudioMinDistance    = 1.0f;
+	fAudioMaxDistance    = 15.0f;
+	fAudioMaxDistVolume  = 0.80f;
+	fAudioBloom          = 0.5f;
 
 	// OverlayPrivateWin
 	iOverlayWinHelperRestartCooldownMsec = 10000;
-	bOverlayWinHelperX86Enable = true;
-	bOverlayWinHelperX64Enable = true;
+	bOverlayWinHelperX86Enable           = true;
+	bOverlayWinHelperX64Enable           = true;
 
-	iLCDUserViewMinColWidth = 50;
+	iLCDUserViewMinColWidth   = 50;
 	iLCDUserViewSplitterWidth = 2;
 
 	// PTT Button window
 	bShowPTTButtonWindow = false;
 
 	// Network settings
-	bTCPCompat = false;
-	bQoS = true;
-	bReconnect = true;
-	bAutoConnect = false;
-	bDisablePublicList = false;
-	ptProxyType = NoProxy;
-	usProxyPort = 0;
-	iMaxInFlightTCPPings = 4;
-	bUdpForceTcpAddr = true;
-	iPingIntervalMsec = 5000;
+	bTCPCompat                     = false;
+	bQoS                           = true;
+	bReconnect                     = true;
+	bAutoConnect                   = false;
+	bDisablePublicList             = false;
+	ptProxyType                    = NoProxy;
+	usProxyPort                    = 0;
+	iMaxInFlightTCPPings           = 4;
+	bUdpForceTcpAddr               = true;
+	iPingIntervalMsec              = 5000;
 	iConnectionTimeoutDurationMsec = 30000;
-	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
-	iMaxImageHeight = 1024;
-	bSuppressIdentity = false;
-	qsSslCiphers = MumbleSSL::defaultOpenSSLCipherString();
-	bHideOS = false;
+	iMaxImageWidth                 = 1024; // Allow 1024x1024 resolution
+	iMaxImageHeight                = 1024;
+	bSuppressIdentity              = false;
+	qsSslCiphers                   = MumbleSSL::defaultOpenSSLCipherString();
+	bHideOS                        = false;
 
 	bShowTransmitModeComboBox = false;
 
@@ -445,15 +449,15 @@ Settings::Settings() {
 	bHighContrast = false;
 
 	// Recording
-	qsRecordingPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-	qsRecordingFile = QLatin1String("Mumble-%date-%time-%host-%user");
-	rmRecordingMode = RecordingMixdown;
+	qsRecordingPath  = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+	qsRecordingFile  = QLatin1String("Mumble-%date-%time-%host-%user");
+	rmRecordingMode  = RecordingMixdown;
 	iRecordingFormat = 0;
 
 	// Special configuration options not exposed to UI
-	bDisableCELT = false;
+	bDisableCELT                = false;
 	disableConnectDialogEditing = false;
-	bPingServersDialogViewed = false;
+	bPingServersDialogViewed    = false;
 
 	// Config updates
 	uiUpdateCounter = 0;
@@ -463,83 +467,83 @@ Settings::Settings() {
 #else
 	lmLoopMode = None;
 #endif
-	dPacketLoss = 0;
+	dPacketLoss     = 0;
 	dMaxPacketDelay = 0.0f;
-	
+
 	requireRestartToApply = false;
 
-	iMaxLogBlocks = 0;
-	bLog24HourClock = true;
+	iMaxLogBlocks       = 0;
+	bLog24HourClock     = true;
 	iChatMessageMargins = 3;
 
-	qpTalkingUI_Position = UNSPECIFIED_POSITION;
-	bShowTalkingUI = false;
-	bTalkingUI_LocalUserStaysVisible = false;
-	bTalkingUI_AbbreviateChannelNames = true;
+	qpTalkingUI_Position                = UNSPECIFIED_POSITION;
+	bShowTalkingUI                      = false;
+	bTalkingUI_LocalUserStaysVisible    = false;
+	bTalkingUI_AbbreviateChannelNames   = true;
 	bTalkingUI_AbbreviateCurrentChannel = false;
-	bTalkingUI_ShowLocalListeners = false;
-	iTalkingUI_RelativeFontSize = 100;
-	iTalkingUI_SilentUserLifeTime = 10;
-	iTalkingUI_ChannelHierarchyDepth = 1;
-	iTalkingUI_MaxChannelNameLength = 20;
-	iTalkingUI_PrefixCharCount = 3;
-	iTalkingUI_PostfixCharCount = 2;
-	qsTalkingUI_ChannelSeparator = QLatin1String("/");
+	bTalkingUI_ShowLocalListeners       = false;
+	iTalkingUI_RelativeFontSize         = 100;
+	iTalkingUI_SilentUserLifeTime       = 10;
+	iTalkingUI_ChannelHierarchyDepth    = 1;
+	iTalkingUI_MaxChannelNameLength     = 20;
+	iTalkingUI_PrefixCharCount          = 3;
+	iTalkingUI_PostfixCharCount         = 2;
+	qsTalkingUI_ChannelSeparator        = QLatin1String("/");
 	qsTalkingUI_AbbreviationReplacement = QLatin1String("...");
 
 	manualPlugin_silentUserDisplaytime = 1;
 
-	bShortcutEnable = true;
+	bShortcutEnable             = true;
 	bSuppressMacEventTapWarning = false;
-	bEnableEvdev = false;
-	bEnableXInput2 = true;
-	bEnableGKey = false;
-	bEnableXboxInput = true;
-	bEnableWinHooks = true;
-	bDirectInputVerboseLogging = false;
-	bEnableUIAccess = true;
+	bEnableEvdev                = false;
+	bEnableXInput2              = true;
+	bEnableGKey                 = false;
+	bEnableXboxInput            = true;
+	bEnableWinHooks             = true;
+	bDirectInputVerboseLogging  = false;
+	bEnableUIAccess             = true;
 
-	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i) {
+	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
 		qmMessageSounds.insert(i, QString());
 	}
 
-	qmMessageSounds[Log::CriticalError] = QLatin1String(":/Critical.ogg");
-	qmMessageSounds[Log::PermissionDenied] = QLatin1String(":/PermissionDenied.ogg");
-	qmMessageSounds[Log::SelfMute] = QLatin1String(":/SelfMutedDeafened.ogg");
-	qmMessageSounds[Log::SelfUnmute] = QLatin1String(":/SelfMutedDeafened.ogg");
-	qmMessageSounds[Log::SelfDeaf] = QLatin1String(":/SelfMutedDeafened.ogg");
-	qmMessageSounds[Log::SelfUndeaf] = QLatin1String(":/SelfMutedDeafened.ogg");
-	qmMessageSounds[Log::ServerConnected] = QLatin1String(":/ServerConnected.ogg");
-	qmMessageSounds[Log::ServerDisconnected] = QLatin1String(":/ServerDisconnected.ogg");
-	qmMessageSounds[Log::TextMessage] = QLatin1String(":/TextMessage.ogg");
-	qmMessageSounds[Log::PrivateTextMessage] = qmMessageSounds[Log::TextMessage];
-	qmMessageSounds[Log::ChannelJoin] = QLatin1String(":/UserJoinedChannel.ogg");
-	qmMessageSounds[Log::ChannelLeave] = QLatin1String(":/UserLeftChannel.ogg");
-	qmMessageSounds[Log::ChannelJoinConnect] = qmMessageSounds[Log::ChannelJoin];
+	qmMessageSounds[Log::CriticalError]          = QLatin1String(":/Critical.ogg");
+	qmMessageSounds[Log::PermissionDenied]       = QLatin1String(":/PermissionDenied.ogg");
+	qmMessageSounds[Log::SelfMute]               = QLatin1String(":/SelfMutedDeafened.ogg");
+	qmMessageSounds[Log::SelfUnmute]             = QLatin1String(":/SelfMutedDeafened.ogg");
+	qmMessageSounds[Log::SelfDeaf]               = QLatin1String(":/SelfMutedDeafened.ogg");
+	qmMessageSounds[Log::SelfUndeaf]             = QLatin1String(":/SelfMutedDeafened.ogg");
+	qmMessageSounds[Log::ServerConnected]        = QLatin1String(":/ServerConnected.ogg");
+	qmMessageSounds[Log::ServerDisconnected]     = QLatin1String(":/ServerDisconnected.ogg");
+	qmMessageSounds[Log::TextMessage]            = QLatin1String(":/TextMessage.ogg");
+	qmMessageSounds[Log::PrivateTextMessage]     = qmMessageSounds[Log::TextMessage];
+	qmMessageSounds[Log::ChannelJoin]            = QLatin1String(":/UserJoinedChannel.ogg");
+	qmMessageSounds[Log::ChannelLeave]           = QLatin1String(":/UserLeftChannel.ogg");
+	qmMessageSounds[Log::ChannelJoinConnect]     = qmMessageSounds[Log::ChannelJoin];
 	qmMessageSounds[Log::ChannelLeaveDisconnect] = qmMessageSounds[Log::ChannelLeave];
-	qmMessageSounds[Log::YouMutedOther] = QLatin1String(":/UserMutedYouOrByYou.ogg");
-	qmMessageSounds[Log::YouMuted] = QLatin1String(":/UserMutedYouOrByYou.ogg");
-	qmMessageSounds[Log::YouKicked] = QLatin1String(":/UserKickedYouOrByYou.ogg");
-	qmMessageSounds[Log::Recording] = QLatin1String(":/RecordingStateChanged.ogg");
+	qmMessageSounds[Log::YouMutedOther]          = QLatin1String(":/UserMutedYouOrByYou.ogg");
+	qmMessageSounds[Log::YouMuted]               = QLatin1String(":/UserMutedYouOrByYou.ogg");
+	qmMessageSounds[Log::YouKicked]              = QLatin1String(":/UserKickedYouOrByYou.ogg");
+	qmMessageSounds[Log::Recording]              = QLatin1String(":/RecordingStateChanged.ogg");
 
-	qmMessages[Log::DebugInfo] = Settings::LogConsole;
-	qmMessages[Log::Warning] = Settings::LogConsole | Settings::LogBalloon;
-	qmMessages[Log::Information] = Settings::LogConsole;
-	qmMessages[Log::UserJoin] = Settings::LogConsole;
-	qmMessages[Log::UserLeave] = Settings::LogConsole;
-	qmMessages[Log::UserKicked] = Settings::LogConsole;
-	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
+	qmMessages[Log::DebugInfo]       = Settings::LogConsole;
+	qmMessages[Log::Warning]         = Settings::LogConsole | Settings::LogBalloon;
+	qmMessages[Log::Information]     = Settings::LogConsole;
+	qmMessages[Log::UserJoin]        = Settings::LogConsole;
+	qmMessages[Log::UserLeave]       = Settings::LogConsole;
+	qmMessages[Log::UserKicked]      = Settings::LogConsole;
+	qmMessages[Log::OtherSelfMute]   = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
-	qmMessages[Log::UserRenamed] = Settings::LogConsole;
-	
+	qmMessages[Log::UserRenamed]     = Settings::LogConsole;
+
 	// Default theme
-	themeName = QLatin1String("Mumble");
+	themeName      = QLatin1String("Mumble");
 	themeStyleName = QLatin1String("Lite");
 }
 
 bool Settings::doEcho() const {
-	if (! bEcho)
+	if (!bEcho)
 		return false;
 
 	if (AudioInputRegistrar::qmNew) {
@@ -579,10 +583,14 @@ BOOST_TYPEOF_REGISTER_TYPE(QVariant)
 BOOST_TYPEOF_REGISTER_TYPE(QFont)
 BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 
-#define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var))
-#define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var).toInt())
-#define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), static_cast<int>(var)).toInt())
-#define DEPRECATED(name) do { } while (0)
+#define SAVELOAD(var, name) var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var))
+#define LOADENUM(var, name) \
+	var = static_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var).toInt())
+#define LOADFLAG(var, name) \
+	var = static_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), static_cast< int >(var)).toInt())
+#define DEPRECATED(name) \
+	do {                 \
+	} while (0)
 
 // Workaround for mumble-voip/mumble#2638.
 //
@@ -598,20 +606,20 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 // to their defaults, instead of being set to
 // a zero value.
 #ifdef Q_OS_MAC
- #undef SAVELOAD
- #define SAVELOAD(var, name) \
-	do { \
-		if (settings_ptr->value(QLatin1String(name)).toString() != QLatin1String("@Variant(")) { \
-			var = qvariant_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var)); \
-		} \
-	} while (0)
+#	undef SAVELOAD
+#	define SAVELOAD(var, name)                                                                          \
+		do {                                                                                             \
+			if (settings_ptr->value(QLatin1String(name)).toString() != QLatin1String("@Variant(")) {     \
+				var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var)); \
+			}                                                                                            \
+		} while (0)
 #endif
 
 void OverlaySettings::load() {
 	load(g.qs);
 }
 
-void OverlaySettings::load(QSettings* settings_ptr) {
+void OverlaySettings::load(QSettings *settings_ptr) {
 	SAVELOAD(bEnable, "enable");
 
 	LOADENUM(osShow, "show");
@@ -625,7 +633,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	SAVELOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i=0; i<4; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
@@ -684,7 +692,7 @@ void Settings::load() {
 	load(g.qs);
 }
 
-void Settings::load(QSettings* settings_ptr) {
+void Settings::load(QSettings *settings_ptr) {
 	// Config updates
 	SAVELOAD(uiUpdateCounter, "lastupdate");
 
@@ -906,8 +914,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
-	QByteArray qba = qvariant_cast<QByteArray> (settings_ptr->value(QLatin1String("net/certificate")));
-	if (! qba.isEmpty())
+	QByteArray qba = qvariant_cast< QByteArray >(settings_ptr->value(QLatin1String("net/certificate")));
+	if (!qba.isEmpty())
 		kpCertificate = CertWizard::importCert(qba);
 
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
@@ -921,7 +929,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
-	for (int i=0; i<nshorts; i++) {
+	for (int i = 0; i < nshorts; i++) {
 		settings_ptr->setArrayIndex(i);
 		Shortcut s;
 
@@ -937,27 +945,28 @@ void Settings::load(QSettings* settings_ptr) {
 	settings_ptr->endArray();
 
 	settings_ptr->beginReadArray(QLatin1String("messages"));
-	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
+	for (QMap< int, quint32 >::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
 	settings_ptr->endArray();
 
 	settings_ptr->beginReadArray(QLatin1String("messagesounds"));
-	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {
+	for (QMap< int, QString >::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd();
+		 ++it) {
 		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessageSounds[it.key()], "logsound");
 	}
 	settings_ptr->endArray();
 
 	settings_ptr->beginGroup(QLatin1String("lcd/devices"));
-	foreach(const QString &d, settings_ptr->childKeys()) {
+	foreach (const QString &d, settings_ptr->childKeys()) {
 		qmLCDDevices.insert(d, settings_ptr->value(d, true).toBool());
 	}
 	settings_ptr->endGroup();
 
 	settings_ptr->beginGroup(QLatin1String("audio/plugins"));
-	foreach(const QString &d, settings_ptr->childKeys()) {
+	foreach (const QString &d, settings_ptr->childKeys()) {
 		qmPositionalAudioPlugins.insert(d, settings_ptr->value(d, true).toBool());
 	}
 	settings_ptr->endGroup();
@@ -968,8 +977,16 @@ void Settings::load(QSettings* settings_ptr) {
 }
 
 #undef SAVELOAD
-#define SAVELOAD(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), var); else settings_ptr->remove(QLatin1String(name))
-#define SAVEFLAG(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), static_cast<int>(var)); else settings_ptr->remove(QLatin1String(name))
+#define SAVELOAD(var, name)                               \
+	if (var != def.var)                                   \
+		settings_ptr->setValue(QLatin1String(name), var); \
+	else                                                  \
+		settings_ptr->remove(QLatin1String(name))
+#define SAVEFLAG(var, name)                                                   \
+	if (var != def.var)                                                       \
+		settings_ptr->setValue(QLatin1String(name), static_cast< int >(var)); \
+	else                                                                      \
+		settings_ptr->remove(QLatin1String(name))
 #undef DEPRECATED
 #define DEPRECATED(name) settings_ptr->remove(QLatin1String(name))
 
@@ -977,7 +994,7 @@ void OverlaySettings::save() {
 	save(g.qs);
 }
 
-void OverlaySettings::save(QSettings* settings_ptr) {
+void OverlaySettings::save(QSettings *settings_ptr) {
 	OverlaySettings def;
 
 	settings_ptr->setValue(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
@@ -988,7 +1005,9 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 #endif
 	{
 		QFile f(settings_ptr->fileName());
-		f.setPermissions(f.permissions() & ~(QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther));
+		f.setPermissions(f.permissions()
+						 & ~(QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup | QFile::ReadOther
+							 | QFile::WriteOther | QFile::ExeOther));
 	}
 
 	SAVELOAD(bEnable, "enable");
@@ -1003,7 +1022,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVELOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i=0; i<4; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
@@ -1059,7 +1078,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 }
 
 void Settings::save() {
-	QSettings* settings_ptr = g.qs;
+	QSettings *settings_ptr = g.qs;
 	Settings def;
 
 	// Config updates
@@ -1281,8 +1300,8 @@ void Settings::save() {
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
-	foreach(const Shortcut &s, qlShortcuts) {
-		if (! s.isServerSpecific()) {
+	foreach (const Shortcut &s, qlShortcuts) {
+		if (!s.isServerSpecific()) {
 			settings_ptr->setArrayIndex(idx++);
 			settings_ptr->setValue(QLatin1String("index"), s.iIndex);
 			settings_ptr->setValue(QLatin1String("keys"), s.qlButtons);
@@ -1293,21 +1312,22 @@ void Settings::save() {
 	settings_ptr->endArray();
 
 	settings_ptr->beginWriteArray(QLatin1String("messages"));
-	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
+	for (QMap< int, quint32 >::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
 	settings_ptr->endArray();
 
 	settings_ptr->beginWriteArray(QLatin1String("messagesounds"));
-	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {
+	for (QMap< int, QString >::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd();
+		 ++it) {
 		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessageSounds[it.key()], "logsound");
 	}
 	settings_ptr->endArray();
 
 	settings_ptr->beginGroup(QLatin1String("lcd/devices"));
-	foreach(const QString &d, qmLCDDevices.keys()) {
+	foreach (const QString &d, qmLCDDevices.keys()) {
 		bool v = qmLCDDevices.value(d);
 		if (!v)
 			settings_ptr->setValue(d, v);
@@ -1317,7 +1337,7 @@ void Settings::save() {
 	settings_ptr->endGroup();
 
 	settings_ptr->beginGroup(QLatin1String("audio/plugins"));
-	foreach(const QString &d, qmPositionalAudioPlugins.keys()) {
+	foreach (const QString &d, qmPositionalAudioPlugins.keys()) {
 		bool v = qmPositionalAudioPlugins.value(d);
 		if (!v)
 			settings_ptr->setValue(d, v);

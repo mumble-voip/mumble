@@ -5,55 +5,53 @@
 
 #include "OverlayUserGroup.h"
 
-#include "OverlayUser.h"
+#include "Channel.h"
+#include "ClientUser.h"
+#include "Database.h"
+#include "MainWindow.h"
+#include "Message.h"
+#include "NetworkConfig.h"
 #include "OverlayClient.h"
 #include "OverlayEditor.h"
 #include "OverlayText.h"
-#include "User.h"
-#include "Channel.h"
-#include "ClientUser.h"
-#include "Message.h"
-#include "Database.h"
-#include "NetworkConfig.h"
+#include "OverlayUser.h"
 #include "ServerHandler.h"
-#include "MainWindow.h"
-#include "GlobalShortcut.h"
+#include "User.h"
 #include "Utils.h"
+#include "GlobalShortcut.h"
 
 #include <QtGui/QImageReader>
 #include <QtWidgets/QGraphicsSceneContextMenuEvent>
 #include <QtWidgets/QGraphicsSceneWheelEvent>
 #include <QtWidgets/QInputDialog>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-template <typename T>
-QRectF OverlayGroup::boundingRect() const {
+template< typename T > QRectF OverlayGroup::boundingRect() const {
 	QRectF qr;
-	foreach(const QGraphicsItem *item, childItems())
+	foreach (const QGraphicsItem *item, childItems())
 		if (item->isVisible() && (item->type() == T::Type))
 			qr |= item->boundingRect().translated(item->pos());
 
 	return qr;
 }
 
-OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) :
-		OverlayGroup(),
-		os(osptr),
-		qgeiHandle(nullptr),
-		bShowExamples(false) { }
+OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr)
+	: OverlayGroup(), os(osptr), qgeiHandle(nullptr), bShowExamples(false) {
+}
 
 OverlayUserGroup::~OverlayUserGroup() {
 	reset();
 }
 
 void OverlayUserGroup::reset() {
-	foreach(OverlayUser *ou, qlExampleUsers)
+	foreach (OverlayUser *ou, qlExampleUsers)
 		delete ou;
 	qlExampleUsers.clear();
 
-	foreach(OverlayUser *ou, qmUsers)
+	foreach (OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
 
@@ -111,12 +109,13 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 
 	qmShow->addSeparator();
 
-	QAction *qaConfigureRecentlyActiveTime = qmShow->addAction(OverlayClient::tr("Configure recently active time (%1 seconds)...").arg(os->uiActiveTime));
+	QAction *qaConfigureRecentlyActiveTime =
+		qmShow->addAction(OverlayClient::tr("Configure recently active time (%1 seconds)...").arg(os->uiActiveTime));
 	qaConfigureRecentlyActiveTime->setEnabled(os->osShow == OverlaySettings::Active);
 
 	QMenu *qmColumns = qm.addMenu(OverlayClient::tr("Columns"));
 	QAction *qaColumns[6];
-	for (unsigned int i=1;i<=5;++i) {
+	for (unsigned int i = 1; i <= 5; ++i) {
 		qaColumns[i] = qmColumns->addAction(QString::number(i));
 		qaColumns[i]->setCheckable(true);
 		qaColumns[i]->setChecked(i == os->uiColumns);
@@ -139,7 +138,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 
 	QAction *act = qm.exec(e->screenPos());
 
-	if (! act)
+	if (!act)
 		return;
 
 	if (act == qaEdit) {
@@ -166,7 +165,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		os->osShow = OverlaySettings::LinkedChannels;
 		updateUsers();
 	} else if (act == qaShowSelf) {
-		os->bAlwaysSelf = ! os->bAlwaysSelf;
+		os->bAlwaysSelf = !os->bAlwaysSelf;
 		updateUsers();
 	} else if (act == qaConfigureRecentlyActiveTime) {
 		// FIXME: This might not be the best place to configure this setting, but currently
@@ -174,11 +173,9 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		// might be added for some advanced overlay options, which could then include this
 		// setting.
 		bool ok;
-		int newValue = QInputDialog::getInt(
-		                   qm.parentWidget(),
-		                   OverlayClient::tr("Configure recently active time"),
-		                   OverlayClient::tr("Amount of seconds users remain active after talking:"),
-		                   os->uiActiveTime, 1, 2147483647, 1, &ok);
+		int newValue = QInputDialog::getInt(qm.parentWidget(), OverlayClient::tr("Configure recently active time"),
+											OverlayClient::tr("Amount of seconds users remain active after talking:"),
+											os->uiActiveTime, 1, 2147483647, 1, &ok);
 		if (ok) {
 			os->uiActiveTime = newValue;
 		}
@@ -190,7 +187,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		os->osSort = OverlaySettings::LastStateChange;
 		updateUsers();
 	} else {
-		for (int i=1;i<=5;++i) {
+		for (int i = 1; i <= 5; ++i) {
 			if (act == qaColumns[i]) {
 				os->uiColumns = i;
 				updateLayout();
@@ -225,20 +222,19 @@ bool OverlayUserGroup::sceneEventFilter(QGraphicsItem *watched, QEvent *e) {
 			break;
 		default:
 			break;
-
 	}
 	return OverlayGroup::sceneEventFilter(watched, e);
 }
 
 void OverlayUserGroup::moveUsers() {
-	if (! qgeiHandle)
+	if (!qgeiHandle)
 		return;
 
 	const QRectF &sr = scene()->sceneRect();
 	const QPointF &p = qgeiHandle->pos();
 
-	os->fX = static_cast<float>(qBound(0.0, p.x() / sr.width(), 1.0));
-	os->fY = static_cast<float>(qBound(0.0, p.y() / sr.height(), 1.0));
+	os->fX = static_cast< float >(qBound(0.0, p.x() / sr.width(), 1.0));
+	os->fY = static_cast< float >(qBound(0.0, p.y() / sr.height(), 1.0));
 
 	qgeiHandle->setPos(os->fX * sr.width(), os->fY * sr.height());
 	updateUsers();
@@ -255,11 +251,11 @@ void OverlayUserGroup::updateUsers() {
 
 	unsigned int uiHeight = iroundf(sr.height() + 0.5f);
 
-	QList<QGraphicsItem *> items;
-	foreach(QGraphicsItem *qgi, childItems())
+	QList< QGraphicsItem * > items;
+	foreach (QGraphicsItem *qgi, childItems())
 		items << qgi;
 
-	QList<OverlayUser *> users;
+	QList< OverlayUser * > users;
 	if (bShowExamples) {
 		if (qlExampleUsers.isEmpty()) {
 			qlExampleUsers << new OverlayUser(Settings::Passive, uiHeight, os);
@@ -270,10 +266,10 @@ void OverlayUserGroup::updateUsers() {
 		}
 
 		users = qlExampleUsers;
-		foreach(OverlayUser *ou, users)
+		foreach (OverlayUser *ou, users)
 			items.removeAll(ou);
 
-		if (! qgeiHandle) {
+		if (!qgeiHandle) {
 			qgeiHandle = new QGraphicsEllipseItem(QRectF(-4.0f, -4.0f, 8.0f, 8.0f));
 			qgeiHandle->setPen(QPen(Qt::darkRed, 0.0f));
 			qgeiHandle->setBrush(Qt::red);
@@ -292,23 +288,23 @@ void OverlayUserGroup::updateUsers() {
 
 	ClientUser *self = ClientUser::get(g.uiSession);
 	if (self) {
-		QList<ClientUser *> showusers;
+		QList< ClientUser * > showusers;
 		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 		switch (os->osShow) {
 			case OverlaySettings::LinkedChannels:
-				foreach(Channel *c, home->allLinks())
-					foreach(User *p, c->qlUsers)
-						showusers << static_cast<ClientUser *>(p);
-				foreach(ClientUser *cu, ClientUser::getTalking())
-					if (! showusers.contains(cu))
+				foreach (Channel *c, home->allLinks())
+					foreach (User *p, c->qlUsers)
+						showusers << static_cast< ClientUser * >(p);
+				foreach (ClientUser *cu, ClientUser::getTalking())
+					if (!showusers.contains(cu))
 						showusers << cu;
 				break;
 			case OverlaySettings::HomeChannel:
-				foreach(User *p, home->qlUsers)
-					showusers << static_cast<ClientUser *>(p);
-				foreach(ClientUser *cu, ClientUser::getTalking())
-					if (! showusers.contains(cu))
+				foreach (User *p, home->qlUsers)
+					showusers << static_cast< ClientUser * >(p);
+				foreach (ClientUser *cu, ClientUser::getTalking())
+					if (!showusers.contains(cu))
 						showusers << cu;
 				break;
 			case OverlaySettings::Active:
@@ -325,9 +321,9 @@ void OverlayUserGroup::updateUsers() {
 
 		ClientUser::sortUsersOverlay(showusers);
 
-		foreach(ClientUser *cu, showusers) {
+		foreach (ClientUser *cu, showusers) {
 			OverlayUser *ou = qmUsers.value(cu);
-			if (! ou) {
+			if (!ou) {
 				ou = new OverlayUser(cu, uiHeight, os);
 				connect(cu, SIGNAL(destroyed(QObject *)), this, SLOT(userDestroyed(QObject *)));
 				qmUsers.insert(cu, ou);
@@ -339,28 +335,28 @@ void OverlayUserGroup::updateUsers() {
 		}
 	}
 
-	foreach(QGraphicsItem *qgi, items) {
+	foreach (QGraphicsItem *qgi, items) {
 		scene()->removeItem(qgi);
 		qgi->hide();
 	}
 
 	QRectF childrenBounds = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
-	int pad = os->bBox ? iroundf(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth) + 0.5f) : 0;
-	int width = iroundf(childrenBounds.width() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
+	int pad    = os->bBox ? iroundf(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth) + 0.5f) : 0;
+	int width  = iroundf(childrenBounds.width() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
 	int height = iroundf(childrenBounds.height() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
 
-	int xOffset = - iroundf(childrenBounds.left() * uiHeight * os->fZoom + 0.5f) + pad;
-	int yOffset = - iroundf(childrenBounds.top() * uiHeight * os->fZoom + 0.5f) + pad;
+	int xOffset = -iroundf(childrenBounds.left() * uiHeight * os->fZoom + 0.5f) + pad;
+	int yOffset = -iroundf(childrenBounds.top() * uiHeight * os->fZoom + 0.5f) + pad;
 
 	unsigned int yPos = 0;
 	unsigned int xPos = 0;
 
-	foreach(OverlayUser *ou, users) {
+	foreach (OverlayUser *ou, users) {
 		if (!ou->parentItem())
 			ou->setParentItem(this);
 
-		ou->setPos(xPos * (width+4) + xOffset, yPos * (height + 4) + yOffset);
+		ou->setPos(xPos * (width + 4) + xOffset, yPos * (height + 4) + yOffset);
 		ou->updateUser();
 		ou->show();
 
@@ -372,10 +368,10 @@ void OverlayUserGroup::updateUsers() {
 		}
 	}
 
-	QRectF br = boundingRect<OverlayUser>();
+	QRectF br = boundingRect< OverlayUser >();
 
-	int basex = qBound<int>(0, iroundf(sr.width() * os->fX + 0.5f), iroundf(sr.width() - br.width() + 0.5f));
-	int basey = qBound<int>(0, iroundf(sr.height() * os->fY + 0.5f), iroundf(sr.height() - br.height() + 0.5f));
+	int basex = qBound< int >(0, iroundf(sr.width() * os->fX + 0.5f), iroundf(sr.width() - br.width() + 0.5f));
+	int basey = qBound< int >(0, iroundf(sr.height() * os->fY + 0.5f), iroundf(sr.height() - br.height() + 0.5f));
 
 	setPos(basex, basey);
 }

@@ -8,7 +8,7 @@
 // but we still build with GCC 4.2 for the legacy OS X Universal
 // build.
 #if defined(__GNUC__)
-# pragma GCC diagnostic ignored "-Wold-style-cast"
+#	pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
 #include "Cert.h"
@@ -25,7 +25,8 @@
 #include <openssl/pkcs12.h>
 #include <openssl/x509.h>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
@@ -68,7 +69,7 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->setColumnStretch(1, 1);
 }
 
-void CertView::setCert(const QList<QSslCertificate> &cert) {
+void CertView::setCert(const QList< QSslCertificate > &cert) {
 	qlCert = cert;
 
 	if (qlCert.isEmpty()) {
@@ -88,8 +89,8 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 		QStringList emails = qscCert.subjectAlternativeNames().values(QSsl::EmailEntry);
 
 		QString tmpName = name;
-		tmpName = tmpName.replace(QLatin1String("\\x"), QLatin1String("%"));
-		tmpName = QUrl::fromPercentEncoding(tmpName.toLatin1());
+		tmpName         = tmpName.replace(QLatin1String("\\x"), QLatin1String("%"));
+		tmpName         = QUrl::fromPercentEncoding(tmpName.toLatin1());
 
 		qlSubjectName->setText(tmpName);
 
@@ -99,7 +100,8 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 			qlSubjectEmail->setText(tr("(none)"));
 
 		if (qscCert.expiryDate() <= QDateTime::currentDateTime())
-			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>").arg(qscCert.expiryDate().toString(Qt::SystemLocaleDate).toHtmlEscaped()));
+			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>")
+								  .arg(qscCert.expiryDate().toString(Qt::SystemLocaleDate).toHtmlEscaped()));
 		else
 			qlExpiry->setText(qscCert.expiryDate().toString(Qt::SystemLocaleDate));
 
@@ -139,17 +141,17 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 
 int CertWizard::nextId() const {
 	switch (currentId()) {
-		case 0: {	// Welcome
-				if (qrbQuick->isChecked())
-					return 5;
-				else if (qrbCreate->isChecked())
-					return 1;
-				else if (qrbImport->isChecked())
-					return 2;
-				else if (qrbExport->isChecked())
-					return 3;
-				return -1;
-			}
+		case 0: { // Welcome
+			if (qrbQuick->isChecked())
+				return 5;
+			else if (qrbCreate->isChecked())
+				return 1;
+			else if (qrbImport->isChecked())
+				return 2;
+			else if (qrbExport->isChecked())
+				return 3;
+			return -1;
+		}
 		case 2: // Import
 			if (validateCert(kpCurrent))
 				return 4;
@@ -214,8 +216,8 @@ bool CertWizard::validateCurrentPage() {
 			return false;
 		} else {
 			kpNew = generateNewCert(qleName->text(), qleEmail->text());
-			
-			if (! validateCert(kpNew)) {
+
+			if (!validateCert(kpNew)) {
 				qlError->setText(tr("There was an error generating your certificate.<br />Please try again."));
 				return false;
 			}
@@ -224,40 +226,53 @@ bool CertWizard::validateCurrentPage() {
 	if (currentPage() == qwpExport) {
 		QByteArray qba = exportCert(kpNew);
 		if (qba.isEmpty()) {
-			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate."), qleExportFile);
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0, 0)),
+							   tr("Your certificate and key could not be exported to PKCS#12 format. There might be an "
+								  "error in your certificate."),
+							   qleExportFile);
 			return false;
 		}
 		QFile f(qleExportFile->text());
-		if (! f.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Unbuffered)) {
-			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for writing. Please use another file."), qleExportFile);
+		if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Unbuffered)) {
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0, 0)),
+							   tr("The file could not be opened for writing. Please use another file."), qleExportFile);
 			return false;
 		}
-		if (! f.setPermissions(QFile::ReadOwner | QFile::WriteOwner)) {
-			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file's permissions could not be set. No certificate and key has been written. Please use another file."), qleExportFile);
+		if (!f.setPermissions(QFile::ReadOwner | QFile::WriteOwner)) {
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0, 0)),
+							   tr("The file's permissions could not be set. No certificate and key has been written. "
+								  "Please use another file."),
+							   qleExportFile);
 			return false;
 		}
 		qint64 written = f.write(qba);
 		f.close();
 		if (written != qba.length()) {
-			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be written successfully. Please use another file."), qleExportFile);
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0, 0)),
+							   tr("The file could not be written successfully. Please use another file."),
+							   qleExportFile);
 			return false;
 		}
 	}
 	if (currentPage() == qwpImport) {
 		QFile f(qleImportFile->text());
-		if (! f.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
-			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for reading. Please use another file."), qleImportFile);
+		if (!f.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
+			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0, 0)),
+							   tr("The file could not be opened for reading. Please use another file."), qleImportFile);
 			return false;
 		}
 		QByteArray qba = f.readAll();
 		f.close();
 		if (qba.isEmpty()) {
-			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file is empty or could not be read. Please use another file."), qleImportFile);
+			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0, 0)),
+							   tr("The file is empty or could not be read. Please use another file."), qleImportFile);
 			return false;
 		}
-		QPair<QList<QSslCertificate>, QSslKey> imp = importCert(qba, qlePassword->text());
-		if (! validateCert(imp)) {
-			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file did not contain a valid certificate and key. Please use another file."), qleImportFile);
+		QPair< QList< QSslCertificate >, QSslKey > imp = importCert(qba, qlePassword->text());
+		if (!validateCert(imp)) {
+			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0, 0)),
+							   tr("The file did not contain a valid certificate and key. Please use another file."),
+							   qleImportFile);
 			return false;
 		}
 		kpNew = imp;
@@ -273,8 +288,10 @@ void CertWizard::on_qleEmail_textChanged(const QString &) {
 }
 
 void CertWizard::on_qpbExportFile_clicked() {
-	QString fname = QFileDialog::getSaveFileName(this, tr("Select file to export certificate to"), qleExportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx *.pkcs12);;All (*)"));
-	if (! fname.isNull()) {
+	QString fname =
+		QFileDialog::getSaveFileName(this, tr("Select file to export certificate to"), qleExportFile->text(),
+									 QLatin1String("PKCS12 (*.p12 *.pfx *.pkcs12);;All (*)"));
+	if (!fname.isNull()) {
 		QFileInfo fi(fname);
 		if (fi.suffix().isEmpty())
 			fname += QLatin1String(".p12");
@@ -310,8 +327,10 @@ void CertWizard::on_qleExportFile_textChanged(const QString &text) {
 }
 
 void CertWizard::on_qpbImportFile_clicked() {
-	QString fname = QFileDialog::getOpenFileName(this, tr("Select file to import certificate from"), qleImportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx *.pkcs12);;All (*)"));
-	if (! fname.isNull()) {
+	QString fname =
+		QFileDialog::getOpenFileName(this, tr("Select file to import certificate from"), qleImportFile->text(),
+									 QLatin1String("PKCS12 (*.p12 *.pfx *.pkcs12);;All (*)"));
+	if (!fname.isNull()) {
 		qleImportFile->setText(QDir::toNativeSeparators(fname));
 	}
 }
@@ -331,8 +350,8 @@ void CertWizard::on_qleImportFile_textChanged(const QString &text) {
 
 	QFile f(fname);
 	if (f.open(QIODevice::ReadOnly)) {
-		QByteArray qba = f.readAll();
-		QPair<QList<QSslCertificate>, QSslKey> imp = importCert(qba, qlePassword->text());
+		QByteArray qba                                 = f.readAll();
+		QPair< QList< QSslCertificate >, QSslKey > imp = importCert(qba, qlePassword->text());
 		if (validateCert(imp)) {
 			qlePassword->setEnabled(false);
 			qlPassword->setEnabled(false);
@@ -354,7 +373,7 @@ void CertWizard::on_qleImportFile_textChanged(const QString &text) {
 		qlPasswordNotice->clear();
 		qlPasswordNotice->setVisible(false);
 	}
-	cvImport->setCert(QList<QSslCertificate>());
+	cvImport->setCert(QList< QSslCertificate >());
 	qwpImport->setComplete(false);
 }
 
@@ -367,9 +386,9 @@ void CertWizard::on_qlIntroText_linkActivated(const QString &url) {
 }
 
 bool CertWizard::validateCert(const Settings::KeyPair &kp) {
-	bool valid = ! kp.second.isNull() && ! kp.first.isEmpty();
-	foreach(const QSslCertificate &cert, kp.first)
-		valid = valid && ! cert.isNull();
+	bool valid = !kp.second.isNull() && !kp.first.isEmpty();
+	foreach (const QSslCertificate &cert, kp.first)
+		valid = valid && !cert.isNull();
 	return valid;
 }
 
@@ -381,17 +400,17 @@ Settings::KeyPair CertWizard::generateNewCert(QString qsname, const QString &qse
 	// The method sets qscCert and qskKey to null values if it fails.
 	SelfSignedCertificate::generateMumbleCertificate(qsname, qsemail, qscCert, qskKey);
 
-	QList<QSslCertificate> qlCert;
+	QList< QSslCertificate > qlCert;
 	qlCert << qscCert;
 
 	return Settings::KeyPair(qlCert, qskKey);
 }
 
 Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
-	X509 *x509 = nullptr;
-	EVP_PKEY *pkey = nullptr;
-	PKCS12 *pkcs = nullptr;
-	BIO *mem = nullptr;
+	X509 *x509            = nullptr;
+	EVP_PKEY *pkey        = nullptr;
+	PKCS12 *pkcs          = nullptr;
+	BIO *mem              = nullptr;
 	STACK_OF(X509) *certs = nullptr;
 	Settings::KeyPair kp;
 	int ret = 0;
@@ -401,7 +420,7 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 	pkcs = d2i_PKCS12_bio(mem, nullptr);
 	if (pkcs) {
 		ret = PKCS12_parse(pkcs, nullptr, &pkey, &x509, &certs);
-		if (pkcs && !pkey && !x509 && ! pw.isEmpty()) {
+		if (pkcs && !pkey && !x509 && !pw.isEmpty()) {
 			if (certs) {
 				if (ret)
 					sk_X509_free(certs);
@@ -414,34 +433,34 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 			QByteArray key, crt;
 
 			key.resize(i2d_PrivateKey(pkey, nullptr));
-			dptr=reinterpret_cast<unsigned char *>(key.data());
+			dptr = reinterpret_cast< unsigned char * >(key.data());
 			i2d_PrivateKey(pkey, &dptr);
 
 			crt.resize(i2d_X509(x509, nullptr));
-			dptr=reinterpret_cast<unsigned char *>(crt.data());
+			dptr = reinterpret_cast< unsigned char * >(crt.data());
 			i2d_X509(x509, &dptr);
 
 			QSslCertificate qscCert = QSslCertificate(crt, QSsl::Der);
-			QSslKey qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
+			QSslKey qskKey          = QSslKey(key, QSsl::Rsa, QSsl::Der);
 
-			QList<QSslCertificate> qlCerts;
+			QList< QSslCertificate > qlCerts;
 			qlCerts << qscCert;
 
 			if (certs) {
-				for (int i=0;i<sk_X509_num(certs);++i) {
+				for (int i = 0; i < sk_X509_num(certs); ++i) {
 					X509 *c = sk_X509_value(certs, i);
 
 					crt.resize(i2d_X509(c, nullptr));
-					dptr=reinterpret_cast<unsigned char *>(crt.data());
+					dptr = reinterpret_cast< unsigned char * >(crt.data());
 					i2d_X509(c, &dptr);
 
 					QSslCertificate cert = QSslCertificate(crt, QSsl::Der);
 					qlCerts << cert;
 				}
 			}
-			bool valid = ! qskKey.isNull();
-			foreach(const QSslCertificate &cert, qlCerts)
-				valid = valid && ! cert.isNull();
+			bool valid = !qskKey.isNull();
+			foreach (const QSslCertificate &cert, qlCerts)
+				valid = valid && !cert.isNull();
 			if (valid)
 				kp = Settings::KeyPair(qlCerts, qskKey);
 		}
@@ -464,10 +483,10 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 }
 
 QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
-	X509 *x509 = nullptr;
-	EVP_PKEY *pkey = nullptr;
-	PKCS12 *pkcs = nullptr;
-	BIO *mem = nullptr;
+	X509 *x509            = nullptr;
+	EVP_PKEY *pkey        = nullptr;
+	PKCS12 *pkcs          = nullptr;
+	BIO *mem              = nullptr;
 	STACK_OF(X509) *certs = sk_X509_new_null();
 	const unsigned char *p;
 	char *data = nullptr;
@@ -479,11 +498,11 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 	QByteArray key = kp.second.toDer();
 	QByteArray qba;
 
-	p = reinterpret_cast<const unsigned char *>(key.constData());
+	p    = reinterpret_cast< const unsigned char * >(key.constData());
 	pkey = d2i_AutoPrivateKey(nullptr, &p, key.length());
 
 	if (pkey) {
-		p = reinterpret_cast<const unsigned char *>(crt.constData());
+		p    = reinterpret_cast< const unsigned char * >(crt.constData());
 		x509 = d2i_X509(nullptr, &p, crt.length());
 
 		if (x509 && X509_check_private_key(x509, pkey)) {
@@ -491,13 +510,13 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 			X509_alias_set1(x509, nullptr, 0);
 
 
-			QList<QSslCertificate> qlCerts = kp.first;
+			QList< QSslCertificate > qlCerts = kp.first;
 			qlCerts.removeFirst();
 
-			foreach(const QSslCertificate &cert, qlCerts) {
+			foreach (const QSslCertificate &cert, qlCerts) {
 				X509 *c = nullptr;
-				crt = cert.toDer();
-				p = reinterpret_cast<const unsigned char *>(crt.constData());
+				crt     = cert.toDer();
+				p       = reinterpret_cast< const unsigned char * >(crt.constData());
 
 				c = d2i_X509(nullptr, &p, crt.length());
 				if (c)
@@ -511,7 +530,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 				i2d_PKCS12_bio(mem, pkcs);
 				Q_UNUSED(BIO_flush(mem));
 				size = BIO_get_mem_data(mem, &data);
-				qba = QByteArray(data, static_cast<int>(size));
+				qba  = QByteArray(data, static_cast< int >(size));
 			}
 		}
 	}

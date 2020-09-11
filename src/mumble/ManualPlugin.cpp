@@ -9,25 +9,26 @@
 #include <QtGui/QtGui>
 #include <QtWidgets/QMessageBox>
 
-#include <QPointer>
 #include "ManualPlugin.h"
 #include "ui_ManualPlugin.h"
+#include <QPointer>
 
 #include <float.h>
 
 #include "../../plugins/mumble_plugin.h"
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-static QPointer<Manual> mDlg = nullptr;
-static bool bLinkable = false;
-static bool bActive = true;
+static QPointer< Manual > mDlg = nullptr;
+static bool bLinkable          = false;
+static bool bActive            = true;
 
-static int iAzimuth = 180;
+static int iAzimuth   = 180;
 static int iElevation = 0;
 
-static const QString defaultContext = QString::fromLatin1("Mumble");
+static const QString defaultContext  = QString::fromLatin1("Mumble");
 static const QString defaultIdentity = QString::fromLatin1("Agent47");
 
 static struct {
@@ -39,10 +40,7 @@ static struct {
 	float camera_top[3];
 	std::string context;
 	std::wstring identity;
-} my = {{0,0,0}, {0,0,0}, {0,0,0},
-	{0,0,0}, {0,0,0}, {0,0,0},
-	std::string(), std::wstring()
-};
+} my = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, std::string(), std::wstring() };
 
 Manual::Manual(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -57,7 +55,7 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	indicator.addEllipse(QRectF(-indicatorDiameter / 2, -indicatorDiameter / 2, indicatorDiameter, indicatorDiameter));
 	// A line will indicate the indicator's orientation (azimuth)
 	indicator.moveTo(0, indicatorDiameter / 2);
-	indicator.lineTo(0,  indicatorDiameter);
+	indicator.lineTo(0, indicatorDiameter);
 
 	qgiPosition = qgsScene->addPath(indicator);
 
@@ -84,7 +82,7 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	// b) make the user aware of what each field might contain
 	qleContext->setText(defaultContext);
 	qleIdentity->setText(defaultIdentity);
-	my.context = defaultContext.toStdString();
+	my.context  = defaultContext.toStdString();
 	my.identity = defaultIdentity.toStdWString();
 
 	qsbSilentUserDisplaytime->setValue(g.s.manualPlugin_silentUserDisplaytime);
@@ -92,15 +90,16 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	updateLoopRunning.store(false);
 }
 
-void Manual::setSpeakerPositions(const QHash<unsigned int, Position2D> &positions) {
+void Manual::setSpeakerPositions(const QHash< unsigned int, Position2D > &positions) {
 	if (mDlg) {
-		QMetaObject::invokeMethod(mDlg, "on_speakerPositionUpdate", Qt::QueuedConnection, Q_ARG(PositionMap, positions));
+		QMetaObject::invokeMethod(mDlg, "on_speakerPositionUpdate", Qt::QueuedConnection,
+								  Q_ARG(PositionMap, positions));
 	}
 }
 
 bool Manual::eventFilter(QObject *obj, QEvent *evt) {
 	if ((evt->type() == QEvent::MouseButtonPress) || (evt->type() == QEvent::MouseMove)) {
-		QMouseEvent *qme = dynamic_cast<QMouseEvent *>(evt);
+		QMouseEvent *qme = dynamic_cast< QMouseEvent * >(evt);
 		if (qme) {
 			if (qme->buttons() & Qt::LeftButton) {
 				QPointF qpf = qgvPosition->mapToScene(qme->pos());
@@ -139,16 +138,16 @@ void Manual::on_qpbActivated_clicked(bool b) {
 }
 
 void Manual::on_qdsbX_valueChanged(double d) {
-	my.avatar_pos[0] = my.camera_pos[0] = static_cast<float>(d);
+	my.avatar_pos[0] = my.camera_pos[0] = static_cast< float >(d);
 	qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
 void Manual::on_qdsbY_valueChanged(double d) {
-	my.avatar_pos[1] = my.camera_pos[1] = static_cast<float>(d);
+	my.avatar_pos[1] = my.camera_pos[1] = static_cast< float >(d);
 }
 
 void Manual::on_qdsbZ_valueChanged(double d) {
-	my.avatar_pos[2] = my.camera_pos[2] = static_cast<float>(d);
+	my.avatar_pos[2] = my.camera_pos[2] = static_cast< float >(d);
 	qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
@@ -196,7 +195,7 @@ void Manual::on_buttonBox_clicked(QAbstractButton *button) {
 		qpbActivated->setChecked(true);
 
 		bLinkable = false;
-		bActive = true;
+		bActive   = true;
 
 		qdsbX->setValue(0);
 		qdsbY->setValue(0);
@@ -214,19 +213,19 @@ void Manual::on_qsbSilentUserDisplaytime_valueChanged(int value) {
 	g.s.manualPlugin_silentUserDisplaytime = value;
 }
 
-void Manual::on_speakerPositionUpdate(QHash<unsigned int, Position2D> positions) {
+void Manual::on_speakerPositionUpdate(QHash< unsigned int, Position2D > positions) {
 	// First iterate over the stale items to check whether one of them is actually no longer stale
-	QMutableHashIterator<unsigned int, StaleEntry> staleIt(staleSpeakerPositions);
+	QMutableHashIterator< unsigned int, StaleEntry > staleIt(staleSpeakerPositions);
 	while (staleIt.hasNext()) {
 		staleIt.next();
 
 		const unsigned int sessionID = staleIt.key();
-		QGraphicsItem *staleItem = staleIt.value().staleItem;
+		QGraphicsItem *staleItem     = staleIt.value().staleItem;
 
 		if (positions.contains(sessionID)) {
 			// The item is no longer stale -> restore opacity and re-insert into speakerPositions
 			staleItem->setOpacity(1.0);
-			
+
 			staleIt.remove();
 			speakerPositions.insert(sessionID, staleItem);
 		} else if (!updateLoopRunning.load()) {
@@ -237,18 +236,18 @@ void Manual::on_speakerPositionUpdate(QHash<unsigned int, Position2D> positions)
 
 	// Now iterate over all active items and check whether they have become stale or whether their
 	// position can be updated
-	QMutableHashIterator<unsigned int, QGraphicsItem *> speakerIt(speakerPositions);
+	QMutableHashIterator< unsigned int, QGraphicsItem * > speakerIt(speakerPositions);
 	while (speakerIt.hasNext()) {
 		speakerIt.next();
 
 		const unsigned int sessionID = speakerIt.key();
-		QGraphicsItem *speakerItem = speakerIt.value();
+		QGraphicsItem *speakerItem   = speakerIt.value();
 
 		if (positions.contains(sessionID)) {
 			Position2D newPos = positions.take(sessionID);
 
 			// Update speaker's position (remember that y-axis is inverted in screen-coordinates
-			speakerItem->setPos(newPos.x, - newPos.y);
+			speakerItem->setPos(newPos.x, -newPos.y);
 		} else {
 			// Remove the stale item
 			speakerIt.remove();
@@ -262,12 +261,13 @@ void Manual::on_speakerPositionUpdate(QHash<unsigned int, Position2D> positions)
 	}
 
 	// Finally iterate over the remaining new speakers and create new items for them
-	QHashIterator<unsigned int, Position2D> remainingIt(positions);
+	QHashIterator< unsigned int, Position2D > remainingIt(positions);
 	while (remainingIt.hasNext()) {
 		remainingIt.next();
 
-		const float speakerRadius = 1.2;
-		QGraphicsItem *speakerItem = qgsScene->addEllipse(-speakerRadius, -speakerRadius, 2 * speakerRadius, 2 * speakerRadius, QPen(), QBrush(Qt::red));
+		const float speakerRadius  = 1.2;
+		QGraphicsItem *speakerItem = qgsScene->addEllipse(-speakerRadius, -speakerRadius, 2 * speakerRadius,
+														  2 * speakerRadius, QPen(), QBrush(Qt::red));
 
 		Position2D pos = remainingIt.value();
 
@@ -287,13 +287,14 @@ void Manual::on_updateStaleSpeakers() {
 
 	// Iterate over all stale items and check whether they have to be removed entirely. If not, update
 	// their opacity.
-	QMutableHashIterator<unsigned int, StaleEntry> staleIt(staleSpeakerPositions);
+	QMutableHashIterator< unsigned int, StaleEntry > staleIt(staleSpeakerPositions);
 	while (staleIt.hasNext()) {
 		staleIt.next();
 
 		StaleEntry entry = staleIt.value();
 
-		double elapsedTime = static_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - entry.staleSince).count();
+		double elapsedTime =
+			static_cast< std::chrono::duration< double > >(std::chrono::steady_clock::now() - entry.staleSince).count();
 
 		if (elapsedTime >= g.s.manualPlugin_silentUserDisplaytime) {
 			// The item has been around long enough - remove it now
@@ -301,7 +302,8 @@ void Manual::on_updateStaleSpeakers() {
 			delete entry.staleItem;
 		} else {
 			// Let the item fade out
-			double opacity = (g.s.manualPlugin_silentUserDisplaytime - elapsedTime) / static_cast<double>(g.s.manualPlugin_silentUserDisplaytime);
+			double opacity = (g.s.manualPlugin_silentUserDisplaytime - elapsedTime)
+							 / static_cast< double >(g.s.manualPlugin_silentUserDisplaytime);
 			entry.staleItem->setOpacity(opacity);
 		}
 	}
@@ -316,7 +318,7 @@ void Manual::on_updateStaleSpeakers() {
 }
 
 void Manual::updateTopAndFront(int azimuth, int elevation) {
-	iAzimuth = azimuth;
+	iAzimuth   = azimuth;
 	iElevation = elevation;
 
 	qgiPosition->setRotation(azimuth);
@@ -324,13 +326,13 @@ void Manual::updateTopAndFront(int azimuth, int elevation) {
 	double azim = azimuth * M_PI / 180.;
 	double elev = elevation * M_PI / 180.;
 
-	my.avatar_front[0]	= static_cast<float>(cos(elev) * sin(azim));
-	my.avatar_front[1]	= static_cast<float>(sin(elev));
-	my.avatar_front[2]	= static_cast<float>(cos(elev) * cos(azim));
+	my.avatar_front[0] = static_cast< float >(cos(elev) * sin(azim));
+	my.avatar_front[1] = static_cast< float >(sin(elev));
+	my.avatar_front[2] = static_cast< float >(cos(elev) * cos(azim));
 
-	my.avatar_top[0]	= static_cast<float>(-sin(elev) * sin(azim));
-	my.avatar_top[1]	= static_cast<float>(cos(elev));
-	my.avatar_top[2]	= static_cast<float>(-sin(elev) * cos(azim));
+	my.avatar_top[0] = static_cast< float >(-sin(elev) * sin(azim));
+	my.avatar_top[1] = static_cast< float >(cos(elev));
+	my.avatar_top[2] = static_cast< float >(-sin(elev) * cos(azim));
 
 	memcpy(my.camera_top, my.avatar_top, sizeof(float) * 3);
 	memcpy(my.camera_front, my.avatar_front, sizeof(float) * 3);
@@ -348,7 +350,7 @@ static void unlock() {
 }
 
 static void config(void *ptr) {
-	QWidget *w = reinterpret_cast<QWidget *>(ptr);
+	QWidget *w = reinterpret_cast< QWidget * >(ptr);
 
 	if (mDlg) {
 		mDlg->setParent(w, Qt::Dialog);
@@ -360,23 +362,24 @@ static void config(void *ptr) {
 	mDlg->show();
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring &identity) {
 	if (!bLinkable)
 		return false;
 
 	if (!bActive) {
-		memset(avatar_pos, 0, sizeof(float)*3);
-		memset(camera_pos, 0, sizeof(float)*3);
+		memset(avatar_pos, 0, sizeof(float) * 3);
+		memset(camera_pos, 0, sizeof(float) * 3);
 		return true;
 	}
 
-	memcpy(avatar_pos, my.avatar_pos, sizeof(float)*3);
-	memcpy(avatar_front, my.avatar_front, sizeof(float)*3);
-	memcpy(avatar_top, my.avatar_top, sizeof(float)*3);
+	memcpy(avatar_pos, my.avatar_pos, sizeof(float) * 3);
+	memcpy(avatar_front, my.avatar_front, sizeof(float) * 3);
+	memcpy(avatar_top, my.avatar_top, sizeof(float) * 3);
 
-	memcpy(camera_pos, my.camera_pos, sizeof(float)*3);
-	memcpy(camera_front, my.camera_front, sizeof(float)*3);
-	memcpy(camera_top, my.camera_top, sizeof(float)*3);
+	memcpy(camera_pos, my.camera_pos, sizeof(float) * 3);
+	memcpy(camera_front, my.camera_front, sizeof(float) * 3);
+	memcpy(camera_top, my.camera_top, sizeof(float) * 3);
 
 	context.assign(my.context);
 	identity.assign(my.identity);
@@ -392,32 +395,22 @@ static std::wstring description(L"Manual placement plugin");
 static std::wstring shortname(L"Manual placement");
 
 static void about(void *ptr) {
-	QWidget *w = reinterpret_cast<QWidget *>(ptr);
+	QWidget *w = reinterpret_cast< QWidget * >(ptr);
 
-	QMessageBox::about(
-		w,
-		QString::fromStdWString(description),
-		QString::fromStdWString(longdesc())
-	);
+	QMessageBox::about(w, QString::fromStdWString(description), QString::fromStdWString(longdesc()));
 }
 
-static MumblePlugin manual = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr, // About is handled by MumblePluginQt
-	nullptr, // Config is handled by MumblePluginQt
-	trylock,
-	unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin manual = { MUMBLE_PLUGIN_MAGIC,
+							   description,
+							   shortname,
+							   nullptr, // About is handled by MumblePluginQt
+							   nullptr, // Config is handled by MumblePluginQt
+							   trylock,
+							   unlock,
+							   longdesc,
+							   fetch };
 
-static MumblePluginQt manualqt = {
-	MUMBLE_PLUGIN_MAGIC_QT,
-	about,
-	config
-};
+static MumblePluginQt manualqt = { MUMBLE_PLUGIN_MAGIC_QT, about, config };
 
 MumblePlugin *ManualPlugin_getMumblePlugin() {
 	return &manual;

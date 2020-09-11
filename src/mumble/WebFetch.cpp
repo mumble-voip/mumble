@@ -9,15 +9,12 @@
 
 #include <QtNetwork/QNetworkReply>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 WebFetch::WebFetch(QString service, QUrl url, QObject *obj, const char *slot)
-	: QObject()
-	, qoObject(obj)
-	, cpSlot(slot)
-	, m_service(service) {
-
+	: QObject(), qoObject(obj), cpSlot(slot), m_service(service) {
 	url.setScheme(QLatin1String("https"));
 
 	if (!g.s.qsServicePrefix.isEmpty()) {
@@ -28,7 +25,7 @@ WebFetch::WebFetch(QString service, QUrl url, QObject *obj, const char *slot)
 
 	qnr = Network::get(url);
 	connect(qnr, SIGNAL(finished()), this, SLOT(finished()));
-	connect(this, SIGNAL(fetched(QByteArray,QUrl,QMap<QString,QString>)), obj, slot);
+	connect(this, SIGNAL(fetched(QByteArray, QUrl, QMap< QString, QString >)), obj, slot);
 }
 
 QString WebFetch::prefixedServiceHost() const {
@@ -50,7 +47,7 @@ static QString fromUtf8(const QByteArray &qba) {
 
 void WebFetch::finished() {
 	// Note that if this functions succeeds, it should deleteLater() itself, as this is a temporary object.
-	Q_ASSERT(qobject_cast<QNetworkReply *>(sender()) == qnr);
+	Q_ASSERT(qobject_cast< QNetworkReply * >(sender()) == qnr);
 	qnr->disconnect();
 	qnr->deleteLater();
 
@@ -63,12 +60,12 @@ void WebFetch::finished() {
 		if (a.isNull())
 			a.append("");
 
-		QMap<QString, QString> headers;
+		QMap< QString, QString > headers;
 
-		foreach(const QByteArray &headerName, qnr->rawHeaderList()) {
-			QString name = fromUtf8(headerName);
+		foreach (const QByteArray &headerName, qnr->rawHeaderList()) {
+			QString name  = fromUtf8(headerName);
 			QString value = fromUtf8(qnr->rawHeader(headerName));
-			if (! name.isEmpty() && ! value.isEmpty()) {
+			if (!name.isEmpty() && !value.isEmpty()) {
 				headers.insert(name, value);
 				if (name == QLatin1String("Use-Service-Prefix")) {
 					QRegExp servicePrefixRegExp(QLatin1String("^[a-zA-Z]+$"));
@@ -92,7 +89,7 @@ void WebFetch::finished() {
 		qnr = Network::get(url);
 		connect(qnr, SIGNAL(finished()), this, SLOT(finished()));
 	} else {
-		emit fetched(QByteArray(), url, QMap<QString,QString>());
+		emit fetched(QByteArray(), url, QMap< QString, QString >());
 		deleteLater();
 	}
 }

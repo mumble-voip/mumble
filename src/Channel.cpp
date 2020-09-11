@@ -4,30 +4,30 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "Channel.h"
-#include "User.h"
-#include "Group.h"
 #include "ACL.h"
+#include "Group.h"
+#include "User.h"
 
 #include <QtCore/QStack>
 
 #ifdef MUMBLE
-QHash<int, Channel *> Channel::c_qhChannels;
+QHash< int, Channel * > Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
 #endif
 
 Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
-	iId = id;
-	iPosition = 0;
-	qsName = name;
+	iId         = id;
+	iPosition   = 0;
+	qsName      = name;
 	bInheritACL = true;
-	uiMaxUsers = 0;
-	bTemporary = false;
-	cParent = qobject_cast<Channel *>(p);
+	uiMaxUsers  = 0;
+	bTemporary  = false;
+	cParent     = qobject_cast< Channel * >(p);
 	if (cParent)
 		cParent->addChannel(this);
 #ifdef MUMBLE
 	uiPermissions = 0;
-	bFiltered = false;
+	bFiltered     = false;
 
 	hasEnterRestrictions.store(false);
 	localUserCanEnter.store(true);
@@ -38,14 +38,14 @@ Channel::~Channel() {
 	if (cParent)
 		cParent->removeChannel(this);
 
-	foreach(Channel *c, qlChannels)
+	foreach (Channel *c, qlChannels)
 		delete c;
 
-	foreach(ChanACL *acl, qlACL)
+	foreach (ChanACL *acl, qlACL)
 		delete acl;
-	foreach(Group *g, qhGroups)
+	foreach (Group *g, qhGroups)
 		delete g;
-	foreach(Channel *l, qhLinks.keys())
+	foreach (Channel *l, qhLinks.keys())
 		unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
@@ -102,24 +102,24 @@ void Channel::unlink(Channel *l) {
 		l->qsPermLinks.remove(this);
 		l->qhLinks.remove(this);
 	} else {
-		foreach(Channel *c, qhLinks.keys())
+		foreach (Channel *c, qhLinks.keys())
 			unlink(c);
 	}
 }
 
-QSet<Channel *> Channel::allLinks() {
-	QSet<Channel *> seen;
+QSet< Channel * > Channel::allLinks() {
+	QSet< Channel * > seen;
 	seen.insert(this);
 	if (qhLinks.isEmpty())
 		return seen;
 
-	QStack<Channel *> stack;
+	QStack< Channel * > stack;
 	stack.push(this);
 
-	while (! stack.isEmpty()) {
+	while (!stack.isEmpty()) {
 		Channel *lnk = stack.pop();
-		foreach(Channel *l, lnk->qhLinks.keys()) {
-			if (! seen.contains(l)) {
+		foreach (Channel *l, lnk->qhLinks.keys()) {
+			if (!seen.contains(l)) {
 				seen.insert(l);
 				stack.push(l);
 			}
@@ -128,17 +128,17 @@ QSet<Channel *> Channel::allLinks() {
 	return seen;
 }
 
-QSet<Channel *> Channel::allChildren() {
-	QSet<Channel *> seen;
-	if (! qlChannels.isEmpty()) {
-		QStack<Channel *> stack;
+QSet< Channel * > Channel::allChildren() {
+	QSet< Channel * > seen;
+	if (!qlChannels.isEmpty()) {
+		QStack< Channel * > stack;
 		stack.push(this);
 
-		while (! stack.isEmpty()) {
+		while (!stack.isEmpty()) {
 			Channel *c = stack.pop();
-			foreach(Channel *chld, c->qlChannels) {
+			foreach (Channel *chld, c->qlChannels) {
 				seen.insert(chld);
-				if (! chld->qlChannels.isEmpty())
+				if (!chld->qlChannels.isEmpty())
 					stack.append(chld);
 			}
 		}
@@ -170,10 +170,9 @@ void Channel::removeUser(User *p) {
 }
 
 Channel::operator QString() const {
-	return QString::fromLatin1("%1[%2:%3%4]").arg(qsName,
-	        QString::number(iId),
-	        QString::number(cParent ? cParent->iId : -1),
-	        bTemporary ? QLatin1String("*") : QLatin1String(""));
+	return QString::fromLatin1("%1[%2:%3%4]")
+		.arg(qsName, QString::number(iId), QString::number(cParent ? cParent->iId : -1),
+			 bTemporary ? QLatin1String("*") : QLatin1String(""));
 }
 
 size_t Channel::getLevel() const {
@@ -189,14 +188,12 @@ size_t Channel::getLevel() const {
 }
 
 size_t Channel::getDepth() const {
-	if(qlChannels.empty()) {
+	if (qlChannels.empty()) {
 		return 0;
 	}
 
 	size_t result = 0;
-	foreach(Channel *child, qlChannels) {
-		result = qMax(result, child->getDepth() + 1);
-	}
+	foreach (Channel *child, qlChannels) { result = qMax(result, child->getDepth() + 1); }
 
 	return result;
 }

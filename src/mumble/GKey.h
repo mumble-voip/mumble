@@ -14,11 +14,13 @@
 
 #define GKEY_LOGITECH_DLL_REG_HKEY HKEY_CLASSES_ROOT
 #ifdef _M_X64
-#define GKEY_LOGITECH_DLL_REG_PATH L"Wow6432Node\\CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
-#define GKEY_LOGITECH_DLL_DEFAULT_LOCATION "C:/Program Files/Logitech Gaming Software/SDK/G-key/x64/LogitechGkey.dll"
+#	define GKEY_LOGITECH_DLL_REG_PATH L"Wow6432Node\\CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
+#	define GKEY_LOGITECH_DLL_DEFAULT_LOCATION \
+		"C:/Program Files/Logitech Gaming Software/SDK/G-key/x64/LogitechGkey.dll"
 #else
-#define GKEY_LOGITECH_DLL_REG_PATH L"CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
-#define GKEY_LOGITECH_DLL_DEFAULT_LOCATION "C:/Program Files/Logitech Gaming Software/SDK/G-key/x86/LogitechGkey.dll"
+#	define GKEY_LOGITECH_DLL_REG_PATH L"CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
+#	define GKEY_LOGITECH_DLL_DEFAULT_LOCATION \
+		"C:/Program Files/Logitech Gaming Software/SDK/G-key/x86/LogitechGkey.dll"
 #endif
 
 #define GKEY_MIN_MOUSE_BUTTON 6
@@ -34,8 +36,7 @@
 #define GKEY_MOUSE_GUID "c41e60af-9022-46cf-bc39-37981082d716"
 #define GKEY_KEYBOARD_GUID "153e64e6-98c8-4e03-80ef-5ffd33d25b8a"
 
-class GKeyLibrary
-{
+class GKeyLibrary {
 public:
 	GKeyLibrary();
 	virtual ~GKeyLibrary();

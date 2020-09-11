@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,19 +38,20 @@
 
 procptr_t posptr, frontptr, topptr, contextptraddress, stateaddress, loginaddress;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring &) {
 	static bool loggedin = false;
 	static procptr_t contextptr;
 	bool ok;
 
 	// Zeroing the floats
-	for (int i=0;i<3;i++)
+	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	// When you log in the context pointer needs to be set.
 	char login;
 	ok = peekProc(loginaddress, &login, sizeof(login));
-	if (! ok)
+	if (!ok)
 		return false;
 
 	if (login == 0) {
@@ -59,14 +60,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		procptr_t ptr1 = peekProcPtr(contextptraddress);
 		procptr_t ptr2 = peekProcPtr(ptr1 + 0x28c);
 		procptr_t ptr3 = peekProcPtr(ptr2 + 0x210);
-		if (ptr3 != 0) loggedin = true; //pointer set
+		if (ptr3 != 0)
+			loggedin = true; // pointer set
 		contextptr = ptr3 + 0x2c;
 	}
 
 	// Magic State value
 	char state;
 	ok = peekProc(stateaddress, &state, sizeof(state));
-	if (! ok)
+	if (!ok)
 		return false;
 
 	// State is 0 when you are in the main menu and 1 when your are not.
@@ -76,10 +78,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float pos_corrector[3];
 	float front_corrector[3];
 	float top_corrector[3];
-	ok = peekProc(posptr, &pos_corrector, 12) &&
-	     peekProc(frontptr, &front_corrector, 12) &&
-	     peekProc(topptr, &top_corrector, 12);
-	if (! ok)
+	ok = peekProc(posptr, &pos_corrector, 12) && peekProc(frontptr, &front_corrector, 12)
+		 && peekProc(topptr, &top_corrector, 12);
+	if (!ok)
 		return false;
 
 	// coordinate systems:
@@ -91,8 +92,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_pos[1] = pos_corrector[1];
 	avatar_pos[2] = pos_corrector[0];
 
-	for (int i=0;i<3;i++)
-		avatar_pos[i]/=100.0f; // Unreal Unit is set to centimeters
+	for (int i = 0; i < 3; i++)
+		avatar_pos[i] /= 100.0f; // Unreal Unit is set to centimeters
 
 	avatar_front[0] = front_corrector[2];
 	avatar_front[1] = front_corrector[1];
@@ -102,16 +103,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_top[1] = top_corrector[1];
 	avatar_top[2] = top_corrector[0];
 
-	for (int i=0;i<3;i++) {
-		camera_pos[i] = avatar_pos[i];
+	for (int i = 0; i < 3; i++) {
+		camera_pos[i]   = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
+		camera_top[i]   = avatar_top[i];
 	}
 
 	if (loggedin) {
 		char ccontext[64];
 		ok = peekProc(contextptr, &ccontext, sizeof(ccontext));
-		if (! ok)
+		if (!ok)
 			return false;
 
 		std::string new_context;
@@ -126,7 +127,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return ok;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
 	posptr = frontptr = topptr = contextptraddress = stateaddress = loginaddress = 0;
 
 	if (!initialize(pids, L"Borderlands.exe"))
@@ -141,20 +142,20 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	procptr_t ptraddress;
 	if (strncmp("the cl", version, sizeof(version)) == 0) { // retail version
-		ptraddress = 0x01f73744;
-		stateaddress = 0x01f9bb18;
+		ptraddress        = 0x01f73744;
+		stateaddress      = 0x01f9bb18;
 		contextptraddress = 0x01fd7398;
-		loginaddress = 0x01fd83a8;
+		loginaddress      = 0x01fd83a8;
 	} else if (strncmp("Tir-ku", version, sizeof(version)) == 0) { // steam version
-		ptraddress = 0x01f705c4;
-		stateaddress = 0x01f98998;
+		ptraddress        = 0x01f705c4;
+		stateaddress      = 0x01f98998;
 		contextptraddress = 0x01fd4218;
-		loginaddress = 0x01fd5220;
+		loginaddress      = 0x01fd5220;
 	} else if (strncmp("german", version, sizeof(version)) == 0) { // german version
-		ptraddress = 0x01f72744;
-		stateaddress = 0x01f9ab18;
+		ptraddress        = 0x01f72744;
+		stateaddress      = 0x01f9ab18;
 		contextptraddress = 0x01fd6398;
-		loginaddress = 0x01fd73a8;
+		loginaddress      = 0x01fd73a8;
 	} else { // unknown version
 		generic_unlock();
 		return false;
@@ -166,9 +167,9 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	posptr = ptr1 + 0x9200;
+	posptr   = ptr1 + 0x9200;
 	frontptr = ptr1 + 0x9248;
-	topptr = ptr1 + 0x9230;
+	topptr   = ptr1 + 0x9230;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
@@ -183,33 +184,21 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Borderlands v1.40, including german and steam version. Context string is used with online games.");
+	return std::wstring(
+		L"Supports Borderlands v1.40, including german and steam version. Context string is used with online games.");
 }
 
 static std::wstring description(L"Borderlands v1.40");
 static std::wstring shortname(L"Borderlands");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin borderlandsplug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin borderlandsplug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+										generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 borderlandsplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 borderlandsplug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &borderlandsplug;

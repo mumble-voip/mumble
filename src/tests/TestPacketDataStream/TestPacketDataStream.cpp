@@ -3,29 +3,29 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+#include "Message.h"
+#include "PacketDataStream.h"
+#include <QObject>
 #include <QtCore>
 #include <QtNetwork>
 #include <QtTest>
-#include <QObject>
-#include "PacketDataStream.h"
-#include "Message.h"
 
 class TestPacketDataStream : public QObject {
-		Q_OBJECT
-	private slots:
-		void integer();
-		void integer_data();
-		void string();
-		void string_data();
-		void space();
-		void floating();
-		void floating_data();
-		void undersize();
+	Q_OBJECT
+private slots:
+	void integer();
+	void integer_data();
+	void string();
+	void string_data();
+	void space();
+	void floating();
+	void floating_data();
+	void undersize();
 };
 
 void TestPacketDataStream::floating_data() {
-	QTest::addColumn<double>("value");
-	for (int i=1;i<256;i++) {
+	QTest::addColumn< double >("value");
+	for (int i = 1; i < 256; i++) {
 		double v = 1.0L / (1.0L * i);
 		QTest::newRow("Positive") << v;
 		QTest::newRow("Negative") << -v;
@@ -51,11 +51,11 @@ void TestPacketDataStream::undersize() {
 	QByteArray qba(32, 'Z');
 	char buff[256];
 
-	for (unsigned int i=0;i<32;i++) {
+	for (unsigned int i = 0; i < 32; i++) {
 		PacketDataStream out(buff, i);
 		out << qba;
-		QCOMPARE(33-i, out.undersize());
-		QVERIFY(! out.isValid());
+		QCOMPARE(33 - i, out.undersize());
+		QVERIFY(!out.isValid());
 		QVERIFY(out.left() == 0);
 	}
 	PacketDataStream out(buff, 33);
@@ -66,8 +66,8 @@ void TestPacketDataStream::undersize() {
 }
 
 void TestPacketDataStream::integer_data() {
-	QTest::addColumn<quint64>("value");
-	for (int i=0;i<64;i++) {
+	QTest::addColumn< quint64 >("value");
+	for (int i = 0; i < 64; i++) {
 		quint64 v = 1ULL << i;
 		QTest::newRow("Integer") << v;
 		QTest::newRow("~Integer") << ~v;
@@ -90,7 +90,7 @@ void TestPacketDataStream::integer() {
 }
 
 void TestPacketDataStream::string_data() {
-	QTest::addColumn<QString>("string");
+	QTest::addColumn< QString >("string");
 	QTest::newRow("Empty") << QString("");
 	QTest::newRow("Null") << QString();
 	QTest::newRow("Bærtur") << QString("Bærtur");
@@ -113,8 +113,8 @@ void TestPacketDataStream::string() {
 
 void TestPacketDataStream::space() {
 	char buff[256];
-	for (int i=0;i<256;i++)
-		buff[i]= 0x55;
+	for (int i = 0; i < 256; i++)
+		buff[i] = 0x55;
 
 	PacketDataStream out(buff, 1);
 
@@ -128,7 +128,7 @@ void TestPacketDataStream::space() {
 
 	out << val;
 
-	QVERIFY(! out.isValid());
+	QVERIFY(!out.isValid());
 	QVERIFY(out.size() == 1);
 	QVERIFY(out.left() == 0);
 	QVERIFY(buff[1] == 0x55);
@@ -144,7 +144,7 @@ void TestPacketDataStream::space() {
 	QVERIFY(in.left() == 0);
 
 	in >> v;
-	QVERIFY(! in.isValid());
+	QVERIFY(!in.isValid());
 	QVERIFY(in.size() == 1);
 	QVERIFY(in.left() == 0);
 }

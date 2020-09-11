@@ -6,7 +6,7 @@
 #include "mumble_plugin.h"
 
 #ifndef NULL_DESC
-#define NULL_DESC L"Retracted plugin"
+#	define NULL_DESC L"Retracted plugin"
 #endif // NULL_DESC
 
 static int fetch(float *, float *, float *, float *, float *, float *, std::string &, std::wstring &) {
@@ -27,18 +27,9 @@ static std::wstring description(NULL_DESC);
 static std::wstring shortname(L"Retracted");
 
 static MumblePlugin nullplug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock,
-	nullptr,
-	longdesc,
-	fetch
+	MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock, nullptr, longdesc, fetch
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &nullplug;
 }
-

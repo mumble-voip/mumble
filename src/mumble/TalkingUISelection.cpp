@@ -7,10 +7,11 @@
 #include "MainWindow.h"
 #include "UserModel.h"
 
-#include <QWidget>
 #include <QVariant>
+#include <QWidget>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 TalkingUISelection::TalkingUISelection(QWidget *widget) : m_widget(widget) {
@@ -51,8 +52,7 @@ bool TalkingUISelection::operator!=(const QWidget *widget) const {
 
 
 UserSelection::UserSelection(QWidget *widget, unsigned int userSession)
-	: TalkingUISelection(widget),
-	  m_userSession(userSession) {
+	: TalkingUISelection(widget), m_userSession(userSession) {
 }
 
 void UserSelection::syncToMainWindow() const {
@@ -61,15 +61,14 @@ void UserSelection::syncToMainWindow() const {
 	}
 }
 
-std::unique_ptr<TalkingUISelection> UserSelection::cloneToHeap() const {
-	return std::make_unique<UserSelection>(*this);
+std::unique_ptr< TalkingUISelection > UserSelection::cloneToHeap() const {
+	return std::make_unique< UserSelection >(*this);
 }
 
 
 
 ChannelSelection::ChannelSelection(QWidget *widget, int channelID)
-	: TalkingUISelection(widget),
-	  m_channelID(channelID) {
+	: TalkingUISelection(widget), m_channelID(channelID) {
 }
 
 void ChannelSelection::syncToMainWindow() const {
@@ -78,16 +77,14 @@ void ChannelSelection::syncToMainWindow() const {
 	}
 }
 
-std::unique_ptr<TalkingUISelection> ChannelSelection::cloneToHeap() const {
-	return std::make_unique<ChannelSelection>(*this);
+std::unique_ptr< TalkingUISelection > ChannelSelection::cloneToHeap() const {
+	return std::make_unique< ChannelSelection >(*this);
 }
 
 
 
 ListenerSelection::ListenerSelection(QWidget *widget, unsigned int userSession, int channelID)
-	: TalkingUISelection(widget),
-	  m_userSession(userSession),
-	  m_channelID(channelID) {
+	: TalkingUISelection(widget), m_userSession(userSession), m_channelID(channelID) {
 }
 
 void ListenerSelection::syncToMainWindow() const {
@@ -96,8 +93,8 @@ void ListenerSelection::syncToMainWindow() const {
 	}
 }
 
-std::unique_ptr<TalkingUISelection> ListenerSelection::cloneToHeap() const {
-	return std::make_unique<ListenerSelection>(*this);
+std::unique_ptr< TalkingUISelection > ListenerSelection::cloneToHeap() const {
+	return std::make_unique< ListenerSelection >(*this);
 }
 
 
@@ -106,6 +103,6 @@ void EmptySelection::syncToMainWindow() const {
 	// Do nothing
 }
 
-std::unique_ptr<TalkingUISelection> EmptySelection::cloneToHeap() const {
-	return std::make_unique<EmptySelection>(*this);
+std::unique_ptr< TalkingUISelection > EmptySelection::cloneToHeap() const {
+	return std::make_unique< EmptySelection >(*this);
 }

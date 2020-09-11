@@ -12,13 +12,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,14 +44,13 @@
 
 #include <cmath>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
-                                             QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker)
-	: QDialog(nullptr)
-	, m_clientSession(sessionId)
-	, m_qmUserVolTracker(qmUserVolTracker) {
+											 QMap< unsigned int, UserLocalVolumeDialog * > *qmUserVolTracker)
+	: QDialog(nullptr), m_clientSession(sessionId), m_qmUserVolTracker(qmUserVolTracker) {
 	setupUi(this);
 	qsUserLocalVolume->setAccessibleName(tr("User volume"));
 	qsbUserLocalVolume->setAccessibleName(tr("User volume"));
@@ -77,7 +76,7 @@ void UserLocalVolumeDialog::closeEvent(QCloseEvent *event) {
 }
 
 void UserLocalVolumeDialog::present(unsigned int sessionId,
-                                    QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker) {
+									QMap< unsigned int, UserLocalVolumeDialog * > *qmUserVolTracker) {
 	if (qmUserVolTracker->contains(sessionId)) {
 		qmUserVolTracker->value(sessionId)->raise();
 	} else {
@@ -92,7 +91,7 @@ void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int value) {
 	ClientUser *user = ClientUser::get(m_clientSession);
 	if (user) {
 		// Decibel formula: +6db = *2
-		user->setLocalVolumeAdjustment(static_cast<float>(pow(2.0, qsUserLocalVolume->value() / 6.0)));
+		user->setLocalVolumeAdjustment(static_cast< float >(pow(2.0, qsUserLocalVolume->value() / 6.0)));
 	}
 }
 
@@ -108,9 +107,9 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 		ClientUser *user = ClientUser::get(m_clientSession);
 		if (user) {
 			if (!user->qsHash.isEmpty()) {
-			    g.db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
+				g.db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
 			} else {
-			    g.mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
+				g.mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
 			}
 		}
 		UserLocalVolumeDialog::close();

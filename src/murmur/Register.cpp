@@ -3,32 +3,34 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "Server.h"
 #include "Meta.h"
-#include "Version.h"
 #include "OSInfo.h"
+#include "Server.h"
+#include "Version.h"
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtXml/QDomDocument>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
-	#include <QRandomGenerator>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#	include <QRandomGenerator>
 #endif
 
 void Server::initRegister() {
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
 
-	if (! qsRegName.isEmpty()) {
-		if (!qsRegName.isEmpty() && !qsRegPassword.isEmpty() && qurlRegWeb.isValid() && qsPassword.isEmpty() && bAllowPing)
-#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
-			qtTick.start((60 + (QRandomGenerator::global()->generate() % 120))* 1000);
+	if (!qsRegName.isEmpty()) {
+		if (!qsRegName.isEmpty() && !qsRegPassword.isEmpty() && qurlRegWeb.isValid() && qsPassword.isEmpty()
+			&& bAllowPing)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+			qtTick.start((60 + (QRandomGenerator::global()->generate() % 120)) * 1000);
 #else
 			// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-			qtTick.start((60 + (qrand() % 120))* 1000);
+			qtTick.start((60 + (qrand() % 120)) * 1000);
 #endif
 		else
-			log("Registration needs nonempty 'registername', 'registerpassword' and 'registerurl', must have an empty 'password' and allowed pings.");
+			log("Registration needs nonempty 'registername', 'registerpassword' and 'registerurl', must have an empty "
+				"'password' and allowed pings.");
 	} else {
 		log("Not registering server as public");
 	}
@@ -39,10 +41,10 @@ void Server::update() {
 		return;
 
 	// When QNAM distinguishes connections by client cert, move this to Meta
-	if (! qnamNetwork)
+	if (!qnamNetwork)
 		qnamNetwork = new QNetworkAccessManager(this);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 	qtTick.start(1000 * (60 * 60 + (QRandomGenerator::global()->generate() % 300)));
 #else
 	// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
@@ -50,7 +52,7 @@ void Server::update() {
 #endif
 
 	QDomDocument doc;
-	QDomElement root=doc.createElement(QLatin1String("server"));
+	QDomElement root = doc.createElement(QLatin1String("server"));
 	doc.appendChild(root);
 
 	OSInfo::fillXml(doc, root, meta->qsOS, meta->qsOSVersion, qlBind);
@@ -58,50 +60,50 @@ void Server::update() {
 	QDomElement tag;
 	QDomText t;
 
-	tag=doc.createElement(QLatin1String("name"));
+	tag = doc.createElement(QLatin1String("name"));
 	root.appendChild(tag);
-	t=doc.createTextNode(qsRegName);
+	t = doc.createTextNode(qsRegName);
 	tag.appendChild(t);
 
-	tag=doc.createElement(QLatin1String("host"));
+	tag = doc.createElement(QLatin1String("host"));
 	root.appendChild(tag);
-	t=doc.createTextNode(qsRegHost);
+	t = doc.createTextNode(qsRegHost);
 	tag.appendChild(t);
 
-	tag=doc.createElement(QLatin1String("password"));
+	tag = doc.createElement(QLatin1String("password"));
 	root.appendChild(tag);
-	t=doc.createTextNode(qsRegPassword);
+	t = doc.createTextNode(qsRegPassword);
 	tag.appendChild(t);
 
-	tag=doc.createElement(QLatin1String("port"));
+	tag = doc.createElement(QLatin1String("port"));
 	root.appendChild(tag);
-	t=doc.createTextNode(QString::number(usPort));
+	t = doc.createTextNode(QString::number(usPort));
 	tag.appendChild(t);
 
-	tag=doc.createElement(QLatin1String("url"));
+	tag = doc.createElement(QLatin1String("url"));
 	root.appendChild(tag);
-	t=doc.createTextNode(qurlRegWeb.toString());
+	t = doc.createTextNode(qurlRegWeb.toString());
 	tag.appendChild(t);
 
-	tag=doc.createElement(QLatin1String("digest"));
+	tag = doc.createElement(QLatin1String("digest"));
 	root.appendChild(tag);
-	t=doc.createTextNode(getDigest());
+	t = doc.createTextNode(getDigest());
 	tag.appendChild(t);
 
-	tag=doc.createElement(QLatin1String("users"));
+	tag = doc.createElement(QLatin1String("users"));
 	root.appendChild(tag);
-	t=doc.createTextNode(QString::number(qhUsers.count()));
+	t = doc.createTextNode(QString::number(qhUsers.count()));
 	tag.appendChild(t);
 
-	tag=doc.createElement(QLatin1String("channels"));
+	tag = doc.createElement(QLatin1String("channels"));
 	root.appendChild(tag);
-	t=doc.createTextNode(QString::number(qhChannels.count()));
+	t = doc.createTextNode(QString::number(qhChannels.count()));
 	tag.appendChild(t);
 
 	if (!qsRegLocation.isEmpty()) {
-		tag=doc.createElement(QLatin1String("location"));
+		tag = doc.createElement(QLatin1String("location"));
 		root.appendChild(tag);
-		t=doc.createTextNode(qsRegLocation);
+		t = doc.createTextNode(qsRegLocation);
 		tag.appendChild(t);
 	}
 
@@ -113,7 +115,7 @@ void Server::update() {
 	ssl.setPrivateKey(qskKey);
 
 	/* Work around bug in QSslConfiguration */
-	QList<QSslCertificate> calist = ssl.caCertificates();
+	QList< QSslCertificate > calist = ssl.caCertificates();
 	calist << QSslConfiguration::defaultConfiguration().caCertificates();
 	calist << Meta::mp.qlCA;
 	calist << Meta::mp.qlIntermediates;
@@ -126,11 +128,11 @@ void Server::update() {
 
 	QNetworkReply *rep = qnamNetwork->post(qnr, doc.toString().toUtf8());
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
-	connect(rep, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(regSslError(const QList<QSslError> &)));
+	connect(rep, SIGNAL(sslErrors(const QList< QSslError > &)), this, SLOT(regSslError(const QList< QSslError > &)));
 }
 
 void Server::finished() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+	QNetworkReply *rep = qobject_cast< QNetworkReply * >(sender());
 
 	if (rep->error() != QNetworkReply::NoError) {
 		log(QString("Registration failed: %1").arg(rep->errorString()));
@@ -141,7 +143,7 @@ void Server::finished() {
 	rep->deleteLater();
 }
 
-void Server::regSslError(const QList<QSslError> &errs) {
-	foreach(const QSslError &e, errs)
+void Server::regSslError(const QList< QSslError > &errs) {
+	foreach (const QSslError &e, errs)
 		log(QString("Registration: SSL Handshake error: %1").arg(e.errorString()));
 }

@@ -7,9 +7,7 @@
 
 #include <QtWidgets/QListView>
 
-MUComboBox::MUComboBox(QWidget *parent)
-	: QComboBox(parent) {
-
+MUComboBox::MUComboBox(QWidget *parent) : QComboBox(parent) {
 	// Set the QComboBox to be backed by a QListView.
 	// By default on macOS, QComboBoxes are backed by
 	// something that tries to emulate a native macOS

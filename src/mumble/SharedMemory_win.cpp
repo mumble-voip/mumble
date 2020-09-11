@@ -16,15 +16,16 @@ struct SharedMemory2Private {
 SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &memname) : QObject(p) {
 	a_ucData = nullptr;
 
-	d = new SharedMemory2Private();
+	d          = new SharedMemory2Private();
 	d->hMemory = nullptr;
 
 	if (memname.isEmpty()) {
 		// Create a new segment
 
-		for (int i=0;i<100;++i) {
-			qsName = QString::fromLatin1("Local\\MumbleOverlayMemory%1").arg(++uiIndex);
-			d->hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, minsize, qsName.toStdWString().c_str());
+		for (int i = 0; i < 100; ++i) {
+			qsName     = QString::fromLatin1("Local\\MumbleOverlayMemory%1").arg(++uiIndex);
+			d->hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, minsize,
+											qsName.toStdWString().c_str());
 			if (d->hMemory && GetLastError() != ERROR_ALREADY_EXISTS) {
 				break;
 			}
@@ -36,8 +37,9 @@ SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &me
 	} else {
 		// Open existing segment
 
-		qsName = memname;
-		d->hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, minsize, qsName.toStdWString().c_str());
+		qsName     = memname;
+		d->hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, minsize,
+										qsName.toStdWString().c_str());
 		qWarning("%p %lx", d->hMemory, GetLastError());
 		if (GetLastError() != ERROR_ALREADY_EXISTS) {
 			qWarning() << "SharedMemory2: Memory doesn't exist" << qsName;
@@ -51,7 +53,7 @@ SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &me
 	if (!d->hMemory) {
 		qWarning() << "SharedMemory2: CreateFileMapping failed for" << qsName;
 	} else {
-		a_ucData = reinterpret_cast<unsigned char *>(MapViewOfFile(d->hMemory, FILE_MAP_ALL_ACCESS, 0, 0, 0));
+		a_ucData = reinterpret_cast< unsigned char * >(MapViewOfFile(d->hMemory, FILE_MAP_ALL_ACCESS, 0, 0, 0));
 
 		if (!a_ucData) {
 			qWarning() << "SharedMemory2: Failed to map memory" << qsName;

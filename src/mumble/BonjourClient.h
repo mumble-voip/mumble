@@ -10,14 +10,14 @@
 #include "BonjourServiceResolver.h"
 
 class BonjourClient : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(BonjourClient)
-	public:
-		BonjourClient();
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(BonjourClient)
+public:
+	BonjourClient();
 
-		QScopedPointer<BonjourServiceBrowser> bsbBrowser;
-		QScopedPointer<BonjourServiceResolver> bsrResolver;
+	QScopedPointer< BonjourServiceBrowser > bsbBrowser;
+	QScopedPointer< BonjourServiceResolver > bsrResolver;
 };
 
 #endif

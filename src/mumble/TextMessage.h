@@ -9,17 +9,18 @@
 #include "ui_TextMessage.h"
 
 class TextMessage : public QDialog, public Ui::TextMessage {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(TextMessage)
-	protected:
-		QString qsRep;
-	public slots:
-		void on_qcbTreeMessage_stateChanged(int);
-	public:
-		TextMessage(QWidget *parent = nullptr, QString title = tr("Enter text"), bool bChannel = false);
-		QString message();
-		bool bTreeMessage;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(TextMessage)
+protected:
+	QString qsRep;
+public slots:
+	void on_qcbTreeMessage_stateChanged(int);
+
+public:
+	TextMessage(QWidget *parent = nullptr, QString title = tr("Enter text"), bool bChannel = false);
+	QString message();
+	bool bTreeMessage;
 };
 
 #endif

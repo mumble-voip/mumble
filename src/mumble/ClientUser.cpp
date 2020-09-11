@@ -5,27 +5,19 @@
 
 #include "ClientUser.h"
 
+#include "AudioOutput.h"
 #include "Channel.h"
 #include "Global.h"
-#include "AudioOutput.h"
 
-QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
+QHash< unsigned int, ClientUser * > ClientUser::c_qmUsers;
 QReadWriteLock ClientUser::c_qrwlUsers;
 
-QList<ClientUser *> ClientUser::c_qlTalking;
+QList< ClientUser * > ClientUser::c_qlTalking;
 QReadWriteLock ClientUser::c_qrwlTalking;
 
-ClientUser::ClientUser(QObject *p) : QObject(p),
-		tsState(Settings::Passive),
-		tLastTalkStateChange(false),
-		bLocalIgnore(false),
-		bLocalIgnoreTTS(false),
-		bLocalMute(false),
-		fPowerMin(0.0f),
-		fPowerMax(0.0f),
-		fAverageAvailable(0.0f),
-		iFrames(0),
-		iSequence(0) {
+ClientUser::ClientUser(QObject *p)
+	: QObject(p), tsState(Settings::Passive), tLastTalkStateChange(false), bLocalIgnore(false), bLocalIgnoreTTS(false),
+	  bLocalMute(false), fPowerMin(0.0f), fPowerMax(0.0f), fAverageAvailable(0.0f), iFrames(0), iSequence(0) {
 }
 
 float ClientUser::getLocalVolumeAdjustments() const {
@@ -38,15 +30,15 @@ ClientUser *ClientUser::get(unsigned int uiSession) {
 	return p;
 }
 
-QList<ClientUser *> ClientUser::getTalking() {
+QList< ClientUser * > ClientUser::getTalking() {
 	QReadLocker lock(&c_qrwlTalking);
 	return c_qlTalking;
 }
 
-QList<ClientUser *> ClientUser::getActive() {
+QList< ClientUser * > ClientUser::getActive() {
 	QReadLocker lock(&c_qrwlUsers);
-	QList<ClientUser *> activeUsers;
-	foreach(ClientUser *cu, c_qmUsers) {
+	QList< ClientUser * > activeUsers;
+	foreach (ClientUser *cu, c_qmUsers) {
 		if (cu->isActive())
 			activeUsers << cu;
 	}
@@ -62,8 +54,8 @@ bool ClientUser::isValid(unsigned int uiSession) {
 ClientUser *ClientUser::add(unsigned int uiSession, QObject *po) {
 	QWriteLocker lock(&c_qrwlUsers);
 
-	ClientUser *p = new ClientUser(po);
-	p->uiSession = uiSession;
+	ClientUser *p        = new ClientUser(po);
+	p->uiSession         = uiSession;
 	c_qmUsers[uiSession] = p;
 	return p;
 }
@@ -72,7 +64,7 @@ ClientUser *ClientUser::match(const ClientUser *other, bool matchname) {
 	QReadLocker lock(&c_qrwlUsers);
 
 	ClientUser *p;
-	foreach(p, c_qmUsers) {
+	foreach (p, c_qmUsers) {
 		if (p == other)
 			continue;
 		if ((p->iId >= 0) && (p->iId == other->iId))
@@ -113,7 +105,6 @@ void ClientUser::remove(unsigned int uiSession) {
 			// deleted before this function returns anyways.
 			ao->removeBuffer(p);
 		}
-
 	}
 }
 
@@ -124,7 +115,7 @@ void ClientUser::remove(ClientUser *p) {
 QString ClientUser::getFlagsString() const {
 	QStringList flags;
 
-	if (! qsFriendName.isEmpty())
+	if (!qsFriendName.isEmpty())
 		flags << ClientUser::tr("Friend");
 	if (iId >= 0)
 		flags << ClientUser::tr("Authenticated");
@@ -177,7 +168,7 @@ void ClientUser::setMute(bool mute) {
 	if (bMute == mute)
 		return;
 	bMute = mute;
-	if (! bMute)
+	if (!bMute)
 		bDeaf = false;
 	emit muteDeafStateChanged();
 }
@@ -216,7 +207,7 @@ void ClientUser::setDeaf(bool deaf) {
 
 void ClientUser::setSelfMute(bool mute) {
 	bSelfMute = mute;
-	if (! mute)
+	if (!mute)
 		bSelfDeaf = false;
 	emit muteDeafStateChanged();
 }
@@ -244,7 +235,7 @@ void ClientUser::setRecording(bool recording) {
 
 void ClientUser::setLocalVolumeAdjustment(float adjustment) {
 	float oldAdjustment = m_localVolume;
-	m_localVolume = adjustment;
+	m_localVolume       = adjustment;
 
 	emit localVolumeAdjustmentsChanged(m_localVolume, oldAdjustment);
 }
@@ -295,7 +286,7 @@ bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *seco
 	return Channel::lessThan(first->cChannel, second->cChannel);
 }
 
-void ClientUser::sortUsersOverlay(QList<ClientUser *> &list) {
+void ClientUser::sortUsersOverlay(QList< ClientUser * > &list) {
 	QReadLocker lock(&c_qrwlUsers);
 
 	std::sort(list.begin(), list.end(), ClientUser::lessThanOverlay);

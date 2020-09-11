@@ -4,43 +4,43 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #ifdef USE_DBUS
-# include "DBus.h"
+#	include "DBus.h"
 #endif
 
-#include "Server.h"
-#include "ServerDB.h"
-#include "Meta.h"
-#include "Version.h"
-#include "SSL.h"
+#include "EnvUtils.h"
 #include "License.h"
 #include "LogEmitter.h"
-#include "EnvUtils.h"
+#include "Meta.h"
+#include "SSL.h"
+#include "Server.h"
+#include "ServerDB.h"
+#include "Version.h"
 
 #ifdef Q_OS_WIN
-# include "About.h"
-# include "Tray.h"
+#	include "About.h"
+#	include "Tray.h"
 
-# include <QtWidgets/QApplication>
+#	include <QtWidgets/QApplication>
 #else
-# include "UnixMurmur.h"
+#	include "UnixMurmur.h"
 
-# include <QtCore/QCoreApplication>
+#	include <QtCore/QCoreApplication>
 #endif
 
 #include <QtCore/QTextCodec>
 
 #ifdef USE_DBUS
-# include <QtDBus/QDBusError>
-# include <QtDBus/QDBusServer>
+#	include <QtDBus/QDBusError>
+#	include <QtDBus/QDBusServer>
 #endif
 
 #include <openssl/crypto.h>
 
 #ifdef Q_OS_WIN
-# include <intrin.h>
+#	include <intrin.h>
 #else
-# include <fcntl.h>
-# include <sys/syslog.h>
+#	include <fcntl.h>
+#	include <sys/syslog.h>
 #endif
 
 QFile *qfLog = nullptr;
@@ -67,19 +67,19 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 	if (unixMurmur->logToSyslog) {
 		int level;
 		switch (type) {
-		case QtDebugMsg:
-			level = LOG_DEBUG;
-			break;
-		case QtWarningMsg:
-			level = LOG_WARNING;
-			break;
-		case QtCriticalMsg:
-			level = LOG_CRIT;
-			break;
-		case QtFatalMsg:
-		default:
-			level = LOG_ALERT;
-			break;
+			case QtDebugMsg:
+				level = LOG_DEBUG;
+				break;
+			case QtWarningMsg:
+				level = LOG_WARNING;
+				break;
+			case QtCriticalMsg:
+				level = LOG_CRIT;
+				break;
+			case QtFatalMsg:
+			default:
+				level = LOG_ALERT;
+				break;
 		}
 		syslog(level, "%s", qPrintable(msg));
 		if (type == QtFatalMsg) {
@@ -92,39 +92,42 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 	char c;
 	switch (type) {
 		case QtDebugMsg:
-			if (! bVerbose)
+			if (!bVerbose)
 				return;
-			c='D';
+			c = 'D';
 			break;
 		case QtWarningMsg:
-			c='W';
+			c = 'W';
 			break;
 		case QtCriticalMsg:
-			c='C';
+			c = 'C';
 			break;
 		case QtFatalMsg:
-			c='F';
+			c = 'F';
 			break;
 		default:
-			c='X';
+			c = 'X';
 	}
-	QString m= QString::fromLatin1("<%1>%2 %3").arg(QChar::fromLatin1(c)).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(msg);
+	QString m = QString::fromLatin1("<%1>%2 %3")
+					.arg(QChar::fromLatin1(c))
+					.arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz"))
+					.arg(msg);
 
-	if (! qfLog || ! qfLog->isOpen()) {
+	if (!qfLog || !qfLog->isOpen()) {
 #ifdef Q_OS_UNIX
-		if (! detach)
+		if (!detach)
 			fprintf(stderr, "%s\n", qPrintable(m));
 		else
 			qlErrors << m;
 #else
 		qlErrors << m;
-#ifndef QT_NO_DEBUG
+#	ifndef QT_NO_DEBUG
 		fprintf(stderr, "%s\n", qPrintable(m));
-#endif
+#	endif
 #endif
 	} else {
-		if (! qlErrors.isEmpty()) {
-			foreach(const QString &e, qlErrors) {
+		if (!qlErrors.isEmpty()) {
+			foreach (const QString &e, qlErrors) {
 				qfLog->write(e.toUtf8());
 				qfLog->write("\n");
 			}
@@ -174,9 +177,10 @@ int main(int argc, char **argv) {
 	int cpuinfo[4];
 	__cpuid(cpuinfo, 1);
 
-#define MMXSSE 0x02800000
+#	define MMXSSE 0x02800000
 	if ((cpuinfo[3] & MMXSSE) != MMXSSE) {
-		::MessageBoxA(nullptr, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
+		::MessageBoxA(nullptr, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble",
+					  MB_OK | MB_ICONERROR);
 		exit(0);
 	}
 
@@ -199,9 +203,9 @@ int main(int argc, char **argv) {
 	icon.addFile(QLatin1String(":/murmur.64x64.png"));
 	a.setWindowIcon(icon);
 #else
-#ifndef Q_OS_MAC
+#	ifndef Q_OS_MAC
 	EnvUtils::setenv(QLatin1String("AVAHI_COMPAT_NOWARN"), QLatin1String("1"));
-#endif
+#	endif
 	QCoreApplication a(argc, argv);
 	UnixMurmur unixhandler;
 	unixMurmur = &unixhandler;
@@ -224,7 +228,8 @@ int main(int argc, char **argv) {
 		if (path.isEmpty()) {
 			qWarning() << "Failed to get PATH. Not adding application directory to PATH. DBus bindings may not work.";
 		} else {
-			QString newPath = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(path);
+			QString newPath =
+				QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(path);
 			if (!EnvUtils::setenv(QLatin1String("PATH"), newPath)) {
 				qWarning() << "Failed to set PATH. DBus bindings may not work.";
 			}
@@ -235,16 +240,16 @@ int main(int argc, char **argv) {
 	QString inifile;
 	QString supw;
 	bool disableSu = false;
-	bool wipeSsl = false;
-	bool wipeLogs = false;
-	int sunum = 1;
+	bool wipeSsl   = false;
+	bool wipeLogs  = false;
+	int sunum      = 1;
 #ifdef Q_OS_UNIX
 	bool readPw = false;
 #endif
 	bool logGroups = false;
-	bool logACL = false;
+	bool logACL    = false;
 
-#if QT_VERSION < QT_VERSION_CHECK(5,10,0)
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
 	// For Qt >= 5.10 we use QRandomNumberGenerator that is seeded automatically
 	qsrand(QDateTime::currentDateTime().toTime_t());
 #endif
@@ -257,14 +262,14 @@ int main(int argc, char **argv) {
 
 	QStringList args = a.arguments();
 	for (int i = 1; i < args.size(); i++) {
-		bool bLast = false;
+		bool bLast  = false;
 		QString arg = args.at(i).toLower();
 		if ((arg == "-supw")) {
 			detach = false;
-			if (i+1 < args.size()) {
+			if (i + 1 < args.size()) {
 				i++;
 				supw = args.at(i);
-				if (i+1 < args.size()) {
+				if (i + 1 < args.size()) {
 					i++;
 					sunum = args.at(i).toInt();
 				}
@@ -280,21 +285,21 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-readsupw")) {
 			detach = false;
 			readPw = true;
-			if (i+1 < args.size()) {
+			if (i + 1 < args.size()) {
 				i++;
 				sunum = args.at(i).toInt();
 			}
 			bLast = true;
 #endif
 		} else if ((arg == "-disablesu")) {
-		        detach = false;
-		        disableSu = true;
-		        if (i+1 < args.size()) {
-		                i++;
-		                sunum = args.at(i).toInt();
-		        }
-		        bLast = true;
-		} else if ((arg == "-ini") && (i+1 < args.size())) {
+			detach    = false;
+			disableSu = true;
+			if (i + 1 < args.size()) {
+				i++;
+				sunum = args.at(i).toInt();
+			}
+			bLast = true;
+		} else if ((arg == "-ini") && (i + 1 < args.size())) {
 			i++;
 			inifile = args.at(i);
 		} else if ((arg == "-wipessl")) {
@@ -327,7 +332,8 @@ int main(int argc, char **argv) {
 			qInfo("%s\n", qPrintable(License::authors()));
 			return 0;
 #endif
-		} else if (args.at(i) == QLatin1String("-third-party-licenses") || args.at(i) == QLatin1String("--third-party-licenses")) {
+		} else if (args.at(i) == QLatin1String("-third-party-licenses")
+				   || args.at(i) == QLatin1String("--third-party-licenses")) {
 #ifdef Q_OS_WIN
 			AboutDialog ad(nullptr, AboutDialogOptionsShowThirdPartyLicenses);
 			ad.exec();
@@ -339,35 +345,36 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
 			qInfo("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-			       "  -ini <inifile>         Specify ini file to use.\n"
-			       "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
+				  "  -ini <inifile>         Specify ini file to use.\n"
+				  "  -supw <pw> [srv]       Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-			       "  -readsupw [srv]        Reads password for server srv from standard input.\n"
+				  "  -readsupw [srv]        Reads password for server srv from standard input.\n"
 #endif
-			       "  -disablesu [srv]       Disable password for 'SuperUser' account on server srv.\n"
+				  "  -disablesu [srv]       Disable password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-			       "  -limits                Tests and shows how many file descriptors and threads can be created.\n"
-			       "                         The purpose of this option is to test how many clients Murmur can handle.\n"
-			       "                         Murmur will exit after this test.\n"
+				  "  -limits                Tests and shows how many file descriptors and threads can be created.\n"
+				  "                         The purpose of this option is to test how many clients Murmur can handle.\n"
+				  "                         Murmur will exit after this test.\n"
 #endif
-			       "  -v                     Use verbose logging (include debug-logs).\n"
+				  "  -v                     Use verbose logging (include debug-logs).\n"
 #ifdef Q_OS_UNIX
-			       "  -fg                    Don't detach from console.\n"
+				  "  -fg                    Don't detach from console.\n"
 #else
-			       "  -fg                    Don't write to the log file.\n"
+				  "  -fg                    Don't write to the log file.\n"
 #endif
-			       "  -wipessl               Remove SSL certificates from database.\n"
-			       "  -wipelogs              Remove all log entries from database.\n"
-				   "  -loggroups             Turns on logging for group changes for all servers."
-				   "  -logacls               Turns on logging for ACL changes for all servers."
-			       "  -version               Show version information.\n"
-			       "\n"
-			       "  -license               Show Murmur's license.\n"
-			       "  -authors               Show Murmur's authors.\n"
-			       "  -third-party-licenses  Show licenses for third-party software used by Murmur.\n"
-			       "\n"
-			       "If no inifile is provided, murmur will search for one in \n"
-			       "default locations.", qPrintable(args.at(0)));
+				  "  -wipessl               Remove SSL certificates from database.\n"
+				  "  -wipelogs              Remove all log entries from database.\n"
+				  "  -loggroups             Turns on logging for group changes for all servers."
+				  "  -logacls               Turns on logging for ACL changes for all servers."
+				  "  -version               Show version information.\n"
+				  "\n"
+				  "  -license               Show Murmur's license.\n"
+				  "  -authors               Show Murmur's authors.\n"
+				  "  -third-party-licenses  Show licenses for third-party software used by Murmur.\n"
+				  "\n"
+				  "If no inifile is provided, murmur will search for one in \n"
+				  "default locations.",
+				  qPrintable(args.at(0)));
 			return 0;
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
@@ -385,7 +392,7 @@ int main(int argc, char **argv) {
 			detach = false;
 			qFatal("Unknown argument %s", qPrintable(args.at(i)));
 		}
-		if (bLast && (i+1 != args.size())) {
+		if (bLast && (i + 1 != args.size())) {
 			detach = false;
 			qFatal("Password arguments must be last.");
 		}
@@ -415,16 +422,17 @@ int main(int argc, char **argv) {
 	// http://article.gmane.org/gmane.comp.security.oss.general/4404
 #ifdef Q_OS_UNIX
 	unixhandler.logToSyslog = Meta::mp.qsLogfile == QLatin1String("syslog");
-	if (detach && ! Meta::mp.qsLogfile.isEmpty() && !unixhandler.logToSyslog) {
+	if (detach && !Meta::mp.qsLogfile.isEmpty() && !unixhandler.logToSyslog) {
 #else
-	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
+	if (detach && !Meta::mp.qsLogfile.isEmpty()) {
 #endif
 		qfLog = new QFile(Meta::mp.qsLogfile);
-		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+		if (!qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete qfLog;
 			qfLog = nullptr;
 #ifdef Q_OS_UNIX
-			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n", qPrintable(Meta::mp.qsLogfile));
+			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",
+					qPrintable(Meta::mp.qsLogfile));
 #else
 			qWarning("Failed to open logfile %s. No logging will be performed.", qPrintable(Meta::mp.qsLogfile));
 #endif
@@ -434,7 +442,8 @@ int main(int argc, char **argv) {
 			Meta::mp.qsLogfile = qfi.absoluteFilePath();
 #ifdef Q_OS_UNIX
 			if (Meta::mp.uiUid != 0 && fchown(qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid) == -1) {
-				qFatal("can't change log file owner to %d %d:%d - %s", qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid, strerror(errno));
+				qFatal("can't change log file owner to %d %d:%d - %s", qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid,
+					   strerror(errno));
 			}
 #endif
 		}
@@ -489,14 +498,14 @@ int main(int argc, char **argv) {
 	}
 
 	if (disableSu) {
-	        ServerDB::disableSU(sunum);
-	        qInfo("SuperUser password disabled on server %d", sunum);
-			return 0;
+		ServerDB::disableSU(sunum);
+		qInfo("SuperUser password disabled on server %d", sunum);
+		return 0;
 	}
 
 	if (wipeSsl) {
 		qWarning("Removing all per-server SSL certificates from the database.");
-		foreach(int sid, ServerDB::getAllServers()) {
+		foreach (int sid, ServerDB::getAllServers()) {
 			ServerDB::setConf(sid, "key");
 			ServerDB::setConf(sid, "certificate");
 			ServerDB::setConf(sid, "passphrase");
@@ -519,7 +528,7 @@ int main(int argc, char **argv) {
 			_exit(0);
 		}
 
-		if (! Meta::mp.qsPid.isEmpty()) {
+		if (!Meta::mp.qsPid.isEmpty()) {
 			QFile pid(Meta::mp.qsPid);
 			if (pid.open(QIODevice::WriteOnly)) {
 				QFileInfo fi(pid);
@@ -553,7 +562,7 @@ int main(int argc, char **argv) {
 #ifdef USE_DBUS
 	MurmurDBus::registerTypes();
 
-	if (! Meta::mp.qsDBus.isEmpty()) {
+	if (!Meta::mp.qsDBus.isEmpty()) {
 		if (Meta::mp.qsDBus == "session")
 			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::sessionBus());
 		else if (Meta::mp.qsDBus == "system")
@@ -562,21 +571,22 @@ int main(int argc, char **argv) {
 			// QtDBus is not quite finished yet.
 			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
 			MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
-			if (! MurmurDBus::qdbc->isConnected()) {
+			if (!MurmurDBus::qdbc->isConnected()) {
 				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
-				qWarning("%s",qPrintable(qdbs->lastError().name()));
-				qWarning("%d",qdbs->isConnected());
-				qWarning("%s",qPrintable(qdbs->address()));
+				qWarning("%s", qPrintable(qdbs->lastError().name()));
+				qWarning("%d", qdbs->isConnected());
+				qWarning("%s", qPrintable(qdbs->address()));
 				MurmurDBus::qdbc = new QDBusConnection(QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus"));
 			}
 		}
-		if (! MurmurDBus::qdbc->isConnected()) {
-			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
+		if (!MurmurDBus::qdbc->isConnected()) {
+			qWarning("Failed to connect to D-Bus %s", qPrintable(Meta::mp.qsDBus));
 		} else {
 			new MetaDBus(meta);
 			if (MurmurDBus::qdbc->isConnected()) {
-				if (! MurmurDBus::qdbc->registerObject("/", meta) || ! MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
-					QDBusError e=MurmurDBus::qdbc->lastError();
+				if (!MurmurDBus::qdbc->registerObject("/", meta)
+					|| !MurmurDBus::qdbc->registerService(Meta::mp.qsDBusService)) {
+					QDBusError e = MurmurDBus::qdbc->lastError();
 					qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
 				} else {
 					qWarning("DBus registration succeeded");
@@ -594,7 +604,8 @@ int main(int argc, char **argv) {
 	GRPCStart();
 #else
 	if (!meta->mp.qsGRPCAddress.isEmpty() || !meta->mp.qsGRPCCert.isEmpty() || !meta->mp.qsGRPCKey.isEmpty()) {
-		qWarning("This version of Murmur was built without gRPC support. Ignoring 'grpc' option from configuration file.");
+		qWarning(
+			"This version of Murmur was built without gRPC support. Ignoring 'grpc' option from configuration file.");
 	}
 #endif
 
@@ -604,11 +615,12 @@ int main(int argc, char **argv) {
 	QString strver;
 	meta->getVersion(major, minor, patch, strver);
 
-	qWarning("Murmur %d.%d.%d (%s) running on %s: %s: Booting servers", major, minor, patch, qPrintable(strver), qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
+	qWarning("Murmur %d.%d.%d (%s) running on %s: %s: Booting servers", major, minor, patch, qPrintable(strver),
+			 qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
 
 	meta->bootAll();
 
-	res=a.exec();
+	res = a.exec();
 
 	qWarning("Killing running servers");
 
@@ -637,7 +649,7 @@ int main(int argc, char **argv) {
 	qInstallMessageHandler(nullptr);
 
 #ifdef Q_OS_UNIX
-	if (! Meta::mp.qsPid.isEmpty()) {
+	if (!Meta::mp.qsPid.isEmpty()) {
 		QFile pid(Meta::mp.qsPid);
 		pid.remove();
 	}

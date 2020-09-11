@@ -17,26 +17,26 @@ class Channel;
 /// It actually uses the same UI frontend as UserLocalVolumeDialog as it only needs backend
 /// changes.
 class ListenerLocalVolumeDialog : public QDialog, private Ui::UserLocalVolumeDialog {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ListenerLocalVolumeDialog);
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(ListenerLocalVolumeDialog);
 
-	protected:
-		/// The user belonging to the listener proxy this dialog has been invoked on
-		ClientUser *m_user;
-		/// The channel of the listener proxy this dialog has been invoked on
-		Channel *m_channel;
-		/// The volume adjustment that was set before this dialog opened
-		float m_initialAdjustemt;
+protected:
+	/// The user belonging to the listener proxy this dialog has been invoked on
+	ClientUser *m_user;
+	/// The channel of the listener proxy this dialog has been invoked on
+	Channel *m_channel;
+	/// The volume adjustment that was set before this dialog opened
+	float m_initialAdjustemt;
 
-	public slots:
-		void on_qsUserLocalVolume_valueChanged(int value);
-		void on_qsbUserLocalVolume_valueChanged(int value);
-		void on_qbbUserLocalVolume_clicked(QAbstractButton *b);
-		void reject();
+public slots:
+	void on_qsUserLocalVolume_valueChanged(int value);
+	void on_qsbUserLocalVolume_valueChanged(int value);
+	void on_qbbUserLocalVolume_clicked(QAbstractButton *b);
+	void reject();
 
-	public:
-		ListenerLocalVolumeDialog(ClientUser *user, Channel *channel, QWidget *parent = nullptr);
+public:
+	ListenerLocalVolumeDialog(ClientUser *user, Channel *channel, QWidget *parent = nullptr);
 };
 
 #endif

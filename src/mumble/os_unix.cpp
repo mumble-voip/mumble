@@ -5,27 +5,29 @@
 #include "LogEmitter.h"
 #include "Global.h"
 
-static QSharedPointer<LogEmitter> le;
+static QSharedPointer< LogEmitter > le;
 
 static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	char c;
 
 	switch (type) {
 		case QtDebugMsg:
-			c='D';
+			c = 'D';
 			break;
 		case QtWarningMsg:
-			c='W';
+			c = 'W';
 			break;
 		case QtFatalMsg:
-			c='F';
+			c = 'F';
 			break;
 		default:
-			c='X';
+			c = 'X';
 	}
 
-#define LOG(f, msg) fprintf(f, "<%c>%s %s\n", c, \
-		qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), qPrintable(msg))
+#define LOG(f, msg)                                                                                      \
+	fprintf(f, "<%c>%s %s\n", c,                                                                         \
+			qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), \
+			qPrintable(msg))
 
 	QString date = QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
 	QString fmsg = QString::fromLatin1("<%1>%2 %3").arg(c).arg(date).arg(msg);

@@ -6,9 +6,9 @@
 #ifndef MUMBLE_MUMBLE_SERVERRESOLVER_H_
 #define MUMBLE_MUMBLE_SERVERRESOLVER_H_
 
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QList>
 
 #include "Net.h" // for HostAddress
 #include "ServerResolverRecord.h"
@@ -16,25 +16,25 @@
 class ServerResolverPrivate;
 
 class ServerResolver : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ServerResolver)
-	public:
-		ServerResolver(QObject *parent = nullptr);
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(ServerResolver)
+public:
+	ServerResolver(QObject *parent = nullptr);
 
-		QString hostname();
-		quint16 port();
+	QString hostname();
+	quint16 port();
 
-		void resolve(QString hostname, quint16 port);
-		QList<ServerResolverRecord> records();
+	void resolve(QString hostname, quint16 port);
+	QList< ServerResolverRecord > records();
 
-	signals:
-		/// Resolved is fired once the ServerResolver
-		/// has resolved the server address.
-		void resolved();
+signals:
+	/// Resolved is fired once the ServerResolver
+	/// has resolved the server address.
+	void resolved();
 
-	private:
-		ServerResolverPrivate *d;
+private:
+	ServerResolverPrivate *d;
 };
 
 #endif

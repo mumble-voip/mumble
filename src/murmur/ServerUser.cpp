@@ -9,11 +9,12 @@
 #include "Server.h"
 
 #ifdef Q_OS_UNIX
-# include "Utils.h"
+#	include "Utils.h"
 #endif
 
-ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst) {
-	sState = ServerUser::Connected;
+ServerUser::ServerUser(Server *p, QSslSocket *socket)
+	: Connection(p, socket), User(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst) {
+	sState     = ServerUser::Connected;
 	sUdpSocket = INVALID_SOCKET;
 
 	memset(&saiUdpAddress, 0, sizeof(saiUdpAddress));
@@ -23,11 +24,11 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 	dTCPPingAvg = dTCPPingVar = 0.0f;
 	uiUDPPackets = uiTCPPackets = 0;
 
-	aiUdpFlag = 1;
-	uiVersion = 0;
-	bVerified = true;
+	aiUdpFlag            = 1;
+	uiVersion            = 0;
+	bVerified            = true;
 	iLastPermissionCheck = -1;
-	
+
 	bOpus = false;
 }
 
@@ -37,8 +38,8 @@ ServerUser::operator QString() const {
 }
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
-	iSum = 0;
-	for (int i=0;i<N_BANDWIDTH_SLOTS;i++)
+	iSum    = 0;
+	for (int i = 0; i < N_BANDWIDTH_SLOTS; i++)
 		a_iBW[i] = 0;
 }
 
@@ -50,13 +51,13 @@ bool BandwidthRecord::addFrame(int size, int maxpersec) {
 	if (elapsed == 0)
 		return false;
 
-	int nsum = iSum-a_iBW[iRecNum]+size;
-	int bw = static_cast<int>((nsum * 1000000LL) / elapsed);
+	int nsum = iSum - a_iBW[iRecNum] + size;
+	int bw   = static_cast< int >((nsum * 1000000LL) / elapsed);
 
 	if (bw > maxpersec)
 		return false;
 
-	a_iBW[iRecNum] = static_cast<unsigned short>(size);
+	a_iBW[iRecNum] = static_cast< unsigned short >(size);
 	a_qtWhen[iRecNum].restart();
 
 	iSum = nsum;
@@ -71,7 +72,7 @@ bool BandwidthRecord::addFrame(int size, int maxpersec) {
 int BandwidthRecord::onlineSeconds() const {
 	QMutexLocker ml(&qmMutex);
 
-	return static_cast<int>(tFirst.elapsed() / 1000000LL);
+	return static_cast< int >(tFirst.elapsed() / 1000000LL);
 }
 
 int BandwidthRecord::idleSeconds() const {
@@ -81,7 +82,7 @@ int BandwidthRecord::idleSeconds() const {
 	if (tIdleControl.elapsed() < iIdle)
 		iIdle = tIdleControl.elapsed();
 
-	return static_cast<int>(iIdle / 1000000LL);
+	return static_cast< int >(iIdle / 1000000LL);
 }
 
 void BandwidthRecord::resetIdleSeconds() {
@@ -93,11 +94,11 @@ void BandwidthRecord::resetIdleSeconds() {
 int BandwidthRecord::bandwidth() const {
 	QMutexLocker ml(&qmMutex);
 
-	int sum = 0;
+	int sum         = 0;
 	quint64 elapsed = 0ULL;
 
-	for (int i=1;i<N_BANDWIDTH_SLOTS;++i) {
-		int idx = (iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS;
+	for (int i = 1; i < N_BANDWIDTH_SLOTS; ++i) {
+		int idx   = (iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS;
 		quint64 e = a_qtWhen[idx].elapsed();
 		if (e > 1000000ULL) {
 			break;
@@ -110,21 +111,18 @@ int BandwidthRecord::bandwidth() const {
 	if (elapsed < 250000ULL)
 		return 0;
 
-	return static_cast<int>((sum * 1000000ULL) / elapsed);
+	return static_cast< int >((sum * 1000000ULL) / elapsed);
 }
 
 LeakyBucket::LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens)
-	: m_tokensPerSec(tokensPerSec),
-	  m_maxTokens(maxTokens),
-	  m_currentTokens(0),
-	  m_timer() {
-		  m_timer.start();
+	: m_tokensPerSec(tokensPerSec), m_maxTokens(maxTokens), m_currentTokens(0), m_timer() {
+	m_timer.start();
 
-		  if (!QElapsedTimer::isMonotonic()) {
-			  qFatal("Non-monotonic clocks are not reliable enough and lead to issues as "
-					  "https://github.com/mumble-voip/mumble/issues/3985. "
-					  "This is a serious issue and should be reported!");
-		  }
+	if (!QElapsedTimer::isMonotonic()) {
+		qFatal("Non-monotonic clocks are not reliable enough and lead to issues as "
+			   "https://github.com/mumble-voip/mumble/issues/3985. "
+			   "This is a serious issue and should be reported!");
+	}
 }
 
 bool LeakyBucket::ratelimit(int tokens) {
@@ -172,7 +170,7 @@ bool LeakyBucket::ratelimit(int tokens) {
 	}
 
 	// Make sure that m_currentTokens never gets less than 0 by draining
-	if (static_cast<qint64>(m_currentTokens) < drainTokens) {
+	if (static_cast< qint64 >(m_currentTokens) < drainTokens) {
 		m_currentTokens = 0;
 	} else {
 		m_currentTokens -= drainTokens;
@@ -182,7 +180,7 @@ bool LeakyBucket::ratelimit(int tokens) {
 	// the imaginary leaking bucket, we can check whether the given amount of tokens
 	// still fit in this imaginary bucket (and thus the corresponding message may pass)
 	// or if it doesn't (and thus the message will be limited (rejected))
-	bool limit = m_currentTokens > ((static_cast<long>(m_maxTokens)) - tokens);
+	bool limit = m_currentTokens > ((static_cast< long >(m_maxTokens)) - tokens);
 
 	// If the bucket is not overflowed, allow message and add tokens
 	if (!limit) {

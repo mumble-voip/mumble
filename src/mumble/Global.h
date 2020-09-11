@@ -6,8 +6,8 @@
 #ifndef MUMBLE_MUMBLE_GLOBAL_H_
 #define MUMBLE_MUMBLE_GLOBAL_H_
 
-#include <boost/shared_ptr.hpp>
 #include <QtCore/QDir>
+#include <boost/shared_ptr.hpp>
 
 #include "ACL.h"
 #include "Settings.h"
@@ -43,9 +43,9 @@ public:
 	static Global *g_global_struct;
 	MainWindow *mw;
 	Settings s;
-	boost::shared_ptr<ServerHandler> sh;
-	boost::shared_ptr<AudioInput> ai;
-	boost::shared_ptr<AudioOutput> ao;
+	boost::shared_ptr< ServerHandler > sh;
+	boost::shared_ptr< AudioInput > ai;
+	boost::shared_ptr< AudioOutput > ao;
 	/**
 	 * @remark Must only be accessed from the main event loop
 	 */
@@ -59,7 +59,7 @@ public:
 	LCD *lcd;
 	BonjourClient *bc;
 	QNetworkAccessManager *nam;
-	QSharedPointer<LogEmitter> le;
+	QSharedPointer< LogEmitter > le;
 	DeveloperConsole *c;
 	TalkingUI *talkingUI;
 	int iPushToTalk;
@@ -87,7 +87,7 @@ public:
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	QDir qdBasePath;
-	QMap<int, CELTCodec *> qmCodecs;
+	QMap< int, CELTCodec * > qmCodecs;
 	OpusCodec *oCodec;
 	int iCodecAlpha, iCodecBeta;
 	bool bPreferAlpha;
@@ -118,23 +118,20 @@ public:
 // after we reach main().
 
 class DeferInit {
-	private:
-		Q_DISABLE_COPY(DeferInit)
-	protected:
-		static QMultiMap<int, DeferInit *> *qmDeferers;
-		void add(int priority);
-	public:
-		DeferInit(int priority) {
-			add(priority);
-		};
-		DeferInit() {
-			add(0);
-		};
-		virtual ~DeferInit();
-		virtual void initialize() { };
-		virtual void destroy() { };
-		static void run_initializers();
-		static void run_destroyers();
+private:
+	Q_DISABLE_COPY(DeferInit)
+protected:
+	static QMultiMap< int, DeferInit * > *qmDeferers;
+	void add(int priority);
+
+public:
+	DeferInit(int priority) { add(priority); };
+	DeferInit() { add(0); };
+	virtual ~DeferInit();
+	virtual void initialize(){};
+	virtual void destroy(){};
+	static void run_initializers();
+	static void run_destroyers();
 };
 
 /// Special exit code which causes mumble to restart itself. The outward facing return code with be 0

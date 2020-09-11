@@ -17,10 +17,11 @@
 #include <QtWidgets/QToolTip>
 
 #ifdef Q_OS_WIN
-# include <shlobj.h>
+#	include <shlobj.h>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 RichTextHtmlEdit::RichTextHtmlEdit(QWidget *p) : QTextEdit(p) {
@@ -37,8 +38,8 @@ static QString decodeMimeString(const QByteArray &src) {
 		return QString();
 
 	if ((src.length() >= 4) && ((src.length() % sizeof(ushort)) == 0)) {
-		const ushort *ptr = reinterpret_cast<const ushort *>(src.constData());
-		int len = static_cast<int>(src.length() / sizeof(ushort));
+		const ushort *ptr = reinterpret_cast< const ushort * >(src.constData());
+		int len           = static_cast< int >(src.length() / sizeof(ushort));
 		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
 			while (len && (ptr[len - 1] == 0))
 				--len;
@@ -46,9 +47,10 @@ static QString decodeMimeString(const QByteArray &src) {
 		}
 	}
 
-	if ((sizeof(wchar_t) != sizeof(ushort)) && (src.length() >= static_cast<int>(sizeof(wchar_t))) && ((src.length() % sizeof(wchar_t)) == 0)) {
-		const wchar_t *ptr = reinterpret_cast<const wchar_t *>(src.constData());
-		int len = static_cast<int>(src.length() / sizeof(wchar_t));
+	if ((sizeof(wchar_t) != sizeof(ushort)) && (src.length() >= static_cast< int >(sizeof(wchar_t)))
+		&& ((src.length() % sizeof(wchar_t)) == 0)) {
+		const wchar_t *ptr = reinterpret_cast< const wchar_t * >(src.constData());
+		int len            = static_cast< int >(src.length() / sizeof(wchar_t));
 		if (*ptr < 0x7f) {
 			while (len && (ptr[len - 1] == 0))
 				--len;
@@ -56,7 +58,7 @@ static QString decodeMimeString(const QByteArray &src) {
 		}
 	}
 	const char *ptr = src.constData();
-	int len = src.length();
+	int len         = src.length();
 	while (len && (ptr[len - 1] == 0))
 		--len;
 	return QString::fromUtf8(ptr, len);
@@ -75,19 +77,19 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 #endif
 
 	if (source->hasImage()) {
-		QImage img = qvariant_cast<QImage>(source->imageData());
+		QImage img   = qvariant_cast< QImage >(source->imageData());
 		QString html = Log::imageToImg(img);
-		if (! html.isEmpty())
+		if (!html.isEmpty())
 			insertHtml(html);
 		return;
 	}
 
 	QString mozurl = decodeMimeString(source->data(QLatin1String("text/x-moz-url")));
-	if (! mozurl.isEmpty()) {
+	if (!mozurl.isEmpty()) {
 		QStringList lines = mozurl.split(newline);
 		qWarning() << mozurl << lines;
 		if (lines.count() >= 2) {
-			uri = lines.at(0);
+			uri   = lines.at(0);
 			title = lines.at(1);
 		}
 	}
@@ -100,38 +102,41 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 	if (uri.isEmpty()) {
 		QStringList urls;
 #ifdef Q_OS_WIN
-		urls = decodeMimeString(source->data(QLatin1String("application/x-qt-windows-mime;value=\"UniformResourceLocatorW\""))).split(newline);
+		urls = decodeMimeString(
+				   source->data(QLatin1String("application/x-qt-windows-mime;value=\"UniformResourceLocatorW\"")))
+				   .split(newline);
 		if (urls.isEmpty())
 #endif
 			urls = decodeMimeString(source->data(QLatin1String("text/uri-list"))).split(newline);
-		if (! urls.isEmpty())
+		if (!urls.isEmpty())
 			uri = urls.at(0).trimmed();
 	}
 
 	if (uri.isEmpty()) {
 		QUrl url(source->text(), QUrl::StrictMode);
-		if (url.isValid() && ! url.isRelative()) {
+		if (url.isValid() && !url.isRelative()) {
 			uri = url.toString();
 		}
 	}
 
 #ifdef Q_OS_WIN
-	if (title.isEmpty() && source->hasFormat(QLatin1String("application/x-qt-windows-mime;value=\"FileGroupDescriptorW\""))) {
+	if (title.isEmpty()
+		&& source->hasFormat(QLatin1String("application/x-qt-windows-mime;value=\"FileGroupDescriptorW\""))) {
 		QByteArray qba = source->data(QLatin1String("application/x-qt-windows-mime;value=\"FileGroupDescriptorW\""));
 		if (qba.length() == sizeof(FILEGROUPDESCRIPTORW)) {
-			const FILEGROUPDESCRIPTORW *ptr = reinterpret_cast<const FILEGROUPDESCRIPTORW *>(qba.constData());
-			title = QString::fromWCharArray(ptr->fgd[0].cFileName);
+			const FILEGROUPDESCRIPTORW *ptr = reinterpret_cast< const FILEGROUPDESCRIPTORW * >(qba.constData());
+			title                           = QString::fromWCharArray(ptr->fgd[0].cFileName);
 			if (title.endsWith(QLatin1String(".url"), Qt::CaseInsensitive))
 				title = title.left(title.length() - 4);
 		}
 	}
 #endif
 
-	if (! uri.isEmpty()) {
+	if (!uri.isEmpty()) {
 		if (title.isEmpty())
 			title = uri;
 
-		uri = uri.toHtmlEscaped();
+		uri   = uri.toHtmlEscaped();
 		title = title.toHtmlEscaped();
 
 		insertHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(uri, title));
@@ -139,7 +144,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 	}
 
 	QString html = decodeMimeString(source->data(QLatin1String("text/html")));
-	if (! html.isEmpty()) {
+	if (!html.isEmpty()) {
 		insertHtml(html);
 		return;
 	}
@@ -150,7 +155,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 RichTextEditorLink::RichTextEditorLink(const QString &txt, QWidget *p) : QDialog(p) {
 	setupUi(this);
 
-	if (! txt.isEmpty()) {
+	if (!txt.isEmpty()) {
 		qleText->setText(txt);
 	}
 }
@@ -161,7 +166,7 @@ QString RichTextEditorLink::text() const {
 
 	txt = txt.toHtmlEscaped();
 
-	if (url.isValid() && ! url.isRelative() && ! txt.isEmpty()) {
+	if (url.isValid() && !url.isRelative() && !txt.isEmpty()) {
 		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url.toString(), txt);
 	}
 
@@ -169,7 +174,7 @@ QString RichTextEditorLink::text() const {
 }
 
 RichTextEditor::RichTextEditor(QWidget *p) : QTabWidget(p) {
-	bChanged = false;
+	bChanged  = false;
 	bModified = false;
 	bReadOnly = false;
 
@@ -215,26 +220,28 @@ void RichTextEditor::on_qaColor_triggered() {
 }
 
 void RichTextEditor::on_qaLink_triggered() {
-	QTextCursor qtc = qteRichText->textCursor();
+	QTextCursor qtc          = qteRichText->textCursor();
 	RichTextEditorLink *rtel = new RichTextEditorLink(qtc.selectedText(), this);
 	if (rtel->exec() == QDialog::Accepted) {
 		QString html = rtel->text();
-		if (! html.isEmpty())
+		if (!html.isEmpty())
 			qteRichText->insertHtml(html);
 	}
 	delete rtel;
 }
 
 void RichTextEditor::on_qaImage_triggered() {
-	QPair<QByteArray, QImage> choice = g.mw->openImageFile();
+	QPair< QByteArray, QImage > choice = g.mw->openImageFile();
 
 	QByteArray &qba = choice.first;
 
 	if (qba.isEmpty())
 		return;
 
-	if ((g.uiImageLength > 0) && (static_cast<unsigned int>(qba.length()) > g.uiImageLength)) {
-		QMessageBox::warning(this, tr("Failed to load image"), tr("Image file too large to embed in document. Please use images smaller than %1 kB.").arg(g.uiImageLength /1024));
+	if ((g.uiImageLength > 0) && (static_cast< unsigned int >(qba.length()) > g.uiImageLength)) {
+		QMessageBox::warning(this, tr("Failed to load image"),
+							 tr("Image file too large to embed in document. Please use images smaller than %1 kB.")
+								 .arg(g.uiImageLength / 1024));
 		return;
 	}
 
@@ -248,7 +255,7 @@ void RichTextEditor::on_qaImage_triggered() {
 }
 
 void RichTextEditor::onCurrentChanged(int index) {
-	if (! bChanged)
+	if (!bChanged)
 		return;
 
 	if (index == 1)
@@ -261,15 +268,15 @@ void RichTextEditor::onCurrentChanged(int index) {
 
 void RichTextEditor::on_qptePlainText_textChanged() {
 	bModified = true;
-	bChanged = true;
+	bChanged  = true;
 }
 
 void RichTextEditor::on_qteRichText_textChanged() {
 	bModified = true;
-	bChanged = true;
+	bChanged  = true;
 	updateActions();
 
-	if (! g.uiMessageLength)
+	if (!g.uiMessageLength)
 		return;
 
 	richToPlain();
@@ -289,29 +296,28 @@ void RichTextEditor::on_qteRichText_textChanged() {
 		QString qsOut;
 		QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(plainText));
 		QXmlStreamWriter qxsw(&qsOut);
-		while (! qxsr.atEnd()) {
+		while (!qxsr.atEnd()) {
 			switch (qxsr.readNext()) {
 				case QXmlStreamReader::Invalid:
 					return;
 				case QXmlStreamReader::StartElement: {
-						if (qxsr.name() == QLatin1String("img")) {
-							QXmlStreamAttributes attr = qxsr.attributes();
+					if (qxsr.name() == QLatin1String("img")) {
+						QXmlStreamAttributes attr = qxsr.attributes();
 
-							qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
-							foreach(const QXmlStreamAttribute &a, qxsr.attributes())
-								if (a.name() != QLatin1String("src"))
-									qxsw.writeAttribute(a);
-						} else {
-							qxsw.writeCurrentToken(qxsr);
-						}
+						qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
+						foreach (const QXmlStreamAttribute &a, qxsr.attributes())
+							if (a.name() != QLatin1String("src"))
+								qxsw.writeAttribute(a);
+					} else {
+						qxsw.writeCurrentToken(qxsr);
 					}
-					break;
+				} break;
 				default:
 					qxsw.writeCurrentToken(qxsr);
 					break;
 			}
 		}
-		over = (static_cast<unsigned int>(qsOut.length()) > g.uiMessageLength);
+		over = (static_cast< unsigned int >(qsOut.length()) > g.uiMessageLength);
 	}
 
 
@@ -321,9 +327,9 @@ void RichTextEditor::on_qteRichText_textChanged() {
 		if (QToolTip::text() == tooltip)
 			QToolTip::hideText();
 	} else {
-		QPoint p = QCursor::pos();
+		QPoint p       = QCursor::pos();
 		const QRect &r = qteRichText->rect();
-		if (! r.contains(qteRichText->mapFromGlobal(p)))
+		if (!r.contains(qteRichText->mapFromGlobal(p)))
 			p = qteRichText->mapToGlobal(r.center());
 		QToolTip::showText(p, tooltip, qteRichText);
 	}
@@ -342,7 +348,7 @@ void RichTextEditor::updateColor(const QColor &col) {
 		return;
 	qcColor = col;
 
-	QRect r(0,0,24,24);
+	QRect r(0, 0, 24, 24);
 
 	QPixmap qpm(r.size());
 	QPainter qp(&qpm);
@@ -368,7 +374,7 @@ void RichTextEditor::richToPlain() {
 
 	int paragraphs = 0;
 
-	QMap<QString, QString> def;
+	QMap< QString, QString > def;
 
 	def.insert(QLatin1String("margin-top"), QLatin1String("0px"));
 	def.insert(QLatin1String("margin-bottom"), QLatin1String("0px"));
@@ -390,7 +396,7 @@ void RichTextEditor::richToPlain() {
 		QXmlStreamReader r(qsOutput);
 		qsOutput = QString();
 		QXmlStreamWriter w(&qsOutput);
-		changed = XMLTools::unduplicateTags(r, w);
+		changed  = XMLTools::unduplicateTags(r, w);
 		qsOutput = qsOutput.trimmed();
 	} while (changed);
 
@@ -398,15 +404,15 @@ void RichTextEditor::richToPlain() {
 }
 
 void RichTextEditor::setText(const QString &txt, bool readonly) {
-	qtbToolBar->setEnabled(! readonly && g.bAllowHTML);
-	qtbToolBar->setVisible(! readonly && g.bAllowHTML);
-	qptePlainText->setReadOnly(readonly || ! g.bAllowHTML);
+	qtbToolBar->setEnabled(!readonly && g.bAllowHTML);
+	qtbToolBar->setVisible(!readonly && g.bAllowHTML);
+	qptePlainText->setReadOnly(readonly || !g.bAllowHTML);
 	qteRichText->setReadOnly(readonly);
 
 	qteRichText->setHtml(txt);
 	qptePlainText->setPlainText(txt);
 
-	bChanged = false;
+	bChanged  = false;
 	bModified = false;
 	bReadOnly = readonly;
 }
@@ -427,9 +433,9 @@ bool RichTextEditor::eventFilter(QObject *obj, QEvent *evt) {
 	if (obj != qptePlainText && obj != qteRichText)
 		return false;
 	if (evt->type() == QEvent::KeyPress) {
-		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(evt);
-		if (((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return)) &&
-		        (keyEvent->modifiers() == Qt::ControlModifier)) {
+		QKeyEvent *keyEvent = static_cast< QKeyEvent * >(evt);
+		if (((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return))
+			&& (keyEvent->modifiers() == Qt::ControlModifier)) {
 			emit accept();
 			return true;
 		}
@@ -446,7 +452,7 @@ bool RichTextImage::isValidImage(const QByteArray &ba, QByteArray &fmt) {
 
 	QByteArray detectedFormat = QImageReader::imageFormat(&qb).toLower();
 	if (detectedFormat == QByteArray("png") || detectedFormat == QByteArray("jpg")
-            || detectedFormat == QByteArray("jpeg") || detectedFormat == QByteArray("gif")) {
+		|| detectedFormat == QByteArray("jpeg") || detectedFormat == QByteArray("gif")) {
 		fmt = detectedFormat;
 		return true;
 	}

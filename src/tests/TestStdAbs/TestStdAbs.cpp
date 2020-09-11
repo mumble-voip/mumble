@@ -16,14 +16,14 @@
 /// function.
 /// Test that it works for us.
 class TestStdAbs : public QObject {
-		Q_OBJECT
-	private slots:
-		void floatWorks();
+	Q_OBJECT
+private slots:
+	void floatWorks();
 };
 
 void TestStdAbs::floatWorks() {
 	const float in = -1.5;
-	float out = std::abs(in);
+	float out      = std::abs(in);
 	QVERIFY(out > 1.2 && out < 1.8);
 }
 

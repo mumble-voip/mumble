@@ -13,64 +13,64 @@ typedef uint64_t procptr_t;
 
 #define LENGTH_OF(array) (sizeof(array) / sizeof((array)[0]))
 
-#include <string>
 #include <map>
+#include <string>
 
 #if defined(_MSC_VER)
-# define MUMBLE_PLUGIN_CALLING_CONVENTION __cdecl
+#	define MUMBLE_PLUGIN_CALLING_CONVENTION __cdecl
 #elif defined(__MINGW32__)
-# define MUMBLE_PLUGIN_CALLING_CONVENTION __attribute__((cdecl))
+#	define MUMBLE_PLUGIN_CALLING_CONVENTION __attribute__((cdecl))
 #else
-# define MUMBLE_PLUGIN_CALLING_CONVENTION
+#	define MUMBLE_PLUGIN_CALLING_CONVENTION
 #endif
 
 #if defined(__GNUC__) && !defined(__MINGW32__) // GCC on Unix-like systems
-# define MUMBLE_PLUGIN_EXPORT __attribute__((visibility("default")))
+#	define MUMBLE_PLUGIN_EXPORT __attribute__((visibility("default")))
 #elif defined(_MSC_VER)
-# define MUMBLE_PLUGIN_EXPORT __declspec(dllexport)
+#	define MUMBLE_PLUGIN_EXPORT __declspec(dllexport)
 #elif defined(__MINGW32__)
-# define MUMBLE_PLUGIN_EXPORT __attribute__((dllexport))
+#	define MUMBLE_PLUGIN_EXPORT __attribute__((dllexport))
 #else
-# error No MUMBLE_PLUGIN_EXPORT definition available
+#	error No MUMBLE_PLUGIN_EXPORT definition available
 #endif
 
 // Visual Studio 2008 x86
 #if _MSC_VER == 1500 && defined(_M_IX86)
-# define MUMBLE_PLUGIN_MAGIC     0xd63ab7ef
-# define MUMBLE_PLUGIN_MAGIC_2   0xd63ab7fe
-# define MUMBLE_PLUGIN_MAGIC_QT  0xd63ab7ee
+#	define MUMBLE_PLUGIN_MAGIC 0xd63ab7ef
+#	define MUMBLE_PLUGIN_MAGIC_2 0xd63ab7fe
+#	define MUMBLE_PLUGIN_MAGIC_QT 0xd63ab7ee
 // Visual Studio 2010 x86
 #elif _MSC_VER == 1600 && defined(_M_IX86)
-# define MUMBLE_PLUGIN_MAGIC    0xd63ab7f0
-# define MUMBLE_PLUGIN_MAGIC_2  0xd63ab7ff
-# define MUMBLE_PLUGIN_MAGIC_QT 0xd63ab70f
+#	define MUMBLE_PLUGIN_MAGIC 0xd63ab7f0
+#	define MUMBLE_PLUGIN_MAGIC_2 0xd63ab7ff
+#	define MUMBLE_PLUGIN_MAGIC_QT 0xd63ab70f
 // Visual Studio 2013 x86
 #elif _MSC_VER == 1800 && defined(_M_IX86)
-# define MUMBLE_PLUGIN_MAGIC    0xd63ab7c0
-# define MUMBLE_PLUGIN_MAGIC_2  0xd63ab7cf
-# define MUMBLE_PLUGIN_MAGIC_QT 0xd63ab7ca
+#	define MUMBLE_PLUGIN_MAGIC 0xd63ab7c0
+#	define MUMBLE_PLUGIN_MAGIC_2 0xd63ab7cf
+#	define MUMBLE_PLUGIN_MAGIC_QT 0xd63ab7ca
 // Visual Studio 2013 x64
 #elif _MSC_VER == 1800 && defined(_M_X64)
-# define MUMBLE_PLUGIN_MAGIC    0x9f3ed4c0
-# define MUMBLE_PLUGIN_MAGIC_2  0x9f3ed4cf
-# define MUMBLE_PLUGIN_MAGIC_QT 0x9f3ed4ca
+#	define MUMBLE_PLUGIN_MAGIC 0x9f3ed4c0
+#	define MUMBLE_PLUGIN_MAGIC_2 0x9f3ed4cf
+#	define MUMBLE_PLUGIN_MAGIC_QT 0x9f3ed4ca
 // Visual Studio 2015 x86
 #elif _MSC_VER == 1900 && defined(_M_IX86)
-# define MUMBLE_PLUGIN_MAGIC    0xa9b8c7c0
-# define MUMBLE_PLUGIN_MAGIC_2  0xa9b8c7cf
-# define MUMBLE_PLUGIN_MAGIC_QT 0xa9b8c7ca
+#	define MUMBLE_PLUGIN_MAGIC 0xa9b8c7c0
+#	define MUMBLE_PLUGIN_MAGIC_2 0xa9b8c7cf
+#	define MUMBLE_PLUGIN_MAGIC_QT 0xa9b8c7ca
 // Visual Studio 2015 x64
 #elif _MSC_VER == 1900 && defined(_M_X64)
-# define MUMBLE_PLUGIN_MAGIC    0x1f2e3dc0
-# define MUMBLE_PLUGIN_MAGIC_2  0x1f2e3dcf
-# define MUMBLE_PLUGIN_MAGIC_QT 0x1f2e3dca
+#	define MUMBLE_PLUGIN_MAGIC 0x1f2e3dc0
+#	define MUMBLE_PLUGIN_MAGIC_2 0x1f2e3dcf
+#	define MUMBLE_PLUGIN_MAGIC_QT 0x1f2e3dca
 // Generic plugin magic values for platforms
 // where we do not officially plugins other
 // than "link".
 #else
-# define MUMBLE_PLUGIN_MAGIC    0xf4573570
-# define MUMBLE_PLUGIN_MAGIC_2  0xf457357f
-# define MUMBLE_PLUGIN_MAGIC_QT 0xf457357a
+#	define MUMBLE_PLUGIN_MAGIC 0xf4573570
+#	define MUMBLE_PLUGIN_MAGIC_2 0xf457357f
+#	define MUMBLE_PLUGIN_MAGIC_QT 0xf457357a
 #endif
 
 #define MUMBLE_PLUGIN_VERSION 2
@@ -79,18 +79,20 @@ typedef struct _MumblePlugin {
 	unsigned int magic;
 	const std::wstring &description;
 	const std::wstring &shortname;
-	void (MUMBLE_PLUGIN_CALLING_CONVENTION *about)(void *);
-	void (MUMBLE_PLUGIN_CALLING_CONVENTION *config)(void *);
-	int (MUMBLE_PLUGIN_CALLING_CONVENTION *trylock)();
-	void (MUMBLE_PLUGIN_CALLING_CONVENTION *unlock)();
+	void(MUMBLE_PLUGIN_CALLING_CONVENTION *about)(void *);
+	void(MUMBLE_PLUGIN_CALLING_CONVENTION *config)(void *);
+	int(MUMBLE_PLUGIN_CALLING_CONVENTION *trylock)();
+	void(MUMBLE_PLUGIN_CALLING_CONVENTION *unlock)();
 	const std::wstring(MUMBLE_PLUGIN_CALLING_CONVENTION *longdesc)();
-	int (MUMBLE_PLUGIN_CALLING_CONVENTION *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity);
+	int(MUMBLE_PLUGIN_CALLING_CONVENTION *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top,
+												 float *camera_pos, float *camera_front, float *camera_top,
+												 std::string &context, std::wstring &identity);
 } MumblePlugin;
 
 typedef struct _MumblePlugin2 {
 	unsigned int magic;
 	unsigned int version;
-	int (MUMBLE_PLUGIN_CALLING_CONVENTION *trylock)(const std::multimap<std::wstring, unsigned long long int> &);
+	int(MUMBLE_PLUGIN_CALLING_CONVENTION *trylock)(const std::multimap< std::wstring, unsigned long long int > &);
 } MumblePlugin2;
 
 /// MumblePluginQt provides an extra set of functions that will
@@ -113,7 +115,7 @@ typedef struct _MumblePluginQt {
 	/// The ptr argument is a pointer to a QWidget that
 	/// should be used as the parent for a Qt-based
 	/// about dialog.
-	void (MUMBLE_PLUGIN_CALLING_CONVENTION *about)(void *ptr);
+	void(MUMBLE_PLUGIN_CALLING_CONVENTION *about)(void *ptr);
 
 	/// config is called when Mumble requests the plugin
 	/// to show its configuration dialog.
@@ -121,7 +123,7 @@ typedef struct _MumblePluginQt {
 	/// The ptr argument is a pointer to a QWidget that
 	/// should be used as the parent for a Qt-based
 	/// configuration dialog.
-	void (MUMBLE_PLUGIN_CALLING_CONVENTION *config)(void *ptr);
+	void(MUMBLE_PLUGIN_CALLING_CONVENTION *config)(void *ptr);
 } MumblePluginQt;
 
 typedef MumblePlugin *(MUMBLE_PLUGIN_CALLING_CONVENTION *mumblePluginFunc)();

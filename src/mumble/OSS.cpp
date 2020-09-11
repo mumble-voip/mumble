@@ -5,57 +5,56 @@
 
 #include "OSS.h"
 
-#include <sys/soundcard.h>
-#include <fcntl.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <sys/ioctl.h>
+#include <sys/soundcard.h>
 
-#include "User.h"
 #include "MainWindow.h"
+#include "User.h"
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #define NBLOCKS 8
 
 class OSSEnumerator {
-	public:
-		QHash<QString,QString> qhInput;
-		QHash<QString,QString> qhOutput;
-		QHash<QString,QString> qhDevices;
-		OSSEnumerator();
+public:
+	QHash< QString, QString > qhInput;
+	QHash< QString, QString > qhOutput;
+	QHash< QString, QString > qhDevices;
+	OSSEnumerator();
 };
 
 static OSSEnumerator *cards = nullptr;
 
 class OSSInit : public DeferInit {
-		void initialize() {
-			cards = new OSSEnumerator();
-		};
-		void destroy() {
-			delete cards;
-			cards = nullptr;
-		};
+	void initialize() { cards = new OSSEnumerator(); };
+	void destroy() {
+		delete cards;
+		cards = nullptr;
+	};
 };
 
 static OSSInit ossi;
 
 class OSSInputRegistrar : public AudioInputRegistrar {
-	public:
-		OSSInputRegistrar();
-		virtual AudioInput *create();
-		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &) const;
+public:
+	OSSInputRegistrar();
+	virtual AudioInput *create();
+	virtual const QList< audioDevice > getDeviceChoices();
+	virtual void setDeviceChoice(const QVariant &, Settings &);
+	virtual bool canEcho(const QString &) const;
 };
 
 
 class OSSOutputRegistrar : public AudioOutputRegistrar {
-	public:
-		OSSOutputRegistrar();
-		virtual AudioOutput *create();
-		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &, Settings &);
+public:
+	OSSOutputRegistrar();
+	virtual AudioOutput *create();
+	virtual const QList< audioDevice > getDeviceChoices();
+	virtual void setDeviceChoice(const QVariant &, Settings &);
 };
 
 static OSSInputRegistrar airOSS;
@@ -68,8 +67,8 @@ AudioInput *OSSInputRegistrar::create() {
 	return new OSSInput();
 }
 
-const QList<audioDevice> OSSInputRegistrar::getDeviceChoices() {
-	QList<audioDevice> qlReturn;
+const QList< audioDevice > OSSInputRegistrar::getDeviceChoices() {
+	QList< audioDevice > qlReturn;
 
 	QStringList qlInputDevs = cards->qhInput.keys();
 	std::sort(qlInputDevs.begin(), qlInputDevs.end());
@@ -79,9 +78,7 @@ const QList<audioDevice> OSSInputRegistrar::getDeviceChoices() {
 		qlInputDevs.prepend(g.s.qsOSSInput);
 	}
 
-	foreach(const QString &dev, qlInputDevs) {
-		qlReturn << audioDevice(cards->qhInput.value(dev), dev);
-	}
+	foreach (const QString &dev, qlInputDevs) { qlReturn << audioDevice(cards->qhInput.value(dev), dev); }
 
 	return qlReturn;
 }
@@ -101,8 +98,8 @@ AudioOutput *OSSOutputRegistrar::create() {
 	return new OSSOutput();
 }
 
-const QList<audioDevice> OSSOutputRegistrar::getDeviceChoices() {
-	QList<audioDevice> qlReturn;
+const QList< audioDevice > OSSOutputRegistrar::getDeviceChoices() {
+	QList< audioDevice > qlReturn;
 
 	QStringList qlOutputDevs = cards->qhOutput.keys();
 	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
@@ -112,9 +109,7 @@ const QList<audioDevice> OSSOutputRegistrar::getDeviceChoices() {
 		qlOutputDevs.prepend(g.s.qsOSSOutput);
 	}
 
-	foreach(const QString &dev, qlOutputDevs) {
-		qlReturn << audioDevice(cards->qhOutput.value(dev), dev);
-	}
+	foreach (const QString &dev, qlOutputDevs) { qlReturn << audioDevice(cards->qhOutput.value(dev), dev); }
 
 	return qlReturn;
 }
@@ -142,7 +137,7 @@ OSSEnumerator::OSSEnumerator() {
 		return;
 	}
 
-	for (int i=0;i< sysinfo.numaudios;i++) {
+	for (int i = 0; i < sysinfo.numaudios; i++) {
 		oss_audioinfo ainfo;
 		ainfo.dev = i;
 		if (ioctl(mixerfd, SNDCTL_AUDIOINFO, &ainfo) == -1) {
@@ -151,7 +146,7 @@ OSSEnumerator::OSSEnumerator() {
 		}
 
 		QString handle = QLatin1String(ainfo.handle);
-		QString name = QLatin1String(ainfo.name);
+		QString name   = QLatin1String(ainfo.name);
 		QString device = QLatin1String(ainfo.devnode);
 
 		if (ainfo.caps & PCM_CAP_HIDDEN)
@@ -221,7 +216,7 @@ void OSSInput::run() {
 	while (bRunning) {
 		short buffer[iMicLength];
 
-		int len = static_cast<int>(iMicLength * iMicChannels * sizeof(short));
+		int len   = static_cast< int >(iMicLength * iMicChannels * sizeof(short));
 		ssize_t l = read(fd, buffer, len);
 		if (l != len) {
 			qWarning("OSSInput: Read %zd", l);
@@ -267,7 +262,7 @@ void OSSOutput::run() {
 
 	int ival;
 
-	ival = (g.s.iOutputDelay+1) << 16 | 11;
+	ival = (g.s.iOutputDelay + 1) << 16 | 11;
 
 	if (ioctl(fd, SNDCTL_DSP_SETFRAGMENT, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set fragment");
@@ -284,7 +279,7 @@ void OSSOutput::run() {
 	iChannels = 2;
 
 	ival = iChannels;
-	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) && (ival == static_cast<int>(iChannels))) {
+	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) && (ival == static_cast< int >(iChannels))) {
 		qWarning("OSSOutput: Failed to set channels");
 		return;
 	}
@@ -297,17 +292,9 @@ void OSSOutput::run() {
 	}
 	iMixerFreq = ival;
 
-	const unsigned int chanmasks[32] = {
-		SPEAKER_FRONT_LEFT,
-		SPEAKER_FRONT_RIGHT,
-		SPEAKER_FRONT_CENTER,
-		SPEAKER_LOW_FREQUENCY,
-		SPEAKER_BACK_LEFT,
-		SPEAKER_BACK_RIGHT,
-		SPEAKER_SIDE_LEFT,
-		SPEAKER_SIDE_RIGHT,
-		SPEAKER_BACK_CENTER
-	};
+	const unsigned int chanmasks[32] = { SPEAKER_FRONT_LEFT,    SPEAKER_FRONT_RIGHT, SPEAKER_FRONT_CENTER,
+										 SPEAKER_LOW_FREQUENCY, SPEAKER_BACK_LEFT,   SPEAKER_BACK_RIGHT,
+										 SPEAKER_SIDE_LEFT,     SPEAKER_SIDE_RIGHT,  SPEAKER_BACK_CENTER };
 
 	eSampleFormat = SampleShort;
 
@@ -329,7 +316,7 @@ void OSSOutput::run() {
 				break;
 			}
 		} else {
-			while (! mix(mbuffer, iOutputBlock) && bRunning)
+			while (!mix(mbuffer, iOutputBlock) && bRunning)
 				this->msleep(20);
 			ssize_t l = write(fd, mbuffer, blocklen);
 			if (l != blocklen) {

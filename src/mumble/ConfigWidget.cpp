@@ -13,13 +13,13 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QSlider>
 
-QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;
+QMap< int, ConfigWidgetNew > *ConfigRegistrar::c_qmNew;
 
 ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {
-	if (! c_qmNew)
-		c_qmNew = new QMap<int, ConfigWidgetNew>();
+	if (!c_qmNew)
+		c_qmNew = new QMap< int, ConfigWidgetNew >();
 	iPriority = priority;
-	c_qmNew->insert(priority,n);
+	c_qmNew->insert(priority, n);
 }
 
 ConfigRegistrar::~ConfigRegistrar() {
@@ -69,4 +69,3 @@ void ConfigWidget::loadComboBox(QComboBox *c, int v) {
 		disconnect(SIGNAL(intSignal(int)));
 	}
 }
-

@@ -25,7 +25,7 @@ struct Position2D {
 
 // We need this typedef in order to be able to pass this hash as an argument
 // to QMetaObject::invokeMethod
-using PositionMap = QHash<unsigned int, Position2D>;
+using PositionMap = QHash< unsigned int, Position2D >;
 Q_DECLARE_METATYPE(PositionMap);
 
 
@@ -33,50 +33,51 @@ Q_DECLARE_METATYPE(PositionMap);
 /// manual plugin's position window
 struct StaleEntry {
 	/// The time point since when this entry is considered stale
-	std::chrono::time_point<std::chrono::steady_clock> staleSince;
+	std::chrono::time_point< std::chrono::steady_clock > staleSince;
 	/// The pointer to the stale item
 	QGraphicsItem *staleItem;
 };
 
 class Manual : public QDialog, public Ui::Manual {
-		Q_OBJECT
-	public:
-		Manual(QWidget *parent = 0);
+	Q_OBJECT
+public:
+	Manual(QWidget *parent = 0);
 
-		static void setSpeakerPositions(const QHash<unsigned int, Position2D> &positions);
+	static void setSpeakerPositions(const QHash< unsigned int, Position2D > &positions);
 
 
-	public slots:
-		void on_qpbUnhinge_pressed();
-		void on_qpbLinked_clicked(bool);
-		void on_qpbActivated_clicked(bool);
-		void on_qdsbX_valueChanged(double);
-		void on_qdsbY_valueChanged(double);
-		void on_qdsbZ_valueChanged(double);
-		void on_qsbAzimuth_valueChanged(int);
-		void on_qsbElevation_valueChanged(int);
-		void on_qdAzimuth_valueChanged(int);
-		void on_qdElevation_valueChanged(int);
-		void on_qleContext_editingFinished();
-		void on_qleIdentity_editingFinished();
-		void on_buttonBox_clicked(QAbstractButton *);
-		void on_qsbSilentUserDisplaytime_valueChanged(int);
+public slots:
+	void on_qpbUnhinge_pressed();
+	void on_qpbLinked_clicked(bool);
+	void on_qpbActivated_clicked(bool);
+	void on_qdsbX_valueChanged(double);
+	void on_qdsbY_valueChanged(double);
+	void on_qdsbZ_valueChanged(double);
+	void on_qsbAzimuth_valueChanged(int);
+	void on_qsbElevation_valueChanged(int);
+	void on_qdAzimuth_valueChanged(int);
+	void on_qdElevation_valueChanged(int);
+	void on_qleContext_editingFinished();
+	void on_qleIdentity_editingFinished();
+	void on_buttonBox_clicked(QAbstractButton *);
+	void on_qsbSilentUserDisplaytime_valueChanged(int);
 
-		void on_speakerPositionUpdate(PositionMap positions);
+	void on_speakerPositionUpdate(PositionMap positions);
 
-		void on_updateStaleSpeakers();
-	protected:
-		QGraphicsScene *qgsScene;
-		QGraphicsItem *qgiPosition;
+	void on_updateStaleSpeakers();
 
-		std::atomic<bool> updateLoopRunning;
+protected:
+	QGraphicsScene *qgsScene;
+	QGraphicsItem *qgiPosition;
 
-		QHash<unsigned int, QGraphicsItem *> speakerPositions;
-		QHash<unsigned int, StaleEntry> staleSpeakerPositions;
+	std::atomic< bool > updateLoopRunning;
 
-		bool eventFilter(QObject *, QEvent *);
-		void changeEvent(QEvent *e);
-		void updateTopAndFront(int orientation, int azimut);
+	QHash< unsigned int, QGraphicsItem * > speakerPositions;
+	QHash< unsigned int, StaleEntry > staleSpeakerPositions;
+
+	bool eventFilter(QObject *, QEvent *);
+	void changeEvent(QEvent *e);
+	void updateTopAndFront(int orientation, int azimut);
 };
 
 MumblePlugin *ManualPlugin_getMumblePlugin();

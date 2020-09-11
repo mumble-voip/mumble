@@ -15,19 +15,20 @@
 #include <cmath>
 
 SoundFile::SoundFile(const QString &fname) {
-	siInfo.frames = 0;
-	siInfo.channels = 1;
+	siInfo.frames     = 0;
+	siInfo.channels   = 1;
 	siInfo.samplerate = 0;
-	siInfo.sections = 0;
-	siInfo.seekable = 0;
-	siInfo.format = 0;
+	siInfo.sections   = 0;
+	siInfo.seekable   = 0;
+	siInfo.format     = 0;
 
 	sfFile = nullptr;
 
 	qfFile.setFileName(fname);
 
 	if (qfFile.open(QIODevice::ReadOnly)) {
-		static SF_VIRTUAL_IO svi = {&SoundFile::vio_get_filelen, &SoundFile::vio_seek, &SoundFile::vio_read, &SoundFile::vio_write, &SoundFile::vio_tell};
+		static SF_VIRTUAL_IO svi = { &SoundFile::vio_get_filelen, &SoundFile::vio_seek, &SoundFile::vio_read,
+									 &SoundFile::vio_write, &SoundFile::vio_tell };
 
 		sfFile = sf_open_virtual(&svi, SFM_READ, &siInfo, this);
 	}
@@ -67,18 +68,18 @@ sf_count_t SoundFile::read(float *ptr, sf_count_t items) {
 }
 
 sf_count_t SoundFile::vio_get_filelen(void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+	SoundFile *sf = reinterpret_cast< SoundFile * >(user_data);
 
-	if (! sf->qfFile.isOpen())
+	if (!sf->qfFile.isOpen())
 		return -1;
 
 	return (sf->qfFile.size());
 }
 
 sf_count_t SoundFile::vio_seek(sf_count_t offset, int whence, void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+	SoundFile *sf = reinterpret_cast< SoundFile * >(user_data);
 
-	if (! sf->qfFile.isOpen())
+	if (!sf->qfFile.isOpen())
 		return -1;
 
 	if (whence == SEEK_SET) {
@@ -92,46 +93,48 @@ sf_count_t SoundFile::vio_seek(sf_count_t offset, int whence, void *user_data) {
 }
 
 sf_count_t SoundFile::vio_read(void *ptr, sf_count_t count, void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+	SoundFile *sf = reinterpret_cast< SoundFile * >(user_data);
 
-	if (! sf->qfFile.isOpen())
+	if (!sf->qfFile.isOpen())
 		return -1;
 
-	return sf->qfFile.read(reinterpret_cast<char *>(ptr), count);
+	return sf->qfFile.read(reinterpret_cast< char * >(ptr), count);
 }
 
 sf_count_t SoundFile::vio_write(const void *ptr, sf_count_t count, void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+	SoundFile *sf = reinterpret_cast< SoundFile * >(user_data);
 
-	if (! sf->qfFile.isOpen())
+	if (!sf->qfFile.isOpen())
 		return -1;
 
-	return sf->qfFile.write(reinterpret_cast<const char *>(ptr), count);
+	return sf->qfFile.write(reinterpret_cast< const char * >(ptr), count);
 }
 
 sf_count_t SoundFile::vio_tell(void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+	SoundFile *sf = reinterpret_cast< SoundFile * >(user_data);
 
-	if (! sf->qfFile.isOpen())
+	if (!sf->qfFile.isOpen())
 		return -1;
 
 	return sf->qfFile.pos();
 }
 
-AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, bool loop, unsigned int freq, unsigned int systemMaxBufferSize) : AudioOutputUser(name) {
+AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, bool loop, unsigned int freq,
+									 unsigned int systemMaxBufferSize)
+	: AudioOutputUser(name) {
 	int err;
 
-	sfHandle = psndfile;
+	sfHandle       = psndfile;
 	iOutSampleRate = freq;
 
 	if (sfHandle->channels() == 1) {
 		iBufferSize = systemMaxBufferSize;
-		bStereo = false;
+		bStereo     = false;
 	} else if (sfHandle->channels() == 2) {
 		iBufferSize = systemMaxBufferSize * 2;
-		bStereo = true;
+		bStereo     = true;
 	} else {
-		sfHandle = nullptr;  // sound file is corrupted
+		sfHandle = nullptr; // sound file is corrupted
 		return;
 	}
 
@@ -143,11 +146,11 @@ AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, b
 	qWarning() << "Format: " << sfHandle->format() << endl; */
 
 	// If the frequencies don't match initialize the resampler
-	if (sfHandle->samplerate() != static_cast<int>(freq)) {
+	if (sfHandle->samplerate() != static_cast< int >(freq)) {
 		srs = speex_resampler_init(bStereo ? 2 : 1, sfHandle->samplerate(), iOutSampleRate, 3, &err);
 		if (err != RESAMPLER_ERR_SUCCESS) {
 			qWarning() << "Initialize " << sfHandle->samplerate() << " to " << iOutSampleRate << " resampler failed!";
-			srs = nullptr;
+			srs      = nullptr;
 			sfHandle = nullptr;
 			return;
 		}
@@ -156,8 +159,8 @@ AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, b
 	}
 
 	iLastConsume = iBufferFilled = 0;
-	bLoop = loop;
-	bEof = false;
+	bLoop                        = loop;
+	bEof                         = false;
 }
 
 AudioOutputSample::~AudioOutputSample() {
@@ -168,13 +171,13 @@ AudioOutputSample::~AudioOutputSample() {
 	sfHandle = nullptr;
 }
 
-SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
+SoundFile *AudioOutputSample::loadSndfile(const QString &filename) {
 	SoundFile *sf;
 
 	// Create the filehandle and do a quick check if everything is ok
 	sf = new SoundFile(filename);
 
-	if (! sf->isOpen()) {
+	if (!sf->isOpen()) {
 		qWarning() << "File " << filename << " failed to open";
 		delete sf;
 		return nullptr;
@@ -195,13 +198,15 @@ SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
 }
 
 QString AudioOutputSample::browseForSndfile(QString defaultpath) {
-	QString file = QFileDialog::getOpenFileName(nullptr, tr("Choose sound file"), defaultpath, QLatin1String("*.wav *.ogg *.ogv *.oga *.flac *.aiff"));
-	if (! file.isEmpty()) {
+	QString file = QFileDialog::getOpenFileName(nullptr, tr("Choose sound file"), defaultpath,
+												QLatin1String("*.wav *.ogg *.ogv *.oga *.flac *.aiff"));
+	if (!file.isEmpty()) {
 		SoundFile *sf = AudioOutputSample::loadSndfile(file);
 		if (!sf) {
-			QMessageBox::critical(nullptr,
-					tr("Invalid sound file"),
-					tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(file.toHtmlEscaped()));
+			QMessageBox::critical(nullptr, tr("Invalid sound file"),
+								  tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible "
+									 "format and encoding.")
+									  .arg(file.toHtmlEscaped()));
 			return QString();
 		}
 		delete sf;
@@ -210,11 +215,11 @@ QString AudioOutputSample::browseForSndfile(QString defaultpath) {
 }
 
 bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
-	unsigned int channels = bStereo ? 2 : 1;
+	unsigned int channels    = bStereo ? 2 : 1;
 	unsigned int sampleCount = frameCount * channels;
 	// Forward the buffer
-	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
-		pfBuffer[i-iLastConsume]=pfBuffer[i];
+	for (unsigned int i = iLastConsume; i < iBufferFilled; ++i)
+		pfBuffer[i - iLastConsume] = pfBuffer[i];
 	iBufferFilled -= iLastConsume;
 	iLastConsume = sampleCount;
 
@@ -223,7 +228,8 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 		return true;
 
 	// Calculate the required buffersize to hold the results
-	unsigned int iInputFrames = static_cast<unsigned int>(ceilf(static_cast<float>(frameCount * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
+	unsigned int iInputFrames = static_cast< unsigned int >(
+		ceilf(static_cast< float >(frameCount * sfHandle->samplerate()) / static_cast< float >(iOutSampleRate)));
 	unsigned int iInputSamples = iInputFrames * channels;
 
 	STACKVAR(float, fOut, iInputSamples);
@@ -242,13 +248,13 @@ bool AudioOutputSample::prepareSampleBuffer(unsigned int frameCount) {
 				// We reached the eof or encountered an error, stuff with zeroes
 				memset(pOut, 0, sizeof(float) * (iInputSamples - read));
 				read = iInputSamples;
-				eof = true;
+				eof  = true;
 			} else {
 				sfHandle->seek(SEEK_SET, 0);
 			}
 		}
 
-		spx_uint32_t inlen = static_cast<unsigned int>(read) / channels;
+		spx_uint32_t inlen  = static_cast< unsigned int >(read) / channels;
 		spx_uint32_t outlen = frameCount;
 		if (srs) {
 			// If necessary resample

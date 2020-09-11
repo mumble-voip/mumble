@@ -5,18 +5,18 @@
 
 #include "../mumble_plugin.h"
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <wchar.h>
 
-#include <sys/types.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/time.h>
-#include <sys/mman.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <sys/types.h>
 #include <time.h>
+#include <unistd.h>
 
 static std::wstring wsPluginName(L"Link");
 static std::wstring wsDescription;
@@ -25,14 +25,14 @@ static char memname[256];
 struct LinkedMem {
 	uint32_t uiVersion;
 	uint32_t ui32count;
-	float	fAvatarPosition[3];
-	float	fAvatarFront[3];
-	float	fAvatarTop[3];
-	wchar_t	name[256];
-	float	fCameraPosition[3];
-	float	fCameraFront[3];
-	float	fCameraTop[3];
-	wchar_t	identity[256];
+	float fAvatarPosition[3];
+	float fAvatarFront[3];
+	float fAvatarTop[3];
+	wchar_t name[256];
+	float fCameraPosition[3];
+	float fCameraFront[3];
+	float fCameraTop[3];
+	wchar_t identity[256];
 	uint32_t context_len;
 	unsigned char context[256];
 	wchar_t description[2048];
@@ -41,22 +41,22 @@ struct LinkedMem {
 /// Non-monotonic tick count in ms resolution
 static int64_t GetTickCount() {
 	struct timeval tv;
-	gettimeofday(&tv,nullptr);
+	gettimeofday(&tv, nullptr);
 
 	return tv.tv_usec / 1000 + tv.tv_sec * 1000;
 }
 
-#define lm_invalid reinterpret_cast<struct LinkedMem *>(-1)
+#define lm_invalid reinterpret_cast< struct LinkedMem * >(-1)
 static struct LinkedMem *lm = lm_invalid;
-static int shmfd = -1;
+static int shmfd            = -1;
 
-static int64_t last_tick = 0;
+static int64_t last_tick   = 0;
 static uint32_t last_count = 0;
 
 static void unlock() {
 	lm->ui32count = last_count = 0;
-	lm->uiVersion = 0;
-	lm->name[0] = 0;
+	lm->uiVersion              = 0;
+	lm->name[0]                = 0;
 	wsPluginName.assign(L"Link");
 	wsDescription.clear();
 }
@@ -67,7 +67,7 @@ static int trylock() {
 
 	if ((lm->uiVersion == 1) || (lm->uiVersion == 2)) {
 		if (lm->ui32count != last_count) {
-			last_tick = GetTickCount();
+			last_tick  = GetTickCount();
 			last_count = lm->ui32count;
 
 			wchar_t buff[2048];
@@ -92,12 +92,10 @@ static const std::wstring longdesc() {
 	return wsDescription;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
-                 float *camera_pos, float *camera_front, float *camera_top,
-                 std::string &context, std::wstring &identity) {
-
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring &identity) {
 	if (lm->ui32count != last_count) {
-		last_tick = GetTickCount();
+		last_tick  = GetTickCount();
 		last_count = lm->ui32count;
 	} else if ((GetTickCount() - last_tick) > 5000)
 		return false;
@@ -105,30 +103,30 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
 	if ((lm->uiVersion != 1) && (lm->uiVersion != 2))
 		return false;
 
-	for (int i=0;i<3;++i) {
-		avatar_pos[i]=lm->fAvatarPosition[i];
-		avatar_front[i]=lm->fAvatarFront[i];
-		avatar_top[i]=lm->fAvatarTop[i];
+	for (int i = 0; i < 3; ++i) {
+		avatar_pos[i]   = lm->fAvatarPosition[i];
+		avatar_front[i] = lm->fAvatarFront[i];
+		avatar_top[i]   = lm->fAvatarTop[i];
 	}
 
 	if (lm->uiVersion == 2) {
-		for (int i=0;i<3;++i) {
-			camera_pos[i]=lm->fCameraPosition[i];
-			camera_front[i]=lm->fCameraFront[i];
-			camera_top[i]=lm->fCameraTop[i];
+		for (int i = 0; i < 3; ++i) {
+			camera_pos[i]   = lm->fCameraPosition[i];
+			camera_front[i] = lm->fCameraFront[i];
+			camera_top[i]   = lm->fCameraTop[i];
 		}
 
 		if (lm->context_len > 255)
 			lm->context_len = 255;
 		lm->identity[255] = 0;
 
-		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
+		context.assign(reinterpret_cast< const char * >(lm->context), lm->context_len);
 		identity.assign(lm->identity);
 	} else {
-		for (int i=0;i<3;++i) {
-			camera_pos[i]=lm->fAvatarPosition[i];
-			camera_front[i]=lm->fAvatarFront[i];
-			camera_top[i]=lm->fAvatarTop[i];
+		for (int i = 0; i < 3; ++i) {
+			camera_pos[i]   = lm->fAvatarPosition[i];
+			camera_front[i] = lm->fAvatarFront[i];
+			camera_top[i]   = lm->fAvatarTop[i];
 		}
 		context.clear();
 		identity.clear();
@@ -137,8 +135,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
 	return true;
 }
 
-__attribute__((constructor))
-static void load_plugin() {
+__attribute__((constructor)) static void load_plugin() {
 	bool bCreated = false;
 
 	snprintf(memname, 256, "/MumbleLink.%d", getuid());
@@ -146,11 +143,11 @@ static void load_plugin() {
 	shmfd = shm_open(memname, O_RDWR, S_IRUSR | S_IWUSR);
 	if (shmfd < 0) {
 		bCreated = true;
-		shmfd = shm_open(memname, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+		shmfd    = shm_open(memname, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
 	}
 
 	if (shmfd < 0) {
-		fprintf(stderr,"Mumble Link plugin: error creating shared memory\n");
+		fprintf(stderr, "Mumble Link plugin: error creating shared memory\n");
 		return;
 	}
 
@@ -163,15 +160,14 @@ static void load_plugin() {
 		}
 	}
 
-	lm = static_cast<struct LinkedMem*>(
-	         mmap(nullptr, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
+	lm = static_cast< struct LinkedMem * >(
+		mmap(nullptr, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd, 0));
 
 	if ((lm != lm_invalid) && bCreated)
 		memset(lm, 0, sizeof(struct LinkedMem));
 }
 
-__attribute__((destructor))
-static void unload_plugin() {
+__attribute__((destructor)) static void unload_plugin() {
 	if (lm != lm_invalid)
 		munmap(lm, sizeof(struct LinkedMem));
 
@@ -184,15 +180,7 @@ static void unload_plugin() {
 static std::wstring description(L"Link v1.2.0");
 
 static MumblePlugin linkplug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	wsPluginName,
-	nullptr,
-	nullptr,
-	trylock,
-	unlock,
-	longdesc,
-	fetch
+	MUMBLE_PLUGIN_MAGIC, description, wsPluginName, nullptr, nullptr, trylock, unlock, longdesc, fetch
 };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {

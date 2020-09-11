@@ -8,27 +8,27 @@
 #include "Channel.h"
 #include "User.h"
 #ifdef MURMUR
-#include "ServerUser.h"
+#	include "ServerUser.h"
 
-#include <QtCore/QStack>
+#	include <QtCore/QStack>
 #endif
 
 const Qt::CaseSensitivity Group::accessTokenCaseSensitivity = Qt::CaseInsensitive;
 
 Group::Group(Channel *assoc, const QString &name) {
-	c = assoc;
-	bInherit = true;
+	c            = assoc;
+	bInherit     = true;
 	bInheritable = true;
-	qsName = name;
+	qsName       = name;
 	if (c)
 		c->qhGroups[name] = this;
 }
 
 #ifdef MURMUR
 
-QSet<int> Group::members() {
-	QStack<Group *> s;
-	QSet<int> m;
+QSet< int > Group::members() {
+	QStack< Group * > s;
+	QSet< int > m;
 	Channel *p;
 	Group *g;
 	int i;
@@ -37,20 +37,20 @@ QSet<int> Group::members() {
 	while (p) {
 		g = p->qhGroups.value(qsName);
 		if (g) {
-			if ((p != c) && ! g->bInheritable)
+			if ((p != c) && !g->bInheritable)
 				break;
 			s.push(g);
-			if (! g->bInherit)
+			if (!g->bInherit)
 				break;
 		}
 		p = p->cParent;
 	}
 
-	while (! s.isEmpty()) {
+	while (!s.isEmpty()) {
 		g = s.pop();
-		foreach(i, g->qsAdd)
+		foreach (i, g->qsAdd)
 			m.insert(i);
-		foreach(i, g->qsRemove)
+		foreach (i, g->qsRemove)
 			m.remove(i);
 	}
 
@@ -74,9 +74,9 @@ Group *Group::getGroup(Channel *chan, QString name) {
 	return nullptr;
 }
 
-QSet<QString> Group::groupNames(Channel *chan) {
-	QStack<Channel *> s;
-	QSet<QString> m;
+QSet< QString > Group::groupNames(Channel *chan) {
+	QStack< Channel * > s;
+	QSet< QString > m;
 	Channel *c = chan;
 	Group *g;
 
@@ -85,10 +85,10 @@ QSet<QString> Group::groupNames(Channel *chan) {
 		c = c->cParent;
 	}
 
-	while (! s.isEmpty()) {
+	while (!s.isEmpty()) {
 		c = s.pop();
-		foreach(g, c->qhGroups) {
-			if ((chan != c) && (! g->bInheritable))
+		foreach (g, c->qhGroups) {
+			if ((chan != c) && (!g->bInheritable))
 				m.remove(g->qsName);
 			else
 				m.insert(g->qsName);
@@ -98,19 +98,19 @@ QSet<QString> Group::groupNames(Channel *chan) {
 	return m;
 }
 
-#define RET_FALSE (invert ? true : false)
-#define RET_TRUE (invert ? false : true)
+#	define RET_FALSE (invert ? true : false)
+#	define RET_TRUE (invert ? false : true)
 
 bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUser *pl) {
 	Channel *p;
 	Channel *c;
 	Group *g;
 
-	bool m = false;
+	bool m      = false;
 	bool invert = false;
-	bool token = false;
-	bool hash = false;
-	c = curChan;
+	bool token  = false;
+	bool hash   = false;
+	c           = curChan;
 
 	while (true) {
 		if (name.isEmpty())
@@ -118,24 +118,24 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 
 		if (name.startsWith(QChar::fromLatin1('!'))) {
 			invert = true;
-			name = name.remove(0,1);
+			name   = name.remove(0, 1);
 			continue;
 		}
 
 		if (name.startsWith(QChar::fromLatin1('~'))) {
-			c = aclChan;
-			name = name.remove(0,1);
+			c    = aclChan;
+			name = name.remove(0, 1);
 			continue;
 		}
 
 		if (name.startsWith(QChar::fromLatin1('#'))) {
 			token = true;
-			name = name.remove(0,1);
+			name  = name.remove(0, 1);
 			continue;
 		}
 		if (name.startsWith(QChar::fromLatin1('$'))) {
 			hash = true;
-			name = name.remove(0,1);
+			name = name.remove(0, 1);
 			continue;
 		}
 
@@ -158,13 +158,11 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 		m = (pl->cChannel == c);
 	else if (name == QLatin1String("out"))
 		m = !(pl->cChannel == c);
-	else if (name == QLatin1String("sub")
-			|| name.startsWith(QLatin1String("sub,"))) {
-		
-		name = name.remove(0,4);
-		int mindesc = 1;
-		int maxdesc = 1000;
-		int minpath = 0;
+	else if (name == QLatin1String("sub") || name.startsWith(QLatin1String("sub,"))) {
+		name             = name.remove(0, 4);
+		int mindesc      = 1;
+		int maxdesc      = 1000;
+		int minpath      = 0;
 		QStringList args = name.split(QLatin1String(","));
 		if (args.count() >= 3) {
 			maxdesc = args[2].isEmpty() ? maxdesc : args[2].toInt();
@@ -177,8 +175,8 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 		}
 
 		Channel *home = pl->cChannel;
-		QList<Channel *> playerChain;
-		QList<Channel *> groupChain;
+		QList< Channel * > playerChain;
+		QList< Channel * > groupChain;
 
 		p = home;
 		while (p) {
@@ -215,7 +213,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 
 		m = (pdepth >= mindepth) && (pdepth <= maxdepth);
 	} else {
-		QStack<Group *> s;
+		QStack< Group * > s;
 
 		p = c;
 
@@ -223,19 +221,20 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 			g = p->qhGroups.value(name);
 
 			if (g) {
-				if ((p != c) && ! g->bInheritable)
+				if ((p != c) && !g->bInheritable)
 					break;
 				s.push(g);
-				if (! g->bInherit)
+				if (!g->bInherit)
 					break;
 			}
 
 			p = p->cParent;
 		}
 
-		while (! s.isEmpty()) {
+		while (!s.isEmpty()) {
 			g = s.pop();
-			if (g->qsAdd.contains(pl->iId) || g->qsTemporary.contains(pl->iId) || g->qsTemporary.contains(- static_cast<int>(pl->uiSession)))
+			if (g->qsAdd.contains(pl->iId) || g->qsTemporary.contains(pl->iId)
+				|| g->qsTemporary.contains(-static_cast< int >(pl->uiSession)))
 				m = true;
 			if (g->qsRemove.contains(pl->iId))
 				m = false;

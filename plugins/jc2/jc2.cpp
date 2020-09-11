@@ -14,13 +14,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,15 +38,15 @@
 #include "../mumble_plugin_main.h"
 
 const unsigned int off_character_manager = 0xD8FB24;
-const unsigned int off_local_player = 0x3570;
-const unsigned int off_character = 0x48;
-const unsigned int off_char_matrix = 0x15C;
+const unsigned int off_local_player      = 0x3570;
+const unsigned int off_character         = 0x48;
+const unsigned int off_char_matrix       = 0x15C;
 
 const unsigned int off_camera_manager = 0xD919F4;
-const unsigned int off_cam_matrix = 0x2FC;
+const unsigned int off_cam_matrix     = 0x2FC;
 
 static procptr_t char_matrix_ptr = 0;
-static procptr_t cam_matrix_ptr = 0;
+static procptr_t cam_matrix_ptr  = 0;
 
 typedef struct {
 	float x;
@@ -84,11 +84,10 @@ static int setuppointers() {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top,
-                 std::string &, std::wstring &) {
-
-	for (int i=0;i<3;i++)
-		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &, std::wstring &) {
+	for (int i = 0; i < 3; i++)
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0.0f;
 
 	if ((!char_matrix_ptr || !cam_matrix_ptr) && !setuppointers()) {
 		return false;
@@ -99,8 +98,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	Matrix4 char_matrix;
 	Matrix4 cam_matrix;
 
-	ok = peekProc(char_matrix_ptr, &char_matrix, sizeof(char_matrix)) &&
-			peekProc(cam_matrix_ptr, &cam_matrix, sizeof(cam_matrix));
+	ok = peekProc(char_matrix_ptr, &char_matrix, sizeof(char_matrix))
+		 && peekProc(cam_matrix_ptr, &cam_matrix, sizeof(cam_matrix));
 
 	if (!ok)
 		return false;
@@ -132,7 +131,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
 	if (!initialize(pids, L"JustCause2.exe"))
 		return false;
 
@@ -157,26 +156,13 @@ static std::wstring description(L"Just Cause 2 (v1.0.0.2)");
 static std::wstring shortname(L"Just Cause 2");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin jc2plug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin jc2plug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 jc2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 jc2plug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &jc2plug;

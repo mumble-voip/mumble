@@ -9,9 +9,9 @@
 #include "User.h"
 
 #ifdef MURMUR
-#include "ServerUser.h"
+#	include "ServerUser.h"
 
-#include <QtCore/QStack>
+#	include <QtCore/QStack>
 #endif
 
 ChanACL::ChanACL(Channel *chan) : QObject(chan) {
@@ -36,7 +36,7 @@ ChanACL::operator QString() const {
 		// If we have a name for the permission, we know it exists.
 		// Note that we won't reach 0 with this tactic but we don't care about the None
 		// permission anyways.
-		QString name = permName(static_cast<Perm>(currentPermInt));
+		QString name = permName(static_cast< Perm >(currentPermInt));
 
 		if (!name.isEmpty()) {
 			if (!((pAllow & currentPermInt) || (pDeny & currentPermInt))) {
@@ -72,8 +72,10 @@ ChanACL::operator QString() const {
 		// Alos include info about affected user and/or group
 		if (!qsGroup.isEmpty() && iUserId >= 0) {
 			// both group and user-id are set
-			return QString::fromLatin1("ACL for group \"%1\" and user with ID %2: %3").arg(
-					qsGroup).arg(iUserId).arg(aclString);
+			return QString::fromLatin1("ACL for group \"%1\" and user with ID %2: %3")
+				.arg(qsGroup)
+				.arg(iUserId)
+				.arg(aclString);
 		} else if (!qsGroup.isEmpty()) {
 			return QString::fromLatin1("ACL for group \"%1\": %2").arg(qsGroup).arg(aclString);
 		} else if (iUserId >= 0) {
@@ -91,29 +93,29 @@ ChanACL::operator QString() const {
 
 #ifdef MURMUR
 
-bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACLCache *cache) {
+bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags< Perm > perm, ACLCache *cache) {
 	Permissions granted = effectivePermissions(p, chan, cache);
 
 	return ((granted & perm) != None);
 }
 
 // Return effective permissions.
-QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan, ACLCache *cache) {
+QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *chan, ACLCache *cache) {
 	// Superuser
 	if (p->iId == 0) {
-		return static_cast<Permissions>(All &~ (Speak|Whisper));
+		return static_cast< Permissions >(All & ~(Speak | Whisper));
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
+#	if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 	// Qt 5.15 introduced a default constructor that initializes the flags to be set to no flags
 	Permissions granted;
-#else
+#	else
 	// Before Qt 5.15 we have emulate the default constructor by assigning a literal zero
 	Permissions granted = 0;
-#endif
+#	endif
 
 	if (cache) {
-		QHash<Channel *, Permissions> *h = cache->value(p);
+		QHash< Channel *, Permissions > *h = cache->value(p);
 		if (h)
 			granted = h->value(chan);
 	}
@@ -122,7 +124,7 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 		return granted;
 	}
 
-	QStack<Channel *> chanstack;
+	QStack< Channel * > chanstack;
 	Channel *ch = chan;
 
 	while (ch) {
@@ -136,16 +138,16 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 	granted = def;
 
 	bool traverse = true;
-	bool write = false;
+	bool write    = false;
 	ChanACL *acl;
 
-	while (! chanstack.isEmpty()) {
+	while (!chanstack.isEmpty()) {
 		ch = chanstack.pop();
-		if (! ch->bInheritACL)
+		if (!ch->bInheritACL)
 			granted = def;
 
-		foreach(acl, ch->qlACL) {
-			bool matchUser = (acl->iUserId != -1) && (acl->iUserId == p->iId);
+		foreach (acl, ch->qlACL) {
+			bool matchUser  = (acl->iUserId != -1) && (acl->iUserId == p->iId);
 			bool matchGroup = Group::isMember(chan, ch, acl->qsGroup, p);
 			if (matchUser || matchGroup) {
 				if (acl->pAllow & Traverse)
@@ -168,27 +170,28 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 					if (acl->pAllow & SelfRegister)
 						granted |= SelfRegister;
 				}
-				if ((ch==chan && acl->bApplyHere) || (ch!=chan && acl->bApplySubs)) {
-					granted |= (acl->pAllow & ~(Kick|Ban|ResetUserContent|Register|SelfRegister|Cached));
+				if ((ch == chan && acl->bApplyHere) || (ch != chan && acl->bApplySubs)) {
+					granted |= (acl->pAllow & ~(Kick | Ban | ResetUserContent | Register | SelfRegister | Cached));
 					granted &= ~acl->pDeny;
 				}
 			}
 		}
-		if (! traverse && ! write) {
+		if (!traverse && !write) {
 			granted = None;
 			break;
 		}
 	}
 
 	if (granted & Write) {
-		granted |= Traverse|Enter|MuteDeafen|Move|MakeChannel|LinkChannel|TextMessage|MakeTempChannel|Listen;
+		granted |=
+			Traverse | Enter | MuteDeafen | Move | MakeChannel | LinkChannel | TextMessage | MakeTempChannel | Listen;
 		if (chan->iId == 0)
-			granted |= Kick|Ban|ResetUserContent|Register|SelfRegister;
+			granted |= Kick | Ban | ResetUserContent | Register | SelfRegister;
 	}
 
 	if (cache) {
-		if (! cache->contains(p))
-			cache->insert(p, new QHash<Channel *, Permissions>);
+		if (!cache->contains(p))
+			cache->insert(p, new QHash< Channel *, Permissions >);
 
 		cache->value(p)->insert(chan, granted | Cached);
 	}
@@ -203,41 +206,56 @@ QString ChanACL::whatsThis(Perm p) {
 		case None:
 			return tr("This represents no privileges.");
 		case Write:
-			return tr("This represents total access to the channel, including the ability to change group and ACL information. "
-			          "This privilege implies all other privileges.");
+			return tr("This represents total access to the channel, including the ability to change group and ACL "
+					  "information. "
+					  "This privilege implies all other privileges.");
 		case Traverse:
-			return tr("This represents the permission to traverse the channel. If a user is denied this privilege, he will be "
-			          "unable to access this channel and any sub-channels in any way, regardless of other permissions in the "
-			          "sub-channels.");
+			return tr(
+				"This represents the permission to traverse the channel. If a user is denied this privilege, he will "
+				"be "
+				"unable to access this channel and any sub-channels in any way, regardless of other permissions in the "
+				"sub-channels.");
 		case Enter:
-			return tr("This represents the permission to join the channel. If you have a hierarchical channel structure, you "
-			          "might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.");
+			return tr(
+				"This represents the permission to join the channel. If you have a hierarchical channel structure, you "
+				"might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.");
 		case Speak:
-			return tr("This represents the permission to speak in a channel. Users without this privilege will be suppressed by "
-			          "the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
-			          "appropriate privileges.");
+			return tr(
+				"This represents the permission to speak in a channel. Users without this privilege will be suppressed "
+				"by "
+				"the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
+				"appropriate privileges.");
 		case Whisper:
-			return tr("This represents the permission to whisper to this channel from the outside. This works exactly like the <i>speak</i> "
-			          "privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy "
-			          "of channels without linking.");
+			return tr("This represents the permission to whisper to this channel from the outside. This works exactly "
+					  "like the <i>speak</i> "
+					  "privilege, but applies to packets spoken with the Whisper key held down. This may be used to "
+					  "broadcast to a hierarchy "
+					  "of channels without linking.");
 		case MuteDeafen:
-			return tr("This represents the permission to mute and deafen other users. Once muted, a user will stay muted "
-			          "until he is unmuted by another privileged user or reconnects to the server.");
+			return tr(
+				"This represents the permission to mute and deafen other users. Once muted, a user will stay muted "
+				"until he is unmuted by another privileged user or reconnects to the server.");
 		case Move:
-			return tr("This represents the permission to move a user to another channel or kick him from the server. To actually "
-			          "move the user, either the moving user must have Move privileges in the destination channel, or "
-			          "the user must normally be allowed to enter the channel. Users with this privilege can move users "
-			          "into channels the target user normally wouldn't have permission to enter.");
+			return tr(
+				"This represents the permission to move a user to another channel or kick him from the server. To "
+				"actually "
+				"move the user, either the moving user must have Move privileges in the destination channel, or "
+				"the user must normally be allowed to enter the channel. Users with this privilege can move users "
+				"into channels the target user normally wouldn't have permission to enter.");
 		case MakeChannel:
-			return tr("This represents the permission to make sub-channels. The user making the sub-channel will be added to the "
-			          "admin group of the sub-channel.");
+			return tr("This represents the permission to make sub-channels. The user making the sub-channel will be "
+					  "added to the "
+					  "admin group of the sub-channel.");
 		case MakeTempChannel:
-			return tr("This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the "
-			          "admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.");
+			return tr("This represents the permission to make a temporary subchannel. The user making the sub-channel "
+					  "will be added to the "
+					  "admin group of the sub-channel. Temporary channels are not stored and disappear when the last "
+					  "user leaves.");
 		case LinkChannel:
-			return tr("This represents the permission to link channels. Users in linked channels hear each other, as long as "
-			          "the speaking user has the <i>speak</i> privilege in the channel of the listener. You need the link "
-			          "privilege in both channels to create a link, but just in either channel to remove it.");
+			return tr(
+				"This represents the permission to link channels. Users in linked channels hear each other, as long as "
+				"the speaking user has the <i>speak</i> privilege in the channel of the listener. You need the link "
+				"privilege in both channels to create a link, but just in either channel to remove it.");
 		case TextMessage:
 			return tr("This represents the permission to write text messages to other users in this channel.");
 		case Kick:
@@ -251,7 +269,8 @@ QString ChanACL::whatsThis(Perm p) {
 		case SelfRegister:
 			return tr("This represents the permission to register oneself on the server.");
 		case Listen:
-			return tr("This represents the permission to use the listen-feature allowing to listen to a channel without being in it.");
+			return tr("This represents the permission to use the listen-feature allowing to listen to a channel "
+					  "without being in it.");
 		default:
 			break;
 	}
@@ -260,11 +279,11 @@ QString ChanACL::whatsThis(Perm p) {
 
 #endif
 
-QString ChanACL::permName(QFlags<Perm> p) {
+QString ChanACL::permName(QFlags< Perm > p) {
 	QStringList qsl;
-	for (int i=0;i<=31;++i) {
-		if (p & (1<<i))
-			qsl << permName(static_cast<Perm>(1<<i));
+	for (int i = 0; i <= 31; ++i) {
+		if (p & (1 << i))
+			qsl << permName(static_cast< Perm >(1 << i));
 	}
 	return qsl.join(QLatin1String(", "));
 }
@@ -319,11 +338,13 @@ bool ChanACL::isPassword() const {
 	// AND grants 'Speak', 'Whisper', 'TextMessage', 'LinkChannel' and potentially Traverse but NOTHING else
 	// AND does not deny anything.
 	// Furthermore the ACL must apply directly to the channel and may not be inherited.
-	return this->qsGroup.startsWith(QLatin1Char('#'))
-		&& this->bApplyHere
-		&& !this->bInherited
-		&& (this->pAllow & ChanACL::Enter)
-		&& (this->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
-			this->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))
-		&& this->pDeny == ChanACL::None;
+	return this->qsGroup.startsWith(QLatin1Char('#')) && this->bApplyHere && !this->bInherited
+		   && (this->pAllow & ChanACL::Enter)
+		   && (this->pAllow
+				   == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)
+			   || // Backwards compat with old behaviour that didn't deny traverse
+			   this->pAllow
+				   == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel
+					   | ChanACL::Traverse))
+		   && this->pDeny == ChanACL::None;
 }

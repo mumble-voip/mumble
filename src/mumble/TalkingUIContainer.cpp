@@ -13,7 +13,7 @@
 
 
 struct entry_ptr_less {
-	bool operator()(const std::unique_ptr<TalkingUIEntry>& first, const std::unique_ptr<TalkingUIEntry>& second) {
+	bool operator()(const std::unique_ptr< TalkingUIEntry > &first, const std::unique_ptr< TalkingUIEntry > &second) {
 		return *first < *second;
 	}
 };
@@ -21,16 +21,15 @@ struct entry_ptr_less {
 
 
 TalkingUIContainer::TalkingUIContainer(int associatedChannelID, TalkingUI &talkingUI)
-	: m_associatedChannelID(associatedChannelID),
-	  m_talkingUI(talkingUI) {
+	: m_associatedChannelID(associatedChannelID), m_talkingUI(talkingUI) {
 }
 
 
 int TalkingUIContainer::find(unsigned int associatedUserSession, EntryType type) const {
 	for (std::size_t i = 0; i < m_entries.size(); i++) {
-		const std::unique_ptr<TalkingUIEntry> &currentEntry = m_entries[i];
+		const std::unique_ptr< TalkingUIEntry > &currentEntry = m_entries[i];
 		if (currentEntry->getType() == type && currentEntry->getAssociatedUserSession() == associatedUserSession) {
-			return static_cast<int>(i);
+			return static_cast< int >(i);
 		}
 	}
 
@@ -41,21 +40,21 @@ int TalkingUIContainer::getAssociatedChannelID() const {
 	return m_associatedChannelID;
 }
 
-void TalkingUIContainer::addEntry(std::unique_ptr<TalkingUIEntry> entry) {
+void TalkingUIContainer::addEntry(std::unique_ptr< TalkingUIEntry > entry) {
 	// set container
 	entry->m_container = this;
 
 	m_entries.push_back(std::move(entry));
 }
 
-std::unique_ptr<TalkingUIEntry> TalkingUIContainer::removeEntry(const TalkingUIEntry *entry) {
+std::unique_ptr< TalkingUIEntry > TalkingUIContainer::removeEntry(const TalkingUIEntry *entry) {
 	return removeEntry(entry->getAssociatedUserSession(), entry->getType());
 }
 
-std::unique_ptr<TalkingUIEntry> TalkingUIContainer::removeEntry(unsigned int associatedUserSession, EntryType type) {
+std::unique_ptr< TalkingUIEntry > TalkingUIContainer::removeEntry(unsigned int associatedUserSession, EntryType type) {
 	int index = find(associatedUserSession, type);
 
-	std::unique_ptr<TalkingUIEntry> entry(nullptr);
+	std::unique_ptr< TalkingUIEntry > entry(nullptr);
 
 	if (index >= 0) {
 		// Move the entry out of the vector
@@ -69,11 +68,11 @@ std::unique_ptr<TalkingUIEntry> TalkingUIContainer::removeEntry(unsigned int ass
 	return entry;
 }
 
-std::vector<std::unique_ptr<TalkingUIEntry>> &TalkingUIContainer::getEntries() {
+std::vector< std::unique_ptr< TalkingUIEntry > > &TalkingUIContainer::getEntries() {
 	return m_entries;
 }
 
-const std::vector<std::unique_ptr<TalkingUIEntry>> &TalkingUIContainer::getEntries() const {
+const std::vector< std::unique_ptr< TalkingUIEntry > > &TalkingUIContainer::getEntries() const {
 	return m_entries;
 }
 
@@ -133,15 +132,10 @@ bool TalkingUIContainer::operator<=(const TalkingUIContainer &other) const {
 
 
 
-
-
-
 const int CHANNEL_LAYOUT_TOP_MARGIN = 10;
 
 TalkingUIChannel::TalkingUIChannel(int associatedChannelID, QString name, TalkingUI &talkingUI)
-	: TalkingUIContainer(associatedChannelID, talkingUI),
-	  m_channelBox(new QGroupBox()) {
-
+	: TalkingUIContainer(associatedChannelID, talkingUI), m_channelBox(new QGroupBox()) {
 	// Set name
 	m_channelBox->setTitle(name);
 
@@ -173,10 +167,10 @@ void TalkingUIChannel::setName(const QString &name) {
 
 int TalkingUIChannel::compare(const TalkingUIContainer &other) const {
 	if (getType() != other.getType()) {
-		return static_cast<int>(other.getType()) - static_cast<int>(getType());
+		return static_cast< int >(other.getType()) - static_cast< int >(getType());
 	}
 
-	const TalkingUIChannel &otherChannel = static_cast<const TalkingUIChannel &>(other);
+	const TalkingUIChannel &otherChannel = static_cast< const TalkingUIChannel & >(other);
 
 	if (m_highestUserPriority != otherChannel.m_highestUserPriority) {
 		return m_highestUserPriority < otherChannel.m_highestUserPriority ? 1 : -1;
@@ -204,7 +198,7 @@ ContainerType TalkingUIChannel::getType() const {
 	return ContainerType::CHANNEL;
 }
 
-void TalkingUIChannel::addEntry(std::unique_ptr<TalkingUIEntry> entry) {
+void TalkingUIChannel::addEntry(std::unique_ptr< TalkingUIEntry > entry) {
 	if (entry->getPriority() > m_highestUserPriority) {
 		m_highestUserPriority = entry->getPriority();
 	}
@@ -224,8 +218,8 @@ void TalkingUIChannel::addEntry(std::unique_ptr<TalkingUIEntry> entry) {
 	}
 }
 
-std::unique_ptr<TalkingUIEntry> TalkingUIChannel::removeEntry(unsigned int associatedUserSession, EntryType type) {
-	std::unique_ptr<TalkingUIEntry> entry = TalkingUIContainer::removeEntry(associatedUserSession, type);
+std::unique_ptr< TalkingUIEntry > TalkingUIChannel::removeEntry(unsigned int associatedUserSession, EntryType type) {
+	std::unique_ptr< TalkingUIEntry > entry = TalkingUIContainer::removeEntry(associatedUserSession, type);
 
 	if (entry) {
 		m_channelBox->layout()->removeWidget(entry->getWidget());

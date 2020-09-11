@@ -11,7 +11,8 @@ BonjourServer::BonjourServer() {
 	bsrRegister = nullptr;
 #ifdef Q_OS_WIN
 	static bool bDelayLoadFailed = false;
-	if (bDelayLoadFailed) return;
+	if (bDelayLoadFailed)
+		return;
 
 	HMODULE hLib = LoadLibrary(L"DNSSD.DLL");
 	if (!hLib) {

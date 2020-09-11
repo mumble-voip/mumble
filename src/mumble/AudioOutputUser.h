@@ -9,27 +9,28 @@
 #include <QtCore/QObject>
 
 class AudioOutputUser : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutputUser)
-	protected:
-		unsigned int iBufferSize;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(AudioOutputUser)
+protected:
+	unsigned int iBufferSize;
 
-		/// Used to resize the buffer.
-		/// WARNING:
-		///          Audio callback is a dedicated place that can be executed
-		///          in a special thread or interrupt handler. Allocating
-		///          memory will probably crash the program!
-		void resizeBuffer(unsigned int newsize);
-	public:
-		AudioOutputUser(const QString& name);
-		~AudioOutputUser() Q_DECL_OVERRIDE;
-		const QString qsName;
-		float *pfBuffer = nullptr;
-		float *pfVolume = nullptr;
-		float fPos[3] = {0.0, 0.0, 0.0};
-		bool bStereo;
-		virtual bool prepareSampleBuffer(unsigned int snum) = 0;
+	/// Used to resize the buffer.
+	/// WARNING:
+	///          Audio callback is a dedicated place that can be executed
+	///          in a special thread or interrupt handler. Allocating
+	///          memory will probably crash the program!
+	void resizeBuffer(unsigned int newsize);
+
+public:
+	AudioOutputUser(const QString &name);
+	~AudioOutputUser() Q_DECL_OVERRIDE;
+	const QString qsName;
+	float *pfBuffer = nullptr;
+	float *pfVolume = nullptr;
+	float fPos[3]   = { 0.0, 0.0, 0.0 };
+	bool bStereo;
+	virtual bool prepareSampleBuffer(unsigned int snum) = 0;
 };
 
-#endif  // AUDIOOUTPUTUSER_H_
+#endif // AUDIOOUTPUTUSER_H_

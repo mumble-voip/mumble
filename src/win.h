@@ -11,15 +11,15 @@
 #define MUMBLE_WIN_H_
 
 #ifndef WIN32_LEAN_AND_MEAN
-# define WIN32_LEAN_AND_MEAN
+#	define WIN32_LEAN_AND_MEAN
 #endif
 
 #ifndef UNICODE
-# define UNICODE
+#	define UNICODE
 #endif
 
 #ifndef NOMINMAX
-# define NOMINMAX
+#	define NOMINMAX
 #endif
 
 #ifdef __MINGW32__
@@ -29,14 +29,14 @@
 // we need.
 // This seems to be required only with MXE, with MSYS2
 // the target is already Windows 7
-# if (_WIN32_WINNT < 0x0601)
-#  undef _WIN32_WINNT
-#  define _WIN32_WINNT 0x0601
-# endif
-# if (NTDDI_VERSION < NTDDI_WIN7)
-#  undef NTDDI_VERSION
-#  define NTDDI_VERSION NTDDI_WIN7
-# endif
+#	if (_WIN32_WINNT < 0x0601)
+#		undef _WIN32_WINNT
+#		define _WIN32_WINNT 0x0601
+#	endif
+#	if (NTDDI_VERSION < NTDDI_WIN7)
+#		undef NTDDI_VERSION
+#		define NTDDI_VERSION NTDDI_WIN7
+#	endif
 #endif
 
 #include <windows.h>
@@ -46,9 +46,9 @@
 // so define QOS_FLOWID (and PQOS_FLOWID) as well as QOS_NON_ADAPTIVE_FLOW
 // ourselves to allow us to build with QoS support on MinGW.
 typedef UINT32 QOS_FLOWID, *PQOS_FLOWID;
-# ifndef QOS_NON_ADAPTIVE_FLOW
-#  define QOS_NON_ADAPTIVE_FLOW 0x00000002
-# endif
+#	ifndef QOS_NON_ADAPTIVE_FLOW
+#		define QOS_NON_ADAPTIVE_FLOW 0x00000002
+#	endif
 #endif
 
 #endif // MUMBLE_WIN_H_

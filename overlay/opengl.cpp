@@ -12,72 +12,76 @@
 
 #include "../3rdparty/GL/glext.h"
 
-#define TDEF(ret, name, arg) typedef ret (__stdcall * t##name) arg
-#define GLDEF(ret, name, arg) TDEF(ret, name, arg); t##name o##name = nullptr
+#define TDEF(ret, name, arg) typedef ret(__stdcall *t##name) arg
+#define GLDEF(ret, name, arg) \
+	TDEF(ret, name, arg);     \
+	t##name o##name = nullptr
 
 GLDEF(HGLRC, wglCreateContext, (HDC));
-GLDEF(void, glGenTextures, (GLsizei, GLuint *));
-GLDEF(void, glDeleteTextures, (GLsizei, GLuint *));
+GLDEF(void, glGenTextures, (GLsizei, GLuint *) );
+GLDEF(void, glDeleteTextures, (GLsizei, GLuint *) );
 GLDEF(void, glEnable, (GLenum));
 GLDEF(void, glDisable, (GLenum));
 GLDEF(void, glBlendFunc, (GLenum, GLenum));
 GLDEF(void, glViewport, (GLint, GLint, GLsizei, GLsizei));
 GLDEF(void, glMatrixMode, (GLenum));
-GLDEF(void, glLoadIdentity, (void));
+GLDEF(void, glLoadIdentity, (void) );
 GLDEF(void, glOrtho, (GLdouble, GLdouble, GLdouble, GLdouble, GLdouble, GLdouble));
 GLDEF(void, glBindTexture, (GLenum, GLuint));
-GLDEF(void, glPushMatrix, (void));
+GLDEF(void, glPushMatrix, (void) );
 GLDEF(void, glBegin, (GLenum));
-GLDEF(void, glEnd, (void));
+GLDEF(void, glEnd, (void) );
 GLDEF(void, glTexCoord2f, (GLfloat, GLfloat));
 GLDEF(void, glVertex2f, (GLfloat, GLfloat));
-GLDEF(void, glPopMatrix, (void));
+GLDEF(void, glPopMatrix, (void) );
 GLDEF(void, glTexParameteri, (GLenum, GLenum, GLint));
 GLDEF(void, glTexEnvi, (GLenum, GLenum, GLint));
-GLDEF(void, glTexImage2D, (GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid *));
-GLDEF(void, glTexSubImage2D, (GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, const GLvoid *));
+GLDEF(void, glTexImage2D, (GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid *) );
+GLDEF(void, glTexSubImage2D, (GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, const GLvoid *) );
 GLDEF(void, glPixelStorei, (GLenum, GLint));
 GLDEF(void, wglMakeCurrent, (HDC, HGLRC));
-GLDEF(HGLRC, wglGetCurrentContext, (void));
-GLDEF(HDC, wglGetCurrentDC, (void));
-GLDEF(int, GetDeviceCaps, (HDC, int));
+GLDEF(HGLRC, wglGetCurrentContext, (void) );
+GLDEF(HDC, wglGetCurrentDC, (void) );
+GLDEF(int, GetDeviceCaps, (HDC, int) );
 
-#define INJDEF(ret, name, arg) GLDEF(ret, name, arg); static HardHook hh##name
+#define INJDEF(ret, name, arg) \
+	GLDEF(ret, name, arg);     \
+	static HardHook hh##name
 
 INJDEF(BOOL, wglSwapBuffers, (HDC));
 
 static bool bHooked = false;
 
 class Context : protected Pipe {
-	public:
-		Context(HDC hdc);
-		void draw(HDC hdc);
+public:
+	Context(HDC hdc);
+	void draw(HDC hdc);
 
-	protected:
-		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		virtual void setRect();
-		virtual void newTexture(unsigned int width, unsigned int height);
+protected:
+	virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+	virtual void setRect();
+	virtual void newTexture(unsigned int width, unsigned int height);
 
-	private:
-		HGLRC ctx;
-		GLuint texture;
+private:
+	HGLRC ctx;
+	GLuint texture;
 
-		clock_t timeT;
-		unsigned int frameCount;
+	clock_t timeT;
+	unsigned int frameCount;
 
-		void initContext();
-		void doDraw(HDC hdc);
+	void initContext();
+	void doDraw(HDC hdc);
 };
 
 Context::Context(HDC hdc) {
-	timeT = clock();
+	timeT      = clock();
 	frameCount = 0;
 
 	texture = ~0;
-	ctx = owglCreateContext(hdc);
+	ctx     = owglCreateContext(hdc);
 
 	HGLRC oldctx = owglGetCurrentContext();
-	HDC oldhdc = owglGetCurrentDC();
+	HDC oldhdc   = owglGetCurrentDC();
 	owglMakeCurrent(hdc, ctx);
 
 	initContext();
@@ -158,15 +162,15 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	unsigned char *ptr = new unsigned char[width*height*4];
-	memset(ptr, 0, width*height*4);
+	unsigned char *ptr = new unsigned char[width * height * 4];
+	memset(ptr, 0, width * height * 4);
 	oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
-	delete [] ptr;
+	delete[] ptr;
 }
 
 void Context::draw(HDC hdc) {
 	HGLRC oldctx = owglGetCurrentContext();
-	HDC oldhdc = owglGetCurrentDC();
+	HDC oldhdc   = owglGetCurrentDC();
 	owglMakeCurrent(hdc, ctx);
 
 	doDraw(hdc);
@@ -176,34 +180,34 @@ void Context::draw(HDC hdc) {
 
 void Context::doDraw(HDC hdc) {
 	// DEBUG
-	//sm->bDebug = true;
+	// sm->bDebug = true;
 
-	clock_t t = clock();
-	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
+	clock_t t     = clock();
+	float elapsed = static_cast< float >(t - timeT) / CLOCKS_PER_SEC;
 	++frameCount;
 	if (elapsed > OVERLAY_FPS_INTERVAL) {
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+		om.omh.uiType  = OVERLAY_MSGTYPE_FPS;
 		om.omh.iLength = sizeof(OverlayMsgFps);
-		om.omf.fps = frameCount / elapsed;
+		om.omf.fps     = frameCount / elapsed;
 
 		sendMessage(om);
 
 		frameCount = 0;
-		timeT = t;
+		timeT      = t;
 	}
 
 	unsigned int width, height;
 
-	width = oGetDeviceCaps(hdc, HORZRES);
+	width  = oGetDeviceCaps(hdc, HORZRES);
 	height = oGetDeviceCaps(hdc, VERTRES);
 
 	HWND hwnd = WindowFromDC(hdc);
 	if (hwnd) {
 		RECT r;
 		if (GetClientRect(hwnd, &r)) {
-			width = r.right - r.left;
+			width  = r.right - r.left;
 			height = r.bottom - r.top;
 		}
 	}
@@ -224,16 +228,16 @@ void Context::doDraw(HDC hdc) {
 	oglPushMatrix();
 	oglLoadIdentity();
 
-	float w = static_cast<float>(uiWidth);
-	float h = static_cast<float>(uiHeight);
+	float w = static_cast< float >(uiWidth);
+	float h = static_cast< float >(uiHeight);
 
-	float left   = static_cast<float>(uiLeft);
-	float top    = static_cast<float>(uiTop);
-	float right  = static_cast<float>(uiRight);
-	float bottom = static_cast<float>(uiBottom);
+	float left   = static_cast< float >(uiLeft);
+	float top    = static_cast< float >(uiTop);
+	float right  = static_cast< float >(uiRight);
+	float bottom = static_cast< float >(uiBottom);
 
-	float xm = (left) / w;
-	float ym = (top) / h;
+	float xm  = (left) / w;
+	float ym  = (top) / h;
 	float xmx = (right) / w;
 	float ymx = (bottom) / h;
 
@@ -254,17 +258,16 @@ void Context::doDraw(HDC hdc) {
 	oglEnd();
 
 	oglPopMatrix();
-
 }
 
-static map<HDC, Context *> contexts;
+static map< HDC, Context * > contexts;
 
 static void doSwap(HDC hdc) {
 	Context *c = contexts[hdc];
 
 	if (!c) {
 		ods("OpenGL: New context for device %p", hdc);
-		c = new Context(hdc);
+		c             = new Context(hdc);
 		contexts[hdc] = c;
 	} else {
 		ods("OpenGL: Reusing old context");
@@ -277,7 +280,7 @@ static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 	doSwap(hdc);
 
 	hhwglSwapBuffers.restore();
-	BOOL ret=owglSwapBuffers(hdc);
+	BOOL ret = owglSwapBuffers(hdc);
 	hhwglSwapBuffers.inject();
 
 	return ret;
@@ -288,15 +291,16 @@ static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 /// @return true if all symbols have been looked up and are available.
 ///         Otherwise false.
 static bool lookupSymbols(HMODULE hGL) {
-#define FNFIND(handle, name) {\
-	if (!o##name) {\
-		o##name = reinterpret_cast<t##name>(GetProcAddress(handle, #name));\
-		if (!o##name) {\
-			ods("OpenGL: Could not resolve symbol %s in %s", #name, #handle);\
-			return false;\
-		}\
-	}\
-}
+#define FNFIND(handle, name)                                                      \
+	{                                                                             \
+		if (!o##name) {                                                           \
+			o##name = reinterpret_cast< t##name >(GetProcAddress(handle, #name)); \
+			if (!o##name) {                                                       \
+				ods("OpenGL: Could not resolve symbol %s in %s", #name, #handle); \
+				return false;                                                     \
+			}                                                                     \
+		}                                                                         \
+	}
 
 	if (!hGL) {
 		return false;
@@ -360,17 +364,19 @@ void checkOpenGLHook() {
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 			HMODULE hTempSelf = nullptr;
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&checkOpenGLHook), &hTempSelf);
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast< LPCTSTR >(&checkOpenGLHook),
+							  &hTempSelf);
 
-#define INJECT(handle, name) {\
-	o##name = reinterpret_cast<t##name>(GetProcAddress(handle, #name));\
-	if (o##name) {\
-		hh##name.setup(reinterpret_cast<voidFunc>(o##name), reinterpret_cast<voidFunc>(my##name));\
-		o##name = (t##name) hh##name.call;\
-	} else {\
-		ods("OpenGL: Could not resolve symbol %s in %s", #name, #handle);\
-	}\
-}
+#define INJECT(handle, name)                                                                               \
+	{                                                                                                      \
+		o##name = reinterpret_cast< t##name >(GetProcAddress(handle, #name));                              \
+		if (o##name) {                                                                                     \
+			hh##name.setup(reinterpret_cast< voidFunc >(o##name), reinterpret_cast< voidFunc >(my##name)); \
+			o##name = (t##name) hh##name.call;                                                             \
+		} else {                                                                                           \
+			ods("OpenGL: Could not resolve symbol %s in %s", #name, #handle);                              \
+		}                                                                                                  \
+	}
 			INJECT(hGL, wglSwapBuffers);
 		}
 	} else {

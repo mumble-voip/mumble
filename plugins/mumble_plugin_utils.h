@@ -10,7 +10,7 @@
 #include <locale>
 
 static inline std::string utf16ToUtf8(const std::wstring &wstr) {
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
+	std::wstring_convert< std::codecvt_utf8_utf16< wchar_t > > conv;
 	return conv.to_bytes(wstr);
 }
 
@@ -33,7 +33,7 @@ static inline std::string utf16ToUtf8(const std::wstring &wstr) {
 static inline void escape(char *str, const size_t &size) {
 	// Ensure the input string is properly NUL-terminated.
 	str[size - 1] = 0;
-	char *c = str;
+	char *c       = str;
 
 	while (*c != '\0') {
 		// For JSON compatibility, the string

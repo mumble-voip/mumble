@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,14 +32,14 @@
    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/ 
+*/
 
 #include "../mumble_plugin_main.h"
 
 /*
-	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
-	Remember to disable scanning writable memory only in CE! We're searching for functions here, not values!
-	Current addresses as of version 1.0.0.145
+	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses
+   after every update Remember to disable scanning writable memory only in CE! We're searching for functions here, not
+   values! Current addresses as of version 1.0.0.145
 
 	Camera position vector address: F3 0F 11 03 F3 0F 10 44 24 14 D9 5C 24 28			:00B738E8
 	Camera front vector address: campos+0x14 (offset, not pointer!)
@@ -59,12 +59,12 @@
 
 static procptr_t posptr, afrontptr, tmpptr;
 
-static procptr_t posptr_ = 0x2F5E5F8;
-static procptr_t camptr = 0xB738E8;
+static procptr_t posptr_     = 0x2F5E5F8;
+static procptr_t camptr      = 0xB738E8;
 static procptr_t camfrontptr = 0x14;
-static procptr_t gameptr = 0xE22E90;
+static procptr_t gameptr     = 0xE22E90;
 
-static procptr_t hostipptr = 0xAF69D18;
+static procptr_t hostipptr   = 0xAF69D18;
 static procptr_t hostportptr = hostipptr + 0x1C;
 
 static std::string prev_hostip; // These should never change while the game is running, but just in case...
@@ -82,14 +82,14 @@ static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 
 static bool refreshPointers(void) {
 	posptr = afrontptr = tmpptr = 0;
-	
+
 	// Avatar front vector pointer
 	tmpptr = peekProcPtr(gameptr);
 	if (!tmpptr)
 		return false; // Something went wrong, unlink
 
 	afrontptr = tmpptr + 0x2acc;
-	
+
 	// Avatar position vector
 	tmpptr = peekProcPtr(posptr_);
 	if (!tmpptr)
@@ -100,7 +100,8 @@ static bool refreshPointers(void) {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring & /*identity*/) {
 	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -113,12 +114,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!peekProcPtr(gameptr))
 		return false;
 
-	ok = peekProc(camfrontptr, camera_front, 12) &&
-		 peekProc(camptr, cam, 12) &&
-		 peekProc(posptr, ipos, 12) &&
-		 peekProc(afrontptr, avatar_front, 12) &&
-		 peekProc(hostipptr, hostip) &&
-		 peekProc(hostportptr, &hostport, 4);
+	ok = peekProc(camfrontptr, camera_front, 12) && peekProc(camptr, cam, 12) && peekProc(posptr, ipos, 12)
+		 && peekProc(afrontptr, avatar_front, 12) && peekProc(hostipptr, hostip) && peekProc(hostportptr, &hostport, 4);
 
 	if (!ok)
 		return false;
@@ -126,10 +123,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Ensure strings are zero terminated
 	hostip[sizeof(hostip) - 1] = '\0';
 
-	calcout(ipos, cam, avatar_pos, camera_pos); //calculate proper position values
-	
+	calcout(ipos, cam, avatar_pos, camera_pos); // calculate proper position values
+
 	if (hostip != prev_hostip || hostport != prev_hostport) {
-		prev_hostip = hostip;
+		prev_hostip   = hostip;
 		prev_hostport = hostport;
 
 		if (strcmp(hostip, "") != 0) {
@@ -144,8 +141,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"League of Legends.exe"))
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
+	if (!initialize(pids, L"League of Legends.exe"))
 		return false;
 
 	if (refreshPointers()) { // unlink plugin if this fails
@@ -158,7 +155,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		std::wstring identity;
 
 		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
-			prev_hostip.clear(); // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
+			prev_hostip.clear(); // we need to do this again since fetch() above overwrites this (which results in empty
+								 // context until next change)
 			prev_hostport = 0;
 			return true;
 		}
@@ -176,26 +174,13 @@ static std::wstring description(L"League of Legends (v1.0.0.145)");
 static std::wstring shortname(L"League of Legends");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin lolplug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin lolplug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 lolplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 lolplug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &lolplug;

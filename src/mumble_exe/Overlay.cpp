@@ -11,4 +11,4 @@
 // defined here in mumble.exe (alongside the symbol in mumble_app.dll) because that
 // allows older versions of mumble_ol.dll that are not "mumble_app.dll"-aware at all
 // to continue to work in that world.
-extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
+extern "C" __declspec(dllexport) void mumbleSelfDetection(){};

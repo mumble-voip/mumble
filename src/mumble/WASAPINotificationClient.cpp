@@ -10,15 +10,16 @@
 #include <QtCore/QMutexLocker>
 #include <boost/thread/once.hpp>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EDataFlow flow, ERole role, LPCWSTR pwstrDefaultDevice) {
+HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EDataFlow flow, ERole role,
+																		   LPCWSTR pwstrDefaultDevice) {
 	const QString device = QString::fromWCharArray(pwstrDefaultDevice);
 
-	qWarning()	<< "WASAPINotificationClient: Default device changed flow=" << flow
-				<< "role=" << role
-				<< "device" << device;
+	qWarning() << "WASAPINotificationClient: Default device changed flow=" << flow << "role=" << role << "device"
+			   << device;
 
 	QMutexLocker lock(&listsMutex);
 	if (!usedDefaultDevices.empty() && role == eCommunications) {
@@ -27,17 +28,17 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EData
 	return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnPropertyValueChanged(LPCWSTR pwstrDeviceId, const PROPERTYKEY key) {
+HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnPropertyValueChanged(LPCWSTR pwstrDeviceId,
+																		   const PROPERTYKEY key) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 
-	const bool formatChanged = (key == PKEY_AudioEngine_DeviceFormat);
+	const bool formatChanged        = (key == PKEY_AudioEngine_DeviceFormat);
 	const bool channelConfigChanged = (key == PKEY_AudioEndpoint_PhysicalSpeakers);
 
 	QMutexLocker lock(&listsMutex);
 	if ((formatChanged || channelConfigChanged) && usedDevices.contains(device)) {
-		qWarning()	<<"WASAPINotificationClient: Property changed device=" << device
-					<< "formatChanged=" << formatChanged
-					<< "channelConfigChanged=" << channelConfigChanged;
+		qWarning() << "WASAPINotificationClient: Property changed device=" << device
+				   << "formatChanged=" << formatChanged << "channelConfigChanged=" << channelConfigChanged;
 
 		restartAudio();
 	}
@@ -58,25 +59,19 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceRemoved(LPCWSTR pwst
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceStateChanged(LPCWSTR pwstrDeviceId, DWORD dwNewState) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 
-	qWarning()	<< "WASAPINotificationClient: Device state changed newState=" << dwNewState
-				<< "device=" << device;
+	qWarning() << "WASAPINotificationClient: Device state changed newState=" << dwNewState << "device=" << device;
 
 	return S_OK;
 }
 
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::QueryInterface(REFIID riid, VOID **ppvInterface) {
-	if (IID_IUnknown == riid)
-	{
-		*ppvInterface = (IUnknown*)this;
+	if (IID_IUnknown == riid) {
+		*ppvInterface = (IUnknown *) this;
 		AddRef();
-	}
-	else if (__uuidof(IMMNotificationClient) == riid)
-	{
-		*ppvInterface = (IMMNotificationClient*)this;
+	} else if (__uuidof(IMMNotificationClient) == riid) {
+		*ppvInterface = (IMMNotificationClient *) this;
 		AddRef();
-	}
-	else
-	{
+	} else {
 		*ppvInterface = nullptr;
 		return E_NOINTERFACE;
 	}
@@ -110,14 +105,13 @@ void WASAPINotificationClient::enlistDeviceAsUsed(LPCWSTR pwstrDevice) {
 	_enlistDeviceAsUsed(device);
 }
 
-void WASAPINotificationClient::_enlistDeviceAsUsed(const QString& device)
-{
+void WASAPINotificationClient::_enlistDeviceAsUsed(const QString &device) {
 	if (!usedDevices.contains(device)) {
 		usedDevices.append(device);
 	}
 }
 
-void WASAPINotificationClient::enlistDeviceAsUsed(const QString& device) {
+void WASAPINotificationClient::enlistDeviceAsUsed(const QString &device) {
 	QMutexLocker lock(&listsMutex);
 	_enlistDeviceAsUsed(device);
 }
@@ -134,8 +128,7 @@ void WASAPINotificationClient::clearUsedDefaultDeviceList() {
 	usedDefaultDevices.clear();
 }
 
-void WASAPINotificationClient::_clearUsedDeviceLists()
-{
+void WASAPINotificationClient::_clearUsedDeviceLists() {
 	usedDefaultDevices.clear();
 	usedDevices.clear();
 }
@@ -146,17 +139,17 @@ void WASAPINotificationClient::clearUsedDeviceLists() {
 }
 
 void WASAPINotificationClient::doGetOnce() {
-	(void)WASAPINotificationClient::doGet();
+	(void) WASAPINotificationClient::doGet();
 }
 
-WASAPINotificationClient& WASAPINotificationClient::doGet() {
+WASAPINotificationClient &WASAPINotificationClient::doGet() {
 	static WASAPINotificationClient instance;
 	return instance;
 }
 
 static boost::once_flag notification_client_init_once = BOOST_ONCE_INIT;
 
-WASAPINotificationClient& WASAPINotificationClient::get() {
+WASAPINotificationClient &WASAPINotificationClient::get() {
 	// Hacky way of making sure we get a thread-safe yet lazy initialization of the static.
 	boost::call_once(&WASAPINotificationClient::doGetOnce, notification_client_init_once);
 	return doGet();
@@ -165,7 +158,8 @@ WASAPINotificationClient& WASAPINotificationClient::get() {
 WASAPINotificationClient::WASAPINotificationClient() : QObject(), pEnumerator(0), listsMutex() {
 	AddRef(); // Static singleton, always has a self-reference
 
-	HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+	HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator),
+								  reinterpret_cast< void ** >(&pEnumerator));
 	if (!pEnumerator || FAILED(hr)) {
 		if (pEnumerator) {
 			pEnumerator->Release();

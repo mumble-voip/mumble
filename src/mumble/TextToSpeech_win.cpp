@@ -12,21 +12,21 @@
 // clang-format on
 
 #undef FAILED
-#define FAILED(Status) (static_cast<HRESULT>(Status)<0)
+#define FAILED(Status) (static_cast< HRESULT >(Status) < 0)
 
 class TextToSpeechPrivate {
-	public:
-		ISpVoice * pVoice;
-		TextToSpeechPrivate();
-		~TextToSpeechPrivate();
-		void say(const QString &text);
-		void setVolume(int v);
+public:
+	ISpVoice *pVoice;
+	TextToSpeechPrivate();
+	~TextToSpeechPrivate();
+	void say(const QString &text);
+	void setVolume(int v);
 };
 
 TextToSpeechPrivate::TextToSpeechPrivate() {
 	pVoice = nullptr;
 
-	HRESULT hr = CoCreateInstance(CLSID_SpVoice, nullptr, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+	HRESULT hr = CoCreateInstance(CLSID_SpVoice, nullptr, CLSCTX_ALL, IID_ISpVoice, (void **) &pVoice);
 	if (FAILED(hr))
 		qWarning("TextToSpeechPrivate: Failed to allocate TTS Voice");
 }
@@ -49,7 +49,7 @@ void TextToSpeechPrivate::setVolume(int volume) {
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
 	enabled = true;
-	d = new TextToSpeechPrivate();
+	d       = new TextToSpeechPrivate();
 }
 
 TextToSpeech::~TextToSpeech() {

@@ -13,7 +13,8 @@
 
 #include <QtCore/QUrl>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 static QString decode_utf8_qssl_string(const QString &input) {
@@ -70,12 +71,12 @@ void UserInformation::on_qpbCertificate_clicked() {
 QString UserInformation::secsToString(unsigned int secs) {
 	QStringList qsl;
 
-	int weeks = secs / (60 * 60 * 24 * 7);
-	secs = secs % (60 * 60 * 24 * 7);
-	int days = secs / (60 * 60 * 24);
-	secs = secs % (60 * 60 * 24);
-	int hours = secs / (60 * 60);
-	secs = secs % (60 * 60);
+	int weeks   = secs / (60 * 60 * 24 * 7);
+	secs        = secs % (60 * 60 * 24 * 7);
+	int days    = secs / (60 * 60 * 24);
+	secs        = secs % (60 * 60 * 24);
+	int hours   = secs / (60 * 60);
+	secs        = secs % (60 * 60);
 	int minutes = secs / 60;
 	int seconds = secs % 60;
 
@@ -104,16 +105,17 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	if (msg.certificates_size() > 0) {
 		showcon = true;
 		qlCerts.clear();
-		for (int i=0;i<msg.certificates_size(); ++i) {
+		for (int i = 0; i < msg.certificates_size(); ++i) {
 			const std::string &s = msg.certificates(i);
-			QList<QSslCertificate> certs = QSslCertificate::fromData(QByteArray(s.data(), static_cast<int>(s.length())), QSsl::Der);
-			qlCerts <<certs;
+			QList< QSslCertificate > certs =
+				QSslCertificate::fromData(QByteArray(s.data(), static_cast< int >(s.length())), QSsl::Der);
+			qlCerts << certs;
 		}
-		if (! qlCerts.isEmpty()) {
+		if (!qlCerts.isEmpty()) {
 			qpbCertificate->setEnabled(true);
 
-			const QSslCertificate &cert = qlCerts.last();
-			const QMultiMap<QSsl::AlternativeNameEntryType, QString> &alts = cert.subjectAlternativeNames();
+			const QSslCertificate &cert                                      = qlCerts.last();
+			const QMultiMap< QSsl::AlternativeNameEntryType, QString > &alts = cert.subjectAlternativeNames();
 			if (alts.contains(QSsl::EmailEntry))
 				qlCertificate->setText(QStringList(alts.values(QSsl::EmailEntry)).join(tr(", ")));
 			else
@@ -146,8 +148,8 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	}
 	if (msg.celt_versions_size() > 0) {
 		QStringList qsl;
-		for (int i=0;i<msg.celt_versions_size(); ++i) {
-			int v = msg.celt_versions(i);
+		for (int i = 0; i < msg.celt_versions_size(); ++i) {
+			int v         = msg.celt_versions(i);
 			CELTCodec *cc = g.qmCodecs.value(v);
 			if (cc)
 				qsl << cc->version();
@@ -186,8 +188,10 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		qlToResync->setText(QString::number(to.resync()));
 
 		quint32 allFromPackets = from.good() + from.late() + from.lost();
-		qlFromLatePercent->setText(QString::number(allFromPackets > 0 ? from.late() * 100.0 / allFromPackets : 0., 'f', 2));
-		qlFromLostPercent->setText(QString::number(allFromPackets > 0 ? from.lost() * 100.0 / allFromPackets : 0., 'f', 2));
+		qlFromLatePercent->setText(
+			QString::number(allFromPackets > 0 ? from.late() * 100.0 / allFromPackets : 0., 'f', 2));
+		qlFromLostPercent->setText(
+			QString::number(allFromPackets > 0 ? from.lost() * 100.0 / allFromPackets : 0., 'f', 2));
 
 		quint32 allToPackets = to.good() + to.late() + to.lost();
 		qlToLatePercent->setText(QString::number(allToPackets > 0 ? to.late() * 100.0 / allToPackets : 0., 'f', 2));
@@ -198,7 +202,8 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 
 	if (msg.has_onlinesecs()) {
 		if (msg.has_idlesecs())
-			qlTime->setText(tr("%1 online (%2 idle)").arg(secsToString(msg.onlinesecs()), secsToString(msg.idlesecs())));
+			qlTime->setText(
+				tr("%1 online (%2 idle)").arg(secsToString(msg.onlinesecs()), secsToString(msg.idlesecs())));
 		else
 			qlTime->setText(tr("%1 online").arg(secsToString(msg.onlinesecs())));
 	}

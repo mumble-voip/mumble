@@ -5,9 +5,7 @@
 
 #include "UserLockFile.h"
 
-UserLockFile::UserLockFile(const QString &lockFilePath)
-	: m_handle(0)
-	, m_path(lockFilePath) {
+UserLockFile::UserLockFile(const QString &lockFilePath) : m_handle(0), m_path(lockFilePath) {
 }
 
 UserLockFile::~UserLockFile() {
@@ -23,15 +21,8 @@ bool UserLockFile::acquire() {
 		return false;
 	}
 
-	m_handle = CreateFile(
-		reinterpret_cast<const wchar_t *>(m_path.utf16()),
-		GENERIC_WRITE,
-		0,
-		nullptr,
-		CREATE_ALWAYS,
-		FILE_ATTRIBUTE_HIDDEN,
-		nullptr
-	);
+	m_handle = CreateFile(reinterpret_cast< const wchar_t * >(m_path.utf16()), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+						  FILE_ATTRIBUTE_HIDDEN, nullptr);
 	if (m_handle == INVALID_HANDLE_VALUE && GetLastError() == ERROR_SHARING_VIOLATION) {
 		return false;
 	}

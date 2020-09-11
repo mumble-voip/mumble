@@ -11,36 +11,39 @@
 class OverlayUser;
 
 class OverlayUserGroup : public QObject, public OverlayGroup {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayUserGroup);
-	public:
-		enum { Type = UserType + 3 };
-	protected:
-		OverlaySettings *os;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(OverlayUserGroup);
 
-		QMap<QObject *, OverlayUser *> qmUsers;
-		QList<OverlayUser *> qlExampleUsers;
+public:
+	enum { Type = UserType + 3 };
 
-		QGraphicsEllipseItem *qgeiHandle;
+protected:
+	OverlaySettings *os;
 
-		void contextMenuEvent(QGraphicsSceneContextMenuEvent *e) Q_DECL_OVERRIDE;
-		void wheelEvent(QGraphicsSceneWheelEvent *e) Q_DECL_OVERRIDE;
-		bool sceneEventFilter(QGraphicsItem *, QEvent *e) Q_DECL_OVERRIDE;
-	protected slots:
-		void userDestroyed(QObject *);
-		void moveUsers();
-	public:
-		bool bShowExamples;
+	QMap< QObject *, OverlayUser * > qmUsers;
+	QList< OverlayUser * > qlExampleUsers;
 
-		OverlayUserGroup(OverlaySettings *);
-		~OverlayUserGroup() Q_DECL_OVERRIDE;
+	QGraphicsEllipseItem *qgeiHandle;
 
-		int type() const Q_DECL_OVERRIDE;
-	public slots:
-		void reset();
-		void updateUsers();
-		void updateLayout();
+	void contextMenuEvent(QGraphicsSceneContextMenuEvent *e) Q_DECL_OVERRIDE;
+	void wheelEvent(QGraphicsSceneWheelEvent *e) Q_DECL_OVERRIDE;
+	bool sceneEventFilter(QGraphicsItem *, QEvent *e) Q_DECL_OVERRIDE;
+protected slots:
+	void userDestroyed(QObject *);
+	void moveUsers();
+
+public:
+	bool bShowExamples;
+
+	OverlayUserGroup(OverlaySettings *);
+	~OverlayUserGroup() Q_DECL_OVERRIDE;
+
+	int type() const Q_DECL_OVERRIDE;
+public slots:
+	void reset();
+	void updateUsers();
+	void updateLayout();
 };
 
 #endif

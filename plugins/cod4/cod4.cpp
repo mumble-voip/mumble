@@ -7,12 +7,13 @@
 
 using namespace std;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring &) {
 	float viewHor, viewVer;
 	char state;
 	char ccontext[128];
 
-	for (int i=0;i<3;i++)
+	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
@@ -31,7 +32,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x0074E380		byte	Magical state value
 	*/
 	ok = peekProc(0x0074E380, &state, 1); // Magical state value
-	if (! ok)
+	if (!ok)
 		return false;
 	/*
 		state value is:
@@ -45,25 +46,25 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc(0x0072AFD0, avatar_pos+2, 4) &&	//Z
-	     peekProc(0x0072AFE0, avatar_pos, 4) &&	//X
-	     peekProc(0x0072AFF0, avatar_pos+1, 4) && //Y
-	     peekProc(0x0072AF3C, &viewHor, 4) && //Hor
-	     peekProc(0x0072AF38, &viewVer, 4) && //Ver
-	     peekProc(0x00956D88, ccontext, 128);
+	ok = peekProc(0x0072AFD0, avatar_pos + 2, 4) && // Z
+		 peekProc(0x0072AFE0, avatar_pos, 4) &&     // X
+		 peekProc(0x0072AFF0, avatar_pos + 1, 4) && // Y
+		 peekProc(0x0072AF3C, &viewHor, 4) &&       // Hor
+		 peekProc(0x0072AF38, &viewVer, 4) &&       // Ver
+		 peekProc(0x00956D88, ccontext, 128);
 
-	if (! ok)
+	if (!ok)
 		return false;
 
 	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
+		Get context string; in this plugin this will be an
+		ip:port (char 256 bytes) string
 	*/
 
 	ccontext[127] = 0;
-	context = std::string(ccontext);
+	context       = std::string(ccontext);
 
-	if (context.find(':')==string::npos)
+	if (context.find(':') == string::npos)
 		context.append(":28960");
 
 	// Scale Coordinates
@@ -76,9 +77,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				  decreasing when going down
 	   40 units = 1 meter (not confirmed)
 	*/
-	for (int i=0;i<3;i++)
-		avatar_pos[i]/=40.0f; // Scale to meters
-	avatar_pos[0]*=(-1.0f); // Convert right to left handed
+	for (int i = 0; i < 3; i++)
+		avatar_pos[i] /= 40.0f; // Scale to meters
+	avatar_pos[0] *= (-1.0f);   // Convert right to left handed
 
 	avatar_top[2] = -1; // Head movement is in front vector
 
@@ -95,24 +96,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				   270° when facing East
 	   Increasing when turning left.
 	*/
-	viewVer *= static_cast<float>(M_PI / 180.0f);
-	viewHor *= static_cast<float>(M_PI / 180.0f);
+	viewVer *= static_cast< float >(M_PI / 180.0f);
+	viewHor *= static_cast< float >(M_PI / 180.0f);
 
 	avatar_front[0] = -sin(viewHor) * cos(viewVer);
 	avatar_front[1] = -sin(viewVer);
 	avatar_front[2] = cos(viewHor) * cos(viewVer);
 
-	for (int i=0;i<3;i++) {
-		camera_pos[i] = avatar_pos[i];
+	for (int i = 0; i < 3; i++) {
+		camera_pos[i]   = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
+		camera_top[i]   = avatar_top[i];
 	}
 
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"iw3mp.exe"))
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
+	if (!initialize(pids, L"iw3mp.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
@@ -135,26 +136,13 @@ static std::wstring description(L"Call of Duty 4 v1.7.568");
 static std::wstring shortname(L"Call of Duty 4");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin cod4plug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin cod4plug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								 generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 cod4plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 cod4plug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &cod4plug;

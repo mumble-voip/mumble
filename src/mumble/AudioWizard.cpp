@@ -16,7 +16,8 @@
 
 #include <cmath>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 CompletablePage::CompletablePage(QWizard *p) : QWizardPage(p) {
@@ -33,8 +34,8 @@ bool CompletablePage::isComplete() const {
 }
 
 AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
-	bInit = true;
-	bLastActive = false;
+	bInit            = true;
+	bLastActive      = false;
 	g.bInAudioWizard = true;
 	g.mw->onChangeMute();
 
@@ -57,13 +58,13 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	// Device
 	if (AudioInputRegistrar::qmNew) {
-		foreach(AudioInputRegistrar *air, *AudioInputRegistrar::qmNew) {
+		foreach (AudioInputRegistrar *air, *AudioInputRegistrar::qmNew) {
 			qcbInput->addItem(air->name);
 			if (air->name == AudioInputRegistrar::current) {
 				qcbInput->setCurrentIndex(qcbInput->count() - 1);
 				qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
 			}
-			QList<audioDevice> ql= air->getDeviceChoices();
+			QList< audioDevice > ql = air->getDeviceChoices();
 		}
 	}
 	if (qcbInput->count() < 2) {
@@ -73,14 +74,14 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	qcbEcho->setChecked(g.s.bEcho);
 
 	if (AudioOutputRegistrar::qmNew) {
-		foreach(AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
+		foreach (AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
 			qcbOutput->addItem(aor->name);
 			if (aor->name == AudioOutputRegistrar::current) {
 				qcbOutput->setCurrentIndex(qcbOutput->count() - 1);
 				bDelay = aor->usesOutputDelay();
 				qcbAttenuateOthers->setEnabled(aor->canMuteOthers());
 			}
-			QList<audioDevice> ql= aor->getDeviceChoices();
+			QList< audioDevice > ql = aor->getDeviceChoices();
 		}
 	}
 
@@ -106,7 +107,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		qrbQualityCustom->setChecked(true);
 
 	quint32 iMessage = Settings::LogNone;
-	for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
+	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 		iMessage |= (g.s.qmMessages[i] & (Settings::LogSoundfile | Settings::LogTTS));
 	}
 
@@ -135,12 +136,12 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	on_qcbInput_activated(qcbInput->currentIndex());
 	on_qcbOutput_activated(qcbOutput->currentIndex());
 
-	abAmplify->qcBelow = Qt::blue;
+	abAmplify->qcBelow  = Qt::blue;
 	abAmplify->qcInside = Qt::green;
-	abAmplify->qcAbove = Qt::red;
+	abAmplify->qcAbove  = Qt::red;
 
 	// Trigger
-	foreach(const Shortcut &s, g.s.qlShortcuts) {
+	foreach (const Shortcut &s, g.s.qlShortcuts) {
 		if (s.iIndex == g.mw->gsPushTalk->idx) {
 			skwPTT->setShortcut(s.qlButtons);
 			break;
@@ -154,9 +155,9 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	else
 		qrSNR->setChecked(true);
 
-	abVAD->qcBelow = Qt::red;
+	abVAD->qcBelow  = Qt::red;
 	abVAD->qcInside = Qt::yellow;
-	abVAD->qcAbove = Qt::green;
+	abVAD->qcAbove  = Qt::green;
 
 	qsVAD->setValue(iroundf(g.s.fVADmax * 32767.f + 0.5f));
 
@@ -164,8 +165,8 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	qcbHeadphone->setChecked(g.s.bPositionalHeadphone);
 
 	fAngle = 0.0f;
-	fX = fY = 0.0f;
-	qgsScene = nullptr;
+	fX = fY   = 0.0f;
+	qgsScene  = nullptr;
 	qgiSource = nullptr;
 	aosSource = nullptr;
 	qgvView->scale(1.0f, -1.0f);
@@ -184,20 +185,20 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	resize(700, 500);
 
 	updateTriggerWidgets(qrPTT->isChecked());
-	sOldSettings = g.s;
-	g.s.lmLoopMode = Settings::Local;
-	g.s.dPacketLoss = 0.0;
+	sOldSettings        = g.s;
+	g.s.lmLoopMode      = Settings::Local;
+	g.s.dPacketLoss     = 0.0;
 	g.s.dMaxPacketDelay = 0.0;
-	g.s.bMute = true;
-	g.s.bDeaf = false;
+	g.s.bMute           = true;
+	g.s.bDeaf           = false;
 
 	bTransmitChanged = false;
 
 	iMaxPeak = 0;
-	iTicks = 0;
+	iTicks   = 0;
 
-	qpTalkingOn = QPixmap::fromImage(QImage(QLatin1String("skin:talking_on.svg")).scaled(64,64));
-	qpTalkingOff = QPixmap::fromImage(QImage(QLatin1String("skin:talking_off.svg")).scaled(64,64));
+	qpTalkingOn  = QPixmap::fromImage(QImage(QLatin1String("skin:talking_on.svg")).scaled(64, 64));
+	qpTalkingOff = QPixmap::fromImage(QImage(QLatin1String("skin:talking_off.svg")).scaled(64, 64));
 
 	bInit = false;
 
@@ -208,14 +209,13 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 }
 
 bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
-	if ((evt->type() == QEvent::MouseButtonPress) ||
-	        (evt->type() == QEvent::MouseMove)) {
-		QMouseEvent *qme = dynamic_cast<QMouseEvent *>(evt);
+	if ((evt->type() == QEvent::MouseButtonPress) || (evt->type() == QEvent::MouseMove)) {
+		QMouseEvent *qme = dynamic_cast< QMouseEvent * >(evt);
 		if (qme) {
 			if (qme->buttons() & Qt::LeftButton) {
 				QPointF qpf = qgvView->mapToScene(qme->pos());
-				fX = static_cast<float>(qpf.x());
-				fY = static_cast<float>(qpf.y());
+				fX          = static_cast< float >(qpf.x());
+				fY          = static_cast< float >(qpf.y());
 			}
 		}
 	}
@@ -225,15 +225,13 @@ bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
 void AudioWizard::on_qcbInput_activated(int) {
 	qcbInputDevice->clear();
 
-	if (! AudioInputRegistrar::qmNew)
+	if (!AudioInputRegistrar::qmNew)
 		return;
 
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
-	QList<audioDevice> ql = air->getDeviceChoices();
+	QList< audioDevice > ql  = air->getDeviceChoices();
 
-	foreach(audioDevice d, ql) {
-		qcbInputDevice->addItem(d.first, d.second);
-	}
+	foreach (audioDevice d, ql) { qcbInputDevice->addItem(d.first, d.second); }
 
 	qcbInputDevice->setEnabled(ql.count() > 1);
 
@@ -244,13 +242,13 @@ void AudioWizard::on_qcbInputDevice_activated(int) {
 	if (bInit)
 		return;
 
-	if (! AudioInputRegistrar::qmNew)
+	if (!AudioInputRegistrar::qmNew)
 		return;
 
 	Audio::stopInput();
 
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
-	int idx = qcbInputDevice->currentIndex();
+	int idx                  = qcbInputDevice->currentIndex();
 	if (idx > -1) {
 		air->setDeviceChoice(qcbInputDevice->itemData(idx), g.s);
 	}
@@ -264,15 +262,13 @@ void AudioWizard::on_qcbInputDevice_activated(int) {
 void AudioWizard::on_qcbOutput_activated(int) {
 	qcbOutputDevice->clear();
 
-	if (! AudioOutputRegistrar::qmNew)
+	if (!AudioOutputRegistrar::qmNew)
 		return;
 
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
-	QList<audioDevice> ql = aor->getDeviceChoices();
+	QList< audioDevice > ql   = aor->getDeviceChoices();
 
-	foreach(audioDevice d, ql) {
-		qcbOutputDevice->addItem(d.first, d.second);
-	}
+	foreach (audioDevice d, ql) { qcbOutputDevice->addItem(d.first, d.second); }
 
 	qcbAttenuateOthers->setEnabled(aor->canMuteOthers());
 
@@ -285,13 +281,13 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 	if (bInit)
 		return;
 
-	if (! AudioOutputRegistrar::qmNew)
+	if (!AudioOutputRegistrar::qmNew)
 		return;
 
 	Audio::stopOutput();
 
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
-	int idx = qcbOutputDevice->currentIndex();
+	int idx                   = qcbOutputDevice->currentIndex();
 	if (idx > -1) {
 		aor->setDeviceChoice(qcbOutputDevice->itemData(idx), g.s);
 		bDelay = aor->usesOutputDelay();
@@ -305,7 +301,7 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 }
 
 void AudioWizard::on_qsOutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1 ms").arg(v*10));
+	qlOutputDelay->setText(tr("%1 ms").arg(v * 10));
 	g.s.iOutputDelay = v;
 	restartAudio();
 }
@@ -318,7 +314,7 @@ void AudioWizard::showPage(int pageid) {
 	if (pageid == -1)
 		return;
 
-	CompletablePage *cp = qobject_cast<CompletablePage *>(currentPage());
+	CompletablePage *cp = qobject_cast< CompletablePage * >(currentPage());
 
 	AudioOutputPtr ao = g.ao;
 	if (ao)
@@ -335,13 +331,13 @@ void AudioWizard::showPage(int pageid) {
 		g.s.bMute = true;
 		playChord();
 	} else if (cp == qwpPositional) {
-		fX = fY = 0.0f;
-		g.s.bMute = true;
+		fX = fY    = 0.0f;
+		g.s.bMute  = true;
 		g.bPosTest = true;
 		if (qgsScene) {
 			delete qgsScene;
 			qgiSource = nullptr;
-			qgsScene = nullptr;
+			qgsScene  = nullptr;
 		}
 		playChord();
 	} else {
@@ -349,7 +345,7 @@ void AudioWizard::showPage(int pageid) {
 	}
 
 	if ((cp == qwpTrigger) || (cp == qwpSettings)) {
-		if (! bTransmitChanged)
+		if (!bTransmitChanged)
 			g.s.atTransmit = sOldSettings.atTransmit;
 		else if (qrPTT->isChecked())
 			g.s.atTransmit = Settings::PushToTalk;
@@ -364,16 +360,16 @@ int AudioWizard::nextId() const {
 	AudioOutputPtr ao = g.ao;
 
 	int nextid = QWizard::nextId();
-	if (currentPage() == qwpSettings && ! g.s.bPositionalAudio)
+	if (currentPage() == qwpSettings && !g.s.bPositionalAudio)
 		nextid++;
-	else if ((currentPage() == qwpDevice) && ! bDelay)
+	else if ((currentPage() == qwpDevice) && !bDelay)
 		nextid++;
 	return nextid;
 }
 
 void AudioWizard::playChord() {
 	AudioOutputPtr ao = g.ao;
-	if (! ao || aosSource || bInit)
+	if (!ao || aosSource || bInit)
 		return;
 	aosSource = ao->playSample(QLatin1String(":/wb_male.oga"), true);
 }
@@ -383,7 +379,7 @@ void AudioWizard::restartAudio() {
 
 	Audio::stop();
 
-	g.s.qsAudioInput = qcbInput->currentText();
+	g.s.qsAudioInput  = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
 
 	Audio::start();
@@ -391,7 +387,7 @@ void AudioWizard::restartAudio() {
 	if (qgsScene) {
 		delete qgsScene;
 		qgiSource = nullptr;
-		qgsScene = nullptr;
+		qgsScene  = nullptr;
 	}
 
 	if ((currentPage() == qwpPositional) || (currentPage() == qwpDeviceTuning))
@@ -407,7 +403,7 @@ void AudioWizard::reject() {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
-	aosSource = nullptr;
+	aosSource        = nullptr;
 	g.bInAudioWizard = false;
 	g.mw->onChangeMute();
 
@@ -415,22 +411,22 @@ void AudioWizard::reject() {
 }
 
 void AudioWizard::accept() {
-	if (! bTransmitChanged)
+	if (!bTransmitChanged)
 		g.s.atTransmit = sOldSettings.atTransmit;
 	else if (qrPTT->isChecked())
 		g.s.atTransmit = Settings::PushToTalk;
 	else
 		g.s.atTransmit = Settings::VAD;
 
-	g.s.bMute = sOldSettings.bMute;
-	g.s.bDeaf = sOldSettings.bDeaf;
+	g.s.bMute      = sOldSettings.bMute;
+	g.s.bDeaf      = sOldSettings.bDeaf;
 	g.s.lmLoopMode = Settings::None;
 
 	// Switch TTS<->Sounds according to user selection
 	if (!qrbNotificationCustom->isChecked()) {
 		Settings::MessageLog mlReplace = qrbNotificationTTS->isChecked() ? Settings::LogSoundfile : Settings::LogTTS;
 
-		for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
+		for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 			if (g.s.qmMessages[i] & mlReplace)
 				g.s.qmMessages[i] ^= Settings::LogSoundfile | Settings::LogTTS;
 		}
@@ -458,30 +454,30 @@ bool AudioWizard::validateCurrentPage() {
 }
 
 void AudioWizard::on_Ticker_timeout() {
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai  = g.ai;
 	AudioOutputPtr ao = g.ao;
-	if (! ai || ! ao)
+	if (!ai || !ao)
 		return;
 
-	int iPeak = static_cast<int>(ai->dMaxMic);
+	int iPeak = static_cast< int >(ai->dMaxMic);
 
 	if (iTicks++ >= 50) {
 		iMaxPeak = 0;
-		iTicks = 0;
+		iTicks   = 0;
 	}
 	if (iPeak > iMaxPeak)
 		iMaxPeak = iPeak;
 
 	abAmplify->iBelow = qsMaxAmp->value();
 	abAmplify->iValue = iPeak;
-	abAmplify->iPeak = iMaxPeak;
+	abAmplify->iPeak  = iMaxPeak;
 	abAmplify->update();
 
 	abVAD->iBelow = iroundf(g.s.fVADmin * 32767.0f + 0.5f);
 	abVAD->iAbove = iroundf(g.s.fVADmax * 32767.0f + 0.5f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-		abVAD->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
+		abVAD->iValue = iroundf((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 	} else {
 		abVAD->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
 	}
@@ -493,7 +489,7 @@ void AudioWizard::on_Ticker_timeout() {
 		qlTalkIcon->setPixmap(active ? qpTalkingOn : qpTalkingOff);
 	}
 
-	if (! qgsScene) {
+	if (!qgsScene) {
 		const float baseRadius = 0.5;
 
 		unsigned int nspeaker = 0;
@@ -514,23 +510,24 @@ void AudioWizard::on_Ticker_timeout() {
 			// of exactly 1 pixel
 			pen.setWidth(0);
 
-			QGraphicsEllipseItem *ownPos = qgsScene->addEllipse(QRectF(-baseRadius, -baseRadius, 2*baseRadius, 2*baseRadius), pen, QBrush(skyBlueColor));
+			QGraphicsEllipseItem *ownPos = qgsScene->addEllipse(
+				QRectF(-baseRadius, -baseRadius, 2 * baseRadius, 2 * baseRadius), pen, QBrush(skyBlueColor));
 			ownPos->setPos(0, 0);
 
 			// Good for debugging: This draws a cross at the origin
 			// qgsScene->addLine(QLineF(0,-1,0,1), pen);
 			// qgsScene->addLine(QLineF(-1,0,1,0), pen);
 
-			const float speakerScale = 0.9;
+			const float speakerScale  = 0.9;
 			const float speakerRadius = baseRadius * speakerScale;
 
 			// nspeaker is in format [x1,y1,z1, x2,y2,z2, ...]
-			for (unsigned int i=0;i<nspeaker;++i) {
-				if ((spos[3*i] != 0.0f) || (spos[3*i+1] != 0.0f) || (spos[3*i+2] != 0.0f)) {
-					float x = spos[3*i];
-					float z = spos[3*i + 2];
+			for (unsigned int i = 0; i < nspeaker; ++i) {
+				if ((spos[3 * i] != 0.0f) || (spos[3 * i + 1] != 0.0f) || (spos[3 * i + 2] != 0.0f)) {
+					float x = spos[3 * i];
+					float z = spos[3 * i + 2];
 
-					const float lengthInPlane = std::sqrt(x*x + z*z);
+					const float lengthInPlane = std::sqrt(x * x + z * z);
 
 					// Scale the vector in the xz plane so that its length is at least enough for
 					// the speaker icons and the icon for the own pos don't overlap
@@ -541,15 +538,18 @@ void AudioWizard::on_Ticker_timeout() {
 						z *= scaleFactor;
 					}
 
-					QGraphicsEllipseItem *ellipse = qgsScene->addEllipse(QRectF(-speakerRadius, -speakerRadius, 2 * speakerRadius , 2 * speakerRadius), pen, QBrush(vermillionColor));
+					QGraphicsEllipseItem *ellipse = qgsScene->addEllipse(
+						QRectF(-speakerRadius, -speakerRadius, 2 * speakerRadius, 2 * speakerRadius), pen,
+						QBrush(vermillionColor));
 					ellipse->setPos(x, z);
 				}
 			}
 
-			const float sourceScale = 0.9;
+			const float sourceScale  = 0.9;
 			const float sourceRadius = baseRadius * sourceScale;
 
-			qgiSource = qgsScene->addEllipse(QRectF(-sourceRadius, -sourceRadius, 2 * sourceRadius, 2 * sourceRadius), pen, QBrush(bluishGreenColor));
+			qgiSource = qgsScene->addEllipse(QRectF(-sourceRadius, -sourceRadius, 2 * sourceRadius, 2 * sourceRadius),
+											 pen, QBrush(bluishGreenColor));
 			qgiSource->setPos(0, (sourceRadius + baseRadius) * 1.5);
 
 			qgvView->setScene(qgsScene);
@@ -584,15 +584,15 @@ void AudioWizard::on_Ticker_timeout() {
 }
 
 void AudioWizard::on_qsVAD_valueChanged(int v) {
-	if (! bInit) {
-		g.s.fVADmax = static_cast<float>(v) / 32767.0f;
+	if (!bInit) {
+		g.s.fVADmax = static_cast< float >(v) / 32767.0f;
 		g.s.fVADmin = g.s.fVADmax * 0.9f;
 	}
 }
 
 void AudioWizard::on_qrSNR_clicked(bool on) {
 	if (on) {
-		g.s.vsVAD = Settings::SignalToNoise;
+		g.s.vsVAD      = Settings::SignalToNoise;
 		g.s.atTransmit = Settings::VAD;
 		updateTriggerWidgets(false);
 		bTransmitChanged = true;
@@ -601,7 +601,7 @@ void AudioWizard::on_qrSNR_clicked(bool on) {
 
 void AudioWizard::on_qrAmplitude_clicked(bool on) {
 	if (on) {
-		g.s.vsVAD = Settings::Amplitude;
+		g.s.vsVAD      = Settings::Amplitude;
 		g.s.atTransmit = Settings::VAD;
 		updateTriggerWidgets(false);
 		bTransmitChanged = true;
@@ -625,29 +625,28 @@ void AudioWizard::on_skwPTT_keySet(bool valid, bool last) {
 	bTransmitChanged = true;
 
 	if (last) {
-
-		const QList<QVariant> &buttons = skwPTT->getShortcut();
-		QList<Shortcut> ql;
+		const QList< QVariant > &buttons = skwPTT->getShortcut();
+		QList< Shortcut > ql;
 		bool found = false;
-		foreach(Shortcut s, g.s.qlShortcuts) {
+		foreach (Shortcut s, g.s.qlShortcuts) {
 			if (s.iIndex == g.mw->gsPushTalk->idx) {
 				if (buttons.isEmpty())
 					continue;
-				else if (! found) {
+				else if (!found) {
 					s.qlButtons = buttons;
-					found = true;
+					found       = true;
 				}
 			}
 			ql << s;
 		}
-		if (! found && ! buttons.isEmpty()) {
+		if (!found && !buttons.isEmpty()) {
 			Shortcut s;
-			s.iIndex = g.mw->gsPushTalk->idx;
+			s.iIndex    = g.mw->gsPushTalk->idx;
 			s.bSuppress = false;
 			s.qlButtons = buttons;
 			ql << s;
 		}
-		g.s.qlShortcuts = ql;
+		g.s.qlShortcuts                          = ql;
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 		GlobalShortcutEngine::engine->needRemap();
 	}
@@ -664,7 +663,7 @@ void AudioWizard::on_qcbHeadphone_clicked(bool on) {
 }
 
 void AudioWizard::on_qcbPositional_clicked(bool on) {
-	g.s.bPositionalAudio = on;
+	g.s.bPositionalAudio  = on;
 	g.s.bTransmitPosition = on;
 	restartAudio();
 }
@@ -692,25 +691,25 @@ void AudioWizard::on_qcbHighContrast_clicked(bool on) {
 }
 
 void AudioWizard::on_qrbQualityLow_clicked() {
-	g.s.iQuality = 16000;
+	g.s.iQuality         = 16000;
 	g.s.iFramesPerPacket = 6;
 	restartAudio();
 }
 
 void AudioWizard::on_qrbQualityBalanced_clicked() {
-	g.s.iQuality = 40000;
+	g.s.iQuality         = 40000;
 	g.s.iFramesPerPacket = 2;
 	restartAudio();
 }
 
 void AudioWizard::on_qrbQualityUltra_clicked() {
-	g.s.iQuality = 72000;
+	g.s.iQuality         = 72000;
 	g.s.iFramesPerPacket = 1;
 	restartAudio();
 }
 
 void AudioWizard::on_qrbQualityCustom_clicked() {
-	g.s.iQuality = sOldSettings.iQuality;
+	g.s.iQuality         = sOldSettings.iQuality;
 	g.s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
 	restartAudio();
 }

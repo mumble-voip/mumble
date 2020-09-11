@@ -6,23 +6,23 @@
 #ifndef MUMBLE_MUMBLE_AUDIOINPUT_H_
 #define MUMBLE_MUMBLE_AUDIOINPUT_H_
 
-#include <boost/shared_ptr.hpp>
+#include <QtCore/QObject>
+#include <QtCore/QThread>
 #include <boost/array.hpp>
+#include <boost/shared_ptr.hpp>
+#include <fstream>
+#include <list>
+#include <mutex>
 #include <speex/speex.h>
 #include <speex/speex_echo.h>
 #include <speex/speex_preprocess.h>
 #include <speex/speex_resampler.h>
-#include <QtCore/QObject>
-#include <QtCore/QThread>
 #include <vector>
-#include <fstream>
-#include <list>
-#include <mutex>
 
 #include "Audio.h"
+#include "Message.h"
 #include "Settings.h"
 #include "Timer.h"
-#include "Message.h"
 
 class AudioInput;
 class CELTCodec;
@@ -30,7 +30,7 @@ class OpusCodec;
 struct CELTEncoder;
 struct OpusEncoder;
 struct DenoiseState;
-typedef boost::shared_ptr<AudioInput> AudioInputPtr;
+typedef boost::shared_ptr< AudioInput > AudioInputPtr;
 
 /**
  * A chunk of audio data to process
@@ -38,11 +38,10 @@ typedef boost::shared_ptr<AudioInput> AudioInputPtr;
  * PCM samples of microphone and speaker readback data (for echo cancellation).
  * Does not handle pointer ownership, so you'll have to deallocate them yourself.
  */
-struct AudioChunk
-{
-	AudioChunk()                           : mic(nullptr), speaker(nullptr) {}
-	explicit AudioChunk(short *mic)        : mic(mic),     speaker(nullptr) {}
-	AudioChunk(short *mic, short *speaker) : mic(mic),     speaker(speaker) {}
+struct AudioChunk {
+	AudioChunk() : mic(nullptr), speaker(nullptr) {}
+	explicit AudioChunk(short *mic) : mic(mic), speaker(nullptr) {}
+	AudioChunk(short *mic, short *speaker) : mic(mic), speaker(speaker) {}
 	bool empty() const { return mic == nullptr; }
 
 	short *mic;     ///< Pointer to microphone samples
@@ -69,14 +68,13 @@ struct AudioChunk
  * to at least 2 (plus or minus one) and less than 4 elements.
  * With a 10ms chunk, this queue should introduce a ~20ms lag to the voice.
  */
-class Resynchronizer
-{
+class Resynchronizer {
 public:
 	/**
 	 * Add a microphone sample to the resynchronizer queue
 	 * The resynchronizer may decide to drop the sample, and in that case
 	 * the pointer will be deallocated not lo leak memory
-	 * 
+	 *
 	 * \param mic pointer to a dynamically allocated  array with PCM data
 	 */
 	void addMic(short *mic);
@@ -85,7 +83,7 @@ public:
 	 * Add a speaker sample to the resynchronizer
 	 * The resynchronizer may decide to drop the sample, and in that case
 	 * the pointer will be deallocated not lo leak memory
-	 * 
+	 *
 	 * \param mic pointer to a dynamically allocated array with PCM data
 	 * \return If microphone data is available, the resynchronizer will return a
 	 * valid audio chunk to encode, otherwise an empty chunk will be returned
@@ -115,157 +113,160 @@ private:
 	 */
 	void printQueue(char who);
 
-	//TODO: there was a mutex (qmEcho), but can the callbacks be called concurrently? 
+	// TODO: there was a mutex (qmEcho), but can the callbacks be called concurrently?
 	mutable std::mutex m;
-	std::list<short *> micQueue; ///< Queue of microphone samples
+	std::list< short * > micQueue;                          ///< Queue of microphone samples
 	enum { S0, S1a, S1b, S2, S3, S4a, S4b, S5 } state = S0; ///< Queue fill control statemachine
 };
 
 class AudioInputRegistrar {
-	private:
-		Q_DISABLE_COPY(AudioInputRegistrar)
-	public:
-		static QMap<QString, AudioInputRegistrar *> *qmNew;
-		static QString current;
-		static AudioInputPtr newFromChoice(QString choice = QString());
+private:
+	Q_DISABLE_COPY(AudioInputRegistrar)
+public:
+	static QMap< QString, AudioInputRegistrar * > *qmNew;
+	static QString current;
+	static AudioInputPtr newFromChoice(QString choice = QString());
 
-		const QString name;
-		int priority;
+	const QString name;
+	int priority;
 
-		AudioInputRegistrar(const QString &n, int priority = 0);
-		virtual ~AudioInputRegistrar();
-		virtual AudioInput *create() = 0;
-		virtual const QList<audioDevice> getDeviceChoices() = 0;
-		virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
-		virtual bool canEcho(const QString &outputsys) const = 0;
-		virtual bool canExclusive() const;
+	AudioInputRegistrar(const QString &n, int priority = 0);
+	virtual ~AudioInputRegistrar();
+	virtual AudioInput *create()                               = 0;
+	virtual const QList< audioDevice > getDeviceChoices()      = 0;
+	virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
+	virtual bool canEcho(const QString &outputsys) const       = 0;
+	virtual bool canExclusive() const;
 };
 
 class AudioInput : public QThread {
-		friend class AudioNoiseWidget;
-		friend class AudioEchoWidget;
-		friend class AudioStats;
-		friend class AudioInputDialog;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioInput)
-	protected:
-		typedef enum { CodecCELT, CodecSpeex } CodecFormat;
-		typedef enum { SampleShort, SampleFloat } SampleFormat;
-		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int, quint64);
-	private:
-        
-		bool bDebugDumpInput; ///< When true, dump pcm data to debug the echo canceller
-		std::ofstream outMic, outSpeaker, outProcessed; ///< Files to dump raw pcm data
-        
-		SpeexResamplerState *srsMic, *srsEcho;
+	friend class AudioNoiseWidget;
+	friend class AudioEchoWidget;
+	friend class AudioStats;
+	friend class AudioInputDialog;
 
-		unsigned int iMicFilled, iEchoFilled;
-		inMixerFunc imfMic, imfEcho;
-		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask);
-		void resetAudioProcessor();
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(AudioInput)
+protected:
+	typedef enum { CodecCELT, CodecSpeex } CodecFormat;
+	typedef enum { SampleShort, SampleFloat } SampleFormat;
+	typedef void (*inMixerFunc)(float *RESTRICT, const void *RESTRICT, unsigned int, unsigned int, quint64);
 
-		OpusCodec *oCodec;
-		OpusEncoder *opusState;
-		DenoiseState *denoiseState;
-		bool selectCodec();
-		void selectNoiseCancel();
-		
-		typedef boost::array<unsigned char, 960> EncodingOutputBuffer;
-		
-		int encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer);
-		int encodeCELTFrame(short *pSource, EncodingOutputBuffer& buffer);
-	protected:
-		MessageHandler::UDPMessageType umtType;
-		SampleFormat eMicFormat, eEchoFormat;
+private:
+	bool bDebugDumpInput;                           ///< When true, dump pcm data to debug the echo canceller
+	std::ofstream outMic, outSpeaker, outProcessed; ///< Files to dump raw pcm data
 
-		unsigned int iMicChannels, iEchoChannels;
-		unsigned int iMicFreq, iEchoFreq;
-		unsigned int iMicLength, iEchoLength;
-		unsigned int iMicSampleSize, iEchoSampleSize;
-		int iEchoMCLength, iEchoFrameSize;
-		quint64 uiMicChannelMask, uiEchoChannelMask;
+	SpeexResamplerState *srsMic, *srsEcho;
 
-		bool bEchoMulti;
-		Settings::NoiseCancel noiseCancel;
-		static const unsigned int iSampleRate = SAMPLE_RATE;
-		static const int iFrameSize = SAMPLE_RATE / 100;
+	unsigned int iMicFilled, iEchoFilled;
+	inMixerFunc imfMic, imfEcho;
+	inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask);
+	void resetAudioProcessor();
 
-		QMutex qmSpeex;
-		SpeexPreprocessState *sppPreprocess;
-		SpeexEchoState *sesEcho;
+	OpusCodec *oCodec;
+	OpusEncoder *opusState;
+	DenoiseState *denoiseState;
+	bool selectCodec();
+	void selectNoiseCancel();
 
-		CELTCodec *cCodec;
-		CELTEncoder *ceEncoder;
+	typedef boost::array< unsigned char, 960 > EncodingOutputBuffer;
 
-		/// bResetEncoder is a flag that notifies
-		/// our encoder functions that the encoder
-		/// needs to be reset.
-		bool bResetEncoder;
+	int encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer);
+	int encodeCELTFrame(short *pSource, EncodingOutputBuffer &buffer);
 
-		/// Encoded audio rate in bit/s
-		int iAudioQuality;
-		bool bAllowLowDelay;
-		/// Number of 10ms audio "frames" per packet (!= frames in packet)
-		int iAudioFrames;
+protected:
+	MessageHandler::UDPMessageType umtType;
+	SampleFormat eMicFormat, eEchoFormat;
 
-		float *pfMicInput;
-		float *pfEchoInput;
+	unsigned int iMicChannels, iEchoChannels;
+	unsigned int iMicFreq, iEchoFreq;
+	unsigned int iMicLength, iEchoLength;
+	unsigned int iMicSampleSize, iEchoSampleSize;
+	int iEchoMCLength, iEchoFrameSize;
+	quint64 uiMicChannelMask, uiEchoChannelMask;
 
-		Resynchronizer resync;
-		std::vector<short> opusBuffer;
+	bool bEchoMulti;
+	Settings::NoiseCancel noiseCancel;
+	static const unsigned int iSampleRate = SAMPLE_RATE;
+	static const int iFrameSize           = SAMPLE_RATE / 100;
 
-		void encodeAudioFrame(AudioChunk chunk);
-		void addMic(const void *data, unsigned int nsamp);
-		void addEcho(const void *data, unsigned int nsamp);
+	QMutex qmSpeex;
+	SpeexPreprocessState *sppPreprocess;
+	SpeexEchoState *sesEcho;
 
-		volatile bool bRunning;
-		volatile bool bPreviousVoice;
+	CELTCodec *cCodec;
+	CELTEncoder *ceEncoder;
 
-		int iFrameCounter;
-		int iSilentFrames;
-		int iHoldFrames;
-		int iBufferedFrames;
+	/// bResetEncoder is a flag that notifies
+	/// our encoder functions that the encoder
+	/// needs to be reset.
+	bool bResetEncoder;
 
-		QList<QByteArray> qlFrames;
-		void flushCheck(const QByteArray &, bool terminator, int voiceTargetID);
+	/// Encoded audio rate in bit/s
+	int iAudioQuality;
+	bool bAllowLowDelay;
+	/// Number of 10ms audio "frames" per packet (!= frames in packet)
+	int iAudioFrames;
 
-		void initializeMixer();
+	float *pfMicInput;
+	float *pfEchoInput;
 
-		static void adjustBandwidth(int bitspersec, int &bitrate, int &frames, bool &allowLowDelay);
-	signals:
-		void doDeaf();
-		void doMute();
-	public:
-		typedef enum { ActivityStateIdle, ActivityStateReturnedFromIdle, ActivityStateActive } ActivityState;
+	Resynchronizer resync;
+	std::vector< short > opusBuffer;
 
-		ActivityState activityState;
+	void encodeAudioFrame(AudioChunk chunk);
+	void addMic(const void *data, unsigned int nsamp);
+	void addEcho(const void *data, unsigned int nsamp);
 
-		bool bResetProcessor;
+	volatile bool bRunning;
+	volatile bool bPreviousVoice;
 
-		Timer tIdle;
+	int iFrameCounter;
+	int iSilentFrames;
+	int iHoldFrames;
+	int iBufferedFrames;
 
-		int iBitrate;
-		float dPeakSpeaker, dPeakSignal, dMaxMic, dPeakMic, dPeakCleanMic;
-		float fSpeechProb;
+	QList< QByteArray > qlFrames;
+	void flushCheck(const QByteArray &, bool terminator, int voiceTargetID);
 
-		static int getNetworkBandwidth(int bitrate, int frames);
-		static void setMaxBandwidth(int bitspersec);
+	void initializeMixer();
 
-		/// Construct an AudioInput.
-		///
-		/// This constructor is only ever called by Audio::startInput(), and is guaranteed
-		/// to be called on the application's main thread.
-		AudioInput();
+	static void adjustBandwidth(int bitspersec, int &bitrate, int &frames, bool &allowLowDelay);
+signals:
+	void doDeaf();
+	void doMute();
 
-		/// Destroy an AudioInput.
-		///
-		/// This destructor is only ever called by Audio::stopInput() and Audio::stop(),
-		/// and is guaranteed to be called on the application's main thread.
-		~AudioInput() Q_DECL_OVERRIDE;
-		void run() Q_DECL_OVERRIDE = 0;
-		virtual bool isAlive() const;
-		bool isTransmitting() const;
+public:
+	typedef enum { ActivityStateIdle, ActivityStateReturnedFromIdle, ActivityStateActive } ActivityState;
+
+	ActivityState activityState;
+
+	bool bResetProcessor;
+
+	Timer tIdle;
+
+	int iBitrate;
+	float dPeakSpeaker, dPeakSignal, dMaxMic, dPeakMic, dPeakCleanMic;
+	float fSpeechProb;
+
+	static int getNetworkBandwidth(int bitrate, int frames);
+	static void setMaxBandwidth(int bitspersec);
+
+	/// Construct an AudioInput.
+	///
+	/// This constructor is only ever called by Audio::startInput(), and is guaranteed
+	/// to be called on the application's main thread.
+	AudioInput();
+
+	/// Destroy an AudioInput.
+	///
+	/// This destructor is only ever called by Audio::stopInput() and Audio::stop(),
+	/// and is guaranteed to be called on the application's main thread.
+	~AudioInput() Q_DECL_OVERRIDE;
+	void run() Q_DECL_OVERRIDE = 0;
+	virtual bool isAlive() const;
+	bool isTransmitting() const;
 };
 
 #endif

@@ -6,16 +6,16 @@
 #ifndef MUMBLE_MUMBLE_ABOUT_H_
 #define MUMBLE_MUMBLE_ABOUT_H_
 
-#include <QtCore/QtGlobal>
 #include <QtCore/QObject>
+#include <QtCore/QtGlobal>
 #include <QtWidgets/QDialog>
 
 class AboutDialog : public QDialog {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AboutDialog)
-	public:
-		AboutDialog(QWidget *parent);
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(AboutDialog)
+public:
+	AboutDialog(QWidget *parent);
 };
 
 #endif

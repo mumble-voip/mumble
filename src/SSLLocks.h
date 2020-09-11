@@ -7,9 +7,9 @@
 #define MUMBLE_SSLLOCKS_H_
 
 class SSLLocks {
-	public:
-		static void initialize();
-		static void destroy();
+public:
+	static void initialize();
+	static void destroy();
 };
 
 #endif

@@ -12,7 +12,8 @@ struct Matrix {
 	float position[3];
 };
 
-static int fetch(float *avatarPosition, float *avatarFront, float *avatarTop, float *cameraPosition, float *cameraFront, float *cameraTop, std::string &, std::wstring &) {
+static int fetch(float *avatarPosition, float *avatarFront, float *avatarTop, float *cameraPosition, float *cameraFront,
+				 float *cameraTop, std::string &, std::wstring &) {
 	for (uint8_t i = 0; i < 3; ++i) {
 		avatarPosition[i] = avatarFront[i] = avatarTop[i] = 0.0f;
 	}
@@ -22,7 +23,7 @@ static int fetch(float *avatarPosition, float *avatarFront, float *avatarTop, fl
 		return false;
 	}
 
-	const bool isInCar = (peekProc<uint8_t>(playerPed + 0x46C) == 1);
+	const bool isInCar = (peekProc< uint8_t >(playerPed + 0x46C) == 1);
 
 	const auto playerCar = peekProcPtr(playerPed + 0x58C);
 
@@ -31,7 +32,7 @@ static int fetch(float *avatarPosition, float *avatarFront, float *avatarTop, fl
 		return false;
 	}
 
-	const auto matrix = peekProc<Matrix>(matrixAddress);
+	const auto matrix = peekProc< Matrix >(matrixAddress);
 
 	/*
 	Mumble | Game
@@ -53,14 +54,14 @@ static int fetch(float *avatarPosition, float *avatarFront, float *avatarTop, fl
 
 	for (uint8_t i = 0; i < 3; ++i) {
 		cameraPosition[i] = avatarPosition[i];
-		cameraFront[i] = avatarFront[i];
-		cameraTop[i] = avatarTop[i];
+		cameraFront[i]    = avatarFront[i];
+		cameraTop[i]      = avatarTop[i];
 	}
 
 	return true;
 }
 
-static int tryLock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int tryLock(const std::multimap< std::wstring, unsigned long long int > &pids) {
 	if (!initialize(pids, L"gta_sa.exe")) {
 		return false;
 	}
@@ -86,26 +87,13 @@ static std::wstring description(L"Grand Theft Auto: San Andreas (v1.0)");
 static std::wstring shortName(L"Grand Theft Auto: San Andreas");
 
 static int tryLock1() {
-	return tryLock(std::multimap<std::wstring, unsigned long long int>());
+	return tryLock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin gtasaPlug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortName,
-	nullptr,
-	nullptr,
-	tryLock1,
-	generic_unlock,
-	longDesc,
-	fetch
-};
+static MumblePlugin gtasaPlug = { MUMBLE_PLUGIN_MAGIC, description, shortName, nullptr, nullptr, tryLock1,
+								  generic_unlock,      longDesc,    fetch };
 
-static MumblePlugin2 gtasaPlug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	tryLock
-};
+static MumblePlugin2 gtasaPlug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, tryLock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &gtasaPlug;

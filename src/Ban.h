@@ -8,9 +8,9 @@
 
 #include "HostAddress.h"
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QString>
 #include <QtCore/QDateTime>
+#include <QtCore/QString>
+#include <QtCore/QtGlobal>
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/Q_IPV6ADDR>
 
@@ -24,8 +24,8 @@ struct Ban {
 	unsigned int iDuration;
 	bool isExpired() const;
 	bool isValid() const;
-	bool operator < (const Ban &) const;
-	bool operator == (const Ban &) const;
+	bool operator<(const Ban &) const;
+	bool operator==(const Ban &) const;
 	QString toString() const;
 };
 

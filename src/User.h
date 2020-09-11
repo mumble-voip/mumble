@@ -7,46 +7,46 @@
 #define MUMBLE_USER_H_
 
 #ifndef Q_MOC_RUN
-# include <boost/optional.hpp>
+#	include <boost/optional.hpp>
 #endif
 
 #include <QtCore/QByteArray>
 #include <QtCore/QDateTime>
-#include <QtCore/QString>
 #include <QtCore/QList>
+#include <QtCore/QString>
 
 class Channel;
 
 class User {
-	private:
-		Q_DISABLE_COPY(User)
+private:
+	Q_DISABLE_COPY(User)
 
-	public:
-		unsigned int uiSession;
-		int iId;
-		QString qsName;
-		QString qsComment;
-		QByteArray qbaCommentHash;
-		QString qsHash;
-		bool bMute, bDeaf, bSuppress;
-		bool bSelfMute, bSelfDeaf;
-		bool bPrioritySpeaker;
-		bool bRecording;
-		Channel *cChannel;
-		QByteArray qbaTexture;
-		QByteArray qbaTextureHash;
+public:
+	unsigned int uiSession;
+	int iId;
+	QString qsName;
+	QString qsComment;
+	QByteArray qbaCommentHash;
+	QString qsHash;
+	bool bMute, bDeaf, bSuppress;
+	bool bSelfMute, bSelfDeaf;
+	bool bPrioritySpeaker;
+	bool bRecording;
+	Channel *cChannel;
+	QByteArray qbaTexture;
+	QByteArray qbaTextureHash;
 
-		User();
-		virtual ~User() {};
+	User();
+	virtual ~User(){};
 
-		static bool lessThan(const User *, const User *);
+	static bool lessThan(const User *, const User *);
 };
 
 // for last seen
 struct UserInfo {
 	int user_id;
 	QString name;
-	boost::optional<int> last_channel;
+	boost::optional< int > last_channel;
 	QDateTime last_active;
 
 	UserInfo() : user_id(-1) {}

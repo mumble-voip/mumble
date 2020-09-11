@@ -5,16 +5,16 @@
 
 #include "G15LCDEngine_lglcd.h"
 
-#define G15_MAX_DEV         5
-#define G15_MAX_WIDTH       160
-#define G15_MAX_HEIGHT      43
-#define G15_MAX_BPP         1
-#define G15_MAX_FBMEM       (G15_MAX_WIDTH * G15_MAX_HEIGHT * G15_MAX_BPP)
-#define G15_MAX_FBMEM_BITS  (G15_MAX_FBMEM / 8)
+#define G15_MAX_DEV 5
+#define G15_MAX_WIDTH 160
+#define G15_MAX_HEIGHT 43
+#define G15_MAX_BPP 1
+#define G15_MAX_FBMEM (G15_MAX_WIDTH * G15_MAX_HEIGHT * G15_MAX_BPP)
+#define G15_MAX_FBMEM_BITS (G15_MAX_FBMEM / 8)
 #if defined(WIN32)
-#define G15_WIDGET_NAME     L"Mumble G15 Display"
+#	define G15_WIDGET_NAME L"Mumble G15 Display"
 #elif defined(APPLE)
-#define G15_WIDGET_NAME     CFSTR("Mumble G15 Display")
+#	define G15_WIDGET_NAME CFSTR("Mumble G15 Display")
 #endif
 
 static LCDEngine *G15LCDEngineNew() {
@@ -29,11 +29,11 @@ G15LCDEngineLGLCD::G15LCDEngineLGLCD() : LCDEngine() {
 	ZeroMemory(&llcceConnect, sizeof(llcceConnect));
 	ZeroMemory(&llcContext, sizeof(llcContext));
 
-	llcceConnect.appFriendlyName = G15_WIDGET_NAME;
-	llcceConnect.isAutostartable = FALSE;
-	llcceConnect.isPersistent = FALSE;
-	llcceConnect.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_BW;
-	llcceConnect.connection = LGLCD_INVALID_CONNECTION;
+	llcceConnect.appFriendlyName               = G15_WIDGET_NAME;
+	llcceConnect.isAutostartable               = FALSE;
+	llcceConnect.isPersistent                  = FALSE;
+	llcceConnect.dwAppletCapabilitiesSupported = LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_BW;
+	llcceConnect.connection                    = LGLCD_INVALID_CONNECTION;
 
 	llcContext.device = LGLCD_INVALID_DEVICE;
 
@@ -67,7 +67,7 @@ G15LCDEngineLGLCD::~G15LCDEngineLGLCD() {
 	lgLcdDeInit();
 }
 
-QList<LCDDevice *> G15LCDEngineLGLCD::devices() const {
+QList< LCDDevice * > G15LCDEngineLGLCD::devices() const {
 	return qlDevices;
 }
 
@@ -90,12 +90,12 @@ void G15LCDDeviceLGLCD::setEnabled(bool b) {
 	if (bEnabled && (engine->llcContext.device == LGLCD_INVALID_DEVICE)) {
 		ZeroMemory(&engine->llcContext, sizeof(engine->llcContext));
 		engine->llcContext.connection = engine->llcceConnect.connection;
-		engine->llcContext.device = LGLCD_INVALID_DEVICE;
-		engine->llcContext.deviceType =LGLCD_DEVICE_BW;
+		engine->llcContext.device     = LGLCD_INVALID_DEVICE;
+		engine->llcContext.deviceType = LGLCD_DEVICE_BW;
 
 		DWORD dwErr = lgLcdOpenByType(&engine->llcContext);
 
-	} else if (! bEnabled && (engine->llcContext.device != LGLCD_INVALID_DEVICE)) {
+	} else if (!bEnabled && (engine->llcContext.device != LGLCD_INVALID_DEVICE)) {
 		lgLcdClose(engine->llcContext.device);
 		engine->llcContext.device = LGLCD_INVALID_DEVICE;
 	}
@@ -103,7 +103,7 @@ void G15LCDDeviceLGLCD::setEnabled(bool b) {
 
 void G15LCDDeviceLGLCD::blitImage(QImage *img, bool alert) {
 	Q_ASSERT(img);
-	int len = G15_MAX_FBMEM_BITS;
+	int len    = G15_MAX_FBMEM_BITS;
 	uchar *tmp = img->bits();
 
 	lgLcdBitmap160x43x1 bitmap;
@@ -112,7 +112,7 @@ void G15LCDDeviceLGLCD::blitImage(QImage *img, bool alert) {
 	if (engine->llcContext.device == LGLCD_INVALID_DEVICE)
 		return;
 
-	if (! bEnabled)
+	if (!bEnabled)
 		return;
 
 	/*
@@ -132,20 +132,22 @@ void G15LCDDeviceLGLCD::blitImage(QImage *img, bool alert) {
 	 * more, when it receives a frame.)
 	 */
 	for (int i = 0; i < len; i++) {
-		int idx = i*8;
-		buf[idx+7] = tmp[i] & 0x80 ? 0xff : 0x00;
-		buf[idx+6] = tmp[i] & 0x40 ? 0xff : 0x00;
-		buf[idx+5] = tmp[i] & 0x20 ? 0xff : 0x00;
-		buf[idx+4] = tmp[i] & 0x10 ? 0xff : 0x00;
-		buf[idx+3] = tmp[i] & 0x08 ? 0xff : 0x00;
-		buf[idx+2] = tmp[i] & 0x04 ? 0xff : 0x00;
-		buf[idx+1] = tmp[i] & 0x02 ? 0xff : 0x00;
-		buf[idx+0] = tmp[i] & 0x01 ? 0xff : 0x00;
+		int idx      = i * 8;
+		buf[idx + 7] = tmp[i] & 0x80 ? 0xff : 0x00;
+		buf[idx + 6] = tmp[i] & 0x40 ? 0xff : 0x00;
+		buf[idx + 5] = tmp[i] & 0x20 ? 0xff : 0x00;
+		buf[idx + 4] = tmp[i] & 0x10 ? 0xff : 0x00;
+		buf[idx + 3] = tmp[i] & 0x08 ? 0xff : 0x00;
+		buf[idx + 2] = tmp[i] & 0x04 ? 0xff : 0x00;
+		buf[idx + 1] = tmp[i] & 0x02 ? 0xff : 0x00;
+		buf[idx + 0] = tmp[i] & 0x01 ? 0xff : 0x00;
 	}
 
 	bitmap.hdr.Format = LGLCD_BMP_FORMAT_160x43x1;
 
-	DWORD dwErr = lgLcdUpdateBitmap(engine->llcContext.device, &bitmap.hdr, alert ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
+	DWORD dwErr =
+		lgLcdUpdateBitmap(engine->llcContext.device, &bitmap.hdr,
+						  alert ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
 }
 
 QString G15LCDDeviceLGLCD::name() const {

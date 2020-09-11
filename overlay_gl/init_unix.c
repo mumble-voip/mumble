@@ -8,16 +8,18 @@
 
 static void initializeLibrary();
 
-#define RESOLVE(x) if (! o##x) o##x = (__typeof__(&x)) odlsym(RTLD_NEXT, #x)
+#define RESOLVE(x) \
+	if (!o##x)     \
+	o##x = (__typeof__(&x)) odlsym(RTLD_NEXT, #x)
 static void resolveOpenGL() {
 	RESOLVE(glXSwapBuffers);
 
-	if (! oglXSwapBuffers) {
+	if (!oglXSwapBuffers) {
 		void *lib = dlopen("libGL.so.1", RTLD_GLOBAL | RTLD_NOLOAD);
-		if (! lib)
+		if (!lib)
 			return;
 		RESOLVE(glXSwapBuffers);
-		if (! oglXSwapBuffers) {
+		if (!oglXSwapBuffers) {
 			dlclose(lib);
 		}
 	}
@@ -26,8 +28,7 @@ static void resolveOpenGL() {
 	RESOLVE(glXGetProcAddress);
 }
 
-__attribute__((visibility("default")))
-void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
+__attribute__((visibility("default"))) void glXSwapBuffers(Display *dpy, GLXDrawable draw) {
 	if (!oglXSwapBuffers) {
 		resolveOpenGL();
 	}
@@ -51,10 +52,10 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 		}
 		memset(c, 0, sizeof(Context));
 		c->next = contexts;
-		c->dpy = dpy;
+		c->dpy  = dpy;
 		c->draw = draw;
 
-		c->bMesa = false;
+		c->bMesa  = false;
 		c->bValid = false;
 
 		int major, minor;
@@ -80,11 +81,11 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 		if (c->bMesa) {
 			GLint viewport[4];
 			glGetIntegerv(GL_VIEWPORT, viewport);
-			width = viewport[2];
+			width  = viewport[2];
 			height = viewport[3];
 		} else {
-			glXQueryDrawable(dpy, draw, GLX_WIDTH, (GLuint*)&width);
-			glXQueryDrawable(dpy, draw, GLX_HEIGHT, (GLuint*)&height);
+			glXQueryDrawable(dpy, draw, GLX_WIDTH, (GLuint *) &width);
+			glXQueryDrawable(dpy, draw, GLX_HEIGHT, (GLuint *) &height);
 		}
 
 		drawContext(c, width, height);
@@ -92,10 +93,11 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 	oglXSwapBuffers(dpy, draw);
 }
 
-#define FGRAB(x) if (strcmp((const char *)(func), #x)==0) return (__GLXextFuncPtr)(x);
+#define FGRAB(x)                                \
+	if (strcmp((const char *) (func), #x) == 0) \
+		return (__GLXextFuncPtr)(x);
 
-__attribute__((visibility("default")))
-void (*glXGetProcAddress(const GLubyte * func))(void) {
+__attribute__((visibility("default"))) void (*glXGetProcAddress(const GLubyte *func))(void) {
 	FGRAB(glXSwapBuffers);
 	FGRAB(glXGetProcAddressARB);
 	FGRAB(glXGetProcAddress);
@@ -108,17 +110,22 @@ void (*glXGetProcAddress(const GLubyte * func))(void) {
 	else if (oglXGetProcAddressARB)
 		return oglXGetProcAddressARB(func);
 	else
-		return (__GLXextFuncPtr)(odlsym(RTLD_NEXT, (const char *)(func)));
+		return (__GLXextFuncPtr)(odlsym(RTLD_NEXT, (const char *) (func)));
 }
 
-__attribute__((visibility("default")))
-__GLXextFuncPtr glXGetProcAddressARB(const GLubyte * func) {
+__attribute__((visibility("default"))) __GLXextFuncPtr glXGetProcAddressARB(const GLubyte *func) {
 	return (void (*)(void)) glXGetProcAddress(func);
 }
 
-#define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; symbol = odlsym(handle, #name); if (symbol) { o##name = (__typeof__(&name)) symbol; symbol = (void *) name;}
-__attribute__((visibility("default")))
-void *dlsym(void *handle, const char *name) {
+#define OGRAB(name)                           \
+	if (handle == RTLD_DEFAULT)               \
+		handle = RTLD_NEXT;                   \
+	symbol = odlsym(handle, #name);           \
+	if (symbol) {                             \
+		o##name = (__typeof__(&name)) symbol; \
+		symbol  = (void *) name;              \
+	}
+__attribute__((visibility("default"))) void *dlsym(void *handle, const char *name) {
 	if (!odlsym) {
 		initializeLibrary();
 	}
@@ -147,32 +154,32 @@ static int find_odlsym() {
 	if (!dl) {
 		ods("Failed to open libdl.so.2");
 	} else {
-		int i = 0;
+		int i               = 0;
 		struct link_map *lm = (struct link_map *) dl;
-		int nchains = 0;
-		ElfW(Sym) *symtab = NULL;
-		const char *strtab = NULL;
-#if defined(__GLIBC__)
+		int nchains         = 0;
+		ElfW(Sym) *symtab   = NULL;
+		const char *strtab  = NULL;
+#	if defined(__GLIBC__)
 		const ElfW(Addr) base = 0;
-#else
+#	else
 		const ElfW(Addr) base = lm->l_addr;
-#endif
+#	endif
 
 		ElfW(Dyn) *dyn = lm->l_ld;
 
 		while (dyn->d_tag) {
 			switch (dyn->d_tag) {
 				case DT_HASH:
-					nchains = *(int *)(base + dyn->d_un.d_ptr + 4);
+					nchains = *(int *) (base + dyn->d_un.d_ptr + 4);
 					break;
 				case DT_STRTAB:
-					strtab = (const char *)(base + dyn->d_un.d_ptr);
+					strtab = (const char *) (base + dyn->d_un.d_ptr);
 					break;
 				case DT_SYMTAB:
-					symtab = (ElfW(Sym) *)(base + dyn->d_un.d_ptr);
+					symtab = (ElfW(Sym) *) (base + dyn->d_un.d_ptr);
 					break;
 			}
-			dyn ++;
+			dyn++;
 		}
 		ods("Iterating dlsym table %p %p %d", symtab, strtab, nchains);
 		for (i = 0; i < nchains; i++) {
@@ -180,8 +187,8 @@ static int find_odlsym() {
 			if (ELF32_ST_TYPE(symtab[i].st_info) != STT_FUNC) {
 				continue;
 			}
-			if (strcmp(strtab+symtab[i].st_name, "dlsym") == 0) {
-				odlsym = (void*)lm->l_addr + symtab[i].st_value;
+			if (strcmp(strtab + symtab[i].st_name, "dlsym") == 0) {
+				odlsym = (void *) lm->l_addr + symtab[i].st_value;
 			}
 		}
 		if (odlsym == NULL) {
@@ -192,11 +199,11 @@ static int find_odlsym() {
 
 	return 0;
 #elif defined(__FreeBSD__)
-	int i = 0;
+	int i               = 0;
 	struct link_map *lm = NULL;
-	int nchains = 0;
-	Elf_Sym * symtab = NULL;
-	const char *strtab = NULL;
+	int nchains         = 0;
+	Elf_Sym *symtab     = NULL;
+	const char *strtab  = NULL;
 
 	if (dlinfo(RTLD_SELF, RTLD_DI_LINKMAP, &lm) == -1) {
 		ods("Unable to acquire link_map: %s", dlerror());
@@ -218,13 +225,13 @@ static int find_odlsym() {
 	while (dyn->d_tag) {
 		switch (dyn->d_tag) {
 			case DT_HASH:
-				nchains = *(int *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr + 4);
+				nchains = *(int *) ((uintptr_t) lm->l_addr + (uintptr_t) dyn->d_un.d_ptr + 4);
 				break;
 			case DT_STRTAB:
-				strtab = (const char *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr);
+				strtab = (const char *) ((uintptr_t) lm->l_addr + (uintptr_t) dyn->d_un.d_ptr);
 				break;
 			case DT_SYMTAB:
-				symtab = (Elf_Sym *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr);
+				symtab = (Elf_Sym *) ((uintptr_t) lm->l_addr + (uintptr_t) dyn->d_un.d_ptr);
 				break;
 		}
 		dyn++;
@@ -249,8 +256,7 @@ err:
 	return -1;
 }
 
-__attribute__((constructor))
-static void initializeLibrary() {
+__attribute__((constructor)) static void initializeLibrary() {
 	if (odlsym)
 		return;
 

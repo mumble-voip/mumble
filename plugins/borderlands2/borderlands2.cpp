@@ -14,13 +14,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +33,7 @@
    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/ 
+*/
 
 #include "../mumble_plugin_main.h"
 
@@ -43,11 +43,11 @@ procptr_t vects_ptr;
 procptr_t state_ptr;
 procptr_t character_name_ptr_loc;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &identity)
-{
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &, std::wstring &identity) {
 	// Zero out the structures
-	for (int i=0;i<3;i++)
-		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
+	for (int i = 0; i < 3; i++)
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
 
@@ -55,13 +55,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// State 1 == in-game, 0 == in-menu
 	ok = peekProc(state_ptr, state);
-	if (!ok) return false;
+	if (!ok)
+		return false;
 
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
-	struct
-	{
+	struct {
 		float front[3];
 		float top[3];
 		float position[3];
@@ -69,26 +69,25 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 
 	ok = peekProc(vects_ptr, game_vects);
-	if (!ok) return false;
+	if (!ok)
+		return false;
 
 	// Copy game vectors into return values
-	for (int i=0;i<3;i++)
-	{
-		camera_pos[i]   = avatar_pos[i]   = game_vects.position[i] / 100.0f; // Scale to meters
+	for (int i = 0; i < 3; i++) {
+		camera_pos[i] = avatar_pos[i] = game_vects.position[i] / 100.0f; // Scale to meters
 		camera_front[i] = avatar_front[i] = game_vects.front[i];
-		camera_top[i]   = avatar_top[i]   = game_vects.top[i];
+		camera_top[i] = avatar_top[i] = game_vects.top[i];
 	}
 
 
 	// Extract the character name
-	procptr_t ptr1 = peekProcPtr(character_name_ptr_loc);
-	procptr_t ptr2 = peekProcPtr(ptr1 + 0xC);
+	procptr_t ptr1               = peekProcPtr(character_name_ptr_loc);
+	procptr_t ptr2               = peekProcPtr(ptr1 + 0xC);
 	procptr_t character_name_ptr = ptr2 + 0x80;
 
 	char character_name[16]; // The game limits us to 15 char names
 	ok = peekProc(character_name_ptr, character_name);
-	if (ok)
-	{
+	if (ok) {
 		// character_name is zero terminated, but using strnlen for double-plus safety
 		identity.assign(character_name, character_name + strnlen(character_name, sizeof(character_name)));
 	}
@@ -96,8 +95,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids)
-{
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
 	if (!initialize(pids, L"Borderlands2.exe")) {
 		return false;
 	}
@@ -133,51 +131,42 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	//
 	// The NUL terminator of the string literal is not considered in
 	// this equality check.
-#define VERSION_EQ(buf, strlit) \
-	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
+#define VERSION_EQ(buf, strlit) memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit) - 1)) == 0
 
 	// 1.3.1
-	if (peekProc(pModule + 0x1E6D048, detected_version)
-	    && VERSION_EQ(detected_version, "WILLOW2-PCSAGE-28-CL697606"))
-	{
-		vects_ptr = pModule + 0x1E792B0;
-		state_ptr = pModule + 0x1E79BC8;
+	if (peekProc(pModule + 0x1E6D048, detected_version) && VERSION_EQ(detected_version, "WILLOW2-PCSAGE-28-CL697606")) {
+		vects_ptr              = pModule + 0x1E792B0;
+		state_ptr              = pModule + 0x1E79BC8;
 		character_name_ptr_loc = pModule + 0x1E7302C;
 	}
 	// 1.4.0
 	else if (peekProc(pModule + 0x1E8D1D8, detected_version)
-	         && VERSION_EQ(detected_version, "WILLOW2-PCSAGE-77-CL711033"))
-	{
-		vects_ptr = pModule + 0x1E993F0;
-		state_ptr = pModule + 0x1E99D08;
+			 && VERSION_EQ(detected_version, "WILLOW2-PCSAGE-77-CL711033")) {
+		vects_ptr              = pModule + 0x1E993F0;
+		state_ptr              = pModule + 0x1E99D08;
 		character_name_ptr_loc = pModule + 0x1E93194;
 	}
 	// 1.5.0
 	else if (peekProc(pModule + 0x01E9F338, detected_version)
-	         && VERSION_EQ(detected_version, "WILLOW2-PCLILAC-60-CL721220"))
-	{
-		vects_ptr = pModule + 0x1EAB650;
-		state_ptr = pModule + 0x1EABF68;
+			 && VERSION_EQ(detected_version, "WILLOW2-PCLILAC-60-CL721220")) {
+		vects_ptr              = pModule + 0x1EAB650;
+		state_ptr              = pModule + 0x1EABF68;
 		character_name_ptr_loc = pModule + 0x01EA5384;
 	}
 	// 1.7.0
 	else if (peekProc(pModule + 0x01ED53A8, detected_version)
-	         && VERSION_EQ(detected_version, "WILLOW2-PCALLIUM-55-CL770068"))
-	{
-		vects_ptr = pModule + 0x1EE18E0;
-		state_ptr = pModule + 0x1EE21F8;
+			 && VERSION_EQ(detected_version, "WILLOW2-PCALLIUM-55-CL770068")) {
+		vects_ptr              = pModule + 0x1EE18E0;
+		state_ptr              = pModule + 0x1EE21F8;
 		character_name_ptr_loc = pModule + 0x01EDB5B4;
 	}
 	// 1.8.3
 	else if (peekProc(pModule + 0x1EE63C8, detected_version)
-	         && VERSION_EQ(detected_version, "WILLOW2-PCCHINA-29-CL827556"))
-	{
-		vects_ptr = pModule + 0x1EF2930;
-		state_ptr = pModule + 0x1EF3248;
+			 && VERSION_EQ(detected_version, "WILLOW2-PCCHINA-29-CL827556")) {
+		vects_ptr              = pModule + 0x1EF2930;
+		state_ptr              = pModule + 0x1EF3248;
 		character_name_ptr_loc = pModule + 0x01EEC5D4;
-	}
-	else
-	{
+	} else {
 		generic_unlock();
 		return false;
 	}
@@ -204,26 +193,13 @@ static std::wstring description(L"Borderlands 2 (v1.8.3)");
 static std::wstring shortname(L"Borderlands 2");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin bl2plug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin bl2plug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 bl2plug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 bl2plug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bl2plug;

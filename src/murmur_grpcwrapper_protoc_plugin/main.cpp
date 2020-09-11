@@ -4,8 +4,8 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include <map>
-#include <string>
 #include <sstream>
+#include <string>
 
 #include <google/protobuf/compiler/code_generator.h>
 #include <google/protobuf/compiler/plugin.h>
@@ -222,18 +222,18 @@ class WrapperGenerator : public CodeGenerator {
 		}
 		cpp.Print("namespace Wrapper {\n", "ns", ns);
 
-		map<string, string> tpl;
+		map< string, string > tpl;
 		tpl["ns"] = ns;
 
 		for (int i = 0; i < input->service_count(); i++) {
-			auto service = input->service(i);
+			auto service   = input->service(i);
 			tpl["service"] = service->name();
 
 			for (int j = 0; j < service->method_count(); j++) {
-				auto method = service->method(j);
+				auto method   = service->method(j);
 				tpl["method"] = method->name();
-				tpl["in"] = CompiledName(ns, method->input_type());
-				tpl["out"] = CompiledName(ns, method->output_type());
+				tpl["in"]     = CompiledName(ns, method->input_type());
+				tpl["out"]    = CompiledName(ns, method->output_type());
 
 				const char *template_str;
 				if (method->client_streaming()) {
@@ -254,7 +254,7 @@ class WrapperGenerator : public CodeGenerator {
 
 			cpp.Print(tpl, "void $service$_Init(MurmurRPCImpl *impl, ::$ns$::$service$::AsyncService *service) {\n");
 			for (int j = 0; j < service->method_count(); j++) {
-				auto method = service->method(j);
+				auto method   = service->method(j);
 				tpl["method"] = method->name();
 				cpp.Print(tpl, "\t$service$_$method$::create(impl, service);\n");
 			}

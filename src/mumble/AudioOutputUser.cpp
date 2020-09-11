@@ -5,12 +5,12 @@
 
 #include "AudioOutputUser.h"
 
-AudioOutputUser::AudioOutputUser(const QString& name) : qsName(name) {
+AudioOutputUser::AudioOutputUser(const QString &name) : qsName(name) {
 }
 
 AudioOutputUser::~AudioOutputUser() {
-	delete [] pfBuffer;
-	delete [] pfVolume;
+	delete[] pfBuffer;
+	delete[] pfVolume;
 }
 
 void AudioOutputUser::resizeBuffer(unsigned int newsize) {
@@ -18,9 +18,9 @@ void AudioOutputUser::resizeBuffer(unsigned int newsize) {
 		float *n = new float[newsize];
 		if (pfBuffer) {
 			memcpy(n, pfBuffer, sizeof(float) * iBufferSize);
-			delete [] pfBuffer;
+			delete[] pfBuffer;
 		}
-		pfBuffer = n;
+		pfBuffer    = n;
 		iBufferSize = newsize;
 	}
 }

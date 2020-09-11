@@ -6,13 +6,13 @@
 #ifndef MUMBLE_HARDHOOK_MINHOOK_H_
 #define MUMBLE_HARDHOOK_MINHOOK_H_
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <ctype.h>
 #include <cmath>
+#include <ctype.h>
 #include <map>
-#include <vector>
+#include <stdarg.h>
+#include <stdio.h>
 #include <string>
+#include <vector>
 
 #include <windows.h>
 #include <unknwn.h>
@@ -20,9 +20,9 @@
 typedef void *(*voidFunc)();
 
 struct HardHook {
-	voidFunc  m_func;
-	voidFunc  m_replacement;
-	voidFunc  call;
+	voidFunc m_func;
+	voidFunc m_replacement;
+	voidFunc call;
 
 	HardHook();
 	HardHook(voidFunc func, voidFunc replacement);

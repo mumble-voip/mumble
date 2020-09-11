@@ -25,18 +25,18 @@ OverlayExclusionMode SettingsGetExclusionMode();
 
 /// Get the list of launcher programs to consider when
 /// checking the overlay exclusion rules.
-std::vector<std::string> SettingsGetLaunchers();
+std::vector< std::string > SettingsGetLaunchers();
 
 /// Get the list of whitelisted programs to consider when
 /// checking the overlay exclusion rules.
-std::vector<std::string> SettingsGetWhitelist();
+std::vector< std::string > SettingsGetWhitelist();
 
 /// Get the list of whitelisted paths to consider when
 /// checking the overlay exclusion rules.
-std::vector<std::string> SettingsGetPaths();
+std::vector< std::string > SettingsGetPaths();
 
 /// Get the list of blacklisted programs to consider when
 /// checking the overlay exclusion rules.
-std::vector<std::string> SettingsGetBlacklist();
+std::vector< std::string > SettingsGetBlacklist();
 
 #endif

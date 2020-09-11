@@ -8,8 +8,7 @@
 
 static const char *overlayWhitelist[] = {
 	// We can't whitelist the GW2 launcher
-	"gw2.exe",
-	"gw2-64.exe",
+	"gw2.exe", "gw2-64.exe",
 
 	nullptr
 };

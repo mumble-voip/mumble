@@ -50,7 +50,7 @@
  * not. Instead, they return the name of the button being queried as a pointer
  * to a NUL-terminated array of wchar_t's. Presumably, the pointer will be
  * nullptr if the name cannot be retrieved or translated.
-*/
+ */
 
 /* USAGE
  * In order to use the gkeys on a logitech keyboard, any user must have the
@@ -68,35 +68,45 @@
 #include "GKey.h"
 
 #ifdef Q_CC_GNU
-#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlLogiGkey.resolve(#var)); bValid = bValid && var; }
+#	define RESOLVE(var)                                                            \
+		{                                                                           \
+			var    = reinterpret_cast< __typeof__(var) >(qlLogiGkey.resolve(#var)); \
+			bValid = bValid && var;                                                 \
+		}
 #else
-#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlLogiGkey.resolve(#var)); bValid = bValid && var; }
+#	define RESOLVE(var)                                                                          \
+		{                                                                                         \
+			*reinterpret_cast< void ** >(&var) = static_cast< void * >(qlLogiGkey.resolve(#var)); \
+			bValid                             = bValid && var;                                   \
+		}
 #endif
 
-const QUuid GKeyLibrary::quMouse = QUuid(QString::fromLatin1(GKEY_MOUSE_GUID));
+const QUuid GKeyLibrary::quMouse    = QUuid(QString::fromLatin1(GKEY_MOUSE_GUID));
 const QUuid GKeyLibrary::quKeyboard = QUuid(QString::fromLatin1(GKEY_KEYBOARD_GUID));
 
-GKeyLibrary::GKeyLibrary()
-{
+GKeyLibrary::GKeyLibrary() {
 	QStringList alternatives;
 
-	HKEY key = nullptr;
+	HKEY key   = nullptr;
 	DWORD type = 0;
 	WCHAR wcLocation[510];
 	DWORD len = 510;
 	if (RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, 0, KEY_READ, &key) == ERROR_SUCCESS) {
-		LONG err = RegQueryValueEx(key, L"", nullptr, &type, reinterpret_cast<LPBYTE>(wcLocation), &len);
+		LONG err = RegQueryValueEx(key, L"", nullptr, &type, reinterpret_cast< LPBYTE >(wcLocation), &len);
 		if (err == ERROR_SUCCESS && type == REG_SZ) {
-			QString qsLocation = QString::fromUtf16(reinterpret_cast<ushort *>(wcLocation), len / 2);
-			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %lu", qPrintable(qsLocation), static_cast<unsigned long>(len));
+			QString qsLocation = QString::fromUtf16(reinterpret_cast< ushort * >(wcLocation), len / 2);
+			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %lu", qPrintable(qsLocation),
+					 static_cast< unsigned long >(len));
 			alternatives << qsLocation;
 		} else {
-			qWarning("GKeyLibrary: Error looking up ServerBinary (Error: 0x%lx, Type: 0x%lx, len: %lu)", static_cast<unsigned long>(err), static_cast<unsigned long>(type), static_cast<unsigned long>(len));
+			qWarning("GKeyLibrary: Error looking up ServerBinary (Error: 0x%lx, Type: 0x%lx, len: %lu)",
+					 static_cast< unsigned long >(err), static_cast< unsigned long >(type),
+					 static_cast< unsigned long >(len));
 		}
 	}
 
 	alternatives << QString::fromLatin1(GKEY_LOGITECH_DLL_DEFAULT_LOCATION);
-	foreach(const QString &lib, alternatives) {
+	foreach (const QString &lib, alternatives) {
 		qlLogiGkey.setFileName(lib);
 
 		if (qlLogiGkey.load()) {
