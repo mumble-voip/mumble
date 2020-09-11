@@ -46,15 +46,15 @@ QString MumbleSSL::defaultOpenSSLCipherString() {
 	return QLatin1String("EECDH+AESGCM:EDH+aRSA+AESGCM:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:AES256-SHA:AES128-SHA");
 }
 
-QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString) {
-	QList<QSslCipher> chosenCiphers;
+QList< QSslCipher > MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString) {
+	QList< QSslCipher > chosenCiphers;
 
-	SSL_CTX *ctx = nullptr;
-	SSL *ssl = nullptr;
+	SSL_CTX *ctx           = nullptr;
+	SSL *ssl               = nullptr;
 	const SSL_METHOD *meth = nullptr;
-	int i = 0;
+	int i                  = 0;
 
-	QByteArray csbuf = cipherString.toLatin1();
+	QByteArray csbuf    = cipherString.toLatin1();
 	const char *ciphers = csbuf.constData();
 
 	meth = SSLv23_server_method();
@@ -64,7 +64,7 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 	}
 
 	// We use const_cast to be compatible with OpenSSL 0.9.8.
-	ctx = SSL_CTX_new(const_cast<SSL_METHOD *>(meth));
+	ctx = SSL_CTX_new(const_cast< SSL_METHOD * >(meth));
 	if (!ctx) {
 		qWarning("MumbleSSL: unable to allocate SSL_CTX");
 		goto out;
@@ -108,7 +108,7 @@ out:
 }
 
 void MumbleSSL::addSystemCA() {
-#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 	// Qt 5.15 introduced adding certificates to the QSslConfiguration and deprecated doing so on QSslSocket
 	auto config = QSslConfiguration::defaultConfiguration();
 
@@ -124,13 +124,13 @@ void MumbleSSL::addSystemCA() {
 	// Skype's click-to-call feature creates an enormous
 	// amount of certificates in the Root CA store.
 	{
-		QSslConfiguration sslCfg = QSslConfiguration::defaultConfiguration();
-		QList<QSslCertificate> caList = sslCfg.caCertificates();
+		QSslConfiguration sslCfg        = QSslConfiguration::defaultConfiguration();
+		QList< QSslCertificate > caList = sslCfg.caCertificates();
 
-		QList<QSslCertificate> filteredCaList;
+		QList< QSslCertificate > filteredCaList;
 		foreach (QSslCertificate cert, caList) {
 			QStringList orgs = cert.subjectInfo(QSslCertificate::Organization);
-			bool skip = false;
+			bool skip        = false;
 			foreach (QString ou, orgs) {
 				if (ou.contains(QLatin1String("Skype"), Qt::CaseInsensitive)) {
 					skip = true;
@@ -147,25 +147,36 @@ void MumbleSSL::addSystemCA() {
 		sslCfg.setCaCertificates(filteredCaList);
 		QSslConfiguration::setDefaultConfiguration(sslCfg);
 
-		qWarning("SSL: CA certificate filter applied. Filtered size: %i, original size: %i", filteredCaList.size(), caList.size());
+		qWarning("SSL: CA certificate filter applied. Filtered size: %i, original size: %i", filteredCaList.size(),
+				 caList.size());
 	}
 #endif
 }
 
 QString MumbleSSL::protocolToString(QSsl::SslProtocol protocol) {
-	switch(protocol) {
-		case QSsl::SslV3: return QLatin1String("SSL 3");
-		case QSsl::SslV2: return QLatin1String("SSL 2");
-		case QSsl::TlsV1_0: return QLatin1String("TLS 1.0");
-		case QSsl::TlsV1_1: return QLatin1String("TLS 1.1");
-		case QSsl::TlsV1_2: return QLatin1String("TLS 1.2");
+	switch (protocol) {
+		case QSsl::SslV3:
+			return QLatin1String("SSL 3");
+		case QSsl::SslV2:
+			return QLatin1String("SSL 2");
+		case QSsl::TlsV1_0:
+			return QLatin1String("TLS 1.0");
+		case QSsl::TlsV1_1:
+			return QLatin1String("TLS 1.1");
+		case QSsl::TlsV1_2:
+			return QLatin1String("TLS 1.2");
 #if QT_VERSION >= 0x050C00
-		case QSsl::TlsV1_3: return QLatin1String("TLS 1.3");
+		case QSsl::TlsV1_3:
+			return QLatin1String("TLS 1.3");
 #endif
-		case QSsl::AnyProtocol: return QLatin1String("AnyProtocol");
-		case QSsl::TlsV1SslV3: return QLatin1String("TlsV1SslV3");
-		case QSsl::SecureProtocols: return QLatin1String("SecureProtocols");
+		case QSsl::AnyProtocol:
+			return QLatin1String("AnyProtocol");
+		case QSsl::TlsV1SslV3:
+			return QLatin1String("TlsV1SslV3");
+		case QSsl::SecureProtocols:
+			return QLatin1String("SecureProtocols");
 		default:
-		case QSsl::UnknownProtocol: return QLatin1String("UnknownProtocol");
+		case QSsl::UnknownProtocol:
+			return QLatin1String("UnknownProtocol");
 	}
 }

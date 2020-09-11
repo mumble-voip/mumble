@@ -10,32 +10,31 @@
 #include <openssl/evp.h>
 
 class CryptographicHashPrivate {
-	public:
-		CryptographicHashPrivate(const EVP_MD *type);
-		~CryptographicHashPrivate();
-		void addData(const QByteArray &buf);
-		QByteArray result();
+public:
+	CryptographicHashPrivate(const EVP_MD *type);
+	~CryptographicHashPrivate();
+	void addData(const QByteArray &buf);
+	QByteArray result();
 
-	private:
-		EVP_MD_CTX *m_mdctx;
+private:
+	EVP_MD_CTX *m_mdctx;
 
-		/// The result of the cryptographic hash.
-		/// This field is filled out by the result()
-		/// method.
-		/// Once this field is set, the m_mdctx is finalized
-		/// and can't be used anymore, so result() and addData()
-		/// must guard against that possibility.
-		QByteArray m_result;
+	/// The result of the cryptographic hash.
+	/// This field is filled out by the result()
+	/// method.
+	/// Once this field is set, the m_mdctx is finalized
+	/// and can't be used anymore, so result() and addData()
+	/// must guard against that possibility.
+	QByteArray m_result;
 
-		CryptographicHashPrivate();
+	CryptographicHashPrivate();
 
-		/// If m_mdctx is set, cleanupMdctx will destroy
-		/// the EVP_MD_CTX object and set m_mdctx to nullptr.
-		void cleanupMdctx();
+	/// If m_mdctx is set, cleanupMdctx will destroy
+	/// the EVP_MD_CTX object and set m_mdctx to nullptr.
+	void cleanupMdctx();
 };
 
-CryptographicHashPrivate::CryptographicHashPrivate()
-	: m_mdctx(nullptr) {
+CryptographicHashPrivate::CryptographicHashPrivate() : m_mdctx(nullptr) {
 }
 
 void CryptographicHashPrivate::cleanupMdctx() {
@@ -45,9 +44,7 @@ void CryptographicHashPrivate::cleanupMdctx() {
 	}
 }
 
-CryptographicHashPrivate::CryptographicHashPrivate(const EVP_MD *type)
-	: m_mdctx(nullptr) {
-
+CryptographicHashPrivate::CryptographicHashPrivate(const EVP_MD *type) : m_mdctx(nullptr) {
 	m_mdctx = EVP_MD_CTX_create();
 	if (!m_mdctx) {
 		return;
@@ -98,7 +95,7 @@ QByteArray CryptographicHashPrivate::result() {
 	}
 
 	QByteArray digest(EVP_MD_CTX_size(m_mdctx), '\0');
-	int err = EVP_DigestFinal_ex(m_mdctx, reinterpret_cast<unsigned char *>(digest.data()), nullptr);
+	int err = EVP_DigestFinal_ex(m_mdctx, reinterpret_cast< unsigned char * >(digest.data()), nullptr);
 	if (err != 1) {
 		cleanupMdctx();
 		return QByteArray();
@@ -135,13 +132,10 @@ QString CryptographicHash::shortAlgorithmName(CryptographicHash::Algorithm algo)
 	return QString();
 }
 
-CryptographicHash::CryptographicHash()
-	: d(nullptr) {
+CryptographicHash::CryptographicHash() : d(nullptr) {
 }
 
-CryptographicHash::CryptographicHash(CryptographicHash::Algorithm algo)
-	: d(nullptr) {
-
+CryptographicHash::CryptographicHash(CryptographicHash::Algorithm algo) : d(nullptr) {
 	switch (algo) {
 		case CryptographicHash::Sha1:
 			d = new CryptographicHashPrivate(EVP_sha1());

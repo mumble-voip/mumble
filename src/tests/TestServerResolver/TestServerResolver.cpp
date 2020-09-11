@@ -3,12 +3,12 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+#include <QSignalSpy>
 #include <QtCore>
 #include <QtTest>
-#include <QSignalSpy>
 
-#include "ServerResolver.h"
 #include "PlatformCheck.h"
+#include "ServerResolver.h"
 
 void signalSpyWait(QSignalSpy &spy) {
 	// We increase the timeout from 5s to 8s because travis builds could fail otherwise (slow network response).
@@ -17,13 +17,13 @@ void signalSpyWait(QSignalSpy &spy) {
 }
 
 class TestServerResolver : public QObject {
-		Q_OBJECT
-	private slots:
-		void simpleSrv();
-		void srvCustomPort();
-		void simpleA();
-		void simpleAAAA();
-		void simpleCNAME();
+	Q_OBJECT
+private slots:
+	void simpleSrv();
+	void srvCustomPort();
+	void simpleA();
+	void simpleAAAA();
+	void simpleCNAME();
 };
 
 void TestServerResolver::simpleSrv() {
@@ -37,7 +37,7 @@ void TestServerResolver::simpleSrv() {
 	QSignalSpy spy(&r, SIGNAL(resolved()));
 
 	QString hostname = QString::fromLatin1("simple.serverresolver.mumble.info");
-	quint16 port = 64738;
+	quint16 port     = 64738;
 
 	r.resolve(hostname, port);
 
@@ -45,7 +45,7 @@ void TestServerResolver::simpleSrv() {
 
 	QCOMPARE(spy.count(), 1);
 
-	QList<ServerResolverRecord> records = r.records();
+	QList< ServerResolverRecord > records = r.records();
 	QCOMPARE(records.size(), 1);
 
 	ServerResolverRecord record = records.at(0);
@@ -85,7 +85,7 @@ void TestServerResolver::srvCustomPort() {
 	ServerResolver r;
 	QSignalSpy spy(&r, SIGNAL(resolved()));
 
-	QString hostname = QString::fromLatin1("customport.serverresolver.mumble.info");
+	QString hostname   = QString::fromLatin1("customport.serverresolver.mumble.info");
 	quint16 customPort = 36001;
 	r.resolve(hostname, 64738);
 
@@ -93,7 +93,7 @@ void TestServerResolver::srvCustomPort() {
 
 	QCOMPARE(spy.count(), 1);
 
-	QList<ServerResolverRecord> records = r.records();
+	QList< ServerResolverRecord > records = r.records();
 	QCOMPARE(records.size(), 1);
 
 	ServerResolverRecord record = records.at(0);
@@ -129,7 +129,7 @@ void TestServerResolver::simpleCNAME() {
 	QSignalSpy spy(&r, SIGNAL(resolved()));
 
 	QString hostname = QString::fromLatin1("cname.serverresolver.mumble.info");
-	quint16 port = 64738;
+	quint16 port     = 64738;
 
 	r.resolve(hostname, port);
 
@@ -137,7 +137,7 @@ void TestServerResolver::simpleCNAME() {
 
 	QCOMPARE(spy.count(), 1);
 
-	QList<ServerResolverRecord> records = r.records();
+	QList< ServerResolverRecord > records = r.records();
 	QCOMPARE(records.size(), 1);
 
 	ServerResolverRecord record = records.at(0);
@@ -171,7 +171,7 @@ void TestServerResolver::simpleA() {
 	QSignalSpy spy(&r, SIGNAL(resolved()));
 
 	QString hostname = QString::fromLatin1("simplea.serverresolver.mumble.info");
-	quint16 port = 64738;
+	quint16 port     = 64738;
 
 	r.resolve(hostname, port);
 
@@ -179,7 +179,7 @@ void TestServerResolver::simpleA() {
 
 	QCOMPARE(spy.count(), 1);
 
-	QList<ServerResolverRecord> records = r.records();
+	QList< ServerResolverRecord > records = r.records();
 	// Since not all systems have IPv4 support, we have to
 	// skip this test if we get no matches. Not ideal, but
 	// at least we get some test coverage on IPv4 systems.
@@ -194,7 +194,7 @@ void TestServerResolver::simpleA() {
 	QCOMPARE(record.hostname(), hostname);
 	QCOMPARE(record.port(), port);
 	QCOMPARE(record.addresses().size(), 1);
-	QCOMPARE(record.priority(), static_cast<qint64>(0));
+	QCOMPARE(record.priority(), static_cast< qint64 >(0));
 
 	HostAddress want(QHostAddress(QLatin1String("127.0.0.1")));
 	HostAddress got = record.addresses().at(0);
@@ -206,7 +206,7 @@ void TestServerResolver::simpleAAAA() {
 	QSignalSpy spy(&r, SIGNAL(resolved()));
 
 	QString hostname = QString::fromLatin1("simpleaaaa.serverresolver.mumble.info");
-	quint16 port = 64738;
+	quint16 port     = 64738;
 
 	r.resolve(hostname, port);
 
@@ -214,7 +214,7 @@ void TestServerResolver::simpleAAAA() {
 
 	QCOMPARE(spy.count(), 1);
 
-	QList<ServerResolverRecord> records = r.records();
+	QList< ServerResolverRecord > records = r.records();
 	// Since not all systems have IPv6 support, we have to
 	// skip this test if we get no matches. Not ideal, but
 	// at least we get some test coverage on IPv6 systems.
@@ -229,7 +229,7 @@ void TestServerResolver::simpleAAAA() {
 	QCOMPARE(record.hostname(), hostname);
 	QCOMPARE(record.port(), port);
 	QCOMPARE(record.addresses().size(), 1);
-	QCOMPARE(record.priority(), static_cast<qint64>(0));
+	QCOMPARE(record.priority(), static_cast< qint64 >(0));
 
 	HostAddress want(QHostAddress(QLatin1String("::1")));
 	HostAddress got = record.addresses().at(0);

@@ -6,17 +6,17 @@
 #include "ConnectDialog.h"
 
 #ifdef USE_BONJOUR
-#include "BonjourClient.h"
-#include "BonjourServiceBrowser.h"
-#include "BonjourServiceResolver.h"
+#	include "BonjourClient.h"
+#	include "BonjourServiceBrowser.h"
+#	include "BonjourServiceResolver.h"
 #endif
 
 #include "Channel.h"
 #include "Database.h"
 #include "ServerHandler.h"
-#include "WebFetch.h"
 #include "ServerResolver.h"
 #include "Utils.h"
+#include "WebFetch.h"
 
 #include <QtCore/QMimeData>
 #include <QtCore/QUrlQuery>
@@ -35,18 +35,19 @@
 #include <boost/array.hpp>
 
 #ifdef Q_OS_WIN
-# include <shlobj.h>
+#	include <shlobj.h>
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
-	#include <QRandomGenerator>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#	include <QRandomGenerator>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-QMap<QString, QIcon> ServerItem::qmIcons;
-QList<PublicInfo> ConnectDialog::qlPublicServers;
+QMap< QString, QIcon > ServerItem::qmIcons;
+QList< PublicInfo > ConnectDialog::qlPublicServers;
 QString ConnectDialog::qsUserCountry, ConnectDialog::qsUserCountryCode, ConnectDialog::qsUserContinentCode;
 Timer ConnectDialog::tPublicServers;
 
@@ -60,18 +61,18 @@ PingStats::~PingStats() {
 }
 
 void PingStats::init() {
-	boost::array<double, 3> probs = {{0.75, 0.80, 0.95 }};
+	boost::array< double, 3 > probs = { { 0.75, 0.80, 0.95 } };
 
-	asQuantile = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
-	dPing = 0.0;
-	uiPing = 0;
-	uiPingSort = 0;
-	uiUsers = 0;
-	uiMaxUsers = 0;
+	asQuantile  = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
+	dPing       = 0.0;
+	uiPing      = 0;
+	uiPingSort  = 0;
+	uiUsers     = 0;
+	uiMaxUsers  = 0;
 	uiBandwidth = 0;
-	uiSent = 0;
-	uiRecv = 0;
-	uiVersion = 0;
+	uiSent      = 0;
+	uiRecv      = 0;
+	uiVersion   = 0;
 }
 
 void PingStats::reset() {
@@ -89,7 +90,7 @@ void ServerViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	// Allow a ServerItem's BackgroundRole to override the current theme's default color.
 	QVariant bg = index.data(Qt::BackgroundRole);
 	if (bg.isValid()) {
-		painter->fillRect(option.rect, bg.value<QBrush>());
+		painter->fillRect(option.rect, bg.value< QBrush >());
 	}
 
 	QStyledItemDelegate::paint(painter, option, index);
@@ -107,7 +108,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN->setExpanded(true);
 	siLAN->setHidden(true);
 #else
-	siLAN = nullptr;
+	siLAN         = nullptr;
 #endif
 
 	if (!g.s.bDisablePublicList) {
@@ -117,7 +118,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 
 		siPublic->setExpanded(false);
 	} else {
-		qWarning()<< "Public list disabled";
+		qWarning() << "Public list disabled";
 
 		siPublic = nullptr;
 	}
@@ -129,11 +130,11 @@ ServerView::~ServerView() {
 	delete siPublic;
 }
 
-QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *> mimeitems) const {
+QMimeData *ServerView::mimeData(const QList< QTreeWidgetItem * > mimeitems) const {
 	if (mimeitems.isEmpty())
 		return nullptr;
 
-	ServerItem *si = static_cast<ServerItem *>(mimeitems.first());
+	ServerItem *si = static_cast< ServerItem * >(mimeitems.first());
 	return si->toMimeData();
 }
 
@@ -158,7 +159,7 @@ void ServerView::fixupName(ServerItem *si) {
 	tmatch.setMinimal(true);
 	if (tmatch.exactMatch(name)) {
 		name = tmatch.capturedTexts().at(1).trimmed();
-		tag = tmatch.capturedTexts().at(2).toInt();
+		tag  = tmatch.capturedTexts().at(2).toInt();
 	}
 
 	bool found;
@@ -170,7 +171,7 @@ void ServerView::fixupName(ServerItem *si) {
 		else
 			cmpname = name;
 
-		foreach(ServerItem *f, siFavorite->qlChildren)
+		foreach (ServerItem *f, siFavorite->qlChildren)
 			if (f->qsName == cmpname)
 				found = true;
 
@@ -182,15 +183,15 @@ void ServerView::fixupName(ServerItem *si) {
 
 bool ServerView::dropMimeData(QTreeWidgetItem *, int, const QMimeData *mime, Qt::DropAction) {
 	ServerItem *si = ServerItem::fromMimeData(mime);
-	if (! si)
+	if (!si)
 		return false;
 
 	fixupName(si);
 
-	qobject_cast<ConnectDialog *>(parent())->qlItems << si;
+	qobject_cast< ConnectDialog * >(parent())->qlItems << si;
 	siFavorite->addServerItem(si);
 
-	qobject_cast<ConnectDialog *>(parent())->startDns(si);
+	qobject_cast< ConnectDialog * >(parent())->startDns(si);
 
 	setCurrentItem(si);
 
@@ -207,7 +208,7 @@ void ServerItem::init() {
 
 ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	siParent = nullptr;
-	bParent = false;
+	bParent  = false;
 
 	itType = FavoriteType;
 	qsName = fs.qsName;
@@ -222,38 +223,40 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 #ifdef USE_BONJOUR
 	if (fs.qsHostname.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = fs.qsHostname.mid(1);
-		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+		brRecord      = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = fs.qsHostname;
 	}
 #else
-	qsHostname = fs.qsHostname;
+	qsHostname    = fs.qsHostname;
 #endif
 	init();
 }
 
 ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
-	siParent = nullptr;
-	bParent = false;
-	itType = PublicType;
-	qsName = pi.qsName;
-	qsHostname = pi.qsIp;
-	usPort = pi.usPort;
-	qsUrl = pi.quUrl.toString();
-	qsCountry = pi.qsCountry;
-	qsCountryCode = pi.qsCountryCode;
+	siParent        = nullptr;
+	bParent         = false;
+	itType          = PublicType;
+	qsName          = pi.qsName;
+	qsHostname      = pi.qsIp;
+	usPort          = pi.usPort;
+	qsUrl           = pi.quUrl.toString();
+	qsCountry       = pi.qsCountry;
+	qsCountryCode   = pi.qsCountryCode;
 	qsContinentCode = pi.qsContinentCode;
-	bCA = pi.bCA;
+	bCA             = pi.bCA;
 
 	init();
 }
 
-ServerItem::ServerItem(const QString &name, const QString &host, unsigned short port, const QString &username, const QString &password) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
-	siParent = nullptr;
-	bParent = false;
-	itType = FavoriteType;
-	qsName = name;
-	usPort = port;
+ServerItem::ServerItem(const QString &name, const QString &host, unsigned short port, const QString &username,
+					   const QString &password)
+	: QTreeWidgetItem(QTreeWidgetItem::UserType) {
+	siParent   = nullptr;
+	bParent    = false;
+	itType     = FavoriteType;
+	qsName     = name;
+	usPort     = port;
 	qsUsername = username;
 	qsPassword = password;
 
@@ -261,26 +264,26 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 #ifdef USE_BONJOUR
 	if (host.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = host.mid(1);
-		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+		brRecord      = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = host;
 	}
 #else
-	qsHostname = host;
+	qsHostname    = host;
 #endif
 	init();
 }
 
 #ifdef USE_BONJOUR
 ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
-	siParent = nullptr;
-	bParent = false;
-	itType = LANType;
-	qsName = br.serviceName;
+	siParent      = nullptr;
+	bParent       = false;
+	itType        = LANType;
+	qsName        = br.serviceName;
 	qsBonjourHost = qsName;
-	brRecord = br;
-	usPort = 0;
-	bCA = false;
+	brRecord      = br;
+	usPort        = 0;
+	bCA           = false;
 
 	init();
 }
@@ -288,9 +291,9 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 
 ServerItem::ServerItem(const QString &name, ItemType itype) {
 	siParent = nullptr;
-	bParent = true;
-	qsName = name;
-	itType = itype;
+	bParent  = true;
+	qsName   = name;
+	itType   = itype;
 	setFlags(flags() & ~Qt::ItemIsDragEnabled);
 	bCA = false;
 
@@ -299,34 +302,34 @@ ServerItem::ServerItem(const QString &name, ItemType itype) {
 
 ServerItem::ServerItem(const ServerItem *si) {
 	siParent = nullptr;
-	bParent = false;
-	itType = FavoriteType;
+	bParent  = false;
+	itType   = FavoriteType;
 
-	qsName = si->qsName;
-	qsHostname = si->qsHostname;
-	usPort = si->usPort;
-	qsUsername = si->qsUsername;
-	qsPassword = si->qsPassword;
-	qsCountry = si->qsCountry;
-	qsCountryCode = si->qsCountryCode;
+	qsName          = si->qsName;
+	qsHostname      = si->qsHostname;
+	usPort          = si->usPort;
+	qsUsername      = si->qsUsername;
+	qsPassword      = si->qsPassword;
+	qsCountry       = si->qsCountry;
+	qsCountryCode   = si->qsCountryCode;
 	qsContinentCode = si->qsContinentCode;
-	qsUrl = si->qsUrl;
+	qsUrl           = si->qsUrl;
 #ifdef USE_BONJOUR
 	qsBonjourHost = si->qsBonjourHost;
-	brRecord = si->brRecord;
+	brRecord      = si->brRecord;
 #endif
 	qlAddresses = si->qlAddresses;
-	bCA = si->bCA;
+	bCA         = si->bCA;
 
-	uiVersion = si->uiVersion;
-	uiPing = si->uiPing;
-	uiPingSort = si->uiPing;
-	uiUsers = si->uiUsers;
-	uiMaxUsers = si->uiMaxUsers;
+	uiVersion   = si->uiVersion;
+	uiPing      = si->uiPing;
+	uiPingSort  = si->uiPing;
+	uiUsers     = si->uiUsers;
+	uiMaxUsers  = si->uiMaxUsers;
 	uiBandwidth = si->uiBandwidth;
-	uiSent = si->uiSent;
-	dPing = si->dPing;
-	*asQuantile = * si->asQuantile;
+	uiSent      = si->uiSent;
+	dPing       = si->dPing;
+	*asQuantile = *si->asQuantile;
 }
 
 ServerItem::~ServerItem() {
@@ -337,7 +340,7 @@ ServerItem::~ServerItem() {
 	}
 
 	// This is just for cleanup when exiting the dialog, it won't stop pending DNS for the children.
-	foreach(ServerItem *si, qlChildren)
+	foreach (ServerItem *si, qlChildren)
 		delete si;
 }
 
@@ -346,13 +349,13 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 		return nullptr;
 
 	QUrl url;
-	if (mime->hasUrls() && ! mime->urls().isEmpty())
+	if (mime->hasUrls() && !mime->urls().isEmpty())
 		url = mime->urls().at(0);
 	else if (mime->hasText())
 		url = QUrl::fromEncoded(mime->text().toUtf8());
 
 	QString qsFile = url.toLocalFile();
-	if (! qsFile.isEmpty()) {
+	if (!qsFile.isEmpty()) {
 		QFile f(qsFile);
 		// Make sure we don't accidently read something big the user
 		// happened to have in his clipboard. We only want to look
@@ -362,22 +365,23 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 			f.close();
 
 			url = QUrl::fromEncoded(qba, QUrl::StrictMode);
-			if (! url.isValid()) {
+			if (!url.isValid()) {
 				// Windows internet shortcut files (.url) are an ini with an URL value
 				QSettings qs(qsFile, QSettings::IniFormat);
-				url = QUrl::fromEncoded(qs.value(QLatin1String("InternetShortcut/URL")).toByteArray(), QUrl::StrictMode);
+				url =
+					QUrl::fromEncoded(qs.value(QLatin1String("InternetShortcut/URL")).toByteArray(), QUrl::StrictMode);
 			}
 		}
 	}
 
 	if (default_name) {
 		QUrlQuery query(url);
-		if (! query.hasQueryItem(QLatin1String("title"))) {
+		if (!query.hasQueryItem(QLatin1String("title"))) {
 			query.addQueryItem(QLatin1String("title"), url.host());
 		}
 	}
 
-	if (! url.isValid()) {
+	if (!url.isValid()) {
 		return nullptr;
 	}
 
@@ -390,9 +394,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 	// Some communication programs automatically create http links from domains.
 	// When a user sends another user a domain to connect to, and http is added wrongly,
 	// we do our best to remove it again.
-	if (convertHttpUrls && (
-	    url.scheme() == QLatin1String("http")
-	    || url.scheme() == QLatin1String("https"))) {
+	if (convertHttpUrls && (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))) {
 		url.setScheme(QLatin1String("mumble"));
 	}
 
@@ -400,7 +402,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, Q
 }
 
 ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
-	if (! url.isValid() || (url.scheme() != QLatin1String("mumble"))) {
+	if (!url.isValid() || (url.scheme() != QLatin1String("mumble"))) {
 		return nullptr;
 	}
 
@@ -409,8 +411,11 @@ ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
 	if (url.userName().isEmpty()) {
 		if (g.s.qsUsername.isEmpty()) {
 			bool ok;
-			QString defUserName = QInputDialog::getText(p, ConnectDialog::tr("Adding host %1").arg(url.host()), ConnectDialog::tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
-			if (! ok)
+			QString defUserName =
+				QInputDialog::getText(p, ConnectDialog::tr("Adding host %1").arg(url.host()),
+									  ConnectDialog::tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok)
+					.trimmed();
+			if (!ok)
 				return nullptr;
 			if (defUserName.isEmpty())
 				return nullptr;
@@ -419,7 +424,9 @@ ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
 		url.setUserName(g.s.qsUsername);
 	}
 
-	ServerItem *si = new ServerItem(query.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
+	ServerItem *si =
+		new ServerItem(query.queryItemValue(QLatin1String("title")), url.host(),
+					   static_cast< unsigned short >(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
 
 	if (query.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = query.queryItemValue(QLatin1String("url"));
@@ -445,10 +452,10 @@ QVariant ServerItem::data(int column, int role) const {
 	} else {
 		if (role == Qt::DecorationRole && column == 0) {
 			QString flag;
-			if (! qsCountryCode.isEmpty()) {
-			    flag = QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode);
-			    if (!QFileInfo(flag).exists()) {
-				    flag = QLatin1String("skin:categories/applications-internet.svg");
+			if (!qsCountryCode.isEmpty()) {
+				flag = QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode);
+				if (!QFileInfo(flag).exists()) {
+					flag = QLatin1String("skin:categories/applications-internet.svg");
 				}
 			} else {
 				flag = QLatin1String("skin:categories/applications-internet.svg");
@@ -466,8 +473,9 @@ QVariant ServerItem::data(int column, int role) const {
 			}
 		} else if (role == Qt::ToolTipRole) {
 			QStringList qsl;
-			foreach(const ServerAddress &addr, qlAddresses) {
-				const QString qsAddress = addr.host.toString() + QLatin1String(":") + QString::number(static_cast<unsigned long>(addr.port));
+			foreach (const ServerAddress &addr, qlAddresses) {
+				const QString qsAddress = addr.host.toString() + QLatin1String(":")
+										  + QString::number(static_cast< unsigned long >(addr.port));
 				qsl << qsAddress.toHtmlEscaped();
 			}
 
@@ -477,32 +485,48 @@ QVariant ServerItem::data(int column, int role) const {
 				ploss = (uiSent - qMin(uiRecv, uiSent)) * 100. / uiSent;
 
 			QString qs;
-			qs +=
-			    QLatin1String("<table>") +
-			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), qsName.toHtmlEscaped()) +
-			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname.toHtmlEscaped());
+			qs += QLatin1String("<table>")
+				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+						.arg(ConnectDialog::tr("Servername"), qsName.toHtmlEscaped())
+				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+						.arg(ConnectDialog::tr("Hostname"), qsHostname.toHtmlEscaped());
 #ifdef USE_BONJOUR
-			if (! qsBonjourHost.isEmpty())
-				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost.toHtmlEscaped());
+			if (!qsBonjourHost.isEmpty())
+				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+						  .arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost.toHtmlEscaped());
 #endif
-			qs +=
-			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
-			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
+			qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+					  .arg(ConnectDialog::tr("Port"))
+					  .arg(usPort)
+				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+						.arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
 
-			if (! qsUrl.isEmpty())
-				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Website"), qsUrl.toHtmlEscaped());
+			if (!qsUrl.isEmpty())
+				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+						  .arg(ConnectDialog::tr("Website"), qsUrl.toHtmlEscaped());
 
 			if (uiSent > 0) {
-				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent));
+				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+						  .arg(ConnectDialog::tr("Packet loss"),
+							   QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent));
 				if (uiRecv > 0) {
-					qs +=
-					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
-					            arg(boost::accumulators::extended_p_square(* asQuantile)[1] / 1000., 0, 'f', 2)) +
-					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
-					            arg(boost::accumulators::extended_p_square(* asQuantile)[2] / 1000., 0, 'f', 2)) +
-					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000)) +
-					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
-					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Version")).arg(MumbleVersion::toString(uiVersion));
+					qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+							  .arg(ConnectDialog::tr("Ping (80%)"),
+								   ConnectDialog::tr("%1 ms").arg(
+									   boost::accumulators::extended_p_square(*asQuantile)[1] / 1000., 0, 'f', 2))
+						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+								.arg(ConnectDialog::tr("Ping (95%)"),
+									 ConnectDialog::tr("%1 ms").arg(
+										 boost::accumulators::extended_p_square(*asQuantile)[2] / 1000., 0, 'f', 2))
+						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+								.arg(ConnectDialog::tr("Bandwidth"),
+									 ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))
+						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+								.arg(ConnectDialog::tr("Users"),
+									 QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers))
+						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
+								.arg(ConnectDialog::tr("Version"))
+								.arg(MumbleVersion::toString(uiVersion));
 				}
 			}
 			qs += QLatin1String("</table>");
@@ -527,7 +551,7 @@ void ServerItem::addServerItem(ServerItem *childitem) {
 	// Public servers must initially be hidden for the search to work properly
 	// They will be set to visible later on
 	if (childitem->itType == PublicType) {
-	    childitem->setHidden(true);
+		childitem->setHidden(true);
 	}
 
 	if (bParent && (itType != PublicType) && isHidden()) {
@@ -541,22 +565,22 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 		return;
 	}
 
-	(*asQuantile)(static_cast<double>(elapsed));
+	(*asQuantile)(static_cast< double >(elapsed));
 	dPing = boost::accumulators::extended_p_square(*asQuantile)[0];
 	if (dPing == 0.0)
 		dPing = elapsed;
 
-	quint32 ping = static_cast<quint32>(lround(dPing / 1000.));
-	uiRecv = static_cast<quint32>(boost::accumulators::count(* asQuantile));
+	quint32 ping = static_cast< quint32 >(lround(dPing / 1000.));
+	uiRecv       = static_cast< quint32 >(boost::accumulators::count(*asQuantile));
 
 	bool changed = (ping != uiPing) || (users != uiUsers) || (maxusers != uiMaxUsers);
 
-	uiUsers = users;
+	uiUsers    = users;
 	uiMaxUsers = maxusers;
-	uiPing = ping;
+	uiPing     = ping;
 
 	double grace = qMax(5000., 50. * uiPingSort);
-	double diff = fabs(1000. * uiPingSort - dPing);
+	double diff  = fabs(1000. * uiPingSort - dPing);
 
 	if ((uiPingSort == 0) || ((uiSent >= 10) && (diff >= grace)))
 		uiPingSort = ping;
@@ -569,17 +593,17 @@ FavoriteServer ServerItem::toFavoriteServer() const {
 	FavoriteServer fs;
 	fs.qsName = qsName;
 #ifdef USE_BONJOUR
-	if (! qsBonjourHost.isEmpty())
+	if (!qsBonjourHost.isEmpty())
 		fs.qsHostname = QLatin1Char('@') + qsBonjourHost;
 	else
 		fs.qsHostname = qsHostname;
 #else
 	fs.qsHostname = qsHostname;
 #endif
-	fs.usPort = usPort;
+	fs.usPort     = usPort;
 	fs.qsUsername = qsUsername;
 	fs.qsPassword = qsPassword;
-	fs.qsUrl = qsUrl;
+	fs.qsUrl      = qsUrl;
 	return fs;
 }
 
@@ -600,7 +624,8 @@ QMimeData *ServerItem::toMimeData() const {
  * query string as "title", which is used for adding a server to favorites. channel may be omitted, but if specified it
  * should be in the format of "/path/to/channel".
  */
-QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel) {
+QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port,
+								  const QString &channel) {
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));
 	url.setHost(host);
@@ -619,23 +644,25 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 
 #ifdef Q_OS_WIN
 	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
-	QString urlname = QString::fromLatin1("%1.url").arg(name);
+	QString urlname  = QString::fromLatin1("%1.url").arg(name);
 
 	FILEGROUPDESCRIPTORA fgda;
 	ZeroMemory(&fgda, sizeof(fgda));
-	fgda.cItems = 1;
-	fgda.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
-	fgda.fgd[0].nFileSizeLow=contents.length();
+	fgda.cItems              = 1;
+	fgda.fgd[0].dwFlags      = FD_LINKUI | FD_FILESIZE;
+	fgda.fgd[0].nFileSizeLow = contents.length();
 	strcpy_s(fgda.fgd[0].cFileName, MAX_PATH, urlname.toLocal8Bit().constData());
-	mime->setData(QLatin1String("FileGroupDescriptor"), QByteArray(reinterpret_cast<const char *>(&fgda), sizeof(fgda)));
+	mime->setData(QLatin1String("FileGroupDescriptor"),
+				  QByteArray(reinterpret_cast< const char * >(&fgda), sizeof(fgda)));
 
 	FILEGROUPDESCRIPTORW fgdw;
 	ZeroMemory(&fgdw, sizeof(fgdw));
-	fgdw.cItems = 1;
-	fgdw.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
-	fgdw.fgd[0].nFileSizeLow=contents.length();
+	fgdw.cItems              = 1;
+	fgdw.fgd[0].dwFlags      = FD_LINKUI | FD_FILESIZE;
+	fgdw.fgd[0].nFileSizeLow = contents.length();
 	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.toStdWString().c_str());
-	mime->setData(QLatin1String("FileGroupDescriptorW"), QByteArray(reinterpret_cast<const char *>(&fgdw), sizeof(fgdw)));
+	mime->setData(QLatin1String("FileGroupDescriptorW"),
+				  QByteArray(reinterpret_cast< const char * >(&fgdw), sizeof(fgdw)));
 
 	mime->setData(QString::fromWCharArray(CFSTR_FILECONTENTS), contents.toLocal8Bit());
 
@@ -644,13 +671,15 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	context[1] = 1;
 	context[2] = 0;
 	context[3] = 0;
-	mime->setData(QLatin1String("DragContext"), QByteArray(reinterpret_cast<const char *>(&context[0]), sizeof(context)));
+	mime->setData(QLatin1String("DragContext"),
+				  QByteArray(reinterpret_cast< const char * >(&context[0]), sizeof(context)));
 
 	DWORD dropaction;
 	dropaction = DROPEFFECT_LINK;
-	mime->setData(QString::fromWCharArray(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
+	mime->setData(QString::fromWCharArray(CFSTR_PREFERREDDROPEFFECT),
+				  QByteArray(reinterpret_cast< const char * >(&dropaction), sizeof(dropaction)));
 #endif
-	QList<QUrl> urls;
+	QList< QUrl > urls;
 	urls << url;
 	mime->setUrls(urls);
 
@@ -660,9 +689,9 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	return mime;
 }
 
-bool ServerItem::operator <(const QTreeWidgetItem &o) const {
-	const ServerItem &other = static_cast<const ServerItem &>(o);
-	const QTreeWidget *w = treeWidget();
+bool ServerItem::operator<(const QTreeWidgetItem &o) const {
+	const ServerItem &other = static_cast< const ServerItem & >(o);
+	const QTreeWidget *w    = treeWidget();
 
 	const int column = w ? w->sortColumn() : 0;
 
@@ -703,16 +732,18 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 }
 
 QIcon ServerItem::loadIcon(const QString &name) {
-	if (! qmIcons.contains(name))
+	if (!qmIcons.contains(name))
 		qmIcons.insert(name, QIcon(name));
 	return qmIcons.value(name);
 }
 
-ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port, const QString &password) : QDialog(p) {
+ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user,
+									 unsigned short port, const QString &password)
+	: QDialog(p) {
 	setupUi(this);
 	init();
 
-	bCustomLabel = ! name.simplified().isEmpty();
+	bCustomLabel = !name.simplified().isEmpty();
 
 	qleName->setText(name);
 	qleServer->setText(host);
@@ -740,7 +771,10 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 				name = c->qsName;
 			}
 
-			showNotice(tr("You are currently connected to a server.\nDo you want to fill the dialog with the connection data of this server?\nHost: %1 Port: %2").arg(host).arg(port));
+			showNotice(tr("You are currently connected to a server.\nDo you want to fill the dialog with the "
+						  "connection data of this server?\nHost: %1 Port: %2")
+						   .arg(host)
+						   .arg(port));
 			m_si = new ServerItem(name, host, port, user, pw);
 		}
 	}
@@ -748,9 +782,9 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 }
 
 void ConnectDialogEdit::init() {
-	m_si = nullptr;
-	usPort = 0;
-	bOk = true;
+	m_si         = nullptr;
+	usPort       = 0;
+	bOk          = true;
 	bCustomLabel = false;
 
 	qwInlineNotice->hide();
@@ -773,7 +807,7 @@ ConnectDialogEdit::~ConnectDialogEdit() {
 }
 
 void ConnectDialogEdit::showNotice(const QString &text) {
-	QLabel *label = qwInlineNotice->findChild<QLabel *>(QLatin1String("qlPasteNotice"));
+	QLabel *label = qwInlineNotice->findChild< QLabel * >(QLatin1String("qlPasteNotice"));
 	Q_ASSERT(label);
 	label->setText(text);
 	qwInlineNotice->show();
@@ -784,7 +818,10 @@ bool ConnectDialogEdit::updateFromClipboard() {
 	delete m_si;
 	m_si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false, nullptr, true);
 	if (m_si) {
-		showNotice(tr("You have an URL in your clipboard.\nDo you want to fill the dialog with this data?\nHost: %1 Port: %2").arg(m_si->qsHostname).arg(m_si->usPort));
+		showNotice(
+			tr("You have an URL in your clipboard.\nDo you want to fill the dialog with this data?\nHost: %1 Port: %2")
+				.arg(m_si->qsHostname)
+				.arg(m_si->usPort));
 		return true;
 	} else {
 		qwInlineNotice->hide();
@@ -814,7 +851,7 @@ void ConnectDialogEdit::on_qbDiscard_clicked() {
 	adjustSize();
 }
 
-void ConnectDialogEdit::on_qleName_textEdited(const QString& name) {
+void ConnectDialogEdit::on_qleName_textEdited(const QString &name) {
 	if (bCustomLabel) {
 		// If empty, then reset to automatic label.
 		// NOTE(nik@jnstw.us): You may be tempted to set qleName to qleServer, but that results in the odd
@@ -830,7 +867,7 @@ void ConnectDialogEdit::on_qleName_textEdited(const QString& name) {
 	}
 }
 
-void ConnectDialogEdit::on_qleServer_textEdited(const QString& server) {
+void ConnectDialogEdit::on_qleServer_textEdited(const QString &server) {
 	// If using automatic label, update it
 	if (!bCustomLabel) {
 		qleName->setText(server);
@@ -838,9 +875,9 @@ void ConnectDialogEdit::on_qleServer_textEdited(const QString& server) {
 }
 
 void ConnectDialogEdit::validate() {
-	qsName = qleName->text().simplified();
+	qsName     = qleName->text().simplified();
 	qsHostname = qleServer->text().simplified();
-	usPort = qlePort->text().toUShort();
+	usPort     = qlePort->text().toUShort();
 	qsUsername = qleUsername->text().simplified();
 	qsPassword = qlePassword->text();
 
@@ -860,7 +897,7 @@ void ConnectDialogEdit::validate() {
 		adjustSize();
 	}
 
-	bOk = ! qsHostname.isEmpty() && ! qsUsername.isEmpty() && usPort;
+	bOk = !qsHostname.isEmpty() && !qsUsername.isEmpty() && usPort;
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
 }
 
@@ -905,10 +942,10 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	siAutoConnect = nullptr;
 
-	bAllowPing = g.s.ptProxyType == Settings::NoProxy;
+	bAllowPing       = g.s.ptProxyType == Settings::NoProxy;
 	bAllowHostLookup = g.s.ptProxyType == Settings::NoProxy;
-	bAllowBonjour = g.s.ptProxyType == Settings::NoProxy;
-	bAllowFilters = g.s.ptProxyType == Settings::NoProxy;
+	bAllowBonjour    = g.s.ptProxyType == Settings::NoProxy;
+	bAllowFilters    = g.s.ptProxyType == Settings::NoProxy;
 
 	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
 		qlPublicServers.clear();
@@ -939,14 +976,14 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	if (!g.s.bDisablePublicList) {
 		const QIcon qiFlag = ServerItem::loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 		// Add continents and 'Unknown' to the location combobox
-		qcbSearchLocation->addItem(qiFlag, tr("All"),           QLatin1String("all"));
-		qcbSearchLocation->addItem(qiFlag, tr("Africa"),        QLatin1String("af"));
-		qcbSearchLocation->addItem(qiFlag, tr("Asia"),          QLatin1String("as"));
-		qcbSearchLocation->addItem(qiFlag, tr("Europe"),        QLatin1String("eu"));
+		qcbSearchLocation->addItem(qiFlag, tr("All"), QLatin1String("all"));
+		qcbSearchLocation->addItem(qiFlag, tr("Africa"), QLatin1String("af"));
+		qcbSearchLocation->addItem(qiFlag, tr("Asia"), QLatin1String("as"));
+		qcbSearchLocation->addItem(qiFlag, tr("Europe"), QLatin1String("eu"));
 		qcbSearchLocation->addItem(qiFlag, tr("North America"), QLatin1String("na"));
-		qcbSearchLocation->addItem(qiFlag, tr("Oceania"),       QLatin1String("oc"));
+		qcbSearchLocation->addItem(qiFlag, tr("Oceania"), QLatin1String("oc"));
 		qcbSearchLocation->addItem(qiFlag, tr("South America"), QLatin1String("sa"));
-		qcbSearchLocation->addItem(qiFlag, tr("Unknown"),       QLatin1String(""));
+		qcbSearchLocation->addItem(qiFlag, tr("Unknown"), QLatin1String(""));
 		addCountriesToSearchLocation();
 	}
 	qgbSearch->setVisible(false);
@@ -966,7 +1003,8 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 		qtwServers->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 	}
 
-	connect(qtwServers->header(), SIGNAL(sortIndicatorChanged(int, Qt::SortOrder)), this, SLOT(OnSortChanged(int, Qt::SortOrder)));
+	connect(qtwServers->header(), SIGNAL(sortIndicatorChanged(int, Qt::SortOrder)), this,
+			SLOT(OnSortChanged(int, Qt::SortOrder)));
 
 	if (bAllowFilters) {
 		switch (g.s.ssFilter) {
@@ -986,10 +1024,10 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qmPopup = new QMenu(this);
 
-	QList<QTreeWidgetItem *> ql;
-	QList<FavoriteServer> favorites = g.db->getFavorites();
+	QList< QTreeWidgetItem * > ql;
+	QList< FavoriteServer > favorites = g.db->getFavorites();
 
-	foreach(const FavoriteServer &fs, favorites) {
+	foreach (const FavoriteServer &fs, favorites) {
 		ServerItem *si = new ServerItem(fs);
 		qlItems << si;
 		startDns(si);
@@ -999,14 +1037,14 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 #ifdef USE_BONJOUR
 	// Make sure the we got the objects we need, then wire them up
 	if (bAllowBonjour && g.bc->bsbBrowser && g.bc->bsrResolver) {
-		connect(g.bc->bsbBrowser.data(), SIGNAL(error(DNSServiceErrorType)),
-		        this, SLOT(onLanBrowseError(DNSServiceErrorType)));
-		connect(g.bc->bsbBrowser.data(), SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
-		        this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
-		connect(g.bc->bsrResolver.data(), SIGNAL(error(BonjourRecord, DNSServiceErrorType)),
-		        this, SLOT(onLanResolveError(BonjourRecord, DNSServiceErrorType)));
-		connect(g.bc->bsrResolver.data(), SIGNAL(bonjourRecordResolved(BonjourRecord, QString, int)),
-		        this, SLOT(onResolved(BonjourRecord, QString, int)));
+		connect(g.bc->bsbBrowser.data(), SIGNAL(error(DNSServiceErrorType)), this,
+				SLOT(onLanBrowseError(DNSServiceErrorType)));
+		connect(g.bc->bsbBrowser.data(), SIGNAL(currentBonjourRecordsChanged(const QList< BonjourRecord > &)), this,
+				SLOT(onUpdateLanList(const QList< BonjourRecord > &)));
+		connect(g.bc->bsrResolver.data(), SIGNAL(error(BonjourRecord, DNSServiceErrorType)), this,
+				SLOT(onLanResolveError(BonjourRecord, DNSServiceErrorType)));
+		connect(g.bc->bsrResolver.data(), SIGNAL(bonjourRecordResolved(BonjourRecord, QString, int)), this,
+				SLOT(onResolved(BonjourRecord, QString, int)));
 		onUpdateLanList(g.bc->bsbBrowser->currentRecords());
 	}
 #endif
@@ -1016,14 +1054,13 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qusSocket4 = new QUdpSocket(this);
 	qusSocket6 = new QUdpSocket(this);
-	bIPv4 = qusSocket4->bind(QHostAddress(QHostAddress::Any), 0);
-	bIPv6 = qusSocket6->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
+	bIPv4      = qusSocket4->bind(QHostAddress(QHostAddress::Any), 0);
+	bIPv6      = qusSocket6->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
 	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
 
-	if (qtwServers->siFavorite->isHidden()
-	    && (!qtwServers->siLAN || qtwServers->siLAN->isHidden())
-	    && qtwServers->siPublic) {
+	if (qtwServers->siFavorite->isHidden() && (!qtwServers->siLAN || qtwServers->siLAN->isHidden())
+		&& qtwServers->siPublic) {
 		qtwServers->siPublic->setExpanded(true);
 	}
 
@@ -1038,19 +1075,19 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qmPingCache = g.db->getPingCache();
 
-	if (! g.s.qbaConnectDialogGeometry.isEmpty())
+	if (!g.s.qbaConnectDialogGeometry.isEmpty())
 		restoreGeometry(g.s.qbaConnectDialogGeometry);
-	if (! g.s.qbaConnectDialogHeader.isEmpty())
+	if (!g.s.qbaConnectDialogHeader.isEmpty())
 		qtwServers->header()->restoreState(g.s.qbaConnectDialogHeader);
 }
 
 ConnectDialog::~ConnectDialog() {
 	ServerItem::qmIcons.clear();
 
-	QList<FavoriteServer> ql;
+	QList< FavoriteServer > ql;
 	qmPingCache.clear();
 
-	foreach(ServerItem *si, qlItems) {
+	foreach (ServerItem *si, qlItems) {
 		if (si->uiPing)
 			qmPingCache.insert(UnresolvedServerAddress(si->qsHostname, si->usPort), si->uiPing);
 
@@ -1061,25 +1098,27 @@ ConnectDialog::~ConnectDialog() {
 	g.db->setFavorites(ql);
 	g.db->setPingCache(qmPingCache);
 
-	g.s.qbaConnectDialogHeader = qtwServers->header()->saveState();
+	g.s.qbaConnectDialogHeader   = qtwServers->header()->saveState();
 	g.s.qbaConnectDialogGeometry = saveGeometry();
 }
 
 void ConnectDialog::accept() {
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || (bAllowHostLookup && si->qlAddresses.isEmpty()) || si->qsHostname.isEmpty()) {
+	ServerItem *si = static_cast< ServerItem * >(qtwServers->currentItem());
+	if (!si || (bAllowHostLookup && si->qlAddresses.isEmpty()) || si->qsHostname.isEmpty()) {
 		qWarning() << "Invalid server";
 		return;
 	}
 
 	qsPassword = si->qsPassword;
-	qsServer = si->qsHostname;
-	usPort = si->usPort;
+	qsServer   = si->qsHostname;
+	usPort     = si->usPort;
 
 	if (si->qsUsername.isEmpty()) {
 		bool ok;
-		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(si->qsName), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
-		if (! ok)
+		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(si->qsName), tr("Enter username"),
+													QLineEdit::Normal, g.s.qsUsername, &ok)
+								  .trimmed();
+		if (!ok)
 			return;
 		g.s.qsUsername = si->qsUsername = defUserName;
 	}
@@ -1096,7 +1135,7 @@ void ConnectDialog::OnSortChanged(int logicalIndex, Qt::SortOrder) {
 		return;
 	}
 
-	foreach(ServerItem *si, qlItems) {
+	foreach (ServerItem *si, qlItems) {
 		if (si->uiPing && (si->uiPing != si->uiPingSort)) {
 			si->uiPingSort = si->uiPing;
 			si->setDatas();
@@ -1105,8 +1144,8 @@ void ConnectDialog::OnSortChanged(int logicalIndex, Qt::SortOrder) {
 }
 
 void ConnectDialog::on_qaFavoriteAdd_triggered() {
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || (si->itType == ServerItem::FavoriteType))
+	ServerItem *si = static_cast< ServerItem * >(qtwServers->currentItem());
+	if (!si || (si->itType == ServerItem::FavoriteType))
 		return;
 
 	si = new ServerItem(si);
@@ -1131,24 +1170,23 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 }
 
 void ConnectDialog::on_qaFavoriteEdit_triggered() {
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || (si->itType != ServerItem::FavoriteType))
+	ServerItem *si = static_cast< ServerItem * >(qtwServers->currentItem());
+	if (!si || (si->itType != ServerItem::FavoriteType))
 		return;
 
 	QString host;
 #ifdef USE_BONJOUR
-	if (! si->qsBonjourHost.isEmpty())
+	if (!si->qsBonjourHost.isEmpty())
 		host = QLatin1Char('@') + si->qsBonjourHost;
 	else
 		host = si->qsHostname;
 #else
-	host = si->qsHostname;
+	host          = si->qsHostname;
 #endif
 	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort, si->qsPassword);
 
 	if (cde->exec() == QDialog::Accepted) {
-
-		si->qsName = cde->qsName;
+		si->qsName     = cde->qsName;
 		si->qsUsername = cde->qsUsername;
 		si->qsPassword = cde->qsPassword;
 		if ((cde->qsHostname != host) || (cde->usPort != si->usPort)) {
@@ -1160,16 +1198,17 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 			si->usPort = cde->usPort;
 #ifdef USE_BONJOUR
 			if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
-				si->qsHostname = QString();
+				si->qsHostname    = QString();
 				si->qsBonjourHost = cde->qsHostname.mid(1);
-				si->brRecord = BonjourRecord(si->qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+				si->brRecord =
+					BonjourRecord(si->qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 			} else {
-				si->qsHostname = cde->qsHostname;
+				si->qsHostname    = cde->qsHostname;
 				si->qsBonjourHost = QString();
-				si->brRecord = BonjourRecord();
+				si->brRecord      = BonjourRecord();
 			}
 #else
-			si->qsHostname = cde->qsHostname;
+            si->qsHostname = cde->qsHostname;
 #endif
 			startDns(si);
 		}
@@ -1179,8 +1218,8 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 }
 
 void ConnectDialog::on_qaFavoriteRemove_triggered() {
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || (si->itType != ServerItem::FavoriteType))
+	ServerItem *si = static_cast< ServerItem * >(qtwServers->currentItem());
+	if (!si || (si->itType != ServerItem::FavoriteType))
 		return;
 
 	stopDns(si);
@@ -1189,8 +1228,8 @@ void ConnectDialog::on_qaFavoriteRemove_triggered() {
 }
 
 void ConnectDialog::on_qaFavoriteCopy_triggered() {
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si)
+	ServerItem *si = static_cast< ServerItem * >(qtwServers->currentItem());
+	if (!si)
 		return;
 
 	QApplication::clipboard()->setMimeData(si->toMimeData());
@@ -1198,7 +1237,7 @@ void ConnectDialog::on_qaFavoriteCopy_triggered() {
 
 void ConnectDialog::on_qaFavoritePaste_triggered() {
 	ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData());
-	if (! si)
+	if (!si)
 		return;
 
 	qlItems << si;
@@ -1208,23 +1247,22 @@ void ConnectDialog::on_qaFavoritePaste_triggered() {
 }
 
 void ConnectDialog::on_qaUrl_triggered() {
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || si->qsUrl.isEmpty())
+	ServerItem *si = static_cast< ServerItem * >(qtwServers->currentItem());
+	if (!si || si->qsUrl.isEmpty())
 		return;
 
 	QDesktopServices::openUrl(QUrl(si->qsUrl));
 }
 
 void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos) {
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->itemAt(mpos));
+	ServerItem *si = static_cast< ServerItem * >(qtwServers->itemAt(mpos));
 	qmPopup->clear();
 
 	if (si && si->bParent) {
 		si = nullptr;
 	}
-	
-	if (si) {
 
+	if (si) {
 		if (!g.s.disableConnectDialogEditing) {
 			if (si->itType == ServerItem::FavoriteType) {
 				qmPopup->addAction(qaFavoriteEdit);
@@ -1233,7 +1271,7 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos)
 				qmPopup->addAction(qaFavoriteAdd);
 			}
 		}
-		
+
 		if (!si->qsUrl.isEmpty()) {
 			qmPopup->addAction(qaUrl);
 		}
@@ -1248,14 +1286,14 @@ void ConnectDialog::on_qtwServers_itemDoubleClicked(QTreeWidgetItem *item, int) 
 }
 
 void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
-	ServerItem *si = static_cast<ServerItem *>(item);
+	ServerItem *si = static_cast< ServerItem * >(item);
 
 	if (si->siParent == qtwServers->siFavorite) {
 		qpbEdit->setEnabled(true);
 	} else {
 		qpbEdit->setEnabled(false);
 	}
-	
+
 	bool bOk = !si->qlAddresses.isEmpty();
 	if (!bAllowHostLookup) {
 		bOk = true;
@@ -1270,13 +1308,13 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 		if (!g.s.bPingServersDialogViewed) {
 			// Ask the user for consent to ping the servers. If the user does
 			// not give consent, disable the public server list and return.
-			int result = QMessageBox::question(this,
-			                                   tr("Consent to the transmission of private data"),
-			                                   tr("<p>To measure the latency (ping) of public servers and determine the number of active users, "
-			                                      "your IP address must be transmitted to each public server.</p>"
-			                                      "<p>Do you consent to the transmission of your IP address? If you answer no, the public server "
-			                                      "list will be deactivated. However, you can reactivate it at any time in the network settings.</p>"),
-			                                   QMessageBox::Yes|QMessageBox::No);
+			int result = QMessageBox::question(
+				this, tr("Consent to the transmission of private data"),
+				tr("<p>To measure the latency (ping) of public servers and determine the number of active users, "
+				   "your IP address must be transmitted to each public server.</p>"
+				   "<p>Do you consent to the transmission of your IP address? If you answer no, the public server "
+				   "list will be deactivated. However, you can reactivate it at any time in the network settings.</p>"),
+				QMessageBox::Yes | QMessageBox::No);
 			g.s.bPingServersDialogViewed = true;
 			if (result == QMessageBox::No) {
 				g.s.bDisablePublicList = true;
@@ -1290,15 +1328,12 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 		fillList();
 	}
 
-	ServerItem *p = static_cast<ServerItem *>(item);
+	ServerItem *p = static_cast< ServerItem * >(item);
 
-	foreach(ServerItem *si, p->qlChildren) {
-		startDns(si);
-	}
+	foreach (ServerItem *si, p->qlChildren) { startDns(si); }
 }
 
-void ConnectDialog::on_qtwServers_itemCollapsed(QTreeWidgetItem *item)
-{
+void ConnectDialog::on_qtwServers_itemCollapsed(QTreeWidgetItem *item) {
 	if (qtwServers->siPublic && item == qtwServers->siPublic) {
 		qgbSearch->setVisible(false);
 	}
@@ -1317,18 +1352,18 @@ void ConnectDialog::initList() {
 	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 	url.setQuery(query);
 
-	WebFetch::fetch(QLatin1String("publist"), url, this, SLOT(fetched(QByteArray,QUrl,QMap<QString,QString>)));
+	WebFetch::fetch(QLatin1String("publist"), url, this, SLOT(fetched(QByteArray, QUrl, QMap< QString, QString >)));
 }
 
 #ifdef USE_BONJOUR
 void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 	qlBonjourActive.removeAll(record);
-	foreach(ServerItem *si, qlItems) {
+	foreach (ServerItem *si, qlItems) {
 		if (si->brRecord == record) {
-			unsigned short usport = static_cast<unsigned short>(port);
+			unsigned short usport = static_cast< unsigned short >(port);
 			if ((host != si->qsHostname) || (usport != si->usPort)) {
 				stopDns(si);
-				si->usPort = static_cast<unsigned short>(port);
+				si->usPort     = static_cast< unsigned short >(port);
 				si->qsHostname = host;
 				startDns(si);
 			}
@@ -1336,25 +1371,26 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 	}
 }
 
-void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
-	QSet<ServerItem *> items;
-#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
-	QSet<ServerItem *> old = QSet<ServerItem*>(qtwServers->siLAN->qlChildren.begin(), qtwServers->siLAN->qlChildren.end());
-#else
+void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
+	QSet< ServerItem * > items;
+#	if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+	QSet< ServerItem * > old =
+		QSet< ServerItem * >(qtwServers->siLAN->qlChildren.begin(), qtwServers->siLAN->qlChildren.end());
+#	else
 	// In Qt 5.14 QList::toSet() has been deprecated as there exists a dedicated constructor of QSet for this now
-	QSet<ServerItem *> old = qtwServers->siLAN->qlChildren.toSet();
-#endif
+	QSet< ServerItem * > old = qtwServers->siLAN->qlChildren.toSet();
+#	endif
 
-	foreach(const BonjourRecord &record, list) {
+	foreach (const BonjourRecord &record, list) {
 		bool found = false;
-		foreach(ServerItem *si, old) {
+		foreach (ServerItem *si, old) {
 			if (si->brRecord == record) {
 				items.insert(si);
 				found = true;
 				break;
 			}
 		}
-		if (! found) {
+		if (!found) {
 			ServerItem *si = new ServerItem(record);
 			qlItems << si;
 			g.bc->bsrResolver->resolveBonjourRecord(record);
@@ -1362,8 +1398,8 @@ void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 			qtwServers->siLAN->addServerItem(si);
 		}
 	}
-	QSet<ServerItem *> remove = old.subtract(items);
-	foreach(ServerItem *si, remove) {
+	QSet< ServerItem * > remove = old.subtract(items);
+	foreach (ServerItem *si, remove) {
 		stopDns(si);
 		qlItems.removeAll(si);
 		delete si;
@@ -1371,51 +1407,51 @@ void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 }
 
 void ConnectDialog::onLanBrowseError(DNSServiceErrorType err) {
-	qWarning()<<"Bonjour reported browser error "<< err;
+	qWarning() << "Bonjour reported browser error " << err;
 }
 
 void ConnectDialog::onLanResolveError(BonjourRecord br, DNSServiceErrorType err) {
 	qlBonjourActive.removeAll(br);
-	qWarning()<<"Bonjour reported resolver error "<< err;
+	qWarning() << "Bonjour reported resolver error " << err;
 }
 #endif
 
 void ConnectDialog::fillList() {
-	QList<QTreeWidgetItem *> ql;
-	QList<QTreeWidgetItem *> qlNew;
+	QList< QTreeWidgetItem * > ql;
+	QList< QTreeWidgetItem * > qlNew;
 
-	foreach(const PublicInfo &pi, qlPublicServers) {
+	foreach (const PublicInfo &pi, qlPublicServers) {
 		bool found = false;
-		foreach(ServerItem *si, qlItems) {
+		foreach (ServerItem *si, qlItems) {
 			if ((pi.qsIp == si->qsHostname) && (pi.usPort == si->usPort)) {
-				si->qsCountry = pi.qsCountry;
-				si->qsCountryCode = pi.qsCountryCode;
+				si->qsCountry       = pi.qsCountry;
+				si->qsCountryCode   = pi.qsCountryCode;
 				si->qsContinentCode = pi.qsContinentCode;
-				si->qsUrl = pi.quUrl.toString();
-				si->bCA = pi.bCA;
+				si->qsUrl           = pi.quUrl.toString();
+				si->bCA             = pi.bCA;
 				si->setDatas();
 
 				if (si->itType == ServerItem::PublicType)
 					found = true;
 			}
 		}
-		if (! found)
+		if (!found)
 			ql << new ServerItem(pi);
 	}
 
-	while (! ql.isEmpty()) {
-#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
-		ServerItem *si = static_cast<ServerItem *>(ql.takeAt(QRandomGenerator::global()->generate() % ql.count()));
+	while (!ql.isEmpty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+		ServerItem *si = static_cast< ServerItem * >(ql.takeAt(QRandomGenerator::global()->generate() % ql.count()));
 #else
 		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		ServerItem *si = static_cast<ServerItem *>(ql.takeAt(qrand() % ql.count()));
+		ServerItem *si = static_cast< ServerItem * >(ql.takeAt(qrand() % ql.count()));
 #endif
 		qlNew << si;
 		qlItems << si;
 	}
 
-	foreach(QTreeWidgetItem *qtwi, qlNew) {
-		ServerItem *si = static_cast<ServerItem *>(qtwi);
+	foreach (QTreeWidgetItem *qtwi, qlNew) {
+		ServerItem *si = static_cast< ServerItem * >(qtwi);
 		qtwServers->siPublic->addServerItem(si);
 		filterServer(si);
 		startDns(si);
@@ -1423,14 +1459,15 @@ void ConnectDialog::fillList() {
 }
 
 void ConnectDialog::timeTick() {
-	if (! bLastFound && ! g.s.qsLastServer.isEmpty()) {
-		QList<QTreeWidgetItem *> items = qtwServers->findItems(g.s.qsLastServer, Qt::MatchExactly | Qt::MatchRecursive);
+	if (!bLastFound && !g.s.qsLastServer.isEmpty()) {
+		QList< QTreeWidgetItem * > items =
+			qtwServers->findItems(g.s.qsLastServer, Qt::MatchExactly | Qt::MatchRecursive);
 		if (!items.isEmpty()) {
 			bLastFound = true;
 			qtwServers->setCurrentItem(items.at(0));
 			if (g.s.bAutoConnect && bAutoConnect) {
-				siAutoConnect = static_cast<ServerItem *>(items.at(0));
-				if (! siAutoConnect->qlAddresses.isEmpty()) {
+				siAutoConnect = static_cast< ServerItem * >(items.at(0));
+				if (!siAutoConnect->qlAddresses.isEmpty()) {
 					accept();
 					return;
 				} else if (!bAllowHostLookup) {
@@ -1443,7 +1480,7 @@ void ConnectDialog::timeTick() {
 
 	if (bAllowHostLookup) {
 		// Start DNS Lookup of first unknown hostname
-		foreach(const UnresolvedServerAddress &unresolved, qlDNSLookup) {
+		foreach (const UnresolvedServerAddress &unresolved, qlDNSLookup) {
 			if (qsDNSActive.contains(unresolved)) {
 				continue;
 			}
@@ -1459,23 +1496,24 @@ void ConnectDialog::timeTick() {
 		}
 	}
 
-	ServerItem *current = static_cast<ServerItem *>(qtwServers->currentItem());
-	ServerItem *hover = static_cast<ServerItem *>(qtwServers->itemAt(qtwServers->viewport()->mapFromGlobal(QCursor::pos())));
+	ServerItem *current = static_cast< ServerItem * >(qtwServers->currentItem());
+	ServerItem *hover =
+		static_cast< ServerItem * >(qtwServers->itemAt(qtwServers->viewport()->mapFromGlobal(QCursor::pos())));
 
 	ServerItem *si = nullptr;
 
 	if (tCurrent.elapsed() >= 1000000ULL)
 		si = current;
-	if (! si && (tHover.elapsed() >= 1000000ULL))
+	if (!si && (tHover.elapsed() >= 1000000ULL))
 		si = hover;
 
 	if (si) {
-		QString hostname = si->qsHostname.toLower();
+		QString hostname    = si->qsHostname.toLower();
 		unsigned short port = si->usPort;
 		UnresolvedServerAddress unresolved(hostname, port);
 
 		if (si->qlAddresses.isEmpty()) {
-			if (! hostname.isEmpty()) {
+			if (!hostname.isEmpty()) {
 				qlDNSLookup.removeAll(unresolved);
 				qlDNSLookup.prepend(unresolved);
 			}
@@ -1500,12 +1538,12 @@ void ConnectDialog::timeTick() {
 			si = qlItems.at(iPingIndex);
 
 			ServerItem *p = si->siParent;
-			expanded = true;
+			expanded      = true;
 			while (p && expanded) {
 				expanded = expanded && p->isExpanded();
-				p = p->siParent;
+				p        = p->siParent;
 			}
-		} while (si->qlAddresses.isEmpty() || ! expanded);
+		} while (si->qlAddresses.isEmpty() || !expanded);
 	}
 
 	if (si == current)
@@ -1513,20 +1551,16 @@ void ConnectDialog::timeTick() {
 	if (si == hover)
 		tHover.restart();
 
-	foreach(const ServerAddress &addr, si->qlAddresses) {
-		sendPing(addr.host.toAddress(), addr.port);
-	}
+	foreach (const ServerAddress &addr, si->qlAddresses) { sendPing(addr.host.toAddress(), addr.port); }
 }
 
 void ConnectDialog::filterPublicServerList() const {
 	if (!g.s.bDisablePublicList) {
-		foreach(ServerItem * const si, qtwServers->siPublic->qlChildren) {
-			filterServer(si);
-		}
+		foreach (ServerItem *const si, qtwServers->siPublic->qlChildren) { filterServer(si); }
 	}
 }
 
-void ConnectDialog::filterServer(ServerItem * const si) const {
+void ConnectDialog::filterServer(ServerItem *const si) const {
 	if (!si->qsName.contains(qsSearchServername, Qt::CaseInsensitive)) {
 		si->setHidden(true);
 		return;
@@ -1547,21 +1581,20 @@ void ConnectDialog::filterServer(ServerItem * const si) const {
 	si->setHidden(false);
 }
 
-void ConnectDialog::addCountriesToSearchLocation() const
-{
-	QMap <QString, QString> qmCountries;
+void ConnectDialog::addCountriesToSearchLocation() const {
+	QMap< QString, QString > qmCountries;
 
-	foreach(const PublicInfo &pi, qlPublicServers) {
+	foreach (const PublicInfo &pi, qlPublicServers) {
 		if (pi.qsCountry != tr("Unknown") && !qmCountries.contains(pi.qsCountry)) {
-		    qmCountries.insert(pi.qsCountry, pi.qsCountryCode);
+			qmCountries.insert(pi.qsCountry, pi.qsCountryCode);
 		}
 	}
 
 	foreach (auto location, qmCountries.keys()) {
 		// Set Icon, Text and Data
-		qcbSearchLocation->addItem(ServerItem::loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qmCountries.value(location))),
-		                           location,
-		                           location);
+		qcbSearchLocation->addItem(
+			ServerItem::loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qmCountries.value(location))), location,
+			location);
 	}
 }
 
@@ -1570,7 +1603,7 @@ void ConnectDialog::startDns(ServerItem *si) {
 		return;
 	}
 
-	QString hostname = si->qsHostname.toLower();
+	QString hostname    = si->qsHostname.toLower();
 	unsigned short port = si->usPort;
 	UnresolvedServerAddress unresolved(hostname, port);
 
@@ -1588,18 +1621,16 @@ void ConnectDialog::startDns(ServerItem *si) {
 	}
 
 	if (qtwServers->currentItem() == si)
-		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(! si->qlAddresses.isEmpty());
+		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(!si->qlAddresses.isEmpty());
 
-	if (! si->qlAddresses.isEmpty()) {
-		foreach(const ServerAddress &addr, si->qlAddresses) {
-			qhPings[addr].insert(si);
-		}
+	if (!si->qlAddresses.isEmpty()) {
+		foreach (const ServerAddress &addr, si->qlAddresses) { qhPings[addr].insert(si); }
 		return;
 	}
 
 #ifdef USE_BONJOUR
-	if (bAllowBonjour && si->qsHostname.isEmpty() && ! si->brRecord.serviceName.isEmpty()) {
-		if (! qlBonjourActive.contains(si->brRecord)) {
+	if (bAllowBonjour && si->qsHostname.isEmpty() && !si->brRecord.serviceName.isEmpty()) {
+		if (!qlBonjourActive.contains(si->brRecord)) {
 			g.bc->bsrResolver->resolveBonjourRecord(si->brRecord);
 			qlBonjourActive.append(si->brRecord);
 		}
@@ -1607,7 +1638,7 @@ void ConnectDialog::startDns(ServerItem *si) {
 	}
 #endif
 
-	if (! qhDNSWait.contains(unresolved)) {
+	if (!qhDNSWait.contains(unresolved)) {
 		if (si->itType == ServerItem::PublicType)
 			qlDNSLookup.append(unresolved);
 		else
@@ -1621,7 +1652,7 @@ void ConnectDialog::stopDns(ServerItem *si) {
 		return;
 	}
 
-	foreach(const ServerAddress &addr, si->qlAddresses) {
+	foreach (const ServerAddress &addr, si->qlAddresses) {
 		if (qhPings.contains(addr)) {
 			qhPings[addr].remove(si);
 			if (qhPings[addr].isEmpty()) {
@@ -1631,7 +1662,7 @@ void ConnectDialog::stopDns(ServerItem *si) {
 		}
 	}
 
-	QString hostname = si->qsHostname.toLower();
+	QString hostname    = si->qsHostname.toLower();
 	unsigned short port = si->usPort;
 	UnresolvedServerAddress unresolved(hostname, port);
 
@@ -1645,10 +1676,10 @@ void ConnectDialog::stopDns(ServerItem *si) {
 }
 
 void ConnectDialog::lookedUp() {
-	ServerResolver *sr = qobject_cast<ServerResolver *>(QObject::sender());
+	ServerResolver *sr = qobject_cast< ServerResolver * >(QObject::sender());
 	sr->deleteLater();
 
-	QString hostname = sr->hostname().toLower();
+	QString hostname    = sr->hostname().toLower();
 	unsigned short port = sr->port();
 	UnresolvedServerAddress unresolved(hostname, port);
 
@@ -1659,18 +1690,14 @@ void ConnectDialog::lookedUp() {
 		return;
 	}
 
-	QSet<ServerAddress> qs;
+	QSet< ServerAddress > qs;
 	foreach (ServerResolverRecord record, sr->records()) {
-		foreach(const HostAddress &ha, record.addresses()) {
-			qs.insert(ServerAddress(ha, record.port()));
-		}
+		foreach (const HostAddress &ha, record.addresses()) { qs.insert(ServerAddress(ha, record.port())); }
 	}
 
-	QSet<ServerItem *> waiting = qhDNSWait[unresolved];
-	foreach(ServerItem *si, waiting) {
-		foreach (const ServerAddress &addr, qs) {
-			qhPings[addr].insert(si);
-		}
+	QSet< ServerItem * > waiting = qhDNSWait[unresolved];
+	foreach (ServerItem *si, waiting) {
+		foreach (const ServerAddress &addr, qs) { qhPings[addr].insert(si); }
 
 		si->qlAddresses = qs.values();
 	}
@@ -1679,7 +1706,7 @@ void ConnectDialog::lookedUp() {
 	qhDNSCache.insert(unresolved, qs.values());
 	qhDNSWait.remove(unresolved);
 
-	foreach(ServerItem *si, waiting) {
+	foreach (ServerItem *si, waiting) {
 		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);
 			if (si == siAutoConnect)
@@ -1688,9 +1715,7 @@ void ConnectDialog::lookedUp() {
 	}
 
 	if (bAllowPing) {
-		foreach(const ServerAddress &addr, qs) {
-			sendPing(addr.host.toAddress(), addr.port);
-		}
+		foreach (const ServerAddress &addr, qs) { sendPing(addr.host.toAddress(), addr.port); }
 	}
 }
 
@@ -1703,33 +1728,33 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 	if (qhPingRand.contains(addr)) {
 		uiRand = qhPingRand.value(addr);
 	} else {
-#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 		uiRand = QRandomGenerator::global()->generate64() << 32;
 #else
 		// Qt 5.10 introduces the QRandomGenerator class and in Qt 5.15 qrand got deprecated in its favor
-		uiRand = (static_cast<quint64>(qrand()) << 32) | static_cast<quint64>(qrand());
+		uiRand = (static_cast< quint64 >(qrand()) << 32) | static_cast< quint64 >(qrand());
 #endif
 		qhPingRand.insert(addr, uiRand);
 	}
 
 	memset(blob, 0, sizeof(blob));
-	* reinterpret_cast<quint64 *>(blob+8) = tPing.elapsed() ^ uiRand;
+	*reinterpret_cast< quint64 * >(blob + 8) = tPing.elapsed() ^ uiRand;
 
 	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol)
-		qusSocket4->writeDatagram(blob+4, 12, host, port);
+		qusSocket4->writeDatagram(blob + 4, 12, host, port);
 	else if (bIPv6 && host.protocol() == QAbstractSocket::IPv6Protocol)
-		qusSocket6->writeDatagram(blob+4, 12, host, port);
+		qusSocket6->writeDatagram(blob + 4, 12, host, port);
 	else
 		return;
 
-	const QSet<ServerItem *> &qs = qhPings.value(addr);
+	const QSet< ServerItem * > &qs = qhPings.value(addr);
 
-	foreach(ServerItem *si, qs)
-		++ si->uiSent;
+	foreach (ServerItem *si, qs)
+		++si->uiSent;
 }
 
 void ConnectDialog::udpReply() {
-	QUdpSocket *sock = qobject_cast<QUdpSocket *>(sender());
+	QUdpSocket *sock = qobject_cast< QUdpSocket * >(sender());
 
 	while (sock->hasPendingDatagrams()) {
 		char blob[64];
@@ -1737,7 +1762,7 @@ void ConnectDialog::udpReply() {
 		QHostAddress host;
 		unsigned short port;
 
-		qint64 len = sock->readDatagram(blob+4, 24, &host, &port);
+		qint64 len = sock->readDatagram(blob + 4, 24, &host, &port);
 		if (len == 24) {
 			if (host.scopeId() == QLatin1String("0"))
 				host.setScopeId(QLatin1String(""));
@@ -1745,23 +1770,23 @@ void ConnectDialog::udpReply() {
 			ServerAddress address(HostAddress(host), port);
 
 			if (qhPings.contains(address)) {
-				quint32 *ping = reinterpret_cast<quint32 *>(blob+4);
-				quint64 *ts = reinterpret_cast<quint64 *>(blob+8);
+				quint32 *ping = reinterpret_cast< quint32 * >(blob + 4);
+				quint64 *ts   = reinterpret_cast< quint64 * >(blob + 8);
 
 				quint64 elapsed = tPing.elapsed() - (*ts ^ qhPingRand.value(address));
 
-				foreach(ServerItem *si, qhPings.value(address)) {
-					si->uiVersion = qFromBigEndian(ping[0]);
-					quint32 users = qFromBigEndian(ping[3]);
+				foreach (ServerItem *si, qhPings.value(address)) {
+					si->uiVersion    = qFromBigEndian(ping[0]);
+					quint32 users    = qFromBigEndian(ping[3]);
 					quint32 maxusers = qFromBigEndian(ping[4]);
-					si->uiBandwidth = qFromBigEndian(ping[5]);
+					si->uiBandwidth  = qFromBigEndian(ping[5]);
 
-					if (! si->uiPingSort)
+					if (!si->uiPingSort)
 						si->uiPingSort = qmPingCache.value(UnresolvedServerAddress(si->qsHostname, si->usPort));
 
-					si->setDatas(static_cast<double>(elapsed), users, maxusers);
+					si->setDatas(static_cast< double >(elapsed), users, maxusers);
 					if (si->itType == ServerItem::PublicType) {
-					    filterServer(si);
+						filterServer(si);
 					}
 				}
 			}
@@ -1769,7 +1794,7 @@ void ConnectDialog::udpReply() {
 	}
 }
 
-void ConnectDialog::fetched(QByteArray xmlData, QUrl, QMap<QString, QString> headers) {
+void ConnectDialog::fetched(QByteArray xmlData, QUrl, QMap< QString, QString > headers) {
 	if (xmlData.isNull()) {
 		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
@@ -1779,25 +1804,25 @@ void ConnectDialog::fetched(QByteArray xmlData, QUrl, QMap<QString, QString> hea
 	doc.setContent(xmlData);
 
 	qlPublicServers.clear();
-	qsUserCountry = headers.value(QLatin1String("Geo-Country"));
-	qsUserCountryCode = headers.value(QLatin1String("Geo-Country-Code")).toLower();
+	qsUserCountry       = headers.value(QLatin1String("Geo-Country"));
+	qsUserCountryCode   = headers.value(QLatin1String("Geo-Country-Code")).toLower();
 	qsUserContinentCode = headers.value(QLatin1String("Geo-Continent-Code")).toLower();
 
-	QDomElement root=doc.documentElement();
-	QDomNode n = root.firstChild();
+	QDomElement root = doc.documentElement();
+	QDomNode n       = root.firstChild();
 	while (!n.isNull()) {
 		QDomElement e = n.toElement();
 		if (!e.isNull()) {
 			if (e.tagName() == QLatin1String("server")) {
 				PublicInfo pi;
-				pi.qsName = e.attribute(QLatin1String("name"));
-				pi.quUrl = e.attribute(QLatin1String("url"));
-				pi.qsIp = e.attribute(QLatin1String("ip"));
-				pi.usPort = e.attribute(QLatin1String("port")).toUShort();
-				pi.qsCountry = e.attribute(QLatin1String("country"), tr("Unknown"));
-				pi.qsCountryCode = e.attribute(QLatin1String("country_code")).toLower();
+				pi.qsName          = e.attribute(QLatin1String("name"));
+				pi.quUrl           = e.attribute(QLatin1String("url"));
+				pi.qsIp            = e.attribute(QLatin1String("ip"));
+				pi.usPort          = e.attribute(QLatin1String("port")).toUShort();
+				pi.qsCountry       = e.attribute(QLatin1String("country"), tr("Unknown"));
+				pi.qsCountryCode   = e.attribute(QLatin1String("country_code")).toLower();
 				pi.qsContinentCode = e.attribute(QLatin1String("continent_code")).toLower();
-				pi.bCA = e.attribute(QLatin1String("ca")).toInt() ? true : false;
+				pi.bCA             = e.attribute(QLatin1String("ca")).toInt() ? true : false;
 
 				qlPublicServers << pi;
 			}

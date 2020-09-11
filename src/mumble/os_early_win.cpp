@@ -7,13 +7,13 @@
 
 #include <string>
 
+#include <sddl.h>
 #include <shlwapi.h>
 #include <stdio.h>
-#include <sddl.h>
 
 // Alert shows a fatal error dialog and waits for the user to click OK.
 static void Alert(LPCWSTR title, LPCWSTR msg) {
-	MessageBox(nullptr, msg, title, MB_OK|MB_ICONERROR);
+	MessageBox(nullptr, msg, title, MB_OK | MB_ICONERROR);
 }
 
 // GetExecutablePath returns the path to mumble.exe.
@@ -42,11 +42,13 @@ static bool UIAccessDisabledViaConfig() {
 	// to zero-terminate.
 	wchar_t buf[7];
 	memset(&buf, 0, sizeof(buf));
-	DWORD sz = sizeof(buf) - 1*sizeof(wchar_t);
+	DWORD sz = sizeof(buf) - 1 * sizeof(wchar_t);
 
 	HKEY key = nullptr;
-	bool success = (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Mumble\\Mumble\\shortcut\\windows\\uiaccess", 0, KEY_READ, &key) == ERROR_SUCCESS) &&
-	               (RegQueryValueExW(key, L"enable" , nullptr, nullptr, (LPBYTE)&buf, &sz) == ERROR_SUCCESS);
+	bool success =
+		(RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Mumble\\Mumble\\shortcut\\windows\\uiaccess", 0, KEY_READ, &key)
+		 == ERROR_SUCCESS)
+		&& (RegQueryValueExW(key, L"enable", nullptr, nullptr, (LPBYTE) &buf, &sz) == ERROR_SUCCESS);
 	if (success && _wcsicmp(buf, L"false") == 0) {
 		return true;
 	}
@@ -61,7 +63,7 @@ static bool ProcessHasUIAccess() {
 		return false;
 	}
 
-	DWORD ui_access = 0;
+	DWORD ui_access      = 0;
 	DWORD ui_access_size = sizeof(ui_access);
 	if (!GetTokenInformation(token, TokenUIAccess, &ui_access, sizeof(ui_access), &ui_access_size)) {
 		CloseHandle(token);
@@ -117,16 +119,8 @@ static bool RelaunchWithoutUIAccessIfNecessary() {
 		return false;
 	}
 
-	if (!CreateProcessW(exe_path.c_str(),
-	              GetCommandLineW(),
-	              nullptr,
-	              nullptr,
-	              FALSE,
-	              0,
-	              nullptr,
-	              nullptr,
-	              &startup_info,
-	              &process_info)) {
+	if (!CreateProcessW(exe_path.c_str(), GetCommandLineW(), nullptr, nullptr, FALSE, 0, nullptr, nullptr,
+						&startup_info, &process_info)) {
 		return false;
 	}
 

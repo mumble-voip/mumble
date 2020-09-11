@@ -5,13 +5,13 @@
 
 #include "SvgIcon.h"
 
-#include <QSvgRenderer>
 #include <QPainter>
+#include <QSvgRenderer>
 
 void SvgIcon::addSvgPixmapsToIcon(QIcon &icon, QString fn) {
 	QSvgRenderer svg(fn);
 
-	QList<QSize> commonSizes;
+	QList< QSize > commonSizes;
 	commonSizes << QSize(8, 8);
 	commonSizes << QSize(16, 16);
 	commonSizes << QSize(22, 22); // Plasma notification area size

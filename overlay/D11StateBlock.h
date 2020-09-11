@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -46,40 +46,40 @@ class D11StateBlock;
 void D11CreateStateBlock(ID3D11DeviceContext *, D11StateBlock **);
 
 class D11StateBlock {
-	public:
-		D11StateBlock(ID3D11DeviceContext *);
-		~D11StateBlock();
+public:
+	D11StateBlock(ID3D11DeviceContext *);
+	~D11StateBlock();
 
-		void Capture();
-		void Apply();
-		void ReleaseObjects();
-		void ReleaseAllDeviceObjects();
+	void Capture();
+	void Apply();
+	void ReleaseObjects();
+	void ReleaseAllDeviceObjects();
 
-	private:
-		ID3D11DeviceContext *pDeviceContext;
+private:
+	ID3D11DeviceContext *pDeviceContext;
 
-		ID3D11RasterizerState *pRasterizerState;
-		UINT uiNumViewports;
-		D3D11_VIEWPORT pViewports[D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE];
+	ID3D11RasterizerState *pRasterizerState;
+	UINT uiNumViewports;
+	D3D11_VIEWPORT pViewports[D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE];
 
-		ID3D11RenderTargetView *pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
-		ID3D11DepthStencilView *pDepthStencilView;
+	ID3D11RenderTargetView *pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+	ID3D11DepthStencilView *pDepthStencilView;
 
-		ID3D11BlendState *pBlendState;
-		float fBlendFactor[4];
-		UINT32 uiSampleMask;
+	ID3D11BlendState *pBlendState;
+	float fBlendFactor[4];
+	UINT32 uiSampleMask;
 
-		ID3D11InputLayout *pInputLayout;
+	ID3D11InputLayout *pInputLayout;
 
-		ID3D11Buffer *pIndexBuffer;
-		DXGI_FORMAT Format;
-		UINT uiOffset;
+	ID3D11Buffer *pIndexBuffer;
+	DXGI_FORMAT Format;
+	UINT uiOffset;
 
-		D3D11_PRIMITIVE_TOPOLOGY Topology;
+	D3D11_PRIMITIVE_TOPOLOGY Topology;
 
-		ID3D11Buffer *pVertexBuffers[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
-		UINT uiStrides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
-		UINT uiOffsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+	ID3D11Buffer *pVertexBuffers[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+	UINT uiStrides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+	UINT uiOffsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
 };
 
 #endif /* !D11STATEBLOCK_H_ */

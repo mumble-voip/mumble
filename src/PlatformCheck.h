@@ -8,9 +8,9 @@
 
 /// PlatformCheck performs platform checks.
 class PlatformCheck {
-	public:
-		/// IsWine returns true when running under Wine.
-		static bool IsWine();
+public:
+	/// IsWine returns true when running under Wine.
+	static bool IsWine();
 };
 
 #endif

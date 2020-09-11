@@ -9,8 +9,7 @@
 #include <QIcon>
 #include <QString>
 
-class SvgIcon
-{
+class SvgIcon {
 public:
 	/// addSvgPixmapsToIcon renders the SVG file at |fn| in various
 	/// common sizes from 8x8 up to 256x256 and adds the resulting

@@ -6,8 +6,8 @@
 #ifndef MUMBLE_MURMUR_ABOUT_H_
 #define MUMBLE_MURMUR_ABOUT_H_
 
-#include <QtCore/QtGlobal>
 #include <QtCore/QObject>
+#include <QtCore/QtGlobal>
 #include <QtWidgets/QDialog>
 
 enum AboutDialogOptions {
@@ -20,11 +20,11 @@ enum AboutDialogOptions {
 };
 
 class AboutDialog : public QDialog {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AboutDialog)
-	public:
-		AboutDialog(QWidget *parent, AboutDialogOptions options = AboutDialogOptionsDefault);
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(AboutDialog)
+public:
+	AboutDialog(QWidget *parent, AboutDialogOptions options = AboutDialogOptionsDefault);
 };
 
 #endif

@@ -9,30 +9,30 @@
 #include <QtCore>
 
 #ifdef Q_OS_WIN
-# include "win.h"
+#	include "win.h"
 #else
-# include <fcntl.h>
-# include <sys/mman.h>
+#	include <fcntl.h>
+#	include <sys/mman.h>
 #endif
 
 struct LinkedMem {
 #ifdef WIN32
-	UINT32	uiVersion;
-	DWORD	uiTick;
+	UINT32 uiVersion;
+	DWORD uiTick;
 #else
 	uint32_t uiVersion;
 	uint32_t uiTick;
 #endif
-	float	fAvatarPosition[3];
-	float	fAvatarFront[3];
-	float	fAvatarTop[3];
-	wchar_t	name[256];
-	float	fCameraPosition[3];
-	float	fCameraFront[3];
-	float	fCameraTop[3];
-	wchar_t	identity[256];
+	float fAvatarPosition[3];
+	float fAvatarFront[3];
+	float fAvatarTop[3];
+	wchar_t name[256];
+	float fCameraPosition[3];
+	float fCameraFront[3];
+	float fCameraTop[3];
+	wchar_t identity[256];
 #ifdef WIN32
-	UINT32	context_len;
+	UINT32 context_len;
 #else
 	uint32_t context_len;
 #endif
@@ -44,7 +44,6 @@ LinkedMem *lm = nullptr;
 
 
 void initMumble() {
-
 #ifdef WIN32
 	HANDLE hMapObject = OpenFileMappingW(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
 	if (!hMapObject)
@@ -66,9 +65,9 @@ void initMumble() {
 		return;
 	}
 
-	lm = (LinkedMem *)(mmap(nullptr, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
+	lm = (LinkedMem *) (mmap(nullptr, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd, 0));
 
-	if (lm == (void *)(-1)) {
+	if (lm == (void *) (-1)) {
 		lm = nullptr;
 		return;
 	}
@@ -76,7 +75,7 @@ void initMumble() {
 }
 
 void updateMumble() {
-	if (! lm)
+	if (!lm)
 		return;
 
 	if (lm->uiVersion != 2) {
@@ -144,7 +143,7 @@ int main(int argc, char **argv) {
 #ifdef WIN32
 		Sleep(100);
 #else
-		usleep(100*1000);
+		usleep(100 * 1000);
 #endif
 	}
 }

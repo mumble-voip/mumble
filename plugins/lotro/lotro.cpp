@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,14 +36,15 @@
 
 #include "../mumble_plugin_main.h"
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
-	for (int i=0;i<3;i++)
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring &) {
+	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
 
 	uint8_t l[2];
-	uint8_t r,i;
+	uint8_t r, i;
 	float o[3];
 	procptr_t hPtr;
 	float h;
@@ -66,22 +67,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc(0x01272D34, o, 12) &&
-	     peekProc(0x01272D2C, l, 2) &&
-	     peekProc(0x01272D28, &r, 1) &&
-	     peekProc(0x01272D20, &i, 1) &&
-	     peekProc(pModule + 0x00A138A4, &hPtr, 4);
+	ok = peekProc(0x01272D34, o, 12) && peekProc(0x01272D2C, l, 2) && peekProc(0x01272D28, &r, 1)
+		 && peekProc(0x01272D20, &i, 1) && peekProc(pModule + 0x00A138A4, &hPtr, 4);
 
-	if (! ok)
+	if (!ok)
 		return false;
 
-	ok = peekProc((procptr_t)(hPtr  + 0x0000046F), &h, 4);
+	ok = peekProc((procptr_t)(hPtr + 0x0000046F), &h, 4);
 
-	if (! ok)
+	if (!ok)
 		return false;
 
 	// Set identity
-	//if(nPtr3 > 0)
+	// if(nPtr3 > 0)
 	//	identity.assign(nPtr3);
 
 	// Use region as context since each region has its own coordinate system
@@ -104,30 +102,30 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (l[0] == 255 && l[1] == 255)
 		return true;
 
-	avatar_pos[0] = (float)l[0] * 160.0f + o[0];
+	avatar_pos[0] = (float) l[0] * 160.0f + o[0];
 	avatar_pos[1] = o[2];
-	avatar_pos[2] = (float)l[1] * 160.0f + o[1];
+	avatar_pos[2] = (float) l[1] * 160.0f + o[1];
 
-	avatar_front[0] = sinf(h * static_cast<float>(M_PI) / 180.0f);
+	avatar_front[0] = sinf(h * static_cast< float >(M_PI) / 180.0f);
 	avatar_front[1] = 0.0f;
-	avatar_front[2] = cosf(h * static_cast<float>(M_PI) / 180.0f);
+	avatar_front[2] = cosf(h * static_cast< float >(M_PI) / 180.0f);
 
 	avatar_top[0] = 0.0;
 	avatar_top[1] = 1.0;
 	avatar_top[2] = 0.0;
 
 	// TODO: 3rd person camera support
-	for (int i=0;i<3;i++) {
-		camera_pos[i] = avatar_pos[i];
+	for (int i = 0; i < 3; i++) {
+		camera_pos[i]   = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
+		camera_top[i]   = avatar_top[i];
 	}
 
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"lotroclient.exe"))
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
+	if (!initialize(pids, L"lotroclient.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
@@ -143,33 +141,21 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Rise of Isengard, Update 6, v3.6.0.8025). Context support based on region and instance. No Identity support.");
+	return std::wstring(L"Supports Lord of the Rings Online (Rise of Isengard, Update 6, v3.6.0.8025). Context support "
+						L"based on region and instance. No Identity support.");
 }
 
 static std::wstring description(L"Lord of the Rings Online - Rise of Isengard - Update 6");
 static std::wstring shortname(L"Lord of the Rings Online");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin lotroplug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin lotroplug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								  generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 lotroplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 lotroplug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &lotroplug;

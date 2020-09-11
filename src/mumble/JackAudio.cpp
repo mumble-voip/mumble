@@ -7,16 +7,27 @@
 
 #include "Utils.h"
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #ifdef Q_CC_GNU
-# define RESOLVE(var) {var = reinterpret_cast<__typeof__(var)>(qlJack.resolve(#var)); if (!var) return; }
+#	define RESOLVE(var)                                                     \
+		{                                                                    \
+			var = reinterpret_cast< __typeof__(var) >(qlJack.resolve(#var)); \
+			if (!var)                                                        \
+				return;                                                      \
+		}
 #else
-# define RESOLVE(var) { *reinterpret_cast<void **>(&var) = static_cast<void *>(qlJack.resolve(#var)); if (!var) return; }
+#	define RESOLVE(var)                                                                      \
+		{                                                                                     \
+			*reinterpret_cast< void ** >(&var) = static_cast< void * >(qlJack.resolve(#var)); \
+			if (!var)                                                                         \
+				return;                                                                       \
+		}
 #endif
 
-static std::unique_ptr<JackAudioSystem> jas;
+static std::unique_ptr< JackAudioSystem > jas;
 
 // jackStatusToStringList converts a jack_status_t (a flag type
 // that can contain multiple Jack statuses) to a QStringList.
@@ -29,7 +40,7 @@ static QStringList jackStatusToStringList(const jack_status_t &status) {
 	if (status & JackInvalidOption) {
 		statusList << QLatin1String("JackInvalidOption - the operation contained an invalid or unsupported option");
 	}
-	if (status & JackNameNotUnique)  {
+	if (status & JackNameNotUnique) {
 		statusList << QLatin1String("JackNameNotUnique - the desired client name is not unique");
 	}
 	if (status & JackServerStarted) {
@@ -50,7 +61,7 @@ static QStringList jackStatusToStringList(const jack_status_t &status) {
 	if (status & JackInitFailure) {
 		statusList << QLatin1String("JackInitFailure - unable to initialize client");
 	}
-	if (status & JackShmFailure)  {
+	if (status & JackShmFailure) {
 		statusList << QLatin1String("JackShmFailure - unable to access shared memory");
 	}
 	if (status & JackVersionError) {
@@ -67,43 +78,44 @@ static QStringList jackStatusToStringList(const jack_status_t &status) {
 }
 
 class JackAudioInputRegistrar : public AudioInputRegistrar {
-	private:
-		AudioInput *create() Q_DECL_OVERRIDE;
-		const QList<audioDevice> getDeviceChoices() Q_DECL_OVERRIDE;
-		void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
-		bool canEcho(const QString &) const Q_DECL_OVERRIDE;
+private:
+	AudioInput *create() Q_DECL_OVERRIDE;
+	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
+	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
+	bool canEcho(const QString &) const Q_DECL_OVERRIDE;
 
-	public:
-		JackAudioInputRegistrar();
+public:
+	JackAudioInputRegistrar();
 };
 
 class JackAudioOutputRegistrar : public AudioOutputRegistrar {
-	private:
-		AudioOutput *create() Q_DECL_OVERRIDE;
-		const QList<audioDevice> getDeviceChoices() Q_DECL_OVERRIDE;
-		void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
-		bool usesOutputDelay() const Q_DECL_OVERRIDE;
+private:
+	AudioOutput *create() Q_DECL_OVERRIDE;
+	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
+	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
+	bool usesOutputDelay() const Q_DECL_OVERRIDE;
 
-	public:
-		JackAudioOutputRegistrar();
+public:
+	JackAudioOutputRegistrar();
 };
 
 class JackAudioInit : public DeferInit {
-	private:
-		std::unique_ptr<JackAudioInputRegistrar> airJackAudio;
-		std::unique_ptr<JackAudioOutputRegistrar> aorJackAudio;
-		void initialize() Q_DECL_OVERRIDE;
-		void destroy() Q_DECL_OVERRIDE;
+private:
+	std::unique_ptr< JackAudioInputRegistrar > airJackAudio;
+	std::unique_ptr< JackAudioOutputRegistrar > aorJackAudio;
+	void initialize() Q_DECL_OVERRIDE;
+	void destroy() Q_DECL_OVERRIDE;
 };
 
-JackAudioInputRegistrar::JackAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("JACK"), 10) {}
+JackAudioInputRegistrar::JackAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("JACK"), 10) {
+}
 
 AudioInput *JackAudioInputRegistrar::create() {
 	return new JackAudioInput();
 }
 
-const QList<audioDevice> JackAudioInputRegistrar::getDeviceChoices() {
-	QList<audioDevice> qlReturn;
+const QList< audioDevice > JackAudioInputRegistrar::getDeviceChoices() {
+	QList< audioDevice > qlReturn;
 
 	auto qlInputDevs = jas->qhInput.keys();
 	std::sort(qlInputDevs.begin(), qlInputDevs.end());
@@ -115,20 +127,22 @@ const QList<audioDevice> JackAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void JackAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {}
+void JackAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {
+}
 
 bool JackAudioInputRegistrar::canEcho(const QString &) const {
 	return false;
 }
 
-JackAudioOutputRegistrar::JackAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("JACK"), 10) {}
+JackAudioOutputRegistrar::JackAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("JACK"), 10) {
+}
 
 AudioOutput *JackAudioOutputRegistrar::create() {
 	return new JackAudioOutput();
 }
 
-const QList<audioDevice> JackAudioOutputRegistrar::getDeviceChoices() {
-	QList<audioDevice> qlReturn;
+const QList< audioDevice > JackAudioOutputRegistrar::getDeviceChoices() {
+	QList< audioDevice > qlReturn;
 
 	QStringList qlOutputDevs = jas->qhOutput.keys();
 	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
@@ -138,9 +152,7 @@ const QList<audioDevice> JackAudioOutputRegistrar::getDeviceChoices() {
 		qlOutputDevs.prepend(g.s.qsJackAudioOutput);
 	}
 
-	foreach(const QString &dev, qlOutputDevs) {
-		qlReturn << audioDevice(jas->qhOutput.value(dev), dev);
-	}
+	foreach (const QString &dev, qlOutputDevs) { qlReturn << audioDevice(jas->qhOutput.value(dev), dev); }
 
 	return qlReturn;
 }
@@ -177,11 +189,7 @@ void JackAudioInit::destroy() {
 // Instantiate JackAudioSystem, JackAudioInputRegistrar and JackAudioOutputRegistrar
 static JackAudioInit jai;
 
-JackAudioSystem::JackAudioSystem()
-    : bAvailable(false)
-    , users(0)
-    , client(nullptr)
-{
+JackAudioSystem::JackAudioSystem() : bAvailable(false), users(0), client(nullptr) {
 	QStringList alternatives;
 #ifdef Q_OS_WIN
 	alternatives << QLatin1String("libjack64.dll");
@@ -260,7 +268,8 @@ bool JackAudioSystem::initialize() {
 	}
 
 	jack_status_t status;
-	client = jack_client_open(g.s.qsJackClientName.toStdString().c_str(), g.s.bJackStartServer ? JackNullOption : JackNoStartServer, &status);
+	client = jack_client_open(g.s.qsJackClientName.toStdString().c_str(),
+							  g.s.bJackStartServer ? JackNullOption : JackNoStartServer, &status);
 	if (!client) {
 		const auto errors = jackStatusToStringList(status);
 		qWarning("JackAudioSystem: unable to open client due to %i errors:", errors.count());
@@ -283,7 +292,8 @@ bool JackAudioSystem::initialize() {
 
 	ret = jack_set_sample_rate_callback(client, sampleRateCallback, nullptr);
 	if (ret != 0) {
-		qWarning("JackAudioSystem: unable to set sample rate callback - jack_set_sample_rate_callback() returned %i", ret);
+		qWarning("JackAudioSystem: unable to set sample rate callback - jack_set_sample_rate_callback() returned %i",
+				 ret);
 		jack_client_close(client);
 		client = nullptr;
 		return false;
@@ -291,7 +301,8 @@ bool JackAudioSystem::initialize() {
 
 	ret = jack_set_buffer_size_callback(client, bufferSizeCallback, nullptr);
 	if (ret != 0) {
-		qWarning("JackAudioSystem: unable to set buffer size callback - jack_set_buffer_size_callback() returned %i", ret);
+		qWarning("JackAudioSystem: unable to set buffer size callback - jack_set_buffer_size_callback() returned %i",
+				 ret);
 		jack_client_close(client);
 		client = nullptr;
 		return false;
@@ -364,8 +375,9 @@ void JackAudioSystem::deactivate() {
 	}
 
 	const auto err = jack_deactivate(client);
-	if (err != 0)  {
-		qWarning("JackAudioSystem: unable to remove client from the process graph - jack_deactivate() returned %i", err);
+	if (err != 0) {
+		qWarning("JackAudioSystem: unable to remove client from the process graph - jack_deactivate() returned %i",
+				 err);
 		return;
 	}
 
@@ -382,7 +394,7 @@ bool JackAudioSystem::isOk() {
 }
 
 uint8_t JackAudioSystem::outPorts() {
-	return static_cast<uint8_t>(qBound<unsigned>(1, g.s.qsJackAudioOutput.toUInt(), JACK_MAX_OUTPUT_PORTS));
+	return static_cast< uint8_t >(qBound< unsigned >(1, g.s.qsJackAudioOutput.toUInt(), JACK_MAX_OUTPUT_PORTS));
 }
 
 jack_nframes_t JackAudioSystem::sampleRate() {
@@ -426,7 +438,7 @@ JackPorts JackAudioSystem::getPhysicalPorts(const uint8_t flags) {
 		}
 
 		auto port = jack_port_by_name(client, ports[i]);
-		if (!port)  {
+		if (!port) {
 			qWarning("JackAudioSystem: jack_port_by_name() returned an invalid port - skipping it");
 			continue;
 		}
@@ -467,7 +479,7 @@ bool JackAudioSystem::unregisterPort(jack_port_t *port) {
 	}
 
 	const auto ret = jack_port_unregister(client, port);
-	if (ret != 0)  {
+	if (ret != 0) {
 		qWarning("JackAudioSystem: unable to unregister port - jack_port_unregister() returned %i", ret);
 		return false;
 	}
@@ -482,12 +494,13 @@ bool JackAudioSystem::connectPort(jack_port_t *sourcePort, jack_port_t *destinat
 		return false;
 	}
 
-	const auto sourcePortName = jack_port_name(sourcePort);
+	const auto sourcePortName      = jack_port_name(sourcePort);
 	const auto destinationPortName = jack_port_name(destinationPort);
 
 	const auto ret = jack_connect(client, sourcePortName, destinationPortName);
-	if (ret != 0)  {
-		qWarning("JackAudioSystem: unable to connect port '%s' to '%s' - jack_connect() returned %i", sourcePortName, destinationPortName, ret);
+	if (ret != 0) {
+		qWarning("JackAudioSystem: unable to connect port '%s' to '%s' - jack_connect() returned %i", sourcePortName,
+				 destinationPortName, ret);
 		return false;
 	}
 
@@ -502,7 +515,7 @@ bool JackAudioSystem::disconnectPort(jack_port_t *port) {
 	}
 
 	const auto ret = jack_port_disconnect(client, port);
-	if (ret != 0)  {
+	if (ret != 0) {
 		qWarning("JackAudioSystem: unable to disconnect port - jack_port_disconnect() returned %i", ret);
 		return false;
 	}
@@ -541,7 +554,7 @@ size_t JackAudioSystem::ringbufferRead(jack_ringbuffer_t *buffer, const size_t s
 		return 0;
 	}
 
-	return jack_ringbuffer_read(buffer, static_cast<char *>(destination), size);
+	return jack_ringbuffer_read(buffer, static_cast< char * >(destination), size);
 }
 
 size_t JackAudioSystem::ringbufferReadSpace(const jack_ringbuffer_t *buffer) {
@@ -557,7 +570,7 @@ size_t JackAudioSystem::ringbufferWrite(jack_ringbuffer_t *buffer, const size_t 
 		return 0;
 	}
 
-	return jack_ringbuffer_write(buffer, static_cast<const char *>(source), size);
+	return jack_ringbuffer_write(buffer, static_cast< const char * >(source), size);
 }
 
 void JackAudioSystem::ringbufferGetWriteVector(const jack_ringbuffer_t *buffer, jack_ringbuffer_data_t *vector) {
@@ -585,10 +598,10 @@ void JackAudioSystem::ringbufferWriteAdvance(jack_ringbuffer_t *buffer, const si
 }
 
 int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
-	auto const jai = dynamic_cast<JackAudioInput *>(g.ai.get());
-	auto const jao = dynamic_cast<JackAudioOutput *>(g.ao.get());
+	auto const jai = dynamic_cast< JackAudioInput * >(g.ai.get());
+	auto const jao = dynamic_cast< JackAudioOutput * >(g.ao.get());
 
-	const bool input = (jai && jai->isReady());
+	const bool input  = (jai && jai->isReady());
 	const bool output = (jao && jao->isReady());
 
 	if (input && !jai->process(frames)) {
@@ -603,8 +616,8 @@ int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
 }
 
 int JackAudioSystem::sampleRateCallback(jack_nframes_t, void *) {
-	auto const jai = dynamic_cast<JackAudioInput *>(g.ai.get());
-	auto const jao = dynamic_cast<JackAudioOutput *>(g.ao.get());
+	auto const jai = dynamic_cast< JackAudioInput * >(g.ai.get());
+	auto const jao = dynamic_cast< JackAudioOutput * >(g.ao.get());
 
 	if (jai) {
 		jai->activate();
@@ -618,8 +631,8 @@ int JackAudioSystem::sampleRateCallback(jack_nframes_t, void *) {
 }
 
 int JackAudioSystem::bufferSizeCallback(jack_nframes_t frames, void *) {
-	auto const jai = dynamic_cast<JackAudioInput *>(g.ai.get());
-	auto const jao = dynamic_cast<JackAudioOutput *>(g.ao.get());
+	auto const jai = dynamic_cast< JackAudioInput * >(g.ai.get());
+	auto const jao = dynamic_cast< JackAudioOutput * >(g.ao.get());
 
 	if (jai && !jai->allocBuffer(frames)) {
 		return 1;
@@ -635,13 +648,10 @@ int JackAudioSystem::bufferSizeCallback(jack_nframes_t frames, void *) {
 void JackAudioSystem::shutdownCallback(void *) {
 	qWarning("JackAudioSystem: server shutdown");
 	jas->client = nullptr;
-	jas->users = 0;
+	jas->users  = 0;
 }
 
-JackAudioInput::JackAudioInput()
-    : port(nullptr)
-    , buffer(nullptr)
-{
+JackAudioInput::JackAudioInput() : port(nullptr), buffer(nullptr) {
 	bReady = activate();
 }
 
@@ -690,9 +700,9 @@ bool JackAudioInput::activate() {
 		jas->initialize();
 	}
 
-	eMicFormat = SampleFloat;
+	eMicFormat   = SampleFloat;
 	iMicChannels = 1;
-	iMicFreq = jas->sampleRate();
+	iMicFreq     = jas->sampleRate();
 
 	initializeMixer();
 
@@ -743,7 +753,7 @@ bool JackAudioInput::unregisterPorts() {
 		return false;
 	}
 
-	if (!jas->unregisterPort(port))  {
+	if (!jas->unregisterPort(port)) {
 		qWarning("JackAudioInput: unable to unregister port");
 		return false;
 	}
@@ -817,7 +827,7 @@ void JackAudioInput::run() {
 
 	// We keep this as the frame size could change, but we are not going to resize this buffer.
 	qmWait.lock();
-	std::unique_ptr<uint8_t[]> sampleBuffer(new uint8_t[bufferSize]);
+	std::unique_ptr< uint8_t[] > sampleBuffer(new uint8_t[bufferSize]);
 	qmWait.unlock();
 
 	do {
@@ -833,9 +843,7 @@ void JackAudioInput::run() {
 	} while (bReady);
 }
 
-JackAudioOutput::JackAudioOutput()
-    : buffer(nullptr)
-{
+JackAudioOutput::JackAudioOutput() : buffer(nullptr) {
 	bReady = activate();
 }
 
@@ -882,8 +890,8 @@ bool JackAudioOutput::activate() {
 	}
 
 	eSampleFormat = SampleFloat;
-	iChannels = jas->outPorts();
-	iMixerFreq = jas->sampleRate();
+	iChannels     = jas->outPorts();
+	iMixerFreq    = jas->sampleRate();
 	uint32_t channelsMask[32];
 	channelsMask[0] = SPEAKER_FRONT_LEFT;
 	channelsMask[1] = SPEAKER_FRONT_RIGHT;
@@ -944,7 +952,7 @@ bool JackAudioOutput::unregisterPorts() {
 			continue;
 		}
 
-		if (!jas->unregisterPort(ports[i]))  {
+		if (!jas->unregisterPort(ports[i])) {
 			qWarning("JackAudioOutput: unable to unregister port #%u", i);
 			ret = false;
 		}
@@ -962,7 +970,7 @@ void JackAudioOutput::connectPorts() {
 	QMutexLocker lock(&qmWait);
 
 	const auto inputPorts = jas->getPhysicalPorts(JackPortIsInput);
-	uint8_t i = 0;
+	uint8_t i             = 0;
 
 	for (auto inputPort : inputPorts) {
 		if (i == ports.size()) {
@@ -1005,13 +1013,12 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 	qsSleep.release(1);
 
 	for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
-
 		auto outputBuffer = jas->getPortBuffer(ports[currentChannel], frames);
 		if (!outputBuffer) {
 			return false;
 		}
 
-		outputBuffers.replace(currentChannel, reinterpret_cast<jack_default_audio_sample_t *>(outputBuffer));
+		outputBuffers.replace(currentChannel, reinterpret_cast< jack_default_audio_sample_t * >(outputBuffer));
 	}
 
 	const auto avail = jas->ringbufferReadSpace(buffer);
@@ -1026,22 +1033,24 @@ bool JackAudioOutput::process(const jack_nframes_t frames) {
 	const size_t needed = frames * iSampleSize;
 
 	if (iChannels == 1) {
-		jas->ringbufferRead(buffer, avail, reinterpret_cast<char *>(outputBuffers[0]));
+		jas->ringbufferRead(buffer, avail, reinterpret_cast< char * >(outputBuffers[0]));
 		if (avail < needed) {
-			memset(reinterpret_cast<char *>(&(outputBuffers[avail])), 0, needed - avail);
+			memset(reinterpret_cast< char * >(&(outputBuffers[avail])), 0, needed - avail);
 		}
 
 		return true;
 	}
 
 	auto samples = qMin(jas->ringbufferReadSpace(buffer), needed) / sizeof(jack_default_audio_sample_t);
-	for (auto currentSample = decltype(samples){0}; currentSample < samples; ++currentSample) {
-		jas->ringbufferRead(buffer, sizeof(jack_default_audio_sample_t), reinterpret_cast<char *>(&outputBuffers[currentSample % iChannels][currentSample / iChannels]));
+	for (auto currentSample = decltype(samples){ 0 }; currentSample < samples; ++currentSample) {
+		jas->ringbufferRead(
+			buffer, sizeof(jack_default_audio_sample_t),
+			reinterpret_cast< char * >(&outputBuffers[currentSample % iChannels][currentSample / iChannels]));
 	}
 
 	if ((samples / iChannels) < frames) {
 		for (decltype(iChannels) currentChannel = 0; currentChannel < iChannels; ++currentChannel) {
-			memset(&outputBuffers[currentChannel][avail/samples], 0, (needed - avail) / iChannels);
+			memset(&outputBuffers[currentChannel][avail / samples], 0, (needed - avail) / iChannels);
 		}
 	}
 
@@ -1058,7 +1067,7 @@ void JackAudioOutput::run() {
 		connectPorts();
 	}
 
-	std::unique_ptr<uint8_t[]> spareSample(new uint8_t[iSampleSize]);
+	std::unique_ptr< uint8_t[] > spareSample(new uint8_t[iSampleSize]);
 
 	jack_ringbuffer_data_t _writeVector[2];
 	jack_ringbuffer_data_t *writeVector = _writeVector;
@@ -1075,9 +1084,9 @@ void JackAudioOutput::run() {
 
 		jas->ringbufferGetWriteVector(buffer, writeVector);
 
-		auto bOk = true;
+		auto bOk             = true;
 		size_t writtenFrames = 0;
-		auto wanted = qMin(writeVector->len / iSampleSize, static_cast<size_t>(iFrameSize));
+		auto wanted          = qMin(writeVector->len / iSampleSize, static_cast< size_t >(iFrameSize));
 		if (wanted > 0) {
 			bOk = mix(writeVector->buf, wanted);
 			writtenFrames += bOk ? wanted : 0;
@@ -1113,7 +1122,7 @@ void JackAudioOutput::run() {
 
 		bOk = mix(writeVector->buf, iFrameSize - wanted);
 		writtenFrames += bOk ? (iFrameSize - wanted) : 0;
-next:
+	next:
 		jas->ringbufferWriteAdvance(buffer, writtenFrames * iSampleSize);
 		qmWait.unlock();
 		qsSleep.acquire(1);

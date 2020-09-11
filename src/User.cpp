@@ -8,13 +8,13 @@
 
 User::User() {
 	uiSession = 0;
-	iId = -1;
+	iId       = -1;
 	bMute = bDeaf = false;
 	bSelfMute = bSelfDeaf = false;
-	bPrioritySpeaker = false;
-	bRecording = false;
-	bSuppress = false;
-	cChannel = 0;
+	bPrioritySpeaker      = false;
+	bRecording            = false;
+	bSuppress             = false;
+	cChannel              = 0;
 }
 
 bool User::lessThan(const User *first, const User *second) {

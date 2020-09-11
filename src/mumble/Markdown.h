@@ -9,12 +9,12 @@
 #include <QString>
 
 namespace Markdown {
-	/// Converts the given piece of text, interprets it as markdown and replaces
-	/// the markdown constructs with the respective HTML ones.
-	///
-	/// @param markdownInput A reference to the input string
-	/// @returns The processed HTML string
-	QString markdownToHTML(const QString &markdownInput);
+/// Converts the given piece of text, interprets it as markdown and replaces
+/// the markdown constructs with the respective HTML ones.
+///
+/// @param markdownInput A reference to the input string
+/// @returns The processed HTML string
+QString markdownToHTML(const QString &markdownInput);
 }; // namespace Markdown
 
 #endif // MUMBLE_MUMBLE_MARKDOWN_H_

@@ -6,29 +6,29 @@
 #include "AudioStats.h"
 
 #include "AudioInput.h"
-#include "Global.h"
 #include "Utils.h"
 #include "smallft.h"
+#include "Global.h"
 
 #include <QtGui/QPainter>
 
 #include <cmath>
 
 AudioBar::AudioBar(QWidget *p) : QWidget(p) {
-	qcBelow = Qt::yellow;
-	qcAbove = Qt::red;
+	qcBelow  = Qt::yellow;
+	qcAbove  = Qt::red;
 	qcInside = Qt::green;
 
-	iMin = 0;
-	iMax = 32768;
+	iMin   = 0;
+	iMax   = 32768;
 	iBelow = 2000;
 	iAbove = 22000;
 	iValue = 1000;
-	iPeak = -1;
-	setMinimumSize(100,20);
+	iPeak  = -1;
+	setMinimumSize(100, 20);
 
-	qlReplacableColors	<< Qt::yellow		<< Qt::red		<< Qt::green	<< Qt::blue;
-	qlReplacementBrushes	<< Qt::BDiagPattern	<< Qt::DiagCrossPattern << Qt::NoBrush	<< Qt::FDiagPattern;
+	qlReplacableColors << Qt::yellow << Qt::red << Qt::green << Qt::blue;
+	qlReplacementBrushes << Qt::BDiagPattern << Qt::DiagCrossPattern << Qt::NoBrush << Qt::FDiagPattern;
 }
 
 void AudioBar::paintEvent(QPaintEvent *) {
@@ -52,23 +52,26 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	else if (iValue > iMax)
 		iValue = iMax;
 
-	float scale = static_cast<float>(width()) / static_cast<float>(iMax - iMin);
-	int h = height();
+	float scale = static_cast< float >(width()) / static_cast< float >(iMax - iMin);
+	int h       = height();
 
-	int val = iroundf(static_cast<float>(iValue) * scale + 0.5f);
-	int below = iroundf(static_cast<float>(iBelow) * scale + 0.5f);
-	int above = iroundf(static_cast<float>(iAbove) * scale  + 0.5f);
-	int max = iroundf(static_cast<float>(iMax) * scale + 0.5f);
-	int min = iroundf(static_cast<float>(iMin) * scale + 0.5f);
-	int peak = iroundf(static_cast<float>(iPeak) * scale + 0.5f);
+	int val   = iroundf(static_cast< float >(iValue) * scale + 0.5f);
+	int below = iroundf(static_cast< float >(iBelow) * scale + 0.5f);
+	int above = iroundf(static_cast< float >(iAbove) * scale + 0.5f);
+	int max   = iroundf(static_cast< float >(iMax) * scale + 0.5f);
+	int min   = iroundf(static_cast< float >(iMin) * scale + 0.5f);
+	int peak  = iroundf(static_cast< float >(iPeak) * scale + 0.5f);
 
 	if (g.s.bHighContrast) {
 		// Draw monochrome representation
 		QColor fg = QPalette().windowText().color();
 
-		p.fillRect(0, 0, below, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcBelow), Qt::CrossPattern)));
-		p.fillRect(below, 0, above - below, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcInside), Qt::NoBrush)));
-		p.fillRect(above, 0, max - above, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcAbove), Qt::CrossPattern)));
+		p.fillRect(0, 0, below, h,
+				   QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcBelow), Qt::CrossPattern)));
+		p.fillRect(below, 0, above - below, h,
+				   QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcInside), Qt::NoBrush)));
+		p.fillRect(above, 0, max - above, h,
+				   QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcAbove), Qt::CrossPattern)));
 		p.fillRect(0, 0, val, h, QBrush(fg, Qt::SolidPattern));
 
 		p.drawRect(0, 0, max - 1, h - 1);
@@ -77,22 +80,22 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	} else {
 		if (val <= below) {
 			p.fillRect(0, 0, val, h, qcBelow);
-			p.fillRect(val, 0, below-val, h, qcBelow.darker(300));
-			p.fillRect(below, 0, above-below, h, qcInside.darker(300));
-			p.fillRect(above, 0, max-above, h, qcAbove.darker(300));
+			p.fillRect(val, 0, below - val, h, qcBelow.darker(300));
+			p.fillRect(below, 0, above - below, h, qcInside.darker(300));
+			p.fillRect(above, 0, max - above, h, qcAbove.darker(300));
 		} else if (val <= above) {
 			p.fillRect(0, 0, below, h, qcBelow);
-			p.fillRect(below, 0, val-below, h, qcInside);
-			p.fillRect(val, 0, above-val, h, qcInside.darker(300));
-			p.fillRect(above, 0, max-above, h, qcAbove.darker(300));
+			p.fillRect(below, 0, val - below, h, qcInside);
+			p.fillRect(val, 0, above - val, h, qcInside.darker(300));
+			p.fillRect(above, 0, max - above, h, qcAbove.darker(300));
 		} else {
 			p.fillRect(0, 0, below, h, qcBelow);
-			p.fillRect(below, 0, above-below, h, qcInside);
-			p.fillRect(above, 0, val-above, h, qcAbove);
-			p.fillRect(val, 0, max-val, h, qcAbove.darker(300));
+			p.fillRect(below, 0, above - below, h, qcInside);
+			p.fillRect(above, 0, val - above, h, qcAbove);
+			p.fillRect(val, 0, max - val, h, qcAbove.darker(300));
 		}
 
-		if ((peak >= min) && (peak <= max))  {
+		if ((peak >= min) && (peak <= max)) {
 			if (peak <= below)
 				p.setPen(qcBelow.lighter(150));
 			else if (peak <= above)
@@ -102,7 +105,6 @@ void AudioBar::paintEvent(QPaintEvent *) {
 			p.drawLine(peak, 0, peak, h);
 		}
 	}
-
 }
 
 AudioEchoWidget::AudioEchoWidget(QWidget *p) : QWidget(p) {
@@ -111,13 +113,13 @@ AudioEchoWidget::AudioEchoWidget(QWidget *p) : QWidget(p) {
 
 static inline const QColor mapEchoToColor(float echo) {
 	bool neg = (echo < 0.0f);
-	echo = fabsf(echo);
+	echo     = fabsf(echo);
 
 	float a, b, c;
 
 	if (echo > 1.0f) {
 		echo = 1.0f;
-		c = 0.5f;
+		c    = 0.5f;
 	} else {
 		c = 0.0f;
 	}
@@ -136,7 +138,7 @@ static inline const QColor mapEchoToColor(float echo) {
 		return QColor::fromRgbF(c, b, a);
 }
 
-#define WGT(x,y) st->W[(y)*N + 2*(x)+1]
+#define WGT(x, y) st->W[(y) *N + 2 * (x) + 1]
 
 void AudioEchoWidget::paintEvent(QPaintEvent *) {
 	QPainter paint(this);
@@ -145,7 +147,7 @@ void AudioEchoWidget::paintEvent(QPaintEvent *) {
 	paint.fillRect(rect(), Qt::black);
 
 	AudioInputPtr ai = g.ai;
-	if (! ai || ! ai->sesEcho)
+	if (!ai || !ai->sesEcho)
 		return;
 
 	ai->qmSpeex.lock();
@@ -167,43 +169,44 @@ void AudioEchoWidget::paintEvent(QPaintEvent *) {
 	drft_lookup d;
 	mumble_drft_init(&d, n);
 
-	for (int j=0;j<M;j++) {
-		for (int i=0;i<n;i++)
-			W[j*n+i] = static_cast<float>(w[j*n+i]) / static_cast<float>(n);
-		mumble_drft_forward(&d, & W[j*n]);
+	for (int j = 0; j < M; j++) {
+		for (int i = 0; i < n; i++)
+			W[j * n + i] = static_cast< float >(w[j * n + i]) / static_cast< float >(n);
+		mumble_drft_forward(&d, &W[j * n]);
 	}
 
 	mumble_drft_clear(&d);
 
-	float xscale = 1.0f / static_cast<float>(N);
-	float yscale = 1.0f / static_cast<float>(M);
+	float xscale = 1.0f / static_cast< float >(N);
+	float yscale = 1.0f / static_cast< float >(M);
 
 	for (int j = 0; j < M; j++) {
-		for (int i=1;i < N; i++) {
-			float xa = static_cast<float>(i) * xscale;
-			float ya = static_cast<float>(j) * yscale;
+		for (int i = 1; i < N; i++) {
+			float xa = static_cast< float >(i) * xscale;
+			float ya = static_cast< float >(j) * yscale;
 
 			float xb = xa + xscale;
 			float yb = ya + yscale;
 
-			const QColor &c = mapEchoToColor(sqrtf(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 65536.f);
+			const QColor &c = mapEchoToColor(
+				sqrtf(W[j * n + 2 * i] * W[j * n + 2 * i] + W[j * n + 2 * i - 1] * W[j * n + 2 * i - 1]) / 65536.f);
 			paint.fillRect(QRectF(QPointF(xa, ya), QPointF(xb, yb)), c);
 		}
 	}
 
 	QPolygonF poly;
-	xscale = 1.0f / (2.0f * static_cast<float>(n));
+	xscale = 1.0f / (2.0f * static_cast< float >(n));
 	yscale = 1.0f / (200.0f * 32767.0f);
 	for (int i = 0; i < 2 * n; i++) {
-		poly << QPointF(static_cast<float>(i) * xscale, 0.5f + static_cast<float>(w[i]) * yscale);
+		poly << QPointF(static_cast< float >(i) * xscale, 0.5f + static_cast< float >(w[i]) * yscale);
 	}
-	
+
 	paint.setPen(QPen(QBrush(QColor::fromRgbF(1.0f, 0.0f, 1.0f)), 0));
 	paint.drawPolyline(poly);
 }
 
 AudioNoiseWidget::AudioNoiseWidget(QWidget *p) : QWidget(p) {
-	setMinimumSize(100,60);
+	setMinimumSize(100, 60);
 }
 
 void AudioNoiseWidget::paintEvent(QPaintEvent *) {
@@ -213,7 +216,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	paint.fillRect(rect(), pal.color(QPalette::Window));
 
 	AudioInputPtr ai = g.ai;
-	if (!ai.get() || ! ai->sppPreprocess)
+	if (!ai.get() || !ai->sppPreprocess)
 		return;
 
 	QPolygonF poly;
@@ -233,17 +236,17 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	qreal sx, sy;
 
-	sx = (static_cast<float>(width()) - 1.0f) / static_cast<float>(ps_size);
-	sy = static_cast<float>(height()) - 1.0f;
+	sx = (static_cast< float >(width()) - 1.0f) / static_cast< float >(ps_size);
+	sy = static_cast< float >(height()) - 1.0f;
 
 	poly << QPointF(0.0f, height() - 1);
 	float fftmul = 1.0 / (32768.0);
-	for (int i=0; i < ps_size; i++) {
+	for (int i = 0; i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrtf(sqrtf(static_cast<float>(noise[i]))) - 1.0f;
+		yp = sqrtf(sqrtf(static_cast< float >(noise[i]))) - 1.0f;
 		yp = yp * fftmul;
-		yp = qMin<qreal>(yp * 3000.0f, 1.0f);
+		yp = qMin< qreal >(yp * 3000.0f, 1.0f);
 		yp = (1 - yp) * sy;
 		poly << QPointF(xp, yp);
 	}
@@ -257,10 +260,10 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	poly.clear();
 
-	for (int i=0;i < ps_size; i++) {
+	for (int i = 0; i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrtf(sqrtf(static_cast<float>(ps[i]))) - 1.0f;
+		yp = sqrtf(sqrtf(static_cast< float >(ps[i]))) - 1.0f;
 		yp = yp * fftmul;
 		yp = qMin(yp * 3000.0, 1.0);
 		yp = (1 - yp) * sy;
@@ -283,22 +286,22 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	abSpeech->setAccessibleName(tr("Current speech detection chance"));
 	anwNoise->setAccessibleName(tr("Power spectrum of input signal and noise estimate"));
 	aewEcho->setAccessibleName(tr("Weights of the echo canceller"));
-	
+
 	AudioInputPtr ai = g.ai;
 
 	if (ai && ai->sesEcho) {
 		qgbEcho->setVisible(true);
-	}  else {
+	} else {
 		qgbEcho->setVisible(false);
 	}
 
 
 	bTalking = false;
 
-	abSpeech->iPeak = -1;
-	abSpeech->qcBelow = Qt::red;
+	abSpeech->iPeak    = -1;
+	abSpeech->qcBelow  = Qt::red;
 	abSpeech->qcInside = Qt::yellow;
-	abSpeech->qcAbove = Qt::green;
+	abSpeech->qcAbove  = Qt::green;
 
 	on_Tick_timeout();
 }
@@ -307,15 +310,15 @@ AudioStats::~AudioStats() {
 }
 
 #if QT_VERSION >= 0x050500
-	#define FORMAT_TO_TXT(format, arg) txt = QString::asprintf(format, arg)
+#	define FORMAT_TO_TXT(format, arg) txt = QString::asprintf(format, arg)
 #else
-	// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
-	#define FORMAT_TO_TXT(format, arg) txt.sprintf(format, arg)
+// sprintf() has been deprecated in Qt 5.5 in favor for the static QString::asprintf()
+#	define FORMAT_TO_TXT(format, arg) txt.sprintf(format, arg)
 #endif
 void AudioStats::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
 
-	if (!ai.get() || ! ai->sppPreprocess)
+	if (!ai.get() || !ai->sppPreprocess)
 		return;
 
 	bool nTalking = ai->isTransmitting();
@@ -344,31 +347,31 @@ void AudioStats::on_Tick_timeout() {
 	float n = 0.0001f;
 
 	int start = (ps_size * 300) / SAMPLE_RATE;
-	int stop = (ps_size * 2000) / SAMPLE_RATE;
+	int stop  = (ps_size * 2000) / SAMPLE_RATE;
 
-	for (int i=start;i<stop;i++) {
-		s += sqrtf(static_cast<float>(ps[i]));
-		n += sqrtf(static_cast<float>(noise[i]));
+	for (int i = start; i < stop; i++) {
+		s += sqrtf(static_cast< float >(ps[i]));
+		n += sqrtf(static_cast< float >(noise[i]));
 	}
 
-	FORMAT_TO_TXT("%06.3f",s / n);
+	FORMAT_TO_TXT("%06.3f", s / n);
 	qlMicSNR->setText(txt);
 
 	spx_int32_t v;
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &v);
-	float fv = powf(10.0f, (static_cast<float>(v) / 20.0f));
-	FORMAT_TO_TXT("%03.0f%%",100.0f / fv);
+	float fv = powf(10.0f, (static_cast< float >(v) / 20.0f));
+	FORMAT_TO_TXT("%03.0f%%", 100.0f / fv);
 	qlMicVolume->setText(txt);
 
-	FORMAT_TO_TXT("%03.0f%%",ai->fSpeechProb * 100.0f);
+	FORMAT_TO_TXT("%03.0f%%", ai->fSpeechProb * 100.0f);
 	qlSpeechProb->setText(txt);
 
-	FORMAT_TO_TXT("%04.1f kbit/s",static_cast<float>(ai->iBitrate) / 1000.0f);
+	FORMAT_TO_TXT("%04.1f kbit/s", static_cast< float >(ai->iBitrate) / 1000.0f);
 	qlBitrate->setText(txt);
 
 	if (nTalking != bTalking) {
 		bTalking = nTalking;
-		QFont f = qlSpeechProb->font();
+		QFont f  = qlSpeechProb->font();
 		f.setBold(bTalking);
 		qlSpeechProb->setFont(f);
 	}
@@ -376,14 +379,14 @@ void AudioStats::on_Tick_timeout() {
 	if (g.uiDoublePush > 1000000)
 		txt = tr(">1000 ms");
 	else
-		FORMAT_TO_TXT("%04llu ms",g.uiDoublePush / 1000);
+		FORMAT_TO_TXT("%04llu ms", g.uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
 	abSpeech->iBelow = iroundf(g.s.fVADmin * 32767.0f + 0.5f);
 	abSpeech->iAbove = iroundf(g.s.fVADmax * 32767.0f + 0.5f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
+		abSpeech->iValue = iroundf((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 	} else {
 		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
 	}

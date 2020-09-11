@@ -15,23 +15,24 @@
 /// It is used for converting Mumble
 /// text messages, comments, and more
 /// to plain text when a server is
-/// configured to disallow HTML. 
+/// configured to disallow HTML.
 class HTMLFilter {
-		/// escapeTags returns the in HTML document
-		/// with all occurrences of > and <
-		/// replaced by &lt; and &gt;.
-		static QString escapeTags(const QString &in);
-	public:
-		/// filter does a best-effort conversion of the
-		/// in HTML document to a plain-text representation.
-		///
-		/// If the filtering process succeeded, the function
-		/// writes the filtered document as plain text to
-		/// out, and returns true.
-		///
-		/// If the filtering failed, the function returns false
-		/// and out is left unchanged.	
-		static bool filter(const QString &in, QString &out);
+	/// escapeTags returns the in HTML document
+	/// with all occurrences of > and <
+	/// replaced by &lt; and &gt;.
+	static QString escapeTags(const QString &in);
+
+public:
+	/// filter does a best-effort conversion of the
+	/// in HTML document to a plain-text representation.
+	///
+	/// If the filtering process succeeded, the function
+	/// writes the filtered document as plain text to
+	/// out, and returns true.
+	///
+	/// If the filtering failed, the function returns false
+	/// and out is left unchanged.
+	static bool filter(const QString &in, QString &out);
 };
 
 #endif

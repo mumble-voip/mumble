@@ -6,25 +6,33 @@
 #include "CELTCodec.h"
 
 #include "Audio.h"
-#include "Version.h"
 #include "MumbleApplication.h"
+#include "Version.h"
 
 #ifdef Q_CC_GNU
-#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlCELT.resolve(#var)); bValid = bValid && var; }
+#	define RESOLVE(var)                                                        \
+		{                                                                       \
+			var    = reinterpret_cast< __typeof__(var) >(qlCELT.resolve(#var)); \
+			bValid = bValid && var;                                             \
+		}
 #else
-#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlCELT.resolve(#var)); bValid = bValid && var; }
+#	define RESOLVE(var)                                                                      \
+		{                                                                                     \
+			*reinterpret_cast< void ** >(&var) = static_cast< void * >(qlCELT.resolve(#var)); \
+			bValid                             = bValid && var;                               \
+		}
 #endif
 
 #ifdef Q_OS_WIN
 extern "C" {
-	void __cpuid(int a[4], int b);
+void __cpuid(int a[4], int b);
 };
 #endif
 
 CELTCodec::CELTCodec(const QString &celt_version) {
-	bValid = false;
-	cmMode = nullptr;
-	qsVersion = celt_version;
+	bValid            = false;
+	cmMode            = nullptr;
+	qsVersion         = celt_version;
 	iBitstreamVersion = INT_MIN;
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
 
@@ -53,7 +61,7 @@ CELTCodec::CELTCodec(const QString &celt_version) {
 
 	alternatives << QString::fromLatin1("celt0.%1.dll").arg(celt_version);
 #endif
-	foreach(const QString &lib, alternatives) {
+	foreach (const QString &lib, alternatives) {
 		qlCELT.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
@@ -95,7 +103,7 @@ CELTCodec::CELTCodec(const QString &celt_version) {
 
 CELTCodec::~CELTCodec() {
 	if (cmMode)
-		celt_mode_destroy(const_cast<CELTMode *>(cmMode));
+		celt_mode_destroy(const_cast< CELTMode * >(cmMode));
 }
 
 bool CELTCodec::isValid() const {
@@ -104,7 +112,7 @@ bool CELTCodec::isValid() const {
 
 int CELTCodec::bitstreamVersion() const {
 	if (cmMode && iBitstreamVersion == INT_MIN)
-		celt_mode_info(cmMode, CELT_GET_BITSTREAM_VERSION, reinterpret_cast<celt_int32 *>(&iBitstreamVersion));
+		celt_mode_info(cmMode, CELT_GET_BITSTREAM_VERSION, reinterpret_cast< celt_int32 * >(&iBitstreamVersion));
 
 	return iBitstreamVersion;
 }

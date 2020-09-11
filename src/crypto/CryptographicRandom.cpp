@@ -24,8 +24,9 @@ void CryptographicRandom::fillBuffer(void *buf, int numBytes) {
 	// OpenSSL needs at least 32-bytes of high-entropy random data to seed its CSPRNG.
 	// If OpenSSL cannot acquire enough random data to seed its CSPRNG at the time Mumble and Murmur
 	// are running, there is not much we can do about it other than aborting the program.
-	if (RAND_bytes(reinterpret_cast<unsigned char *>(buf), static_cast<int>(numBytes)) != 1) {
-		qFatal("CryptographicRandom::fillBuffer(): internal error in OpenSSL's RAND_bytes or entropy pool not yet filled.");
+	if (RAND_bytes(reinterpret_cast< unsigned char * >(buf), static_cast< int >(numBytes)) != 1) {
+		qFatal("CryptographicRandom::fillBuffer(): internal error in OpenSSL's RAND_bytes or entropy pool not yet "
+			   "filled.");
 	}
 }
 

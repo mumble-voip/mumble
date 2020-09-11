@@ -8,17 +8,18 @@
 #include "Database.h"
 #include "ServerHandler.h"
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 Tokens::Tokens(QWidget *p) : QDialog(p) {
 	setupUi(this);
 	qlwTokens->setAccessibleName(tr("Tokens"));
 
-	qbaDigest = g.sh->qbaDigest;
+	qbaDigest          = g.sh->qbaDigest;
 	QStringList tokens = g.db->getTokens(qbaDigest);
 	tokens.sort();
-	foreach(const QString &qs, tokens) {
+	foreach (const QString &qs, tokens) {
 		QListWidgetItem *qlwi = new QListWidgetItem(qs);
 		qlwi->setFlags(qlwi->flags() | Qt::ItemIsEditable);
 		qlwTokens->addItem(qlwi);
@@ -28,10 +29,10 @@ Tokens::Tokens(QWidget *p) : QDialog(p) {
 void Tokens::accept() {
 	QStringList qsl;
 
-	QList<QListWidgetItem *> items = qlwTokens->findItems(QString(), Qt::MatchStartsWith);
-	foreach(QListWidgetItem *qlwi, items) {
+	QList< QListWidgetItem * > items = qlwTokens->findItems(QString(), Qt::MatchStartsWith);
+	foreach (QListWidgetItem *qlwi, items) {
 		const QString &text = qlwi->text().trimmed();
-		if (! text.isEmpty())
+		if (!text.isEmpty())
 			qsl << text;
 	}
 	g.db->setTokens(qbaDigest, qsl);
@@ -48,7 +49,6 @@ void Tokens::on_qpbAdd_clicked() {
 }
 
 void Tokens::on_qpbRemove_clicked() {
-	foreach(QListWidgetItem *qlwi, qlwTokens->selectedItems())
+	foreach (QListWidgetItem *qlwi, qlwTokens->selectedItems())
 		delete qlwi;
 }
-

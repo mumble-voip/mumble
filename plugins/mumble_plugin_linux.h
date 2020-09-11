@@ -6,19 +6,19 @@
 #ifndef MUMBLE_PLUGIN_LINUX_H_
 #define MUMBLE_PLUGIN_LINUX_H_
 
-# ifndef MUMBLE_PLUGIN_MAIN_H_
-#  error "Include mumble_plugin_main.h instead of mumble_plugin_linux.h"
-# endif
+#ifndef MUMBLE_PLUGIN_MAIN_H_
+#	error "Include mumble_plugin_main.h instead of mumble_plugin_linux.h"
+#endif
 
-#include <sys/uio.h>
+#include <cstring>
+#include <fstream>
+#include <iostream>
+#include <math.h>
+#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <string>
-#include <cstring>
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include <sys/uio.h>
 
 static inline std::string readAll(const std::string &fn) {
 	std::ifstream ifs;
@@ -68,7 +68,7 @@ static inline int isProcess64Bit(const procptr_t &baseAddress) {
 static inline int8_t isProcessWin32(const procid_t &pid) {
 	std::stringstream ss;
 	ss << "/proc/";
-	ss << static_cast<unsigned long>(pid);
+	ss << static_cast< unsigned long >(pid);
 	ss << "/exe";
 
 	char *path = realpath(ss.str().c_str(), nullptr);
@@ -96,10 +96,10 @@ static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modnam
 
 	std::stringstream ss;
 	ss << std::string("/proc/");
-	ss << static_cast<unsigned long>(pid);
+	ss << static_cast< unsigned long >(pid);
 	ss << std::string("/maps");
 	std::string mapsFn = ss.str();
-	std::string maps = readAll(mapsFn);
+	std::string maps   = readAll(mapsFn);
 
 	if (maps.size() == 0) {
 		return 0;
@@ -117,7 +117,7 @@ static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modnam
 			} else if (ch == EOF) {
 				return 0;
 			}
-			baseaddr.push_back(static_cast<char>(ch));
+			baseaddr.push_back(static_cast< char >(ch));
 		}
 
 		// seek to perms
@@ -177,7 +177,7 @@ static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modnam
 			} else if (ch == EOF) {
 				return 0;
 			}
-			pathname.push_back(static_cast<char>(ch));
+			pathname.push_back(static_cast< char >(ch));
 		};
 
 		// OK, we found 'em!
@@ -200,30 +200,31 @@ static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modnam
 
 static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len) {
 	struct iovec in;
-	in.iov_base = reinterpret_cast<void *>(addr); // Address from target process
-	in.iov_len = len; // Length
+	in.iov_base = reinterpret_cast< void * >(addr); // Address from target process
+	in.iov_len  = len;                              // Length
 
 	struct iovec out;
 	out.iov_base = dest;
-	out.iov_len = len;
+	out.iov_len  = len;
 
 	ssize_t nread = process_vm_readv(pPid, &out, 1, &in, 1, 0);
 
-	return (nread != -1 && static_cast<size_t>(nread) == in.iov_len);
+	return (nread != -1 && static_cast< size_t >(nread) == in.iov_len);
 }
 
 static void generic_unlock() {
 	pModule = 0;
-	pPid = 0;
+	pPid    = 0;
 }
 
-static bool initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = nullptr) {
+static bool initialize(const std::multimap< std::wstring, unsigned long long int > &pids, const wchar_t *procname,
+					   const wchar_t *modname = nullptr) {
 	pModule = 0;
 
 	if (!pids.empty()) {
 		auto iter = pids.find(std::wstring(procname));
 		if (iter != pids.end()) {
-			pPid = static_cast<procid_t>(iter->second);
+			pPid = static_cast< procid_t >(iter->second);
 		} else {
 			pPid = 0;
 		}

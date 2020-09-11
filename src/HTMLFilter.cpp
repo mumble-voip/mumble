@@ -22,12 +22,12 @@ QString HTMLFilter::escapeTags(const QString &in) {
 }
 
 bool HTMLFilter::filter(const QString &in, QString &out) {
-	if (! in.contains(QLatin1Char('<'))) {
+	if (!in.contains(QLatin1Char('<'))) {
 		out = in.simplified();
 	} else {
 		QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(in));
 		QString qs;
-		while (! qxsr.atEnd()) {
+		while (!qxsr.atEnd()) {
 			switch (qxsr.readNext()) {
 				case QXmlStreamReader::Invalid:
 					return false;

@@ -12,38 +12,39 @@
 struct OverlaySettings;
 
 class OverlayEditor : public QDialog, public Ui::OverlayEditor {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayEditor)
-	protected:
-		QGraphicsItem *qgiPromote;
-		OverlayEditorScene oes;
-		OverlaySettings *os;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(OverlayEditor)
+protected:
+	QGraphicsItem *qgiPromote;
+	OverlayEditorScene oes;
+	OverlaySettings *os;
 
-		void enterEvent(QEvent *e) Q_DECL_OVERRIDE;
-		void leaveEvent(QEvent *e) Q_DECL_OVERRIDE;
-	public:
-		OverlayEditor(QWidget *p = nullptr, QGraphicsItem *qgi = nullptr, OverlaySettings *osptr = nullptr);
-		~OverlayEditor() Q_DECL_OVERRIDE;
-	signals:
-		void applySettings();
-	public slots:
-		void reset();
-		void apply();
-		void accept() Q_DECL_OVERRIDE;
+	void enterEvent(QEvent *e) Q_DECL_OVERRIDE;
+	void leaveEvent(QEvent *e) Q_DECL_OVERRIDE;
 
-		void on_qrbPassive_clicked();
-		void on_qrbTalking_clicked();
-		void on_qrbWhisper_clicked();
-		void on_qrbShout_clicked();
+public:
+	OverlayEditor(QWidget *p = nullptr, QGraphicsItem *qgi = nullptr, OverlaySettings *osptr = nullptr);
+	~OverlayEditor() Q_DECL_OVERRIDE;
+signals:
+	void applySettings();
+public slots:
+	void reset();
+	void apply();
+	void accept() Q_DECL_OVERRIDE;
 
-		void on_qcbAvatar_clicked();
-		void on_qcbUser_clicked();
-		void on_qcbChannel_clicked();
-		void on_qcbMutedDeafened_clicked();
-		void on_qcbBox_clicked();
+	void on_qrbPassive_clicked();
+	void on_qrbTalking_clicked();
+	void on_qrbWhisper_clicked();
+	void on_qrbShout_clicked();
 
-		void on_qsZoom_valueChanged(int);
+	void on_qcbAvatar_clicked();
+	void on_qcbUser_clicked();
+	void on_qcbChannel_clicked();
+	void on_qcbMutedDeafened_clicked();
+	void on_qcbBox_clicked();
+
+	void on_qsZoom_valueChanged(int);
 };
 
 #endif

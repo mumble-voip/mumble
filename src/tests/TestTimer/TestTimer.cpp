@@ -9,10 +9,10 @@
 #include "Timer.h"
 
 class TestTimer : public QObject {
-		Q_OBJECT
-	private slots:
-		void resolution();
-		void order();
+	Q_OBJECT
+private slots:
+	void resolution();
+	void order();
 };
 
 // This tests that the timer implemented by the Timer
@@ -24,7 +24,7 @@ void TestTimer::resolution() {
 
 	t.restart();
 
-	quint64 nchanges = 0;
+	quint64 nchanges    = 0;
 	quint64 lastElapsed = 0;
 	quint64 curElapsed  = 0;
 
@@ -36,11 +36,11 @@ void TestTimer::resolution() {
 		lastElapsed = curElapsed;
 	} while (curElapsed < 150000); // 150 ms
 
-	quint64 totalElapsed = t.elapsed();
-	double usecsPerChange = static_cast<double>(totalElapsed) / static_cast<double>(nchanges);
+	quint64 totalElapsed  = t.elapsed();
+	double usecsPerChange = static_cast< double >(totalElapsed) / static_cast< double >(nchanges);
 
-	qWarning("Total elapsed time: %llu microseconds", static_cast<unsigned long long>(totalElapsed));
-	qWarning("Number of elapsed changes: %llu", static_cast<unsigned long long>(nchanges));
+	qWarning("Total elapsed time: %llu microseconds", static_cast< unsigned long long >(totalElapsed));
+	qWarning("Number of elapsed changes: %llu", static_cast< unsigned long long >(nchanges));
 	qWarning("Resolution: %.2f microseconds", usecsPerChange);
 
 	if (usecsPerChange >= 100.0f) {
@@ -51,7 +51,8 @@ void TestTimer::resolution() {
 void TestTimer::order() {
 	Timer a;
 
-	while (a.elapsed() == 0) {};
+	while (a.elapsed() == 0) {
+	};
 
 	Timer b;
 

@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -39,12 +39,12 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "AudioOutputSample.h"
-#include "Global.h"
 #include "NetworkConfig.h"
 #include "Utils.h"
+#include "Global.h"
 
 const QString AudioOutputDialog::name = QLatin1String("AudioOutputWidget");
-const QString AudioInputDialog::name = QLatin1String("AudioInputWidget");
+const QString AudioInputDialog::name  = QLatin1String("AudioInputWidget");
 
 
 static ConfigWidget *AudioInputDialogNew(Settings &st) {
@@ -96,10 +96,8 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	qcbIdleAction->setAccessibleName(tr("Idle action"));
 
 	if (AudioInputRegistrar::qmNew) {
-		QList<QString> keys = AudioInputRegistrar::qmNew->keys();
-		foreach(QString key, keys) {
-			qcbSystem->addItem(key);
-		}
+		QList< QString > keys = AudioInputRegistrar::qmNew->keys();
+		foreach (QString key, keys) { qcbSystem->addItem(key); }
 	}
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
@@ -107,9 +105,9 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
 
-	abSpeech->qcBelow = Qt::red;
+	abSpeech->qcBelow  = Qt::red;
 	abSpeech->qcInside = Qt::yellow;
-	abSpeech->qcAbove = Qt::green;
+	abSpeech->qcAbove  = Qt::green;
 
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 
@@ -141,13 +139,13 @@ QIcon AudioInputDialog::icon() const {
 
 void AudioInputDialog::load(const Settings &r) {
 	int i;
-	QList<QString> keys;
+	QList< QString > keys;
 
 	if (AudioInputRegistrar::qmNew)
-		keys=AudioInputRegistrar::qmNew->keys();
+		keys = AudioInputRegistrar::qmNew->keys();
 	else
 		keys.clear();
-	i=keys.indexOf(AudioInputRegistrar::current);
+	i = keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbSystem, i);
 
@@ -160,9 +158,9 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsTransmitHold, r.iVoiceHold);
 	loadSlider(qsTransmitMin, iroundf(r.fVADmin * 32767.0f + 0.5f));
 	loadSlider(qsTransmitMax, iroundf(r.fVADmax * 32767.0f + 0.5f));
-	loadSlider(qsFrames, (r.iFramesPerPacket == 1) ? 1 : (r.iFramesPerPacket/2 + 1));
-	loadSlider(qsDoublePush, iroundf(static_cast<float>(r.uiDoublePush) / 1000.f + 0.5f));
-	loadSlider(qsPTTHold, static_cast<int>(r.pttHold));
+	loadSlider(qsFrames, (r.iFramesPerPacket == 1) ? 1 : (r.iFramesPerPacket / 2 + 1));
+	loadSlider(qsDoublePush, iroundf(static_cast< float >(r.uiDoublePush) / 1000.f + 0.5f));
+	loadSlider(qsPTTHold, static_cast< int >(r.pttHold));
 
 	if (r.vsVAD == Settings::Amplitude)
 		qrbAmplitude->setChecked(true);
@@ -174,7 +172,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsQuality, r.iQuality);
 	loadCheckBox(qcbAllowLowDelay, r.bAllowLowDelay);
 	if (r.iSpeexNoiseCancelStrength != 0) {
-		loadSlider(qsSpeexNoiseSupStrength, - r.iSpeexNoiseCancelStrength);
+		loadSlider(qsSpeexNoiseSupStrength, -r.iSpeexNoiseCancelStrength);
 	} else {
 		loadSlider(qsSpeexNoiseSupStrength, 14);
 	}
@@ -239,9 +237,9 @@ void AudioInputDialog::load(const Settings &r) {
 }
 
 void AudioInputDialog::save() const {
-	s.iQuality = qsQuality->value();
-	s.bAllowLowDelay = qcbAllowLowDelay->isChecked();
-	s.iSpeexNoiseCancelStrength = (qsSpeexNoiseSupStrength->value() == 14) ? 0 : - qsSpeexNoiseSupStrength->value();
+	s.iQuality                  = qsQuality->value();
+	s.bAllowLowDelay            = qcbAllowLowDelay->isChecked();
+	s.iSpeexNoiseCancelStrength = (qsSpeexNoiseSupStrength->value() == 14) ? 0 : -qsSpeexNoiseSupStrength->value();
 
 	if (qrbNoiseSupDeactivated->isChecked()) {
 		s.noiseCancelMode = Settings::NoiseCancelOff;
@@ -253,35 +251,35 @@ void AudioInputDialog::save() const {
 		s.noiseCancelMode = Settings::NoiseCancelSpeex;
 	}
 
-	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
-	s.iVoiceHold = qsTransmitHold->value();
-	s.fVADmin = static_cast<float>(qsTransmitMin->value()) / 32767.0f;
-	s.fVADmax = static_cast<float>(qsTransmitMax->value()) / 32767.0f;
-	s.vsVAD = qrbSNR->isChecked() ? Settings::SignalToNoise : Settings::Amplitude;
+	s.iMinLoudness     = 18000 - qsAmp->value() + 2000;
+	s.iVoiceHold       = qsTransmitHold->value();
+	s.fVADmin          = static_cast< float >(qsTransmitMin->value()) / 32767.0f;
+	s.fVADmax          = static_cast< float >(qsTransmitMax->value()) / 32767.0f;
+	s.vsVAD            = qrbSNR->isChecked() ? Settings::SignalToNoise : Settings::Amplitude;
 	s.iFramesPerPacket = qsFrames->value();
-	s.iFramesPerPacket = (s.iFramesPerPacket == 1) ? 1 : ((s.iFramesPerPacket-1) * 2);
-	s.uiDoublePush = qsDoublePush->value() * 1000;
-	s.pttHold = qsPTTHold->value();
-	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
+	s.iFramesPerPacket = (s.iFramesPerPacket == 1) ? 1 : ((s.iFramesPerPacket - 1) * 2);
+	s.uiDoublePush     = qsDoublePush->value() * 1000;
+	s.pttHold          = qsPTTHold->value();
+	s.atTransmit       = static_cast< Settings::AudioTransmit >(qcbTransmit->currentIndex());
 
 	// Idle auto actions
-	s.iIdleTime = qsbIdle->value() * 60;
-	s.iaeIdleAction = static_cast<Settings::IdleAction>(qcbIdleAction->currentIndex());
+	s.iIdleTime                   = qsbIdle->value() * 60;
+	s.iaeIdleAction               = static_cast< Settings::IdleAction >(qcbIdleAction->currentIndex());
 	s.bUndoIdleActionUponActivity = qcbUndoIdleAction->isChecked();
 
 	s.bShowPTTButtonWindow = qcbPushWindow->isChecked();
-	s.bTxAudioCue = qcbPushClick->isChecked();
-	s.qsTxAudioCueOn = qlePushClickPathOn->text();
-	s.qsTxAudioCueOff = qlePushClickPathOff->text();
+	s.bTxAudioCue          = qcbPushClick->isChecked();
+	s.qsTxAudioCueOn       = qlePushClickPathOn->text();
+	s.qsTxAudioCueOff      = qlePushClickPathOff->text();
 
-	s.qsAudioInput = qcbSystem->currentText();
-	s.bEcho = qcbEcho->currentIndex() > 0;
-	s.bEchoMulti = qcbEcho->currentIndex() == 2;
+	s.qsAudioInput    = qcbSystem->currentText();
+	s.bEcho           = qcbEcho->currentIndex() > 0;
+	s.bEchoMulti      = qcbEcho->currentIndex() == 2;
 	s.bExclusiveInput = qcbExclusive->isChecked();
 
 	if (AudioInputRegistrar::qmNew) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
-		int idx = qcbDevice->currentIndex();
+		int idx                  = qcbDevice->currentIndex();
 		if (idx > -1) {
 			air->setDeviceChoice(qcbDevice->itemData(idx), s);
 		}
@@ -289,7 +287,7 @@ void AudioInputDialog::save() const {
 }
 
 void AudioInputDialog::on_qsFrames_valueChanged(int v) {
-	qlFrames->setText(tr("%1 ms").arg((v==1) ? 10 : (v-1)*20));
+	qlFrames->setText(tr("%1 ms").arg((v == 1) ? 10 : (v - 1) * 20));
 	updateBitrate();
 }
 
@@ -308,13 +306,13 @@ void AudioInputDialog::on_qsPTTHold_valueChanged(int v) {
 }
 
 void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
-	float val = static_cast<float>(v * 10);
-	val = val / 1000.0f;
+	float val = static_cast< float >(v * 10);
+	val       = val / 1000.0f;
 	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
 
 void AudioInputDialog::on_qsQuality_valueChanged(int v) {
-	qlQuality->setText(tr("%1 kb/s").arg(static_cast<float>(v) / 1000.0f, 0, 'f', 1));
+	qlQuality->setText(tr("%1 kb/s").arg(static_cast< float >(v) / 1000.0f, 0, 'f', 1));
 	updateBitrate();
 }
 
@@ -331,13 +329,13 @@ void AudioInputDialog::on_qsSpeexNoiseSupStrength_valueChanged(int v) {
 }
 
 void AudioInputDialog::on_qsAmp_valueChanged(int v) {
-	v = 18000 - v + 2000;
-	float d = 20000.0f/static_cast<float>(v);
+	v       = 18000 - v + 2000;
+	float d = 20000.0f / static_cast< float >(v);
 	qlAmp->setText(QString::fromLatin1("%1").arg(d, 0, 'f', 2));
 }
 
 void AudioInputDialog::updateBitrate() {
-	if (! qsQuality || ! qsFrames || ! qlBitrate)
+	if (!qsQuality || !qsFrames || !qlBitrate)
 		return;
 	int q = qsQuality->value();
 	int p = qsFrames->value();
@@ -361,7 +359,7 @@ void AudioInputDialog::updateBitrate() {
 	posrate = posrate * 100 * 8;
 
 	overhead = overhead / p;
-	posrate = posrate / p;
+	posrate  = posrate / p;
 
 	int total = audiorate + overhead + posrate;
 
@@ -374,10 +372,10 @@ void AudioInputDialog::updateBitrate() {
 	qlBitrate->setPalette(pal);
 
 	QString v = tr("%1 kbit/s (Audio %2, Position %4, Overhead %3)")
-	        .arg(total / 1000.0, 0, 'f', 1)
-	        .arg(audiorate / 1000.0, 0, 'f', 1)
-	        .arg(overhead / 1000.0, 0, 'f', 1)
-	        .arg(posrate / 1000.0, 0, 'f', 1);
+					.arg(total / 1000.0, 0, 'f', 1)
+					.arg(audiorate / 1000.0, 0, 'f', 1)
+					.arg(overhead / 1000.0, 0, 'f', 1)
+					.arg(posrate / 1000.0, 0, 'f', 1);
 
 	qlBitrate->setText(v);
 
@@ -417,7 +415,6 @@ void AudioInputDialog::on_qpbPushClickPreview_clicked() {
 			connect(sample, SIGNAL(playbackFinished()), this, SLOT(continuePlayback()));
 		else // If we fail to playback the first play on play at least off
 			ao->playSample(qlePushClickPathOff->text());
-
 	}
 }
 
@@ -450,15 +447,15 @@ void AudioInputDialog::on_qcbTransmit_currentIndexChanged(int v) {
 void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 	qcbDevice->clear();
 
-	QList<audioDevice> ql;
+	QList< audioDevice > ql;
 
 	if (AudioInputRegistrar::qmNew) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
-		ql = air->getDeviceChoices();
+		ql                       = air->getDeviceChoices();
 
 		int idx = 0;
 
-		foreach(audioDevice d, ql) {
+		foreach (audioDevice d, ql) {
 			qcbDevice->addItem(d.first, d.second);
 			qcbDevice->setItemData(idx, d.first.toHtmlEscaped(), Qt::ToolTipRole);
 			++idx;
@@ -475,7 +472,8 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 void AudioInputDialog::updateEchoEnableState() {
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
 
-	AudioOutputDialog *outputWidget = static_cast<AudioOutputDialog *>(ConfigDialog::getConfigWidget(AudioOutputDialog::name));
+	AudioOutputDialog *outputWidget =
+		static_cast< AudioOutputDialog * >(ConfigDialog::getConfigWidget(AudioOutputDialog::name));
 	QString outputInterface;
 	if (outputWidget) {
 		outputInterface = outputWidget->getCurrentlySelectedOutputInterfaceName();
@@ -486,15 +484,19 @@ void AudioInputDialog::updateEchoEnableState() {
 
 	if (air->canEcho(outputInterface)) {
 		qcbEcho->setEnabled(true);
-		qcbEcho->setToolTip(QObject::tr("If enabled this tries to cancel out echo from the audio stream.\n"
+		qcbEcho->setToolTip(QObject::tr(
+			"If enabled this tries to cancel out echo from the audio stream.\n"
 			"Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to "
-			"the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.\n"
+			"the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller "
+			"directly.\n"
 			"Multichannel echo cancellation requires more CPU, so you should try mixed first"));
 	} else {
 		qcbEcho->setCurrentIndex(0);
 		qcbEcho->setEnabled(false);
 		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not supported for the interface "
-					"combination \"%1\" (in) and \"%2\" (out).").arg(air->name).arg(outputInterface));
+										"combination \"%1\" (in) and \"%2\" (out).")
+								.arg(air->name)
+								.arg(outputInterface));
 	}
 }
 
@@ -507,14 +509,14 @@ void AudioInputDialog::showSpeexNoiseSuppressionSlider(bool show) {
 void AudioInputDialog::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
 
-	if (!ai.get() || ! ai->sppPreprocess)
+	if (!ai.get() || !ai->sppPreprocess)
 		return;
 
 	abSpeech->iBelow = qsTransmitMin->value();
 	abSpeech->iAbove = qsTransmitMax->value();
 
 	if (qrbAmplitude->isChecked()) {
-		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
+		abSpeech->iValue = iroundf((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 	} else {
 		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
 	}
@@ -523,7 +525,7 @@ void AudioInputDialog::on_Tick_timeout() {
 
 
 void AudioInputDialog::on_qcbIdleAction_currentIndexChanged(int v) {
-	const Settings::IdleAction action = static_cast<Settings::IdleAction>(v);
+	const Settings::IdleAction action = static_cast< Settings::IdleAction >(v);
 
 	const bool enabled = (action != Settings::Nothing);
 
@@ -569,10 +571,8 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	qcbLoopback->setAccessibleName(tr("Loopback"));
 
 	if (AudioOutputRegistrar::qmNew) {
-		QList<QString> keys = AudioOutputRegistrar::qmNew->keys();
-		foreach(QString key, keys) {
-			qcbSystem->addItem(key);
-		}
+		QList< QString > keys = AudioOutputRegistrar::qmNew->keys();
+		foreach (QString key, keys) { qcbSystem->addItem(key); }
 	}
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
@@ -605,13 +605,13 @@ QString AudioOutputDialog::getCurrentlySelectedOutputInterfaceName() const {
 
 void AudioOutputDialog::load(const Settings &r) {
 	int i;
-	QList<QString> keys;
+	QList< QString > keys;
 
 	if (AudioOutputRegistrar::qmNew)
-		keys=AudioOutputRegistrar::qmNew->keys();
+		keys = AudioOutputRegistrar::qmNew->keys();
 	else
 		keys.clear();
-	i=keys.indexOf(AudioOutputRegistrar::current);
+	i = keys.indexOf(AudioOutputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbSystem, i);
 
@@ -633,7 +633,7 @@ void AudioOutputDialog::load(const Settings &r) {
 
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
-	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
+	loadSlider(qsPacketDelay, static_cast< int >(r.dMaxPacketDelay));
 	loadSlider(qsPacketLoss, iroundf(r.dPacketLoss * 100.0f + 0.5f));
 	loadSlider(qsMinDistance, iroundf(r.fAudioMinDistance * 10.0f + 0.5f));
 	loadSlider(qsMaxDistance, iroundf(r.fAudioMaxDistance * 10.0f + 0.5f));
@@ -648,31 +648,31 @@ void AudioOutputDialog::load(const Settings &r) {
 }
 
 void AudioOutputDialog::save() const {
-	s.iOutputDelay = qsDelay->value();
-	s.fVolume = static_cast<float>(qsVolume->value()) / 100.0f;
-	s.fOtherVolume = 1.0f - (static_cast<float>(qsOtherVolume->value()) / 100.0f);
-	s.bAttenuateOthersOnTalk = qcbAttenuateOthersOnTalk->isChecked();
-	s.bAttenuateOthers = qcbAttenuateOthers->isChecked();
-	s.bOnlyAttenuateSameOutput = qcbOnlyAttenuateSameOutput->isChecked();
-	s.bAttenuateLoopbacks = qcbAttenuateLoopbacks->isChecked();
+	s.iOutputDelay                   = qsDelay->value();
+	s.fVolume                        = static_cast< float >(qsVolume->value()) / 100.0f;
+	s.fOtherVolume                   = 1.0f - (static_cast< float >(qsOtherVolume->value()) / 100.0f);
+	s.bAttenuateOthersOnTalk         = qcbAttenuateOthersOnTalk->isChecked();
+	s.bAttenuateOthers               = qcbAttenuateOthers->isChecked();
+	s.bOnlyAttenuateSameOutput       = qcbOnlyAttenuateSameOutput->isChecked();
+	s.bAttenuateLoopbacks            = qcbAttenuateLoopbacks->isChecked();
 	s.bAttenuateUsersOnPrioritySpeak = qcbAttenuateUsersOnPrioritySpeak->isChecked();
-	s.iJitterBufferSize = qsJitter->value();
-	s.qsAudioOutput = qcbSystem->currentText();
-	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
-	s.dMaxPacketDelay = static_cast<float>(qsPacketDelay->value());
-	s.dPacketLoss = static_cast<float>(qsPacketLoss->value()) / 100.0f;
-	s.fAudioMinDistance = static_cast<float>(qsMinDistance->value()) / 10.0f;
-	s.fAudioMaxDistance = static_cast<float>(qsMaxDistance->value()) / 10.0f;
-	s.fAudioMaxDistVolume = static_cast<float>(qsMaxDistVolume->value()) / 100.0f;
-	s.fAudioBloom = static_cast<float>(qsBloom->value()) / 100.0f;
-	s.bPositionalAudio = qcbPositional->isChecked();
-	s.bPositionalHeadphone = qcbHeadphones->isChecked();
-	s.bExclusiveOutput = qcbExclusive->isChecked();
+	s.iJitterBufferSize              = qsJitter->value();
+	s.qsAudioOutput                  = qcbSystem->currentText();
+	s.lmLoopMode                     = static_cast< Settings::LoopMode >(qcbLoopback->currentIndex());
+	s.dMaxPacketDelay                = static_cast< float >(qsPacketDelay->value());
+	s.dPacketLoss                    = static_cast< float >(qsPacketLoss->value()) / 100.0f;
+	s.fAudioMinDistance              = static_cast< float >(qsMinDistance->value()) / 10.0f;
+	s.fAudioMaxDistance              = static_cast< float >(qsMaxDistance->value()) / 10.0f;
+	s.fAudioMaxDistVolume            = static_cast< float >(qsMaxDistVolume->value()) / 100.0f;
+	s.fAudioBloom                    = static_cast< float >(qsBloom->value()) / 100.0f;
+	s.bPositionalAudio               = qcbPositional->isChecked();
+	s.bPositionalHeadphone           = qcbHeadphones->isChecked();
+	s.bExclusiveOutput               = qcbExclusive->isChecked();
 
 
 	if (AudioOutputRegistrar::qmNew) {
 		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
-		int idx = qcbDevice->currentIndex();
+		int idx                   = qcbDevice->currentIndex();
 		if (idx > -1) {
 			aor->setDeviceChoice(qcbDevice->itemData(idx), s);
 		}
@@ -682,15 +682,15 @@ void AudioOutputDialog::save() const {
 void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 	qcbDevice->clear();
 
-	QList<audioDevice> ql;
+	QList< audioDevice > ql;
 
 	if (AudioOutputRegistrar::qmNew) {
 		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
-		ql = aor->getDeviceChoices();
+		ql                        = aor->getDeviceChoices();
 
 		int idx = 0;
 
-		foreach(audioDevice d, ql) {
+		foreach (audioDevice d, ql) {
 			qcbDevice->addItem(d.first, d.second);
 			qcbDevice->setItemData(idx, d.first.toHtmlEscaped(), Qt::ToolTipRole);
 			++idx;
@@ -715,7 +715,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 }
 
 void AudioOutputDialog::on_qsJitter_valueChanged(int v) {
-	qlJitter->setText(tr("%1 ms").arg(v*10));
+	qlJitter->setText(tr("%1 ms").arg(v * 10));
 }
 
 void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
@@ -742,7 +742,7 @@ void AudioOutputDialog::on_qsPacketLoss_valueChanged(int v) {
 }
 
 void AudioOutputDialog::on_qsDelay_valueChanged(int v) {
-	qlDelay->setText(tr("%1 ms").arg(v*10));
+	qlDelay->setText(tr("%1 ms").arg(v * 10));
 }
 
 void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
@@ -757,13 +757,13 @@ void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
 }
 
 void AudioOutputDialog::on_qsMinDistance_valueChanged(int v) {
-	qlMinDistance->setText(tr("%1 m").arg(v/10.0, 0, 'f', 1));
+	qlMinDistance->setText(tr("%1 m").arg(v / 10.0, 0, 'f', 1));
 	if (qsMaxDistance->value() < v)
 		qsMaxDistance->setValue(v);
 }
 
 void AudioOutputDialog::on_qsMaxDistance_valueChanged(int v) {
-	qlMaxDistance->setText(tr("%1 m").arg(v/10.0, 0, 'f', 1));
+	qlMaxDistance->setText(tr("%1 m").arg(v / 10.0, 0, 'f', 1));
 	if (qsMinDistance->value() > v)
 		qsMinDistance->setValue(v);
 }
@@ -773,7 +773,7 @@ void AudioOutputDialog::on_qsMaxDistVolume_valueChanged(int v) {
 }
 
 void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
-	qlBloom->setText(tr("%1 %").arg(v+100));
+	qlBloom->setText(tr("%1 %").arg(v + 100));
 }
 
 void AudioOutputDialog::on_qcbAttenuateOthersOnTalk_clicked(bool checked) {

@@ -14,13 +14,15 @@ static LCDEngine *G15LCDEngineNew() {
 static LCDEngineRegistrar registrar(G15LCDEngineNew);
 
 G15LCDEngineHelper::G15LCDEngineHelper() : LCDEngine() {
-	bRunning = false;
+	bRunning     = false;
 	bUnavailable = true;
 
 #if defined(Q_OS_WIN)
-	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper.exe\"").arg(MumbleApplication::instance()->applicationVersionRootPath());
+	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper.exe\"")
+							 .arg(MumbleApplication::instance()->applicationVersionRootPath());
 #elif defined(Q_OS_MAC)
-	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper\"").arg(MumbleApplication::instance()->applicationVersionRootPath());
+	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper\"")
+							 .arg(MumbleApplication::instance()->applicationVersionRootPath());
 #endif
 
 	qpHelper = new QProcess(this);
@@ -48,7 +50,7 @@ G15LCDEngineHelper::~G15LCDEngineHelper() {
 	setProcessStatus(false);
 }
 
-QList<LCDDevice *> G15LCDEngineHelper::devices() const {
+QList< LCDDevice * > G15LCDEngineHelper::devices() const {
 	return qlDevices;
 }
 
@@ -59,7 +61,7 @@ void G15LCDEngineHelper::setProcessStatus(bool run) {
 	if (run && !bRunning) {
 		bRunning = true;
 		qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/mumble")));
-		if (! qpHelper->waitForStarted(2000)) {
+		if (!qpHelper->waitForStarted(2000)) {
 			qWarning("G15LCDEngine_lglcd: Unable to launch G15 helper.");
 			bRunning = false;
 			return;
@@ -73,7 +75,7 @@ void G15LCDEngineHelper::setProcessStatus(bool run) {
 
 void G15LCDEngineHelper::on_Helper_finished(int exitCode, QProcess::ExitStatus status) {
 	/* Skip the signal if we killed ourselves. */
-	if (! bRunning)
+	if (!bRunning)
 		return;
 
 	if (status == QProcess::CrashExit) {
@@ -91,7 +93,7 @@ bool G15LCDEngineHelper::framebufferReady() const {
 
 void G15LCDEngineHelper::submitFrame(bool alert, unsigned char *buf, qint64 len) {
 	char pri = alert ? 1 : 0;
-	if ((qpHelper->write(&pri, 1) != 1) || (qpHelper->write(reinterpret_cast<char *>(buf), len) != len))
+	if ((qpHelper->write(&pri, 1) != 1) || (qpHelper->write(reinterpret_cast< char * >(buf), len) != len))
 		qWarning("G15LCDEngine_lglcd: failed to write");
 }
 
@@ -115,14 +117,14 @@ void G15LCDDeviceHelper::setEnabled(bool b) {
 
 void G15LCDDeviceHelper::blitImage(QImage *img, bool alert) {
 	Q_ASSERT(img);
-	int len = G15_MAX_FBMEM_BITS;
+	int len    = G15_MAX_FBMEM_BITS;
 	uchar *tmp = img->bits();
 	uchar buf[G15_MAX_FBMEM];
 
-	if (! engine->framebufferReady())
+	if (!engine->framebufferReady())
 		return;
 
-	if (! bEnabled)
+	if (!bEnabled)
 		return;
 
 	/*
@@ -142,15 +144,15 @@ void G15LCDDeviceHelper::blitImage(QImage *img, bool alert) {
 	 * more, when it receives a frame.)
 	 */
 	for (int i = 0; i < len; i++) {
-		int idx = i*8;
-		buf[idx+7] = tmp[i] & 0x80 ? 0xff : 0x00;
-		buf[idx+6] = tmp[i] & 0x40 ? 0xff : 0x00;
-		buf[idx+5] = tmp[i] & 0x20 ? 0xff : 0x00;
-		buf[idx+4] = tmp[i] & 0x10 ? 0xff : 0x00;
-		buf[idx+3] = tmp[i] & 0x08 ? 0xff : 0x00;
-		buf[idx+2] = tmp[i] & 0x04 ? 0xff : 0x00;
-		buf[idx+1] = tmp[i] & 0x02 ? 0xff : 0x00;
-		buf[idx+0] = tmp[i] & 0x01 ? 0xff : 0x00;
+		int idx      = i * 8;
+		buf[idx + 7] = tmp[i] & 0x80 ? 0xff : 0x00;
+		buf[idx + 6] = tmp[i] & 0x40 ? 0xff : 0x00;
+		buf[idx + 5] = tmp[i] & 0x20 ? 0xff : 0x00;
+		buf[idx + 4] = tmp[i] & 0x10 ? 0xff : 0x00;
+		buf[idx + 3] = tmp[i] & 0x08 ? 0xff : 0x00;
+		buf[idx + 2] = tmp[i] & 0x04 ? 0xff : 0x00;
+		buf[idx + 1] = tmp[i] & 0x02 ? 0xff : 0x00;
+		buf[idx + 0] = tmp[i] & 0x01 ? 0xff : 0x00;
 	}
 
 	engine->submitFrame(alert, buf, G15_MAX_FBMEM);

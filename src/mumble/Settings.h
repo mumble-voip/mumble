@@ -6,12 +6,12 @@
 #ifndef MUMBLE_MUMBLE_SETTINGS_H_
 #define MUMBLE_MUMBLE_SETTINGS_H_
 
-#include <QtCore/QVariant>
 #include <QtCore/QList>
 #include <QtCore/QPair>
 #include <QtCore/QRectF>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
+#include <QtCore/QVariant>
 #include <QtGui/QColor>
 #include <QtGui/QFont>
 #include <QtNetwork/QSslCertificate>
@@ -26,19 +26,19 @@
 
 struct Shortcut {
 	int iIndex;
-	QList<QVariant> qlButtons;
+	QList< QVariant > qlButtons;
 	QVariant qvData;
 	bool bSuppress;
-	bool operator <(const Shortcut &) const;
+	bool operator<(const Shortcut &) const;
 	bool isServerSpecific() const;
-	bool operator ==(const Shortcut &) const;
+	bool operator==(const Shortcut &) const;
 };
 
 struct ShortcutTarget {
 	bool bCurrentSelection;
 	bool bUsers;
 	QStringList qlUsers;
-	QList<unsigned int> qlSessions;
+	QList< unsigned int > qlSessions;
 	int iChannel;
 	QString qsGroup;
 	bool bLinks;
@@ -46,12 +46,12 @@ struct ShortcutTarget {
 	bool bForceCenter;
 	ShortcutTarget();
 	bool isServerSpecific() const;
-	bool operator <(const ShortcutTarget &) const;
-	bool operator ==(const ShortcutTarget &) const;
+	bool operator<(const ShortcutTarget &) const;
+	bool operator==(const ShortcutTarget &) const;
 };
 
 quint32 qHash(const ShortcutTarget &);
-quint32 qHash(const QList<ShortcutTarget> &);
+quint32 qHash(const QList< ShortcutTarget > &);
 
 QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
 QDataStream &operator>>(QDataStream &, ShortcutTarget &);
@@ -136,9 +136,9 @@ struct OverlaySettings {
 	void setPreset(const OverlayPresets preset = AvatarAndName);
 
 	void load();
-	void load(QSettings*);
+	void load(QSettings *);
 	void save();
-	void save(QSettings*);
+	void save(QSettings *);
 };
 
 struct Settings {
@@ -151,7 +151,7 @@ struct Settings {
 	enum TalkState { Passive, Talking, Whispering, Shouting, MutedTalking };
 	enum IdleAction { Nothing, Deafen, Mute };
 	enum NoiseCancel { NoiseCancelOff, NoiseCancelSpeex, NoiseCancelRNN, NoiseCancelBoth };
-	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
+	typedef QPair< QList< QSslCertificate >, QSslKey > KeyPair;
 
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
@@ -179,7 +179,7 @@ struct Settings {
 	/// The language is expected to be in BCP47 form.
 	///
 	/// The setting is currently only supported by the speech-dispatcher
-	///backend.
+	/// backend.
 	QString qsTTSLanguage;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	bool bAllowLowDelay;
@@ -214,8 +214,8 @@ struct Settings {
 
 	bool bASIOEnable;
 	QString qsASIOclass;
-	QList<QVariant> qlASIOmic;
-	QList<QVariant> qlASIOspeaker;
+	QList< QVariant > qlASIOmic;
+	QList< QVariant > qlASIOspeaker;
 
 	QString qsCoreAudioInput, qsCoreAudioOutput;
 
@@ -248,7 +248,7 @@ struct Settings {
 	bool bPositionalAudio;
 	bool bPositionalHeadphone;
 	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;
-	QMap<QString, bool> qmPositionalAudioPlugins;
+	QMap< QString, bool > qmPositionalAudioPlugins;
 
 	OverlaySettings os;
 
@@ -258,7 +258,7 @@ struct Settings {
 
 	int iLCDUserViewMinColWidth;
 	int iLCDUserViewSplitterWidth;
-	QMap<QString, bool> qmLCDDevices;
+	QMap< QString, bool > qmLCDDevices;
 
 	bool bShortcutEnable;
 	bool bSuppressMacEventTapWarning;
@@ -272,9 +272,16 @@ struct Settings {
 	/// Enable use of UIAccess (Windows's UI automation feature). This allows
 	/// Mumble greater access to global shortcuts.
 	bool bEnableUIAccess;
-	QList<Shortcut> qlShortcuts;
+	QList< Shortcut > qlShortcuts;
 
-	enum MessageLog { LogNone = 0x00, LogConsole = 0x01, LogTTS = 0x02, LogBalloon = 0x04, LogSoundfile = 0x08, LogHighlight = 0x10 };
+	enum MessageLog {
+		LogNone      = 0x00,
+		LogConsole   = 0x01,
+		LogTTS       = 0x02,
+		LogBalloon   = 0x04,
+		LogSoundfile = 0x08,
+		LogHighlight = 0x10
+	};
 	int iMaxLogBlocks;
 	bool bLog24HourClock;
 	int iChatMessageMargins;
@@ -298,8 +305,8 @@ struct Settings {
 
 	int manualPlugin_silentUserDisplaytime;
 
-	QMap<int, QString> qmMessageSounds;
-	QMap<int, quint32> qmMessages;
+	QMap< int, QString > qmMessageSounds;
+	QMap< int, quint32 > qmMessages;
 
 	QString qsLanguage;
 
@@ -307,8 +314,9 @@ struct Settings {
 	QString themeName;
 	/// Name of the style to use from theme. @see Themes
 	QString themeStyleName;
-	
-	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaSplitterState, qbaHeaderState;
+
+	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaSplitterState,
+		qbaHeaderState;
 	QByteArray qbaConfigGeometry;
 	enum WindowLayout { LayoutClassic, LayoutStacked, LayoutHybrid, LayoutCustom };
 	WindowLayout wlWindowLayout;
@@ -422,16 +430,16 @@ struct Settings {
 	int iRecordingFormat;
 
 	// Special configuration options not exposed to UI
-	
+
 	/// Codec kill-switch
 	bool bDisableCELT;
-	
+
 	/// Removes the add and edit options in the connect dialog if set.
 	bool disableConnectDialogEditing;
 
 	/// Asks the user for consent to ping servers in the public server list if not set.
 	bool bPingServersDialogViewed;
-	
+
 	// Config updates
 	unsigned int uiUpdateCounter;
 
@@ -450,7 +458,7 @@ struct Settings {
 
 	Settings();
 	void load();
-	void load(QSettings*);
+	void load(QSettings *);
 	void save();
 };
 

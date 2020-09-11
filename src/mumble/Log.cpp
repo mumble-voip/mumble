@@ -14,20 +14,21 @@
 #include "Screen.h"
 #include "ServerHandler.h"
 #ifndef USE_NO_TTS
-# include "TextToSpeech.h"
+#	include "TextToSpeech.h"
 #endif
 #include "Utils.h"
 
-#include <QtNetwork/QNetworkReply>
+#include <QSignalBlocker>
+#include <QtCore/QMutexLocker>
 #include <QtGui/QImageWriter>
 #include <QtGui/QScreen>
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextDocumentFragment>
+#include <QtNetwork/QNetworkReply>
 #include <QtWidgets/QDesktopWidget>
-#include <QtCore/QMutexLocker>
-#include <QSignalBlocker>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 const QString LogConfig::name = QLatin1String("LogConfig");
@@ -45,7 +46,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qsbThreshold->setAccessibleName(tr("Length threshold"));
 	qsbMaxBlocks->setAccessibleName(tr("Maximum chat length"));
 	qsbChatMessageMargins->setAccessibleName(tr("Chat message margins"));
-	
+
 #ifdef USE_NO_TTS
 	qgbTTS->setDisabled(true);
 #endif
@@ -75,11 +76,11 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
-		Log::MsgType t = Log::msgOrder[i];
+		Log::MsgType t            = Log::msgOrder[i];
 		const QString messageName = g.l->msgName(t);
 
 		twi = new QTreeWidgetItem(qtwMessages);
-		twi->setData(ColMessage, Qt::UserRole, static_cast<int>(t));
+		twi->setData(ColMessage, Qt::UserRole, static_cast< int >(t));
 		twi->setText(ColMessage, messageName);
 		twi->setCheckState(ColConsole, Qt::Unchecked);
 		twi->setCheckState(ColNotification, Qt::Unchecked);
@@ -90,31 +91,52 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setToolTip(ColNotification, tr("Toggle pop-up notifications for %1 events").arg(messageName));
 		twi->setToolTip(ColHighlight, tr("Toggle window highlight (if not active) for %1 events").arg(messageName));
 		twi->setToolTip(ColStaticSound, tr("Click here to toggle sound notification for %1 events").arg(messageName));
-		twi->setToolTip(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 events<br />Single click to play<br />Double-click to change").arg(messageName));
+		twi->setToolTip(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 "
+											   "events<br />Single click to play<br />Double-click to change")
+												.arg(messageName));
 
-		twi->setWhatsThis(ColConsole, tr("Click here to toggle console output for %1 events.<br />If checked, this option makes Mumble output all %1 events in its message log.").arg(messageName));
-		twi->setWhatsThis(ColNotification, tr("Click here to toggle pop-up notifications for %1 events.<br />If checked, a notification pop-up will be created by Mumble for every %1 event.").arg(messageName));
-		twi->setWhatsThis(ColHighlight, tr("Click here to toggle window highlight for %1 events.<br />If checked, Mumble's window will be highlighted for every %1 event, if not active.").arg(messageName));
-		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.").arg(messageName));
-		twi->setWhatsThis(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 events.<br />Single click to play<br />Double-click to change<br />Ensure that sound notifications for these events are enabled or this field will not have any effect.").arg(messageName));
+		twi->setWhatsThis(ColConsole, tr("Click here to toggle console output for %1 events.<br />If checked, this "
+										 "option makes Mumble output all %1 events in its message log.")
+										  .arg(messageName));
+		twi->setWhatsThis(ColNotification,
+						  tr("Click here to toggle pop-up notifications for %1 events.<br />If checked, a notification "
+							 "pop-up will be created by Mumble for every %1 event.")
+							  .arg(messageName));
+		twi->setWhatsThis(ColHighlight, tr("Click here to toggle window highlight for %1 events.<br />If checked, "
+										   "Mumble's window will be highlighted for every %1 event, if not active.")
+											.arg(messageName));
+		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, "
+											 "Mumble uses a sound file predefined by you to indicate %1 events. Sound "
+											 "files and Text-To-Speech cannot be used at the same time.")
+											  .arg(messageName));
+		twi->setWhatsThis(ColStaticSoundPath,
+						  tr("Path to sound file used for sound notifications in the case of %1 events.<br />Single "
+							 "click to play<br />Double-click to change<br />Ensure that sound notifications for these "
+							 "events are enabled or this field will not have any effect.")
+							  .arg(messageName));
 #ifndef USE_NO_TTS
 		twi->setCheckState(ColTTS, Qt::Unchecked);
 		twi->setToolTip(ColTTS, tr("Toggle Text-To-Speech for %1 events").arg(messageName));
-		twi->setWhatsThis(ColTTS, tr("Click here to toggle Text-To-Speech for %1 events.<br />If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.").arg(messageName));
+		twi->setWhatsThis(
+			ColTTS,
+			tr("Click here to toggle Text-To-Speech for %1 events.<br />If checked, Mumble uses Text-To-Speech to read "
+			   "%1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not "
+			   "true for sound files. Text-To-Speech and sound files cannot be used at the same time.")
+				.arg(messageName));
 #endif
 	}
 }
 
 void LogConfig::updateSelectAllButtons() {
-	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
-	bool allConsoleChecked = true;
-	bool allNotificationChecked = true;
-	bool allHighlightChecked = true;
+	QList< QTreeWidgetItem * > qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+	bool allConsoleChecked             = true;
+	bool allNotificationChecked        = true;
+	bool allHighlightChecked           = true;
 #ifndef USE_NO_TTS
 	bool allTTSChecked = true;
 #endif
 	bool allSoundChecked = true;
-	foreach(QTreeWidgetItem *i, qlItems) {
+	foreach (QTreeWidgetItem *i, qlItems) {
 		if (i == allMessagesItem) {
 			continue;
 		}
@@ -142,7 +164,7 @@ void LogConfig::updateSelectAllButtons() {
 			if (!allTTSChecked) {
 				break;
 			}
-#else	
+#else
 			break;
 #endif
 		}
@@ -170,14 +192,14 @@ QIcon LogConfig::icon() const {
 }
 
 void LogConfig::load(const Settings &r) {
-	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+	QList< QTreeWidgetItem * > qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
 
-	foreach(QTreeWidgetItem *i, qlItems) {
+	foreach (QTreeWidgetItem *i, qlItems) {
 		if (i == allMessagesItem) {
 			continue;
 		}
-		Log::MsgType mt = static_cast<Log::MsgType>(i->data(ColMessage, Qt::UserRole).toInt());
-		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(mt));
+		Log::MsgType mt         = static_cast< Log::MsgType >(i->data(ColMessage, Qt::UserRole).toInt());
+		Settings::MessageLog ml = static_cast< Settings::MessageLog >(r.qmMessages.value(mt));
 
 		i->setCheckState(ColConsole, (ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
 		i->setCheckState(ColNotification, (ml & Settings::LogBalloon) ? Qt::Checked : Qt::Unchecked);
@@ -207,12 +229,12 @@ void LogConfig::load(const Settings &r) {
 }
 
 void LogConfig::save() const {
-	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
-	foreach(QTreeWidgetItem *i, qlItems) {
+	QList< QTreeWidgetItem * > qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+	foreach (QTreeWidgetItem *i, qlItems) {
 		if (i == allMessagesItem) {
 			continue;
 		}
-		Log::MsgType mt = static_cast<Log::MsgType>(i->data(ColMessage, Qt::UserRole).toInt());
+		Log::MsgType mt = static_cast< Log::MsgType >(i->data(ColMessage, Qt::UserRole).toInt());
 
 		int v = 0;
 		if (i->checkState(ColConsole) == Qt::Checked)
@@ -227,19 +249,19 @@ void LogConfig::save() const {
 #endif
 		if (i->checkState(ColStaticSound) == Qt::Checked)
 			v |= Settings::LogSoundfile;
-		s.qmMessages[mt] = v;
+		s.qmMessages[mt]      = v;
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
-	s.iMaxLogBlocks = qsbMaxBlocks->value();
-	s.bLog24HourClock = qcb24HourClock->isChecked();
+	s.iMaxLogBlocks       = qsbMaxBlocks->value();
+	s.bLog24HourClock     = qcb24HourClock->isChecked();
 	s.iChatMessageMargins = qsbChatMessageMargins->value();
 
 #ifndef USE_NO_TTS
-	s.iTTSVolume=qsVolume->value();
-	s.iTTSThreshold=qsbThreshold->value();
+	s.iTTSVolume          = qsVolume->value();
+	s.iTTSThreshold       = qsbThreshold->value();
 	s.bTTSMessageReadBack = qcbReadBackOwn->isChecked();
-	s.bTTSNoScope = qcbNoScope->isChecked();
-	s.bTTSNoAuthor = qcbNoAuthor->isChecked();
+	s.bTTSNoScope         = qcbNoScope->isChecked();
+	s.bTTSNoAuthor        = qcbNoAuthor->isChecked();
 #endif
 	s.bWhisperFriends = qcbWhisperFriends->isChecked();
 }
@@ -251,7 +273,7 @@ void LogConfig::accept() const {
 	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
 }
 
-void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
+void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
 	if (i->isSelected() && i != allMessagesItem) {
 		switch (column) {
 			case ColTTS:
@@ -261,7 +283,8 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 			case ColStaticSound:
 				if (i->checkState(ColStaticSound)) {
 					i->setCheckState(ColTTS, Qt::Unchecked);
-					if (i->text(ColStaticSoundPath).isEmpty()) browseForAudioFile();
+					if (i->text(ColStaticSoundPath).isEmpty())
+						browseForAudioFile();
 				}
 				break;
 			default:
@@ -275,16 +298,16 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 		// Suppress signals on the TreeWidget
 		const QSignalBlocker blocker(qtwMessages);
 		// Select / Unselect all entries of that column
-		QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
-		foreach(QTreeWidgetItem *item, qlItems) {
+		QList< QTreeWidgetItem * > qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+		foreach (QTreeWidgetItem *item, qlItems) {
 			if (item != allMessagesItem) {
 				item->setCheckState(column, allMessagesItem->checkState(column));
-			}		
+			}
 		}
 	}
 }
 
-void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
+void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem *item, int column) {
 	if (item && item != allMessagesItem && column == ColStaticSoundPath) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
@@ -294,7 +317,7 @@ void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
 	}
 }
 
-void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int column) {
+void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem *item, int column) {
 	if (item && item != allMessagesItem && column == ColStaticSoundPath)
 		browseForAudioFile();
 }
@@ -310,7 +333,7 @@ void LogConfig::browseForAudioFile() {
 }
 
 QMutex Log::qmDeferredLogs;
-QVector<LogMessage> Log::qvDeferredLogs;
+QVector< LogMessage > Log::qvDeferredLogs;
 
 
 Log::Log(QObject *p) : QObject(p) {
@@ -319,70 +342,80 @@ Log::Log(QObject *p) : QObject(p) {
 	tts->setVolume(g.s.iTTSVolume);
 #endif
 	uiLastId = 0;
-	qdDate = QDate::currentDate();
+	qdDate   = QDate::currentDate();
 }
 
-// Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older versions
-const Log::MsgType Log::msgOrder[] = {
-	DebugInfo, CriticalError, Warning, Information,
-	ServerConnected, ServerDisconnected,
-	UserJoin, UserLeave,
-	ChannelListeningAdd, ChannelListeningRemove,
-	Recording,
-	YouKicked, UserKicked,
-	UserRenamed,
-	SelfMute, SelfUnmute, SelfDeaf, SelfUndeaf,
-	OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther,
-	SelfChannelJoin, SelfChannelJoinOther,
-	ChannelJoin, ChannelLeave,
-	ChannelJoinConnect, ChannelLeaveDisconnect,
-	PermissionDenied,
-	TextMessage, PrivateTextMessage
-};
+// Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older
+// versions
+const Log::MsgType Log::msgOrder[] = { DebugInfo,
+									   CriticalError,
+									   Warning,
+									   Information,
+									   ServerConnected,
+									   ServerDisconnected,
+									   UserJoin,
+									   UserLeave,
+									   ChannelListeningAdd,
+									   ChannelListeningRemove,
+									   Recording,
+									   YouKicked,
+									   UserKicked,
+									   UserRenamed,
+									   SelfMute,
+									   SelfUnmute,
+									   SelfDeaf,
+									   SelfUndeaf,
+									   OtherSelfMute,
+									   YouMuted,
+									   YouMutedOther,
+									   OtherMutedOther,
+									   SelfChannelJoin,
+									   SelfChannelJoinOther,
+									   ChannelJoin,
+									   ChannelLeave,
+									   ChannelJoinConnect,
+									   ChannelLeaveDisconnect,
+									   PermissionDenied,
+									   TextMessage,
+									   PrivateTextMessage };
 
-const char *Log::msgNames[] = {
-	QT_TRANSLATE_NOOP("Log", "Debug"),
-	QT_TRANSLATE_NOOP("Log", "Critical"),
-	QT_TRANSLATE_NOOP("Log", "Warning"),
-	QT_TRANSLATE_NOOP("Log", "Information"),
-	QT_TRANSLATE_NOOP("Log", "Server connected"),
-	QT_TRANSLATE_NOOP("Log", "Server disconnected"),
-	QT_TRANSLATE_NOOP("Log", "User joined server"),
-	QT_TRANSLATE_NOOP("Log", "User left server"),
-	QT_TRANSLATE_NOOP("Log", "User recording state changed"),
-	QT_TRANSLATE_NOOP("Log", "User kicked (you or by you)"),
-	QT_TRANSLATE_NOOP("Log", "User kicked"),
-	QT_TRANSLATE_NOOP("Log", "You self-muted"),
-	QT_TRANSLATE_NOOP("Log", "Other self-muted/deafened"),
-	QT_TRANSLATE_NOOP("Log", "User muted (you)"),
-	QT_TRANSLATE_NOOP("Log", "User muted (by you)"),
-	QT_TRANSLATE_NOOP("Log", "User muted (other)"),
-	QT_TRANSLATE_NOOP("Log", "User joined channel"),
-	QT_TRANSLATE_NOOP("Log", "User left channel"),
-	QT_TRANSLATE_NOOP("Log", "Permission denied"),
-	QT_TRANSLATE_NOOP("Log", "Text message"),
-	QT_TRANSLATE_NOOP("Log", "You self-unmuted"),
-	QT_TRANSLATE_NOOP("Log", "You self-deafened"),
-	QT_TRANSLATE_NOOP("Log", "You self-undeafened"),
-	QT_TRANSLATE_NOOP("Log", "User renamed"),
-	QT_TRANSLATE_NOOP("Log", "You joined channel"),
-	QT_TRANSLATE_NOOP("Log", "You joined channel (moved)"),
-	QT_TRANSLATE_NOOP("Log", "User connected and entered channel"),
-	QT_TRANSLATE_NOOP("Log", "User left channel and disconnected"),
-	QT_TRANSLATE_NOOP("Log", "Private text message"),
-	QT_TRANSLATE_NOOP("Log", "User started listening to channel"),
-	QT_TRANSLATE_NOOP("Log", "User stopped listening to channel")
-};
+const char *Log::msgNames[] = { QT_TRANSLATE_NOOP("Log", "Debug"),
+								QT_TRANSLATE_NOOP("Log", "Critical"),
+								QT_TRANSLATE_NOOP("Log", "Warning"),
+								QT_TRANSLATE_NOOP("Log", "Information"),
+								QT_TRANSLATE_NOOP("Log", "Server connected"),
+								QT_TRANSLATE_NOOP("Log", "Server disconnected"),
+								QT_TRANSLATE_NOOP("Log", "User joined server"),
+								QT_TRANSLATE_NOOP("Log", "User left server"),
+								QT_TRANSLATE_NOOP("Log", "User recording state changed"),
+								QT_TRANSLATE_NOOP("Log", "User kicked (you or by you)"),
+								QT_TRANSLATE_NOOP("Log", "User kicked"),
+								QT_TRANSLATE_NOOP("Log", "You self-muted"),
+								QT_TRANSLATE_NOOP("Log", "Other self-muted/deafened"),
+								QT_TRANSLATE_NOOP("Log", "User muted (you)"),
+								QT_TRANSLATE_NOOP("Log", "User muted (by you)"),
+								QT_TRANSLATE_NOOP("Log", "User muted (other)"),
+								QT_TRANSLATE_NOOP("Log", "User joined channel"),
+								QT_TRANSLATE_NOOP("Log", "User left channel"),
+								QT_TRANSLATE_NOOP("Log", "Permission denied"),
+								QT_TRANSLATE_NOOP("Log", "Text message"),
+								QT_TRANSLATE_NOOP("Log", "You self-unmuted"),
+								QT_TRANSLATE_NOOP("Log", "You self-deafened"),
+								QT_TRANSLATE_NOOP("Log", "You self-undeafened"),
+								QT_TRANSLATE_NOOP("Log", "User renamed"),
+								QT_TRANSLATE_NOOP("Log", "You joined channel"),
+								QT_TRANSLATE_NOOP("Log", "You joined channel (moved)"),
+								QT_TRANSLATE_NOOP("Log", "User connected and entered channel"),
+								QT_TRANSLATE_NOOP("Log", "User left channel and disconnected"),
+								QT_TRANSLATE_NOOP("Log", "Private text message"),
+								QT_TRANSLATE_NOOP("Log", "User started listening to channel"),
+								QT_TRANSLATE_NOOP("Log", "User stopped listening to channel") };
 
 QString Log::msgName(MsgType t) const {
 	return tr(msgNames[t]);
 }
 
-const char *Log::colorClasses[] = {
-	"time",
-	"server",
-	"privilege"
-};
+const char *Log::colorClasses[] = { "time", "server", "privilege" };
 
 const QStringList Log::allowedSchemes() {
 	QStringList qslAllowedSchemeNames;
@@ -411,10 +444,14 @@ QString Log::msgColor(const QString &text, LogColorType t) {
 }
 
 QString Log::formatChannel(::Channel *c) {
-	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(c->qsName.toHtmlEscaped()).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>")
+		.arg(c->iId)
+		.arg(c->qsName.toHtmlEscaped())
+		.arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 }
 
-void Log::logOrDefer(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS, bool ignoreTTS) {
+void Log::logOrDefer(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage,
+					 const QString &overrideTTS, bool ignoreTTS) {
 	if (g.l) {
 		// log directly as it seems the log-UI has been set-up already
 		g.l->log(mt, console, terse, ownMessage, overrideTTS, ignoreTTS);
@@ -437,9 +474,16 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &dis
 	if (cu) {
 		QString name = (displayName.isNull() ? cu->qsName : displayName).toHtmlEscaped();
 		if (cu->qsHash.isEmpty()) {
-			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(name).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>")
+				.arg(className)
+				.arg(cu->uiSession)
+				.arg(name)
+				.arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 		} else {
-			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->qsHash).arg(name);
+			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>")
+				.arg(className)
+				.arg(cu->qsHash)
+				.arg(name);
 		}
 	} else {
 		return QString::fromLatin1("<span class='log-server log-%1'>%2</span>").arg(className).arg(tr("the server"));
@@ -462,13 +506,13 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 
 	QByteArray rawbase = image.toBase64();
 	QByteArray encoded;
-	int i = 0;
+	int i     = 0;
 	int begin = 0, end = 0;
 	do {
-		begin = i*72;
-		end = begin+72;
+		begin = i * 72;
+		end   = begin + 72;
 
-		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin,72))));
+		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin, 72))));
 		if (end < rawbase.length())
 			encoded.append('\n');
 
@@ -483,7 +527,7 @@ QString Log::imageToImg(QImage img) {
 		img = img.scaled(480, 270, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
-	int quality = 100;
+	int quality       = 100;
 	QByteArray format = "PNG";
 
 	QByteArray qba;
@@ -533,14 +577,14 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
 		for (QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
 			const QTextFragment &qtf = qtbi.fragment();
-			QTextCharFormat qcf = qtf.charFormat();
-			if (! qcf.anchorHref().isEmpty()) {
+			QTextCharFormat qcf      = qtf.charFormat();
+			if (!qcf.anchorHref().isEmpty()) {
 				QUrl url(qcf.anchorHref());
-				if (! url.isValid() || ! qslAllowed.contains(url.scheme())) {
+				if (!url.isValid() || !qslAllowed.contains(url.scheme())) {
 					QTextCharFormat qcfn = QTextCharFormat();
 					QTextCursor qtc(&qtd);
 					qtc.setPosition(qtf.position(), QTextCursor::MoveAnchor);
-					qtc.setPosition(qtf.position()+qtf.length(), QTextCursor::KeepAnchor);
+					qtc.setPosition(qtf.position() + qtf.length(), QTextCursor::KeepAnchor);
 					qtc.setCharFormat(qcfn);
 					qtbi = qtb.begin();
 				}
@@ -584,7 +628,8 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	}
 }
 
-void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS, bool ignoreTTS) {
+void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS,
+			  bool ignoreTTS) {
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
@@ -612,21 +657,23 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		format.setBottomMargin(msgMargin);
 		tc.setBlockFormat(format);
 
-		LogTextBrowser *tlog = g.mw->qteLog;
+		LogTextBrowser *tlog     = g.mw->qteLog;
 		const int oldscrollvalue = tlog->getLogScroll();
-		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
+		const bool scroll        = (oldscrollvalue == tlog->getLogScrollMaximum());
 
 		tc.movePosition(QTextCursor::End);
 
 		if (qdDate != dt.date()) {
 			qdDate = dt.date();
 			tc.insertBlock();
-			tc.insertHtml(tr("[Date changed to %1]\n").arg(qdDate.toString(Qt::DefaultLocaleShortDate).toHtmlEscaped()));
+			tc.insertHtml(
+				tr("[Date changed to %1]\n").arg(qdDate.toString(Qt::DefaultLocaleShortDate).toHtmlEscaped()));
 			tc.movePosition(QTextCursor::End);
 		}
 
 		// Convert CRLF to unix-style LF and old mac-style LF (single \r) to unix-style as well
-		QString fixedNLPlain = plain.replace(QLatin1String("\r\n"), QLatin1String("\n")).replace(QLatin1String("\r"), QLatin1String("\n"));
+		QString fixedNLPlain =
+			plain.replace(QLatin1String("\r\n"), QLatin1String("\n")).replace(QLatin1String("\r"), QLatin1String("\n"));
 
 		if (fixedNLPlain.contains(QRegExp(QLatin1String("\\n[ \\t]*$")))) {
 			// If the message ends with one or more blank lines (or lines only containing whitespace)
@@ -679,7 +726,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 		// Message notification with static sounds
 		if ((flags & Settings::LogSoundfile)) {
-			QString sSound = g.s.qmMessageSounds.value(mt);
+			QString sSound    = g.s.qmMessageSounds.value(mt);
 			AudioOutputPtr ao = g.ao;
 			if (!ao || !ao->playSample(sSound, false)) {
 				qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
@@ -701,9 +748,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	}
 
 	// Apply simplifications to spoken text
-	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <]*"),
-	                    Qt::CaseInsensitive,
-	                    QRegExp::RegExp2);
+	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <]*"), Qt::CaseInsensitive, QRegExp::RegExp2);
 
 	QStringList qslAllowed = allowedSchemes();
 
@@ -737,7 +782,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	// TTS threshold limiter.
 	if (plain.length() <= g.s.iTTSThreshold)
 		tts->say(plain);
-	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
+	else if ((!terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
 		tts->say(terse);
 #endif
 }
@@ -772,12 +817,12 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 	}
 }
 
-LogMessage::LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &overrideTTS, bool ignoreTTS) : mt(mt), console(console),
-	terse(terse), ownMessage(ownMessage), overrideTTS(overrideTTS), ignoreTTS(ignoreTTS) {
+LogMessage::LogMessage(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage,
+					   const QString &overrideTTS, bool ignoreTTS)
+	: mt(mt), console(console), terse(terse), ownMessage(ownMessage), overrideTTS(overrideTTS), ignoreTTS(ignoreTTS) {
 }
 
-LogDocument::LogDocument(QObject *p)
-	: QTextDocument(p) {
+LogDocument::LogDocument(QObject *p) : QTextDocument(p) {
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {
@@ -791,7 +836,7 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 	QImage qi(1, 1, QImage::Format_Mono);
 	addResource(type, url, qi);
 
-	if (! url.isValid()) {
+	if (!url.isValid()) {
 		return qi;
 	}
 
@@ -811,7 +856,7 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 }
 
 void LogDocument::finished() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+	QNetworkReply *rep = qobject_cast< QNetworkReply * >(sender());
 
 	if (rep->error() == QNetworkReply::NoError) {
 		QByteArray ba = rep->readAll();
@@ -832,7 +877,7 @@ void LogDocument::finished() {
 				// Doing so can trigger crashes deep inside Qt
 				// if the QTextDocument has just been set on the
 				// text edit widget.
-				QTextEdit *qte = qobject_cast<QTextEdit *>(parent());
+				QTextEdit *qte = qobject_cast< QTextEdit * >(parent());
 				if (qte) {
 					QEvent *e = new QEvent(QEvent::FontChange);
 					QApplication::postEvent(qte, e);
@@ -847,6 +892,5 @@ void LogDocument::finished() {
 	rep->deleteLater();
 }
 
-LogDocumentResourceAddedEvent::LogDocumentResourceAddedEvent()
-	: QEvent(LogDocumentResourceAddedEvent::Type) {
+LogDocumentResourceAddedEvent::LogDocumentResourceAddedEvent() : QEvent(LogDocumentResourceAddedEvent::Type) {
 }

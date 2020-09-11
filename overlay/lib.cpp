@@ -10,12 +10,12 @@
 
 static HANDLE hMapObject = nullptr;
 static HANDLE hHookMutex = nullptr;
-static HHOOK hhookWnd = 0;
+static HHOOK hhookWnd    = 0;
 
 BOOL bIsWin8 = FALSE;
 
-static BOOL bMumble = FALSE;
-static BOOL bDebug = FALSE;
+static BOOL bMumble        = FALSE;
+static BOOL bDebug         = FALSE;
 static BOOL bEnableOverlay = TRUE;
 
 static HardHook hhLoad;
@@ -30,7 +30,7 @@ void Mutex::init() {
 }
 
 Mutex::Mutex() {
-	if (! TryEnterCriticalSection(&cs)) {
+	if (!TryEnterCriticalSection(&cs)) {
 		ods("Lib: Mutex: CritFail - blocking until able to enter critical section");
 		EnterCriticalSection(&cs);
 	}
@@ -60,8 +60,8 @@ void __cdecl checkForWPF() {
 }
 
 Pipe::Pipe() {
-	hSocket = INVALID_HANDLE_VALUE;
-	hMemory = nullptr;
+	hSocket     = INVALID_HANDLE_VALUE;
+	hMemory     = nullptr;
 	a_ucTexture = nullptr;
 
 	omMsg.omh.iLength = -1;
@@ -96,8 +96,8 @@ void Pipe::disconnect() {
 		CloseHandle(hSocket);
 		hSocket = INVALID_HANDLE_VALUE;
 	}
-	uiWidth = 0;
-	uiHeight = 0;
+	uiWidth           = 0;
+	uiHeight          = 0;
 	omMsg.omh.iLength = -1;
 }
 
@@ -115,26 +115,27 @@ bool Pipe::sendMessage(const OverlayMsg &om) {
 }
 
 void Pipe::checkMessage(unsigned int width, unsigned int height) {
-	if (!width || ! height)
+	if (!width || !height)
 		return;
 
 	if (hSocket == INVALID_HANDLE_VALUE) {
-		hSocket = CreateFileW(L"\\\\.\\pipe\\MumbleOverlayPipe", GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, 0, nullptr);
+		hSocket = CreateFileW(L"\\\\.\\pipe\\MumbleOverlayPipe", GENERIC_READ | GENERIC_WRITE, 0, nullptr,
+							  OPEN_EXISTING, 0, nullptr);
 		if (hSocket == INVALID_HANDLE_VALUE) {
 			ods("Pipe: Connection failed");
 			return;
 		}
 		ods("Pipe: Connected");
 
-		uiWidth = 0;
+		uiWidth  = 0;
 		uiHeight = 0;
 
 		// initially, instantiate and send an OverlayMessage with the current process id
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-		om.omh.uiType = OVERLAY_MSGTYPE_PID;
+		om.omh.uiType  = OVERLAY_MSGTYPE_PID;
 		om.omh.iLength = sizeof(OverlayMsgPid);
-		om.omp.pid = GetCurrentProcessId();
+		om.omp.pid     = GetCurrentProcessId();
 
 		if (!sendMessage(om))
 			return;
@@ -146,15 +147,15 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 	if ((uiWidth != width) || (uiHeight != height)) {
 		release();
 
-		uiWidth = width;
+		uiWidth  = width;
 		uiHeight = height;
 
 		// instantiate and send an initialization-OverlayMessage
 		OverlayMsg om;
-		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-		om.omh.uiType = OVERLAY_MSGTYPE_INIT;
-		om.omh.iLength = sizeof(OverlayMsgInit);
-		om.omi.uiWidth = uiWidth;
+		om.omh.uiMagic  = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType   = OVERLAY_MSGTYPE_INIT;
+		om.omh.iLength  = sizeof(OverlayMsgInit);
+		om.omi.uiWidth  = uiWidth;
 		om.omi.uiHeight = uiHeight;
 
 		if (!sendMessage(om))
@@ -163,23 +164,24 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		ods("Pipe: SentInitMsg with w h %d %d", uiWidth, uiHeight);
 	}
 
-	std::vector<RECT> blits;
+	std::vector< RECT > blits;
 
 	while (1) {
 		DWORD dwBytesLeft;
 		DWORD dwBytesRead;
 
-		if (! PeekNamedPipe(hSocket, nullptr, 0, nullptr, &dwBytesLeft, nullptr)) {
+		if (!PeekNamedPipe(hSocket, nullptr, 0, nullptr, &dwBytesLeft, nullptr)) {
 			ods("Pipe: Could not peek");
 			disconnect();
 			return;
 		}
 
-		if (! dwBytesLeft)
+		if (!dwBytesLeft)
 			break;
 
 		if (omMsg.omh.iLength == -1) {
-			if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.headerbuffer) + dwAlreadyRead, sizeof(OverlayMsgHeader) - dwAlreadyRead, &dwBytesRead, nullptr)) {
+			if (!ReadFile(hSocket, reinterpret_cast< unsigned char * >(omMsg.headerbuffer) + dwAlreadyRead,
+						  sizeof(OverlayMsgHeader) - dwAlreadyRead, &dwBytesRead, nullptr)) {
 				ods("Pipe: Read header fail");
 				disconnect();
 				return;
@@ -200,11 +202,12 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 				return;
 			}
 
-			if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
+			if (static_cast< int >(dwBytesLeft) < omMsg.omh.iLength)
 				continue;
 		}
 
-		if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.msgbuffer) + dwAlreadyRead, omMsg.omh.iLength - dwAlreadyRead, &dwBytesRead, nullptr)) {
+		if (!ReadFile(hSocket, reinterpret_cast< unsigned char * >(omMsg.msgbuffer) + dwAlreadyRead,
+					  omMsg.omh.iLength - dwAlreadyRead, &dwBytesRead, nullptr)) {
 			ods("Pipe: Read data fail");
 			disconnect();
 			return;
@@ -212,101 +215,97 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 
 		dwAlreadyRead += dwBytesRead;
 
-		if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
+		if (static_cast< int >(dwBytesLeft) < omMsg.omh.iLength)
 			continue;
 
 		dwAlreadyRead = 0;
 
 		switch (omMsg.omh.uiType) {
 			case OVERLAY_MSGTYPE_SHMEM: {
-					wchar_t memname[2048];
-					memname[0] = 0;
+				wchar_t memname[2048];
+				memname[0] = 0;
 
-					MultiByteToWideChar(CP_UTF8, 0, omMsg.oms.a_cName, omMsg.omh.iLength, memname, 2048);
+				MultiByteToWideChar(CP_UTF8, 0, omMsg.oms.a_cName, omMsg.omh.iLength, memname, 2048);
 
-					release();
+				release();
 
-					hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, uiWidth * uiHeight * 4, memname);
+				hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, uiWidth * uiHeight * 4,
+											 memname);
 
-					if (GetLastError() != ERROR_ALREADY_EXISTS) {
-						ods("Pipe: Memory %s(%d) => %ls doesn't exist", omMsg.oms.a_cName, omMsg.omh.iLength, memname);
-						if (hMemory) {
-							CloseHandle(hMemory);
-							hMemory = nullptr;
-							break;
-						}
-					}
-
-					if (! hMemory) {
-						ods("Pipe: CreateFileMapping failed");
-						break;
-					}
-
-					a_ucTexture = reinterpret_cast<unsigned char *>(MapViewOfFile(hMemory, FILE_MAP_ALL_ACCESS, 0, 0, 0));
-
-					if (!a_ucTexture) {
-						ods("Pipe: Failed to map memory");
+				if (GetLastError() != ERROR_ALREADY_EXISTS) {
+					ods("Pipe: Memory %s(%d) => %ls doesn't exist", omMsg.oms.a_cName, omMsg.omh.iLength, memname);
+					if (hMemory) {
 						CloseHandle(hMemory);
 						hMemory = nullptr;
 						break;
 					}
-
-					MEMORY_BASIC_INFORMATION mbi;
-					memset(&mbi, 0, sizeof(mbi));
-					if ((VirtualQuery(a_ucTexture, &mbi, sizeof(mbi)) == 0) || (mbi.RegionSize < (uiHeight * uiWidth * 4))) {
-						ods("Pipe: Memory too small");
-						UnmapViewOfFile(a_ucTexture);
-						CloseHandle(hMemory);
-						a_ucTexture = nullptr;
-						hMemory = nullptr;
-						break;
-					}
-
-					OverlayMsg om;
-					om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-					om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
-					om.omh.iLength = 0;
-
-					if (!sendMessage(om))
-						return;
-
-					newTexture(uiWidth, uiHeight);
 				}
-				break;
+
+				if (!hMemory) {
+					ods("Pipe: CreateFileMapping failed");
+					break;
+				}
+
+				a_ucTexture = reinterpret_cast< unsigned char * >(MapViewOfFile(hMemory, FILE_MAP_ALL_ACCESS, 0, 0, 0));
+
+				if (!a_ucTexture) {
+					ods("Pipe: Failed to map memory");
+					CloseHandle(hMemory);
+					hMemory = nullptr;
+					break;
+				}
+
+				MEMORY_BASIC_INFORMATION mbi;
+				memset(&mbi, 0, sizeof(mbi));
+				if ((VirtualQuery(a_ucTexture, &mbi, sizeof(mbi)) == 0)
+					|| (mbi.RegionSize < (uiHeight * uiWidth * 4))) {
+					ods("Pipe: Memory too small");
+					UnmapViewOfFile(a_ucTexture);
+					CloseHandle(hMemory);
+					a_ucTexture = nullptr;
+					hMemory     = nullptr;
+					break;
+				}
+
+				OverlayMsg om;
+				om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+				om.omh.uiType  = OVERLAY_MSGTYPE_SHMEM;
+				om.omh.iLength = 0;
+
+				if (!sendMessage(om))
+					return;
+
+				newTexture(uiWidth, uiHeight);
+			} break;
 			case OVERLAY_MSGTYPE_BLIT: {
-					RECT r = {
-						static_cast<LONG>(omMsg.omb.x),
-						static_cast<LONG>(omMsg.omb.y),
-						static_cast<LONG>(omMsg.omb.x + omMsg.omb.w),
-						static_cast<LONG>(omMsg.omb.y + omMsg.omb.h)
-					};
+				RECT r = { static_cast< LONG >(omMsg.omb.x), static_cast< LONG >(omMsg.omb.y),
+						   static_cast< LONG >(omMsg.omb.x + omMsg.omb.w),
+						   static_cast< LONG >(omMsg.omb.y + omMsg.omb.h) };
 
-					std::vector<RECT>::iterator i = blits.begin();
-					while (i != blits.end()) {
-						RECT is;
-						if (::IntersectRect(&is, &r, & *i)) {
-							::UnionRect(&is, &r, & *i);
-							r = is;
-							blits.erase(i);
-							i = blits.begin();
-						} else {
-							++i;
-						}
+				std::vector< RECT >::iterator i = blits.begin();
+				while (i != blits.end()) {
+					RECT is;
+					if (::IntersectRect(&is, &r, &*i)) {
+						::UnionRect(&is, &r, &*i);
+						r = is;
+						blits.erase(i);
+						i = blits.begin();
+					} else {
+						++i;
 					}
-					blits.push_back(r);
 				}
-				break;
+				blits.push_back(r);
+			} break;
 			case OVERLAY_MSGTYPE_ACTIVE: {
-					uiLeft = omMsg.oma.x;
-					uiTop = omMsg.oma.y;
-					uiRight = omMsg.oma.x + omMsg.oma.w;
-					uiBottom = omMsg.oma.y + omMsg.oma.h;
-					if (a_ucTexture) {
-						setRect();
-						blit(0, 0, uiWidth, uiHeight);
-					}
+				uiLeft   = omMsg.oma.x;
+				uiTop    = omMsg.oma.y;
+				uiRight  = omMsg.oma.x + omMsg.oma.w;
+				uiBottom = omMsg.oma.y + omMsg.oma.h;
+				if (a_ucTexture) {
+					setRect();
+					blit(0, 0, uiWidth, uiHeight);
 				}
-				break;
+			} break;
 			default:
 				break;
 		}
@@ -316,7 +315,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 	if (!a_ucTexture)
 		return;
 
-	for (std::vector<RECT>::iterator i = blits.begin(); i != blits.end(); ++i)
+	for (std::vector< RECT >::iterator i = blits.begin(); i != blits.end(); ++i)
 		blit((*i).left, (*i).top, (*i).right - (*i).left, (*i).bottom - (*i).top);
 }
 
@@ -330,7 +329,7 @@ static void checkHooks(bool preonly) {
 
 typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
-	//TODO: Move logic to HardHook.
+	// TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
 	LoadLibraryAType oLoadLibrary = (LoadLibraryAType) hhLoad.call;
 	hhLoad.restore();
@@ -348,7 +347,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 
 typedef HMODULE(__stdcall *LoadLibraryWType)(const wchar_t *);
 static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
-	//TODO: Move logic to HardHook.
+	// TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
 	LoadLibraryWType oLoadLibrary = (LoadLibraryWType) hhLoadW.call;
 	hhLoadW.restore();
@@ -387,9 +386,10 @@ extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
 extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (sd && ! sd->bHooked) {
+		if (sd && !sd->bHooked) {
 			HMODULE hSelf = nullptr;
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(&InstallHooks), &hSelf);
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+							  reinterpret_cast< LPCTSTR >(&InstallHooks), &hSelf);
 			if (!hSelf) {
 				ods("Lib: Failed to find myself");
 			} else {
@@ -414,8 +414,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9();
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI();
 
 void __stdcall OverlayHelperProcessParentDeathThread(void *udata) {
-	HANDLE parent = reinterpret_cast<HANDLE>(udata);
-	DWORD status = WaitForSingleObject(parent, INFINITE);
+	HANDLE parent = reinterpret_cast< HANDLE >(udata);
+	DWORD status  = WaitForSingleObject(parent, INFINITE);
 	if (status != WAIT_OBJECT_0) {
 		ExitProcess(OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL);
 	}
@@ -431,7 +431,7 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 	}
 
 	HANDLE pcheckHandle = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE) OverlayHelperProcessParentDeathThread,
-	                                   reinterpret_cast<void *>(parent), 0, nullptr);
+									   reinterpret_cast< void * >(parent), 0, nullptr);
 	if (pcheckHandle == 0) {
 		return OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR;
 	}
@@ -478,7 +478,8 @@ static bool createSharedDataMap();
 // we shouldn't inject into it.
 static void checkNoOverlayFile(const std::string &dir) {
 	std::string nooverlay = dir + "\\nooverlay";
-	HANDLE h = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	HANDLE h              = CreateFile(nooverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
+                          FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
 		ods("Lib: Overlay disable %s found", dir.c_str());
@@ -493,7 +494,8 @@ static void checkNoOverlayFile(const std::string &dir) {
 static void checkDebugOverlayFile(const std::string &dir) {
 	// check for "debugoverlay" file, which would enable overlay debugging
 	std::string debugoverlay = dir + "\\debugoverlay";
-	HANDLE h = CreateFile(debugoverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	HANDLE h                 = CreateFile(debugoverlay.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING,
+                          FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
 		ods("Lib: Overlay debug %s found", debugoverlay.c_str());
@@ -519,8 +521,8 @@ static bool parseProcName(char *procname, std::string &absExeName, std::string &
 	}
 
 	absExeName = std::string(procname);
-	dir = std::string(procname, p - procname);
-	exeName = std::string(p + 1);
+	dir        = std::string(procname, p - procname);
+	exeName    = std::string(p + 1);
 
 	return true;
 }
@@ -538,7 +540,7 @@ static bool dllmainProcAttach(char *procname) {
 	} else if (GetProcAddress(nullptr, "mumbleSelfDetection")) {
 		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
 		bEnableOverlay = FALSE;
-		bMumble = TRUE;
+		bMumble        = TRUE;
 	} else {
 		checkNoOverlayFile(dir);
 		checkDebugOverlayFile(dir);
@@ -555,7 +557,7 @@ static bool dllmainProcAttach(char *procname) {
 	OSVERSIONINFOEX ovi;
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
-	GetVersionEx(reinterpret_cast<OSVERSIONINFO *>(&ovi));
+	GetVersionEx(reinterpret_cast< OSVERSIONINFO * >(&ovi));
 	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 9200));
 
 	ods("Lib: bIsWin8: %i", bIsWin8);
@@ -567,13 +569,13 @@ static bool dllmainProcAttach(char *procname) {
 		return false;
 	}
 
-	if(!createSharedDataMap())
+	if (!createSharedDataMap())
 		return false;
 
-	if (! bMumble) {
+	if (!bMumble) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
-		hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
-		hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
+		hhLoad.setup(reinterpret_cast< voidFunc >(LoadLibraryA), reinterpret_cast< voidFunc >(MyLoadLibrary));
+		hhLoadW.setup(reinterpret_cast< voidFunc >(LoadLibraryW), reinterpret_cast< voidFunc >(MyLoadLibraryW));
 
 		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
@@ -583,14 +585,15 @@ static bool dllmainProcAttach(char *procname) {
 }
 
 static bool createSharedDataMap() {
-	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data) + sizeof(D3D11Data);
+	DWORD dwSharedSize =
+		sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data) + sizeof(D3D11Data);
 
 #if defined(_M_IX86)
 	const char *name = "MumbleOverlayPrivate-x86";
 #elif defined(_M_X64)
 	const char *name = "MumbleOverlayPrivate-x64";
 #else
-# error Unsupported architecture
+#	error Unsupported architecture
 #endif
 
 	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0, dwSharedSize, name);
@@ -599,11 +602,11 @@ static bool createSharedDataMap() {
 		return false;
 	}
 
-	//Note: If the mapping exists dwSharedSize value will be ignored and existing handle returned
+	// Note: If the mapping exists dwSharedSize value will be ignored and existing handle returned
 	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
-	unsigned char *rawSharedPointer = static_cast<unsigned char *>(
-			MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
+	unsigned char *rawSharedPointer =
+		static_cast< unsigned char * >(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
 
 	if (!rawSharedPointer) {
 		ods("Lib: MapViewOfFile failed");
@@ -613,26 +616,25 @@ static bool createSharedDataMap() {
 	if (bInit)
 		memset(rawSharedPointer, 0, dwSharedSize);
 
-	sd = reinterpret_cast<SharedData *>(rawSharedPointer);
+	sd = reinterpret_cast< SharedData * >(rawSharedPointer);
 	rawSharedPointer += sizeof(SharedData);
 
-	d3dd = reinterpret_cast<Direct3D9Data *>(rawSharedPointer);
+	d3dd = reinterpret_cast< Direct3D9Data * >(rawSharedPointer);
 	rawSharedPointer += sizeof(Direct3D9Data);
 
-	dxgi = reinterpret_cast<DXGIData *>(rawSharedPointer);
+	dxgi = reinterpret_cast< DXGIData * >(rawSharedPointer);
 	rawSharedPointer += sizeof(DXGIData);
 
-	d3d10 = reinterpret_cast<D3D10Data *>(rawSharedPointer);
+	d3d10 = reinterpret_cast< D3D10Data * >(rawSharedPointer);
 	rawSharedPointer += sizeof(D3D10Data);
 
-	d3d11 = reinterpret_cast<D3D11Data *>(rawSharedPointer);
+	d3d11 = reinterpret_cast< D3D11Data * >(rawSharedPointer);
 	rawSharedPointer += sizeof(D3D11Data);
 
 	return true;
 }
 
 static void dllmainProcDetach() {
-
 	hhLoad.restore(true);
 	hhLoad.reset();
 	hhLoadW.restore(true);
@@ -648,7 +650,7 @@ static void dllmainProcDetach() {
 
 static void dllmainThreadAttach() {
 	static bool bTriedHook = false;
-	if (bEnableOverlay && sd && ! bTriedHook) {
+	if (bEnableOverlay && sd && !bTriedHook) {
 		bTriedHook = true;
 		checkForWPF();
 
@@ -688,12 +690,11 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 }
 
 bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
-
 	HMODULE hModule = nullptr;
 
-	BOOL success = GetModuleHandleEx(
-			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			reinterpret_cast<LPCTSTR>(fnptr), &hModule);
+	BOOL success =
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+						  reinterpret_cast< LPCTSTR >(fnptr), &hModule);
 	if (!success) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 	} else {
@@ -704,11 +705,12 @@ bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &log
 	return false;
 }
 
-boost::optional<size_t> GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName) {
-
+boost::optional< size_t > GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen,
+											  const std::string &logPrefix, const std::string &fnName) {
 	HMODULE hModule = nullptr;
 
-	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCTSTR>(fnptr), &hModule)) {
+	if (!GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+						   reinterpret_cast< LPCTSTR >(fnptr), &hModule)) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 		return boost::none;
 	}
@@ -720,13 +722,16 @@ boost::optional<size_t> GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepa
 		wchar_t modulename[MODULEFILEPATH_BUFLEN];
 		GetModuleFileNameW(hModule, modulename, ARRAY_NUM_ELEMENTS(modulename));
 		if (_wcsicmp(modulename, refmodulepath) != 0) {
-			ods((logPrefix + ": " + fnName + " functions module path does not match previously found. Now: '%ls', Previously: '%ls'").c_str(), modulename, refmodulepath);
+			ods((logPrefix + ": " + fnName
+				 + " functions module path does not match previously found. Now: '%ls', Previously: '%ls'")
+					.c_str(),
+				modulename, refmodulepath);
 			return boost::none;
 		}
 	}
 
-	size_t fn = reinterpret_cast<size_t>(fnptr);
-	size_t base = reinterpret_cast<size_t>(hModule);
+	size_t fn   = reinterpret_cast< size_t >(fnptr);
+	size_t base = reinterpret_cast< size_t >(hModule);
 
 	return fn - base;
 }

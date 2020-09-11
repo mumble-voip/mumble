@@ -3,7 +3,7 @@
  */
 
 #ifdef Q_OS_WIN
-# include "win.h"
+#	include "win.h"
 #endif
 
 #include "Timer.h"
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 	ippSetNumThreads(1);
 
 #ifdef Q_OS_WIN
-	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
+	if (!SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS))
 		qWarning("Application: Failed to set priority!");
 #endif
 
@@ -32,10 +32,10 @@ int main(int argc, char **argv) {
 
 	SpeexResamplerState *srs;
 
-	int iMicFreq = 44100;
+	int iMicFreq    = 44100;
 	int iSampleRate = 48000;
-	int iFrameSize = iSampleRate / 100;
-	int err = 0;
+	int iFrameSize  = iSampleRate / 100;
+	int err         = 0;
 
 	srs = speex_resampler_init(1, iMicFreq, iSampleRate, 3, &err);
 
@@ -43,14 +43,14 @@ int main(int argc, char **argv) {
 
 	qWarning() << iMicFreq << iSampleRate << iFrameSize << iMicLength;
 
-	float *pfInput = new float[iMicLength];
+	float *pfInput  = new float[iMicLength];
 	float *pfOutput = new float[iFrameSize];
 
-	for (int i=0;i<iMicLength;++i) {
+	for (int i = 0; i < iMicLength; ++i) {
 		pfInput[i] = sinf((M_PI * i * 20) / iMicLength);
 	}
 
-	for (int i=0;i<iFrameSize;++i)
+	for (int i = 0; i < iFrameSize; ++i)
 		pfOutput[i] = 0;
 
 	qWarning() << "speex resampler latency: " << speex_resampler_get_input_latency(srs);
@@ -58,8 +58,8 @@ int main(int argc, char **argv) {
 
 	Timer t;
 
-	for (int i=0;i<ITER;++i) {
-		spx_uint32_t inlen = iMicLength;
+	for (int i = 0; i < ITER; ++i) {
+		spx_uint32_t inlen  = iMicLength;
 		spx_uint32_t outlen = iFrameSize;
 		speex_resampler_process_float(srs, 0, pfInput, &inlen, pfOutput, &outlen);
 	}
@@ -71,35 +71,35 @@ int main(int argc, char **argv) {
 	float min = 0.0;
 	float max = 0.0;
 
-	for (int i=0;i<iFrameSize;++i) {
+	for (int i = 0; i < iFrameSize; ++i) {
 		min = qMin(min, pfOutput[i]);
 		max = qMax(max, pfOutput[i]);
 	}
 
 	qWarning() << "Speex bounds" << min << max;
 
-	delete [] pfOutput;
+	delete[] pfOutput;
 
-	int history=24;
+	int history  = 24;
 	int lastread = history;
-	double time = history;
-	int olen = 0;
+	double time  = history;
+	int olen     = 0;
 
-	float *inBuf = ippsMalloc_32f(iMicLength+history*2+2);
-	ippsZero_32f(inBuf, iMicLength+history*2+2);
+	float *inBuf = ippsMalloc_32f(iMicLength + history * 2 + 2);
+	ippsZero_32f(inBuf, iMicLength + history * 2 + 2);
 
-	pfOutput = ippsMalloc_32f(iFrameSize+2);
+	pfOutput = ippsMalloc_32f(iFrameSize + 2);
 
-	for (int i=0;i<iFrameSize;++i)
+	for (int i = 0; i < iFrameSize; ++i)
 		pfOutput[i] = 0;
 
 
 	IppsResamplingPolyphaseFixed_32f *pSpec = nullptr;
-	ippsResamplePolyphaseFixedInitAlloc_32f(&pSpec, iMicFreq, iSampleRate, 2*history, 0.90f, 8.0f, ippAlgHintFast);
+	ippsResamplePolyphaseFixedInitAlloc_32f(&pSpec, iMicFreq, iSampleRate, 2 * history, 0.90f, 8.0f, ippAlgHintFast);
 
 	t.restart();
 
-	for (int i=0;i<ITER;++i) {
+	for (int i = 0; i < ITER; ++i) {
 		ippsCopy_32f(pfInput, inBuf + history, iMicLength);
 
 		ippsResamplePolyphaseFixed_32f(pSpec, inBuf, iMicLength, pfOutput, .99f, &time, &olen);
@@ -115,14 +115,14 @@ int main(int argc, char **argv) {
 	min = 0.0;
 	max = 0.0;
 
-	for (int i=0;i<iFrameSize;++i) {
+	for (int i = 0; i < iFrameSize; ++i) {
 		min = qMin(min, pfOutput[i]);
 		max = qMax(max, pfOutput[i]);
 	}
 
 	qWarning() << "IPP bounds" << min << max;
 
-	delete [] pfInput;
+	delete[] pfInput;
 
 	return 0;
 }

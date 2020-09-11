@@ -12,9 +12,7 @@
 #include <QtWidgets/QGraphicsScene>
 
 OverlayPositionableItem::OverlayPositionableItem(QRectF *posPtr, const bool isPositionable)
-	: m_position(posPtr)
-	, m_isPositionEditable(isPositionable)
-	, m_qgeiHandle(nullptr) {
+	: m_position(posPtr), m_isPositionEditable(isPositionable), m_qgeiHandle(nullptr) {
 }
 
 OverlayPositionableItem::~OverlayPositionableItem() {
@@ -53,8 +51,8 @@ void OverlayPositionableItem::onMove() {
 	const QRectF &sr = scene()->sceneRect();
 	const QPointF &p = m_qgeiHandle->pos();
 
-	m_position->setX(qBound<qreal>(0.0f, p.x() / sr.width(), 1.0f));
-	m_position->setY(qBound<qreal>(0.0f, p.y() / sr.height(), 1.0f));
+	m_position->setX(qBound< qreal >(0.0f, p.x() / sr.width(), 1.0f));
+	m_position->setY(qBound< qreal >(0.0f, p.y() / sr.height(), 1.0f));
 
 	m_qgeiHandle->setPos(m_position->x() * sr.width(), m_position->y() * sr.height());
 
@@ -76,8 +74,8 @@ void OverlayPositionableItem::updateRender() {
 	QRectF br = boundingRect();
 	// Limit the position by the elements width (to make sure it is right-/bottom-bound rather than outside of the scene
 	QPoint maxPos(iroundf(sr.width() - br.width() + 0.5f), iroundf(sr.height() - br.height() + 0.5f));
-	int basex = qBound<int>(0, absPos.x(), maxPos.x());
-	int basey = qBound<int>(0, absPos.y(), maxPos.y());
+	int basex = qBound< int >(0, absPos.x(), maxPos.x());
+	int basey = qBound< int >(0, absPos.y(), maxPos.y());
 	setPos(basex, basey);
 }
 

@@ -5,20 +5,20 @@
 
 #include "UserModel.h"
 
-#include "ClientUser.h"
 #include "Channel.h"
+#include "ClientUser.h"
 #include "Database.h"
 #include "LCD.h"
 #include "Log.h"
 #include "MainWindow.h"
 #include "Message.h"
 #ifdef USE_OVERLAY
-	#include "Overlay.h"
+#	include "Overlay.h"
 #endif
+#include "ChannelListener.h"
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
-#include "ChannelListener.h"
 
 #include <QtCore/QMimeData>
 #include <QtCore/QStack>
@@ -27,29 +27,30 @@
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-QHash <const Channel *, ModelItem *> ModelItem::c_qhChannels;
-QHash <const ClientUser *, ModelItem *> ModelItem::c_qhUsers;
-QHash <const ClientUser *, QList<ModelItem *>> ModelItem::s_userProxies;
+QHash< const Channel *, ModelItem * > ModelItem::c_qhChannels;
+QHash< const ClientUser *, ModelItem * > ModelItem::c_qhUsers;
+QHash< const ClientUser *, QList< ModelItem * > > ModelItem::s_userProxies;
 bool ModelItem::bUsersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
-	this->cChan = c;
-	this->pUser = nullptr;
+	this->cChan      = c;
+	this->pUser      = nullptr;
 	this->isListener = false;
-	bCommentSeen = true;
+	bCommentSeen     = true;
 	c_qhChannels.insert(c, this);
 	parent = c_qhChannels.value(c->cParent);
 	iUsers = 0;
 }
 
 ModelItem::ModelItem(ClientUser *p, bool isListener) {
-	this->cChan = nullptr;
-	this->pUser = p;
+	this->cChan      = nullptr;
+	this->pUser      = p;
 	this->isListener = isListener;
-	bCommentSeen = true;
+	bCommentSeen     = true;
 	if (isListener) {
 		// The way operator[] works for a QHash is that it'll insert a default-constructed
 		// object first, before returning a reference to it, in case there is no entry for
@@ -65,11 +66,11 @@ ModelItem::ModelItem(ClientUser *p, bool isListener) {
 
 ModelItem::ModelItem(ModelItem *i) {
 	// Create a shallow clone
-	this->cChan = i->cChan;
-	this->pUser = i->pUser;
-	this->parent = i->parent;
+	this->cChan        = i->cChan;
+	this->pUser        = i->pUser;
+	this->parent       = i->parent;
 	this->bCommentSeen = i->bCommentSeen;
-	this->isListener = i->isListener;
+	this->isListener   = i->isListener;
 
 	if (pUser) {
 		if (isListener) {
@@ -77,8 +78,7 @@ ModelItem::ModelItem(ModelItem *i) {
 		} else {
 			c_qhUsers.insert(pUser, this);
 		}
-	}
-	else if (cChan)
+	} else if (cChan)
 		c_qhChannels.insert(cChan, this);
 
 	iUsers = i->iUsers;
@@ -100,7 +100,7 @@ ModelItem::~ModelItem() {
 }
 
 void ModelItem::wipe() {
-	foreach(ModelItem *i, qlChildren) {
+	foreach (ModelItem *i, qlChildren) {
 		i->wipe();
 		delete i;
 	}
@@ -109,7 +109,7 @@ void ModelItem::wipe() {
 }
 
 ModelItem *ModelItem::child(int idx) const {
-	if (! validRow(idx))
+	if (!validRow(idx))
 		return nullptr;
 
 	return qlChildren.at(idx);
@@ -120,26 +120,26 @@ bool ModelItem::validRow(int idx) const {
 }
 
 ClientUser *ModelItem::userAt(int idx) const {
-	if (! validRow(idx))
+	if (!validRow(idx))
 		return nullptr;
 	return qlChildren.at(idx)->pUser;
 }
 
 Channel *ModelItem::channelAt(int idx) const {
-	if (! validRow(idx))
+	if (!validRow(idx))
 		return nullptr;
 	return qlChildren.at(idx)->cChan;
 }
 
 int ModelItem::rowOf(Channel *c) const {
-	for (int i=0;i<qlChildren.count();i++)
+	for (int i = 0; i < qlChildren.count(); i++)
 		if (qlChildren.at(i)->cChan == c)
 			return i;
 	return -1;
 }
 
 int ModelItem::rowOf(ClientUser *p, const bool isListener) const {
-	for (int i=0;i<qlChildren.count();i++)
+	for (int i = 0; i < qlChildren.count(); i++)
 		if (qlChildren.at(i)->isListener == isListener && qlChildren.at(i)->pUser == p)
 			return i;
 	return -1;
@@ -147,7 +147,7 @@ int ModelItem::rowOf(ClientUser *p, const bool isListener) const {
 
 int ModelItem::rowOfSelf() const {
 	// Root?
-	if (! parent)
+	if (!parent)
 		return 0;
 
 	if (pUser)
@@ -161,12 +161,12 @@ int ModelItem::rows() const {
 }
 
 int ModelItem::insertIndex(Channel *c) const {
-	QList<Channel*> qlpc;
+	QList< Channel * > qlpc;
 	ModelItem *item;
 
 	int ocount = 0;
 
-	foreach(item, qlChildren) {
+	foreach (item, qlChildren) {
 		if (item->cChan) {
 			if (item->cChan != c) {
 				qlpc << item->cChan;
@@ -180,13 +180,13 @@ int ModelItem::insertIndex(Channel *c) const {
 }
 
 int ModelItem::insertIndex(ClientUser *p, bool isListener) const {
-	QList<ClientUser*> qlclientuser;
+	QList< ClientUser * > qlclientuser;
 	ModelItem *item;
 
-	int ocount = 0;
+	int ocount        = 0;
 	int listenerCount = 0;
 
-	foreach(item, qlChildren) {
+	foreach (item, qlChildren) {
 		if (item->pUser) {
 			if (item->pUser != p) {
 				// Make sure listeners and non-listeners are all grouped together and not mixed
@@ -214,8 +214,8 @@ int ModelItem::insertIndex(ClientUser *p, bool isListener) const {
 
 QString ModelItem::hash() const {
 	if (pUser) {
-		if (! pUser->qsHash.isEmpty())
-			return pUser->qsHash + (isListener ? QLatin1String("l"): QString());
+		if (!pUser->qsHash.isEmpty())
+			return pUser->qsHash + (isListener ? QLatin1String("l") : QString());
 		else
 			return QLatin1String(sha1(pUser->qsName + (isListener ? QLatin1String("l") : QString())).toHex());
 	} else {
@@ -235,38 +235,38 @@ QString ModelItem::hash() const {
 }
 
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.svg"));
-	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
-	qiTalkingMuted=QIcon(QLatin1String("skin:talking_muted.svg"));
-	qiTalkingShout=QIcon(QLatin1String("skin:talking_alt.svg"));
-	qiTalkingWhisper=QIcon(QLatin1String("skin:talking_whisper.svg"));
-	qiPrioritySpeaker=QIcon(QLatin1String("skin:priority_speaker.svg"));
-	qiRecording=QIcon(QLatin1String("skin:actions/media-record.svg"));
+	qiTalkingOff      = QIcon(QLatin1String("skin:talking_off.svg"));
+	qiTalkingOn       = QIcon(QLatin1String("skin:talking_on.svg"));
+	qiTalkingMuted    = QIcon(QLatin1String("skin:talking_muted.svg"));
+	qiTalkingShout    = QIcon(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingWhisper  = QIcon(QLatin1String("skin:talking_whisper.svg"));
+	qiPrioritySpeaker = QIcon(QLatin1String("skin:priority_speaker.svg"));
+	qiRecording       = QIcon(QLatin1String("skin:actions/media-record.svg"));
 	qiMutedPushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
-	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
-	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
-	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.svg"));
-	qiIgnoredLocal=QIcon(QLatin1String("skin:status/text-missing.svg"));
-	qiMutedSuppressed=QIcon(QLatin1String("skin:muted_suppressed.svg"));
-	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.svg"));
-	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.svg"));
-	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.svg"));
-	qiChannel=QIcon(QLatin1String("skin:channel.svg"));
-	qiActiveChannel=QIcon(QLatin1String("skin:channel_active.svg"));
-	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
-	qiFriend=QIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
-	qiComment=QIcon(QLatin1String("skin:comment.svg"));
-	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
-	qiFilter=QIcon(QLatin1String("skin:filter.svg"));
-	qiLock_locked=QIcon(QLatin1String("skin:lock_locked.svg"));
-	qiLock_unlocked=QIcon(QLatin1String("skin:lock_unlocked.svg"));
-	qiEar=QIcon(QLatin1String("skin:ear.svg"));
+	qiMutedSelf       = QIcon(QLatin1String("skin:muted_self.svg"));
+	qiMutedServer     = QIcon(QLatin1String("skin:muted_server.svg"));
+	qiMutedLocal      = QIcon(QLatin1String("skin:muted_local.svg"));
+	qiIgnoredLocal    = QIcon(QLatin1String("skin:status/text-missing.svg"));
+	qiMutedSuppressed = QIcon(QLatin1String("skin:muted_suppressed.svg"));
+	qiDeafenedSelf    = QIcon(QLatin1String("skin:deafened_self.svg"));
+	qiDeafenedServer  = QIcon(QLatin1String("skin:deafened_server.svg"));
+	qiAuthenticated   = QIcon(QLatin1String("skin:authenticated.svg"));
+	qiChannel         = QIcon(QLatin1String("skin:channel.svg"));
+	qiActiveChannel   = QIcon(QLatin1String("skin:channel_active.svg"));
+	qiLinkedChannel   = QIcon(QLatin1String("skin:channel_linked.svg"));
+	qiFriend          = QIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
+	qiComment         = QIcon(QLatin1String("skin:comment.svg"));
+	qiCommentSeen     = QIcon(QLatin1String("skin:comment_seen.svg"));
+	qiFilter          = QIcon(QLatin1String("skin:filter.svg"));
+	qiLock_locked     = QIcon(QLatin1String("skin:lock_locked.svg"));
+	qiLock_unlocked   = QIcon(QLatin1String("skin:lock_unlocked.svg"));
+	qiEar             = QIcon(QLatin1String("skin:ear.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;
 
-	uiSessionComment = 0;
+	uiSessionComment    = 0;
 	iChannelDescription = -1;
-	bClicked = false;
+	bClicked            = false;
 
 	miRoot = new ModelItem(Channel::get(0));
 }
@@ -291,16 +291,16 @@ QModelIndex UserModel::index(int row, int column, const QModelIndex &p) const {
 		return QModelIndex();
 	}
 
-	if (! p.isValid()) {
+	if (!p.isValid()) {
 		return createIndex(row, column, miRoot);
 	} else {
-		item = static_cast<ModelItem *>(p.internalPointer());
+		item = static_cast< ModelItem * >(p.internalPointer());
 	}
 
-	if (! item)
+	if (!item)
 		return idx;
 
-	if (! item->validRow(row))
+	if (!item->validRow(row))
 		return idx;
 
 	idx = createIndex(row, column, item->child(row));
@@ -312,9 +312,9 @@ QModelIndex UserModel::index(ClientUser *p, int column) const {
 	ModelItem *item = ModelItem::c_qhUsers.value(p);
 	Q_ASSERT(p);
 	Q_ASSERT(item);
-	if (!p || ! item)
+	if (!p || !item)
 		return QModelIndex();
-	QModelIndex idx=createIndex(item->rowOfSelf(), column, item);
+	QModelIndex idx = createIndex(item->rowOfSelf(), column, item);
 	return idx;
 }
 
@@ -324,7 +324,7 @@ QModelIndex UserModel::index(Channel *c, int column) const {
 	Q_ASSERT(item);
 	if (!item || !c)
 		return QModelIndex();
-	QModelIndex idx=createIndex(item->rowOfSelf(), column, item);
+	QModelIndex idx = createIndex(item->rowOfSelf(), column, item);
 	return idx;
 }
 
@@ -333,7 +333,7 @@ QModelIndex UserModel::index(ModelItem *item) const {
 }
 
 QModelIndex UserModel::channelListenerIndex(const ClientUser *user, const Channel *channel, int column) const {
-	QList<ModelItem *> items = ModelItem::s_userProxies.value(user);
+	QList< ModelItem * > items = ModelItem::s_userProxies.value(user);
 
 	ModelItem *item = nullptr;
 	for (ModelItem *currentItem : items) {
@@ -357,14 +357,14 @@ QModelIndex UserModel::channelListenerIndex(const ClientUser *user, const Channe
 }
 
 QModelIndex UserModel::parent(const QModelIndex &idx) const {
-	if (! idx.isValid())
+	if (!idx.isValid())
 		return QModelIndex();
 
-	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
+	ModelItem *item = static_cast< ModelItem * >(idx.internalPointer());
 
 	ModelItem *parent_item = item ? item->parent : nullptr;
 
-	if (! parent_item)
+	if (!parent_item)
 		return QModelIndex();
 
 	return createIndex(parent_item->rowOfSelf(), 0, parent_item);
@@ -378,9 +378,9 @@ int UserModel::rowCount(const QModelIndex &p) const {
 	if (!p.isValid())
 		return 1;
 	else
-		item = static_cast<ModelItem *>(p.internalPointer());
+		item = static_cast< ModelItem * >(p.internalPointer());
 
-	if (! item || (p.column() != 0))
+	if (!item || (p.column() != 0))
 		return 0;
 
 	val = item->rows();
@@ -389,7 +389,7 @@ int UserModel::rowCount(const QModelIndex &p) const {
 }
 
 QString UserModel::stringIndex(const QModelIndex &idx) const {
-	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
+	ModelItem *item = static_cast< ModelItem * >(idx.internalPointer());
 	if (!idx.isValid())
 		return QLatin1String("invIdx");
 	if (!item)
@@ -415,10 +415,10 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 	if (!idx.isValid())
 		return QVariant();
 
-	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
+	ModelItem *item = static_cast< ModelItem * >(idx.internalPointer());
 
-	Channel *c = item->cChan;
-	ClientUser *p = item->pUser;
+	Channel *c        = item->cChan;
+	ClientUser *p     = item->pUser;
 	ClientUser *pSelf = ClientUser::get(g.uiSession);
 
 	if (!c && !p) {
@@ -429,7 +429,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 	if (v.isValid())
 		return v;
 
-	QList<QVariant> l;
+	QList< QVariant > l;
 
 	if (p) {
 		switch (role) {
@@ -466,7 +466,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 			case Qt::FontRole:
 				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
 					QFont f = g.mw->font();
-					f.setBold(! f.bold());
+					f.setBold(!f.bold());
 					f.setItalic(item->isListener);
 					return f;
 				}
@@ -487,7 +487,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				// Most of the following icons are for non-listeners (as listeners are merely proxies) only
 				// but in order to not change the order of the icons, the condition is added to each case
 				// individually instead of checking it up front.
-				if (! p->qbaCommentHash.isEmpty() && !item->isListener)
+				if (!p->qbaCommentHash.isEmpty() && !item->isListener)
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 				if (p->bPrioritySpeaker && !item->isListener)
 					l << qiPrioritySpeaker;
@@ -514,7 +514,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiDeafenedSelf;
 				if (p->iId >= 0 && !item->isListener)
 					l << qiAuthenticated;
-				if (! p->qsFriendName.isEmpty() && !item->isListener)
+				if (!p->qsFriendName.isEmpty() && !item->isListener)
 					l << qiFriend;
 				return l;
 			default:
@@ -535,12 +535,12 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				break;
 			case Qt::DisplayRole:
 				if (idx.column() == 0) {
-					if (! g.s.bShowUserCount || item->iUsers == 0)
+					if (!g.s.bShowUserCount || item->iUsers == 0)
 						return c->qsName;
 
 					return QString::fromLatin1("%1 (%2)").arg(c->qsName).arg(item->iUsers);
 				}
-				if (! c->qbaDescHash.isEmpty())
+				if (!c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 
 				if (c->bFiltered)
@@ -562,9 +562,9 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					if ((c == home) || qsLinked.contains(c)) {
 						QFont f = g.mw->font();
 						if (qsLinked.count() > 1)
-							f.setItalic(! f.italic());
+							f.setItalic(!f.italic());
 						if (c == home)
-							f.setBold(! f.bold());
+							f.setBold(!f.bold());
 						return f;
 					}
 				}
@@ -594,97 +594,98 @@ Qt::ItemFlags UserModel::flags(const QModelIndex &idx) const {
 }
 
 QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
-	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
-	ClientUser *p = item->pUser;
-	Channel *c = item->cChan;
-	int section = idx.column();
-	bool isUser = p;
+	ModelItem *item = static_cast< ModelItem * >(idx.internalPointer());
+	ClientUser *p   = item->pUser;
+	Channel *c      = item->cChan;
+	int section     = idx.column();
+	bool isUser     = p;
 
 	switch (role) {
 		case Qt::ToolTipRole:
-			const_cast<UserModel *>(this)->uiSessionComment = 0;
-			const_cast<UserModel *>(this)->iChannelDescription = -1;
-			const_cast<UserModel *>(this)->bClicked = false;
+			const_cast< UserModel * >(this)->uiSessionComment    = 0;
+			const_cast< UserModel * >(this)->iChannelDescription = -1;
+			const_cast< UserModel * >(this)->bClicked            = false;
 			switch (section) {
 				case 0: {
-						if (isUser) {
-							QString qsImage;
-							if (! p->qbaTextureHash.isEmpty()) {
+					if (isUser) {
+						QString qsImage;
+						if (!p->qbaTextureHash.isEmpty()) {
+							if (p->qbaTexture.isEmpty()) {
+								p->qbaTexture = g.db->blob(p->qbaTextureHash);
 								if (p->qbaTexture.isEmpty()) {
-									p->qbaTexture = g.db->blob(p->qbaTextureHash);
-									if (p->qbaTexture.isEmpty()) {
-										MumbleProto::RequestBlob mprb;
-										mprb.add_session_texture(p->uiSession);
-										g.sh->sendMessage(mprb);
-									} else {
+									MumbleProto::RequestBlob mprb;
+									mprb.add_session_texture(p->uiSession);
+									g.sh->sendMessage(mprb);
+								} else {
 #ifdef USE_OVERLAY
-										g.o->verifyTexture(p);
+									g.o->verifyTexture(p);
 #endif
-									}
-								}
-								if (! p->qbaTexture.isEmpty()) {
-									QBuffer qb(&p->qbaTexture);
-									qb.open(QIODevice::ReadOnly);
-									QImageReader qir(&qb, p->qbaTextureFormat);
-									QSize sz = qir.size();
-									if (sz.width() > 0) {
-										qsImage = QString::fromLatin1("<img src=\"data:;base64,");
-										qsImage.append(QString::fromLatin1(p->qbaTexture.toBase64().toPercentEncoding()));
-										if (sz.width() > 128) {
-											int targ = sz.width() / ((sz.width()+127)/ 128);
-											qsImage.append(QString::fromLatin1("\" width=\"%1\" />").arg(targ));
-										} else {
-											qsImage.append(QString::fromLatin1("\" />"));
-										}
-									}
 								}
 							}
-
-							if (p->qbaCommentHash.isEmpty()) {
-								if (! qsImage.isEmpty())
-									return qsImage;
-								else
-									return p->qsName;
-							} else {
-								if (p->qsComment.isEmpty()) {
-									p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
-									if (p->qsComment.isEmpty()) {
-										const_cast<UserModel *>(this)->uiSessionComment = p->uiSession;
-
-										MumbleProto::RequestBlob mprb;
-										mprb.add_session_comment(p->uiSession);
-										g.sh->sendMessage(mprb);
-										return QVariant();
+							if (!p->qbaTexture.isEmpty()) {
+								QBuffer qb(&p->qbaTexture);
+								qb.open(QIODevice::ReadOnly);
+								QImageReader qir(&qb, p->qbaTextureFormat);
+								QSize sz = qir.size();
+								if (sz.width() > 0) {
+									qsImage = QString::fromLatin1("<img src=\"data:;base64,");
+									qsImage.append(QString::fromLatin1(p->qbaTexture.toBase64().toPercentEncoding()));
+									if (sz.width() > 128) {
+										int targ = sz.width() / ((sz.width() + 127) / 128);
+										qsImage.append(QString::fromLatin1("\" width=\"%1\" />").arg(targ));
+									} else {
+										qsImage.append(QString::fromLatin1("\" />"));
 									}
 								}
-								const_cast<UserModel *>(this)->seenComment(idx);
-								QString base = Log::validHtml(p->qsComment);
-								if (! qsImage.isEmpty())
-									return QString::fromLatin1("<table><tr><td valign=\"top\">%1</td><td>%2</td></tr></table>").arg(qsImage,base);
-								return base;
-							}
-						} else {
-							if (c->qbaDescHash.isEmpty()) {
-								return c->qsName;
-							} else {
-								if (c->qsDesc.isEmpty()) {
-									c->qsDesc = QString::fromUtf8(g.db->blob(c->qbaDescHash));
-									if (c->qsDesc.isEmpty()) {
-										const_cast<UserModel *>(this)->iChannelDescription = c->iId;
-
-										MumbleProto::RequestBlob mprb;
-										mprb.add_channel_description(c->iId);
-										g.sh->sendMessage(mprb);
-										return QVariant();
-									}
-								}
-
-								const_cast<UserModel *>(this)->seenComment(idx);
-								return Log::validHtml(c->qsDesc);
 							}
 						}
+
+						if (p->qbaCommentHash.isEmpty()) {
+							if (!qsImage.isEmpty())
+								return qsImage;
+							else
+								return p->qsName;
+						} else {
+							if (p->qsComment.isEmpty()) {
+								p->qsComment = QString::fromUtf8(g.db->blob(p->qbaCommentHash));
+								if (p->qsComment.isEmpty()) {
+									const_cast< UserModel * >(this)->uiSessionComment = p->uiSession;
+
+									MumbleProto::RequestBlob mprb;
+									mprb.add_session_comment(p->uiSession);
+									g.sh->sendMessage(mprb);
+									return QVariant();
+								}
+							}
+							const_cast< UserModel * >(this)->seenComment(idx);
+							QString base = Log::validHtml(p->qsComment);
+							if (!qsImage.isEmpty())
+								return QString::fromLatin1(
+										   "<table><tr><td valign=\"top\">%1</td><td>%2</td></tr></table>")
+									.arg(qsImage, base);
+							return base;
+						}
+					} else {
+						if (c->qbaDescHash.isEmpty()) {
+							return c->qsName;
+						} else {
+							if (c->qsDesc.isEmpty()) {
+								c->qsDesc = QString::fromUtf8(g.db->blob(c->qbaDescHash));
+								if (c->qsDesc.isEmpty()) {
+									const_cast< UserModel * >(this)->iChannelDescription = c->iId;
+
+									MumbleProto::RequestBlob mprb;
+									mprb.add_channel_description(c->iId);
+									g.sh->sendMessage(mprb);
+									return QVariant();
+								}
+							}
+
+							const_cast< UserModel * >(this)->seenComment(idx);
+							return Log::validHtml(c->qsDesc);
+						}
 					}
-					break;
+				} break;
 				case 1:
 					return isUser ? p->getFlagsString() : QVariant();
 			}
@@ -694,79 +695,94 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 				case 0:
 					if (isUser)
 						return QString::fromLatin1("%1"
-						                           "<table>"
-						                           "<tr><td><img src=\"skin:talking_on.svg\" height=64 /></td><td valign=\"middle\">%2</td></tr>"
-						                           "<tr><td><img src=\"skin:talking_alt.svg\" height=64 /></td><td valign=\"middle\">%3</td></tr>"
-						                           "<tr><td><img src=\"skin:talking_whisper.svg\" height=64 /></td><td valign=\"middle\">%4</td></tr>"
-						                           "<tr><td><img src=\"skin:talking_off.svg\" height=64 /></td><td valign=\"middle\">%5</td></tr>"
-						                           "</table>").arg(tr("This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:"),
-						                                           tr("Talking to your channel."),
-						                                           tr("Shouting directly to your channel."),
-						                                           tr("Whispering directly to you."),
-						                                           tr("Not talking.")
-						                                          );
+												   "<table>"
+												   "<tr><td><img src=\"skin:talking_on.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%2</td></tr>"
+												   "<tr><td><img src=\"skin:talking_alt.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%3</td></tr>"
+												   "<tr><td><img src=\"skin:talking_whisper.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%4</td></tr>"
+												   "<tr><td><img src=\"skin:talking_off.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%5</td></tr>"
+												   "</table>")
+							.arg(tr("This is a user connected to the server. The icon to the left of the user "
+									"indicates whether or not they are talking:"),
+								 tr("Talking to your channel."), tr("Shouting directly to your channel."),
+								 tr("Whispering directly to you."), tr("Not talking."));
 					else
 						return QString::fromLatin1("%1"
-						                           "<table>"
-						                           "<tr><td><img src=\"skin:channel_active.svg\" height=64 /></td><td valign=\"middle\">%2</td></tr>"
-						                           "<tr><td><img src=\"skin:channel_linked.svg\" height=64 /></td><td valign=\"middle\">%3</td></tr>"
-						                           "<tr><td><img src=\"skin:channel.svg\" height=64 /></td><td valign=\"middle\">%4</td></tr>"
-						                           "</table>").arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
-						                                           tr("Your current channel."),
-						                                           tr("A channel that is linked with your channel. Linked channels can talk to each other."),
-						                                           tr("A channel on the server that you are not linked to.")
-						                                          );
+												   "<table>"
+												   "<tr><td><img src=\"skin:channel_active.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%2</td></tr>"
+												   "<tr><td><img src=\"skin:channel_linked.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%3</td></tr>"
+												   "<tr><td><img src=\"skin:channel.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%4</td></tr>"
+												   "</table>")
+							.arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
+								 tr("Your current channel."),
+								 tr("A channel that is linked with your channel. Linked channels can talk to each "
+									"other."),
+								 tr("A channel on the server that you are not linked to."));
 				case 1:
 					if (isUser)
 						return QString::fromLatin1("%1"
-						                           "<table>"
-						                           "<tr><td><img src=\"skin:emblems/emblem-favorite.svg\" height=64 /></td><td valign=\"middle\">%2</td></tr>"
-						                           "<tr><td><img src=\"skin:authenticated.svg\" height=64 /></td><td valign=\"middle\">%3</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_self.svg\" height=64 /></td><td valign=\"middle\">%4</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_server.svg\" height=64 /></td><td valign=\"middle\">%5</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_suppressed.svg\" height=64 /></td><td valign=\"middle\">%6</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_local.svg\" height=64 /></td><td valign=\"middle\">%7</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_pushtomute.svg\" height=64 /></td><td valign=\"middle\">%8</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_self.svg\" height=64 /></td><td valign=\"middle\">%9</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_server.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
-						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
-						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
-						                           "<tr><td><img src=\"skin:status/text-missing.svg\" height=64 /></td><td valign=\"middle\">%13</td></tr>"
-						                           "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
-						                                           tr("On your friend list"),
-						                                           tr("Authenticated user"),
-						                                           tr("Muted (manually muted by self)"),
-						                                           tr("Muted (manually muted by admin)"),
-						                                           tr("Muted (not allowed to speak in current channel)"),
-						                                           tr("Muted (muted by you, only on your machine)"),
-						                                           tr("Muted (push-to-mute)")
-						                                          ).arg(
-						                                           tr("Deafened (by self)"),
-						                                           tr("Deafened (by admin)"),
-						                                           tr("User has a new comment set (click to show)"),
-						                                           tr("User has a comment set, which you've already seen. (click to show)"),
-						                                           tr("Ignoring Text Messages")
-						);
+												   "<table>"
+												   "<tr><td><img src=\"skin:emblems/emblem-favorite.svg\" height=64 "
+												   "/></td><td valign=\"middle\">%2</td></tr>"
+												   "<tr><td><img src=\"skin:authenticated.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%3</td></tr>"
+												   "<tr><td><img src=\"skin:muted_self.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%4</td></tr>"
+												   "<tr><td><img src=\"skin:muted_server.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%5</td></tr>"
+												   "<tr><td><img src=\"skin:muted_suppressed.svg\" height=64 "
+												   "/></td><td valign=\"middle\">%6</td></tr>"
+												   "<tr><td><img src=\"skin:muted_local.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%7</td></tr>"
+												   "<tr><td><img src=\"skin:muted_pushtomute.svg\" height=64 "
+												   "/></td><td valign=\"middle\">%8</td></tr>"
+												   "<tr><td><img src=\"skin:deafened_self.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%9</td></tr>"
+												   "<tr><td><img src=\"skin:deafened_server.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%10</td></tr>"
+												   "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%11</td></tr>"
+												   "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%12</td></tr>"
+												   "<tr><td><img src=\"skin:status/text-missing.svg\" height=64 "
+												   "/></td><td valign=\"middle\">%13</td></tr>"
+												   "</table>")
+							.arg(tr("This shows the flags the user has on the server, if any:"),
+								 tr("On your friend list"), tr("Authenticated user"),
+								 tr("Muted (manually muted by self)"), tr("Muted (manually muted by admin)"),
+								 tr("Muted (not allowed to speak in current channel)"),
+								 tr("Muted (muted by you, only on your machine)"), tr("Muted (push-to-mute)"))
+							.arg(tr("Deafened (by self)"), tr("Deafened (by admin)"),
+								 tr("User has a new comment set (click to show)"),
+								 tr("User has a comment set, which you've already seen. (click to show)"),
+								 tr("Ignoring Text Messages"));
 					else
 						return QString::fromLatin1("%1"
-						                           "<table>"
-						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
-						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
-						                           "<tr><td><img src=\"skin:filter.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
-						                           "</table>").arg(tr("This shows the flags the channel has, if any:"),
-						                                           tr("Channel has a new comment set (click to show)"),
-						                                           tr("Channel has a comment set, which you've already seen. (click to show)"),
-						                                           tr("Channel will be hidden when filtering is enabled")
-						                                          );
-
+												   "<table>"
+												   "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%10</td></tr>"
+												   "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%11</td></tr>"
+												   "<tr><td><img src=\"skin:filter.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%12</td></tr>"
+												   "</table>")
+							.arg(tr("This shows the flags the channel has, if any:"),
+								 tr("Channel has a new comment set (click to show)"),
+								 tr("Channel has a comment set, which you've already seen. (click to show)"),
+								 tr("Channel will be hidden when filtering is enabled"));
 			}
 			break;
 	}
 	return QVariant();
 }
 
-QVariant UserModel::headerData(int section, Qt::Orientation orientation,
-                               int role) const {
+QVariant UserModel::headerData(int section, Qt::Orientation orientation, int role) const {
 	if (orientation != Qt::Horizontal)
 		return QVariant();
 
@@ -789,10 +805,10 @@ void UserModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelInde
 
 	beginInsertRows(index(item), 0, old->qlChildren.count());
 
-	for (int i=0;i<old->qlChildren.count();++i) {
-		ModelItem *o = old->qlChildren.at(i);
+	for (int i = 0; i < old->qlChildren.count(); ++i) {
+		ModelItem *o  = old->qlChildren.at(i);
 		ModelItem *mi = new ModelItem(o);
-		mi->parent = item;
+		mi->parent    = item;
 
 		item->qlChildren << mi;
 
@@ -804,7 +820,7 @@ void UserModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelInde
 
 	endInsertRows();
 
-	for (int i=0;i<old->qlChildren.count();++i)
+	for (int i = 0; i < old->qlChildren.count(); ++i)
 		recursiveClone(old->qlChildren.at(i), item->qlChildren.at(i), from, to);
 }
 
@@ -826,7 +842,7 @@ ModelItem *UserModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Model
 	if ((oldparent == newparent) && (newrow == oldrow)) {
 		// This is a no-op. We still claim that the data has changed in order
 		// to trigger potential event handlers.
-		emit dataChanged(index(oldItem),index(oldItem));
+		emit dataChanged(index(oldItem), index(oldItem));
 		return oldItem;
 	}
 
@@ -840,8 +856,8 @@ ModelItem *UserModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Model
 	// Check whether the moved item is currently selected and if so, store it as a persistent
 	// model index in active. Also clear the selection as we're going to mess with the active
 	// item.
-	QTreeView *v=g.mw->qtvUsers;
-	QItemSelectionModel *sel=v->selectionModel();
+	QTreeView *v             = g.mw->qtvUsers;
+	QItemSelectionModel *sel = v->selectionModel();
 	QPersistentModelIndex active;
 	QModelIndex oindex = createIndex(oldrow, 0, oldItem);
 	if (sel->isSelected(oindex) || (oindex == v->currentIndex())) {
@@ -928,13 +944,13 @@ ModelItem *UserModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Model
 }
 
 void UserModel::expandAll(Channel *c) {
-	QStack<Channel *> chans;
+	QStack< Channel * > chans;
 
 	while (c) {
 		chans.push(c);
 		c = c->cParent;
 	}
-	while (! chans.isEmpty()) {
+	while (!chans.isEmpty()) {
 		c = chans.pop();
 		g.mw->qtvUsers->setExpanded(index(c), true);
 	}
@@ -952,30 +968,30 @@ void UserModel::collapseEmpty(Channel *c) {
 }
 
 void UserModel::ensureSelfVisible() {
-	if (! g.uiSession)
+	if (!g.uiSession)
 		return;
 
 	g.mw->qtvUsers->scrollTo(index(ClientUser::get(g.uiSession)));
 }
 
 void UserModel::recheckLinks() {
-	if (! g.uiSession)
+	if (!g.uiSession)
 		return;
 
 	ClientUser *clientUser = ClientUser::get(g.uiSession);
-	if (! clientUser)
+	if (!clientUser)
 		return;
 
 	bool bChanged = false;
 
 	Channel *home = clientUser->cChannel;
 
-	QSet<Channel *> all = home->allLinks();
+	QSet< Channel * > all = home->allLinks();
 
 	if (all == qsLinked)
 		return;
 
-	QSet<Channel *> changed = (all - qsLinked);
+	QSet< Channel * > changed = (all - qsLinked);
 	changed += (qsLinked - all);
 
 	if ((all.count() == 1) || (qsLinked.count() == 1))
@@ -983,7 +999,7 @@ void UserModel::recheckLinks() {
 
 	qsLinked = all;
 
-	foreach(Channel *c, changed) {
+	foreach (Channel *c, changed) {
 		QModelIndex idx = index(c);
 		emit dataChanged(idx, idx);
 		bChanged = true;
@@ -994,7 +1010,7 @@ void UserModel::recheckLinks() {
 
 ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 	ClientUser *p = ClientUser::add(id, this);
-	p->qsName = name;
+	p->qsName     = name;
 
 	ModelItem *item = new ModelItem(p);
 
@@ -1003,7 +1019,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 	connect(p, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 
-	Channel *c = Channel::get(0);
+	Channel *c       = Channel::get(0);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
 	item->parent = citem;
@@ -1031,8 +1047,8 @@ void UserModel::removeUser(ClientUser *p) {
 
 	if (g.uiSession && p->uiSession == g.uiSession)
 		g.uiSession = 0;
-	Channel *c = p->cChannel;
-	ModelItem *item = ModelItem::c_qhUsers.value(p);
+	Channel *c       = p->cChannel;
+	ModelItem *item  = ModelItem::c_qhUsers.value(p);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
 	int row = citem->qlChildren.indexOf(item);
@@ -1062,9 +1078,9 @@ void UserModel::removeUser(ClientUser *p) {
 }
 
 void UserModel::moveUser(ClientUser *p, Channel *np) {
-	Channel *oc = p->cChannel;
-	ModelItem *opi = ModelItem::c_qhChannels.value(oc);
-	ModelItem *pi = ModelItem::c_qhChannels.value(np);
+	Channel *oc     = p->cChannel;
+	ModelItem *opi  = ModelItem::c_qhChannels.value(oc);
+	ModelItem *pi   = ModelItem::c_qhChannels.value(np);
 	ModelItem *item = ModelItem::c_qhUsers.value(p);
 
 	item = moveItem(opi, pi, item);
@@ -1093,9 +1109,9 @@ void UserModel::moveUser(ClientUser *p, Channel *np) {
 
 void UserModel::renameUser(ClientUser *p, const QString &name) {
 	Channel *c = p->cChannel;
-	p->qsName = name;
+	p->qsName  = name;
 
-	ModelItem *pi = ModelItem::c_qhChannels.value(c);
+	ModelItem *pi   = ModelItem::c_qhChannels.value(c);
 	ModelItem *item = ModelItem::c_qhUsers.value(p);
 	moveItem(pi, pi, item);
 
@@ -1103,13 +1119,13 @@ void UserModel::renameUser(ClientUser *p, const QString &name) {
 }
 
 void UserModel::setUserId(ClientUser *p, int id) {
-	p->iId = id;
+	p->iId          = id;
 	QModelIndex idx = index(p, 0);
 	emit dataChanged(idx, idx);
 }
 
 void UserModel::setHash(ClientUser *p, const QString &hash) {
-	if (! p->qsHash.isEmpty())
+	if (!p->qsHash.isEmpty())
 		qmHashes.remove(p->qsHash);
 
 	p->qsHash = hash;
@@ -1127,19 +1143,20 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 
 	if (comment != cu->qsComment) {
 		ModelItem *item = ModelItem::c_qhUsers.value(cu);
-		int oldstate = (cu->qsComment.isEmpty() && cu->qbaCommentHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
-		int newstate = 0;
+		int oldstate    = (cu->qsComment.isEmpty() && cu->qbaCommentHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
+		int newstate    = 0;
 
 		cu->qsComment = comment;
 
-		if (! comment.isEmpty()) {
+		if (!comment.isEmpty()) {
 			g.db->setBlob(cu->qbaCommentHash, cu->qsComment.toUtf8());
 			if (cu->uiSession == uiSessionComment) {
-				uiSessionComment = 0;
+				uiSessionComment   = 0;
 				item->bCommentSeen = false;
 				if (bClicked) {
 					QRect r = g.mw->qtvUsers->visualRect(index(cu));
-					QWhatsThis::showText(g.mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()), data(index(cu, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
+					QWhatsThis::showText(g.mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
+										 data(index(cu, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				} else {
 					QToolTip::showText(QCursor::pos(), data(index(cu, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				}
@@ -1153,7 +1170,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 				}
 			} else {
 				item->bCommentSeen = g.db->seenComment(item->hash(), cu->qbaCommentHash);
-				newstate = item->bCommentSeen ? 2 : 1;
+				newstate           = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
 			item->bCommentSeen = true;
@@ -1169,14 +1186,14 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 void UserModel::setCommentHash(ClientUser *cu, const QByteArray &hash) {
 	if (hash != cu->qbaCommentHash) {
 		ModelItem *item = ModelItem::c_qhUsers.value(cu);
-		int oldstate = (cu->qsComment.isEmpty() && cu->qbaCommentHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
+		int oldstate    = (cu->qsComment.isEmpty() && cu->qbaCommentHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
 		int newstate;
 
-		cu->qsComment = QString();
+		cu->qsComment      = QString();
 		cu->qbaCommentHash = hash;
 
 		item->bCommentSeen = g.db->seenComment(item->hash(), cu->qbaCommentHash);
-		newstate = item->bCommentSeen ? 2 : 1;
+		newstate           = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
 			QModelIndex idx = index(cu, 0);
@@ -1190,26 +1207,27 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 
 	if (comment != c->qsDesc) {
 		ModelItem *item = ModelItem::c_qhChannels.value(c);
-		int oldstate = c->qsDesc.isEmpty() ? 0 : (item->bCommentSeen ? 2 : 1);
-		int newstate = 0;
+		int oldstate    = c->qsDesc.isEmpty() ? 0 : (item->bCommentSeen ? 2 : 1);
+		int newstate    = 0;
 
 		c->qsDesc = comment;
 
-		if (! comment.isEmpty()) {
+		if (!comment.isEmpty()) {
 			g.db->setBlob(c->qbaDescHash, c->qsDesc.toUtf8());
 
 			if (c->iId == iChannelDescription) {
 				iChannelDescription = -1;
-				item->bCommentSeen = false;
+				item->bCommentSeen  = false;
 				if (bClicked) {
 					QRect r = g.mw->qtvUsers->visualRect(index(c));
-					QWhatsThis::showText(g.mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()), data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
+					QWhatsThis::showText(g.mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
+										 data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				} else {
 					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				}
 			} else {
 				item->bCommentSeen = g.db->seenComment(item->hash(), c->qbaDescHash);
-				newstate = item->bCommentSeen ? 2 : 1;
+				newstate           = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
 			item->bCommentSeen = true;
@@ -1225,14 +1243,14 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 void UserModel::setCommentHash(Channel *c, const QByteArray &hash) {
 	if (hash != c->qbaDescHash) {
 		ModelItem *item = ModelItem::c_qhChannels.value(c);
-		int oldstate = (c->qsDesc.isEmpty() && c->qbaDescHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
+		int oldstate    = (c->qsDesc.isEmpty() && c->qbaDescHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
 		int newstate;
 
-		c->qsDesc = QString();
+		c->qsDesc      = QString();
 		c->qbaDescHash = hash;
 
 		item->bCommentSeen = g.db->seenComment(item->hash(), hash);
-		newstate = item->bCommentSeen ? 2 : 1;
+		newstate           = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
 			QModelIndex idx = index(c, 0);
@@ -1243,7 +1261,7 @@ void UserModel::setCommentHash(Channel *c, const QByteArray &hash) {
 
 void UserModel::seenComment(const QModelIndex &idx) {
 	ModelItem *item;
-	item = static_cast<ModelItem *>(idx.internalPointer());
+	item = static_cast< ModelItem * >(idx.internalPointer());
 
 	if (item->bCommentSeen)
 		return;
@@ -1265,8 +1283,8 @@ void UserModel::renameChannel(Channel *c, const QString &name) {
 		QModelIndex idx = index(c);
 		emit dataChanged(idx, idx);
 	} else {
-		Channel *pc = c->cParent;
-		ModelItem *pi = ModelItem::c_qhChannels.value(pc);
+		Channel *pc     = c->cParent;
+		ModelItem *pi   = ModelItem::c_qhChannels.value(pc);
 		ModelItem *item = ModelItem::c_qhChannels.value(c);
 
 		moveItem(pi, pi, item);
@@ -1280,8 +1298,8 @@ void UserModel::repositionChannel(Channel *c, const int position) {
 		QModelIndex idx = index(c);
 		emit dataChanged(idx, idx);
 	} else {
-		Channel *pc = c->cParent;
-		ModelItem *pi = ModelItem::c_qhChannels.value(pc);
+		Channel *pc     = c->cParent;
+		ModelItem *pi   = ModelItem::c_qhChannels.value(pc);
 		ModelItem *item = ModelItem::c_qhChannels.value(c);
 
 		moveItem(pi, pi, item);
@@ -1291,10 +1309,10 @@ void UserModel::repositionChannel(Channel *c, const int position) {
 Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name);
 
-	if (! c)
+	if (!c)
 		return nullptr;
 
-	ModelItem *item = new ModelItem(c);
+	ModelItem *item  = new ModelItem(c);
 	ModelItem *citem = ModelItem::c_qhChannels.value(p);
 
 	item->parent = citem;
@@ -1313,7 +1331,7 @@ Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 }
 
 void UserModel::addChannelListener(ClientUser *p, Channel *c) {
-	ModelItem *item = new ModelItem(p, true);
+	ModelItem *item  = new ModelItem(p, true);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
 	item->parent = citem;
@@ -1337,7 +1355,7 @@ void UserModel::removeChannelListener(const ClientUser *p, const Channel *c) {
 	// object first, before returning a reference to it, in case there is no entry for
 	// the provided key yet. Thus we never have to worry about explicitly adding an empty
 	// list for a new user before accessing it.
-	const QList<ModelItem *> &items = ModelItem::s_userProxies[p];
+	const QList< ModelItem * > &items = ModelItem::s_userProxies[p];
 
 	if (items.isEmpty()) {
 		return;
@@ -1361,9 +1379,7 @@ void UserModel::removeChannelListener(const ClientUser *p, const Channel *c) {
 		}
 	} else {
 		// remove all items
-		foreach(ModelItem *currentItem, items) {
-			removeChannelListener(currentItem);
-		}
+		foreach (ModelItem *currentItem, items) { removeChannelListener(currentItem); }
 	}
 }
 
@@ -1373,7 +1389,7 @@ bool UserModel::isChannelListener(const QModelIndex &idx) const {
 	}
 
 	ModelItem *item;
-	item = static_cast<ModelItem *>(idx.internalPointer());
+	item = static_cast< ModelItem * >(idx.internalPointer());
 
 	return item->isListener;
 }
@@ -1406,7 +1422,7 @@ void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
 	}
 
 	ClientUser *p = item->pUser;
-	Channel *c = citem->cChan;
+	Channel *c    = citem->cChan;
 
 	if (!p) {
 		qCritical("UserModel::removeChannelListener: Can't find associated ClientUser");
@@ -1438,10 +1454,11 @@ void UserModel::removeChannelListener(ModelItem *item, ModelItem *citem) {
 
 bool UserModel::removeChannel(Channel *c, const bool onlyIfUnoccupied) {
 	const ModelItem *item = ModelItem::c_qhChannels.value(c);
-	
-	if (onlyIfUnoccupied && item->iUsers !=0) return false; // Checks full hierarchy
 
-	foreach(const ModelItem *i, item->qlChildren) {
+	if (onlyIfUnoccupied && item->iUsers != 0)
+		return false; // Checks full hierarchy
+
+	foreach (const ModelItem *i, item->qlChildren) {
 		if (i->pUser) {
 			if (i->isListener) {
 				removeChannelListener(i->pUser, c);
@@ -1455,7 +1472,7 @@ bool UserModel::removeChannel(Channel *c, const bool onlyIfUnoccupied) {
 
 	Channel *p = c->cParent;
 
-	if (! p)
+	if (!p)
 		return true;
 
 	ModelItem *citem = ModelItem::c_qhChannels.value(p);
@@ -1476,11 +1493,11 @@ bool UserModel::removeChannel(Channel *c, const bool onlyIfUnoccupied) {
 }
 
 void UserModel::moveChannel(Channel *c, Channel *p) {
-	Channel *oc = c->cParent;
-	ModelItem *opi = ModelItem::c_qhChannels.value(c->cParent);
-	ModelItem *pi = ModelItem::c_qhChannels.value(p);
+	Channel *oc     = c->cParent;
+	ModelItem *opi  = ModelItem::c_qhChannels.value(c->cParent);
+	ModelItem *pi   = ModelItem::c_qhChannels.value(p);
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
-	item = moveItem(opi, pi, item);
+	item            = moveItem(opi, pi, item);
 
 	while (opi) {
 		opi->iUsers -= item->iUsers;
@@ -1498,14 +1515,14 @@ void UserModel::moveChannel(Channel *c, Channel *p) {
 	}
 }
 
-void UserModel::linkChannels(Channel *c, QList<Channel *> links) {
-	foreach(Channel *l, links)
+void UserModel::linkChannels(Channel *c, QList< Channel * > links) {
+	foreach (Channel *l, links)
 		c->link(l);
 	recheckLinks();
 }
 
-void UserModel::unlinkChannels(Channel *c, QList<Channel *> links) {
-	foreach(Channel *l, links)
+void UserModel::unlinkChannels(Channel *c, QList< Channel * > links) {
+	foreach (Channel *l, links)
 		c->unlink(l);
 	recheckLinks();
 }
@@ -1519,18 +1536,18 @@ void UserModel::removeAll() {
 	ModelItem *item = miRoot;
 	ModelItem *i;
 
-	uiSessionComment = 0;
+	uiSessionComment    = 0;
 	iChannelDescription = -1;
-	bClicked = false;
+	bClicked            = false;
 
 	// in order to avoid complications, we remove all ChannelListeners first
-	foreach(i, item->qlChildren) {
+	foreach (i, item->qlChildren) {
 		if (i->pUser && i->isListener) {
 			removeChannelListener(i, item);
 		}
 	}
 
-	foreach(i, item->qlChildren) {
+	foreach (i, item->qlChildren) {
 		if (i->pUser)
 			removeUser(i->pUser);
 		else
@@ -1543,11 +1560,11 @@ void UserModel::removeAll() {
 }
 
 ClientUser *UserModel::getUser(const QModelIndex &idx) const {
-	if (! idx.isValid())
+	if (!idx.isValid())
 		return nullptr;
 
 	ModelItem *item;
-	item = static_cast<ModelItem *>(idx.internalPointer());
+	item = static_cast< ModelItem * >(idx.internalPointer());
 
 	return item->pUser;
 }
@@ -1560,7 +1577,7 @@ ClientUser *UserModel::getSelectedUser() const {
 	QModelIndex selected = getSelectedIndex();
 
 	if (selected.isValid()) {
-		ModelItem *item = static_cast<ModelItem *>(selected.internalPointer());
+		ModelItem *item = static_cast< ModelItem * >(selected.internalPointer());
 
 		return item->pUser;
 	}
@@ -1582,11 +1599,11 @@ void UserModel::setSelectedUser(unsigned int session) {
 }
 
 Channel *UserModel::getChannel(const QModelIndex &idx) const {
-	if (! idx.isValid())
+	if (!idx.isValid())
 		return nullptr;
 
 	ModelItem *item;
-	item = static_cast<ModelItem *>(idx.internalPointer());
+	item = static_cast< ModelItem * >(idx.internalPointer());
 
 	if (item->pUser)
 		if (item->parent && item->parent->cChan) {
@@ -1604,7 +1621,7 @@ Channel *UserModel::getSelectedChannel() const {
 	QModelIndex selected = getSelectedIndex();
 
 	if (selected.isValid()) {
-		ModelItem *item = static_cast<ModelItem *>(selected.internalPointer());
+		ModelItem *item = static_cast< ModelItem * >(selected.internalPointer());
 
 		return item->cChan;
 	}
@@ -1626,11 +1643,11 @@ void UserModel::setSelectedChannel(int id) {
 }
 
 Channel *UserModel::getSubChannel(Channel *p, int idx) const {
-	ModelItem *item=ModelItem::c_qhChannels.value(p);
-	if (! item)
+	ModelItem *item = ModelItem::c_qhChannels.value(p);
+	if (!item)
 		return nullptr;
 
-	foreach(ModelItem *i, item->qlChildren) {
+	foreach (ModelItem *i, item->qlChildren) {
 		if (i->cChan) {
 			if (idx == 0)
 				return i->cChan;
@@ -1641,19 +1658,19 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 }
 
 void UserModel::userStateChanged() {
-	ClientUser *user = qobject_cast<ClientUser *>(sender());
+	ClientUser *user = qobject_cast< ClientUser * >(sender());
 	if (!user)
 		return;
 
 	const QModelIndex idx = index(user);
 	emit dataChanged(idx, idx);
-	
+
 	updateOverlay();
 }
 
 void UserModel::toggleChannelFiltered(Channel *c) {
 	QModelIndex idx;
-	if(c) {
+	if (c) {
 		c->bFiltered = !c->bFiltered;
 
 		ServerHandlerPtr sh = g.sh;
@@ -1681,9 +1698,9 @@ QMimeData *UserModel::mimeData(const QModelIndexList &idxs) const {
 	QByteArray qba;
 	QDataStream ds(&qba, QIODevice::WriteOnly);
 
-	foreach(idx, idxs) {
+	foreach (idx, idxs) {
 		ClientUser *p = getUser(idx);
-		Channel *c = getChannel(idx);
+		Channel *c    = getChannel(idx);
 		if (p) {
 			ds << false;
 			ds << p->uiSession;
@@ -1700,14 +1717,14 @@ QMimeData *UserModel::mimeData(const QModelIndexList &idxs) const {
 bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int column, const QModelIndex &p) {
 #define NAMECMPCHANNEL(first, second) (QString::localeAwareCompare(first->qsName, second->qsName) > 0)
 
-	if (! md->hasFormat(mimeTypes().at(0)))
+	if (!md->hasFormat(mimeTypes().at(0)))
 		return false;
 
 	QByteArray qba = md->data(mimeTypes().at(0));
 	QDataStream ds(qba);
 
 	bool isChannel;
-	int iId = -1;
+	int iId                = -1;
 	unsigned int uiSession = 0;
 	ds >> isChannel;
 
@@ -1717,29 +1734,32 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		ds >> uiSession;
 
 	Channel *c;
-	if (! p.isValid()) {
+	if (!p.isValid()) {
 		c = Channel::get(0);
 	} else {
 		c = getChannel(p);
 	}
 
-	if (! c)
+	if (!c)
 		return false;
 
 	expandAll(c);
 
-	if (! isChannel) {
+	if (!isChannel) {
 		// User dropped somewhere
 		int ret;
 		switch (g.s.ceUserDrag) {
 			case Settings::Ask:
-				ret=QMessageBox::question(g.mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this user?"), QMessageBox::Yes, QMessageBox::No);
+				ret =
+					QMessageBox::question(g.mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this user?"),
+										  QMessageBox::Yes, QMessageBox::No);
 
 				if (ret == QMessageBox::No)
 					return false;
 				break;
 			case Settings::DoNothing:
-				g.l->log(Log::Information, MainWindow::tr("You have User Dragging set to \"Do Nothing\" so the user wasn't moved."));
+				g.l->log(Log::Information,
+						 MainWindow::tr("You have User Dragging set to \"Do Nothing\" so the user wasn't moved."));
 				return false;
 				break;
 			case Settings::Move:
@@ -1754,13 +1774,17 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		int ret;
 		switch (g.s.ceChannelDrag) {
 			case Settings::Ask:
-				ret=QMessageBox::question(g.mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this channel?"), QMessageBox::Yes, QMessageBox::No);
+				ret = QMessageBox::question(g.mw, QLatin1String("Mumble"),
+											tr("Are you sure you want to drag this channel?"), QMessageBox::Yes,
+											QMessageBox::No);
 
 				if (ret == QMessageBox::No)
 					return false;
 				break;
 			case Settings::DoNothing:
-				g.l->log(Log::Information, MainWindow::tr("You have Channel Dragging set to \"Do Nothing\" so the channel wasn't moved."));
+				g.l->log(
+					Log::Information,
+					MainWindow::tr("You have Channel Dragging set to \"Do Nothing\" so the channel wasn't moved."));
 				return false;
 				break;
 			case Settings::Move:
@@ -1772,22 +1796,24 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		}
 
 		long long inewpos = 0;
-		Channel *dropped = Channel::c_qhChannels.value(iId);
+		Channel *dropped  = Channel::c_qhChannels.value(iId);
 
-		if (! dropped)
+		if (!dropped)
 			return false;
 
 		if (p.isValid()) {
-			ModelItem *pi = static_cast<ModelItem *>(p.internalPointer());
+			ModelItem *pi = static_cast< ModelItem * >(p.internalPointer());
 			if (pi->pUser)
 				pi = pi->parent;
 
 			int ifirst = 0;
-			int ilast = pi->rows() - 1;
+			int ilast  = pi->rows() - 1;
 
 			if (ilast > 0) {
-				while (pi->userAt(ifirst) && ifirst < ilast) ifirst++;
-				while (pi->userAt(ilast) && ilast > 0) ilast--;
+				while (pi->userAt(ifirst) && ifirst < ilast)
+					ifirst++;
+				while (pi->userAt(ilast) && ilast > 0)
+					ilast--;
 			}
 
 			if (row == -1 && column == -1) {
@@ -1797,17 +1823,19 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 					if (ilast > 0) {
 						if (pi->bUsersTop) {
 							if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
-								if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
+								if (dropped->iPosition == pi->channelAt(ifirst)->iPosition)
+									return true;
 								inewpos = pi->channelAt(ifirst)->iPosition;
 							} else {
-								inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
+								inewpos = static_cast< long long >(pi->channelAt(ifirst)->iPosition) - 20;
 							}
 						} else {
 							if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
-								if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
+								if (pi->channelAt(ilast)->iPosition == dropped->iPosition)
+									return true;
 								inewpos = pi->channelAt(ilast)->iPosition;
 							} else {
-								inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
+								inewpos = static_cast< long long >(pi->channelAt(ilast)->iPosition) + 20;
 							}
 						}
 					}
@@ -1818,24 +1846,27 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 					// No channels in there yet
 				} else if (row <= ifirst) {
 					if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
-						if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
+						if (dropped->iPosition == pi->channelAt(ifirst)->iPosition)
+							return true;
 						inewpos = pi->channelAt(ifirst)->iPosition;
 					} else {
-						inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
+						inewpos = static_cast< long long >(pi->channelAt(ifirst)->iPosition) - 20;
 					}
 				} else if (row > ilast) {
 					if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
-						if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
+						if (pi->channelAt(ilast)->iPosition == dropped->iPosition)
+							return true;
 						inewpos = pi->channelAt(ilast)->iPosition;
 					} else {
-						inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
+						inewpos = static_cast< long long >(pi->channelAt(ilast)->iPosition) + 20;
 					}
 				} else {
 					// Dropped between channels
 					Channel *lower = pi->channelAt(row);
 					Channel *upper = pi->channelAt(row - 1);
 
-					if (lower->iPosition == upper->iPosition && NAMECMPCHANNEL(lower, dropped) && NAMECMPCHANNEL(dropped, upper)) {
+					if (lower->iPosition == upper->iPosition && NAMECMPCHANNEL(lower, dropped)
+						&& NAMECMPCHANNEL(dropped, upper)) {
 						inewpos = upper->iPosition;
 					} else if (lower->iPosition > upper->iPosition && NAMECMPCHANNEL(lower, dropped)) {
 						inewpos = lower->iPosition;
@@ -1844,11 +1875,13 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 					} else if (lower == dropped || upper == dropped) {
 						return true;
 					} else if (abs(lower->iPosition) - abs(upper->iPosition) > 1) {
-						inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition))/2;
+						inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition)) / 2;
 					} else {
 						// Not enough space, other channels have to be moved
-						if (static_cast<long long>(pi->channelAt(ilast)->iPosition) + 40 > INT_MAX) {
-							QMessageBox::critical(g.mw, QLatin1String("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
+						if (static_cast< long long >(pi->channelAt(ilast)->iPosition) + 40 > INT_MAX) {
+							QMessageBox::critical(g.mw, QLatin1String("Mumble"),
+												  tr("Cannot perform this movement automatically, please reset the "
+													 "numeric sorting indicators or adjust it manually."));
 							return false;
 						}
 						for (int i = row; i <= ilast; i++) {
@@ -1858,7 +1891,6 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 								mpcs.set_channel_id(tmp->iId);
 								mpcs.set_position(tmp->iPosition + 40);
 								g.sh->sendMessage(mpcs);
-
 							}
 						}
 						inewpos = upper->iPosition + 20;
@@ -1868,7 +1900,9 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		}
 
 		if (inewpos > INT_MAX || inewpos < INT_MIN) {
-			QMessageBox::critical(g.mw, QLatin1String("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
+			QMessageBox::critical(g.mw, QLatin1String("Mumble"),
+								  tr("Cannot perform this movement automatically, please reset the numeric sorting "
+									 "indicators or adjust it manually."));
 			return false;
 		}
 
@@ -1876,7 +1910,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		mpcs.set_channel_id(iId);
 		if (dropped->parent() != c)
 			mpcs.set_parent(c->iId);
-		mpcs.set_position(static_cast<int>(inewpos));
+		mpcs.set_position(static_cast< int >(inewpos));
 		g.sh->sendMessage(mpcs);
 	}
 
@@ -1892,11 +1926,12 @@ void UserModel::updateOverlay() const {
 
 
 QString UserModel::createDisplayString(const ClientUser &user, bool isChannelListener, const Channel *parentChannel) {
-	// Get the configured volume adjustment. Depending on whether 
+	// Get the configured volume adjustment. Depending on whether
 	// this display string is for a ChannelListener or a regular user, we have to fetch
 	// the volume adjustment differently.
 	float volumeAdjustment = isChannelListener && parentChannel
-		? ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId) : user.getLocalVolumeAdjustments();
+								 ? ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId)
+								 : user.getLocalVolumeAdjustments();
 
 	// Transform the adjustment into dB
 	// *2 == 6 dB

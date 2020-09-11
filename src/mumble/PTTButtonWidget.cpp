@@ -7,8 +7,7 @@
 
 #include "Global.h"
 
-PTTButtonWidget::PTTButtonWidget(QWidget *p) :
-		QWidget(p) {
+PTTButtonWidget::PTTButtonWidget(QWidget *p) : QWidget(p) {
 	setupUi(this);
 
 	setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint);

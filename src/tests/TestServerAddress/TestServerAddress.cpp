@@ -12,14 +12,14 @@
 #include "ServerAddress.h"
 
 class TestServerAddress : public QObject {
-		Q_OBJECT
-	private slots:
-		void defaultCtor();
-		void isValid();
-		void ctor();
-		void equals();
-		void lessThan();
-		void qhash();
+	Q_OBJECT
+private slots:
+	void defaultCtor();
+	void isValid();
+	void ctor();
+	void equals();
+	void lessThan();
+	void qhash();
 };
 
 void TestServerAddress::defaultCtor() {
@@ -49,7 +49,7 @@ void TestServerAddress::isValid() {
 void TestServerAddress::ctor() {
 	ServerAddress sa(HostAddress(QHostAddress("127.0.0.1")), 443);
 	QCOMPARE(sa.host, HostAddress(QHostAddress("127.0.0.1")));
-	QCOMPARE(sa.port, static_cast<unsigned short>(443));
+	QCOMPARE(sa.port, static_cast< unsigned short >(443));
 }
 
 void TestServerAddress::equals() {
@@ -65,7 +65,7 @@ void TestServerAddress::equals() {
 }
 
 void TestServerAddress::lessThan() {
-	QList<ServerAddress> testdata;
+	QList< ServerAddress > testdata;
 
 	testdata << ServerAddress();
 	testdata << ServerAddress(HostAddress(), 1);
@@ -80,7 +80,7 @@ void TestServerAddress::lessThan() {
 	testdata << ServerAddress(HostAddress(QHostAddress("255.255.255.255")), 0);
 	testdata << ServerAddress(HostAddress(QHostAddress("255.255.255.255")), 65535);
 
-	QList<ServerAddress> sorted(testdata);
+	QList< ServerAddress > sorted(testdata);
 	std::sort(sorted.begin(), sorted.end());
 	QVERIFY(testdata == sorted);
 }

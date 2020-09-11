@@ -8,17 +8,17 @@
 
 #define _UNICODE
 #ifndef _WIN32_WINNT
-#define  _WIN32_WINNT 0x0501
+#	define _WIN32_WINNT 0x0501
 #endif
-#include <stdio.h>
-#include <stdarg.h>
-#include <ctype.h>
 #include <windows.h>
-#include <unknwn.h>
 #include <cmath>
+#include <ctype.h>
 #include <map>
-#include <vector>
+#include <stdarg.h>
+#include <stdio.h>
 #include <string>
+#include <unknwn.h>
+#include <vector>
 
 typedef void *(*voidFunc)();
 

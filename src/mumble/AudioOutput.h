@@ -6,12 +6,12 @@
 #ifndef MUMBLE_MUMBLE_AUDIOOUTPUT_H_
 #define MUMBLE_MUMBLE_AUDIOOUTPUT_H_
 
-#include <boost/shared_ptr.hpp>
 #include <QtCore/QObject>
 #include <QtCore/QThread>
+#include <boost/shared_ptr.hpp>
 
 #ifdef USE_MANUAL_PLUGIN
-	#include "ManualPlugin.h"
+#	include "ManualPlugin.h"
 #endif
 
 // AudioOutput depends on User being valid. This means it's important
@@ -21,24 +21,24 @@
 // having them use resources while unused.
 
 #ifndef SPEAKER_FRONT_LEFT
-#define SPEAKER_FRONT_LEFT              0x1
-#define SPEAKER_FRONT_RIGHT             0x2
-#define SPEAKER_FRONT_CENTER            0x4
-#define SPEAKER_LOW_FREQUENCY           0x8
-#define SPEAKER_BACK_LEFT               0x10
-#define SPEAKER_BACK_RIGHT              0x20
-#define SPEAKER_FRONT_LEFT_OF_CENTER    0x40
-#define SPEAKER_FRONT_RIGHT_OF_CENTER   0x80
-#define SPEAKER_BACK_CENTER             0x100
-#define SPEAKER_SIDE_LEFT               0x200
-#define SPEAKER_SIDE_RIGHT              0x400
-#define SPEAKER_TOP_CENTER              0x800
-#define SPEAKER_TOP_FRONT_LEFT          0x1000
-#define SPEAKER_TOP_FRONT_CENTER        0x2000
-#define SPEAKER_TOP_FRONT_RIGHT         0x4000
-#define SPEAKER_TOP_BACK_LEFT           0x8000
-#define SPEAKER_TOP_BACK_CENTER         0x10000
-#define SPEAKER_TOP_BACK_RIGHT          0x20000
+#	define SPEAKER_FRONT_LEFT 0x1
+#	define SPEAKER_FRONT_RIGHT 0x2
+#	define SPEAKER_FRONT_CENTER 0x4
+#	define SPEAKER_LOW_FREQUENCY 0x8
+#	define SPEAKER_BACK_LEFT 0x10
+#	define SPEAKER_BACK_RIGHT 0x20
+#	define SPEAKER_FRONT_LEFT_OF_CENTER 0x40
+#	define SPEAKER_FRONT_RIGHT_OF_CENTER 0x80
+#	define SPEAKER_BACK_CENTER 0x100
+#	define SPEAKER_SIDE_LEFT 0x200
+#	define SPEAKER_SIDE_RIGHT 0x400
+#	define SPEAKER_TOP_CENTER 0x800
+#	define SPEAKER_TOP_FRONT_LEFT 0x1000
+#	define SPEAKER_TOP_FRONT_CENTER 0x2000
+#	define SPEAKER_TOP_FRONT_RIGHT 0x4000
+#	define SPEAKER_TOP_BACK_LEFT 0x8000
+#	define SPEAKER_TOP_BACK_CENTER 0x10000
+#	define SPEAKER_TOP_BACK_RIGHT 0x20000
 #endif
 
 #include "Audio.h"
@@ -49,82 +49,84 @@ class ClientUser;
 class AudioOutputUser;
 class AudioOutputSample;
 
-typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
+typedef boost::shared_ptr< AudioOutput > AudioOutputPtr;
 
 class AudioOutputRegistrar {
-	private:
-		Q_DISABLE_COPY(AudioOutputRegistrar)
-	public:
-		static QMap<QString, AudioOutputRegistrar *> *qmNew;
-		static QString current;
-		static AudioOutputPtr newFromChoice(QString choice = QString());
+private:
+	Q_DISABLE_COPY(AudioOutputRegistrar)
+public:
+	static QMap< QString, AudioOutputRegistrar * > *qmNew;
+	static QString current;
+	static AudioOutputPtr newFromChoice(QString choice = QString());
 
-		const QString name;
-		int priority;
+	const QString name;
+	int priority;
 
-		AudioOutputRegistrar(const QString &n, int priority = 0);
-		virtual ~AudioOutputRegistrar();
-		virtual AudioOutput *create() = 0;
-		virtual const QList<audioDevice> getDeviceChoices() = 0;
-		virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
-		virtual bool canMuteOthers() const;
-		virtual bool usesOutputDelay() const;
-		virtual bool canExclusive() const;
+	AudioOutputRegistrar(const QString &n, int priority = 0);
+	virtual ~AudioOutputRegistrar();
+	virtual AudioOutput *create()                              = 0;
+	virtual const QList< audioDevice > getDeviceChoices()      = 0;
+	virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
+	virtual bool canMuteOthers() const;
+	virtual bool usesOutputDelay() const;
+	virtual bool canExclusive() const;
 };
 
 class AudioOutput : public QThread {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutput)
-	private:
-		/// Speaker positional vector
-		float *fSpeakers = nullptr;
-		float *fSpeakerVolume = nullptr;
-		bool *bSpeakerPositional = nullptr;
-		/// Used when panning stereo stream w.r.t. each speaker.
-		float * fStereoPanningFactor = nullptr;
-	protected:
-		enum { SampleShort, SampleFloat } eSampleFormat = SampleFloat;
-		volatile bool bRunning = true;
-		unsigned int iFrameSize = SAMPLE_RATE / 100;
-		volatile unsigned int iMixerFreq = 0;
-		unsigned int iChannels = 0;
-		unsigned int iSampleSize = 0;
-		unsigned int iBufferSize = 0;
-		QReadWriteLock qrwlOutputs;
-		QMultiHash<const ClientUser *, AudioOutputUser *> qmOutputs;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(AudioOutput)
+private:
+	/// Speaker positional vector
+	float *fSpeakers         = nullptr;
+	float *fSpeakerVolume    = nullptr;
+	bool *bSpeakerPositional = nullptr;
+	/// Used when panning stereo stream w.r.t. each speaker.
+	float *fStereoPanningFactor = nullptr;
+
+protected:
+	enum { SampleShort, SampleFloat } eSampleFormat = SampleFloat;
+	volatile bool bRunning                          = true;
+	unsigned int iFrameSize                         = SAMPLE_RATE / 100;
+	volatile unsigned int iMixerFreq                = 0;
+	unsigned int iChannels                          = 0;
+	unsigned int iSampleSize                        = 0;
+	unsigned int iBufferSize                        = 0;
+	QReadWriteLock qrwlOutputs;
+	QMultiHash< const ClientUser *, AudioOutputUser * > qmOutputs;
 
 #ifdef USE_MANUAL_PLUGIN
-		QHash<unsigned int, Position2D> positions;
+	QHash< unsigned int, Position2D > positions;
 #endif
 
-		virtual void removeBuffer(AudioOutputUser *);
-		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
-		bool mix(void *output, unsigned int frameCount);
-	public:
-		void wipe();
+	virtual void removeBuffer(AudioOutputUser *);
+	void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
+	bool mix(void *output, unsigned int frameCount);
 
-				/// Construct an AudioOutput.
-				///
-				/// This constructor is only ever called by Audio::startOutput(), and is guaranteed
-				/// to be called on the application's main thread.
-		AudioOutput() {};
+public:
+	void wipe();
 
-				/// Destroy an AudioOutput.
-				///
-				/// This destructor is only ever called by Audio::stopOutput() and Audio::stop(),
-				/// and is guaranteed to be called on the application's main thread.
-		~AudioOutput() Q_DECL_OVERRIDE;
+	/// Construct an AudioOutput.
+	///
+	/// This constructor is only ever called by Audio::startOutput(), and is guaranteed
+	/// to be called on the application's main thread.
+	AudioOutput(){};
 
-		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
-		void removeBuffer(const ClientUser *);
-		AudioOutputSample *playSample(const QString &filename, bool loop = false);
-		void run() Q_DECL_OVERRIDE = 0;
-		virtual bool isAlive() const;
-		const float *getSpeakerPos(unsigned int &nspeakers);
-		static float calcGain(float dotproduct, float distance);
-		unsigned int getMixerFreq() const;
-		void setBufferSize(unsigned int bufferSize);
+	/// Destroy an AudioOutput.
+	///
+	/// This destructor is only ever called by Audio::stopOutput() and Audio::stop(),
+	/// and is guaranteed to be called on the application's main thread.
+	~AudioOutput() Q_DECL_OVERRIDE;
+
+	void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
+	void removeBuffer(const ClientUser *);
+	AudioOutputSample *playSample(const QString &filename, bool loop = false);
+	void run() Q_DECL_OVERRIDE = 0;
+	virtual bool isAlive() const;
+	const float *getSpeakerPos(unsigned int &nspeakers);
+	static float calcGain(float dotproduct, float distance);
+	unsigned int getMixerFreq() const;
+	void setBufferSize(unsigned int bufferSize);
 };
 
 #endif

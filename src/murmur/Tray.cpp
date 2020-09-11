@@ -6,10 +6,10 @@
 #include "Tray.h"
 
 #include "About.h"
+#include "LogEmitter.h"
 #include "Meta.h"
 #include "Server.h"
 #include "Version.h"
-#include "LogEmitter.h"
 
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
@@ -54,12 +54,15 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 
 void Tray::on_Tray_activated(QSystemTrayIcon::ActivationReason r) {
 	if (r == QSystemTrayIcon::Trigger) {
-		qsti->showMessage(tr("Murmur"), tr("%1 server running.").arg(meta->qhServers.count()), QSystemTrayIcon::Information, 5000);
+		qsti->showMessage(tr("Murmur"), tr("%1 server running.").arg(meta->qhServers.count()),
+						  QSystemTrayIcon::Information, 5000);
 	}
 }
 
 void Tray::on_Quit_triggered() {
-	if (QMessageBox::question(nullptr, tr("Murmur"), tr("Are you sure you want to quit Murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+	if (QMessageBox::question(nullptr, tr("Murmur"), tr("Are you sure you want to quit Murmur?"),
+							  QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
+		== QMessageBox::Yes) {
 		qApp->quit();
 	}
 }
@@ -79,7 +82,7 @@ void Tray::on_ShowLog_triggered() {
 
 	connect(le, SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
 
-	foreach(const QString &m, qlLog)
+	foreach (const QString &m, qlLog)
 		tb->append(m);
 
 	mw->show();

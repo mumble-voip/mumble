@@ -2,12 +2,12 @@
  * Protobuf binding benchmarks (serialisation, deserialization, ...).
  */
 
-#include <QtCore>
-#include <vector>
-#include "Timer.h"
 #include "Message.h"
 #include "PacketDataStream.h"
 #include "ProtoBuf.pb.h"
+#include "Timer.h"
+#include <QtCore>
+#include <vector>
 
 using namespace std;
 
@@ -25,11 +25,11 @@ int main(int argc, char **argv) {
 	int v;
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		MessageServerAuthenticate ma;
-		Message *m = &ma;
-		ma.uiSession = 1;
-		ma.iVersion = -1;
+		Message *m    = &ma;
+		ma.uiSession  = 1;
+		ma.iVersion   = -1;
 		ma.qsUsername = n;
 		ma.qsPassword = p;
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 	printf("MsgBased : %8lld %d\n", t.elapsed(), v);
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		Authenticate apb;
 		apb.set_version(-1);
 		apb.set_session(1);
@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 		std::string str;
 
 		Universal u;
-		* (u.mutable_authenticate()) = apb;
+		*(u.mutable_authenticate()) = apb;
 
 		u.SerializeToString(&str);
 		u.ParseFromString(str);
@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
 	printf("ProtoBuf : %8lld %d\n", t.elapsed(), v);
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		Universal u;
 		Authenticate *apb = u.mutable_authenticate();
 		apb->set_version(-1);
@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
 	std::string sp = p.toStdString();
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		Universal u;
 		Authenticate *apb = u.mutable_authenticate();
 		apb->set_version(-1);
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
 	printf("PBStdStr : %8lld %d\n", t.elapsed(), v);
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		Universal u;
 		Authenticate *apb = u.mutable_authenticate();
 		apb->set_version(-1);
@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
 	printf("PBArray  : %8lld %d\n", t.elapsed(), v);
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		Universal u;
 		Authenticate *apb = u.MutableExtension(extauth);
 		apb->set_version(-1);
@@ -165,7 +165,7 @@ int main(int argc, char **argv) {
 	printf("PBExt    : %8lld %d\n", t.elapsed(), v);
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		Authenticate apb;
 		apb.set_version(-1);
 		apb.set_session(1);
@@ -185,7 +185,7 @@ int main(int argc, char **argv) {
 
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		LongUniversal u;
 		Authenticate *apb = u.mutable_z();
 		apb->set_version(-1);
@@ -210,7 +210,7 @@ int main(int argc, char **argv) {
 	LongUniversal u;
 	const LongUniversal::Reflection *r = u.GetReflection();
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		u.Clear();
 
 		Authenticate *apb = u.mutable_z();
@@ -219,20 +219,22 @@ int main(int argc, char **argv) {
 		apb->set_name(n.toStdString());
 		apb->set_pw(p.toStdString());
 
-//		std::string str;
+		//		std::string str;
 
 		v = u.ByteSize();
 
 		u.SerializeToArray(buff, v);
 		u.Clear();
 		u.ParseFromArray(buff, v);
-//		u.DiscardUnknownFields();
+		//		u.DiscardUnknownFields();
 
-//		vector<const google::protobuf::FieldDescriptor *> v;
-//		r->ListFields(u, &v);
-//		printf("%d\n", v.size());
+		//		vector<const google::protobuf::FieldDescriptor *> v;
+		//		r->ListFields(u, &v);
+		//		printf("%d\n", v.size());
 
-		if (u.has_a() || u.has_b() || u.has_c() || u.has_d() || u.has_e() || u.has_f() || u.has_g() || u.has_h() || u.has_i() || u.has_j() || u.has_k() || u.has_l() || u.has_m() || u.has_n() || u.has_o() || u.has_p() || u.has_q())
+		if (u.has_a() || u.has_b() || u.has_c() || u.has_d() || u.has_e() || u.has_f() || u.has_g() || u.has_h()
+			|| u.has_i() || u.has_j() || u.has_k() || u.has_l() || u.has_m() || u.has_n() || u.has_o() || u.has_p()
+			|| u.has_q())
 			continue;
 
 
@@ -246,7 +248,7 @@ int main(int argc, char **argv) {
 	printf("PBCache  : %8lld %d\n", t.elapsed(), v);
 
 	t.restart();
-	for (int i=0;i<1000000;++i) {
+	for (int i = 0; i < 1000000; ++i) {
 		QString nn = QString::fromStdString(n.toStdString());
 		QString np = QString::fromStdString(p.toStdString());
 	}

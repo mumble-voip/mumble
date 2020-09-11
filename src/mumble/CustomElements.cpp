@@ -6,22 +6,24 @@
 #include "CustomElements.h"
 
 #include "ClientUser.h"
-#include "MainWindow.h"
 #include "Log.h"
+#include "MainWindow.h"
 #include "Utils.h"
 
+#include <QMimeData>
 #include <QtCore/QTimer>
 #include <QtGui/QAbstractTextDocumentLayout>
 #include <QtGui/QClipboard>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QKeyEvent>
 #include <QtWidgets/QScrollBar>
-#include <QMimeData>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
+}
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	scrollLogToBottom();
@@ -135,11 +137,11 @@ QSize ChatbarTextEdit::minimumSizeHint() const {
 }
 
 QSize ChatbarTextEdit::sizeHint() const {
-	QSize sh = QTextEdit::sizeHint();
-	const int minHeight = minimumSizeHint().height();
+	QSize sh                 = QTextEdit::sizeHint();
+	const int minHeight      = minimumSizeHint().height();
 	const int documentHeight = document()->documentLayout()->documentSize().height();
 	sh.setHeight(std::max(minHeight, documentHeight));
-	const_cast<ChatbarTextEdit *>(this)->setMaximumHeight(sh.height());
+	const_cast< ChatbarTextEdit * >(this)->setMaximumHeight(sh.height());
 	return sh;
 }
 
@@ -171,20 +173,20 @@ void ChatbarTextEdit::setDefaultText(const QString &new_default, bool force) {
 }
 
 void ChatbarTextEdit::insertFromMimeData(const QMimeData *source) {
-	if (! sendImagesFromMimeData(source)){
+	if (!sendImagesFromMimeData(source)) {
 		QTextEdit::insertFromMimeData(source);
 	}
 }
 
-bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source){
+bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 	if (source->hasImage()) {
 		// Process the image pasted onto the chatbar.
 		if (g.bAllowHTML) {
-			QImage image = qvariant_cast<QImage>(source->imageData());
+			QImage image = qvariant_cast< QImage >(source->imageData());
 
 			QString imgHtml = QLatin1String("<br />") + Log::imageToImg(image);
 
-			if (static_cast<unsigned int>(imgHtml.length()) < g.uiImageLength) {
+			if (static_cast< unsigned int >(imgHtml.length()) < g.uiImageLength) {
 				emit pastedImage(imgHtml);
 				return true;
 			} else {
@@ -193,19 +195,19 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source){
 		}
 	} else if (source->hasUrls()) {
 		// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
-		QList<QUrl> urlList = source->urls();
+		QList< QUrl > urlList = source->urls();
 
 		int count = 0;
-		for (int i = 0; i < urlList.size(); ++i)
-		{
+		for (int i = 0; i < urlList.size(); ++i) {
 			QString path = urlList[i].toLocalFile();
 			QImage image(path);
 
-			if (image.isNull()) continue;
+			if (image.isNull())
+				continue;
 
 			QString imgHtml = QLatin1String("<br />") + Log::imageToImg(image);
 
-			if (static_cast<unsigned int>(imgHtml.length()) < g.uiImageLength) {
+			if (static_cast< unsigned int >(imgHtml.length()) < g.uiImageLength) {
 				emit pastedImage(imgHtml);
 				++count;
 			} else {
@@ -224,7 +226,7 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 	}
 
 	if (evt->type() == QEvent::KeyPress) {
-		QKeyEvent *kev = static_cast<QKeyEvent*>(evt);
+		QKeyEvent *kev = static_cast< QKeyEvent * >(evt);
 		if ((kev->key() == Qt::Key_Enter || kev->key() == Qt::Key_Return) && !(kev->modifiers() & Qt::ShiftModifier)) {
 			const QString msg = toPlainText();
 			if (!msg.isEmpty()) {
@@ -263,12 +265,11 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 	// Get an alphabetically sorted list of usernames
 	unsigned int id = 0;
 
-	QList<QString> qlsUsernames;
+	QList< QString > qlsUsernames;
 
-	if (ClientUser::c_qmUsers.empty()) return id;
-	foreach(ClientUser *usr, ClientUser::c_qmUsers) {
-		qlsUsernames.append(usr->qsName);
-	}
+	if (ClientUser::c_qmUsers.empty())
+		return id;
+	foreach (ClientUser *usr, ClientUser::c_qmUsers) { qlsUsernames.append(usr->qsName); }
 	std::sort(qlsUsernames.begin(), qlsUsernames.end());
 
 	QString target = QString();
@@ -279,23 +280,24 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 		tc.insertText(target);
 	} else {
 		bool bBaseIsName = false;
-		int iend = tc.position();
-		int istart = toPlainText().lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
-		QString base = toPlainText().mid(istart, iend - istart);
+		int iend         = tc.position();
+		int istart       = toPlainText().lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
+		QString base     = toPlainText().mid(istart, iend - istart);
 		tc.setPosition(istart);
 		tc.setPosition(iend, QTextCursor::KeepAnchor);
 
 		if (qlsUsernames.last() == base) {
 			bBaseIsName = true;
-			target = qlsUsernames.first();
+			target      = qlsUsernames.first();
 		} else {
 			if (qlsUsernames.contains(base)) {
 				// Prevent to complete to what's already there
-				while (qlsUsernames.takeFirst() != base) {}
+				while (qlsUsernames.takeFirst() != base) {
+				}
 				bBaseIsName = true;
 			}
 
-			foreach(QString name, qlsUsernames) {
+			foreach (QString name, qlsUsernames) {
 				if (name.startsWith(base, Qt::CaseInsensitive)) {
 					target = name;
 					break;
@@ -316,7 +318,7 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 	if (!target.isEmpty()) {
 		setTextCursor(tc);
 
-		foreach(ClientUser *usr, ClientUser::c_qmUsers) {
+		foreach (ClientUser *usr, ClientUser::c_qmUsers) {
 			if (usr->qsName == target) {
 				id = usr->uiSession;
 				break;
@@ -380,13 +382,13 @@ QSize DockTitleBar::sizeHint() const {
 }
 
 QSize DockTitleBar::minimumSizeHint() const {
-	return QSize(size,size);
+	return QSize(size, size);
 }
 
 bool DockTitleBar::eventFilter(QObject *, QEvent *evt) {
-	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
+	QDockWidget *qdw = qobject_cast< QDockWidget * >(parentWidget());
 
-	if (! this->isEnabled())
+	if (!this->isEnabled())
 		return false;
 
 	switch (evt->type()) {
@@ -394,17 +396,18 @@ bool DockTitleBar::eventFilter(QObject *, QEvent *evt) {
 		case QEvent::Enter:
 		case QEvent::MouseMove:
 		case QEvent::MouseButtonRelease: {
-				newsize = 0;
-				QPoint p = qdw->mapFromGlobal(QCursor::pos());
-				if ((p.x() >= iroundf(static_cast<float>(qdw->width()) * 0.1f + 0.5f)) && (p.x() < iroundf(static_cast<float>(qdw->width()) * 0.9f + 0.5f))  && (p.y() >= 0) && (p.y() < 15))
-					newsize = 15;
-				if (newsize > 0 && !qtTick->isActive())
-					qtTick->start(500);
-				else if ((newsize == size) && qtTick->isActive())
-					qtTick->stop();
-				else if (newsize == 0)
-					tick();
-			}
+			newsize  = 0;
+			QPoint p = qdw->mapFromGlobal(QCursor::pos());
+			if ((p.x() >= iroundf(static_cast< float >(qdw->width()) * 0.1f + 0.5f))
+				&& (p.x() < iroundf(static_cast< float >(qdw->width()) * 0.9f + 0.5f)) && (p.y() >= 0) && (p.y() < 15))
+				newsize = 15;
+			if (newsize > 0 && !qtTick->isActive())
+				qtTick->start(500);
+			else if ((newsize == size) && qtTick->isActive())
+				qtTick->stop();
+			else if (newsize == 0)
+				tick();
+		}
 		default:
 			break;
 	}
@@ -413,7 +416,7 @@ bool DockTitleBar::eventFilter(QObject *, QEvent *evt) {
 }
 
 void DockTitleBar::tick() {
-	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
+	QDockWidget *qdw = qobject_cast< QDockWidget * >(parentWidget());
 
 	if (newsize == size)
 		return;

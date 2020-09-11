@@ -7,12 +7,12 @@
 
 #include <QtCore/QHash>
 
-UnresolvedServerAddress::UnresolvedServerAddress()
-	: port(0) {}
+UnresolvedServerAddress::UnresolvedServerAddress() : port(0) {
+}
 
 UnresolvedServerAddress::UnresolvedServerAddress(QString hostname_, unsigned short port_)
-	: hostname(hostname_.toLower())
-	, port(port_) {}
+	: hostname(hostname_.toLower()), port(port_) {
+}
 
 bool UnresolvedServerAddress::isValid() const {
 	return !hostname.isEmpty() && port != 0;

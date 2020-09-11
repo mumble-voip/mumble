@@ -6,9 +6,9 @@
 #ifndef MUMBLE_HOSTADDRESS_H_
 #define MUMBLE_HOSTADDRESS_H_
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QString>
 #include <QtCore/QByteArray>
+#include <QtCore/QString>
+#include <QtCore/QtGlobal>
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/Q_IPV6ADDR>
 
@@ -30,8 +30,8 @@ struct HostAddress {
 	bool isV6() const;
 	bool isValid() const;
 
-	bool operator < (const HostAddress &) const;
-	bool operator == (const HostAddress &) const;
+	bool operator<(const HostAddress &) const;
+	bool operator==(const HostAddress &) const;
 
 	bool match(const HostAddress &, int bits) const;
 

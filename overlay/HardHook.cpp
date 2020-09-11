@@ -4,7 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #ifdef USE_MINHOOK
-# include "HardHook_minhook.cpp"
+#	include "HardHook_minhook.cpp"
 #else
-# include "HardHook_x86.cpp"
+#	include "HardHook_x86.cpp"
 #endif

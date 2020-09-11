@@ -7,13 +7,13 @@
 #define MUMBLE_MUMBLE_CONNECTDIALOG_H_
 
 #ifndef Q_MOC_RUN
-# include <boost/accumulators/accumulators.hpp>
-# include <boost/accumulators/statistics/stats.hpp>
+#	include <boost/accumulators/accumulators.hpp>
+#	include <boost/accumulators/statistics/stats.hpp>
 #endif
 
-#include <QtCore/QtGlobal>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+#include <QtCore/QtGlobal>
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QTreeWidgetItem>
@@ -21,15 +21,15 @@
 #include <QtNetwork/QHostInfo>
 
 #ifdef USE_BONJOUR
-# include <dns_sd.h>
-# include "BonjourRecord.h"
+#	include "BonjourRecord.h"
+#	include <dns_sd.h>
 #endif
 
-#include "Net.h"
 #include "HostAddress.h"
+#include "Net.h"
+#include "ServerAddress.h"
 #include "Timer.h"
 #include "UnresolvedServerAddress.h"
-#include "ServerAddress.h"
 
 struct FavoriteServer;
 class QUdpSocket;
@@ -50,6 +50,7 @@ private:
 	Q_DISABLE_COPY(PingStats)
 protected:
 	void init();
+
 public:
 	quint32 uiVersion;
 	quint32 uiPing;
@@ -62,7 +63,10 @@ public:
 
 	double dPing;
 
-	typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
+	typedef boost::accumulators::accumulator_set<
+		double,
+		boost::accumulators::stats< boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square > >
+		asQuantileType;
 	asQuantileType *asQuantile;
 
 	void reset();
@@ -84,280 +88,285 @@ public:
 };
 
 class ServerView : public QTreeWidget {
-		Q_OBJECT
-		Q_DISABLE_COPY(ServerView)
-	public:
-		ServerItem *siFavorite, *siLAN, *siPublic;
+	Q_OBJECT
+	Q_DISABLE_COPY(ServerView)
+public:
+	ServerItem *siFavorite, *siLAN, *siPublic;
 
-		ServerView(QWidget *);
-		~ServerView() Q_DECL_OVERRIDE;
+	ServerView(QWidget *);
+	~ServerView() Q_DECL_OVERRIDE;
 
-		void fixupName(ServerItem *si);
-	protected:
-		QMimeData *mimeData(const QList<QTreeWidgetItem *>) const Q_DECL_OVERRIDE;
-		QStringList mimeTypes() const Q_DECL_OVERRIDE;
-		Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
-		bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction) Q_DECL_OVERRIDE;
+	void fixupName(ServerItem *si);
+
+protected:
+	QMimeData *mimeData(const QList< QTreeWidgetItem * >) const Q_DECL_OVERRIDE;
+	QStringList mimeTypes() const Q_DECL_OVERRIDE;
+	Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
+	bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction) Q_DECL_OVERRIDE;
 };
 
 #include "ui_ConnectDialog.h"
 #include "ui_ConnectDialogEdit.h"
 
 class ServerItem : public QTreeWidgetItem, public PingStats {
-		Q_DISABLE_COPY(ServerItem)
-	protected:
-		void init();
-	public:
-		enum ItemType { FavoriteType, LANType, PublicType };
+	Q_DISABLE_COPY(ServerItem)
+protected:
+	void init();
 
-		static QMap<QString, QIcon> qmIcons;
+public:
+	enum ItemType { FavoriteType, LANType, PublicType };
 
-		bool bParent;
-		ServerItem *siParent;
-		QList<ServerItem *> qlChildren;
+	static QMap< QString, QIcon > qmIcons;
 
-		QString qsName;
+	bool bParent;
+	ServerItem *siParent;
+	QList< ServerItem * > qlChildren;
 
-		QString qsHostname;
-		unsigned short usPort;
-		bool bCA;
+	QString qsName;
 
-		QString qsUsername;
-		QString qsPassword;
+	QString qsHostname;
+	unsigned short usPort;
+	bool bCA;
 
-		QString qsCountry;
-		QString qsCountryCode;
-		QString qsContinentCode;
+	QString qsUsername;
+	QString qsPassword;
 
-		QString qsUrl;
+	QString qsCountry;
+	QString qsCountryCode;
+	QString qsContinentCode;
+
+	QString qsUrl;
 #ifdef USE_BONJOUR
-		QString qsBonjourHost;
-		BonjourRecord brRecord;
+	QString qsBonjourHost;
+	BonjourRecord brRecord;
 #endif
-		/// Contains the resolved addresses for
-		/// this ServerItem.
-		QList<ServerAddress> qlAddresses;
+	/// Contains the resolved addresses for
+	/// this ServerItem.
+	QList< ServerAddress > qlAddresses;
 
-		ItemType itType;
+	ItemType itType;
 
-		ServerItem(const FavoriteServer &fs);
-		ServerItem(const PublicInfo &pi);
-		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password = QString());
+	ServerItem(const FavoriteServer &fs);
+	ServerItem(const PublicInfo &pi);
+	ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname,
+			   const QString &password = QString());
 #ifdef USE_BONJOUR
-		ServerItem(const BonjourRecord &br);
+	ServerItem(const BonjourRecord &br);
 #endif
-		ServerItem(const QString &name, ItemType itype);
-		ServerItem(const ServerItem *si);
-		~ServerItem();
+	ServerItem(const QString &name, ItemType itype);
+	ServerItem(const ServerItem *si);
+	~ServerItem();
 
-		/// Converts given mime data into a ServerItem object
-		///
-		/// This function checks the clipboard for a valid mumble:// style
-		/// URL and converts it into a ServerItem ready to add to the connect
-		/// dialog. It also parses .lnk files of InternetShortcut/URL type
-		/// to enable those to be dropped onto the clipboard.
-		///
-		/// @note If needed can query the user for a user name using a modal dialog.
-		/// @note If a server item is returned it's the callers reponsibility to delete it.
-		///
-		/// @param mime Mime data to analyze
-		/// @param default_name If true the hostname is set as item name if none is given
-		/// @param p Parent widget to use in case the user has to be queried
-		/// @return Server item or nullptr if mime data invalid.
-		///
-		static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = nullptr, bool convertHttpUrls=false);
-		/// Create a ServerItem from a mumble:// URL
-		static ServerItem *fromUrl(QUrl url, QWidget *p);
+	/// Converts given mime data into a ServerItem object
+	///
+	/// This function checks the clipboard for a valid mumble:// style
+	/// URL and converts it into a ServerItem ready to add to the connect
+	/// dialog. It also parses .lnk files of InternetShortcut/URL type
+	/// to enable those to be dropped onto the clipboard.
+	///
+	/// @note If needed can query the user for a user name using a modal dialog.
+	/// @note If a server item is returned it's the callers reponsibility to delete it.
+	///
+	/// @param mime Mime data to analyze
+	/// @param default_name If true the hostname is set as item name if none is given
+	/// @param p Parent widget to use in case the user has to be queried
+	/// @return Server item or nullptr if mime data invalid.
+	///
+	static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = nullptr,
+									bool convertHttpUrls = false);
+	/// Create a ServerItem from a mumble:// URL
+	static ServerItem *fromUrl(QUrl url, QWidget *p);
 
-		void addServerItem(ServerItem *child);
+	void addServerItem(ServerItem *child);
 
-		FavoriteServer toFavoriteServer() const;
-		QMimeData *toMimeData() const;
-		static QMimeData *toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel = QString());
+	FavoriteServer toFavoriteServer() const;
+	QMimeData *toMimeData() const;
+	static QMimeData *toMimeData(const QString &name, const QString &host, unsigned short port,
+								 const QString &channel = QString());
 
-		static QIcon loadIcon(const QString &name);
+	static QIcon loadIcon(const QString &name);
 
-		void setDatas(double ping = 0.0, quint32 users = 0, quint32 maxusers = 0);
-		bool operator< (const QTreeWidgetItem &) const Q_DECL_OVERRIDE;
+	void setDatas(double ping = 0.0, quint32 users = 0, quint32 maxusers = 0);
+	bool operator<(const QTreeWidgetItem &) const Q_DECL_OVERRIDE;
 
-		QVariant data(int column, int role) const Q_DECL_OVERRIDE;
+	QVariant data(int column, int role) const Q_DECL_OVERRIDE;
 };
 
 class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ConnectDialogEdit)
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(ConnectDialogEdit)
 
-		void init();
-	protected:
-		bool bOk;
-		bool bCustomLabel;
-		ServerItem *m_si;
+	void init();
 
-	public slots:
-		void validate();
-		void accept();
+protected:
+	bool bOk;
+	bool bCustomLabel;
+	ServerItem *m_si;
 
-		void on_qbFill_clicked();
-		void on_qbDiscard_clicked();
-		void on_qcbShowPassword_toggled(bool);
-		void on_qleName_textEdited(const QString&);
-		void on_qleServer_textEdited(const QString&);
-		void showNotice(const QString &text);
-		bool updateFromClipboard();
-	public:
-		QString qsName, qsHostname, qsUsername, qsPassword;
-		unsigned short usPort;
-		ConnectDialogEdit(QWidget *parent,
-		                  const QString &name,
-		                  const QString &host,
-		                  const QString &user,
-		                  unsigned short port,
-		                  const QString &password);
-		/// Add a new Server
-		/// Prefills from clipboard content or the connected to server if available
-		ConnectDialogEdit(QWidget *parent);
-		virtual ~ConnectDialogEdit();
+public slots:
+	void validate();
+	void accept();
+
+	void on_qbFill_clicked();
+	void on_qbDiscard_clicked();
+	void on_qcbShowPassword_toggled(bool);
+	void on_qleName_textEdited(const QString &);
+	void on_qleServer_textEdited(const QString &);
+	void showNotice(const QString &text);
+	bool updateFromClipboard();
+
+public:
+	QString qsName, qsHostname, qsUsername, qsPassword;
+	unsigned short usPort;
+	ConnectDialogEdit(QWidget *parent, const QString &name, const QString &host, const QString &user,
+					  unsigned short port, const QString &password);
+	/// Add a new Server
+	/// Prefills from clipboard content or the connected to server if available
+	ConnectDialogEdit(QWidget *parent);
+	virtual ~ConnectDialogEdit();
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
-		friend class ServerView;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ConnectDialog)
-	protected:
-		static QList<PublicInfo> qlPublicServers;
-		static QString qsUserCountry, qsUserCountryCode, qsUserContinentCode;
-		static Timer tPublicServers;
+	friend class ServerView;
 
-		QMenu *qmPopup;
-		QPushButton *qpbEdit;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(ConnectDialog)
+protected:
+	static QList< PublicInfo > qlPublicServers;
+	static QString qsUserCountry, qsUserCountryCode, qsUserContinentCode;
+	static Timer tPublicServers;
 
-		bool bPublicInit;
-		bool bAutoConnect;
+	QMenu *qmPopup;
+	QPushButton *qpbEdit;
 
-		Timer tPing;
-		Timer tCurrent, tHover, tRestart;
-		QUdpSocket *qusSocket4;
-		QUdpSocket *qusSocket6;
-		QTimer *qtPingTick;
-		QList<ServerItem *> qlItems;
+	bool bPublicInit;
+	bool bAutoConnect;
 
-		ServerItem *siAutoConnect;
+	Timer tPing;
+	Timer tCurrent, tHover, tRestart;
+	QUdpSocket *qusSocket4;
+	QUdpSocket *qusSocket6;
+	QTimer *qtPingTick;
+	QList< ServerItem * > qlItems;
 
-		QList<UnresolvedServerAddress> qlDNSLookup;
-		QSet<UnresolvedServerAddress> qsDNSActive;
-		QHash<UnresolvedServerAddress, QSet<ServerItem *> > qhDNSWait;
-		QHash<UnresolvedServerAddress, QList<ServerAddress> > qhDNSCache;
+	ServerItem *siAutoConnect;
 
-		QHash<ServerAddress, quint64> qhPingRand;
-		QHash<ServerAddress, QSet<ServerItem *> > qhPings;
+	QList< UnresolvedServerAddress > qlDNSLookup;
+	QSet< UnresolvedServerAddress > qsDNSActive;
+	QHash< UnresolvedServerAddress, QSet< ServerItem * > > qhDNSWait;
+	QHash< UnresolvedServerAddress, QList< ServerAddress > > qhDNSCache;
 
-		QMap<UnresolvedServerAddress, unsigned int> qmPingCache;
+	QHash< ServerAddress, quint64 > qhPingRand;
+	QHash< ServerAddress, QSet< ServerItem * > > qhPings;
 
-		QString qsSearchServername;
-		QString qsSearchLocation;
+	QMap< UnresolvedServerAddress, unsigned int > qmPingCache;
 
-		bool bIPv4;
-		bool bIPv6;
-		int iPingIndex;
+	QString qsSearchServername;
+	QString qsSearchLocation;
 
-		bool bLastFound;
+	bool bIPv4;
+	bool bIPv6;
+	int iPingIndex;
 
-		/// bAllowPing determines whether ConnectDialog can use
-		/// UDP packets to ping remote hosts to be able to show a
-		/// ping latency and user count.
-		bool bAllowPing;
-		/// bAllowHostLookup determines whether ConnectDialog can
-		/// resolve hosts via DNS, Bonjour, and so on.
-		bool bAllowHostLookup;
-		/// bAllowBonjour determines whether ConfigDialog can use
-		/// Bonjour to find nearby servers on the local network.
-		bool bAllowBonjour;
-		/// bAllowFilters determines whether filters are available
-		/// in the ConfigDialog. If this option is diabled, the
-		/// 'Show All' filter is forced, and no other filter can
-		/// be chosen.
-		bool bAllowFilters;
+	bool bLastFound;
+
+	/// bAllowPing determines whether ConnectDialog can use
+	/// UDP packets to ping remote hosts to be able to show a
+	/// ping latency and user count.
+	bool bAllowPing;
+	/// bAllowHostLookup determines whether ConnectDialog can
+	/// resolve hosts via DNS, Bonjour, and so on.
+	bool bAllowHostLookup;
+	/// bAllowBonjour determines whether ConfigDialog can use
+	/// Bonjour to find nearby servers on the local network.
+	bool bAllowBonjour;
+	/// bAllowFilters determines whether filters are available
+	/// in the ConfigDialog. If this option is diabled, the
+	/// 'Show All' filter is forced, and no other filter can
+	/// be chosen.
+	bool bAllowFilters;
 
 
-		void sendPing(const QHostAddress &, unsigned short port);
+	void sendPing(const QHostAddress &, unsigned short port);
 
-		void initList();
-		void fillList();
+	void initList();
+	void fillList();
 
-		void startDns(ServerItem *);
-		void stopDns(ServerItem *);
+	void startDns(ServerItem *);
+	void stopDns(ServerItem *);
 
-		/// Calls ConnectDialog::filterServer for each server in
-		/// the public server list
-		void filterPublicServerList() const;
-		/// Hides the given ServerItem according to the current
-		/// filter settings. It is checked that the name of the
-		/// given server matches ConnectDialog#qsSearchServername
-		/// and the location is equal to ConnectDialog#qsSearchLocation.
-		/// Lastly it is checked that the server is reachable or
-		/// populated, should the respective filters be set.
-		///
-		/// \param si  ServerItem that should be filtered
-		void filterServer(ServerItem * const si) const;
+	/// Calls ConnectDialog::filterServer for each server in
+	/// the public server list
+	void filterPublicServerList() const;
+	/// Hides the given ServerItem according to the current
+	/// filter settings. It is checked that the name of the
+	/// given server matches ConnectDialog#qsSearchServername
+	/// and the location is equal to ConnectDialog#qsSearchLocation.
+	/// Lastly it is checked that the server is reachable or
+	/// populated, should the respective filters be set.
+	///
+	/// \param si  ServerItem that should be filtered
+	void filterServer(ServerItem *const si) const;
 
-		/// Enumerates all countries in ConnectDialog#qlPublicServers
-		/// and adds an entry to the location filter Combobox with
-		/// with the country name as text, the countrycode as
-		/// data and the flag of the country as the icon.
-		void addCountriesToSearchLocation() const;
-	public slots:
-		void accept();
-		void fetched(QByteArray xmlData, QUrl, QMap<QString, QString>);
+	/// Enumerates all countries in ConnectDialog#qlPublicServers
+	/// and adds an entry to the location filter Combobox with
+	/// with the country name as text, the countrycode as
+	/// data and the flag of the country as the icon.
+	void addCountriesToSearchLocation() const;
+public slots:
+	void accept();
+	void fetched(QByteArray xmlData, QUrl, QMap< QString, QString >);
 
-		void udpReply();
-		void lookedUp();
-		void timeTick();
+	void udpReply();
+	void lookedUp();
+	void timeTick();
 
-		void on_qaFavoriteAdd_triggered();
-		void on_qaFavoriteAddNew_triggered();
-		void on_qaFavoriteEdit_triggered();
-		void on_qaFavoriteRemove_triggered();
-		void on_qaFavoriteCopy_triggered();
-		void on_qaFavoritePaste_triggered();
-		void on_qaUrl_triggered();
-		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
-		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
-		void on_qtwServers_customContextMenuRequested(const QPoint &);
-		/// If the expanded item is the public server list
-		/// the user is asked (only once) for consent to transmit
-		/// the IP to all public servers. If the user does not
-		/// consent the public server list is disabled. If
-		/// the user does consent the public server list is
-		/// filled and the search dialog is shown.
-		/// Finally name resolution is triggered for all child
-		/// items of the expanded item.
-		void on_qtwServers_itemExpanded(QTreeWidgetItem *item);
-		/// Hides the search dialog if the collapsed item is
-		/// the public server list
-		void on_qtwServers_itemCollapsed(QTreeWidgetItem *item);
-		void OnSortChanged(int, Qt::SortOrder);
-	public:
-		QString qsServer, qsUsername, qsPassword;
-		unsigned short usPort;
-		ConnectDialog(QWidget *parent, bool autoconnect);
-		~ConnectDialog();
+	void on_qaFavoriteAdd_triggered();
+	void on_qaFavoriteAddNew_triggered();
+	void on_qaFavoriteEdit_triggered();
+	void on_qaFavoriteRemove_triggered();
+	void on_qaFavoriteCopy_triggered();
+	void on_qaFavoritePaste_triggered();
+	void on_qaUrl_triggered();
+	void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
+	void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
+	void on_qtwServers_customContextMenuRequested(const QPoint &);
+	/// If the expanded item is the public server list
+	/// the user is asked (only once) for consent to transmit
+	/// the IP to all public servers. If the user does not
+	/// consent the public server list is disabled. If
+	/// the user does consent the public server list is
+	/// filled and the search dialog is shown.
+	/// Finally name resolution is triggered for all child
+	/// items of the expanded item.
+	void on_qtwServers_itemExpanded(QTreeWidgetItem *item);
+	/// Hides the search dialog if the collapsed item is
+	/// the public server list
+	void on_qtwServers_itemCollapsed(QTreeWidgetItem *item);
+	void OnSortChanged(int, Qt::SortOrder);
+
+public:
+	QString qsServer, qsUsername, qsPassword;
+	unsigned short usPort;
+	ConnectDialog(QWidget *parent, bool autoconnect);
+	~ConnectDialog();
 
 #ifdef USE_BONJOUR
-	protected:
-		QList<BonjourRecord> qlBonjourActive;
-	public slots:
-		void onUpdateLanList(const QList<BonjourRecord> &);
-		void onLanBrowseError(DNSServiceErrorType);
+protected:
+	QList< BonjourRecord > qlBonjourActive;
+public slots:
+	void onUpdateLanList(const QList< BonjourRecord > &);
+	void onLanBrowseError(DNSServiceErrorType);
 
-		void onResolved(BonjourRecord, QString, int);
-		void onLanResolveError(BonjourRecord, DNSServiceErrorType);
+	void onResolved(BonjourRecord, QString, int);
+	void onLanResolveError(BonjourRecord, DNSServiceErrorType);
 #endif
-	private slots:
-		void on_qleSearchServername_textChanged(const QString &searchServername);
-		void on_qcbSearchLocation_currentIndexChanged(int searchLocationIndex);
-		void on_qcbFilter_currentIndexChanged(int filterIndex);
+private slots:
+	void on_qleSearchServername_textChanged(const QString &searchServername);
+	void on_qcbSearchLocation_currentIndexChanged(int searchLocationIndex);
+	void on_qcbFilter_currentIndexChanged(int filterIndex);
 };
 
 #endif

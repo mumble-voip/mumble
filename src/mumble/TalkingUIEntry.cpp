@@ -4,25 +4,25 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "TalkingUIEntry.h"
-#include "TalkingUIContainer.h"
-#include "TalkingUI.h"
-#include "ClientUser.h"
-#include "UserModel.h"
 #include "Channel.h"
+#include "ClientUser.h"
+#include "TalkingUI.h"
+#include "TalkingUIContainer.h"
+#include "UserModel.h"
 
-#include <QWidget>
-#include <QLabel>
 #include <QHBoxLayout>
-#include <QVariant>
+#include <QLabel>
 #include <QObject>
 #include <QPainter>
 #include <QPixmap>
+#include <QVariant>
+#include <QWidget>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-TalkingUIEntry::TalkingUIEntry(unsigned int associatedUserSession)
-	: m_associatedUserSession(associatedUserSession) {
+TalkingUIEntry::TalkingUIEntry(unsigned int associatedUserSession) : m_associatedUserSession(associatedUserSession) {
 }
 
 unsigned int TalkingUIEntry::getAssociatedUserSession() const {
@@ -39,7 +39,7 @@ const TalkingUIContainer *TalkingUIEntry::getContainer() const {
 
 int TalkingUIEntry::compare(const TalkingUIEntry &other) const {
 	if (getPriority() != other.getPriority()) {
-		return static_cast<int>(getPriority()) - static_cast<int>(other.getPriority());
+		return static_cast< int >(getPriority()) - static_cast< int >(other.getPriority());
 	}
 
 	if (getType() != other.getType()) {
@@ -87,31 +87,23 @@ bool TalkingUIEntry::operator>=(const TalkingUIEntry &other) const {
 
 
 
-
-
 static const int USER_CONTAINER_HORIZONTAL_MARGIN = 2;
-static const int USER_CONTAINER_VERTICAL_MARGIN = 3;
+static const int USER_CONTAINER_VERTICAL_MARGIN   = 3;
 
 
-TalkingUIUser::TalkingUIUser(const ClientUser &user)
-	: TalkingUIEntry(user.uiSession),
-	  m_name(user.qsName),
-	  m_timer() {
-
+TalkingUIUser::TalkingUIUser(const ClientUser &user) : TalkingUIEntry(user.uiSession), m_name(user.qsName), m_timer() {
 	// Create background widget and its layout that we'll use to place all other
 	// components on
 	m_backgroundWidget = new QWidget();
 	m_backgroundWidget->setProperty("selected", false);
 	QLayout *backgroundLayout = new QHBoxLayout();
-	backgroundLayout->setContentsMargins(USER_CONTAINER_HORIZONTAL_MARGIN,
-			USER_CONTAINER_VERTICAL_MARGIN,
-			USER_CONTAINER_HORIZONTAL_MARGIN,
-			USER_CONTAINER_VERTICAL_MARGIN);
+	backgroundLayout->setContentsMargins(USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN,
+										 USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN);
 	m_backgroundWidget->setLayout(backgroundLayout);
 	m_backgroundWidget->setAutoFillBackground(true);
 
 	// Create the label we use to display the user's name
-	m_nameLabel = new QLabel(m_backgroundWidget);
+	m_nameLabel                 = new QLabel(m_backgroundWidget);
 	const QString displayString = UserModel::createDisplayString(user, false, nullptr);
 	setDisplayString(displayString);
 
@@ -139,7 +131,7 @@ TalkingUIUser::TalkingUIUser(const ClientUser &user)
 
 	// If the timer runs out, we remove this entry from its container (if any)
 	// and thereby this will cause its deletion (smart-pointer goes out of scope)
-	QObject::connect(&m_timer, &QTimer::timeout, [this](){
+	QObject::connect(&m_timer, &QTimer::timeout, [this]() {
 		if (getContainer()) {
 			// We let the TalkingUI handle the removing in order for it to do the necessary
 			// housekeeping (e.g. making sure there is no active selection for this user).
@@ -159,11 +151,11 @@ TalkingUIUser::~TalkingUIUser() {
 }
 
 const QIcon &TalkingUIUser::getTalkingIcon(Settings::TalkState talkState) const {
-	static const QIcon s_talkingIcon = QIcon(QLatin1String("skin:talking_on.svg"));
+	static const QIcon s_talkingIcon      = QIcon(QLatin1String("skin:talking_on.svg"));
 	static const QIcon s_mutedTalkingIcon = QIcon(QLatin1String("skin:talking_muted.svg"));
-	static const QIcon s_passiveIcon = QIcon(QLatin1String("skin:talking_off.svg"));
-	static const QIcon s_shoutingIcon = QIcon(QLatin1String("skin:talking_alt.svg"));
-	static const QIcon s_whisperingIcon = QIcon(QLatin1String("skin:talking_whisper.svg"));
+	static const QIcon s_passiveIcon      = QIcon(QLatin1String("skin:talking_off.svg"));
+	static const QIcon s_shoutingIcon     = QIcon(QLatin1String("skin:talking_alt.svg"));
+	static const QIcon s_whisperingIcon   = QIcon(QLatin1String("skin:talking_whisper.svg"));
 
 	switch (talkState) {
 		case Settings::MutedTalking:
@@ -202,10 +194,10 @@ QString TalkingUIUser::getName() const {
 
 int TalkingUIUser::compare(const TalkingUIEntry &other) const {
 	if (other.getType() != getType()) {
-		return static_cast<int>(other.getType()) - static_cast<int>(getType());
+		return static_cast< int >(other.getType()) - static_cast< int >(getType());
 	}
 
-	const TalkingUIUser &otherUser = static_cast<const TalkingUIUser &>(other);
+	const TalkingUIUser &otherUser = static_cast< const TalkingUIUser & >(other);
 
 	if (getPriority() != otherUser.getPriority()) {
 		return getPriority() < other.getPriority() ? 1 : -1;
@@ -223,7 +215,8 @@ int TalkingUIUser::compare(const TalkingUIEntry &other) const {
 }
 
 void TalkingUIUser::updateTalkingIcon() {
-	m_talkingIcon->setPixmap(getTalkingIcon(m_talkingState).pixmap(QSize(m_iconSize, m_iconSize), QIcon::Normal, QIcon::On));
+	m_talkingIcon->setPixmap(
+		getTalkingIcon(m_talkingState).pixmap(QSize(m_iconSize, m_iconSize), QIcon::Normal, QIcon::On));
 }
 
 void TalkingUIUser::setTalkingState(Settings::TalkState talkState) {
@@ -232,7 +225,7 @@ void TalkingUIUser::setTalkingState(Settings::TalkState talkState) {
 	}
 
 	m_talkingState = talkState;
-	
+
 	switch (talkState) {
 		case Settings::Passive:
 			if (m_restrictLifetime) {
@@ -283,14 +276,14 @@ void TalkingUIUser::restrictLifetime(bool restrict) {
 }
 
 void TalkingUIUser::setStatus(UserStatus status) {
-	static const QIcon s_muteIcon = QIcon(QLatin1String("skin:muted_server.svg"));
-	static const QIcon s_deafIcon = QIcon(QLatin1String("skin:deafened_server.svg"));
+	static const QIcon s_muteIcon      = QIcon(QLatin1String("skin:muted_server.svg"));
+	static const QIcon s_deafIcon      = QIcon(QLatin1String("skin:deafened_server.svg"));
 	static const QIcon s_localMuteIcon = QIcon(QLatin1String("skin:muted_local.svg"));
-	static const QIcon s_selfMuteIcon = QIcon(QLatin1String("skin:muted_self.svg"));
-	static const QIcon s_selfDeafIcon = QIcon(QLatin1String("skin:deafened_self.svg"));
+	static const QIcon s_selfMuteIcon  = QIcon(QLatin1String("skin:muted_self.svg"));
+	static const QIcon s_selfDeafIcon  = QIcon(QLatin1String("skin:deafened_self.svg"));
 
 
-	std::vector<std::reference_wrapper<const QIcon>> icons;
+	std::vector< std::reference_wrapper< const QIcon > > icons;
 
 	if (status.muted) {
 		icons.push_back(s_muteIcon);
@@ -317,12 +310,12 @@ void TalkingUIUser::setStatus(UserStatus status) {
 		const QSize size(m_iconSize * icons.size(), m_iconSize);
 		QPixmap pixmap(size);
 		pixmap.fill(Qt::transparent);
-		
+
 		// Draw the icons to the Pixmap
 		QPainter painter(&pixmap);
 		for (std::size_t i = 0; i < icons.size(); i++) {
-			painter.drawPixmap(i * m_iconSize, 0, icons[i].get().pixmap(QSize(m_iconSize, m_iconSize),
-						QIcon::Normal, QIcon::On));
+			painter.drawPixmap(i * m_iconSize, 0,
+							   icons[i].get().pixmap(QSize(m_iconSize, m_iconSize), QIcon::Normal, QIcon::On));
 		}
 
 		m_statusIcons->setPixmap(pixmap);
@@ -337,22 +330,15 @@ void TalkingUIUser::setStatus(UserStatus status) {
 
 
 
-
-
 TalkingUIChannelListener::TalkingUIChannelListener(const ClientUser &user, const Channel &channel)
-	: TalkingUIEntry(user.uiSession),
-	  m_channelID(channel.iId),
-	  m_name(user.qsName) {
-
+	: TalkingUIEntry(user.uiSession), m_channelID(channel.iId), m_name(user.qsName) {
 	// Create background widget and its layout that we'll use to place all other
 	// components on
 	m_backgroundWidget = new QWidget();
 	m_backgroundWidget->setProperty("selected", false);
 	QLayout *backgroundLayout = new QHBoxLayout();
-	backgroundLayout->setContentsMargins(USER_CONTAINER_HORIZONTAL_MARGIN,
-			USER_CONTAINER_VERTICAL_MARGIN,
-			USER_CONTAINER_HORIZONTAL_MARGIN,
-			USER_CONTAINER_VERTICAL_MARGIN);
+	backgroundLayout->setContentsMargins(USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN,
+										 USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN);
 	m_backgroundWidget->setLayout(backgroundLayout);
 	m_backgroundWidget->setAutoFillBackground(true);
 
@@ -366,7 +352,7 @@ TalkingUIChannelListener::TalkingUIChannelListener(const ClientUser &user, const
 	setIconSize(iconSize);
 
 	// Create the label we use to display the user's name
-	m_nameLabel = new QLabel(m_backgroundWidget);
+	m_nameLabel                 = new QLabel(m_backgroundWidget);
 	const QString displayString = UserModel::createDisplayString(user, true, &channel);
 	setDisplayString(displayString);
 

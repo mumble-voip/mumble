@@ -12,85 +12,86 @@
 #include "ui_AudioOutput.h"
 
 class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioInputDialog)
-	protected:
-		QTimer *qtTick;
-		void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
-		void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
-		void updateEchoEnableState();
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(AudioInputDialog)
+protected:
+	QTimer *qtTick;
+	void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+	void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+	void updateEchoEnableState();
 
-		void showSpeexNoiseSuppressionSlider(bool show);
+	void showSpeexNoiseSuppressionSlider(bool show);
 
-	public:
-		/// The unique name of this ConfigWidget
-		static const QString name;
-		AudioInputDialog(Settings &st);
-		QString title() const Q_DECL_OVERRIDE;
-		const QString &getName() const Q_DECL_OVERRIDE;
-		QIcon icon() const Q_DECL_OVERRIDE;
+public:
+	/// The unique name of this ConfigWidget
+	static const QString name;
+	AudioInputDialog(Settings &st);
+	QString title() const Q_DECL_OVERRIDE;
+	const QString &getName() const Q_DECL_OVERRIDE;
+	QIcon icon() const Q_DECL_OVERRIDE;
 
-	public slots:
-		void save() const Q_DECL_OVERRIDE;
-		void load(const Settings &r) Q_DECL_OVERRIDE;
-		void updateBitrate();
-		void continuePlayback();
+public slots:
+	void save() const Q_DECL_OVERRIDE;
+	void load(const Settings &r) Q_DECL_OVERRIDE;
+	void updateBitrate();
+	void continuePlayback();
 
-		void on_qcbPushClick_clicked(bool);
-		void on_qpbPushClickBrowseOn_clicked();
-		void on_qpbPushClickBrowseOff_clicked();
-		void on_qpbPushClickPreview_clicked();
-		void on_qpbPushClickReset_clicked();
+	void on_qcbPushClick_clicked(bool);
+	void on_qpbPushClickBrowseOn_clicked();
+	void on_qpbPushClickBrowseOff_clicked();
+	void on_qpbPushClickPreview_clicked();
+	void on_qpbPushClickReset_clicked();
 
-		void on_qsTransmitHold_valueChanged(int v);
-		void on_qsFrames_valueChanged(int v);
-		void on_qsQuality_valueChanged(int v);
-		void on_qsAmp_valueChanged(int v);
-		void on_qsDoublePush_valueChanged(int v);
-		void on_qsPTTHold_valueChanged(int v);
-		void on_qsSpeexNoiseSupStrength_valueChanged(int v);
-		void on_qcbTransmit_currentIndexChanged(int v);
-		void on_qcbSystem_currentIndexChanged(int);
-		void on_Tick_timeout();
-		void on_qcbIdleAction_currentIndexChanged(int v);
-		void on_qrbNoiseSupSpeex_toggled(bool checked);
-		void on_qrbNoiseSupBoth_toggled(bool checked);
+	void on_qsTransmitHold_valueChanged(int v);
+	void on_qsFrames_valueChanged(int v);
+	void on_qsQuality_valueChanged(int v);
+	void on_qsAmp_valueChanged(int v);
+	void on_qsDoublePush_valueChanged(int v);
+	void on_qsPTTHold_valueChanged(int v);
+	void on_qsSpeexNoiseSupStrength_valueChanged(int v);
+	void on_qcbTransmit_currentIndexChanged(int v);
+	void on_qcbSystem_currentIndexChanged(int);
+	void on_Tick_timeout();
+	void on_qcbIdleAction_currentIndexChanged(int v);
+	void on_qrbNoiseSupSpeex_toggled(bool checked);
+	void on_qrbNoiseSupBoth_toggled(bool checked);
 };
 
 class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutputDialog)
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(AudioOutputDialog)
 
-		void enablePulseAudioAttenuationOptionsFor(const QString &outputName);
-	public:
-		/// The unique name of this ConfigWidget
-		static const QString name;
-		AudioOutputDialog(Settings &st);
-		QString title() const Q_DECL_OVERRIDE;
-		const QString &getName() const Q_DECL_OVERRIDE;
-		QIcon icon() const Q_DECL_OVERRIDE;
-		/// @returns The name of the currently selected audio output interface
-		QString getCurrentlySelectedOutputInterfaceName() const;
-	public slots:
-		void save() const Q_DECL_OVERRIDE;
-		void load(const Settings &r) Q_DECL_OVERRIDE;
-		void on_qsDelay_valueChanged(int v);
-		void on_qsJitter_valueChanged(int v);
-		void on_qsVolume_valueChanged(int v);
-		void on_qsOtherVolume_valueChanged(int v);
-		void on_qsPacketDelay_valueChanged(int v);
-		void on_qsPacketLoss_valueChanged(int v);
-		void on_qcbLoopback_currentIndexChanged(int v);
-		void on_qsMinDistance_valueChanged(int v);
-		void on_qsMaxDistance_valueChanged(int v);
-		void on_qsBloom_valueChanged(int v);
-		void on_qsMaxDistVolume_valueChanged(int v);
-		void on_qcbSystem_currentIndexChanged(int);
-		void on_qcbAttenuateOthersOnTalk_clicked(bool checked);
-		void on_qcbAttenuateOthers_clicked(bool checked);
-		void on_qcbOnlyAttenuateSameOutput_clicked(bool checked);
+	void enablePulseAudioAttenuationOptionsFor(const QString &outputName);
+
+public:
+	/// The unique name of this ConfigWidget
+	static const QString name;
+	AudioOutputDialog(Settings &st);
+	QString title() const Q_DECL_OVERRIDE;
+	const QString &getName() const Q_DECL_OVERRIDE;
+	QIcon icon() const Q_DECL_OVERRIDE;
+	/// @returns The name of the currently selected audio output interface
+	QString getCurrentlySelectedOutputInterfaceName() const;
+public slots:
+	void save() const Q_DECL_OVERRIDE;
+	void load(const Settings &r) Q_DECL_OVERRIDE;
+	void on_qsDelay_valueChanged(int v);
+	void on_qsJitter_valueChanged(int v);
+	void on_qsVolume_valueChanged(int v);
+	void on_qsOtherVolume_valueChanged(int v);
+	void on_qsPacketDelay_valueChanged(int v);
+	void on_qsPacketLoss_valueChanged(int v);
+	void on_qcbLoopback_currentIndexChanged(int v);
+	void on_qsMinDistance_valueChanged(int v);
+	void on_qsMaxDistance_valueChanged(int v);
+	void on_qsBloom_valueChanged(int v);
+	void on_qsMaxDistVolume_valueChanged(int v);
+	void on_qcbSystem_currentIndexChanged(int);
+	void on_qcbAttenuateOthersOnTalk_clicked(bool checked);
+	void on_qcbAttenuateOthers_clicked(bool checked);
+	void on_qcbOnlyAttenuateSameOutput_clicked(bool checked);
 };
 
 #endif

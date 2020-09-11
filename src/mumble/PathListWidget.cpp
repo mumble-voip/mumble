@@ -14,9 +14,7 @@
 #include <QtGui/QDragMoveEvent>
 #include <QtGui/QDropEvent>
 
-PathListWidget::PathListWidget(QWidget *parent)
-	: QListWidget(parent)
-	, pathType(FILE_EXE) {
+PathListWidget::PathListWidget(QWidget *parent) : QListWidget(parent), pathType(FILE_EXE) {
 	setAcceptDrops(true);
 }
 
@@ -30,8 +28,8 @@ void PathListWidget::addFilePath(const QString &path) {
 	for (int i = 0; i < count(); i++) {
 		qslIdentifiers << item(i)->data(Qt::UserRole).toString();
 	}
-	if (! qslIdentifiers.contains(qsAppIdentifier)) {
-		OverlayAppInfo oai = OverlayAppInfo::applicationInfoForId(qsAppIdentifier);
+	if (!qslIdentifiers.contains(qsAppIdentifier)) {
+		OverlayAppInfo oai               = OverlayAppInfo::applicationInfoForId(qsAppIdentifier);
 		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, this);
 		qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
 		setCurrentItem(qlwiApplication);
@@ -44,7 +42,7 @@ void PathListWidget::addFolderPath(const QString &path) {
 	for (int i = 0; i < count(); i++) {
 		qslIdentifiers << item(i)->data(Qt::UserRole).toString();
 	}
-	if (! dir.isEmpty() && ! qslIdentifiers.contains(dir)) {
+	if (!dir.isEmpty() && !qslIdentifiers.contains(dir)) {
 		QListWidgetItem *qlwiPath = new QListWidgetItem(QIcon(), QDir(dir).path(), this);
 		qlwiPath->setData(Qt::UserRole, QVariant(dir));
 		setCurrentItem(qlwiPath);

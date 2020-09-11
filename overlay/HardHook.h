@@ -7,9 +7,9 @@
 #define MUMBLE_HARDHOOK_H_
 
 #ifdef USE_MINHOOK
-# include "HardHook_minhook.h"
+#	include "HardHook_minhook.h"
 #else
-# include "HardHook_x86.h"
+#	include "HardHook_x86.h"
 #endif
 
 #endif

@@ -9,8 +9,8 @@
 class QString;
 
 class TaskList {
-	public:
-		static void addToRecentList(QString name, QString user, QString host, int port);
+public:
+	static void addToRecentList(QString name, QString user, QString host, int port);
 };
 
-#endif  // TASK_LIST_H_
+#endif // TASK_LIST_H_

@@ -11,38 +11,41 @@
 #include <QtCore/QLibrary>
 
 #ifndef Q_OS_WIN
-#define __cdecl
+#	define __cdecl
 #endif
 
 /// Loads Opus from a shared library and acts as a wrapper for its functions.
 class OpusCodec {
-	private:
-		Q_DISABLE_COPY(OpusCodec)
-	protected:
-		QLibrary qlOpus;
-		bool bValid;
-	public:
-		OpusCodec();
-		virtual ~OpusCodec();
+private:
+	Q_DISABLE_COPY(OpusCodec)
+protected:
+	QLibrary qlOpus;
+	bool bValid;
 
-		bool isValid() const;
-		void report() const;
+public:
+	OpusCodec();
+	virtual ~OpusCodec();
 
-		const char *(__cdecl *opus_get_version_string)();
+	bool isValid() const;
+	void report() const;
 
-		OpusEncoder *(__cdecl *opus_encoder_create)(opus_int32 Fs, int channels, int application, int *error);
-		int (__cdecl *opus_encoder_ctl)(OpusEncoder *st, int request, ...);
-		void (__cdecl *opus_encoder_destroy)(OpusEncoder *st);
-		OpusDecoder *(__cdecl *opus_decoder_create)(opus_int32 Fs, int channels, int *error);
-		int (__cdecl *opus_decoder_ctl)(OpusDecoder *st, int request, ...);
-		void (__cdecl *opus_decoder_destroy)(OpusDecoder *st);
+	const char *(__cdecl *opus_get_version_string)();
 
-		int (__cdecl *opus_encode)(OpusEncoder *st, const opus_int16 *pcm, int frame_size, unsigned char *compressed, int nbCompressedBytes);
-		int (__cdecl *opus_decode_float)(OpusDecoder *st, const unsigned char *data, opus_int32 len, float *pcm, int frame_size, int decode_fec);
+	OpusEncoder *(__cdecl *opus_encoder_create)(opus_int32 Fs, int channels, int application, int *error);
+	int(__cdecl *opus_encoder_ctl)(OpusEncoder *st, int request, ...);
+	void(__cdecl *opus_encoder_destroy)(OpusEncoder *st);
+	OpusDecoder *(__cdecl *opus_decoder_create)(opus_int32 Fs, int channels, int *error);
+	int(__cdecl *opus_decoder_ctl)(OpusDecoder *st, int request, ...);
+	void(__cdecl *opus_decoder_destroy)(OpusDecoder *st);
 
-		int (__cdecl *opus_decoder_get_nb_samples)(OpusDecoder *st, const unsigned char packet[], opus_int32 len);
+	int(__cdecl *opus_encode)(OpusEncoder *st, const opus_int16 *pcm, int frame_size, unsigned char *compressed,
+							  int nbCompressedBytes);
+	int(__cdecl *opus_decode_float)(OpusDecoder *st, const unsigned char *data, opus_int32 len, float *pcm,
+									int frame_size, int decode_fec);
 
-		int (__cdecl *opus_packet_get_samples_per_frame)(const unsigned char *data, opus_int32 Fs);
+	int(__cdecl *opus_decoder_get_nb_samples)(OpusDecoder *st, const unsigned char packet[], opus_int32 len);
+
+	int(__cdecl *opus_packet_get_samples_per_frame)(const unsigned char *data, opus_int32 Fs);
 };
 
-#endif  // OPUSCODEC_H_
+#endif // OPUSCODEC_H_

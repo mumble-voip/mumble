@@ -14,7 +14,8 @@
 #include <QtCore/QStack>
 #include <QtCore/QTimer>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 const QString LookConfig::name = QLatin1String("LookConfig");
@@ -41,30 +42,28 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbChannelDrag->setAccessibleName(tr("Channel dragging"));
 	qcbExpand->setAccessibleName(tr("Automatically expand channels when"));
 	qcbUserDrag->setAccessibleName(tr("User dragging behavior"));
-	
+
 #ifndef Q_OS_MAC
-	if (! QSystemTrayIcon::isSystemTrayAvailable())
+	if (!QSystemTrayIcon::isSystemTrayAvailable())
 #endif
 		qgbTray->hide();
 
 	qcbLanguage->addItem(tr("System default"));
-	QDir d(QLatin1String(":"),QLatin1String("mumble_*.qm"),QDir::Name,QDir::Files);
-	foreach(const QString &key, d.entryList()) {
-		QString cc = key.mid(7,key.indexOf(QLatin1Char('.'))-7);
+	QDir d(QLatin1String(":"), QLatin1String("mumble_*.qm"), QDir::Name, QDir::Files);
+	foreach (const QString &key, d.entryList()) {
+		QString cc        = key.mid(7, key.indexOf(QLatin1Char('.')) - 7);
 		QLocale tmpLocale = QLocale(cc);
 
-		//If there is no native language name, use the locale
+		// If there is no native language name, use the locale
 		QString displayName = cc;
-		if(!tmpLocale.nativeLanguageName().isEmpty()) {
-			displayName = QString(QLatin1String("%1 (%2)"))
-			        .arg(tmpLocale.nativeLanguageName())
-			        .arg(cc);
-		} else if (cc == QLatin1String("eo")){
+		if (!tmpLocale.nativeLanguageName().isEmpty()) {
+			displayName = QString(QLatin1String("%1 (%2)")).arg(tmpLocale.nativeLanguageName()).arg(cc);
+		} else if (cc == QLatin1String("eo")) {
 			// Can't initialize QLocale for a countryless language (QTBUG-8452, QTBUG-14592).
 			// We only have one so special case it.
 			displayName = QLatin1String("Esperanto (eo)");
 		}
-		
+
 		qcbLanguage->addItem(displayName, QVariant(cc));
 	}
 
@@ -75,17 +74,17 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbChannelDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
 	qcbChannelDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
 	qcbChannelDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
-	
+
 	qcbUserDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
 	qcbUserDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
 	qcbUserDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
 
-	connect(qrbLCustom,SIGNAL(toggled(bool)),qcbLockLayout,SLOT(setEnabled(bool)));
-	
+	connect(qrbLCustom, SIGNAL(toggled(bool)), qcbLockLayout, SLOT(setEnabled(bool)));
+
 	QDir userThemeDirectory = Themes::getUserThemesDirectory();
 	if (userThemeDirectory.exists()) {
 		m_themeDirectoryWatcher = new QFileSystemWatcher(this);
-		
+
 		// Use a timer to cut down floods of directory changes. We only want
 		// to trigger a refresh after nothing has happened for 200ms in the
 		// watched directory.
@@ -93,16 +92,15 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		m_themeDirectoryDebouncer->setSingleShot(true);
 		m_themeDirectoryDebouncer->setInterval(200);
 		m_themeDirectoryDebouncer->connect(m_themeDirectoryWatcher, SIGNAL(directoryChanged(QString)), SLOT(start()));
-		
+
 		connect(m_themeDirectoryDebouncer, SIGNAL(timeout()), SLOT(themeDirectoryChanged()));
 		m_themeDirectoryWatcher->addPath(userThemeDirectory.path());
-		
+
 		QUrl userThemeDirectoryUrl = QUrl::fromLocalFile(userThemeDirectory.path());
 		//: This link is located next to the theme heading in the ui config and opens the user theme directory
 		qlThemesDirectory->setText(tr("<a href=\"%1\">Browse</a>").arg(userThemeDirectoryUrl.toString()));
 		qlThemesDirectory->setOpenExternalLinks(true);
 	}
-	
 }
 
 QString LookConfig::title() const {
@@ -117,31 +115,25 @@ QIcon LookConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_ui.png"));
 }
 
-void LookConfig::reloadThemes(const boost::optional<ThemeInfo::StyleInfo> configuredStyle) {
+void LookConfig::reloadThemes(const boost::optional< ThemeInfo::StyleInfo > configuredStyle) {
 	const ThemeMap themes = Themes::getThemes();
-	
+
 	int selectedThemeEntry = 0;
-	
+
 	qcbTheme->clear();
 	qcbTheme->addItem(tr("None"));
-	for (ThemeMap::const_iterator theme = themes.begin();
-	     theme != themes.end();
-	     ++theme) {
-		
-		for (ThemeInfo::StylesMap::const_iterator styleit = theme->styles.begin();
-		     styleit != theme->styles.end();
-		     ++styleit) {
-			
-			if (configuredStyle
-			     && configuredStyle->themeName == styleit->themeName
-			     && configuredStyle->name == styleit->name) {
+	for (ThemeMap::const_iterator theme = themes.begin(); theme != themes.end(); ++theme) {
+		for (ThemeInfo::StylesMap::const_iterator styleit = theme->styles.begin(); styleit != theme->styles.end();
+			 ++styleit) {
+			if (configuredStyle && configuredStyle->themeName == styleit->themeName
+				&& configuredStyle->name == styleit->name) {
 				selectedThemeEntry = qcbTheme->count();
 			}
-			
+
 			qcbTheme->addItem(theme->name + QLatin1String(" - ") + styleit->name, QVariant::fromValue(*styleit));
 		}
 	}
-	
+
 	qcbTheme->setCurrentIndex(selectedThemeEntry);
 }
 
@@ -167,16 +159,16 @@ void LookConfig::load(const Settings &r) {
 			qrbLCustom->setChecked(true);
 			break;
 	}
-	qcbLockLayout->setEnabled(r.wlWindowLayout==Settings::LayoutCustom);
+	qcbLockLayout->setEnabled(r.wlWindowLayout == Settings::LayoutCustom);
 
 
-	for (int i=0;i<qcbLanguage->count();i++) {
+	for (int i = 0; i < qcbLanguage->count(); i++) {
 		if (qcbLanguage->itemData(i).toString() == r.qsLanguage) {
 			loadComboBox(qcbLanguage, i);
 			break;
 		}
 	}
-	
+
 	loadComboBox(qcbAlwaysOnTop, r.aotbAlwaysOnTop);
 
 	loadComboBox(qcbExpand, r.ceExpand);
@@ -185,7 +177,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbUsersTop, r.bUserTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbEnableDeveloperMenu, r.bEnableDeveloperMenu);
-	loadCheckBox(qcbLockLayout, (r.wlWindowLayout==Settings::LayoutCustom)&&r.bLockLayout);
+	loadCheckBox(qcbLockLayout, (r.wlWindowLayout == Settings::LayoutCustom) && r.bLockLayout);
 	loadCheckBox(qcbHideTray, r.bHideInTray);
 	loadCheckBox(qcbStateInTray, r.bStateInTray);
 	loadCheckBox(qcbShowUserCount, r.bShowUserCount);
@@ -195,8 +187,8 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
-	
-	const boost::optional<ThemeInfo::StyleInfo> configuredStyle = Themes::getConfiguredStyle(r);
+
+	const boost::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
 	reloadThemes(configuredStyle);
 
 	loadCheckBox(qcbLocalUserVisible, r.bTalkingUI_LocalUserStaysVisible);
@@ -219,7 +211,7 @@ void LookConfig::save() const {
 		s.qsLanguage = QString();
 	else
 		s.qsLanguage = qcbLanguage->itemData(qcbLanguage->currentIndex()).toString();
-	
+
 	if (s.qsLanguage != oldLanguage) {
 		s.requireRestartToApply = true;
 	}
@@ -235,47 +227,47 @@ void LookConfig::save() const {
 		s.wlWindowLayout = Settings::LayoutCustom;
 	}
 
-	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
-	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
-	s.ceUserDrag=static_cast<Settings::ChannelDrag>(qcbUserDrag->currentIndex());
-	
+	s.ceExpand      = static_cast< Settings::ChannelExpand >(qcbExpand->currentIndex());
+	s.ceChannelDrag = static_cast< Settings::ChannelDrag >(qcbChannelDrag->currentIndex());
+	s.ceUserDrag    = static_cast< Settings::ChannelDrag >(qcbUserDrag->currentIndex());
+
 	if (qcbUsersTop->isChecked() != s.bUserTop) {
-		s.bUserTop = qcbUsersTop->isChecked();
+		s.bUserTop              = qcbUsersTop->isChecked();
 		s.requireRestartToApply = true;
 	}
-	
-	s.aotbAlwaysOnTop = static_cast<Settings::AlwaysOnTopBehaviour>(qcbAlwaysOnTop->currentIndex());
-	s.bAskOnQuit = qcbAskOnQuit->isChecked();
-	s.bEnableDeveloperMenu = qcbEnableDeveloperMenu->isChecked();
-	s.bLockLayout = qcbLockLayout->isChecked();
-	s.bHideInTray = qcbHideTray->isChecked();
-	s.bStateInTray = qcbStateInTray->isChecked();
-	s.bShowUserCount = qcbShowUserCount->isChecked();
-	s.bShowVolumeAdjustments = qcbShowVolumeAdjustments->isChecked();
+
+	s.aotbAlwaysOnTop           = static_cast< Settings::AlwaysOnTopBehaviour >(qcbAlwaysOnTop->currentIndex());
+	s.bAskOnQuit                = qcbAskOnQuit->isChecked();
+	s.bEnableDeveloperMenu      = qcbEnableDeveloperMenu->isChecked();
+	s.bLockLayout               = qcbLockLayout->isChecked();
+	s.bHideInTray               = qcbHideTray->isChecked();
+	s.bStateInTray              = qcbStateInTray->isChecked();
+	s.bShowUserCount            = qcbShowUserCount->isChecked();
+	s.bShowVolumeAdjustments    = qcbShowVolumeAdjustments->isChecked();
 	s.bShowContextMenuInMenuBar = qcbShowContextMenuInMenuBar->isChecked();
 	s.bShowTransmitModeComboBox = qcbShowTransmitModeComboBox->isChecked();
-	s.bHighContrast = qcbHighContrast->isChecked();
-	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
+	s.bHighContrast             = qcbHighContrast->isChecked();
+	s.bChatBarUseSelection      = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
-	
+
 	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
 		Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
 	} else {
-		Themes::setConfiguredStyle(s, themeData.value<ThemeInfo::StyleInfo>(), s.requireRestartToApply);
+		Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >(), s.requireRestartToApply);
 	}
 
-	s.bTalkingUI_LocalUserStaysVisible = qcbLocalUserVisible->isChecked();
-	s.bTalkingUI_AbbreviateChannelNames = qcbAbbreviateChannelNames->isChecked();
+	s.bTalkingUI_LocalUserStaysVisible    = qcbLocalUserVisible->isChecked();
+	s.bTalkingUI_AbbreviateChannelNames   = qcbAbbreviateChannelNames->isChecked();
 	s.bTalkingUI_AbbreviateCurrentChannel = qcbAbbreviateCurrentChannel->isChecked();
-	s.bTalkingUI_ShowLocalListeners = qcbShowLocalListeners->isChecked();
-	s.iTalkingUI_RelativeFontSize = qsbRelFontSize->value();
-	s.iTalkingUI_SilentUserLifeTime = qsbSilentUserLifetime->value();
-	s.iTalkingUI_ChannelHierarchyDepth = qsbChannelHierarchyDepth->value();
-	s.iTalkingUI_MaxChannelNameLength = qsbMaxNameLength->value();
-	s.iTalkingUI_PrefixCharCount = qsbPrefixCharCount->value();
-	s.iTalkingUI_PostfixCharCount = qsbPostfixCharCount->value();
-	s.qsTalkingUI_ChannelSeparator = qleChannelSeparator->text();
+	s.bTalkingUI_ShowLocalListeners       = qcbShowLocalListeners->isChecked();
+	s.iTalkingUI_RelativeFontSize         = qsbRelFontSize->value();
+	s.iTalkingUI_SilentUserLifeTime       = qsbSilentUserLifetime->value();
+	s.iTalkingUI_ChannelHierarchyDepth    = qsbChannelHierarchyDepth->value();
+	s.iTalkingUI_MaxChannelNameLength     = qsbMaxNameLength->value();
+	s.iTalkingUI_PrefixCharCount          = qsbPrefixCharCount->value();
+	s.iTalkingUI_PostfixCharCount         = qsbPostfixCharCount->value();
+	s.qsTalkingUI_ChannelSeparator        = qleChannelSeparator->text();
 	s.qsTalkingUI_AbbreviationReplacement = qleAbbreviationReplacement->text();
 }
 
@@ -289,7 +281,7 @@ void LookConfig::themeDirectoryChanged() {
 	if (themeData.isNull()) {
 		reloadThemes(boost::none);
 	} else {
-		reloadThemes(themeData.value<ThemeInfo::StyleInfo>());
+		reloadThemes(themeData.value< ThemeInfo::StyleInfo >());
 	}
 }
 

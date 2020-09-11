@@ -10,7 +10,7 @@
 #include <QUrl>
 
 #ifdef Q_OS_WIN
-#include <QAbstractNativeEventFilter>
+#	include <QAbstractNativeEventFilter>
 #endif
 
 /**
@@ -21,43 +21,42 @@ class MumbleApplication : public QApplication, public QAbstractNativeEventFilter
 #else
 class MumbleApplication : public QApplication {
 #endif
-		Q_OBJECT
-	public:
+	Q_OBJECT
+public:
+	/// The instance function returns an instance
+	/// of the MumbleApplication singleton.
+	static MumbleApplication *instance();
 
-		/// The instance function returns an instance
-		/// of the MumbleApplication singleton.
-		static MumbleApplication *instance();
+	MumbleApplication(int &pargc, char **pargv);
 
-		MumbleApplication(int &pargc, char **pargv);
+	/// applicationVersionRootPath returns
+	/// Mumble's "versioned root"-path.
+	///
+	/// This is a version-specific path that contains
+	/// supplementary binaries and other products
+	/// that Mumble needs to function.
+	///
+	/// In the current implementation, the versioned
+	/// root path is set by the MUMBLE_VERSION_ROOT
+	/// environment variable. This environment variable
+	/// is set in the mumble.exe launcher.
+	///
+	/// If a versioned root path has not been
+	/// configured in the environment, the function
+	/// returns the same path as Qt's own
+	/// QApplication::applicationDirPath().
+	QString applicationVersionRootPath();
 
-		/// applicationVersionRootPath returns
-		/// Mumble's "versioned root"-path.
-		///
-		/// This is a version-specific path that contains
-		/// supplementary binaries and other products
-		/// that Mumble needs to function.
-		///
-		/// In the current implementation, the versioned
-		/// root path is set by the MUMBLE_VERSION_ROOT
-		/// environment variable. This environment variable
-		/// is set in the mumble.exe launcher.
-		///
-		/// If a versioned root path has not been
-		/// configured in the environment, the function
-		/// returns the same path as Qt's own
-		/// QApplication::applicationDirPath().
-		QString applicationVersionRootPath();
-
-		bool event(QEvent *e) Q_DECL_OVERRIDE;
+	bool event(QEvent *e) Q_DECL_OVERRIDE;
 #ifdef Q_OS_WIN
-		bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
+	bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
 #endif
-		
-		QUrl quLaunchURL;
-		
-	public slots:
-		/// Saves state and suppresses ask on quit before system shutdown. 
-		void onCommitDataRequest(QSessionManager&);
+
+	QUrl quLaunchURL;
+
+public slots:
+	/// Saves state and suppresses ask on quit before system shutdown.
+	void onCommitDataRequest(QSessionManager &);
 };
 
 #endif // MUMBLE_MUMBLE_MUMBLEAPPLICATION_H

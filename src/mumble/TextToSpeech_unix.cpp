@@ -6,40 +6,41 @@
 #include "TextToSpeech.h"
 
 #ifdef USE_SPEECHD
-# ifdef USE_SPEECHD_PKGCONFIG
-#  include <speech-dispatcher/libspeechd.h>
-# else
-#  include <libspeechd.h>
-# endif
+#	ifdef USE_SPEECHD_PKGCONFIG
+#		include <speech-dispatcher/libspeechd.h>
+#	else
+#		include <libspeechd.h>
+#	endif
 #endif
 
 #include <QtCore/QLocale>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 class TextToSpeechPrivate {
 #ifdef USE_SPEECHD
-	protected:
-		SPDConnection *spd;
-		/// Used to store the requested volume of the TextToSpeech object
-		/// before speech-dispatcher has been initialized.
-		int volume;
-		bool initialized;
-		void ensureInitialized();
+protected:
+	SPDConnection *spd;
+	/// Used to store the requested volume of the TextToSpeech object
+	/// before speech-dispatcher has been initialized.
+	int volume;
+	bool initialized;
+	void ensureInitialized();
 #endif
-	public:
-		TextToSpeechPrivate();
-		~TextToSpeechPrivate();
-		void say(const QString &text);
-		void setVolume(int v);
+public:
+	TextToSpeechPrivate();
+	~TextToSpeechPrivate();
+	void say(const QString &text);
+	void setVolume(int v);
 };
 
 #ifdef USE_SPEECHD
 TextToSpeechPrivate::TextToSpeechPrivate() {
 	initialized = false;
-	volume = -1;
-	spd = nullptr;
+	volume      = -1;
+	spd         = nullptr;
 }
 
 TextToSpeechPrivate::~TextToSpeechPrivate() {
@@ -55,7 +56,7 @@ void TextToSpeechPrivate::ensureInitialized() {
 	}
 
 	spd = spd_open("Mumble", nullptr, nullptr, SPD_MODE_THREADED);
-	if (! spd) {
+	if (!spd) {
 		qWarning("TextToSpeech: Failed to contact speech dispatcher.");
 	} else {
 		QString lang;
@@ -121,7 +122,7 @@ void TextToSpeechPrivate::setVolume(int) {
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
 	enabled = true;
-	d = new TextToSpeechPrivate();
+	d       = new TextToSpeechPrivate();
 }
 
 TextToSpeech::~TextToSpeech() {

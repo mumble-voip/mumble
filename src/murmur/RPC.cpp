@@ -6,28 +6,29 @@
 #include <QtCore/QtGlobal>
 
 #ifdef Q_OS_WIN
-# include "win.h"
+#	include "win.h"
 #endif
 
 #include "Channel.h"
+#include "ChannelListener.h"
 #include "Group.h"
 #include "Meta.h"
 #include "Server.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Version.h"
-#include "ChannelListener.h"
 
 #ifdef Q_OS_WIN
-# include <winsock2.h>
+#	include <winsock2.h>
 #endif
 
-void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name, const QString &comment) {
+void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker,
+						  const QString &name, const QString &comment) {
 	bool changed = false;
 
 	if (deaf)
 		mute = true;
-	if (! mute)
+	if (!mute)
 		deaf = false;
 
 	MumbleProto::UserState mpus;
@@ -52,7 +53,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 		changed = true;
 		mpus.set_comment(u8(comment));
 		if (pUser->iId >= 0) {
-			QMap<int, QString> info;
+			QMap< int, QString > info;
 			info.insert(ServerDB::User_Comment, comment);
 			setInfo(pUser->iId, info);
 		}
@@ -64,13 +65,13 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
-		pUser->bDeaf = deaf;
-		pUser->bMute = mute;
+		pUser->bDeaf     = deaf;
+		pUser->bMute     = mute;
 		pUser->bSuppress = suppressed;
 	}
 
 	pUser->bPrioritySpeaker = prioritySpeaker;
-	pUser->qsName = name;
+	pUser->qsName           = name;
 	hashAssign(pUser->qsComment, pUser->qbaCommentHash, comment);
 
 	if (cChannel != pUser->cChannel) {
@@ -80,8 +81,8 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	}
 
 	if (changed) {
-		sendAll(mpus, ~ 0x010202);
-		if (mpus.has_comment() && ! pUser->qbaCommentHash.isEmpty()) {
+		sendAll(mpus, ~0x010202);
+		if (mpus.has_comment() && !pUser->qbaCommentHash.isEmpty()) {
 			mpus.clear_comment();
 			mpus.set_comment_hash(blob(pUser->qbaCommentHash));
 		}
@@ -111,7 +112,7 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 	// Links and parent channel are processed first, because they can return
 	// errors. Without doing this, the server state can be changed without
 	// notifying users.
-	QSet< ::Channel *> newLinksSet;
+	QSet<::Channel * > newLinksSet;
 	for (int i = 0; i < cs.links_size(); i++) {
 		Channel *link = qhChannels.value(cs.links(i));
 		if (!link) {
@@ -165,19 +166,19 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 		}
 	}
 
-	const QSet<Channel *> &oldLinksSet = channel->qsPermLinks;
+	const QSet< Channel * > &oldLinksSet = channel->qsPermLinks;
 
 	if (newLinksSet != oldLinksSet) {
 		// Remove
-		foreach(Channel *l, oldLinksSet) {
+		foreach (Channel *l, oldLinksSet) {
 			if (!newLinksSet.contains(l)) {
 				removeLink(channel, l);
 				mpcs.add_links_remove(l->iId);
 			}
 		}
 		// Add
-		foreach(Channel *l, newLinksSet) {
-			if (! oldLinksSet.contains(l)) {
+		foreach (Channel *l, newLinksSet) {
+			if (!oldLinksSet.contains(l)) {
 				addLink(channel, l);
 				mpcs.add_links_add(l->iId);
 			}
@@ -209,7 +210,7 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 		updateChannel(channel);
 	}
 	if (changed) {
-		sendAll(mpcs, ~ 0x010202);
+		sendAll(mpcs, ~0x010202);
 		if (mpcs.has_description() && !channel->qbaDescHash.isEmpty()) {
 			mpcs.clear_description();
 			mpcs.set_description_hash(blob(channel->qbaDescHash));
@@ -221,7 +222,8 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 	return true;
 }
 
-bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links, const QString &desc, const int position) {
+bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet< Channel * > &links,
+							 const QString &desc, const int position) {
 	bool changed = false;
 	bool updated = false;
 
@@ -259,20 +261,20 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		changed = true;
 	}
 
-	const QSet<Channel *> &oldset = cChannel->qsPermLinks;
+	const QSet< Channel * > &oldset = cChannel->qsPermLinks;
 
 	if (links != oldset) {
 		// Remove
-		foreach(Channel *l, oldset) {
-			if (! links.contains(l)) {
+		foreach (Channel *l, oldset) {
+			if (!links.contains(l)) {
 				removeLink(cChannel, l);
 				mpcs.add_links_remove(l->iId);
 			}
 		}
 
 		// Add
-		foreach(Channel *l, links) {
-			if (! oldset.contains(l)) {
+		foreach (Channel *l, links) {
+			if (!oldset.contains(l)) {
 				addLink(cChannel, l);
 				mpcs.add_links_add(l->iId);
 			}
@@ -282,13 +284,13 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	}
 
 	if (position != cChannel->iPosition) {
-		changed = true;
-		updated = true;
+		changed             = true;
+		updated             = true;
 		cChannel->iPosition = position;
 		mpcs.set_position(position);
 	}
 
-	if (! desc.isNull() && desc != cChannel->qsDesc) {
+	if (!desc.isNull() && desc != cChannel->qsDesc) {
 		updated = true;
 		changed = true;
 		hashAssign(cChannel->qsDesc, cChannel->qbaDescHash, desc);
@@ -298,8 +300,8 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	if (updated)
 		updateChannel(cChannel);
 	if (changed) {
-		sendAll(mpcs, ~ 0x010202);
-		if (mpcs.has_description() && ! cChannel->qbaDescHash.isEmpty()) {
+		sendAll(mpcs, ~0x010202);
+		if (mpcs.has_description() && !cChannel->qbaDescHash.isEmpty()) {
 			mpcs.clear_description();
 			mpcs.set_description_hash(blob(cChannel->qbaDescHash));
 		}
@@ -336,7 +338,7 @@ void Server::sendTextMessageGRPC(const ::MumbleProto::TextMessage &tm) {
 	}
 
 	// Channel targets
-	QSet<Channel *> chans;
+	QSet< Channel * > chans;
 
 	for (int i = 0; i < tm.channel_id_size(); i++) {
 		Channel *channel = qhChannels.value(tm.channel_id(i));
@@ -347,7 +349,7 @@ void Server::sendTextMessageGRPC(const ::MumbleProto::TextMessage &tm) {
 		mptm.add_channel_id(channel->iId);
 	}
 
-	QQueue<Channel *> chansQ;
+	QQueue< Channel * > chansQ;
 	for (int i = 0; i < tm.tree_id_size(); i++) {
 		Channel *channel = qhChannels.value(tm.tree_id(i));
 		if (!channel) {
@@ -359,15 +361,11 @@ void Server::sendTextMessageGRPC(const ::MumbleProto::TextMessage &tm) {
 	while (!chansQ.isEmpty()) {
 		Channel *c = chansQ.dequeue();
 		chans.insert(c);
-		foreach(c, c->qlChannels) {
-			chansQ.enqueue(c);
-		}
+		foreach (c, c->qlChannels) { chansQ.enqueue(c); }
 	}
 
-	foreach(Channel *c, chans) {
-		foreach(::User *p, c->qlUsers) {
-			sendMessage(static_cast< ::ServerUser *>(p), mptm);
-		}
+	foreach (Channel *c, chans) {
+		foreach (::User *p, c->qlUsers) { sendMessage(static_cast<::ServerUser * >(p), mptm); }
 	}
 }
 
@@ -384,23 +382,23 @@ void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, co
 		else
 			mptm.add_channel_id(cChannel->iId);
 
-		QSet<Channel *> chans;
-		QQueue<Channel *> q;
+		QSet< Channel * > chans;
+		QQueue< Channel * > q;
 		q << cChannel;
 		chans.insert(cChannel);
 		Channel *c;
 
 		if (tree) {
-			while (! q.isEmpty()) {
+			while (!q.isEmpty()) {
 				c = q.dequeue();
 				chans.insert(c);
-				foreach(c, c->qlChannels)
+				foreach (c, c->qlChannels)
 					q.enqueue(c);
 			}
 		}
-		foreach(c, chans) {
-			foreach(User *p, c->qlUsers)
-				sendMessage(static_cast<ServerUser *>(p), mptm);
+		foreach (c, chans) {
+			foreach (User *p, c->qlUsers)
+				sendMessage(static_cast< ServerUser * >(p), mptm);
 		}
 	}
 }
@@ -412,28 +410,28 @@ void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, co
  * If userid is negative the absolute value is a session id. If it is positive it is a registration id.
  */
 void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const QStringList &groups) {
-	if (! cChannel)
+	if (!cChannel)
 		cChannel = qhChannels.value(0);
 
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
 
 		Group *g;
-		foreach(g, cChannel->qhGroups) {
+		foreach (g, cChannel->qhGroups) {
 			g->qsTemporary.remove(userid);
 			if (sessionId != 0)
-				g->qsTemporary.remove(- sessionId);
+				g->qsTemporary.remove(-sessionId);
 		}
 
 		QString gname;
-		foreach(gname, groups) {
+		foreach (gname, groups) {
 			g = cChannel->qhGroups.value(gname);
-			if (! g) {
+			if (!g) {
 				g = new Group(cChannel, gname);
 			}
 			g->qsTemporary.insert(userid);
 			if (sessionId != 0)
-				g->qsTemporary.insert(- sessionId);
+				g->qsTemporary.insert(-sessionId);
 		}
 	}
 
@@ -447,8 +445,8 @@ void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const Q
  * If recursion is activated all temporary memberships in related channels will also be cleared.
  */
 void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
-	QList<Channel*> qlChans;
-	if (! cChannel)
+	QList< Channel * > qlChans;
+	if (!cChannel)
 		cChannel = qhChannels.value(0);
 
 	qlChans.append(cChannel);
@@ -459,9 +457,9 @@ void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 		while (!qlChans.isEmpty()) {
 			Channel *chan = qlChans.takeLast();
 			Group *g;
-			foreach(g, chan->qhGroups) {
+			foreach (g, chan->qhGroups) {
 				g->qsTemporary.remove(user->iId);
-				g->qsTemporary.remove(-static_cast<int>(user->uiSession));
+				g->qsTemporary.remove(-static_cast< int >(user->uiSession));
 			}
 
 			if (recurse)
@@ -473,26 +471,46 @@ void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 }
 
 void Server::connectAuthenticator(QObject *obj) {
-	connect(this, SIGNAL(registerUserSig(int &, const QMap<int, QString> &)), obj, SLOT(registerUserSlot(int &, const QMap<int, QString> &)));
+	connect(this, SIGNAL(registerUserSig(int &, const QMap< int, QString > &)), obj,
+			SLOT(registerUserSlot(int &, const QMap< int, QString > &)));
 	connect(this, SIGNAL(unregisterUserSig(int &, int)), obj, SLOT(unregisterUserSlot(int &, int)));
-	connect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QString> &)));
-	connect(this, SIGNAL(getRegistrationSig(int &, int, QMap<int, QString> &)), obj, SLOT(getRegistrationSlot(int &, int, QMap<int, QString> &)));
-	connect(this, SIGNAL(authenticateSig(int &, QString &, int, const QList<QSslCertificate> &, const QString &, bool, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, int, const QList<QSslCertificate> &, const QString &, bool, const QString &)));
-	connect(this, SIGNAL(setInfoSig(int &, int, const QMap<int, QString> &)), obj, SLOT(setInfoSlot(int &, int, const QMap<int, QString> &)));
-	connect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj, SLOT(setTextureSlot(int &, int, const QByteArray &)));
+	connect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap< int, QString > &)), obj,
+			SLOT(getRegisteredUsersSlot(const QString &, QMap< int, QString > &)));
+	connect(this, SIGNAL(getRegistrationSig(int &, int, QMap< int, QString > &)), obj,
+			SLOT(getRegistrationSlot(int &, int, QMap< int, QString > &)));
+	connect(this,
+			SIGNAL(authenticateSig(int &, QString &, int, const QList< QSslCertificate > &, const QString &, bool,
+								   const QString &)),
+			obj,
+			SLOT(authenticateSlot(int &, QString &, int, const QList< QSslCertificate > &, const QString &, bool,
+								  const QString &)));
+	connect(this, SIGNAL(setInfoSig(int &, int, const QMap< int, QString > &)), obj,
+			SLOT(setInfoSlot(int &, int, const QMap< int, QString > &)));
+	connect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj,
+			SLOT(setTextureSlot(int &, int, const QByteArray &)));
 	connect(this, SIGNAL(idToNameSig(QString &, int)), obj, SLOT(idToNameSlot(QString &, int)));
 	connect(this, SIGNAL(nameToIdSig(int &, const QString &)), obj, SLOT(nameToIdSlot(int &, const QString &)));
 	connect(this, SIGNAL(idToTextureSig(QByteArray &, int)), obj, SLOT(idToTextureSlot(QByteArray &, int)));
 }
 
 void Server::disconnectAuthenticator(QObject *obj) {
-	disconnect(this, SIGNAL(registerUserSig(int &, const QMap<int, QString> &)), obj, SLOT(registerUserSlot(int &, const QMap<int, QString> &)));
+	disconnect(this, SIGNAL(registerUserSig(int &, const QMap< int, QString > &)), obj,
+			   SLOT(registerUserSlot(int &, const QMap< int, QString > &)));
 	disconnect(this, SIGNAL(unregisterUserSig(int &, int)), obj, SLOT(unregisterUserSlot(int &, int)));
-	disconnect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QString> &)));
-	disconnect(this, SIGNAL(getRegistrationSig(int &, int, QMap<int, QString> &)), obj, SLOT(getRegistrationSlot(int &, int, QMap<int, QString> &)));
-	disconnect(this, SIGNAL(authenticateSig(int &, QString &, int, const QList<QSslCertificate> &, const QString &, bool, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, int, const QList<QSslCertificate> &, const QString &, bool, const QString &)));
-	disconnect(this, SIGNAL(setInfoSig(int &, int, const QMap<int, QString> &)), obj, SLOT(setInfoSlot(int &, int, const QMap<int, QString> &)));
-	disconnect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj, SLOT(setTextureSlot(int &, int, const QByteArray &)));
+	disconnect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap< int, QString > &)), obj,
+			   SLOT(getRegisteredUsersSlot(const QString &, QMap< int, QString > &)));
+	disconnect(this, SIGNAL(getRegistrationSig(int &, int, QMap< int, QString > &)), obj,
+			   SLOT(getRegistrationSlot(int &, int, QMap< int, QString > &)));
+	disconnect(this,
+			   SIGNAL(authenticateSig(int &, QString &, int, const QList< QSslCertificate > &, const QString &, bool,
+									  const QString &)),
+			   obj,
+			   SLOT(authenticateSlot(int &, QString &, int, const QList< QSslCertificate > &, const QString &, bool,
+									 const QString &)));
+	disconnect(this, SIGNAL(setInfoSig(int &, int, const QMap< int, QString > &)), obj,
+			   SLOT(setInfoSlot(int &, int, const QMap< int, QString > &)));
+	disconnect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj,
+			   SLOT(setTextureSlot(int &, int, const QByteArray &)));
 	disconnect(this, SIGNAL(idToNameSig(QString &, int)), obj, SLOT(idToNameSlot(QString &, int)));
 	disconnect(this, SIGNAL(nameToIdSig(int &, const QString &)), obj, SLOT(nameToIdSlot(int &, const QString &)));
 	disconnect(this, SIGNAL(idToTextureSig(QByteArray &, int)), obj, SLOT(idToTextureSlot(QByteArray &, int)));
@@ -500,7 +518,8 @@ void Server::disconnectAuthenticator(QObject *obj) {
 
 void Server::connectListener(QObject *obj) {
 	connect(this, SIGNAL(userStateChanged(const User *)), obj, SLOT(userStateChanged(const User *)));
-	connect(this, SIGNAL(userTextMessage(const User *, const TextMessage &)), obj, SLOT(userTextMessage(const User *, const TextMessage &)));
+	connect(this, SIGNAL(userTextMessage(const User *, const TextMessage &)), obj,
+			SLOT(userTextMessage(const User *, const TextMessage &)));
 	connect(this, SIGNAL(userConnected(const User *)), obj, SLOT(userConnected(const User *)));
 	connect(this, SIGNAL(userDisconnected(const User *)), obj, SLOT(userDisconnected(const User *)));
 	connect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));
@@ -510,7 +529,8 @@ void Server::connectListener(QObject *obj) {
 
 void Server::disconnectListener(QObject *obj) {
 	disconnect(this, SIGNAL(userStateChanged(const User *)), obj, SLOT(userStateChanged(const User *)));
-	disconnect(this, SIGNAL(userTextMessage(const User *, const TextMessage &)), obj, SLOT(userTextMessage(const User *, const TextMessage &)));
+	disconnect(this, SIGNAL(userTextMessage(const User *, const TextMessage &)), obj,
+			   SLOT(userTextMessage(const User *, const TextMessage &)));
 	disconnect(this, SIGNAL(userConnected(const User *)), obj, SLOT(userConnected(const User *)));
 	disconnect(this, SIGNAL(userDisconnected(const User *)), obj, SLOT(userDisconnected(const User *)));
 	disconnect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));

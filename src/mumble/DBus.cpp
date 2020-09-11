@@ -14,26 +14,29 @@
 #include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusMessage>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 MumbleDBus::MumbleDBus(QObject *mw) : QDBusAbstractAdaptor(mw) {
 }
 
 void MumbleDBus::openUrl(const QString &url, const QDBusMessage &msg) {
-	QUrl u = QUrl::fromEncoded(url.toLatin1());
+	QUrl u     = QUrl::fromEncoded(url.toLatin1());
 	bool valid = u.isValid();
-	valid = valid && (u.scheme() == QLatin1String("mumble"));
-	if (! valid) {
-		QDBusConnection::sessionBus().send(msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.url"), QLatin1String("Invalid URL")));
+	valid      = valid && (u.scheme() == QLatin1String("mumble"));
+	if (!valid) {
+		QDBusConnection::sessionBus().send(
+			msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.url"), QLatin1String("Invalid URL")));
 	} else {
 		g.mw->openUrl(u);
 	}
 }
 
 void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
-	if (!g.sh || !g.sh->isRunning() || ! g.uiSession) {
-		QDBusConnection::sessionBus().send(msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
+	if (!g.sh || !g.sh->isRunning() || !g.uiSession) {
+		QDBusConnection::sessionBus().send(msg.createErrorReply(
+			QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
 		return;
 	}
 	QString host, user, pw;
@@ -60,21 +63,20 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 	// Make sure fullpath starts with a slash for non-empty paths. Setting
 	// a path without a leading slash clears the whole QUrl.
 	if (!fullpath.isEmpty()) {
-	    fullpath.prepend(QLatin1String("/"));
+		fullpath.prepend(QLatin1String("/"));
 	}
 	u.setPath(fullpath);
 	QDBusConnection::sessionBus().send(msg.createReply(QString::fromLatin1(u.toEncoded())));
 }
 
 void MumbleDBus::getTalkingUsers(const QDBusMessage &msg) {
-	if (!g.sh || !g.sh->isRunning() || ! g.uiSession) {
-		QDBusConnection::sessionBus().send(msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
+	if (!g.sh || !g.sh->isRunning() || !g.uiSession) {
+		QDBusConnection::sessionBus().send(msg.createErrorReply(
+			QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
 		return;
 	}
 	QStringList names;
-	foreach(ClientUser *cu, ClientUser::getTalking()) {
-		names.append(cu->qsName);
-	}
+	foreach (ClientUser *cu, ClientUser::getTalking()) { names.append(cu->qsName); }
 	QDBusConnection::sessionBus().send(msg.createReply(names));
 }
 
@@ -96,7 +98,8 @@ void MumbleDBus::setTransmitMode(unsigned int mode, const QDBusMessage &msg) {
 			g.s.atTransmit = Settings::PushToTalk;
 			break;
 		default:
-			QDBusConnection::sessionBus().send(msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.transmitMode"), QLatin1String("Invalid transmit mode")));
+			QDBusConnection::sessionBus().send(msg.createErrorReply(
+				QLatin1String("net.sourceforge.mumble.Error.transmitMode"), QLatin1String("Invalid transmit mode")));
 			return;
 	}
 	QMetaObject::invokeMethod(g.mw, "updateTransmitModeComboBox", Qt::QueuedConnection);
@@ -125,9 +128,9 @@ bool MumbleDBus::isSelfDeaf() {
 }
 
 void MumbleDBus::startTalking() {
-    g.mw->on_PushToTalk_triggered(true, QVariant());
+	g.mw->on_PushToTalk_triggered(true, QVariant());
 }
 
-void MumbleDBus::stopTalking () {
-    g.mw->on_PushToTalk_triggered(false, QVariant());
+void MumbleDBus::stopTalking() {
+	g.mw->on_PushToTalk_triggered(false, QVariant());
 }

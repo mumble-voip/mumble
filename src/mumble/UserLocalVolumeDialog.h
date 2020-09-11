@@ -12,13 +12,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,32 +38,30 @@
 
 #include <QMap>
 
-#include "ui_UserLocalVolumeDialog.h"
 #include "ClientUser.h"
+#include "ui_UserLocalVolumeDialog.h"
 
 class UserLocalVolumeDialog : public QDialog, private Ui::UserLocalVolumeDialog {
-		Q_OBJECT
-		Q_DISABLE_COPY(UserLocalVolumeDialog);
+	Q_OBJECT
+	Q_DISABLE_COPY(UserLocalVolumeDialog);
 
-		/// The session ID for the user that the dialog is changing the volume for.
-		unsigned int m_clientSession;
+	/// The session ID for the user that the dialog is changing the volume for.
+	unsigned int m_clientSession;
 
-		/// The user's original adjustment (in dB) when entering the dialog.
-		int m_originalVolumeAdjustmentDecibel;
-		QMap<unsigned int, UserLocalVolumeDialog *> *m_qmUserVolTracker;
+	/// The user's original adjustment (in dB) when entering the dialog.
+	int m_originalVolumeAdjustmentDecibel;
+	QMap< unsigned int, UserLocalVolumeDialog * > *m_qmUserVolTracker;
 
-	public slots:
-		void closeEvent(QCloseEvent *event);
-		void on_qsUserLocalVolume_valueChanged(int value);
-		void on_qsbUserLocalVolume_valueChanged(int value);
-		void on_qbbUserLocalVolume_clicked(QAbstractButton *b);
-		void reject();
+public slots:
+	void closeEvent(QCloseEvent *event);
+	void on_qsUserLocalVolume_valueChanged(int value);
+	void on_qsbUserLocalVolume_valueChanged(int value);
+	void on_qbbUserLocalVolume_clicked(QAbstractButton *b);
+	void reject();
 
-	public:
-		static void present(unsigned int sessionId,
-                                    QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker);
-		UserLocalVolumeDialog(unsigned int sessionId,
-                                      QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker);
+public:
+	static void present(unsigned int sessionId, QMap< unsigned int, UserLocalVolumeDialog * > *qmUserVolTracker);
+	UserLocalVolumeDialog(unsigned int sessionId, QMap< unsigned int, UserLocalVolumeDialog * > *qmUserVolTracker);
 };
 
 #endif

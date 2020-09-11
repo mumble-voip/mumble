@@ -18,15 +18,16 @@ class ClientUser;
 /// the object's registerUsage function will be called that sends the respective
 /// information to the server.
 class Usage : public QObject {
-		Q_OBJECT
-	protected:
-		QBuffer qbReport;
-		QDataStream qdsReport;
-	public:
-		Usage(QObject *p = nullptr);
-	public slots:
-		/// Performs the actual registration.
-		void registerUsage();
+	Q_OBJECT
+protected:
+	QBuffer qbReport;
+	QDataStream qdsReport;
+
+public:
+	Usage(QObject *p = nullptr);
+public slots:
+	/// Performs the actual registration.
+	void registerUsage();
 };
 
 #endif

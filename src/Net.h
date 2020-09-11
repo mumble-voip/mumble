@@ -13,7 +13,7 @@
 #include "HostAddress.h"
 
 #ifndef DEFAULT_MUMBLE_PORT
-#define DEFAULT_MUMBLE_PORT 64738
+#	define DEFAULT_MUMBLE_PORT 64738
 #endif
 
 #endif

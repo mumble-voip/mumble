@@ -3,11 +3,12 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_main.h" // Include standard plugin header.
+#include "../mumble_plugin_main.h"  // Include standard plugin header.
 #include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	for (int i=0;i<3;i++) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring &identity) {
+	for (int i = 0; i < 3; i++) {
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 	}
 
@@ -17,48 +18,59 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Server ID pointers
 	procptr_t serverid_base = peekProcPtr(pModule + 0x23D5368);
-	if (!serverid_base) return false;
+	if (!serverid_base)
+		return false;
 	procptr_t serverid_offset_0 = peekProcPtr(serverid_base + 0x18);
-	if (!serverid_offset_0) return false;
+	if (!serverid_offset_0)
+		return false;
 	procptr_t serverid_offset_1 = peekProcPtr(serverid_offset_0 + 0x28);
-	if (!serverid_offset_1) return false;
+	if (!serverid_offset_1)
+		return false;
 	procptr_t serverid_offset = peekProcPtr(serverid_offset_1 + 0x350);
-	if (!serverid_offset) return false;
+	if (!serverid_offset)
+		return false;
 
 	// Squad pointers
 	procptr_t squad_base = peekProcPtr(pModule + 0x23D5458);
-	if (!squad_base) return false;
+	if (!squad_base)
+		return false;
 	procptr_t squad_offset_0 = peekProcPtr(squad_base + 0xD8);
-	if (!squad_offset_0) return false;
+	if (!squad_offset_0)
+		return false;
 	procptr_t squad_offset_1 = peekProcPtr(squad_offset_0 + 0x100);
-	if (!squad_offset_1) return false;
+	if (!squad_offset_1)
+		return false;
 	procptr_t squad_offset_2 = peekProcPtr(squad_offset_1 + 0x58);
-	if (!squad_offset_2) return false;
+	if (!squad_offset_2)
+		return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc(pModule + 0x23B2D70, &state, 1) && // Magical state value: 0 when in-game and 1 when in menu/dead.
-	     peekProc(pModule + 0x23862C0, avatar_pos, 12) && // Avatar Position values (X, Y and Z).
-	     peekProc(pModule + 0x23B2F60, camera_pos, 12) && // Camera Position values (X, Y and Z).
-	     peekProc(pModule + 0x23B2F40, avatar_top, 12) && // Avatar Top Vector values (X, Y and Z).
-	     peekProc(pModule + 0x23B2F50, avatar_front, 12) && // Avatar Front Vector values (X, Y and Z).
-	     peekProc(serverid_offset, serverid) && // Server ID (36 characters).
-	     peekProc(pModule + 0x2378B60, host) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
-	     peekProc(pModule + 0x2674B35, team) && // Team value: US (United States); RU (Russia); CH (China).
-	     peekProc(squad_offset_2 + 0x230, squad) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
-	     peekProc(squad_offset_2 + 0x234, squad_leader) && // Squad leader value: 0 (False); 1 (True).
-	     peekProc(squad_offset_2 + 0x235, squad_state); // Squad state value: 0 (Public); 1 (Private).
+		 peekProc(pModule + 0x23862C0, avatar_pos, 12) &&   // Avatar Position values (X, Y and Z).
+		 peekProc(pModule + 0x23B2F60, camera_pos, 12) &&   // Camera Position values (X, Y and Z).
+		 peekProc(pModule + 0x23B2F40, avatar_top, 12) &&   // Avatar Top Vector values (X, Y and Z).
+		 peekProc(pModule + 0x23B2F50, avatar_front, 12) && // Avatar Front Vector values (X, Y and Z).
+		 peekProc(serverid_offset, serverid) &&             // Server ID (36 characters).
+		 peekProc(pModule + 0x2378B60, host)
+		 && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
+		 peekProc(pModule + 0x2674B35, team) && // Team value: US (United States); RU (Russia); CH (China).
+		 peekProc(squad_offset_2 + 0x230, squad)
+		 && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
+		 peekProc(squad_offset_2 + 0x234, squad_leader) && // Squad leader value: 0 (False); 1 (True).
+		 peekProc(squad_offset_2 + 0x235, squad_state);    // Squad state value: 0 (Public); 1 (Private).
 
-	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
-	if (! ok) {
+	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from
+	// memory addresses.
+	if (!ok) {
 		return false;
 	}
 
-	if (state) { // If not in-game
-		context.clear(); // Clear context
+	if (state) {          // If not in-game
+		context.clear();  // Clear context
 		identity.clear(); // Clear identity
 		// Set vectors values to 0.
-		for (int i=0;i<3;i++) {
-			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
+		for (int i = 0; i < 3; i++) {
+			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 		}
 
 		return true; // This tells Mumble to ignore all vectors.
@@ -72,7 +84,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	std::wostringstream oidentity;
 	oidentity << "{";
 	escape(host, sizeof(host));
-	// Only include host (IP:port) if it is not empty and does not include the string "bot" (which means it's a local server).
+	// Only include host (IP:port) if it is not empty and does not include the string "bot" (which means it's a local
+	// server).
 	if (strcmp(host, "") != 0 && !strstr(host, "bot")) {
 		oidentity << std::endl << "\"Host\": \"" << host << "\",";
 	}
@@ -81,7 +94,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!Team.empty()) {
 		oidentity << std::endl;
 		if (Team == "US")
-			oidentity << "\"Team\": \"United States\","; // If team value is US, set "United States" as team in identity.
+			oidentity
+				<< "\"Team\": \"United States\","; // If team value is US, set "United States" as team in identity.
 		else if (Team == "CH")
 			oidentity << "\"Team\": \"China\","; // If team value is CH, set "China" as team in identity.
 		else if (Team == "RU")
@@ -144,18 +158,28 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			oidentity << std::endl << "\"Squad\": \"Zulu\",";
 		// Squad leader
 		if (squad_leader == 1)
-			oidentity << std::endl << "\"Squad leader\": true,"; // If squad leader value is true, set squad leader state to "True" in identity.
+			oidentity << std::endl
+					  << "\"Squad leader\": true,"; // If squad leader value is true, set squad leader state to "True"
+													// in identity.
 		else
-			oidentity << std::endl << "\"Squad leader\": false,"; // If squad leader value is false, set squad leader state to "False" in identity.
+			oidentity << std::endl
+					  << "\"Squad leader\": false,"; // If squad leader value is false, set squad leader state to
+													 // "False" in identity.
 		// Squad state
 		if (squad_state == 1)
-			oidentity << std::endl << "\"Squad state\": \"Private\""; // If squad state value is true, set squad state to "Private" in identity.
+			oidentity << std::endl
+					  << "\"Squad state\": \"Private\""; // If squad state value is true, set squad state to "Private"
+														 // in identity.
 		else
-			oidentity << std::endl << "\"Squad state\": \"Public\""; // If squad state value is false, set squad state to "Public" in identity.
-		// When not in a squad
+			oidentity << std::endl
+					  << "\"Squad state\": \"Public\""; // If squad state value is false, set squad state to "Public" in
+														// identity.
+														// When not in a squad
 	} else {
-		oidentity << std::endl << "\"Squad\": null,"; // If squad value isn't between 1 and 26, set squad to "null" in identity.
-		oidentity << std::endl << "\"Squad leader\": null,"; // If not in a squad, set squad leader state to "null" in identity.
+		oidentity << std::endl
+				  << "\"Squad\": null,"; // If squad value isn't between 1 and 26, set squad to "null" in identity.
+		oidentity << std::endl
+				  << "\"Squad leader\": null,"; // If not in a squad, set squad leader state to "null" in identity.
 		oidentity << std::endl << "\"Squad state\": null"; // If not in a squad, set squad state to "null" in identity.
 	}
 
@@ -163,28 +187,27 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	identity = oidentity.str();
 
 	// Flip the front vector
-	for (int i=0;i<3;i++) {
+	for (int i = 0; i < 3; i++) {
 		avatar_front[i] = -avatar_front[i];
 	}
 
 	// Convert from right to left handed
-	avatar_pos[0] = -avatar_pos[0];
-	camera_pos[0] = -camera_pos[0];
+	avatar_pos[0]   = -avatar_pos[0];
+	camera_pos[0]   = -camera_pos[0];
 	avatar_front[0] = -avatar_front[0];
-	avatar_top[0] = -avatar_top[0];
+	avatar_top[0]   = -avatar_top[0];
 
 	// Sync camera front and top vectors with avatar ones
-	for (int i=0;i<3;i++) {
+	for (int i = 0; i < 3; i++) {
 		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
+		camera_top[i]   = avatar_top[i];
 	}
 
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-
-	if (! initialize(pids, L"bf4.exe")) { // Link the game executable
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
+	if (!initialize(pids, L"bf4.exe")) { // Link the game executable
 		return false;
 	}
 
@@ -206,29 +229,16 @@ static const std::wstring longdesc() {
 }
 
 static std::wstring description(L"Battlefield 4 (x64) version 1.8.2.48475"); // Plugin short description
-static std::wstring shortname(L"Battlefield 4"); // Plugin short name
+static std::wstring shortname(L"Battlefield 4");                             // Plugin short name
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin bf4plug = {
-    MUMBLE_PLUGIN_MAGIC,
-    description,
-    shortname,
-    nullptr,
-    nullptr,
-    trylock1,
-    generic_unlock,
-    longdesc,
-    fetch
-};
+static MumblePlugin bf4plug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 bf4plug2 = {
-    MUMBLE_PLUGIN_MAGIC_2,
-    MUMBLE_PLUGIN_VERSION,
-    trylock
-};
+static MumblePlugin2 bf4plug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &bf4plug;

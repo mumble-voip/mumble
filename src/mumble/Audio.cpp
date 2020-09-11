@@ -9,23 +9,24 @@
 #include "AudioOutput.h"
 #include "CELTCodec.h"
 #ifdef USE_OPUS
-# include "OpusCodec.h"
+#	include "OpusCodec.h"
 #endif
-#include "PacketDataStream.h"
 #include "Log.h"
+#include "PacketDataStream.h"
 
 #include <QtCore/QObject>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 class CodecInit : public DeferInit {
-	public:
-		void initialize();
-		void destroy();
+public:
+	void initialize();
+	void destroy();
 };
 
-#define DOUBLE_RAND (rand()/static_cast<double>(RAND_MAX))
+#define DOUBLE_RAND (rand() / static_cast< double >(RAND_MAX))
 
 LoopUser LoopUser::lpLoopy;
 CodecInit ciInit;
@@ -37,7 +38,9 @@ void CodecInit::initialize() {
 		oCodec->report();
 		g.oCodec = oCodec;
 	} else {
-		Log::logOrDefer(Log::CriticalError, QObject::tr("CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio."));
+		Log::logOrDefer(
+			Log::CriticalError,
+			QObject::tr("CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio."));
 		delete oCodec;
 	}
 #endif
@@ -80,19 +83,19 @@ void CodecInit::destroy() {
 	delete g.oCodec;
 #endif
 
-	foreach(CELTCodec *codec, g.qmCodecs)
+	foreach (CELTCodec *codec, g.qmCodecs)
 		delete codec;
 	g.qmCodecs.clear();
 }
 
 LoopUser::LoopUser() {
-	qsName = QLatin1String("Loopy");
+	qsName    = QLatin1String("Loopy");
 	uiSession = 0;
-	iId = 0;
+	iId       = 0;
 	bMute = bDeaf = bSuppress = false;
 	bLocalIgnore = bLocalMute = bSelfDeaf = false;
-	tsState = Settings::Passive;
-	cChannel = nullptr;
+	tsState                               = Settings::Passive;
+	cChannel                              = nullptr;
 	qetTicker.start();
 	qetLastFetch.start();
 }
@@ -115,18 +118,18 @@ void LoopUser::addFrame(const QByteArray &packet) {
 		else
 			r = DOUBLE_RAND * g.s.dMaxPacketDelay;
 
-		qmPackets.insert(static_cast<float>(time + r), packet);
+		qmPackets.insert(static_cast< float >(time + r), packet);
 	}
 
 	// Restart check
 	if (qetLastFetch.elapsed() > 100) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
-			MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((packet.at(0) >> 5) & 0x7);
+			MessageHandler::UDPMessageType msgType =
+				static_cast< MessageHandler::UDPMessageType >((packet.at(0) >> 5) & 0x7);
 			ao->addFrameToBuffer(this, QByteArray(), 0, msgType);
 		}
 	}
-
 }
 
 void LoopUser::fetchFrames() {
@@ -139,7 +142,7 @@ void LoopUser::fetchFrames() {
 
 	double cmp = qetTicker.elapsed();
 
-	QMultiMap<float, QByteArray>::iterator i = qmPackets.begin();
+	QMultiMap< float, QByteArray >::iterator i = qmPackets.begin();
 
 	while (i != qmPackets.end()) {
 		if (i.key() > cmp)
@@ -149,16 +152,16 @@ void LoopUser::fetchFrames() {
 		const QByteArray &data = i.value();
 		PacketDataStream pds(data.constData(), data.size());
 
-		unsigned int msgFlags = static_cast<unsigned int>(pds.next());
+		unsigned int msgFlags = static_cast< unsigned int >(pds.next());
 
 		pds >> iSeq;
 
 		QByteArray qba;
 		qba.reserve(pds.left() + 1);
-		qba.append(static_cast<char>(msgFlags));
+		qba.append(static_cast< char >(msgFlags));
 		qba.append(pds.dataBlock(pds.left()));
 
-		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((msgFlags >> 5) & 0x7);
+		MessageHandler::UDPMessageType msgType = static_cast< MessageHandler::UDPMessageType >((msgFlags >> 5) & 0x7);
 
 		ao->addFrameToBuffer(this, qba, iSeq, msgType);
 		i = qmPackets.erase(i);
@@ -185,16 +188,16 @@ void RecordUser::addFrame(const QByteArray &packet) {
 	int iSeq;
 	PacketDataStream pds(packet.constData(), packet.size());
 
-	unsigned int msgFlags = static_cast<unsigned int>(pds.next());
+	unsigned int msgFlags = static_cast< unsigned int >(pds.next());
 
 	pds >> iSeq;
 
 	QByteArray qba;
 	qba.reserve(pds.left() + 1);
-	qba.append(static_cast<char>(msgFlags));
+	qba.append(static_cast< char >(msgFlags));
 	qba.append(pds.dataBlock(pds.left()));
 
-	MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((msgFlags >> 5) & 0x7);
+	MessageHandler::UDPMessageType msgType = static_cast< MessageHandler::UDPMessageType >((msgFlags >> 5) & 0x7);
 
 	ao->addFrameToBuffer(this, qba, iSeq, msgType);
 }
@@ -215,7 +218,7 @@ void Audio::stopOutput() {
 
 	// Wait until our copy of the AudioOutput shared pointer (ao)
 	// is the only one left.
-	while (ao.get() && ! ao.unique()) {
+	while (ao.get() && !ao.unique()) {
 		QThread::yieldCurrentThread();
 	}
 
@@ -248,7 +251,7 @@ void Audio::stopInput() {
 
 	// Wait until our copy of the AudioInput shared pointer (ai)
 	// is the only one left.
-	while (ai.get() && ! ai.unique()) {
+	while (ai.get() && !ai.unique()) {
 		QThread::yieldCurrentThread();
 	}
 
@@ -274,7 +277,7 @@ void Audio::stop() {
 	// Take copies of the global AudioInput and AudioOutput
 	// shared pointers to keep a reference to each of them
 	// around.
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai  = g.ai;
 	AudioOutputPtr ao = g.ao;
 
 	// Reset the global AudioInput and AudioOutput shared pointers
@@ -284,7 +287,7 @@ void Audio::stop() {
 
 	// Wait until our copies of the AudioInput and AudioOutput shared pointers
 	// (ai and ao) are the only ones left.
-	while ((ai.get() && ! ai.unique()) || (ao.get() && ! ao.unique())) {
+	while ((ai.get() && !ai.unique()) || (ao.get() && !ao.unique())) {
 		QThread::yieldCurrentThread();
 	}
 

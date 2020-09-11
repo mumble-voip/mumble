@@ -6,9 +6,9 @@
 #ifndef MUMBLE_MUMBLE_DATABASE_H_
 #define MUMBLE_MUMBLE_DATABASE_H_
 
-#include <QSqlDatabase>
 #include "Settings.h"
 #include "UnresolvedServerAddress.h"
+#include <QSqlDatabase>
 
 struct FavoriteServer {
 	QString qsName;
@@ -20,70 +20,71 @@ struct FavoriteServer {
 };
 
 class Database : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(Database)
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(Database)
 
-		QSqlDatabase db;
-		/// This function is called when no database location is configured
-		/// in the config file. It tries to find an existing database file and
-		/// creates a new one if none was found.
-		bool findOrCreateDatabase();
-	public:
-		Database(const QString &dbname);
-		~Database() Q_DECL_OVERRIDE;
+	QSqlDatabase db;
+	/// This function is called when no database location is configured
+	/// in the config file. It tries to find an existing database file and
+	/// creates a new one if none was found.
+	bool findOrCreateDatabase();
 
-		QList<FavoriteServer> getFavorites();
-		void setFavorites(const QList<FavoriteServer> &servers);
-		void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
-		bool fuzzyMatch(QString &name, QString &user, QString &pw, QString &host, unsigned short port);
+public:
+	Database(const QString &dbname);
+	~Database() Q_DECL_OVERRIDE;
 
-		bool isLocalIgnored(const QString &hash);
-		void setLocalIgnored(const QString &hash, bool ignored);
+	QList< FavoriteServer > getFavorites();
+	void setFavorites(const QList< FavoriteServer > &servers);
+	void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
+	bool fuzzyMatch(QString &name, QString &user, QString &pw, QString &host, unsigned short port);
 
-		bool isLocalIgnoredTTS(const QString &hash);
-		void setLocalIgnoredTTS(const QString &hash, bool ignoredTTS);
+	bool isLocalIgnored(const QString &hash);
+	void setLocalIgnored(const QString &hash, bool ignored);
 
-		bool isLocalMuted(const QString &hash);
-		void setLocalMuted(const QString &hash, bool muted);
+	bool isLocalIgnoredTTS(const QString &hash);
+	void setLocalIgnoredTTS(const QString &hash, bool ignoredTTS);
 
-		float getUserLocalVolume(const QString &hash);
-		void setUserLocalVolume(const QString &hash, float volume);
+	bool isLocalMuted(const QString &hash);
+	void setLocalMuted(const QString &hash, bool muted);
 
-		bool isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id);
-		void setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, bool hidden);
+	float getUserLocalVolume(const QString &hash);
+	void setUserLocalVolume(const QString &hash, float volume);
 
-		QMap<UnresolvedServerAddress, unsigned int> getPingCache();
-		void setPingCache(const QMap<UnresolvedServerAddress, unsigned int> &cache);
+	bool isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id);
+	void setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, bool hidden);
 
-		bool seenComment(const QString &hash, const QByteArray &commenthash);
-		void setSeenComment(const QString &hash, const QByteArray &commenthash);
+	QMap< UnresolvedServerAddress, unsigned int > getPingCache();
+	void setPingCache(const QMap< UnresolvedServerAddress, unsigned int > &cache);
 
-		QByteArray blob(const QByteArray &hash);
-		void setBlob(const QByteArray &hash, const QByteArray &blob);
+	bool seenComment(const QString &hash, const QByteArray &commenthash);
+	void setSeenComment(const QString &hash, const QByteArray &commenthash);
 
-		QStringList getTokens(const QByteArray &digest);
-		void setTokens(const QByteArray &digest, QStringList &tokens);
+	QByteArray blob(const QByteArray &hash);
+	void setBlob(const QByteArray &hash, const QByteArray &blob);
 
-		QList<Shortcut> getShortcuts(const QByteArray &digest);
-		bool setShortcuts(const QByteArray &digest, QList<Shortcut> &shortcuts);
+	QStringList getTokens(const QByteArray &digest);
+	void setTokens(const QByteArray &digest, QStringList &tokens);
 
-		void addFriend(const QString &name, const QString &hash);
-		void removeFriend(const QString &hash);
-		const QString getFriend(const QString &hash);
-		const QMap<QString, QString> getFriends();
+	QList< Shortcut > getShortcuts(const QByteArray &digest);
+	bool setShortcuts(const QByteArray &digest, QList< Shortcut > &shortcuts);
 
-		const QString getDigest(const QString &hostname, unsigned short port);
-		void setDigest(const QString &hostname, unsigned short port, const QString &digest);
+	void addFriend(const QString &name, const QString &hash);
+	void removeFriend(const QString &hash);
+	const QString getFriend(const QString &hash);
+	const QMap< QString, QString > getFriends();
 
-		bool getUdp(const QByteArray &digest);
-		void setUdp(const QByteArray &digest, bool udp);
+	const QString getDigest(const QString &hostname, unsigned short port);
+	void setDigest(const QString &hostname, unsigned short port, const QString &digest);
 
-		QList<int> getChannelListeners(const QByteArray &digest);
-		void setChannelListeners(const QByteArray &digest, const QSet<int> &channelIDs);
+	bool getUdp(const QByteArray &digest);
+	void setUdp(const QByteArray &digest, bool udp);
 
-		QHash<int, float> getChannelListenerLocalVolumeAdjustments(const QByteArray &digest);
-		void setChannelListenerLocalVolumeAdjustments(const QByteArray &digest, const QHash<int, float> &volumeMap);
+	QList< int > getChannelListeners(const QByteArray &digest);
+	void setChannelListeners(const QByteArray &digest, const QSet< int > &channelIDs);
+
+	QHash< int, float > getChannelListenerLocalVolumeAdjustments(const QByteArray &digest);
+	void setChannelListenerLocalVolumeAdjustments(const QByteArray &digest, const QHash< int, float > &volumeMap);
 };
 
 #endif

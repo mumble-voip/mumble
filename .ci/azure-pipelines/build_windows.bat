@@ -63,8 +63,8 @@ if errorlevel 1 (
 	exit /b %errorlevel%
 )
 
-:: Set timeout for tests to 10min
-set QTEST_FUNCTION_TIMEOUT=600000
+:: Set timeout for tests to 15min
+set QTEST_FUNCTION_TIMEOUT=900000
 ctest --verbose
 
 if errorlevel 1 (

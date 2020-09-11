@@ -9,347 +9,353 @@
 #include <QRegularExpressionMatch>
 
 namespace Markdown {
-	// Placeholder constant
-	const QLatin1String regularLineBreakPlaceholder("%<\\!!linebreak!!//>@");
+// Placeholder constant
+const QLatin1String regularLineBreakPlaceholder("%<\\!!linebreak!!//>@");
 
-	/// Tries to match and replace an escaped character at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processEscapedChar(QString &str, int &offset) {
-		static const QRegularExpression s_regex(QLatin1String("\\\\(.)"));
+/// Tries to match and replace an escaped character at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processEscapedChar(QString &str, int &offset) {
+	static const QRegularExpression s_regex(QLatin1String("\\\\(.)"));
 
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
-		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("%1").arg(match.captured(1));
+	if (match.hasMatch()) {
+		QString replacement = QString::fromLatin1("%1").arg(match.captured(1));
 
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
-			offset += replacement.size();
+		offset += replacement.size();
 
-			return  true;
-		}
-
-		return false;
+		return true;
 	}
 
-	/// Tries to match and replace a markdown section header at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownHeader(QString &str, int &offset) {
-		// Match a markdown section heading. Also eat up a potential following newline in order to
-		// not create a huge spacing after the heading
-		static const QRegularExpression s_regex(QLatin1String("^(#+) (.*)"), QRegularExpression::MultilineOption);
+	return false;
+}
 
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+/// Tries to match and replace a markdown section header at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownHeader(QString &str, int &offset) {
+	// Match a markdown section heading. Also eat up a potential following newline in order to
+	// not create a huge spacing after the heading
+	static const QRegularExpression s_regex(QLatin1String("^(#+) (.*)"), QRegularExpression::MultilineOption);
 
-		if (match.hasMatch()) {
-			int sectionLevel = match.captured(1).size();
-			QString sectionName = match.captured(2);
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
-			QString replacement = QString::fromLatin1("<h%1>%2</h%1>").arg(sectionLevel).arg(sectionName);
+	if (match.hasMatch()) {
+		int sectionLevel    = match.captured(1).size();
+		QString sectionName = match.captured(2);
 
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+		QString replacement = QString::fromLatin1("<h%1>%2</h%1>").arg(sectionLevel).arg(sectionName);
 
-			offset += replacement.size();
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
-			return  true;
-		}
+		offset += replacement.size();
 
-		return false;
+		return true;
 	}
 
-	/// Tries to match and replace a markdown link at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownLink(QString &str, int &offset) {
-		// Link in format [link text](url)
-		static const QRegularExpression s_regex(QLatin1String("\\[([^\\]\\[]+)\\]\\(([^\\)]+)\\)"));
+	return false;
+}
 
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+/// Tries to match and replace a markdown link at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownLink(QString &str, int &offset) {
+	// Link in format [link text](url)
+	static const QRegularExpression s_regex(QLatin1String("\\[([^\\]\\[]+)\\]\\(([^\\)]+)\\)"));
 
-		if (match.hasMatch()) {
-			QString url = match.captured(2);
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
-			if (!url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
-				// For a markdown link to work, it has to start with the protocol specification, e.g. http or https
-				// As we can't know for sure that the given website supports https, we'll have to fall back to http
-				// Most browsers will upgrade the request to https whenver possible anyways though, so this shouldn't be
-				// too much of a problem.
-				url = QLatin1String("http://") + url;
-			}
+	if (match.hasMatch()) {
+		QString url = match.captured(2);
 
-			QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(match.captured(1));
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
-
-			offset += replacement.size();
-
-			return true;
+		if (!url.startsWith(QLatin1String("http"), Qt::CaseInsensitive)) {
+			// For a markdown link to work, it has to start with the protocol specification, e.g. http or https
+			// As we can't know for sure that the given website supports https, we'll have to fall back to http
+			// Most browsers will upgrade the request to https whenver possible anyways though, so this shouldn't be
+			// too much of a problem.
+			url = QLatin1String("http://") + url;
 		}
 
-		return false;
+		QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(match.captured(1));
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+
+		offset += replacement.size();
+
+		return true;
 	}
 
-	/// Tries to match and replace a markdown bold-text at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownBold(QString &str, int &offset) {
-		// Bold text is marked as **bold**
-		static const QRegularExpression s_regex(QLatin1String("\\*\\*([^*]+)\\*\\*"));
+	return false;
+}
 
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+/// Tries to match and replace a markdown bold-text at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownBold(QString &str, int &offset) {
+	// Bold text is marked as **bold**
+	static const QRegularExpression s_regex(QLatin1String("\\*\\*([^*]+)\\*\\*"));
 
-		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<b>%1</b>").arg(match.captured(1));
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
-			offset += replacement.size();
+	if (match.hasMatch()) {
+		QString replacement = QString::fromLatin1("<b>%1</b>").arg(match.captured(1));
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
-			return true;
-		}
+		offset += replacement.size();
 
-		return false;
+		return true;
 	}
 
-	/// Tries to match and replace a markdown italic-text at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownItalic(QString &str, int &offset) {
-		// Italic text is marked as *italic*
-		static const QRegularExpression s_regex(QLatin1String("\\*([^*]+)\\*"));
+	return false;
+}
 
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+/// Tries to match and replace a markdown italic-text at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownItalic(QString &str, int &offset) {
+	// Italic text is marked as *italic*
+	static const QRegularExpression s_regex(QLatin1String("\\*([^*]+)\\*"));
 
-		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<i>%1</i>").arg(match.captured(1));
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
-			offset += replacement.size();
+	if (match.hasMatch()) {
+		QString replacement = QString::fromLatin1("<i>%1</i>").arg(match.captured(1));
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
-			return true;
-		}
+		offset += replacement.size();
 
-		return false;
+		return true;
 	}
 
-	/// Tries to match and replace a markdown strikethrough-text at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownStrikethrough(QString &str, int &offset) {
-		// Strikethrough text is marked as ~~text~~
-		static const QRegularExpression s_regex(QLatin1String("~~([^~]+)~~"));
+	return false;
+}
 
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+/// Tries to match and replace a markdown strikethrough-text at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownStrikethrough(QString &str, int &offset) {
+	// Strikethrough text is marked as ~~text~~
+	static const QRegularExpression s_regex(QLatin1String("~~([^~]+)~~"));
 
-		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<s>%1</s>").arg(match.captured(1));
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
-			offset += replacement.size();
+	if (match.hasMatch()) {
+		QString replacement = QString::fromLatin1("<s>%1</s>").arg(match.captured(1));
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
-			return true;
-		}
+		offset += replacement.size();
 
-		return false;
+		return true;
 	}
 
-	/// Tries to match and replace a markdown quote (blockquote) at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownBlockQuote(QString &str, int &offset) {
-		// Block quotes are (consecutive) lines starting with "> "
-		static const QRegularExpression s_regex(QLatin1String("^(>|&gt;) (.|\\n(>|&gt;) )+"), QRegularExpression::MultilineOption);
+	return false;
+}
 
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+/// Tries to match and replace a markdown quote (blockquote) at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownBlockQuote(QString &str, int &offset) {
+	// Block quotes are (consecutive) lines starting with "> "
+	static const QRegularExpression s_regex(QLatin1String("^(>|&gt;) (.|\\n(>|&gt;) )+"),
+											QRegularExpression::MultilineOption);
 
-		if (match.hasMatch()) {
-			QString quote = match.captured(0).replace(QLatin1String("&gt;"), QLatin1String(">"));
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
 
-			QStringList lines = quote.split(QChar::fromLatin1('\n'));
+	if (match.hasMatch()) {
+		QString quote = match.captured(0).replace(QLatin1String("&gt;"), QLatin1String(">"));
 
-			quote.clear();
-			for (int i = 0; i < lines.size(); i++) {
-				// remove the leading "> "
-				quote += lines[i].right(lines[i].size() - 2);
+		QStringList lines = quote.split(QChar::fromLatin1('\n'));
 
-				if (i != lines.size() - 1) {
-					// Add linebreak back in
-					quote += QString::fromLatin1("\n");
-				}
-			}
+		quote.clear();
+		for (int i = 0; i < lines.size(); i++) {
+			// remove the leading "> "
+			quote += lines[i].right(lines[i].size() - 2);
 
-			QString replacement = QString::fromLatin1("<div><i>%1</i></div>").arg(quote.replace(QLatin1String("\n"), QLatin1String("<br/>")));
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
-
-			offset += replacement.size();
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/// Tries to match and replace a markdown inline code snippet at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownInlineCode(QString &str, int &offset) {
-		// Inline code fragments are marked as `code`
-		static const QRegularExpression s_regex(QLatin1String("`([^`\n]+)`"));
-
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
-		if (match.hasMatch()) {
-			QString replacement = QString::fromLatin1("<code>%1</code>").arg(match.captured(1));
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
-
-			offset += replacement.size();
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/// Tries to match and replace a markdown code block at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processMarkdownCodeBlock(QString &str, int &offset) {
-		// Code blocks are marked as ```code```
-		// Also consume a potential following newline as the <pre> tag will cause a linebreak anyways
-		static const QRegularExpression s_regex(QLatin1String("```.*\\n([^`]+)```(\\r\\n|\\n|\\r)?"));
-
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
-		if (match.hasMatch()) {
-			QString code = match.captured(1);
-
-			// Trim away leading linebreaks
-			while (code.size() >= 1 && (code[0] == QLatin1Char('\n') || code[0] == QLatin1Char('\r'))) {
-				code = code.right(code.size() - 1);
-			}
-			// Trim end of string
-			while (code.size() >= 1 && code[code.size() - 1].isSpace()) {
-				code = code.left(code.size() - 1);
-			}
-
-			if (code.isEmpty()) {
-				return false;
-			}
-
-			// Replace linebreaks with a special placeholder as the linebreaks in a <pre> block must not be replaced
-			// with <br/>
-			QString replacement = QString::fromLatin1("<pre>%1</pre>").arg(code.replace(QLatin1String("\n"), regularLineBreakPlaceholder));
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
-
-			offset += replacement.size();
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/// Tries to match and replace a plain link at exactly the given offset in the string
-	///
-	/// @param str A reference to the String to work on
-	/// @param offset The offset at which the matching shall be done. This will be modified to point right after
-	/// 	replacement text, if such a replacement has been made.
-	/// @returns Whether a replacement has been made
-	bool processPlainLink(QString &str, int &offset) {
-		// We support links with prefixed protocol (e.g. https://bla.com) and prefixed with www (e.g. www.bla.com)
-		static const QRegularExpression s_regex(QLatin1String("([a-zA-Z]+://|[wW][wW][wW]\\.)[^ \\t\\n<]+"));
-
-		QRegularExpressionMatch match = s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
-
-		if (match.hasMatch()) {
-			QString url = match.captured(0);
-			QString urlText = url;
-
-			if (url.startsWith(QLatin1String("www"), Qt::CaseInsensitive)) {
-				// Link is missing a protocol specification.
-				// Use http as the default
-				url = QLatin1String("http://") + url;
-			}
-
-			QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(urlText);
-			str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
-
-			offset += replacement.size();
-
-			return true;
-		}
-
-		return false;
-	}
-
-	QString markdownToHTML(const QString &markdownInput) {
-		QString htmlString = markdownInput;
-		int offset = 0;
-
-		while (offset < htmlString.size()) {
-			// The trick here is to know that in a condition the or-branches are only
-			// processed until the first expression returns true. At this point no
-			// lower or-branch will be executed. This results in each of these functions
-			// being called in succession until the first returns true (meaning that it
-			// was able to recognize and replace a pattern).
-			// Each function will only try to match its pattern at the exact offset given.
-			// If a function was able to match and replace, it'll update the offset by
-			// itself in order for the processing to start over right after the replacement
-			// text (avoiding replacing parts of the replacement text which will probably
-			// render the initial replacement invalid).
-			// If no function matches, we increase the offset manually.
-			// Do this until the end of the text has been reached.
-			if (!(
-					   processMarkdownHeader(htmlString, offset)
-					|| processMarkdownLink(htmlString, offset)
-					|| processMarkdownBold(htmlString, offset)
-					|| processMarkdownItalic(htmlString, offset)
-					|| processMarkdownStrikethrough(htmlString, offset)
-					|| processMarkdownBlockQuote(htmlString, offset)
-					|| processMarkdownCodeBlock(htmlString, offset)
-					|| processMarkdownInlineCode(htmlString, offset)
-					|| processPlainLink(htmlString, offset)
-					|| processEscapedChar(htmlString, offset)
-			   )) {
-				offset++;
+			if (i != lines.size() - 1) {
+				// Add linebreak back in
+				quote += QString::fromLatin1("\n");
 			}
 		}
 
-		// Replace linebreaks afterwards in order to not mess up the RegEx used by the
-		// different functions.
-		static const QRegularExpression s_lineBreakRegEx(QLatin1String("\r\n|\n|\r"));
-		htmlString.replace(s_lineBreakRegEx, QLatin1String("</br>"));
+		QString replacement =
+			QString::fromLatin1("<div><i>%1</i></div>").arg(quote.replace(QLatin1String("\n"), QLatin1String("<br/>")));
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
 
-		// Resore linebreaks in <pre> blocks
-		htmlString.replace(regularLineBreakPlaceholder, QLatin1String("\n"));
+		offset += replacement.size();
 
-		return htmlString;
+		return true;
 	}
+
+	return false;
+}
+
+/// Tries to match and replace a markdown inline code snippet at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownInlineCode(QString &str, int &offset) {
+	// Inline code fragments are marked as `code`
+	static const QRegularExpression s_regex(QLatin1String("`([^`\n]+)`"));
+
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+
+	if (match.hasMatch()) {
+		QString replacement = QString::fromLatin1("<code>%1</code>").arg(match.captured(1));
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+
+		offset += replacement.size();
+
+		return true;
+	}
+
+	return false;
+}
+
+/// Tries to match and replace a markdown code block at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processMarkdownCodeBlock(QString &str, int &offset) {
+	// Code blocks are marked as ```code```
+	// Also consume a potential following newline as the <pre> tag will cause a linebreak anyways
+	static const QRegularExpression s_regex(QLatin1String("```.*\\n([^`]+)```(\\r\\n|\\n|\\r)?"));
+
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+
+	if (match.hasMatch()) {
+		QString code = match.captured(1);
+
+		// Trim away leading linebreaks
+		while (code.size() >= 1 && (code[0] == QLatin1Char('\n') || code[0] == QLatin1Char('\r'))) {
+			code = code.right(code.size() - 1);
+		}
+		// Trim end of string
+		while (code.size() >= 1 && code[code.size() - 1].isSpace()) {
+			code = code.left(code.size() - 1);
+		}
+
+		if (code.isEmpty()) {
+			return false;
+		}
+
+		// Replace linebreaks with a special placeholder as the linebreaks in a <pre> block must not be replaced
+		// with <br/>
+		QString replacement =
+			QString::fromLatin1("<pre>%1</pre>").arg(code.replace(QLatin1String("\n"), regularLineBreakPlaceholder));
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+
+		offset += replacement.size();
+
+		return true;
+	}
+
+	return false;
+}
+
+/// Tries to match and replace a plain link at exactly the given offset in the string
+///
+/// @param str A reference to the String to work on
+/// @param offset The offset at which the matching shall be done. This will be modified to point right after
+/// 	replacement text, if such a replacement has been made.
+/// @returns Whether a replacement has been made
+bool processPlainLink(QString &str, int &offset) {
+	// We support links with prefixed protocol (e.g. https://bla.com) and prefixed with www (e.g. www.bla.com)
+	static const QRegularExpression s_regex(QLatin1String("([a-zA-Z]+://|[wW][wW][wW]\\.)[^ \\t\\n<]+"));
+
+	QRegularExpressionMatch match =
+		s_regex.match(str, offset, QRegularExpression::NormalMatch, QRegularExpression::AnchoredMatchOption);
+
+	if (match.hasMatch()) {
+		QString url     = match.captured(0);
+		QString urlText = url;
+
+		if (url.startsWith(QLatin1String("www"), Qt::CaseInsensitive)) {
+			// Link is missing a protocol specification.
+			// Use http as the default
+			url = QLatin1String("http://") + url;
+		}
+
+		QString replacement = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(urlText);
+		str.replace(match.capturedStart(), match.capturedEnd() - match.capturedStart(), replacement);
+
+		offset += replacement.size();
+
+		return true;
+	}
+
+	return false;
+}
+
+QString markdownToHTML(const QString &markdownInput) {
+	QString htmlString = markdownInput;
+	int offset         = 0;
+
+	while (offset < htmlString.size()) {
+		// The trick here is to know that in a condition the or-branches are only
+		// processed until the first expression returns true. At this point no
+		// lower or-branch will be executed. This results in each of these functions
+		// being called in succession until the first returns true (meaning that it
+		// was able to recognize and replace a pattern).
+		// Each function will only try to match its pattern at the exact offset given.
+		// If a function was able to match and replace, it'll update the offset by
+		// itself in order for the processing to start over right after the replacement
+		// text (avoiding replacing parts of the replacement text which will probably
+		// render the initial replacement invalid).
+		// If no function matches, we increase the offset manually.
+		// Do this until the end of the text has been reached.
+		if (!(processMarkdownHeader(htmlString, offset) || processMarkdownLink(htmlString, offset)
+			  || processMarkdownBold(htmlString, offset) || processMarkdownItalic(htmlString, offset)
+			  || processMarkdownStrikethrough(htmlString, offset) || processMarkdownBlockQuote(htmlString, offset)
+			  || processMarkdownCodeBlock(htmlString, offset) || processMarkdownInlineCode(htmlString, offset)
+			  || processPlainLink(htmlString, offset) || processEscapedChar(htmlString, offset))) {
+			offset++;
+		}
+	}
+
+	// Replace linebreaks afterwards in order to not mess up the RegEx used by the
+	// different functions.
+	static const QRegularExpression s_lineBreakRegEx(QLatin1String("\r\n|\n|\r"));
+	htmlString.replace(s_lineBreakRegEx, QLatin1String("</br>"));
+
+	// Resore linebreaks in <pre> blocks
+	htmlString.replace(regularLineBreakPlaceholder, QLatin1String("\n"));
+
+	return htmlString;
+}
 }; // namespace Markdown

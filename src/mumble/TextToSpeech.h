@@ -11,23 +11,26 @@
 class TextToSpeechPrivate;
 
 class TextToSpeech : public QObject {
-		friend class TextToSpeechPrivate;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(TextToSpeech)
-		Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
-	protected:
-		bool enabled;
-	public:
-		TextToSpeech(QObject *parent = nullptr);
-		~TextToSpeech() Q_DECL_OVERRIDE;
-		bool isEnabled() const;
-	public slots:
-		void say(const QString &text);
-		void setEnabled(bool ena);
-		void setVolume(int volume);
-	private:
-		TextToSpeechPrivate *d;
+	friend class TextToSpeechPrivate;
+
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(TextToSpeech)
+	Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
+protected:
+	bool enabled;
+
+public:
+	TextToSpeech(QObject *parent = nullptr);
+	~TextToSpeech() Q_DECL_OVERRIDE;
+	bool isEnabled() const;
+public slots:
+	void say(const QString &text);
+	void setEnabled(bool ena);
+	void setVolume(int volume);
+
+private:
+	TextToSpeechPrivate *d;
 };
 
 #endif

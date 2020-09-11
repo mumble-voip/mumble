@@ -8,11 +8,9 @@
 ServerResolverRecord::ServerResolverRecord() {
 }
 
-ServerResolverRecord::ServerResolverRecord(QString hostname_, quint16 port_, qint64 priority_, QList<HostAddress> addresses_)
-	: m_hostname(hostname_)
-	, m_port(port_)
-	, m_priority(priority_)
-	, m_addresses(addresses_) {
+ServerResolverRecord::ServerResolverRecord(QString hostname_, quint16 port_, qint64 priority_,
+										   QList< HostAddress > addresses_)
+	: m_hostname(hostname_), m_port(port_), m_priority(priority_), m_addresses(addresses_) {
 }
 
 qint64 ServerResolverRecord::priority() {
@@ -27,6 +25,6 @@ quint16 ServerResolverRecord::port() {
 	return m_port;
 }
 
-QList<HostAddress> ServerResolverRecord::addresses() {
+QList< HostAddress > ServerResolverRecord::addresses() {
 	return m_addresses;
 }

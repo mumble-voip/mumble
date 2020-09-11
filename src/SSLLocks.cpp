@@ -42,14 +42,14 @@ unsigned long id_callback() {
 	// convert to that without the compiler complaining. Then, we convert
 	// *that* to an unsigned long. (Note that for LLP64 platforms, such as
 	// 64-bit Windows, this conversion is from a 64-bit type to a 32-bit type)
-	uintptr_t val = reinterpret_cast<uintptr_t>(QThread::currentThreadId());
-	return static_cast<unsigned long>(val);
+	uintptr_t val = reinterpret_cast< uintptr_t >(QThread::currentThreadId());
+	return static_cast< unsigned long >(val);
 }
 
 void SSLLocks::initialize() {
 	int nlocks = CRYPTO_num_locks();
 
-	locks = reinterpret_cast<QMutex **>(calloc(nlocks, sizeof(QMutex *)));
+	locks = reinterpret_cast< QMutex ** >(calloc(nlocks, sizeof(QMutex *)));
 	if (!locks) {
 		qFatal("SSLLocks: unable to allocate locks array");
 

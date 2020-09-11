@@ -7,13 +7,13 @@
 #define MUMBLE_SPEECHFLAGS_H_
 
 namespace SpeechFlags {
-	enum SpeechFlags {
-		Invalid = 0xFF, // This is the unsigned equivalent of -1
-		Normal = 0,
-		Shout = 1,
-		Whisper = 2,
-		Listen = 3
-	};
+enum SpeechFlags {
+	Invalid = 0xFF, // This is the unsigned equivalent of -1
+	Normal  = 0,
+	Shout   = 1,
+	Whisper = 2,
+	Listen  = 3
+};
 }; // namespace SpeechFlags
 
 #endif // MUMBLE_SPEECHFLAGS_H_

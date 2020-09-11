@@ -11,8 +11,7 @@ class QScreen;
 class QWidget;
 class QWindow;
 
-class Screen
-{
+class Screen {
 public:
 	/// Inspired by https://phabricator.kde.org/D22379
 	static QWindow *windowFromWidget(const QWidget &widget);

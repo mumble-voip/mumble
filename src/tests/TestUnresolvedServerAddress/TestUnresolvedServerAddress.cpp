@@ -9,15 +9,15 @@
 #include "UnresolvedServerAddress.h"
 
 class TestUnresolvedServerAddress : public QObject {
-		Q_OBJECT
-	private slots:
-		void defaultCtor();
-		void isValid();
-		void ctor();
-		void caseInsensitive();
-		void equals();
-		void lessThan();
-		void qhash();
+	Q_OBJECT
+private slots:
+	void defaultCtor();
+	void isValid();
+	void ctor();
+	void caseInsensitive();
+	void equals();
+	void lessThan();
+	void qhash();
 };
 
 void TestUnresolvedServerAddress::defaultCtor() {
@@ -47,7 +47,7 @@ void TestUnresolvedServerAddress::isValid() {
 void TestUnresolvedServerAddress::ctor() {
 	UnresolvedServerAddress usa(QLatin1String("mumble.info"), 443);
 	QCOMPARE(usa.hostname, QString::fromLatin1("mumble.info"));
-	QCOMPARE(usa.port, static_cast<unsigned short>(443));
+	QCOMPARE(usa.port, static_cast< unsigned short >(443));
 }
 
 void TestUnresolvedServerAddress::caseInsensitive() {
@@ -72,7 +72,7 @@ void TestUnresolvedServerAddress::equals() {
 }
 
 void TestUnresolvedServerAddress::lessThan() {
-	QList<UnresolvedServerAddress> testdata;
+	QList< UnresolvedServerAddress > testdata;
 
 	testdata << UnresolvedServerAddress();
 	testdata << UnresolvedServerAddress(QString(), 1);
@@ -87,11 +87,11 @@ void TestUnresolvedServerAddress::lessThan() {
 	testdata << UnresolvedServerAddress(QLatin1String("zaaaa"), 0);
 	testdata << UnresolvedServerAddress(QLatin1String("zaaaa"), 65535);
 
-	QList<UnresolvedServerAddress> sorted(testdata);
+	QList< UnresolvedServerAddress > sorted(testdata);
 	std::sort(sorted.begin(), sorted.end());
 
 	int i = 0;
-	foreach(const UnresolvedServerAddress &unresolved, sorted) {
+	foreach (const UnresolvedServerAddress &unresolved, sorted) {
 		qWarning("%i -> %s:%i", i, qPrintable(unresolved.hostname), unresolved.port);
 		i += 1;
 	}

@@ -17,26 +17,27 @@
 #include <QtGui/QPainter>
 #include <QtWidgets/QWhatsThis>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 const int UserDelegate::FLAG_ICON_DIMENSION = 16;
-const int UserDelegate::FLAG_ICON_PADDING = 1;
-const int UserDelegate::FLAG_DIMENSION = 18;
+const int UserDelegate::FLAG_ICON_PADDING   = 1;
+const int UserDelegate::FLAG_DIMENSION      = 18;
 
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
-void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
 	const QAbstractItemModel *m = index.model();
-	const QModelIndex idxc1 = index.sibling(index.row(), 1);
-	QVariant data = m->data(idxc1);
-	QList<QVariant> ql = data.toList();
+	const QModelIndex idxc1     = index.sibling(index.row(), 1);
+	QVariant data               = m->data(idxc1);
+	QList< QVariant > ql        = data.toList();
 
 	// Allow a UserView's BackgroundRole to override the current theme's default color.
 	QVariant bg = index.data(Qt::BackgroundRole);
 	if (bg.isValid()) {
-		painter->fillRect(option.rect, bg.value<QBrush>());
+		painter->fillRect(option.rect, bg.value< QBrush >());
 	}
 
 	painter->save();
@@ -44,14 +45,14 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	QStyleOptionViewItem o = option;
 	initStyleOption(&o, index);
 
-	QStyle *style = o.widget->style();
+	QStyle *style        = o.widget->style();
 	QIcon::Mode iconMode = QIcon::Normal;
 
 	QPalette::ColorRole colorRole = ((o.state & QStyle::State_Selected) ? QPalette::HighlightedText : QPalette::Text);
 #if defined(Q_OS_WIN)
 	// Qt's Vista Style has the wrong highlight color for treeview items
 	// We can't check for QStyleSheetStyle so we have to search the children list search for a QWindowsVistaStyle
-	QList<QObject *> hierarchy = style->findChildren<QObject *>();
+	QList< QObject * > hierarchy = style->findChildren< QObject * >();
 	hierarchy.insert(0, style);
 	foreach (QObject *obj, hierarchy) {
 		if (QString::fromUtf8(obj->metaObject()->className()) == QString::fromUtf8("QWindowsVistaStyle")) {
@@ -72,14 +73,13 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	o.icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
 
 	// draw text
-	QRect textRect = style->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
+	QRect textRect   = style->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
 	QString itemText = o.fontMetrics.elidedText(o.text, o.textElideMode, textRect.width());
 	painter->setFont(o.font);
 	style->drawItemText(painter, textRect, o.displayAlignment, o.palette, true, itemText, colorRole);
 
 	// draw flag icons to original rect
-	QRect ps = QRect(option.rect.right() - (ql.size() * FLAG_DIMENSION),
-					 option.rect.y(), ql.size() * FLAG_DIMENSION,
+	QRect ps = QRect(option.rect.right() - (ql.size() * FLAG_DIMENSION), option.rect.y(), ql.size() * FLAG_DIMENSION,
 					 option.rect.height());
 
 	for (int i = 0; i < ql.size(); ++i) {
@@ -87,20 +87,21 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 		r.setSize(QSize(FLAG_ICON_DIMENSION, FLAG_ICON_DIMENSION));
 		r.translate(i * FLAG_DIMENSION + FLAG_ICON_PADDING, FLAG_ICON_PADDING);
 		QRect p = QStyle::alignedRect(option.direction, option.decorationAlignment, r.size(), r);
-		qvariant_cast<QIcon>(ql[i]).paint(painter, p, option.decorationAlignment, iconMode, QIcon::On);
+		qvariant_cast< QIcon >(ql[i]).paint(painter, p, option.decorationAlignment, iconMode, QIcon::On);
 	}
 
 	painter->restore();
 }
 
-bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QStyleOptionViewItem &option, const QModelIndex &index) {
+bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QStyleOptionViewItem &option,
+							 const QModelIndex &index) {
 	if (index.isValid()) {
-		const QAbstractItemModel *m = index.model();
+		const QAbstractItemModel *m      = index.model();
 		const QModelIndex firstColumnIdx = index.sibling(index.row(), 1);
-		QVariant data = m->data(firstColumnIdx);
-		QList<QVariant> flagList = data.toList();
-		const int offset = flagList.size() * -FLAG_DIMENSION;
-		const int firstFlagPos = option.rect.topRight().x() + offset;
+		QVariant data                    = m->data(firstColumnIdx);
+		QList< QVariant > flagList       = data.toList();
+		const int offset                 = flagList.size() * -FLAG_DIMENSION;
+		const int firstFlagPos           = option.rect.topRight().x() + offset;
 
 		if (evt->pos().x() >= firstFlagPos) {
 			return QStyledItemDelegate::helpEvent(evt, view, option, firstColumnIdx);
@@ -128,7 +129,7 @@ UserView::UserView(QWidget *p) : QTreeView(p) {
  */
 bool UserView::event(QEvent *evt) {
 	if (evt->type() == QEvent::WhatsThisClicked) {
-		QWhatsThisClickedEvent *qwtce = static_cast<QWhatsThisClickedEvent *>(evt);
+		QWhatsThisClickedEvent *qwtce = static_cast< QWhatsThisClickedEvent * >(evt);
 		QDesktopServices::openUrl(qwtce->href());
 		evt->accept();
 		return true;
@@ -145,12 +146,12 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 
 	QModelIndex idx = indexAt(clickPosition);
 	if ((evt->button() == Qt::LeftButton) && idx.isValid()) {
-		UserModel *userModel = qobject_cast<UserModel *>(model());
+		UserModel *userModel   = qobject_cast< UserModel * >(model());
 		ClientUser *clientUser = userModel->getUser(idx);
-		Channel *channel = userModel->getChannel(idx);
+		Channel *channel       = userModel->getChannel(idx);
 
 		int commentFlagPxOffset = -UserDelegate::FLAG_DIMENSION;
-		bool hasComment = false;
+		bool hasComment         = false;
 
 		if (clientUser && !clientUser->qbaCommentHash.isEmpty()) {
 			hasComment = true;
@@ -173,7 +174,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
 			if (clientUser->bDeaf)
 				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
-			if (! clientUser->qsFriendName.isEmpty())
+			if (!clientUser->qsFriendName.isEmpty())
 				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
 			if (clientUser->iId >= 0)
 				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
@@ -183,15 +184,14 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 
 			if (channel->bFiltered)
 				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
-
 		}
 
 		if (hasComment) {
-			QRect r = visualRect(idx);
+			QRect r                    = visualRect(idx);
 			const int commentFlagPxPos = r.topRight().x() + commentFlagPxOffset;
 
 			if ((clickPosition.x() >= commentFlagPxPos)
-					&& (clickPosition.x() <= (commentFlagPxPos + UserDelegate::FLAG_DIMENSION))) {
+				&& (clickPosition.x() <= (commentFlagPxPos + UserDelegate::FLAG_DIMENSION))) {
 				// Clicked comment icon
 				QString str = userModel->data(idx, Qt::ToolTipRole).toString();
 				if (str.isEmpty()) {
@@ -214,7 +214,7 @@ void UserView::keyPressEvent(QKeyEvent *ev) {
 }
 
 void UserView::nodeActivated(const QModelIndex &idx) {
-	UserModel *um = static_cast<UserModel *>(model());
+	UserModel *um = static_cast< UserModel * >(model());
 	ClientUser *p = um->getUser(idx);
 	if (p) {
 		g.mw->openTextMessageDialog(p);
@@ -234,7 +234,6 @@ void UserView::nodeActivated(const QModelIndex &idx) {
  * with with automatic expanding of folded channels.
  */
 void UserView::keyboardSearch(const QString &search) {
-
 	if (qtSearch->isActive()) {
 		qpmiSearch = QPersistentModelIndex();
 		qtSearch->stop();
@@ -243,14 +242,14 @@ void UserView::keyboardSearch(const QString &search) {
 	bool forceSkip = false;
 
 	if (tSearch.restart() > (QApplication::keyboardInputInterval() * 1000ULL)) {
-		qsSearch = QString();
+		qsSearch  = QString();
 		forceSkip = true;
 	}
 
 	bool isBackspace = (search.length() == 1) && (search.at(0).row() == 0) && (search.at(0).cell() == 8);
 	if (isBackspace) {
-		if (! qsSearch.isEmpty())
-			qsSearch = qsSearch.left(qsSearch.length()-1);
+		if (!qsSearch.isEmpty())
+			qsSearch = qsSearch.left(qsSearch.length() - 1);
 	} else {
 		qsSearch += search;
 	}
@@ -264,12 +263,14 @@ void UserView::keyboardSearch(const QString &search) {
 	if (forceSkip && start.isValid())
 		start = indexBelow(start);
 
-	if (! start.isValid())
+	if (!start.isValid())
 		start = model()->index(0, 0, QModelIndex());
 
-	QModelIndexList qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags(Qt::MatchStartsWith | Qt::MatchWrap | Qt::MatchRecursive));
+	QModelIndexList qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1,
+										  Qt::MatchFlags(Qt::MatchStartsWith | Qt::MatchWrap | Qt::MatchRecursive));
 	if (qmil.count() == 0)
-		qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags(Qt::MatchContains | Qt::MatchWrap | Qt::MatchRecursive));
+		qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1,
+							  Qt::MatchFlags(Qt::MatchContains | Qt::MatchWrap | Qt::MatchRecursive));
 
 	if (qmil.isEmpty())
 		return;
@@ -277,10 +278,10 @@ void UserView::keyboardSearch(const QString &search) {
 	QModelIndex qmi = qmil.at(0);
 
 	QModelIndex p = qmi.parent();
-	bool visible = true;
+	bool visible  = true;
 	while (visible && p.isValid()) {
 		visible = visible && isExpanded(p);
-		p = p.parent();
+		p       = p.parent();
 	}
 
 	if (visible)
@@ -298,33 +299,30 @@ void UserView::selectSearchResult() {
 	qpmiSearch = QPersistentModelIndex();
 }
 
-bool channelHasUsers(const Channel *c)
-{
-	if(c->qlUsers.isEmpty() == false)
+bool channelHasUsers(const Channel *c) {
+	if (c->qlUsers.isEmpty() == false)
 		return true;
 
-	int i;	
+	int i;
 
-	for(i=0;i<c->qlChannels.count();i++)
-	{
-		if(channelHasUsers(c->qlChannels[i]))
+	for (i = 0; i < c->qlChannels.count(); i++) {
+		if (channelHasUsers(c->qlChannels[i]))
 			return true;
 	}
 	return false;
 }
 
-static bool channelFiltered(const Channel *c)
-{
-	while(c) {
-		if(c->bFiltered)
+static bool channelFiltered(const Channel *c) {
+	while (c) {
+		if (c->bFiltered)
 			return true;
-		c=c->cParent;
+		c = c->cParent;
 	}
 	return false;
 }
 
 void UserView::updateChannel(const QModelIndex &idx) {
-	UserModel *um = static_cast<UserModel *>(model());
+	UserModel *um = static_cast< UserModel * >(model());
 
 	if (!idx.isValid()) {
 		return;
@@ -341,10 +339,10 @@ void UserView::updateChannel(const QModelIndex &idx) {
 			setRowHidden(idx.row(), idx.parent(), false);
 		} else {
 			bool isChannelUserIsIn = false;
-			
+
 			// Check whether user resides in this channel or a subchannel
 			if (g.uiSession != 0) {
-				const ClientUser* user = ClientUser::get(g.uiSession);
+				const ClientUser *user = ClientUser::get(g.uiSession);
 				if (user) {
 					Channel *chan = user->cChannel;
 					while (chan) {
@@ -356,26 +354,26 @@ void UserView::updateChannel(const QModelIndex &idx) {
 					}
 				}
 			}
-			
-			if(channelFiltered(c) && !isChannelUserIsIn) {
-				setRowHidden(idx.row(),idx.parent(),true);
+
+			if (channelFiltered(c) && !isChannelUserIsIn) {
+				setRowHidden(idx.row(), idx.parent(), true);
 			} else {
-				if(g.s.bFilterHidesEmptyChannels && !channelHasUsers(c)) {
-					setRowHidden(idx.row(),idx.parent(),true);
+				if (g.s.bFilterHidesEmptyChannels && !channelHasUsers(c)) {
+					setRowHidden(idx.row(), idx.parent(), true);
 				} else {
-					setRowHidden(idx.row(),idx.parent(),false);
+					setRowHidden(idx.row(), idx.parent(), false);
 				}
 			}
 		}
 	}
 }
 
-void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &) {
-	UserModel *um = static_cast<UserModel *>(model());
+void UserView::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector< int > &) {
+	UserModel *um = static_cast< UserModel * >(model());
 	int nRowCount = um->rowCount();
 	int i;
-	for(i=0;i<nRowCount;i++)
-		updateChannel(um->index(i,0));
+	for (i = 0; i < nRowCount; i++)
+		updateChannel(um->index(i, 0));
 
-	QTreeView::dataChanged(topLeft,bottomRight);
+	QTreeView::dataChanged(topLeft, bottomRight);
 }

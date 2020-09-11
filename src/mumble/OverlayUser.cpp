@@ -5,29 +5,32 @@
 
 #include "OverlayUser.h"
 
-#include "OverlayText.h"
-#include "User.h"
 #include "Channel.h"
 #include "ClientUser.h"
-#include "Message.h"
 #include "Database.h"
-#include "NetworkConfig.h"
-#include "ServerHandler.h"
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
+#include "Message.h"
+#include "NetworkConfig.h"
+#include "OverlayText.h"
+#include "ServerHandler.h"
+#include "User.h"
 #include "Utils.h"
+#include "GlobalShortcut.h"
 
 #include <QtGui/QImageReader>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-OverlayUser::OverlayUser(ClientUser *cu, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), os(osptr), uiSize(height), cuUser(cu), tsColor(Settings::Passive) {
+OverlayUser::OverlayUser(ClientUser *cu, unsigned int height, OverlaySettings *osptr)
+	: OverlayGroup(), os(osptr), uiSize(height), cuUser(cu), tsColor(Settings::Passive) {
 	setup();
 	updateLayout();
 }
 
-OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), os(osptr), uiSize(height), cuUser(nullptr), tsColor(ts) {
+OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height, OverlaySettings *osptr)
+	: OverlayGroup(), os(osptr), uiSize(height), cuUser(nullptr), tsColor(ts) {
 	qsChannelName = Overlay::tr("Channel");
 
 	setup();
@@ -47,7 +50,7 @@ void OverlayUser::setup() {
 
 	qgpiAvatar = new QGraphicsPixmapItem(this);
 
-	for (int i=0;i<4;++i) {
+	for (int i = 0; i < 4; ++i) {
 		qgpiName[i] = new QGraphicsPixmapItem(this);
 		qgpiName[i]->hide();
 	}
@@ -60,7 +63,9 @@ void OverlayUser::setup() {
 }
 
 #undef SCALESIZE
-#define SCALESIZE(var) iroundf(uiSize * os->fZoom * os->qrf##var .width() + 0.5f), iroundf(uiSize * os->fZoom * os->qrf##var .height() + 0.5f)
+#define SCALESIZE(var)                                         \
+	iroundf(uiSize * os->fZoom * os->qrf##var.width() + 0.5f), \
+		iroundf(uiSize * os->fZoom * os->qrf##var.height() + 0.5f)
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
@@ -70,7 +75,7 @@ void OverlayUser::updateLayout() {
 
 	prepareGeometryChange();
 
-	for (int i=0;i<4;++i)
+	for (int i = 0; i < 4; ++i)
 		qgpiName[i]->setPixmap(pm);
 
 	qgpiAvatar->setPixmap(pm);
@@ -92,18 +97,20 @@ void OverlayUser::updateLayout() {
 		qgpiDeafened->setPixmap(QPixmap::fromImage(qir.read()));
 	}
 
-	qgpiMuted->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fZoom), qgpiMuted->boundingRect(), os->qaMutedDeafened));
+	qgpiMuted->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fZoom), qgpiMuted->boundingRect(),
+									  os->qaMutedDeafened));
 	qgpiMuted->setZValue(1.0f);
 	qgpiMuted->setOpacity(os->fMutedDeafened);
 
-	qgpiDeafened->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fZoom), qgpiDeafened->boundingRect(), os->qaMutedDeafened));
+	qgpiDeafened->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fZoom),
+										 qgpiDeafened->boundingRect(), os->qaMutedDeafened));
 	qgpiDeafened->setZValue(1.0f);
 	qgpiDeafened->setOpacity(os->fMutedDeafened);
 
 	qgpiAvatar->setPos(0.0f, 0.0f);
 	qgpiAvatar->setOpacity(os->fAvatar);
 
-	for (int i=0;i<4;++i) {
+	for (int i = 0; i < 4; ++i) {
 		qgpiName[i]->setPos(0.0f, 0.0f);
 		qgpiName[i]->setZValue(2.0f);
 		qgpiName[i]->setOpacity(os->fUserName);
@@ -114,19 +121,23 @@ void OverlayUser::updateLayout() {
 
 	QRectF childrenBounds = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
-	bool haspen = (os->qcBoxPen != os->qcBoxFill) && (! qFuzzyCompare(os->qcBoxPen.alphaF(), static_cast<qreal>(0.0f)));
-	qreal pw = haspen ? qMax<qreal>(1.0f, os->fBoxPenWidth * uiSize * os->fZoom) : 0.0f;
+	bool haspen =
+		(os->qcBoxPen != os->qcBoxFill) && (!qFuzzyCompare(os->qcBoxPen.alphaF(), static_cast< qreal >(0.0f)));
+	qreal pw  = haspen ? qMax< qreal >(1.0f, os->fBoxPenWidth * uiSize * os->fZoom) : 0.0f;
 	qreal pad = os->fBoxPad * uiSize * os->fZoom;
 	QPainterPath pp;
-	pp.addRoundedRect(childrenBounds.x() * uiSize * os->fZoom + -pw / 2.0f - pad, childrenBounds.y() * uiSize * os->fZoom + -pw / 2.0f - pad, childrenBounds.width() * uiSize * os->fZoom + pw + 2.0f * pad, childrenBounds.height() * uiSize * os->fZoom + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
+	pp.addRoundedRect(childrenBounds.x() * uiSize * os->fZoom + -pw / 2.0f - pad,
+					  childrenBounds.y() * uiSize * os->fZoom + -pw / 2.0f - pad,
+					  childrenBounds.width() * uiSize * os->fZoom + pw + 2.0f * pad,
+					  childrenBounds.height() * uiSize * os->fZoom + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
 	qgpiBox->setPath(pp);
 	qgpiBox->setPos(0.0f, 0.0f);
 	qgpiBox->setZValue(-1.0f);
 	qgpiBox->setPen(haspen ? QPen(os->qcBoxPen, pw) : Qt::NoPen);
-	qgpiBox->setBrush(qFuzzyCompare(os->qcBoxFill.alphaF(), static_cast<qreal>(0.0f)) ? Qt::NoBrush : os->qcBoxFill);
+	qgpiBox->setBrush(qFuzzyCompare(os->qcBoxFill.alphaF(), static_cast< qreal >(0.0f)) ? Qt::NoBrush : os->qcBoxFill);
 	qgpiBox->setOpacity(1.0f);
 
-	if (! cuUser) {
+	if (!cuUser) {
 		switch (tsColor) {
 			case Settings::Passive:
 				qsName = Overlay::tr("Silent");
@@ -153,12 +164,13 @@ void OverlayUser::updateUser() {
 			qsName = cuUser->qsName;
 
 		OverlayTextLine tl(qsName, os->qfUserName);
-		for (int i=0; i<4; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			const QPixmap &pm = tl.createPixmap(SCALESIZE(UserName), os->qcUserName[i]);
 			qgpiName[i]->setPixmap(pm);
 
 			if (i == 0)
-				qgpiName[0]->setPos(alignedPosition(scaledRect(os->qrfUserName, uiSize * os->fZoom), qgpiName[0]->boundingRect(), os->qaUserName));
+				qgpiName[0]->setPos(alignedPosition(scaledRect(os->qrfUserName, uiSize * os->fZoom),
+													qgpiName[0]->boundingRect(), os->qaUserName));
 			else
 				qgpiName[i]->setPos(qgpiName[0]->pos());
 		}
@@ -168,9 +180,11 @@ void OverlayUser::updateUser() {
 		if (cuUser)
 			qsChannelName = cuUser->cChannel->qsName;
 
-		const QPixmap &pm = OverlayTextLine(qsChannelName, os->qfChannel).createPixmap(SCALESIZE(Channel), os->qcChannel);
+		const QPixmap &pm =
+			OverlayTextLine(qsChannelName, os->qfChannel).createPixmap(SCALESIZE(Channel), os->qcChannel);
 		qgpiChannel->setPixmap(pm);
-		qgpiChannel->setPos(alignedPosition(scaledRect(os->qrfChannel, uiSize * os->fZoom), qgpiChannel->boundingRect(), os->qaChannel));
+		qgpiChannel->setPos(alignedPosition(scaledRect(os->qrfChannel, uiSize * os->fZoom), qgpiChannel->boundingRect(),
+											os->qaChannel));
 	}
 
 	if (os->bAvatar && (qgpiAvatar->pixmap().isNull() || (cuUser && (qbaAvatar != cuUser->qbaTextureHash)))) {
@@ -179,7 +193,7 @@ void OverlayUser::updateUser() {
 
 		QImage img;
 
-		if (! qbaAvatar.isNull() && cuUser->qbaTexture.isEmpty()) {
+		if (!qbaAvatar.isNull() && cuUser->qbaTexture.isEmpty()) {
 			g.o->requestTexture(cuUser);
 		} else if (qbaAvatar.isNull()) {
 			QImageReader qir(QLatin1String("skin:default_avatar.svg"));
@@ -188,7 +202,7 @@ void OverlayUser::updateUser() {
 			qir.setScaledSize(sz);
 			img = qir.read();
 		} else {
-			QBuffer qb(& cuUser->qbaTexture);
+			QBuffer qb(&cuUser->qbaTexture);
 			qb.open(QIODevice::ReadOnly);
 
 			QImageReader qir(&qb, cuUser->qbaTextureFormat);
@@ -199,7 +213,8 @@ void OverlayUser::updateUser() {
 		}
 
 		qgpiAvatar->setPixmap(QPixmap::fromImage(img));
-		qgpiAvatar->setPos(alignedPosition(scaledRect(os->qrfAvatar, uiSize * os->fZoom), qgpiAvatar->boundingRect(), os->qaAvatar));
+		qgpiAvatar->setPos(
+			alignedPosition(scaledRect(os->qrfAvatar, uiSize * os->fZoom), qgpiAvatar->boundingRect(), os->qaAvatar));
 	}
 
 	qgpiAvatar->setVisible(os->bAvatar);
@@ -224,7 +239,7 @@ void OverlayUser::updateUser() {
 		}
 
 		bool samechannel = self && (self->cChannel == cuUser->cChannel);
-		qgpiChannel->setVisible(os->bChannel && ! samechannel);
+		qgpiChannel->setVisible(os->bChannel && !samechannel);
 
 		tsColor = cuUser->tsState;
 	} else {
@@ -234,10 +249,10 @@ void OverlayUser::updateUser() {
 	}
 
 	if (os->bUserName)
-		for (int i=0;i<4;++i)
+		for (int i = 0; i < 4; ++i)
 			qgpiName[i]->setVisible(i == tsColor);
 	else
-		for (int i=0;i<4;++i)
+		for (int i = 0; i < 4; ++i)
 			qgpiName[i]->setVisible(false);
 
 	qgpiBox->setVisible(os->bBox);
@@ -274,4 +289,3 @@ QPointF OverlayUser::alignedPosition(const QRectF &box, const QRectF &item, Qt::
 
 	return QPointF(iroundf(xofs + 0.5f), iroundf(yofs + 0.5f));
 }
-

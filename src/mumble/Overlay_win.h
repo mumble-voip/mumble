@@ -10,47 +10,47 @@
 
 #include "win.h"
 
+#include <QElapsedTimer>
+#include <QProcess>
 #include <QString>
 #include <QStringList>
-#include <QProcess>
 #include <QTimer>
-#include <QElapsedTimer>
 
 class OverlayPrivateWin : public OverlayPrivate {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayPrivateWin)
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(OverlayPrivateWin)
 
-	public:
-		void setActive(bool);
-		OverlayPrivateWin(QObject *);
-		~OverlayPrivateWin();
+public:
+	void setActive(bool);
+	OverlayPrivateWin(QObject *);
+	~OverlayPrivateWin();
 
-	public slots:
-		void onHelperProcessStarted();
-		void onHelperProcessError(QProcess::ProcessError);
-		void onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
-		void onDelayedRestartTimerTriggered();
+public slots:
+	void onHelperProcessStarted();
+	void onHelperProcessError(QProcess::ProcessError);
+	void onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
+	void onDelayedRestartTimerTriggered();
 
-	protected:
-		QProcess *m_helper_process;
-		QString m_helper_exe_path;
-		QStringList m_helper_exe_args;
-		QElapsedTimer m_helper_start_time;
-		QTimer *m_helper_restart_timer;
-		bool m_helper_enabled;
+protected:
+	QProcess *m_helper_process;
+	QString m_helper_exe_path;
+	QStringList m_helper_exe_args;
+	QElapsedTimer m_helper_start_time;
+	QTimer *m_helper_restart_timer;
+	bool m_helper_enabled;
 
-		QProcess *m_helper64_process;
-		QString m_helper64_exe_path;
-		QStringList m_helper64_exe_args;
-		QElapsedTimer m_helper64_start_time;
-		QTimer *m_helper64_restart_timer;
-		bool m_helper64_enabled;
+	QProcess *m_helper64_process;
+	QString m_helper64_exe_path;
+	QStringList m_helper64_exe_args;
+	QElapsedTimer m_helper64_start_time;
+	QTimer *m_helper64_restart_timer;
+	bool m_helper64_enabled;
 
-		HANDLE m_mumble_handle;
-		bool m_active;
+	HANDLE m_mumble_handle;
+	bool m_active;
 
-		void startHelper(QProcess *helper);
+	void startHelper(QProcess *helper);
 };
 
 #endif

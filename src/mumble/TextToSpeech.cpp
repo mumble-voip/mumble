@@ -8,13 +8,13 @@
 #include <QTextToSpeech>
 
 class TextToSpeechPrivate {
-	public:
-		QTextToSpeech *m_tts;
-		QVector<QVoice> m_voices;
-		TextToSpeechPrivate();
-		~TextToSpeechPrivate();
-		void say(const QString &text);
-		void setVolume(int v);
+public:
+	QTextToSpeech *m_tts;
+	QVector< QVoice > m_voices;
+	TextToSpeechPrivate();
+	~TextToSpeechPrivate();
+	void say(const QString &text);
+	void setVolume(int v);
 };
 
 TextToSpeechPrivate::TextToSpeechPrivate() {
@@ -35,7 +35,7 @@ void TextToSpeechPrivate::setVolume(int volume) {
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
 	enabled = true;
-	d = new TextToSpeechPrivate();
+	d       = new TextToSpeechPrivate();
 }
 
 TextToSpeech::~TextToSpeech() {

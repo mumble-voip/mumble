@@ -3,10 +3,10 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include <stdio.h>
-#include <ctype.h>
-#include <windows.h>
 #include "ods.h"
+#include <windows.h>
+#include <ctype.h>
+#include <stdio.h>
 
 void __cdecl _ods_out(const char *format, va_list *args) {
 	char buf[4096], *p = buf + 2;

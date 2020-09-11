@@ -11,12 +11,12 @@
 #include "SelfSignedCertificate.h"
 
 class TestSelfSignedCertificate : public QObject {
-		Q_OBJECT
-	private slots:
-		void initTestCase();
-		void cleanupTestCase();
-		void exerciseClientCert();
-		void exerciseServerCert();
+	Q_OBJECT
+private slots:
+	void initTestCase();
+	void cleanupTestCase();
+	void exerciseClientCert();
+	void exerciseServerCert();
 };
 
 void TestSelfSignedCertificate::initTestCase() {
@@ -30,8 +30,9 @@ void TestSelfSignedCertificate::cleanupTestCase() {
 void TestSelfSignedCertificate::exerciseClientCert() {
 	QSslCertificate cert;
 	QSslKey key;
-	
-	bool ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("Test"), QLatin1String("test@test.test"), cert, key);
+
+	bool ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("Test"), QLatin1String("test@test.test"),
+															   cert, key);
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);
 	QCOMPARE(key.isNull(), false);
@@ -51,7 +52,8 @@ void TestSelfSignedCertificate::exerciseClientCert() {
 
 	// Test that it's possible to create a client certificate with
 	// both a name and an email.
-	ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("John Doe"), QLatin1String("john@doe.family"), cert, key);
+	ok = SelfSignedCertificate::generateMumbleCertificate(QLatin1String("John Doe"), QLatin1String("john@doe.family"),
+														  cert, key);
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);
 	QCOMPARE(key.isNull(), false);
@@ -60,7 +62,7 @@ void TestSelfSignedCertificate::exerciseClientCert() {
 void TestSelfSignedCertificate::exerciseServerCert() {
 	QSslCertificate cert;
 	QSslKey key;
-	
+
 	bool ok = SelfSignedCertificate::generateMurmurV2Certificate(cert, key);
 	QCOMPARE(ok, true);
 	QCOMPARE(cert.isNull(), false);

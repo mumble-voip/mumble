@@ -5,30 +5,27 @@
 
 #include "MumbleApplication.h"
 
+#include "EnvUtils.h"
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
-#include "EnvUtils.h"
 
 #if defined(Q_OS_WIN)
-# include "GlobalShortcut_win.h"
+#	include "GlobalShortcut_win.h"
 #endif
 
 #include <QtGui/QFileOpenEvent>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 MumbleApplication *MumbleApplication::instance() {
-	return static_cast<MumbleApplication *>(QCoreApplication::instance());
+	return static_cast< MumbleApplication * >(QCoreApplication::instance());
 }
 
-MumbleApplication::MumbleApplication(int &pargc, char **pargv)
-    : QApplication(pargc, pargv) {
-	
-	connect(this,
-	        SIGNAL(commitDataRequest(QSessionManager&)),
-	        SLOT(onCommitDataRequest(QSessionManager&)),
-	        Qt::DirectConnection);
+MumbleApplication::MumbleApplication(int &pargc, char **pargv) : QApplication(pargc, pargv) {
+	connect(this, SIGNAL(commitDataRequest(QSessionManager &)), SLOT(onCommitDataRequest(QSessionManager &)),
+			Qt::DirectConnection);
 }
 
 QString MumbleApplication::applicationVersionRootPath() {
@@ -50,8 +47,8 @@ void MumbleApplication::onCommitDataRequest(QSessionManager &) {
 
 bool MumbleApplication::event(QEvent *e) {
 	if (e->type() == QEvent::FileOpen) {
-		QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(e);
-		if (! g.mw) {
+		QFileOpenEvent *foe = static_cast< QFileOpenEvent * >(e);
+		if (!g.mw) {
 			this->quLaunchURL = foe->url();
 		} else {
 			g.mw->openUrl(foe->url());
@@ -68,7 +65,7 @@ bool MumbleApplication::event(QEvent *e) {
 /// @return  Returns true if the forwarded event was suppressed
 ///          by GlobalShortcutWin. Otherwise, returns false.
 static bool gswForward(MSG *msg) {
-	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
+	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
 	if (gsw) {
 		return false;
 	}
@@ -92,7 +89,7 @@ static bool gswForward(MSG *msg) {
 }
 
 bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
-	MSG *msg = reinterpret_cast<MSG *>(message);
+	MSG *msg = reinterpret_cast< MSG * >(message);
 	if (QThread::currentThread() == thread()) {
 		bool suppress = gswForward(msg);
 		if (suppress) {

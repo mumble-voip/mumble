@@ -10,26 +10,28 @@
 #include "AudioOutput.h"
 
 class OSSInput : public AudioInput {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OSSInput)
-	protected:
-		void release();
-	public:
-		OSSInput();
-		~OSSInput() Q_DECL_OVERRIDE;
-		void run() Q_DECL_OVERRIDE;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(OSSInput)
+protected:
+	void release();
+
+public:
+	OSSInput();
+	~OSSInput() Q_DECL_OVERRIDE;
+	void run() Q_DECL_OVERRIDE;
 };
 
 class OSSOutput : public AudioOutput {
-		friend class OSSUser;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OSSOutput)
-	public:
-		OSSOutput();
-		~OSSOutput() Q_DECL_OVERRIDE;
-		void run() Q_DECL_OVERRIDE;
+	friend class OSSUser;
+
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(OSSOutput)
+public:
+	OSSOutput();
+	~OSSOutput() Q_DECL_OVERRIDE;
+	void run() Q_DECL_OVERRIDE;
 };
 
 #endif

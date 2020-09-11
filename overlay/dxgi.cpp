@@ -14,13 +14,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -58,10 +58,10 @@ extern void presentD3D10(IDXGISwapChain *pSwapChain);
 extern void presentD3D11(IDXGISwapChain *pSwapChain);
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
-	// Present is called for each frame. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+// Present is called for each frame. Thus, we do not want to always log here.
+#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("DXGI: Call to Present; Drawing and then chaining the call to the original logic");
-	#endif
+#endif
 
 	// From this D3D-version-independent point, call the present logic for both
 	// D3D 10 and 11. Those that apply will be executed adequately, those that
@@ -69,7 +69,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 	presentD3D10(pSwapChain);
 	presentD3D11(pSwapChain);
 
-	//TODO: Move logic to HardHook.
+	// TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
 	PresentType oPresent = (PresentType) hhPresent.call;
 	hhPresent.restore();
@@ -84,15 +84,16 @@ extern void resizeD3D10(IDXGISwapChain *pSwapChain);
 // From d3d11.cpp
 extern void resizeD3D11(IDXGISwapChain *pSwapChain);
 
-static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height,
+								  DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
+#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("DXGI: Call to Resize. Forwarding to D3D10 and D3D11 custom implementations before calling original logic ...");
-	#endif
+#endif
 
 	resizeD3D10(pSwapChain);
 	resizeD3D11(pSwapChain);
 
-	//TODO: Move logic to HardHook.
+	// TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
 	ResizeBuffersType oResize = (ResizeBuffersType) hhResize.call;
 	hhResize.restore();
@@ -103,12 +104,12 @@ static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, 
 
 static void HookPresentRaw(voidFunc vfPresent) {
 	ods("DXGI: Injecting Present");
-	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
+	hhPresent.setup(vfPresent, reinterpret_cast< voidFunc >(myPresent));
 }
 
 static void HookResizeRaw(voidFunc vfResize) {
 	ods("DXGI: Injecting ResizeBuffers Raw");
-	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
+	hhResize.setup(vfResize, reinterpret_cast< voidFunc >(myResize));
 }
 
 void hookDXGI(HMODULE hDXGI, bool preonly);
@@ -128,13 +129,13 @@ void checkDXGIHook(bool preonly) {
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
 
 	if (hDXGI) {
-		if (! bHooked) {
+		if (!bHooked) {
 			hookDXGI(hDXGI, preonly);
 		}
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	} else {
 		ods("DXGI: No DXGI.DLL found as loaded. No hooking at this point.");
-	#endif
+#endif
 	}
 
 	bCheckHookActive = false;
@@ -148,7 +149,7 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	HMODULE hTempSelf = nullptr;
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<LPCTSTR>(&hookDXGI), &hTempSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast< LPCTSTR >(&hookDXGI), &hTempSelf);
 
 	bHooked = true;
 
@@ -161,7 +162,7 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 		HookPresentRaw((voidFunc)(raw + dxgi->offsetPresent));
 		HookResizeRaw((voidFunc)(raw + dxgi->offsetResize));
 
-	} else if (! preonly) {
+	} else if (!preonly) {
 		ods("DXGI: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, dxgi->wcFileName);
 	} else {
 		bHooked = false;
@@ -171,27 +172,27 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 // From d3d10.cpp
 extern void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData);
 // From d3d11.cpp
-extern void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData);
+extern void PrepareDXGI11(IDXGIAdapter1 *pAdapter, bool initializeDXGIData);
 
 /// This function is called by the Mumble client in Mumble's scope
 /// mainly to extract the offsets of various functions in the IDXGISwapChain
 /// and IDXGIObject interfaces that need to be hooked in target
 /// applications. The data is stored in the dxgi shared memory structure.
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
-	if (! dxgi)
+	if (!dxgi)
 		return;
 
 	ods("DXGI: Preparing static data for DXGI Injection");
 
 	dxgi->wcFileName[0] = 0;
 	dxgi->offsetPresent = 0;
-	dxgi->offsetResize = 0;
+	dxgi->offsetResize  = 0;
 
 	// Make sure this is Vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
-	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
+	GetVersionExW(reinterpret_cast< OSVERSIONINFOW * >(&ovi));
 	if (ovi.dwMajorVersion < 6 || (ovi.dwMajorVersion == 6 && ovi.dwBuildNumber < 6001)) {
 		ods("DXGI: No DXGI pre-Vista - skipping prepare");
 		return;
@@ -202,11 +203,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	if (hDXGI) {
 		GetModuleFileNameW(hDXGI, dxgi->wcFileName, ARRAY_NUM_ELEMENTS(dxgi->wcFileName));
 
-		CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
+		CreateDXGIFactory1Type pCreateDXGIFactory1 =
+			reinterpret_cast< CreateDXGIFactory1Type >(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 		ods("DXGI: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
 		if (pCreateDXGIFactory1) {
-			IDXGIFactory1 * pFactory;
-			HRESULT hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
+			IDXGIFactory1 *pFactory;
+			HRESULT hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void **) (&pFactory));
 			if (FAILED(hr))
 				ods("DXGI: Call to pCreateDXGIFactory1 failed!");
 			if (pFactory) {

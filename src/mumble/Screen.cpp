@@ -39,7 +39,7 @@ QScreen *Screen::screenAt(const QPoint &point) {
 	return qApp->screenAt(point);
 #else
 	// Adapted from qguiapplication.cpp (Qt)
-	QVarLengthArray<const QScreen *, 8> visitedScreens;
+	QVarLengthArray< const QScreen *, 8 > visitedScreens;
 
 	for (const QScreen *screen : qApp->screens()) {
 		if (visitedScreens.contains(screen)) {

@@ -5,27 +5,26 @@
 
 #include "OverlayEditor.h"
 
+#include "Channel.h"
+#include "Database.h"
+#include "MainWindow.h"
+#include "Message.h"
+#include "NetworkConfig.h"
 #include "OverlayClient.h"
 #include "OverlayText.h"
-#include "User.h"
-#include "Channel.h"
-#include "Message.h"
-#include "Database.h"
-#include "NetworkConfig.h"
 #include "ServerHandler.h"
-#include "MainWindow.h"
-#include "GlobalShortcut.h"
+#include "User.h"
 #include "Utils.h"
+#include "GlobalShortcut.h"
 
 #include <QtWidgets/QGraphicsProxyWidget>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *osptr) :
-		QDialog(p),
-		qgiPromote(qgi),
-		oes(g.s.os) {
+OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *osptr)
+	: QDialog(p), qgiPromote(qgi), oes(g.s.os) {
 	setupUi(this);
 	qsZoom->setAccessibleName(tr("Zoom level"));
 	os = osptr ? osptr : &g.s.os;
@@ -37,10 +36,10 @@ OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *os
 	if (qgpw) {
 		qgpw->setFlag(QGraphicsItem::ItemIgnoresParentOpacity);
 		if (g.ocIntercept) {
-			qgpw->setPos(iroundf(static_cast<float>(g.ocIntercept->uiWidth) / 16.0f + 0.5f),
-			             iroundf(static_cast<float>(g.ocIntercept->uiHeight) / 16.0f + 0.5f));
-			qgpw->resize(iroundf(static_cast<float>(g.ocIntercept->uiWidth) * 14.0f / 16.0f + 0.5f),
-			             iroundf(static_cast<float>(g.ocIntercept->uiHeight) * 14.0f / 16.0f + 0.5f));
+			qgpw->setPos(iroundf(static_cast< float >(g.ocIntercept->uiWidth) / 16.0f + 0.5f),
+						 iroundf(static_cast< float >(g.ocIntercept->uiHeight) / 16.0f + 0.5f));
+			qgpw->resize(iroundf(static_cast< float >(g.ocIntercept->uiWidth) * 14.0f / 16.0f + 0.5f),
+						 iroundf(static_cast< float >(g.ocIntercept->uiHeight) * 14.0f / 16.0f + 0.5f));
 		}
 	}
 
@@ -130,7 +129,7 @@ void OverlayEditor::on_qrbShout_clicked() {
 
 void OverlayEditor::on_qcbAvatar_clicked() {
 	oes.os.bAvatar = qcbAvatar->isChecked();
-	if (! oes.os.bAvatar && ! oes.os.bUserName) {
+	if (!oes.os.bAvatar && !oes.os.bUserName) {
 		qcbUser->setChecked(true);
 		oes.os.bUserName = true;
 		oes.updateUserName();
@@ -140,7 +139,7 @@ void OverlayEditor::on_qcbAvatar_clicked() {
 
 void OverlayEditor::on_qcbUser_clicked() {
 	oes.os.bUserName = qcbUser->isChecked();
-	if (! oes.os.bAvatar && ! oes.os.bUserName) {
+	if (!oes.os.bAvatar && !oes.os.bUserName) {
 		qcbAvatar->setChecked(true);
 		oes.os.bAvatar = true;
 		oes.updateAvatar();

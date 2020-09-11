@@ -7,8 +7,8 @@
  * G15 Helper Emulator
  */
 
-#include <cstdio>
 #include <windows.h>
+#include <cstdio>
 
 #include <QApplication>
 
@@ -16,13 +16,11 @@
 #include "g15helper_emu.h"
 
 #if defined(Q_OS_WIN)
-# include <io.h>
-# include <fcntl.h>
+#	include <fcntl.h>
+#	include <io.h>
 #endif
 
-G15Reader::G15Reader()
-	: QThread() {
-
+G15Reader::G15Reader() : QThread() {
 	moveToThread(this);
 
 	m_isRunning = true;
@@ -43,15 +41,14 @@ void G15Reader::run() {
 
 	while (m_isRunning) {
 		quint8 priority = 0;
-		size_t nread = 0;
-		size_t ntotal = 0;
+		size_t nread    = 0;
+		size_t ntotal   = 0;
 
 		memset(&buf, 0, G15_MAX_FBMEM);
 
 		nread = fread(&priority, 1, sizeof(priority), stdin);
 		if (nread <= 0) {
-			qFatal("g15helper_emu: unable to read stdin, retval %lli",
-			       static_cast<long long>(nread));
+			qFatal("g15helper_emu: unable to read stdin, retval %lli", static_cast< long long >(nread));
 		}
 
 		// The priority flag is not used by the emulator.
@@ -60,8 +57,7 @@ void G15Reader::run() {
 		do {
 			nread = fread(&buf[0] + ntotal, 1, G15_MAX_FBMEM - ntotal, stdin);
 			if (nread <= 0) {
-				qFatal("g15helper_emu: unable to read stdin, retval %lli",
-				       static_cast<long long>(nread));
+				qFatal("g15helper_emu: unable to read stdin, retval %lli", static_cast< long long >(nread));
 			}
 			ntotal += nread;
 		} while (ntotal < G15_MAX_FBMEM);
@@ -69,7 +65,7 @@ void G15Reader::run() {
 		for (int w = 0; w < G15_MAX_WIDTH; w++) {
 			for (int h = 0; h < G15_MAX_HEIGHT; h++) {
 				quint8 color = buf[G15_MAX_WIDTH * h + w];
-				uint val = 0xff000000;
+				uint val     = 0xff000000;
 				if (color == 0xff) {
 					val = 0xffffffff;
 				}
@@ -83,10 +79,8 @@ void G15Reader::run() {
 	}
 }
 
-G15Emulator::G15Emulator()
-	: QMainWindow() {
-
-	setWindowTitle(QLatin1String("Mumble G15 Emulator"));	
+G15Emulator::G15Emulator() : QMainWindow() {
+	setWindowTitle(QLatin1String("Mumble G15 Emulator"));
 	setStyleSheet("QMainWindow {background: #cacaca;}");
 
 	m_displayLabel = new QLabel(this);
@@ -105,15 +99,16 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	if (lpCmdLine && (strcmp(lpCmdLine, "/detect") == 0)) {
 		return 0;
-	} else if (! lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
-		MessageBox(nullptr, L"This program is run by Mumble, and should not be started separately.", L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
+	} else if (!lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
+		MessageBox(nullptr, L"This program is run by Mumble, and should not be started separately.",
+				   L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
 		return 0;
 	}
 
 	char *argvec[1];
 	argvec[0] = nullptr;
 
-	int argc = 0;
+	int argc    = 0;
 	char **argv = &argvec[0];
 
 	QApplication app(argc, argv);

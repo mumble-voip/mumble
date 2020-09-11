@@ -7,9 +7,9 @@
 #define MUMBLE_G15_HELPER_EMU_H_
 
 #include <QFile>
+#include <QLabel>
 #include <QMainWindow>
 #include <QThread>
-#include <QLabel>
 
 class G15Reader : public QThread {
 	Q_OBJECT

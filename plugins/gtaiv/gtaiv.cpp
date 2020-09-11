@@ -13,13 +13,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -60,8 +60,8 @@ static int setuppointers() {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top,
-                 std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &, std::wstring &) {
 	unsigned int playerid_check;
 	if (!peekProc(base_address + 0xF1CC68, playerid_check))
 		return false;
@@ -70,8 +70,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			return false;
 	}
 
-	for (int i=0;i<3;i++)
-		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
+	for (int i = 0; i < 3; i++)
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0.0f;
 
 	bool ok;
 
@@ -84,12 +84,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float camtop_corrector[3];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc(cvecptr + 0x30, &pos_corrector, 12) &&
-	     peekProc(cvecptr + 0x20, &top_corrector, 12) &&
-	     peekProc(cvecptr + 0x10, &front_corrector, 12) &&
-	     peekProc(displayptr + 0x30, &campos_corrector, 12) &&
-	     peekProc(displayptr + 0x10, &camtop_corrector, 12) &&
-	     peekProc(displayptr + 0x20, &camfront_corrector, 12);
+	ok = peekProc(cvecptr + 0x30, &pos_corrector, 12) && peekProc(cvecptr + 0x20, &top_corrector, 12)
+		 && peekProc(cvecptr + 0x10, &front_corrector, 12) && peekProc(displayptr + 0x30, &campos_corrector, 12)
+		 && peekProc(displayptr + 0x10, &camtop_corrector, 12) && peekProc(displayptr + 0x20, &camfront_corrector, 12);
 
 	if (!ok)
 		return false;
@@ -122,7 +119,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
 	if (!initialize(pids, L"GTAIV.exe"))
 		return false;
 
@@ -156,26 +153,13 @@ static std::wstring description(L"Grand Theft Auto IV v1.0.7.0");
 static std::wstring shortname(L"GTA IV");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin gtaivplug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin gtaivplug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								  generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 gtaivplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 gtaivplug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &gtaivplug;

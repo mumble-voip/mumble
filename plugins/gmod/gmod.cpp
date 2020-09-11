@@ -16,8 +16,8 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	if ((v < -360.0f) || (v > 360.0f) || (h < -360.0f) || (h > 360.0f))
 		return false;
 
-	v *= static_cast<float>(M_PI / 180.0f);
-	h *= static_cast<float>(M_PI / 180.0f);
+	v *= static_cast< float >(M_PI / 180.0f);
+	h *= static_cast< float >(M_PI / 180.0f);
 
 	// Seems Gmod is in inches. INCHES?!?
 	opos[0] = pos[0] / 39.37f;
@@ -28,7 +28,7 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	front[1] = -sin(v);
 	front[2] = sin(h) * cos(v);
 
-	v -= static_cast<float>(M_PI / 2.0f);
+	v -= static_cast< float >(M_PI / 2.0f);
 
 	top[0] = cos(h) * cos(v);
 	top[1] = -sin(v);
@@ -37,47 +37,47 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
-	for (int i=0;i<3;i++)
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front,
+				 float *camera_top, std::string &context, std::wstring &) {
+	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	float ipos[3], rot[3];
 	bool ok;
-	//char state;
+	// char state;
 	char chHostStr[40];
 	string sHost;
 	ostringstream new_context;
 
 	ok = peekProc(posptr, ipos, 12)
-	     && peekProc(rotptr, rot, 12)
-	     //&& peekProc(stateptr, &state, 1)
-	     && peekProc(hostptr, chHostStr, 40)
-	     ;
+		 && peekProc(rotptr, rot, 12)
+		 //&& peekProc(stateptr, &state, 1)
+		 && peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
 
 	chHostStr[39] = 0;
 
 	sHost.assign(chHostStr);
-	if (sHost.find(':')==string::npos)
+	if (sHost.find(':') == string::npos)
 		sHost.append(":27015");
 
 	new_context << "<context>"
-	            << "<game>gmod</game>"
-	            << "<hostport>" << sHost << "</hostport>"
-	            << "</context>";
+				<< "<game>gmod</game>"
+				<< "<hostport>" << sHost << "</hostport>"
+				<< "</context>";
 	context = new_context.str();
-/*
-	// Check to see if you are spawned
-	if (state != 18)
-		return true; // Deactivate plugin
-*/
+	/*
+		// Check to see if you are spawned
+		if (state != 18)
+			return true; // Deactivate plugin
+	*/
 	ok = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
 	if (ok) {
-		for (int i=0;i<3;++i) {
-			camera_pos[i] = avatar_pos[i];
+		for (int i = 0; i < 3; ++i) {
+			camera_pos[i]   = avatar_pos[i];
 			camera_front[i] = avatar_front[i];
-			camera_top[i] = avatar_top[i];
+			camera_top[i]   = avatar_top[i];
 		}
 		return true;
 	}
@@ -85,13 +85,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return false;
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+static int trylock(const std::multimap< std::wstring, unsigned long long int > &pids) {
 	posptr = rotptr = 0;
 
-	if (! initialize(pids, L"hl2.exe", L"client.dll"))
+	if (!initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	procptr_t mod_engine=getModuleAddr(L"engine.dll");
+	procptr_t mod_engine = getModuleAddr(L"engine.dll");
 	if (!mod_engine)
 		return false;
 
@@ -116,7 +116,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Gamecheck
 	const char ID[] = "garrysmod";
 	char sMagic[18];
-	if (!peekProc(idptr, sMagic, sizeof(ID)) || strncmp(ID, sMagic, sizeof(ID))!=0)
+	if (!peekProc(idptr, sMagic, sizeof(ID)) || strncmp(ID, sMagic, sizeof(ID)) != 0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -142,26 +142,13 @@ static std::wstring description(L"Garry's Mod 11 (Build 5692)");
 static std::wstring shortname(L"Garry's Mod 11");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin gmodplug = {
-	MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	nullptr,
-	nullptr,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
-};
+static MumblePlugin gmodplug = { MUMBLE_PLUGIN_MAGIC, description, shortname, nullptr, nullptr, trylock1,
+								 generic_unlock,      longdesc,    fetch };
 
-static MumblePlugin2 gmodplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
-};
+static MumblePlugin2 gmodplug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, trylock };
 
 extern "C" MUMBLE_PLUGIN_EXPORT MumblePlugin *getMumblePlugin() {
 	return &gmodplug;

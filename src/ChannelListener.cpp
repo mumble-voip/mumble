@@ -8,8 +8,8 @@
 #include "User.h"
 
 #ifdef MUMBLE
-	#include "ServerHandler.h"
-	#include "Database.h"
+#	include "ServerHandler.h"
+#	include "Database.h"
 #endif
 
 #include <QtCore/QReadLocker>
@@ -17,24 +17,22 @@
 
 
 #ifdef MUMBLE
-	// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-	#include "Global.h"
+// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
+// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
+#	include "Global.h"
 #endif
 
 // init static instance
 ChannelListener ChannelListener::s_instance;
 
 ChannelListener::ChannelListener()
-	: QObject(nullptr),
-	  m_listenerLock(),
-	  m_listeningUsers(),
-	  m_listenedChannels()
+	: QObject(nullptr), m_listenerLock(), m_listeningUsers(), m_listenedChannels()
 #ifdef MUMBLE
-	, m_volumeLock()
-	, m_listenerVolumeAdjustments()
-	, m_initialSyncDone(false)
+	  ,
+	  m_volumeLock(), m_listenerVolumeAdjustments(), m_initialSyncDone(false)
 #endif
-{}
+{
+}
 
 void ChannelListener::addListenerImpl(unsigned int userSession, int channelID) {
 	QWriteLocker lock(&m_listenerLock);
@@ -68,13 +66,13 @@ bool ChannelListener::isListenedByAnyImpl(int channelID) const {
 	return !m_listenedChannels[channelID].isEmpty();
 }
 
-const QSet<unsigned int> ChannelListener::getListenersForChannelImpl(int channelID) const {
+const QSet< unsigned int > ChannelListener::getListenersForChannelImpl(int channelID) const {
 	QReadLocker lock(&m_listenerLock);
 
 	return m_listenedChannels[channelID];
 }
 
-const QSet<int> ChannelListener::getListenedChannelsForUserImpl(unsigned int userSession) const {
+const QSet< int > ChannelListener::getListenedChannelsForUserImpl(unsigned int userSession) const {
 	QReadLocker lock(&m_listenerLock);
 
 	return m_listeningUsers[userSession];
@@ -102,7 +100,7 @@ void ChannelListener::setListenerLocalVolumeAdjustmentImpl(int channelID, float 
 		m_listenerVolumeAdjustments.insert(channelID, volumeAdjustment);
 	}
 
-	if (oldValue != volumeAdjustment)  {
+	if (oldValue != volumeAdjustment) {
 		emit localVolumeAdjustmentsChanged(channelID, volumeAdjustment, oldValue);
 	}
 }
@@ -113,15 +111,15 @@ float ChannelListener::getListenerLocalVolumeAdjustmentImpl(int channelID) const
 	return m_listenerVolumeAdjustments.value(channelID, 1.0f);
 }
 
-QHash<int, float> ChannelListener::getAllListenerLocalVolumeAdjustmentsImpl(bool filter) const {
+QHash< int, float > ChannelListener::getAllListenerLocalVolumeAdjustmentsImpl(bool filter) const {
 	QReadLocker lock(&m_volumeLock);
 
 	if (!filter) {
 		return m_listenerVolumeAdjustments;
 	} else {
-		QHash<int, float> volumeMap;
+		QHash< int, float > volumeMap;
 
-		QHashIterator<int, float> it(m_listenerVolumeAdjustments);
+		QHashIterator< int, float > it(m_listenerVolumeAdjustments);
 
 		while (it.hasNext()) {
 			it.next();
@@ -140,22 +138,20 @@ void ChannelListener::setInitialServerSyncDoneImpl(bool done) {
 }
 #endif
 
-void ChannelListener::clearImpl() {
-	{
-		QWriteLocker lock(&m_listenerLock);
-		m_listeningUsers.clear();
-		m_listenedChannels.clear();
-	}
+void ChannelListener::clearImpl(){ { QWriteLocker lock(&m_listenerLock);
+m_listeningUsers.clear();
+m_listenedChannels.clear();
+}
 #ifdef MUMBLE
-	{
-		QWriteLocker lock(&m_volumeLock);
-		m_listenerVolumeAdjustments.clear();
-	}
+{
+	QWriteLocker lock(&m_volumeLock);
+	m_listenerVolumeAdjustments.clear();
+}
 #endif
 }
 
 
-ChannelListener& ChannelListener::get() {
+ChannelListener &ChannelListener::get() {
 	return s_instance;
 }
 
@@ -200,19 +196,19 @@ bool ChannelListener::isListenedByAny(const Channel *channel) {
 	return get().isListenedByAnyImpl(channel->iId);
 }
 
-const QSet<unsigned int> ChannelListener::getListenersForChannel(int channelID) {
+const QSet< unsigned int > ChannelListener::getListenersForChannel(int channelID) {
 	return get().getListenersForChannelImpl(channelID);
 }
 
-const QSet<unsigned int> ChannelListener::getListenersForChannel(const Channel *channel) {
+const QSet< unsigned int > ChannelListener::getListenersForChannel(const Channel *channel) {
 	return get().getListenersForChannelImpl(channel->iId);
 }
 
-const QSet<int> ChannelListener::getListenedChannelsForUser(unsigned int userSession) {
+const QSet< int > ChannelListener::getListenedChannelsForUser(unsigned int userSession) {
 	return get().getListenedChannelsForUserImpl(userSession);
 }
 
-const QSet<int> ChannelListener::getListenedChannelsForUser(const User *user) {
+const QSet< int > ChannelListener::getListenedChannelsForUser(const User *user) {
 	return get().getListenedChannelsForUserImpl(user->uiSession);
 }
 
@@ -250,7 +246,7 @@ float ChannelListener::getListenerLocalVolumeAdjustment(const Channel *channel) 
 	return get().getListenerLocalVolumeAdjustmentImpl(channel->iId);
 }
 
-QHash<int, float> ChannelListener::getAllListenerLocalVolumeAdjustments(bool filter) {
+QHash< int, float > ChannelListener::getAllListenerLocalVolumeAdjustments(bool filter) {
 	return get().getAllListenerLocalVolumeAdjustmentsImpl(filter);
 }
 
@@ -274,7 +270,8 @@ void ChannelListener::saveToDB() {
 	// Save the currently listened channels
 	g.db->setChannelListeners(g.sh->qbaDigest, ChannelListener::getListenedChannelsForUser(g.uiSession));
 	// And also the currently set volume adjustments (if they're not set to 1.0)
-	g.db->setChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest, ChannelListener::getAllListenerLocalVolumeAdjustments(true));
+	g.db->setChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest,
+												   ChannelListener::getAllListenerLocalVolumeAdjustments(true));
 }
 #endif
 
