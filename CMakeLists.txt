@@ -35,6 +35,7 @@ list(APPEND CMAKE_MODULE_PATH
 include(pkg-utils)
 include(CTest)
 include(project-utils)
+include(GNUInstallDirs)
 
 
 option(BUILD_TESTING "Build tests." OFF)
@@ -83,6 +84,21 @@ endif()
 
 include(compiler)
 include(os)
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+	if(UNIX)
+		# Use default GNU location
+		set(DEFAULT_LIBDIR "${CMAKE_INSTALL_LIBDIR}/mumble")
+	else()
+		# Default to current directory
+		set(DEFAULT_LIBDIR "./lib/mumble")
+	endif()
+else()
+	# Use a path relative to the prefix
+	set(DEFAULT_LIBDIR "${CMAKE_INSTALL_PREFIX}/lib/mumble")
+endif()
+
+set(MUMBLE_INSTALL_LIBDIR "${DEFAULT_LIBDIR}" CACHE STRING "The path to which Mumble will install its plugins")
 
 if (64_BIT)
 	set(ARCH "64bit")
