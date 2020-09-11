@@ -7,9 +7,7 @@ add_executable(TestCrypt TestCrypt.cpp)
 
 set_target_properties(TestCrypt PROPERTIES AUTOMOC ON)
 
-get_target_property(MURMUR_SOURCE_DIR murmur SOURCE_DIR)
-
-target_include_directories(TestCrypt PRIVATE ${MURMUR_SOURCE_DIR})
+target_include_directories(TestCrypt PRIVATE "${CMAKE_SOURCE_DIR}/src/murmur")
 
 target_link_libraries(TestCrypt PRIVATE shared Qt5::Test)
 

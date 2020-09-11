@@ -5,11 +5,37 @@
 
 find_pkg(Qt5 COMPONENTS Test REQUIRED)
 
-file(GLOB ITEMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/*")
+set(TESTS "")
 
-foreach(ITEM ${ITEMS})
-	if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${ITEM}")
-		add_subdirectory(${ITEM})
-		set_target_properties(${ITEM} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
-	endif()
+macro(use_test TEST_NAME)
+	add_subdirectory("${TEST_NAME}")
+	list(APPEND TESTS "${TEST_NAME}")
+endmacro()
+
+if(client)
+	use_test("TestXMLTools")
+endif()
+
+if(server)
+	use_test("TestCrypt")
+endif()
+
+# Shared tests
+use_test("TestCryptographicHash")
+use_test("TestCryptographicRandom")
+use_test("TestFFDHE")
+use_test("TestPacketDataStream")
+use_test("TestPasswordGenerator")
+use_test("TestSelfSignedCertificate")
+use_test("TestServerAddress")
+use_test("TestServerResolver")
+use_test("TestSSLLocks")
+use_test("TestStdAbs")
+use_test("TestTimer")
+use_test("TestUnresolvedServerAddress")
+
+
+# Set output directory
+foreach(CURRENT_TEST IN LISTS TESTS)
+	set_target_properties("${CURRENT_TEST}" PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
 endforeach()
