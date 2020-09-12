@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>. 
 
-if(BUILD_TESTING)
+if(tests)
 	if(WIN32 AND NOT ${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
 		# We're building for Windows on a different operating system.
 		find_program(WINE
@@ -26,9 +26,6 @@ endif()
 add_definitions(
 	"-DQT_USE_FAST_CONCATENATION"
 	"-DQT_USE_FAST_OPERATOR_PLUS"
-	# TODO: Uncomment the following definitions when the resulting errors are fixed.
-	#"-DQT_NO_CAST_FROM_ASCII"
-	#"-DQT_NO_CAST_TO_ASCII"
 )
 
 if(WIN32)

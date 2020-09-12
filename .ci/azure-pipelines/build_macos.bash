@@ -18,7 +18,7 @@ VER=$(python scripts/mumble-version.py)
 cd $BUILD_BINARIESDIRECTORY
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$MUMBLE_ENVIRONMENT_TOOLCHAIN -DIce_HOME="$MUMBLE_ENVIRONMENT_PATH/installed/x64-osx" \
-	-DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -Dversion=$VER -Dstatic=ON -Dsymbols=ON -Donline-tests=ON $BUILD_SOURCESDIRECTORY
+	-DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dversion=$VER -Dstatic=ON -Dsymbols=ON -Donline-tests=ON $BUILD_SOURCESDIRECTORY
 cmake --build .
 ctest --verbose
 

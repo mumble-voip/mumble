@@ -505,7 +505,7 @@ if(bundled-opus)
 
 	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/opus/include")
 
-	if(BUILD_TESTING)
+	if(tests)
 		set_target_properties(test_opus_decode test_opus_padding PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
 	endif()
 
