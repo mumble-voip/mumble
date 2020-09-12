@@ -36,7 +36,7 @@
 #include <QtNetwork/QHostInfo>
 #include <QtNetwork/QSslConfiguration>
 
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 
 #ifdef Q_OS_WIN
 #	include <qos2.h>

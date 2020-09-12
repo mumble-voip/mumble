@@ -9,7 +9,7 @@
 
 #		include <QtCore/QCoreApplication>
 
-#		include <boost/bind.hpp>
+#		include <boost/bind/bind.hpp>
 
 #		pragma GCC diagnostic push
 #		pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -140,7 +140,7 @@ public:
 	RPCCall(MurmurRPCImpl *rpcImpl) : m_refs(0), rpc(rpcImpl) { ref(); }
 	virtual ~RPCCall() {}
 	virtual ::boost::function< void(bool) > *done() {
-		auto done_fn = ::boost::bind(&RPCCall::finish, this, _1);
+		auto done_fn = ::boost::bind(&RPCCall::finish, this, boost::placeholders::_1);
 		return new ::boost::function< void(bool) >(done_fn);
 	}
 
@@ -215,7 +215,7 @@ public:
 
 private:
 	void *writeCB() {
-		auto callback = ::boost::bind(&RPCSingleStreamCall< InType, OutType >::writeCallback, this, _1);
+		auto callback = ::boost::bind(&RPCSingleStreamCall< InType, OutType >::writeCallback, this, boost::placeholders::_1);
 		return new ::boost::function< void(bool) >(callback);
 	}
 
