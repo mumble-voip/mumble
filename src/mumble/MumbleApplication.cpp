@@ -66,7 +66,7 @@ bool MumbleApplication::event(QEvent *e) {
 ///          by GlobalShortcutWin. Otherwise, returns false.
 static bool gswForward(MSG *msg) {
 	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
-	if (gsw) {
+	if (!gsw) {
 		return false;
 	}
 	switch (msg->message) {
