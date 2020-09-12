@@ -21,8 +21,6 @@
 #include <QtCore/QSettings>
 #include <QtCore/QStack>
 
-#include <boost/bind.hpp>
-
 #include <openssl/err.h>
 
 #include <Ice/Ice.h>
