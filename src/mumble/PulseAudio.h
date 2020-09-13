@@ -6,12 +6,23 @@
 #ifndef MUMBLE_MUMBLE_PULSEAUDIO_H_
 #define MUMBLE_MUMBLE_PULSEAUDIO_H_
 
-#include <QtCore/QWaitCondition>
-#include <pulse/ext-stream-restore.h>
-#include <pulse/pulseaudio.h>
-
 #include "AudioInput.h"
 #include "AudioOutput.h"
+
+#include <QtCore/QLibrary>
+#include <QtCore/QWaitCondition>
+
+#include <pulse/channelmap.h>
+#include <pulse/context.h>
+#include <pulse/def.h>
+#include <pulse/ext-stream-restore.h>
+#include <pulse/introspect.h>
+#include <pulse/mainloop-api.h>
+#include <pulse/sample.h>
+#include <pulse/stream.h>
+#include <pulse/subscribe.h>
+#include <pulse/thread-mainloop.h>
+#include <pulse/volume.h>
 
 struct PulseAttenuation {
 	uint32_t index;
@@ -21,8 +32,87 @@ struct PulseAttenuation {
 	pa_cvolume attenuated_volume;
 };
 
-class PulseAudioInput;
-class PulseAudioOutput;
+class PulseAudio : public QObject {
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(PulseAudio)
+protected:
+	QLibrary m_lib;
+
+public:
+	bool m_ok;
+
+	const char *(*get_library_version)();
+	const char *(*strerror)(int error);
+
+	void (*operation_unref)(pa_operation *o);
+
+	int (*cvolume_equal)(const pa_cvolume *a, const pa_cvolume *b);
+	pa_cvolume *(*sw_cvolume_multiply_scalar)(pa_cvolume *dest, const pa_cvolume *a, pa_volume_t b);
+
+	int (*sample_spec_equal)(const pa_sample_spec *a, const pa_sample_spec *b);
+	int (*channel_map_equal)(const pa_channel_map *a, const pa_channel_map *b);
+
+	pa_proplist *(*proplist_new)();
+	void (*proplist_free)(pa_proplist *p);
+	const char *(*proplist_gets)(const pa_proplist *p, const char *key);
+	int (*proplist_sets)(pa_proplist *p, const char *key, const char *value);
+
+	pa_threaded_mainloop *(*threaded_mainloop_new)();
+	void (*threaded_mainloop_free)(pa_threaded_mainloop *m);
+	int (*threaded_mainloop_start)(pa_threaded_mainloop *m);
+	void (*threaded_mainloop_stop)(pa_threaded_mainloop *m);
+	void (*threaded_mainloop_lock)(pa_threaded_mainloop *m);
+	void (*threaded_mainloop_unlock)(pa_threaded_mainloop *m);
+	pa_mainloop_api *(*threaded_mainloop_get_api)(pa_threaded_mainloop *m);
+
+	int (*context_errno)(const pa_context *c);
+	pa_context *(*context_new_with_proplist)(pa_mainloop_api *mainloop, const char *name, const pa_proplist *proplist);
+	void (*context_unref)(pa_context *c);
+	int (*context_connect)(pa_context *c, const char *server, pa_context_flags_t flags, const pa_spawn_api *api);
+	void (*context_disconnect)(pa_context *c);
+	pa_operation *(*context_subscribe)(pa_context *c, pa_subscription_mask_t m, pa_context_success_cb_t cb,
+									   void *userdata);
+	pa_context_state_t (*context_get_state)(const pa_context *c);
+	pa_operation *(*context_get_server_info)(pa_context *c, pa_server_info_cb_t cb, void *userdata);
+	pa_operation *(*context_get_sink_info_by_name)(pa_context *c, const char *name, pa_sink_info_cb_t cb,
+												   void *userdata);
+	pa_operation *(*context_get_sink_info_list)(pa_context *c, pa_sink_info_cb_t cb, void *userdata);
+	pa_operation *(*context_get_sink_input_info_list)(pa_context *c, pa_sink_input_info_cb_t cb, void *userdata);
+	pa_operation *(*context_get_source_info_list)(pa_context *c, pa_source_info_cb_t cb, void *userdata);
+	pa_operation *(*context_set_sink_input_volume)(pa_context *c, uint32_t idx, const pa_cvolume *volume,
+												   pa_context_success_cb_t cb, void *userdata);
+	void (*context_set_state_callback)(pa_context *c, pa_context_notify_cb_t cb, void *userdata);
+	void (*context_set_subscribe_callback)(pa_context *c, pa_context_subscribe_cb_t cb, void *userdata);
+
+	pa_stream *(*stream_new)(pa_context *c, const char *name, const pa_sample_spec *ss, const pa_channel_map *map);
+	void (*stream_unref)(pa_stream *s);
+	int (*stream_connect_playback)(pa_stream *s, const char *dev, const pa_buffer_attr *attr, pa_stream_flags_t flags,
+								   const pa_cvolume *volume, pa_stream *sync_stream);
+	int (*stream_connect_record)(pa_stream *s, const char *dev, const pa_buffer_attr *attr, pa_stream_flags_t flags);
+	int (*stream_disconnect)(pa_stream *s);
+	int (*stream_peek)(pa_stream *p, const void **data, size_t *nbytes);
+	int (*stream_write)(pa_stream *p, const void *data, size_t nbytes, pa_free_cb_t free_cb, int64_t offset,
+						pa_seek_mode_t seek);
+	int (*stream_drop)(pa_stream *p);
+	pa_operation *(*stream_cork)(pa_stream *s, int b, pa_stream_success_cb_t cb, void *userdata);
+	pa_stream_state_t (*stream_get_state)(const pa_stream *p);
+	pa_context *(*stream_get_context)(const pa_stream *p);
+	const pa_sample_spec *(*stream_get_sample_spec)(pa_stream *s);
+	const pa_channel_map *(*stream_get_channel_map)(pa_stream *s);
+	const pa_buffer_attr *(*stream_get_buffer_attr)(pa_stream *s);
+	void (*stream_set_state_callback)(pa_stream *s, pa_stream_notify_cb_t cb, void *userdata);
+	void (*stream_set_read_callback)(pa_stream *p, pa_stream_request_cb_t cb, void *userdata);
+	void (*stream_set_write_callback)(pa_stream *p, pa_stream_request_cb_t cb, void *userdata);
+
+	pa_operation *(*ext_stream_restore_read)(pa_context *c, pa_ext_stream_restore_read_cb_t cb, void *userdata);
+	pa_operation *(*ext_stream_restore_write)(pa_context *c, pa_update_mode_t mode,
+											  const pa_ext_stream_restore_info data[], unsigned n,
+											  int apply_immediately, pa_context_success_cb_t cb, void *userdata);
+
+public:
+	PulseAudio();
+};
 
 class PulseAudioSystem : public QObject {
 private:
@@ -30,6 +120,8 @@ private:
 	Q_DISABLE_COPY(PulseAudioSystem)
 protected:
 	void wakeup();
+
+	PulseAudio m_pulseAudio;
 	pa_context *pacContext;
 	pa_stream *pasInput, *pasOutput, *pasSpeaker;
 	pa_threaded_mainloop *pam;

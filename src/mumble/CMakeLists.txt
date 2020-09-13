@@ -929,8 +929,6 @@ if(portaudio)
 endif()
 
 if(pulseaudio)
-	find_pkg("libpulse" REQUIRED)
-
 	target_sources(mumble
 		PRIVATE
 			"PulseAudio.cpp"
@@ -938,7 +936,7 @@ if(pulseaudio)
 	)
 
 	target_compile_definitions(mumble PRIVATE "USE_PULSEAUDIO")
-	target_link_libraries(mumble PRIVATE ${libpulse_LIBRARIES})
+	target_include_directories(mumble PRIVATE SYSTEM "${3RDPARTY_DIR}/pulseaudio")
 endif()
 
 if(wasapi)
