@@ -62,13 +62,22 @@ CELTCodec::CELTCodec(const QString &celt_version) {
 	alternatives << QString::fromLatin1("celt0.%1.dll").arg(celt_version);
 #endif
 	foreach (const QString &lib, alternatives) {
+		// Check if the library is located in the same dir as the Mumble executable
 		qlCELT.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
 			break;
 		}
 
+		// Check if the library is located in ./lib relative to the dir dir the Mumble executable is in
+		qlCELT.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/lib/") + lib);
+		if (qlCELT.load()) {
+			bValid = true;
+			break;
+		}
+
 #ifdef Q_OS_MAC
+		// Search in the AppBundle
 		qlCELT.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/../Codecs/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
@@ -77,13 +86,21 @@ CELTCodec::CELTCodec(const QString &celt_version) {
 #endif
 
 #ifdef PLUGIN_PATH
+		// Search in the plugin path
 		qlCELT.setFileName(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
 			break;
 		}
 #endif
+		// Perform regular system-wide search but search in mumble subdir
+		qlCELT.setFileName(QLatin1String("mumble/") + lib);
+		if (qlCELT.load()) {
+			bValid = true;
+			break;
+		}
 
+		// Perform regular system-wide search
 		qlCELT.setFileName(lib);
 		if (qlCELT.load()) {
 			bValid = true;

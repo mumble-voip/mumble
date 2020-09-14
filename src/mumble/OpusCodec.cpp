@@ -43,13 +43,22 @@ OpusCodec::OpusCodec() {
 	alternatives << QString::fromLatin1("opus.dll");
 #endif
 	foreach (const QString &lib, alternatives) {
+		// Check if the library is located in the same dir as the Mumble executable
 		qlOpus.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
 		if (qlOpus.load()) {
 			bValid = true;
 			break;
 		}
 
+		// Check if the library is located in ./lib relative to the dir dir the Mumble executable is in
+		qlOpus.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/lib/") + lib);
+		if (qlOpus.load()) {
+			bValid = true;
+			break;
+		}
+
 #ifdef Q_OS_MAC
+		// Search in the AppBundle
 		qlOpus.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/../Codecs/") + lib);
 		if (qlOpus.load()) {
 			bValid = true;
@@ -58,6 +67,7 @@ OpusCodec::OpusCodec() {
 #endif
 
 #ifdef PLUGIN_PATH
+		// Search in the plugin path
 		qlOpus.setFileName(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + lib);
 		if (qlOpus.load()) {
 			bValid = true;
@@ -65,6 +75,14 @@ OpusCodec::OpusCodec() {
 		}
 #endif
 
+		// Perform regular system-wide search but search in mumble subdir
+		qlOpus.setFileName(QLatin1String("mumble/") + lib);
+		if (qlOpus.load()) {
+			bValid = true;
+			break;
+		}
+
+		// Perform regular system-wide search
 		qlOpus.setFileName(lib);
 		if (qlOpus.load()) {
 			bValid = true;
