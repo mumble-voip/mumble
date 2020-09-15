@@ -1929,9 +1929,15 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 	// Get the configured volume adjustment. Depending on whether
 	// this display string is for a ChannelListener or a regular user, we have to fetch
 	// the volume adjustment differently.
-	float volumeAdjustment = isChannelListener && parentChannel
-								 ? ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId)
-								 : user.getLocalVolumeAdjustments();
+	float volumeAdjustment = 1.0f;
+	if (isChannelListener) {
+		if (parentChannel && user.uiSession == g.uiSession) {
+			// Only the listener of the local user can have a volume adjustment
+			volumeAdjustment = ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId);
+		}
+	} else {
+		volumeAdjustment = user.getLocalVolumeAdjustments();
+	}
 
 	// Transform the adjustment into dB
 	// *2 == 6 dB
