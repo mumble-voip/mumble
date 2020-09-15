@@ -208,6 +208,7 @@ public:
 public slots:
 	/// Invalidates the model data of the ClientUser triggering this slot.
 	void userStateChanged();
+	void on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float oldValue, float newValue);
 	void ensureSelfVisible();
 	void recheckLinks();
 	void updateOverlay() const;

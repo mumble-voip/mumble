@@ -1018,6 +1018,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 	connect(p, SIGNAL(muteDeafStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
+	connect(p, &ClientUser::localVolumeAdjustmentsChanged, this, &UserModel::userStateChanged);
 
 	Channel *c       = Channel::get(0);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
@@ -1659,6 +1660,7 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 
 void UserModel::userStateChanged() {
 	ClientUser *user = qobject_cast< ClientUser * >(sender());
+
 	if (!user)
 		return;
 
@@ -1666,6 +1668,14 @@ void UserModel::userStateChanged() {
 	emit dataChanged(idx, idx);
 
 	updateOverlay();
+}
+
+void UserModel::on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float oldValue, float newValue) {
+	Q_UNUSED(oldValue);
+	Q_UNUSED(newValue);
+
+	const QModelIndex idx = channelListenerIndex(ClientUser::get(g.uiSession), Channel::get(channelID));
+	emit dataChanged(idx, idx);
 }
 
 void UserModel::toggleChannelFiltered(Channel *c) {
