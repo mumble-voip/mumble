@@ -784,6 +784,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tts->say(plain);
 	else if ((!terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
 		tts->say(terse);
+#else
+	// Mark as unused
+	Q_UNUSED(terse);
 #endif
 }
 
