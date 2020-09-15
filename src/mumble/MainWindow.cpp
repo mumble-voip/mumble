@@ -313,6 +313,8 @@ void MainWindow::setupGui() {
 	QObject::connect(
 		this, &MainWindow::userRemovedChannelListener, pmModel,
 		static_cast< void (UserModel::*)(const ClientUser *, const Channel *) >(&UserModel::removeChannelListener));
+	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, pmModel,
+			&UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);

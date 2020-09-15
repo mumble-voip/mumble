@@ -1018,6 +1018,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 	connect(p, SIGNAL(muteDeafStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
+	connect(p, &ClientUser::localVolumeAdjustmentsChanged, this, &UserModel::userStateChanged);
 
 	Channel *c       = Channel::get(0);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
@@ -1659,6 +1660,7 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 
 void UserModel::userStateChanged() {
 	ClientUser *user = qobject_cast< ClientUser * >(sender());
+
 	if (!user)
 		return;
 
@@ -1666,6 +1668,14 @@ void UserModel::userStateChanged() {
 	emit dataChanged(idx, idx);
 
 	updateOverlay();
+}
+
+void UserModel::on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float oldValue, float newValue) {
+	Q_UNUSED(oldValue);
+	Q_UNUSED(newValue);
+
+	const QModelIndex idx = channelListenerIndex(ClientUser::get(g.uiSession), Channel::get(channelID));
+	emit dataChanged(idx, idx);
 }
 
 void UserModel::toggleChannelFiltered(Channel *c) {
@@ -1929,9 +1939,15 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 	// Get the configured volume adjustment. Depending on whether
 	// this display string is for a ChannelListener or a regular user, we have to fetch
 	// the volume adjustment differently.
-	float volumeAdjustment = isChannelListener && parentChannel
-								 ? ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId)
-								 : user.getLocalVolumeAdjustments();
+	float volumeAdjustment = 1.0f;
+	if (isChannelListener) {
+		if (parentChannel && user.uiSession == g.uiSession) {
+			// Only the listener of the local user can have a volume adjustment
+			volumeAdjustment = ChannelListener::getListenerLocalVolumeAdjustment(parentChannel->iId);
+		}
+	} else {
+		volumeAdjustment = user.getLocalVolumeAdjustments();
+	}
 
 	// Transform the adjustment into dB
 	// *2 == 6 dB
