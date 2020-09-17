@@ -197,12 +197,20 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		ChannelListener::setInitialServerSyncDone(true);
 	}
 
-	QHash< int, float > volumeMap = g.db->getChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest);
+	{
+		// Since we are only loading the adjustments from the database, we don't really want to consider the adjustments
+		// to have "changed" by this action. Furthermore we are setting the volume adjustments before the listeners
+		// officially exist. Therefore some code that would receive the change-event would try to get the respective listener
+		// and fail due to it not existing yet.
+		// Therefore we block all signals while setting the volume adjustments.
+		const QSignalBlocker blocker(ChannelListener::get());
 
-	QHashIterator< int, float > it(volumeMap);
-	while (it.hasNext()) {
-		it.next();
-		ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
+		QHash< int, float > volumeMap = g.db->getChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest);
+		QHashIterator< int, float > it(volumeMap);
+		while (it.hasNext()) {
+			it.next();
+			ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
+		}
 	}
 
 
