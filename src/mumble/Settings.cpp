@@ -16,6 +16,9 @@
 #include <QtCore/QStandardPaths>
 #include <QtGui/QImageReader>
 #include <QtWidgets/QSystemTrayIcon>
+#if QT_VERSION >= QT_VERSION_CHECK(5,9,0)
+#	include <QOperatingSystemVersion>
+#endif
 
 #include <boost/typeof/typeof.hpp>
 
@@ -360,8 +363,13 @@ Settings::Settings() {
 	bLockLayout          = false;
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on Windows >= 7
+#	if QT_VERSION >= QT_VERSION_CHECK(5,9,0)
+	// Since Qt 5.9 QOperatingSystemVersion is preferred over QSysInfo::WinVersion
+	bHideInTray = QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows7;
+#	else
 	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
 	bHideInTray                       = (winVer < QSysInfo::WV_WINDOWS7);
+#	endif
 #else
 	const bool isUnityDesktop =
 		QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_CURRENT_DESKTOP")) == QLatin1String("Unity");
