@@ -13,6 +13,22 @@
 // (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
+#ifdef Q_CC_GNU
+#	define RESOLVE(var)                                                          \
+		{                                                                         \
+			var = reinterpret_cast< __typeof__(var) >(m_lib.resolve("pa_" #var)); \
+			if (!var)                                                             \
+				return;                                                           \
+		}
+#else
+#	define RESOLVE(var)                                                                           \
+		{                                                                                          \
+			*reinterpret_cast< void ** >(&var) = static_cast< void * >(m_lib.resolve("pa_" #var)); \
+			if (!var)                                                                              \
+				return;                                                                            \
+		}
+#endif
+
 static const char *mumble_sink_input = "Mumble Speakers";
 static const char *mumble_echo       = "Mumble Speakers (Echo)";
 
@@ -76,36 +92,44 @@ PulseAudioSystem::PulseAudioSystem() {
 	iRemainingOperations                  = 0;
 	bPulseIsGood                          = false;
 	iSinkId                               = -1;
+	bRunning                              = false;
 
-	pam                  = pa_threaded_mainloop_new();
-	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
+	if (!m_pulseAudio.m_ok) {
+		return;
+	}
 
-	pa_proplist *proplist;
+	pam                  = m_pulseAudio.threaded_mainloop_new();
+	pa_mainloop_api *api = m_pulseAudio.threaded_mainloop_get_api(pam);
 
-	proplist = pa_proplist_new();
-	pa_proplist_sets(proplist, PA_PROP_APPLICATION_NAME, "Mumble");
-	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
-	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
-	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "game");
+	pa_proplist *proplist = m_pulseAudio.proplist_new();
+	m_pulseAudio.proplist_sets(proplist, PA_PROP_APPLICATION_NAME, "Mumble");
+	m_pulseAudio.proplist_sets(proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
+	m_pulseAudio.proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
+	m_pulseAudio.proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "game");
 
-	pacContext = pa_context_new_with_proplist(api, nullptr, proplist);
-	pa_proplist_free(proplist);
+	pacContext = m_pulseAudio.context_new_with_proplist(api, nullptr, proplist);
+	m_pulseAudio.proplist_free(proplist);
 
-	pa_context_set_subscribe_callback(pacContext, subscribe_callback, this);
+	m_pulseAudio.context_set_subscribe_callback(pacContext, subscribe_callback, this);
 
-	pa_context_set_state_callback(pacContext, context_state_callback, this);
-	pa_context_connect(pacContext, nullptr, PA_CONTEXT_NOAUTOSPAWN, nullptr);
+	m_pulseAudio.context_set_state_callback(pacContext, context_state_callback, this);
+	m_pulseAudio.context_connect(pacContext, nullptr, PA_CONTEXT_NOAUTOSPAWN, nullptr);
 
 	pade = api->defer_new(api, defer_event_callback, this);
 	api->defer_enable(pade, false);
 
-	pa_threaded_mainloop_start(pam);
+	m_pulseAudio.threaded_mainloop_start(pam);
 
 	bRunning = true;
 }
 
 PulseAudioSystem::~PulseAudioSystem() {
+	if (!m_pulseAudio.m_ok) {
+		return;
+	}
+
 	bRunning = false;
+
 	if (bAttenuating) {
 		qmWait.lock();
 		bAttenuating = false;
@@ -116,10 +140,10 @@ PulseAudioSystem::~PulseAudioSystem() {
 		}
 		qmWait.unlock();
 	}
-	pa_threaded_mainloop_stop(pam);
-	pa_context_disconnect(pacContext);
-	pa_context_unref(pacContext);
-	pa_threaded_mainloop_free(pam);
+	m_pulseAudio.threaded_mainloop_stop(pam);
+	m_pulseAudio.context_disconnect(pacContext);
+	m_pulseAudio.context_unref(pacContext);
+	m_pulseAudio.threaded_mainloop_free(pam);
 }
 
 QString PulseAudioSystem::outputDevice() const {
@@ -145,15 +169,15 @@ QString PulseAudioSystem::inputDevice() const {
 }
 
 void PulseAudioSystem::wakeup() {
-	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
+	pa_mainloop_api *api = m_pulseAudio.threaded_mainloop_get_api(pam);
 	api->defer_enable(pade, true);
 }
 
 void PulseAudioSystem::wakeup_lock() {
-	pa_threaded_mainloop_lock(pam);
-	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
+	m_pulseAudio.threaded_mainloop_lock(pam);
+	pa_mainloop_api *api = m_pulseAudio.threaded_mainloop_get_api(pam);
 	api->defer_enable(pade, true);
-	pa_threaded_mainloop_unlock(pam);
+	m_pulseAudio.threaded_mainloop_unlock(pam);
 }
 
 void PulseAudioSystem::defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata) {
@@ -176,7 +200,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 
 	if (raw_ao) {
 		QString odev        = outputDevice();
-		pa_stream_state ost = pasOutput ? pa_stream_get_state(pasOutput) : PA_STREAM_TERMINATED;
+		pa_stream_state ost = pasOutput ? m_pulseAudio.stream_get_state(pasOutput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
@@ -186,7 +210,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			switch (ost) {
 				case PA_STREAM_TERMINATED: {
 					if (pasOutput)
-						pa_stream_unref(pasOutput);
+						m_pulseAudio.stream_unref(pasOutput);
 
 					pa_sample_spec pss = qhSpecMap.value(odev);
 					pa_channel_map pcm = qhChanMap.value(odev);
@@ -196,10 +220,10 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					if (pss.channels == 0)
 						pss.channels = 1;
 
-					pasOutput =
-						pa_stream_new(pacContext, mumble_sink_input, &pss, (pss.channels == 1) ? nullptr : &pcm);
-					pa_stream_set_state_callback(pasOutput, write_stream_callback, this);
-					pa_stream_set_write_callback(pasOutput, write_callback, this);
+					pasOutput = m_pulseAudio.stream_new(pacContext, mumble_sink_input, &pss,
+														(pss.channels == 1) ? nullptr : &pcm);
+					m_pulseAudio.stream_set_state_callback(pasOutput, write_stream_callback, this);
+					m_pulseAudio.stream_set_write_callback(pasOutput, write_callback, this);
 				}
 					// Fallthrough
 				case PA_STREAM_UNCONNECTED:
@@ -219,12 +243,12 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		}
 		if (do_stop) {
 			qWarning("PulseAudio: Stopping output");
-			pa_stream_disconnect(pasOutput);
+			m_pulseAudio.stream_disconnect(pasOutput);
 			iSinkId = -1;
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting output: %s", qPrintable(odev));
 			pa_buffer_attr buff;
-			const pa_sample_spec *pss    = pa_stream_get_sample_spec(pasOutput);
+			const pa_sample_spec *pss    = m_pulseAudio.stream_get_sample_spec(pasOutput);
 			const size_t sampleSize      = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
 			const unsigned int iBlockLen = pao->iFrameSize * pss->channels * static_cast< unsigned int >(sampleSize);
 			buff.tlength                 = iBlockLen * (g.s.iOutputDelay + 1);
@@ -236,14 +260,15 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			iDelayCache   = g.s.iOutputDelay;
 			qsOutputCache = odev;
 
-			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, nullptr, nullptr);
-			pa_context_get_sink_info_by_name(pacContext, qPrintable(odev), sink_info_callback, this);
+			m_pulseAudio.stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, nullptr,
+												 nullptr);
+			m_pulseAudio.context_get_sink_info_by_name(pacContext, qPrintable(odev), sink_info_callback, this);
 		}
 	}
 
 	if (raw_ai) {
 		QString idev        = inputDevice();
-		pa_stream_state ist = pasInput ? pa_stream_get_state(pasInput) : PA_STREAM_TERMINATED;
+		pa_stream_state ist = pasInput ? m_pulseAudio.stream_get_state(pasInput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
@@ -253,7 +278,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			switch (ist) {
 				case PA_STREAM_TERMINATED: {
 					if (pasInput)
-						pa_stream_unref(pasInput);
+						m_pulseAudio.stream_unref(pasInput);
 
 					pa_sample_spec pss = qhSpecMap.value(idev);
 					if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
@@ -261,9 +286,9 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					pss.rate     = SAMPLE_RATE;
 					pss.channels = 1;
 
-					pasInput = pa_stream_new(pacContext, "Microphone", &pss, nullptr);
-					pa_stream_set_state_callback(pasInput, read_stream_callback, this);
-					pa_stream_set_read_callback(pasInput, read_callback, this);
+					pasInput = m_pulseAudio.stream_new(pacContext, "Microphone", &pss, nullptr);
+					m_pulseAudio.stream_set_state_callback(pasInput, read_stream_callback, this);
+					m_pulseAudio.stream_set_read_callback(pasInput, read_callback, this);
 				}
 					// Fallthrough
 				case PA_STREAM_UNCONNECTED:
@@ -281,11 +306,11 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		}
 		if (do_stop) {
 			qWarning("PulseAudio: Stopping input");
-			pa_stream_disconnect(pasInput);
+			m_pulseAudio.stream_disconnect(pasInput);
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting input %s", qPrintable(idev));
 			pa_buffer_attr buff;
-			const pa_sample_spec *pss    = pa_stream_get_sample_spec(pasInput);
+			const pa_sample_spec *pss    = m_pulseAudio.stream_get_sample_spec(pasInput);
 			const size_t sampleSize      = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
 			const unsigned int iBlockLen = pai->iFrameSize * pss->channels * static_cast< unsigned int >(sampleSize);
 			buff.tlength                 = iBlockLen;
@@ -296,10 +321,10 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 
 			qsInputCache = idev;
 
-			pa_stream_connect_record(pasInput, qPrintable(idev), &buff, PA_STREAM_ADJUST_LATENCY);
+			m_pulseAudio.stream_connect_record(pasInput, qPrintable(idev), &buff, PA_STREAM_ADJUST_LATENCY);
 
 			// Ensure stream is initially un-muted
-			pa_stream_cork(pasInput, 0, nullptr, nullptr);
+			m_pulseAudio.stream_cork(pasInput, 0, nullptr, nullptr);
 
 			connect(g.mw, &MainWindow::corkAudioInputStream, this, &PulseAudioSystem::corkAudioInputStream);
 		}
@@ -308,7 +333,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	if (raw_ai) {
 		QString odev        = outputDevice();
 		QString edev        = qhEchoMap.value(odev);
-		pa_stream_state est = pasSpeaker ? pa_stream_get_state(pasSpeaker) : PA_STREAM_TERMINATED;
+		pa_stream_state est = pasSpeaker ? m_pulseAudio.stream_get_state(pasSpeaker) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
@@ -318,7 +343,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			switch (est) {
 				case PA_STREAM_TERMINATED: {
 					if (pasSpeaker)
-						pa_stream_unref(pasSpeaker);
+						m_pulseAudio.stream_unref(pasSpeaker);
 
 					pa_sample_spec pss = qhSpecMap.value(edev);
 					pa_channel_map pcm = qhChanMap.value(edev);
@@ -328,9 +353,10 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					if ((pss.channels == 0) || (!g.s.bEchoMulti))
 						pss.channels = 1;
 
-					pasSpeaker = pa_stream_new(pacContext, mumble_echo, &pss, (pss.channels == 1) ? nullptr : &pcm);
-					pa_stream_set_state_callback(pasSpeaker, read_stream_callback, this);
-					pa_stream_set_read_callback(pasSpeaker, read_callback, this);
+					pasSpeaker =
+						m_pulseAudio.stream_new(pacContext, mumble_echo, &pss, (pss.channels == 1) ? nullptr : &pcm);
+					m_pulseAudio.stream_set_state_callback(pasSpeaker, read_stream_callback, this);
+					m_pulseAudio.stream_set_read_callback(pasSpeaker, read_callback, this);
 				}
 					// Fallthrough
 				case PA_STREAM_UNCONNECTED:
@@ -350,11 +376,11 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		}
 		if (do_stop) {
 			qWarning("PulseAudio: Stopping echo");
-			pa_stream_disconnect(pasSpeaker);
+			m_pulseAudio.stream_disconnect(pasSpeaker);
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting echo: %s", qPrintable(edev));
 			pa_buffer_attr buff;
-			const pa_sample_spec *pss    = pa_stream_get_sample_spec(pasSpeaker);
+			const pa_sample_spec *pss    = m_pulseAudio.stream_get_sample_spec(pasSpeaker);
 			const size_t sampleSize      = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
 			const unsigned int iBlockLen = pai->iFrameSize * pss->channels * static_cast< unsigned int >(sampleSize);
 			buff.tlength                 = iBlockLen;
@@ -366,16 +392,16 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			bEchoMultiCache = g.s.bEchoMulti;
 			qsEchoCache     = edev;
 
-			pa_stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_ADJUST_LATENCY);
+			m_pulseAudio.stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_ADJUST_LATENCY);
 		}
 	}
 }
 
 void PulseAudioSystem::corkAudioInputStream(const bool cork) {
 	if (pasInput) {
-		pa_threaded_mainloop_lock(pam);
-		pa_stream_cork(pasInput, cork, nullptr, nullptr);
-		pa_threaded_mainloop_unlock(pam);
+		m_pulseAudio.threaded_mainloop_lock(pam);
+		m_pulseAudio.stream_cork(pasInput, cork, nullptr, nullptr);
+		m_pulseAudio.threaded_mainloop_unlock(pam);
 	}
 }
 
@@ -457,15 +483,17 @@ void PulseAudioSystem::sink_info_callback(pa_context *, const pa_sink_info *i, i
 
 void PulseAudioSystem::write_stream_callback(pa_stream *s, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
-	switch (pa_stream_get_state(s)) {
+	const auto &pa        = pas->m_pulseAudio;
+
+	switch (pa.stream_get_state(s)) {
 		case PA_STREAM_FAILED:
-			qWarning("PulseAudio: Stream error: %s", pa_strerror(pa_context_errno(pa_stream_get_context(s))));
+			qWarning("PulseAudio: Stream error: %s", pa.strerror(pa.context_errno(pa.stream_get_context(s))));
 			break;
 		default:
 			break;
 	}
 	const pa_buffer_attr *bufferAttr;
-	if ((bufferAttr = pa_stream_get_buffer_attr(s))) {
+	if ((bufferAttr = pa.stream_get_buffer_attr(s))) {
 		g.ao->setBufferSize(bufferAttr->maxlength);
 	}
 	pas->wakeup();
@@ -473,9 +501,11 @@ void PulseAudioSystem::write_stream_callback(pa_stream *s, void *userdata) {
 
 void PulseAudioSystem::read_stream_callback(pa_stream *s, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
-	switch (pa_stream_get_state(s)) {
+	const auto &pa        = pas->m_pulseAudio;
+
+	switch (pa.stream_get_state(s)) {
 		case PA_STREAM_FAILED:
-			qWarning("PulseAudio: Stream error: %s", pa_strerror(pa_context_errno(pa_stream_get_context(s))));
+			qWarning("PulseAudio: Stream error: %s", pa.strerror(pa.context_errno(pa.stream_get_context(s))));
 			break;
 		default:
 			break;
@@ -485,10 +515,11 @@ void PulseAudioSystem::read_stream_callback(pa_stream *s, void *userdata) {
 
 void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
+	const auto &pa        = pas->m_pulseAudio;
 
 	size_t length    = bytes;
 	const void *data = nullptr;
-	pa_stream_peek(s, &data, &length);
+	pa.stream_peek(s, &data, &length);
 	if (!data && length > 0) {
 		qWarning("PulseAudio: pa_stream_peek reports no data at current read index.");
 	} else if (!data && length == 0) {
@@ -502,16 +533,16 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	PulseAudioInput *pai = dynamic_cast< PulseAudioInput * >(ai.get());
 	if (!pai) {
 		if (length > 0) {
-			pa_stream_drop(s);
+			pa.stream_drop(s);
 		}
 		pas->wakeup();
 		return;
 	}
 
-	const pa_sample_spec *pss = pa_stream_get_sample_spec(s);
+	const pa_sample_spec *pss = pa.stream_get_sample_spec(s);
 
 	if (s == pas->pasInput) {
-		if (!pa_sample_spec_equal(pss, &pai->pssMic)) {
+		if (!pa.sample_spec_equal(pss, &pai->pssMic)) {
 			pai->pssMic       = *pss;
 			pai->iMicFreq     = pss->rate;
 			pai->iMicChannels = pss->channels;
@@ -525,7 +556,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			pai->addMic(data, static_cast< unsigned int >(length) / pai->iMicSampleSize);
 		}
 	} else if (s == pas->pasSpeaker) {
-		if (!pa_sample_spec_equal(pss, &pai->pssEcho)) {
+		if (!pa.sample_spec_equal(pss, &pai->pssEcho)) {
 			pai->pssEcho       = *pss;
 			pai->iEchoFreq     = pss->rate;
 			pai->iEchoChannels = pss->channels;
@@ -541,7 +572,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	}
 
 	if (length > 0) {
-		pa_stream_drop(s);
+		pa.stream_drop(s);
 	}
 }
 
@@ -556,9 +587,11 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		return;
 	}
 
-	const pa_sample_spec *pss = pa_stream_get_sample_spec(s);
-	const pa_channel_map *pcm = pa_stream_get_channel_map(pas->pasOutput);
-	if (!pa_sample_spec_equal(pss, &pao->pss) || !pa_channel_map_equal(pcm, &pao->pcm)) {
+	const auto &pa = pas->m_pulseAudio;
+
+	const pa_sample_spec *pss = pa.stream_get_sample_spec(s);
+	const pa_channel_map *pcm = pa.stream_get_channel_map(pas->pasOutput);
+	if (!pa.sample_spec_equal(pss, &pao->pss) || !pa.channel_map_equal(pcm, &pao->pcm)) {
 		pao->pss = *pss;
 		pao->pcm = *pcm;
 		if (pss->format == PA_SAMPLE_FLOAT32NE)
@@ -635,12 +668,13 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pas->setVolumes();
 	}
 
-	pa_stream_write(s, buffer, iSampleSize * samples, nullptr, 0, PA_SEEK_RELATIVE);
+	pa.stream_write(s, buffer, iSampleSize * samples, nullptr, 0, PA_SEEK_RELATIVE);
 }
 
 void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol,
 													   void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
+	const auto &pa        = pas->m_pulseAudio;
 
 	if (eol == 0) {
 		// If we're using the default of "enable attenuation on all ouputs" and output from an application is
@@ -664,16 +698,16 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 			PulseAttenuation patt;
 			patt.index             = i->index;
 			patt.name              = QString::fromUtf8(i->name);
-			patt.stream_restore_id = QString::fromUtf8(pa_proplist_gets(i->proplist, "module-stream-restore.id"));
+			patt.stream_restore_id = QString::fromUtf8(pa.proplist_gets(i->proplist, "module-stream-restore.id"));
 			patt.normal_volume     = i->volume;
 
 			// calculate the attenuated volume
 			pa_volume_t adj = static_cast< pa_volume_t >(PA_VOLUME_NORM * g.s.fOtherVolume);
-			pa_sw_cvolume_multiply_scalar(&patt.attenuated_volume, &i->volume, adj);
+			pa.sw_cvolume_multiply_scalar(&patt.attenuated_volume, &i->volume, adj);
 
 			// set it on the sink input
-			pa_operation_unref(
-				pa_context_set_sink_input_volume(c, i->index, &patt.attenuated_volume, nullptr, nullptr));
+			pa.operation_unref(
+				pa.context_set_sink_input_volume(c, i->index, &patt.attenuated_volume, nullptr, nullptr));
 
 			// store it
 			pas->qhVolumes[i->index] = patt;
@@ -687,24 +721,25 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol,
 														void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
+	const auto &pa        = pas->m_pulseAudio;
 
 	if (eol == 0) {
 		// if we were tracking this specific sink previously
 		if (pas->qhVolumes.contains(i->index)) {
 			// and if it has the attenuated volume we applied to it
-			if (pa_cvolume_equal(&i->volume, &pas->qhVolumes[i->index].attenuated_volume) != 0) {
+			if (pa.cvolume_equal(&i->volume, &pas->qhVolumes[i->index].attenuated_volume) != 0) {
 				// mark it as matched
 				pas->qlMatchedSinks.append(i->index);
 
 				// reset the volume to normal
 				pas->iRemainingOperations++;
-				pa_operation_unref(pa_context_set_sink_input_volume(
+				pa.operation_unref(pa.context_set_sink_input_volume(
 					c, i->index, &pas->qhVolumes[i->index].normal_volume, restore_volume_success_callback, pas));
 			}
 
 			// otherwise, save for matching at the end of iteration
 		} else {
-			QString restore_id = QString::fromUtf8(pa_proplist_gets(i->proplist, "module-stream-restore.id"));
+			QString restore_id = QString::fromUtf8(pa.proplist_gets(i->proplist, "module-stream-restore.id"));
 			PulseAttenuation patt;
 			patt.index                        = i->index;
 			patt.normal_volume                = i->volume;
@@ -728,10 +763,10 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 			if (pas->qhUnmatchedSinks.contains(it.value().stream_restore_id)) {
 				PulseAttenuation active_sink = pas->qhUnmatchedSinks[it.value().stream_restore_id];
 				// if the volume wasn't changed from our attenuation
-				if (pa_cvolume_equal(&active_sink.normal_volume, &it.value().attenuated_volume) != 0) {
+				if (pa.cvolume_equal(&active_sink.normal_volume, &it.value().attenuated_volume) != 0) {
 					// reset the volume to normal
 					pas->iRemainingOperations++;
-					pa_operation_unref(pa_context_set_sink_input_volume(c, active_sink.index, &it.value().normal_volume,
+					pa.operation_unref(pa.context_set_sink_input_volume(c, active_sink.index, &it.value().normal_volume,
 																		restore_volume_success_callback, pas));
 				}
 				continue;
@@ -751,7 +786,7 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 		// to see if we can find and update them.
 		if (pas->qhMissingSinks.count() > 0) {
 			pas->iRemainingOperations++;
-			pa_operation_unref(pa_ext_stream_restore_read(c, stream_restore_read_callback, pas));
+			pa.operation_unref(pa.ext_stream_restore_read(c, stream_restore_read_callback, pas));
 		}
 
 		// trigger the volume completion callback;
@@ -763,6 +798,7 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_stream_restore_info *i, int eol,
 													void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
+	const auto &pa        = pas->m_pulseAudio;
 
 	if (eol == 0) {
 		QString name = QString::fromUtf8(i->name);
@@ -770,12 +806,12 @@ void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_
 		// were we looking for this restoration?
 		if (pas->qhMissingSinks.contains(name)) {
 			// make sure it still has the volume we gave it
-			if (pa_cvolume_equal(&pas->qhMissingSinks[name].attenuated_volume, &i->volume) != 0) {
+			if (pa.cvolume_equal(&pas->qhMissingSinks[name].attenuated_volume, &i->volume) != 0) {
 				// update the stream restore record
 				pa_ext_stream_restore_info restore = *i;
 				restore.volume                     = pas->qhMissingSinks[name].normal_volume;
 				pas->iRemainingOperations++;
-				pa_operation_unref(pa_ext_stream_restore_write(c, PA_UPDATE_REPLACE, &restore, 1, 1,
+				pa.operation_unref(pa.ext_stream_restore_write(c, PA_UPDATE_REPLACE, &restore, 1, 1,
 															   restore_volume_success_callback, pas));
 			}
 
@@ -820,9 +856,9 @@ void PulseAudioSystem::query() {
 	qhChanMap.clear();
 	qhInput.insert(QString(), tr("Default Input"));
 	qhOutput.insert(QString(), tr("Default Output"));
-	pa_operation_unref(pa_context_get_server_info(pacContext, server_callback, this));
-	pa_operation_unref(pa_context_get_sink_info_list(pacContext, sink_callback, this));
-	pa_operation_unref(pa_context_get_source_info_list(pacContext, source_callback, this));
+	m_pulseAudio.operation_unref(m_pulseAudio.context_get_server_info(pacContext, server_callback, this));
+	m_pulseAudio.operation_unref(m_pulseAudio.context_get_sink_info_list(pacContext, sink_callback, this));
+	m_pulseAudio.operation_unref(m_pulseAudio.context_get_source_info_list(pacContext, source_callback, this));
 	wakeup();
 }
 
@@ -832,29 +868,33 @@ void PulseAudioSystem::setVolumes() {
 		// ensure the volume map is empty, otherwise it may be dangerous to change
 		if (qhVolumes.empty()) {
 			// set the new per-application volumes and store the old ones
-			pa_operation_unref(pa_context_get_sink_input_info_list(pacContext, volume_sink_input_list_callback, this));
+			m_pulseAudio.operation_unref(
+				m_pulseAudio.context_get_sink_input_info_list(pacContext, volume_sink_input_list_callback, this));
 		}
 		// clear attenuation state and restore normal volumes
 	} else {
 		iRemainingOperations++;
-		pa_operation_unref(pa_context_get_sink_input_info_list(pacContext, restore_sink_input_list_callback, this));
+		m_pulseAudio.operation_unref(
+			m_pulseAudio.context_get_sink_input_info_list(pacContext, restore_sink_input_list_callback, this));
 	}
 }
 
 void PulseAudioSystem::contextCallback(pa_context *c) {
 	Q_ASSERT(c == pacContext);
-	switch (pa_context_get_state(c)) {
+	switch (m_pulseAudio.context_get_state(c)) {
 		case PA_CONTEXT_READY:
 			bPulseIsGood = true;
-			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SOURCE, nullptr, this));
-			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SINK, nullptr, this));
+			m_pulseAudio.operation_unref(
+				m_pulseAudio.context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SOURCE, nullptr, this));
+			m_pulseAudio.operation_unref(
+				m_pulseAudio.context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SINK, nullptr, this));
 			query();
 			break;
 		case PA_CONTEXT_TERMINATED:
 			qWarning("PulseAudio: Forcibly disconnected from PulseAudio");
 			break;
 		case PA_CONTEXT_FAILED:
-			qWarning("PulseAudio: Connection failure: %s", pa_strerror(pa_context_errno(c)));
+			qWarning("PulseAudio: Connection failure: %s", m_pulseAudio.strerror(m_pulseAudio.context_errno(c)));
 			break;
 		default:
 			return;
@@ -974,4 +1014,76 @@ void PulseAudioOutput::run() {
 	while (bRunning)
 		qwcWait.wait(&qmMutex);
 	qmMutex.unlock();
+}
+
+PulseAudio::PulseAudio() : m_ok(false) {
+	const QStringList alternatives{ QLatin1String("libpulse.so"), QLatin1String("libpulse.so.0") };
+
+	for (const QString &alternative : alternatives) {
+		m_lib.setFileName(alternative);
+		if (m_lib.load()) {
+			break;
+		}
+	}
+
+	if (!m_lib.isLoaded()) {
+		return;
+	}
+
+	RESOLVE(get_library_version);
+	RESOLVE(strerror);
+	RESOLVE(operation_unref);
+	RESOLVE(cvolume_equal);
+	RESOLVE(sw_cvolume_multiply_scalar);
+	RESOLVE(sample_spec_equal);
+	RESOLVE(channel_map_equal);
+	RESOLVE(proplist_new);
+	RESOLVE(proplist_free);
+	RESOLVE(proplist_gets);
+	RESOLVE(proplist_sets);
+	RESOLVE(threaded_mainloop_new);
+	RESOLVE(threaded_mainloop_free);
+	RESOLVE(threaded_mainloop_start);
+	RESOLVE(threaded_mainloop_stop);
+	RESOLVE(threaded_mainloop_lock);
+	RESOLVE(threaded_mainloop_unlock);
+	RESOLVE(threaded_mainloop_get_api);
+	RESOLVE(context_errno);
+	RESOLVE(context_new_with_proplist);
+	RESOLVE(context_unref);
+	RESOLVE(context_connect);
+	RESOLVE(context_disconnect);
+	RESOLVE(context_subscribe);
+	RESOLVE(context_get_state);
+	RESOLVE(context_get_server_info);
+	RESOLVE(context_get_sink_info_by_name);
+	RESOLVE(context_get_sink_info_list);
+	RESOLVE(context_get_sink_input_info_list);
+	RESOLVE(context_get_source_info_list);
+	RESOLVE(context_set_sink_input_volume);
+	RESOLVE(context_set_subscribe_callback);
+	RESOLVE(context_set_state_callback);
+	RESOLVE(stream_new);
+	RESOLVE(stream_unref);
+	RESOLVE(stream_connect_playback);
+	RESOLVE(stream_connect_record);
+	RESOLVE(stream_disconnect);
+	RESOLVE(stream_peek);
+	RESOLVE(stream_write);
+	RESOLVE(stream_drop);
+	RESOLVE(stream_cork);
+	RESOLVE(stream_get_state);
+	RESOLVE(stream_get_context);
+	RESOLVE(stream_get_sample_spec);
+	RESOLVE(stream_get_channel_map);
+	RESOLVE(stream_get_buffer_attr);
+	RESOLVE(stream_set_state_callback);
+	RESOLVE(stream_set_read_callback);
+	RESOLVE(stream_set_write_callback);
+	RESOLVE(ext_stream_restore_read);
+	RESOLVE(ext_stream_restore_write);
+
+	qDebug("PulseAudio %s from %s", get_library_version(), qPrintable(m_lib.fileName()));
+
+	m_ok = true;
 }
