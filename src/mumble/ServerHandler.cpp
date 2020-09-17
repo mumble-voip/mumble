@@ -451,7 +451,7 @@ void ServerHandler::run() {
 			if (hQoS) {
 				if (!QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0)) {
 					qWarning(
-						"ServerHandler: Failed to remove UDP from QoS. QOSRemoveSocketFromFlow() failed with error %u!",
+						"ServerHandler: Failed to remove UDP from QoS. QOSRemoveSocketFromFlow() failed with error %lu!",
 						GetLastError());
 				}
 
