@@ -307,13 +307,13 @@ void TalkingUIUser::setStatus(UserStatus status) {
 		m_backgroundWidget->layout()->removeWidget(m_statusIcons);
 	} else {
 		// Create a Pixmap that'll hold all icons
-		const QSize size(m_iconSize * icons.size(), m_iconSize);
+		const QSize size(m_iconSize * static_cast<int>(icons.size()), m_iconSize);
 		QPixmap pixmap(size);
 		pixmap.fill(Qt::transparent);
 
 		// Draw the icons to the Pixmap
 		QPainter painter(&pixmap);
-		for (std::size_t i = 0; i < icons.size(); i++) {
+		for (int i = 0; i < static_cast<int>(icons.size()); i++) {
 			painter.drawPixmap(i * m_iconSize, 0,
 							   icons[i].get().pixmap(QSize(m_iconSize, m_iconSize), QIcon::Normal, QIcon::On));
 		}
