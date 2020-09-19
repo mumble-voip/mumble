@@ -12,12 +12,13 @@ fi
 
 for libpath in /usr/lib /usr/lib/mumble /usr/lib32 /usr/lib32/mumble /usr/lib64 /usr/lib64/mumble; do
   if [ -d "$libpath" ]; then
-    if [ -f "$libpath/libmumble.so.1" ]; then
-      case $(file -L "$libpath/libmumble.so.1") in
-        *64-bit*) MUMBLE_OVERLAY_PATH_64="$libpath" ; echo set ;;
-        *32-bit*) MUMBLE_OVERLAY_PATH_32="$libpath" ;;
+    for lib in $libpath/libmumbleoverlay*.so
+    do
+      case $(file -L "$lib") in
+        *64-bit*) MUMBLE_OVERLAY_PATH_64="$lib" ; echo set ;;
+        *32-bit*) MUMBLE_OVERLAY_PATH_32="$lib" ;;
       esac
-    fi
+    done
   fi
 done
 
@@ -40,27 +41,27 @@ is32=no
 case $(file -L "$binary") in
 	*64-bit*)
 		if [ -z "${MUMBLE_OVERLAY_PATH_64}" ]; then
-			echo "64-bit libmumble.so.1 not found" >&2
+			echo "64-bit libmumbleoverlay.so not found" >&2
 			exit 1
 		fi
-		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1"
+		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}"
 		;;
 	*32-bit*)
 		if [ -z "${MUMBLE_OVERLAY_PATH_32}" ]; then
-			echo "32-bit libmumble.so.1 not found" >&2
+			echo "32-bit libmumbleoverlay.so not found" >&2
 			exit 1
 		fi
-		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1"
+		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_32}"
 		;;
 	*)
 		if [ -n "${MUMBLE_OVERLAY_PATH_64}" ]; then
-			MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1"
+			MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}"
 		fi
 		if [ -n "${MUMBLE_OVERLAY_PATH_32}" ]; then
-			MUMBLE_PRELOAD="${MUMBLE_PRELOAD} ${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1"
+			MUMBLE_PRELOAD="${MUMBLE_PRELOAD} ${MUMBLE_OVERLAY_PATH_32}"
 		fi
 		if [ -z "${MUMBLE_PRELOAD}" ]; then
-			echo "Neither 32-bit or 64-bit libmumble.so.1 found"
+			echo "Neither 32-bit or 64-bit libmumbleoverlay.so found"
 			exit 1
 		fi
 esac
