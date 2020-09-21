@@ -31,6 +31,10 @@ SoundFile::SoundFile(const QString &fname) {
 									 &SoundFile::vio_write, &SoundFile::vio_tell };
 
 		sfFile = sf_open_virtual(&svi, SFM_READ, &siInfo, this);
+
+		if (!sfFile) {
+			qWarning("AudioOutputSample: Failed to open sound-file: %s", qUtf8Printable(strError()));
+		}
 	}
 }
 
