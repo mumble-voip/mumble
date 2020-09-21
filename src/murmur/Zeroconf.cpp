@@ -3,11 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "BonjourServer.h"
+#include "Zeroconf.h"
 
 #include "BonjourServiceRegister.h"
 
-BonjourServer::BonjourServer() {
+Zeroconf::Zeroconf() {
 	bsrRegister = nullptr;
 #ifdef Q_OS_WIN
 	static bool bDelayLoadFailed = false;
@@ -26,6 +26,6 @@ BonjourServer::BonjourServer() {
 	bsrRegister = new BonjourServiceRegister(this);
 }
 
-BonjourServer::~BonjourServer() {
+Zeroconf::~Zeroconf() {
 	delete bsrRegister;
 }

@@ -3,20 +3,20 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MURMUR_BONJOURSERVER_H_
-#define MUMBLE_MURMUR_BONJOURSERVER_H_
+#ifndef MUMBLE_MURMUR_ZEROCONF_H_
+#define MUMBLE_MURMUR_ZEROCONF_H_
 
 #include <QtCore/QObject>
 
 class BonjourServiceRegister;
 
-class BonjourServer : public QObject {
+class Zeroconf : public QObject {
 private:
 	Q_OBJECT
-	Q_DISABLE_COPY(BonjourServer)
+	Q_DISABLE_COPY(Zeroconf)
 public:
-	BonjourServer();
-	~BonjourServer();
+	Zeroconf();
+	~Zeroconf();
 
 	BonjourServiceRegister *bsrRegister;
 };

@@ -20,7 +20,7 @@
 
 #include <QtNetwork/QHostInfo>
 
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 #	include "BonjourRecord.h"
 #	include <dns_sd.h>
 #endif
@@ -136,9 +136,9 @@ public:
 	QString qsContinentCode;
 
 	QString qsUrl;
-#ifdef USE_BONJOUR
-	QString qsBonjourHost;
-	BonjourRecord brRecord;
+#ifdef USE_ZEROCONF
+	QString zeroconfHost;
+	BonjourRecord zeroconfRecord;
 #endif
 	/// Contains the resolved addresses for
 	/// this ServerItem.
@@ -150,7 +150,7 @@ public:
 	ServerItem(const PublicInfo &pi);
 	ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname,
 			   const QString &password = QString());
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 	ServerItem(const BonjourRecord &br);
 #endif
 	ServerItem(const QString &name, ItemType itype);
@@ -279,9 +279,9 @@ protected:
 	/// bAllowHostLookup determines whether ConnectDialog can
 	/// resolve hosts via DNS, Bonjour, and so on.
 	bool bAllowHostLookup;
-	/// bAllowBonjour determines whether ConfigDialog can use
-	/// Bonjour to find nearby servers on the local network.
-	bool bAllowBonjour;
+	/// bAllowZeroconf determines whether ConfigDialog can use
+	/// zeroconf to find nearby servers on the local network.
+	bool bAllowZeroconf;
 	/// bAllowFilters determines whether filters are available
 	/// in the ConfigDialog. If this option is diabled, the
 	/// 'Show All' filter is forced, and no other filter can
@@ -353,7 +353,7 @@ public:
 	ConnectDialog(QWidget *parent, bool autoconnect);
 	~ConnectDialog();
 
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 protected:
 	QList< BonjourRecord > qlBonjourActive;
 public slots:

@@ -3,18 +3,18 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MUMBLE_BONJOURCLIENT_H_
-#define MUMBLE_MUMBLE_BONJOURCLIENT_H_
+#ifndef MUMBLE_MUMBLE_ZEROCONF_H_
+#define MUMBLE_MUMBLE_ZEROCONF_H_
 
 #include "BonjourServiceBrowser.h"
 #include "BonjourServiceResolver.h"
 
-class BonjourClient : public QObject {
+class Zeroconf : public QObject {
 private:
 	Q_OBJECT
-	Q_DISABLE_COPY(BonjourClient)
+	Q_DISABLE_COPY(Zeroconf)
 public:
-	BonjourClient();
+	Zeroconf();
 
 	QScopedPointer< BonjourServiceBrowser > bsbBrowser;
 	QScopedPointer< BonjourServiceResolver > bsrResolver;

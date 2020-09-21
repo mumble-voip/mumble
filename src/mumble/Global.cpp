@@ -105,9 +105,9 @@ Global::Global(const QString &qsConfigPath) {
 
 	qs = nullptr;
 
-	bc  = nullptr;
-	lcd = nullptr;
-	l   = nullptr;
+	zeroconf = nullptr;
+	lcd      = nullptr;
+	l        = nullptr;
 
 #ifdef USE_OVERLAY
 	ocIntercept = nullptr;

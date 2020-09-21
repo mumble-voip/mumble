@@ -83,7 +83,7 @@ void __cpuid(int a[4], int b);
 #		include <boost/shared_ptr.hpp>
 #		include <boost/weak_ptr.hpp>
 
-#		ifdef USE_BONJOUR
+#		ifdef USE_ZEROCONF
 #			include <dns_sd.h>
 #		endif
 

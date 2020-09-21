@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "BonjourClient.h"
+#include "Zeroconf.h"
 
-BonjourClient::BonjourClient() {
+Zeroconf::Zeroconf() {
 #ifdef Q_OS_WIN
 	HMODULE hLib = LoadLibrary(L"DNSSD.DLL");
 	if (!hLib) {

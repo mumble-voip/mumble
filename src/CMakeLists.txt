@@ -10,7 +10,7 @@ option(server "Build the server (Murmur)" ON)
 
 option(qssldiffiehellmanparameters "Build support for custom Diffie-Hellman parameters." ON)
 
-option(bonjour "Build support for Bonjour." ON)
+option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 
 option(dbus "Build support for DBus." ON)
 

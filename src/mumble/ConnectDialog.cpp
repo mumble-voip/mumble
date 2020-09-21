@@ -5,8 +5,8 @@
 
 #include "ConnectDialog.h"
 
-#ifdef USE_BONJOUR
-#	include "BonjourClient.h"
+#ifdef USE_ZEROCONF
+#	include "Zeroconf.h"
 #	include "BonjourServiceBrowser.h"
 #	include "BonjourServiceResolver.h"
 #endif
@@ -102,7 +102,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siFavorite->setExpanded(true);
 	siFavorite->setHidden(true);
 
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 	siLAN = new ServerItem(tr("LAN"), ServerItem::LANType);
 	addTopLevelItem(siLAN);
 	siLAN->setExpanded(true);
@@ -220,10 +220,10 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 	qsUrl = fs.qsUrl;
 
 	bCA = false;
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 	if (fs.qsHostname.startsWith(QLatin1Char('@'))) {
-		qsBonjourHost = fs.qsHostname.mid(1);
-		brRecord      = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+		zeroconfHost   = fs.qsHostname.mid(1);
+		zeroconfRecord = BonjourRecord(zeroconfHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = fs.qsHostname;
 	}
@@ -261,10 +261,10 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 	qsPassword = password;
 
 	bCA = false;
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 	if (host.startsWith(QLatin1Char('@'))) {
-		qsBonjourHost = host.mid(1);
-		brRecord      = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+		zeroconfHost   = host.mid(1);
+		zeroconfRecord = BonjourRecord(zeroconfHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 	} else {
 		qsHostname = host;
 	}
@@ -274,16 +274,16 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 	init();
 }
 
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
-	siParent      = nullptr;
-	bParent       = false;
-	itType        = LANType;
-	qsName        = br.serviceName;
-	qsBonjourHost = qsName;
-	brRecord      = br;
-	usPort        = 0;
-	bCA           = false;
+	siParent       = nullptr;
+	bParent        = false;
+	itType         = LANType;
+	qsName         = br.serviceName;
+	zeroconfHost   = qsName;
+	zeroconfRecord = br;
+	usPort         = 0;
+	bCA            = false;
 
 	init();
 }
@@ -314,9 +314,9 @@ ServerItem::ServerItem(const ServerItem *si) {
 	qsCountryCode   = si->qsCountryCode;
 	qsContinentCode = si->qsContinentCode;
 	qsUrl           = si->qsUrl;
-#ifdef USE_BONJOUR
-	qsBonjourHost = si->qsBonjourHost;
-	brRecord      = si->brRecord;
+#ifdef USE_ZEROCONF
+	zeroconfHost   = si->zeroconfHost;
+	zeroconfRecord = si->zeroconfRecord;
 #endif
 	qlAddresses = si->qlAddresses;
 	bCA         = si->bCA;
@@ -490,10 +490,10 @@ QVariant ServerItem::data(int column, int role) const {
 						.arg(ConnectDialog::tr("Servername"), qsName.toHtmlEscaped())
 				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
 						.arg(ConnectDialog::tr("Hostname"), qsHostname.toHtmlEscaped());
-#ifdef USE_BONJOUR
-			if (!qsBonjourHost.isEmpty())
+#ifdef USE_ZEROCONF
+			if (!zeroconfHost.isEmpty())
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						  .arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost.toHtmlEscaped());
+						  .arg(ConnectDialog::tr("Bonjour name"), zeroconfHost.toHtmlEscaped());
 #endif
 			qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
 					  .arg(ConnectDialog::tr("Port"))
@@ -592,9 +592,9 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 FavoriteServer ServerItem::toFavoriteServer() const {
 	FavoriteServer fs;
 	fs.qsName = qsName;
-#ifdef USE_BONJOUR
-	if (!qsBonjourHost.isEmpty())
-		fs.qsHostname = QLatin1Char('@') + qsBonjourHost;
+#ifdef USE_ZEROCONF
+	if (!zeroconfHost.isEmpty())
+		fs.qsHostname = QLatin1Char('@') + zeroconfHost;
 	else
 		fs.qsHostname = qsHostname;
 #else
@@ -944,7 +944,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	bAllowPing       = g.s.ptProxyType == Settings::NoProxy;
 	bAllowHostLookup = g.s.ptProxyType == Settings::NoProxy;
-	bAllowBonjour    = g.s.ptProxyType == Settings::NoProxy;
+	bAllowZeroconf   = g.s.ptProxyType == Settings::NoProxy;
 	bAllowFilters    = g.s.ptProxyType == Settings::NoProxy;
 
 	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
@@ -1034,18 +1034,18 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 		qtwServers->siFavorite->addServerItem(si);
 	}
 
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 	// Make sure the we got the objects we need, then wire them up
-	if (bAllowBonjour && g.bc->bsbBrowser && g.bc->bsrResolver) {
-		connect(g.bc->bsbBrowser.data(), SIGNAL(error(DNSServiceErrorType)), this,
+	if (bAllowZeroconf && g.zeroconf->bsbBrowser && g.zeroconf->bsrResolver) {
+		connect(g.zeroconf->bsbBrowser.data(), SIGNAL(error(DNSServiceErrorType)), this,
 				SLOT(onLanBrowseError(DNSServiceErrorType)));
-		connect(g.bc->bsbBrowser.data(), SIGNAL(currentBonjourRecordsChanged(const QList< BonjourRecord > &)), this,
-				SLOT(onUpdateLanList(const QList< BonjourRecord > &)));
-		connect(g.bc->bsrResolver.data(), SIGNAL(error(BonjourRecord, DNSServiceErrorType)), this,
+		connect(g.zeroconf->bsbBrowser.data(), SIGNAL(currentBonjourRecordsChanged(const QList< BonjourRecord > &)),
+				this, SLOT(onUpdateLanList(const QList< BonjourRecord > &)));
+		connect(g.zeroconf->bsrResolver.data(), SIGNAL(error(BonjourRecord, DNSServiceErrorType)), this,
 				SLOT(onLanResolveError(BonjourRecord, DNSServiceErrorType)));
-		connect(g.bc->bsrResolver.data(), SIGNAL(bonjourRecordResolved(BonjourRecord, QString, int)), this,
+		connect(g.zeroconf->bsrResolver.data(), SIGNAL(bonjourRecordResolved(BonjourRecord, QString, int)), this,
 				SLOT(onResolved(BonjourRecord, QString, int)));
-		onUpdateLanList(g.bc->bsbBrowser->currentRecords());
+		onUpdateLanList(g.zeroconf->bsbBrowser->currentRecords());
 	}
 #endif
 
@@ -1175,9 +1175,9 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 		return;
 
 	QString host;
-#ifdef USE_BONJOUR
-	if (!si->qsBonjourHost.isEmpty())
-		host = QLatin1Char('@') + si->qsBonjourHost;
+#ifdef USE_ZEROCONF
+	if (!si->zeroconfHost.isEmpty())
+		host = QLatin1Char('@') + si->zeroconfHost;
 	else
 		host = si->qsHostname;
 #else
@@ -1196,16 +1196,16 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 			si->reset();
 
 			si->usPort = cde->usPort;
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 			if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
-				si->qsHostname    = QString();
-				si->qsBonjourHost = cde->qsHostname.mid(1);
-				si->brRecord =
-					BonjourRecord(si->qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+				si->qsHostname   = QString();
+				si->zeroconfHost = cde->qsHostname.mid(1);
+				si->zeroconfRecord =
+					BonjourRecord(si->zeroconfHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
 			} else {
-				si->qsHostname    = cde->qsHostname;
-				si->qsBonjourHost = QString();
-				si->brRecord      = BonjourRecord();
+				si->qsHostname     = cde->qsHostname;
+				si->zeroconfHost   = QString();
+				si->zeroconfRecord = BonjourRecord();
 			}
 #else
             si->qsHostname = cde->qsHostname;
@@ -1355,11 +1355,11 @@ void ConnectDialog::initList() {
 	WebFetch::fetch(QLatin1String("publist"), url, this, SLOT(fetched(QByteArray, QUrl, QMap< QString, QString >)));
 }
 
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 	qlBonjourActive.removeAll(record);
 	foreach (ServerItem *si, qlItems) {
-		if (si->brRecord == record) {
+		if (si->zeroconfRecord == record) {
 			unsigned short usport = static_cast< unsigned short >(port);
 			if ((host != si->qsHostname) || (usport != si->usPort)) {
 				stopDns(si);
@@ -1384,7 +1384,7 @@ void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 	foreach (const BonjourRecord &record, list) {
 		bool found = false;
 		foreach (ServerItem *si, old) {
-			if (si->brRecord == record) {
+			if (si->zeroconfRecord == record) {
 				items.insert(si);
 				found = true;
 				break;
@@ -1393,7 +1393,7 @@ void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 		if (!found) {
 			ServerItem *si = new ServerItem(record);
 			qlItems << si;
-			g.bc->bsrResolver->resolveBonjourRecord(record);
+			g.zeroconf->bsrResolver->resolveBonjourRecord(record);
 			startDns(si);
 			qtwServers->siLAN->addServerItem(si);
 		}
@@ -1628,11 +1628,11 @@ void ConnectDialog::startDns(ServerItem *si) {
 		return;
 	}
 
-#ifdef USE_BONJOUR
-	if (bAllowBonjour && si->qsHostname.isEmpty() && !si->brRecord.serviceName.isEmpty()) {
-		if (!qlBonjourActive.contains(si->brRecord)) {
-			g.bc->bsrResolver->resolveBonjourRecord(si->brRecord);
-			qlBonjourActive.append(si->brRecord);
+#ifdef USE_ZEROCONF
+	if (bAllowZeroconf && si->qsHostname.isEmpty() && !si->zeroconfRecord.serviceName.isEmpty()) {
+		if (!qlBonjourActive.contains(si->zeroconfRecord)) {
+			g.zeroconf->bsrResolver->resolveBonjourRecord(si->zeroconfRecord);
+			qlBonjourActive.append(si->zeroconfRecord);
 		}
 		return;
 	}

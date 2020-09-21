@@ -98,7 +98,7 @@
 #			include <mmintrin.h>
 #		endif
 
-#		ifdef USE_BONJOUR
+#		ifdef USE_ZEROCONF
 #			include <dns_sd.h>
 #		endif
 

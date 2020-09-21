@@ -145,7 +145,7 @@ else()
 	set_target_properties(murmur PROPERTIES OUTPUT_NAME "murmurd")
 endif()
 
-if(bonjour)
+if(zeroconf)
 	if(NOT APPLE)
 		find_pkg(avahi-compat-libdns_sd QUIET)
 		if(avahi-compat-libdns_sd_FOUND)
@@ -160,15 +160,16 @@ if(bonjour)
 		endif()
 	endif()
 
-	target_compile_definitions(murmur PRIVATE "USE_BONJOUR")
+	target_compile_definitions(murmur PRIVATE "USE_ZEROCONF")
 
 	target_include_directories(murmur PRIVATE "${3RDPARTY_DIR}/qqbonjour")
 
 	target_sources(murmur
 		PRIVATE
-			"BonjourServer.cpp"
-			"BonjourServer.h"
-
+			"Zeroconf.cpp"
+			"Zeroconf.h"
+			# Unlike what the name implies, this 3rdparty helper is not actually related to Bonjour.
+			# It just uses the API provided by mDNSResponder, making it compatible with Avahi too.
 			"${3RDPARTY_DIR}/qqbonjour/BonjourRecord.h"
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceRegister.cpp"
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceRegister.h"
