@@ -7,8 +7,6 @@
 
 #ifdef USE_ZEROCONF
 #	include "Zeroconf.h"
-#	include "BonjourServiceBrowser.h"
-#	include "BonjourServiceResolver.h"
 #endif
 
 #include "Channel.h"
@@ -1033,22 +1031,16 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 		startDns(si);
 		qtwServers->siFavorite->addServerItem(si);
 	}
-
 #ifdef USE_ZEROCONF
-	// Make sure the we got the objects we need, then wire them up
-	if (bAllowZeroconf && g.zeroconf->bsbBrowser && g.zeroconf->bsrResolver) {
-		connect(g.zeroconf->bsbBrowser.data(), SIGNAL(error(DNSServiceErrorType)), this,
-				SLOT(onLanBrowseError(DNSServiceErrorType)));
-		connect(g.zeroconf->bsbBrowser.data(), SIGNAL(currentBonjourRecordsChanged(const QList< BonjourRecord > &)),
-				this, SLOT(onUpdateLanList(const QList< BonjourRecord > &)));
-		connect(g.zeroconf->bsrResolver.data(), SIGNAL(error(BonjourRecord, DNSServiceErrorType)), this,
-				SLOT(onLanResolveError(BonjourRecord, DNSServiceErrorType)));
-		connect(g.zeroconf->bsrResolver.data(), SIGNAL(bonjourRecordResolved(BonjourRecord, QString, int)), this,
-				SLOT(onResolved(BonjourRecord, QString, int)));
-		onUpdateLanList(g.zeroconf->bsbBrowser->currentRecords());
+	if (bAllowZeroconf && g.zeroconf && g.zeroconf->isOk()) {
+		connect(g.zeroconf, &Zeroconf::recordsChanged, this, &ConnectDialog::onUpdateLanList);
+		connect(g.zeroconf, &Zeroconf::recordResolved, this, &ConnectDialog::onResolved);
+		connect(g.zeroconf, &Zeroconf::resolveError, this, &ConnectDialog::onLanResolveError);
+		onUpdateLanList(g.zeroconf->currentRecords());
+
+		g.zeroconf->startBrowser(QLatin1String("_mumble._tcp"));
 	}
 #endif
-
 	qtPingTick = new QTimer(this);
 	connect(qtPingTick, SIGNAL(timeout()), this, SLOT(timeTick()));
 
@@ -1082,6 +1074,12 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 }
 
 ConnectDialog::~ConnectDialog() {
+#ifdef USE_ZEROCONF
+	if (bAllowZeroconf && g.zeroconf && g.zeroconf->isOk()) {
+		g.zeroconf->stopBrowser();
+		g.zeroconf->cleanupResolvers();
+	}
+#endif
 	ServerItem::qmIcons.clear();
 
 	QList< FavoriteServer > ql;
@@ -1356,7 +1354,7 @@ void ConnectDialog::initList() {
 }
 
 #ifdef USE_ZEROCONF
-void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
+void ConnectDialog::onResolved(const BonjourRecord record, const QString host, const uint16_t port) {
 	qlBonjourActive.removeAll(record);
 	foreach (ServerItem *si, qlItems) {
 		if (si->zeroconfRecord == record) {
@@ -1393,7 +1391,7 @@ void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 		if (!found) {
 			ServerItem *si = new ServerItem(record);
 			qlItems << si;
-			g.zeroconf->bsrResolver->resolveBonjourRecord(record);
+			g.zeroconf->startResolver(record);
 			startDns(si);
 			qtwServers->siLAN->addServerItem(si);
 		}
@@ -1406,13 +1404,8 @@ void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 	}
 }
 
-void ConnectDialog::onLanBrowseError(DNSServiceErrorType err) {
-	qWarning() << "Bonjour reported browser error " << err;
-}
-
-void ConnectDialog::onLanResolveError(BonjourRecord br, DNSServiceErrorType err) {
-	qlBonjourActive.removeAll(br);
-	qWarning() << "Bonjour reported resolver error " << err;
+void ConnectDialog::onLanResolveError(const BonjourRecord record) {
+	qlBonjourActive.removeAll(record);
 }
 #endif
 
@@ -1627,17 +1620,15 @@ void ConnectDialog::startDns(ServerItem *si) {
 		foreach (const ServerAddress &addr, si->qlAddresses) { qhPings[addr].insert(si); }
 		return;
 	}
-
 #ifdef USE_ZEROCONF
 	if (bAllowZeroconf && si->qsHostname.isEmpty() && !si->zeroconfRecord.serviceName.isEmpty()) {
 		if (!qlBonjourActive.contains(si->zeroconfRecord)) {
-			g.zeroconf->bsrResolver->resolveBonjourRecord(si->zeroconfRecord);
+			g.zeroconf->startResolver(si->zeroconfRecord);
 			qlBonjourActive.append(si->zeroconfRecord);
 		}
 		return;
 	}
 #endif
-
 	if (!qhDNSWait.contains(unresolved)) {
 		if (si->itType == ServerItem::PublicType)
 			qlDNSLookup.append(unresolved);

@@ -358,10 +358,9 @@ protected:
 	QList< BonjourRecord > qlBonjourActive;
 public slots:
 	void onUpdateLanList(const QList< BonjourRecord > &);
-	void onLanBrowseError(DNSServiceErrorType);
 
-	void onResolved(BonjourRecord, QString, int);
-	void onLanResolveError(BonjourRecord, DNSServiceErrorType);
+	void onResolved(const BonjourRecord, const QString, const uint16_t);
+	void onLanResolveError(const BonjourRecord);
 #endif
 private slots:
 	void on_qleSearchServername_textChanged(const QString &searchServername);

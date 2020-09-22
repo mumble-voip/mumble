@@ -24,7 +24,6 @@
 
 #ifdef USE_ZEROCONF
 #	include "Zeroconf.h"
-#	include "BonjourServiceRegister.h"
 #endif
 
 #include "Utils.h"
@@ -668,16 +667,27 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 #ifdef USE_ZEROCONF
 void Server::initZeroconf() {
 	zeroconf = new Zeroconf();
-	if (zeroconf->bsrRegister) {
-		log("Announcing server via zeroconf");
-		zeroconf->bsrRegister->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""), usPort);
+	if (zeroconf->isOk()) {
+		log("Registering zeroconf service...");
+		zeroconf->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""), usPort);
+		return;
 	}
+
+	delete zeroconf;
+	zeroconf = nullptr;
 }
 
 void Server::removeZeroconf() {
+	if (!zeroconf) {
+		return;
+	}
+
+	if (zeroconf->isOk()) {
+		log("Unregistering zeroconf service...");
+	}
+
 	delete zeroconf;
 	zeroconf = nullptr;
-	log("Stopped announcing server via zeroconf");
 }
 #endif
 
