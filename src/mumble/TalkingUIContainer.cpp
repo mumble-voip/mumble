@@ -150,6 +150,10 @@ TalkingUIChannel::~TalkingUIChannel() {
 }
 
 void TalkingUIChannel::updatePriority() {
+	// First reset the priority to the lowest possible value as the loop below
+	// will only update it to be higher than the current priority
+	m_highestUserPriority = EntryPriority::LOWEST;
+
 	for (auto &currentEntry : m_entries) {
 		if (currentEntry->getPriority() > m_highestUserPriority) {
 			m_highestUserPriority = currentEntry->getPriority();

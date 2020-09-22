@@ -75,7 +75,7 @@ class TalkingUIChannel : public TalkingUIContainer {
 protected:
 	QGroupBox *m_channelBox;
 
-	EntryPriority m_highestUserPriority = EntryPriority::LOW;
+	EntryPriority m_highestUserPriority = EntryPriority::LOWEST;
 
 	void updatePriority();
 
