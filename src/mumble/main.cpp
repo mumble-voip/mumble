@@ -49,6 +49,7 @@
 #include <QtCore/QTranslator>
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QMessageBox>
+#include <QScreen>
 
 #ifdef USE_DBUS
 #	include <QtDBus/QDBusInterface>
@@ -72,6 +73,68 @@ void throw_exception(std::exception const &) {
 
 extern void os_init();
 extern char *os_lang;
+
+QScreen *screenAt(QPoint point) {
+#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+	// screenAt was only introduced in Qt 5.10
+	return QGuiApplication::screenAt(point);
+#else
+	for (QScreen *currentScreen : QGuiApplication::screens()) {
+		if (currentScreen->availableGeometry().contains(point)) {
+			return currentScreen;
+		}
+	}
+
+	return nullptr;
+#endif
+}
+
+bool positionIsOnScreen(QPoint point) {
+	return screenAt(point) != nullptr;
+}
+
+QPoint getTalkingUIPosition() {
+	QPoint talkingUIPos = QPoint(0, 0);
+	if (g.s.qpTalkingUI_Position != Settings::UNSPECIFIED_POSITION && positionIsOnScreen(g.s.qpTalkingUI_Position)) {
+		// Restore last position
+		talkingUIPos = g.s.qpTalkingUI_Position;
+	} else {
+		// Place the TalkingUI next to the MainWindow by default
+		const QPoint mainWindowPos = g.mw->pos();
+		const int horizontalBuffer = 10;
+		const QPoint defaultPos = QPoint(mainWindowPos.x() + g.mw->size().width() + horizontalBuffer, mainWindowPos.y());
+
+		if (positionIsOnScreen(defaultPos)) {
+			talkingUIPos = defaultPos;
+		}
+	}
+
+	// We have to ask the TalkingUI to adjust its size in order to get a proper
+	// size from it (instead of a random default one).
+	g.talkingUI->adjustSize();
+	const QSize talkingUISize = g.talkingUI->size();
+
+	// The screen should always be found at this point as we have chosen to pos to be on a screen
+	const QScreen *screen = screenAt(talkingUIPos);
+	const QRect screenGeom = screen ? screen->availableGeometry() : QRect(0,0,0,0);
+	
+	// Check whether the TalkingUI fits on the screen in x-direction
+	if (!positionIsOnScreen(talkingUIPos + QPoint(talkingUISize.width(), 0))) {
+		int overlap = talkingUIPos.x() + talkingUISize.width() - screenGeom.x() - screenGeom.width();
+
+		// Correct the x coordinate but don't move it below 0
+		talkingUIPos.setX(std::max(talkingUIPos.x() - overlap, 0));
+	}
+	// Check whether the TalkingUI fits on the screen in y-direction
+	if (!positionIsOnScreen(talkingUIPos + QPoint(0, talkingUISize.height()))) {
+		int overlap = talkingUIPos.y() + talkingUISize.height() - screenGeom.y() - screenGeom.height();
+
+		// Correct the x coordinate but don't move it below 0
+		talkingUIPos.setY(std::max(talkingUIPos.x() - overlap, 0));
+	}
+
+	return talkingUIPos;
+}
 
 #ifdef Q_OS_WIN
 // from os_early_win.cpp
@@ -518,15 +581,10 @@ int main(int argc, char **argv) {
 	g.mw->show();
 
 	g.talkingUI = new TalkingUI();
-	if (g.s.qpTalkingUI_Position != Settings::UNSPECIFIED_POSITION) {
-		// Restore last position
-		g.talkingUI->move(g.s.qpTalkingUI_Position);
-	} else {
-		// Place the TalkingUI next to the MainWindow by default by default
-		const QPoint mainWindowPos = g.mw->pos();
-		const int horizontalBuffer = 10;
-		g.talkingUI->move(mainWindowPos.x() + g.mw->size().width() + horizontalBuffer, mainWindowPos.y());
-	}
+
+	// Set TalkingUI's position
+	g.talkingUI->move(getTalkingUIPosition());
+
 	// By setting the TalkingUI's position **before** making it visible tends to more reliably include the
 	// window's frame to be included in the positioning calculation on X11 (at least using KDE Plasma)
 	g.talkingUI->setVisible(g.s.bShowTalkingUI);
