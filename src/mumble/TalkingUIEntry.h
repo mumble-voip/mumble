@@ -24,7 +24,7 @@ class Channel;
 
 enum class EntryType { USER, LISTENER };
 
-enum class EntryPriority { LOW, DEFAULT, HIGH };
+enum class EntryPriority { LOWEST, LOW, DEFAULT, HIGH };
 
 
 class TalkingUIEntry : public TalkingUIComponent {
