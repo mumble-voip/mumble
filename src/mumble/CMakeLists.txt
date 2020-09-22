@@ -814,7 +814,7 @@ if(g15)
 	endif()
 endif()
 
-if(bonjour)
+if(zeroconf)
 	if(NOT APPLE)
 		find_pkg(avahi-compat-libdns_sd QUIET)
 		if(avahi-compat-libdns_sd_FOUND)
@@ -831,9 +831,10 @@ if(bonjour)
 
 	target_sources(mumble
 		PRIVATE
-			"BonjourClient.cpp"
-			"BonjourClient.h"
-
+			"Zeroconf.cpp"
+			"Zeroconf.h"
+			# Unlike what the name implies, this 3rdparty helper is not actually related to Bonjour.
+			# It just uses the API provided by mDNSResponder, making it compatible with Avahi too.
 			"${3RDPARTY_DIR}/qqbonjour/BonjourRecord.h"
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceBrowser.cpp"
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceBrowser.h"
@@ -841,7 +842,7 @@ if(bonjour)
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceResolver.h"
 	)
 
-	target_compile_definitions(mumble PRIVATE "USE_BONJOUR")
+	target_compile_definitions(mumble PRIVATE "USE_ZEROCONF")
 	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/qqbonjour")
 endif()
 

@@ -22,9 +22,8 @@
 #include "User.h"
 #include "Version.h"
 
-#ifdef USE_BONJOUR
-#	include "BonjourServer.h"
-#	include "BonjourServiceRegister.h"
+#ifdef USE_ZEROCONF
+#	include "Zeroconf.h"
 #endif
 
 #include "Utils.h"
@@ -116,8 +115,8 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 Server::Server(int snum, QObject *p) : QThread(p) {
 	bValid     = true;
 	iServerNum = snum;
-#ifdef USE_BONJOUR
-	bsRegistration = nullptr;
+#ifdef USE_ZEROCONF
+	zeroconf = nullptr;
 #endif
 	bUsingMetaCert = false;
 
@@ -273,9 +272,9 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	uiVersionBlob = qToBigEndian(static_cast< quint32 >((major << 16) | (minor << 8) | patch));
 
 	if (bValid) {
-#ifdef USE_BONJOUR
+#ifdef USE_ZEROCONF
 		if (bBonjour)
-			initBonjour();
+			initZeroconf();
 #endif
 		initRegister();
 	}
@@ -327,8 +326,8 @@ void Server::stopThread() {
 }
 
 Server::~Server() {
-#ifdef USE_BONJOUR
-	removeBonjour();
+#ifdef USE_ZEROCONF
+	removeZeroconf();
 #endif
 
 	stopThread();
@@ -626,11 +625,12 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		bForceExternalAuth = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bForceExternalAuth;
 	else if (key == "bonjour") {
 		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
-#ifdef USE_BONJOUR
-		if (bBonjour && !bsRegistration)
-			initBonjour();
-		else if (!bBonjour && bsRegistration)
-			removeBonjour();
+#ifdef USE_ZEROCONF
+		if (bBonjour && !zeroconf) {
+			initZeroconf();
+		} else if (!bBonjour && zeroconf) {
+			removeZeroconf();
+		}
 #endif
 	} else if (key == "allowping")
 		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowPing;
@@ -664,19 +664,30 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	}
 }
 
-#ifdef USE_BONJOUR
-void Server::initBonjour() {
-	bsRegistration = new BonjourServer();
-	if (bsRegistration->bsrRegister) {
-		log("Announcing server via bonjour");
-		bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""), usPort);
+#ifdef USE_ZEROCONF
+void Server::initZeroconf() {
+	zeroconf = new Zeroconf();
+	if (zeroconf->isOk()) {
+		log("Registering zeroconf service...");
+		zeroconf->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""), usPort);
+		return;
 	}
+
+	delete zeroconf;
+	zeroconf = nullptr;
 }
 
-void Server::removeBonjour() {
-	delete bsRegistration;
-	bsRegistration = nullptr;
-	log("Stopped announcing server via bonjour");
+void Server::removeZeroconf() {
+	if (!zeroconf) {
+		return;
+	}
+
+	if (zeroconf->isOk()) {
+		log("Unregistering zeroconf service...");
+	}
+
+	delete zeroconf;
+	zeroconf = nullptr;
 }
 #endif
 

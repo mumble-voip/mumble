@@ -39,7 +39,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		PATH=$PATH:/usr/lib/mxe/usr/bin
 
 		${MUMBLE_HOST}.static-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dversion=$VER -Dstatic=ON -Dsymbols=ON -Dasio=ON \
-			-Dbonjour=OFF -Dice=OFF -Doverlay=OFF -Donline-tests=ON ..
+			-Dzeroconf=OFF -Dice=OFF -Doverlay=OFF -Donline-tests=ON ..
 		cmake --build .
 		# TODO: investigate why tests fail.
 		#ctest

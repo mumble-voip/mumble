@@ -26,7 +26,7 @@ class Plugins;
 class QSettings;
 class Overlay;
 class LCD;
-class BonjourClient;
+class Zeroconf;
 class OverlayClient;
 class CELTCodec;
 class OpusCodec;
@@ -57,7 +57,7 @@ public:
 	Overlay *o;
 #endif
 	LCD *lcd;
-	BonjourClient *bc;
+	Zeroconf *zeroconf;
 	QNetworkAccessManager *nam;
 	QSharedPointer< LogEmitter > le;
 	DeveloperConsole *c;

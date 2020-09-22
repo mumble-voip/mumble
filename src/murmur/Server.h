@@ -45,7 +45,7 @@
 #	include <winsock2.h>
 #endif
 
-class BonjourServer;
+class Zeroconf;
 class Channel;
 class PacketDataStream;
 class ServerUser;
@@ -98,8 +98,8 @@ protected:
 
 	QNetworkAccessManager *qnamNetwork;
 
-#ifdef USE_BONJOUR
-	BonjourServer *bsRegistration;
+#ifdef USE_ZEROCONF
+	Zeroconf *zeroconf;
 #endif
 	void startThread();
 	void stopThread();
@@ -173,9 +173,9 @@ public:
 	bool bOpus;
 	void recheckCodecVersions(ServerUser *connectingUser = 0);
 
-#ifdef USE_BONJOUR
-	void initBonjour();
-	void removeBonjour();
+#ifdef USE_ZEROCONF
+	void initZeroconf();
+	void removeZeroconf();
 #endif
 	// Registration, implementation in Register.cpp
 	QTimer qtTick;

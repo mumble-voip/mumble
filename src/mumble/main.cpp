@@ -18,8 +18,8 @@
 #include "MainWindow.h"
 #include "Plugins.h"
 #include "ServerHandler.h"
-#ifdef USE_BONJOUR
-#	include "BonjourClient.h"
+#ifdef USE_ZEROCONF
+#	include "Zeroconf.h"
 #endif
 #ifdef USE_DBUS
 #	include "DBus.h"
@@ -559,9 +559,9 @@ int main(int argc, char **argv) {
 	// Initialize database
 	g.db = new Database(QLatin1String("main"));
 
-#ifdef USE_BONJOUR
-	// Initialize bonjour
-	g.bc = new BonjourClient();
+#ifdef USE_ZEROCONF
+	// Initialize zeroconf
+	g.zeroconf = new Zeroconf();
 #endif
 
 #ifdef USE_OVERLAY
@@ -759,8 +759,8 @@ int main(int argc, char **argv) {
 	delete g.p;
 	delete g.l;
 
-#ifdef USE_BONJOUR
-	delete g.bc;
+#ifdef USE_ZEROCONF
+	delete g.zeroconf;
 #endif
 
 #ifdef USE_OVERLAY
