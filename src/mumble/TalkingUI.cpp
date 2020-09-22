@@ -753,12 +753,18 @@ void TalkingUI::on_settingsChanged() {
 		}
 	}
 
+	const ClientUser *self = ClientUser::get(g.uiSession);
 
 	// Whether or not the current user should always be displayed might also have changed,
 	// so we'll have to update that as well.
 	TalkingUIUser *localUserEntry = findUser(g.uiSession);
 	if (localUserEntry) {
 		localUserEntry->restrictLifetime(!g.s.bTalkingUI_LocalUserStaysVisible);
+	} else {
+		if (self && g.s.bTalkingUI_LocalUserStaysVisible) {
+			// Add the local user as it is requested to be displayed
+			addUser(self);
+		}
 	}
 
 
@@ -766,7 +772,6 @@ void TalkingUI::on_settingsChanged() {
 	// listeners from the TalkingUI and add them again if appropriate
 	removeAllListeners();
 	if (g.s.bTalkingUI_ShowLocalListeners) {
-		const ClientUser *self = ClientUser::get(g.uiSession);
 		if (self) {
 			const QSet< int > channels = ChannelListener::getListenedChannelsForUser(self->uiSession);
 
