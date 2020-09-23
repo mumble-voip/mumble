@@ -115,7 +115,7 @@ message(STATUS "Build type:      ${BUILD_STR}")
 message(STATUS "##################################################")
 
 # We have to check for BUILD_TESTING before including CTest as CTest defines this variable
-if(DEFINED BUILD_TESTING)
+if(DEFINED BUILD_TESTING AND NOT BUILD_TESTING_CHECKED)
 	message(WARNING "Use of option \"BUILD_TESTING\" is deprecated. Use \"tests\" instead.")
 
 	if(NOT tests)
@@ -123,6 +123,8 @@ if(DEFINED BUILD_TESTING)
 		set(tests "${BUILD_TESTING}")
 	endif()
 endif()
+
+set(BUILD_TESTING_CHECKED ON INTERNAL CACHE BOOL "Persistent helper variable" FORCE)
 
 if(tests)
 	include(CTest)
