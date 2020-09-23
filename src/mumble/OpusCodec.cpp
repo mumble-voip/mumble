@@ -57,8 +57,8 @@ OpusCodec::OpusCodec() {
 		}
 #endif
 
-#ifdef PLUGIN_PATH
-		qlOpus.setFileName(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + lib);
+#ifdef MUMBLE_LIBRARY_PATH
+		qlOpus.setFileName(QLatin1String(MUMTEXT(MUMBLE_LIBRARY_PATH) "/") + lib);
 		if (qlOpus.load()) {
 			bValid = true;
 			break;

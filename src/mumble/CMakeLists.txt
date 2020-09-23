@@ -3,8 +3,6 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-include(GNUInstallDirs)
-
 set(MUMBLE_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble.rc")
 set(MUMBLE_DLL_RC "${CMAKE_CURRENT_BINARY_DIR}/mumble_dll.rc")
 set(MUMBLE_PLIST "${CMAKE_CURRENT_BINARY_DIR}/mumble.plist")
@@ -291,6 +289,12 @@ else()
 	endif()
 endif()
 
+target_compile_definitions(mumble
+	PRIVATE
+	MUMBLE_LIBRARY_PATH="${MUMBLE_INSTALL_LIBDIR}"
+	MUMBLE_PLUGIN_PATH="${MUMBLE_INSTALL_PLUGINDIR}"
+)
+
 set_target_properties(mumble
 	PROPERTIES
 		AUTOMOC ON
@@ -300,16 +304,16 @@ set_target_properties(mumble
 )
 
 if(WIN32)
-	install(TARGETS mumble RUNTIME DESTINATION . COMPONENT mumble_client)
+	install(TARGETS mumble RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
 else()
 	if(NOT APPLE)
-		install(TARGETS mumble RUNTIME DESTINATION bin COMPONENT mumble_client)
+		install(TARGETS mumble RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
 	else()
-		install(TARGETS mumble BUNDLE DESTINATION . COMPONENT mumble_client)
+		install(TARGETS mumble BUNDLE DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
 	endif()
 
 	# Install Mumble man files
-	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble.1" DESTINATION "${CMAKE_INSTALL_MANDIR}/man1" COMPONENT doc)
+	install(FILES "${CMAKE_SOURCE_DIR}/man/mumble.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 endif()
 
 target_compile_definitions(mumble
@@ -512,11 +516,11 @@ if(bundled-opus)
 	if(WIN32)
 		# Shared library on Windows (e.g. ".dll")
 		set_target_properties(opus PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-		install(TARGETS opus RUNTIME DESTINATION . COMPONENT mumble_client)
+		install(TARGETS opus RUNTIME DESTINATION "${MUMBLE_INSTALL_LIBDIR}" COMPONENT mumble_client)
 	else()
 		# Shared library on UNIX (e.g. ".so")
 		set_target_properties(opus PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-		install(TARGETS opus LIBRARY DESTINATION lib)
+		install(TARGETS opus LIBRARY DESTINATION "${MUMBLE_INSTALL_LIBDIR}")
 	endif()
 else()
 	find_pkg(opus REQUIRED)
@@ -550,7 +554,7 @@ if(bundled-celt)
 	if(WIN32)
 		# Shared library on Windows (e.g. ".dll")
 		set_target_properties(celt PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-		install(TARGETS celt RUNTIME DESTINATION . COMPONENT mumble_client)
+		install(TARGETS celt RUNTIME DESTINATION "${MUMBLE_INSTALL_LIBDIR}" COMPONENT mumble_client)
 	else()
 		# Shared library on UNIX (e.g. ".so")
 		set_target_properties(celt PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -572,7 +576,11 @@ if(bundled-speex)
 	if(WIN32)
 		# Shared library on Windows (e.g. ".dll")
 		set_target_properties(speex PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-		install(TARGETS speex RUNTIME DESTINATION . COMPONENT mumble_client)
+		install(TARGETS speex RUNTIME DESTINATION "${MUMBLE_INSTALL_LIBDIR}" COMPONENT mumble_client)
+	else()
+		# Shared library on UNIX (e.g. ".so")
+		set_target_properties(speex PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS speex LIBRARY DESTINATION "${MUMBLE_INSTALL_LIBDIR}" COMPONENT mumble_client)
 	endif()
 else()
 	find_pkg(speex REQUIRED)
@@ -598,6 +606,10 @@ if(rnnoise)
 		# Shared library on Windows (e.g. ".dll")
 		set_target_properties(rnnoise PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 		install(TARGETS rnnoise RUNTIME DESTINATION "${MUMBLE_INSTALL_LIBDIR}" COMPONENT mumble_client)
+	else()
+		# Shared library on UNIX (e.g. ".so")
+		set_target_properties(rnnoise PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS rnnoise LIBRARY DESTINATION "${MUMBLE_INSTALL_LIBDIR}" COMPONENT mumble_client)
 	endif()
 endif()
 
