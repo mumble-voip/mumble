@@ -596,8 +596,8 @@ if(rnnoise)
 
 	if(WIN32)
 		# Shared library on Windows (e.g. ".dll")
-		set_target_properties(speex PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-		install(TARGETS rnnoise RUNTIME DESTINATION . COMPONENT mumble_client)
+		set_target_properties(rnnoise PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+		install(TARGETS rnnoise RUNTIME DESTINATION "${MUMBLE_INSTALL_LIBDIR}" COMPONENT mumble_client)
 	endif()
 endif()
 
