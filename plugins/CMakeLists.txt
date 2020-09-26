@@ -3,6 +3,12 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+option(retracted-plugins "Build redacted (outdated) plugins as well" OFF)
+
+if(retracted-plugins)
+	message(STATUS "Including retracted plugins")
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 if(NOT WIN32 AND NOT (${CMAKE_SYSTEM_NAME} STREQUAL "Linux"))
@@ -18,7 +24,17 @@ file(GLOB ITEMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR
 
 foreach(ITEM ${ITEMS})
 	if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${ITEM}")
+		set(PLUGIN_RETRACTED OFF)
+
+		# If the plugin is retracted the corresponding CMakeLists.txt is supposed to set the
+		# PLUGIN_RETRACTED variable in the parent scope so that we can access it here
 		add_subdirectory(${ITEM})
+
+		if(PLUGIN_RETRACTED AND NOT retracted-plugins)
+			# The included subdir didn't actually add a target since the associated plugin is retracted
+			# and therefore it should not be built.
+			continue()
+		endif()
 
 		if(WIN32)
 			target_link_libraries(${ITEM} user32.lib)
