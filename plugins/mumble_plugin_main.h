@@ -151,6 +151,52 @@ static inline procptr_t getVirtualFunction(const procptr_t classObject, const si
 	return peekProcPtr(vTable + (index * GET_POINTER_SIZE));
 }
 
+#ifdef OS_WINDOWS
+static inline procptr_t getExportedSymbol(const std::string &symbol, const procptr_t module) {
+#else
+/// We use a different name because the function is called by the Linux version
+/// of getExportedSymbol() in case the process is running through Wine.
+static inline procptr_t getWin32ExportedSymbol(const std::string &symbol, const procptr_t module) {
+#endif
+	const auto dos = peekProc< ImageDosHeader >(module);
+	if (!(dos.magic[0] == 'M' && dos.magic[1] == 'Z')) {
+		// Invalid DOS signature
+		return -1;
+	}
+
+	procptr_t dataAddress;
+
+	if (is64Bit) {
+		const auto nt = peekProc< ImageNtHeaders64 >(module + dos.addressOfNtHeader);
+		dataAddress   = nt.optionalHeader.dataDirectory[0].virtualAddress;
+	} else {
+		const auto nt = peekProc< ImageNtHeaders32 >(module + dos.addressOfNtHeader);
+		dataAddress   = nt.optionalHeader.dataDirectory[0].virtualAddress;
+	}
+
+	if (!dataAddress) {
+		return 0;
+	}
+
+	const auto exportDir = peekProc< ImageExportDirectory >(module + dataAddress);
+
+	const auto funcs = peekProcVector< uint32_t >(module + exportDir.addressOfFunctions, exportDir.numberOfFunctions);
+	const auto names = peekProcVector< uint32_t >(module + exportDir.addressOfNames, exportDir.numberOfNames);
+	const auto ords  = peekProcVector< uint16_t >(module + exportDir.addressOfNameOrdinals, exportDir.numberOfNames);
+
+	for (uint32_t i = 0; i < exportDir.numberOfNames; ++i) {
+		if (names[i]) {
+			const auto name = peekProcString(module + names[i], symbol.size());
+
+			if (name == symbol) {
+				return module + funcs[ords[i]];
+			}
+		}
+	}
+
+	return 0;
+}
+
 // This function returns:
 // -1 in case of failure.
 // 0 if the process is 32-bit.
