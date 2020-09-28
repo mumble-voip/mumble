@@ -14,4 +14,4 @@ sudo apt-get -y install build-essential g++-multilib ninja-build pkg-config \
                         libasound2-dev libasound2-plugins libasound2-plugins-extra\
                         libogg-dev libsndfile1-dev libspeechd-dev \
                         libavahi-compat-libdnssd-dev libzeroc-ice-dev \
-                        zsync appstream
+                        zsync appstream libgrpc++-dev

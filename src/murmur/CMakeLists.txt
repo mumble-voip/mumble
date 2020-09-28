@@ -63,6 +63,10 @@ set_target_properties(murmur
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
+set(AUTOGEN_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/murmur_autogen")
+message(STATUS "File: ${AUTOGEN_BUILD_DIR}")
+set_source_files_properties("${AUTOGEN_BUILD_DIR}/mocs_compilation.cpp" PROPERTIES COMPILE_FLAGS "-w")
+
 target_compile_definitions(murmur
 	PRIVATE
 		"MURMUR"
@@ -190,14 +194,11 @@ if(dbus AND NOT WIN32 AND NOT APPLE)
 endif()
 
 if(grpc)
-	find_pkg(GRPC REQUIRED)
+	# "gRPC" is the name of the official gRPC target whereas "GRPC" is the one used by our custom FindGRPC.cmake in 
+	# the cmake sub-dir at the project's root.
+	find_pkg("gRPC;GRPC" REQUIRED)
 
 	protobuf_generate(LANGUAGE cpp TARGET murmur PROTOS ${GRPC_FILE} OUT_VAR BUILT_GRPC_FILES)
-
-	# Disable warnings for the generated source files
-	foreach(CURRENT_FILE IN LISTS BUILT_GRPC_FILES)
-		set_source_files_properties("${CURRENT_FILE}" PROPERTIES COMPILE_FLAGS "-w")
-	endforeach()
 
 	add_subdirectory("${SHARED_SOURCE_DIR}/murmur_grpcwrapper_protoc_plugin" "${CMAKE_CURRENT_BINARY_DIR}/murmur_grpcwrapper_protoc_plugin")
 
@@ -228,6 +229,11 @@ if(grpc)
 		VERBATIM
 	)
 
+	# Disable warnings for the generated source files
+	foreach(CURRENT_FILE IN LISTS GRPC_GENERATED_FILES BUILT_GRPC_FILES)
+		set_source_files_properties("${CURRENT_FILE}" PROPERTIES COMPILE_FLAGS "-w")
+	endforeach()
+
 	add_custom_target(generate-grpc-files
 		DEPENDS
 			"MurmurRPC.proto.Wrapper.cpp"
@@ -243,11 +249,18 @@ if(grpc)
 			${GRPC_GENERATED_FILES}
 	)
 
+	if(NOT MSVC)
+		# Disable the unused parameter warning for this file as it implicitly includes one of the generated
+		# files that contains a lot of unused parameters that would otherwise create a warning.
+		set_source_files_properties("MurmurGRPCImpl.cpp" PROPERTIES COMPILE_FLAGS "-Wno-unused-parameter")
+	endif()
+
 	target_compile_definitions(murmur PRIVATE "USE_GRPC")
 	target_include_directories(murmur PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-	target_link_libraries(murmur PRIVATE gRPC::grpc++_reflection)
 
-	if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+	target_link_libraries(murmur PRIVATE gRPC::grpc++)
+
+	if (TARGET gRPC::gpr)
 		target_link_libraries(murmur PRIVATE gRPC::gpr)
 	endif()
 endif()
