@@ -37,12 +37,17 @@ foreach(ITEM ${ITEMS})
 		endif()
 
 		if(WIN32)
+			target_compile_definitions(${ITEM} PRIVATE "OS_WINDOWS")
 			target_link_libraries(${ITEM} user32.lib)
 
 			# Shared library on Windows (e.g. ".dll")
 			set_target_properties(${ITEM} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plugins")
 			install(TARGETS ${ITEM} RUNTIME DESTINATION ./plugins COMPONENT mumble_client)
 		else()
+			if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+				target_compile_definitions(${ITEM} PRIVATE "OS_LINUX")
+			endif()
+
 			# Shared library on UNIX (e.g. ".so")
 			set_target_properties(${ITEM} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plugins")
 			install(TARGETS ${ITEM} LIBRARY DESTINATION "${MUMBLE_INSTALL_LIBDIR}/plugins" COMPONENT mumble_client)

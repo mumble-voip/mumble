@@ -11,6 +11,7 @@
 #endif
 
 #include <cstring>
+#include <elf.h>
 #include <fstream>
 #include <iostream>
 #include <math.h>
@@ -210,6 +211,107 @@ static inline bool peekProc(const procptr_t &addr, void *dest, const size_t &len
 	ssize_t nread = process_vm_readv(pPid, &out, 1, &in, 1, 0);
 
 	return (nread != -1 && static_cast< size_t >(nread) == in.iov_len);
+}
+
+static inline procptr_t getExportedSymbol(const std::string &symbol, const procptr_t module) {
+	if (isWin32) {
+		return getWin32ExportedSymbol(symbol, module);
+	}
+
+	procptr_t hashTable = 0;
+	procptr_t strTable  = 0;
+	procptr_t symTable  = 0;
+
+	if (is64Bit) {
+		const auto ehdr = peekProc< Elf64_Ehdr >(module);
+		const auto phdr = peekProcVector< Elf64_Phdr >(module + ehdr.e_phoff, ehdr.e_phnum);
+
+		for (size_t i = 0; i < phdr.size(); ++i) {
+			if (phdr[i].p_type == PT_DYNAMIC) {
+				const auto dyn =
+					peekProcVector< Elf64_Dyn >(module + phdr[i].p_vaddr, phdr[i].p_memsz / sizeof(Elf64_Dyn));
+
+				for (size_t j = 0; j < dyn.size(); ++j) {
+					switch (dyn[j].d_tag) {
+						case DT_HASH:
+							hashTable = dyn[j].d_un.d_ptr;
+							break;
+						case DT_STRTAB:
+							strTable = dyn[j].d_un.d_ptr;
+							break;
+						case DT_SYMTAB:
+							symTable = dyn[j].d_un.d_ptr;
+							break;
+					}
+
+					if (hashTable && strTable && symTable) {
+						break;
+					}
+				}
+
+				break;
+			}
+		}
+	} else {
+		const auto ehdr = peekProc< Elf32_Ehdr >(module);
+		const auto phdr = peekProcVector< Elf32_Phdr >(module + ehdr.e_phoff, ehdr.e_phnum);
+
+		for (size_t i = 0; i < phdr.size(); ++i) {
+			if (phdr[i].p_type == PT_DYNAMIC) {
+				const auto dyn =
+					peekProcVector< Elf32_Dyn >(module + phdr[i].p_vaddr, phdr[i].p_memsz / sizeof(Elf32_Dyn));
+
+				for (size_t j = 0; j < dyn.size(); ++j) {
+					switch (dyn[j].d_tag) {
+						case DT_HASH:
+							hashTable = dyn[j].d_un.d_ptr;
+							break;
+						case DT_STRTAB:
+							strTable = dyn[j].d_un.d_ptr;
+							break;
+						case DT_SYMTAB:
+							symTable = dyn[j].d_un.d_ptr;
+							break;
+					}
+
+					if (hashTable && strTable && symTable) {
+						break;
+					}
+				}
+
+				break;
+			}
+		}
+	}
+
+	// Hash table pseudo-struct:
+	// uint32_t nBucket;
+	// uint32_t nChain;
+	// uint32_t bucket[nBucket];
+	// uint32_t chain[nChain];
+	const auto nChain = peekProc< uint32_t >(hashTable + sizeof(uint32_t));
+
+	if (is64Bit) {
+		for (uint32_t i = 0; i < nChain; ++i) {
+			const auto sym  = peekProc< Elf64_Sym >(symTable + sizeof(Elf64_Sym) * i);
+			const auto name = peekProcString(strTable + sym.st_name, symbol.size());
+
+			if (name == symbol) {
+				return module + sym.st_value;
+			}
+		}
+	} else {
+		for (uint32_t i = 0; i < nChain; ++i) {
+			const auto sym  = peekProc< Elf32_Sym >(symTable + sizeof(Elf32_Sym) * i);
+			const auto name = peekProcString(strTable + sym.st_name, symbol.size());
+
+			if (name == symbol) {
+				return module + sym.st_value;
+			}
+		}
+	}
+
+	return 0;
 }
 
 static void generic_unlock() {

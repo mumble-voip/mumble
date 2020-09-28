@@ -9,6 +9,22 @@
 #include <codecvt>
 #include <locale>
 
+#ifdef OS_LINUX
+#	include <fenv.h>
+#endif
+
+#ifdef _MSC_VER
+#	include <intrin.h>
+#endif
+
+/// This union is used by isBigEndian() to determine the endianness.
+union SingleSplit4Bytes {
+	uint32_t single;
+	uint8_t split[4];
+
+	constexpr SingleSplit4Bytes(const uint32_t value) : single(value) {}
+};
+
 static inline std::string utf16ToUtf8(const std::wstring &wstr) {
 	std::wstring_convert< std::codecvt_utf8_utf16< wchar_t > > conv;
 	return conv.to_bytes(wstr);
@@ -53,6 +69,47 @@ static inline void escape(char *str, const size_t &size) {
 
 		c += 1;
 	}
+}
+
+/// Calculates sine and cosine of the specified value.
+/// On Linux the calculation is guaranteed to be simultaneous.
+static inline bool sinCos(const float value, float &outSin, float &outCos) {
+#ifdef OS_WINDOWS
+	outSin = sin(value);
+	outCos = cos(value);
+	return true;
+#else
+	errno = 0;
+	feclearexcept(FE_ALL_EXCEPT);
+
+	sincosf(value, &outSin, &outCos);
+
+	return fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) == 0;
+#endif
+}
+
+/// Converts degrees to radians.
+static inline float degreesToRadians(const float degrees) {
+	constexpr float piOver180 = M_PI / 180.0f;
+	return piOver180 * degrees;
+}
+
+/// Detects whether the architecture is big-endian.
+static constexpr bool isBigEndian() {
+	// An union allows access to a single byte without the need for a cast.
+	return SingleSplit4Bytes(0x01020304).split[0] == 1;
+}
+
+/// Converts from network byte order to host byte order.
+static inline uint16_t networkToHost(const uint16_t value) {
+	if (isBigEndian()) {
+		return value;
+	}
+#ifdef _MSC_VER
+	return _byteswap_ushort(value);
+#else
+	return __builtin_bswap16(value);
+#endif
 }
 
 #endif
