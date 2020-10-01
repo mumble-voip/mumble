@@ -135,6 +135,8 @@ if(64_BIT AND NOT BUILD_OVERLAY_XCOMPILE)
 	add_subdirectory("${3RDPARTY_DIR}/minhook" "${CMAKE_CURRENT_BINARY_DIR}/minhook" EXCLUDE_FROM_ALL)
 	target_compile_definitions(overlay PRIVATE "USE_MINHOOK")
 	target_link_libraries(overlay PRIVATE minhook)
+
+	set_target_properties(minhook PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
 if(MSVC)

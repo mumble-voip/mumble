@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-set(GRPC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Mumble.proto")
+set(PROTO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Mumble.proto")
 
 option(client "Build the client (Mumble)" ON)
 option(server "Build the server (Murmur)" ON)
@@ -33,7 +33,12 @@ find_pkg(Protobuf REQUIRED)
 
 add_library(shared STATIC)
 
-protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${GRPC_FILE} OUT_VAR BUILT_GRPC_FILES)
+protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
+
+# Disable warnings for the generated source files
+foreach(CURRENT_FILE IN LISTS BUILT_PROTO_FILES)
+	set_source_files_properties("${CURRENT_FILE}" PROPERTIES COMPILE_FLAGS "-w")
+endforeach()
 
 set_target_properties(shared
 	PROPERTIES

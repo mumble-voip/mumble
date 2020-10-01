@@ -192,7 +192,12 @@ endif()
 if(grpc)
 	find_pkg(GRPC REQUIRED)
 
-	protobuf_generate(LANGUAGE cpp TARGET murmur PROTOS ${GRPC_FILE})
+	protobuf_generate(LANGUAGE cpp TARGET murmur PROTOS ${GRPC_FILE} OUT_VAR BUILT_GRPC_FILES)
+
+	# Disable warnings for the generated source files
+	foreach(CURRENT_FILE IN LISTS BUILT_GRPC_FILES)
+		set_source_files_properties("${CURRENT_FILE}" PROPERTIES COMPILE_FLAGS "-w")
+	endforeach()
 
 	add_subdirectory("${SHARED_SOURCE_DIR}/murmur_grpcwrapper_protoc_plugin" "${CMAKE_CURRENT_BINARY_DIR}/murmur_grpcwrapper_protoc_plugin")
 

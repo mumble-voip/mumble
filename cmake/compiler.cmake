@@ -40,6 +40,8 @@ if(MSVC)
 			"/OPT:REF"
 			"/OPT:ICF"
 			"/INCREMENTAL:NO"
+			# Ignore warnings about PDBs not being found (happens e.g. for vc140 as vcpkg's portfile doesn't install the PDB files)
+			"/ignore:4099"
 		)
 	endif()
 

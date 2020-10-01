@@ -9,7 +9,7 @@
 
 #		include <QtCore/QtGlobal>
 
-#		ifdef Q_OS_WIN
+#		if defined(Q_OS_WIN) && !defined(WIN32_LEAN_AND_MEAN)
 // To prevent <windows.h> (included by Ice) from including <winsock.h>.
 #			define WIN32_LEAN_AND_MEAN
 #		endif
