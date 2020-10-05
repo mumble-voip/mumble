@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
 	build-essential \
+	cmake \
 	pkg-config \
 	qt5-default \
 	libboost-dev \
@@ -27,10 +28,10 @@ RUN apt-get update && apt-get install -y \
 	qtcreator
 
 COPY . /root/mumble
-WORKDIR /root/mumble
+WORKDIR /root/mumble/build
 
-RUN qmake -recursive main.pro CONFIG+="no-client grpc"
-RUN make release
+RUN cmake -Dclient=OFF -DCMAKE_BUILD_TYPE=Release -Dgrpc=ON ..
+RUN make -j $(nproc)
 
 # Clean distribution stage
 FROM ubuntu:latest
@@ -50,7 +51,7 @@ RUN apt-get update && apt-get install -y \
 	libqt5dbus5 \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY --from=0 /root/mumble/release/murmurd /usr/bin/murmurd
+COPY --from=0 /root/mumble/build/murmurd /usr/bin/murmurd
 COPY --from=0 /root/mumble/scripts/murmur.ini /etc/murmur/murmur.ini
 
 RUN mkdir /var/lib/murmur && \
