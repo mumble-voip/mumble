@@ -15,11 +15,14 @@
 Mumble is an Open Source, low-latency and high-quality voice-chat program
 written on top of Qt and Opus.
 
-There are two modules in Mumble; the client (mumble) and the server
-(murmur). The client works on Win32/64, Linux and Mac OS X, while the
-server should work on anything Qt can be installed on.
+There are two modules in Mumble; the client (mumble) and the server (murmur).
+The client works on Windows, Linux, FreeBSD and macOS,
+while the server should work on anything Qt can be installed on.
 
-Note that when we say Win32, we mean Windows XP or newer.
+Please note that with "Windows" we mean 7 and newer.
+Vista may be supported, but we can't guarantee it.
+If you don't want to encounter potential issues, you may download Mumble 1.3.x,
+the last version to provide support for XP.
 
 The documentation of the project can be found on the [wiki](https://wiki.mumble.info/wiki/Main_Page). The
 [FAQ](https://wiki.mumble.info/wiki/FAQ/English) can also be found there.
