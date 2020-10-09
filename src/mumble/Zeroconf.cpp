@@ -285,7 +285,10 @@ void WINAPI Zeroconf::callbackResolveComplete(const DWORD status, void *context,
 			DnsServiceFreeInstance(instance);
 		}
 
-		qWarning("Zeroconf: DnsServiceResolve() reports status code %u, ignoring result", status);
+		if (status != ERROR_CANCELLED) {
+			qWarning("Zeroconf: DnsServiceResolve() reports status code %u, ignoring result", status);
+		}
+
 		return;
 	}
 
