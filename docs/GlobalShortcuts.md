@@ -2,9 +2,22 @@
 
 ## Windows
 
+### Generic devices
+
 No additional steps should be required.
 
 If you're encountering problems, feel free to open an issue.
+
+### Xbox controllers
+
+If you want to use the guide button in Mumble,
+the trigger for the Game bar must be disabled.
+
+![Windows screenshot](../screenshots/Windows_settings_game_bar.png)
+
+When the option is enabled, Windows doesn't pass the input to applications.
+
+Even `XInputGetStateEx()` doesn't detect it!
 
 ## Linux
 
