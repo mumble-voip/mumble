@@ -28,6 +28,11 @@ The documentation of the project can be found on the [wiki](https://wiki.mumble.
 [FAQ](https://wiki.mumble.info/wiki/FAQ/English) can also be found there.
 
 
+## Building
+
+For information on how to build Mumble, checkout [the dedicated documentation](docs/dev/build-instructions/README.md).
+
+
 ## Reporting issues
 
 If you want to report a bug or create a feature-request, you can open a new issue (after you have checked that there is none already) on
