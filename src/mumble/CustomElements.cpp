@@ -90,6 +90,7 @@ void ChatbarTextEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	QMenu *menu = createStandardContextMenu();
 
 	QAction *action = new QAction(tr("Paste and &Send") + QLatin1Char('\t'), menu);
+	action->setShortcut(Qt::CTRL + Qt::Key_Shift + Qt::Key_V);
 	action->setEnabled(!QApplication::clipboard()->text().isEmpty());
 	connect(action, SIGNAL(triggered()), this, SLOT(pasteAndSend_triggered()));
 	if (menu->actions().count() > 6)
@@ -249,6 +250,9 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 			return true;
 		} else if (kev->key() == Qt::Key_Down && kev->modifiers() == Qt::ControlModifier) {
 			historyDown();
+			return true;
+		} else if (kev->key() == Qt::Key_V && (kev->modifiers() & Qt::ControlModifier) && (kev->modifiers() & Qt::ShiftModifier)) {
+			pasteAndSend_triggered();
 			return true;
 		}
 	}
