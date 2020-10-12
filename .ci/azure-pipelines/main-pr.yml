@@ -51,3 +51,12 @@ jobs:
       displayName: 'Install Qt tools'
     - script: .ci/azure-pipelines/assertNoTranslationChanges.sh
       displayName: 'Checking for translation changes'
+  - job: Docs
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+      submodules: false
+      fetchDepth: 1
+    - script: .ci/azure-pipelines/checkDocs.bash
+      displayName: 'Check documentation'
