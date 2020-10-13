@@ -11,6 +11,8 @@ else()
 	message(FATAL_ERROR "Unknown architecture - only 32bit and 64bit are supported")
 endif()
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 if(MSVC)
 	if($<CONFIG:Release>)
 		add_compile_options(
@@ -96,18 +98,17 @@ elseif(UNIX OR MINGW)
 		# In Mumble builds with warnings-as-errors, this will cause build failures.
 		add_compile_options("-U_FORTIFY_SOURCE")
 
-		if($<CONFIG:Debug>)
-			if(NOT MINGW)
-				add_compile_options("-fstack-protector")
-			endif()
-			add_compile_options("-fPIE")
-			add_link_options(
-				"-pie"
-				"-Wl,--no-add-needed"
-			)
-		else()
-			add_compile_options("-D_FORTIFY_SOURCE=2")
+		if(NOT MINGW)
+			add_compile_options($<$<CONFIG:Debug>:-fstack-protector>)
 		endif()
+
+		add_compile_options(
+			$<$<NOT:$<CONFIG:Debug>>:-D_FORTIFY_SOURCE=2>
+		)
+
+		add_link_options(
+			$<$<CONFIG:Debug>:-Wl,--no-add-needed>
+		)
 
 		if(symbols)
 			add_compile_options("-g")

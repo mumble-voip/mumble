@@ -25,9 +25,7 @@ set_target_properties(g15-helper
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
-if($<CONFIG:Debug>)
-	target_compile_definitions(g15-helper PRIVATE "USE_LOGFILE")
-endif()
+target_compile_definitions(g15-helper PRIVATE $<$<CONFIG:Debug>:USE_LOGFILE>)
 
 if(g15-emulator)
 	find_pkg(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
