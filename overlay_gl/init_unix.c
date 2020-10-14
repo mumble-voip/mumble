@@ -190,6 +190,7 @@ static int find_odlsym() {
 		return -1;
 	}
 #endif
+	bool hashTableGNU    = false;
 	uintptr_t hashTable  = 0;
 	const char *strTable = NULL;
 	Elf_Sym *symTable    = NULL;
@@ -200,8 +201,16 @@ static int find_odlsym() {
 #endif
 	for (const Elf_Dyn *dyn = lm->l_ld; dyn; ++dyn) {
 		switch (dyn->d_tag) {
+			case DT_GNU_HASH:
+				if (!hashTable) {
+					hashTable    = base + dyn->d_un.d_ptr;
+					hashTableGNU = true;
+				}
+				break;
 			case DT_HASH:
-				hashTable = base + dyn->d_un.d_ptr;
+				if (!hashTable) {
+					hashTable = base + dyn->d_un.d_ptr;
+				}
 				break;
 			case DT_STRTAB:
 				strTable = (const char *) (base + dyn->d_un.d_ptr);
@@ -218,7 +227,12 @@ static int find_odlsym() {
 
 	ods("hashTable: 0x%" PRIxPTR ", strTable: %p, symTable: %p", hashTable, strTable, symTable);
 
-	if (hashTable && strTable && symTable) {
+	if (!hashTable || !strTable || !symTable) {
+		return -1;
+	}
+
+	if (!hashTableGNU) {
+		ods("Using DT_HASH");
 		// Hash table pseudo-struct:
 		// uint32_t nBucket;
 		// uint32_t nChain;
@@ -235,6 +249,37 @@ static int find_odlsym() {
 				odlsym = (void *) lm->l_addr + symTable[i].st_value;
 				break;
 			}
+		}
+	} else {
+		ods("Using DT_GNU_HASH");
+		// Hash table pseudo-struct:
+		// uint32_t  nBucket;
+		// uint32_t  symOffset;
+		// uint32_t  nBloom;
+		// uint32_t  bloomShift;
+		// uintptr_t blooms[nBloom];
+		// uint32_t  buckets[nBucket];
+		// uint32_t  chain[];
+		uint32_t *hashStruct = (uint32_t *) hashTable;
+
+		const uint32_t nBucket   = hashStruct[0];
+		const uint32_t symOffset = hashStruct[1];
+		const uint32_t nBloom    = hashStruct[2];
+		const uintptr_t *bloom   = (uintptr_t *) &hashStruct[4];
+		const uint32_t *buckets  = (uint32_t *) &bloom[nBloom];
+		const uint32_t *chain    = &buckets[nBucket];
+
+		for (uint32_t i = 0; i < nBucket; ++i) {
+			uint32_t symIndex = buckets[i];
+			if (symIndex < symOffset) {
+				continue;
+			}
+
+			do {
+				if (strcmp(strTable + symTable[symIndex].st_name, "dlsym") == 0) {
+					odlsym = (void *) lm->l_addr + symTable[symIndex].st_value;
+				}
+			} while (!odlsym && !(chain[symIndex++ - symOffset] & 1));
 		}
 	}
 
