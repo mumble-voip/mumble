@@ -742,13 +742,16 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 	return true;
 }
 
-void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
+void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos, bool usePositionForGettingContext) {
 	QModelIndex idx = qtvUsers->indexAt(mpos);
-	if (!idx.isValid())
+	if (!idx.isValid() || !usePositionForGettingContext) {
 		idx = qtvUsers->currentIndex();
-	else
+	} else {
 		qtvUsers->setCurrentIndex(idx);
+	}
+
 	ClientUser *p = pmModel->getUser(idx);
+	Channel *channel = pmModel->getChannel(idx);
 
 	qpContextPosition = mpos;
 	if (pmModel->isChannelListener(idx)) {
@@ -767,10 +770,19 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 	} else {
 		if (p) {
 			cuContextUser.clear();
+			if (!usePositionForGettingContext) {
+				cuContextUser = p;
+			}
+
 			qmUser->exec(qtvUsers->mapToGlobal(mpos), nullptr);
 			cuContextUser.clear();
 		} else {
 			cContextChannel.clear();
+
+			if (!usePositionForGettingContext && channel) {
+				cContextChannel = channel;
+			}
+
 			qmChannel->exec(qtvUsers->mapToGlobal(mpos), nullptr);
 			cContextChannel.clear();
 		}
