@@ -53,35 +53,13 @@ option(plugins "Build plugins." ON)
 
 option(debug-dependency-search "Prints extended information during the search for the needed dependencies" OFF)
 
-# We support the "Debug" and "Release" configurations.
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
-	"Debug"
-	"Release"
-)
-
-get_property(IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-if(IS_MULTI_CONFIG)
-	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
-
-	set(BUILD_STR "<multi-config>")
-else()
-	# We set the CMake configuration to "Release", in case it's not set.
-	if(NOT CMAKE_BUILD_TYPE)
-		set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
-
-		set(BUILD_STR "Release")
-	elseif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-		add_definitions(
-			"-DDEBUG"
-			"-DSNAPSHOT_BUILD"
-		)
-
-		set(BUILD_STR "Debug")
-	elseif(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-		set(BUILD_STR "Release")
-	else()
-		message(FATAL_ERROR "Unsupported build type! Please choose either \"Debug\" or \"Release\".")
-	endif()
+if(NOT CMAKE_BUILD_TYPE)
+	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
+elseif(CMAKE_BUILD_TYPE EQUAL "Debug")
+    add_definitions(
+        "-DDEBUG"
+        "-DSNAPSHOT_BUILD"
+    )
 endif()
 
 include(compiler)
@@ -111,7 +89,11 @@ endif()
 message(STATUS "##################################################")
 message(STATUS "Mumble version:  ${version}")
 message(STATUS "Architecture:    ${ARCH}")
-message(STATUS "Build type:      ${BUILD_STR}")
+if(NOT IS_MULTI_CONFIG)
+    message(STATUS "Build type:      ${CMAKE_BUILD_TYPE}")
+else()
+    message(STATUS "Using multi-config generator that will determine build type on-the-fly")
+endif()
 message(STATUS "##################################################")
 
 # We have to check for BUILD_TESTING before including CTest as CTest defines this variable
