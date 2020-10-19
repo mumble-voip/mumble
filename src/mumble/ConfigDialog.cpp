@@ -14,6 +14,7 @@
 #include <QtGui/QScreen>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QMessageBox>
 
 
 // init static member fields
@@ -61,17 +62,22 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	applyButton->setToolTip(tr("Apply changes"));
 	applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
 
-	QPushButton *resetButton = pageButtonBox->button(QDialogButtonBox::Reset);
+	QPushButton *resetButton = pageButtonBox->addButton(QDialogButtonBox::Reset);
 	resetButton->setToolTip(tr("Undo changes for current page"));
 	resetButton->setWhatsThis(
 		tr("This button will revert any changes done on the current page to the most recent applied settings."));
 
-	QPushButton *restoreButton = pageButtonBox->button(QDialogButtonBox::RestoreDefaults);
+	QPushButton *restoreButton = pageButtonBox->addButton(QDialogButtonBox::RestoreDefaults);
 	restoreButton->setToolTip(tr("Restore defaults for current page"));
 	restoreButton->setWhatsThis(
 		tr("This button will restore the defaults for the settings on the current page. Other pages will not be "
 		   "changed.<br />"
-		   "To restore all settings to their defaults, you will have to use this button on every page."));
+		   "To restore all settings to their defaults, you can press the \"Defaults (All)\" button."));
+
+	QPushButton *restoreAllButton =
+		pageButtonBox->addButton(QString::fromLatin1("Defaults (All)"), QDialogButtonBox::ResetRole);
+	restoreAllButton->setToolTip(tr("Restore all defaults"));
+	restoreAllButton->setWhatsThis(tr("This button will restore the defaults for all settings."));
 
 	if (!g.s.qbaConfigGeometry.isEmpty()) {
 #ifdef USE_OVERLAY
@@ -147,6 +153,25 @@ void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 		}
 		case QDialogButtonBox::Reset: {
 			conf->load(g.s);
+			break;
+		}
+		// standardButton returns NoButton for any custom buttons. The only custom button
+		// in the pageButtonBox is the one for resetting all settings.
+		case QDialogButtonBox::NoButton: {
+			// Ask for confirmation before resetting **all** settings
+			QMessageBox msgBox;
+			msgBox.setIcon(QMessageBox::Question);
+			msgBox.setText(QObject::tr("Reset all settings?"));
+			msgBox.setInformativeText(QObject::tr("Do you really want to reset all settings (not only the ones currently visible) to their default value?"));
+			msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+			msgBox.setDefaultButton(QMessageBox::No);
+
+			if (msgBox.exec() == QMessageBox::Yes) {
+				Settings defaultSetting;
+				foreach (ConfigWidget *cw, qmWidgets) {
+					cw->load(defaultSetting);
+				}
+			}
 			break;
 		}
 		default:
