@@ -69,11 +69,6 @@ Build support for DBus.
 Prints extended information during the search for the needed dependencies
 (Default: OFF)
 
-### dpkg-buildflags
-
-Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS from dpkg-buildflags to the build flags.
-(Default: OFF)
-
 ### elevation
 
 Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate.

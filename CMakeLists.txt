@@ -45,8 +45,6 @@ option(static "Build static binaries." OFF)
 option(symbols "Build binaries in a way that allows easier debugging." OFF)
 option(warnings-as-errors "All warnings are treated as errors." ON)
 
-option(dpkg-buildflags "Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS from dpkg-buildflags to the build flags." OFF)
-
 option(overlay "Build overlay." ON)
 option(packaging "Build package." OFF)
 option(plugins "Build plugins." ON)
