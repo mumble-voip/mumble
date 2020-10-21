@@ -1,8 +1,8 @@
-# cmake options
+# CMake options
 
-Using cmake the build can be customized in a number of ways. The most prominent examples for this is the usage of different
+Using CMake the build can be customized in a number of ways. The most prominent examples for this is the usage of different
 options (flags). These can be set by using `-D<optionName>=<value>` where `<optionName>` is the name of the respective option
-as listed below and `<value>` is either `ON` or `OFF` depeneding on whether the option shall be activated or inactivated.
+as listed below and `<value>` is either `ON` or `OFF` depending on whether the option shall be activated or inactivated.
 
 An example would be `cmake -Dtests=ON ..`.
 
