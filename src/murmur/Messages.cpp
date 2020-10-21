@@ -1344,9 +1344,12 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	MSG_SETUP(ServerUser::Authenticated);
 	QMutexLocker qml(&qmCache);
 
-	TextMessage tm; // for signal userTextMessage
+	// For signal userTextMessage (RPC consumers)
+	TextMessage tm;
 
+	// List of users to route the message to
 	QSet< ServerUser * > users;
+	// List of channels used if dest is a tree of channels
 	QQueue< Channel * > q;
 
 	RATELIMIT(uSource);
@@ -1391,6 +1394,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	}
 
 	msg.set_actor(uSource->uiSession);
+
+	// Send the message to all users that are in (= have joined) OR are
+	// "listening" to channels to which the message has been directed to
 	for (int i = 0; i < msg.channel_id_size(); ++i) {
 		unsigned int id = msg.channel_id(i);
 
@@ -1403,12 +1409,15 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 			return;
 		}
 
+		// Users directly in that channel
 		foreach (User *p, c->qlUsers)
 			users.insert(static_cast< ServerUser * >(p));
 
 		tm.qlChannels.append(id);
 	}
 
+	// If the message is sent to trees of channels, find all affected channels
+	// and append them to q
 	for (int i = 0; i < msg.tree_id_size(); ++i) {
 		unsigned int id = msg.tree_id(i);
 
@@ -1426,16 +1435,21 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		tm.qlTrees.append(id);
 	}
 
+	// Go through all channels in q and append all users in those channels
+	// to the list of recipients
+	// Sub-channels are enqued so they are also checked by a later loop-iteration
 	while (!q.isEmpty()) {
 		Channel *c = q.dequeue();
 		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
 			foreach (Channel *sub, c->qlChannels)
 				q.enqueue(sub);
+			// Users directly in that channel
 			foreach (User *p, c->qlUsers)
 				users.insert(static_cast< ServerUser * >(p));
 		}
 	}
 
+	// Go through all users the message is sent to directly
 	for (int i = 0; i < msg.session_size(); ++i) {
 		unsigned int session = msg.session(i);
 		ServerUser *u        = qhUsers.value(session);
@@ -1450,11 +1464,14 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		tm.qlSessions.append(session);
 	}
 
+	// Remove the message sender from the list of users to send the message to
 	users.remove(uSource);
 
+	// Actually send the original message to the affected users
 	foreach (ServerUser *u, users)
 		sendMessage(u, msg);
 
+	// Emit the signal for RPC consumers
 	emit userTextMessage(uSource, tm);
 }
 
