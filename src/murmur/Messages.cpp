@@ -1377,10 +1377,12 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		PERM_DENIED_TYPE(TextTooLong);
 		return;
 	}
-	if (text.isEmpty())
+	if (text.isEmpty()) {
 		return;
-	if (changed)
+	}
+	if (changed) {
 		msg.set_message(u8(text));
+	}
 
 	tm.qsText = text;
 
@@ -1401,8 +1403,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		unsigned int id = msg.channel_id(i);
 
 		Channel *c = qhChannels.value(id);
-		if (!c)
+		if (!c) {
 			return;
+		}
 
 		if (!ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
 			PERM_DENIED(uSource, c, ChanACL::TextMessage);
@@ -1410,8 +1413,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		}
 
 		// Users directly in that channel
-		foreach (User *p, c->qlUsers)
+		foreach (User *p, c->qlUsers) {
 			users.insert(static_cast< ServerUser * >(p));
+		}
 
 		// Users only listening in that channel
 		foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
@@ -1430,8 +1434,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		unsigned int id = msg.tree_id(i);
 
 		Channel *c = qhChannels.value(id);
-		if (!c)
+		if (!c) {
 			return;
+		}
 
 		if (!ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
 			PERM_DENIED(uSource, c, ChanACL::TextMessage);
@@ -1449,11 +1454,13 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	while (!q.isEmpty()) {
 		Channel *c = q.dequeue();
 		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
-			foreach (Channel *sub, c->qlChannels)
+			foreach (Channel *sub, c->qlChannels) {
 				q.enqueue(sub);
+			}
 			// Users directly in that channel
-			foreach (User *p, c->qlUsers)
+			foreach (User *p, c->qlUsers) {
 				users.insert(static_cast< ServerUser * >(p));
+			}
 			// Users only listening in that channel
 			foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
 				ServerUser *currentUser = qhUsers.value(session);
@@ -1483,8 +1490,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	users.remove(uSource);
 
 	// Actually send the original message to the affected users
-	foreach (ServerUser *u, users)
+	foreach (ServerUser *u, users) {
 		sendMessage(u, msg);
+	}
 
 	// Emit the signal for RPC consumers
 	emit userTextMessage(uSource, tm);
