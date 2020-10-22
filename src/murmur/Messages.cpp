@@ -1413,6 +1413,14 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		foreach (User *p, c->qlUsers)
 			users.insert(static_cast< ServerUser * >(p));
 
+		// Users only listening in that channel
+		foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
+			ServerUser *currentUser = qhUsers.value(session);
+			if (currentUser) {
+				users.insert(currentUser);
+			}
+		}
+
 		tm.qlChannels.append(id);
 	}
 
@@ -1446,6 +1454,13 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 			// Users directly in that channel
 			foreach (User *p, c->qlUsers)
 				users.insert(static_cast< ServerUser * >(p));
+			// Users only listening in that channel
+			foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
+				ServerUser *currentUser = qhUsers.value(session);
+				if (currentUser) {
+					users.insert(currentUser);
+				}
+			}
 		}
 	}
 
