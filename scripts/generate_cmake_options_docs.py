@@ -33,7 +33,7 @@ def main():
         for currentFile in files:
             if currentFile.lower().endswith(".cmake") or currentFile.lower().endswith("cmakelists.txt"):
                 path = os.path.join(root, currentFile)
-                
+
                 if path.startswith(os.path.join(rootDir, "build")):
                     # Exclude all files in the build dir
                     continue
@@ -69,11 +69,11 @@ def main():
     options.sort()
 
 
-    generatedContent = "# cmake options\n"
+    generatedContent = "# CMake options\n"
     generatedContent += "\n"
-    generatedContent += "Using cmake the build can be customized in a number of ways. The most prominent examples for this is the usage of different\n"
+    generatedContent += "Using CMake the build can be customized in a number of ways. The most prominent examples for this is the usage of different\n"
     generatedContent += "options (flags). These can be set by using `-D<optionName>=<value>` where `<optionName>` is the name of the respective option\n"
-    generatedContent += "as listed below and `<value>` is either `ON` or `OFF` depeneding on whether the option shall be activated or inactivated.\n"
+    generatedContent += "as listed below and `<value>` is either `ON` or `OFF` depending on whether the option shall be activated or inactivated.\n"
     generatedContent += "\n"
     generatedContent += "An example would be `cmake -Dtests=ON ..`.\n"
     generatedContent += "\n"
@@ -92,8 +92,8 @@ def main():
         generatedContent += desc + "\n"
         generatedContent += "(Default: " + currentOption.m_defaultValue + ")\n"
         generatedContent += "\n"
-        
-    
+
+
     print(generatedContent)
 
 

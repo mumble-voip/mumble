@@ -1,8 +1,8 @@
-# cmake options
+# CMake options
 
-Using cmake the build can be customized in a number of ways. The most prominent examples for this is the usage of different
+Using CMake the build can be customized in a number of ways. The most prominent examples for this is the usage of different
 options (flags). These can be set by using `-D<optionName>=<value>` where `<optionName>` is the name of the respective option
-as listed below and `<value>` is either `ON` or `OFF` depeneding on whether the option shall be activated or inactivated.
+as listed below and `<value>` is either `ON` or `OFF` depending on whether the option shall be activated or inactivated.
 
 An example would be `cmake -Dtests=ON ..`.
 
@@ -67,11 +67,6 @@ Build support for DBus.
 ### debug-dependency-search
 
 Prints extended information during the search for the needed dependencies
-(Default: OFF)
-
-### dpkg-buildflags
-
-Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS from dpkg-buildflags to the build flags.
 (Default: OFF)
 
 ### elevation
