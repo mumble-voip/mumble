@@ -238,7 +238,10 @@ void WINAPI Zeroconf::callbackBrowseComplete(const DWORD status, void *context, 
 			DnsRecordListFree(records, DnsFreeRecordList);
 		}
 
-		qWarning("Zeroconf: DnsServiceBrowse() reports status code %u, ignoring results", status);
+		if (status != ERROR_CANCELLED) {
+			qWarning("Zeroconf: DnsServiceBrowse() reports status code %u, ignoring results", status);
+		}
+
 		return;
 	}
 
