@@ -13,6 +13,11 @@ endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+if(WIN32)
+	message(STATUS "Using Win7 as the oldest supported Windows version")
+	add_compile_definitions(_WIN32_WINNT=0x0601)
+endif()
+
 if(MSVC)
 	add_compile_options(
 		"$<$<CONFIG:Release>:/Ox>"

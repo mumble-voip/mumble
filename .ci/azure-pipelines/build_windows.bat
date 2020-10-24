@@ -51,7 +51,7 @@ del C:\Strawberry\c\bin\c++.exe
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=%MUMBLE_ENVIRONMENT_TRIPLET% ^
 	-DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" -DCMAKE_BUILD_TYPE=Release -Dtests=ON ^
-	-Dversion=%VER% -Dpackaging=ON -Dstatic=ON -Dsymbols=ON -Dasio=ON -Dg15=ON -Donline-tests=ON "%BUILD_SOURCESDIRECTORY%"
+	-Dversion=%VER% -Dpackaging=ON -Dstatic=ON -Dsymbols=ON -Dasio=ON -Dg15=ON -Donline-tests=ON -Dgrpc=ON "%BUILD_SOURCESDIRECTORY%"
 
 if errorlevel 1 (
 	exit /b %errorlevel%

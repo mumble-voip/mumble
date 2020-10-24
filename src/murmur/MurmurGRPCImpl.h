@@ -11,10 +11,7 @@
 
 #		include <boost/bind/bind.hpp>
 
-#		pragma GCC diagnostic push
-#		pragma GCC diagnostic ignored "-Wunused-parameter"
 #		include "MurmurRPC.grpc.pb.h"
-#		pragma GCC diagnostic pop
 
 #		include "Meta.h"
 #		include "Server.h"
@@ -139,7 +136,7 @@ public:
 
 	RPCCall(MurmurRPCImpl *rpcImpl) : m_refs(0), rpc(rpcImpl) { ref(); }
 	virtual ~RPCCall() {}
-	virtual ::boost::function< void(bool) > *done() {
+	virtual ::boost::function< void(bool) > *getFinishCallback() {
 		auto done_fn = ::boost::bind(&RPCCall::finish, this, boost::placeholders::_1);
 		return new ::boost::function< void(bool) >(done_fn);
 	}
@@ -182,9 +179,9 @@ public:
 
 	RPCSingleSingleCall(MurmurRPCImpl *rpcImpl) : RPCCall(rpcImpl), stream(&context) {}
 
-	virtual void error(const ::grpc::Status &err) { stream.FinishWithError(err, done()); }
+	virtual void error(const ::grpc::Status &err) { stream.FinishWithError(err, getFinishCallback()); }
 
-	virtual void end(const OutType &msg = OutType()) { stream.Finish(msg, ::grpc::Status::OK, done()); }
+	virtual void end(const OutType &msg = OutType()) { stream.Finish(msg, ::grpc::Status::OK, getFinishCallback()); }
 };
 
 /// Base for "single-stream" RPC methods.
@@ -201,7 +198,7 @@ public:
 	::grpc::ServerAsyncWriter< OutType > stream;
 	RPCSingleStreamCall(MurmurRPCImpl *rpcImpl) : RPCCall(rpcImpl), stream(&context) {}
 
-	virtual void error(const ::grpc::Status &err) { stream.Finish(err, done()); }
+	virtual void error(const ::grpc::Status &err) { stream.Finish(err, getFinishCallback()); }
 
 	void write(const OutType &msg, void *tag) {
 		QMutexLocker l(&m_writeLock);
@@ -241,7 +238,7 @@ public:
 
 	RPCStreamStreamCall(MurmurRPCImpl *rpcImpl) : RPCCall(rpcImpl), stream(&context) {}
 
-	virtual void error(const ::grpc::Status &err) { stream.Finish(err, done()); }
+	virtual void error(const ::grpc::Status &err) { stream.Finish(err, getFinishCallback()); }
 };
 
 
