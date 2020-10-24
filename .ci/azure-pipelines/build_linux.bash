@@ -18,22 +18,10 @@ VER=$(python scripts/mumble-version.py)
 cd $BUILD_BINARIESDIRECTORY
 
 # QSslDiffieHellmanParameters was introduced in Qt 5.8, Ubuntu 16.04 has 5.5.
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=appdir/usr -Dtests=ON -Dversion=$VER -Dsymbols=ON \
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=appdir/usr -Dtests=ON Donline-tests=ON -Dversion=$VER -Dsymbols=ON \
 	-Dqssldiffiehellmanparameters=OFF -Donline-tests=ON $BUILD_SOURCESDIRECTORY
+
 cmake --build .
 ctest --verbose
 cmake --install .
 
-wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-ARCH=x86_64 ./linuxdeployqt-continuous-x86_64.AppImage $(find $HOME -type d -name 'appdir'| head -n 1)/usr/share/applications/*.desktop -appimage -extra-plugins=sqldrivers/libqsqlite.so
-
-for f in Mumble*.AppImage; do
-	# Embed update information into AppImage
-	echo -n "zsync|https://dl.mumble.info/nightly/latest-x86_64.AppImage.zsync" | dd of=$f seek=175720 conv=notrunc oflag=seek_bytes
-
-	# Generate zsync file for AppImage
-	zsyncmake $f
-done
-
-mv Mumble*.AppImage* $BUILD_ARTIFACTSTAGINGDIRECTORY

@@ -5,6 +5,8 @@ steps:
     displayName: 'Install build environment'
   - script: .ci/azure-pipelines/build_linux.bash
     displayName: 'Build'
+  - script: .ci/azure-pipelines/package_AppImage.bash
+    displayName: 'Package AppImage'
   - template: task-publish-artifacts.yml
     parameters:
       name: "AppImage" 
