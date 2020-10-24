@@ -39,7 +39,7 @@ else()
 
 	target_include_directories(overlay_exe PRIVATE ${CMAKE_SOURCE_DIR}/overlay)
 
-	install(TARGETS overlay_exe RUNTIME DESTINATION . COMPONENT mumble_client)
+	install(TARGETS overlay_exe RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
 endif()
 
 if(MSVC)

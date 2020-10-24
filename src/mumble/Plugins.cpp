@@ -230,14 +230,14 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	QMetaObject::connectSlotsByName(this);
 
 #ifdef QT_NO_DEBUG
-#	ifndef PLUGIN_PATH
+#	ifndef MUMBLE_PLUGIN_PATH
 	qsSystemPlugins =
 		QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath());
 #		ifdef Q_OS_MAC
 	qsSystemPlugins = QString::fromLatin1("%1/../Plugins").arg(qApp->applicationDirPath());
 #		endif
 #	else
-	qsSystemPlugins = QLatin1String(MUMTEXT(PLUGIN_PATH));
+	qsSystemPlugins = QLatin1String(MUMTEXT(MUMBLE_PLUGIN_PATH));
 #	endif
 
 	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");

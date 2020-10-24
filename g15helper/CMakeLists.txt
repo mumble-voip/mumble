@@ -59,4 +59,4 @@ else()
 	target_link_libraries(g15-helper PRIVATE ${LIB_LGLCD})
 endif()
 
-install(TARGETS g15-helper RUNTIME DESTINATION . COMPONENT mumble_client)
+install(TARGETS g15-helper RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)

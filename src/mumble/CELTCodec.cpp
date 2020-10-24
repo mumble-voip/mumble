@@ -76,8 +76,8 @@ CELTCodec::CELTCodec(const QString &celt_version) {
 		}
 #endif
 
-#ifdef PLUGIN_PATH
-		qlCELT.setFileName(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + lib);
+#ifdef MUMBLE_LIBRARY_PATH
+		qlCELT.setFileName(QLatin1String(MUMTEXT(MUMBLE_LIBRARY_PATH) "/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
 			break;

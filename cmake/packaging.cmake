@@ -44,7 +44,7 @@ if(client)
 		"${CMAKE_SOURCE_DIR}/installer/gpl.txt"
 		"${CMAKE_SOURCE_DIR}/installer/qt.txt"
 		"${CMAKE_SOURCE_DIR}/installer/speex.txt"
-		DESTINATION "."
+		DESTINATION "${MUMBLE_INSTALL_LICENSEDIR}"
 		COMPONENT mumble_client
 	)
 endif()
@@ -67,7 +67,7 @@ if(server)
 			"${CMAKE_SOURCE_DIR}/CHANGES"
 			"${CMAKE_SOURCE_DIR}/installer/gpl.txt"
 			"${CMAKE_SOURCE_DIR}/installer/qt.txt"
-			DESTINATION "."
+			DESTINATION "${MUMBLE_INSTALL_LICENSEDIR}"
 			COMPONENT mumble_server
 		)
 	endif()
@@ -77,9 +77,7 @@ if(server)
 	set(CPACK_COMPONENT_MUMBLE_SERVER_DESCRIPTION "The Mumble VoIP Server")
 	#set(CPACK_WIX_PATCH_FILE "${CMAKE_SOURCE_DIR}/installer/server-shortcuts.xml")
 
-	if(WIN32)
-		install(FILES "${CMAKE_SOURCE_DIR}/scripts/murmur.ini" DESTINATION "." COMPONENT mumble_server)
-	endif()
+	install(FILES "${CMAKE_SOURCE_DIR}/scripts/murmur.ini" DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
 endif()
 
 if(client AND server)
