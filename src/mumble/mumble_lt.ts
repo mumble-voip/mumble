@@ -2806,16 +2806,23 @@ Ar tikrai norite pakeisti savo liudijimą?
         <translation>Atkurti esamo puslapio numatytąsias reikšmes</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Šis mygtukas atkurs visus esamo puslapio numatytuosius nustatymus. Kiti puslapiai nebus pakeisti.&lt;br /&gt;Norėdami atkurti visus nustatymus į numatytąsias reikšmes, turėsite nuspausti šį mygtuką kiekviename puslapyje.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Mumble konfigūracija</translation>
     </message>
     <message>
         <source>Configuration categories</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3348,10 +3355,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Shortcuts</source>
         <translation>Trumpiniai</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Trumpinio mygtukų kombinacija.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6158,6 +6161,11 @@ Valid options are:
 </source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7145,6 +7153,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7298,6 +7314,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Unassigned</source>
         <translation>Nepriskirta</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

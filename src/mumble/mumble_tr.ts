@@ -2818,16 +2818,23 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
         <translation>Güncel sayfa için varsayılan değerleri uygula</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Bu buton şu andaki sayfa için varsayılan değerleri kuracaktır. Diğer sayfalar değişime uğramayacaktır.&lt;br /&gt;Tüm ayarları varsayılan değerlerine geri almak için bu butonu her sayfada kullanmanız gerekir.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Mumble Yapılandırması</translation>
     </message>
     <message>
         <source>Configuration categories</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3370,10 +3377,6 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     <message>
         <source>Shortcuts</source>
         <translation>Kısayollar</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Kısayol tuş birleşmesi.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6214,6 +6217,11 @@ Valid options are:
 </source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7202,6 +7210,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7355,6 +7371,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Unassigned</source>
         <translation>Atanmamış</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

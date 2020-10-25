@@ -332,12 +332,14 @@ Aldoni novan grupon.</translation>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Provizora&lt;/b&gt;&lt;br /&gt;
+Se kontrolita, la kreita kanalo estos markita kiel provizora. Ĉi tio indikas, ke la kanalo estos forigita aŭtomate post la lasta ludanto estas forlasinta.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Grupo&lt;/b&gt;&lt;br /&gt;
+Ĉi tiuj nuntempe estas ĉiuj difinitaj grupoj por la kanalo. Por krei novan grupon, kaj entajpu la nomon kaj premu la enigan klavon.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
@@ -376,7 +378,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Pasvorto&lt;/b&gt;&lt;br /&gt;Ĉi tiu kampo vin permesas agordi kaj ŝanĝi facile la pasvorton de iu kanalo. Ĝi uzas la atingoĵetona trajto de Murmur fone. Se vi necesas pli detala kaj pli potenca atingokontrolo, uzi ACL-ojn kaj grupojn.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
@@ -388,11 +390,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Maksimumaj Uzantoj</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Maksimuma nombro da uzantoj permesitaj en la kanalo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -401,23 +403,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"/>
+        <translation>Ĉi tiu estas la ordiga ordo por la kanalo.</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Ecoj</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"/>
+        <translation>Pasvorto de kanalo</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"/>
+        <translation>Maksimumaj uzantoj</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"/>
+        <translation>Kanalnomo</translation>
     </message>
     <message>
         <source>Inherited group members</source>
@@ -433,7 +435,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"/>
+        <translation>Aldoni membrojn al la grupo</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
@@ -625,7 +627,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"/>
+        <translation>Aŭtoroj</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
@@ -652,7 +654,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Eniga aparato por sono</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
@@ -740,7 +742,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Silenteco Sube</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
@@ -748,7 +750,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Speech Above</source>
-        <translation type="unfinished"/>
+        <translation>Parolado Pretere</translation>
     </message>
     <message>
         <source>Signal values above this count as voice</source>
@@ -884,7 +886,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Alia</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit</source>
@@ -2780,16 +2782,23 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Agordo de Mumble</translation>
     </message>
     <message>
         <source>Configuration categories</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3324,10 +3333,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Shortcuts</source>
         <translation>Fulmoklavoj</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -5910,7 +5915,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;About...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Pri...</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
@@ -6018,11 +6023,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation type="unfinished"/>
+        <translation>Vi ĉesis aŭskultadi %1</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
-        <translation type="unfinished"/>
+        <translation>%1 ĉesis aŭskultadi vian kanalon</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -6034,23 +6039,23 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
-        <translation type="unfinished"/>
+        <translation>Kuniĝi al la kanalo de la uzanto</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"/>
+        <translation>Kuniĝos al la kanalo de ĉi tiu uzanto.</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"/>
+        <translation>Kanaloj kaj uzantoj</translation>
     </message>
     <message>
         <source>Activity log</source>
-        <translation type="unfinished"/>
+        <translation>Aktiveca protokolo</translation>
     </message>
     <message>
         <source>Chat message</source>
-        <translation type="unfinished"/>
+        <translation>Babila mesaĝo</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -6066,28 +6071,29 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"/>
+        <translation>Arbo</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanalo</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"/>
+        <translation>Privata</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"/>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"/>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation type="unfinished"/>
+        <translation>Agordadosiero %1 ne ekzistas aŭ ĝi estas neverkebla.
+</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt;]
@@ -6132,6 +6138,11 @@ Valid options are:
 </source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation>Kaŝi/Montri ĉefafenestron</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -6141,23 +6152,23 @@ Valid options are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Pozicio</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished"/>
+        <translation>m</translation>
     </message>
     <message>
         <source>Heading</source>
@@ -6165,7 +6176,7 @@ Valid options are:
     </message>
     <message>
         <source>Azimuth</source>
-        <translation type="unfinished"/>
+        <translation>Azimuto</translation>
     </message>
     <message>
         <source>Elevation</source>
@@ -6289,19 +6300,19 @@ Valid options are:
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"/>
+        <translation>Ebligi QoS-on por prioritatigi datumpaketojn</translation>
     </message>
     <message>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"/>
+        <translation>Ĉi tio ebligos QoS-on, kiu provos prioritatigi voĉdatumpaketojn pli ol alia datumtrafiko.</translation>
     </message>
     <message>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"/>
+        <translation>Uzi Servokvaliton (QoS)</translation>
     </message>
     <message>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation type="unfinished"/>
+        <translation>Ne sendu atestilon al servilo kaj ne konservu pasvortojn. (Ne estos konservitaj).</translation>
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
@@ -6405,7 +6416,7 @@ Valid options are:
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"/>
+        <translation>Privateco</translation>
     </message>
     <message>
         <source>Prevent OS information being sent to Mumble servers and web servers</source>
@@ -6426,7 +6437,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation type="unfinished"/>
+        <translation>Kaŝi la publikan servilaliston</translation>
     </message>
 </context>
 <context>
@@ -6480,7 +6491,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Always show yourself</source>
-        <translation type="unfinished"/>
+        <translation>Ĉiam montri vi mem</translation>
     </message>
     <message>
         <source>Configure recently active time (%1 seconds)...</source>
@@ -6492,7 +6503,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished"/>
+        <translation>Ordigi</translation>
     </message>
     <message>
         <source>Alphabetically</source>
@@ -6533,7 +6544,7 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Dekstre alklaki uzanton por vidi pli da opcioj.</translation>
     </message>
     <message>
         <source>Launcher Filter</source>
@@ -6541,7 +6552,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Tego</translation>
     </message>
     <message>
         <source>Choose executable</source>
@@ -6549,11 +6560,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Choose application</source>
-        <translation type="unfinished"/>
+        <translation>Elekti aplikaĵon</translation>
     </message>
     <message>
         <source>Choose path</source>
-        <translation type="unfinished"/>
+        <translation>Elekti vojon</translation>
     </message>
     <message>
         <source>Load Overlay Presets</source>
@@ -6565,7 +6576,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>Konservi antaŭagordojn de tego</translation>
     </message>
     <message>
         <source>Options</source>
@@ -6573,11 +6584,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Enable overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Ŝalti tegon.</translation>
     </message>
     <message>
         <source>Enable Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Ŝalti Tegon</translation>
     </message>
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
@@ -6598,11 +6609,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Malinstali Tegon</translation>
     </message>
     <message>
         <source>Overlay Installation</source>
-        <translation type="unfinished"/>
+        <translation>Instaleco de Tego</translation>
     </message>
     <message>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
@@ -6698,19 +6709,19 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Aldoni</translation>
     </message>
     <message>
         <source>Allowed programs</source>
-        <translation type="unfinished"/>
+        <translation>Permesitaj programoj</translation>
     </message>
     <message>
         <source>Allowed paths</source>
-        <translation type="unfinished"/>
+        <translation>Permesitaj vojoj</translation>
     </message>
     <message>
         <source>Blacklisted programs</source>
-        <translation type="unfinished"/>
+        <translation>Barlistigitaj programoj</translation>
     </message>
 </context>
 <context>
@@ -6725,7 +6736,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished"/>
+        <translation>Pasiva</translation>
     </message>
     <message>
         <source>User is talking in your channel or a linked channel</source>
@@ -6745,7 +6756,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto krias al via kanalo</translation>
     </message>
     <message>
         <source>Channel Whisper</source>
@@ -6753,11 +6764,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Zoom</source>
-        <translation type="unfinished"/>
+        <translation>Zomi</translation>
     </message>
     <message>
         <source>Zoom Factor</source>
-        <translation type="unfinished"/>
+        <translation>Zomfaktoro</translation>
     </message>
     <message>
         <source>Enabled Elements</source>
@@ -6781,7 +6792,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanalnomo de uzanto, kiam ekster via nuna kanalo</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6809,7 +6820,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"/>
+        <translation>Zomeco</translation>
     </message>
 </context>
 <context>
@@ -7115,6 +7126,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7128,7 +7147,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message is too long.</source>
-        <translation type="unfinished"/>
+        <translation>Mesaĝo estas tro longa.</translation>
     </message>
     <message>
         <source>Display</source>
@@ -7202,38 +7221,38 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"/>
+        <translation>Ne eblas malkomponi servilonomon</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;Servilo ne respondas al TCP-aj eĥosondoj</translation>
     </message>
     <message>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP-ajn datumpaketojn ne eblas sendi aŭ ricevi de la servilo. Nune ŝanĝas al TCP-an modon.</translation>
     </message>
     <message>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP-a datumpaketoj ne povas sendiĝi al la servilo. Nune ŝanĝas al TCP-an modon.</translation>
     </message>
     <message>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP-a datumpaketoj ne povas riceviĝi de la servilo. Nune ŝanĝas al TCP-an modon.</translation>
     </message>
     <message>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP-a datumpaketoj povas sendiĝi al, kaj riceviĝi de, la servilo. Nune revenas al UDP-an modon.</translation>
     </message>
     <message>
         <source>Connection timed out</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;Konekto tempolimiĝis</translation>
     </message>
 </context>
 <context>
     <name>ServerView</name>
     <message>
         <source>Favorite</source>
-        <translation type="unfinished"/>
+        <translation>Plejŝata</translation>
     </message>
     <message>
         <source>LAN</source>
@@ -7268,6 +7287,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Unassigned</source>
         <translation>Neatribuite</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7367,7 +7390,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"/>
+        <translation>Mesaĝo</translation>
     </message>
 </context>
 <context>
@@ -7428,7 +7451,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>Kiun serĉas vi?</translation>
     </message>
     <message>
         <source>Days</source>
@@ -7456,7 +7479,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Serĉi</translation>
     </message>
     <message>
         <source>User list</source>
@@ -7511,11 +7534,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished"/>
+        <translation>TCP (Kontrolo)</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"/>
+        <translation>UDP (Voĉo)</translation>
     </message>
     <message>
         <source>UDP Network statistics</source>
@@ -7527,11 +7550,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>Malfrua</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>Perdita</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -7539,11 +7562,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>From Client</source>
-        <translation type="unfinished"/>
+        <translation>De Kliento</translation>
     </message>
     <message>
         <source>To Client</source>
-        <translation type="unfinished"/>
+        <translation>Al Kliento</translation>
     </message>
     <message>
         <source>Connection time</source>

@@ -2818,17 +2818,24 @@ Are you sure you wish to replace your certificate?
         <translation>Restaura las opciones por defecto en la página actual</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Este boton restaurará sólo las opciones en la página actual a sus valores por defecto. No se cambiarán otras páginas.&lt;br /&gt;Para restaurar todas las opciones a sus valores por defecto, tendrá que usar este botón en cada página.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Configuración de Mumble</translation>
     </message>
     <message>
         <source>Configuration categories</source>
         <translation>Categorías de configuración</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3371,10 +3378,6 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     <message>
         <source>Shortcuts</source>
         <translation>Métodos abreviados</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Combinación de botones del método abreviado.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6251,6 +6254,11 @@ asegúrese de especificar un valor alternativo para &apos;database&apos; en la c
                 Imprime en stdout el estado de la cola de cancelación de eco (útil para efectos de debugging)
 </translation>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7242,6 +7250,14 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7395,6 +7411,10 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     <message>
         <source>Unassigned</source>
         <translation>Sin asignar</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

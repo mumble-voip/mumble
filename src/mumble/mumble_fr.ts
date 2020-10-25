@@ -2818,17 +2818,24 @@ Are you sure you wish to replace your certificate?
         <translation>Restaurer par défaut pour la page courante</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Ce bouton restaure les paramètres par défaut de la page courante seulement. Les autres pages ne sont pas modifiées.&lt;br /&gt;Pour restaurer tous les paramètres par défaut, vous devez utiliser ce bouton sur toutes les pages.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Configuration de Mumble</translation>
     </message>
     <message>
         <source>Configuration categories</source>
         <translation>Catégories de configuration</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3371,10 +3378,6 @@ Sans cette option, l&apos;utilisation des raccourcis globaux de Mumble dans les 
     <message>
         <source>Shortcuts</source>
         <translation>Raccourcis</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Combinaison de touches du raccourci.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6255,6 +6258,11 @@ Les options valides sont :
 
 </translation>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7245,6 +7253,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7398,6 +7414,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Unassigned</source>
         <translation>Non assigné</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

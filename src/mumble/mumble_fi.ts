@@ -626,15 +626,15 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"/>
+        <translation>Lisenssisopimus</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"/>
+        <translation>Tekijät</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"/>
+        <translation>Kolmansien osapuolten lisenssisopimukset</translation>
     </message>
 </context>
 <context>
@@ -994,31 +994,31 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"/>
+        <translation>Älä käytä melunvaimennusta.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"/>
+        <translation>Käytä melunvaimennukseen Speex-algoritmiä.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"/>
+        <translation>Käytä melunvaimennukseen RNNoise-algoritmiä.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"/>
+        <translation>Käytä melunvaimennukseen Speex ja RNNoise yhdistelmää.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"/>
+        <translation>Molemmat</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"/>
+        <translation>Tällä määritetään kuinka voimakkaasti Speex vaimentaa melua.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"/>
+        <translation>Speex vaimennuksen voimakkuus</translation>
     </message>
 </context>
 <context>
@@ -1113,7 +1113,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"/>
+        <translation>Melunvaimennus</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -2187,7 +2187,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Haku</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -2726,11 +2726,11 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"/>
+        <translation>Ei voida lähettää kuvaa: liian suuri.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"/>
+        <translation>Ei voida lähettää kuvaa %1: liian suuri.</translation>
     </message>
 </context>
 <context>
@@ -2819,17 +2819,24 @@ Haluatko varmasti korvata sertifikaatin?
         <translation>Palauta nykyisen sivun oletusasetukset</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Palauttaa nykyisen sivun asetukset oletusarvoiksi. Toiminto ei tee muutoksia muihin sivuihin.&lt;br /&gt;Halutessasi palauttaa kaikki asetukset oletusarvoihin, tulee sinun käyttää tätä toimintoa jokaisella sivulla.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Mumblen konfigurointi</translation>
     </message>
     <message>
         <source>Configuration categories</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation>Palauta kaikki oletusasetukset</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
+        <translation>Tämä nappi palauttaa kaikkien asetusten oletusarvot.</translation>
     </message>
 </context>
 <context>
@@ -2968,55 +2975,55 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Haku</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"/>
+        <translation>Sijainti</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Suodatus</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"/>
+        <translation>Näytä kaikki</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"/>
+        <translation>Näytä käytössä olevat</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"/>
+        <translation>Näytä tavoitettavissa</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Kaikki</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Afrikka</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Aasia</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Eurooppa</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>Pohjois-Amerikka</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Oseania</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"/>
+        <translation>Etelä-Amerikka</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
@@ -3334,7 +3341,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Käytä GKeyta&lt;/b&gt;.&lt;br /&gt;Tämä asetus ottaa käyttöön tuen GKey pikanäppäimille voidaksesi käyttää &quot;G&quot;-näppäimiä Logitechin näppäimistöillä.</translation>
     </message>
     <message>
         <source>Enable GKey</source>
@@ -3342,7 +3349,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Käytä XInputia&lt;/b&gt;&lt;br /&gt;Tämä asetus ottaa käyttöön XInput tuen Xbox-yhteensopiville ohjaimille.</translation>
     </message>
     <message>
         <source>Enable XInput</source>
@@ -3370,10 +3377,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation>Pikanäppäimet</translation>
     </message>
     <message>
-        <source>Shortcut button combination.</source>
-        <translation>Pikanäppäinyhdistelmä.</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
         <translation>&lt;b&gt;Tämä on yleinen pikanäppäinyhdistelmä. &lt;/b&gt;&lt;br /&gt;Valitse kenttä ja anna haluamasi näppäinyhdistelmä. Tuplaklikkaa tyhjentääksesi. </translation>
@@ -3388,7 +3391,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Määritetyt pikanäppäimet</translation>
     </message>
 </context>
 <context>
@@ -3455,7 +3458,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"/>
+        <translation>Nykyinen valinta</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
@@ -4663,7 +4666,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Channel</source>
-        <translation>K&amp;anava</translation>
+        <translation>&amp;Kanava</translation>
     </message>
     <message>
         <source>Use in conjunction with Whisper to.</source>
@@ -6059,7 +6062,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>No more listeners allowed in this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Tällä kanavalla ei sallita enempää kuuntelijoita.</translation>
     </message>
     <message>
         <source>You are not allowed to listen to more channels than you currently are.</source>
@@ -6067,7 +6070,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>You started listening to %1</source>
-        <translation type="unfinished"/>
+        <translation>Aloitit kuuntelemaan %1</translation>
     </message>
     <message>
         <source>%1 started listening to your channel</source>
@@ -6075,7 +6078,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation type="unfinished"/>
+        <translation>Lopetit kuuntelemasta %1</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
@@ -6095,7 +6098,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"/>
+        <translation>Liittyy tämän käyttäjän kanavalle.</translation>
     </message>
     <message>
         <source>Channels and users</source>
@@ -6127,19 +6130,19 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanava</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"/>
+        <translation>Yksityinen</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"/>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"/>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
@@ -6187,6 +6190,11 @@ Valid options are:
                 (useful for debugging purposes)
 
 </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6483,7 +6491,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation type="unfinished"/>
+        <translation>Piilota julkisten palvelinten lista</translation>
     </message>
 </context>
 <context>
@@ -7122,7 +7130,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"/>
+        <translation>Paikallinen mykistys</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -7174,6 +7182,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7329,6 +7345,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Unassigned</source>
         <translation>Määrittämätön</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7520,7 +7540,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Haku</translation>
     </message>
     <message>
         <source>User list</source>
@@ -7732,7 +7752,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>User volume</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjän äänenvoimakkuus</translation>
     </message>
 </context>
 <context>

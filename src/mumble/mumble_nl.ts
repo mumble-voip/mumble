@@ -2812,17 +2812,24 @@ Zeker dat je jouw certificaat wilt vervangen?
         <translation>Herstel naar standaardwaarden (huidige pagina)</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Knop herstelt standaardwaarden. Andere pagina&apos;s blijven ongewijzigd.&lt;br /&gt;Om alle instellingen naar standaardwaarden te herstellen, moet je de knop op elke pagina gebruiken.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Mumble-configuratie</translation>
     </message>
     <message>
         <source>Configuration categories</source>
         <translation>Configuratiecategorieën</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation>Deze knop zet de instellingen terug naar huidige paginas standaardwaarden. Andere paginas worden niet veranderd.&lt;br /&gt;Om alle instellingen &apos;terug&apos; naar standaard te zetten, zou je op de &quot;Standaard (Alles)&quot; knop kunnen indrukken.</translation>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation>Herstel alle standaardwaarden</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
+        <translation>Deze knop herstelt terug naar standaardwaarden doch voor alle instellingen.</translation>
     </message>
 </context>
 <context>
@@ -3365,10 +3372,6 @@ Zonder deze optie ingeschakeld, werken Mumble&apos;s globale snelkoppelingen nie
     <message>
         <source>Shortcuts</source>
         <translation>Sneltoetsen</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Sneltoets-combinatie</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6241,6 +6244,11 @@ Valide opties zijn:
 
 </translation>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation>Vers(t)op hoofdvenster</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7233,6 +7241,14 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation>RNWoise helaas niet beschikbaar wegens een voorbeeld-&apos;interval&apos;-mismatch.</translation>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation>Alle instellingen resetten?</translation>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation>Wil je echt alle instellingen resetten (niet louter die momenteel zichtbaar zijn) naar &apos;hun&apos; standaardwaarden?</translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7386,6 +7402,10 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     <message>
         <source>Unassigned</source>
         <translation>Ontoegewezen</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation>Sneltoets-combinatie:</translation>
     </message>
 </context>
 <context>
