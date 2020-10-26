@@ -49,9 +49,6 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Reset|QDialogButtonBox::RestoreDefaults</set>
-       </property>
       </widget>
      </item>
      <item>
