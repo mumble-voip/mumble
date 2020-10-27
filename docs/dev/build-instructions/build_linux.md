@@ -19,7 +19,9 @@ sudo apt install \
   libssl-dev \
   libprotobuf-dev \
   protobuf-compiler \
-  libcap-dev libxi-dev \
+  libprotoc-dev \
+  libcap-dev \
+  libxi-dev \
   libasound2-dev \
   libogg-dev \
   libsndfile1-dev \
