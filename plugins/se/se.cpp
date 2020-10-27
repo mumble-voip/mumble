@@ -3,8 +3,20 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_main.h"
-#include "../mumble_plugin_utils.h"
+#include "mumble_plugin.h"
+#include "mumble_plugin_utils.h"
+
+#ifdef OS_LINUX
+#	include "ProcessLinux.h"
+#endif
+#include "ProcessWindows.h"
+
+#include <cstring>
+#include <sstream>
+
+std::unique_ptr< Process > proc;
+
+static bool isWin32 = false;
 
 #include "client.h"
 #include "common.h"
@@ -40,7 +52,7 @@ int32_t signOnStateOffset, deadFlagOffset, rotationOffset, originPositionOffset,
 
 static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *cameraPos, float *cameraFront,
 				 float *cameraTop, std::string &context, std::wstring &identity) {
-	const auto signOnState = peekProc< uint32_t >(localClient + signOnStateOffset);
+	const auto signOnState = proc->peek< uint32_t >(localClient + signOnStateOffset);
 
 	// 0: SIGNONSTATE_NONE
 	// 1: SIGNONSTATE_CHALLENGE
@@ -54,7 +66,7 @@ static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *
 		return false;
 	}
 
-	const auto isPlayerDead = peekProc< bool >(localPlayer + deadFlagOffset);
+	const auto isPlayerDead = proc->peek< bool >(localPlayer + deadFlagOffset);
 	if (isPlayerDead) {
 		context.clear();
 		identity.clear();
@@ -67,22 +79,22 @@ static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *
 	}
 
 	float rotation[3];
-	if (!peekProc(localPlayer + rotationOffset, rotation, sizeof(rotation))) {
+	if (!proc->peek(localPlayer + rotationOffset, rotation, sizeof(rotation))) {
 		return false;
 	}
 
 	float originPosition[3];
-	if (!peekProc(localPlayer + originPositionOffset, originPosition, sizeof(originPosition))) {
+	if (!proc->peek(localPlayer + originPositionOffset, originPosition, sizeof(originPosition))) {
 		return false;
 	}
 
 	float eyesPositionOffset[3];
-	if (!peekProc(localPlayer + eyesPositionOffsetOffset, eyesPositionOffset, sizeof(eyesPositionOffset))) {
+	if (!proc->peek(localPlayer + eyesPositionOffsetOffset, eyesPositionOffset, sizeof(eyesPositionOffset))) {
 		return false;
 	}
 
 	NetInfo ni;
-	if (!peekProc(localClient + netInfoOffset, ni)) {
+	if (!proc->peek(localClient + netInfoOffset, ni)) {
 		return false;
 	}
 
@@ -112,7 +124,7 @@ static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *
 
 	// 40 is the size of the char array in the engine's code
 	char map[40];
-	if (!peekProc(localClient + levelNameOffset, map, sizeof(map))) {
+	if (!proc->peek(localClient + levelNameOffset, map, sizeof(map))) {
 		map[0] = '\0';
 	}
 
@@ -168,18 +180,31 @@ static int fetch(float *avatarPos, float *avatarFront, float *avatarTop, float *
 }
 
 static bool tryInit(const std::multimap< std::wstring, unsigned long long int > &pids) {
+	const std::vector< std::string > names{
 #ifdef OS_LINUX
-	if (initialize(pids, L"hl2_linux")) {
-		return true;
-	}
+		"hl2_linux",
 #endif
+		"left4dead2.exe", "left4dead.exe"
+	};
 
-	if (initialize(pids, L"left4dead2.exe")) {
-		return true;
-	}
-
-	if (initialize(pids, L"left4dead.exe")) {
-		return true;
+	for (const auto &name : names) {
+		const auto id = Process::find(name, pids);
+		if (!id) {
+			continue;
+		}
+#ifdef OS_WINDOWS
+		proc.reset(new ProcessWindows(id, name));
+#else
+		isWin32 = HostLinux::isWine(id);
+		if (isWin32) {
+			proc.reset(new ProcessWindows(id, name));
+		} else {
+			proc.reset(new ProcessLinux(id, name));
+		}
+#endif
+		if (proc->isOk()) {
+			return true;
+		}
 	}
 
 	return false;
@@ -190,12 +215,12 @@ static int tryLock(const std::multimap< std::wstring, unsigned long long int > &
 		return false;
 	}
 
-	const auto engine = getModuleAddr(isWin32 ? L"engine.dll" : L"engine.so");
+	const auto engine = proc->module(isWin32 ? "engine.dll" : "engine.so");
 	if (!engine) {
 		return false;
 	}
 
-	const auto client = getModuleAddr(isWin32 ? L"client.dll" : L"client.so");
+	const auto client = proc->module(isWin32 ? "client.dll" : "client.so");
 	if (!client) {
 		return false;
 	}
@@ -217,7 +242,7 @@ static int tryLock(const std::multimap< std::wstring, unsigned long long int > &
 		return false;
 	}
 
-	const auto signOnState = peekProc< uint32_t >(localClient + signOnStateOffset);
+	const auto signOnState = proc->peek< uint32_t >(localClient + signOnStateOffset);
 	if (signOnState != 6) {
 		return false;
 	}
@@ -273,17 +298,7 @@ static int tryLock(const std::multimap< std::wstring, unsigned long long int > &
 		return false;
 	}
 
-	float avatarPos[3], avatarFront[3], avatarTop[3];
-	float cameraPos[3], cameraFront[3], cameraTop[3];
-	std::string context;
-	std::wstring identity;
-
-	if (fetch(avatarPos, avatarFront, avatarTop, cameraPos, cameraFront, cameraTop, context, identity)) {
-		return true;
-	} else {
-		generic_unlock();
-		return false;
-	}
+	return true;
 }
 
 static const std::wstring longDesc() {
@@ -297,8 +312,11 @@ static int tryLock1() {
 	return tryLock(std::multimap< std::wstring, unsigned long long int >());
 }
 
-static MumblePlugin sePlug = { MUMBLE_PLUGIN_MAGIC, description, shortName, NULL, NULL, tryLock1,
-							   generic_unlock,      longDesc,    fetch };
+static void nullUnlock() {
+}
+
+static MumblePlugin sePlug = { MUMBLE_PLUGIN_MAGIC, description, shortName, nullptr, nullptr, tryLock1,
+							   nullUnlock,          longDesc,    fetch };
 
 static MumblePlugin2 sePlug2 = { MUMBLE_PLUGIN_MAGIC_2, MUMBLE_PLUGIN_VERSION, tryLock };
 

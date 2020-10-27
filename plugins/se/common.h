@@ -18,16 +18,16 @@ static Interfaces getInterfaces(const procptr_t module) {
 	Interfaces interfaces;
 
 	// s_pInterfaceRegs is exported on Linux
-	auto s_pInterfaceRegs = getExportedSymbol("s_pInterfaceRegs", module);
+	auto s_pInterfaceRegs = proc->exportedSymbol("s_pInterfaceRegs", module);
 	if (!s_pInterfaceRegs) {
-		const auto CreateInterface = getExportedSymbol("CreateInterface", module);
+		const auto CreateInterface = proc->exportedSymbol("CreateInterface", module);
 		if (CreateInterface == 0) {
 			return interfaces;
 		}
 
 		bool jmpOnly;
 
-		if (peekProc< uint8_t >(CreateInterface) == 0xE9) {
+		if (proc->peek< uint8_t >(CreateInterface) == 0xE9) {
 			// Left 4 Dead:
 			// E9 ?? ?? ?? ??    jmp    CreateInterface_0
 			jmpOnly = true;
@@ -40,7 +40,7 @@ static Interfaces getInterfaces(const procptr_t module) {
 			jmpOnly = false;
 		}
 
-		const auto jmpTarget               = peekProc< int32_t >(CreateInterface + (jmpOnly ? 1 : 5));
+		const auto jmpTarget               = proc->peek< int32_t >(CreateInterface + (jmpOnly ? 1 : 5));
 		const auto jmpInstructionEnd       = CreateInterface + (jmpOnly ? 5 : 9);
 		const auto CreateInterfaceInternal = jmpInstructionEnd + jmpTarget;
 
@@ -55,21 +55,21 @@ static Interfaces getInterfaces(const procptr_t module) {
 		// 8B EC                mov     ebp, esp
 		// 56                   push    esi
 		// 8B 35 ?? ?? ?? ??    mov     esi, s_pInterfaceRegs
-		if (peekProc< uint16_t >(CreateInterfaceInternal + (jmpOnly ? 1 : 4)) != 0x358B) {
+		if (proc->peek< uint16_t >(CreateInterfaceInternal + (jmpOnly ? 1 : 4)) != 0x358B) {
 			return interfaces;
 		}
 
-		s_pInterfaceRegs = peekProc< uint32_t >(CreateInterfaceInternal + (jmpOnly ? 3 : 6));
+		s_pInterfaceRegs = proc->peek< uint32_t >(CreateInterfaceInternal + (jmpOnly ? 3 : 6));
 	}
 
-	auto iface = peekProc< InterfaceReg >(peekProcPtr(s_pInterfaceRegs));
+	auto iface = proc->peek< InterfaceReg >(proc->peekPtr(s_pInterfaceRegs));
 
 	do {
-		const auto name    = peekProcString(iface.name);
-		const auto address = peekProc< uint32_t >(iface.createFunction + (isWin32 ? 1 : 2));
+		const auto name    = proc->peekString(iface.name);
+		const auto address = proc->peek< uint32_t >(iface.createFunction + (isWin32 ? 1 : 2));
 
 		interfaces.insert(Interfaces::value_type(name, address));
-	} while (iface.next && peekProc(iface.next, iface));
+	} while (iface.next && proc->peek(iface.next, iface));
 
 	return interfaces;
 }
