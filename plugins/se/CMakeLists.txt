@@ -3,4 +3,15 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-add_library(se SHARED "se.cpp")
+add_library(se SHARED
+	"se.cpp"
+
+	"../Process.cpp"
+	"../ProcessWindows.cpp"
+)
+
+if(WIN32)
+	target_sources(se PRIVATE "../HostWindows.cpp")
+else()
+	target_sources(se PRIVATE "../HostLinux.cpp" "../ProcessLinux.cpp")
+endif()

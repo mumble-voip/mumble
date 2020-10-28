@@ -10,34 +10,16 @@
 #	error "Include mumble_plugin_main.h instead of mumble_plugin_linux.h"
 #endif
 
+#include "mumble_plugin_utils.h"
+
 #include <cstring>
 #include <elf.h>
-#include <fstream>
 #include <iostream>
-#include <math.h>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
 #include <sys/uio.h>
-
-static inline std::string readAll(const std::string &fn) {
-	std::ifstream ifs;
-	ifs.open(fn.c_str(), std::ifstream::binary);
-
-	std::string content;
-
-	char buf[256];
-	while (ifs.good()) {
-		ifs.read(&buf[0], sizeof(buf));
-		size_t nread = ifs.gcount();
-		if (nread > 0) {
-			content.append(&buf[0], nread);
-		}
-	}
-
-	return content;
-}
 
 // This function returns:
 // -1 in case of failure.
@@ -100,7 +82,7 @@ static inline procptr_t getModuleAddr(const procid_t &pid, const wchar_t *modnam
 	ss << static_cast< unsigned long >(pid);
 	ss << std::string("/maps");
 	std::string mapsFn = ss.str();
-	std::string maps   = readAll(mapsFn);
+	std::string maps   = readFile(mapsFn);
 
 	if (maps.size() == 0) {
 		return 0;

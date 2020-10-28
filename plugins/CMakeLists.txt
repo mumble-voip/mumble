@@ -36,6 +36,8 @@ foreach(ITEM ${ITEMS})
 			continue()
 		endif()
 
+		target_include_directories(${ITEM} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
 		if(WIN32)
 			target_compile_definitions(${ITEM} PRIVATE "OS_WINDOWS")
 			target_link_libraries(${ITEM} user32.lib)

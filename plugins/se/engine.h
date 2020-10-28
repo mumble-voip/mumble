@@ -17,7 +17,7 @@ static procptr_t getLocalClient(const procptr_t engineClient) {
 	// GetLocalClient() gets the client from an array at the index passed to the function.
 	// There are multiple clients because of the split screen feature.
 
-	const auto GetNetChannelInfo = getVirtualFunction(engineClient, 74);
+	const auto GetNetChannelInfo = proc->virtualFunction(engineClient, 74);
 
 	// Windows:
 	// E8 ?? ?? ?? ??    call    GetBaseLocalClient
@@ -32,7 +32,7 @@ static procptr_t getLocalClient(const procptr_t engineClient) {
 	// 8B 40 ??          mov     eax, [eax+?]
 	// C9                leave
 	// C3                retn
-	const auto callTarget         = peekProc< int32_t >(GetNetChannelInfo + (isWin32 ? 1 : 7));
+	const auto callTarget         = proc->peek< int32_t >(GetNetChannelInfo + (isWin32 ? 1 : 7));
 	const auto callInstructionEnd = GetNetChannelInfo + (isWin32 ? 5 : 11);
 	const auto GetBaseLocalClient = callInstructionEnd + callTarget;
 
@@ -41,7 +41,8 @@ static procptr_t getLocalClient(const procptr_t engineClient) {
 	// 83 C0 ??                   add     eax, ?
 	// C3                         retn
 	if (isWin32) {
-		return peekProcPtr(peekProc< uint32_t >(GetBaseLocalClient + 1)) + peekProc< int8_t >(GetBaseLocalClient + 7);
+		return proc->peekPtr(proc->peek< uint32_t >(GetBaseLocalClient + 1))
+			   + proc->peek< int8_t >(GetBaseLocalClient + 7);
 	}
 
 	// Linux:
@@ -85,11 +86,11 @@ static procptr_t getLocalClient(const procptr_t engineClient) {
 	//
 	// Its purpose seem to be to iterate over the clients array, which is done directly by GetBaseLocalClient() and
 	// GetLocalClient() on Windows.
-	return peekProcPtr(peekProc< uint32_t >(GetBaseLocalClient + 17) + 4) + 4;
+	return proc->peekPtr(proc->peek< uint32_t >(GetBaseLocalClient + 17) + 4) + 4;
 }
 
 static int8_t getSignOnStateOffset(const procptr_t engineClient) {
-	const auto IsInGame = getVirtualFunction(engineClient, 26);
+	const auto IsInGame = proc->virtualFunction(engineClient, 26);
 
 	// Windows:
 	// E8 ?? ?? ?? ??    call    GetBaseLocalClient
@@ -107,11 +108,11 @@ static int8_t getSignOnStateOffset(const procptr_t engineClient) {
 	// C9                leave
 	// 0F 94 C0          setz    al
 	// C3                retn
-	return peekProc< int8_t >(IsInGame + (isWin32 ? 9 : 13));
+	return proc->peek< int8_t >(IsInGame + (isWin32 ? 9 : 13));
 }
 
 static int32_t getLevelNameOffset(const procptr_t engineClient) {
-	const auto GetLevelNameShort = getVirtualFunction(engineClient, 53);
+	const auto GetLevelNameShort = proc->virtualFunction(engineClient, 53);
 
 	// Windows:
 	// ...
@@ -128,19 +129,19 @@ static int32_t getLevelNameOffset(const procptr_t engineClient) {
 	// 05 ?? ?? ?? ??    add     eax, ?
 	// C3                retn
 	if (isWin32) {
-		if (peekProc< uint8_t >(GetLevelNameShort + 37) == 0x05) {
+		if (proc->peek< uint8_t >(GetLevelNameShort + 37) == 0x05) {
 			// Left 4 Dead
-			return peekProc< int32_t >(GetLevelNameShort + 38);
+			return proc->peek< int32_t >(GetLevelNameShort + 38);
 		} else {
-			return peekProc< int32_t >(GetLevelNameShort + 40);
+			return proc->peek< int32_t >(GetLevelNameShort + 40);
 		}
 	}
 
-	return peekProc< int32_t >(GetLevelNameShort + 57);
+	return proc->peek< int32_t >(GetLevelNameShort + 57);
 }
 
 static int32_t getNetInfoOffset(const procptr_t localClient, const procptr_t engineClient) {
-	const auto GetNetChannelInfo = getVirtualFunction(engineClient, 74);
+	const auto GetNetChannelInfo = proc->virtualFunction(engineClient, 74);
 
 	// Windows:
 	// E8 ?? ?? ?? ??    call    GetBaseLocalClient
@@ -155,8 +156,9 @@ static int32_t getNetInfoOffset(const procptr_t localClient, const procptr_t eng
 	// 8B 40 ??          mov     eax, [eax+?]
 	// C9                leave
 	// C3                retn
-	const auto NetChannelInfo = peekProcPtr(localClient + peekProc< int8_t >(GetNetChannelInfo + (isWin32 ? 7 : 13)));
-	const auto GetAddress     = getVirtualFunction(NetChannelInfo, 1);
+	const auto NetChannelInfo =
+		proc->peekPtr(localClient + proc->peek< int8_t >(GetNetChannelInfo + (isWin32 ? 7 : 13)));
+	const auto GetAddress = proc->virtualFunction(NetChannelInfo, 1);
 
 	// Windows:
 	// 6A 00                      push    0
@@ -175,7 +177,7 @@ static int32_t getNetInfoOffset(const procptr_t localClient, const procptr_t eng
 	// E8 ?? ?? ?? ??             call    ToString
 	// C9                         leave
 	// C3                         retn
-	const auto netInfo = NetChannelInfo + peekProc< int32_t >(GetAddress + (isWin32 ? 4 : 18));
+	const auto netInfo = NetChannelInfo + proc->peek< int32_t >(GetAddress + (isWin32 ? 4 : 18));
 
 	return static_cast< int32_t >(netInfo - localClient);
 }

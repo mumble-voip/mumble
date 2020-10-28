@@ -6,7 +6,9 @@
 #ifndef MUMBLE_MUMBLE_PLUGIN_UTILS_H_
 #define MUMBLE_MUMBLE_PLUGIN_UTILS_H_
 
+#include <cmath>
 #include <codecvt>
+#include <fstream>
 #include <locale>
 
 #ifdef OS_LINUX
@@ -14,6 +16,7 @@
 #endif
 
 #ifdef _MSC_VER
+#	include <corecrt_math_defines.h>
 #	include <intrin.h>
 #endif
 
@@ -28,6 +31,11 @@ union SingleSplit4Bytes {
 static inline std::string utf16ToUtf8(const std::wstring &wstr) {
 	std::wstring_convert< std::codecvt_utf8_utf16< wchar_t > > conv;
 	return conv.to_bytes(wstr);
+}
+
+static inline std::wstring utf8ToUtf16(const std::string &str) {
+	std::wstring_convert< std::codecvt_utf8_utf16< wchar_t > > conv;
+	return conv.from_bytes(str);
 }
 
 // escape lossily converts the given
@@ -69,6 +77,23 @@ static inline void escape(char *str, const size_t &size) {
 
 		c += 1;
 	}
+}
+
+/// Reads the file's content and returns it in a std::string.
+static inline std::string readFile(const std::string &path) {
+	std::ifstream ifs(path, std::ifstream::binary);
+	std::string content;
+	char buf[256];
+
+	while (ifs.good()) {
+		ifs.read(&buf[0], sizeof(buf));
+		size_t read = ifs.gcount();
+		if (read > 0) {
+			content.append(&buf[0], read);
+		}
+	}
+
+	return content;
 }
 
 /// Calculates sine and cosine of the specified value.
