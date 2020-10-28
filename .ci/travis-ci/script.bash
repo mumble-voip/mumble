@@ -16,7 +16,9 @@ VER=$(python scripts/mumble-version.py)
 if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 	if [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
 		mkdir build && cd build
-		cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dversion=$VER -Dsymbols=ON -Donline-tests=ON -Dgrpc=ON ..
+
+		cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dversion=$VER -Dsymbols=ON -Donline-tests=ON -Dgrpc=ON -Ddisplay-install-paths=ON ..
+
 		cmake --build .
 		# We don't execute tests on ARM64 because TestPacketDataStream fails.
 		# See https://github.com/mumble-voip/mumble/issues/3845.
@@ -24,8 +26,11 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		sudo cmake --install .
 	elif [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ]; then
 		mkdir build && cd build
+
 		# We specify the absolute path because otherwise Travis CI's CMake is used.
-		/usr/bin/cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dversion=$VER -Dsymbols=ON -Donline-tests=ON -Dgrpc=ON ..
+		/usr/bin/cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dversion=$VER -Dsymbols=ON -Donline-tests=ON -Dgrpc=ON \
+		-Ddisplay-install-paths=ON ..
+
 		/usr/bin/cmake --build .
 		/usr/bin/ctest --verbose
 		sudo /usr/bin/cmake --install .
@@ -39,7 +44,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 		PATH=$PATH:/usr/lib/mxe/usr/bin
 
 		${MUMBLE_HOST}.static-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -Dtests=ON -Dversion=$VER -Dstatic=ON -Dsymbols=ON -Dasio=ON \
-			-Dzeroconf=OFF -Dice=OFF -Doverlay=OFF -Donline-tests=ON ..
+			-Dzeroconf=OFF -Dice=OFF -Doverlay=OFF -Donline-tests=ON -Ddisplay-install-paths=ON ..
 		cmake --build .
 		# TODO: investigate why tests fail.
 		#ctest
