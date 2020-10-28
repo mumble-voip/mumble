@@ -5,6 +5,21 @@
 
 include(GNUInstallDirs)
 
+# Turns a path into an absolute path if it isn't absolute already
+function(make_absolute out_path in_path)
+	get_filename_component(abs_path "${in_path}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
+	set(${out_path} "${abs_path}" PARENT_SCOPE)
+endfunction()
+
+function(assert_is_relative path)
+	make_absolute(abs_path "${path}")
+
+	if("${path}" STREQUAL "${abs_path}")
+		message(FATAL_ERROR "Encountered absolute install path but expected a relative one (\"${path}\")")
+	endif()
+endfunction()
+
+
 if(UNIX)
 	if(APPLE)
 		set(EXECUTABLEDIR_DEFAULT ".")
@@ -32,7 +47,7 @@ else()
 	set(SCRIPTDIR_DEFAULT "./scripts")
 	set(MANDIR_DEFAULT "./man1")
 	set(DOCDIR_DEFAULT "./docs")
-		set(LICENSEDIR_DEFAULT "${EXECUTABLEDIR_DEFAULT}/licenses")
+	set(LICENSEDIR_DEFAULT "${EXECUTABLEDIR_DEFAULT}/licenses")
 endif()
 
 set(MUMBLE_INSTALL_EXECUTABLEDIR "${EXECUTABLEDIR_DEFAULT}" CACHE PATH "The directory to install the main executable(s) into")
@@ -43,27 +58,46 @@ set(MUMBLE_INSTALL_MANDIR "${MANDIR_DEFAULT}" CACHE PATH "The directory to insta
 set(MUMBLE_INSTALL_DOCDIR "${DOCDIR_DEFAULT}" CACHE PATH "The directory to install documentation files into")
 set(MUMBLE_INSTALL_LICENSEDIR "${LICENSEDIR_DEFAULT}" CACHE PATH "The directory to install license files into")
 
+if(packaging)
+	# Using absolute install paths doesn't allow CPack to create the installer for us.
+	# Therefore we have to make sure that the paths are indeed relative.
+	assert_is_relative("${MUMBLE_INSTALL_EXECUTABLEDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_LIBDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_PLUGINDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_SCRIPTDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_MANDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_DOCDIR}")
+	assert_is_relative("${MUMBLE_INSTALL_LICENSEDIR}")
+
+	if(WIN32)
+		if(NOT "${MUMBLE_INSTALL_LIBDIR}" STREQUAL "${LIBDIR_DEFAULT}")
+			# The path has been altered which will not allow for a working installer to be created
+			message(FATAL_ERROR "Found non default MUMBLE_INSTALL_LIBDIR path, that will not result in a working installer! (\"${MUMBLE_INSTALL_LIBDIR}\")")
+		endif()
+	endif()
+else()
+	# Turn all install paths into absolute ones as this is required for e.g. shared libraries to be loaded
+	make_absolute(MUMBLE_INSTALL_EXECUTABLEDIR "${MUMBLE_INSTALL_EXECUTABLEDIR}")
+	make_absolute(MUMBLE_INSTALL_LIBDIR "${MUMBLE_INSTALL_LIBDIR}")
+	make_absolute(MUMBLE_INSTALL_PLUGINDIR "${MUMBLE_INSTALL_PLUGINDIR}")
+	make_absolute(MUMBLE_INSTALL_SCRIPTDIR "${MUMBLE_INSTALL_SCRIPTDIR}")
+	make_absolute(MUMBLE_INSTALL_MANDIR "${MUMBLE_INSTALL_MANDIR}")
+	make_absolute(MUMBLE_INSTALL_DOCDIR "${MUMBLE_INSTALL_DOCDIR}")
+	make_absolute(MUMBLE_INSTALL_LICENSEDIR "${MUMBLE_INSTALL_LICENSEDIR}")
+endif()
+
 option(display-install-paths OFF)
 
 if(display-install-paths)
-	# Turn into absolute paths by prepending the install-prefix (unless they are absolute paths already)
-	# We only do that for printing the paths as using absolute install paths prevents CPack from working and
-	# therefore prevents us from being able to build the installer.
-	get_filename_component(EXECUTABLEDIR_ABS "${MUMBLE_INSTALL_EXECUTABLEDIR}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
-	get_filename_component(LIBDIR_ABS "${MUMBLE_INSTALL_LIBDIR}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
-	get_filename_component(PLUGINDIR_ABS "${MUMBLE_INSTALL_PLUGINDIR}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
-	get_filename_component(SCRIPTDIR_ABS "${MUMBLE_INSTALL_SCRIPTDIR}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
-	get_filename_component(MANDIR_ABS "${MUMBLE_INSTALL_MANDIR}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
-	get_filename_component(DOCDIR_ABS "${MUMBLE_INSTALL_DOCDIR}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
-	get_filename_component(LICENSEDIR_ABS "${MUMBLE_INSTALL_LICENSEDIR}" ABSOLUTE BASE_DIR "${CMAKE_INSTALL_PREFIX}")
-
+	message(STATUS "")
 	message(STATUS "These are the paths the different components will be installed to:")
-	message(STATUS "Executables:    \"${EXECUTABLEDIR_ABS}\"")
-	message(STATUS "Libraries:      \"${LIBDIR_ABS}\"")
-	message(STATUS "Plugins:        \"${PLUGINDIR_ABS}\"")
-	message(STATUS "Scripts:        \"${SCRIPTDIR_ABS}\"")
-	message(STATUS "Man-files:      \"${MANDIR_ABS}\"")
-	message(STATUS "Documentation:  \"${DOCDIR_ABS}\"")
-	message(STATUS "Licenses:       \"${LICENSEDIR_ABS}\"")
+	message(STATUS "Executables:    \"${MUMBLE_INSTALL_EXECUTABLEDIR}\"")
+	message(STATUS "Libraries:      \"${MUMBLE_INSTALL_LIBDIR}\"")
+	message(STATUS "Plugins:        \"${MUMBLE_INSTALL_PLUGINDIR}\"")
+	message(STATUS "Scripts:        \"${MUMBLE_INSTALL_SCRIPTDIR}\"")
+	message(STATUS "Man-files:      \"${MUMBLE_INSTALL_MANDIR}\"")
+	message(STATUS "Documentation:  \"${MUMBLE_INSTALL_DOCDIR}\"")
+	message(STATUS "Licenses:       \"${MUMBLE_INSTALL_LICENSEDIR}\"")
+	message(STATUS "")
 endif()
 

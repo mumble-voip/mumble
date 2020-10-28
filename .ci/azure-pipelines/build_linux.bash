@@ -18,7 +18,7 @@ VER=$(python scripts/mumble-version.py)
 cd $BUILD_BINARIESDIRECTORY
 
 cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=appdir/usr -Dtests=ON Donline-tests=ON -Dversion=$VER -Dsymbols=ON \
-	-Donline-tests=ON -Dgrpc=ON $BUILD_SOURCESDIRECTORY
+	-Donline-tests=ON -Dgrpc=ON -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 
 cmake --build .
 ctest --verbose
