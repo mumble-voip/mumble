@@ -49,6 +49,7 @@ RUN apt-get update && apt-get install -y \
 	libqt5sql5 \
 	libqt5xml5 \
 	libqt5dbus5 \
+	ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY --from=0 /root/mumble/build/murmurd /usr/bin/murmurd
