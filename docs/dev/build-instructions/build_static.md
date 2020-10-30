@@ -12,8 +12,10 @@ on all major platforms (Windows, Linux, macOS, probably more), so the instructio
 The entire build environment will require between 30GB and 60GB of space on your hard-drive. If installed via script, it tends to converge towards the
 lower bound whereas a manual installation usually tends towards the higher bound.
 
-In addition to the dependencies installed via vcpkg, you'll also need [cmake](https://cmake.org/) (v3.15 or later). On Linux you might have to install
-cmake using a [PPA](https://apt.kitware.com/) and on macOS you can install it using [homebrew](https://formulae.brew.sh/formula/cmake).
+In addition to the dependencies installed via vcpkg, you'll also need [cmake](https://cmake.org/) version 3.15 or higher.
+On macOS you can install it using [homebrew](https://formulae.brew.sh/formula/cmake).
+Linux distributions usually provide a cmake package you can install through your package manager (for example `apt-get install cmake`).
+On Windows you download and install the *latest release* installer from the [official CMake download website](https://cmake.org/download/).
 
 
 ### Installing via script
