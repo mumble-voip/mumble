@@ -55,7 +55,7 @@ try {
 	if (Test-Path $vcpkgdir) {
 		if (-not (Test-Path $vcpkgdir/ports/zeroc-ice)) {
 			Write-Host "Adding ports for ZeroC Ice..."
-			Copy-Item -Path ./helpers/vcpkg/ports/zeroc-ice -Destination $vcpkgdir/ports -Recurse
+			Copy-Item -Path $PSScriptRoot/../../helpers/vcpkg/ports/zeroc-ice -Destination $vcpkgdir/ports -Recurse
 		}
 		
 		cd $vcpkgdir
