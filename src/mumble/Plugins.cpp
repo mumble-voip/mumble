@@ -242,9 +242,13 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 
 	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");
 #else
-	qsSystemPlugins =
-		QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath());
-	qsUserPlugins      = QString();
+#	ifdef MUMBLE_PLUGIN_PATH
+	qsSystemPlugins = QLatin1String(MUMTEXT(MUMBLE_PLUGIN_PATH));
+#	else
+	qsSystemPlugins = QString();
+#	endif
+
+	qsUserPlugins = QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath());
 #endif
 
 #ifdef Q_OS_WIN
@@ -301,12 +305,8 @@ void Plugins::rescanPlugins() {
 	bValid              = false;
 
 	QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-#ifdef QT_NO_DEBUG
 	QDir qud(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
 	QFileInfoList libs = qud.entryInfoList() + qd.entryInfoList();
-#else
-	QFileInfoList libs = qd.entryInfoList();
-#endif
 
 	QSet< QString > evaluated;
 	foreach (const QFileInfo &libinfo, libs) {
