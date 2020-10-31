@@ -79,7 +79,7 @@ public:
 	GlobalShortcut *gsToggleOverlay;
 #endif
 	GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
-	GlobalShortcut *gsCycleTransmitMode, *gsTransmitModePushToTalk, *gsTransmitModeContinuous, *gsTransmitModeVAD;
+	GlobalShortcut *gsCycleTransmitMode, *gsToggleMainWindowVisibility, *gsTransmitModePushToTalk, *gsTransmitModeContinuous, *gsTransmitModeVAD;
 	GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -268,6 +268,7 @@ public slots:
 	void addTarget(ShortcutTarget *);
 	void removeTarget(ShortcutTarget *);
 	void on_gsCycleTransmitMode_triggered(bool, QVariant);
+	void on_gsToggleMainWindowVisibility_triggered(bool, QVariant);
 	void on_gsTransmitModePushToTalk_triggered(bool, QVariant);
 	void on_gsTransmitModeContinuous_triggered(bool, QVariant);
 	void on_gsTransmitModeVAD_triggered(bool, QVariant);

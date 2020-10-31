@@ -257,6 +257,9 @@ void MainWindow::createActions() {
 	gsCycleTransmitMode = new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
 
+	gsToggleMainWindowVisibility = new GlobalShortcut(this, idx++, tr("Hide/show main window", "Global Shortcut"));
+	gsToggleMainWindowVisibility->setObjectName(QLatin1String("gsToggleMainWindowVisibility"));
+
 	gsTransmitModePushToTalk =
 		new GlobalShortcut(this, idx++, tr("Set Transmit Mode to Push-To-Talk", "Global Shortcut"));
 	gsTransmitModePushToTalk->setObjectName(QLatin1String("gsTransmitModePushToTalk"));
@@ -3025,6 +3028,16 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant) {
 	}
 
 	updateTransmitModeComboBox();
+}
+
+void MainWindow::on_gsToggleMainWindowVisibility_triggered(bool down, QVariant) {
+	if (down) {
+		if (g.mw->isVisible()) {
+			g.mw->hide();
+		} else {
+			g.mw->show();
+		}
+	}
 }
 
 void MainWindow::on_gsTransmitModePushToTalk_triggered(bool down, QVariant) {
