@@ -132,6 +132,36 @@ Note also that you **have** to use the command prompt and **not** the Developer 
 
 If you are on a 64bit system, then you'll know that you have opened the correct prompt, if it prints `Environment initialized for: 'x64'`.
 
+However, you can use powershell 64bit if you run the following script prior to cmake. You can either run it as required, or include it in your powershell profile. 
+
+```powershell
+# Based on the version of Visual Studio you have installed, the VC++ tools will be in a specific location.
+# Using the "x64 Native Tools Command Prompt" shortcut referenced above, you can find the root folder by viewing the properties of the shortcut.
+
+# e.g. Visual Studio 2015 path
+# "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio 14.0\VC\"
+
+# e.g. Vistual Studio 2019 path
+# "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\"
+
+# Here we're using VS 2015.
+$vcToolsPath = "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio 14.0\VC\"
+
+# Shift context to VS
+Push-Location $vcToolsPath
+
+$architecture = 'x64' # amd64 and x64 resolve to the same path in vcvarsall.bat and are interchangeable.
+
+# Have vcvarsall.bat load the 64 bit environment variables.
+cmd /c "vcvarsall.bat $architecture&set" |
+foreach {
+	if ($_ -match "=") {
+		$v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
+	}
+}
+# Go back to where we were before.
+Pop-Location
+```
 
 #### CMake Generator
 
