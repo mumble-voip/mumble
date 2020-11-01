@@ -17,3 +17,4 @@ Furthermore you might find these helpful as well:
 - [List of available cmake options](cmake_options.md)
 - [IDE integration](ide_integration.md)
 - [Create an installer](build_installer.md)
+- [Setup Visual Studio](setup_visual_studio.md)
