@@ -229,27 +229,16 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 		fPosition[i] = fFront[i] = fTop[i] = 0.0;
 	QMetaObject::connectSlotsByName(this);
 
-#ifdef QT_NO_DEBUG
-#	ifndef MUMBLE_PLUGIN_PATH
-	qsSystemPlugins =
-		QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath());
-#		ifdef Q_OS_MAC
-	qsSystemPlugins = QString::fromLatin1("%1/../Plugins").arg(qApp->applicationDirPath());
-#		endif
-#	else
-	qsSystemPlugins = QLatin1String(MUMTEXT(MUMBLE_PLUGIN_PATH));
-#	endif
+	downloadPath = QLatin1String("%1/Plugins").arg(g.qdBasePath.absolutePath());
 
-	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");
-#else
-#	ifdef MUMBLE_PLUGIN_PATH
-	qsSystemPlugins = QLatin1String(MUMTEXT(MUMBLE_PLUGIN_PATH));
-#	else
-	qsSystemPlugins = QString();
-#	endif
-
-	qsUserPlugins = QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath());
+#ifdef MUMBLE_PLUGIN_PATH
+	loadPaths.append(QLatin1String(MUMTEXT(MUMBLE_PLUGIN_PATH)));
 #endif
+#ifdef Q_OS_MAC
+	loadPaths.append(QLatin1String("%1/../Plugins").arg(qApp->applicationDirPath()));
+#endif
+	loadPaths.append(QLatin1String("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath()));
+	loadPaths.append(downloadPath);
 
 #ifdef Q_OS_WIN
 	// According to MS KB Q131065, we need this to OpenProcess()
@@ -304,9 +293,11 @@ void Plugins::rescanPlugins() {
 	prevlocked = locked = nullptr;
 	bValid              = false;
 
-	QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-	QDir qud(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-	QFileInfoList libs = qud.entryInfoList() + qd.entryInfoList();
+	QFileInfoList libs;
+	for (const auto &path : loadPaths) {
+		QDir dir(path, QString(), QDir::Name, QDir::Files | QDir::Readable);
+		libs += dir.entryInfoList();
+	}
 
 	QSet< QString > evaluated;
 	foreach (const QFileInfo &libinfo, libs) {
@@ -632,10 +623,10 @@ void Plugins::fetchedUpdatePAPlugins(QByteArray data, QUrl) {
 		n = n.nextSibling();
 	}
 
-	QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-	QDir qdu(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
+	QDir systemDir(loadPaths[0], QString(), QDir::Name, QDir::Files | QDir::Readable);
+	QDir downloadDir(downloadPath, QString(), QDir::Name, QDir::Files | QDir::Readable);
 
-	QFileInfoList libs = qd.entryInfoList();
+	QFileInfoList libs = systemDir.entryInfoList();
 	foreach (const QFileInfo &libinfo, libs) {
 		QString libname     = libinfo.absoluteFilePath();
 		QString filename    = libinfo.fileName();
@@ -654,8 +645,8 @@ void Plugins::fetchedUpdatePAPlugins(QByteArray data, QUrl) {
 				QString h = QLatin1String(sha1(f.readAll()).toHex());
 				f.close();
 				if (h == wanthash) {
-					if (qd != qdu) {
-						QFile qfuser(qsUserPlugins + QString::fromLatin1("/") + filename);
+					if (systemDir != downloadDir) {
+						QFile qfuser(downloadPath + '/' + filename);
 						if (qfuser.exists()) {
 							clearPlugins();
 							qfuser.remove();
@@ -669,8 +660,8 @@ void Plugins::fetchedUpdatePAPlugins(QByteArray data, QUrl) {
 		}
 	}
 
-	if (qd != qdu) {
-		libs = qdu.entryInfoList();
+	if (systemDir != downloadDir) {
+		libs = downloadDir.entryInfoList();
 		foreach (const QFileInfo &libinfo, libs) {
 			QString libname     = libinfo.absoluteFilePath();
 			QString filename    = libinfo.fileName();
@@ -769,13 +760,13 @@ void Plugins::fetchedPAPluginDL(QByteArray data, QUrl url) {
 				clearPlugins();
 
 				QFile f;
-				f.setFileName(qsSystemPlugins + QLatin1String("/") + fname);
+				f.setFileName(loadPaths[0] + '/' + fname);
 				if (f.open(QIODevice::WriteOnly)) {
 					f.write(data);
 					f.close();
 					g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName().toHtmlEscaped()));
 				} else {
-					f.setFileName(qsUserPlugins + QLatin1String("/") + fname);
+					f.setFileName(downloadPath + '/' + fname);
 					if (f.open(QIODevice::WriteOnly)) {
 						f.write(data);
 						f.close();

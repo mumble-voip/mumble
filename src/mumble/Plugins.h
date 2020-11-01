@@ -62,8 +62,8 @@ protected:
 	void clearPlugins();
 	int iPluginTry;
 	QMap< QString, PluginFetchMeta > qmPluginFetchMeta;
-	QString qsSystemPlugins;
-	QString qsUserPlugins;
+	QString downloadPath;
+	QStringList loadPaths;
 #ifdef Q_OS_WIN
 	HANDLE hToken;
 	TOKEN_PRIVILEGES tpPrevious;
