@@ -17,7 +17,6 @@ class HostWindows {
 protected:
 	bool m_ok;
 	procid_t m_pid;
-	void *m_handle;
 
 public:
 	inline bool isOk() const { return m_ok; }

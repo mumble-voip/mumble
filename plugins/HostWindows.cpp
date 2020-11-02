@@ -10,22 +10,15 @@
 #include <windows.h>
 #include <tlhelp32.h>
 
-HostWindows::HostWindows(const procid_t pid) : m_ok(false), m_pid(pid) {
-	m_handle = OpenProcess(PROCESS_VM_READ, false, m_pid);
-	if (m_handle) {
-		m_ok = true;
-	}
+HostWindows::HostWindows(const procid_t pid) : m_ok(true), m_pid(pid) {
 }
 
 HostWindows::~HostWindows() {
-	if (m_handle) {
-		CloseHandle(m_handle);
-	}
 }
 
 bool HostWindows::peek(const procptr_t address, void *dst, const size_t size) const {
 	SIZE_T read;
-	const BOOL ok = ReadProcessMemory(m_handle, reinterpret_cast< void * >(address), dst, size, &read);
+	const auto ok = Toolhelp32ReadProcessMemory(m_pid, reinterpret_cast< void * >(address), dst, size, &read);
 	return (ok && read == size);
 }
 
