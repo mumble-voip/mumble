@@ -12,7 +12,7 @@
 
 #include <sys/uio.h>
 
-HostLinux::HostLinux(const procid_t pid) : m_ok(true), m_pid(pid) {
+HostLinux::HostLinux(const procid_t pid) : m_pid(pid) {
 }
 
 HostLinux::~HostLinux() {

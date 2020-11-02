@@ -21,12 +21,15 @@ using Host = HostLinux;
 /// Only defines stuff that can be used with both Linux and Windows processes.
 class Process : public Host {
 protected:
+	bool m_ok;
 	std::string m_name;
 	uint8_t m_pointerSize;
 
 public:
 	using Host::module;
 	using Host::peek;
+
+	inline bool isOk() const { return m_ok; }
 
 	template< typename T > inline bool peek(const procptr_t address, T &dst) const {
 		return peek(address, &dst, sizeof(T));
