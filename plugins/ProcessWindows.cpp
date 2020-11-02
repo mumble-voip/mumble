@@ -8,12 +8,6 @@
 #include "mumble_plugin_win32_internals.h"
 
 ProcessWindows::ProcessWindows(const procid_t id, const std::string &name) : Process(id, name) {
-	if (!m_ok) {
-		return;
-	}
-
-	m_ok = false;
-
 	const auto address = module(name);
 	if (!address) {
 		return;

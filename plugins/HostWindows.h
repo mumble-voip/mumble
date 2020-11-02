@@ -15,12 +15,9 @@ typedef uint64_t procptr_t;
 
 class HostWindows {
 protected:
-	bool m_ok;
 	procid_t m_pid;
 
 public:
-	inline bool isOk() const { return m_ok; }
-
 	bool peek(const procptr_t address, void *dst, const size_t size) const;
 	procptr_t module(const std::string &module) const;
 

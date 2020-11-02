@@ -10,7 +10,7 @@
 #include <windows.h>
 #include <tlhelp32.h>
 
-HostWindows::HostWindows(const procid_t pid) : m_ok(true), m_pid(pid) {
+HostWindows::HostWindows(const procid_t pid) : m_pid(pid) {
 }
 
 HostWindows::~HostWindows() {

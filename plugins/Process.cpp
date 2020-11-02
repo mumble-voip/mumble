@@ -9,7 +9,7 @@
 
 #include <chrono>
 
-Process::Process(const procid_t id, const std::string &name) : Host(id), m_name(name), m_pointerSize(0) {
+Process::Process(const procid_t id, const std::string &name) : Host(id), m_ok(false), m_name(name), m_pointerSize(0) {
 }
 
 Process::~Process() {
