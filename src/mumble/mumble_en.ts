@@ -3332,10 +3332,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shortcut button combination.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
         <translation type="unfinished"></translation>
@@ -7285,6 +7281,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Unassigned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

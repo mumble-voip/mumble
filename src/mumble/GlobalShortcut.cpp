@@ -15,6 +15,7 @@
 #include <QtCore/QSortFilterProxyModel>
 #include <QtGui/QFocusEvent>
 #include <QtWidgets/QItemEditorFactory>
+#include <QtWidgets/QToolTip>
 
 #ifdef Q_OS_MAC
 #	include <ApplicationServices/ApplicationServices.h>
@@ -548,6 +549,25 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 	return QStyledItemDelegate::displayText(item, loc);
 }
 
+bool ShortcutDelegate::helpEvent(QHelpEvent *event, QAbstractItemView *, const QStyleOptionViewItem &,
+								 const QModelIndex &index) {
+	if (event->type() != QEvent::ToolTip || !index.isValid()) {
+		return false;
+	}
+
+	QString text;
+	QTextStream textStream(&text);
+	textStream << tr("Shortcut button combination:");
+
+	const auto shortcuts = index.data(Qt::DisplayRole).toList();
+	for (const auto &shortcut : shortcuts) {
+		textStream << QLatin1String("\n- ") << GlobalShortcutEngine::engine->buttonName(shortcut);
+	}
+
+	QToolTip::showText(event->globalPos(), text);
+	return true;
+}
+
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 	qtwShortcuts->setAccessibleName(tr("Configured shortcuts"));
@@ -788,7 +808,6 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 			item->setData(0, Qt::WhatsThisRole, gs->qsWhatsThis);
 	}
 
-	item->setData(2, Qt::ToolTipRole, tr("Shortcut button combination."));
 	item->setData(2, Qt::WhatsThisRole,
 				  tr("<b>This is the global shortcut key combination.</b><br />"
 					 "Click this field and then press the desired key/button combo "

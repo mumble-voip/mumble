@@ -172,6 +172,8 @@ public:
 	ShortcutDelegate(QObject *);
 	~ShortcutDelegate() Q_DECL_OVERRIDE;
 	QString displayText(const QVariant &, const QLocale &) const Q_DECL_OVERRIDE;
+	bool helpEvent(QHelpEvent *, QAbstractItemView *, const QStyleOptionViewItem &,
+				   const QModelIndex &) Q_DECL_OVERRIDE;
 };
 
 /**
@@ -256,8 +258,8 @@ public:
 	bool handleButton(const QVariant &, bool);
 	static void add(GlobalShortcut *);
 	static void remove(GlobalShortcut *);
-	static QString buttonText(const QList< QVariant > &);
 	virtual QString buttonName(const QVariant &) = 0;
+	static QString buttonText(const QList< QVariant > &);
 	virtual bool canSuppress();
 
 	virtual void setEnabled(bool b);
