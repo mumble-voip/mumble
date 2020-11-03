@@ -6137,6 +6137,11 @@ Valid options are:
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
