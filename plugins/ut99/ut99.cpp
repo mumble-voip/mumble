@@ -143,20 +143,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	procptr_t cptr1 = peekProcPtr(cptr0 + 0x73C);
 	procptr_t cptr2 = peekProcPtr(cptr1 + 0x244);
 
-
-	wchar_t wservername[60];
-
-	ok = peekProc((procptr_t) cptr2, wservername);
-	if (!ok)
+	std::u16string servername;
+	servername.resize(60);
+	if (!peekProc(cptr2, &servername[0], servername.size())) {
 		return false;
-
-	wservername[sizeof(wservername) / sizeof(wservername[0]) - 1] = '\0';
-
-	const std::string servername = utf16ToUtf8(wservername);
+	}
 
 	std::ostringstream contextss;
 	contextss << "{"
-			  << "\"servername\":\"" << servername << "\""
+			  << "\"servername\":\"" << utf16ToUtf8(servername) << "\""
 			  << "}";
 
 	context = contextss.str();
