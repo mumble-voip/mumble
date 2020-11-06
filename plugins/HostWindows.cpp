@@ -22,24 +22,61 @@ bool HostWindows::peek(const procptr_t address, void *dst, const size_t size) co
 	return (ok && read == size);
 }
 
-procptr_t HostWindows::module(const std::string &module) const {
-	const auto handle = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, m_pid);
-	if (handle == INVALID_HANDLE_VALUE) {
-		return 0;
+Modules HostWindows::modules() const {
+	const auto processHandle = OpenProcess(PROCESS_QUERY_INFORMATION, false, m_pid);
+	if (!processHandle) {
+		return {};
 	}
 
-	procptr_t ret = 0;
+	const auto snapshotHandle = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, m_pid);
+	if (snapshotHandle == INVALID_HANDLE_VALUE) {
+		return {};
+	}
+
+	Modules modules;
 
 	MODULEENTRY32 me;
 	me.dwSize = sizeof(me);
-	for (BOOL ok = Module32First(handle, &me); ok; ok = Module32Next(handle, &me)) {
-		if (me.szModule == utf8ToUtf16(module)) {
-			ret = reinterpret_cast< procptr_t >(me.modBaseAddr);
-			break;
+	for (auto ok = Module32First(snapshotHandle, &me); ok; ok = Module32Next(snapshotHandle, &me)) {
+		const auto name = utf16ToUtf8(reinterpret_cast< char16_t * >(me.szModule));
+		if (modules.find(name) != modules.cend()) {
+			continue;
 		}
+
+		Module module(name);
+		MEMORY_BASIC_INFORMATION64 mbi;
+		auto address = reinterpret_cast< procptr_t >(me.modBaseAddr);
+		while (VirtualQueryEx(processHandle, reinterpret_cast< LPCVOID >(address),
+							  reinterpret_cast< PMEMORY_BASIC_INFORMATION >(&mbi), sizeof(mbi))) {
+			MemoryRegion region{};
+			region.address = address;
+			region.size    = mbi.RegionSize;
+			switch (mbi.Protect) {
+				case PAGE_READWRITE:
+					region.writable = true;
+				case PAGE_READONLY:
+				case PAGE_WRITECOPY:
+					region.readable = true;
+					break;
+				case PAGE_EXECUTE_READWRITE:
+					region.writable = true;
+				case PAGE_EXECUTE_READ:
+				case PAGE_EXECUTE_WRITECOPY:
+					region.readable = true;
+				case PAGE_EXECUTE:
+					region.executable = true;
+					break;
+			}
+			module.addRegion(region);
+
+			address += region.size;
+		}
+
+		modules.insert(std::make_pair(name, module));
 	}
 
-	CloseHandle(handle);
+	CloseHandle(processHandle);
+	CloseHandle(snapshotHandle);
 
-	return ret;
+	return modules;
 }

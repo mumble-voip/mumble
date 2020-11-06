@@ -26,7 +26,6 @@ protected:
 	uint8_t m_pointerSize;
 
 public:
-	using Host::module;
 	using Host::peek;
 
 	inline bool isOk() const { return m_ok; }

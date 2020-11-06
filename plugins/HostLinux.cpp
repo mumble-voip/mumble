@@ -32,112 +32,110 @@ bool HostLinux::peek(const procptr_t address, void *dst, const size_t size) cons
 	return (ret != -1 && static_cast< size_t >(ret) == in.iov_len);
 }
 
-procptr_t HostLinux::module(const std::string &module) const {
-	std::stringstream ss;
-	ss << "/proc/";
-	ss << m_pid;
-	ss << "/maps";
-	const auto maps = readFile(ss.str());
+Modules HostLinux::modules() const {
+	std::ostringstream path;
+	path << "/proc/";
+	path << m_pid;
+	path << "/maps";
+	const auto maps = readFile(path.str());
 
 	if (maps.size() == 0) {
-		return 0;
+		return {};
 	}
 
-	std::stringstream ssPath(maps);
-	while (ssPath.good()) {
-		std::string baseaddr;
+	Modules modules;
+	std::string name;
+	std::stringstream stream(maps);
 
-		int ch;
-		while (1) {
-			ch = ssPath.get();
-			if (ch == '-') {
-				break;
-			} else if (ch == EOF) {
-				return 0;
-			}
-			baseaddr.push_back(static_cast< char >(ch));
+	while (stream) {
+		auto ret = readUntil(stream, '-');
+		if (!ret.second) {
+			return modules;
 		}
 
-		// seek to perms
-		do {
-			ch = ssPath.get();
-			if (ch == EOF) {
-				return 0;
-			}
-		} while (ch != ' ');
+		MemoryRegion region;
+		region.address = std::stoull(ret.first, nullptr, 16);
 
-		// seek to offset
-		do {
-			ch = ssPath.get();
-			if (ch == EOF) {
-				return 0;
-			}
-		} while (ch != ' ');
-
-		// seek to dev
-		do {
-			ch = ssPath.get();
-			if (ch == EOF) {
-				return 0;
-			}
-		} while (ch != ' ');
-
-		// seek to inode
-		do {
-			ch = ssPath.get();
-			if (ch == EOF) {
-				return 0;
-			}
-		} while (ch != ' ');
-
-		// seek to pathname
-		do {
-			ch = ssPath.get();
-			if (ch == EOF) {
-				return 0;
-			}
-		} while (ch != ' ');
-
-		// eat spaces until we're at the beginning of pathname.
-		while (ch == ' ') {
-			if (ch == EOF) {
-				return 0;
-			}
-			ch = ssPath.get();
+		ret = readUntil(stream, ' ');
+		if (!ret.second) {
+			return modules;
 		}
-		ssPath.unget();
 
-		std::string pathname;
-		while (1) {
-			ch = ssPath.get();
-			if (ch == '\n') {
-				break;
-			} else if (ch == EOF) {
-				return 0;
+		region.size = std::stoull(ret.first, nullptr, 16) - region.address;
+
+		ret = readUntil(stream, ' ');
+		if (!ret.second) {
+			return modules;
+		}
+
+		for (const auto character : ret.first) {
+			switch (character) {
+				case 'r':
+					region.readable = true;
+					break;
+				case 'w':
+					region.writable = true;
+					break;
+				case 'x':
+					region.executable = true;
+					break;
 			}
-			pathname.push_back(static_cast< char >(ch));
-		};
+		}
 
-		// OK, we found 'em!
-		// Only treat path as a real path if it starts with /.
-		if (pathname.size() > 0 && pathname.at(0) == '/') {
-			// Find the basename.
-			size_t lastSlash = pathname.find_last_of('/');
-			if (pathname.size() > lastSlash + 1) {
-				std::string basename = pathname.substr(lastSlash + 1);
-				if (basename == module) {
-					unsigned long addr = strtoul(baseaddr.c_str(), nullptr, 16);
-					return addr;
-				}
+		// Skip offset, dev and inode
+		for (uint8_t i = 0; i < 3; ++i) {
+			if (!skipUntil(stream, ' ', false)) {
+				return modules;
+			}
+		}
+
+		// Eat spaces until we're at the beginning of the path
+		if (!skipUntil(stream, ' ', true)) {
+			return modules;
+		}
+
+		// Throw up last eaten character
+		stream.unget();
+
+		ret = readUntil(stream, '\n');
+		if (!ret.second) {
+			return modules;
+		}
+
+		if (ret.first.size() == 0) {
+			// Anonymous region, let's add it to the module that owns the previous one
+			if (!name.empty()) {
+				auto iter = modules.find(name);
+				iter->second.addRegion(region);
+			}
+
+			continue;
+		}
+
+		// Only treat path as a real path if it starts with "/"
+		if (ret.first[0] != '/') {
+			continue;
+		}
+
+		const auto lastSlashPos = ret.first.find_last_of('/');
+		if (ret.first.size() > lastSlashPos + 1) {
+			name            = ret.first.substr(lastSlashPos + 1);
+			const auto iter = modules.find(name);
+			if (iter != modules.cend()) {
+				iter->second.addRegion(region);
+			} else {
+				Module module(name);
+				module.addRegion(region);
+				modules.insert(std::make_pair(name, module));
 			}
 		}
 	}
 
-	return 0;
+	return modules;
 }
 
 bool HostLinux::isWine(const procid_t id) {
-	std::stringstream ss;
+	std::ostringstream ss;
 	ss << "/proc/";
 	ss << id;
 	ss << "/exe";
