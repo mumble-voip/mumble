@@ -10,6 +10,7 @@
 #include <codecvt>
 #include <fstream>
 #include <locale>
+#include <sstream>
 
 #ifdef OS_LINUX
 #	include <fenv.h>
@@ -116,6 +117,37 @@ static inline std::string readFile(const std::string &path) {
 	}
 
 	return content;
+}
+
+/// Reads characters from the stream until \p character is encountered.
+/// @return Read characters and whether the stream is still good.
+static inline std::pair< std::string, bool > readUntil(std::stringstream &stream,
+													   const std::stringstream::int_type character) {
+	std::string buf;
+
+	for (auto input = stream.get(); input != character; input = stream.get()) {
+		if (!stream) {
+			return { buf, false };
+		}
+
+		buf.push_back(input);
+	};
+
+	return { buf, true };
+}
+
+/// Discards characters in the stream until the specified one is encountered.
+/// @param[inverted] Inverts the behavior.
+/// @return Whether the stream is still good.
+static inline bool skipUntil(std::stringstream &stream, const std::stringstream::int_type character,
+							 const bool inverted) {
+	for (auto input = stream.get(); inverted ? (input == character) : (input != character); input = stream.get()) {
+		if (!stream) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 /// Calculates sine and cosine of the specified value.

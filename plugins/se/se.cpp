@@ -215,12 +215,24 @@ static int tryLock(const std::multimap< std::wstring, unsigned long long int > &
 		return false;
 	}
 
-	const auto engine = proc->module(isWin32 ? "engine.dll" : "engine.so");
+	const auto modules = proc->modules();
+
+	auto iter = modules.find(isWin32 ? "engine.dll" : "engine.so");
+	if (iter == modules.cend()) {
+		return false;
+	}
+
+	const auto engine = iter->second.baseAddress();
 	if (!engine) {
 		return false;
 	}
 
-	const auto client = proc->module(isWin32 ? "client.dll" : "client.so");
+	iter = modules.find(isWin32 ? "client.dll" : "client.so");
+	if (iter == modules.cend()) {
+		return false;
+	}
+
+	const auto client = iter->second.baseAddress();
 	if (!client) {
 		return false;
 	}

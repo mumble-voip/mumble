@@ -6,6 +6,7 @@
 add_library(se SHARED
 	"se.cpp"
 
+	"../Module.cpp"
 	"../Process.cpp"
 	"../ProcessWindows.cpp"
 )

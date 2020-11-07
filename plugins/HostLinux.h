@@ -6,12 +6,9 @@
 #ifndef HOSTLINUX_H_
 #define HOSTLINUX_H_
 
-#include <cstddef>
-#include <cstdint>
-#include <string>
+#include "Module.h"
 
 typedef uint32_t procid_t;
-typedef uint64_t procptr_t;
 
 class HostLinux {
 protected:
@@ -19,7 +16,7 @@ protected:
 
 public:
 	bool peek(const procptr_t address, void *dst, const size_t size) const;
-	procptr_t module(const std::string &module) const;
+	Modules modules() const;
 
 	static bool isWine(const procid_t id);
 

@@ -8,7 +8,13 @@
 #include <elf.h>
 
 ProcessLinux::ProcessLinux(const procid_t id, const std::string &name) : Process(id, name) {
-	const auto address = module(name);
+	const auto mods = modules();
+	const auto iter = mods.find(name);
+	if (iter == mods.cend()) {
+		return;
+	}
+
+	const auto address = iter->second.baseAddress();
 	if (!address) {
 		return;
 	}
