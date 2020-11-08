@@ -63,9 +63,9 @@ include(compiler)
 include(os)
 
 if (64_BIT)
-	set(ARCH "64bit")
+	set(ARCH "x64")
 else()
-	set(ARCH "32bit")
+	set(ARCH "x86")
 endif()
 
 message(STATUS "##################################################")
@@ -120,9 +120,29 @@ if(plugins AND client)
 endif()
 
 if(packaging)
+	file(COPY 
+		${CMAKE_SOURCE_DIR}/installer/gpl.txt
+		${CMAKE_SOURCE_DIR}/installer/lgpl.txt
+		${CMAKE_SOURCE_DIR}/installer/Mumble.rtf
+		${CMAKE_SOURCE_DIR}/installer/portaudio.txt
+		${CMAKE_SOURCE_DIR}/installer/qt.txt
+		${CMAKE_SOURCE_DIR}/installer/speex.txt
+		DESTINATION 
+			${CMAKE_BINARY_DIR}/licenses
+	)
 	if(WIN32)
-		file(COPY "${CMAKE_SOURCE_DIR}/scripts/Create-Win32InstallerMUI.ps1" DESTINATION ${CMAKE_BINARY_DIR})
+		file(COPY
+			${CMAKE_SOURCE_DIR}/installer/bannrbmp.bmp
+			${CMAKE_SOURCE_DIR}/installer/dlgbmp.bmp
+			DESTINATION
+				${CMAKE_BINARY_DIR}/installer
+		)
+		
+		file(COPY 
+			${CMAKE_SOURCE_DIR}/icons/mumble.ico
+			${CMAKE_SOURCE_DIR}/icons/murmur.ico
+			DESTINATION 
+				${CMAKE_BINARY_DIR}/installer/icons
+		)
 	endif()
-
-	include(cmake/packaging.cmake)
 endif()

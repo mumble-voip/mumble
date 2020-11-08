@@ -45,3 +45,26 @@ endif()
 target_link_libraries(mumble_exe PRIVATE shlwapi.lib)
 
 install(TARGETS mumble_exe RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_client)
+
+if(packaging)
+	set(overlay ON)
+	set(plugins ON)
+	
+	if(translations)
+		set(installer_vars "--all-languages")
+	endif()
+	
+	file(COPY 
+		${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
+		${CMAKE_SOURCE_DIR}/installer/ClientInstaller.cs
+		DESTINATION
+			${CMAKE_BINARY_DIR}/installer/client
+	)
+	
+	add_custom_command(TARGET mumble_exe
+		POST_BUILD
+		COMMAND cscs.exe -cd MumbleInstall.cs 
+		COMMAND cscs.exe ClientInstaller.cs --version ${version_short} --arch ${ARCH} ${installer_vars}
+		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/installer/client
+	)
+endif()
