@@ -121,7 +121,7 @@ static procptr_t getLocalPlayer(const procptr_t localClient, procptr_t clientEnt
 	// C9                      leave
 	// 83 C0 01                add     eax, 1
 	// C3                      retn
-	const auto localPlayerIndexOffset = proc->peek< int32_t >(GetLocalPlayer + (isWin32 ? 9 : 14));
+	const auto localPlayerIndexOffset = proc->peek< int32_t >(GetLocalPlayer + (isWin32 ? 9 : 20));
 	const auto localPlayerIndex       = proc->peek< uint32_t >(localClient + localPlayerIndexOffset) + 1;
 
 	auto GetClientNetworkable = proc->virtualFunction(clientEntityList, 0);
