@@ -11,6 +11,7 @@
 #include <fstream>
 #include <locale>
 #include <sstream>
+#include <vector>
 
 #ifdef OS_LINUX
 #	include <fenv.h>
@@ -148,6 +149,29 @@ static inline bool skipUntil(std::stringstream &stream, const std::stringstream:
 	}
 
 	return true;
+}
+
+/// Returns the index of the specified pattern in the specified buffer.
+/// "?" is used as wildcard character.
+/// If the pattern is not found, the function returns SIZE_MAX.
+static inline size_t searchInBuffer(const std::vector< uint8_t > &pattern, const std::vector< uint8_t > &buffer) {
+	for (size_t i = 0; i < buffer.size() - pattern.size(); ++i) {
+		const auto *buf = &buffer[i];
+		bool match      = true;
+
+		for (size_t j = 0; j < pattern.size(); ++j) {
+			if (pattern[j] != '?' && buf[j] != pattern[j]) {
+				match = false;
+				break;
+			}
+		}
+
+		if (match) {
+			return buf - &buffer[0];
+		}
+	}
+
+	return SIZE_MAX;
 }
 
 /// Calculates sine and cosine of the specified value.

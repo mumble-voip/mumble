@@ -63,6 +63,56 @@ procptr_t Process::virtualFunction(const procptr_t classObject, const size_t ind
 	return peekPtr(vTable + (index * m_pointerSize));
 }
 
+procptr_t Process::findPattern(const std::vector< uint8_t > &pattern, const Module &module) {
+	for (const auto &region : module.regions()) {
+		if (!region.readable) {
+			continue;
+		}
+
+		const auto ret = findPattern(pattern, region.address, region.size);
+		if (ret) {
+			return ret;
+		}
+	}
+
+	return 0;
+}
+
+procptr_t Process::findPattern(const std::vector< uint8_t > &pattern, procptr_t address, const size_t size) {
+	// 32 KiB appears to be a good balance
+	constexpr uint16_t bufferSize = 32768;
+	std::vector< uint8_t > buffer(bufferSize);
+
+	const auto chunks = size / buffer.size();
+	for (size_t i = 0; i < chunks; ++i) {
+		if (!peek(address, &buffer[0], buffer.size())) {
+			return 0;
+		}
+
+		const auto ret = searchInBuffer(pattern, buffer);
+		if (ret != SIZE_MAX) {
+			return address + ret;
+		}
+
+		address += buffer.size();
+	}
+
+	const auto remainder = size % buffer.size();
+	if (remainder >= pattern.size()) {
+		buffer.resize(remainder);
+		if (!peek(address, &buffer[0], buffer.size())) {
+			return 0;
+		}
+
+		const auto ret = searchInBuffer(pattern, buffer);
+		if (ret != SIZE_MAX) {
+			return address + ret;
+		}
+	}
+
+	return 0;
+}
+
 procid_t Process::find(const std::string &name, const std::multimap< std::wstring, unsigned long long int > &pids) {
 	if (pids.empty()) {
 		return 0;

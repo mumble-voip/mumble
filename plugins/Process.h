@@ -95,6 +95,15 @@ public:
 
 	procptr_t virtualFunction(const procptr_t classObject, const size_t index) const;
 
+	/// Iterates through all readable memory regions, until findPattern() succeeds.
+	/// Returns 0 if the pattern is not found.
+	procptr_t findPattern(const std::vector< uint8_t > &pattern, const Module &module);
+
+	/// Reads memory in chunks until either the pattern is found, the end is reached or peek() fails.
+	/// Refer to searchInBuffer() for the pattern format.
+	/// Returns 0 if the pattern is not found.
+	procptr_t findPattern(const std::vector< uint8_t > &pattern, procptr_t address, const size_t size);
+
 	static procid_t find(const std::string &name, const std::multimap< std::wstring, unsigned long long int > &pids);
 
 	Process(const procid_t id, const std::string &name);
