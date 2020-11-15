@@ -1199,9 +1199,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 						}
 					}
 
-					// Send audio to users in the linked channel but only if they
-					// haven't received the audio already (because they are listening
-					// to the original channel).
+					// Send audio to users in the linked channel
 					foreach (User *p, l->qlUsers) {
 						if (!ChannelListener::isListening(p->uiSession, c->iId)) {
 							ServerUser *pDst = static_cast< ServerUser * >(p);
@@ -1264,6 +1262,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, &acCache)) {
 									foreach (User *p, tc->qlUsers) {
 										ServerUser *su = static_cast< ServerUser * >(p);
+
 										if (!group || Group::isMember(tc, tc, qsg, su)) {
 											channel.insert(su);
 										}
@@ -1272,7 +1271,9 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 									foreach (unsigned int currentSession, ChannelListener::getListenersForChannel(tc)) {
 										ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 
-										if (pDst) {
+										if (pDst && (!group || Group::isMember(tc, tc, qsg, pDst))) {
+											// Only send audio to listener if the user exists and it is in the group the speech is directed
+											// at (if any)
 											listener << pDst;
 										}
 									}
