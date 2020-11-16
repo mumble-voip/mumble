@@ -254,7 +254,7 @@ public slots:
 	void on_qteChat_tabPressed();
 	void on_qteChat_backtabPressed();
 	void on_qteChat_ctrlSpacePressed();
-	void on_qtvUsers_customContextMenuRequested(const QPoint &mpos);
+	void on_qtvUsers_customContextMenuRequested(const QPoint &mpos, bool usePositionForGettingContext = true);
 	void on_qteLog_customContextMenuRequested(const QPoint &pos);
 	void on_qteLog_anchorClicked(const QUrl &);
 	void on_qteLog_highlighted(const QUrl &link);

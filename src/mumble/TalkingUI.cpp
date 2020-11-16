@@ -551,7 +551,7 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 			// resulting in the proper context menu being shown at the position of the mouse which in this case is in
 			// the TalkingUI.
 			QMetaObject::invokeMethod(g.mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
-									  Q_ARG(QPoint, g.mw->qtvUsers->mapFromGlobal(event->globalPos())));
+									  Q_ARG(QPoint, g.mw->qtvUsers->mapFromGlobal(event->globalPos())), Q_ARG(bool, false));
 		}
 	} else {
 		// Clear selection
