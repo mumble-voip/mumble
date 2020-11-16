@@ -44,3 +44,4 @@ doxygen/
 .DS_Store
 .directory
 build/
+compile_commands.json
