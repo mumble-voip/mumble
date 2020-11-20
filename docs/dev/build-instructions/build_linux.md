@@ -32,6 +32,9 @@ sudo apt install \
 
 If you intend to include grpc-support for the Mumbe server (murmur), you also have to install the following packages: `libgrpc++-dev` and `protobuf-compiler-grpc`
 
+If you are on a 64bit system and want to cross-compile overlay-support for 32bit applications as well (which is enabled by default), you'll also have
+to install `g++-multilib`. If you don't want to do this, use `-Doverlay-xcompile=OFF` when invoking cmake.
+
 If you are using a distribution that is not based on Ubuntu, you probably have to change the command accordingly.
 
 You will need `cmake` **v3.15 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
