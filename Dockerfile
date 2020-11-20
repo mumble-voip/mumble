@@ -3,7 +3,7 @@ FROM ubuntu:latest
 # needed to install tzdata in disco
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y && rm -rf /var/lib/apt/lists/* \
 	build-essential \
 	cmake \
 	pkg-config \
@@ -37,7 +37,7 @@ RUN make -j $(nproc)
 FROM ubuntu:latest
 
 RUN adduser murmur
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y && rm -rf /var/lib/apt/lists/* \
 	libcap2 \
 	libzeroc-ice3.7 \
 	'^libprotobuf[0-9]+$' \
