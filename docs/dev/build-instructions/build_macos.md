@@ -43,3 +43,20 @@ E.g. if you only want to build the server, use `cmake -Dclient=OFF ..`.
 
 Once cmake has been run, you can issue `cmake --build .` from the build directory in order to actually start compiling the sources. If you want to
 parallelize the build, use `cmake --build . -j <jobs>` where `<jobs>` is the amount of parallel jobs to be run concurrently.
+
+
+## FAQ
+
+See the general [build-FAQ](faq.md).
+
+
+### CMake chooses Apple's SSL library
+
+It can happen that cmake will find Apple's own SSL library that comes pre-installed on your system. This is usually incompatible with Mumble though
+and you'll usually get errors about undefined OpenSSL symbols during link-time:
+```
+ld: symbol(s) not found
+```
+
+You can circumvent this problem by pointing cmake to the OpenSSL version you installed following the instructions from above. For how to do this,
+please refer to [our build-FAQ](faq.md#cmake-selects-wrong-openssl-version).
