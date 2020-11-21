@@ -1,1 +1,1 @@
-<!-- Please make sure that your commits follow our commit guidelines: https://github.com/mumble-voip/mumble/blob/master/COMMIT_GUIDELINES.md -->
+- [ ] I followed the commit guidelines specified at https://github.com/mumble-voip/mumble/blob/master/COMMIT_GUIDELINES.md
