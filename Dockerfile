@@ -24,9 +24,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libsndfile1-dev \
 	libgrpc++-dev \
 	libxi-dev \
-	libbz2-dev
-
-RUN rm -rf /var/lib/apt/lists/* 
+	libbz2-dev \
+	&& rm -rf /var/lib/apt/lists/*
 
 COPY . /root/mumble
 WORKDIR /root/mumble/build
@@ -50,9 +49,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libqt5sql5 \
 	libqt5xml5 \
 	libqt5dbus5 \
-	ca-certificates
-
-RUN rm -rf /var/lib/apt/lists/* 
+	ca-certificates \
+	&& rm -rf /var/lib/apt/lists/* 
 
 COPY --from=0 /root/mumble/build/murmurd /usr/bin/murmurd
 COPY --from=0 /root/mumble/scripts/murmur.ini /etc/murmur/murmur.ini
