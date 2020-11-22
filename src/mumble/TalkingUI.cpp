@@ -360,7 +360,7 @@ void TalkingUI::addChannel(const Channel *channel) {
 	}
 }
 
-void TalkingUI::addUser(const ClientUser *user) {
+TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 	// In a first step, it has to be made sure that the user's channel
 	// exists in this UI.
 	addChannel(user->cChannel);
@@ -395,11 +395,12 @@ void TalkingUI::addUser(const ClientUser *user) {
 		std::unique_ptr< TalkingUIContainer > &channelContainer =
 			m_containers[findContainer(user->cChannel->iId, ContainerType::CHANNEL)];
 		if (!channelContainer) {
-			qCritical("TalkingUI::addUser requesting unknown channel!");
-			return;
+			qCritical("TalkingUI::findOrAddUser requesting unknown channel!");
+			return nullptr;
 		}
 
 		std::unique_ptr< TalkingUIUser > userEntry = std::make_unique< TalkingUIUser >(*user);
+		TalkingUIUser *newUserEntry = userEntry.get();
 
 		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
 		userEntry->setLifeTime(g.s.iTalkingUI_SilentUserLifeTime * 1000);
@@ -420,6 +421,10 @@ void TalkingUI::addUser(const ClientUser *user) {
 		channelContainer->addEntry(std::move(userEntry));
 
 		sortContainers();
+
+		return newUserEntry;
+	} else {
+		return oldUserEntry;
 	}
 }
 
@@ -602,15 +607,11 @@ void TalkingUI::on_talkingStateChanged() {
 		return;
 	}
 
-	addUser(user);
+	TalkingUIUser *userEntry = findOrAddUser(user);
 
-	// addUser puts the user in its current channel, so we can fetch that and know that it'll contain the user
-	std::unique_ptr< TalkingUIContainer > &channel =
-		m_containers[findContainer(user->cChannel->iId, ContainerType::CHANNEL)];
-
-	TalkingUIUser *userEntry = static_cast< TalkingUIUser * >(channel->get(user->uiSession, EntryType::USER));
-
-	userEntry->setTalkingState(user->tsState);
+	if (userEntry) {
+		userEntry->setTalkingState(user->tsState);
+	}
 
 	updateUI();
 }
@@ -673,7 +674,7 @@ void TalkingUI::on_serverSynchronized() {
 		// can't count on it to change its talking state right after it has connected to
 		// a server, we have to add it manually.
 		ClientUser *self = ClientUser::get(g.uiSession);
-		addUser(self);
+		findOrAddUser(self);
 	}
 }
 
@@ -763,7 +764,7 @@ void TalkingUI::on_settingsChanged() {
 	} else {
 		if (self && g.s.bTalkingUI_LocalUserStaysVisible) {
 			// Add the local user as it is requested to be displayed
-			addUser(self);
+			findOrAddUser(self);
 		}
 	}
 
