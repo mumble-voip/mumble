@@ -27,13 +27,15 @@ sudo apt install \
   libsndfile1-dev \
   libspeechd-dev \
   libavahi-compat-libdnssd-dev \
-  libzeroc-ice-dev
+  libzeroc-ice-dev \
+  g++-multilib
 ```
 
-If you intend to include grpc-support for the Mumbe server (murmur), you also have to install the following packages: `libgrpc++-dev` and `protobuf-compiler-grpc`
+If you intend to include grpc-support for the Mumble server (murmur), you also have to install the following packages: `libgrpc++-dev` and
+`protobuf-compiler-grpc`
 
-If you are on a 64bit system and want to cross-compile overlay-support for 32bit applications as well (which is enabled by default), you'll also have
-to install `g++-multilib`. If you don't want to do this, use `-Doverlay-xcompile=OFF` when invoking cmake.
+The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
+(which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
 If you are using a distribution that is not based on Ubuntu, you probably have to change the command accordingly.
 
