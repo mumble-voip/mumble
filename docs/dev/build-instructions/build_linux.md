@@ -31,7 +31,8 @@ sudo apt install \
   g++-multilib
 ```
 
-If you intend to include grpc-support for the Mumbe server (murmur), you also have to install the following packages: `libgrpc++-dev` and `protobuf-compiler-grpc`
+If you intend to include grpc-support for the Mumble server (murmur), you also have to install the following packages: `libgrpc++-dev` and
+`protobuf-compiler-grpc`
 
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
