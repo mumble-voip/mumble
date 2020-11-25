@@ -1,0 +1,71 @@
+name: Build
+
+on: [push, pull_request]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+  CMAKE_OPTIONS: |
+      -Dtests=ON -Donline-tests=ON -Dsymbols=ON -Dgrpc=ON -Ddisplay-install-paths=ON
+  MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg/'
+
+
+jobs:
+  build:
+    strategy:
+        fail-fast: false
+        matrix:
+            os: [ubuntu-18.04, ubuntu-20.04]
+            type: [shared] # Currently the "static" build doesn't work for Linux systems
+            arch: [64bit]
+            
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Print diskspace
+      run: df -BM
+      shell: bash
+
+
+    - uses: actions/checkout@v2
+      with:
+          submodules: 'recursive'
+
+
+    - name: Set environment variables
+      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ runner.workspace }}"
+      shell: bash
+
+
+    - uses: actions/cache@v2
+      with:
+          path: '${{ env.MUMBLE_BUILD_ENV_PATH }}'
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
+
+
+    - uses: ./.github/actions/install-dependencies
+      with:
+          type: ${{ matrix.type }}
+          os: ${{ matrix.os }}
+          arch: ${{ matrix.arch }}
+
+
+    - name: Create build dir
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Run CMake
+      run: |
+          cmake -G Ninja -S $GITHUB_WORKSPACE -B ${{runner.workspace}}/build -DCMAKE_BUILD_TYPE=$BUILD_TYPE $CMAKE_OPTIONS \
+            $ADDITIONAL_CMAKE_OPTIONS $VCPKG_CMAKE_OPTIONS
+      shell: bash
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      run: cmake --build . --config $BUILD_TYPE
+      shell: bash
+
+    - name: Test
+      working-directory: ${{runner.workspace}}/build
+      shell: bash
+      run: ctest -v -C $BUILD_TYPE
+
