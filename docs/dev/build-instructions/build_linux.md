@@ -31,6 +31,32 @@ sudo apt install \
   g++-multilib
 ```
 
+In Cent OS 8 you need to use
+```bash
+sudo dnf -y install epel-release
+sudo dnf config-manager --set-enabled PowerTools
+sudo dnf group install "Development Tools"
+sudo dnf install https://zeroc.com/download/ice/3.7/el8/ice-repo-3.7.el8.noarch.rpm
+sudo dnf install libice-c++-devel libice3.7-c++
+sudo dnf install \
+qt-creator \
+qt5-devel \
+qt5-qtsvg-devel  \
+openssl-devel \
+protobuf-devel \
+libsndfile-devel \
+libXi-devel \
+libXext-devel \
+speech-dispatcher-devel \
+avahi-compat-libdns_sd-devel \
+alsa-lib-devel \
+libICE-devel \
+libogg-devel \
+boost-devel \
+libcap-ng-devel \
+gcc-toolset-9-gcc-c++ 
+```
+
 If you intend to include grpc-support for the Mumble server (murmur), you also have to install the following packages: `libgrpc++-dev` and
 `protobuf-compiler-grpc`
 
@@ -40,7 +66,7 @@ The dependence on `g++-multilib` only applies if you are on a 64bit system and w
 If you are using a distribution that is not based on Ubuntu, you probably have to change the command accordingly.
 
 You will need `cmake` **v3.15 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
-[official PPA](https://apt.kitware.com/) by following the instructions on the linked page.
+[official PPA](https://apt.kitware.com/) by following the instructions on the [linked page](https://cmake.org/download/).
 
 
 ## Running cmake
