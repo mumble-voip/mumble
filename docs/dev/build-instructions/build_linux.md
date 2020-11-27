@@ -40,7 +40,7 @@ The dependence on `g++-multilib` only applies if you are on a 64bit system and w
 If you are using a distribution that is not based on Ubuntu, you probably have to change the command accordingly.
 
 You will need `cmake` **v3.15 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
-[official PPA](https://apt.kitware.com/) by following the instructions on the linked page.
+[official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 
 
 ## Running cmake
