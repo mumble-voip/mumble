@@ -3,7 +3,7 @@ FROM ubuntu:latest
 # needed to install tzdata in disco
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install --no-install-recommends -y && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update && apt-get install --no-install-recommends -y \
 	build-essential \
 	cmake \
 	pkg-config \
@@ -24,8 +24,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y && rm -rf /var/
 	libsndfile1-dev \
 	libgrpc++-dev \
 	libxi-dev \
-	libbz2-dev \
-	qtcreator
+	libbz2-dev
+
+RUN rm -rf /var/lib/apt/lists/* 
 
 COPY . /root/mumble
 WORKDIR /root/mumble/build
@@ -37,7 +38,7 @@ RUN make -j $(nproc)
 FROM ubuntu:latest
 
 RUN adduser murmur
-RUN apt-get update && apt-get install --no-install-recommends -y && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update && apt-get install --no-install-recommends -y \
 	libcap2 \
 	libzeroc-ice3.7 \
 	'^libprotobuf[0-9]+$' \
@@ -49,8 +50,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y && rm -rf /var/
 	libqt5sql5 \
 	libqt5xml5 \
 	libqt5dbus5 \
-	ca-certificates \
-	&& rm -rf /var/lib/apt/lists/*
+	ca-certificates
+
+RUN rm -rf /var/lib/apt/lists/* 
 
 COPY --from=0 /root/mumble/build/murmurd /usr/bin/murmurd
 COPY --from=0 /root/mumble/scripts/murmur.ini /etc/murmur/murmur.ini
