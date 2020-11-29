@@ -1,0 +1,22 @@
+name: 'Install Dependencies'
+description: 'Install the required build dependencies based on the runner''s OS'
+author: 'Mumble Developers'
+
+inputs:
+    type:
+        description: 'The type of dependencies to install ("static" or "shared")'
+        required: True
+    os:
+        description: 'The OS to fetch the dependencies for'
+        required: True
+    arch:
+        description: 'The architecture to fetch the deps for'
+        required: True
+        default: '64bit'
+    
+
+runs:
+    using: "composite"
+    steps:
+        - run: '$GITHUB_ACTION_PATH/main.sh "${{ inputs.os }}" "${{ inputs.type }}" "${{ inputs.arch }}"'
+          shell: bash
