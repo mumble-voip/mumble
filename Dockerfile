@@ -24,8 +24,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	libsndfile1-dev \
 	libgrpc++-dev \
 	libxi-dev \
-	libbz2-dev \
-	qtcreator
+	libbz2-dev
 
 RUN rm -rf /var/lib/apt/lists/* 
 
