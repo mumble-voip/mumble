@@ -62,7 +62,7 @@ static void norm(float *a) {
 }
 
 static bool correctFront(float *front, float *top) {
-	float n[3];
+	float n[3] = {0};
 
 	if (top[1] < 0) {
 		front[0] *= -1;
