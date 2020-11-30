@@ -229,6 +229,11 @@ All warnings are treated as errors.
 Build support for WASAPI.
 (Default: ON)
 
+### x11
+
+Build support for X11
+(Default: ON)
+
 ### xboxinput
 
 Build support for global shortcuts from Xbox controllers via the XInput DLL.

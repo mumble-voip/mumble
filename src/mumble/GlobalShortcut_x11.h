@@ -3,8 +3,8 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_UNIX_H_
-#define MUMBLE_MUMBLE_GLOBALSHORTCUT_UNIX_H_
+#ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_X11_H_
+#define MUMBLE_MUMBLE_GLOBALSHORTCUT_X11_H_
 
 #include "ConfigDialog.h"
 #include "Global.h"
@@ -28,8 +28,6 @@ public:
 	QSet< int > qsMasterDevices;
 
 	volatile bool bRunning;
-	QSet< QString > qsKeyboards;
-	QMap< QString, QFile * > qmInputDevices;
 
 	GlobalShortcutX();
 	~GlobalShortcutX() Q_DECL_OVERRIDE;

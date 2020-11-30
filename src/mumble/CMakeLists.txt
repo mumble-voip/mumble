@@ -49,6 +49,7 @@ elseif(UNIX)
 		option(alsa "Build support for ALSA." ON)
 		option(pulseaudio "Build support for PulseAudio." ON)
 		option(speechd "Build support for Speech Dispatcher." ON)
+		option(x11 "Build support for X11" ON)
 		option(xinput2 "Build support for XI2" ON)
 	endif()
 endif()
@@ -438,13 +439,24 @@ else()
 	target_sources(mumble PRIVATE "SharedMemory_unix.cpp")
 
 	if(NOT APPLE)
-		find_pkg(X11 COMPONENTS Xext REQUIRED)
+		if(x11)
+			find_pkg(X11 COMPONENTS Xext REQUIRED)
+			target_link_libraries(mumble PRIVATE X11::Xext)
 
-		if(xinput2)
-			find_pkg(X11 COMPONENTS Xi REQUIRED)
-			target_link_libraries(mumble PRIVATE X11::Xi)
+			if(xinput2)
+				find_pkg(X11 COMPONENTS Xi REQUIRED)
+				target_link_libraries(mumble PRIVATE X11::Xi)
+			else()
+				target_compile_definitions(mumble PRIVATE "NO_XINPUT2")
+			endif()
+
+			target_sources(mumble
+				PRIVATE
+					"GlobalShortcut_x11.cpp"
+					"GlobalShortcut_x11.h"
+			)
 		else()
-			target_compile_definitions(mumble PRIVATE "NO_XINPUT2")
+			target_compile_definitions(mumble PRIVATE "NO_X11" "NO_XINPUT2")
 		endif()
 
 		if(static AND TARGET Qt5::QXcbIntegrationPlugin)
@@ -454,8 +466,6 @@ else()
 
 		target_sources(mumble
 			PRIVATE
-				"GlobalShortcut_unix.cpp"
-				"GlobalShortcut_unix.h"
 				"Log_unix.cpp"
 				"os_unix.cpp"
 		)
@@ -463,9 +473,14 @@ else()
 		if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 			find_library(LIB_RT rt)
 			target_link_libraries(mumble PRIVATE ${LIB_RT})
-		endif()
 
-		target_link_libraries(mumble PRIVATE X11::Xext)
+			# TODO: check on evdev/udev or linux/input.h presence instead of Linux as it's also present in FreeBSD
+			target_sources(mumble
+				PRIVATE
+					"GlobalShortcut_linux.cpp"
+					"GlobalShortcut_linux.h"
+			)
+		endif()
 	else()
 		find_library(LIB_APPKIT "AppKit")
 		find_library(LIB_APPLICATIONSERVICES "ApplicationServices")

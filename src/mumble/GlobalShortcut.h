@@ -226,6 +226,7 @@ struct ShortcutKey {
  * classes (GlobalShortcutPlatform).
  *
  * @see GlobalShortcutX
+ * @see GlobalShortcutLinux
  * @see GlobalShortcutMac
  * @see GlobalShortcutWin
  */

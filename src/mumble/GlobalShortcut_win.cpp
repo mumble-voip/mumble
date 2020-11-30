@@ -101,6 +101,7 @@ uint qHash(const GUID &a) {
  * Returns a platform specific GlobalShortcutEngine object.
  *
  * @see GlobalShortcutX
+ * @see GlobalShortcutLinux
  * @see GlobalShortcutMac
  * @see GlobalShortcutWin
  */
