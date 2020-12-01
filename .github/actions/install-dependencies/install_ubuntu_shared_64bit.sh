@@ -7,7 +7,7 @@ sudo apt -y install \
 	g++-multilib \
 	ninja-build \
 	pkg-config \
-    qt5-default \
+	qt5-default \
 	qttools5-dev \
 	qttools5-dev-tools \
 	libqt5svg5-dev \
