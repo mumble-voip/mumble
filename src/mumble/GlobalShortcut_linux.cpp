@@ -172,7 +172,16 @@ void GlobalShortcutLinux::directoryChanged(const QString &dir) {
 }
 
 QString GlobalShortcutLinux::buttonName(const QVariant &v) {
-	// FIXME
-	(void)v;
-	return QString();
+	bool ok;
+	unsigned int key = v.toUInt(&ok);
+	//char buffer[128];
+
+	if (!ok)
+		return QString();
+
+	if ((key < 0x118) || (key >= 0x128)) {
+		return QLatin1String("0x") + QString::number(key, 16);
+	} else {
+		return tr("Mouse %1").arg(key - 0x118);
+	}
 }
