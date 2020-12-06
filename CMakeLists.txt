@@ -52,7 +52,7 @@ option(debug-dependency-search "Prints extended information during the search fo
 
 if(NOT CMAKE_BUILD_TYPE)
 	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
-elseif(CMAKE_BUILD_TYPE EQUAL "Debug")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(
         "-DDEBUG"
         "-DSNAPSHOT_BUILD"
