@@ -73,7 +73,9 @@ private:
 	/// Adds an UI entry for the given User, if none exists yet.
 	///
 	/// @param channel A pointer to the user that shall be added
-	void addUser(const ClientUser *user);
+	/// @returns The pointer to the respective user entry in the TalkingUI
+	/// (may be nullptr in case of an error)
+	TalkingUIUser *findOrAddUser(const ClientUser *user);
 	/// Moves the given user into the given channel
 	///
 	/// @paam userSession The session ID of the user
