@@ -28,6 +28,10 @@ The documentation of the project can be found on the [wiki](https://wiki.mumble.
 [FAQ](https://wiki.mumble.info/wiki/FAQ/English) can also be found there.
 
 
+## Contributing
+
+We always welcome contributions to the project. If you have code that you would like to contribute, please go ahead and create a PR. While doing so, please try to make sure that you follow our [commit guidelines](COMMIT_GUIDELINES.md).
+
 ## Building
 
 For information on how to build Mumble, checkout [the dedicated documentation](docs/dev/build-instructions/README.md).
