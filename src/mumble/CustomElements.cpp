@@ -187,7 +187,7 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 
 			QString imgHtml = QLatin1String("<br />") + Log::imageToImg(image);
 
-			if (static_cast< unsigned int >(imgHtml.length()) < g.uiImageLength) {
+			if ((g.uiImageLength == 0) || static_cast< unsigned int >(imgHtml.length()) < g.uiImageLength) {
 				emit pastedImage(imgHtml);
 				return true;
 			} else {
