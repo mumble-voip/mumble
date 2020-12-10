@@ -3,9 +3,8 @@ Description=Mumble Daemon
 After=network.target
 
 [Service]
-Type=forking
-PIDFile=/run/murmur/murmur.pid
-ExecStart=/usr/bin/murmurd -ini /etc/murmur.ini
+Type=exec
+ExecStart=/usr/bin/murmurd -fg -ini /etc/murmur.ini
 Restart=always
 PrivateDevices=true
 PrivateTmp=true
