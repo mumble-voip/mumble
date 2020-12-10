@@ -5,7 +5,10 @@ version of Mumble, checkout [this file](build_static.md).
 
 ## Dependencies
 
+<details open>
+  <summary><b>Ubuntu</b></summary>
 In order to install the needed dependencies on Ubuntu, you have to run the following command:
+  
 ```bash
 sudo apt install \
   build-essential \
@@ -37,11 +40,43 @@ If you intend to include grpc-support for the Mumble server (murmur), you also h
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
-If you are using a distribution that is not based on Ubuntu, you probably have to change the command accordingly.
-
 You will need `cmake` **v3.15 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
+</details>
 
+
+<details>
+  <summary><b>CentOS 8</b></summary>
+ In order to install the needed dependencies on Cent OS 8, you have to run the following command:
+  
+```bash
+sudo dnf -y install epel-release
+sudo dnf config-manager --set-enabled PowerTools
+sudo dnf group install "Development Tools"
+sudo dnf install https://zeroc.com/download/ice/3.7/el8/ice-repo-3.7.el8.noarch.rpm
+sudo dnf install libice-c++-devel libice3.7-c++
+sudo dnf install \
+qt5-devel \
+qt5-qtsvg-devel  \
+openssl-devel \
+protobuf-devel \
+libsndfile-devel \
+libXi-devel \
+libXext-devel \
+speech-dispatcher-devel \
+avahi-compat-libdns_sd-devel \
+alsa-lib-devel \
+libICE-devel \
+libogg-devel \
+boost-devel \
+libcap-devel \
+gcc-toolset-9-gcc-c++ 
+```
+
+You will need `cmake` **v3.15 or later**. You can install a recent one from the [linked page](https://cmake.org/download/).
+</details>
+
+If you are using any other distribution that is not based on one of the distros listed above, you probably have to adapt the commands to your distro manually.
 
 ## Running cmake
 
