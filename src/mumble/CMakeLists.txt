@@ -232,6 +232,9 @@ set(MUMBLE_SOURCES
 
 	"widgets/MUComboBox.cpp"
 	"widgets/MUComboBox.h"
+	"widgets/MultiStyleWidgetWrapper.cpp"
+	"widgets/MultiStyleWidgetWrapper.h"
+
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"
 	"${SHARED_SOURCE_DIR}/ACL.h"

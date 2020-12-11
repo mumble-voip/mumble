@@ -91,10 +91,11 @@ static const int USER_CONTAINER_HORIZONTAL_MARGIN = 2;
 static const int USER_CONTAINER_VERTICAL_MARGIN   = 3;
 
 
-TalkingUIUser::TalkingUIUser(const ClientUser &user) : TalkingUIEntry(user.uiSession), m_name(user.qsName), m_timer() {
+TalkingUIUser::TalkingUIUser(const ClientUser &user)
+	: TalkingUIEntry(user.uiSession), m_backgroundWidget(new QWidget()),
+	  m_backgroundWidgetStyleWrapper(m_backgroundWidget), m_name(user.qsName), m_timer() {
 	// Create background widget and its layout that we'll use to place all other
 	// components on
-	m_backgroundWidget = new QWidget();
 	m_backgroundWidget->setProperty("selected", false);
 	QLayout *backgroundLayout = new QHBoxLayout();
 	backgroundLayout->setContentsMargins(USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN,
@@ -115,6 +116,7 @@ TalkingUIUser::TalkingUIUser(const ClientUser &user) : TalkingUIEntry(user.uiSes
 	// Create the label we'll use to display any status icons for the user
 	m_statusIcons = new QLabel(m_backgroundWidget);
 	m_statusIcons->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_statusIcons->hide(); // hide by default
 	// Uncomment the line below if you want to debug the icons
 	// m_statusIcons->setStyleSheet(QLatin1String("border: 1px solid black;"));
 
@@ -182,6 +184,10 @@ QWidget *TalkingUIUser::getWidget() {
 
 const QWidget *TalkingUIUser::getWidget() const {
 	return m_backgroundWidget;
+}
+
+MultiStyleWidgetWrapper &TalkingUIUser::getStylableWidget() {
+	return m_backgroundWidgetStyleWrapper;
 }
 
 EntryType TalkingUIUser::getType() const {
@@ -307,13 +313,13 @@ void TalkingUIUser::setStatus(UserStatus status) {
 		m_backgroundWidget->layout()->removeWidget(m_statusIcons);
 	} else {
 		// Create a Pixmap that'll hold all icons
-		const QSize size(m_iconSize * static_cast<int>(icons.size()), m_iconSize);
+		const QSize size(m_iconSize * static_cast< int >(icons.size()), m_iconSize);
 		QPixmap pixmap(size);
 		pixmap.fill(Qt::transparent);
 
 		// Draw the icons to the Pixmap
 		QPainter painter(&pixmap);
-		for (int i = 0; i < static_cast<int>(icons.size()); i++) {
+		for (int i = 0; i < static_cast< int >(icons.size()); i++) {
 			painter.drawPixmap(i * m_iconSize, 0,
 							   icons[i].get().pixmap(QSize(m_iconSize, m_iconSize), QIcon::Normal, QIcon::On));
 		}
@@ -331,10 +337,10 @@ void TalkingUIUser::setStatus(UserStatus status) {
 
 
 TalkingUIChannelListener::TalkingUIChannelListener(const ClientUser &user, const Channel &channel)
-	: TalkingUIEntry(user.uiSession), m_channelID(channel.iId), m_name(user.qsName) {
+	: TalkingUIEntry(user.uiSession), m_backgroundWidget(new QWidget()),
+	  m_backgroundWidgetStyleWrapper(m_backgroundWidget), m_channelID(channel.iId), m_name(user.qsName) {
 	// Create background widget and its layout that we'll use to place all other
 	// components on
-	m_backgroundWidget = new QWidget();
 	m_backgroundWidget->setProperty("selected", false);
 	QLayout *backgroundLayout = new QHBoxLayout();
 	backgroundLayout->setContentsMargins(USER_CONTAINER_HORIZONTAL_MARGIN, USER_CONTAINER_VERTICAL_MARGIN,
@@ -377,6 +383,10 @@ QWidget *TalkingUIChannelListener::getWidget() {
 
 const QWidget *TalkingUIChannelListener::getWidget() const {
 	return m_backgroundWidget;
+}
+
+MultiStyleWidgetWrapper &TalkingUIChannelListener::getStylableWidget() {
+	return m_backgroundWidgetStyleWrapper;
 }
 
 void TalkingUIChannelListener::setIconSize(int size) {

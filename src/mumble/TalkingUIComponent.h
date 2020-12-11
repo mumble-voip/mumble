@@ -7,11 +7,13 @@
 #define MUMBLE_MUMBLE_TALKINGUICOMPONENT_H_
 
 class QWidget;
+class MultiStyleWidgetWrapper;
 
 class TalkingUIComponent {
 public:
-	virtual QWidget *getWidget()             = 0;
-	virtual const QWidget *getWidget() const = 0;
+	virtual QWidget *getWidget()                         = 0;
+	virtual const QWidget *getWidget() const             = 0;
+	virtual MultiStyleWidgetWrapper &getStylableWidget() = 0;
 };
 
 #endif // MUMBLE_MUMBLE_TALKINGUICOMPONENT_H_
