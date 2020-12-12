@@ -13,7 +13,9 @@ You can find some more information in our [wiki](https://wiki.mumble.info/wiki/I
 
 ### Start
 
-After installation, 
+Start Mumble via your Start Menu.
+
+On first start of Mumble, a short Settings wizard (for Audio settings, certificate creation etc.) will start automatically.
 
 ## Mumble Server (Murmur)
 

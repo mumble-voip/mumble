@@ -16,9 +16,11 @@ Some more information can be found in our [wiki](https://wiki.mumble.info/wiki/I
 In order to be able to use the Overlay it has to be installed separately.
 To install it: launch Mumble, go into Mumble's settings -> Overlay section and you should see an option to install it.
 
-The reason for the separate installation is that Mumble itself does not need administrative rights to install, but the overlay does. 
+*Info:* The reason for the separate installation is that Mumble itself does not need administrative rights to install, but the overlay does. 
 
 ### Start
+
+On first start of Mumble, a short Settings wizard (for Audio settings, certificate creation etc.) will start automatically.
 
 ### Configuration
 
@@ -35,7 +37,7 @@ Take a look at the [Server Configuration Guide](server_config_guide.md).
 
 ### Start
 
-The Mumble Server should be run from the command line, so start a shell (command prompt) and go to wherever you installed Mumble. Run murmur with:
+The Mumble Server should be run from the command line, so start a shell (command prompt) and go to wherever you installed Mumble. Run the Mumble Server with:
 
 ```
 murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
