@@ -5,11 +5,13 @@ The following Userguides include information on installation, configuration and 
 Choose the specific guide for your operating system:
 
 - [Userguide for Windows](userguide_windows.md)
-- [Userguide for Linux](userguide_linux.md)
+- [Userguide for Linux/Unix](userguide_linux.md)
 - [Userguide for macOS](userguide_macos.md)
 
 **Additional Guides:**
 
+- [Client Configuration Guide](client_config_guide.md)
+
 - [Server Configuration Guide](server_config_guide.md)
 
-- [OpenGL Overlay](overlay.md): A Mumble overlay for Games and other applications.
+- [OpenGL Overlay](overlay_openGL.md): A Mumble overlay for Games and other applications.

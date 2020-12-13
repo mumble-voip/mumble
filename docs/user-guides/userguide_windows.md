@@ -1,4 +1,9 @@
-# Usage on Windows
+# Userguide for Windows
+
+## Contents
+
+- [Mumble Client](#Mumble Client)
+- [Mumble Server](#Mumble Server Murmur)
 
 ## Mumble (Client)
 
@@ -17,6 +22,12 @@ Start Mumble via your Start Menu.
 
 On first start of Mumble, a short Settings wizard (for Audio settings, certificate creation etc.) will start automatically.
 
+### Configuration
+
+<!-- Short introduction or just link to the Client Config Guide? -->
+Take a look at the [Client Configuration Guide](client_config_guide.md).
+<!-- Are there differences between the OS versions? -->
+
 ## Mumble Server (Murmur)
 
 ### Installation
@@ -32,3 +43,7 @@ Take a look at the [Server Configuration Guide](server_config_guide.md).
 Doubleclick the Murmur icon to start murmur. A small icon on your taskbar will appear from which you can view the log.
 
 To set the superuser password, run murmur with the parameters `-supw <password>`.
+
+<!-- Start via console? -->
+
+<!-- Add more flags, like in the Linux guide? -->

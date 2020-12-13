@@ -1,4 +1,9 @@
-# Usage on MacOS
+# Userguide for macOS
+
+## Contents
+
+- [Mumble Client](#Mumble Client)
+- [Mumble Server](#Mumble Server Murmur)
 
 ## Mumble (Client)
 
@@ -6,6 +11,7 @@
 
 Download Mumble from [our website](https://www.mumble.info/downloads/).
 
+<!-- Is the following still valid? -->
 To install Mumble, drag the application from the downloaded
 disk image into your `/Applications` folder.
 
@@ -20,9 +26,15 @@ To install it: launch Mumble, go into Mumble's settings -> Overlay section and y
 
 ### Start
 
+Start Mumble via your Start Menu. <!-- correct? -->
+
 On first start of Mumble, a short Settings wizard (for Audio settings, certificate creation etc.) will start automatically.
 
 ### Configuration
+
+<!-- Short introduction or just link to the Client Config Guide? -->
+Take a look at the [Client Configuration Guide](client_config_guide.md).
+<!-- Are there differences between the OS versions? -->
 
 ## Mumble Server (Murmur)
 
@@ -37,6 +49,7 @@ Take a look at the [Server Configuration Guide](server_config_guide.md).
 
 ### Start
 
+<!-- is that correct? -->
 The Mumble Server should be run from the command line, so start a shell (command prompt) and go to wherever you installed Mumble. Run the Mumble Server with:
 
 ```
