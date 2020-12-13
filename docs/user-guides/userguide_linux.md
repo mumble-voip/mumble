@@ -2,8 +2,8 @@
 
 ## Contents
 
-- [Mumble Client](#Mumble Client)
-- [Mumble Server](#Mumble Server Murmur)
+- [Mumble Client](#mumble-client)
+- [Mumble Server](#mumble-server-murmur)
 
 ## Mumble (Client)
 
@@ -50,7 +50,7 @@ Take a look at the [Server Configuration Guide](server_config_guide.md).
 
 ### Start
 
-The Mumble Server is either started [automatically](#Auto Start) or [manually](#Manual Start).
+The Mumble Server is either started [automatically](#auto-start) or [manually](#manual-start).
 
 #### Auto Start
 
@@ -66,12 +66,29 @@ The Mumble Server should be run from the command line, so start a terminal.
 
 Run the Mumble Server with:
 
+<!-- Step by Step guide?:
+1. Set Superuser password:
+
+```
+murmurd [-supw <password>]
+```
+
+2. Serverstart
+Note: Flags are optional.
+
+```
+murmurd 
+```
+
+-->
+
+<!-- Adjust descriptions? -->
+
+
 ```
 murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
--supw   Set a new password for the user SuperUser, which is hardcoded to
-        bypass ACLs. Keep this password safe. Until you set a password,
-        the SuperUser is disabled. If you use this option, murmur will
+-supw   Set a new password for the SuperUser, which is the first Administrator of the Mumble Server. Keep this password safe.  If you use this option, murmur will
         set the password in the database and then exit.
 
 -ini    Use an inifile other than murmur.ini, use this to run several instances

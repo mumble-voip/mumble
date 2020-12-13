@@ -1,12 +1,12 @@
 # Server Configuration Guide
 
-**Note:** For Installation and Starting of the Mumble Server, see the specific Userguides for your Operating System ([Userguide Overview](README.md)).
+**Note:** For Installation and Starting of the Mumble Server, see the specific [Userguides](README.md) for your Operating System.
 
 The Configuration involves three steps:
 
-1. [Network configuration](#network configuration)
-2. [Main configuration file](#main configuration file) (`murmur.ini`)
-3. [Administration with Mumble Client](#Administration with Mumble Client)
+1. [Network configuration](#network-configuration)
+2. [Main configuration file](#main-configuration-file) (`murmur.ini`)
+3. [Administration with Mumble Client](#administration-with-mumble-client)
 
 <!-- In addition there are some other interesting topics:
 
@@ -21,7 +21,7 @@ The Configuration involves three steps:
 
 ### Static vs. dynamic IP
 
-Users connect to your server via an IP or Domainname (e.g. `mumble.example.com`).
+Users connect to your server via an IP or a Domainname (e.g. `mumble.example.com`).
 
 To make this work continuously, you either need a static IP (that means: it does not change) or in case you have a dynamic IP (it changes every few days), a Dynamic DNS Service.
 

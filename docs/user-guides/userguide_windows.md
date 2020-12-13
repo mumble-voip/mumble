@@ -2,8 +2,8 @@
 
 ## Contents
 
-- [Mumble Client](#Mumble Client)
-- [Mumble Server](#Mumble Server Murmur)
+- [Mumble Client](#mumble-client)
+- [Mumble Server](#mumble-server-murmur)
 
 ## Mumble (Client)
 
