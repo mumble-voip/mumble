@@ -19,7 +19,7 @@ set_target_properties(overlay_gl
 )
 
 if(NOT APPLE)
-	target_link_options(overlay_gl
+	target_link_options(overlay_gl BEFORE
 		PRIVATE
 			"-Wl,-z,lazy"
 	)
