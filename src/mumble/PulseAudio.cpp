@@ -323,10 +323,6 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 
 			m_pulseAudio.stream_connect_record(pasInput, qPrintable(idev), &buff, PA_STREAM_ADJUST_LATENCY);
 
-			// Ensure stream is initially un-muted
-			m_pulseAudio.stream_cork(pasInput, 0, nullptr, nullptr);
-
-			connect(g.mw, &MainWindow::corkAudioInputStream, this, &PulseAudioSystem::corkAudioInputStream);
 		}
 	}
 
@@ -394,14 +390,6 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 
 			m_pulseAudio.stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_ADJUST_LATENCY);
 		}
-	}
-}
-
-void PulseAudioSystem::corkAudioInputStream(const bool cork) {
-	if (pasInput) {
-		m_pulseAudio.threaded_mainloop_lock(pam);
-		m_pulseAudio.stream_cork(pasInput, cork, nullptr, nullptr);
-		m_pulseAudio.threaded_mainloop_unlock(pam);
 	}
 }
 

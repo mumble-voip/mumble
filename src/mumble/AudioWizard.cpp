@@ -37,7 +37,6 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit            = true;
 	bLastActive      = false;
 	g.bInAudioWizard = true;
-	g.mw->onChangeMute();
 
 	ticker = new QTimer(this);
 	ticker->setObjectName(QLatin1String("Ticker"));
@@ -405,7 +404,6 @@ void AudioWizard::reject() {
 		ao->wipe();
 	aosSource        = nullptr;
 	g.bInAudioWizard = false;
-	g.mw->onChangeMute();
 
 	QWizard::reject();
 }
@@ -441,7 +439,6 @@ void AudioWizard::accept() {
 	g.bPosTest = false;
 	restartAudio();
 	g.bInAudioWizard = false;
-	g.mw->onChangeMute();
 	QWizard::accept();
 }
 

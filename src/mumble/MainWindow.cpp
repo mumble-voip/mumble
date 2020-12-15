@@ -2583,7 +2583,6 @@ void MainWindow::on_qaAudioMute_triggered() {
 		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
 	}
 
-	onChangeMute();
 	updateTrayIcon();
 }
 
@@ -2620,7 +2619,6 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
 	}
 
-	onChangeMute();
 	updateTrayIcon();
 }
 
@@ -3117,15 +3115,8 @@ void MainWindow::whisperReleased(QVariant scdata) {
 	updateTarget();
 }
 
-void MainWindow::onChangeMute() {
-	if (!g.ai) {
-		return;
-	}
-
-	emit corkAudioInputStream(g.s.bMute && !g.bInAudioWizard);
-}
-
-void MainWindow::onResetAudio() {
+void MainWindow::onResetAudio()
+{
 	qWarning("MainWindow: Start audio reset");
 	Audio::stop();
 	Audio::start();
@@ -3183,7 +3174,6 @@ void MainWindow::serverConnected() {
 
 	if (g.s.bMute || g.s.bDeaf) {
 		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
-		onChangeMute();
 	}
 
 	// Update QActions and menues
