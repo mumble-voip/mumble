@@ -238,28 +238,19 @@ void TalkingUI::setupUI() {
 
 void TalkingUI::setFontSize(QWidget *widget) {
 	const double fontFactor = g.s.iTalkingUI_RelativeFontSize / 100.0;
+	const int origLineHeight = QFontMetrics(font()).height();
 
-	// We have to do this in a complicated way as Qt is very stubborn when it
-	// comes to manipulating fonts.
-	// We have to use stylesheets because this seems to be the only way Qt will
-	// actually change the font size (setFont has no effect). However the font size
-	// won't update the moment the stylesheet is applied, so we have to copy the font
-	// of the widget, set the size and use that to calculate the line height for that
-	// particular font (needed to size the icons appropriately).
-	QFont newFont = widget->font();
 	if (font().pixelSize() >= 0) {
 		// font specified in pixels
 		widget->setStyleSheet(QString::fromLatin1("font-size: %1px;")
 								  .arg(static_cast< int >(std::max(fontFactor * font().pixelSize(), 1.0))));
-		newFont.setPixelSize(std::max(fontFactor * font().pixelSize(), 1.0));
 	} else {
 		// font specified in points
 		widget->setStyleSheet(QString::fromLatin1("font-size: %1pt;")
 								  .arg(static_cast< int >(std::max(fontFactor * font().pointSize(), 1.0))));
-		newFont.setPointSize(std::max(fontFactor * font().pointSize(), 1.0));
 	}
 
-	m_currentLineHeight = QFontMetrics(newFont).height();
+	m_currentLineHeight = static_cast< int >(std::max(origLineHeight * fontFactor, 1.0));
 }
 
 void TalkingUI::updateStatusIcons(const ClientUser *user) {
@@ -416,6 +407,11 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 		if (g.mw && g.mw->pmModel && g.mw->pmModel->getSelectedUser() == user) {
 			setSelection(UserSelection(userEntry->getWidget(), userEntry->getAssociatedUserSession()));
 		}
+
+		// As the font size of the newly created widget did not adapt to any StyleSheet it might have inherited
+		// from its parents (the channel box), the size the talking icon is initialized to in the entry's
+		// constructor is incorrect. Therefore we have to explicitly update it here.
+		userEntry->setIconSize(m_currentLineHeight);
 
 		// Actually add the user to the respective channel
 		channelContainer->addEntry(std::move(userEntry));
