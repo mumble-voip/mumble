@@ -325,12 +325,38 @@ if(ice)
 			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
 	)
+	
+	file(COPY "Murmur.ice" DESTINATION ${CMAKE_BINARY_DIR})
 endif()
 
 install(TARGETS murmur RUNTIME DESTINATION "${MUMBLE_INSTALL_EXECUTABLEDIR}" COMPONENT mumble_server)
+
+file(COPY "${CMAKE_SOURCE_DIR}/scripts/murmur.ini" DESTINATION ${CMAKE_BINARY_DIR})
 
 if(UNIX)
 	# Install Murmur man files
 	install(FILES "${CMAKE_SOURCE_DIR}/man/murmurd.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
 	install(FILES "${CMAKE_SOURCE_DIR}/man/murmur-user-wrapper.1" DESTINATION "${MUMBLE_INSTALL_MANDIR}" COMPONENT doc)
+endif()
+
+if(packaging)
+	if(WIN32)
+		if(translations)
+			set(installer_vars "--all-languages")
+		endif()
+		
+	file(COPY 
+		${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
+		${CMAKE_SOURCE_DIR}/installer/ServerInstaller.cs
+		DESTINATION
+			${CMAKE_BINARY_DIR}/installer/server
+		)
+		
+		add_custom_command(TARGET murmur
+			POST_BUILD
+			COMMAND cscs.exe -cd MumbleInstall.cs 
+			COMMAND cscs.exe ServerInstaller.cs --version ${version_short} --arch ${ARCH} ${installer_vars}
+			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/installer/server
+		)
+	endif()
 endif()

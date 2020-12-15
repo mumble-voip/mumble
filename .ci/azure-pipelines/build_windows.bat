@@ -19,8 +19,7 @@
 ::  AGENT_TOOLSDIRECTORY         - The directory used by tasks such as
 ::                                 Node Tool Installer and Use Python Version
 ::                                 to switch between multiple versions of a tool.
-::                                 We store our build environment there, in the
-::                                 folder specified by MUMBLE_ENVIRONMENT_DIR.
+::                                 We store Wix# there, in "WixSharp".
 ::
 :: Defined in .azure-pipelines.yml:
 ::
@@ -39,6 +38,8 @@ for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (set
 cd /d %BUILD_BINARIESDIRECTORY%
 
 call "%VCVARS_PATH%"
+
+set PATH=%PATH%;%AGENT_TOOLSDIRECTORY%\WixSharp
 
 :: Delete MinGW, otherwise CMake picks it over MSVC.
 :: We don't delete the (Chocolatey) packages because it takes ~10 minutes...
@@ -77,3 +78,10 @@ cmake --install .
 if errorlevel 1 (
 	exit /b %errorlevel%
 )
+
+copy installer\client\mumble_client*.msi %BUILD_ARTIFACTSTAGINGDIRECTORY%
+
+copy installer\server\mumble_server*.msi %BUILD_ARTIFACTSTAGINGDIRECTORY%
+
+7z a PDBs.7z *.pdb
+copy PDBs.7z %BUILD_ARTIFACTSTAGINGDIRECTORY%

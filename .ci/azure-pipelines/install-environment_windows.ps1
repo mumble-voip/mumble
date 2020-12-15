@@ -17,8 +17,7 @@
 #  AGENT_TOOLSDIRECTORY       - The directory used by tasks such as
 #                               Node Tool Installer and Use Python Version
 #                               to switch between multiple versions of a tool.
-#                               We store our build environment there, in the
-#                               folder specified by MUMBLE_ENVIRONMENT_DIR.
+#                               We store Wix# there, in "WixSharp".
 #
 # Defined in .azure-pipelines.yml:
 #
@@ -83,3 +82,14 @@ try {
 	Write-Host "Failed to download G15 SDK: $PSItem"
 	exit 1
 }
+
+Write-Host "Downloading WixSharp..."
+
+try {
+	Invoke-WebRequest -Uri "https://github.com/oleg-shilo/wixsharp/releases/download/v1.15.0.0/WixSharp.1.15.0.0.7z" -OutFile "WixSharp.1.15.0.0.7z"
+} catch {
+	Write-Host "Failed to download WixSharp : $PSItem"
+	exit 1
+}
+Write-Host "Exracting WixSharp to $env:AGENT_TOOLSDIRECTORY/WixSharp..."
+7z x "WixSharp.1.15.0.0.7z" -o"$env:AGENT_TOOLSDIRECTORY/WixSharp"
