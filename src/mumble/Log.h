@@ -125,7 +125,7 @@ public:
 	void clearIgnore();
 	static QString validHtml(const QString &html, QTextCursor *tc = nullptr);
 	static QString imageToImg(const QByteArray &format, const QByteArray &image);
-	static QString imageToImg(QImage img);
+	static QString imageToImg(QImage img, int maxSize = 0);
 	static QString msgColor(const QString &text, LogColorType t);
 	static QString formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName = QString());
 	static QString formatChannel(::Channel *c);
