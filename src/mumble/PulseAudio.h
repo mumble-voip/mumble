@@ -173,9 +173,6 @@ protected:
 	void setVolumes();
 	PulseAttenuation *getAttenuation(QString stream_restore_id);
 
-public slots:
-	void corkAudioInputStream(const bool cork);
-
 public:
 	QHash< QString, QString > qhInput;
 	QHash< QString, QString > qhOutput;
