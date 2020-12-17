@@ -2694,6 +2694,10 @@ Are you sure you wish to replace your certificate?
         <source>Unable to send image %1: too large.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This server does not allow sending images.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
