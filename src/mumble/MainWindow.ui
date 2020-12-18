@@ -378,6 +378,17 @@
     <string>Sends a text message to another user.</string>
    </property>
   </action>
+  <action name="qaUserLocalNickname">
+   <property name="text">
+    <string>&amp;Set Nickname...</string>
+   </property>
+   <property name="toolTip">
+    <string>Set a local nickname</string>
+   </property>
+   <property name="whatsThis">
+    <string>Sets a local nickname for another user.</string>
+   </property>
+  </action>
   <action name="qaChannelAdd">
    <property name="text">
     <string>&amp;Add...</string>

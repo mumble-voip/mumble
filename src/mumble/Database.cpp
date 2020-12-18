@@ -207,6 +207,9 @@ Database::Database(const QString &dbname) {
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `volume` (`id` INTEGER PRIMARY KEY "
 												"AUTOINCREMENT, `hash` TEXT, `volume` FLOAT)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `volume_hash` ON `volume`(`hash`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `nicknames` (`id` INTEGER PRIMARY KEY "
+												"AUTOINCREMENT, `hash` TEXT, `nickname` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `nicknames_hash` ON `nicknames`(`hash`)"));
 
 	// Note: A previous snapshot version created a table called 'hidden'
 	execQueryAndLogFailure(
@@ -363,6 +366,27 @@ float Database::getUserLocalVolume(const QString &hash) {
 		return query.value(0).toString().toFloat();
 	}
 	return 1.0f;
+}
+
+void Database::setUserLocalNickname(const QString &hash, const QString &nickname) {
+	QSqlQuery query(db);
+
+	query.prepare(QLatin1String("INSERT OR REPLACE INTO `nicknames` (`hash`, `nickname`) VALUES (?,?)"));
+	query.addBindValue(hash);
+	query.addBindValue(nickname);
+	execQueryAndLogFailure(query);
+}
+
+QString Database::getUserLocalNickname(const QString &hash) {
+	QSqlQuery query(db);
+
+	query.prepare(QLatin1String("SELECT `nickname` FROM `nicknames` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	execQueryAndLogFailure(query);
+	if (query.first()) {
+		return query.value(0).toString();
+	}
+	return QString();
 }
 
 void Database::setLocalMuted(const QString &hash, bool muted) {

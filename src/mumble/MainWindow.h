@@ -18,6 +18,7 @@
 #include "Mumble.pb.h"
 #include "Usage.h"
 #include "UserLocalVolumeDialog.h"
+#include "UserLocalNicknameDialog.h"
 
 #include "ui_MainWindow.h"
 
@@ -69,6 +70,7 @@ public:
 		qiIconMuteSuppressed;
 	QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 	QMap< unsigned int, UserLocalVolumeDialog * > qmUserVolTracker;
+	std::unordered_map< unsigned int, std::unique_ptr< UserLocalNicknameDialog > > qmUserNicknameTracker;
 
 	/// "Action" for when there are no actions available
 	QAction *qaEmpty;
@@ -119,6 +121,7 @@ public:
 
 	void updateChatBar();
 	void openTextMessageDialog(ClientUser *p);
+	void openUserLocalNicknameDialog(const ClientUser &p);
 	void openUserLocalVolumeDialog(ClientUser *p);
 
 #ifdef Q_OS_WIN
@@ -210,6 +213,7 @@ public slots:
 	void on_qaUserLocalIgnore_triggered();
 	void on_qaUserLocalIgnoreTTS_triggered();
 	void on_qaUserLocalMute_triggered();
+	void on_qaUserLocalNickname_triggered();
 	void on_qaUserLocalVolume_triggered();
 	void on_qaUserTextMessage_triggered();
 	void on_qaUserRegister_triggered();

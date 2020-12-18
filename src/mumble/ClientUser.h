@@ -20,6 +20,7 @@ private:
 
 protected:
 	float m_localVolume = 1.0f;
+	QString m_localNickname;
 
 public:
 	Settings::TalkState tsState;
@@ -41,6 +42,8 @@ public:
 	ClientUser(QObject *p = nullptr);
 
 	float getLocalVolumeAdjustments() const;
+
+	QString getLocalNickname() const;
 
 	/**
 	 * Determines whether a user is active or not
@@ -81,12 +84,14 @@ public slots:
 	void setPrioritySpeaker(bool priority);
 	void setRecording(bool recording);
 	void setLocalVolumeAdjustment(float adjustment);
+	void setLocalNickname(const QString &nickname);
 signals:
 	void talkingStateChanged();
 	void muteDeafStateChanged();
 	void prioritySpeakerStateChanged();
 	void recordingStateChanged();
 	void localVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
+	void localNicknameChanged();
 };
 
 #endif

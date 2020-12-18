@@ -48,6 +48,7 @@
 #include "User.h"
 #include "UserEdit.h"
 #include "UserInformation.h"
+#include "UserLocalNicknameDialog.h"
 #include "UserLocalVolumeDialog.h"
 #include "UserModel.h"
 #include "Utils.h"
@@ -1600,6 +1601,7 @@ void MainWindow::qmUser_aboutToShow() {
 	if (g.s.bTTS)
 		qmUser->addAction(qaUserLocalIgnoreTTS);
 	qmUser->addAction(qaUserLocalVolume);
+	qmUser->addAction(qaUserLocalNickname);
 
 	if (isSelf)
 		qmUser->addAction(qaSelfComment);
@@ -1656,6 +1658,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserKick->setEnabled(false);
 		qaUserBan->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
+		qaUserLocalNickname->setEnabled(false);
 		qaUserLocalMute->setEnabled(false);
 		qaUserLocalVolume->setEnabled(false);
 		qaUserLocalIgnore->setEnabled(false);
@@ -1667,6 +1670,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserKick->setEnabled(!isSelf);
 		qaUserBan->setEnabled(!isSelf);
 		qaUserTextMessage->setEnabled(true);
+		qaUserLocalNickname->setEnabled(!isSelf);
 		qaUserLocalMute->setEnabled(!isSelf);
 		qaUserLocalVolume->setEnabled(!isSelf);
 		qaUserLocalIgnore->setEnabled(!isSelf);
@@ -1967,6 +1971,20 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 		}
 	}
 	delete texm;
+}
+
+void MainWindow::on_qaUserLocalNickname_triggered() {
+	ClientUser *p = getContextMenuUser();
+
+	if (!p)
+		return;
+
+	openUserLocalNicknameDialog(*p);
+}
+
+void MainWindow::openUserLocalNicknameDialog(const ClientUser &p) {
+	unsigned int session = p.uiSession;
+	UserLocalNicknameDialog::present(session, qmUserNicknameTracker);
 }
 
 void MainWindow::on_qaUserCommentView_triggered() {

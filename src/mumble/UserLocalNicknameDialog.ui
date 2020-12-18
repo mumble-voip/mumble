@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UserLocalNicknameDialog</class>
+ <widget class="QDialog" name="UserLocalNicknameDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>80</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>80</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>224</height>
+   </size>
+  </property>
+  <layout class="QGridLayout">
+   <item row="2" column="0" colspan="2" alignment="Qt::AlignBottom">
+    <widget class="QDialogButtonBox" name="qbbUserLocalNickname">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLineEdit" name="qleUserLocalNickname">
+     <property name="toolTip">
+      <string>Local nickname for other users</string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

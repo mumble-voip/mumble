@@ -379,6 +379,7 @@ Settings::Settings() {
 	bUsage                    = true;
 	bShowUserCount            = false;
 	bShowVolumeAdjustments    = true;
+	bShowNicknamesOnly        = false;
 	bChatBarUseSelection      = false;
 	bFilterHidesEmptyChannels = true;
 	bFilterActive             = false;
@@ -867,6 +868,7 @@ void Settings::load(QSettings *settings_ptr) {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(bShowVolumeAdjustments, "ui/showVolumeAdjustments");
+	SAVELOAD(bShowNicknamesOnly, "ui/showNicknamesOnly");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");
@@ -1237,6 +1239,7 @@ void Settings::save() {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(bShowVolumeAdjustments, "ui/showVolumeAdjustments");
+	SAVELOAD(bShowNicknamesOnly, "ui/showNicknamesOnly");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");

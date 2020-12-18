@@ -24,6 +24,10 @@ float ClientUser::getLocalVolumeAdjustments() const {
 	return m_localVolume;
 }
 
+QString ClientUser::getLocalNickname() const {
+	return m_localNickname;
+}
+
 ClientUser *ClientUser::get(unsigned int uiSession) {
 	QReadLocker lock(&c_qrwlUsers);
 	ClientUser *p = c_qmUsers.value(uiSession);
@@ -238,6 +242,14 @@ void ClientUser::setLocalVolumeAdjustment(float adjustment) {
 	m_localVolume       = adjustment;
 
 	emit localVolumeAdjustmentsChanged(m_localVolume, oldAdjustment);
+}
+
+void ClientUser::setLocalNickname(const QString &nickname) {
+	if (m_localNickname != nickname) {
+		m_localNickname = nickname;
+
+		emit localNicknameChanged();
+	}
 }
 
 bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *second) {
