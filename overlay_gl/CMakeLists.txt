@@ -62,7 +62,7 @@ if(NOT APPLE)
 		# If it doesn't, the program will not start at all.
 		#
 		# Instead, explicitly use '-z lazy' to defer libGL symbol resolution until first use, which is never for non-libGL users.
-		target_link_options(overlay_gl_x86
+		target_link_options(overlay_gl_x86 BEFORE
 			PRIVATE
 				"-m32"
 				"-Wl,-z,lazy"
