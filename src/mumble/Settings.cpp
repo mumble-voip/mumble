@@ -294,7 +294,7 @@ Settings::Settings() {
 	atTransmit        = VAD;
 	bTransmitPosition = false;
 	bMute = bDeaf                  = false;
-	bTTS                           = true;
+	bTTS                           = false;
 	bTTSMessageReadBack            = false;
 	bTTSNoScope                    = false;
 	bTTSNoAuthor                   = false;
