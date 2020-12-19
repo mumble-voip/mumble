@@ -22,17 +22,20 @@ More information can be found in our [wiki](https://wiki.mumble.info/wiki/Instal
 If you have installed Mumble through your distribution's repository, you should be able to find Mumble in your start menu. 
 
 Alternatively you can start it via a terminal.
-The usual command is: `mumble`.
+The usual command is: 
+
+```
+mumble
+```
 
 Otherwise take a look at the package documentation of your distribution or the documentation for Flatpaks, Snapcraft etc.
 
-On first start of Mumble, a short Settings wizard (for Audio settings, certificate creation etc.) will start automatically.
+**Note:** On first start of Mumble, a short Settings wizard (for Audio settings, certificate generation etc.) will start automatically.
 
 ### Configuration
 
 <!-- Short introduction or just link to the Client Config Guide? -->
 Take a look at the [Client Configuration Guide](client_config_guide.md).
-<!-- Are there differences between the OS versions? -->
 
 ## Mumble Server (Murmur)
 
@@ -42,7 +45,6 @@ The best option to install the Mumble Server (Murmur) is through your distributi
 Just search for `Mumble Server` or `Murmur` in your package manager and install it.
 
 Alternatively you can also find a **Static Linux Server** package on our [website](https://www.mumble.info/downloads/#manual-download).
-<!-- Add a note that it contains outdated openssl? -->
 
 ### Configuration
 
@@ -57,45 +59,65 @@ The Mumble Server is either started [automatically](#auto-start) or [manually](#
 On many distributions the Mumble Server is started automatically on system boot.
 
 You can also disable this and start the Server manually.
-Most distributions use `systemd` now, so search in the systemd documentation on how to disable the Mumble Server service.
+Most distributions use `systemd` now, so search in the systemd documentation on how to disable the Mumble Server service (e.g. `murmur.service`).
+
+Next Steps: 
+
+1. Set the SuperUser (Server Admin) password:
+
+```
+murmurd -ini /etc/murmur.ini -supw PASSWORD
+```
+
+2. Restart the Server:
+If your system uses `systemd`, use e.g.:
+
+```
+systemctl restart murmur.service
+```
+
+3. Login & administrate the Server:
+See [Server Configuration Guide](server_config_guide.md#administration-with-mumble-client) for details.
 
 #### Manual Start
 
-The Mumble Server should be run from the command line, so start a terminal.
-(*If the `Static Linux Server` is installed or the binary is not linked, you have to change directory to wherever the Mumble Server is installed, first.*)
+The Mumble Server should be run from a terminal.
+(*If the `Static Linux Server` is installed or the binary is not linked, you have to change the directory to wherever the Mumble Server is installed, first.*)
 
-Run the Mumble Server with:
+<!-- Will the binary name change in 1.4? -->
 
-<!-- Step by Step guide?:
-1. Set Superuser password:
+<!-- mention different binary name of static linux server? -->
+
+1. Set the SuperUser (Server Admin) password:
 
 ```
-murmurd [-supw <password>]
+murmurd -supw <password>
 ```
 
-2. Serverstart
-Note: Flags are optional.
+2. Start the server:
+
+*Note:* Flags are optional (see below).
+The standard configuration file used, is `murmur.ini` in the same directory.
 
 ```
 murmurd 
 ```
 
--->
 
-<!-- Adjust descriptions? -->
-
+**Flags:**
 
 ```
 murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
--supw   Set a new password for the SuperUser, which is the first Administrator of the Mumble Server. Keep this password safe.  If you use this option, murmur will
-        set the password in the database and then exit.
+-supw   Set a new password for the SuperUser (Server Admin). Keep this password safe. Mumble Server will stop after this command.
 
--ini    Use an inifile other than murmur.ini, use this to run several instances
-        of murmur from the same directory. Make sure each instance is using
-        a separate database.
+-ini    Use a specific inifile. You can also use this to run several instances
+        of murmur from the same directory. Make sure each instance is using a separate database.
 
 -fg     Run in the foreground, logging to standard output.
 
 -v      More verbose logging.
 ```
+
+3. Login & administrate the Server:
+See [Server Configuration Guide](server_config_guide.md#administration-with-mumble-client) for details.
