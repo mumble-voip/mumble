@@ -8,6 +8,7 @@
 
 #include "Settings.h"
 #include "TalkingUIComponent.h"
+#include "widgets/MultiStyleWidgetWrapper.h"
 
 #include <QIcon>
 #include <QLatin1String>
@@ -70,6 +71,7 @@ public:
 class TalkingUIUser : public TalkingUIEntry {
 protected:
 	QWidget *m_backgroundWidget = nullptr;
+	MultiStyleWidgetWrapper m_backgroundWidgetStyleWrapper;
 
 	QLabel *m_talkingIcon = nullptr;
 	QLabel *m_nameLabel   = nullptr;
@@ -97,6 +99,7 @@ public:
 
 	virtual QWidget *getWidget() override;
 	virtual const QWidget *getWidget() const override;
+	virtual MultiStyleWidgetWrapper &getStylableWidget() override;
 
 	virtual EntryType getType() const override;
 
@@ -120,6 +123,7 @@ public:
 class TalkingUIChannelListener : public TalkingUIEntry {
 protected:
 	QWidget *m_backgroundWidget = nullptr;
+	MultiStyleWidgetWrapper m_backgroundWidgetStyleWrapper;
 
 	QLabel *m_icon      = nullptr;
 	QLabel *m_nameLabel = nullptr;
@@ -135,6 +139,7 @@ public:
 
 	virtual QWidget *getWidget() override;
 	virtual const QWidget *getWidget() const override;
+	MultiStyleWidgetWrapper &getStylableWidget() override;
 
 	virtual void setIconSize(int size) override;
 

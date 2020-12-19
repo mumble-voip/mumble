@@ -9,6 +9,8 @@
 #include "TalkingUIComponent.h"
 #include "TalkingUIEntry.h"
 
+#include "widgets/MultiStyleWidgetWrapper.h"
+
 #include <QString>
 
 #include <memory>
@@ -74,6 +76,7 @@ public:
 class TalkingUIChannel : public TalkingUIContainer {
 protected:
 	QGroupBox *m_channelBox;
+	MultiStyleWidgetWrapper m_channelBoxStyleWrapper;
 
 	EntryPriority m_highestUserPriority = EntryPriority::LOWEST;
 
@@ -90,6 +93,7 @@ public:
 
 	virtual QWidget *getWidget() override;
 	virtual const QWidget *getWidget() const override;
+	virtual MultiStyleWidgetWrapper &getStylableWidget() override;
 
 	virtual ContainerType getType() const override;
 

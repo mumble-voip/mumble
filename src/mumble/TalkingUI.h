@@ -27,6 +27,7 @@ class QMouseEvent;
 class Channel;
 class ClientUser;
 class TalkingUIComponent;
+class MultiStyleWidgetWrapper;
 
 /// The talking UI is a widget that will display the users you are currently
 /// hearing to you.
@@ -87,8 +88,9 @@ private:
 
 	/// Sets the font size according to the settings
 	///
-	/// @param widget a pointer to the widget to set the font size for
-	void setFontSize(QWidget *widget);
+	/// @param widgetWrapper An instance of MultiStyleWidgetWrapper that wraps the widget whose font size
+	/// 	shall be set
+	void setFontSize(MultiStyleWidgetWrapper &widgetWrapper);
 
 	/// Updates the user's status icons (reflecting e.g. its mut-state)
 	///

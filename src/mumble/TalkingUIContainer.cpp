@@ -135,9 +135,13 @@ bool TalkingUIContainer::operator<=(const TalkingUIContainer &other) const {
 const int CHANNEL_LAYOUT_TOP_MARGIN = 10;
 
 TalkingUIChannel::TalkingUIChannel(int associatedChannelID, QString name, TalkingUI &talkingUI)
-	: TalkingUIContainer(associatedChannelID, talkingUI), m_channelBox(new QGroupBox()) {
+	: TalkingUIContainer(associatedChannelID, talkingUI), m_channelBox(new QGroupBox()),
+	  m_channelBoxStyleWrapper(m_channelBox) {
 	// Set name
 	m_channelBox->setTitle(name);
+
+	// Don't inherit the background color set on the channel box to its children.
+	m_channelBoxStyleWrapper.setBackgroundColorSelector("TalkingUI > QGroupBox");
 
 	// Set layout
 	QVBoxLayout *layout = new QVBoxLayout();
@@ -196,6 +200,10 @@ QWidget *TalkingUIChannel::getWidget() {
 
 const QWidget *TalkingUIChannel::getWidget() const {
 	return m_channelBox;
+}
+
+MultiStyleWidgetWrapper &TalkingUIChannel::getStylableWidget() {
+	return m_channelBoxStyleWrapper;
 }
 
 ContainerType TalkingUIChannel::getType() const {

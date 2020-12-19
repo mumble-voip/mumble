@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "TalkingUIComponent.h"
 #include "UserModel.h"
+#include "widgets/MultiStyleWidgetWrapper.h"
 
 #include <QGroupBox>
 #include <QGuiApplication>
@@ -236,18 +237,18 @@ void TalkingUI::setupUI() {
 			&TalkingUI::on_mainWindowSelectionChanged);
 }
 
-void TalkingUI::setFontSize(QWidget *widget) {
+void TalkingUI::setFontSize(MultiStyleWidgetWrapper &widgetWrapper) {
 	const double fontFactor = g.s.iTalkingUI_RelativeFontSize / 100.0;
 	const int origLineHeight = QFontMetrics(font()).height();
 
 	if (font().pixelSize() >= 0) {
 		// font specified in pixels
-		widget->setStyleSheet(QString::fromLatin1("font-size: %1px;")
-								  .arg(static_cast< int >(std::max(fontFactor * font().pixelSize(), 1.0))));
+		uint32_t pixelSize = static_cast< uint32_t >(std::max(fontFactor * font().pixelSize(), 1.0));
+		widgetWrapper.setFontSize(pixelSize, true);
 	} else {
 		// font specified in points
-		widget->setStyleSheet(QString::fromLatin1("font-size: %1pt;")
-								  .arg(static_cast< int >(std::max(fontFactor * font().pointSize(), 1.0))));
+		uint32_t pointSize =  static_cast< uint32_t >(std::max(fontFactor * font().pointSize(), 1.0));
+		widgetWrapper.setFontSize(pointSize, false);
 	}
 
 	m_currentLineHeight = static_cast< int >(std::max(origLineHeight * fontFactor, 1.0));
@@ -342,7 +343,7 @@ void TalkingUI::addChannel(const Channel *channel) {
 
 		QWidget *channelWidget = channelContainer->getWidget();
 
-		setFontSize(channelWidget);
+		setFontSize(channelContainer->getStylableWidget());
 
 		layout()->addWidget(channelWidget);
 
@@ -713,7 +714,7 @@ void TalkingUI::on_settingsChanged() {
 		// The font size might have changed as well -> update it
 		// By the hierarchy in the UI the font-size should propagate to all
 		// sub-elements (entries) as well.
-		setFontSize(currentContainer->getWidget());
+		setFontSize(currentContainer->getStylableWidget());
 
 		if (currentContainer->getType() != ContainerType::CHANNEL) {
 			continue;
