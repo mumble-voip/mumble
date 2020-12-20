@@ -62,21 +62,19 @@ Check and adjust your:
 
 The main server configuration file is called `murmur.ini` (it can be renamed though).
 
-You should find an example murmur.ini file alongside your installation, but you can also find the most recent **example file (with explanations) on [Github](https://github.com/mumble-voip/mumble/blob/master/scripts/murmur.ini)**.
+You should find an example murmur.ini file in the program folders, but you can also look at the most recent **example murmur.ini (with explanations) on [Github](https://github.com/mumble-voip/mumble/blob/master/scripts/murmur.ini)**.
 
 Below is a list of the most important options:
 
-| Config Key: | Standard value: | Example: | Description: | Alternative(s): |
-| --- | --- | --- | --- | --- |
-| welcometext= | - | "Welcome to our Server!" | (optional) the text will be send to every new user via chatmessage; if it's empty, no message will be send | welcometextfile= |
-| port= | 64738 | - | sets the port (see above for details) | - |
-| serverpassword= | - | "supersecurepassword634%" | (optional) sets the Serverpassword; if it's empty, users can connect without a password. | - |
-| bandwidth= | 72000 | - | sets the maximum bandwidth per user (in bits per second); setting it higher can increase the audio quality | - |
-| users= | 100 | - | sets the maximum number of online users | - |
-| registerName= | - | "MyServer" | (optional) sets the Servername and the name of the main channel | - |
-| database= | murmur.sqlite | seconddatabase.sqlite | (optional) set this option if you want to run multiple instances of murmur, so each instance has it's own database. Using sqlite is recommended. | Start multiple virtual servers (for now this is buggy (gRPC) or outdated (dbus; Ice)). See [Mumble Wiki - gRPC](https://wiki.mumble.info/wiki/GRPC) for details. <!-- Ice and dbus [Mumble Wiki - Remote server control](https://wiki.mumble.info/wiki/Murmurguide#Remote_Controlling_the_Server) --> |
-
-Take a look at other options too.
+| Config Key: | Mandatory: | Default value: | Example: | Description: | Alternative(s): |
+| --- | --- | --- | --- | --- | --- |
+| welcometext= | no | - | "Welcome to our Server!" | the text will be send to every new user via chatmessage; if it's empty, no message will be send | welcometextfile= |
+| port= | yes | 64738 | - | sets the port (see above for details) | - |
+| serverpassword= | no | - | "supersecurepassword634%" | sets the Serverpassword; if it's empty, users can connect without a password. | - |
+| bandwidth= | yes | 72000 | - | sets the maximum bandwidth per user (in bits per second); setting it higher can increase the audio quality | - |
+| users= | yes | 100 | - | sets the maximum number of online users | - |
+| registerName= | no | - | "MyServer" | sets the Servername and the name of the main channel | - |
+| database= | no | empty (murmur.sqlite) | seconddatabase.sqlite | set this option, if you want to run multiple instances of murmur, so each instance has it's own database. Using sqlite is recommended. | Start multiple virtual servers (for now this is buggy (gRPC) or outdated (dbus; Ice)). See [Mumble Wiki - gRPC](https://wiki.mumble.info/wiki/GRPC) for details on setup etc. <!-- Ice and dbus [Mumble Wiki - Remote server control](https://wiki.mumble.info/wiki/Murmurguide#Remote_Controlling_the_Server) --> |
 
 For all available options and explanations, take a look at [Mumble Wiki - Murmur.ini](https://wiki.mumble.info/wiki/Murmur.ini).
 
