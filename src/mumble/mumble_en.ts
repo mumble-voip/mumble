@@ -4298,6 +4298,14 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Show local user&apos;s listeners (ears)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Hide the username for each user if they have a nickname.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show nicknames only</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -6138,6 +6146,18 @@ Valid options are:
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Set Nickname...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set a local nickname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets a local nickname for another user.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7129,6 +7149,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Local Nickname Adjustment...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7661,6 +7685,25 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel ID: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UserLocalNicknameDialog</name>
+    <message>
+        <source>Local nickname for other users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User nickname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjusting local nickname for %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1019,6 +1019,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 	connect(p, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, &ClientUser::localVolumeAdjustmentsChanged, this, &UserModel::userStateChanged);
+	connect(p, &ClientUser::localNicknameChanged, this, &UserModel::userStateChanged);
 
 	Channel *c       = Channel::get(0);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
@@ -1959,16 +1960,28 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 		friendTag = QString::fromLatin1("(%2)").arg(user.qsFriendName);
 	}
 
+	// Create a nickname-tag
+	QString nickname = user.getLocalNickname();
+
 	// Create a tag that indicates the volume adjustments
 	QString volumeTag;
 	if (std::abs(localVolumeDecibel) > 0 && g.s.bShowVolumeAdjustments) {
 		volumeTag = QString::asprintf("|%+d|", localVolumeDecibel);
 	}
 
-	QString displayString = user.qsName;
+	QString displayString;
+	if (!g.s.bShowNicknamesOnly || nickname.isEmpty()) {
+		displayString += user.qsName;
+	} else {
+		displayString += nickname;
+	}
 
 	if (!friendTag.isEmpty()) {
 		displayString += " " + friendTag;
+	}
+
+	if (!g.s.bShowNicknamesOnly && !nickname.isEmpty() && user.qsName.compare(nickname, Qt::CaseInsensitive) != 0) {
+		displayString += " " + QString::fromLatin1("[%1]").arg(nickname);
 	}
 
 	if (!volumeTag.isEmpty()) {

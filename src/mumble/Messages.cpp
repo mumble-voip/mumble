@@ -553,6 +553,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (g.db->isLocalIgnoredTTS(pDst->qsHash))
 			pDst->setLocalIgnoreTTS(true);
 		pDst->setLocalVolumeAdjustment(g.db->getUserLocalVolume(pDst->qsHash));
+		pDst->setLocalNickname(g.db->getUserLocalNickname(pDst->qsHash));
 	}
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
