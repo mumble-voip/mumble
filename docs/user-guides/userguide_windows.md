@@ -46,4 +46,34 @@ To set the superuser password, run murmur with the parameters `-supw <password>`
 
 <!-- Start via console? -->
 
+1. Set the SuperUser (Server Admin) password:
+
+```
+./murmur.x86 -supw <password>
+```
+
+2. Start the server:
+
+*Note:* Flags are optional (see below).
+The standard configuration file used, is `murmur.ini` in the same directory.
+
+```
+./murmur.x86
+```
+
 <!-- Add more flags, like in the Linux guide? -->
+
+**Flags:**
+
+```
+murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
+
+-supw   Set a new password for the SuperUser (Server Admin). Keep this password safe. Mumble Server will stop after this command.
+
+-ini    Use a specific inifile. You can also use this to run several instances
+        of murmur from the same directory. Make sure each instance is using a separate database.
+
+-fg     Run in the foreground, logging to standard output.
+
+-v      More verbose logging.
+```

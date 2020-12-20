@@ -52,17 +52,32 @@ Take a look at the [Server Configuration Guide](server_config_guide.md).
 <!-- is that correct? -->
 The Mumble Server should be run from the command line, so start a shell (command prompt) and go to wherever you installed Mumble. Run the Mumble Server with:
 
+<!-- different binary name on macOS? -->
+
+1. Set the SuperUser (Server Admin) password:
+
+```
+murmurd -supw <password>
+```
+
+2. Start the server:
+
+*Note:* Flags are optional (see below).
+The standard configuration file used, is `murmur.ini` in the same directory.
+
+```
+murmurd 
+```
+
+**Flags:**
+
 ```
 murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
--supw   Set a new password for the user SuperUser, which is hardcoded to
-        bypass ACLs. Keep this password safe. Until you set a password,
-        the SuperUser is disabled. If you use this option, murmur will
-        set the password in the database and then exit.
+-supw   Set a new password for the SuperUser (Server Admin). Keep this password safe. Mumble Server will stop after this command.
 
--ini    Use an inifile other than murmur.ini, use this to run several instances
-        of murmur from the same directory. Make sure each instance is using
-        a separate database.
+-ini    Use a specific inifile. You can also use this to run several instances
+        of murmur from the same directory. Make sure each instance is using a separate database.
 
 -fg     Run in the foreground, logging to standard output.
 

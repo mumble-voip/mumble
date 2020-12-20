@@ -41,14 +41,14 @@ For more information and a list of services and software, take a look at the [Ar
 
 ### Firewall & Ports
 
-In order for your users to be able to connect to your server, you need to allow incoming connections to a specific Port that the Mumble Server uses. 
+In order for your users to be able to connect to your server, you need to allow incoming connections to a specific port that the Mumble Server uses. 
 
-The Standardport is `64738` (recommended).
+The standard port is `64738` (recommended).
 You can also change it to every available port by editing the main configuration file (`murmur.ini`; see below).
 
 **Note:** Use a port that is not standardized (widely used by known programs/services), see e.g. [Wikipedia - List of Ports](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers).
 
-Allow connections to the Port for both protocols (TCP and UDP).
+Allow connections to the port for both protocols (TCP and UDP).
 
 Check and adjust your:
 
@@ -66,17 +66,17 @@ You should find an example murmur.ini file alongside your installation, but you 
 
 Below is a list of the most important options:
 
-`welcometext="Welcome on our Server!"` - the text will be send to every new user via chatmessage; if it's empty, no message will be send
+| Config Key: | Standard value: | Example: | Description: | Alternative(s): |
+| --- | --- | --- | --- | --- |
+| welcometext= | - | "Welcome to our Server!" | (optional) the text will be send to every new user via chatmessage; if it's empty, no message will be send | welcometextfile= |
+| port= | 64738 | - | sets the port (see above for details) | - |
+| serverpassword= | - | "supersecurepassword634%" | (optional) sets the Serverpassword; if it's empty, users can connect without a password. | - |
+| bandwidth= | 72000 | - | sets the maximum bandwidth per user (in bits per second); setting it higher can increase the audio quality | - |
+| users= | 100 | - | sets the maximum number of online users | - |
+| registerName= | - | "MyServer" | (optional) sets the Servername and the name of the main channel | - |
+| database= | murmur.sqlite | seconddatabase.sqlite | (optional) set this option if you want to run multiple instances of murmur, so each instance has it's own database. Using sqlite is recommended. | Start multiple virtual servers (for now this is buggy (gRPC) or outdated (dbus; Ice)). See [Mumble Wiki - gRPC](https://wiki.mumble.info/wiki/GRPC) for details. <!-- Ice and dbus [Mumble Wiki - Remote server control](https://wiki.mumble.info/wiki/Murmurguide#Remote_Controlling_the_Server) --> |
 
-`port=64738` - sets the port (see above); `64738` is the standard port
-
-`serverpassword=` - sets the Serverpassword; if it's empty, users can connect without a password.
-
-`bandwidth=72000` - sets the maximum bandwidth per user (in bits per second); setting it higher can increase the audio quality
-
-`users=100` - sets the maximum number of online users
-
-`registerName=` - sets the Servername and the name of the main channel
+Take a look at other options too.
 
 For all available options and explanations, take a look at [Mumble Wiki - Murmur.ini](https://wiki.mumble.info/wiki/Murmur.ini).
 
