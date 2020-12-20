@@ -2816,17 +2816,24 @@ Are you sure you wish to replace your certificate?
         <translation>恢复此页面为默认值</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>恢复此页面上的所有设置为默认值。其他页面不会被修改。&lt;br /&gt;要将所有设置恢复为默认，您必须在每个页面上使用此按钮。</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Mumble 配置</translation>
     </message>
     <message>
         <source>Configuration categories</source>
         <translation>配置分类</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation>恢复此页面上的所有设置为默认值。其他页面不会被修改。&lt;br /&gt;要将所有设置恢复为默认，您可以点击“恢复所有为默认值”按钮。</translation>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation>恢复所有为默认值</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
+        <translation>将所有设置恢复为默认值。</translation>
     </message>
 </context>
 <context>
@@ -3369,10 +3376,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Shortcuts</source>
         <translation>快捷键</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>快捷键组合。</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6246,6 +6249,11 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
 
 </translation>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation>隐藏/显示主界面</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7237,6 +7245,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation>由于采样率不匹配，RNNoise 不可用。</translation>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation>重置所有设置？</translation>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation>您确定要将所有设置（不仅包括当前可见部分）为默认值吗？</translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7390,6 +7406,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Unassigned</source>
         <translation>未绑定</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation>快捷键组合：</translation>
     </message>
 </context>
 <context>

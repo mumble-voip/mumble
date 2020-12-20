@@ -2797,17 +2797,24 @@ Are you sure you wish to replace your certificate?
         <translation>Przywróć domyślne ustawienia na aktualnej karcie</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Przywróci ustawienia domyślne dla aktualnej karty. Inne karty nie zostaną zmienione. &lt;br /&gt;Aby przywrócić wszystkie opcje do wartości domyślnych, musisz użyć tego przycisku na każdej karcie.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Konfiguracja Mumble</translation>
     </message>
     <message>
         <source>Configuration categories</source>
         <translation>Kategorie konfiguracji</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation>Ten przycisk przywróci ustawienia domyślne na bieżącej stronie. Inne strony nie zostaną zmienione.&lt;br /&gt;Aby przywrócić wszystkie ustawienia do wartości domyślnych, możesz nacisnąć przycisk &quot;Ustawienia domyślne (wszystkie)”.</translation>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation>Przywróć wszystkie ustawienia domyślne</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
+        <translation>Ten przycisk przywróci domyślne wartości wszystkich ustawień.</translation>
     </message>
 </context>
 <context>
@@ -3346,10 +3353,6 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     <message>
         <source>Shortcuts</source>
         <translation>Skróty</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Kombinacja klawiszy skrótów.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6228,6 +6231,11 @@ Dostępne opcje:
 
 </translation>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation>Ukryj/pokaż główne okno</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7220,6 +7228,14 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation>RNNoise jest niedostępny z powodu niedopasowania częstotliwości próbkowania.</translation>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation>Zresetować wszystkie ustawienia?</translation>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation>Czy na pewno chcesz zresetować wszystkie ustawienia (nie tylko te aktualnie widoczne) do wartości domyślnych?</translation>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7373,6 +7389,10 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <message>
         <source>Unassigned</source>
         <translation>Nieprzypisana</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation>Kombinacja przycisków skrótu:</translation>
     </message>
 </context>
 <context>

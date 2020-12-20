@@ -408,7 +408,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"/>
+        <translation>Пароль канала</translation>
     </message>
     <message>
         <source>Maximum users</source>
@@ -1756,7 +1756,7 @@ To keep latency to an absolute minimum, it's important to buffer as little audio
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Чтобы свести время задержки к абсолютному минимуму, необходимо передвинуть ползунок влево на самый минимум, насколько позволяет Ваша звуковя карта. Тем не менее, многие звуковые карты требуют гораздо меньшего буфера, с которым они могут фактически работать, поэтому единственный способ установить это значение - пробовать и ошибаться.&lt;/p&gt;&lt;p&gt;Вы должны слышать голосовой образец. Установите ползунок на самое короткое время ожидания, которое &lt;b&gt;НЕ&lt;/b&gt; дает прерываний или колебания в звуке. Обратите внимание, что локальное эхо выключено во время этого теста.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Чтобы свести время задержки к абсолютному минимуму, необходимо передвинуть ползунок влево на самый минимум, насколько позволяет Ваша звуковая карта. Тем не менее, многие звуковые карты требуют гораздо меньшего буфера, с которым они могут фактически работать, поэтому единственный способ установить это значение - пробовать и ошибаться.&lt;/p&gt;&lt;p&gt;Вы должны слышать голосовой образец. Установите ползунок на самое короткое время ожидания, которое &lt;b&gt;НЕ&lt;/b&gt; дает прерываний или колебания в звуке. Обратите внимание, что локальное эхо выключено во время этого теста.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
@@ -2779,16 +2779,23 @@ Are you sure you wish to replace your certificate?
         <translation>Восстановить стандартные настройки на этой странице</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на каждой странице.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Настройки Mumble</translation>
     </message>
     <message>
         <source>Configuration categories</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3327,10 +3334,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Shortcuts</source>
         <translation>Горячие клавиши</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Сочетание клавиш.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6162,6 +6165,11 @@ Valid options are:
 </source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7152,6 +7160,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7305,6 +7321,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Unassigned</source>
         <translation>Не назначено</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

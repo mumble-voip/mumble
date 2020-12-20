@@ -2861,17 +2861,24 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
         <translation>Standardeinstellungen für die aktuelle Seite wiederherstellen</translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation>Mumble-Konfiguration</translation>
     </message>
     <message>
         <source>Configuration categories</source>
         <translation>Konfigurationskategorien</translation>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3417,10 +3424,6 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     <message>
         <source>Shortcuts</source>
         <translation>Tastenkürzel</translation>
-    </message>
-    <message>
-        <source>Shortcut button combination.</source>
-        <translation>Tastenkombination des Tastenkürzels.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
@@ -6259,6 +6262,11 @@ Valid options are:
 </source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -7254,6 +7262,14 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7407,6 +7423,10 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     <message>
         <source>Unassigned</source>
         <translation>Nicht zugewiesen</translation>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

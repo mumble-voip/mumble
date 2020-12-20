@@ -3,11 +3,11 @@
     <name>ACLEditor</name>
     <message>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>منع</translation>
     </message>
     <message>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>سماح</translation>
     </message>
     <message>
         <source>Allow %1</source>
@@ -19,7 +19,7 @@
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>اضافة قناة</translation>
     </message>
     <message>
         <source>Default server value</source>
@@ -27,7 +27,7 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>خطأ: القناة غير صحيحة</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
@@ -43,7 +43,7 @@
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>يجب ان يكون للقناة اسم</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
@@ -55,23 +55,23 @@
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>اسم</translation>
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>ادخل اسم القناة هنا.</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>وصف</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>كلمة المرور</translation>
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>ادخل كلمة المرور الخاصة بالقناة هنا.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -79,7 +79,7 @@
     </message>
     <message>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>مؤقت</translation>
     </message>
     <message>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
@@ -90,27 +90,27 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>الموقع</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>و المجموعات</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة</translation>
     </message>
     <message>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>لائحة المجموعات</translation>
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>حذف المجموعة المختارة</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>حذف</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
@@ -138,19 +138,19 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>أعضاء</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>إضافة</translation>
     </message>
     <message>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>إضافة عضو للمجموعة</translation>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>حذف عضو من المجموعة</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -186,7 +186,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>و للأعلى</translation>
     </message>
     <message>
         <source>Move entry down</source>
@@ -198,7 +198,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>و للأسفل</translation>
     </message>
     <message>
         <source>Add new entry</source>
@@ -210,7 +210,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>و إضافة</translation>
     </message>
     <message>
         <source>Remove entry</source>
@@ -222,7 +222,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>و حذف</translation>
     </message>
     <message>
         <source>Context</source>
@@ -239,7 +239,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Applies to this channel</source>
-        <translation type="unfinished"/>
+        <translation>تطبيق على هذة القناة</translation>
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
@@ -247,7 +247,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>إضافة مجموعة جديدة</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
@@ -260,7 +260,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"/>
+        <translation>يحتوي على قائمة الأعضاء اللذين تمت اضافتهم لهذة القناة </translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
@@ -272,7 +272,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>أدخل اسم العضو اللذي تود إضافته للمجموعة ثم انقر اضافة.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
@@ -280,11 +280,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>Exclude</source>
-        <translation type="unfinished"/>
+        <translation>استثن</translation>
     </message>
     <message>
         <source>Excluded members</source>
-        <translation type="unfinished"/>
+        <translation>أعضاء مستثنون </translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
@@ -296,11 +296,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>صلاحيات</translation>
     </message>
     <message>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>مستخدم/مجموعة</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
@@ -385,11 +385,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>الحد الأقصى للمستخدمين</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>الحد الأقصى المسموح به لعدد المستخدمين في هذة القناة</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
@@ -406,7 +406,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"/>
+        <translation>كلمة السر الخاصة بالقناة</translation>
     </message>
     <message>
         <source>Maximum users</source>
@@ -414,7 +414,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"/>
+        <translation>اسم القناة</translation>
     </message>
     <message>
         <source>Inherited group members</source>
@@ -544,7 +544,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>قنوات</translation>
     </message>
     <message>
         <source>Microphone</source>
@@ -953,7 +953,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>الغاء ضوضاء القنوات المتعددة</translation>
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
@@ -2208,7 +2208,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation type="unfinished"/>
+        <translation>حصل خطأ في انشاء الشهادة &lt;br /&gt; يرجى المحاولة مرة اخرى.</translation>
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
@@ -2548,7 +2548,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Make channel</source>
-        <translation type="unfinished"/>
+        <translation>انشاء قناة</translation>
     </message>
     <message>
         <source>Make temporary</source>
@@ -2556,7 +2556,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Link channel</source>
-        <translation type="unfinished"/>
+        <translation>ربط قناة</translation>
     </message>
     <message>
         <source>This represents no privileges.</source>
@@ -2660,7 +2660,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"/>
+        <translation>استمع</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
@@ -2777,16 +2777,23 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Mumble Configuration</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Configuration categories</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Restore all defaults</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This button will restore the defaults for all settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3321,10 +3328,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Shortcut button combination.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
         <translation type="unfinished"/>
@@ -3418,7 +3421,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>قناة</translation>
     </message>
 </context>
 <context>
@@ -3595,7 +3598,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"/>
+        <translation>غادر المستخدم القناة و تم قطع الاتصال</translation>
     </message>
     <message>
         <source>Private text message</source>
@@ -3656,11 +3659,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"/>
+        <translation>انضم المستخدم الى القناة</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"/>
+        <translation>غادر المستخدم القناة</translation>
     </message>
     <message>
         <source>Permission denied</source>
@@ -3672,7 +3675,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"/>
+        <translation>لقد انضممت الى قناة</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
@@ -3680,11 +3683,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User started listening to channel</source>
-        <translation type="unfinished"/>
+        <translation>المستخدم بدأ بالاستماع الى القناة</translation>
     </message>
     <message>
         <source>User stopped listening to channel</source>
-        <translation type="unfinished"/>
+        <translation>المستخدم توقف عن الاستماع الى القناة</translation>
     </message>
 </context>
 <context>
@@ -3948,11 +3951,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"/>
+        <translation>عرض عدد المستخدمين في كل قناة</translation>
     </message>
     <message>
         <source>Show channel user count</source>
-        <translation type="unfinished"/>
+        <translation>اعرض عدد المستخدمين في القناة</translation>
     </message>
     <message>
         <source>Language</source>
@@ -4331,7 +4334,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>انضم الى قناة</translation>
     </message>
     <message>
         <source>Toggle Overlay</source>
@@ -4606,7 +4609,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;Channel</source>
-        <translation type="unfinished"/>
+        <translation>و قناة</translation>
     </message>
     <message>
         <source>Use in conjunction with Whisper to.</source>
@@ -4621,7 +4624,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>ربط قناة</translation>
     </message>
     <message>
         <source>Cycle Transmit Mode</source>
@@ -4963,7 +4966,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Add new channel</source>
-        <translation type="unfinished"/>
+        <translation>اضف قناة جديدة</translation>
     </message>
     <message>
         <source>This adds a new sub-channel to the currently selected channel.</source>
@@ -4971,7 +4974,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Remove channel</source>
-        <translation type="unfinished"/>
+        <translation>احذف قناة</translation>
     </message>
     <message>
         <source>This removes a channel and all sub-channels.</source>
@@ -4991,7 +4994,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Link your channel to another channel</source>
-        <translation type="unfinished"/>
+        <translation>ربط قناتك بقناة اخرى </translation>
     </message>
     <message>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
@@ -5201,7 +5204,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Sends a text message to all users in a channel.</source>
-        <translation type="unfinished"/>
+        <translation>ارسال رسالة نصية الى جميع المستخدمين في قناة </translation>
     </message>
     <message>
         <source>Configure certificates for strong authentication</source>
@@ -5353,7 +5356,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"/>
+        <translation>مرفوض: اسم قناة غير صحيح</translation>
     </message>
     <message>
         <source>Denied: Text message too long.</source>
@@ -5381,7 +5384,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Channel is full.</source>
-        <translation type="unfinished"/>
+        <translation>قناة ممتلئة </translation>
     </message>
     <message>
         <source>Channel nesting limit reached.</source>
@@ -5705,7 +5708,7 @@ Valid actions are:
     </message>
     <message>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"/>
+        <translation>و انضم لقناة</translation>
     </message>
     <message>
         <source>View comment in editor</source>
@@ -5972,11 +5975,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Listen to channel</source>
-        <translation type="unfinished"/>
+        <translation>استمع لقناة</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
-        <translation type="unfinished"/>
+        <translation>استمع لهذة القناة دون الانضمام اليها</translation>
     </message>
     <message>
         <source>Locally adjust the volume for this virtual ear.</source>
@@ -6036,7 +6039,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"/>
+        <translation>قنوات و مستخدمين</translation>
     </message>
     <message>
         <source>Activity log</source>
@@ -6064,7 +6067,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>قناة</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6124,6 +6127,11 @@ Valid options are:
                 (useful for debugging purposes)
 
 </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide/show main window</source>
+        <comment>Global Shortcut</comment>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6443,7 +6451,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>قناة</translation>
     </message>
     <message>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
@@ -6779,7 +6787,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>قناة</translation>
     </message>
     <message>
         <source>Muted or deafened</source>
@@ -7109,6 +7117,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <source>RNNoise is not available due to a sample rate mismatch.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset all settings?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>RichTextEditor</name>
@@ -7261,6 +7277,10 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Unassigned</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Shortcut button combination:</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7623,7 +7643,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Last channel</source>
-        <translation type="unfinished"/>
+        <translation>القناة الاخيرة</translation>
     </message>
     <message>
         <source>Last seen: %1</source>
@@ -7694,7 +7714,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Your current channel.</source>
-        <translation type="unfinished"/>
+        <translation>قناتك الحالية.</translation>
     </message>
     <message>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
@@ -7726,7 +7746,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation type="unfinished"/>
+        <translation>صامت (غير مسموح التحدث في القناة الحالية)</translation>
     </message>
     <message>
         <source>Muted (muted by you, only on your machine)</source>
