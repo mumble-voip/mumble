@@ -10,7 +10,7 @@
 
 #include <memory>
 
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 #	include <windns.h>
 #endif
 
@@ -21,14 +21,22 @@ private:
 protected:
 	bool m_ok;
 	std::unique_ptr< BonjourServiceRegister > m_helper;
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 	std::unique_ptr< DNS_SERVICE_CANCEL > m_cancel;
 	std::unique_ptr< DNS_SERVICE_REGISTER_REQUEST > m_request;
 
 	static void WINAPI callbackRegisterComplete(const DWORD status, void *context, DNS_SERVICE_INSTANCE *instance);
 #endif
 	void helperError(const DNSServiceErrorType error);
-
+#ifdef Q_OS_WIN
+	PDNS_SERVICE_INSTANCE(WINAPI *DnsServiceConstructInstance)
+	(PCWSTR pServiceName, PCWSTR pHostName, PIP4_ADDRESS pIp4, PIP6_ADDRESS pIp6, WORD wPort, WORD wPriority,
+	 WORD wWeight, DWORD dwPropertiesCount, PCWSTR *keys, PCWSTR *values);
+	VOID(WINAPI *DnsServiceFreeInstance)(PDNS_SERVICE_INSTANCE pInstance);
+	DWORD(WINAPI *DnsServiceRegister)(PDNS_SERVICE_REGISTER_REQUEST pRequest, PDNS_SERVICE_CANCEL pCancel);
+	DWORD(WINAPI *DnsServiceDeRegister)(PDNS_SERVICE_REGISTER_REQUEST pRequest, PDNS_SERVICE_CANCEL pCancel);
+	DWORD(WINAPI *DnsServiceRegisterCancel)(PDNS_SERVICE_CANCEL pCancelHandle);
+#endif
 public:
 	inline bool isOk() const { return m_ok; }
 

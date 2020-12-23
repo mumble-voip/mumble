@@ -5,37 +5,33 @@
 
 #include "Zeroconf.h"
 
-#define SYMBOL_EXISTS(symbol) (GetProcAddress(handle, symbol))
+#define GET_SYMBOL(symbol) (symbol = reinterpret_cast< decltype(symbol) >(GetProcAddress(handle, #symbol)))
 
 Zeroconf::Zeroconf() : m_ok(false) {
-#ifdef Q_OS_WIN64
-	static bool winDnsUnavailable = false;
-	if (!winDnsUnavailable) {
-		auto handle = GetModuleHandle(L"dnsapi.dll");
-		if (handle) {
-			if (SYMBOL_EXISTS("DnsServiceConstructInstance") && SYMBOL_EXISTS("DnsServiceFreeInstance")
-				&& SYMBOL_EXISTS("DnsServiceRegister") && SYMBOL_EXISTS("DnsServiceDeRegister")
-				&& SYMBOL_EXISTS("DnsServiceRegisterCancel")) {
-				m_ok = true;
-				return;
-			}
-		}
+#ifdef Q_OS_WIN
+	auto handle = GetModuleHandle(L"dnsapi.dll");
+	if (handle) {
+		GET_SYMBOL(DnsServiceConstructInstance);
+		GET_SYMBOL(DnsServiceFreeInstance);
+		GET_SYMBOL(DnsServiceRegister);
+		GET_SYMBOL(DnsServiceDeRegister);
+		GET_SYMBOL(DnsServiceRegisterCancel);
 
-		winDnsUnavailable = true;
-		qWarning("Zeroconf: Native mDNS/DNS-SD API not available, falling back to third-party API");
-	}
-
-	static bool dnssdLoadFailed = false;
-	if (!dnssdLoadFailed) {
-		auto handle = LoadLibrary(L"dnssd.DLL");
-		if (!handle) {
-			dnssdLoadFailed = true;
-			qWarning("Zeroconf: Failed to load dnssd.dll, assuming third-party API is not available");
+		if (DnsServiceConstructInstance && DnsServiceFreeInstance && DnsServiceRegister && DnsServiceDeRegister
+			&& DnsServiceRegisterCancel) {
+			m_ok = true;
 			return;
 		}
-
-		FreeLibrary(handle);
 	}
+
+	qWarning("Zeroconf: Native mDNS/DNS-SD API not available, falling back to third-party API");
+
+	handle = LoadLibrary(L"dnssd.dll");
+	if (!handle) {
+		qWarning("Zeroconf: Failed to load dnssd.dll, assuming third-party API is not available");
+		return;
+	}
+	FreeLibrary(handle);
 #endif
 	resetHelper();
 
@@ -64,7 +60,7 @@ bool Zeroconf::registerService(const BonjourRecord &record, const uint16_t port)
 		m_helper->registerService(record, port);
 		return true;
 	}
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 	DWORD size = 0;
 	GetComputerNameEx(ComputerNameDnsHostname, nullptr, &size);
 	std::vector< wchar_t > hostname(size);
@@ -118,7 +114,7 @@ bool Zeroconf::unregisterService() {
 		resetHelper();
 		return true;
 	}
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 	if (m_cancel) {
 		const auto ret = DnsServiceRegisterCancel(m_cancel.get());
 		if (ret == ERROR_SUCCESS || ret == ERROR_CANCELLED) {
@@ -142,17 +138,18 @@ bool Zeroconf::unregisterService() {
 void Zeroconf::helperError(const DNSServiceErrorType error) {
 	qWarning("Zeroconf: Third-party API reports error %d, service registration probably failed", error);
 }
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 void WINAPI Zeroconf::callbackRegisterComplete(const DWORD status, void *context, DNS_SERVICE_INSTANCE *instance) {
+	auto zeroconf = static_cast< Zeroconf * >(context);
+
 	if (instance) {
-		DnsServiceFreeInstance(instance);
+		zeroconf->DnsServiceFreeInstance(instance);
 	}
 
 	if (status == ERROR_CANCELLED) {
 		return;
 	}
 
-	auto zeroconf = static_cast< Zeroconf * >(context);
 	zeroconf->m_cancel.reset();
 
 	if (status != ERROR_SUCCESS) {
