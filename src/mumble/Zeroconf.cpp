@@ -5,39 +5,36 @@
 
 #include "Zeroconf.h"
 
-#define SYMBOL_EXISTS(symbol) (GetProcAddress(handle, symbol))
+#define GET_SYMBOL(symbol) (symbol = reinterpret_cast< decltype(symbol) >(GetProcAddress(handle, #symbol)))
 
 Zeroconf::Zeroconf() : m_ok(false) {
 	qRegisterMetaType< uint16_t >("uint16_t");
 	qRegisterMetaType< BonjourRecord >("BonjourRecord");
 	qRegisterMetaType< QList< BonjourRecord > >("QList<BonjourRecord>");
-#ifdef Q_OS_WIN64
-	static bool winDnsUnavailable = false;
-	if (!winDnsUnavailable) {
-		auto handle = GetModuleHandle(L"dnsapi.dll");
-		if (handle) {
-			if (SYMBOL_EXISTS("DnsServiceBrowse") && SYMBOL_EXISTS("DnsServiceBrowseCancel")
-				&& SYMBOL_EXISTS("DnsServiceResolve") && SYMBOL_EXISTS("DnsServiceResolveCancel")
-				&& SYMBOL_EXISTS("DnsServiceFreeInstance")) {
-				m_ok = true;
-				return;
-			}
-		}
+#ifdef Q_OS_WIN
+	auto handle = GetModuleHandle(L"dnsapi.dll");
+	if (handle) {
+		GET_SYMBOL(DnsServiceBrowse);
+		GET_SYMBOL(DnsServiceBrowseCancel);
+		GET_SYMBOL(DnsServiceResolve);
+		GET_SYMBOL(DnsServiceResolveCancel);
+		GET_SYMBOL(DnsServiceFreeInstance);
 
-		winDnsUnavailable = true;
-		qWarning("Zeroconf: Native mDNS/DNS-SD API not available, falling back to third-party API");
-	}
-
-	static bool dnssdLoadFailed = false;
-	if (!dnssdLoadFailed) {
-		auto handle = LoadLibrary(L"dnssd.DLL");
-		if (!handle) {
-			dnssdLoadFailed = true;
-			qWarning("Zeroconf: Failed to load dnssd.dll, assuming third-party API is not available");
+		if (DnsServiceBrowse && DnsServiceBrowseCancel && DnsServiceResolve && DnsServiceResolveCancel
+			&& DnsServiceFreeInstance) {
+			m_ok = true;
 			return;
 		}
-		FreeLibrary(handle);
 	}
+
+	qWarning("Zeroconf: Native mDNS/DNS-SD API not available, falling back to third-party API");
+
+	handle = LoadLibrary(L"dnssd.dll");
+	if (!handle) {
+		qWarning("Zeroconf: Failed to load dnssd.dll, assuming third-party API is not available");
+		return;
+	}
+	FreeLibrary(handle);
 #endif
 	resetHelperBrowser();
 	resetHelperResolver();
@@ -80,7 +77,7 @@ bool Zeroconf::startBrowser(const QString &serviceType) {
 		m_helperBrowser->browseForServiceType(serviceType);
 		return true;
 	}
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 	const QString queryName = serviceType + QLatin1String(".local");
 
 	DNS_SERVICE_BROWSE_REQUEST request{};
@@ -110,7 +107,7 @@ bool Zeroconf::stopBrowser() {
 		resetHelperBrowser();
 		return true;
 	}
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 	if (m_cancelBrowser) {
 		const auto ret = DnsServiceBrowseCancel(m_cancelBrowser.get());
 		if (ret == ERROR_SUCCESS || ret == ERROR_CANCELLED) {
@@ -134,7 +131,7 @@ bool Zeroconf::startResolver(const BonjourRecord &record) {
 		m_helperResolver->resolveBonjourRecord(record);
 		return true;
 	}
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 	stopResolver(record);
 
 	auto qualifiedHostname = record.serviceName.toStdWString() + L"." + record.registeredType.toStdWString()
@@ -160,7 +157,7 @@ bool Zeroconf::startResolver(const BonjourRecord &record) {
 #endif
 	return false;
 }
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 bool Zeroconf::stopResolver(const BonjourRecord &record) {
 	if (!m_ok) {
 		return false;
@@ -200,7 +197,7 @@ bool Zeroconf::cleanupResolvers() {
 	}
 
 	auto result = true;
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 	for (auto i = 0; i < m_resolvers.size(); ++i) {
 		if (!stopResolver(m_resolvers[i])) {
 			result = false;
@@ -228,7 +225,7 @@ void Zeroconf::helperResolverError(const BonjourRecord record, const DNSServiceE
 	qWarning("Zeroconf: Third-party resolver API reports error %d", error);
 	emit resolveError(record);
 }
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
 void WINAPI Zeroconf::callbackBrowseComplete(const DWORD status, void *context, DNS_RECORD *records) {
 	auto zeroconf = static_cast< Zeroconf * >(context);
 	zeroconf->m_cancelBrowser.reset();
@@ -283,9 +280,12 @@ void WINAPI Zeroconf::callbackBrowseComplete(const DWORD status, void *context, 
 }
 
 void WINAPI Zeroconf::callbackResolveComplete(const DWORD status, void *context, DNS_SERVICE_INSTANCE *instance) {
+	auto resolver = static_cast< Resolver * >(context);
+	auto zeroconf = resolver->m_zeroconf;
+
 	if (status != ERROR_SUCCESS) {
 		if (instance) {
-			DnsServiceFreeInstance(instance);
+			zeroconf->DnsServiceFreeInstance(instance);
 		}
 
 		if (status != ERROR_CANCELLED) {
@@ -299,10 +299,8 @@ void WINAPI Zeroconf::callbackResolveComplete(const DWORD status, void *context,
 		return;
 	}
 
-	auto resolverContext = static_cast< Resolver * >(context);
-	emit resolverContext->m_zeroconf->recordResolved(resolverContext->m_record,
-													 QString::fromWCharArray(instance->pszHostName), instance->wPort);
+	emit zeroconf->recordResolved(resolver->m_record, QString::fromWCharArray(instance->pszHostName), instance->wPort);
 
-	DnsServiceFreeInstance(instance);
+	zeroconf->DnsServiceFreeInstance(instance);
 }
 #endif
