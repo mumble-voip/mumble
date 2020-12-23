@@ -180,43 +180,48 @@ void ChatbarTextEdit::insertFromMimeData(const QMimeData *source) {
 }
 
 bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
-	if (source->hasImage()) {
-		// Process the image pasted onto the chatbar.
-		if (g.bAllowHTML) {
+	if (g.bAllowHTML) {
+		if (source->hasImage()) {
+			// Process the image pasted onto the chatbar.
 			QImage image = qvariant_cast< QImage >(source->imageData());
-
-			QString imgHtml = QLatin1String("<br />") + Log::imageToImg(image);
-
-			if ((g.uiImageLength == 0) || static_cast< unsigned int >(imgHtml.length()) < g.uiImageLength) {
-				emit pastedImage(imgHtml);
+			if (emitPastedImage(image)) {
 				return true;
 			} else {
 				g.l->log(Log::Information, tr("Unable to send image: too large."));
+				return false;
 			}
-		}
-	} else if (source->hasUrls()) {
-		// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
-		QList< QUrl > urlList = source->urls();
 
-		int count = 0;
-		for (int i = 0; i < urlList.size(); ++i) {
-			QString path = urlList[i].toLocalFile();
-			QImage image(path);
+		} else if (source->hasUrls()) {
+			// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
+			QList< QUrl > urlList = source->urls();
 
-			if (image.isNull())
-				continue;
+			int count = 0;
+			for (int i = 0; i < urlList.size(); ++i) {
+				QString path = urlList[i].toLocalFile();
+				QImage image(path);
 
-			QString imgHtml = QLatin1String("<br />") + Log::imageToImg(image);
-
-			if (static_cast< unsigned int >(imgHtml.length()) < g.uiImageLength) {
-				emit pastedImage(imgHtml);
-				++count;
-			} else {
-				g.l->log(Log::Information, tr("Unable to send image %1: too large.").arg(path));
+				if (image.isNull())
+					continue;
+				if (emitPastedImage(image)) {
+					++count;
+				} else {
+					g.l->log(Log::Information, tr("Unable to send image %1: too large.").arg(path));
+				}
 			}
-		}
 
-		return (count > 0);
+			return (count > 0);
+		}
+	}
+	g.l->log(Log::Information, tr("This server does not allow sending images."));
+	return false;
+}
+
+bool ChatbarTextEdit::emitPastedImage(QImage image) {
+	QString processedImage = Log::imageToImg(image, g.uiImageLength);
+	if (processedImage.length() > 0) {
+		QString imgHtml = QLatin1String("<br />") + processedImage;
+		emit pastedImage(imgHtml);
+		return true;
 	}
 	return false;
 }

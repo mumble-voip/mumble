@@ -522,37 +522,29 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 	return QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(fmt).arg(QLatin1String(encoded));
 }
 
-QString Log::imageToImg(QImage img) {
+QString Log::imageToImg(QImage img, int maxSize) {
 	if ((img.width() > 480) || (img.height() > 270)) {
 		img = img.scaled(480, 270, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
 	int quality       = 100;
-	QByteArray format = "PNG";
+	QByteArray format = "JPEG";
 
 	QByteArray qba;
-	{
-		QBuffer qb(&qba);
-		qb.open(QIODevice::WriteOnly);
-
-		QImageWriter imgwrite(&qb, format);
-		imgwrite.write(img);
-	}
-
-	while ((qba.length() >= 65536) && (quality > 0)) {
+	QString result;
+	while (quality > 0) {
 		qba.clear();
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
 
-		format = "JPEG";
-
 		QImageWriter imgwrite(&qb, format);
 		imgwrite.setQuality(quality);
 		imgwrite.write(img);
+		result = imageToImg(format, qba);
+		if (result.length() < maxSize || maxSize == 0) {
+			return result;
+		}
 		quality -= 10;
-	}
-	if (qba.length() < 65536) {
-		return imageToImg(format, qba);
 	}
 	return QString();
 }

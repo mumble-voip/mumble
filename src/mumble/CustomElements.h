@@ -53,6 +53,7 @@ protected:
 	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 	void insertFromMimeData(const QMimeData *source) Q_DECL_OVERRIDE;
 	bool sendImagesFromMimeData(const QMimeData *source);
+	bool emitPastedImage(QImage image);
 
 public:
 	void setDefaultText(const QString &, bool = false);
