@@ -13,7 +13,7 @@
 # by Thomas Keller).
 #
 
-import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime, tarfile
+import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime, tarfile, glob
 from subprocess import Popen, PIPE
 from optparse import OptionParser
 
@@ -149,9 +149,10 @@ class AppBundle(object):
 		'''
 		print ' * Copying positional audio plugins'
 		dst = os.path.join(self.bundle, 'Contents', 'Plugins')
-		if os.path.exists(dst):
-			shutil.rmtree(dst)
-		shutil.copytree(os.path.join(options.binary_dir, 'plugins'), dst, symlinks=True)
+		if not os.path.exists(dst):
+			os.makedirs(dst)
+		for plugin in glob.glob('plugins/*.dylib'):
+			shutil.copy(plugin, dst)
 
 	def update_plist(self):
 		'''
