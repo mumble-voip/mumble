@@ -110,7 +110,7 @@ Co-Authored-By: Other author <other@example.com>
 
 ## References
 
-We have used term "reference" a few times in these guidelines. A *reference* has the form `#<ID>` where `<ID>` is the
+We have used the term "reference" a few times in these guidelines. A *reference* has the form `#<ID>` where `<ID>` is the
 ID GitHub assigns to the respective issue or PullRequest (it's the number that is displayed next to the title). You'll
 notice that these references are actually turned into a link when viewing the commit message on GitHub. This is done
 automatically by GitHub. You don't have to use a link in your commit message. In fact you *should not* use a link for
