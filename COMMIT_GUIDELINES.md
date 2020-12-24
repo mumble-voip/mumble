@@ -50,6 +50,7 @@ The `TYPE` is one of the following:
 | CI       | Changed something for the CI (continous integration) | Update TravisCI to use newer ubuntu version |
 | REFAC    | Code refactoring | Renamed variable `x` to `y` |
 | BUILD    | Changes related to the build process / buildsystem | Fixed cmake script |
+| TRANSLATION | Translation updates and changes | Update translation files |
 
 The `TYPE` has to be in **all-uppercase** in order for it to stand out.
 
