@@ -2,11 +2,9 @@
 
 Currently, the installer creation has been tested on Windows only.
 
-For creating the installer, the [WiX Toolset](https://wixtoolset.org/) has to be installed on your system.
+For creating the installer, [WixSharp](https://github.com/oleg-shilo/wixsharp/releases/tag/v1.15.0.0) has to be present on your system. Please see the following [README](https://github.com/oleg-shilo/wixsharp/blob/master/README.md) for install information.
 
-An installer can be created after invoking cmake with the `-Dpackaging=ON` option and building.
+An installer can be created after invoking cmake with the `-Dpackaging=ON` and `-Dtranslations=OFF` options, and building. This creates a *single-language* installer.
 
-To create a *single-language* installer (default English) run `cpack -C Release`.
-
-To create a *multi-language* installer run the script `scripts/Create-Win32InstallerMUI.ps1` from the root of this repository.
+To create a *multi-language* installer, make sure the following option is set `-Dpackaging=ON` and (re-)run the cmake configure step. Multi-language packaging is the default.
 
