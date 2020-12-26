@@ -3,7 +3,7 @@
 A fundamental dependency for building Mumble is [git](https://git-scm.com/), so make sure you have it installed. If you are new to git, make sure to
 checkout [this guide](https://guides.github.com/introduction/git-handbook/) on git's basics in order to be able to follow the given instructions.
 
-The first step in building Mumble is to clone this repository via `git clone https://github.com/mumble-voip/mumble.git`.
+The first step in building Mumble is to clone this repository via `git clone https://github.com/mumble-voip/mumble.git` and then going into the cloned directory and run `git submodule update --init --recursive` in order to also clone all submodules.
 
 In order to actually build Mumble, you can follow one of the following instruction sets:
 - [Build on Windows](build_windows.md)
