@@ -33,6 +33,7 @@ Topics suggested by Krzmbrzl:
 ## Configuration Menu
 
 Click on `Configure`->`Settings` or on the ![Gear symbol](https://github.com/mumble-voip/mumble-theme/blob/master/config_basic.png)-symbol to open the Configuration Menu.
+<!-- Gear symbol is too big; markdown option might not work with every parser; -->
 
 [Below](#most-important-options) you find a list with the most important options.
 
@@ -97,9 +98,7 @@ It is intended for special usecases (Music bots, Recording etc.) or when you use
 
 | Option: | Description: |
 | --- | --- |
-| **Quality:** | Sets the maximum bandwidth the client will try to accomplish (it is limited by the Server you are connected to).
-Setting it higher will increase the audio quality.
-Only set it higher if your internet connection is good enough. <!-- maximum? --> |
+| Quality | Sets the maximum bandwidth the client will try to accomplish (it is limited by the Server you are connected to). Setting it higher will increase the audio quality. Only set it higher if your internet connection is good enough. <!-- maximum? --> |
 | Audio per packet | <!-- What does it do? Which is option is better for which scenario? --> |
 
 #### Audio Processing 
@@ -130,7 +129,7 @@ If enabled, it implements a small window inside other applications (mostly Games
 
 ![Here should be a picture](pictures/overlay.png)
 
-In tab <!-- slider? --> `Layout` you can adjust the position of the window.
-
-In tab `Overlay Exceptions` you can either specify a list of programs where the overlay is allowed (whitelist) or where the overlay is denied (blacklist).
-<!-- whitelist and blacklist are considered problematic nowadays, use alternatives? -->
+| Tab: <!-- slider? --> | Description: |
+| --- | --- |
+| `Layout` | adjust the position of the window |
+| `Overlay Exceptions` | you can either specify a list of programs where the overlay is allowed (whitelist) or where the overlay is denied (blacklist). <!-- whitelist and blacklist are considered problematic nowadays, use alternatives? --> |
