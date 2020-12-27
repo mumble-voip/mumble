@@ -32,14 +32,14 @@ Topics suggested by Krzmbrzl:
 
 ## Configuration Menu
 
-<!-- where to find config options, add gif? -->
+Click on `Configure`->`Settings` or on the ![Gear symbol](https://github.com/mumble-voip/mumble-theme/blob/master/config_basic.png)-symbol to open the Configuration Menu.
 
-Click on `Configure`->`Settings` or on the `gear`-symbol to open the Configuration Menu.
+[Below](#most-important-options) you find a list with the most important options.
 
 *Tip: A small description of each option is displayed, when you hover your mouse pointer over it.*
 
 
-Below you find a list with the most important options:
+## Most important options
 
 ### Audio Input
 
@@ -57,10 +57,9 @@ Choose one of the following options:
 
 | Option: |	Description: | Usecases: |
 | --- | --- | --- |
-| Mixed echo cancellation | This is the basic Option: It will process all loudspeaker outputs bundled together.
-This is less accurate than the Multichannel option, but will also use less CPU. 	| Sufficient for setups with loudspeakers near to the microphone. |
+| Mixed echo cancellation | This is the basic Option: It will process all loudspeaker outputs bundled together. This is less accurate than the Multichannel option, but will also use less CPU. | Sufficient for setups with loudspeakers near to the microphone. |
 | Multichannel echo cancellation | Extended option: This will process all audio channels seperately, this is more accurate, but will result in higher CPU usage. |	For setups with (multiple) loudspeakers farther away from the microphone. |
-| Disabled | Disables echo cancellation (not recommended).  | You use a very good headset. Or you use external echo cancellation (for example via pulseaudio on Linux). Or echo cancellation is causing problems. |
+| Disabled | Disables echo cancellation (not recommended).  | - You use a very good headset. <br> - Or you use external echo cancellation (for example via pulseaudio on Linux). <br> - Echo cancellation is causing problems. |
 
 #### Transmission
 
@@ -96,13 +95,12 @@ It is intended for special usecases (Music bots, Recording etc.) or when you use
 
 #### Compression
 
-**Quality:**
-Sets the maximum bandwidth the client will try to accomplish (it is limited by the Server you are connected to).
+| Option: | Description: |
+| --- | --- |
+| **Quality:** | Sets the maximum bandwidth the client will try to accomplish (it is limited by the Server you are connected to).
 Setting it higher will increase the audio quality.
-Only set it higher if your internet connection is good enough.
-<!-- maximum? -->
-
-<!-- Audio per packet: What does it do? Which is option is better for which scenario? -->
+Only set it higher if your internet connection is good enough. <!-- maximum? --> |
+| Audio per packet | <!-- What does it do? Which is option is better for which scenario? --> |
 
 #### Audio Processing 
 
