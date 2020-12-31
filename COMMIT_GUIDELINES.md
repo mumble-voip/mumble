@@ -48,8 +48,8 @@ The `TYPE` is one of the following:
 | TEST     | Adds, changes or removes a test-case | |
 | MAINT    | Maintenance - Change of non-code files | Change of the README |
 | CI       | Changed something for the CI (continous integration) | Update TravisCI to use newer ubuntu version |
-| REFAC    | Code refactoring | Renamed variable `x` to `y` |
-| BUILD    | Changes related to the build process / buildsystem | Fixed cmake script |
+| REFAC    | Code refactoring | Rename variable `x` to `y` |
+| BUILD    | Changes related to the build process / buildsystem | Fix cmake script |
 | TRANSLATION | Translation updates and changes | Update translation files |
 
 The `TYPE` has to be in **all-uppercase** in order for it to stand out.
