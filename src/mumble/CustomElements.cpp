@@ -180,39 +180,42 @@ void ChatbarTextEdit::insertFromMimeData(const QMimeData *source) {
 }
 
 bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
-	if (g.bAllowHTML) {
-		if (source->hasImage()) {
-			// Process the image pasted onto the chatbar.
-			QImage image = qvariant_cast< QImage >(source->imageData());
-			if (emitPastedImage(image)) {
-				return true;
-			} else {
-				g.l->log(Log::Information, tr("Unable to send image: too large."));
-				return false;
-			}
-
-		} else if (source->hasUrls()) {
-			// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
-			QList< QUrl > urlList = source->urls();
-
-			int count = 0;
-			for (int i = 0; i < urlList.size(); ++i) {
-				QString path = urlList[i].toLocalFile();
-				QImage image(path);
-
-				if (image.isNull())
-					continue;
+	if ((source->hasImage() || source->hasUrls())) {
+		if (g.bAllowHTML) {
+			if (source->hasImage()) {
+				// Process the image pasted onto the chatbar.
+				QImage image = qvariant_cast<QImage>(source->imageData());
 				if (emitPastedImage(image)) {
-					++count;
+					return true;
 				} else {
-					g.l->log(Log::Information, tr("Unable to send image %1: too large.").arg(path));
+					g.l->log(Log::Information, tr("Unable to send image: too large."));
+					return false;
 				}
-			}
 
-			return (count > 0);
+			} else if (source->hasUrls()) {
+				// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
+				QList<QUrl> urlList = source->urls();
+
+				int count = 0;
+				for (int i = 0; i < urlList.size(); ++i) {
+					QString path = urlList[i].toLocalFile();
+					QImage image(path);
+
+					if (image.isNull())
+						continue;
+					if (emitPastedImage(image)) {
+						++count;
+					} else {
+						g.l->log(Log::Information, tr("Unable to send image %1: too large.").arg(path));
+					}
+				}
+
+				return (count > 0);
+			}
+		} else {
+			g.l->log(Log::Information, tr("This server does not allow sending images."));
 		}
 	}
-	g.l->log(Log::Information, tr("This server does not allow sending images."));
 	return false;
 }
 
