@@ -61,6 +61,7 @@ set(SHARED_SOURCES
 	"OSInfo.cpp"
 	"PasswordGenerator.cpp"
 	"PlatformCheck.cpp"
+	"QtUtils.cpp"
 	"SelfSignedCertificate.cpp"
 	"ServerAddress.cpp"
 	"ServerResolver.cpp"

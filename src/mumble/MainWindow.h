@@ -70,7 +70,7 @@ public:
 		qiIconMuteSuppressed;
 	QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 	QMap< unsigned int, UserLocalVolumeDialog * > qmUserVolTracker;
-	std::unordered_map< unsigned int, std::unique_ptr< UserLocalNicknameDialog > > qmUserNicknameTracker;
+	std::unordered_map< unsigned int, NicknameDialogPtr > qmUserNicknameTracker;
 
 	/// "Action" for when there are no actions available
 	QAction *qaEmpty;
