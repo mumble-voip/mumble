@@ -6,11 +6,21 @@
 #ifndef MUMBLE_MUMBLE_USERNICKNAME_H_
 #define MUMBLE_MUMBLE_USERNICKNAME_H_
 
+#include "QtUtils.h"
+
 #include <memory>
 #include <unordered_map>
 
 #include "ClientUser.h"
 #include "ui_UserLocalNicknameDialog.h"
+
+class UserLocalNicknameDialog;
+
+/**
+ * A typedef for a unique pointer (std::unique_ptr) using the deleter-function dedicated for QObjects
+ * instead of using raw delete
+ */
+typedef std::unique_ptr< UserLocalNicknameDialog, decltype(&deleteQObject) > NicknameDialogPtr;
 
 class UserLocalNicknameDialog : public QDialog, private Ui::UserLocalNicknameDialog {
 	Q_OBJECT
@@ -21,7 +31,7 @@ class UserLocalNicknameDialog : public QDialog, private Ui::UserLocalNicknameDia
 
 	/// The user's original nickname when entering the dialog.
 	QString m_originalNickname;
-	std::unordered_map< unsigned int, std::unique_ptr< UserLocalNicknameDialog > > &m_qmUserNicknameTracker;
+	std::unordered_map< unsigned int, NicknameDialogPtr > &m_qmUserNicknameTracker;
 
 public slots:
 	void closeEvent(QCloseEvent *event);
@@ -32,10 +42,10 @@ public slots:
 public:
 	static void
 		present(unsigned int sessionId,
-				std::unordered_map< unsigned int, std::unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker);
+				std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker);
 	UserLocalNicknameDialog(
 		unsigned int sessionId,
-		std::unordered_map< unsigned int, std::unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker);
+		std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker);
 };
 
 #endif

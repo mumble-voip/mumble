@@ -17,7 +17,7 @@
 
 UserLocalNicknameDialog::UserLocalNicknameDialog(
 	unsigned int sessionId,
-	std::unordered_map< unsigned int, std::unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker)
+	std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker)
 	: QDialog(nullptr), m_clientSession(sessionId), m_qmUserNicknameTracker(qmUserNicknameTracker) {
 	setupUi(this);
 
@@ -49,13 +49,14 @@ void UserLocalNicknameDialog::closeEvent(QCloseEvent *event) {
 
 void UserLocalNicknameDialog::present(
 	unsigned int sessionId,
-	std::unordered_map< unsigned int, std::unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker) {
+	std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker) {
 	if (qmUserNicknameTracker.find(sessionId) != qmUserNicknameTracker.end()) {
 		qmUserNicknameTracker.at(sessionId)->show();
 		qmUserNicknameTracker.at(sessionId)->raise();
 	} else {
-		std::unique_ptr< UserLocalNicknameDialog > userNickname =
-			std::make_unique< UserLocalNicknameDialog >(sessionId, qmUserNicknameTracker);
+		// Make sure to use the custom deleter for QObjects that calls deleteLater() on them instead of using
+		// delete directly as the latter can lead to segmentation faults.
+		NicknameDialogPtr userNickname(new UserLocalNicknameDialog(sessionId, qmUserNicknameTracker), deleteQObject);
 		userNickname->show();
 		qmUserNicknameTracker.insert(std::make_pair(sessionId, std::move(userNickname)));
 	}
