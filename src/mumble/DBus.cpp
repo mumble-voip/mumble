@@ -109,6 +109,14 @@ unsigned int MumbleDBus::getTransmitMode() {
 	return g.s.atTransmit;
 }
 
+void MumbleDBus::toggleSelfMuted() {
+	g.mw->qaAudioMute->trigger();
+}
+
+void MumbleDBus::toggleSelfDeaf() {
+	g.mw->qaAudioDeaf->trigger();
+}
+
 void MumbleDBus::setSelfMuted(bool mute) {
 	g.mw->qaAudioMute->setChecked(!mute);
 	g.mw->qaAudioMute->trigger();

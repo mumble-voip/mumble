@@ -35,6 +35,8 @@ public slots:
 	/// @return The current transmit mode (0 = continous, 1 = voice activity, 2 = push-to-talk)
 	unsigned int getTransmitMode();
 
+	void toggleSelfMuted();
+	void toggleSelfDeaf();
 	void setSelfMuted(bool mute);
 	void setSelfDeaf(bool deafen);
 	bool isSelfMuted();
