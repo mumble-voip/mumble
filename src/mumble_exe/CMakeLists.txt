@@ -64,7 +64,7 @@ if(packaging)
 	add_custom_command(TARGET mumble_exe
 		POST_BUILD
 		COMMAND cscs.exe -cd MumbleInstall.cs 
-		COMMAND cscs.exe ClientInstaller.cs --version ${version_short} --arch ${ARCH} ${installer_vars}
+		COMMAND cscs.exe ClientInstaller.cs --version ${PROJECT_VERSION} --arch ${ARCH} ${installer_vars}
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/installer/client
 	)
 endif()

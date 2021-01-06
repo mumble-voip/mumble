@@ -8,15 +8,22 @@ cmake_minimum_required(VERSION 3.15)
 cmake_policy(SET CMP0079 NEW)
 cmake_policy(SET CMP0091 NEW)
 
-set(version "1.4.0" CACHE STRING "Project version")
+set(BUILD_NUMBER CACHE STRING "The build number of the current build. Will be used in Mumble's version to make sure newer builds upgrade older installations properly.")
+set(RELEASE_ID CACHE STRING "The ID of the current release (used for representation in the UI and the updater)")
 
-string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]" version_short ${version})
+if ("${BUILD_NUMBER}" STREQUAL "")
+	if(packaging)
+		message(FATAL_ERROR "Tried to create a Mumble package, without specifying BUILD_NUMBER!")
+	else()
+		set(BUILD_NUMBER "0")
+	endif()
+endif()
 
 # Get compilation year
 string(TIMESTAMP MUMBLE_BUILD_YEAR "%Y")
 
 project(Mumble
-	VERSION ${version_short}
+	VERSION "1.4.0.${BUILD_NUMBER}"
 	DESCRIPTION "Open source, low-latency, high quality voice chat."
 	HOMEPAGE_URL "https://www.mumble.info"
 	LANGUAGES "C" "CXX"
@@ -69,10 +76,11 @@ else()
 endif()
 
 message(STATUS "##################################################")
-message(STATUS "Mumble version:  ${version}")
-message(STATUS "Architecture:    ${ARCH}")
+message(STATUS "Mumble release ID:       ${RELEASE_ID}")
+message(STATUS "Mumble version:          ${PROJECT_VERSION}")
+message(STATUS "Architecture:            ${ARCH}")
 if(NOT IS_MULTI_CONFIG)
-    message(STATUS "Build type:      ${CMAKE_BUILD_TYPE}")
+    message(STATUS "Build type:              ${CMAKE_BUILD_TYPE}")
 else()
     message(STATUS "Using multi-config generator that will determine build type on-the-fly")
 endif()

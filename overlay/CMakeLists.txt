@@ -162,6 +162,7 @@ if(64_BIT AND MSVC)
 				"-DCMAKE_CXX_COMPILER=cl.exe"
 				"-DBUILD_OVERLAY_XCOMPILE=ON"
 				"-Dsymbols=${symbols}"
+				"-Dversion=${PROJECT_VERSION}"
 				${CMAKE_SOURCE_DIR}/overlay
 			CMAKE_GENERATOR_PLATFORM "Win32"
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/overlay/overlay_xcompile-prefix
@@ -184,6 +185,7 @@ if(64_BIT AND MSVC)
 				"-DCMAKE_CXX_COMPILER=cl.exe"
 				"-DBUILD_OVERLAY_XCOMPILE=ON"
 				"-Dsymbols=${symbols}"
+				"-Dversion=${PROJECT_VERSION}"
 				${CMAKE_SOURCE_DIR}/overlay
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/overlay/overlay_xcompile-prefix
 			INSTALL_COMMAND ""

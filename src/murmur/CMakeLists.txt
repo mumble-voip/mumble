@@ -355,7 +355,7 @@ if(packaging)
 		add_custom_command(TARGET murmur
 			POST_BUILD
 			COMMAND cscs.exe -cd MumbleInstall.cs 
-			COMMAND cscs.exe ServerInstaller.cs --version ${version_short} --arch ${ARCH} ${installer_vars}
+			COMMAND cscs.exe ServerInstaller.cs --version ${PROJECT_VERSION} --arch ${ARCH} ${installer_vars}
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/installer/server
 		)
 	endif()

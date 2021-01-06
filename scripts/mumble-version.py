@@ -82,12 +82,10 @@ def readMumbleVersion():
     version = None
     with open(os.path.join(sourceTreeRoot, 'CMakeLists.txt'), 'r') as f:
         for line in f:
-            # The version is specified as e.g. set(version "1.4.0" CACHE STRING "Project version")
-            if 'set(version' in line:
-                line = line.replace('set(version', '')
-                line = line[0 : line.find('CACHE')].strip()
-                # remove quotes
-                line = line[1 : len(line) - 1]
+            # The version is specified as e.g. VERSION "1.4.0.${BUILD_NUMBER}"
+            if 'VERSION "' in line and '.${BUILD_NUMBER}"' in line:
+                line = line.replace('VERSION "', '')
+                line = line[0 : line.find('.${BUILD_NUMBER}"')].strip()
                 version = line
                 break
     if version is None:
