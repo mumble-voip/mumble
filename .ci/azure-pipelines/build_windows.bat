@@ -1,4 +1,4 @@
-:: Copyright 2020-2020 The Mumble Developers. All rights reserved.
+:: Copyright 2020 The Mumble Developers. All rights reserved.
 :: Use of this source code is governed by a BSD-style license
 :: that can be found in the LICENSE file at the root of the
 :: Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -23,17 +23,28 @@
 ::
 :: Defined in .azure-pipelines.yml:
 ::
-::  MUMBLE_ENVIRONMENT_STORE     - Path to the folder the build environment is stored in.
-::  MUMBLE_ENVIRONMENT_SOURCE    - Build environment web source folder URL.
-::  MUMBLE_ENVIRONMENT_TRIPLET   - vcpkg triplet.
-::  MUMBLE_ENVIRONMENT_VERSION   - Full build environment version
-::                                 Must match archive and extracted folder name.
+::  MUMBLE_ENVIRONMENT_PATH      - Path to the environment's root directory.
 ::  MUMBLE_ENVIRONMENT_TOOLCHAIN - Path to the vcpkg CMake toolchain, used for CMake.
+::  MUMBLE_ENVIRONMENT_TRIPLET   - vcpkg triplet.
 ::  VCVARS_PATH                  - Path to the Visual Studio environment initialization script.
+::
+:: Defined on Azure Pipelines:
+::
+::  BUILD_NUMBER_TOKEN           - Access token for the build number page on our server.
+::
 
 @echo on
 
-for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (set "VER=%%g")
+if defined BUILD_NUMBER_TOKEN (
+	:: The method we use to store a command's output into a variable:
+	:: https://stackoverflow.com/a/6362922
+	for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py" --project`) do (set "VERSION=%%g")
+	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?version=%VERSION%&token=%BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
+) else (
+	set BUILD_NUMBER=0
+)
+
+for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (set "RELEASE_ID=%%g")
 
 cd /d %BUILD_BINARIESDIRECTORY%
 
@@ -51,9 +62,10 @@ del C:\Strawberry\c\bin\g++.exe
 del C:\Strawberry\c\bin\c++.exe
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=%MUMBLE_ENVIRONMENT_TRIPLET% ^
-	-DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" -DCMAKE_BUILD_TYPE=Release -Dtests=ON ^
-	-Dversion=%VER% -Dpackaging=ON -Dstatic=ON -Dsymbols=ON -Dasio=ON -Dg15=ON -Donline-tests=ON -Dgrpc=ON ^
-	-Ddisplay-install-paths=ON "%BUILD_SOURCESDIRECTORY%"
+      -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" ^
+      -DCMAKE_BUILD_TYPE=Release -DRELEASE_ID=%RELEASE_ID% -DBUILD_NUMBER=%BUILD_NUMBER% ^
+      -Dpackaging=ON -Dtests=ON -Donline-tests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON -Dasio=ON -Dg15=ON ^
+      -Ddisplay-install-paths=ON "%BUILD_SOURCESDIRECTORY%"
 
 if errorlevel 1 (
 	exit /b %errorlevel%
