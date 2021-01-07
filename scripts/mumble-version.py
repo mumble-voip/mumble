@@ -57,6 +57,7 @@
 
 from __future__ import (unicode_literals, print_function, division)
 
+import argparse
 import os
 import platform
 import subprocess
@@ -72,11 +73,11 @@ def cmd(args):
     p = subprocess.Popen(args, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
     if p.returncode != 0:
-        raise Exception('cmd: {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
+        raise Exception('cmd(): {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
     return stdout.decode('utf-8')
 
 # Reads the version from CMakeLists.txt
-def readMumbleVersion():
+def readProjectVersion():
     sourceTreeRoot = strip(cmd(['git', 'rev-parse', '--show-toplevel']))
 
     version = None
@@ -88,11 +89,31 @@ def readMumbleVersion():
                 line = line[0 : line.find('.${BUILD_NUMBER}"')].strip()
                 version = line
                 break
+
     if version is None:
-        raise Exception('unable to read version from CMakeLists.txt')
+        raise Exception('Unable to read version from CMakeLists.txt')
+
+    if len(version) == 0 or not '.' in version:
+            raise Exception('Bad version: "{0}"'.format(version))
+
     return version
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-n', '--newline', action = "store_true", help = 'Break line after printing version')
+    parser.add_argument('-p', '--project', action = "store_true", help = 'Print CMake project version')
+    args = parser.parse_args()
+
+    if args.newline:
+        end = None
+    else:
+        end = ''
+
+    if args.project:
+        projectVersion = readProjectVersion()
+        print(projectVersion, end = end)
+        return
+
     # Get all tags associated with the latest commit
     latestCommitTags = [x for x in cmd(['git', 'tag', '--points-at', 'HEAD']).split("\n") if x]
 
@@ -112,17 +133,11 @@ def main():
         # Get the hash of the most recent commit (shortened)
         latestCommitHash = cmd(['git', 'rev-parse', '--short'  , 'HEAD']).strip()
 
-        # Get the Mumble version that is set in the CMakeLists.txt file
-        mumblePriVersion = readMumbleVersion()
-        if len(mumblePriVersion) == 0 or not '.' in mumblePriVersion:
-            raise Exception('bad mumblePriVersion: "{0}"'.format(mumblePriVersion))
+        projectVersion = readProjectVersion()
 
-        version = '{0}~{1}~g{2}~snapshot'.format(mumblePriVersion, latestCommitDate, latestCommitHash)
+        version = '{0}~{1}~g{2}~snapshot'.format(projectVersion, latestCommitDate, latestCommitHash)
 
-    end = ''
-    if '--newline' in sys.argv:
-        end = None
-    print(version, end=end)
+    print(version, end = end)
 
 if __name__ == '__main__':
     main()
