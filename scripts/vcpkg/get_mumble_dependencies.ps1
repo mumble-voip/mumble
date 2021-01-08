@@ -13,22 +13,24 @@ $mumble_deps = "qt5-base",
                "libflac",
                "libsndfile",
                "libmariadb",
-               "zlib",
+               "mdnsresponder",
+               "zlib", 
                "zeroc-ice"
 
 $ErrorActionPreference = 'Stop'
 
 function vcpkg_install {
 	Param(
-		[string] $package,
+		[string[]] $packages,
+
 		[string] $targetTriplet,
 		[switch] $cleanAfterBuild = $false
 	)
 	
 	if ($cleanAfterBuild) {
-		./vcpkg.exe install "$package" --triplet "$targetTriplet" --clean-after-build
+		./vcpkg.exe install $packages --triplet $targetTriplet --clean-after-build
 	} else {
-		./vcpkg.exe install "$package" --triplet "$targetTriplet"
+		./vcpkg.exe install $packages --triplet $targetTriplet
 	}
 	
 	if (-not $?) {
@@ -65,23 +67,14 @@ try {
 			./bootstrap-vcpkg.bat -disableMetrics
 		}
 
-		vcpkg_install -package mdnsresponder -targetTriplet $triplet
-		vcpkg_install -package icu -targetTriplet $triplet
-
 		if ($Env:PROCESSOR_ARCHITECTURE -eq "AMD64") {
 			Write-Host "Installing cross compile packages..."
-			vcpkg_install -package boost-optional:$xcompile_triplet -targetTriplet $xcompile_triplet -cleanAfterBuild
+			vcpkg_install -package boost-optional -targetTriplet $xcompile_triplet -cleanAfterBuild
 		}
 
 		Write-Host "Beginning package install..."
 
-		foreach ($dep in $mumble_deps) {
-			Write-Host("---------------------------------------")
-			Write-Host("> Installing Mumble dependency $dep ...")
-			Write-Host("---------------------------------------")
-			
-			vcpkg_install -package $dep -targetTriplet $triplet -cleanAfterBuild
-		}
+		vcpkg_install -package $mumble_deps -targetTriplet $triplet -cleanAfterBuild
 	}
 } catch {
 	# rethrow
