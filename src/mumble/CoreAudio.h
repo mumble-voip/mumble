@@ -41,6 +41,8 @@ public:
 	CoreAudioInput();
 	~CoreAudioInput() Q_DECL_OVERRIDE;
 	void run() Q_DECL_OVERRIDE;
+private:
+	bool checkOSMicrophonePermission();
 };
 
 class CoreAudioOutput : public AudioOutput {

@@ -904,7 +904,7 @@ if(coreaudio)
 
 	target_sources(mumble
 		PRIVATE
-			"CoreAudio.cpp"
+			"CoreAudio.mm"
 			"CoreAudio.h"
 	)
 
@@ -912,6 +912,7 @@ if(coreaudio)
 		PRIVATE
 			${LIB_AUDIOUNIT}
 			${LIB_COREAUDIO}
+			"-framework AVFoundation"
 	)
 endif()
 
