@@ -41,8 +41,6 @@ public:
 	CoreAudioInput();
 	~CoreAudioInput() Q_DECL_OVERRIDE;
 	void run() Q_DECL_OVERRIDE;
-private:
-	bool checkOSMicrophonePermission();
 };
 
 class CoreAudioOutput : public AudioOutput {
@@ -63,13 +61,14 @@ public:
 	void run() Q_DECL_OVERRIDE;
 };
 
-class CoreAudioInputRegistrar : public AudioInputRegistrar {
+class CoreAudioInputRegistrar : public AudioInputRegistrar, public QObject {
 public:
 	CoreAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("CoreAudio"), 10) {}
 	virtual AudioInput *create();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	virtual bool canEcho(const QString &) const;
+	virtual bool isMicrophoneAccessDeniedByOS();
 };
 
 class CoreAudioOutputRegistrar : public AudioOutputRegistrar {

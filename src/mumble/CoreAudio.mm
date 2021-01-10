@@ -138,7 +138,11 @@ const QHash< QString, QString > CoreAudioSystem::getDevices(bool input) {
 
 
 AudioInput *CoreAudioInputRegistrar::create() {
-	return new CoreAudioInput();
+	if (!isMicrophoneAccessDeniedByOS()) {
+		return new CoreAudioInput();
+	} else {
+		return nullptr;
+	}
 }
 
 const QList< audioDevice > CoreAudioInputRegistrar::getDeviceChoices() {
@@ -154,6 +158,55 @@ bool CoreAudioInputRegistrar::canEcho(const QString &outputsys) const {
 
 	return false;
 }
+
+bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
+	// Only available after macOS 10.14
+	// See https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/
+	// requesting_authorization_for_media_capture_on_macos?language=objc
+	if (@available(macOS 10.14, *)){
+		qDebug("CoreAudioInput: Checking microphone permission....");
+		// Request permission to access the camera and microphone.
+		switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio])
+		{
+			case AVAuthorizationStatusAuthorized: {
+				// The user has previously granted access to the camera.
+				qDebug("CoreAudioInput: Checking microphone permission passed.");
+				return false;
+			}
+			case AVAuthorizationStatusNotDetermined: {
+				// The app hasn't yet asked the user for microphone access.
+				qWarning("CoreAudioInput: Mumble hasn't asked the user for microphone access. Asking for it now.");
+				[AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler: ^(BOOL _granted) {
+					if (_granted) {
+						Audio::stopInput();
+						Audio::startInput();
+					} else {
+						qWarning("CoreAudioInput: Microphone access denied by user.");
+					}
+				}];
+				return true;
+			}
+			case AVAuthorizationStatusDenied: {
+				// The user has previously denied access.
+				qWarning("CoreAudioInput: Microphone access has been previously denied by user.");
+				g.mw->msgBox(tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
+								"by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
+								"Microphone."));
+				return true;
+			}
+			case AVAuthorizationStatusRestricted: {
+				// The user can't grant access due to restrictions.
+				qWarning("CoreAudioInput: Microphone access denied due to system restrictions.");
+				g.mw->msgBox(tr("Access to the microphone was denied due to system restrictions. You will not be able"
+								"to use the microphone in this session."));
+				return true;
+			}
+		}
+	} else {
+		return false;
+	}
+}
+
 
 AudioOutput *CoreAudioOutputRegistrar::create() {
 	return new CoreAudioOutput();
@@ -184,10 +237,6 @@ void CoreAudioInput::run() {
 												   kAudioObjectPropertyElementMaster };
 
 	memset(&buflist, 0, sizeof(AudioBufferList));
-
-	if (!checkOSMicrophonePermission()) {
-		return;
-	}
 
 	if (!g.s.qsCoreAudioInput.isEmpty()) {
 		qWarning("CoreAudioInput: Set device to '%s'.", qPrintable(g.s.qsCoreAudioInput));
@@ -372,54 +421,6 @@ void CoreAudioInput::run() {
 	}
 
 	bRunning = true;
-}
-
-bool CoreAudioInput::checkOSMicrophonePermission() {
-	// Only available after macOS 10.14
-	// See https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/
-	// requesting_authorization_for_media_capture_on_macos?language=objc
-	if(@available(macOS 10.14, *)){
-		qDebug("CoreAudioInput: Checking microphone permission....");
-		// Request permission to access the camera and microphone.
-		switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio])
-		{
-			case AVAuthorizationStatusAuthorized: {
-				// The user has previously granted access to the camera.
-				qDebug("CoreAudioInput: Checking microphone permission passed.");
-				return true;
-			}
-			case AVAuthorizationStatusNotDetermined: {
-				// The app hasn't yet asked the user for microphone access.
-				qWarning("CoreAudioInput: Mumble hasn't asked the user for microphone access. Asking for it now.");
-				[AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler: ^(BOOL _granted) {
-					if (_granted) {
-						Audio::stopInput();
-						Audio::startInput();
-					} else {
-						qWarning("CoreAudioInput: Microphone access denied by user.");
-					}
-				}];
-				return false;
-			}
-			case AVAuthorizationStatusDenied: {
-				// The user has previously denied access.
-				qWarning("CoreAudioInput: Microphone access has been previously denied by user.");
-				g.mw->msgBox(tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
-								"by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
-								"Microphone."));
-				return false;
-			}
-			case AVAuthorizationStatusRestricted: {
-				// The user can't grant access due to restrictions.
-				qWarning("CoreAudioInput: Microphone access denied due to system restrictions.");
-				g.mw->msgBox(tr("Access to the microphone was denied due to system restrictions. You will not be able"
-							    "to use the microphone in this session."));
-				return false;
-			}
-		}
-	} else {
-		return true;
-	}
 }
 
 CoreAudioInput::~CoreAudioInput() {
