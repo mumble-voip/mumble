@@ -7,6 +7,7 @@
 //css_ref Wix_bin\SDK\Microsoft.Deployment.WindowsInstaller.dll;
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Deployment.WindowsInstaller;
@@ -65,7 +66,7 @@ public class ClientInstaller : MumbleInstall {
 			"wow.dll",
 			"wow_x64.dll"
 		};
-		
+
 		string[] licenses = {
 			"qt.txt",
 			"portaudio.txt",
@@ -74,7 +75,7 @@ public class ClientInstaller : MumbleInstall {
 			"lgpl.txt",
 			"Mumble.rtf"
 		};
-		
+
 		if (arch == "x64") {
 			// 64 bit
 			this.Platform = WixSharp.Platform.x64;
@@ -104,12 +105,13 @@ public class ClientInstaller : MumbleInstall {
 				"mumble_ol_helper.exe"
 			};
 		}
-		
+
 		this.Name = "Mumble (client)";
 		this.UpgradeCode = Guid.Parse(upgradeGuid);
 		this.Version = new Version(version);
 		this.OutFileName = "mumble_client-" + this.Version + "-" + arch;
-		
+		this.Media.First().Cabinet = "Mumble.cab";
+
 		var progsDir = new Dir(@"%ProgramFiles%");
 		var productDir = new Dir("Mumble");
 		var installDir = new Dir("client");
@@ -160,17 +162,6 @@ public class ClientInstaller : MumbleInstall {
 	}
 }
 
-public class CustomActions
-{
-	[CustomAction]
-	public static ActionResult InstallDeskShortcut(Session session) {
-		if (DialogResult.Yes == MessageBox.Show("Would you like to create a shortcut on the Desktop?", "Desktop Shortcut", MessageBoxButtons.YesNo)) {
-			session["INSTALLDESKTOPSHORTCUT"] = "yes";
-		}
-		return ActionResult.Success;
-	}
-}
-
 class BuildInstaller 
 {
 	public static void Main(string[] args) {
@@ -179,24 +170,31 @@ class BuildInstaller
 		bool isAllLangs = false;
 
 		for (int i = 0; i < args.Length; i++) {
-			if (args[i] == "--version" && Regex.Match(args[i + 1], @"^\d+$.^\d+$.^\d+$", RegexOptions.None) != null) {
+			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^[0-9]\.[0-9]\.[0-9]\.[0-9]$")) {
 				version = args[i + 1];
 			}
-			
+
 			if (args[i] == "--arch" && (args[i + 1] == "x64" || args[i + 1] == "x86")) {
 				arch = args[i + 1];
 			}
-			
+
 			if (args[i] == "--all-languages") {
 				isAllLangs = true;
 			}
 		}
-		
-		var clInstaller = new ClientInstaller(version, arch);
-		if (isAllLangs) {
-			clInstaller.BuildMultilanguageMsi();
+
+		if (version != null && arch != null) {
+			var clInstaller = new ClientInstaller(version, arch);
+			clInstaller.Version = new Version(version);
+
+			if (isAllLangs) {
+				clInstaller.BuildMultilanguageMsi();
+			} else {
+				clInstaller.BuildMsi();
+			}
 		} else {
-			clInstaller.BuildMsi();
+			Console.WriteLine("ERROR - Values for arch or version are null or incorrect!");
+			Environment.ExitCode = 0xA0; // Bad argument
 		}
 	}
 }

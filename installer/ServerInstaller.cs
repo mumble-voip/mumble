@@ -7,6 +7,7 @@
 //css_ref Wix_bin\SDK\Microsoft.Deployment.WindowsInstaller.dll;
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Deployment.WindowsInstaller;
 using WixSharp;
@@ -19,7 +20,7 @@ public class ServerInstaller : MumbleInstall {
 			"murmur.exe",
 			"Murmur.ice"
 		};
-		
+
 		string[] licenses = {
 			"qt.txt",
 			"gpl.txt",
@@ -27,7 +28,7 @@ public class ServerInstaller : MumbleInstall {
 			"lgpl.txt",
 			"Mumble.rtf"
 		};
-		
+
 		if (arch == "x64") {
 			// 64 bit
 			this.Platform = WixSharp.Platform.x64;
@@ -36,12 +37,13 @@ public class ServerInstaller : MumbleInstall {
 			// 32 bit
 			this.Platform = WixSharp.Platform.x86;
 		}
-		
+
 		this.Name = "Mumble (server)";
 		this.UpgradeCode = Guid.Parse(upgradeGuid);
 		this.Version = new Version(version);
-		this.OutFileName = "mumble_server-" + this.Version + "-" + arch; 
-		
+		this.OutFileName = "mumble_server-" + this.Version + "-" + arch;
+		this.Media.First().Cabinet = "Mumble.cab";
+
 		var progsDir = new Dir(@"%ProgramFiles%");
 		var productDir = new Dir("Mumble");
 		var installDir = new Dir("server");
@@ -62,7 +64,7 @@ public class ServerInstaller : MumbleInstall {
 		for (int i = 0; i < licenses.Length; i++) {
 			licenseFiles[i] = new File(@"..\..\licenses\" + licenses[i]);
 		}
-		
+
 		installDir.Files = binaryFiles;
 		licenseDir.Files = licenseFiles;
 		
@@ -86,24 +88,31 @@ class BuildInstaller
 		bool isAllLangs = false;
 
 		for (int i = 0; i < args.Length; i++) {
-			if (args[i] == "--version" && Regex.Match(args[i + 1], @"^\d+$.^\d+$.^\d+$", RegexOptions.None) != null) {
+			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^[0-9]\.[0-9]\.[0-9]\.[0-9]$")) {
 				version = args[i + 1];
 			}
-			
+
 			if (args[i] == "--arch" && (args[i + 1] == "x64" || args[i + 1] == "x86")) {
 				arch = args[i + 1];
 			}
-			
+
 			if (args[i] == "--all-languages") {
 				isAllLangs = true;
 			}
 		}
-		
-		var srvInstaller = new ServerInstaller(version, arch);
-		if (isAllLangs) {
-			srvInstaller.BuildMultilanguageMsi();
+
+		if (version != null && arch != null) {
+			var srvInstaller = new ServerInstaller(version, arch);
+			srvInstaller.Version = new Version(version);
+
+			if (isAllLangs) {
+				srvInstaller.BuildMultilanguageMsi();
+			} else {
+				srvInstaller.BuildMsi();
+			}
 		} else {
-			srvInstaller.BuildMsi();
+			Console.WriteLine("ERROR - Values for arch or version are null or incorrect!");
+			Environment.ExitCode = 0xA0; // Bad argument
 		}
 	}
 }
