@@ -4,6 +4,10 @@ variables:
   MUMBLE_ENVIRONMENT_PATH: '$(MUMBLE_ENVIRONMENT_STORE)/$(MUMBLE_ENVIRONMENT_VERSION)'
   MUMBLE_ENVIRONMENT_TOOLCHAIN: '$(MUMBLE_ENVIRONMENT_PATH)/scripts/buildsystems/vcpkg.cmake'
 
+env:
+  # Secret variable, has to be exported manually.
+  BUILD_NUMBER_TOKEN: $(BUILD_NUMBER_TOKEN)
+
 jobs:
   - job: Windows_x86_64
     displayName: Windows (x86_64)
