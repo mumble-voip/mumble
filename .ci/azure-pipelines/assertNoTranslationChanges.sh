@@ -30,6 +30,7 @@ if [[ "$oldHash" = "$newHash" ]]; then
 	echo "No translations have changed"
 	exit 0
 else
+	git diff HEAD^
 	echo "[ERROR]: There are unprocessed translation changes!"
 	exit 1
 fi
