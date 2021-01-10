@@ -94,6 +94,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	qlePushClickPathOff->setAccessibleName(tr("Transmission stopped sound"));
 	qsbIdle->setAccessibleName(tr("Initiate idle action after (in minutes)"));
 	qcbIdleAction->setAccessibleName(tr("Idle action"));
+	qlInputHelp->setVisible(false);
 
 	if (AudioInputRegistrar::qmNew) {
 		QList< QString > keys = AudioInputRegistrar::qmNew->keys();
@@ -148,6 +149,8 @@ void AudioInputDialog::load(const Settings &r) {
 	i = keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbSystem, i);
+
+	verifyMicrophonePermission();
 
 	loadCheckBox(qcbExclusive, r.bExclusiveInput);
 
@@ -234,6 +237,31 @@ void AudioInputDialog::load(const Settings &r) {
 		echo = r.bEchoMulti ? 2 : 1;
 
 	loadComboBox(qcbEcho, echo);
+}
+
+void AudioInputDialog::verifyMicrophonePermission() {
+	if (!AudioInputRegistrar::qmNew) {
+		return;
+	}
+
+	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
+	if (air->isMicrophoneAccessDeniedByOS()) {
+		qcbDevice->setEnabled(false);
+		if (air->name == QLatin1String("CoreAudio")) {
+			qlInputHelp->setVisible(true);
+			qlInputHelp->setText(tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
+									"by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
+									"Microphone."));
+		} else if (air->name == QLatin1String("WASAPI")) {
+			qlInputHelp->setVisible(true);
+			qlInputHelp->setText( tr("Access to the microphone was denied. Please check that your operating system's "
+									 "microphone settings allow Mumble to use the microphone."));
+		}
+	} else {
+		qcbDevice->setEnabled(true);
+		qlInputHelp->setVisible(false);
+		qlInputHelp->setText("");
+	}
 }
 
 void AudioInputDialog::save() const {
@@ -467,6 +495,7 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 	}
 
 	qcbDevice->setEnabled(ql.count() > 1);
+	verifyMicrophonePermission();
 }
 
 void AudioInputDialog::updateEchoEnableState() {

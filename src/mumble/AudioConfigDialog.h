@@ -36,6 +36,7 @@ public slots:
 	void load(const Settings &r) Q_DECL_OVERRIDE;
 	void updateBitrate();
 	void continuePlayback();
+	void verifyMicrophonePermission();
 
 	void on_qcbPushClick_clicked(bool);
 	void on_qpbPushClickBrowseOn_clicked();
