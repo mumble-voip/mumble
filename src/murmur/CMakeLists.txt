@@ -342,20 +342,25 @@ endif()
 if(packaging)
 	if(WIN32)
 		if(translations)
-			set(installer_vars "--all-languages")
+			list(APPEND installer_vars "--all-languages")
 		endif()
-		
-	file(COPY 
-		${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
-		${CMAKE_SOURCE_DIR}/installer/ServerInstaller.cs
-		DESTINATION
-			${CMAKE_BINARY_DIR}/installer/server
+
+		list(APPEND installer_vars
+			"--version" ${PROJECT_VERSION}
+			"--arch" ${ARCH}
 		)
-		
+
+		file(COPY
+			${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
+			${CMAKE_SOURCE_DIR}/installer/ServerInstaller.cs
+			DESTINATION
+				${CMAKE_BINARY_DIR}/installer/server
+		)
+
 		add_custom_command(TARGET murmur
 			POST_BUILD
 			COMMAND cscs.exe -cd MumbleInstall.cs 
-			COMMAND cscs.exe ServerInstaller.cs --version ${PROJECT_VERSION} --arch ${ARCH} ${installer_vars}
+			COMMAND cscs.exe ServerInstaller.cs ${installer_vars}
 			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/installer/server
 		)
 	endif()
