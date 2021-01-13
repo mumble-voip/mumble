@@ -32,7 +32,7 @@
 
 if [[ -n "$BUILD_NUMBER_TOKEN" ]]; then
 	VERSION=$(python "scripts/mumble-version.py" --project)
-	BUILD_NUMBER=$(curl "https://mumble.info/get-build-number?version=$VERSION&token=$BUILD_NUMBER_TOKEN")
+	BUILD_NUMBER=$(curl "https://mumble.info/get-build-number?version=$VERSION_$AGENT_JOBNAME&token=$BUILD_NUMBER_TOKEN")
 else
 	BUILD_NUMBER=0
 fi
