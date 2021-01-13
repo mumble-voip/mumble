@@ -305,7 +305,7 @@ static bool isInstallerNewer(QString path, NSUInteger curVer) {
 		QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
 		int major, minor, patch;
 		int minmajor, minminor, minpatch;
-		if (! rx.exactMatch(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING))))
+		if (! rx.exactMatch(QLatin1String(MUMTEXT(MUMBLE_VERSION))))
 			goto out;
 		major = rx.cap(1).toInt();
 		minor = rx.cap(2).toInt();

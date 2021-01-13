@@ -1008,7 +1008,7 @@ void OverlaySettings::save() {
 void OverlaySettings::save(QSettings *settings_ptr) {
 	OverlaySettings def;
 
-	settings_ptr->setValue(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+	settings_ptr->setValue(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION)));
 	settings_ptr->sync();
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)

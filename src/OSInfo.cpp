@@ -536,7 +536,7 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 
 	tag = doc.createElement(QLatin1String("version"));
 	root.appendChild(tag);
-	t = doc.createTextNode(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+	t = doc.createTextNode(QLatin1String(MUMTEXT(MUMBLE_VERSION)));
 	tag.appendChild(t);
 
 	tag = doc.createElement(QLatin1String("release"));

@@ -1347,7 +1347,7 @@ void ConnectDialog::initList() {
 	url.setPath(QLatin1String("/v1/list"));
 
 	QUrlQuery query;
-	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION)));
 	url.setQuery(query);
 
 	WebFetch::fetch(QLatin1String("publist"), url, this, SLOT(fetched(QByteArray, QUrl, QMap< QString, QString >)));

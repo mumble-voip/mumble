@@ -191,13 +191,13 @@ void Network::prepareRequest(QNetworkRequest &req) {
 	if (g.s.bHideOS) {
 		req.setRawHeader(QString::fromLatin1("User-Agent").toUtf8(),
 						 QString::fromLatin1("Mozilla/5.0 Mumble/%1 %2")
-							 .arg(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)), QLatin1String(MUMBLE_RELEASE))
+							 .arg(QLatin1String(MUMTEXT(MUMBLE_VERSION)), QLatin1String(MUMBLE_RELEASE))
 							 .toUtf8());
 	} else {
 		req.setRawHeader(QString::fromLatin1("User-Agent").toUtf8(),
 						 QString::fromLatin1("Mozilla/5.0 (%1; %2) Mumble/%3 %4")
 							 .arg(OSInfo::getOS(), OSInfo::getOSVersion(),
-								  QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)), QLatin1String(MUMBLE_RELEASE))
+								  QLatin1String(MUMTEXT(MUMBLE_VERSION)), QLatin1String(MUMBLE_RELEASE))
 							 .toUtf8());
 	}
 }
