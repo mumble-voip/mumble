@@ -704,11 +704,20 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 												   "valign=\"middle\">%4</td></tr>"
 												   "<tr><td><img src=\"skin:talking_off.svg\" height=64 /></td><td "
 												   "valign=\"middle\">%5</td></tr>"
+												   "<tr><td><img src=\"skin:talking_muted.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%6</td></tr>"
+												   "<tr><td><img src=\"skin:talking_muted.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%6</td></tr>"
+												   "<tr><td><img src=\"skin:ear.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%7</td></tr>"
 												   "</table>")
 							.arg(tr("This is a user connected to the server. The icon to the left of the user "
 									"indicates whether or not they are talking:"),
 								 tr("Talking to your channel."), tr("Shouting directly to your channel."),
-								 tr("Whispering directly to you."), tr("Not talking."));
+								 tr("Whispering directly to you."), tr("Not talking."),
+								 tr("Talking while being muted on your end"),
+								 tr("This is a channel listener. The corresponding user hears everything you say in "
+									"this channel."));
 					else
 						return QString::fromLatin1("%1"
 												   "<table>"
@@ -771,11 +780,17 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 												   "valign=\"middle\">%11</td></tr>"
 												   "<tr><td><img src=\"skin:filter.svg\" height=64 /></td><td "
 												   "valign=\"middle\">%12</td></tr>"
+												   "<tr><td><img src=\"skin:lock_locked.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%13</td></tr>"
+												   "<tr><td><img src=\"skin:lock_unlocked.svg\" height=64 /></td><td "
+												   "valign=\"middle\">%14</td></tr>"
 												   "</table>")
 							.arg(tr("This shows the flags the channel has, if any:"),
 								 tr("Channel has a new comment set (click to show)"),
 								 tr("Channel has a comment set, which you've already seen. (click to show)"),
-								 tr("Channel will be hidden when filtering is enabled"));
+								 tr("Channel will be hidden when filtering is enabled"),
+								 tr("Channel has access restrictions so that you can't enter it"),
+								 tr("Channel has access restrictions but you can enter nonetheless"));
 			}
 			break;
 	}
