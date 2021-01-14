@@ -8,8 +8,8 @@
 * Start Visual Studio
 * Open the project folder (with the open folder option)
 * In the cmake configuration settings specify the cmake toolchain file
-  This file should be at `%USERPROFILE%/mumble-vcpkg/scripts/buildsystems/vcpkg.cmake` after using `get-mumble_deps.sh`.
-* As cmake command argument add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md -Dstatic=ON -DIce_HOME=%USERPROFILE%/mumble-vcpkg/installed/x64-windows-static-md`
+  This file should be at `%USERPROFILE%/vcpkg/scripts/buildsystems/vcpkg.cmake` after using `get-mumble_deps.sh`.
+* As cmake command argument add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md -Dstatic=ON -DIce_HOME=%USERPROFILE%/vcpkg/installed/x64-windows-static-md`
 * Save and cmake should generate the build files, which will take a bit of time
 * Use the build all action to build the project
 * On success the built binaries will be placed in `out\build\<configuration-name>\`
