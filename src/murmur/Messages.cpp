@@ -512,8 +512,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		sendMessage(uSource, mpsug);
 	}
 
-	if (uSource->uiVersion < 0x010400 && Meta::mp.iMaxListenersPerChannel > 0
-		&& Meta::mp.iMaxListenerProxiesPerUser > 0) {
+	if (uSource->uiVersion < 0x010400 && Meta::mp.iMaxListenersPerChannel != 0
+		&& Meta::mp.iMaxListenerProxiesPerUser != 0) {
 		// The server has the ChannelListener feature enabled but the client that connects doesn't have version 1.4.0 or
 		// newer meaning that this client doesn't know what ChannelListeners are. Thus we'll send that user a
 		// text-message informing about this.
