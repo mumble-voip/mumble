@@ -150,6 +150,12 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 		ClientUser *clientUser = userModel->getUser(idx);
 		Channel *channel       = userModel->getChannel(idx);
 
+		// This is the x offset of the _beginning_ of the comment icon starting from the
+		// right.
+		// Thus if the comment icon is the last icon that is displayed, this is equal to
+		// the negative width of a flag's width (which it is initialized to here). For
+		// every flag that is displayed to the right of the comment flag, we have to subtract
+		// UserDelegate::FLAG_DIMENSION once.
 		int commentFlagPxOffset = -UserDelegate::FLAG_DIMENSION;
 		bool hasComment         = false;
 
@@ -184,6 +190,10 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 
 			if (channel->bFiltered)
 				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+
+			if (channel->hasEnterRestrictions) {
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			}
 		}
 
 		if (hasComment) {
