@@ -6,13 +6,10 @@
 #ifndef MUMBLE_MUMBLE_COREAUDIO_H_
 #	define MUMBLE_MUMBLE_COREAUDIO_H_
 
+#	include <AudioToolbox/AudioToolbox.h>
+
 #	include "AudioInput.h"
 #	include "AudioOutput.h"
-
-#	include <AudioToolbox/AudioToolbox.h>
-#	include <Carbon/Carbon.h>
-
-#	include "Global.h"
 
 class CoreAudioSystem : public QObject {
 private:
@@ -28,8 +25,15 @@ class CoreAudioInput : public AudioInput {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CoreAudioInput)
+	static bool getInputDeviceId(CFStringRef devUid, AudioDeviceID &devId);
+	static bool getDefaultInputDeviceId(CFStringRef devUid, AudioDeviceID &devId);
+	bool openAUHAL(AudioStreamBasicDescription &streamDescription);
+	bool initializeAUHAL(AudioStreamBasicDescription &streamDescription, int &actualBufferLength);
+
 protected:
-	AudioUnit au;
+	// Hardware Abstraction Layer's AudioOutputUnit, directly interacts with the hardware
+	AudioUnit auHAL;
+	AudioDeviceID devId;
 	AUEventListenerRef el;
 	AudioBufferList buflist;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
@@ -48,7 +52,8 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CoreAudioOutput)
 protected:
-	AudioUnit au;
+	// Hardware Abstraction Layer's AudioOutputUnit, directly interacts with the hardware
+	AudioUnit auHAL;
 	AUEventListenerRef el;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
@@ -78,16 +83,6 @@ public:
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	bool canMuteOthers() const;
-};
-
-class CoreAudioInit : public DeferInit {
-	CoreAudioInputRegistrar *cairReg;
-	CoreAudioOutputRegistrar *caorReg;
-
-public:
-	CoreAudioInit() : cairReg(nullptr), caorReg(nullptr) {}
-	void initialize();
-	void destroy();
 };
 
 #else

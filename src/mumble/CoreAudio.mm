@@ -15,6 +15,17 @@
 // Ignore deprecation warnings for the whole file, for now.
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
+class CoreAudioInit : public DeferInit {
+	CoreAudioInputRegistrar *cairReg;
+	CoreAudioOutputRegistrar *caorReg;
+
+public:
+	CoreAudioInit() : cairReg(nullptr), caorReg(nullptr) {}
+	void initialize();
+	void destroy();
+};
+
+
 static CoreAudioInit cainit;
 
 void CoreAudioInit::initialize() {
@@ -156,7 +167,7 @@ void CoreAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &
 bool CoreAudioInputRegistrar::canEcho(const QString &outputsys) const {
 	Q_UNUSED(outputsys);
 
-	return false;
+	return true;
 }
 
 bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
@@ -201,6 +212,9 @@ bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
 								"to use the microphone in this session."));
 				return true;
 			}
+			default: {
+				return true;
+			}
 		}
 	} else {
 		return false;
@@ -227,56 +241,69 @@ bool CoreAudioOutputRegistrar::canMuteOthers() const {
 CoreAudioInput::CoreAudioInput() {
 }
 
-void CoreAudioInput::run() {
+ bool CoreAudioInput::getInputDeviceId(CFStringRef devUid, AudioDeviceID &devId) {
 	OSStatus err;
-	AudioStreamBasicDescription fmt;
-	AudioDeviceID devId = 0;
-	CFStringRef devUid  = nullptr;
-	UInt32 val, len;
-	AudioObjectPropertyAddress propertyAddress = { 0, kAudioDevicePropertyScopeInput,
-												   kAudioObjectPropertyElementMaster };
+	UInt32 len;
 
-	memset(&buflist, 0, sizeof(AudioBufferList));
+	// Struct used to query information of the system audio setup
+	AudioObjectPropertyAddress propertyAddress = {
+			.mSelector = 0, // this attribute will be specified later
+			.mScope = kAudioDevicePropertyScopeInput,
+			.mElement = kAudioObjectPropertyElementMaster
+	};
 
-	if (!g.s.qsCoreAudioInput.isEmpty()) {
-		qWarning("CoreAudioInput: Set device to '%s'.", qPrintable(g.s.qsCoreAudioInput));
-		devUid = CoreAudioSystem::QStringToCFString(g.s.qsCoreAudioInput);
+	AudioValueTranslation avt;
+	avt.mInputData      = const_cast< struct __CFString ** >(&devUid);
+	avt.mInputDataSize  = sizeof(CFStringRef *);
+	avt.mOutputData     = &devId;
+	avt.mOutputDataSize = sizeof(AudioDeviceID);
 
-		AudioValueTranslation avt;
-		avt.mInputData      = const_cast< struct __CFString ** >(&devUid);
-		avt.mInputDataSize  = sizeof(CFStringRef *);
-		avt.mOutputData     = &devId;
-		avt.mOutputDataSize = sizeof(AudioDeviceID);
-
-		len                       = sizeof(AudioValueTranslation);
-		propertyAddress.mSelector = kAudioHardwarePropertyDeviceForUID;
-		err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &avt);
-		if (err != noErr) {
-			qWarning("CoreAudioInput: Unable to query for AudioDeviceID.");
-			return;
-		}
-	} else {
-		qWarning("CoreAudioInput: Set device to 'Default Device'.");
-
-		len                       = sizeof(AudioDeviceID);
-		propertyAddress.mSelector = kAudioHardwarePropertyDefaultInputDevice;
-		err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &devId);
-		if (err != noErr) {
-			qWarning("CoreAudioInput: Unable to query for default input AudioDeviceID.");
-			return;
-		}
-
-		len                       = sizeof(CFStringRef);
-		propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
-		err                       = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &devUid);
-		if (err != noErr) {
-			qWarning("CoreAudioInput: Unable to get default device UID.");
-			return;
-		}
+	len                       = sizeof(AudioValueTranslation);
+	propertyAddress.mSelector = kAudioHardwarePropertyDeviceForUID;
+	err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &avt);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to query for AudioDeviceID.");
+		return false;
 	}
 
+	return true;
+}
+
+bool CoreAudioInput::getDefaultInputDeviceId(CFStringRef devUid, AudioDeviceID &devId) {
+	OSStatus err;
+	UInt32 len;
+
+	// Struct used to query information of the system audio setup
+	AudioObjectPropertyAddress propertyAddress = {
+			.mSelector = 0, // this attribute will be specified later
+			.mScope = kAudioDevicePropertyScopeInput,
+			.mElement = kAudioObjectPropertyElementMaster
+	};
+
+	len                       = sizeof(AudioDeviceID);
+	propertyAddress.mSelector = kAudioHardwarePropertyDefaultInputDevice;
+	err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &devId);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to query for default input AudioDeviceID.");
+		return false;
+	}
+
+	len                       = sizeof(CFStringRef);
+	propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
+	err                       = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &devUid);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to get default device UID.");
+		return false;
+	}
+
+	return true;
+}
+
+bool CoreAudioInput::openAUHAL(AudioStreamBasicDescription &streamDescription){
+	OSStatus err;
 	Component comp;
 	ComponentDescription desc;
+	UInt32 val, len;
 
 	desc.componentType         = kAudioUnitType_Output;
 	desc.componentSubType      = kAudioUnitSubType_HALOutput;
@@ -286,49 +313,141 @@ void CoreAudioInput::run() {
 
 	comp = FindNextComponent(nullptr, &desc);
 	if (!comp) {
-		qWarning("CoreAudioInput: Unable to find AudioUnit.");
-		return;
+		qWarning("CoreAudioInput: Unable to find AUHAL.");
+		return false;
 	}
 
-	err = OpenAComponent(comp, &au);
+	err = OpenAComponent(comp, &auHAL);
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to open AudioUnit component.");
-		return;
+		qWarning("CoreAudioInput: Unable to open AUHAL component.");
+		return false;
 	}
 
-	err = AudioUnitInitialize(au);
+	err = AudioUnitInitialize(auHAL);
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to initialize AudioUnit.");
-		return;
+		qWarning("CoreAudioInput: Unable to initialize AUHAL.");
+		return false;
 	}
 
 	val = 1;
-	err = AudioUnitSetProperty(au, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Input, 1, &val, sizeof(UInt32));
+	err = AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Input, 1, &val, sizeof(UInt32));
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to configure input scope on AudioUnit.");
-		return;
+		qWarning("CoreAudioInput: Unable to configure input scope on AUHAL.");
+		return false;
 	}
 
 	val = 0;
-	err = AudioUnitSetProperty(au, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Output, 0, &val, sizeof(UInt32));
+	err = AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Output, 0, &val, sizeof(UInt32));
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to configure output scope on AudioUnit.");
-		return;
+		qWarning("CoreAudioInput: Unable to configure output scope on AUHAL.");
+		return false;
 	}
 
 	len = sizeof(AudioDeviceID);
-	err = AudioUnitSetProperty(au, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &devId, len);
+	err = AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &devId, len);
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to set device of AudioUnit.");
-		return;
+		qWarning("CoreAudioInput: Unable to set device of AUHAL.");
+		return false;
 	}
 
 	len = sizeof(AudioStreamBasicDescription);
-	err = AudioUnitGetProperty(au, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 1, &fmt, &len);
+	err = AudioUnitGetProperty(auHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 1, &streamDescription, &len);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to query device for stream info.");
-		return;
+		return false;
 	}
+
+	return true;
+}
+
+bool CoreAudioInput::initializeAUHAL(AudioStreamBasicDescription &streamDescription, int &actualBufferLength) {
+	OSStatus err;
+	UInt32 len, val;
+
+	len = sizeof(AudioStreamBasicDescription);
+	err = AudioUnitSetProperty(auHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &streamDescription, len);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to set stream format for AUHAL.");
+		return false;
+	}
+
+	err = AudioUnitAddPropertyListener(auHAL, kAudioUnitProperty_StreamFormat, CoreAudioInput::propertyChange, this);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to create input property change listener for AUHAL. Unable to listen to property change "
+				 "events.");
+	}
+
+	AURenderCallbackStruct cb;
+	cb.inputProc       = CoreAudioInput::inputCallback;
+	cb.inputProcRefCon = this;
+	len                = sizeof(AURenderCallbackStruct);
+	err = AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 0, &cb, len);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to setup input callback for AUHAL.");
+		return false;
+	}
+
+	// Struct used to query information of the system audio setup
+	AudioObjectPropertyAddress propertyAddress = {
+			.mSelector = 0, // this attribute will be specified later
+			.mScope = kAudioDevicePropertyScopeInput,
+			.mElement = kAudioObjectPropertyElementMaster
+	};
+
+	AudioValueRange range;
+	len                       = sizeof(AudioValueRange);
+	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSizeRange;
+	err                       = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &range);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to query for allowed buffer size ranges of AUHAL.");
+	} else {
+		qWarning("CoreAudioInput: AUHAL's BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
+	}
+
+	actualBufferLength        = iMicLength;
+	val                       = iMicLength;
+	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSize;
+	err                       = AudioObjectSetPropertyData(devId, &propertyAddress, 0, nullptr, sizeof(UInt32), &val);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to set preferred buffer size on device. Querying AUHAL for device default.");
+		len = sizeof(UInt32);
+		err = AudioDeviceGetProperty(devId, 0, true, kAudioDevicePropertyBufferFrameSize, &len, &val);
+		if (err != noErr) {
+			qWarning("CoreAudioInput: Unable to query AUHAL for device's buffer size.");
+			return false;
+		}
+
+		actualBufferLength = (int) val;
+	}
+
+	return true;
+}
+
+
+void CoreAudioInput::run() {
+	OSStatus err;
+	AudioStreamBasicDescription fmt;
+	CFStringRef devUid  = nullptr;
+	devId = 0;
+
+	memset(&buflist, 0, sizeof(AudioBufferList));
+
+	if (!g.s.qsCoreAudioInput.isEmpty()) {
+		qWarning("CoreAudioInput: Set device to '%s'.", qPrintable(g.s.qsCoreAudioInput));
+		devUid = CoreAudioSystem::QStringToCFString(g.s.qsCoreAudioInput);
+		if (!getInputDeviceId(devUid, devId)) {
+			return;
+		}
+	} else {
+		qWarning("CoreAudioInput: Set device to 'Default Device'.");
+		if (!getDefaultInputDeviceId(devUid, devId)) {
+			return;
+		}
+	}
+
+	if (!openAUHAL(fmt)) {
+		return;
+	};
 
 	if (fmt.mFormatFlags & kAudioFormatFlagIsFloat) {
 		eMicFormat = SampleFloat;
@@ -340,7 +459,7 @@ void CoreAudioInput::run() {
 		qWarning("CoreAudioInput: Input device with more than one channel detected. Defaulting to 1.");
 	}
 
-	iMicFreq     = static_cast< int >(fmt.mSampleRate);
+	iMicFreq     = static_cast<unsigned int>(fmt.mSampleRate);
 	iMicChannels = 1;
 	initializeMixer();
 
@@ -359,62 +478,19 @@ void CoreAudioInput::run() {
 	fmt.mBytesPerPacket   = iMicSampleSize;
 	fmt.mFramesPerPacket  = 1;
 
-	len = sizeof(AudioStreamBasicDescription);
-	err = AudioUnitSetProperty(au, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &fmt, len);
-	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to set stream format for output device.");
+	int actualBufferLength;
+	if (!initializeAUHAL(fmt, actualBufferLength)) {
 		return;
-	}
-
-	err = AudioUnitAddPropertyListener(au, kAudioUnitProperty_StreamFormat, CoreAudioInput::propertyChange, this);
-	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to create input property change listener. Unable to listen to property change "
-				 "events.");
-	}
-
-	AURenderCallbackStruct cb;
-	cb.inputProc       = CoreAudioInput::inputCallback;
-	cb.inputProcRefCon = this;
-	len                = sizeof(AURenderCallbackStruct);
-	err = AudioUnitSetProperty(au, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 0, &cb, len);
-	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to setup callback.");
-		return;
-	}
-
-	AudioValueRange range;
-	len                       = sizeof(AudioValueRange);
-	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSizeRange;
-	err                       = AudioObjectGetPropertyData(devId, &propertyAddress, 0, nullptr, &len, &range);
-	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to query for allowed buffer size ranges.");
-	} else {
-		qWarning("CoreAudioInput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
-	}
-
-	int iActualBufferLength   = iMicLength;
-	val                       = iMicLength;
-	propertyAddress.mSelector = kAudioDevicePropertyBufferFrameSize;
-	err                       = AudioObjectSetPropertyData(devId, &propertyAddress, 0, nullptr, sizeof(UInt32), &val);
-	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to set preferred buffer size on device. Querying for device default.");
-		len = sizeof(UInt32);
-		err = AudioDeviceGetProperty(devId, 0, true, kAudioDevicePropertyBufferFrameSize, &len, &val);
-		if (err != noErr) {
-			qWarning("CoreAudioInput: Unable to query device for buffer size.");
-			return;
-		}
-
-		iActualBufferLength = (int) val;
-	}
+	};
 
 	buflist.mNumberBuffers = 1;
 	AudioBuffer *b         = buflist.mBuffers;
 	b->mNumberChannels     = iMicChannels;
-	b->mDataByteSize       = iMicSampleSize * iActualBufferLength;
+	b->mDataByteSize       = iMicSampleSize * actualBufferLength;
 	b->mData               = calloc(1, b->mDataByteSize);
 
-	err = AudioOutputUnitStart(au);
+	// Start!
+	err = AudioOutputUnitStart(auHAL);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to start AudioUnit.");
 		return;
@@ -429,8 +505,8 @@ CoreAudioInput::~CoreAudioInput() {
 	bRunning = false;
 	wait();
 
-	if (au) {
-		err = AudioOutputUnitStop(au);
+	if (auHAL) {
+		err = AudioOutputUnitStop(auHAL);
 		if (err != noErr) {
 			qWarning("CoreAudioInput: Unable to stop AudioUnit.");
 		}
@@ -451,7 +527,7 @@ OSStatus CoreAudioInput::inputCallback(void *udata, AudioUnitRenderActionFlags *
 	CoreAudioInput *i = reinterpret_cast< CoreAudioInput * >(udata);
 	OSStatus err;
 
-	err = AudioUnitRender(i->au, flags, ts, busnum, nframes, &i->buflist);
+	err = AudioUnitRender(i->auHAL, flags, ts, busnum, nframes, &i->buflist);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: AudioUnitRender failed.");
 		return err;
@@ -462,10 +538,10 @@ OSStatus CoreAudioInput::inputCallback(void *udata, AudioUnitRenderActionFlags *
 	return noErr;
 }
 
-void CoreAudioInput::propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
+void CoreAudioInput::propertyChange(void *udata, AudioUnit auHAL, AudioUnitPropertyID prop, AudioUnitScope scope,
 									AudioUnitElement element) {
 	Q_UNUSED(udata);
-	Q_UNUSED(au);
+	Q_UNUSED(auHAL);
 	Q_UNUSED(scope);
 	Q_UNUSED(element);
 
@@ -540,27 +616,27 @@ CoreAudioOutput::CoreAudioOutput() {
 		return;
 	}
 
-	err = OpenAComponent(comp, &au);
+	err = OpenAComponent(comp, &auHAL);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to open AudioUnit component.");
 		return;
 	}
 
-	err = AudioUnitInitialize(au);
+	err = AudioUnitInitialize(auHAL);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to initialize output AudioUnit");
 		return;
 	}
 
 	len = sizeof(AudioDeviceID);
-	err = AudioUnitSetProperty(au, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &devId, len);
+	err = AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &devId, len);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to set CurrentDevice property on AudioUnit.");
 		return;
 	}
 
 	len = sizeof(AudioStreamBasicDescription);
-	err = AudioUnitGetProperty(au, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &fmt, &len);
+	err = AudioUnitGetProperty(auHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &fmt, &len);
 	if (err != noErr) {
 		qWarning("CoreAudioOuptut: Unable to query device for stream info.");
 		return;
@@ -595,13 +671,13 @@ CoreAudioOutput::CoreAudioOutput() {
 	fmt.mFramesPerPacket  = 1;
 
 	len = sizeof(AudioStreamBasicDescription);
-	err = AudioUnitSetProperty(au, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &fmt, len);
+	err = AudioUnitSetProperty(auHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &fmt, len);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to set stream format for output device.");
 		return;
 	}
 
-	err = AudioUnitAddPropertyListener(au, kAudioUnitProperty_StreamFormat, CoreAudioOutput::propertyChange, this);
+	err = AudioUnitAddPropertyListener(auHAL, kAudioUnitProperty_StreamFormat, CoreAudioOutput::propertyChange, this);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to create output property change listener. Unable to listen to property "
 				 "change events.");
@@ -611,7 +687,7 @@ CoreAudioOutput::CoreAudioOutput() {
 	cb.inputProc       = CoreAudioOutput::outputCallback;
 	cb.inputProcRefCon = this;
 	len                = sizeof(AURenderCallbackStruct);
-	err = AudioUnitSetProperty(au, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Global, 0, &cb, len);
+	err = AudioUnitSetProperty(auHAL, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Global, 0, &cb, len);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to setup callback.");
 		return;
@@ -635,7 +711,7 @@ CoreAudioOutput::CoreAudioOutput() {
 		qWarning("CoreAudioOutput: Could not set requested buffer size for device. Continuing with default.");
 	}
 
-	err = AudioOutputUnitStart(au);
+	err = AudioOutputUnitStart(auHAL);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to start AudioUnit");
 		return;
@@ -650,8 +726,8 @@ CoreAudioOutput::~CoreAudioOutput() {
 	bRunning = false;
 	wait();
 
-	if (au) {
-		err = AudioOutputUnitStop(au);
+	if (auHAL) {
+		err = AudioOutputUnitStop(auHAL);
 		if (err != noErr) {
 			qWarning("CoreAudioOutput: Unable to stop AudioUnit.");
 		}
@@ -678,10 +754,10 @@ OSStatus CoreAudioOutput::outputCallback(void *udata, AudioUnitRenderActionFlags
 	return noErr;
 }
 
-void CoreAudioOutput::propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
+void CoreAudioOutput::propertyChange(void *udata, AudioUnit auHAL, AudioUnitPropertyID prop, AudioUnitScope scope,
 									 AudioUnitElement element) {
 	Q_UNUSED(udata);
-	Q_UNUSED(au);
+	Q_UNUSED(auHAL);
 	Q_UNUSED(scope);
 	Q_UNUSED(element);
 
