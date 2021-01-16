@@ -28,6 +28,7 @@ public:
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	virtual bool canEcho(const QString &) const;
+	virtual bool isMicrophoneAccessDeniedByOS() { return false; };
 };
 
 ASIOAudioInputRegistrar::ASIOAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ASIO")) {

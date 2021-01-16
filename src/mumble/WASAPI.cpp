@@ -56,7 +56,16 @@ public:
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	virtual bool canEcho(const QString &) const;
 	virtual bool canExclusive() const;
+	virtual bool isMicrophoneAccessDeniedByOS();
+
+	// Windows doesn't provide an interface to query the permission of microphone access.
+	// We only know the answer after trying to initialize the WASAPIAudioInput.
+	// This static attribute will be set by WASAPIAudioInput to indicate if its access attempt
+	// failed.
+	static bool hasOSPermissionDenied;
 };
+
+bool WASAPIInputRegistrar::hasOSPermissionDenied = false;
 
 class WASAPIOutputRegistrar : public AudioOutputRegistrar {
 public:
@@ -110,6 +119,10 @@ void WASAPIInit::destroy() {
 
 WASAPIInputRegistrar::WASAPIInputRegistrar() : AudioInputRegistrar(QLatin1String("WASAPI"), 10) {
 }
+
+bool WASAPIInputRegistrar::isMicrophoneAccessDeniedByOS() {
+	return hasOSPermissionDenied;
+};
 
 
 /// Calls getMixFormat on given IAudioClient and checks whether it is compatible.
@@ -469,6 +482,7 @@ void WASAPIInput::run() {
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Mic Initialize failed: hr=0x%08lx", hr);
 			if (hr == E_ACCESSDENIED) {
+				WASAPIInputRegistrar::hasOSPermissionDenied = true;
 				g.mw->msgBox(tr("Access to the microphone was denied. Please check that your operating system's "
 								"microphone settings allow Mumble to use the microphone."));
 			}

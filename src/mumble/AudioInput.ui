@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>588</width>
-    <height>940</height>
+    <height>953</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,13 +20,13 @@
       <string>Interface</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliSystem">
+      <item row="0" column="3">
+       <widget class="QLabel" name="qliDevice">
         <property name="text">
-         <string>System</string>
+         <string>Device</string>
         </property>
         <property name="buddy">
-         <cstring>qcbSystem</cstring>
+         <cstring>qcbDevice</cstring>
         </property>
        </widget>
       </item>
@@ -46,29 +46,13 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <spacer>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>24</width>
-          <height>16</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLabel" name="qliDevice">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliSystem">
         <property name="text">
-         <string>Device</string>
+         <string>System</string>
         </property>
         <property name="buddy">
-         <cstring>qcbDevice</cstring>
+         <cstring>qcbSystem</cstring>
         </property>
        </widget>
       </item>
@@ -94,7 +78,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="4">
+      <item row="2" column="4">
        <widget class="QCheckBox" name="qcbExclusive">
         <property name="minimumSize">
          <size>
@@ -110,6 +94,41 @@
         </property>
         <property name="text">
          <string>Exclusive</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Maximum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>24</width>
+          <height>16</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0" colspan="5">
+       <widget class="QLabel" name="qlInputHelp">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

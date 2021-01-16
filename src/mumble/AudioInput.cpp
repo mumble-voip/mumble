@@ -197,6 +197,10 @@ bool AudioInputRegistrar::canExclusive() const {
 	return false;
 }
 
+bool AudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
+	return false;
+}
+
 AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)) {
 	bDebugDumpInput         = g.bDebugDumpInput;
 	resync.bDebugPrintQueue = g.bDebugPrintQueue;

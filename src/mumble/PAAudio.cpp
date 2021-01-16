@@ -33,6 +33,7 @@ private:
 	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
 	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
 	bool canEcho(const QString &) const Q_DECL_OVERRIDE;
+	bool isMicrophoneAccessDeniedByOS() Q_DECL_OVERRIDE { return false; };
 
 public:
 	PortAudioInputRegistrar();

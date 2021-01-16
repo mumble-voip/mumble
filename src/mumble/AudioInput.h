@@ -137,6 +137,18 @@ public:
 	virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
 	virtual bool canEcho(const QString &outputsys) const       = 0;
 	virtual bool canExclusive() const;
+
+	/**
+	 * Check if Mumble's microphone access has been denied by the OS.
+	 * Both Windows and macOS have builtin privacy safeguards that display a message asking for users'
+	 * consent when apps are trying to use the microphone, and/or provide ways to deny the microphone
+	 * access of some apps.
+	 * This function should check if Mumble has the permission to use the microphone.
+	 * Note: It is possible that this result could only be known after trying to initialize the audio backend.
+	 * Generally, call this function after attempts to initialize the AudioInput have been made.
+	 * @return true if microphone access is denied.
+	 */
+	virtual bool isMicrophoneAccessDeniedByOS() = 0;
 };
 
 class AudioInput : public QThread {

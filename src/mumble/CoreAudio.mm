@@ -3,9 +3,10 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "CoreAudio.h"
+#include <AVFoundation/AVFoundation.h>
+#include "MainWindow.h"
 
-#include "User.h"
+#include "CoreAudio.h"
 
 // We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
 // (like protobuf 3.7 does). As such, for now, we have to make this our last include.
@@ -137,7 +138,11 @@ const QHash< QString, QString > CoreAudioSystem::getDevices(bool input) {
 
 
 AudioInput *CoreAudioInputRegistrar::create() {
-	return new CoreAudioInput();
+	if (!isMicrophoneAccessDeniedByOS()) {
+		return new CoreAudioInput();
+	} else {
+		return nullptr;
+	}
 }
 
 const QList< audioDevice > CoreAudioInputRegistrar::getDeviceChoices() {
@@ -153,6 +158,55 @@ bool CoreAudioInputRegistrar::canEcho(const QString &outputsys) const {
 
 	return false;
 }
+
+bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
+	// Only available after macOS 10.14
+	// See https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/
+	// requesting_authorization_for_media_capture_on_macos?language=objc
+	if (@available(macOS 10.14, *)){
+		qDebug("CoreAudioInput: Checking microphone permission....");
+		// Request permission to access the camera and microphone.
+		switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio])
+		{
+			case AVAuthorizationStatusAuthorized: {
+				// The user has previously granted access to the camera.
+				qDebug("CoreAudioInput: Checking microphone permission passed.");
+				return false;
+			}
+			case AVAuthorizationStatusNotDetermined: {
+				// The app hasn't yet asked the user for microphone access.
+				qWarning("CoreAudioInput: Mumble hasn't asked the user for microphone access. Asking for it now.");
+				[AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler: ^(BOOL _granted) {
+					if (_granted) {
+						Audio::stopInput();
+						Audio::startInput();
+					} else {
+						qWarning("CoreAudioInput: Microphone access denied by user.");
+					}
+				}];
+				return true;
+			}
+			case AVAuthorizationStatusDenied: {
+				// The user has previously denied access.
+				qWarning("CoreAudioInput: Microphone access has been previously denied by user.");
+				g.mw->msgBox(tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
+								"by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
+								"Microphone."));
+				return true;
+			}
+			case AVAuthorizationStatusRestricted: {
+				// The user can't grant access due to restrictions.
+				qWarning("CoreAudioInput: Microphone access denied due to system restrictions.");
+				g.mw->msgBox(tr("Access to the microphone was denied due to system restrictions. You will not be able"
+								"to use the microphone in this session."));
+				return true;
+			}
+		}
+	} else {
+		return false;
+	}
+}
+
 
 AudioOutput *CoreAudioOutputRegistrar::create() {
 	return new CoreAudioOutput();
@@ -171,6 +225,9 @@ bool CoreAudioOutputRegistrar::canMuteOthers() const {
 }
 
 CoreAudioInput::CoreAudioInput() {
+}
+
+void CoreAudioInput::run() {
 	OSStatus err;
 	AudioStreamBasicDescription fmt;
 	AudioDeviceID devId = 0;
@@ -419,9 +476,6 @@ void CoreAudioInput::propertyChange(void *udata, AudioUnit au, AudioUnitProperty
 	} else {
 		qWarning("CoreAudioInput: Unexpected property changed event received.");
 	}
-}
-
-void CoreAudioInput::run() {
 }
 
 CoreAudioOutput::CoreAudioOutput() {
