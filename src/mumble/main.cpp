@@ -117,7 +117,7 @@ QPoint getTalkingUIPosition() {
 	// The screen should always be found at this point as we have chosen to pos to be on a screen
 	const QScreen *screen = screenAt(talkingUIPos);
 	const QRect screenGeom = screen ? screen->availableGeometry() : QRect(0,0,0,0);
-	
+
 	// Check whether the TalkingUI fits on the screen in x-direction
 	if (!positionIsOnScreen(talkingUIPos + QPoint(talkingUISize.width(), 0))) {
 		int overlap = talkingUIPos.x() + talkingUISize.width() - screenGeom.x() - screenGeom.width();
@@ -156,8 +156,6 @@ int main(int argc, char **argv) {
 		return ret;
 	}
 #endif
-
-	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
 
 #if defined(Q_OS_WIN)
 	SetDllDirectory(L"");
