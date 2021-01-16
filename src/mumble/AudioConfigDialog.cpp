@@ -523,9 +523,9 @@ void AudioInputDialog::updateEchoEnableState() {
 		qcbEcho->setCurrentIndex(0);
 		qcbEcho->setEnabled(false);
 		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not supported for the interface "
-										"combination \"%1\" (in) and \"%2\" (out).")
-								.arg(air->name)
-								.arg(outputInterface));
+		                                "combination \"%1\" (in) and \"%2\" (out).")
+			                    .arg(air->name)
+			                    .arg(outputInterface));
 	}
 }
 
