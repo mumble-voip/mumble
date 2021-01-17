@@ -119,8 +119,18 @@ private:
 	enum { S0, S1a, S1b, S2, S3, S4a, S4b, S5 } state = S0; ///< Queue fill control statemachine
 };
 
-class AudioInputRegistrar {
+struct EchoCancellationOption {
+	EchoCancellationOption(int id, QString description, QString explanation) : id(id),
+	                                                                           description(description),
+	                                                                           explanation(explanation) {};
+	int id;
+	QString description;
+	QString explanation;
+};
+
+class AudioInputRegistrar : public QObject {
 private:
+	Q_OBJECT
 	Q_DISABLE_COPY(AudioInputRegistrar)
 public:
 	static QMap< QString, AudioInputRegistrar * > *qmNew;
@@ -130,13 +140,22 @@ public:
 	const QString name;
 	int priority;
 
+	// A list of echo cancellation options available for this backend.
+	QList<EchoCancellationOption> echoOptions;
+
 	AudioInputRegistrar(const QString &n, int priority = 0);
 	virtual ~AudioInputRegistrar();
 	virtual AudioInput *create()                               = 0;
 	virtual const QList< audioDevice > getDeviceChoices()      = 0;
 	virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
-	virtual bool canEcho(const QString &outputsys) const       = 0;
+
+	// Check that is the given echoOption and outputSystem combination is available for echo cancellation
+	virtual bool canEcho(int echoOptionId, const QString &outputSystem) const = 0;
 	virtual bool canExclusive() const;
+
+	// add speex echo cancellation as into the echoOptions if this backend supports
+	// tapping the system's audio output.
+	void useSpeexEchoCancellation();
 
 	/**
 	 * Check if Mumble's microphone access has been denied by the OS.
@@ -280,5 +299,10 @@ public:
 	virtual bool isAlive() const;
 	bool isTransmitting() const;
 };
+
+#define ECHO_CANCEL_DISABLED 0
+#define ECHO_CANCEL_DEFAULT 1
+#define ECHO_CANCEL_SPEEX_MIXED 10
+#define ECHO_CANCEL_SPEEX_MULTICHANNEL 11
 
 #endif

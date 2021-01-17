@@ -9,6 +9,7 @@
 #include "ui_AudioWizard.h"
 
 #include "AudioOutput.h"
+#include "AudioInput.h"
 #include "AudioStats.h"
 #include "Settings.h"
 
@@ -16,6 +17,8 @@ class AudioWizard : public QWizard, public Ui::AudioWizard {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioWizard)
+
+	bool hasUsableEchoCancellation(AudioInputRegistrar *air, QString outputSys);
 protected:
 	QList< QVariant > pttButtons;
 	bool bTransmitChanged;

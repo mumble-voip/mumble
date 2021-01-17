@@ -232,11 +232,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadComboBox(qcbIdleAction, r.iaeIdleAction);
 	loadCheckBox(qcbUndoIdleAction, r.bUndoIdleActionUponActivity);
 
-	int echo = 0;
-	if (r.bEcho)
-		echo = r.bEchoMulti ? 2 : 1;
-
-	loadComboBox(qcbEcho, echo);
+	updateEchoEnableState();
 }
 
 void AudioInputDialog::verifyMicrophonePermission() {
@@ -301,8 +297,8 @@ void AudioInputDialog::save() const {
 	s.qsTxAudioCueOff      = qlePushClickPathOff->text();
 
 	s.qsAudioInput    = qcbSystem->currentText();
-	s.bEcho           = qcbEcho->currentIndex() > 0;
-	s.bEchoMulti      = qcbEcho->currentIndex() == 2;
+	s.iEchoOption    = qcbEcho->currentData().toInt();
+	s.bEcho           = s.iEchoOption != ECHO_CANCEL_DISABLED;
 	s.bExclusiveInput = qcbExclusive->isChecked();
 
 	if (AudioInputRegistrar::qmNew) {
@@ -511,14 +507,29 @@ void AudioInputDialog::updateEchoEnableState() {
 		outputInterface = s.qsAudioOutput;
 	}
 
-	if (air->canEcho(outputInterface)) {
+	qcbEcho->clear();
+	qcbEcho->setToolTip(QObject::tr("If enabled this tries to cancel out echo from the audio stream."));
+	qcbEcho->setCurrentIndex(0);
+
+	bool hasUsableEchoOption = false;
+
+	qcbEcho->insertItem(0, tr("Disabled"), "disabled");
+	qcbEcho->setItemData(0, tr("Disable echo cancellation."), Qt::ToolTipRole);
+
+	for (int i=0; i<air->echoOptions.count(); ++i) {
+		EchoCancellationOption eco = air->echoOptions[i];
+		if (air->canEcho(eco.id, outputInterface)) {
+			hasUsableEchoOption = true;
+			qcbEcho->insertItem(i+1, eco.description, eco.id);
+			qcbEcho->setItemData(i+1, eco.explanation, Qt::ToolTipRole);
+			if (s.iEchoOption == eco.id) {
+				qcbEcho->setCurrentIndex(i+1);
+			}
+		}
+	}
+
+	if (hasUsableEchoOption) {
 		qcbEcho->setEnabled(true);
-		qcbEcho->setToolTip(QObject::tr(
-			"If enabled this tries to cancel out echo from the audio stream.\n"
-			"Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to "
-			"the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller "
-			"directly.\n"
-			"Multichannel echo cancellation requires more CPU, so you should try mixed first"));
 	} else {
 		qcbEcho->setCurrentIndex(0);
 		qcbEcho->setEnabled(false);

@@ -49,7 +49,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 			qcbInput->addItem(air->name);
 			if (air->name == AudioInputRegistrar::current) {
 				qcbInput->setCurrentIndex(qcbInput->count() - 1);
-				qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+				qcbEcho->setEnabled(hasUsableEchoCancellation(air, qcbOutput->currentText()));
 			}
 			QList< audioDevice > ql = air->getDeviceChoices();
 		}
@@ -239,7 +239,7 @@ void AudioWizard::on_qcbInputDevice_activated(int) {
 		air->setDeviceChoice(qcbInputDevice->itemData(idx), g.s);
 	}
 
-	qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+	qcbEcho->setEnabled(hasUsableEchoCancellation(air, qcbOutput->currentText()));
 
 	g.ai = AudioInputPtr(air->create());
 	g.ai->start(QThread::HighestPriority);
@@ -280,7 +280,7 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 	}
 
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
-	qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+	qcbEcho->setEnabled(hasUsableEchoCancellation(air, qcbOutput->currentText()));
 
 	g.ao = AudioOutputPtr(aor->create());
 	g.ao->start(QThread::HighPriority);
@@ -652,6 +652,9 @@ void AudioWizard::on_qpbPTT_clicked() {
 
 void AudioWizard::on_qcbEcho_clicked(bool on) {
 	g.s.bEcho = on;
+	if (g.s.bEcho) {
+		g.s.iEchoOption = 1;  // ECHO_CANCEL_DEFAULT = 1
+	}
 	restartAudio();
 }
 
@@ -727,4 +730,15 @@ void AudioWizard::on_qrbQualityCustom_clicked() {
 	g.s.iQuality         = sOldSettings.iQuality;
 	g.s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
 	restartAudio();
+}
+
+bool AudioWizard::hasUsableEchoCancellation(AudioInputRegistrar *air, const QString outputSys) {
+	for (int i=0; i<air->echoOptions.count(); ++i) {
+		EchoCancellationOption eco = air->echoOptions[i];
+		if (air->canEcho(eco.id, outputSys)) {
+			return true;
+		}
+	}
+
+	return false;
 }

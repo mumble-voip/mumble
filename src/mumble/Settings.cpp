@@ -401,14 +401,8 @@ Settings::Settings() {
 	bJackStartServer  = false;
 	bJackAutoConnect  = true;
 
-#ifndef Q_OS_MAC
-	// Enable echo cancellation by default everywhere except for Macs as we currently
-	// on't support echo cancelling on Macs
-	bEcho = true;
-#else
 	bEcho = false;
-#endif
-	bEchoMulti = false;
+	iEchoOption = 0;  // ECHO_CANCEL_DISABLED = 0
 
 	bExclusiveInput  = false;
 	bExclusiveOutput = false;
@@ -558,7 +552,7 @@ bool Settings::doEcho() const {
 	if (AudioInputRegistrar::qmNew) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qsAudioInput);
 		if (air) {
-			if (air->canEcho(qsAudioOutput))
+			if (g.s.iEchoOption && air->canEcho(g.s.iEchoOption, qsAudioOutput))
 				return true;
 		}
 	}
@@ -760,7 +754,7 @@ void Settings::load(QSettings *settings_ptr) {
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
-	SAVELOAD(bEchoMulti, "audio/echomulti");
+	SAVELOAD(iEchoOption, "audio/echooptionid");
 	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
 	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");
@@ -1134,7 +1128,7 @@ void Settings::save() {
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
-	SAVELOAD(bEchoMulti, "audio/echomulti");
+	SAVELOAD(iEchoOption, "audio/echooptionid");
 	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
 	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");

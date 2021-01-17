@@ -42,7 +42,7 @@ public:
 	virtual AudioInput *create();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
-	virtual bool canEcho(const QString &) const;
+	virtual bool canEcho(int, const QString &) const;
 	virtual bool isMicrophoneAccessDeniedByOS() { return false; };
 };
 
@@ -334,9 +334,9 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		bool do_stop        = false;
 		bool do_start       = false;
 
-		if ((!pai || !g.s.doEcho()) && (est == PA_STREAM_READY)) {
+		if ((!pai || g.s.iEchoOption == ECHO_CANCEL_DISABLED) && (est == PA_STREAM_READY)) {
 			do_stop = true;
-		} else if (pai && g.s.doEcho()) {
+		} else if (pai && g.s.iEchoOption != ECHO_CANCEL_DISABLED) {
 			switch (est) {
 				case PA_STREAM_TERMINATED: {
 					if (pasSpeaker)
@@ -347,7 +347,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 						pss.format = PA_SAMPLE_FLOAT32NE;
 					pss.rate = SAMPLE_RATE;
-					if ((pss.channels == 0) || (!g.s.bEchoMulti))
+					if ((pss.channels == 0) || (g.s.iEchoOption != ECHO_CANCEL_SPEEX_MULTICHANNEL))
 						pss.channels = 1;
 
 					pasSpeaker =
@@ -360,7 +360,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					do_start = true;
 					break;
 				case PA_STREAM_READY: {
-					if (g.s.bEchoMulti != bEchoMultiCache) {
+					if ((g.s.iEchoOption == ECHO_CANCEL_SPEEX_MULTICHANNEL) != bEchoMultiCache) {
 						do_stop = true;
 					} else if (edev != qsEchoCache) {
 						do_stop = true;
@@ -386,7 +386,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			buff.prebuf                  = -1;
 			buff.fragsize                = iBlockLen;
 
-			bEchoMultiCache = g.s.bEchoMulti;
+			bEchoMultiCache = (g.s.iEchoOption == ECHO_CANCEL_SPEEX_MULTICHANNEL);
 			qsEchoCache     = edev;
 
 			m_pulseAudio.stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_ADJUST_LATENCY);
@@ -894,6 +894,7 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 }
 
 PulseAudioInputRegistrar::PulseAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PulseAudio"), 10) {
+	useSpeexEchoCancellation();
 }
 
 AudioInput *PulseAudioInputRegistrar::create() {
@@ -920,8 +921,10 @@ void PulseAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 	s.qsPulseAudioInput = choice.toString();
 }
 
-bool PulseAudioInputRegistrar::canEcho(const QString &osys) const {
-	return (osys == name);
+bool PulseAudioInputRegistrar::canEcho(int echoOption, const QString &osys) const {
+	return (echoOption == ECHO_CANCEL_DEFAULT
+	        || echoOption == ECHO_CANCEL_SPEEX_MIXED
+	        || echoOption == ECHO_CANCEL_SPEEX_MULTICHANNEL) && (osys == name);
 }
 
 PulseAudioOutputRegistrar::PulseAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PulseAudio"), 10) {

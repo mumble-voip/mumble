@@ -244,7 +244,7 @@ struct Settings {
 
 	bool bExclusiveInput, bExclusiveOutput;
 	bool bEcho;
-	bool bEchoMulti;
+	int iEchoOption;  // _id_ of EchoCancellationOption, or "default" to use the default option of the audio backend
 	bool bPositionalAudio;
 	bool bPositionalHeadphone;
 	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;
