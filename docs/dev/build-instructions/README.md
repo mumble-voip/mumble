@@ -5,6 +5,10 @@ checkout [this guide](https://guides.github.com/introduction/git-handbook/) on g
 
 The first step in building Mumble is to clone this repository via `git clone https://github.com/mumble-voip/mumble.git` and then going into the cloned directory and run `git submodule update --init --recursive` in order to also clone all submodules.
 
+_Tip:_ You can also [build a specific version or commit](faq.md#build-a-specific-version-or-commit) of Mumble.
+
+Then go into the cloned repository and run `git submodule update --init --recursive` in order to also clone all submodules.
+
 In order to actually build Mumble, you can follow one of the following instruction sets:
 - [Build on Windows](build_windows.md)
 - [Build on Linux](build_linux.md)

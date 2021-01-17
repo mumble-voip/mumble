@@ -20,3 +20,48 @@ If for instance you have installed OpenSSL to `/usr/local/opt/openssl`, you can 
 cmake -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl ..
 ```
 
+
+### Build a specific version or commit
+
+#### Version
+
+Use tags to build a specific release version of Mumble.
+You can find the `tag`-list [here](https://github.com/mumble-voip/mumble/tags) or by using the command `git tag` inside a cloned repository.
+
+Use:
+```
+git clone -b [tag] https://github.com/mumble-voip/mumble.git
+```
+
+For example (for version 1.3.3): 
+```
+git clone -b 1.3.3 https://github.com/mumble-voip/mumble.git
+```
+
+**or inside an already cloned repository:**
+
+```
+git checkout [tag]
+```
+
+or (if you want to create a new branch):
+```
+git checkout -b [new-branch-name] [tag]
+```
+
+#### Commit
+
+Use commit hashes to build a specific development state of Mumble.
+
+You can find the list of commits [here (for master branch)](https://github.com/mumble-voip/mumble/commits/master) or by using the command `git log` inside a cloned repository.
+
+Go into the cloned repository and use:
+
+```
+git checkout [commit_sha]
+```
+
+or (if you want to create a new branch):
+```
+git checkout -b [new-branch-name] [commit_sha]
+```
