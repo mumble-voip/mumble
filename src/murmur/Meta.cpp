@@ -47,10 +47,13 @@ HANDLE Meta::hQoS = nullptr;
 #endif
 
 MetaParams::MetaParams() {
-	qsPassword                 = QString();
-	usPort                     = DEFAULT_MUMBLE_PORT;
-	iTimeout                   = 30;
-	iMaxBandwidth              = 72000;
+	qsPassword = QString();
+	usPort     = DEFAULT_MUMBLE_PORT;
+	iTimeout   = 30;
+	// This represents the maximum possible bandwidth using 10 ms audio TCP packets with position data
+	// (restricted by the maximum bitrate Opus supports)
+	// 558000 = 510000 (Opus) + 9600 (position) + 38400 (TCP overhead)
+	iMaxBandwidth              = 558000;
 	iMaxUsers                  = 1000;
 	iMaxUsersPerChannel        = 0;
 	iMaxListenersPerChannel    = -1;
