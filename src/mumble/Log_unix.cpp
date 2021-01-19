@@ -21,16 +21,16 @@ void Log::postNotification(MsgType mt, const QString &plain) {
 	switch (mt) {
 		case DebugInfo:
 		case CriticalError:
-			qsIcon = QLatin1String("gtk-dialog-error");
+			qsIcon = QLatin1String("dialog-error");
 			break;
 		case Warning:
-			qsIcon = QLatin1String("gtk-dialog-warning");
+			qsIcon = QLatin1String("dialog-warning");
 			break;
 		case TextMessage:
-			qsIcon = QLatin1String("gtk-edit");
+			qsIcon = QLatin1String("accessories-text-editor");
 			break;
 		default:
-			qsIcon = QLatin1String("gtk-dialog-info");
+			qsIcon = QLatin1String("dialog-information");
 			break;
 	}
 
