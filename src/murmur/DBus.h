@@ -146,11 +146,11 @@ public slots:
 	void channelRemoved(const Channel *c);
 
 public slots:
-	// Order of paremeters is IMPORTANT, or Qt will barf.
+	// Order of parameters is IMPORTANT, or Qt will barf.
 	// Needs to be:
 	// First all input parameters (non-ref or const-ref)
 	// Then const QDbusMessage ref
-	// Then output paremeters (ref)
+	// Then output parameters (ref)
 	// Unfortunately, this makes things look chaotic, but luckily it looks sane again when introspected.
 	// make SURE arguments have sane names, the argument-name will be exported in introspection xml.
 

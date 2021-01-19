@@ -388,7 +388,7 @@ public:
 	/// of the error.
 	///
 	/// This method is equivalent to the logic that happens in
-	/// Server::msgChannelState  when a ChannelState message is recieved from
+	/// Server::msgChannelState  when a ChannelState message is received from
 	/// a user. However, this method doesn't do permissions checking.
 	///
 	/// This method is used by the gRPC implementation to perform channel

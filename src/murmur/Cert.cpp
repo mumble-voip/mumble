@@ -71,7 +71,7 @@ QSslKey Server::privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass)
 void Server::initializeCert() {
 	QByteArray crt, key, pass, dhparams;
 
-	// Clear all exising SSL settings
+	// Clear all existing SSL settings
 	// for this server.
 	qscCert.clear();
 	qlIntermediates.clear();
