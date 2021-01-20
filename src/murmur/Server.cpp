@@ -911,7 +911,7 @@ void Server::run() {
 					// Unknown peer
 					foreach (ServerUser *usr, qhHostUsers.value(ha)) {
 						if (checkDecrypt(usr, encrypt, buffer, len)) { // checkDecrypt takes the User's qrwlCrypt lock.
-							// Every time we relock, reverify users' existance.
+							// Every time we relock, reverify users' existence.
 							// The main thread might delete the user while the lock isn't held.
 							unsigned int uiSession = usr->uiSession;
 							rl.unlock();
@@ -1592,7 +1592,7 @@ void Server::sslError(const QList< QSslError > &errors) {
 		// attempt to finish the handshake.
 		//
 		// Because abort() tears down a lot of internal state
-		// of the QSslSocket, inlcuding the 'SSL *' object
+		// of the QSslSocket, including the 'SSL *' object
 		// associated with the socket, this is fatal and leads
 		// to crashes, such as attempting to derefernce a nullptr
 		// 'SSL *' object.

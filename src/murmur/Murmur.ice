@@ -281,7 +281,7 @@ module Murmur
 	exception InvalidCallbackException extends MurmurException {};
 	/**  This is thrown when you supply the wrong secret in the calling context. */
 	exception InvalidSecretException extends MurmurException {};
-	/** This is thrown when the channel operation would excede the channel nesting limit */
+	/** This is thrown when the channel operation would exceed the channel nesting limit */
 	exception NestingLimitException extends MurmurException {};
 	/**  This is thrown when you ask the server to disclose something that should be secret. */
 	exception WriteOnlyException extends MurmurException {};
@@ -408,7 +408,7 @@ module Murmur
 
 		/** Map a user to a custom Texture.
 		 *  @param id User id to map.
-		 *  @return User texture or an empty texture for unknwon users or users without textures.
+		 *  @return User texture or an empty texture for unknown users or users without textures.
 		 */
 		idempotent Texture idToTexture(int id);
 	};
@@ -429,7 +429,7 @@ module Murmur
 
 		/** Unregister a user.
 		 *  @param id Userid to unregister.
-		 *  @return 1 for successfull unregistration, 0 for unsuccessfull unregistration, -1 to fall through.
+		 *  @return 1 for successful unregistration, 0 for unsuccessful unregistration, -1 to fall through.
 		 */
 		int unregisterUser(int id);
 
@@ -442,14 +442,14 @@ module Murmur
 		/** Set additional information for user registration.
 		 *  @param id Userid of registered user.
 		 *  @param info Information to set about user. This should be merged with existing information.
-		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
+		 *  @return 1 for successful update, 0 for unsuccessful update, -1 to fall through.
 		 */
 		idempotent int setInfo(int id, UserInfoMap info);
 
 		/** Set texture (now called avatar) of user registration.
 		 *  @param id registrationId of registered user.
 		 *  @param tex New texture.
-		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
+		 *  @return 1 for successful update, 0 for unsuccessful update, -1 to fall through.
 		 */
 		idempotent int setTexture(int id, Texture tex);
 	};
@@ -873,7 +873,7 @@ module Murmur
 		 */
 		idempotent ServerList getAllServers() throws InvalidSecretException;
 
-		/** Fetch default configuraion. This returns the configuration items that were set in the configuration file, or
+		/** Fetch default configuration. This returns the configuration items that were set in the configuration file, or
 		 * the built-in default. The individual servers will use these values unless they have been overridden in the
 		 * server specific configuration. The only special case is the port, which defaults to the value defined here +
 		 * the servers ID - 1 (so that virtual server #1 uses the defined port, server #2 uses port+1 etc).

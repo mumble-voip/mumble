@@ -132,7 +132,7 @@ bool LeakyBucket::ratelimit(int tokens) {
 	if (elapsedMillis < 0) {
 		if (m_timer.isValid()) {
 			// By definition of a monotinic clock, this shouldn't be possible to happen.
-			// Thus if it does happen there's somthing going very wrong which is why we
+			// Thus if it does happen there's something going very wrong which is why we
 			// emit the qFatal which at the state this line here was added, will crash
 			// the server. But at least that guarantees to give us a report on the crash
 			// instead of obscure reports about the rate limiter causing all sorts of
