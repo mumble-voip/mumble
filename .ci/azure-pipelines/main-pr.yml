@@ -3,6 +3,10 @@ variables:
   MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
   MUMBLE_ENVIRONMENT_PATH: '$(MUMBLE_ENVIRONMENT_STORE)/$(MUMBLE_ENVIRONMENT_VERSION)'
   MUMBLE_ENVIRONMENT_TOOLCHAIN: '$(MUMBLE_ENVIRONMENT_PATH)/scripts/buildsystems/vcpkg.cmake'
+  # We set this to an empty String explicitly as the variable is not set for PR builds but it is required
+  # to be an empty String in that case. That's why we have to set it here. For Nightly builds the
+  # variable is set on Azure itself.
+  BUILD_NUMBER_TOKEN: ''
 
 jobs:
   - job: Windows_x86_64
