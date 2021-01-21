@@ -36,7 +36,7 @@
 # running a version like 1.2.6-234-gf552ag1. This is confusing
 # simply by looking at the version numbers, but the way versioning
 # works inside the Mumble client made it worse: the client's version
-# was refered to as "1.3.0" in several places, but the actual version
+# was referred to as "1.3.0" in several places, but the actual version
 # number said 1.2.6-234-gf552ag1.
 #
 # This script is the replacement for `git describe`. It outputs the

@@ -386,7 +386,7 @@ struct Settings {
 
 	/// iMaxInFlightTCPPings specifies the maximum
 	/// number of ping messages that the client has
-	/// sent, but not yet recieved a response for
+	/// sent, but not yet received a response for
 	/// from the server. This value is checked when
 	/// the client sends its next ping message. If
 	/// the maximum is reached, the connection will

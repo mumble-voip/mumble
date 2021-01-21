@@ -77,7 +77,7 @@ public:
 
 	/// Duration for hash operation the benchmark function should target
 	static const int BENCHMARK_DURATION_TARGET_IN_MS = 10;
-	/// Benchmark returns highest iteration number of N benchmark attemps
+	/// Benchmark returns highest iteration number of N benchmark attempts
 	static const size_t BENCHMARK_N = 40;
 	/// Lower bound of iteration count returned by benchmark
 	/// regardless of duration (should be divisible by 2)
