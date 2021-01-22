@@ -32,6 +32,8 @@ Take a look at the [Client Configuration Guide](client_config_guide.md).
 
 ### Installation
 
+<!-- update info for new seperate installer (1.4) -->
+
 The Mumble Installer includes an option to install the Mumble-Server (see above). 
 
 ### Configuration
@@ -40,11 +42,14 @@ Take a look at the [Server Configuration Guide](server_config_guide.md).
 
 ### Start
 
+<!-- add section for windows service: 
+https://wiki.mumble.info/wiki/Murmurguide#Running_as_a_Windows_Service -->
+
+<!-- rename murmur, once it is renamed -->
+
 Doubleclick the Murmur icon to start murmur. A small icon on your taskbar will appear from which you can view the log.
 
 To set the superuser password, run murmur with the parameters `-supw <password>`.
-
-<!-- Start via console? -->
 
 1. Set the SuperUser (Server Admin) password:
 
@@ -58,10 +63,10 @@ To set the superuser password, run murmur with the parameters `-supw <password>`
 The standard configuration file used, is `murmur.ini` in the same directory.
 
 ```
-./murmur.x86
+./murmur.x86 [flag]
 ```
 
-<!-- Add more flags, like in the Linux guide? -->
+<!-- start via double-click? -->
 
 **Flags:**
 
@@ -77,3 +82,6 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
 -v      More verbose logging.
 ```
+
+3. Login & administrate the Server:
+See [Server Configuration Guide](server_config_guide.md#administration-with-mumble-client) for details.

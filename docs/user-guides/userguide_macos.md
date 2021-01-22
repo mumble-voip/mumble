@@ -38,6 +38,8 @@ Take a look at the [Client Configuration Guide](client_config_guide.md).
 
 ## Mumble Server (Murmur)
 
+<!-- rename Murmur, once it's renamed -->
+
 ### Installation
 
 The Mumble Server (Murmur) is distributed separately from the Mumble client on MacOS.
@@ -66,7 +68,7 @@ murmurd -supw <password>
 The standard configuration file used, is `murmur.ini` in the same directory.
 
 ```
-murmurd 
+murmurd [flag]
 ```
 
 **Flags:**
@@ -83,3 +85,6 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
 -v      More verbose logging.
 ```
+
+3. Login & administrate the Server:
+See [Server Configuration Guide](server_config_guide.md#administration-with-mumble-client) for details.

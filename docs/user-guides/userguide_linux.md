@@ -15,7 +15,7 @@ Just search for `Mumble` in your package manager and install it.
 If Mumble is not available or outdated in your distribution's repos, you can take a look at the Linux Section on our [website](https://www.mumble.info/downloads/#linux).
 There you will find multiple alternatives, including official Third-Party-Repos, Snap- and Flatpak-Packages.
 
-More information can be found in our [wiki](https://wiki.mumble.info/wiki/Installing_Mumble#Linux).
+More information can also be found in our [wiki](https://wiki.mumble.info/wiki/Installing_Mumble#Linux).
 
 ### Start
 
@@ -38,6 +38,8 @@ Otherwise take a look at the package documentation of your distribution or the d
 Take a look at the [Client Configuration Guide](client_config_guide.md).
 
 ## Mumble Server (Murmur)
+
+<!-- rename murmur once it's renamed -->
 
 ### Installation
 
@@ -84,8 +86,6 @@ See [Server Configuration Guide](server_config_guide.md#administration-with-mumb
 The Mumble Server should be run from a terminal.
 (*If the `Static Linux Server` is installed or the binary is not linked, you have to change the directory to wherever the Mumble Server is installed, first.*)
 
-<!-- Will the binary name change in 1.4? -->
-
 <!-- mention different binary name of static linux server? -->
 
 1. Set the SuperUser (Server Admin) password:
@@ -100,7 +100,7 @@ murmurd -supw <password>
 The standard configuration file used, is `murmur.ini` in the same directory.
 
 ```
-murmurd 
+murmurd [flag]
 ```
 
 
