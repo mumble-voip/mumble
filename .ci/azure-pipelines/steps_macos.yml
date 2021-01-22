@@ -10,6 +10,8 @@ steps:
     - script: .ci/azure-pipelines/install-environment_macos.bash
       displayName: 'Install build environment'
   - script: .ci/azure-pipelines/build_macos.bash
+    env:
+      MUMBLE_BUILD_NUMBER_TOKEN: $(BUILD_NUMBER_TOKEN)
     displayName: 'Build'
   - template: task-publish-artifacts.yml
     parameters:
