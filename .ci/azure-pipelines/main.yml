@@ -7,8 +7,7 @@ variables:
   # YAML files. As it is set there though, we don't have to specify it here.
 
 jobs:
-  - job: Windows_x86_64
-    displayName: Windows (x86_64)
+  - job: Windows_x64
     pool:
       vmImage: 'windows-latest'
     variables:
@@ -20,7 +19,6 @@ jobs:
       parameters:
         arch: 'x64'
   - job: Windows_x86
-    displayName: Windows (x86)
     pool:
       vmImage: 'windows-latest'
     variables:
