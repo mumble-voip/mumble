@@ -1156,6 +1156,11 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		++iBufferedFrames;
 	} else if (umtType == MessageHandler::UDPVoiceOpus) {
 		encoded = false;
+
+		// after noise suppressor, frames with full of zeros might be transferred
+		// check if the frame encoded is almost zeros and simply dump those frames
+		if (!iBufferedFrames && abs(sum) < 1.0f) return;
+
 		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
 		++iBufferedFrames;
 
