@@ -38,7 +38,7 @@
 if defined MUMBLE_BUILD_NUMBER_TOKEN (
 	:: The method we use to store a command's output into a variable:
 	:: https://stackoverflow.com/a/6362922
-	for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py" --project`) do (set "VERSION=%%g")
+	for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py" --project`) do (set "VERSION=%%g")
 	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?version=%VERSION%_%AGENT_JOBNAME%&token=%MUMBLE_BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
 ) else (
 	set BUILD_NUMBER=0
