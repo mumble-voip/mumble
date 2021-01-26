@@ -44,7 +44,8 @@ class CryptState {
 		void setKey(const unsigned char *rkey, const unsigned char *eiv, const unsigned char *div);
 		void setDecryptIV(const unsigned char *iv);
 
-		bool ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag);
+		bool ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag,
+				bool modifyPlainOnXEXStarAttack = true);
 		bool ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce, unsigned char *tag);
 
 		bool decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length);
