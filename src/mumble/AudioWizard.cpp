@@ -20,19 +20,6 @@
 // (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-CompletablePage::CompletablePage(QWizard *p) : QWizardPage(p) {
-	bComplete = true;
-}
-
-void CompletablePage::setComplete(bool b) {
-	bComplete = b;
-	emit completeChanged();
-}
-
-bool CompletablePage::isComplete() const {
-	return bComplete;
-}
-
 AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit            = true;
 	bLastActive      = false;

@@ -232,14 +232,14 @@
         <italic>true</italic>
        </font>
       </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
       <property name="styleSheet">
        <string notr="true">color:#ff0000;</string>
       </property>
       <property name="text">
        <string/>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -496,7 +496,7 @@ Are you sure you wish to replace your certificate?
   <customwidget>
    <class>CompletablePage</class>
    <extends>QWizardPage</extends>
-   <header>AudioWizard.h</header>
+   <header>CompletablePage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

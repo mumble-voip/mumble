@@ -233,6 +233,8 @@ set(MUMBLE_SOURCES
 	"XMLTools.cpp"
 	"XMLTools.h"
 
+	"widgets/CompletablePage.cpp"
+	"widgets/CompletablePage.h"
 	"widgets/MUComboBox.cpp"
 	"widgets/MUComboBox.h"
 	"widgets/MultiStyleWidgetWrapper.cpp"
