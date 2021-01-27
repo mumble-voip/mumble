@@ -999,15 +999,15 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation>Bruk støyundertrykkelsesalgoritmen tilbudt av Speex.</translation>
+        <translation type="unfinished">Bruk støyundertrykkelsesalgoritmen tilbudt av Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation>Bruk støyundertrykkelsesalgoritmen tilbudt av RNNoise.</translation>
+        <translation type="unfinished">Bruk støyundertrykkelsesalgoritmen tilbudt av RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bruk en kombinasjon av Speex og RNNoise for støyundertrykking.</translation>
     </message>
     <message>
         <source>Both</source>
