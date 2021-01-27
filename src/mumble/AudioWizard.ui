@@ -890,15 +890,15 @@ Mumble is under continuous development, and the development team wants to focus 
  </widget>
  <customwidgets>
   <customwidget>
-   <class>AudioBar</class>
-   <extends>QWidget</extends>
-   <header>AudioStats.h</header>
+   <class>CompletablePage</class>
+   <extends>QWizardPage</extends>
+   <header>CompletablePage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CompletablePage</class>
-   <extends>QWizardPage</extends>
-   <header>AudioWizard.h</header>
+   <class>AudioBar</class>
+   <extends>QWidget</extends>
+   <header>AudioStats.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

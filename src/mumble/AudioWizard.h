@@ -6,27 +6,12 @@
 #ifndef MUMBLE_MUMBLE_AUDIOWIZARD_H_
 #define MUMBLE_MUMBLE_AUDIOWIZARD_H_
 
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QWizard>
-#include <QtWidgets/QWizardPage>
+#include "ui_AudioWizard.h"
 
 #include "AudioOutput.h"
 #include "AudioStats.h"
 #include "Settings.h"
 #include "GlobalShortcut.h"
-
-class CompletablePage : public QWizardPage {
-	Q_OBJECT
-protected:
-	bool bComplete;
-
-public:
-	CompletablePage(QWizard *p = nullptr);
-	void setComplete(bool);
-	bool isComplete() const Q_DECL_OVERRIDE;
-};
-
-#include "ui_AudioWizard.h"
 
 class AudioWizard : public QWizard, public Ui::AudioWizard {
 private:
