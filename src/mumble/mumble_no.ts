@@ -1393,7 +1393,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dette er utdatametoden brukt for lyd.</translation>
+        <translation>&lt;b&gt;Dette er utdatametoden brukt for lyd.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
@@ -1492,7 +1492,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilbakekobling</translation>
     </message>
 </context>
 <context>
@@ -2745,11 +2745,11 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke sende bilde: for stort.</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke sende bilde %1: for stort.</translation>
     </message>
 </context>
 <context>
@@ -2855,7 +2855,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne knappen gjenoppretter opprinnelige innstillinger for alle innstillinger.</translation>
     </message>
 </context>
 <context>
@@ -3408,7 +3408,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Oppsatte snarveier</translation>
     </message>
 </context>
 <context>
@@ -3717,7 +3717,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjener koblet til</translation>
     </message>
     <message>
         <source>Server disconnected</source>
@@ -3949,7 +3949,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Meldingsmarger</translation>
     </message>
     <message>
         <source>Log messages</source>
@@ -4255,7 +4255,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel separator</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalinndeler</translation>
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
@@ -4303,7 +4303,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Max. channel name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Maks. kanalnavnslengde</translation>
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
@@ -4311,7 +4311,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Rel. font size (%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Rel. skriftstørrelse (%s)</translation>
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
@@ -4359,7 +4359,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis lydstyrkejusteringer</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
@@ -4367,7 +4367,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis lokal brukers lyttere (ører)</translation>
     </message>
 </context>
 <context>
@@ -4594,7 +4594,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;p&gt;Denne tilkoblingen gir ikke perfekt sikkerhetsvidreformidling&lt;/p&gt;&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Denne tilkoblingen gir ikke perfekt sikkerhetsvidereformidling&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
@@ -4650,7 +4650,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Server connection failed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tjenertilkobling mislyktes.</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
@@ -4842,15 +4842,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation>Bekreft nullstilling av kommentar på bruker %1.</translation>
+        <translation>Bekreft nullstilling av kommentar på bruker %1?</translation>
     </message>
     <message>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation>Bekreft nullstilling av avatar for bruker %1.</translation>
+        <translation>Bekreft nullstilling av avatar for bruker %1?</translation>
     </message>
     <message>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>Bekreft sletting av %1 og alle dens underkanaler.</translation>
+        <translation>Bekreft sletting av %1 og alle dens underkanaler?</translation>
     </message>
     <message>
         <source>Sending message to channel %1</source>
@@ -6080,7 +6080,7 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
-        <translation type="unfinished"></translation>
+        <translation>Lytt til denne kanalen uten å ta del i den</translation>
     </message>
     <message>
         <source>Locally adjust the volume for this virtual ear.</source>
@@ -6092,7 +6092,7 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>No action available...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ingen tilgjengelige handlinger …</translation>
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
@@ -6108,19 +6108,19 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>You started listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Du begynte å lytte til %1</translation>
     </message>
     <message>
         <source>%1 started listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 begynte å lytte til kanalen din</translation>
     </message>
     <message>
         <source>You stopped listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Du stoppet å lytte til %1</translation>
     </message>
     <message>
         <source>%1 stopped listening to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 stoppet å lytte til kanalen din</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -6132,19 +6132,19 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta del i brukerens kanal</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tar del i kanalen tilhørende denne brukeren.</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaler og brukere</translation>
     </message>
     <message>
         <source>Activity log</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivitetslogg</translation>
     </message>
     <message>
         <source>Chat message</source>
@@ -6152,7 +6152,7 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Skru av tekst-til-tale</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
@@ -6164,7 +6164,7 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Tre</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6185,7 +6185,8 @@ kanalens kontekstmeny.</translation>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Oppsettsfilen %1 finnes ikke eller kan ikke skrives til.
+</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt;]
@@ -6233,7 +6234,7 @@ Valid options are:
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Skjul/vis hovedvindu</translation>
     </message>
 </context>
 <context>
@@ -6530,7 +6531,7 @@ Forhindrer klienten fra å sende potensielt identifiserende informasjon om opera
     </message>
     <message>
         <source>Hide public server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjul offentlig tjenerliste</translation>
     </message>
 </context>
 <context>
@@ -7177,7 +7178,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Skru av tekst-til-tale</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
@@ -7185,7 +7186,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokal lydstyrkejustering …</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
@@ -7213,19 +7214,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Click here to toggle sound notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Klikk her for å veksle lydmerknader for alle hendelser</translation>
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Veksle tekst-til-tale for alle hendelser</translation>
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">RNNoise er ikke tilgjengelig som følge av samplerateuoverensstemmelser.</translation>
     </message>
     <message>
         <source>Reset all settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilbakestill alle innstillinger?</translation>
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
@@ -7318,7 +7319,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kunne ikke fortolke vertsnavn</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -7453,7 +7454,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Nåværende valg</translation>
     </message>
 </context>
 <context>
@@ -7823,7 +7824,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation>Dette er en kanal på tjeneren. Ikonet indikerer kanalstatus.</translation>
+        <translation>Dette er en kanal på tjeneren. Ikonet indikerer kanalstatus:</translation>
     </message>
     <message>
         <source>Your current channel.</source>
@@ -8185,7 +8186,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilgang til mikrofonen ble nektet. Sjekk at mikrofoninnstillingene til operativsystemet ditt tillater Mumble å bruke mikrofonen.</translation>
     </message>
 </context>
 <context>
