@@ -35,12 +35,17 @@
 
 @echo on
 
+:: The method we use to store a command's output into a variable:
+:: https://stackoverflow.com/a/6362922
+for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py" --project`) do (set "VERSION=%%g")
+
+:: For some really stupid reason we can't have this statement and the one where we set the VERSION variable in the same if body as
+:: in that case the variable substitution of that variable in the expression below fails (is replaced with empty string)
+:: Also we can't anything else inside the if body as this will cause the curl command to always be executed.
 if defined MUMBLE_BUILD_NUMBER_TOKEN (
-	:: The method we use to store a command's output into a variable:
-	:: https://stackoverflow.com/a/6362922
-	for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py" --project`) do (set "VERSION=%%g")
 	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?version=%VERSION%_%AGENT_JOBNAME%&token=%MUMBLE_BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
 ) else (
+	echo Build number token not set - defaulting to 0
 	set BUILD_NUMBER=0
 )
 
