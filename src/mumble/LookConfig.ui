@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>753</width>
-    <height>1158</height>
+    <height>1186</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -660,12 +660,12 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QCheckBox" name="qcbCloseQuietly">
+       <widget class="QCheckBox" name="qcbCloseToTray">
         <property name="toolTip">
          <string>This setting controls that should mumble go to tray when closed</string>
         </property>
         <property name="text">
-         <string>Close quietly to tray</string>
+         <string>Minimize instead of close</string>
         </property>
        </widget>
       </item>
