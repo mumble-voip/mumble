@@ -359,6 +359,7 @@ Settings::Settings() {
 	bHideFrame           = false;
 	aotbAlwaysOnTop      = OnTopNever;
 	bAskOnQuit           = true;
+    bCloseToTray         = false;
 	bEnableDeveloperMenu = false;
 	bLockLayout          = false;
 #ifdef Q_OS_WIN
@@ -842,7 +843,8 @@ void Settings::load(QSettings *settings_ptr) {
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(ceUserDrag, "ui/userdrag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
-	SAVELOAD(bAskOnQuit, "ui/askonquit");
+    SAVELOAD(bAskOnQuit, "ui/askonquit");
+    SAVELOAD(bCloseToTray, "ui/close_to_tray");
 	SAVELOAD(bEnableDeveloperMenu, "ui/developermenu");
 	SAVELOAD(bLockLayout, "ui/locklayout");
 	SAVELOAD(bMinimalView, "ui/minimalview");
@@ -1216,6 +1218,7 @@ void Settings::save() {
 	SAVELOAD(ceUserDrag, "ui/userdrag");
 	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
+    SAVELOAD(bCloseToTray, "ui/close_to_tray");
 	SAVELOAD(bEnableDeveloperMenu, "ui/developermenu");
 	SAVELOAD(bLockLayout, "ui/locklayout");
 	SAVELOAD(bMinimalView, "ui/minimalview");
