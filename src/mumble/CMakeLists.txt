@@ -714,7 +714,6 @@ if(translations)
 		"mumble_ja.ts"
 		"mumble_ko.ts"
 		"mumble_lt.ts"
-		"mumble_nl_BE.ts"
 		"mumble_nl.ts"
 		"mumble_no.ts"
 		"mumble_pl.ts"
