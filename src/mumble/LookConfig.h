@@ -33,6 +33,17 @@ public slots:
 	void themeDirectoryChanged();
 	void on_qcbAbbreviateChannelNames_stateChanged(int state);
 
+protected:
+	void updateFontInfo(QLabel *l, const QFont &f);
+	void updateFontInfo();
+	void updateFontInfo(const Settings &r);
+	void changeFont(QFont & font);
+protected slots:
+	void on_qpbFontLog_clicked();
+	void on_qpbFontInput_clicked();
+	void on_qpbFontTree_clicked();
+	void on_qpbFontAll_clicked();
+
 private:
 	/// Reload themes combobox and select given configuredStyle in it
 	void reloadThemes(const boost::optional< ThemeInfo::StyleInfo > configuredStyle);

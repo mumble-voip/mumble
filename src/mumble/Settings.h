@@ -315,6 +315,10 @@ struct Settings {
 	/// Name of the style to use from theme. @see Themes
 	QString themeStyleName;
 
+	QFont qfFontLog;
+	QFont qfFontInput;
+	QFont qfFontTree;
+
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaSplitterState,
 		qbaHeaderState;
 	QByteArray qbaConfigGeometry;

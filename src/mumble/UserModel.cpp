@@ -465,7 +465,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				break;
 			case Qt::FontRole:
 				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
-					QFont f = g.mw->font();
+					QFont f = g.s.qfFontTree;
 					f.setBold(!f.bold());
 					f.setItalic(item->isListener);
 					return f;
@@ -560,7 +560,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 					if ((c == home) || qsLinked.contains(c)) {
-						QFont f = g.mw->font();
+						QFont f = g.s.qfFontTree;
 						if (qsLinked.count() > 1)
 							f.setItalic(!f.italic());
 						if (c == home)

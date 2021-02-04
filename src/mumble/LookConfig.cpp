@@ -67,6 +67,8 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		qcbLanguage->addItem(displayName, QVariant(cc));
 	}
 
+	updateFontInfo();
+
 	qcbExpand->addItem(tr("None"), Settings::NoChannels);
 	qcbExpand->addItem(tr("Only with users"), Settings::ChannelsWithUsers);
 	qcbExpand->addItem(tr("All"), Settings::AllChannels);
@@ -101,6 +103,20 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		qlThemesDirectory->setText(tr("<a href=\"%1\">Browse</a>").arg(userThemeDirectoryUrl.toString()));
 		qlThemesDirectory->setOpenExternalLinks(true);
 	}
+}
+
+void LookConfig::updateFontInfo(QLabel *label, const QFont &font) {
+	label->setText(QString::fromLatin1("%1, %2pt").arg(font.family()).arg(font.pointSize()));
+}
+
+void LookConfig::updateFontInfo() {
+	updateFontInfo(s);
+}
+
+void LookConfig::updateFontInfo(const Settings &r) {
+	updateFontInfo(qlFontLogCurrent, r.qfFontLog);
+	updateFontInfo(qlFontInputCurrent, r.qfFontInput);
+	updateFontInfo(qlFontTreeCurrent, r.qfFontTree);
 }
 
 QString LookConfig::title() const {
@@ -168,6 +184,8 @@ void LookConfig::load(const Settings &r) {
 			break;
 		}
 	}
+
+	updateFontInfo(r);
 
 	loadComboBox(qcbAlwaysOnTop, r.aotbAlwaysOnTop);
 
@@ -298,4 +316,40 @@ void LookConfig::on_qcbAbbreviateChannelNames_stateChanged(int state) {
 	qsbPostfixCharCount->setEnabled(abbreviateNames);
 	qleChannelSeparator->setEnabled(abbreviateNames);
 	qleAbbreviationReplacement->setEnabled(abbreviateNames);
+}
+
+void LookConfig::changeFont(QFont & font) {
+	bool ok;
+	QFont new_font = QFontDialog::getFont(&ok, font);
+	if (ok) {
+		font = new_font;
+		updateFontInfo();
+	}
+}
+
+void LookConfig::on_qpbFontLog_clicked() {
+	changeFont(s.qfFontLog);
+}
+
+void LookConfig::on_qpbFontInput_clicked() {
+	changeFont(s.qfFontInput);
+}
+
+void LookConfig::on_qpbFontTree_clicked() {
+	changeFont(s.qfFontTree);
+}
+
+void LookConfig::on_qpbFontAll_clicked() {
+	QFont initial;
+	if (s.qfFontLog == s.qfFontInput && s.qfFontInput == s.qfFontTree) {
+		initial = s.qfFontLog;
+	}
+	bool ok;
+	QFont new_font = QFontDialog::getFont(&ok, initial);
+	if (ok) {
+		s.qfFontLog = new_font;
+		s.qfFontInput = new_font;
+		s.qfFontTree = new_font;
+		updateFontInfo();
+	}
 }
