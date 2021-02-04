@@ -75,7 +75,7 @@ function main
 	echo "TRANSLATION: Update translation files" > $tmpfile
 	echo "" >> $tmpfile
 	
-	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete -no-recursive "./src" "./src/mumble" -ts "$filePath" \
+	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete -no-recursive -extensions "ui,c,cpp,h,mm" "./src" "./src/mumble" -ts "$filePath" \
 		| tee -a $tmpfile || fatal "lupdate failed"
 	echo ""
 
