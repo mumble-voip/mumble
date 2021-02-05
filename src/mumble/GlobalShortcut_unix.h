@@ -34,7 +34,7 @@ public:
 	GlobalShortcutX();
 	~GlobalShortcutX() Q_DECL_OVERRIDE;
 	void run() Q_DECL_OVERRIDE;
-	QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
+	ButtonInfo buttonInfo(const QVariant &) Q_DECL_OVERRIDE;
 
 	void queryXIMasterList();
 public slots:

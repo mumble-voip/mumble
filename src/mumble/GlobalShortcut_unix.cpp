@@ -353,28 +353,37 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 #endif
 }
 
-QString GlobalShortcutX::buttonName(const QVariant &v) {
+GlobalShortcutX::ButtonInfo GlobalShortcutX::buttonInfo(const QVariant &v) {
 	bool ok;
 	unsigned int key = v.toUInt(&ok);
-	if (!ok)
-		return QString();
+	if (!ok) {
+		return ButtonInfo();
+	}
+
+	ButtonInfo info;
+
 	if ((key < 0x118) || (key >= 0x128)) {
+		info.device = tr("Keyboard");
 		// For backwards compatibility reasons we want to keep using the
 		// old function as long as possible. The replacement function
 		// XkbKeycodeToKeysym requires the XKB extension which isn't
 		// guaranteed to be present.
 		KeySym ks = XKeycodeToKeysym(display, static_cast< KeyCode >(key), 0);
 		if (ks == NoSymbol) {
-			return QLatin1String("0x") + QString::number(key, 16);
+			info.name = QLatin1String("0x") + QString::number(key, 16);
 		} else {
 			const char *str = XKeysymToString(ks);
-			if (*str == '\0') {
-				return QLatin1String("KS0x") + QString::number(ks, 16);
+			if (str[0] == '\0') {
+				info.name = QLatin1String("KS0x") + QString::number(ks, 16);
 			} else {
-				return QLatin1String(str);
+				info.name = QLatin1String(str);
 			}
 		}
 	} else {
-		return tr("Mouse %1").arg(key - 0x118);
+		info.device       = tr("Mouse");
+		info.devicePrefix = QLatin1String("M");
+		info.name         = QString::number(key - 0x118);
 	}
+
+	return info;
 }

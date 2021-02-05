@@ -104,7 +104,7 @@ public:
 	GlobalShortcutWin();
 	~GlobalShortcutWin() Q_DECL_OVERRIDE;
 	void unacquire();
-	QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
+	ButtonInfo buttonInfo(const QVariant &) Q_DECL_OVERRIDE;
 
 	/// Inject a native Windows keyboard message into GlobalShortcutWin's
 	/// event stream. This method is meant to be called from the main thread

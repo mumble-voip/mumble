@@ -10,10 +10,11 @@
 #include "ClientUser.h"
 #include "Database.h"
 #include "MainWindow.h"
+#include "GlobalShortcutButtons.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QSortFilterProxyModel>
-#include <QtGui/QFocusEvent>
+#include <QtGui/QHelpEvent>
 #include <QtWidgets/QItemEditorFactory>
 #include <QtWidgets/QToolTip>
 
@@ -40,84 +41,6 @@ static ConfigWidget *GlobalShortcutConfigDialogNew(Settings &st) {
 static ConfigRegistrar registrar(1200, GlobalShortcutConfigDialogNew);
 
 static const QString UPARROW = QString::fromUtf8("\xE2\x86\x91 ");
-
-ShortcutKeyWidget::ShortcutKeyWidget(QWidget *p) : QLineEdit(p) {
-	setReadOnly(true);
-	clearFocus();
-	bModified = false;
-	displayKeys();
-}
-
-QList< QVariant > ShortcutKeyWidget::getShortcut() const {
-	return qlButtons;
-}
-
-void ShortcutKeyWidget::setShortcut(const QList< QVariant > &buttons) {
-	qlButtons = buttons;
-	displayKeys();
-}
-
-void ShortcutKeyWidget::focusInEvent(QFocusEvent *) {
-	setText(tr("Press Shortcut"));
-
-	QPalette pal = parentWidget()->palette();
-	pal.setColor(QPalette::Base, pal.color(QPalette::Base).darker(120));
-	setPalette(pal);
-
-	setForegroundRole(QPalette::Button);
-	GlobalShortcutEngine::engine->resetMap();
-	connect(GlobalShortcutEngine::engine, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
-	installEventFilter(this);
-}
-
-void ShortcutKeyWidget::focusOutEvent(QFocusEvent *e) {
-	if ((e->reason() == Qt::TabFocusReason) || (e->reason() == Qt::BacktabFocusReason))
-		return;
-
-	setPalette(parentWidget()->palette());
-	clearFocus();
-	disconnect(GlobalShortcutEngine::engine, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
-	displayKeys();
-	removeEventFilter(this);
-}
-
-bool ShortcutKeyWidget::eventFilter(QObject *, QEvent *evt) {
-	if ((evt->type() == QEvent::KeyPress) || (evt->type() == QEvent::MouseButtonPress))
-		return true;
-	return false;
-}
-
-void ShortcutKeyWidget::mouseDoubleClickEvent(QMouseEvent *) {
-	bModified = true;
-	qlButtons.clear();
-	clearFocus();
-	displayKeys();
-}
-
-void ShortcutKeyWidget::updateKeys(bool last) {
-	qlButtons = GlobalShortcutEngine::engine->qlActiveButtons;
-	bModified = true;
-
-	if (qlButtons.isEmpty())
-		return;
-
-	if (last)
-		clearFocus();
-	else
-		displayKeys(false);
-}
-
-void ShortcutKeyWidget::displayKeys(bool last) {
-	QStringList keys;
-
-	foreach (QVariant button, qlButtons) {
-		QString id = GlobalShortcutEngine::engine->buttonName(button);
-		if (!id.isEmpty())
-			keys << id;
-	}
-	setText(keys.join(QLatin1String(" + ")));
-	emit keySet(keys.count() > 0, last);
-}
 
 ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : MUComboBox(p) {
 	int idx = 0;
@@ -505,7 +428,7 @@ void ShortcutTargetWidget::on_qtbEdit_clicked() {
 ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 	QItemEditorFactory *factory = new QItemEditorFactory;
 
-	factory->registerEditor(QVariant::List, new QStandardItemEditorCreator< ShortcutKeyWidget >());
+	factory->registerEditor(QVariant::List, new QStandardItemEditorCreator< GlobalShortcutButtons >());
 	factory->registerEditor(QVariant::UInt, new QStandardItemEditorCreator< ShortcutActionWidget >());
 	factory->registerEditor(QVariant::Int, new QStandardItemEditorCreator< ShortcutToggleWidget >());
 	factory->registerEditor(static_cast< QVariant::Type >(QVariant::fromValue(ShortcutTarget()).userType()),
@@ -524,27 +447,46 @@ ShortcutDelegate::~ShortcutDelegate() {
  * Provides textual representations for the mappings done for the edit behaviour.
  */
 QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) const {
-	if (item.type() == QVariant::List) {
-		return GlobalShortcutEngine::buttonText(item.toList());
-	} else if (item.type() == QVariant::Int) {
-		int v = item.toInt();
-		if (v > 0)
-			return tr("On");
-		else if (v < 0)
-			return tr("Off");
-		else
-			return tr("Toggle");
-	} else if (item.type() == QVariant::UInt) {
-		GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(item.toInt());
-		if (gs)
-			return gs->name;
-		else
-			return tr("Unassigned");
-	} else if (item.userType() == QVariant::fromValue(ShortcutTarget()).userType()) {
+	if (item.userType() == QVariant::fromValue(ShortcutTarget()).userType()) {
 		return ShortcutTargetWidget::targetString(item.value< ShortcutTarget >());
 	}
 
-	qWarning("ShortcutDelegate::displayText Unknown type %d", item.type());
+	switch (item.type()) {
+		case QVariant::Int: {
+			const auto v = item.toInt();
+			if (v > 0) {
+				return tr("On");
+			} else if (v < 0) {
+				return tr("Off");
+			}
+
+			return tr("Toggle");
+		}
+		case QVariant::UInt: {
+			const auto shortcut = GlobalShortcutEngine::engine->qmShortcuts.value(item.toInt());
+			return shortcut ? shortcut->name : tr("Unassigned");
+		}
+		case QVariant::List: {
+			const auto buttons = item.value< QList< QVariant > >();
+			if (buttons.count() > 0) {
+				QString text;
+				for (const auto &button : buttons) {
+					if (!text.isEmpty()) {
+						text += ' ';
+					}
+
+					const auto info = GlobalShortcutEngine::engine->buttonInfo(button);
+					text += QString("'%1%2'").arg(info.devicePrefix, info.name);
+				}
+
+				return text;
+			} else {
+				return tr("No buttons assigned");
+			}
+		}
+		default:
+			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.type());
+	}
 
 	return QStyledItemDelegate::displayText(item, loc);
 }
@@ -555,16 +497,7 @@ bool ShortcutDelegate::helpEvent(QHelpEvent *event, QAbstractItemView *, const Q
 		return false;
 	}
 
-	QString text;
-	QTextStream textStream(&text);
-	textStream << tr("Shortcut button combination:");
-
-	const auto shortcuts = index.data(Qt::DisplayRole).toList();
-	for (const auto &shortcut : shortcuts) {
-		textStream << QLatin1String("\n- ") << GlobalShortcutEngine::engine->buttonName(shortcut);
-	}
-
-	QToolTip::showText(event->globalPos(), text);
+	QToolTip::showText(event->globalPos(), tr("Press to show button combination"));
 	return true;
 }
 
@@ -1029,17 +962,6 @@ void GlobalShortcutEngine::remove(GlobalShortcut *gs) {
 		delete engine;
 		GlobalShortcutEngine::engine = nullptr;
 	}
-}
-
-QString GlobalShortcutEngine::buttonText(const QList< QVariant > &list) {
-	QStringList keys;
-
-	foreach (QVariant button, list) {
-		QString id = GlobalShortcutEngine::engine->buttonName(button);
-		if (!id.isEmpty())
-			keys << id;
-	}
-	return keys.join(QLatin1String(" + "));
 }
 
 GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, QVariant def) : QObject(p) {

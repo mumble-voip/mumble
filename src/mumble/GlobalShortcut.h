@@ -45,34 +45,6 @@ public:
 };
 
 /**
- * Widget used to define and key combination for a shortcut. Once it gains
- * focus it will listen for a button combination until it looses focus.
- */
-class ShortcutKeyWidget : public QLineEdit {
-private:
-	Q_OBJECT
-	Q_DISABLE_COPY(ShortcutKeyWidget)
-	Q_PROPERTY(QList< QVariant > shortcut READ getShortcut WRITE setShortcut USER true)
-protected:
-	virtual void focusInEvent(QFocusEvent *event);
-	virtual void focusOutEvent(QFocusEvent *event);
-	virtual void mouseDoubleClickEvent(QMouseEvent *e);
-	virtual bool eventFilter(QObject *, QEvent *);
-
-public:
-	QList< QVariant > qlButtons;
-	bool bModified;
-	ShortcutKeyWidget(QWidget *p = nullptr);
-	QList< QVariant > getShortcut() const;
-	void displayKeys(bool last = true);
-public slots:
-	void updateKeys(bool last);
-	void setShortcut(const QList< QVariant > &shortcut);
-signals:
-	void keySet(bool, bool);
-};
-
-/**
  * Combo box widget used to define the kind of action a shortcut triggers. Then
  * entries get auto-generated from the GlobalShortcutEngine::qmShortcuts store.
  *
@@ -234,6 +206,14 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(GlobalShortcutEngine)
 public:
+	struct ButtonInfo {
+		QString device;
+		QString devicePrefix;
+		QString name;
+
+		ButtonInfo() : device(tr("Unknown")), name(tr("Unknown")) {}
+	};
+
 	bool bNeedRemap;
 	Timer tReset;
 
@@ -258,13 +238,13 @@ public:
 	bool handleButton(const QVariant &, bool);
 	static void add(GlobalShortcut *);
 	static void remove(GlobalShortcut *);
-	virtual QString buttonName(const QVariant &) = 0;
-	static QString buttonText(const QList< QVariant > &);
-	virtual bool canSuppress();
 
-	virtual void setEnabled(bool b);
-	virtual bool enabled();
 	virtual bool canDisable();
+	virtual bool canSuppress();
+	virtual bool enabled();
+	virtual void setEnabled(bool b);
+
+	virtual ButtonInfo buttonInfo(const QVariant &) = 0;
 signals:
 	void buttonPressed(bool last);
 };

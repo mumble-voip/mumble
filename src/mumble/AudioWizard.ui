@@ -482,20 +482,6 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QRadioButton" name="qrPTT">
-        <property name="text">
-         <string>Push To Talk:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="ShortcutKeyWidget" name="skwPTT"/>
-      </item>
-     </layout>
-    </item>
     <item row="1" column="1" rowspan="4">
      <widget class="QLabel" name="qlTalkIcon">
       <property name="minimumSize">
@@ -506,13 +492,6 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
       <property name="text">
        <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QRadioButton" name="qrSNR">
-      <property name="text">
-       <string>Signal-To-Noise ratio</string>
       </property>
      </widget>
     </item>
@@ -602,12 +581,59 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
      </spacer>
     </item>
-    <item row="2" column="0">
-     <widget class="QRadioButton" name="qrAmplitude">
-      <property name="text">
-       <string>Raw amplitude from input</string>
-      </property>
-     </widget>
+    <item row="4" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_7">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QRadioButton" name="qrPTT">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Push To Talk:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="qpbPTT">
+          <property name="accessibleName">
+           <string>PTT shortcut</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="qrAmplitude">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Raw amplitude from input</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="qrSNR">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Signal-To-Noise ratio</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -900,11 +926,6 @@ Mumble is under continuous development, and the development team wants to focus 
    <extends>QWidget</extends>
    <header>AudioStats.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ShortcutKeyWidget</class>
-   <extends>QLineEdit</extends>
-   <header>GlobalShortcut.h</header>
   </customwidget>
   <customwidget>
    <class>MUComboBox</class>
