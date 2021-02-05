@@ -232,9 +232,9 @@ void TestCrypt::xexstarAttack() {
 	unsigned char enctag[AES_BLOCK_SIZE];
 	unsigned char dectag[AES_BLOCK_SIZE];
 	STACKVAR(unsigned char, encrypted, 2 * AES_BLOCK_SIZE);
-	STACKVAR(unsigned char, decrypted, 1 * AES_BLOCK_SIZE);
+	STACKVAR(unsigned char, decrypted, 2 * AES_BLOCK_SIZE);
 
-	const bool failed_encrypt = !cs.ocb_encrypt(src, encrypted, 2 * AES_BLOCK_SIZE, nonce, enctag);
+	const bool failed_encrypt = !cs.ocb_encrypt(src, encrypted, 2 * AES_BLOCK_SIZE, nonce, enctag, false);
 
 	// Perform the attack
 	encrypted[AES_BLOCK_SIZE - 1] ^= AES_BLOCK_SIZE * 8;
@@ -251,6 +251,22 @@ void TestCrypt::xexstarAttack() {
 	// Make sure we detected the attack
 	QVERIFY(failed_encrypt);
 	QVERIFY(failed_decrypt);
+
+	// The assumption that critical packets do not turn up by pure chance turned out to be incorrect
+	// since digital silence appears to produce them in mass.
+	// So instead we now modify the packet in a way which should not affect the audio but will
+	// prevent the attack.
+	QVERIFY(cs.ocb_encrypt(src, encrypted, 2 * AES_BLOCK_SIZE, nonce, enctag));
+	QVERIFY(cs.ocb_decrypt(encrypted, decrypted, 2 * AES_BLOCK_SIZE, nonce, dectag));
+
+	// Tags should match
+	for (int i = 0; i < AES_BLOCK_SIZE; ++i) {
+		QCOMPARE(enctag[i], dectag[i]);
+	}
+
+	// Actual content should have been changed such that the critical block is no longer all 0.
+	QCOMPARE(src[0], static_cast<unsigned char>(0));
+	QCOMPARE(decrypted[0], static_cast<unsigned char>(1));
 }
 
 void TestCrypt::tamper() {

@@ -33,7 +33,7 @@ public:
 	virtual bool encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length) Q_DECL_OVERRIDE;
 
 	bool ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce,
-					 unsigned char *tag);
+					 unsigned char *tag, bool modifyPlainOnXEXStarAttack = true);
 	bool ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce,
 					 unsigned char *tag);
 

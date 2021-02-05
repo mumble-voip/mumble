@@ -261,7 +261,7 @@ static void inline ZERO(keyblock &block) {
 	AES_decrypt(reinterpret_cast< const unsigned char * >(src), reinterpret_cast< unsigned char * >(dst), key);
 
 bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len,
-								 const unsigned char *nonce, unsigned char *tag) {
+								 const unsigned char *nonce, unsigned char *tag, bool modifyPlainOnXEXStarAttack) {
 	keyblock checksum, delta, tmp, pad;
 	bool success = true;
 
@@ -270,21 +270,39 @@ bool CryptStateOCB2::ocb_encrypt(const unsigned char *plain, unsigned char *encr
 	ZERO(checksum);
 
 	while (len > AES_BLOCK_SIZE) {
-		S2(delta);
-		XOR(tmp, delta, reinterpret_cast< const subblock * >(plain));
-		AESencrypt(tmp, tmp, &encrypt_key);
-		XOR(reinterpret_cast< subblock * >(encrypted), delta, tmp);
-		XOR(checksum, checksum, reinterpret_cast< const subblock * >(plain));
-
 		// Counter-cryptanalysis described in section 9 of https://eprint.iacr.org/2019/311
 		// For an attack, the second to last block (i.e. the last iteration of this loop)
 		// must be all 0 except for the last byte (which may be 0 - 128).
+		bool flipABit = false; // *plain is const, so we can't directly modify it
 		if (len - AES_BLOCK_SIZE <= AES_BLOCK_SIZE) {
 			unsigned char sum = 0;
 			for (int i = 0; i < AES_BLOCK_SIZE - 1; ++i) {
 				sum |= plain[i];
 			}
-			success &= sum != 0;
+			if (sum == 0) {
+				if (modifyPlainOnXEXStarAttack) {
+					// The assumption that critical packets do not turn up by pure chance turned out to be incorrect
+					// since digital silence appears to produce them in mass.
+					// So instead we now modify the packet in a way which should not affect the audio but will
+					// prevent the attack.
+					flipABit = true;
+				} else {
+					// This option still exists but only to allow us to test ocb_decrypt's detection.
+					success = false;
+				}
+			}
+		}
+
+		S2(delta);
+		XOR(tmp, delta, reinterpret_cast< const subblock * >(plain));
+		if (flipABit) {
+			*reinterpret_cast< unsigned char * >(tmp) ^= 1;
+		}
+		AESencrypt(tmp, tmp, &encrypt_key);
+		XOR(reinterpret_cast< subblock * >(encrypted), delta, tmp);
+		XOR(checksum, checksum, reinterpret_cast< const subblock * >(plain));
+		if (flipABit) {
+			*reinterpret_cast< unsigned char * >(checksum) ^= 1;
 		}
 
 		len -= AES_BLOCK_SIZE;
