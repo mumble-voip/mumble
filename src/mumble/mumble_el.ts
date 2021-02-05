@@ -627,19 +627,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Εντάξει</translation>
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Άδεια χρήσης</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Δημιουργοί</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμφωνίες άδειας χρήσης τρίτων κατασκευαστών</translation>
     </message>
 </context>
 <context>
@@ -2882,7 +2882,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Website</source>
-        <translation>Δικτυακός τόπος</translation>
+        <translation>Ιστότοπος</translation>
     </message>
     <message>
         <source>Packet loss</source>
@@ -6344,7 +6344,7 @@ Valid options are:
     </message>
     <message>
         <source>Proxy</source>
-        <translation>Διακομιστής Μεσολάβησης</translation>
+        <translation>Διακομιστής μεσολάβησης</translation>
     </message>
     <message>
         <source>Type</source>
@@ -7055,7 +7055,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;About</source>
-        <translation>&amp;Σχετικά με</translation>
+        <translation>&amp;Σχετικά</translation>
     </message>
     <message>
         <source>Show configuration page of plugin</source>
