@@ -352,7 +352,7 @@ bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 }
 
 QString GlobalShortcutMac::translateMouseButton(const unsigned int keycode) const {
-	return QString::fromLatin1("Mouse Button %1").arg(keycode-MOUSE_OFFSET+1);
+	return QString::fromLatin1("%1").arg(keycode - MOUSE_OFFSET + 1);
 }
 
 QString GlobalShortcutMac::translateModifierKey(const unsigned int keycode) const {
@@ -424,23 +424,30 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 	return QString(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
 }
 
-QString GlobalShortcutMac::buttonName(const QVariant &v) {
+GlobalShortcutMac::ButtonInfo GlobalShortcutMac::buttonInfo(const QVariant &v) {
 	bool ok;
 	unsigned int key = v.toUInt(&ok);
-	if (!ok)
-		return QString();
-
-	if (key >= MOUSE_OFFSET)
-		return translateMouseButton(key);
-	else if (key >= MOD_OFFSET)
-		return translateModifierKey(key);
-	else {
-		QString str = translateKeyName(key);
-		if (!str.isEmpty())
-			return str;
+	if (!ok) {
+		return ButtonInfo();
 	}
 
-	return QString::fromLatin1("Keycode %1").arg(key);
+	ButtonInfo info;
+
+	if (key >= MOUSE_OFFSET) {
+		info.device = tr("Mouse");
+		info.devicePrefix = QLatin1String("M");
+		info.name = translateMouseButton(key);
+		return info;
+	} else {
+		info.device = tr("Keyboard");
+		info.name = key >= MOD_OFFSET ? translateModifierKey(key) : translateKeyName(key);
+		if (!info.name.isEmpty()) {
+			return info;
+		}
+	}
+
+	info.name = QString::number(key);
+	return info;
 }
 
 void GlobalShortcutMac::setEnabled(bool b) {

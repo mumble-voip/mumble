@@ -21,7 +21,7 @@ private:
 public:
 	GlobalShortcutMac();
 	~GlobalShortcutMac() Q_DECL_OVERRIDE;
-	QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
+	ButtonInfo buttonInfo(const QVariant &) Q_DECL_OVERRIDE;
 	void dumpEventTaps();
 	void needRemap() Q_DECL_OVERRIDE;
 	bool handleModButton(CGEventFlags newmask);

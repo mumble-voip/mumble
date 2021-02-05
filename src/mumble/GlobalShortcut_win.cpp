@@ -787,36 +787,42 @@ void GlobalShortcutWin::timeTicked() {
 	}
 }
 
-QString GlobalShortcutWin::buttonName(const QVariant &v) {
+GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &v) {
 	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
 
 	const QList< QVariant > &sublist = v.toList();
-	if (sublist.count() != 2)
-		return QString();
+	if (sublist.count() != 2) {
+		return ButtonInfo();
+	}
 
 	bool ok    = false;
 	DWORD type = sublist.at(0).toUInt(&ok);
 	QUuid guid(sublist.at(1).toString());
 
-	if (guid.isNull() || (!ok))
-		return QString();
+	if (guid.isNull() || (!ok)) {
+		return ButtonInfo();
+	}
 
-	QString device = guid.toString();
-	QString name   = QLatin1String("Unknown");
+	ButtonInfo info;
+	info.device = guid.toString();
 
 #ifdef USE_GKEY
 	if (g.s.bEnableGKey && gkey && gkey->isValid()) {
 		bool isGKey = false;
 		if (guid == GKeyLibrary::quMouse) {
-			isGKey = true;
-			name   = gkey->getMouseButtonString(type);
+			isGKey    = true;
+			info.name = gkey->getMouseButtonString(type);
 		} else if (guid == GKeyLibrary::quKeyboard) {
-			isGKey = true;
-			name   = gkey->getKeyboardGkeyString(type & 0xFFFF, type >> 16);
+			isGKey    = true;
+			info.name = gkey->getKeyboardGkeyString(type & 0xFFFF, type >> 16);
 		}
 		if (isGKey) {
-			device = QLatin1String("GKey:");
-			return device + name; // Example output: "Gkey:G6/M1"
+			// Example output:
+			// "Logitech G-keys"
+			// "G6/M1"
+			info.device       = QLatin1String("Logitech G-keys");
+			info.devicePrefix = QLatin1String("GKey:");
+			return info;
 		}
 	}
 #endif
@@ -826,65 +832,74 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 		uint32_t idx    = (type >> 24) & 0xff;
 		uint32_t button = (type & 0x00ffffff);
 
+		info.device       = QString::fromLatin1("Xbox controller #%1").arg(idx + 1);
+		info.devicePrefix = QString::fromLatin1("Xbox%1:").arg(idx + 1);
+
 		// Translate from our own button index mapping to
 		// the actual Xbox controller button names.
 		// For a description of the mapping, see the state
 		// querying code in GlobalShortcutWin::timeTicked().
 		switch (button) {
 			case 0:
-				return QString::fromLatin1("Xbox%1:Up").arg(idx + 1);
+				info.name = QLatin1String("Up");
 			case 1:
-				return QString::fromLatin1("Xbox%1:Down").arg(idx + 1);
+				info.name = QLatin1String("Down");
 			case 2:
-				return QString::fromLatin1("Xbox%1:Left").arg(idx + 1);
+				info.name = QLatin1String("Left");
 			case 3:
-				return QString::fromLatin1("Xbox%1:Right").arg(idx + 1);
+				info.name = QLatin1String("Right");
 			case 4:
-				return QString::fromLatin1("Xbox%1:Start").arg(idx + 1);
+				info.name = QLatin1String("Start");
 			case 5:
-				return QString::fromLatin1("Xbox%1:Back").arg(idx + 1);
+				info.name = QLatin1String("Back");
 			case 6:
-				return QString::fromLatin1("Xbox%1:LeftThumb").arg(idx + 1);
+				info.name = QLatin1String("LeftThumb");
 			case 7:
-				return QString::fromLatin1("Xbox%1:RightThumb").arg(idx + 1);
+				info.name = QLatin1String("RightThumb");
 			case 8:
-				return QString::fromLatin1("Xbox%1:LeftShoulder").arg(idx + 1);
+				info.name = QLatin1String("LeftShoulder");
 			case 9:
-				return QString::fromLatin1("Xbox%1:RightShoulder").arg(idx + 1);
+				info.name = QLatin1String("RightShoulder");
 			case 10:
-				return QString::fromLatin1("Xbox%1:Guide").arg(idx + 1);
+				info.name = QLatin1String("Guide");
 			case 11:
-				return QString::fromLatin1("Xbox%1:11").arg(idx + 1);
+				info.name = QLatin1String("11");
 			case 12:
-				return QString::fromLatin1("Xbox%1:A").arg(idx + 1);
+				info.name = QLatin1String("A");
 			case 13:
-				return QString::fromLatin1("Xbox%1:B").arg(idx + 1);
+				info.name = QLatin1String("B");
 			case 14:
-				return QString::fromLatin1("Xbox%1:X").arg(idx + 1);
+				info.name = QLatin1String("X");
 			case 15:
-				return QString::fromLatin1("Xbox%1:Y").arg(idx + 1);
+				info.name = QLatin1String("Y");
 			case 16:
-				return QString::fromLatin1("Xbox%1:LeftTrigger").arg(idx + 1);
+				info.name = QLatin1String("LeftTrigger");
 			case 17:
-				return QString::fromLatin1("Xbox%1:RightTrigger").arg(idx + 1);
+				info.name = QLatin1String("RightTrigger");
 		}
+
+		return info;
 	}
 #endif
 
 	InputDevice *id = gsw->qhInputDevices.value(guid);
-	if (guid == GUID_SysMouse)
-		device = QLatin1String("M:");
-	else if (guid == GUID_SysKeyboard)
-		device = QLatin1String("K:");
-	else if (id)
-		device = id->name + QLatin1String(":");
+	if (guid == GUID_SysMouse) {
+		info.device       = tr("Mouse");
+		info.devicePrefix = QLatin1String("M");
+	} else if (guid == GUID_SysKeyboard) {
+		info.device = tr("Keyboard");
+	} else if (id) {
+		info.device = id->name;
+	}
+
 	if (id) {
 		QString result = id->qhNames.value(type);
 		if (!result.isEmpty()) {
-			name = result;
+			info.name = result;
 		}
 	}
-	return device + name;
+
+	return info;
 }
 
 bool GlobalShortcutWin::canSuppress() {
