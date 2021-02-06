@@ -1,0 +1,90 @@
+# Userguide for macOS
+
+## Contents
+
+- [Mumble Client](#mumble-client)
+- [Mumble Server](#mumble-server-murmur)
+
+## Mumble (Client)
+
+### Installation
+
+Download Mumble from [our website](https://www.mumble.info/downloads/).
+
+<!-- Is the following still valid? -->
+To install Mumble, drag the application from the downloaded
+disk image into your `/Applications` folder.
+
+Some more information can be found in our [wiki](https://wiki.mumble.info/wiki/Installing_Mumble#Mac_OS_X).
+
+#### Overlay
+
+In order to be able to use the Overlay it has to be installed separately.
+To install it: launch Mumble, go into Mumble's settings -> Overlay section and you should see an option to install it.
+
+*Info:* The reason for the separate installation is that Mumble itself does not need administrative rights to install, but the overlay does. 
+
+### Start
+
+Start Mumble via your Start Menu. <!-- correct? -->
+
+On first start of Mumble, a short Settings wizard (for Audio settings, certificate creation etc.) will start automatically.
+
+### Configuration
+
+<!-- Short introduction or just link to the Client Config Guide? -->
+Take a look at the [Client Configuration Guide](client_config_guide.md).
+<!-- Are there differences between the OS versions? -->
+
+## Mumble Server (Murmur)
+
+<!-- rename Murmur, once it's renamed -->
+
+### Installation
+
+The Mumble Server (Murmur) is distributed separately from the Mumble client on MacOS.
+It is called **Static macOS Server** and can be downloaded from [our website](https://www.mumble.info/downloads/).
+
+### Configuration
+
+Take a look at the [Server Configuration Guide](server_config_guide.md).
+
+### Start
+
+<!-- is that correct? -->
+The Mumble Server should be run from the command line, so start a shell (command prompt) and go to wherever you installed Mumble. Run the Mumble Server with:
+
+<!-- different binary name on macOS? -->
+
+1. Set the SuperUser (Server Admin) password:
+
+```
+murmurd -supw <password>
+```
+
+2. Start the server:
+
+*Note:* Flags are optional (see below).
+The standard configuration file used, is `murmur.ini` in the same directory.
+
+```
+murmurd [flag]
+```
+
+**Flags:**
+
+```
+murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
+
+-supw   Set a new password for the SuperUser (Server Admin). Keep this password safe. Mumble Server will stop after this command.
+
+-ini    Use a specific inifile. You can also use this to run several instances
+        of murmur from the same directory. Make sure each instance is using a separate database.
+
+-fg     Run in the foreground, logging to standard output.
+
+-v      More verbose logging.
+```
+
+3. Login & administrate the Server:
+See [Server Configuration Guide](server_config_guide.md#administration-with-mumble-client) for details.
