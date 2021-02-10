@@ -1,4 +1,4 @@
-# Copyright 2005-2020 The Mumble Developers. All rights reserved.
+# Copyright 2005-2021 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -8,7 +8,7 @@ include(../qmake/qt.pri)
 include(../qmake/rcc.pri)
 include(../qmake/pkgconfig.pri)
 
-VERSION		= 1.3.3
+VERSION		= 1.3.4
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION

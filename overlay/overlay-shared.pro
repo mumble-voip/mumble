@@ -5,7 +5,7 @@
 
 include (../qmake/compiler.pri)
 
-VERSION = 1.3.3
+VERSION = 1.3.4
 TARGET_EXT = .dll
 TEMPLATE = lib
 CONFIG -= qt
