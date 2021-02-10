@@ -246,12 +246,12 @@ void AudioInputDialog::verifyMicrophonePermission() {
 		if (air->name == QLatin1String("CoreAudio")) {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText(tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
-									"by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
-									"Microphone."));
+			                        "by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
+			                        "Microphone."));
 		} else if (air->name == QLatin1String("WASAPI")) {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText( tr("Access to the microphone was denied. Please check that your operating system's "
-									 "microphone settings allow Mumble to use the microphone."));
+			                         "microphone settings allow Mumble to use the microphone."));
 		}
 	} else {
 		qcbDevice->setEnabled(true);
@@ -297,8 +297,7 @@ void AudioInputDialog::save() const {
 	s.qsTxAudioCueOff      = qlePushClickPathOff->text();
 
 	s.qsAudioInput    = qcbSystem->currentText();
-	s.iEchoOption    = qcbEcho->currentData().toInt();
-	s.bEcho           = s.iEchoOption != ECHO_CANCEL_DISABLED;
+	s.echoOption    = static_cast<EchoCancelOptionID>(qcbEcho->currentData().toInt());
 	s.bExclusiveInput = qcbExclusive->isChecked();
 
 	if (AudioInputRegistrar::qmNew) {
@@ -516,14 +515,16 @@ void AudioInputDialog::updateEchoEnableState() {
 	qcbEcho->insertItem(0, tr("Disabled"), "disabled");
 	qcbEcho->setItemData(0, tr("Disable echo cancellation."), Qt::ToolTipRole);
 
-	for (int i=0; i<air->echoOptions.count(); ++i) {
-		EchoCancellationOption eco = air->echoOptions[i];
-		if (air->canEcho(eco.id, outputInterface)) {
+	int i = 0;
+	for (EchoCancelOptionID ecoid : air->echoOptions) {
+		if (air->canEcho(ecoid, outputInterface)) {
+			++i;
 			hasUsableEchoOption = true;
-			qcbEcho->insertItem(i+1, eco.description, eco.id);
-			qcbEcho->setItemData(i+1, eco.explanation, Qt::ToolTipRole);
-			if (s.iEchoOption == eco.id) {
-				qcbEcho->setCurrentIndex(i+1);
+			const EchoCancelOption &echoOption = echoCancelOptions[static_cast<int>(ecoid)];
+			qcbEcho->insertItem(i, echoOption.description, static_cast<int>(ecoid));
+			qcbEcho->setItemData(i, echoOption.explanation, Qt::ToolTipRole);
+			if (s.echoOption == ecoid) {
+				qcbEcho->setCurrentIndex(i);
 			}
 		}
 	}

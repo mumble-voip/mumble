@@ -6,12 +6,11 @@
 #ifndef MUMBLE_MUMBLE_COREAUDIO_H_
 #	define MUMBLE_MUMBLE_COREAUDIO_H_
 
-#	include <AudioToolbox/AudioToolbox.h>
-
 #	include "AudioInput.h"
 #	include "AudioOutput.h"
+#	include <AudioToolbox/AudioToolbox.h>
 
-enum AUElement { OUTPUT = 0, INPUT = 1 };
+enum AUDirection { OUTPUT = 0, INPUT = 1 };
 
 class CoreAudioSystem : public QObject {
 private:
@@ -26,28 +25,28 @@ class CoreAudioInput : public AudioInput {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CoreAudioInput)
-	// Open HAL AU as input and pass back the output stream description.
+	/// Open HAL AU as input and pass back the output stream description.
 	bool openAUHAL(AudioStreamBasicDescription &streamDescription);
 
-	// Open VoiceProcessingIO AU as input, utilizing macOS's builtin echo cancellation,
-	// and pass back the output stream description.
+	/// Open VoiceProcessingIO AU as input, utilizing macOS's builtin echo cancellation,
+	/// and pass back the output stream description.
 	bool openAUVoip(AudioStreamBasicDescription &streamDescription);
 
-	// Initialize input AU with preferred parameters of Mumble
+	/// Initialize input AU with preferred parameters of Mumble
 	bool initializeInputAU(AudioUnit au, AudioStreamBasicDescription &streamDescription, int &actualBufferLength);
 
 protected:
-	// Hardware Abstraction Layer's AudioUnit, directly interacts with the hardware
-	AudioUnit auHAL {};
-	// VoiceProcessingIO AU, provides audio input and echo cancellation
-	AudioUnit auVoip {};
-	AudioDeviceID inputDevId {};
-	AudioDeviceID echoOutputDevId {};
-	AudioBufferList buflist {};
+	/// Hardware Abstraction Layer's AudioUnit, directly interacts with the hardware
+	AudioUnit auHAL{};
+	/// VoiceProcessingIO AU, provides audio input and echo cancellation
+	AudioUnit auVoip{};
+	AudioDeviceID inputDevId{};
+	AudioDeviceID echoOutputDevId{};
+	AudioBufferList buflist{};
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
-	                           AudioUnitElement element);
+							   AudioUnitElement element);
 	static OSStatus inputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
-	                              UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
+								  UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 
 public:
 	CoreAudioInput();
@@ -61,8 +60,8 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CoreAudioOutput)
 protected:
-	// Hardware Abstraction Layer's AudioOutputUnit, directly interacts with the hardware
-	AudioUnit auHAL {};
+	/// Hardware Abstraction Layer's AudioOutputUnit, directly interacts with the hardware
+	AudioUnit auHAL{};
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
 	static OSStatus outputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
@@ -81,7 +80,7 @@ public:
 	virtual AudioInput *create();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
-	virtual bool canEcho(int, const QString &) const;
+	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
 	virtual bool isMicrophoneAccessDeniedByOS();
 };
 
@@ -93,8 +92,6 @@ public:
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	bool canMuteOthers() const;
 };
-
-#define ECHO_CANCEL_APPLE 100
 
 #else
 class CoreAudioSystem;

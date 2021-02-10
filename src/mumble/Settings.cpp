@@ -401,8 +401,7 @@ Settings::Settings() {
 	bJackStartServer  = false;
 	bJackAutoConnect  = true;
 
-	bEcho = false;
-	iEchoOption = 0;  // ECHO_CANCEL_DISABLED = 0
+	echoOption = EchoCancelOptionID::DISABLED;
 
 	bExclusiveInput  = false;
 	bExclusiveOutput = false;
@@ -546,13 +545,11 @@ Settings::Settings() {
 }
 
 bool Settings::doEcho() const {
-	if (!bEcho)
-		return false;
-
 	if (AudioInputRegistrar::qmNew) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qsAudioInput);
 		if (air) {
-			if (g.s.iEchoOption && air->canEcho(g.s.iEchoOption, qsAudioOutput))
+			if ((g.s.echoOption != EchoCancelOptionID::DISABLED)
+			    && air->canEcho(g.s.echoOption, qsAudioOutput))
 				return true;
 		}
 	}
@@ -584,6 +581,7 @@ BOOST_TYPEOF_REGISTER_TYPE(QByteArray)
 BOOST_TYPEOF_REGISTER_TYPE(QColor)
 BOOST_TYPEOF_REGISTER_TYPE(QVariant)
 BOOST_TYPEOF_REGISTER_TYPE(QFont)
+BOOST_TYPEOF_REGISTER_TYPE(EchoCancelOptionID)
 BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 
 #define SAVELOAD(var, name) var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var))
@@ -753,8 +751,6 @@ void Settings::load(QSettings *settings_ptr) {
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	SAVELOAD(bEcho, "audio/echo");
-	SAVELOAD(iEchoOption, "audio/echooptionid");
 	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
 	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");
@@ -763,6 +759,7 @@ void Settings::load(QSettings *settings_ptr) {
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
 	SAVELOAD(bTransmitPosition, "audio/postransmit");
+	LOADFLAG(echoOption, "audio/echooptionid");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
@@ -1127,8 +1124,7 @@ void Settings::save() {
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	SAVELOAD(bEcho, "audio/echo");
-	SAVELOAD(iEchoOption, "audio/echooptionid");
+	LOADFLAG(echoOption, "audio/echooptionid");
 	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
 	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");

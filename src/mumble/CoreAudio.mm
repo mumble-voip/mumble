@@ -35,7 +35,7 @@ OSStatus AudioDeviceDuck(AudioDeviceID inDevice,
 void UndoDucking(AudioDeviceID output_device_id) {
     if (AudioDeviceDuck != nullptr) {
 	    // Ramp the volume back up over half a second.
-	    qDebug() << "CoreAudioInput: Undo Ducking caused by VoIP AU.";
+	    qDebug("CoreAudioInput: Undo Ducking caused by VoIP AU.");
 	    AudioDeviceDuck(output_device_id, 1.0, nullptr, 0.5);
     }
 }
@@ -136,10 +136,10 @@ QVector<AudioObjectID> GetAudioObjectIDs(AudioObjectID audio_object_id, AudioObj
 	return device_ids;
 }
 
-AudioBufferList* GetDeviceStreamConfiguration(AudioObjectID device_id, AUElement type) {
+AudioBufferList* GetDeviceStreamConfiguration(AudioObjectID device_id, AUDirection type) {
 	AudioBufferList *bufs = nullptr;
 	OSStatus err;
-	auto scope = (type == AUElement::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput;
+	auto scope = (type == AUDirection::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput;
 	unsigned int len = GetDevicePropertySize(
 		device_id,
 		kAudioDevicePropertyStreamConfiguration,
@@ -159,7 +159,7 @@ AudioBufferList* GetDeviceStreamConfiguration(AudioObjectID device_id, AUElement
 	return bufs;
 }
 
-AudioDeviceID GetDeviceID(const QString& devUid, AUElement type) {
+AudioDeviceID GetDeviceID(const QString& devUid, AUDirection type) {
 	OSStatus err;
 	UInt32 len;
 	CFStringRef csDevUid = QStringToCFString(devUid);
@@ -168,7 +168,7 @@ AudioDeviceID GetDeviceID(const QString& devUid, AUElement type) {
 	// Struct used to query information of the system audio setup
 	AudioObjectPropertyAddress propertyAddress = {
 		.mSelector = 0, // this attribute will be specified later
-		.mScope = (type == AUElement::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput,
+		.mScope = (type == AUDirection::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput,
 		.mElement = kAudioObjectPropertyElementMaster
 	};
 
@@ -188,7 +188,7 @@ AudioDeviceID GetDeviceID(const QString& devUid, AUElement type) {
 	return devId;
 }
 
-AudioDeviceID GetDefaultDeviceID(AUElement type) {
+AudioDeviceID GetDefaultDeviceID(AUDirection type) {
 	OSStatus err;
 	UInt32 len;
 	AudioDeviceID devId;
@@ -196,12 +196,12 @@ AudioDeviceID GetDefaultDeviceID(AUElement type) {
 	// Struct used to query information of the system audio setup
 	AudioObjectPropertyAddress propertyAddress = {
 		.mSelector = 0, // this attribute will be specified later
-		.mScope = (type == AUElement::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput,
+		.mScope = (type == AUDirection::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput,
 		.mElement = kAudioObjectPropertyElementMaster
 	};
 
 	len                       = sizeof(AudioDeviceID);
-	propertyAddress.mSelector = (type == AUElement::INPUT) ? kAudioHardwarePropertyDefaultInputDevice : kAudioHardwarePropertyDefaultOutputDevice;
+	propertyAddress.mSelector = (type == AUDirection::INPUT) ? kAudioHardwarePropertyDefaultInputDevice : kAudioHardwarePropertyDefaultOutputDevice;
 	err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &devId);
 	if (err != noErr) {
 		throw CoreAudioException("Unable to query for default AudioDeviceID.");
@@ -406,7 +406,7 @@ void CoreAudioInit::destroy() {
 }
 
 const QList< audioDevice > CoreAudioSystem::getDeviceChoices(bool input) {
-	bool doEcho = (g.s.iEchoOption == ECHO_CANCEL_APPLE || g.s.iEchoOption == ECHO_CANCEL_DEFAULT);
+	bool doEcho = (g.s.echoOption == EchoCancelOptionID::APPLE_AEC);
 	QHash< QString, QString > qhDevices = CoreAudioSystem::getDevices(input, doEcho);
 	QList< audioDevice > qlReturn;
 	QStringList qlDevices;
@@ -430,23 +430,23 @@ const QList< audioDevice > CoreAudioSystem::getDeviceChoices(bool input) {
 const QHash< QString, QString > CoreAudioSystem::getDevices(bool input, bool echo) {
 	QHash< QString, QString > qhReturn;
 	try {
-		auto devs = core_audio_utils::GetAudioObjectIDs(kAudioObjectSystemObject,
-		                                                kAudioHardwarePropertyDevices);
+		QVector<AudioObjectID> devs = core_audio_utils::GetAudioObjectIDs(kAudioObjectSystemObject,
+		                                                                  kAudioHardwarePropertyDevices);
 
-		for (int i = 0; i < devs.count(); i++) {
+		for (AudioObjectID devid : devs) {
 
 			// Mac's native echo cancellation doesn't support aggregate device
 			// since it will create aggregate devices itself.
-			if (echo && core_audio_utils::GetDeviceTransportType(devs[i]) == kAudioDeviceTransportTypeAggregate) {
+			if (echo && core_audio_utils::GetDeviceTransportType(devid) == kAudioDeviceTransportTypeAggregate) {
 				continue;
 			}
 
-			bool isInput = core_audio_utils::IsInputDevice(devs[i]);
+			bool isInput = core_audio_utils::IsInputDevice(devid);
 
 			if (isInput != input) continue;
 
-			QString qsDeviceName = core_audio_utils::GetDeviceStringProperty(devs[i], kAudioDevicePropertyDeviceNameCFString);
-			QString qsDeviceIdentifier = core_audio_utils::GetDeviceStringProperty(devs[i], kAudioDevicePropertyDeviceUID);
+			QString qsDeviceName = core_audio_utils::GetDeviceStringProperty(devid, kAudioDevicePropertyDeviceNameCFString);
+			QString qsDeviceIdentifier = core_audio_utils::GetDeviceStringProperty(devid, kAudioDevicePropertyDeviceUID);
 
 			qhReturn.insert(qsDeviceIdentifier, qsDeviceName);
 		}
@@ -458,11 +458,7 @@ const QHash< QString, QString > CoreAudioSystem::getDevices(bool input, bool ech
 }
 
 CoreAudioInputRegistrar::CoreAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("CoreAudio"), 10) {
-	echoOptions.append(EchoCancellationOption(
-		ECHO_CANCEL_APPLE,
-		QObject::tr("Acoustic echo cancellation provided by Apple"),
-		QObject::tr("This option works best when using built-in microphone and speaker.")
-	));
+	echoOptions.push_back(EchoCancelOptionID::APPLE_AEC);
 }
 
 AudioInput *CoreAudioInputRegistrar::create() {
@@ -481,9 +477,11 @@ void CoreAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &
 	s.qsCoreAudioInput = choice.toString();
 }
 
-bool CoreAudioInputRegistrar::canEcho(int echoOption, const QString &) const {
+bool CoreAudioInputRegistrar::canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const {
+	Q_UNUSED(outputSystem)
+
 	if (@available(macOS 10.14, *)) {
-		if (echoOption == ECHO_CANCEL_APPLE || echoOption == ECHO_CANCEL_DEFAULT) return true;
+		if (echoCancelID == EchoCancelOptionID::APPLE_AEC) return true;
 	}
 	return false;
 }
@@ -581,22 +579,22 @@ bool CoreAudioInput::openAUHAL(AudioStreamBasicDescription &streamDescription){
 
 	val = 1;
 	CHECK_RETURN_FALSE(AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Input,
-	                                        AUElement::INPUT, &val, sizeof(UInt32)),
+	                                        AUDirection::INPUT, &val, sizeof(UInt32)),
 	                   "CoreAudioInput: Unable to configure input scope on AUHAL.");
 
 	val = 0;
 	CHECK_RETURN_FALSE(AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Output,
-	                                        AUElement::OUTPUT, &val, sizeof(UInt32)),
+	                                        AUDirection::OUTPUT, &val, sizeof(UInt32)),
 	                   "CoreAudioInput: Unable to configure output scope on AUHAL.");
 
 	len = sizeof(AudioDeviceID);
 	CHECK_RETURN_FALSE(AudioUnitSetProperty(auHAL, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global,
-	                                        AUElement::OUTPUT, &inputDevId, len),
+	                                        AUDirection::OUTPUT, &inputDevId, len),
 	                   "CoreAudioInput: Unable to set device of AUHAL.");
 
 	len = sizeof(AudioStreamBasicDescription);
 	CHECK_RETURN_FALSE(AudioUnitGetProperty(auHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input,
-	                                        AUElement::INPUT, &streamDescription, &len),
+	                                        AUDirection::INPUT, &streamDescription, &len),
 	                   "CoreAudioInput: Unable to query device for stream info.");
 
 	return true;
@@ -635,19 +633,19 @@ bool CoreAudioInput::openAUVoip(AudioStreamBasicDescription &streamDescription) 
 
 		len = sizeof(AudioDeviceID);
 		CHECK_RETURN_FALSE(AudioUnitSetProperty(auVoip, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global,
-		                                        AUElement::INPUT, &inputDevId, len),
+		                                        AUDirection::INPUT, &inputDevId, len),
 		                   "CoreAudioInput: Unable to set device of VoiceProcessingIO AudioUnit.");
 
 		// It is reported that the echo source need to be specified as the output device.
 		// If no output device is specified, MacOS would take the default output device as echo source.
 		CHECK_RETURN_FALSE(AudioUnitSetProperty(auVoip, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global,
-		                                        AUElement::OUTPUT, &echoOutputDevId, len),
+		                                        AUDirection::OUTPUT, &echoOutputDevId, len),
 		                   "CoreAudioInput: Unable to set device of VoiceProcessingIO AudioUnit.");
 
 
 		len = sizeof(AudioStreamBasicDescription);
 		CHECK_RETURN_FALSE(AudioUnitGetProperty(auVoip, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input,
-		                                        AUElement::INPUT, &streamDescription, &len),
+		                                        AUDirection::INPUT, &streamDescription, &len),
 		                   "CoreAudioInput: Unable to query device for stream info from VoiceProcessingIO AudioUnit.");
 
 #ifdef DEBUG
@@ -675,11 +673,11 @@ bool CoreAudioInput::initializeInputAU(AudioUnit au, AudioStreamBasicDescription
 
 	len = sizeof(AudioStreamBasicDescription);
 	CHECK_RETURN_FALSE(AudioUnitSetProperty(au, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output,
-	                                        AUElement::INPUT, &streamDescription, len),
+	                                        AUDirection::INPUT, &streamDescription, len),
 	                   "CoreAudioInput: Unable to set stream format for Input AU - 1.")
 
 	CHECK_RETURN_FALSE(AudioUnitSetProperty(au, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input,
-	                                        AUElement::OUTPUT, &streamDescription, len),
+	                                        AUDirection::OUTPUT, &streamDescription, len),
 	                   "CoreAudioInput: Unable to set stream format for Input AU - 2.");
 #ifdef DEBUG
 	qDebug("CoreAudioInput: Input stream description:");
@@ -725,7 +723,7 @@ void CoreAudioInput::run() {
 	AudioStreamBasicDescription fmt;
 	inputDevId = 0;
 	echoOutputDevId = 0;
-	bool doEcho  = (g.s.iEchoOption == ECHO_CANCEL_APPLE || g.s.iEchoOption == ECHO_CANCEL_DEFAULT);
+	bool doEcho = (g.s.echoOption == EchoCancelOptionID::APPLE_AEC);
 
 	auHAL = nullptr;
 	auVoip = nullptr;
@@ -735,14 +733,14 @@ void CoreAudioInput::run() {
 	try {
 		if (!g.s.qsCoreAudioInput.isEmpty()) {
 			qWarning("CoreAudioInput: Set device to '%s'.", qPrintable(g.s.qsCoreAudioInput));
-			inputDevId = core_audio_utils::GetDeviceID(g.s.qsCoreAudioInput, AUElement::INPUT);
+			inputDevId = core_audio_utils::GetDeviceID(g.s.qsCoreAudioInput, AUDirection::INPUT);
 		} else {
 			qWarning("CoreAudioInput: Set device to 'Default Device'.");
-			inputDevId = core_audio_utils::GetDefaultDeviceID(AUElement::INPUT);
+			inputDevId = core_audio_utils::GetDefaultDeviceID(AUDirection::INPUT);
 		}
 
 		if (doEcho) {
-			echoOutputDevId = core_audio_utils::GetDeviceID(g.s.qsCoreAudioOutput, AUElement::OUTPUT);
+			echoOutputDevId = core_audio_utils::GetDeviceID(g.s.qsCoreAudioOutput, AUDirection::OUTPUT);
 			if (!openAUVoip(fmt)) { return; };
 		} else {
 			if (!openAUHAL(fmt)) { return; };
@@ -924,11 +922,11 @@ void CoreAudioOutput::run() {
 		if (!g.s.qsCoreAudioOutput.isEmpty()) {
 			qWarning("CoreAudioOutput: Set device to '%s'.", qPrintable(g.s.qsCoreAudioOutput));
 
-			devId = core_audio_utils::GetDeviceID(g.s.qsCoreAudioOutput, AUElement::OUTPUT);
+			devId = core_audio_utils::GetDeviceID(g.s.qsCoreAudioOutput, AUDirection::OUTPUT);
 		} else {
 			qWarning("CoreAudioOutput: Set device to 'Default Device'.");
 
-			devId = core_audio_utils::GetDefaultDeviceID(AUElement::OUTPUT);
+			devId = core_audio_utils::GetDefaultDeviceID(AUDirection::OUTPUT);
 		}
 	} catch (core_audio_utils::CoreAudioException& e) {
 		qWarning() << "CoreAudioOutput: " << e.what();
@@ -1081,7 +1079,7 @@ OSStatus CoreAudioOutput::outputCallback(void *udata, AudioUnitRenderActionFlags
 }
 
 void CoreAudioOutput::propertyChange(void *udata, AudioUnit auHAL, AudioUnitPropertyID prop, AudioUnitScope scope,
-									 AudioUnitElement element) {
+                                     AudioUnitElement element) {
 	Q_UNUSED(udata);
 	Q_UNUSED(auHAL);
 	Q_UNUSED(scope);

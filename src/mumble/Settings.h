@@ -17,6 +17,8 @@
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslKey>
 
+#include "EchoCancelOption.h"
+
 // Global helper classes to spread variables around across threads
 // especially helpful to initialize things like the stored
 // preference for audio transmission, since the GUI elements
@@ -243,8 +245,7 @@ struct Settings {
 	QString qsWASAPIRole;
 
 	bool bExclusiveInput, bExclusiveOutput;
-	bool bEcho;
-	int iEchoOption;  // _id_ of EchoCancellationOption, or "default" to use the default option of the audio backend
+	EchoCancelOptionID echoOption;
 	bool bPositionalAudio;
 	bool bPositionalHeadphone;
 	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;

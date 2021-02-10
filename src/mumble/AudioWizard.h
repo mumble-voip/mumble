@@ -8,8 +8,8 @@
 
 #include "ui_AudioWizard.h"
 
-#include "AudioOutput.h"
 #include "AudioInput.h"
+#include "AudioOutput.h"
 #include "AudioStats.h"
 #include "Settings.h"
 
@@ -18,7 +18,11 @@ private:
 	Q_OBJECT
 	Q_DISABLE_COPY(AudioWizard)
 
-	bool hasUsableEchoCancellation(AudioInputRegistrar *air, QString outputSys);
+	/// Which echo cancellation is usable depends on the audio backend and the device combination.
+	/// This function will iterate through the list of available echo cancellation in the audio backend and check with
+	/// the backend whether this echo cancellation option works for current device combination.
+	EchoCancelOptionID firstUsableEchoCancellation(AudioInputRegistrar *air, QString outputSys);
+
 protected:
 	QList< QVariant > pttButtons;
 	bool bTransmitChanged;

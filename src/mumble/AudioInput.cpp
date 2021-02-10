@@ -167,19 +167,6 @@ AudioInputRegistrar::~AudioInputRegistrar() {
 	qmNew->remove(name);
 }
 
-void AudioInputRegistrar::useSpeexEchoCancellation() {
-	echoOptions.append(EchoCancellationOption(ECHO_CANCEL_SPEEX_MIXED,
-						  tr("Mixed echo cancellation (speex)"),
-						  tr("Mixed has low CPU impact, but only works well if your "
-						     "speakers are equally loud and equidistant from the microphone.")));
-	echoOptions.append(EchoCancellationOption(ECHO_CANCEL_SPEEX_MULTICHANNEL,
-						  tr("Multichannel echo cancellation (speex)"),
-						  tr("Multichannel echo cancellation provides much better echo "
-						     "cancellation, but at a higher CPU cost. "
-						     "Multichannel echo cancellation requires more CPU, so you should try mixed first.")));
-
-}
-
 AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	if (!qmNew)
 		return AudioInputPtr();
@@ -527,7 +514,7 @@ void AudioInput::initializeMixer() {
 	pfMicInput = new float[iMicLength];
 
 	if (iEchoChannels > 0) {
-		bEchoMulti = (g.s.iEchoOption == ECHO_CANCEL_SPEEX_MULTICHANNEL);
+		bEchoMulti = (g.s.echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
 		if (iEchoFreq != iSampleRate)
 			srsEcho = speex_resampler_init(bEchoMulti ? iEchoChannels : 1, iEchoFreq, iSampleRate, 3, &err);
 		iEchoLength    = (iFrameSize * iEchoFreq) / iSampleRate;
