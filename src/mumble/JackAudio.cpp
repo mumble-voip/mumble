@@ -82,7 +82,7 @@ private:
 	AudioInput *create() Q_DECL_OVERRIDE;
 	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
 	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
-	bool canEcho(const QString &) const Q_DECL_OVERRIDE;
+	bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const Q_DECL_OVERRIDE;
 	bool isMicrophoneAccessDeniedByOS() Q_DECL_OVERRIDE { return false; };
 
 public:
@@ -131,7 +131,7 @@ const QList< audioDevice > JackAudioInputRegistrar::getDeviceChoices() {
 void JackAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {
 }
 
-bool JackAudioInputRegistrar::canEcho(const QString &) const {
+bool JackAudioInputRegistrar::canEcho(EchoCancelOptionID, const QString &) const {
 	return false;
 }
 

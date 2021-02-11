@@ -45,7 +45,7 @@ public:
 	virtual AudioInput *create();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
-	virtual bool canEcho(const QString &) const;
+	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
 	virtual bool isMicrophoneAccessDeniedByOS() { return false; };
 };
 
@@ -88,7 +88,7 @@ void OSSInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
 	s.qsOSSInput = choice.toString();
 }
 
-bool OSSInputRegistrar::canEcho(const QString &) const {
+bool OSSInputRegistrar::canEcho(EchoCancelOptionID, const QString &) const {
 	return false;
 }
 

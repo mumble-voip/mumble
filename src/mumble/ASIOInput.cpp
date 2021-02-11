@@ -27,11 +27,13 @@ public:
 	virtual AudioInput *create();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
-	virtual bool canEcho(const QString &) const;
+	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
 	virtual bool isMicrophoneAccessDeniedByOS() { return false; };
 };
 
 ASIOAudioInputRegistrar::ASIOAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ASIO")) {
+	echoOptions.push_back(EchoCancelOptionID::SPEEX_MIXED);
+	echoOptions.push_back(EchoCancelOptionID::SPEEX_MULTICHANNEL);
 }
 
 AudioInput *ASIOAudioInputRegistrar::create() {
@@ -42,8 +44,9 @@ const QList< audioDevice > ASIOAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-bool ASIOAudioInputRegistrar::canEcho(const QString &) const {
-	return true;
+bool ASIOAudioInputRegistrar::canEcho(EchoCancelOptionID echoOption, const QString &) const {
+	return (echoOption == EchoCancelOptionID::SPEEX_MIXED
+	        || echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
 }
 
 void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {

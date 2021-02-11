@@ -54,7 +54,7 @@ public:
 	virtual AudioInput *create();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
-	virtual bool canEcho(const QString &) const;
+	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
 	virtual bool canExclusive() const;
 	virtual bool isMicrophoneAccessDeniedByOS();
 
@@ -118,6 +118,8 @@ void WASAPIInit::destroy() {
 
 
 WASAPIInputRegistrar::WASAPIInputRegistrar() : AudioInputRegistrar(QLatin1String("WASAPI"), 10) {
+	echoOptions.push_back(EchoCancelOptionID::SPEEX_MIXED);
+	echoOptions.push_back(EchoCancelOptionID::SPEEX_MULTICHANNEL);
 }
 
 bool WASAPIInputRegistrar::isMicrophoneAccessDeniedByOS() {
@@ -206,8 +208,9 @@ void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) 
 	s.qsWASAPIInput = choice.toString();
 }
 
-bool WASAPIInputRegistrar::canEcho(const QString &outputsys) const {
-	return (outputsys == name);
+bool WASAPIInputRegistrar::canEcho(EchoCancelOptionID echoOptionIDs, const QString &outputSystem) const {
+	return (echoOptionIDs == EchoCancelOptionID::SPEEX_MIXED
+	        || echoOptionIDs == EchoCancelOptionID::SPEEX_MULTICHANNEL) && (outputSystem == name);
 }
 
 bool WASAPIInputRegistrar::canExclusive() const {

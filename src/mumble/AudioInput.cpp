@@ -157,7 +157,7 @@ void Resynchronizer::printQueue(char who) {
 QMap< QString, AudioInputRegistrar * > *AudioInputRegistrar::qmNew;
 QString AudioInputRegistrar::current = QString();
 
-AudioInputRegistrar::AudioInputRegistrar(const QString &n, int p) : name(n), priority(p) {
+AudioInputRegistrar::AudioInputRegistrar(const QString &n, int p) : name(n), priority(p), echoOptions() {
 	if (!qmNew)
 		qmNew = new QMap< QString, AudioInputRegistrar * >();
 	qmNew->insert(name, this);
@@ -514,7 +514,7 @@ void AudioInput::initializeMixer() {
 	pfMicInput = new float[iMicLength];
 
 	if (iEchoChannels > 0) {
-		bEchoMulti = g.s.bEchoMulti;
+		bEchoMulti = (g.s.echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
 		if (iEchoFreq != iSampleRate)
 			srsEcho = speex_resampler_init(bEchoMulti ? iEchoChannels : 1, iEchoFreq, iSampleRate, 3, &err);
 		iEchoLength    = (iFrameSize * iEchoFreq) / iSampleRate;

@@ -49,7 +49,11 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 			qcbInput->addItem(air->name);
 			if (air->name == AudioInputRegistrar::current) {
 				qcbInput->setCurrentIndex(qcbInput->count() - 1);
-				qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+				EchoCancelOptionID echoCancelOptionId = firstUsableEchoCancellation(air, qcbOutput->currentText());
+				if (echoCancelOptionId != EchoCancelOptionID::DISABLED) {
+					qcbEcho->setEnabled(true);
+					qcbEcho->setChecked(g.s.echoOption != EchoCancelOptionID::DISABLED);
+				}
 			}
 			QList< audioDevice > ql = air->getDeviceChoices();
 		}
@@ -57,8 +61,6 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	if (qcbInput->count() < 2) {
 		qcbInput->setEnabled(false);
 	}
-
-	qcbEcho->setChecked(g.s.bEcho);
 
 	if (AudioOutputRegistrar::qmNew) {
 		foreach (AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
@@ -239,7 +241,8 @@ void AudioWizard::on_qcbInputDevice_activated(int) {
 		air->setDeviceChoice(qcbInputDevice->itemData(idx), g.s);
 	}
 
-	qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+	EchoCancelOptionID echoCancelOptionId = firstUsableEchoCancellation(air, qcbOutput->currentText());
+	qcbEcho->setEnabled(echoCancelOptionId != EchoCancelOptionID::DISABLED);
 
 	g.ai = AudioInputPtr(air->create());
 	g.ai->start(QThread::HighestPriority);
@@ -279,8 +282,9 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 		bDelay = aor->usesOutputDelay();
 	}
 
-	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
-	qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+	AudioInputRegistrar *air              = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
+	EchoCancelOptionID echoCancelOptionId = firstUsableEchoCancellation(air, qcbOutput->currentText());
+	qcbEcho->setEnabled(echoCancelOptionId != EchoCancelOptionID::DISABLED);
 
 	g.ao = AudioOutputPtr(aor->create());
 	g.ao->start(QThread::HighPriority);
@@ -651,7 +655,12 @@ void AudioWizard::on_qpbPTT_clicked() {
 }
 
 void AudioWizard::on_qcbEcho_clicked(bool on) {
-	g.s.bEcho = on;
+	if (on) {
+		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
+		g.s.echoOption           = firstUsableEchoCancellation(air, qcbOutput->currentText());
+	} else {
+		g.s.echoOption = EchoCancelOptionID::DISABLED;
+	}
 	restartAudio();
 }
 
@@ -727,4 +736,14 @@ void AudioWizard::on_qrbQualityCustom_clicked() {
 	g.s.iQuality         = sOldSettings.iQuality;
 	g.s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
 	restartAudio();
+}
+
+EchoCancelOptionID AudioWizard::firstUsableEchoCancellation(AudioInputRegistrar *air, const QString outputSys) {
+	for (EchoCancelOptionID ecoid : air->echoOptions) {
+		if (air->canEcho(ecoid, outputSys)) {
+			return ecoid;
+		}
+	}
+
+	return EchoCancelOptionID::DISABLED;
 }

@@ -232,11 +232,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadComboBox(qcbIdleAction, r.iaeIdleAction);
 	loadCheckBox(qcbUndoIdleAction, r.bUndoIdleActionUponActivity);
 
-	int echo = 0;
-	if (r.bEcho)
-		echo = r.bEchoMulti ? 2 : 1;
-
-	loadComboBox(qcbEcho, echo);
+	updateEchoEnableState();
 }
 
 void AudioInputDialog::verifyMicrophonePermission() {
@@ -250,12 +246,12 @@ void AudioInputDialog::verifyMicrophonePermission() {
 		if (air->name == QLatin1String("CoreAudio")) {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText(tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
-									"by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
-									"Microphone."));
+			                        "by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
+			                        "Microphone."));
 		} else if (air->name == QLatin1String("WASAPI")) {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText( tr("Access to the microphone was denied. Please check that your operating system's "
-									 "microphone settings allow Mumble to use the microphone."));
+			                         "microphone settings allow Mumble to use the microphone."));
 		}
 	} else {
 		qcbDevice->setEnabled(true);
@@ -301,8 +297,7 @@ void AudioInputDialog::save() const {
 	s.qsTxAudioCueOff      = qlePushClickPathOff->text();
 
 	s.qsAudioInput    = qcbSystem->currentText();
-	s.bEcho           = qcbEcho->currentIndex() > 0;
-	s.bEchoMulti      = qcbEcho->currentIndex() == 2;
+	s.echoOption    = static_cast<EchoCancelOptionID>(qcbEcho->currentData().toInt());
 	s.bExclusiveInput = qcbExclusive->isChecked();
 
 	if (AudioInputRegistrar::qmNew) {
@@ -511,21 +506,38 @@ void AudioInputDialog::updateEchoEnableState() {
 		outputInterface = s.qsAudioOutput;
 	}
 
-	if (air->canEcho(outputInterface)) {
+	qcbEcho->clear();
+	qcbEcho->setToolTip(QObject::tr("If enabled this tries to cancel out echo from the audio stream."));
+	qcbEcho->setCurrentIndex(0);
+
+	bool hasUsableEchoOption = false;
+
+	qcbEcho->insertItem(0, tr("Disabled"), "disabled");
+	qcbEcho->setItemData(0, tr("Disable echo cancellation."), Qt::ToolTipRole);
+
+	int i = 0;
+	for (EchoCancelOptionID ecoid : air->echoOptions) {
+		if (air->canEcho(ecoid, outputInterface)) {
+			++i;
+			hasUsableEchoOption = true;
+			const EchoCancelOption &echoOption = echoCancelOptions[static_cast<int>(ecoid)];
+			qcbEcho->insertItem(i, echoOption.description, static_cast<int>(ecoid));
+			qcbEcho->setItemData(i, echoOption.explanation, Qt::ToolTipRole);
+			if (s.echoOption == ecoid) {
+				qcbEcho->setCurrentIndex(i);
+			}
+		}
+	}
+
+	if (hasUsableEchoOption) {
 		qcbEcho->setEnabled(true);
-		qcbEcho->setToolTip(QObject::tr(
-			"If enabled this tries to cancel out echo from the audio stream.\n"
-			"Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to "
-			"the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller "
-			"directly.\n"
-			"Multichannel echo cancellation requires more CPU, so you should try mixed first"));
 	} else {
 		qcbEcho->setCurrentIndex(0);
 		qcbEcho->setEnabled(false);
 		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not supported for the interface "
-										"combination \"%1\" (in) and \"%2\" (out).")
-								.arg(air->name)
-								.arg(outputInterface));
+		                                "combination \"%1\" (in) and \"%2\" (out).")
+			                    .arg(air->name)
+			                    .arg(outputInterface));
 	}
 }
 

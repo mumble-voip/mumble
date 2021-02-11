@@ -761,21 +761,6 @@
         <property name="whatsThis">
          <string>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</string>
         </property>
-        <item>
-         <property name="text">
-          <string>Disabled</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Mixed echo cancellation</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Multichannel echo cancellation</string>
-         </property>
-        </item>
        </widget>
       </item>
      </layout>
