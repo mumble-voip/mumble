@@ -81,7 +81,7 @@ Note: The custom port uses our [own fork](https://github.com/mumble-voip/ice) of
 
 ### Additional dependencies on Linux
 
-Additional `dev` packages will need to be installed for some components in vcpkg on GNU/Linux:
+Additional `dev` packages will need to be installed for some components in vcpkg on GNU/Linux (package names match Ubuntu packages):
 
 * `libxi(X11)`
 * `libgl1-mesa`
@@ -89,6 +89,8 @@ Additional `dev` packages will need to be installed for some components in vcpkg
 * `mesa-common`
 * `libxrandr`
 * `libxxf86vm`
+* `libbluetooth`
+* `libx11-xcb`
 
 vcpkg will also require installation of:
 
