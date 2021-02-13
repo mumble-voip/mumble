@@ -298,6 +298,10 @@ int main(int argc, char **argv) {
 								   "                Undeafen self\n"
 								   "  toggledeaf\n"
 								   "                Toggle self-deafen status\n"
+								   "  starttalking\n"
+								   "                Start talking\n"
+								   "  stoptalking\n"
+								   "                Stop talking\n"
 								   "\n");
 
 				QString helpOutput = helpMessage + rpcHelpBanner + rpcHelpMessage;

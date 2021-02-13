@@ -163,6 +163,14 @@ void SocketRPCClient::processXml() {
 					g.mw->qaAudioDeaf->trigger();
 				}
 			}
+			iter = qmRequest.find(QLatin1String("starttalking"));
+			if (iter != qmRequest.constEnd()) {
+				g.mw->on_PushToTalk_triggered(true, QVariant());
+			}
+			iter = qmRequest.find(QLatin1String("stoptalking"));
+			if (iter != qmRequest.constEnd()) {
+				g.mw->on_PushToTalk_triggered(false, QVariant());
+			}
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("url")) {
 			if (g.sh && g.sh->isRunning() && g.uiSession) {
