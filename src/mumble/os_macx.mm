@@ -5,7 +5,9 @@
 
 #include "LogEmitter.h"
 #include "MainWindow.h"
-#include "Overlay.h"
+#ifdef USE_OVERLAY
+#	include "Overlay.h"
+#endif
 #include "Utils.h"
 
 #include <CoreFoundation/CoreFoundation.h>
