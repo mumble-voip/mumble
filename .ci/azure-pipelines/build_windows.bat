@@ -1,4 +1,4 @@
-:: Copyright 2020 The Mumble Developers. All rights reserved.
+:: Copyright 2020-2021 The Mumble Developers. All rights reserved.
 :: Use of this source code is governed by a BSD-style license
 :: that can be found in the LICENSE file at the root of the
 :: Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -43,13 +43,13 @@ for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py" --project
 :: in that case the variable substitution of that variable in the expression below fails (is replaced with empty string)
 :: Also we can't anything else inside the if body as this will cause the curl command to always be executed.
 if defined MUMBLE_BUILD_NUMBER_TOKEN (
-	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?version=%VERSION%_%AGENT_JOBNAME%&token=%MUMBLE_BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
+	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?commit=%BUILD_SOURCEVERSION%&version=%VERSION%&token=%MUMBLE_BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
 ) else (
 	echo Build number token not set - defaulting to 0
 	set BUILD_NUMBER=0
 )
 
-for /f "tokens=* USEBACKQ" %%g in (`python "scripts/mumble-version.py"`) do (set "RELEASE_ID=%%g")
+for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py"`) do (set "RELEASE_ID=%%g")
 
 cd /d %BUILD_BINARIESDIRECTORY%
 

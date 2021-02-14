@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 #
-# Copyright 2019-2020 The Mumble Developers. All rights reserved.
+# Copyright 2019-2021 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -21,7 +21,7 @@
 
 if [[ -n "$MUMBLE_BUILD_NUMBER_TOKEN" ]]; then
 	VERSION=$(python "scripts/mumble-version.py" --project)
-	BUILD_NUMBER=$(curl "https://mumble.info/get-build-number?version=${VERSION}_${AGENT_JOBNAME}&token=${MUMBLE_BUILD_NUMBER_TOKEN}")
+	BUILD_NUMBER=$(curl "https://mumble.info/get-build-number?commit=${BUILD_SOURCEVERSION}&version=${VERSION}&token=${MUMBLE_BUILD_NUMBER_TOKEN}")
 else
 	BUILD_NUMBER=0
 fi
