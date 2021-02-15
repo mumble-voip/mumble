@@ -170,7 +170,7 @@ OverlaySettings::OverlaySettings() {
 	fY    = 0.0f;
 	fZoom = 0.875f;
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	qsStyle = QLatin1String("Cleanlooks");
 #endif
 
@@ -211,7 +211,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 			fMutedDeafened = 0.5f;
 			fAvatar        = 1.0f;
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
 			qfUserName = QFont(QLatin1String("Verdana"), 20);
 #else
 			qfUserName = QFont(QLatin1String("Arial"), 20);
@@ -251,7 +251,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 			fMutedDeafened = (7.0f / 8.0f);
 			fAvatar        = 1.0f;
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
 			qfUserName = QFont(QLatin1String("Verdana"), 20);
 #else
 			qfUserName = QFont(QLatin1String("Arial"), 20);
@@ -615,7 +615,7 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 // it. This causes such settings to fall back
 // to their defaults, instead of being set to
 // a zero value.
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #	undef SAVELOAD
 #	define SAVELOAD(var, name)                                                                          \
 		do {                                                                                             \
@@ -1039,7 +1039,7 @@ void OverlaySettings::save(QSettings *settings_ptr) {
 	settings_ptr->setValue(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION)));
 	settings_ptr->sync();
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
 	if (settings_ptr->format() == QSettings::IniFormat)
 #endif
 	{
