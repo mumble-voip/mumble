@@ -401,9 +401,9 @@ Settings::Settings() {
 	bJackStartServer  = false;
 	bJackAutoConnect  = true;
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	// On macOS Speex can't be used, so we default to Apple's custom echo cancellation mode
-	// Note that this only seems to work with when using the builtin microphone and the builtin speakers. It
+	// Note that this only seems to work with when using the built-in microphone and the built-in speakers. It
 	// doesn't make it worse for other combinations of input and output devices though. Thus it should be
 	// safe to enable this by default.
 	echoOption = EchoCancelOptionID::APPLE_AEC;
@@ -760,6 +760,8 @@ void Settings::load(QSettings *settings_ptr) {
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
+	DEPRECATED("audio/echo");
+	DEPRECATED("audio/echomulti");
 	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
 	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");
@@ -768,7 +770,33 @@ void Settings::load(QSettings *settings_ptr) {
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
 	SAVELOAD(bTransmitPosition, "audio/postransmit");
-	LOADFLAG(echoOption, "audio/echooptionid");
+
+	if (settings_ptr->contains("audio/echooptionid")) {
+		// Load the new echo cancel option instead
+		LOADFLAG(echoOption, "audio/echooptionid");
+	} else {
+#ifndef Q_OS_MACOS
+		// Compatibility layer for overtaking the old (now deprecated) settings
+		// This block should only be called once at the first start of the new Mumble version
+		// As echo cancellation was not available on macOS before, we don't have to run this compatibility
+		// code on macOS (instead simply use the new default as set in the constructor).
+		bool deprecatedEcho      = false;
+		bool deprecatedEchoMulti = false;
+
+		SAVELOAD(deprecatedEcho, "audio/echo");
+		SAVELOAD(deprecatedEchoMulti, "audio/echomulti");
+
+		if (deprecatedEcho) {
+			if (deprecatedEchoMulti) {
+				echoOption = EchoCancelOptionID::SPEEX_MULTICHANNEL;
+			} else {
+				echoOption = EchoCancelOptionID::SPEEX_MIXED;
+			}
+		} else {
+			echoOption = EchoCancelOptionID::DISABLED;
+		}
+#endif
+	}
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
@@ -1133,7 +1161,8 @@ void Settings::save() {
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	SAVEFLAG(echoOption, "audio/echooptionid");
+	DEPRECATED("audio/echo");
+	DEPRECATED("audio/echomulti");
 	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
 	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");
@@ -1142,6 +1171,7 @@ void Settings::save() {
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
 	SAVELOAD(bTransmitPosition, "audio/postransmit");
+	SAVEFLAG(echoOption, "audio/echooptionid");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
