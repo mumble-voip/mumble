@@ -1124,7 +1124,7 @@ void Settings::save() {
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	LOADFLAG(echoOption, "audio/echooptionid");
+	SAVEFLAG(echoOption, "audio/echooptionid");
 	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
 	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");
