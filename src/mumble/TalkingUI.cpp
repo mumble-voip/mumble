@@ -362,10 +362,8 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 		nameMatches = oldUserEntry->getName() == user->qsName;
 
 		if (!nameMatches) {
-			// Hide the stale user
+			// Hide and remove the stale user
 			hideUser(user->uiSession);
-			// Remove the old user
-			removeUser(user->uiSession);
 
 			// reset pointer
 			oldUserEntry = nullptr;
