@@ -102,6 +102,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--newline', action = "store_true", help = 'Break line after printing version')
     parser.add_argument('-p', '--project', action = "store_true", help = 'Print CMake project version')
+    parser.add_argument('-r', '--revision', type = int, default = 1, help = 'Revision (only used for type \'beta\' and \'rc\')')
+    parser.add_argument('-t', '--type', choices = ['snapshot', 'beta', 'rc', 'stable'], default = 'snapshot', help = 'Release type - determines the suffix')
     args = parser.parse_args()
 
     if args.newline:
@@ -109,34 +111,24 @@ def main():
     else:
         end = ''
 
-    if args.project:
-        projectVersion = readProjectVersion()
+    projectVersion = readProjectVersion()
+
+    if args.project or args.type == 'stable':
         print(projectVersion, end = end)
         return
 
-    # Get all tags associated with the latest commit
-    latestCommitTags = [x for x in cmd(['git', 'tag', '--points-at', 'HEAD']).split("\n") if x]
+    if args.type == 'beta' or args.type == 'rc':
+        version = '{0}-{1}{2}'.format(projectVersion, args.type, args.revision)
+        print(version, end = end)
+        return
 
-    if len(latestCommitTags) > 1:
-        raise RuntimeError("Encountered commit with multiple tags: %s" % latestCommitTags)
+    # Get the date of the most recent commit
+    latestCommitDate = cmd(['git', 'log', '-1', '--format=%cd', '--date=short']).strip()
 
-    if len(latestCommitTags) == 1:
-        # Most recent commit is tagged -> this is a tagged release version
-        # Use the tag as the version-string
-        version = latestCommitTags[0]
-    else:
-        # This is a snapshot (i.e. built from a non-tagged commit)
+    # Get the hash of the most recent commit (shortened)
+    latestCommitHash = cmd(['git', 'rev-parse', '--short', 'HEAD']).strip()
 
-        # Get the date of the most recent commit
-        latestCommitDate = cmd(['git', 'log', '-1', '--format=%cd', '--date=short']).strip()
-
-        # Get the hash of the most recent commit (shortened)
-        latestCommitHash = cmd(['git', 'rev-parse', '--short'  , 'HEAD']).strip()
-
-        projectVersion = readProjectVersion()
-
-        version = '{0}~{1}~g{2}~snapshot'.format(projectVersion, latestCommitDate, latestCommitHash)
-
+    version = '{0}~{1}~g{2}~snapshot'.format(projectVersion, latestCommitDate, latestCommitHash)
     print(version, end = end)
 
 if __name__ == '__main__':
