@@ -100,8 +100,8 @@ def readProjectVersion():
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--format', choices = ['full', 'version', 'suffix'], default='full', help = 'Output format')
     parser.add_argument('-n', '--newline', action = "store_true", help = 'Break line after printing version')
-    parser.add_argument('-p', '--project', action = "store_true", help = 'Print CMake project version')
     parser.add_argument('-r', '--revision', type = int, default = 1, help = 'Revision (only used for type \'beta\' and \'rc\')')
     parser.add_argument('-t', '--type', choices = ['snapshot', 'beta', 'rc', 'stable'], default = 'snapshot', help = 'Release type - determines the suffix')
     args = parser.parse_args()
@@ -111,25 +111,29 @@ def main():
     else:
         end = ''
 
-    projectVersion = readProjectVersion()
+    version = readProjectVersion()
 
-    if args.project or args.type == 'stable':
-        print(projectVersion, end = end)
-        return
-
-    if args.type == 'beta' or args.type == 'rc':
-        version = '{0}-{1}{2}'.format(projectVersion, args.type, args.revision)
+    if args.format == 'version':
         print(version, end = end)
         return
 
-    # Get the date of the most recent commit
-    latestCommitDate = cmd(['git', 'log', '-1', '--format=%cd', '--date=short']).strip()
+    suffix = ''
 
-    # Get the hash of the most recent commit (shortened)
-    latestCommitHash = cmd(['git', 'rev-parse', '--short', 'HEAD']).strip()
+    if args.type == 'rc' or args.type == 'beta':
+        suffix = '-{0}{1}'.format(args.type, args.revision)
+    elif args.type == 'snapshot':
+        # Get the date of the most recent commit
+        latestCommitDate = cmd(['git', 'log', '-1', '--format=%cd', '--date=short']).strip()
 
-    version = '{0}~{1}~g{2}~snapshot'.format(projectVersion, latestCommitDate, latestCommitHash)
-    print(version, end = end)
+        # Get the hash of the most recent commit (shortened)
+        latestCommitHash = cmd(['git', 'rev-parse', '--short', 'HEAD']).strip()
+
+        suffix = '~{0}~g{1}~snapshot'.format(latestCommitDate, latestCommitHash)
+
+    if args.format == 'suffix':
+        print(suffix, end = end)
+    else:
+        print(version + suffix, end = end)
 
 if __name__ == '__main__':
     main()
