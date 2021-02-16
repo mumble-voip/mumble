@@ -780,20 +780,22 @@ void Settings::load(QSettings *settings_ptr) {
 		// This block should only be called once at the first start of the new Mumble version
 		// As echo cancellation was not available on macOS before, we don't have to run this compatibility
 		// code on macOS (instead simply use the new default as set in the constructor).
-		bool deprecatedEcho      = false;
-		bool deprecatedEchoMulti = false;
+		if (settings_ptr->contains("audio/echo")) {
+			bool deprecatedEcho      = false;
+			bool deprecatedEchoMulti = false;
 
-		SAVELOAD(deprecatedEcho, "audio/echo");
-		SAVELOAD(deprecatedEchoMulti, "audio/echomulti");
+			SAVELOAD(deprecatedEcho, "audio/echo");
+			SAVELOAD(deprecatedEchoMulti, "audio/echomulti");
 
-		if (deprecatedEcho) {
-			if (deprecatedEchoMulti) {
-				echoOption = EchoCancelOptionID::SPEEX_MULTICHANNEL;
+			if (deprecatedEcho) {
+				if (deprecatedEchoMulti) {
+					echoOption = EchoCancelOptionID::SPEEX_MULTICHANNEL;
+				} else {
+					echoOption = EchoCancelOptionID::SPEEX_MIXED;
+				}
 			} else {
-				echoOption = EchoCancelOptionID::SPEEX_MIXED;
+				echoOption = EchoCancelOptionID::DISABLED;
 			}
-		} else {
-			echoOption = EchoCancelOptionID::DISABLED;
 		}
 #endif
 	}
@@ -1013,6 +1015,8 @@ void Settings::load(QSettings *settings_ptr) {
 	settings_ptr->beginGroup(QLatin1String("overlay"));
 	os.load(settings_ptr);
 	settings_ptr->endGroup();
+
+	qDebug() << "Echo option loaded to" << static_cast<int>(echoOption);
 }
 
 #undef SAVELOAD
