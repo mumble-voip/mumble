@@ -347,17 +347,11 @@ void TalkingUI::addChannel(const Channel *channel) {
 
 		layout()->addWidget(channelWidget);
 
-
 		m_containers.push_back(std::move(channelContainer));
 	}
 }
 
 TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
-	// In a first step, it has to be made sure that the user's channel
-	// exists in this UI.
-	addChannel(user->cChannel);
-
-
 	TalkingUIUser *oldUserEntry = findUser(user->uiSession);
 	bool nameMatches            = true;
 
@@ -368,24 +362,32 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 		nameMatches = oldUserEntry->getName() == user->qsName;
 
 		if (!nameMatches) {
-			// Hide the stale user
+			// Hide and remove the stale user
 			hideUser(user->uiSession);
-			// Remove the old user
-			removeUser(user->uiSession);
 
 			// reset pointer
 			oldUserEntry = nullptr;
 		}
 	}
 
-	if (!oldUserEntry || !nameMatches) {
-		bool isSelf = g.uiSession == user->uiSession;
-		// Create an Entry for this user (alongside the respective labels)
-		// We initially set the labels to not be visible, so that we'll
-		// enter the code-block further down.
+	// Make sure that the user's channel exists in this UI.
+	// Note that this has to be done **after** the name check above as
+	// the user might have been renamed in which case the abovementioned
+	// code block removes the old user entry. If that user was the only
+	// client in its channel, the channel gets removed as well. However
+	// the code below expects the user's channel to exist.
+	addChannel(user->cChannel);
 
-		std::unique_ptr< TalkingUIContainer > &channelContainer =
-			m_containers[findContainer(user->cChannel->iId, ContainerType::CHANNEL)];
+	if (!oldUserEntry || !nameMatches) {
+		// Create an entry for this user
+		bool isSelf = g.uiSession == user->uiSession;
+
+		int channelIndex = findContainer(user->cChannel->iId, ContainerType::CHANNEL);
+		if (channelIndex) {
+			qCritical("TalkingUI::findOrAddUser User's channel does not exist!");
+			return nullptr;
+		}
+		std::unique_ptr< TalkingUIContainer > &channelContainer = m_containers[channelIndex];
 		if (!channelContainer) {
 			qCritical("TalkingUI::findOrAddUser requesting unknown channel!");
 			return nullptr;
