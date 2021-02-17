@@ -237,8 +237,10 @@ void GlobalShortcutMac::forwardEvent(void *evt) {
 #ifdef USE_OVERLAY
 	SEL sel = nil;
 
-	if (! g.ocIntercept)
+	if (! g.ocIntercept) {
+		[event release];
 		return;
+	}
 
 	QWidget *vp = g.ocIntercept->qgv.viewport();
 	NSView *view = (NSView *) vp->winId();
