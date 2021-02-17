@@ -5,18 +5,28 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 #
+# Builds Mumble using the specified build script.
+# The path to the script is relative to the build environment's root.
+# The configuration we build with is adjusted to be close to
+# our release builds.
+#
 # Below is a list of configuration variables used from environment.
 #
 # Predefined variables:
 #
-#  BUILD_BINARIESDIRECTORY - The local path on the agent that can be used
-#                            as an output folder for compiled binaries.
-#  BUILD_SOURCESDIRECTORY  - The local path on the agent where the
-#                            repository is downloaded.
+#  BUILD_BINARIESDIRECTORY      - The local path on the agent that can be used
+#                                 as an output folder for compiled binaries.
+#  BUILD_SOURCESDIRECTORY       - The local path on the agent where the
+#                                 repository is downloaded.
+#
+# Defined in .azure-pipelines.yml:
+#
+#  MUMBLE_ENVIRONMENT_PATH      - Path to the environment's root directory.
+#  MUMBLE_ENVIRONMENT_TOOLCHAIN - Path to the vcpkg CMake toolchain, used for CMake.
 #
 # Defined on Azure Pipelines:
 #
-#  MUMBLE_BUILD_NUMBER_TOKEN      - Access token for the build number page on our server.
+#  MUMBLE_BUILD_NUMBER_TOKEN           - Access token for the build number page on our server.
 #
 
 if [[ -n "$MUMBLE_BUILD_NUMBER_TOKEN" ]]; then
@@ -30,11 +40,19 @@ RELEASE_ID=$(python "scripts/mumble-version.py")
 
 cd $BUILD_BINARIESDIRECTORY
 
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=appdir/usr \
+cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$MUMBLE_ENVIRONMENT_TOOLCHAIN -DIce_HOME="$MUMBLE_ENVIRONMENT_PATH/installed/x64-linux" \
       -DCMAKE_BUILD_TYPE=Release -DRELEASE_ID=$RELEASE_ID -DBUILD_NUMBER=$BUILD_NUMBER \
-      -Dtests=ON -Donline-tests=ON -Dsymbols=ON -Dgrpc=ON \
+      -Dtests=ON -Donline-tests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON \
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 
 cmake --build .
 ctest --verbose
+
+# Move the Mumble client and server binary to the staging directory
+mv mumble murmurd "$BUILD_ARTIFACTSTAGINGDIRECTORY"
+# Move the plugins directory to the staging directory
+mv plugins "$BUILD_ARTIFACTSTAGINGDIRECTORY"
+# Move all shared libraries to the staging directory, but only real files (no symlinks)
+find . -maxdepth 1 -type f -iname "*.so*" | xargs mv --target-directory="$BUILD_ARTIFACTSTAGINGDIRECTORY"
+
 cmake --install .
