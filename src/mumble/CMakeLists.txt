@@ -344,10 +344,13 @@ target_include_directories(mumble
 		"${3RDPARTY_DIR}/smallft"
 )
 
-find_pkg("LibSndFile;sndfile" REQUIRED)
+find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)
 
+# Look for various targets as they are named differently on different platforms
 if(static AND TARGET sndfile-static)
 	target_link_libraries(mumble PRIVATE sndfile-static)
+elseif(TARGET SndFile::sndfile)
+	target_link_libraries(mumble PRIVATE SndFile::sndfile)
 elseif(TARGET sndfile)
 	target_link_libraries(mumble PRIVATE sndfile)
 else()
