@@ -956,14 +956,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>回声消除</translation>
     </message>
     <message>
-        <source>Mixed echo cancellation</source>
-        <translation>混合回声消除</translation>
-    </message>
-    <message>
-        <source>Multichannel echo cancellation</source>
-        <translation>多通道回声消除</translation>
-    </message>
-    <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
         <translation>在检测到任何鼠标或键盘动作后，撤销空闲操作</translation>
     </message>
@@ -1133,6 +1125,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Idle action</source>
         <translation>空闲操作</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation>访问麦克风的权限被拒绝。请您前往“系统偏好设置 -&gt; 安全性与隐私 -&gt; 隐私 -&gt; 麦克风”，允许 Mumble 使用麦克风。</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <translation>访问麦克风的权限被拒绝。请您检查操作系统的麦克风设置，允许 Mumble 使用麦克风。</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>禁用</translation>
+    </message>
+    <message>
+        <source>Disable echo cancellation.</source>
+        <translation>禁用回声消除</translation>
     </message>
 </context>
 <context>
@@ -2040,12 +2048,16 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>最大放大倍数</translation>
     </message>
     <message>
-        <source>PTT key</source>
-        <translation>按键发言键</translation>
-    </message>
-    <message>
         <source>VAD level</source>
         <translation>VAD 级别</translation>
+    </message>
+    <message>
+        <source>PTT shortcut</source>
+        <translation>按键发言快捷键</translation>
+    </message>
+    <message>
+        <source>No buttons assigned</source>
+        <translation>未绑定按键</translation>
     </message>
 </context>
 <context>
@@ -2729,6 +2741,10 @@ Are you sure you wish to replace your certificate?
         <source>Unable to send image %1: too large.</source>
         <translation>无法发送图片 %1：图片过大。</translation>
     </message>
+    <message>
+        <source>This server does not allow sending images.</source>
+        <translation>当前服务器不允许发送图片。</translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -3164,13 +3180,6 @@ Label of the server. This is what the server will be named like in your server l
     </message>
 </context>
 <context>
-    <name>CoreAudioSystem</name>
-    <message>
-        <source>Default Device</source>
-        <translation>默认设备</translation>
-    </message>
-</context>
-<context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
@@ -3368,6 +3377,33 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>GlobalShortcutButtons</name>
+    <message>
+        <source>Edit shortcut</source>
+        <translation>编辑快捷键</translation>
+    </message>
+    <message>
+        <source>Start capture process</source>
+        <translation>开始录制过程</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;开始录制过程：您按下的所有按键会被添加到树中。&lt;/p&gt;&lt;p&gt;所有按键都松开后，录制过程自动停止。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>添加</translation>
+    </message>
+    <message>
+        <source>Remove the currently selected items</source>
+        <translation>删除已选项目</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>删除</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
@@ -3393,6 +3429,24 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Configured shortcuts</source>
         <translation>已配置快捷键</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutEngine</name>
+    <message>
+        <source>Unknown</source>
+        <translation>未知</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutMac</name>
+    <message>
+        <source>Mouse</source>
+        <translation>鼠标</translation>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation>键盘</translation>
     </message>
 </context>
 <context>
@@ -3475,10 +3529,25 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>GlobalShortcutWin</name>
+    <message>
+        <source>Mouse</source>
+        <translation>鼠标</translation>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation>键盘</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutX</name>
     <message>
-        <source>Mouse %1</source>
-        <translation>鼠标 %1</translation>
+        <source>Keyboard</source>
+        <translation>键盘</translation>
+    </message>
+    <message>
+        <source>Mouse</source>
+        <translation>鼠标</translation>
     </message>
 </context>
 <context>
@@ -4353,6 +4422,14 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
         <translation>显示本地用户的监听者</translation>
+    </message>
+    <message>
+        <source>Hide the username for each user if they have a nickname.</source>
+        <translation>如果有昵称则隐藏用户名。</translation>
+    </message>
+    <message>
+        <source>Show nicknames only</source>
+        <translation>仅显示昵称</translation>
     </message>
 </context>
 <context>
@@ -5706,47 +5783,6 @@ Otherwise abort and check your certificate and username.</source>
 </translation>
     </message>
     <message>
-        <source>Usage: mumble rpc &lt;action&gt; [options]
-
-It is possible to remote control a running instance of Mumble by using
-the 'mumble rpc' command.
-
-Valid actions are:
-  mute
-                Mute self
-  unmute
-                Unmute self
-  togglemute
-                Toggle self-mute status
-  deaf
-                Deafen self
-  undeaf
-                Undeafen self
-  toggledeaf
-                Toggle self-deafen status
-
-</source>
-        <translation>用法：mumble rpc &lt;操作&gt; [选项]
-
-可以通过“mumble rpc”命令远程控制一个正在运行的 Mumble 实例。
-
-可用的操作：
-  mute
-                关闭自己的麦克风
-  unmute
-                开启自己的麦克风
-  togglemute
-                开关自己的麦克风
-  deaf
-                关闭自己的扬声器
-  undeaf
-                开启自己的扬声器
-  toggledeaf
-                开关自己的扬声器
-
-</translation>
-    </message>
-    <message>
         <source>Invocation</source>
         <translation>调用</translation>
     </message>
@@ -6253,6 +6289,67 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
         <translation>隐藏/显示主界面</translation>
+    </message>
+    <message>
+        <source>&amp;Set Nickname...</source>
+        <translation>设置昵称(&amp;S)</translation>
+    </message>
+    <message>
+        <source>Set a local nickname</source>
+        <translation>设置本地昵称</translation>
+    </message>
+    <message>
+        <source>Sets a local nickname for another user.</source>
+        <translation>为另一名用户设置本地昵称。</translation>
+    </message>
+    <message>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  togglemute
+                Toggle self-mute status
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+  toggledeaf
+                Toggle self-deafen status
+  starttalking
+                Start talking
+  stoptalking
+                Stop talking
+
+</source>
+        <translation>用法：mumble rpc &lt;操作&gt; [选项]
+
+可以通过“mumble rpc”命令远程控制一个正在运行的 Mumble 实例。
+
+可用的操作：
+  mute
+                关闭自己的麦克风
+  unmute
+                开启自己的麦克风
+  togglemute
+                开关自己的麦克风
+  deaf
+                关闭自己的扬声器
+  undeaf
+                开启自己的扬声器
+  toggledeaf
+                开关自己的扬声器
+ starttalking
+                开始发言
+ stoptalking
+                停止发言
+
+</translation>
     </message>
 </context>
 <context>
@@ -7160,6 +7257,10 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Mumble 重新启动自身失败。请手动重启。</translation>
     </message>
+    <message>
+        <source>Mumble is currently connected to a server</source>
+        <translation>Mumble 已连接到服务器</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -7174,14 +7275,6 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
         <translation>回声消除不支持“%1”输入与“%2”输出接口的组合。</translation>
-    </message>
-    <message>
-        <source>If enabled this tries to cancel out echo from the audio stream.
-Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.
-Multichannel echo cancellation requires more CPU, so you should try mixed first</source>
-        <translation>启用此选项时，对音频流进行回声消除。
-“混合回声消除”将所有扬声器输出混合为单个音频流，并将此流传输给回声消除器，而“多通道回声消除”则直接把所有音频通道传输到回声消除器。
-多通道回声消除需要更多 CPU 资源，所以您应该先尝试混合回声消除。</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -7252,6 +7345,70 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
         <translation>您确定要将所有设置（不仅包括当前可见部分）为默认值吗？</translation>
+    </message>
+    <message>
+        <source>Local Nickname Adjustment...</source>
+        <translation>本地昵称调整...</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
+        <translation>&lt;b&gt;已禁止 URL 方案“%1”&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>The URL uses a scheme that has been blocked for security reasons.</source>
+        <translation>此 URL 使用的方案由于安全原因已被禁止。</translation>
+    </message>
+    <message>
+        <source>Blocked URL: &quot;%1&quot;</source>
+        <translation>禁止 URL：“%1”</translation>
+    </message>
+    <message>
+        <source>Default Device</source>
+        <translation>默认设备</translation>
+    </message>
+    <message>
+        <source>This option works best when using built-in microphone and speaker.</source>
+        <translation>使用内置麦克风和扬声器时，此选项效果最佳。</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation>访问麦克风的权限被拒绝。请您前往“系统偏好设置 -&gt; 安全性与隐私 -&gt; 隐私 -&gt; 麦克风”，允许 Mumble 使用麦克风。</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
+        <translation>由于系统限制，访问麦克风的权限被拒绝。在本次会话中您将无法使用麦克风。</translation>
+    </message>
+    <message>
+        <source>If enabled this tries to cancel out echo from the audio stream.</source>
+        <translation>如果启用，将会尝试消除音频流中的回声。</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>禁用</translation>
+    </message>
+    <message>
+        <source>Echo cancellation is disabled.</source>
+        <translation>回声消除已禁用。</translation>
+    </message>
+    <message>
+        <source>Mixed echo cancellation (speex)</source>
+        <translation>混合回声消除（Speex）</translation>
+    </message>
+    <message>
+        <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
+        <translation>混合模式消耗的 CPU 资源较少，但是它仅在扬声器与麦克风音量等级相近并距离相等时工作良好。</translation>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation (speex)</source>
+        <translation>多通道回声消除（Speex）</translation>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
+        <translation>多通道回声消除提供更好的回声消除效果，但是消耗的 CPU 资源较多，您可能需要先尝试使用混合模式。</translation>
+    </message>
+    <message>
+        <source>Acoustic echo cancellation provided by Apple.</source>
+        <translation>由苹果提供的声学回声消除。</translation>
     </message>
 </context>
 <context>
@@ -7408,15 +7565,12 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation>未绑定</translation>
     </message>
     <message>
-        <source>Shortcut button combination:</source>
-        <translation>快捷键组合：</translation>
+        <source>No buttons assigned</source>
+        <translation>未绑定按键</translation>
     </message>
-</context>
-<context>
-    <name>ShortcutKeyWidget</name>
     <message>
-        <source>Press Shortcut</source>
-        <translation>按下快捷键</translation>
+        <source>Press to show button combination</source>
+        <translation>点击显示组合键</translation>
     </message>
 </context>
 <context>
@@ -7790,6 +7944,25 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
+    <name>UserLocalNicknameDialog</name>
+    <message>
+        <source>Local nickname for other users</source>
+        <translation>其他用户本地昵称</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
+        <translation>&lt;b&gt;在本地调整其他用户的昵称&lt;/b&gt;&lt;br /&gt;</translation>
+    </message>
+    <message>
+        <source>User nickname</source>
+        <translation>用户昵称</translation>
+    </message>
+    <message>
+        <source>Adjusting local nickname for %1</source>
+        <translation>调整 %1 的本地昵称</translation>
+    </message>
+</context>
+<context>
     <name>UserLocalVolumeDialog</name>
     <message>
         <source>Local volume for other users</source>
@@ -7942,6 +8115,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>无法自动完成移动操作，请重设或手动调整位置序号。</translation>
+    </message>
+    <message>
+        <source>Talking while being muted on your end</source>
+        <translation>正在说话，但您已对其静音。</translation>
+    </message>
+    <message>
+        <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
+        <translation>这是一名频道监听者。对应的用户会听到您在此频道的任何发言。</translation>
+    </message>
+    <message>
+        <source>Channel has access restrictions so that you can&apos;t enter it</source>
+        <translation>频道具有访问限制，您无法进入。</translation>
+    </message>
+    <message>
+        <source>Channel has access restrictions but you can enter nonetheless</source>
+        <translation>频道具有访问限制，但您仍可以进入。</translation>
     </message>
 </context>
 <context>

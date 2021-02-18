@@ -959,14 +959,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Ακύρωση Ηχώς</translation>
     </message>
     <message>
-        <source>Mixed echo cancellation</source>
-        <translation>Μικτή ακύρωση ηχώς</translation>
-    </message>
-    <message>
-        <source>Multichannel echo cancellation</source>
-        <translation>Πολυκάναλη ακύρωση ηχώς</translation>
-    </message>
-    <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
         <translation>Η ενέργεια αδράνειας θα αντιστραφεί με το πάτημα οποιουδήποτε πλήκτρου στο πληκτρολόγιο ή στο ποντίκι</translation>
     </message>
@@ -1135,6 +1127,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disable echo cancellation.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2044,11 +2052,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>PTT key</source>
+        <source>VAD level</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>VAD level</source>
+        <source>PTT shortcut</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No buttons assigned</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2734,6 +2746,10 @@ Are you sure you wish to replace your certificate?
         <source>Unable to send image %1: too large.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>This server does not allow sending images.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -3165,13 +3181,6 @@ Label of the server. This is what the server will be named like in your server l
     </message>
 </context>
 <context>
-    <name>CoreAudioSystem</name>
-    <message>
-        <source>Default Device</source>
-        <translation>Προεπιλεγμένη Συσκευή</translation>
-    </message>
-</context>
-<context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
@@ -3367,6 +3376,33 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>GlobalShortcutButtons</name>
+    <message>
+        <source>Edit shortcut</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Start capture process</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove the currently selected items</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
@@ -3391,6 +3427,24 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutEngine</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutMac</name>
+    <message>
+        <source>Mouse</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Keyboard</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3474,10 +3528,25 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>GlobalShortcutWin</name>
+    <message>
+        <source>Mouse</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutX</name>
     <message>
-        <source>Mouse %1</source>
-        <translation>Ποντίκι %1</translation>
+        <source>Keyboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Mouse</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4350,6 +4419,14 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide the username for each user if they have a nickname.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show nicknames only</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -5706,48 +5783,6 @@ Otherwise abort and check your certificate and username.</source>
 </translation>
     </message>
     <message>
-        <source>Usage: mumble rpc &lt;action&gt; [options]
-
-It is possible to remote control a running instance of Mumble by using
-the 'mumble rpc' command.
-
-Valid actions are:
-  mute
-                Mute self
-  unmute
-                Unmute self
-  togglemute
-                Toggle self-mute status
-  deaf
-                Deafen self
-  undeaf
-                Undeafen self
-  toggledeaf
-                Toggle self-deafen status
-
-</source>
-        <translation>Χρήση: mumble rpc &lt;action&gt; [επιλογές]
-
-Μπορείτε να ελέγξετε απομακρυσμένα μια τρέχουσας instance του Mumble χρησιμοποιώντας
-
-την εντολή &apos;mumble rpc&apos;.
-
-Έγκυρες ενέργειες είναι:
-  mute
-                Φίμωση του εαυτού
-  unmute
-                Ξεφίμωση του εαυτού
-  togglemute
-                Εναλλαγή κατάστασης της αυτο-φίμωσης
-  deaf
-                Κώφωση εαυτού
-  undeaf
-                Ξεκώφωση εαυτού
-  toggledeaf
-                Εναλλαγή κατάστασης της αυτο-κώφωσης
-</translation>
-    </message>
-    <message>
         <source>Invocation</source>
         <translation>Επίκληση</translation>
     </message>
@@ -6216,6 +6251,45 @@ Valid options are:
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&amp;Set Nickname...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Set a local nickname</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sets a local nickname for another user.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  togglemute
+                Toggle self-mute status
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+  toggledeaf
+                Toggle self-deafen status
+  starttalking
+                Start talking
+  stoptalking
+                Stop talking
+
+</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7124,6 +7198,10 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Το Mumble απέτυχε να επανεκκινήσει τον εαυτό του. Κάντε επανεκκίνηση χειροκίνητα.</translation>
     </message>
+    <message>
+        <source>Mumble is currently connected to a server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -7137,12 +7215,6 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>If enabled this tries to cancel out echo from the audio stream.
-Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.
-Multichannel echo cancellation requires more CPU, so you should try mixed first</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -7212,6 +7284,70 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local Nickname Adjustment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The URL uses a scheme that has been blocked for security reasons.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Blocked URL: &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Default Device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This option works best when using built-in microphone and speaker.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>If enabled this tries to cancel out echo from the audio stream.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Echo cancellation is disabled.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Mixed echo cancellation (speex)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation (speex)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Acoustic echo cancellation provided by Apple.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7369,15 +7505,12 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation>Μη αναθετημένο</translation>
     </message>
     <message>
-        <source>Shortcut button combination:</source>
+        <source>No buttons assigned</source>
         <translation type="unfinished"/>
     </message>
-</context>
-<context>
-    <name>ShortcutKeyWidget</name>
     <message>
-        <source>Press Shortcut</source>
-        <translation>Πατήστε για Συντόμευση</translation>
+        <source>Press to show button combination</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7751,6 +7884,25 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
+    <name>UserLocalNicknameDialog</name>
+    <message>
+        <source>Local nickname for other users</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>User nickname</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Adjusting local nickname for %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>UserLocalVolumeDialog</name>
     <message>
         <source>Local volume for other users</source>
@@ -7904,6 +8056,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Δεν είναι δυνατή η αυτόματη εκτέλεση αυτής της κίνησης, επαναφέρετε τις αριθμητικές ενδείξεις ταξινόμησης ή ρυθμίστε τη χειροκίνητα.</translation>
+    </message>
+    <message>
+        <source>Talking while being muted on your end</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Channel has access restrictions so that you can&apos;t enter it</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Channel has access restrictions but you can enter nonetheless</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

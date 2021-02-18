@@ -956,14 +956,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Cancellazione Eco</translation>
     </message>
     <message>
-        <source>Mixed echo cancellation</source>
-        <translation>Cancellazione eco mista</translation>
-    </message>
-    <message>
-        <source>Multichannel echo cancellation</source>
-        <translation>Cancellazione eco multicanale</translation>
-    </message>
-    <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
         <translation>Questa azione di inattività verrà annullata in seguito a qualsiasi input</translation>
     </message>
@@ -993,31 +985,31 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"/>
+        <translation>Non utilizzare la riduzione rumore.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"/>
+        <translation>Utilizza l&apos;algoritmo di riduzione rumore fornito da Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"/>
+        <translation>Utilizza l&apos;algoritmo di riduzione rumore fornito da RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"/>
+        <translation>Utilizza una combinazione di Speex e RNNoise per la riduzione rumore.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"/>
+        <translation>Entrambi</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"/>
+        <translation>Controlla la quantità di rumore che Speex ridurrà.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"/>
+        <translation>Intensità riduzione rumore Speex</translation>
     </message>
 </context>
 <context>
@@ -1133,6 +1125,22 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>Idle action</source>
         <translation>Azione inattività</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation>L&apos;accesso al microfono è stato negato. Per favore permetti a Mumble di utilizzare il microfono cambiando le impostazioni del sistema su Impostazioni -&gt;  Privacy -&gt; Microfono.</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <translation>L&apos;accesso al microfono è stato negato. Per favore controlla che le impostazioni del microfono sul tuo sistema operativo consentano a Mumble di utilizzare il microfono.</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Disabilitato</translation>
+    </message>
+    <message>
+        <source>Disable echo cancellation.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2042,12 +2050,16 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
         <translation>Amplificazione massima</translation>
     </message>
     <message>
-        <source>PTT key</source>
-        <translation>Pulsante Push-To-Talk</translation>
-    </message>
-    <message>
         <source>VAD level</source>
         <translation>Livello VAD</translation>
+    </message>
+    <message>
+        <source>PTT shortcut</source>
+        <translation>Scorciatoia PTT</translation>
+    </message>
+    <message>
+        <source>No buttons assigned</source>
+        <translation>Nessun tasto assegnato</translation>
     </message>
 </context>
 <context>
@@ -2731,6 +2743,10 @@ Sei sicuro di voler sostituire il tuo certificato?
         <source>Unable to send image %1: too large.</source>
         <translation>Impossibile inviare immagine %1: dimensione troppo grande.</translation>
     </message>
+    <message>
+        <source>This server does not allow sending images.</source>
+        <translation>Il server non permette l&apos;invio di immagini.</translation>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -2827,15 +2843,15 @@ Sei sicuro di voler sostituire il tuo certificato?
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"/>
+        <translation>Ripristina i valori predefiniti delle impostazioni nella pagina corrente. Le altre pagine non verrano modificate.&lt;br /&gt;Per ripristinare i valori predefiniti di tutte le impostazioni puoi premere il pulsante &quot;Impostazioni predefinite&quot;.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"/>
+        <translation>Impostazioni predefinite</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"/>
+        <translation>Ripristina i valori predefiniti per tutte le impostazioni.</translation>
     </message>
 </context>
 <context>
@@ -3166,13 +3182,6 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
     </message>
 </context>
 <context>
-    <name>CoreAudioSystem</name>
-    <message>
-        <source>Default Device</source>
-        <translation>Dispositivo predefinito</translation>
-    </message>
-</context>
-<context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
@@ -3237,11 +3246,11 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"/>
+        <translation>Il file di database &apos;%1&apos; specificato nelle impostazioni non esiste. Vuoi creare un nuovo database in questa posizione?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble non è riuscito ad inizializzare un databese in nessuna delle possibili posizioni.</translation>
     </message>
 </context>
 <context>
@@ -3370,6 +3379,33 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     </message>
 </context>
 <context>
+    <name>GlobalShortcutButtons</name>
+    <message>
+        <source>Edit shortcut</source>
+        <translation>Modifica scorciatoia</translation>
+    </message>
+    <message>
+        <source>Start capture process</source>
+        <translation>Registra tasti</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inizia il processo di registrazione dei tasti: tutti i tasti che premerai verranno aggiunti.&lt;/p&gt;&lt;p&gt;Una volta che tutti i tasti verranno rilasciati, il processo di registrazione verrà interrotto automaticamente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Aggiungi</translation>
+    </message>
+    <message>
+        <source>Remove the currently selected items</source>
+        <translation>Rimuovi gli oggetti attualmente selezionati</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Rimuovi</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
@@ -3395,6 +3431,24 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     <message>
         <source>Configured shortcuts</source>
         <translation>Scorciatoie configurate</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutEngine</name>
+    <message>
+        <source>Unknown</source>
+        <translation>Sconosciuto</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutMac</name>
+    <message>
+        <source>Mouse</source>
+        <translation>Mouse</translation>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation>Tastiera</translation>
     </message>
 </context>
 <context>
@@ -3477,10 +3531,25 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     </message>
 </context>
 <context>
+    <name>GlobalShortcutWin</name>
+    <message>
+        <source>Mouse</source>
+        <translation>Mouse</translation>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation>Tastiera</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutX</name>
     <message>
-        <source>Mouse %1</source>
-        <translation>Mouse %1</translation>
+        <source>Keyboard</source>
+        <translation>Tastiera</translation>
+    </message>
+    <message>
+        <source>Mouse</source>
+        <translation>Mouse</translation>
     </message>
 </context>
 <context>
@@ -4342,19 +4411,27 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation type="unfinished"/>
+        <translation>Mostra la regolazione del volume locale per ogni utente (se presente).</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"/>
+        <translation>Mostra regolazioni volume.</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation type="unfinished"/>
+        <translation>Imposta se mostrare nella TalkingUI tutti gli utenti che stanno ascoltando (orecchie) l&apos;utente locale (e quindi anche i canali in cui si trovano).</translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
-        <translation type="unfinished"/>
+        <translation>Mostra ascoltatori dell&apos;utente locale (orecchie)</translation>
+    </message>
+    <message>
+        <source>Hide the username for each user if they have a nickname.</source>
+        <translation>Nasconde il nome utente di ogni utente che ha un soprannome.</translation>
+    </message>
+    <message>
+        <source>Show nicknames only</source>
+        <translation>Mostra solo soprannome</translation>
     </message>
 </context>
 <context>
@@ -5711,47 +5788,6 @@ certificato ed il nome utente.</translation>
 </translation>
     </message>
     <message>
-        <source>Usage: mumble rpc &lt;action&gt; [options]
-
-It is possible to remote control a running instance of Mumble by using
-the 'mumble rpc' command.
-
-Valid actions are:
-  mute
-                Mute self
-  unmute
-                Unmute self
-  togglemute
-                Toggle self-mute status
-  deaf
-                Deafen self
-  undeaf
-                Undeafen self
-  toggledeaf
-                Toggle self-deafen status
-
-</source>
-        <translation>Utilizzo: mumble rpc &lt;action&gt; [opzioni]
-
-È possibile controllare da remoto un&apos;istanza di Mumble già avviata utilizzando il comando &quot;mumble rpc&quot;.
-
-Le azioni valide sono:
- mute
-                 Muta te stesso
- unmute
-                 Riattiva il tuo microfono
-togglemute
-                 Mutati/Riattivati
-deaf
-                 Esclude te stesso
-undeaf
-                 Riattiva te stesso
-toggledeaf
-                 Escluditi/Riattivati
-
-</translation>
-    </message>
-    <message>
         <source>Invocation</source>
         <translation>Invocazione</translation>
     </message>
@@ -6172,7 +6208,8 @@ contestuale del canale.</translation>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation type="unfinished"/>
+        <translation>Il file di configurazione %1 non esiste o non è modificabile.
+</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt;]
@@ -6215,11 +6252,90 @@ Valid options are:
                 (useful for debugging purposes)
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilizzo: mumble [opzioni] [&lt;url&gt;]
+
+&lt;url&gt;Specifica un URL a cui connettersi dopo l&apos;avvio, invece
+di visualizzare
+la finestra di connessione, ed ha la seguente forma:
+mumble://[&lt;nomeutente&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;porta&gt;][/&lt;canale&gt;[/&lt;sottocanale&gt;...]][?version=&lt;x.y.z&gt;]
+
+I parametri di versione devono essere messi nel giusto ordine per
+richiamare la giusta versione del client.
+Il valore attuale di default è 1.2.0.
+
+Opzioni valide:
+-h, --help    Visualizza questo messaggio di aiuto ed esce.
+-m, --multiple
+Permette di avviare più di un&apos;istanza del programma contemporaneamente.
+ -c, --config
+Specifica un file di configurazione alternativo.
+Se utilizzi questo per avviare istanze multiple di Mumble,
+assicurati di utilizzare valori alternativi di &quot;database&quot; nelle impostazioni.
+-n, --noidentity
+Impedisce il caricamento di file di identificazione (es. certificati)
+-jn, --jackname&lt;arg&gt;
+Imposta un nome personalizzato per il client Jack.
+--license
+Mostra la licenza di Mumble.
+--authors
+Mostra gli autori di Mumble.
+--third-party-licenses
+Mostra le licenze dei software di terze parti utilizzati da Mumble.
+ --window-title-ext &lt;arg&gt;
+Imposta un&apos;estensione personalizzata del titolo della finestra.
+--dump-input-streams
+Effettua il Dump degli stream PCM in varie parti della catena di input-
+(utile a i fini di debug)
+- input microfono non processato
+- rientro dagli altoparlanti per la cancellazione eco
+- input microfono processato
+--print-echocancel-queue
+Scrive su stdout lo stato della coda della cancellazione eco
+(utile a i fini di debug)
+</translation>
     </message>
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
+        <translation>Nascondi/mostra la finestra principale</translation>
+    </message>
+    <message>
+        <source>&amp;Set Nickname...</source>
+        <translation>Imposta &amp;Soprannome...</translation>
+    </message>
+    <message>
+        <source>Set a local nickname</source>
+        <translation>Imposta un soprannome locale</translation>
+    </message>
+    <message>
+        <source>Sets a local nickname for another user.</source>
+        <translation>Imposta un soprannome locale per un altro utente.</translation>
+    </message>
+    <message>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  togglemute
+                Toggle self-mute status
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+  toggledeaf
+                Toggle self-deafen status
+  starttalking
+                Start talking
+  stoptalking
+                Stop talking
+
+</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6299,15 +6415,15 @@ Valid options are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"/>
+        <translation>Mostra</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation type="unfinished"/>
+        <translation>Durata di visualizzazione degli utenti che non trasmettono suoni (in secondi).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
-        <translation type="unfinished"/>
+        <translation>Visibilità utenti inattivi:</translation>
     </message>
 </context>
 <context>
@@ -7128,6 +7244,10 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation>Il riavvio automatico di Mumble è fallito. Per favore riavvialo manualmente.</translation>
     </message>
+    <message>
+        <source>Mumble is currently connected to a server</source>
+        <translation>Mumble è attualmente connesso ad un server</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -7142,14 +7262,6 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
         <translation>La cancellazione dell&apos;eco non è supportata per la combinazione di interfacce &quot;%1&quot; (in) e &quot;%2&quot; (out).</translation>
-    </message>
-    <message>
-        <source>If enabled this tries to cancel out echo from the audio stream.
-Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.
-Multichannel echo cancellation requires more CPU, so you should try mixed first</source>
-        <translation>Se abilitato cercherà di eliminare dallo stream audio il ritorno prodotto dagli altoparlanti.
-La cancellazione eco Mista unisce tutti i canali di output in uno stream mono e lo processa, mentre la cancellazione eco Multicanale processa direttamente ogni canale singolarmente.
-La cancellazione eco Multicanale richiede più utilizzo di CPU, quindi dovresti prima provare quella Mista.</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you're using Linux this is most likely because you are using a version from your distribution's package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -7187,38 +7299,102 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"/>
+        <translation>Tutti i messaggi</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
-        <translation type="unfinished"/>
+        <translation>Attiva/Disattiva console per tutti gli eventi</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for all events</source>
-        <translation type="unfinished"/>
+        <translation>Attiva/Disattiva notifiche pop-up per tutti gli eventi</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for all events</source>
-        <translation type="unfinished"/>
+        <translation>Attiva/Disattiva primo piano finestra (se non attiva) per tutte le notifiche</translation>
     </message>
     <message>
         <source>Click here to toggle sound notifications for all events</source>
-        <translation type="unfinished"/>
+        <translation>Attiva/Disattiva notifiche sonore per tutti gli eventi</translation>
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
-        <translation type="unfinished"/>
+        <translation>Attiva/Disattiva Sintesi Vocale per tutti gli eventi</translation>
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
-        <translation type="unfinished"/>
+        <translation>RNNoise non è disponibile causa incompatibilità con la frequenza di campionamento.</translation>
     </message>
     <message>
         <source>Reset all settings?</source>
-        <translation type="unfinished"/>
+        <translation>Ripristinare tutte le impostazioni?</translation>
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation>Vuoi davvero ripristinare tutte le impostazioni (non solo quelle attualmente visibili) al loro valore predefinito?</translation>
+    </message>
+    <message>
+        <source>Local Nickname Adjustment...</source>
+        <translation>Modifica Soprannome Locale...</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Schema URL &quot;%1&quot; bloccato&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>The URL uses a scheme that has been blocked for security reasons.</source>
+        <translation>L&apos;URL utilizza uno schema che è stato bloccato per motivi di sicurezza.</translation>
+    </message>
+    <message>
+        <source>Blocked URL: &quot;%1&quot;</source>
+        <translation>URL bloccato: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Default Device</source>
+        <translation>Dispositivo Predefinito</translation>
+    </message>
+    <message>
+        <source>This option works best when using built-in microphone and speaker.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>If enabled this tries to cancel out echo from the audio stream.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Disabilitato</translation>
+    </message>
+    <message>
+        <source>Echo cancellation is disabled.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Mixed echo cancellation (speex)</source>
+        <translation>Cancellazione eco mista (Speex)</translation>
+    </message>
+    <message>
+        <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation (speex)</source>
+        <translation>Cancellazione eco multicanale (Speex)</translation>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Acoustic echo cancellation provided by Apple.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7376,15 +7552,12 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
         <translation>Non assegnato</translation>
     </message>
     <message>
-        <source>Shortcut button combination:</source>
-        <translation type="unfinished"/>
+        <source>No buttons assigned</source>
+        <translation>Nessun tasto assegnato</translation>
     </message>
-</context>
-<context>
-    <name>ShortcutKeyWidget</name>
     <message>
-        <source>Press Shortcut</source>
-        <translation>Premi scorciatoia</translation>
+        <source>Press to show button combination</source>
+        <translation>Premi per mostrare la combinazione di tasti.</translation>
     </message>
 </context>
 <context>
@@ -7758,6 +7931,25 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     </message>
 </context>
 <context>
+    <name>UserLocalNicknameDialog</name>
+    <message>
+        <source>Local nickname for other users</source>
+        <translation>Soprannome locale per altri utenti</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
+        <translation>&lt;b&gt;Imposta localmente il soprannome degli altri utenti&lt;/b&gt;&lt;br /&gt;</translation>
+    </message>
+    <message>
+        <source>User nickname</source>
+        <translation>Soprannome utente</translation>
+    </message>
+    <message>
+        <source>Adjusting local nickname for %1</source>
+        <translation>Imposta soprannome locale per %1</translation>
+    </message>
+</context>
+<context>
     <name>UserLocalVolumeDialog</name>
     <message>
         <source>Local volume for other users</source>
@@ -7910,6 +8102,22 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Impossibile eseguire l&apos;azione automaticamente, per favore reimposta gli indicatori numerici della posizione dei canali o spostalo manualmente.</translation>
+    </message>
+    <message>
+        <source>Talking while being muted on your end</source>
+        <translation>Stai parlando mentre sei mutato da lato tuo</translation>
+    </message>
+    <message>
+        <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
+        <translation>Questo è un ascoltatore del canale. L&apos;utente corrispondente può ascoltare tutto quello che dici in questo canale.</translation>
+    </message>
+    <message>
+        <source>Channel has access restrictions so that you can&apos;t enter it</source>
+        <translation>Il canale ha delle restrizioni che non ti consentono l&apos;accesso</translation>
+    </message>
+    <message>
+        <source>Channel has access restrictions but you can enter nonetheless</source>
+        <translation>Il canale ha delle restrizioni ma tu puoi entrare lo stesso</translation>
     </message>
 </context>
 <context>
