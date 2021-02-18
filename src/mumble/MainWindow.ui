@@ -48,7 +48,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>30</height>
+     <height>32</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmConfig">
@@ -583,7 +583,7 @@
     <string>&amp;Filter on/off</string>
    </property>
    <property name="toolTip">
-    <string>Toggle the channel filter (Ctrl+F)</string>
+    <string>Toggle the channel filter (Alt+F)</string>
    </property>
    <property name="whatsThis">
     <string>Enable or disable the filtering of select channels.
@@ -592,7 +592,7 @@ You can mark additional channels for filtering from
 the channel's context menu.</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+F</string>
+    <string>Alt+F</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
