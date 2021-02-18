@@ -33,5 +33,7 @@
 	<string>NSApplication</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Mumble uses your microphone to allow you to talk to other people</string>
 </dict>
 </plist>

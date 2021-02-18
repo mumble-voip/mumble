@@ -7,7 +7,9 @@
 #import <Carbon/Carbon.h>
 
 #include "GlobalShortcut_macx.h"
-#include "OverlayClient.h"
+#ifdef USE_OVERLAY
+#	include "OverlayClient.h"
+#endif
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
@@ -48,6 +50,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 		case kCGEventLeftMouseDragged:
 		case kCGEventRightMouseDragged:
 		case kCGEventOtherMouseDragged: {
+#ifdef USE_OVERLAY
 			if (g.ocIntercept) {
 				int64_t dx = CGEventGetIntegerValueField(event, kCGMouseEventDeltaX);
 				int64_t dy = CGEventGetIntegerValueField(event, kCGMouseEventDeltaY);
@@ -56,6 +59,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 				QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
 				forward = true;
 			}
+#endif
 			break;
 		}
 
@@ -107,6 +111,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			break;
 	}
 
+#ifdef USE_OVERLAY
 		if (forward && g.ocIntercept) {
 			NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 			NSEvent *evt = [[NSEvent eventWithCGEvent:event] retain];
@@ -114,7 +119,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			[pool release];
 			return nullptr;
 		}
-
+#endif
 	return suppress ? nullptr : event;
 }
 
@@ -229,10 +234,13 @@ void GlobalShortcutMac::dumpEventTaps() {
 
 void GlobalShortcutMac::forwardEvent(void *evt) {
 	NSEvent *event = (NSEvent *)evt;
+#ifdef USE_OVERLAY
 	SEL sel = nil;
 
-	if (! g.ocIntercept)
+	if (! g.ocIntercept) {
+		[event release];
 		return;
+	}
 
 	QWidget *vp = g.ocIntercept->qgv.viewport();
 	NSView *view = (NSView *) vp->winId();
@@ -312,7 +320,7 @@ void GlobalShortcutMac::forwardEvent(void *evt) {
 		if ([view respondsToSelector:sel])
 				[view performSelector:sel withObject:event];
 	}
-
+#endif
 	[event release];
 }
 

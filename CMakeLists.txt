@@ -111,6 +111,13 @@ if(g15 AND WIN32)
 	add_subdirectory(g15helper)
 endif()
 
+if(APPLE AND CMAKE_SYSTEM_PROCESSOR MATCHES "arm64")
+	# mach_override doesn't support ARM
+	# https://github.com/rentzsch/mach_override/issues/6
+	set(overlay OFF CACHE BOOL "" FORCE)
+	message(STATUS "Disabling the overlay on ARM macOS")
+endif()
+
 if(overlay AND client)
 	if(WIN32)
 		add_subdirectory(overlay)

@@ -538,8 +538,8 @@ void MainWindow::hideEvent(QHideEvent *e) {
 #	endif
 		if (g.s.bHideInTray && qstiIcon->isSystemTrayAvailable() && e->spontaneous())
 			QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
-	QMainWindow::hideEvent(e);
 #endif
+	QMainWindow::hideEvent(e);
 }
 
 void MainWindow::showEvent(QShowEvent *e) {
