@@ -3,342 +3,346 @@
     <name>ACLEditor</name>
     <message>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>Denega</translation>
     </message>
     <message>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>Permet</translation>
     </message>
     <message>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>Permet %1</translation>
     </message>
     <message>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>Denega %1</translation>
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Afegir canal</translation>
     </message>
     <message>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Valor del servidor per defecte</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>Error: Canal invàlid</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Editar %1</translation>
     </message>
     <message>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Això atorga el privilegi %1. Si es permet un privilegi i es nega, es nega. &lt;br/&gt; %2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>El canal ha de tenir un nom</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Això revoca el privilegi %1. Si es permet un privilegi i es nega, es nega. 2</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Diàleg</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nom</translation>
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>Introduïu aquí el nom del canal</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Descripció</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Contrassenya</translation>
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>Introduïu aquí la contrasenya del canal</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>Marqueu-ho per crear un canal temporal.</translation>
     </message>
     <message>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>Temporal</translation>
     </message>
     <message>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+Aquest valor us permet canviar la manera en què Mumble organitza els canals de l&apos;arbre. Un canal amb un valor de &lt;i&gt;Position&lt;/i&gt;  més alt sempre es col·locarà per sota d&apos;un amb un valor més baix i a l&apos;inrevés. Si el valor de &lt;i&gt;Position&lt;/i&gt; posició de dos canals és igual s&apos;ordenaran alfabèticament pel seu nom.</translation>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Posició</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Grups</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>Grup</translation>
     </message>
     <message>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>Llista de grups</translation>
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>Elimina el grup seleccionat</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Elimina</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"/>
+        <translation>Hereta els membres del grup del pare</translation>
     </message>
     <message>
         <source>Inherit</source>
-        <translation type="unfinished"/>
+        <translation>Hereta</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>Fer que el grup sigui heretable als subcanals</translation>
     </message>
     <message>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>Heretable</translation>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>El grup s&apos;ha heretat del canal pare</translation>
     </message>
     <message>
         <source>Inherited</source>
-        <translation type="unfinished"/>
+        <translation>Heretat</translation>
     </message>
     <message>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>Membres</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Afegir</translation>
     </message>
     <message>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>Afegir membre al grup</translation>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>Eliminar membre del grup</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ACL</translation>
     </message>
     <message>
         <source>Active ACLs</source>
-        <translation type="unfinished"/>
+        <translation>Activar ACLs</translation>
     </message>
     <message>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>Llista d&apos;entrades</translation>
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"/>
+        <translation>Heretar ACL del pare?</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"/>
+        <translation>Això estableix si l&apos;ACL de la cadena de canals parentals s&apos;aplica o no a aquest objecte. Només s&apos;heretaran aquelles entrades que estan marcades al pare com a &quot;Aplicació als subcanals&quot;.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"/>
+        <translation>Heretar ACLs</translation>
     </message>
     <message>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>Mou l&apos;entrada cap amunt</translation>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"/>
+        <translation>Això mou l&apos;entrada cap amunt a la llista. A mesura que les entrades s&apos;avaluen per ordre, això pot canviar els permisos efectius dels usuaris. No podeu moure una entrada per sobre d&apos;una entrada heretada, si realment necessiteu que heu de duplicar l&apos;entrada heretada.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Amunt</translation>
     </message>
     <message>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>Mou l&apos;entrada avall</translation>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation type="unfinished"/>
+        <translation>Això mou l&apos;entrada cap avall a la llista. A mesura que les entrades s&apos;avaluen per ordre, això pot canviar els permisos efectius dels usuaris.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Avall</translation>
     </message>
     <message>
         <source>Add new entry</source>
-        <translation type="unfinished"/>
+        <translation>Afegir nova entrada.</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation type="unfinished"/>
+        <translation>Això afegeix una entrada nova, inicialment establerta sense permisos i aplicada a tots.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Afegir</translation>
     </message>
     <message>
         <source>Remove entry</source>
-        <translation type="unfinished"/>
+        <translation>Eliminar entrada</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"/>
+        <translation>Això elimina l&apos;entrada seleccionada.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Eliminar</translation>
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Contexte</translation>
     </message>
     <message>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"/>
+        <translation>L&apos;entrada s&apos;ha d&apos;aplicar a aquest canal.</translation>
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Això fa que l&apos;entrada s&apos;apliqui a aquest canal.</translation>
     </message>
     <message>
         <source>Applies to this channel</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;aplica a aquest canal</translation>
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;entrada s&apos;ha d&apos;aplicar als subcanals.</translation>
     </message>
     <message>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>Afegir nou grup</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Afegir&lt;/b&gt;&lt;br/&gt;
+Afegir un grup nou.</translation>
     </message>
     <message>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>Membres heretats</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Conté la llista de membres afegits al grup per aquest canal.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>Conté una llista de membres el grup dels quals no serà heretat del canal pare.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"/>
+        <translation>Conté la llista de membres heretats per altres canals.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Escriviu el nom d&apos;un usuari que vulgueu afegir al grup i feu clic a Afegir.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Escriviu el nom d&apos;un usuari que voleu suprimir del grup i feu clic a Afegeix.</translation>
     </message>
     <message>
         <source>Exclude</source>
-        <translation type="unfinished"/>
+        <translation>Excloure</translation>
     </message>
     <message>
         <source>Excluded members</source>
-        <translation type="unfinished"/>
+        <translation>Membres exclosos</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Això fa que l&apos;entrada s&apos;apliqui als subcanals d&apos;aquest canal.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;aplica als subcanals</translation>
     </message>
     <message>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>Permisos</translation>
     </message>
     <message>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>Usuari/Grup</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Grup al qual s&apos;aplica aquesta entrada</translation>
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>ID d&apos;usuari</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Usuari al qual s&apos;aplica aquesta entrada</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation type="unfinished"/>
+        <translation>Això controla a quin usuari s&apos;aplica aquesta entrada. Només cal escriure el nom d’usuari i prémer Retorn per consultar una coincidència al servidor.</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Propietats</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Nom&lt;/b&gt;&lt;br /&gt;Introduïu el nom del canal en aquest camp. El nom ha de complir la restricció imposada pel servidor al qual esteu connectat.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Temporal&lt;/b&gt;&lt;br /&gt;
+Quan estigui marcat, el canal creat es marcarà com a temporal. Això vol dir que quan el darrer usuari el deixi, el servidor se suprimirà automàticament del canal.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Grup&lt;/b&gt;&lt;br /&gt;
+Aquests són tots els grups definits actualment per al canal. Per crear un grup nou, només cal que escriviu el nom i premeu Retorn.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Eliminar&lt;/b&gt;&lt;br /&gt;Això elimina el grup seleccionat actualment. Si s&apos;ha heretat el grup, no s&apos;eliminarà de la llista, però s&apos;esborrarà tota la informació local sobre el grup.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
@@ -355,7 +359,8 @@ These are all the groups currently defined for the channel. To create a new grou
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Membres&lt;/b&gt;&lt;br /&gt;
+Aquesta llista conté tots els membres que han estat afegits al grup pel canal actual. Tingueu en compte que això no inclou els membres heretats per nivells superiors de l&apos;arbre del canal. Aquests es poden trobar a la llista de &lt;i&gt;membres heretats&lt;/i&gt;. Per evitar que aquesta llista sigui heretada pels canals de nivell inferior, desmarcar &lt;i&gt;Heretable&lt;/i&gt; o afegir manualment els membres a la llista de &lt;i&gt;membres exclosos&lt;/i&gt; .</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
@@ -369,7 +374,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"/>
+        <translation>Això controla a quin grup d&apos;usuaris s&apos;aplica aquesta entrada&lt;br /&gt;Tingueu en compte que el grup s&apos;avalua en el context del canal on s&apos;utilitza l&apos;entrada. Per exemple, l&apos;ACL per defecte del canal arrel proporciona permisos d&apos;&lt;i&gt;Escriptura&lt;/i&gt;  a l&apos; &lt;i&gt;administrador&lt;/i&gt; del grup. Aquesta entrada, si l&apos;hereta un canal, donarà privilegis d&apos;escriptura a l&apos;usuari si pertany al grup&lt;i&gt;administrador&lt;/i&gt;  en aquest canal, encara que no pertanyi al grup &lt;i&gt;admin&lt;/i&gt; al canal on s&apos;ha originat l&apos;ACL.&lt;br /&gt;Si un nom de grup comença per &quot;!&quot;, La seva pertinença es nega i si comença per  &apos;~&apos;, s&apos;avalua en el canal on es va definir l&apos;ACL, en lloc del canal en què està activa l&apos;ACL.&lt;br /&gt;Si el nom d&apos;un grup comença per &apos;#&apos;, s’interpreta com un testimoni d’accés. Els usuaris han d&apos;haver introduït el que sigui a continuació de la &apos;#&apos; de la seva llista de testimonis d&apos;accés per coincidir. Això es pot utilitzar per a un accés de contrasenya molt simple als canals per a usuaris no autenticats.&lt;br /&gt;Si el nom d&apos;un grup comença amb &apos;$&apos;, només coincidirà amb els usuaris el resum del certificat dels quals coincideixi amb el que segueix el  &apos;$&apos;.&lt;br /&gt;Hi ha alguns grups predefinits especials
+ :&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Tothom coincidirà.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Tots els usuaris autenticats coincidiran.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Usuari actualment en un mínim de subcanal &lt;i&gt;a&lt;/i&gt; pares comuns, i entre &lt;i&gt;b&lt;/i&gt; i &lt;i&gt;c&lt;/i&gt; canals a sota de la cadena. Consulteu el lloc web per obtenir documentació més extensa sobre aquest.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Els usuaris que estan actualment al canal coincidiran (conveniència per &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Els usuaris fora del canal coincidiran (conveniència per &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Tingueu en compte que una entrada s’aplica a un usuari o a un grup, no a tots dos</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -402,7 +408,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Propietats</translation>
     </message>
     <message>
         <source>Channel password</source>
@@ -948,14 +954,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
         <translation type="unfinished"/>
     </message>
@@ -1124,6 +1122,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disable echo cancellation.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2010,11 +2024,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>PTT key</source>
+        <source>VAD level</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>VAD level</source>
+        <source>PTT shortcut</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No buttons assigned</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2690,6 +2708,10 @@ Are you sure you wish to replace your certificate?
         <source>Unable to send image %1: too large.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>This server does not allow sending images.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ClientUser</name>
@@ -3116,13 +3138,6 @@ Label of the server. This is what the server will be named like in your server l
     </message>
 </context>
 <context>
-    <name>CoreAudioSystem</name>
-    <message>
-        <source>Default Device</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
@@ -3318,6 +3333,33 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>GlobalShortcutButtons</name>
+    <message>
+        <source>Edit shortcut</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Start capture process</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove the currently selected items</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
@@ -3342,6 +3384,24 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutEngine</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutMac</name>
+    <message>
+        <source>Mouse</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Keyboard</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3425,9 +3485,24 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
 </context>
 <context>
+    <name>GlobalShortcutWin</name>
+    <message>
+        <source>Mouse</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Keyboard</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutX</name>
     <message>
-        <source>Mouse %1</source>
+        <source>Keyboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Mouse</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -4292,6 +4367,14 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide the username for each user if they have a nickname.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show nicknames only</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -5644,29 +5727,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Usage: mumble rpc &lt;action&gt; [options]
-
-It is possible to remote control a running instance of Mumble by using
-the 'mumble rpc' command.
-
-Valid actions are:
-  mute
-                Mute self
-  unmute
-                Unmute self
-  togglemute
-                Toggle self-mute status
-  deaf
-                Deafen self
-  undeaf
-                Undeafen self
-  toggledeaf
-                Toggle self-deafen status
-
-</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Invocation</source>
         <translation type="unfinished"/>
     </message>
@@ -6132,6 +6192,45 @@ Valid options are:
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&amp;Set Nickname...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Set a local nickname</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sets a local nickname for another user.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  togglemute
+                Toggle self-mute status
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+  toggledeaf
+                Toggle self-deafen status
+  starttalking
+                Start talking
+  stoptalking
+                Stop talking
+
+</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7035,6 +7134,10 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Mumble failed to restart itself. Please restart it manually.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Mumble is currently connected to a server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -7048,12 +7151,6 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>If enabled this tries to cancel out echo from the audio stream.
-Mixed echo cancellation mixes all speaker outputs in one mono stream and passes that stream to the echo canceller, while multichannel echo cancellation passes all audio channels to the echo canceller directly.
-Multichannel echo cancellation requires more CPU, so you should try mixed first</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -7123,6 +7220,70 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local Nickname Adjustment...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The URL uses a scheme that has been blocked for security reasons.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Blocked URL: &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Default Device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This option works best when using built-in microphone and speaker.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>If enabled this tries to cancel out echo from the audio stream.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Echo cancellation is disabled.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Mixed echo cancellation (speex)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation (speex)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Acoustic echo cancellation provided by Apple.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7280,14 +7441,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Shortcut button combination:</source>
+        <source>No buttons assigned</source>
         <translation type="unfinished"/>
     </message>
-</context>
-<context>
-    <name>ShortcutKeyWidget</name>
     <message>
-        <source>Press Shortcut</source>
+        <source>Press to show button combination</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7659,6 +7817,25 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
+    <name>UserLocalNicknameDialog</name>
+    <message>
+        <source>Local nickname for other users</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>User nickname</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Adjusting local nickname for %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>UserLocalVolumeDialog</name>
     <message>
         <source>Local volume for other users</source>
@@ -7810,6 +7987,22 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Talking while being muted on your end</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Channel has access restrictions so that you can&apos;t enter it</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Channel has access restrictions but you can enter nonetheless</source>
         <translation type="unfinished"/>
     </message>
 </context>
