@@ -410,8 +410,8 @@ ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
 		if (g.s.qsUsername.isEmpty()) {
 			bool ok;
 			QString defUserName =
-				QInputDialog::getText(p, ConnectDialog::tr("Adding host %1").arg(url.host()),
-									  ConnectDialog::tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok)
+				QInputDialog::getText(p, QObject::tr("Adding host %1").arg(url.host()),
+									  QObject::tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok)
 					.trimmed();
 			if (!ok)
 				return nullptr;
@@ -485,45 +485,45 @@ QVariant ServerItem::data(int column, int role) const {
 			QString qs;
 			qs += QLatin1String("<table>")
 				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						.arg(ConnectDialog::tr("Servername"), qsName.toHtmlEscaped())
+						.arg(QObject::tr("Servername"), qsName.toHtmlEscaped())
 				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						.arg(ConnectDialog::tr("Hostname"), qsHostname.toHtmlEscaped());
+						.arg(QObject::tr("Hostname"), qsHostname.toHtmlEscaped());
 #ifdef USE_ZEROCONF
 			if (!zeroconfHost.isEmpty())
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						  .arg(ConnectDialog::tr("Bonjour name"), zeroconfHost.toHtmlEscaped());
+						  .arg(QObject::tr("Bonjour name"), zeroconfHost.toHtmlEscaped());
 #endif
 			qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-					  .arg(ConnectDialog::tr("Port"))
+					  .arg(QObject::tr("Port"))
 					  .arg(usPort)
 				  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						.arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
+						.arg(QObject::tr("Addresses"), qsl.join(QLatin1String(", ")));
 
 			if (!qsUrl.isEmpty())
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						  .arg(ConnectDialog::tr("Website"), qsUrl.toHtmlEscaped());
+						  .arg(QObject::tr("Website"), qsUrl.toHtmlEscaped());
 
 			if (uiSent > 0) {
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-						  .arg(ConnectDialog::tr("Packet loss"),
+						  .arg(QObject::tr("Packet loss"),
 							   QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent));
 				if (uiRecv > 0) {
 					qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-							  .arg(ConnectDialog::tr("Ping (80%)"),
-								   ConnectDialog::tr("%1 ms").arg(
+							  .arg(QObject::tr("Ping (80%)"),
+								   QObject::tr("%1 ms").arg(
 									   boost::accumulators::extended_p_square(*asQuantile)[1] / 1000., 0, 'f', 2))
 						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-								.arg(ConnectDialog::tr("Ping (95%)"),
-									 ConnectDialog::tr("%1 ms").arg(
+								.arg(QObject::tr("Ping (95%)"),
+									 QObject::tr("%1 ms").arg(
 										 boost::accumulators::extended_p_square(*asQuantile)[2] / 1000., 0, 'f', 2))
 						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-								.arg(ConnectDialog::tr("Bandwidth"),
-									 ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))
+								.arg(QObject::tr("Bandwidth"),
+									 QObject::tr("%1 kbit/s").arg(uiBandwidth / 1000))
 						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-								.arg(ConnectDialog::tr("Users"),
+								.arg(QObject::tr("Users"),
 									 QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers))
 						  + QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>")
-								.arg(ConnectDialog::tr("Version"))
+								.arg(QObject::tr("Version"))
 								.arg(MumbleVersion::toString(uiVersion));
 				}
 			}
