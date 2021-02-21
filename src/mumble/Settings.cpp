@@ -1015,8 +1015,6 @@ void Settings::load(QSettings *settings_ptr) {
 	settings_ptr->beginGroup(QLatin1String("overlay"));
 	os.load(settings_ptr);
 	settings_ptr->endGroup();
-
-	qDebug() << "Echo option loaded to" << static_cast<int>(echoOption);
 }
 
 #undef SAVELOAD
