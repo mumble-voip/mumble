@@ -946,7 +946,13 @@ void MainWindow::openUrl(const QUrl &url) {
 
 	QUrlQuery query(url);
 	QString version = query.queryItemValue(QLatin1String("version"));
-	MumbleVersion::get(&major, &minor, &patch, version);
+	if (version.size() > 0) {
+		if (!MumbleVersion::get(&major, &minor, &patch, version)) {
+			// The version format is invalid
+			g.l->log(Log::Warning, QObject::tr("The provided URL uses an invalid version format: \"%1\"").arg(version));
+			return;
+		}
+	}
 
 	if ((major < 1) ||                                       // No pre 1.2.0
 		(major == 1 && minor <= 1) || (major > thismajor) || // No future version
