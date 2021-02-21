@@ -23,7 +23,7 @@ QString MumbleVersion::toString(unsigned int v) {
 }
 
 bool MumbleVersion::get(int *major, int *minor, int *patch, const QString &version) {
-	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+).(\\d+)"));
+	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)(?:\\.(\\d+))?"));
 
 	if (rx.exactMatch(version)) {
 		if (major)
