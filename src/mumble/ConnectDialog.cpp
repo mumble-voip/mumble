@@ -950,7 +950,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	}
 
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("&Connect"));
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("C&onnect"));
 
 	QPushButton *qpbAdd = new QPushButton(tr("&Add New..."), this);
 	qpbAdd->setDefault(false);
