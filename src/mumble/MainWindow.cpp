@@ -954,9 +954,17 @@ void MainWindow::openUrl(const QUrl &url) {
 		}
 	}
 
-	if ((major < 1) ||                                       // No pre 1.2.0
-		(major == 1 && minor <= 1) || (major > thismajor) || // No future version
-		(major == thismajor && minor > thisminor) || (major == thismajor && minor == thisminor && patch > thispatch)) {
+	// We can't handle URLs for versions < 1.2.0
+	const int minMajor = 1;
+	const int minMinor = 2;
+	const int minPatch = 0;
+	const bool isPre_120 = major < minMajor || (major == minMajor && minor < minMinor)
+		|| (major == minMajor && minor == minMinor && patch < minPatch);
+	// We also can't handle URLs for versions newer than the running Mumble instance
+	const bool isFuture  = major > thismajor || (major == thismajor && minor > thisminor)
+		|| (major == thismajor && minor == thisminor && patch > thispatch);
+
+	if (isPre_120 || isFuture) {
 		g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3")
 								   .arg(major)
 								   .arg(minor)
