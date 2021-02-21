@@ -907,7 +907,7 @@ static void recreateServerHandler() {
 }
 
 void MainWindow::openUrl(const QUrl &url) {
-	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString().toHtmlEscaped()));
+	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString(QUrl::RemovePassword).toHtmlEscaped()));
 	if (url.scheme() == QLatin1String("file")) {
 		QFile f(url.toLocalFile());
 		if (!f.exists() || !f.open(QIODevice::ReadOnly)) {
