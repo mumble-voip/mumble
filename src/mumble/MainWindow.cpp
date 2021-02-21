@@ -940,9 +940,9 @@ void MainWindow::openUrl(const QUrl &url) {
 	MumbleVersion::get(&thismajor, &thisminor, &thispatch);
 
 	// With no version parameter given assume the link refers to our version
-	major = 1;
-	minor = 2;
-	patch = 0;
+	major = thismajor;
+	minor = thisminor;
+	patch = thispatch;
 
 	QUrlQuery query(url);
 	QString version = query.queryItemValue(QLatin1String("version"));
