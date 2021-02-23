@@ -1,5 +1,5 @@
 freebsd_instance:
-  image: freebsd-12-1-release-amd64
+  image: freebsd-12-2-release-amd64
 
 freebsd_task:
   update_script: pkg update && pkg upgrade -y
