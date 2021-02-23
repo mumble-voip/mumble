@@ -39,9 +39,7 @@ public:
 	/// Examples: "10.0.19042.1", "10.16.0 20C69"
 	static QString getOSVersion();
 
-	static void fillXml(QDomDocument &doc, QDomElement &root, const QString &os = OSInfo::getOS(),
-						const QString &osver          = OSInfo::getOSVersion(),
-						const QList< QHostAddress > & = QList< QHostAddress >());
+	static void fillXml(QDomDocument &doc, QDomElement &root, const QList< QHostAddress > & = {});
 };
 
 #endif

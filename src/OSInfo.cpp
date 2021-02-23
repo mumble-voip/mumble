@@ -376,8 +376,7 @@ QString OSInfo::getOSVersion() {
 #endif
 }
 
-void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, const QString &osver,
-					 const QList< QHostAddress > &qlBind) {
+void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QList< QHostAddress > &qlBind) {
 	QDomElement tag = doc.createElement(QLatin1String("machash"));
 	root.appendChild(tag);
 	QDomText t = doc.createTextNode(getMacHash(qlBind));
@@ -400,7 +399,7 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 
 	tag = doc.createElement(QLatin1String("os"));
 	root.appendChild(tag);
-	t = doc.createTextNode(os);
+	t = doc.createTextNode(getOS());
 	tag.appendChild(t);
 
 	tag = doc.createElement(QLatin1String("osarch"));
@@ -410,7 +409,7 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 
 	tag = doc.createElement(QLatin1String("osver"));
 	root.appendChild(tag);
-	t = doc.createTextNode(osver);
+	t = doc.createTextNode(getOSVersion());
 	tag.appendChild(t);
 
 	tag = doc.createElement(QLatin1String("osverbose"));

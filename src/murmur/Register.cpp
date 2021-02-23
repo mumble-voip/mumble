@@ -55,7 +55,7 @@ void Server::update() {
 	QDomElement root = doc.createElement(QLatin1String("server"));
 	doc.appendChild(root);
 
-	OSInfo::fillXml(doc, root, meta->qsOS, meta->qsOSVersion, qlBind);
+	OSInfo::fillXml(doc, root, qlBind);
 
 	QDomElement tag;
 	QDomText t;
