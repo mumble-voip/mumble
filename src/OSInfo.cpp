@@ -200,9 +200,6 @@ QString OSInfo::getOSDisplayableVersion(const bool appendArch) {
 			return QString();
 		}
 
-		_SYSTEM_INFO si;
-		GetNativeSystemInfo(&si);
-
 		if (ovi.dwMajorVersion == 10) {
 			if (ovi.wProductType == VER_NT_WORKSTATION) {
 				os = QLatin1String("Windows 10");
