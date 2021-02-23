@@ -327,6 +327,8 @@ QString OSInfo::getOSDisplayableVersion(const bool appendArch) {
 
 		return os;
 	}
+#elif defined(Q_OS_MACOS)
+	const QString os = QLatin1String("macOS ") + getOSVersion();
 #else
 	const QString os = QSysInfo::prettyProductName();
 #endif
