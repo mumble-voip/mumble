@@ -30,6 +30,65 @@
 #                               Must match .7z and extracted folder name.
 #
 
+# Always quit on encountered errors
+$ErrorActionPreference = 'Stop'
+
+# According to https://github.com/PowerShell/PowerShell/issues/2138 disabling the
+# progress bar can significantly increase the speed of Invoke-Web-Request.
+$ProgressPreference = 'SilentlyContinue'
+
+# We require a separate function that makes sure the run command's exit code
+# is properly checked, so we can mimmick Bash's -e flag.
+function Invoke-Command {
+  $command = $args[0]
+  $arguments = $args[1..($args.Length)]
+  & $command @arguments
+
+  # Check for non-zero exit code
+  if ($LastExitCode -ne 0) {
+    Write-Error "Exit code $LastExitCode while running $command $arguments"
+  }
+}
+
+# The Download function attempts the download multiple times before
+# erroring out
+function Download {
+	Param(
+		[string] $source,
+		[string] $destination
+	)
+
+	Write-Host "Downloading from '$source' to '$destination'..."
+
+	$iterations = 0
+	$maxIterations = 3
+
+	while($iterations -lt $maxIterations) {
+		try {
+			$iterations += 1
+
+			Write-Host "Attempt #$iterations"
+
+			Invoke-WebRequest -Uri "$source" -OutFile "$destination"
+
+			Write-Host "Download succeeded"
+
+			break
+		} catch {
+			Write-Host "Download failed"
+
+			if ($iterations -lt $maxIterations) {
+				Write-Host "Retrying in 5s..."
+				# We sleep in case this was a network error that might be fixed in a couple of seconds
+				Start-Sleep -Seconds 5
+			} else {
+				Write-Error "Download failed too often - giving up"
+			}
+		}
+	}
+
+}
+
 Set-Location -Path $env:AGENT_TEMPDIRECTORY
 
 $SOURCE_DIR = $env:BUILD_SOURCESDIRECTORY
@@ -41,55 +100,37 @@ if (-Not (Test-Path $MUMBLE_ENVIRONMENT_STORE)) {
 	New-Item $MUMBLE_ENVIRONMENT_STORE -ItemType Directory | Out-Null
 }
 
-# According to https://github.com/PowerShell/PowerShell/issues/2138 disabling the
-# progress bar can significantly increase the speed of Invoke-Web-Request.
-$ProgressPreference = 'SilentlyContinue'
-
 if (-Not (Test-Path (Join-Path $MUMBLE_ENVIRONMENT_STORE $MUMBLE_ENVIRONMENT_VERSION))) {
 	Write-Host "Environment not cached. Downloading..."
 
 	$env_url = "$env:MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.7z"
 	$env_7z = Join-Path $MUMBLE_ENVIRONMENT_STORE "$MUMBLE_ENVIRONMENT_VERSION.7z";
-	try {
-		Invoke-WebRequest -Uri $env_url -OutFile $env_7z
-	} catch {
-		Write-Host "Failed to download build-environment: $PSItem"
-		exit 1
-	}
+
+	Download -source "$env_url" -destination "$env_7z"
 
 	Write-Host "Extracting build environment to $MUMBLE_ENVIRONMENT_STORE..."
-	7z x $env_7z -o"$MUMBLE_ENVIRONMENT_STORE"
+	Invoke-Command 7z x $env_7z -o"$MUMBLE_ENVIRONMENT_STORE"
 }
 
 Write-Host "Downloading ASIO SDK..."
 
-try {
-	Invoke-WebRequest -Uri "https://dl.mumble.info/build/extra/asio_sdk.zip" -OutFile "asio_sdk.zip"
-	7z x "asio_sdk.zip"
-	Move-Item -Path "asiosdk_2.3.3_2019-06-14" -Destination "$SOURCE_DIR/3rdparty/asio"
-} catch {
-	Write-Host "Failed to download ASIO SDK: $PSItem"
-	exit 1
-}
+Download -source "https://dl.mumble.info/build/extra/asio_sdk.zip" -destination "asio_sdk.zip"
+Invoke-Command 7z x "asio_sdk.zip"
+Move-Item -Path "asiosdk_2.3.3_2019-06-14" -Destination "$SOURCE_DIR/3rdparty/asio"
+
 
 Write-Host "Downloading G15 SDK..."
 
-try {
-	Invoke-WebRequest -Uri "https://dl.mumble.info/build/extra/g15_sdk.zip" -OutFile "g15_sdk.zip"
-	7z x "g15_sdk.zip"
-	Move-Item -Path "G15SDK/LCDSDK" -Destination "$SOURCE_DIR/3rdparty/g15"
-} catch {
-	Write-Host "Failed to download G15 SDK: $PSItem"
-	exit 1
-}
+Download -source "https://dl.mumble.info/build/extra/g15_sdk.zip" -destination "g15_sdk.zip"
+Invoke-Command 7z x "g15_sdk.zip"
+Move-Item -Path "G15SDK/LCDSDK" -Destination "$SOURCE_DIR/3rdparty/g15"
+
 
 Write-Host "Downloading WixSharp..."
 
-try {
-	Invoke-WebRequest -Uri "https://github.com/oleg-shilo/wixsharp/releases/download/v1.15.0.0/WixSharp.1.15.0.0.7z" -OutFile "WixSharp.1.15.0.0.7z"
-} catch {
-	Write-Host "Failed to download WixSharp : $PSItem"
-	exit 1
-}
+Download -source "https://github.com/oleg-shilo/wixsharp/releases/download/v1.15.0.0/WixSharp.1.15.0.0.7z" -destination "WixSharp.1.15.0.0.7z"
 Write-Host "Exracting WixSharp to $env:AGENT_TOOLSDIRECTORY/WixSharp..."
-7z x "WixSharp.1.15.0.0.7z" -o"$env:AGENT_TOOLSDIRECTORY/WixSharp"
+Invoke-Command 7z x "WixSharp.1.15.0.0.7z" "-o$env:AGENT_TOOLSDIRECTORY/WixSharp"
+
+
+Write-Host "Build environment successfully installed"
