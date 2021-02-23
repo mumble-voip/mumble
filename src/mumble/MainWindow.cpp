@@ -940,17 +940,31 @@ void MainWindow::openUrl(const QUrl &url) {
 	MumbleVersion::get(&thismajor, &thisminor, &thispatch);
 
 	// With no version parameter given assume the link refers to our version
-	major = 1;
-	minor = 2;
-	patch = 0;
+	major = thismajor;
+	minor = thisminor;
+	patch = thispatch;
 
 	QUrlQuery query(url);
 	QString version = query.queryItemValue(QLatin1String("version"));
-	MumbleVersion::get(&major, &minor, &patch, version);
+	if (version.size() > 0) {
+		if (!MumbleVersion::get(&major, &minor, &patch, version)) {
+			// The version format is invalid
+			g.l->log(Log::Warning, QObject::tr("The provided URL uses an invalid version format: \"%1\"").arg(version));
+			return;
+		}
+	}
 
-	if ((major < 1) ||                                       // No pre 1.2.0
-		(major == 1 && minor <= 1) || (major > thismajor) || // No future version
-		(major == thismajor && minor > thisminor) || (major == thismajor && minor == thisminor && patch > thispatch)) {
+	// We can't handle URLs for versions < 1.2.0
+	const int minMajor = 1;
+	const int minMinor = 2;
+	const int minPatch = 0;
+	const bool isPre_120 = major < minMajor || (major == minMajor && minor < minMinor)
+		|| (major == minMajor && minor == minMinor && patch < minPatch);
+	// We also can't handle URLs for versions newer than the running Mumble instance
+	const bool isFuture  = major > thismajor || (major == thismajor && minor > thisminor)
+		|| (major == thismajor && minor == thisminor && patch > thispatch);
+
+	if (isPre_120 || isFuture) {
 		g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3")
 								   .arg(major)
 								   .arg(minor)
