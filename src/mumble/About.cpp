@@ -16,6 +16,9 @@
 // (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
+#define DOQUOTE(arg) #arg
+#define QUOTE(arg) DOQUOTE(arg)
+
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("About Mumble"));
 
@@ -55,13 +58,21 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QLabel *text = new QLabel(about);
 	text->setTextInteractionFlags(Qt::TextBrowserInteraction);
 	text->setOpenExternalLinks(true);
+
+	QString copyrightText;
+#ifdef MUMBLE_BUILD_YEAR
+	copyrightText = "Copyright 2005-" QUOTE(MUMBLE_BUILD_YEAR) " The Mumble Developers";
+#else // MUMBLE_BUILD_YEAR
+	copyrightText = "Copyright 2005-now The Mumble Developers";
+#endif // MUMBLE_BUILD_YEAR
+
 	text->setText(tr("<h3>Mumble (%1)</h3>"
 					 "<p>%3</p>"
-					 "<p><b>A voice-chat utility for gamers</b></p>"
+					 "<p><b>An Open Source, low-latency, high quality voice-chat utility</b></p>"
 					 "<p><tt><a href=\"%2\">%2</a></tt></p>")
 					  .arg(QLatin1String(MUMBLE_RELEASE))
 					  .arg(QLatin1String("https://www.mumble.info/"))
-					  .arg(QLatin1String("Copyright 2005-2020 The Mumble Developers")));
+					  .arg(copyrightText));
 	QHBoxLayout *qhbl = new QHBoxLayout(about);
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);

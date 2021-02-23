@@ -18,7 +18,16 @@ struct ThirdPartyLicense {
 	bool isEmpty() const { return (name == 0 && url == 0 && license == 0); }
 };
 
-static const char *licenseMumble = "Copyright (C) 2005-2020 The Mumble Developers\n"
+#define DOQUOTE(arg) #arg
+#define QUOTE(arg) DOQUOTE(arg)
+
+#ifdef MUMBLE_BUILD_YEAR
+#	define COPYRIGHT_END QUOTE(MUMBLE_BUILD_YEAR)
+#else
+#	define COPYRIGHT_END "now"
+#endif
+
+static const char *licenseMumble = "Copyright (C) 2005-" COPYRIGHT_END " The Mumble Developers\n"
 								   "\n"
 								   "A list of The Mumble Developers can be found in the\n"
 								   "AUTHORS file at the root of the Mumble source tree\n"
