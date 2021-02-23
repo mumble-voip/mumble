@@ -30,6 +30,22 @@
 #                               Must match .7z and extracted folder name.
 #
 
+# Always quit on encountered errors
+$ErrorActionPreference = 'Stop'
+
+# We require a separate function that makes sure the run command's exit code
+# is properly checked, so we can mimmick Bash's -e flag.
+function Invoke-Command {
+  $command = $args[0]
+  $arguments = $args[1..($args.Length)]
+  & $command @arguments
+
+  # Check for non-zero exit code
+  if ($LastExitCode -ne 0) {
+    Write-Error "Exit code $LastExitCode while running $command $arguments"
+  }
+}
+
 Set-Location -Path $env:AGENT_TEMPDIRECTORY
 
 $SOURCE_DIR = $env:BUILD_SOURCESDIRECTORY
@@ -58,14 +74,14 @@ if (-Not (Test-Path (Join-Path $MUMBLE_ENVIRONMENT_STORE $MUMBLE_ENVIRONMENT_VER
 	}
 
 	Write-Host "Extracting build environment to $MUMBLE_ENVIRONMENT_STORE..."
-	7z x $env_7z -o"$MUMBLE_ENVIRONMENT_STORE"
+	Invoke-Command 7z x $env_7z -o"$MUMBLE_ENVIRONMENT_STORE"
 }
 
 Write-Host "Downloading ASIO SDK..."
 
 try {
 	Invoke-WebRequest -Uri "https://dl.mumble.info/build/extra/asio_sdk.zip" -OutFile "asio_sdk.zip"
-	7z x "asio_sdk.zip"
+	Invoke-Command 7z x "asio_sdk.zip"
 	Move-Item -Path "asiosdk_2.3.3_2019-06-14" -Destination "$SOURCE_DIR/3rdparty/asio"
 } catch {
 	Write-Host "Failed to download ASIO SDK: $PSItem"
@@ -76,7 +92,7 @@ Write-Host "Downloading G15 SDK..."
 
 try {
 	Invoke-WebRequest -Uri "https://dl.mumble.info/build/extra/g15_sdk.zip" -OutFile "g15_sdk.zip"
-	7z x "g15_sdk.zip"
+	Invoke-Command 7z x "g15_sdk.zip"
 	Move-Item -Path "G15SDK/LCDSDK" -Destination "$SOURCE_DIR/3rdparty/g15"
 } catch {
 	Write-Host "Failed to download G15 SDK: $PSItem"
@@ -92,4 +108,4 @@ try {
 	exit 1
 }
 Write-Host "Exracting WixSharp to $env:AGENT_TOOLSDIRECTORY/WixSharp..."
-7z x "WixSharp.1.15.0.0.7z" -o"$env:AGENT_TOOLSDIRECTORY/WixSharp"
+Invoke-Command 7z x "WixSharp.1.15.0.0.7z" "-o$env:AGENT_TOOLSDIRECTORY/WixSharp"
