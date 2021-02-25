@@ -596,9 +596,6 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		QString text = !v.isNull() ? v : Meta::mp.qsWelcomeText;
 		if (text != qsWelcomeText) {
 			qsWelcomeText = text;
-			MumbleProto::ServerConfig mpsc;
-			mpsc.set_welcome_text(u8(qsWelcomeText));
-			sendAll(mpsc);
 		}
 	} else if (key == "registername") {
 		QString text = !v.isNull() ? v : Meta::mp.qsRegName;
