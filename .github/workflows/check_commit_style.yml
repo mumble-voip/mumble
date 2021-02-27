@@ -1,0 +1,26 @@
+name: Commit style check
+
+on: [pull_request]
+
+jobs:
+  commit-check:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+    - name: Install Python
+      run: sudo apt install python3
+      shell: bash
+
+    - uses: actions/checkout@v2
+      with:
+          # Assume that there are not >200 new commits that need checking
+          fetch-depth: 200
+          # Don't checkout submodules
+          submodules: 'false'
+          # Don't create a merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Verify commits
+      run: $GITHUB_WORKSPACE/.github/workflows/check_commit_style.py
+      shell: bash
