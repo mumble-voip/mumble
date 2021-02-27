@@ -46,3 +46,4 @@ doxygen/
 build/
 compile_commands.json
 .devcontainer/*
+__pycache__/
