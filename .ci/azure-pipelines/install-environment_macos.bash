@@ -23,7 +23,22 @@ echo "Environment not cached. Downloading..."
 
 environmentArchive="$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
 
-axel -n 10 --output="$environmentArchive" "$MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
+iteration=0
+maxIterations=3
+
+while [ $iteration -lt $maxIterations ]; do
+	# By using && we avoid Bash exiting if the command fails even if the -e flag is set
+	axel -n 10 --output="$environmentArchive" "$MUMBLE_ENVIRONMENT_SOURCE/$MUMBLE_ENVIRONMENT_VERSION.tar.xz" && break
+
+	iteration=$(( $iteration + 1 ))
+
+	sleep 5
+done
+
+if [ $iteration -ge $maxIterations ]; then
+	echo "Failed at downloading the build environment"
+	exit 1
+fi
 
 echo "Extracting build environment to $MUMBLE_ENVIRONMENT_STORE..."
 
