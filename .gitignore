@@ -45,3 +45,4 @@ doxygen/
 .directory
 build/
 compile_commands.json
+.devcontainer/*
