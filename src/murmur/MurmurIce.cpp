@@ -87,7 +87,7 @@ static std::string iceBase64(const std::string &s) {
 	QByteArray ba(s.data(), static_cast< int >(s.size()));
 	QByteArray ba64 = ba.toBase64();
 
-	return std::string(ba64.data(), static_cast< size_t >(ba.size()));
+	return std::string(ba64.data(), static_cast< size_t >(ba64.size()));
 }
 
 static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
