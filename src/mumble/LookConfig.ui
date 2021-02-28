@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>728</width>
-    <height>1148</height>
+    <width>753</width>
+    <height>1186</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -579,10 +579,23 @@
       <string>Application</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliAlwaysOnTop">
+      <item row="1" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
+        <property name="toolTip">
+         <string>Adds user and channel context menus into the menu bar</string>
+        </property>
         <property name="text">
-         <string>Always On Top</string>
+         <string>Show context menu in menu bar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbEnableDeveloperMenu">
+        <property name="whatsThis">
+         <string>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</string>
+        </property>
+        <property name="text">
+         <string>Enable Developer menu</string>
         </property>
        </widget>
       </item>
@@ -616,13 +629,10 @@
         </item>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
-        <property name="toolTip">
-         <string>Adds user and channel context menus into the menu bar</string>
-        </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliAlwaysOnTop">
         <property name="text">
-         <string>Show context menu in menu bar</string>
+         <string>Always On Top</string>
         </property>
        </widget>
       </item>
@@ -639,23 +649,23 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbEnableDeveloperMenu">
-        <property name="whatsThis">
-         <string>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</string>
-        </property>
-        <property name="text">
-         <string>Enable Developer menu</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
+      <item row="5" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbLockLayout">
         <property name="whatsThis">
          <string>When in custom layout mode, checking this disables rearranging.</string>
         </property>
         <property name="text">
          <string>Lock layout</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="qcbCloseToTray">
+        <property name="toolTip">
+         <string>This setting controls that should mumble go to tray when closed</string>
+        </property>
+        <property name="text">
+         <string>Minimize instead of close</string>
         </property>
        </widget>
       </item>
