@@ -19,9 +19,7 @@ set -u
 set -e
 set -o pipefail
 
-file="mumble_en.ts"
 rootDir="$(dirname $(realpath $0))/.."
-filePath="./src/mumble/$file"
 
 cd "$rootDir"
 
@@ -59,26 +57,22 @@ function main
 {
 	checkRequirements
 
-	if ! [[ -f "$filePath" ]];
-	then
-		printError "Could not find file '$filePath'."
-		exit 1
-	fi
-
-	if [[ -n $(git status --porcelain "$filePath") ]] ; then
-		printError "The file $filePath has local changes."
-		exit 1
-	fi
-
 	echo "TRANSLATION: Update translation files" > $tmpfile
 	echo "" >> $tmpfile
 	
-	lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete -no-recursive -extensions "ui,c,cpp,h,mm" "./src" "./src/mumble" -ts "$filePath" \
-		| tee -a $tmpfile || fatal "lupdate failed"
-	echo ""
+	for filePath in src/mumble/*.ts; do
+		if [[ -n $(git status --porcelain "$filePath") ]] ; then
+			printError "The file $filePath has local changes."
+			exit 1
+		fi
+
+		lupdate -no-ui-lines -disable-heuristic similartext -locations none -no-obsolete -no-recursive -extensions "ui,c,cpp,h,mm" "./src" "./src/mumble" -ts "$filePath" \
+			| tee -a $tmpfile || fatal "lupdate failed"
+		echo ""
+	done
 
 
-	if ! [[ -n $(git status --porcelain $filePath) ]] ; then
+	if ! [[ -n $(git status --porcelain src/mumble/mumble_*.ts) ]] ; then
 		echo "No translation changes. Nothing to commit."
 		rm $tmpfile
 		exit 0
