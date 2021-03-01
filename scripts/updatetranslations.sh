@@ -9,7 +9,6 @@
 #
 # The main actions this script performs:
 # * lupdate to update translation strings
-# * Duplicate single 'numerusform' entries in mumble_en.ts to work around #1195
 # * Commit the resulting translation file
 #
 # Requires qt5 ; sudo apt-get install libqt5-dev
@@ -40,7 +39,6 @@ function checkRequirements
 {
 	requireCommand lupdate
 	requireCommand qmake
-	requireCommand perl
 	requireCommand git
 }
 
@@ -79,9 +77,6 @@ function main
 		| tee -a $tmpfile || fatal "lupdate failed"
 	echo ""
 
-	# Duplicate single numerusform entries in mumble_en.ts to work around #1195
-	perl -pi -e 's!(^\s*)(<numerusform></numerusform>)$!\1\2\2!' $filePath || (rm $tmpfile ; fatal "Workardound for #1195 failed - in-place replacement via perl.")
-	
 
 	if ! [[ -n $(git status --porcelain $filePath) ]] ; then
 		echo "No translation changes. Nothing to commit."
