@@ -1,3 +1,8 @@
+# Copyright 2019-2021 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 variables:
   MUMBLE_ENVIRONMENT_STORE: '$(Agent.ToolsDirectory)/MumbleBuild'
   MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'

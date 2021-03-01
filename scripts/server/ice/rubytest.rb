@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+# Copyright 2009-2021 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+
 # Download Murmur.ice from
 # http://mumble.git.sourceforge.net/git/gitweb.cgi?p=mumble;a=blob_plain;f=src/murmur/Murmur.ice;hb=HEAD
 # and run 'slice2rb Murmur.ice'. slice2rb is part of ICE.
