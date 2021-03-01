@@ -163,7 +163,6 @@ macro(find_pkg ARG_ALIASES)
 		endif()
 	endforeach()
 
-	unset(ALIASES)
 	unset(LAST_ALIAS)
 	unset(FIND_PACKAGE_ARGUMENTS)
 
@@ -182,11 +181,33 @@ macro(find_pkg ARG_ALIASES)
 
 			unset(NAME_UPPER)
 		endif()
+
+		# If multiple capitalizations are searched for this will ensure that the
+		# lowercase name of the library's variables are set as well.
+		# Simplifying usage of find_pkg on case-insensitive file systems.
+		string(TOLOWER ${NAME} NAME_LOWER)
+		if(NOT ${NAME} STREQUAL NAME_LOWER AND ${NAME_LOWER} IN_LIST ALIASES)
+
+			if(NOT ${NAME_LOWER}_VERSION)
+				set(${NAME_LOWER}_VERSION ${${NAME}_VERSION})
+			endif()
+
+			if(NOT ${NAME_LOWER}_LIBRARIES)
+				set(${NAME_LOWER}_LIBRARIES ${${NAME}_LIBRARIES})
+			endif()
+
+			if(NOT ${NAME_LOWER}_FOUND)
+				set(${NAME_LOWER}_FOUND ${${NAME}_FOUND})
+			endif()
+
+		endif()
+		unset(NAME_LOWER)
 	elseif(NOT FIND_PACKAGE_QUIET)
 		if(NOT PkgConfig_FOUND)
 			message(WARNING "pkg-config was not found, consider installing it for better chances of finding a package")
 		endif()
 	endif()
 
+	unset(ALIASES)
 	unset(NAME)
 endmacro()
