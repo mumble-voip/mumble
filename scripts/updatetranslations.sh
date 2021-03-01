@@ -71,7 +71,6 @@ function main
 		echo ""
 	done
 
-
 	if ! [[ -n $(git status --porcelain src/mumble/mumble_*.ts) ]] ; then
 		echo "No translation changes. Nothing to commit."
 		rm $tmpfile
@@ -89,4 +88,3 @@ function main
 }
 
 main
-
