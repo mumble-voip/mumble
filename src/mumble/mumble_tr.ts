@@ -1098,15 +1098,15 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paket başı ses</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sıkıştırma kalitesi (azami bant genişliği)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gürültü iptali</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1126,7 +1126,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Boşta faaliyet (Idle)</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1134,11 +1134,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mikrofona erişim reddedildi. Lütfen işletim sisteminizin mikrofon ayarlarının Mumble&apos;ın mikrofonu kullanmasına izin verip vermediğini kontrol edin.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Devre dışı</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1462,7 +1462,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gelen konuşma için ses hacmi</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1470,7 +1470,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diğer tüm uygulamaları konuşma sırasında kıs</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1486,7 +1486,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Genişletme</translation>
     </message>
     <message>
         <source>Delay variance</source>
@@ -2205,7 +2205,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">İP Adresi</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2303,7 +2303,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Güncel sertifika</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2315,11 +2315,11 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">İçe aktarılacak sertifika</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yeni sertifika</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2946,7 +2946,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filtre</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2962,7 +2962,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hepsi</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3345,7 +3345,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ekle</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3353,7 +3353,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kaldır</translation>
     </message>
 </context>
 <context>
@@ -3388,7 +3388,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bilinmiyor</translation>
     </message>
 </context>
 <context>
@@ -6142,7 +6142,7 @@ ilave kanallar ekleyebilirsiniz.</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanal</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6325,7 +6325,7 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Görüntü</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -7180,11 +7180,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yerel olarak susturuldu</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mesajları Görmezden Gel</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7196,7 +7196,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yerel Ses Ayarı...</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
@@ -7260,7 +7260,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Varsayılan cihaz</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7280,7 +7280,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Devre dışı</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7312,15 +7312,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kullanıcı ismi giriniz</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sunucu ismi</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Makine ismi</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -7328,7 +7328,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Port</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7348,7 +7348,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7356,19 +7356,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bant genişliği</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kullanıcılar</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sürüm</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7627,7 +7627,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mesaj</translation>
     </message>
 </context>
 <context>

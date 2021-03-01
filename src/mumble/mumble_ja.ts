@@ -1086,7 +1086,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在の発言検出見込み</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1098,15 +1098,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">パケットあたりの音声長</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">圧縮品質(ピーク帯域幅)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ノイズ抑制</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1126,7 +1126,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アイドル時の動作</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1138,7 +1138,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">無効</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1462,7 +1462,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">受信音声の音量</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1470,7 +1470,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">会話中の他のアプリケーションの減衰</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1486,7 +1486,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ブルーム</translation>
     </message>
     <message>
         <source>Delay variance</source>
@@ -2188,7 +2188,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">クリア</translation>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
@@ -2202,7 +2202,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IPアドレス</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2300,7 +2300,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在の証明書</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2312,11 +2312,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">インポートする証明書</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しい証明書</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2941,7 +2941,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フィルタ</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2957,7 +2957,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">全て</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3336,7 +3336,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">追加</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3344,7 +3344,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">削除</translation>
     </message>
 </context>
 <context>
@@ -3469,7 +3469,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル</translation>
     </message>
 </context>
 <context>
@@ -3741,7 +3741,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テキストメッセージ</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -4741,15 +4741,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">常に有効</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">声で有効化</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク</translation>
     </message>
     <message>
         <source>Mumble - Minimal View -- %1</source>
@@ -5943,7 +5943,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">編集(&amp;E)...</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6123,7 +6123,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6238,7 +6238,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ポジション</translation>
     </message>
     <message>
         <source>X</source>
@@ -6278,7 +6278,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コンテキスト</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6290,7 +6290,7 @@ Valid actions are:
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">状態</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -6306,7 +6306,7 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">表示</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6799,7 +6799,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">追加</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7160,11 +7160,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ローカルでの発言禁止</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">メッセージを無視する</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7240,7 +7240,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">デフォルトデバイス</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7260,7 +7260,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">無効</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7292,15 +7292,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ名を入力してください</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ名</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ホスト名</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -7308,7 +7308,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ポート</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7336,7 +7336,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ネットワーク帯域</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
@@ -7344,11 +7344,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">バージョン</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7607,7 +7607,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">メッセージ</translation>
     </message>
 </context>
 <context>
@@ -7881,7 +7881,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">手前に表示しない</translation>
     </message>
     <message>
         <source>Channel ID: %1</source>
@@ -8146,7 +8146,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">状態</translation>
     </message>
     <message>
         <source>Valid from: %1</source>

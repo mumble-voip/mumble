@@ -1099,7 +1099,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Supression del bruch</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1678,7 +1678,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Causida periferic</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1698,7 +1698,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aparelh</translation>
     </message>
     <message>
         <source>Input device to use</source>
@@ -2069,7 +2069,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ajustar</translation>
     </message>
     <message>
         <source>&amp;Update</source>
@@ -2077,7 +2077,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Suprimir</translation>
     </message>
     <message>
         <source>Ban List</source>
@@ -2161,7 +2161,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Escafar</translation>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
@@ -2172,11 +2172,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recercar</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adreça IP</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2195,7 +2195,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nom</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2402,7 +2402,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Senhal</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2494,7 +2494,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nom</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2899,7 +2899,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recercar</translation>
     </message>
     <message>
         <source>Location</source>
@@ -3036,7 +3036,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Senhal</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
@@ -3175,7 +3175,7 @@ Label of the server. This is what the server will be named like in your server l
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acorchis</translation>
     </message>
     <message>
         <source>List of configured shortcuts</source>
@@ -3207,7 +3207,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ajustar</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
@@ -3219,7 +3219,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Suprimir</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3296,7 +3296,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajustar</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3304,7 +3304,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suprimir</translation>
     </message>
 </context>
 <context>
@@ -6075,7 +6075,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Canal</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6230,7 +6230,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Contexte</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6498,7 +6498,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Canal</translation>
     </message>
     <message>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
@@ -6715,7 +6715,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suprimir</translation>
     </message>
     <message>
         <source>Font</source>
@@ -6747,7 +6747,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajustar</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7020,11 +7020,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Configurar</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nom</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -7256,7 +7256,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pòrt</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7276,7 +7276,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7292,11 +7292,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utilizaires</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Version</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7585,7 +7585,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ajustar</translation>
     </message>
     <message>
         <source>Remove a token</source>
@@ -7593,7 +7593,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Suprimir</translation>
     </message>
     <message>
         <source>Tokens</source>
@@ -7608,7 +7608,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suprimir</translation>
     </message>
     <message>
         <source>Rename</source>

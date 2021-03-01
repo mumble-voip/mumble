@@ -2193,7 +2193,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2400,7 +2400,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รหัสผ่าน</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2492,7 +2492,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Email</source>
@@ -3034,7 +3034,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รหัสผ่าน</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
@@ -3294,7 +3294,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3302,7 +3302,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอาออก</translation>
     </message>
 </context>
 <context>
@@ -3375,11 +3375,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอาออก</translation>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3490,7 +3490,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -6188,7 +6188,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตำแหน่ง</translation>
     </message>
     <message>
         <source>X</source>
@@ -6392,7 +6392,7 @@ Valid actions are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รหัสผ่าน</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -6713,7 +6713,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอาออก</translation>
     </message>
     <message>
         <source>Font</source>
@@ -6745,7 +6745,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7022,7 +7022,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -7186,7 +7186,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อุปกรณ์ปริยาย</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7606,7 +7606,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอาออก</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -7987,7 +7987,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Flags</source>

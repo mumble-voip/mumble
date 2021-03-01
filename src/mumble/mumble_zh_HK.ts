@@ -859,7 +859,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;瀏覽...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
@@ -2174,7 +2174,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IP位址</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2905,7 +2905,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">過濾</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -3294,7 +3294,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">加入</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3302,7 +3302,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">移除</translation>
     </message>
 </context>
 <context>
@@ -3375,7 +3375,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">加入</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3427,7 +3427,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">頻道</translation>
     </message>
 </context>
 <context>
@@ -4065,7 +4065,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">從不</translation>
     </message>
     <message>
         <source>Always</source>
@@ -6078,7 +6078,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">頻道</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6193,7 +6193,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">位置</translation>
     </message>
     <message>
         <source>X</source>
@@ -6233,7 +6233,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">背景</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6245,7 +6245,7 @@ Valid actions are:
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">狀態</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -6261,7 +6261,7 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">顯示</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6754,7 +6754,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">加入</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7119,7 +7119,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">忽略訊息</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7195,7 +7195,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">預設裝置</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7247,7 +7247,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">輸入使用者名稱</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -7255,7 +7255,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">主機名稱</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -7263,7 +7263,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">連接埠</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7291,11 +7291,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">頻寬</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Users</source>
@@ -7303,7 +7303,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">版本</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -8101,7 +8101,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">狀態</translation>
     </message>
     <message>
         <source>Valid from: %1</source>

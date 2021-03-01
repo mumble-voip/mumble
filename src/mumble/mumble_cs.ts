@@ -1086,7 +1086,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Současná šance zjištění řeči</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1098,15 +1098,15 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zvuk na paket</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kvalita komprimace (maximální šířka pásma)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Potlačení šumu</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1126,7 +1126,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Akce při nečinnosti</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1138,7 +1138,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vypnuto</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1462,7 +1462,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hlasitost příchozí řeči</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1470,7 +1470,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ztišení ostatních aplikací během mluvení</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1486,7 +1486,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bloom</translation>
     </message>
     <message>
         <source>Delay variance</source>
@@ -2208,7 +2208,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IP Adresa</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2306,7 +2306,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Současný Certifikát</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2318,11 +2318,11 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Který certifikát importovat</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nový certifikát</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2948,7 +2948,7 @@ Jste si jisti, že chcete certifikát nahradit?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filtr</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2964,7 +2964,7 @@ Jste si jisti, že chcete certifikát nahradit?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Všechny</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3342,7 +3342,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přidat</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3350,7 +3350,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odstranit</translation>
     </message>
 </context>
 <context>
@@ -3475,7 +3475,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanál</translation>
     </message>
 </context>
 <context>
@@ -3748,7 +3748,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Textová zpráva</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -5954,7 +5954,7 @@ kontextové nabídce kanálů.</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Upravit...</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6134,7 +6134,7 @@ kontextové nabídce kanálů.</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanál</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6249,7 +6249,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umístění</translation>
     </message>
     <message>
         <source>X</source>
@@ -6289,7 +6289,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kontext</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6301,7 +6301,7 @@ Valid actions are:
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stav</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -6317,7 +6317,7 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zobrazení</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6810,7 +6810,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přidat</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7171,11 +7171,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Místní ztlumení</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ignorovat zprávy</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7251,7 +7251,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Výchozí zařízení</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7271,7 +7271,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vypnuto</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7303,15 +7303,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zadejte jméno uživatele</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jméno serveru</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jméno hostitele</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -7319,7 +7319,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Port</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7339,7 +7339,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7347,19 +7347,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šířka pásma</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uživatelé</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verze</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7618,7 +7618,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zpráva</translation>
     </message>
 </context>
 <context>
@@ -8160,7 +8160,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stav</translation>
     </message>
     <message>
         <source>Valid from: %1</source>

@@ -1082,7 +1082,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Șansa de a detecta discursul</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1094,15 +1094,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Audio pe pachet</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Calitatea compresiei (vârful lățimii de bandă)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antifonare</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1122,7 +1122,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acțiune inactivitate</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1134,7 +1134,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dezactivat</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1359,7 +1359,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Exclusiv</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
@@ -1430,11 +1430,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ieșire audio</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>%1 %</source>
@@ -1458,7 +1458,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Volum de intrare a vorbirii</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1482,7 +1482,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bloom</translation>
     </message>
     <message>
         <source>Delay variance</source>
@@ -1622,7 +1622,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Șansa de a detecta discursul</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -1681,7 +1681,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Selectarea dispozitivului</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1693,15 +1693,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistem</translation>
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Metoda de intrare pentru audio</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispozitiv</translation>
     </message>
     <message>
         <source>Input device to use</source>
@@ -1729,7 +1729,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Metoda de ieșire pentru audio</translation>
     </message>
     <message>
         <source>Output device to use</source>
@@ -1772,7 +1772,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cantitatea de date pentru buffer</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
@@ -1790,7 +1790,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Audio pozitional</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
@@ -1905,7 +1905,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
@@ -2072,7 +2072,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Adaugă</translation>
     </message>
     <message>
         <source>&amp;Update</source>
@@ -2080,7 +2080,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Elimină</translation>
     </message>
     <message>
         <source>Ban List</source>
@@ -2199,7 +2199,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nume</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2406,7 +2406,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parolă</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2498,7 +2498,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nume</translation>
     </message>
     <message>
         <source>Email</source>
@@ -3040,7 +3040,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parolă</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
@@ -3211,7 +3211,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Adaugă</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
@@ -3223,7 +3223,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Elimină</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3300,7 +3300,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adaugă</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3308,7 +3308,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elimină</translation>
     </message>
 </context>
 <context>
@@ -3381,11 +3381,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adaugă</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elimină</translation>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3496,7 +3496,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nume</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3804,7 +3804,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Volum</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
@@ -4698,11 +4698,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Continuu</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activitate voce</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -6194,7 +6194,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Poziție</translation>
     </message>
     <message>
         <source>X</source>
@@ -6234,7 +6234,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Context</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6398,7 +6398,7 @@ Valid actions are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parolă</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -6719,7 +6719,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elimină</translation>
     </message>
     <message>
         <source>Font</source>
@@ -6751,7 +6751,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adaugă</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7024,11 +7024,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Configurați</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nume</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -7212,7 +7212,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dezactivat</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7280,7 +7280,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7446,11 +7446,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pornit</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oprit</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -7532,7 +7532,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutToggleWidget</name>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oprit</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -7540,7 +7540,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pornit</translation>
     </message>
 </context>
 <context>
@@ -7589,7 +7589,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Adaugă</translation>
     </message>
     <message>
         <source>Remove a token</source>
@@ -7597,7 +7597,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Elimină</translation>
     </message>
     <message>
         <source>Tokens</source>
@@ -7612,7 +7612,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elimină</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -7995,7 +7995,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nume</translation>
     </message>
     <message>
         <source>Flags</source>
@@ -8224,7 +8224,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Răsfoiește...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>

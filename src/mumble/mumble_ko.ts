@@ -1085,7 +1085,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">현재 발언의 감지 가능성</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1097,15 +1097,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">패킷 당 오디오</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">압축 품질(피크 대역 폭)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">잡음 억제</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1125,7 +1125,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Idle시의 동작</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1137,7 +1137,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">비활성</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1461,7 +1461,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">수신 음성의 볼륨</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1469,7 +1469,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">대화 중의 다른 애플리케이션의 음량 감소율</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1485,7 +1485,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">블룸</translation>
     </message>
     <message>
         <source>Delay variance</source>
@@ -1577,7 +1577,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Signal-To-Noise 비율</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio from the microphone</source>
@@ -1700,7 +1700,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">음성 입력 방법</translation>
     </message>
     <message>
         <source>Device</source>
@@ -1805,7 +1805,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">음향 위치</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
@@ -1880,7 +1880,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble프로젝트에 익명으로 통계를 송신한다.</translation>
     </message>
     <message>
         <source>Push To Talk:</source>
@@ -2111,7 +2111,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">누구를 찾고 계신가요?</translation>
     </message>
     <message>
         <source>No nickname</source>
@@ -2193,7 +2193,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IP 주소</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2291,7 +2291,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">현재 인증서</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2303,11 +2303,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">인증서를 가져 온다.</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">새 인증</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2932,7 +2932,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">필터</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2948,7 +2948,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">전부</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3321,7 +3321,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">추가</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3329,7 +3329,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">삭제</translation>
     </message>
 </context>
 <context>
@@ -3454,7 +3454,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">채널</translation>
     </message>
 </context>
 <context>
@@ -3539,7 +3539,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">유효</translation>
     </message>
     <message>
         <source>Views</source>
@@ -3724,7 +3724,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">텍스트 메세지</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -4654,7 +4654,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">이미지 불러오기를 실패 했습니다.</translation>
     </message>
     <message>
         <source>Could not open file for reading.</source>
@@ -4724,15 +4724,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">항상 활성</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">음성 활성</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">누르며 말하기</translation>
     </message>
     <message>
         <source>Mumble - Minimal View -- %1</source>
@@ -4788,7 +4788,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">지연</translation>
     </message>
     <message>
         <source>Lost</source>
@@ -5925,7 +5925,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">편집(&amp;E)</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6105,7 +6105,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">채널</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6220,7 +6220,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">포지션</translation>
     </message>
     <message>
         <source>X</source>
@@ -6260,7 +6260,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">컨텍스트</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6272,7 +6272,7 @@ Valid actions are:
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">상태</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -6288,7 +6288,7 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">표시</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6782,7 +6782,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">추가</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -6956,7 +6956,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">바운딩 박스</translation>
     </message>
     <message>
         <source>Pen width</source>
@@ -7147,7 +7147,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">메세지를 무시한다.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7223,7 +7223,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">기본 디바이스</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7243,7 +7243,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">비활성</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7275,15 +7275,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">유저이름 입력</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">서버이름</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">호스트 이름</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -7291,7 +7291,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">포트</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7311,7 +7311,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7319,19 +7319,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">네트워크 대역</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">유저</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Version</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7590,7 +7590,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">메시지</translation>
     </message>
 </context>
 <context>
@@ -8130,7 +8130,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">상태</translation>
     </message>
     <message>
         <source>Valid from: %1</source>

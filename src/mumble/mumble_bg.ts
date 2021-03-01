@@ -1131,7 +1131,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Забранено</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1455,7 +1455,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Гръмкост на входящата реч</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1918,7 +1918,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По избор</translation>
     </message>
     <message>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
@@ -2176,7 +2176,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Адрес по ИП</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2274,7 +2274,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Текущо удостоверение</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2286,11 +2286,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удостоверение за внасяне</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ново удостоверение</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -3296,7 +3296,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавяне</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3304,7 +3304,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Премахване</translation>
     </message>
 </context>
 <context>
@@ -3429,7 +3429,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Канал</translation>
     </message>
 </context>
 <context>
@@ -3694,7 +3694,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Текстово съобщение</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -5549,7 +5549,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сървър</translation>
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
@@ -5764,7 +5764,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Записване</translation>
     </message>
     <message>
         <source>Priority Speaker</source>
@@ -6075,7 +6075,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Канал</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6190,7 +6190,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Позиция</translation>
     </message>
     <message>
         <source>X</source>
@@ -6747,7 +6747,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавяне</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -6782,7 +6782,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Говор</translation>
     </message>
     <message>
         <source>User is whispering to you privately</source>
@@ -7020,7 +7020,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Настройване</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7208,7 +7208,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Забранено</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7240,7 +7240,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Въведете потребителско име</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -7256,7 +7256,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Порт</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7276,7 +7276,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 мс</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7288,15 +7288,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 кбит/с</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Потребители</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Версия</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7555,7 +7555,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Съобщение</translation>
     </message>
 </context>
 <context>
@@ -7616,7 +7616,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кого търсите?</translation>
     </message>
     <message>
         <source>Days</source>
@@ -7828,7 +7828,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Никога</translation>
     </message>
     <message>
         <source>Channel ID: %1</source>
@@ -8219,7 +8219,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Разглеждане...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>

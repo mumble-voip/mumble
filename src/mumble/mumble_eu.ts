@@ -1088,7 +1088,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Momentuko abiadura atzemateko aukera</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1100,15 +1100,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Audioa paketeko</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konprimitze kalitatea (banda zabalera gailurra)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zarata ezabaketa</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1128,7 +1128,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ekintza baliogabea????</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1140,7 +1140,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ezgaitua</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1464,7 +1464,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sarrerako hizketaren bolumena</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1472,7 +1472,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beste aplikazioen ahultzea hizketaren bitartean </translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1628,7 +1628,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Momentuko abiadura atzemateko aukera</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -2185,7 +2185,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IP Helbidea</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2283,7 +2283,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uneko ziurtagiria</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2295,11 +2295,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inportatzeko Ziurtagiria</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ziurtagiri berria</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2917,7 +2917,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Iragazkia</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2933,7 +2933,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dena</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3312,7 +3312,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gehitu</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3320,7 +3320,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ezabatu</translation>
     </message>
 </context>
 <context>
@@ -3445,7 +3445,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanala</translation>
     </message>
 </context>
 <context>
@@ -3711,7 +3711,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Testu Mezua</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -3845,7 +3845,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marmarra</translation>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
@@ -5914,7 +5914,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Editatu</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6094,7 +6094,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanala</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6209,7 +6209,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kokapena</translation>
     </message>
     <message>
         <source>X</source>
@@ -6249,7 +6249,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Testuinguru</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6261,7 +6261,7 @@ Valid actions are:
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Egoera</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -6277,7 +6277,7 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Erakutsi</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6509,7 +6509,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marmarra</translation>
     </message>
     <message>
         <source>Shout</source>
@@ -6654,7 +6654,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maketazioa</translation>
     </message>
     <message>
         <source>Blacklist</source>
@@ -6766,7 +6766,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gehitu</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7127,11 +7127,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lokalki Isildu</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mezuak alde batera utzi</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7207,7 +7207,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gailu Lehenetsia</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7227,7 +7227,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ezgaitua</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7263,11 +7263,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zerbitzari izena</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ostalaria</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -7275,7 +7275,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Portua</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7295,7 +7295,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7303,19 +7303,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Banda zabalera</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Erabiltzaileak</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bertsioa</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7574,7 +7574,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mezua</translation>
     </message>
 </context>
 <context>
@@ -8112,7 +8112,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Egoera</translation>
     </message>
     <message>
         <source>Valid from: %1</source>

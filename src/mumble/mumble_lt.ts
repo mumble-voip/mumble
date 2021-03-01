@@ -1080,7 +1080,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Esama kalbos atpažinimo tikimybė</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1096,11 +1096,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Glaudinimo kokybė (didžiausioji siuntimo sparta)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Triukšmo malšinimas</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1120,7 +1120,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Veiksmas, esant neveiklumui</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1456,7 +1456,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gaunamos kalbos garsis</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1464,7 +1464,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kitų programų slopinimas kalbos metu</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -2196,7 +2196,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IP adresas</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2294,7 +2294,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Esamas liudijimas</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2306,11 +2306,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liudijimas, kurį importuoti</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naujas liudijimas</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2575,7 +2575,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     <name>ChanACL</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nėra</translation>
     </message>
     <message>
         <source>Traverse</source>
@@ -2671,7 +2671,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šnabždesys</translation>
     </message>
     <message>
         <source>Move</source>
@@ -2679,7 +2679,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tekstinė žinutė</translation>
     </message>
     <message>
         <source>Kick</source>
@@ -2936,7 +2936,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filtras</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2952,7 +2952,7 @@ Ar tikrai norite pakeisti savo liudijimą?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Visus</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3325,7 +3325,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pridėti</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3333,7 +3333,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šalinti</translation>
     </message>
 </context>
 <context>
@@ -3458,7 +3458,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanalas</translation>
     </message>
 </context>
 <context>
@@ -4524,7 +4524,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Įrašykite naudotojo vardą</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -4728,7 +4728,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Esant balso aktyvumui</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -6107,7 +6107,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanalas</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6222,7 +6222,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pozicija</translation>
     </message>
     <message>
         <source>X</source>
@@ -6290,7 +6290,7 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rodyti</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6518,11 +6518,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kalbėjimo</translation>
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šnabždesys</translation>
     </message>
     <message>
         <source>Shout</source>
@@ -7148,7 +7148,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepaisyti žinučių</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7160,7 +7160,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vietinio garsio reguliavimas...</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
@@ -7224,7 +7224,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Numatytasis įrenginys</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7244,7 +7244,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Išjungta</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7276,11 +7276,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Įrašykite naudotojo vardą</translation>
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Serverio pavadinimas</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -7292,7 +7292,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prievadas</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7312,7 +7312,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7320,19 +7320,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Siuntimo sparta</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naudotojų</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versija</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7591,7 +7591,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Žinutė</translation>
     </message>
 </context>
 <context>

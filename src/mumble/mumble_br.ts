@@ -1141,7 +1141,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etrefas</translation>
     </message>
     <message>
         <source>System</source>
@@ -1677,7 +1677,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diuzañ trevnad</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -3295,7 +3295,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ouzhpennañ</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3303,7 +3303,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dilemel</translation>
     </message>
 </context>
 <context>
@@ -3491,7 +3491,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anv</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3693,7 +3693,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mesaj testenn</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -3799,7 +3799,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Live-son</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
@@ -3920,7 +3920,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hini ebet</translation>
     </message>
     <message>
         <source>Only with users</source>
@@ -3928,7 +3928,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pep-tra</translation>
     </message>
     <message>
         <source>Ask</source>
@@ -3940,7 +3940,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiñval</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
@@ -4461,7 +4461,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diverkañ</translation>
     </message>
     <message>
         <source>Opening URL %1</source>
@@ -4493,7 +4493,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ebarzhiñ an anv-implijer</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -5548,7 +5548,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Servijer</translation>
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
@@ -5763,7 +5763,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enrollañ</translation>
     </message>
     <message>
         <source>Priority Speaker</source>
@@ -5894,7 +5894,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aozañ...</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6189,7 +6189,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lec&apos;hiadur</translation>
     </message>
     <message>
         <source>X</source>
@@ -6229,7 +6229,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kendestenn</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6393,7 +6393,7 @@ Valid actions are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ger-tremen</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -6508,7 +6508,7 @@ Prevents the client from sending potentially identifying information about the o
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Silañ</translation>
     </message>
     <message>
         <source>Only talking</source>
@@ -6714,7 +6714,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dilemel</translation>
     </message>
     <message>
         <source>Font</source>
@@ -6746,7 +6746,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ouzhpennañ</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7019,11 +7019,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kefluniañ</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anv</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -7239,7 +7239,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ebarzhiñ an anv-implijer</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -7584,7 +7584,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ouzhpenn&amp;añ</translation>
     </message>
     <message>
         <source>Remove a token</source>
@@ -7592,7 +7592,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dilemel</translation>
     </message>
     <message>
         <source>Tokens</source>
@@ -7607,7 +7607,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dilemel</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -7646,7 +7646,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Klask</translation>
     </message>
     <message>
         <source>User list</source>
@@ -7677,7 +7677,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chomlec&apos;h IP</translation>
     </message>
     <message>
         <source>CELT Versions</source>
@@ -7989,7 +7989,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anv</translation>
     </message>
     <message>
         <source>Flags</source>

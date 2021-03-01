@@ -491,7 +491,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aprarat-elekto</translation>
     </message>
     <message>
         <source>Device</source>
@@ -812,7 +812,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktuala ŝanco de rekono de parolado</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
@@ -1083,7 +1083,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktuala ŝanco de rekono de parolado</translation>
     </message>
     <message>
         <source>Speech above</source>
@@ -1135,7 +1135,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elŝaltite</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1170,11 +1170,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pozicia Sono</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Son-eligo</translation>
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
@@ -1459,7 +1459,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Laŭteco de venanta voĉo</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1467,7 +1467,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Atenuo de aliaj aplikaĵoj dum parolado</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -2097,7 +2097,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kiun serĉas vi?</translation>
     </message>
     <message>
         <source>No nickname</source>
@@ -2176,11 +2176,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Serĉi</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IP-adreso</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2278,7 +2278,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktuala atestilo</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2294,7 +2294,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nova atestilo</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2903,7 +2903,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Serĉi</translation>
     </message>
     <message>
         <source>Location</source>
@@ -2911,7 +2911,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filtri</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2927,7 +2927,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ĉiuj</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3302,7 +3302,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aldoni</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3310,7 +3310,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forigi</translation>
     </message>
 </context>
 <context>
@@ -3435,7 +3435,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanalo</translation>
     </message>
 </context>
 <context>
@@ -3701,7 +3701,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tekst-mesaĝo</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -4005,7 +4005,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aranĝo</translation>
     </message>
     <message>
         <source>Classic</source>
@@ -4021,7 +4021,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Propre</translation>
     </message>
     <message>
         <source>This changes the behavior when moving channels.</source>
@@ -4337,7 +4337,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <name>MainWindow</name>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Radiko</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -4765,11 +4765,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malfrua</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Perdita</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -5902,7 +5902,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%Redakti</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
@@ -6238,7 +6238,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kunteksto</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6250,7 +6250,7 @@ Valid actions are:
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stato</translation>
     </message>
     <message>
         <source>Unhinge</source>
@@ -7036,7 +7036,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enŝaltite</translation>
     </message>
 </context>
 <context>
@@ -7116,11 +7116,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Loke Mutigi</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ignori Mesaĝojn</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7196,7 +7196,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Defaŭlta aparato</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7216,7 +7216,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elŝaltite</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7252,11 +7252,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Servilnomo</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nomo de gastiga komputilo</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -7264,7 +7264,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pordo</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -7284,7 +7284,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7300,11 +7300,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uzantoj</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versio</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7315,7 +7315,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malsukcesis ŝargi la bildon</translation>
     </message>
     <message>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
@@ -8101,7 +8101,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stato</translation>
     </message>
     <message>
         <source>Valid from: %1</source>

@@ -647,7 +647,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">دستگاه</translation>
     </message>
     <message>
         <source>Input device for audio</source>
@@ -1030,7 +1030,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">خاموش</translation>
     </message>
     <message>
         <source>%1 s</source>
@@ -1153,7 +1153,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">دستگاه</translation>
     </message>
     <message>
         <source>Output device for audio</source>
@@ -1426,7 +1426,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">خروجی صدا</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1677,7 +1677,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">انتخاب دستگاه</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -1697,7 +1697,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">دستگاه</translation>
     </message>
     <message>
         <source>Input device to use</source>
@@ -2193,7 +2193,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>CertView</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام</translation>
     </message>
     <message>
         <source>Email</source>
@@ -2400,7 +2400,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">رمزعبور</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
@@ -2492,7 +2492,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام</translation>
     </message>
     <message>
         <source>Email</source>
@@ -3294,7 +3294,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اضافه کردن</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3302,7 +3302,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پاک کردن</translation>
     </message>
 </context>
 <context>
@@ -3375,11 +3375,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اضافه کردن</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پاک کردن</translation>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3490,7 +3490,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3692,7 +3692,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پیغام متنی</translation>
     </message>
     <message>
         <source>You joined channel</source>
@@ -3798,7 +3798,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">حجم صدا</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
@@ -3939,7 +3939,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">انتقال</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
@@ -4492,7 +4492,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام کاربری خود را وارد کنید</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -5762,7 +5762,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">درحال ضبط</translation>
     </message>
     <message>
         <source>Priority Speaker</source>
@@ -6188,7 +6188,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">جایگاه</translation>
     </message>
     <message>
         <source>X</source>
@@ -6392,7 +6392,7 @@ Valid actions are:
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">رمزعبور</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
@@ -6713,7 +6713,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پاک کردن</translation>
     </message>
     <message>
         <source>Font</source>
@@ -6745,7 +6745,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اضافه کردن</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7022,7 +7022,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -7106,7 +7106,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ساکت شده محلی</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -7238,7 +7238,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام کاربری خود را وارد کنید</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -7290,7 +7290,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">کاربران</translation>
     </message>
     <message>
         <source>Version</source>
@@ -7440,11 +7440,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutDelegate</name>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">روشن</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">خاموش</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -7526,7 +7526,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ShortcutToggleWidget</name>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">خاموش</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -7534,7 +7534,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">روشن</translation>
     </message>
 </context>
 <context>
@@ -7606,7 +7606,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پاک کردن</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -7987,7 +7987,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام</translation>
     </message>
     <message>
         <source>Flags</source>

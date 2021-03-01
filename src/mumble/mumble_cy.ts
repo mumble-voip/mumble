@@ -860,7 +860,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Pori</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
@@ -1027,7 +1027,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 me</translation>
     </message>
     <message>
         <source>Off</source>
@@ -1091,7 +1091,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sain bob paced</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
@@ -1142,19 +1142,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rhyngwyneb</translation>
     </message>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">System</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dull allbwn ar gyfer sain</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dyfais</translation>
     </message>
     <message>
         <source>Output device for audio</source>
@@ -1415,7 +1415,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AudioOutputDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dim</translation>
     </message>
     <message>
         <source>Local</source>
@@ -1431,7 +1431,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 me</translation>
     </message>
     <message>
         <source>%1 %</source>
@@ -1571,7 +1571,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cymhareb Signal-i-Sain</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio from the microphone</source>
@@ -1678,7 +1678,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dewis dyfais</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
@@ -2179,7 +2179,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cyfeiriad IP</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -3210,7 +3210,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ychwanegu</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
@@ -3299,7 +3299,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ychwanegu</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3380,7 +3380,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ychwanegu</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3432,7 +3432,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sianel</translation>
     </message>
 </context>
 <context>
@@ -3495,7 +3495,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enw</translation>
     </message>
     <message>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
@@ -3512,7 +3512,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wedi&apos;i alluogi</translation>
     </message>
     <message>
         <source>Views</source>
@@ -3924,7 +3924,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dim</translation>
     </message>
     <message>
         <source>Only with users</source>
@@ -3944,7 +3944,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Symud</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
@@ -4070,7 +4070,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Byth</translation>
     </message>
     <message>
         <source>Always</source>
@@ -4333,7 +4333,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <name>MainWindow</name>
     <message>
         <source>Root</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tardd</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -4465,7 +4465,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Clirio</translation>
     </message>
     <message>
         <source>Opening URL %1</source>
@@ -4493,7 +4493,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cysylltu i %1</translation>
     </message>
     <message>
         <source>Enter username</source>
@@ -4627,7 +4627,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Methodd llwytho&apos;r delwedd</translation>
     </message>
     <message>
         <source>Could not open file for reading.</source>
@@ -4757,15 +4757,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hwyr</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wedi&apos;i golli</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -6078,7 +6078,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sianel</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6193,7 +6193,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lleoliad</translation>
     </message>
     <message>
         <source>X</source>
@@ -6233,7 +6233,7 @@ Valid actions are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cyd-destun</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6385,7 +6385,7 @@ Valid actions are:
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enw Defnyddiwr</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
@@ -6750,7 +6750,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ychwanegu</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7191,7 +7191,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dyfais Diofyn</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7279,7 +7279,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 me</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -7287,19 +7287,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lled Band</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Defnyddwyr</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fersiwn</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7619,7 +7619,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beth rydach yn chwilio amdano?</translation>
     </message>
     <message>
         <source>Days</source>
