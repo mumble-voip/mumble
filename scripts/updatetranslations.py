@@ -55,7 +55,6 @@ def Update(lupdatebin, tsfile: str, debuglupdate: bool) -> (int, int, int):
         # Do not explain what is being done.
         , '-no-ui-lines'
         # {sametext|similartext|number}
-        , '-disable-heuristic', 'sametext'
         , '-disable-heuristic', 'similartext'
         # {absolute|relative|none}
         , '-locations', 'none'
