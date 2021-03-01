@@ -570,6 +570,13 @@ void Server::stopListeningToChannel(ServerUser *user, Channel *cChannel) {
 	sendAll(mpus);
 }
 
+void Server::sendWelcomeMessageTo(ServerUser *user) {
+	MumbleProto::ServerConfig mpsc;
+	mpsc.set_welcome_text(qsWelcomeText.toUtf8().data());
+
+	sendMessage(user, mpsc);
+}
+
 void Meta::connectListener(QObject *obj) {
 	connect(this, SIGNAL(started(Server *)), obj, SLOT(started(Server *)));
 	connect(this, SIGNAL(stopped(Server *)), obj, SLOT(stopped(Server *)));
