@@ -8162,7 +8162,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Digest (SHA-1): %1 {256)?}</translation>
     </message>
     <message>
         <source>Email: %1</source>

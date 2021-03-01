@@ -8184,7 +8184,7 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Código (SHA-1): %1 {256)?}</translation>
     </message>
     <message>
         <source>Email: %1</source>

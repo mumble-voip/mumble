@@ -8183,7 +8183,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">00:00:00</translation>
     </message>
     <message>
         <source>&amp;Start</source>

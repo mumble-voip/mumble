@@ -8192,7 +8192,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Digest ((SHA-1): %1 {256)?}</translation>
     </message>
     <message>
         <source>Email: %1</source>

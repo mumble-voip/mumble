@@ -3102,11 +3102,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">127.0.0.1</translation>
     </message>
     <message>
         <source>64738</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">64738</translation>
     </message>
     <message>
         <source>Your username</source>
@@ -8178,7 +8178,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ダイジェスト(SHA-1): %1 {256)?}</translation>
     </message>
     <message>
         <source>Email: %1</source>

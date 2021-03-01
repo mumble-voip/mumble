@@ -8186,7 +8186,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Digest (SHA-1): %1 {256)?}</translation>
     </message>
     <message>
         <source>Email: %1</source>

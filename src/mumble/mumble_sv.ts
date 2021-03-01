@@ -8189,7 +8189,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>Digest (SHA-256): %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Klassificering (SHA-1): %1 {256)?}</translation>
     </message>
     <message>
         <source>Email: %1</source>
