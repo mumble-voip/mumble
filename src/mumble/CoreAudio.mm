@@ -256,6 +256,20 @@ bool IsInputDevice(AudioObjectID device_id) {
 	       (num_undefined_input_streams > 0 && num_output_streams == 0);
 }
 
+bool IsOutputDevice(AudioObjectID device_id) {
+    QVector<AudioObjectID> streams = GetAudioObjectIDs(device_id, kAudioDevicePropertyStreams);
+
+    for (auto stream_id : streams) {
+	    auto direction = GetDeviceUint32Property(stream_id, kAudioStreamPropertyDirection,
+						     kAudioObjectPropertyScopeGlobal);
+	    const UInt32 kDirectionOutput = 0;
+	    if (direction == kDirectionOutput) {
+	    	return true;
+	    }
+    }
+    return false;
+}
+
 
 #ifdef DEBUG
 
@@ -441,9 +455,8 @@ const QHash< QString, QString > CoreAudioSystem::getDevices(bool input, bool ech
 				continue;
 			}
 
-			bool isInput = core_audio_utils::IsInputDevice(devid);
-
-			if (isInput != input) continue;
+			if ((input && !core_audio_utils::IsInputDevice(devid))
+			    || (!input && !core_audio_utils::IsOutputDevice(devid))) continue;
 
 			QString qsDeviceName = core_audio_utils::GetDeviceStringProperty(devid, kAudioDevicePropertyDeviceNameCFString);
 			QString qsDeviceIdentifier = core_audio_utils::GetDeviceStringProperty(devid, kAudioDevicePropertyDeviceUID);
