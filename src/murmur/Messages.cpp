@@ -379,7 +379,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->uiSession = qqIds.dequeue();
 		uSource->sState = ServerUser::Authenticated;
+		qhUsers.insert(uSource->uiSession, uSource);
+		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
 
 	mpus.set_session(uSource->uiSession);

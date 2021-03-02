@@ -1450,15 +1450,8 @@ void Server::newClient() {
 		}
 
 		ServerUser *u = new ServerUser(this, sock);
-		u->uiSession  = qqIds.dequeue();
 		u->haAddress  = ha;
 		HostAddress(sock->localAddress()).toSockaddr(&u->saiTcpLocalAddress);
-
-		{
-			QWriteLocker wl(&qrwlVoiceThread);
-			qhUsers.insert(u->uiSession, u);
-			qhHostUsers[ha].insert(u);
-		}
 
 		connect(u, SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this,
 				SLOT(connectionClosed(QAbstractSocket::SocketError, const QString &)));
