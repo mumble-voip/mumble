@@ -23,6 +23,7 @@
 ::
 :: Defined in .azure-pipelines.yml:
 ::
+::  COMPILER_PATH                - Path to the compiler's binary.
 ::  MUMBLE_ENVIRONMENT_PATH      - Path to the environment's root directory.
 ::  MUMBLE_ENVIRONMENT_TOOLCHAIN - Path to the vcpkg CMake toolchain, used for CMake.
 ::  MUMBLE_ENVIRONMENT_TRIPLET   - vcpkg triplet.
@@ -68,7 +69,8 @@ del C:\Strawberry\c\bin\c++.exe
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=%MUMBLE_ENVIRONMENT_TRIPLET% ^
       -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" ^
-      -DCMAKE_BUILD_TYPE=Release -DRELEASE_ID=%RELEASE_ID% -DBUILD_NUMBER=%BUILD_NUMBER% ^
+      -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="%COMPILER_PATH%" -DCMAKE_CXX_COMPILER="%COMPILER_PATH%" ^
+      -DRELEASE_ID=%RELEASE_ID% -DBUILD_NUMBER=%BUILD_NUMBER% ^
       -Dpackaging=ON -Dtests=ON -Donline-tests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON -Dasio=ON -Dg15=ON ^
       -Ddisplay-install-paths=ON "%BUILD_SOURCESDIRECTORY%"
 

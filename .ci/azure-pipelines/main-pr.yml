@@ -19,6 +19,7 @@ jobs:
     pool:
       vmImage: 'windows-latest'
     variables:
+      COMPILER_PATH: 'C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/Llvm/x64/bin/clang-cl.exe'
       MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.4.x~2021-02-16~gcd7e9f9d.x64'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
       VCVARS_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat'
@@ -31,6 +32,7 @@ jobs:
     pool:
       vmImage: 'windows-latest'
     variables:
+      COMPILER_PATH: 'C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/Llvm/bin/clang-cl.exe'
       MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.4.x~2021-02-16~gcd7e9f9d.x86'
       MUMBLE_ENVIRONMENT_TRIPLET: 'x86-windows-static-md'
       VCVARS_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsamd64_x86.bat'
