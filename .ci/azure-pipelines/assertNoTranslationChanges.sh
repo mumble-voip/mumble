@@ -8,7 +8,7 @@
 set -e
 
 # Get path to the updatetranslations script
-updateScript="$BUILD_SOURCESDIRECTORY/scripts/updatetranslations.sh"
+updateScript="$BUILD_SOURCESDIRECTORY/scripts/updatetranslations.py"
 
 # Get current commit hash
 oldHash=`git rev-parse HEAD`
@@ -18,7 +18,7 @@ git config user.name "CI"
 git config user.email "ci@mumble.info"
 
 # Execute updatetranslations that'll commit any translation changes
-$updateScript > /dev/null
+python $updateScript
 echo
 
 # Ger new commit hash
