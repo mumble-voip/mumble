@@ -593,7 +593,7 @@ BOOST_TYPEOF_REGISTER_TYPE(QFont)
 BOOST_TYPEOF_REGISTER_TYPE(EchoCancelOptionID)
 BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 
-#define SAVELOAD(var, name) var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var))
+#define LOAD(var, name) var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var))
 #define LOADENUM(var, name) \
 	var = static_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var).toInt())
 #define LOADFLAG(var, name) \
@@ -616,8 +616,8 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 // to their defaults, instead of being set to
 // a zero value.
 #ifdef Q_OS_MACOS
-#	undef SAVELOAD
-#	define SAVELOAD(var, name)                                                                          \
+#	undef LOAD
+#	define LOAD(var, name)                                                                          \
 		do {                                                                                             \
 			if (settings_ptr->value(QLatin1String(name)).toString() != QLatin1String("@Variant(")) {     \
 				var = qvariant_cast< BOOST_TYPEOF(var) >(settings_ptr->value(QLatin1String(name), var)); \
@@ -630,57 +630,57 @@ void OverlaySettings::load() {
 }
 
 void OverlaySettings::load(QSettings *settings_ptr) {
-	SAVELOAD(bEnable, "enable");
+	LOAD(bEnable, "enable");
 
 	LOADENUM(osShow, "show");
-	SAVELOAD(bAlwaysSelf, "alwaysself");
-	SAVELOAD(uiActiveTime, "activetime");
+	LOAD(bAlwaysSelf, "alwaysself");
+	LOAD(uiActiveTime, "activetime");
 	LOADENUM(osSort, "sort");
 
-	SAVELOAD(fX, "x");
-	SAVELOAD(fY, "y");
-	SAVELOAD(fZoom, "zoom");
-	SAVELOAD(uiColumns, "columns");
+	LOAD(fX, "x");
+	LOAD(fY, "y");
+	LOAD(fZoom, "zoom");
+	LOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
 	for (int i = 0; i < 4; ++i) {
 		settings_ptr->setArrayIndex(i);
-		SAVELOAD(qcUserName[i], "color");
-		SAVELOAD(fUser[i], "opacity");
+		LOAD(qcUserName[i], "color");
+		LOAD(fUser[i], "opacity");
 	}
 	settings_ptr->endArray();
 
-	SAVELOAD(qfUserName, "userfont");
-	SAVELOAD(qfChannel, "channelfont");
-	SAVELOAD(qcChannel, "channelcolor");
-	SAVELOAD(qfFps, "fpsfont");
-	SAVELOAD(qcFps, "fpscolor");
+	LOAD(qfUserName, "userfont");
+	LOAD(qfChannel, "channelfont");
+	LOAD(qcChannel, "channelcolor");
+	LOAD(qfFps, "fpsfont");
+	LOAD(qcFps, "fpscolor");
 
-	SAVELOAD(fBoxPad, "padding");
-	SAVELOAD(fBoxPenWidth, "penwidth");
-	SAVELOAD(qcBoxPen, "pencolor");
-	SAVELOAD(qcBoxFill, "fillcolor");
+	LOAD(fBoxPad, "padding");
+	LOAD(fBoxPenWidth, "penwidth");
+	LOAD(qcBoxPen, "pencolor");
+	LOAD(qcBoxFill, "fillcolor");
 
-	SAVELOAD(bUserName, "usershow");
-	SAVELOAD(bChannel, "channelshow");
-	SAVELOAD(bMutedDeafened, "mutedshow");
-	SAVELOAD(bAvatar, "avatarshow");
-	SAVELOAD(bBox, "boxshow");
-	SAVELOAD(bFps, "fpsshow");
-	SAVELOAD(bTime, "timeshow");
+	LOAD(bUserName, "usershow");
+	LOAD(bChannel, "channelshow");
+	LOAD(bMutedDeafened, "mutedshow");
+	LOAD(bAvatar, "avatarshow");
+	LOAD(bBox, "boxshow");
+	LOAD(bFps, "fpsshow");
+	LOAD(bTime, "timeshow");
 
-	SAVELOAD(fUserName, "useropacity");
-	SAVELOAD(fChannel, "channelopacity");
-	SAVELOAD(fMutedDeafened, "mutedopacity");
-	SAVELOAD(fAvatar, "avataropacity");
-	SAVELOAD(fFps, "fpsopacity");
+	LOAD(fUserName, "useropacity");
+	LOAD(fChannel, "channelopacity");
+	LOAD(fMutedDeafened, "mutedopacity");
+	LOAD(fAvatar, "avataropacity");
+	LOAD(fFps, "fpsopacity");
 
-	SAVELOAD(qrfUserName, "userrect");
-	SAVELOAD(qrfChannel, "channelrect");
-	SAVELOAD(qrfMutedDeafened, "mutedrect");
-	SAVELOAD(qrfAvatar, "avatarrect");
-	SAVELOAD(qrfFps, "fpsrect");
-	SAVELOAD(qrfTime, "timerect");
+	LOAD(qrfUserName, "userrect");
+	LOAD(qrfChannel, "channelrect");
+	LOAD(qrfMutedDeafened, "mutedrect");
+	LOAD(qrfAvatar, "avatarrect");
+	LOAD(qrfFps, "fpsrect");
+	LOAD(qrfTime, "timerect");
 
 	LOADFLAG(qaUserName, "useralign");
 	LOADFLAG(qaChannel, "channelalign");
@@ -688,14 +688,14 @@ void OverlaySettings::load(QSettings *settings_ptr) {
 	LOADFLAG(qaAvatar, "avataralign");
 
 	LOADENUM(oemOverlayExcludeMode, "mode");
-	SAVELOAD(qslLaunchers, "launchers");
-	SAVELOAD(qslLaunchersExclude, "launchersexclude");
-	SAVELOAD(qslWhitelist, "whitelist");
-	SAVELOAD(qslWhitelistExclude, "whitelistexclude");
-	SAVELOAD(qslPaths, "paths");
-	SAVELOAD(qslPathsExclude, "pathsexclude");
-	SAVELOAD(qslBlacklist, "blacklist");
-	SAVELOAD(qslBlacklistExclude, "blacklistexclude");
+	LOAD(qslLaunchers, "launchers");
+	LOAD(qslLaunchersExclude, "launchersexclude");
+	LOAD(qslWhitelist, "whitelist");
+	LOAD(qslWhitelistExclude, "whitelistexclude");
+	LOAD(qslPaths, "paths");
+	LOAD(qslPathsExclude, "pathsexclude");
+	LOAD(qslBlacklist, "blacklist");
+	LOAD(qslBlacklistExclude, "blacklistexclude");
 }
 
 void Settings::load() {
@@ -704,34 +704,34 @@ void Settings::load() {
 
 void Settings::load(QSettings *settings_ptr) {
 	// Config updates
-	SAVELOAD(uiUpdateCounter, "lastupdate");
+	LOAD(uiUpdateCounter, "lastupdate");
 
-	SAVELOAD(qsDatabaseLocation, "databaselocation");
+	LOAD(qsDatabaseLocation, "databaselocation");
 
-	SAVELOAD(bMute, "audio/mute");
-	SAVELOAD(bDeaf, "audio/deaf");
+	LOAD(bMute, "audio/mute");
+	LOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
-	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(pttHold, "audio/ptthold");
-	SAVELOAD(bTxAudioCue, "audio/pushclick");
-	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
-	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
-	SAVELOAD(iQuality, "audio/quality");
-	SAVELOAD(iMinLoudness, "audio/loudness");
-	SAVELOAD(fVolume, "audio/volume");
-	SAVELOAD(fOtherVolume, "audio/othervolume");
-	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
-	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
-	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
-	SAVELOAD(bOnlyAttenuateSameOutput, "audio/onlyattenuatesameoutput");
-	SAVELOAD(bAttenuateLoopbacks, "audio/attenuateloopbacks");
+	LOAD(uiDoublePush, "audio/doublepush");
+	LOAD(pttHold, "audio/ptthold");
+	LOAD(bTxAudioCue, "audio/pushclick");
+	LOAD(qsTxAudioCueOn, "audio/pushclickon");
+	LOAD(qsTxAudioCueOff, "audio/pushclickoff");
+	LOAD(iQuality, "audio/quality");
+	LOAD(iMinLoudness, "audio/loudness");
+	LOAD(fVolume, "audio/volume");
+	LOAD(fOtherVolume, "audio/othervolume");
+	LOAD(bAttenuateOthers, "audio/attenuateothers");
+	LOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
+	LOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
+	LOAD(bOnlyAttenuateSameOutput, "audio/onlyattenuatesameoutput");
+	LOAD(bAttenuateLoopbacks, "audio/attenuateloopbacks");
 	LOADENUM(vsVAD, "audio/vadsource");
-	SAVELOAD(fVADmin, "audio/vadmin");
-	SAVELOAD(fVADmax, "audio/vadmax");
+	LOAD(fVADmin, "audio/vadmin");
+	LOAD(fVADmax, "audio/vadmax");
 
 	int oldNoiseSuppress = 0;
-	SAVELOAD(oldNoiseSuppress, "audio/noisesupress");
-	SAVELOAD(iSpeexNoiseCancelStrength, "audio/speexNoiseCancelStrength");
+	LOAD(oldNoiseSuppress, "audio/noisesupress");
+	LOAD(iSpeexNoiseCancelStrength, "audio/speexNoiseCancelStrength");
 
 	// Select the most negative of the 2 (one is expected to be zero as it is
 	// unset). This is for compatibility as we have renamed the setting at some point.
@@ -746,30 +746,30 @@ void Settings::load(QSettings *settings_ptr) {
 	}
 #endif
 
-	SAVELOAD(bAllowLowDelay, "audio/allowlowdelay");
-	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
-	SAVELOAD(iVoiceHold, "audio/voicehold");
-	SAVELOAD(iOutputDelay, "audio/outputdelay");
+	LOAD(bAllowLowDelay, "audio/allowlowdelay");
+	LOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
+	LOAD(iVoiceHold, "audio/voicehold");
+	LOAD(iOutputDelay, "audio/outputdelay");
 
 	// Idle auto actions
-	SAVELOAD(iIdleTime, "audio/idletime");
+	LOAD(iIdleTime, "audio/idletime");
 	LOADENUM(iaeIdleAction, "audio/idleaction");
-	SAVELOAD(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
+	LOAD(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
 
-	SAVELOAD(fAudioMinDistance, "audio/mindistance");
-	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
-	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
-	SAVELOAD(fAudioBloom, "audio/bloom");
+	LOAD(fAudioMinDistance, "audio/mindistance");
+	LOAD(fAudioMaxDistance, "audio/maxdistance");
+	LOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
+	LOAD(fAudioBloom, "audio/bloom");
 	DEPRECATED("audio/echo");
 	DEPRECATED("audio/echomulti");
-	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
-	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
-	SAVELOAD(bPositionalAudio, "audio/positional");
-	SAVELOAD(bPositionalHeadphone, "audio/headphone");
-	SAVELOAD(qsAudioInput, "audio/input");
-	SAVELOAD(qsAudioOutput, "audio/output");
-	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
-	SAVELOAD(bTransmitPosition, "audio/postransmit");
+	LOAD(bExclusiveInput, "audio/exclusiveinput");
+	LOAD(bExclusiveOutput, "audio/exclusiveoutput");
+	LOAD(bPositionalAudio, "audio/positional");
+	LOAD(bPositionalHeadphone, "audio/headphone");
+	LOAD(qsAudioInput, "audio/input");
+	LOAD(qsAudioOutput, "audio/output");
+	LOAD(bWhisperFriends, "audio/whisperfriends");
+	LOAD(bTransmitPosition, "audio/postransmit");
 
 	if (settings_ptr->contains("audio/echooptionid")) {
 		// Load the new echo cancel option instead
@@ -784,8 +784,8 @@ void Settings::load(QSettings *settings_ptr) {
 			bool deprecatedEcho      = false;
 			bool deprecatedEchoMulti = false;
 
-			SAVELOAD(deprecatedEcho, "audio/echo");
-			SAVELOAD(deprecatedEchoMulti, "audio/echomulti");
+			LOAD(deprecatedEcho, "audio/echo");
+			LOAD(deprecatedEchoMulti, "audio/echomulti");
 
 			if (deprecatedEcho) {
 				if (deprecatedEchoMulti) {
@@ -800,174 +800,174 @@ void Settings::load(QSettings *settings_ptr) {
 #endif
 	}
 
-	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
-	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
+	LOAD(iJitterBufferSize, "net/jitterbuffer");
+	LOAD(iFramesPerPacket, "net/framesperpacket");
 
-	SAVELOAD(bASIOEnable, "asio/enable");
-	SAVELOAD(qsASIOclass, "asio/class");
-	SAVELOAD(qlASIOmic, "asio/mic");
-	SAVELOAD(qlASIOspeaker, "asio/speaker");
+	LOAD(bASIOEnable, "asio/enable");
+	LOAD(qsASIOclass, "asio/class");
+	LOAD(qlASIOmic, "asio/mic");
+	LOAD(qlASIOspeaker, "asio/speaker");
 
-	SAVELOAD(qsWASAPIInput, "wasapi/input");
-	SAVELOAD(qsWASAPIOutput, "wasapi/output");
-	SAVELOAD(qsWASAPIRole, "wasapi/role");
+	LOAD(qsWASAPIInput, "wasapi/input");
+	LOAD(qsWASAPIOutput, "wasapi/output");
+	LOAD(qsWASAPIRole, "wasapi/role");
 
-	SAVELOAD(qsALSAInput, "alsa/input");
-	SAVELOAD(qsALSAOutput, "alsa/output");
+	LOAD(qsALSAInput, "alsa/input");
+	LOAD(qsALSAOutput, "alsa/output");
 
-	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
-	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
+	LOAD(qsPulseAudioInput, "pulseaudio/input");
+	LOAD(qsPulseAudioOutput, "pulseaudio/output");
 
-	SAVELOAD(qsJackAudioOutput, "jack/output");
-	SAVELOAD(bJackStartServer, "jack/startserver");
-	SAVELOAD(bJackAutoConnect, "jack/autoconnect");
+	LOAD(qsJackAudioOutput, "jack/output");
+	LOAD(bJackStartServer, "jack/startserver");
+	LOAD(bJackAutoConnect, "jack/autoconnect");
 
-	SAVELOAD(qsOSSInput, "oss/input");
-	SAVELOAD(qsOSSOutput, "oss/output");
+	LOAD(qsOSSInput, "oss/input");
+	LOAD(qsOSSOutput, "oss/output");
 
-	SAVELOAD(qsCoreAudioInput, "coreaudio/input");
-	SAVELOAD(qsCoreAudioOutput, "coreaudio/output");
+	LOAD(qsCoreAudioInput, "coreaudio/input");
+	LOAD(qsCoreAudioOutput, "coreaudio/output");
 
-	SAVELOAD(iPortAudioInput, "portaudio/input");
-	SAVELOAD(iPortAudioOutput, "portaudio/output");
+	LOAD(iPortAudioInput, "portaudio/input");
+	LOAD(iPortAudioOutput, "portaudio/output");
 
-	SAVELOAD(bTTS, "tts/enable");
-	SAVELOAD(iTTSVolume, "tts/volume");
-	SAVELOAD(iTTSThreshold, "tts/threshold");
-	SAVELOAD(bTTSMessageReadBack, "tts/readback");
-	SAVELOAD(bTTSNoScope, "tts/noscope");
-	SAVELOAD(bTTSNoAuthor, "tts/noauthor");
-	SAVELOAD(qsTTSLanguage, "tts/language");
+	LOAD(bTTS, "tts/enable");
+	LOAD(iTTSVolume, "tts/volume");
+	LOAD(iTTSThreshold, "tts/threshold");
+	LOAD(bTTSMessageReadBack, "tts/readback");
+	LOAD(bTTSNoScope, "tts/noscope");
+	LOAD(bTTSNoAuthor, "tts/noauthor");
+	LOAD(qsTTSLanguage, "tts/language");
 
 	// Network settings
-	SAVELOAD(bTCPCompat, "net/tcponly");
-	SAVELOAD(bQoS, "net/qos");
-	SAVELOAD(bReconnect, "net/reconnect");
-	SAVELOAD(bAutoConnect, "net/autoconnect");
-	SAVELOAD(bSuppressIdentity, "net/suppress");
+	LOAD(bTCPCompat, "net/tcponly");
+	LOAD(bQoS, "net/qos");
+	LOAD(bReconnect, "net/reconnect");
+	LOAD(bAutoConnect, "net/autoconnect");
+	LOAD(bSuppressIdentity, "net/suppress");
 	LOADENUM(ptProxyType, "net/proxytype");
-	SAVELOAD(qsProxyHost, "net/proxyhost");
-	SAVELOAD(usProxyPort, "net/proxyport");
-	SAVELOAD(qsProxyUsername, "net/proxyusername");
-	SAVELOAD(qsProxyPassword, "net/proxypassword");
+	LOAD(qsProxyHost, "net/proxyhost");
+	LOAD(usProxyPort, "net/proxyport");
+	LOAD(qsProxyUsername, "net/proxyusername");
+	LOAD(qsProxyPassword, "net/proxypassword");
 	DEPRECATED("net/maximagesize");
-	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
-	SAVELOAD(iMaxImageHeight, "net/maximageheight");
-	SAVELOAD(qsServicePrefix, "net/serviceprefix");
-	SAVELOAD(iMaxInFlightTCPPings, "net/maxinflighttcppings");
-	SAVELOAD(iPingIntervalMsec, "net/pingintervalmsec");
-	SAVELOAD(iConnectionTimeoutDurationMsec, "net/connectiontimeoutdurationmsec");
-	SAVELOAD(bUdpForceTcpAddr, "net/udpforcetcpaddr");
+	LOAD(iMaxImageWidth, "net/maximagewidth");
+	LOAD(iMaxImageHeight, "net/maximageheight");
+	LOAD(qsServicePrefix, "net/serviceprefix");
+	LOAD(iMaxInFlightTCPPings, "net/maxinflighttcppings");
+	LOAD(iPingIntervalMsec, "net/pingintervalmsec");
+	LOAD(iConnectionTimeoutDurationMsec, "net/connectiontimeoutdurationmsec");
+	LOAD(bUdpForceTcpAddr, "net/udpforcetcpaddr");
 
 	// Network settings - SSL
-	SAVELOAD(qsSslCiphers, "net/sslciphers");
+	LOAD(qsSslCiphers, "net/sslciphers");
 
 	// Privacy settings
-	SAVELOAD(bHideOS, "privacy/hideos");
+	LOAD(bHideOS, "privacy/hideos");
 
-	SAVELOAD(qsLanguage, "ui/language");
-	SAVELOAD(themeName, "ui/theme");
-	SAVELOAD(themeStyleName, "ui/themestyle");
+	LOAD(qsLanguage, "ui/language");
+	LOAD(themeName, "ui/theme");
+	LOAD(themeStyleName, "ui/themestyle");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(ceUserDrag, "ui/userdrag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
-	SAVELOAD(bAskOnQuit, "ui/askonquit");
-	SAVELOAD(bEnableDeveloperMenu, "ui/developermenu");
-	SAVELOAD(bLockLayout, "ui/locklayout");
-	SAVELOAD(bMinimalView, "ui/minimalview");
-	SAVELOAD(bHideFrame, "ui/hideframe");
-	SAVELOAD(bUserTop, "ui/usertop");
-	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
-	SAVELOAD(qbaMainWindowState, "ui/state");
-	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
-	SAVELOAD(qbaMinimalViewState, "ui/minimalviewstate");
-	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
+	LOAD(bAskOnQuit, "ui/askonquit");
+	LOAD(bEnableDeveloperMenu, "ui/developermenu");
+	LOAD(bLockLayout, "ui/locklayout");
+	LOAD(bMinimalView, "ui/minimalview");
+	LOAD(bHideFrame, "ui/hideframe");
+	LOAD(bUserTop, "ui/usertop");
+	LOAD(qbaMainWindowGeometry, "ui/geometry");
+	LOAD(qbaMainWindowState, "ui/state");
+	LOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
+	LOAD(qbaMinimalViewState, "ui/minimalviewstate");
+	LOAD(qbaConfigGeometry, "ui/ConfigGeometry");
 	LOADENUM(wlWindowLayout, "ui/WindowLayout");
-	SAVELOAD(qbaSplitterState, "ui/splitter");
-	SAVELOAD(qbaHeaderState, "ui/header");
-	SAVELOAD(qsUsername, "ui/username");
-	SAVELOAD(qsLastServer, "ui/server");
+	LOAD(qbaSplitterState, "ui/splitter");
+	LOAD(qbaHeaderState, "ui/header");
+	LOAD(qsUsername, "ui/username");
+	LOAD(qsLastServer, "ui/server");
 	LOADENUM(ssFilter, "ui/serverfilter");
 
-	SAVELOAD(bUpdateCheck, "ui/updatecheck");
-	SAVELOAD(bPluginCheck, "ui/plugincheck");
+	LOAD(bUpdateCheck, "ui/updatecheck");
+	LOAD(bPluginCheck, "ui/plugincheck");
 
-	SAVELOAD(bHideInTray, "ui/hidetray");
-	SAVELOAD(bStateInTray, "ui/stateintray");
-	SAVELOAD(bUsage, "ui/usage");
-	SAVELOAD(bShowUserCount, "ui/showusercount");
-	SAVELOAD(bShowVolumeAdjustments, "ui/showVolumeAdjustments");
-	SAVELOAD(bShowNicknamesOnly, "ui/showNicknamesOnly");
-	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
-	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
-	SAVELOAD(bFilterActive, "ui/filteractive");
-	SAVELOAD(qsImagePath, "ui/imagepath");
-	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
-	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
-	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
-	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
-	SAVELOAD(bHighContrast, "ui/HighContrast");
-	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
-	SAVELOAD(bLog24HourClock, "ui/24HourClock");
-	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
-	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
+	LOAD(bHideInTray, "ui/hidetray");
+	LOAD(bStateInTray, "ui/stateintray");
+	LOAD(bUsage, "ui/usage");
+	LOAD(bShowUserCount, "ui/showusercount");
+	LOAD(bShowVolumeAdjustments, "ui/showVolumeAdjustments");
+	LOAD(bShowNicknamesOnly, "ui/showNicknamesOnly");
+	LOAD(bChatBarUseSelection, "ui/chatbaruseselection");
+	LOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
+	LOAD(bFilterActive, "ui/filteractive");
+	LOAD(qsImagePath, "ui/imagepath");
+	LOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
+	LOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
+	LOAD(qbaConnectDialogHeader, "ui/connect/header");
+	LOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
+	LOAD(bHighContrast, "ui/HighContrast");
+	LOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
+	LOAD(bLog24HourClock, "ui/24HourClock");
+	LOAD(iChatMessageMargins, "ui/ChatMessageMargins");
+	LOAD(bDisablePublicList, "ui/disablepubliclist");
 
 	// TalkingUI
-	SAVELOAD(qpTalkingUI_Position, "ui/talkingUIPosition");
-	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
-	SAVELOAD(bTalkingUI_LocalUserStaysVisible, "ui/talkingUI_LocalUserStaysVisible");
-	SAVELOAD(bTalkingUI_AbbreviateChannelNames, "ui/talkingUI_AbbreviateChannelNames");
-	SAVELOAD(bTalkingUI_AbbreviateCurrentChannel, "ui/talkingUI_AbbreviateCurrentChannel");
-	SAVELOAD(bTalkingUI_ShowLocalListeners, "ui/talkingUI_ShowLocalListeners");
-	SAVELOAD(iTalkingUI_RelativeFontSize, "ui/talkingUI_RelativeFontSize");
-	SAVELOAD(iTalkingUI_SilentUserLifeTime, "ui/talkingUI_SilentUserLifeTime");
-	SAVELOAD(iTalkingUI_ChannelHierarchyDepth, "ui/talkingUI_ChannelHierarchieDepth");
-	SAVELOAD(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
-	SAVELOAD(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
-	SAVELOAD(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
-	SAVELOAD(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
-	SAVELOAD(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+	LOAD(qpTalkingUI_Position, "ui/talkingUIPosition");
+	LOAD(bShowTalkingUI, "ui/showTalkingUI");
+	LOAD(bTalkingUI_LocalUserStaysVisible, "ui/talkingUI_LocalUserStaysVisible");
+	LOAD(bTalkingUI_AbbreviateChannelNames, "ui/talkingUI_AbbreviateChannelNames");
+	LOAD(bTalkingUI_AbbreviateCurrentChannel, "ui/talkingUI_AbbreviateCurrentChannel");
+	LOAD(bTalkingUI_ShowLocalListeners, "ui/talkingUI_ShowLocalListeners");
+	LOAD(iTalkingUI_RelativeFontSize, "ui/talkingUI_RelativeFontSize");
+	LOAD(iTalkingUI_SilentUserLifeTime, "ui/talkingUI_SilentUserLifeTime");
+	LOAD(iTalkingUI_ChannelHierarchyDepth, "ui/talkingUI_ChannelHierarchieDepth");
+	LOAD(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
+	LOAD(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
+	LOAD(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
+	LOAD(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
+	LOAD(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
 
-	SAVELOAD(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
+	LOAD(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
 
 	// PTT Button window
-	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
-	SAVELOAD(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
+	LOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
+	LOAD(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
 
 	// Recording
-	SAVELOAD(qsRecordingPath, "recording/path");
-	SAVELOAD(qsRecordingFile, "recording/file");
+	LOAD(qsRecordingPath, "recording/path");
+	LOAD(qsRecordingFile, "recording/file");
 	LOADENUM(rmRecordingMode, "recording/mode");
-	SAVELOAD(iRecordingFormat, "recording/format");
+	LOAD(iRecordingFormat, "recording/format");
 
 	// Special configuration options not exposed to UI
-	SAVELOAD(bDisableCELT, "audio/disablecelt");
-	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
-	SAVELOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
+	LOAD(bDisableCELT, "audio/disablecelt");
+	LOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
+	LOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
 
 	// OverlayPrivateWin
-	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
-	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
-	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
+	LOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
+	LOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
+	LOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 
 	// LCD
-	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
-	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
+	LOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
+	LOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
 	QByteArray qba = qvariant_cast< QByteArray >(settings_ptr->value(QLatin1String("net/certificate")));
 	if (!qba.isEmpty())
 		kpCertificate = CertWizard::importCert(qba);
 
-	SAVELOAD(bShortcutEnable, "shortcut/enable");
-	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
-	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
-	SAVELOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
-	SAVELOAD(bEnableGKey, "shortcut/gkey");
-	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
-	SAVELOAD(bEnableWinHooks, "winhooks");
-	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
-	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
+	LOAD(bShortcutEnable, "shortcut/enable");
+	LOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
+	LOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
+	LOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
+	LOAD(bEnableGKey, "shortcut/gkey");
+	LOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
+	LOAD(bEnableWinHooks, "winhooks");
+	LOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
+	LOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i = 0; i < nshorts; i++) {
@@ -976,9 +976,9 @@ void Settings::load(QSettings *settings_ptr) {
 
 		s.iIndex = -2;
 
-		SAVELOAD(s.iIndex, "index");
-		SAVELOAD(s.qlButtons, "keys");
-		SAVELOAD(s.bSuppress, "suppress");
+		LOAD(s.iIndex, "index");
+		LOAD(s.qlButtons, "keys");
+		LOAD(s.bSuppress, "suppress");
 		s.qvData = settings_ptr->value(QLatin1String("data"));
 		if (s.iIndex >= -1)
 			qlShortcuts << s;
@@ -988,7 +988,7 @@ void Settings::load(QSettings *settings_ptr) {
 	settings_ptr->beginReadArray(QLatin1String("messages"));
 	for (QMap< int, quint32 >::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		settings_ptr->setArrayIndex(it.key());
-		SAVELOAD(qmMessages[it.key()], "log");
+		LOAD(qmMessages[it.key()], "log");
 	}
 	settings_ptr->endArray();
 
@@ -996,7 +996,7 @@ void Settings::load(QSettings *settings_ptr) {
 	for (QMap< int, QString >::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd();
 		 ++it) {
 		settings_ptr->setArrayIndex(it.key());
-		SAVELOAD(qmMessageSounds[it.key()], "logsound");
+		LOAD(qmMessageSounds[it.key()], "logsound");
 	}
 	settings_ptr->endArray();
 
@@ -1017,8 +1017,8 @@ void Settings::load(QSettings *settings_ptr) {
 	settings_ptr->endGroup();
 }
 
-#undef SAVELOAD
-#define SAVELOAD(var, name)                               \
+#undef LOAD
+#define SAVE(var, name)                               \
 	if (var != def.var)                                   \
 		settings_ptr->setValue(QLatin1String(name), var); \
 	else                                                  \
@@ -1051,63 +1051,63 @@ void OverlaySettings::save(QSettings *settings_ptr) {
 							 | QFile::WriteOther | QFile::ExeOther));
 	}
 
-	SAVELOAD(bEnable, "enable");
+	SAVE(bEnable, "enable");
 
-	SAVELOAD(osShow, "show");
-	SAVELOAD(bAlwaysSelf, "alwaysself");
-	SAVELOAD(uiActiveTime, "activetime");
-	SAVELOAD(osSort, "sort");
-	SAVELOAD(fX, "x");
-	SAVELOAD(fY, "y");
-	SAVELOAD(fZoom, "zoom");
-	SAVELOAD(uiColumns, "columns");
+	SAVE(osShow, "show");
+	SAVE(bAlwaysSelf, "alwaysself");
+	SAVE(uiActiveTime, "activetime");
+	SAVE(osSort, "sort");
+	SAVE(fX, "x");
+	SAVE(fY, "y");
+	SAVE(fZoom, "zoom");
+	SAVE(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
 	for (int i = 0; i < 4; ++i) {
 		settings_ptr->setArrayIndex(i);
-		SAVELOAD(qcUserName[i], "color");
-		SAVELOAD(fUser[i], "opacity");
+		SAVE(qcUserName[i], "color");
+		SAVE(fUser[i], "opacity");
 	}
 	settings_ptr->endArray();
 
-	SAVELOAD(qfUserName, "userfont");
-	SAVELOAD(qfChannel, "channelfont");
-	SAVELOAD(qcChannel, "channelcolor");
-	SAVELOAD(qfFps, "fpsfont");
-	SAVELOAD(qcFps, "fpscolor");
+	SAVE(qfUserName, "userfont");
+	SAVE(qfChannel, "channelfont");
+	SAVE(qcChannel, "channelcolor");
+	SAVE(qfFps, "fpsfont");
+	SAVE(qcFps, "fpscolor");
 
-	SAVELOAD(fBoxPad, "padding");
-	SAVELOAD(fBoxPenWidth, "penwidth");
-	SAVELOAD(qcBoxPen, "pencolor");
-	SAVELOAD(qcBoxFill, "fillcolor");
+	SAVE(fBoxPad, "padding");
+	SAVE(fBoxPenWidth, "penwidth");
+	SAVE(qcBoxPen, "pencolor");
+	SAVE(qcBoxFill, "fillcolor");
 
-	SAVELOAD(bUserName, "usershow");
-	SAVELOAD(bChannel, "channelshow");
-	SAVELOAD(bMutedDeafened, "mutedshow");
-	SAVELOAD(bAvatar, "avatarshow");
-	SAVELOAD(bBox, "boxshow");
-	SAVELOAD(bFps, "fpsshow");
-	SAVELOAD(bTime, "timeshow");
+	SAVE(bUserName, "usershow");
+	SAVE(bChannel, "channelshow");
+	SAVE(bMutedDeafened, "mutedshow");
+	SAVE(bAvatar, "avatarshow");
+	SAVE(bBox, "boxshow");
+	SAVE(bFps, "fpsshow");
+	SAVE(bTime, "timeshow");
 
-	SAVELOAD(fUserName, "useropacity");
-	SAVELOAD(fChannel, "channelopacity");
-	SAVELOAD(fMutedDeafened, "mutedopacity");
-	SAVELOAD(fAvatar, "avataropacity");
-	SAVELOAD(fFps, "fpsopacity");
+	SAVE(fUserName, "useropacity");
+	SAVE(fChannel, "channelopacity");
+	SAVE(fMutedDeafened, "mutedopacity");
+	SAVE(fAvatar, "avataropacity");
+	SAVE(fFps, "fpsopacity");
 
-	SAVELOAD(qrfUserName, "userrect");
-	SAVELOAD(qrfChannel, "channelrect");
-	SAVELOAD(qrfMutedDeafened, "mutedrect");
-	SAVELOAD(qrfAvatar, "avatarrect");
-	SAVELOAD(qrfFps, "fpsrect");
-	SAVELOAD(qrfTime, "timerect");
+	SAVE(qrfUserName, "userrect");
+	SAVE(qrfChannel, "channelrect");
+	SAVE(qrfMutedDeafened, "mutedrect");
+	SAVE(qrfAvatar, "avatarrect");
+	SAVE(qrfFps, "fpsrect");
+	SAVE(qrfTime, "timerect");
 
 	SAVEFLAG(qaUserName, "useralign");
 	SAVEFLAG(qaChannel, "channelalign");
 	SAVEFLAG(qaMutedDeafened, "mutedalign");
 	SAVEFLAG(qaAvatar, "avataralign");
 
-	SAVELOAD(oemOverlayExcludeMode, "mode");
+	SAVE(oemOverlayExcludeMode, "mode");
 	settings_ptr->setValue(QLatin1String("launchers"), qslLaunchers);
 	settings_ptr->setValue(QLatin1String("launchersexclude"), qslLaunchersExclude);
 	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);
@@ -1123,222 +1123,222 @@ void Settings::save() {
 	Settings def;
 
 	// Config updates
-	SAVELOAD(uiUpdateCounter, "lastupdate");
+	SAVE(uiUpdateCounter, "lastupdate");
 
-	SAVELOAD(qsDatabaseLocation, "databaselocation");
+	SAVE(qsDatabaseLocation, "databaselocation");
 
-	SAVELOAD(bMute, "audio/mute");
-	SAVELOAD(bDeaf, "audio/deaf");
-	SAVELOAD(atTransmit, "audio/transmit");
-	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(pttHold, "audio/ptthold");
-	SAVELOAD(bTxAudioCue, "audio/pushclick");
-	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
-	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
-	SAVELOAD(iQuality, "audio/quality");
-	SAVELOAD(iMinLoudness, "audio/loudness");
-	SAVELOAD(fVolume, "audio/volume");
-	SAVELOAD(fOtherVolume, "audio/othervolume");
-	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
-	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
-	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
-	SAVELOAD(bOnlyAttenuateSameOutput, "audio/onlyattenuatesameoutput");
-	SAVELOAD(bAttenuateLoopbacks, "audio/attenuateloopbacks");
-	SAVELOAD(vsVAD, "audio/vadsource");
-	SAVELOAD(fVADmin, "audio/vadmin");
-	SAVELOAD(fVADmax, "audio/vadmax");
-	SAVELOAD(noiseCancelMode, "audio/noiseCancelMode");
-	SAVELOAD(iSpeexNoiseCancelStrength, "audio/speexNoiseCancelStrength");
-	SAVELOAD(bAllowLowDelay, "audio/allowlowdelay");
-	SAVELOAD(uiAudioInputChannelMask, "audio/inputchannelmask");
-	SAVELOAD(iVoiceHold, "audio/voicehold");
-	SAVELOAD(iOutputDelay, "audio/outputdelay");
+	SAVE(bMute, "audio/mute");
+	SAVE(bDeaf, "audio/deaf");
+	SAVE(atTransmit, "audio/transmit");
+	SAVE(uiDoublePush, "audio/doublepush");
+	SAVE(pttHold, "audio/ptthold");
+	SAVE(bTxAudioCue, "audio/pushclick");
+	SAVE(qsTxAudioCueOn, "audio/pushclickon");
+	SAVE(qsTxAudioCueOff, "audio/pushclickoff");
+	SAVE(iQuality, "audio/quality");
+	SAVE(iMinLoudness, "audio/loudness");
+	SAVE(fVolume, "audio/volume");
+	SAVE(fOtherVolume, "audio/othervolume");
+	SAVE(bAttenuateOthers, "audio/attenuateothers");
+	SAVE(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
+	SAVE(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
+	SAVE(bOnlyAttenuateSameOutput, "audio/onlyattenuatesameoutput");
+	SAVE(bAttenuateLoopbacks, "audio/attenuateloopbacks");
+	SAVE(vsVAD, "audio/vadsource");
+	SAVE(fVADmin, "audio/vadmin");
+	SAVE(fVADmax, "audio/vadmax");
+	SAVE(noiseCancelMode, "audio/noiseCancelMode");
+	SAVE(iSpeexNoiseCancelStrength, "audio/speexNoiseCancelStrength");
+	SAVE(bAllowLowDelay, "audio/allowlowdelay");
+	SAVE(uiAudioInputChannelMask, "audio/inputchannelmask");
+	SAVE(iVoiceHold, "audio/voicehold");
+	SAVE(iOutputDelay, "audio/outputdelay");
 
 	// Idle auto actions
-	SAVELOAD(iIdleTime, "audio/idletime");
-	SAVELOAD(iaeIdleAction, "audio/idleaction");
-	SAVELOAD(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
+	SAVE(iIdleTime, "audio/idletime");
+	SAVE(iaeIdleAction, "audio/idleaction");
+	SAVE(bUndoIdleActionUponActivity, "audio/undoidleactionuponactivity");
 
-	SAVELOAD(fAudioMinDistance, "audio/mindistance");
-	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
-	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
-	SAVELOAD(fAudioBloom, "audio/bloom");
+	SAVE(fAudioMinDistance, "audio/mindistance");
+	SAVE(fAudioMaxDistance, "audio/maxdistance");
+	SAVE(fAudioMaxDistVolume, "audio/maxdistancevolume");
+	SAVE(fAudioBloom, "audio/bloom");
 	DEPRECATED("audio/echo");
 	DEPRECATED("audio/echomulti");
-	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
-	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
-	SAVELOAD(bPositionalAudio, "audio/positional");
-	SAVELOAD(bPositionalHeadphone, "audio/headphone");
-	SAVELOAD(qsAudioInput, "audio/input");
-	SAVELOAD(qsAudioOutput, "audio/output");
-	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
-	SAVELOAD(bTransmitPosition, "audio/postransmit");
+	SAVE(bExclusiveInput, "audio/exclusiveinput");
+	SAVE(bExclusiveOutput, "audio/exclusiveoutput");
+	SAVE(bPositionalAudio, "audio/positional");
+	SAVE(bPositionalHeadphone, "audio/headphone");
+	SAVE(qsAudioInput, "audio/input");
+	SAVE(qsAudioOutput, "audio/output");
+	SAVE(bWhisperFriends, "audio/whisperfriends");
+	SAVE(bTransmitPosition, "audio/postransmit");
 	SAVEFLAG(echoOption, "audio/echooptionid");
 
-	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
-	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
+	SAVE(iJitterBufferSize, "net/jitterbuffer");
+	SAVE(iFramesPerPacket, "net/framesperpacket");
 
-	SAVELOAD(bASIOEnable, "asio/enable");
-	SAVELOAD(qsASIOclass, "asio/class");
-	SAVELOAD(qlASIOmic, "asio/mic");
-	SAVELOAD(qlASIOspeaker, "asio/speaker");
+	SAVE(bASIOEnable, "asio/enable");
+	SAVE(qsASIOclass, "asio/class");
+	SAVE(qlASIOmic, "asio/mic");
+	SAVE(qlASIOspeaker, "asio/speaker");
 
-	SAVELOAD(qsWASAPIInput, "wasapi/input");
-	SAVELOAD(qsWASAPIOutput, "wasapi/output");
-	SAVELOAD(qsWASAPIRole, "wasapi/role");
+	SAVE(qsWASAPIInput, "wasapi/input");
+	SAVE(qsWASAPIOutput, "wasapi/output");
+	SAVE(qsWASAPIRole, "wasapi/role");
 
-	SAVELOAD(qsALSAInput, "alsa/input");
-	SAVELOAD(qsALSAOutput, "alsa/output");
+	SAVE(qsALSAInput, "alsa/input");
+	SAVE(qsALSAOutput, "alsa/output");
 
-	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
-	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
+	SAVE(qsPulseAudioInput, "pulseaudio/input");
+	SAVE(qsPulseAudioOutput, "pulseaudio/output");
 
-	SAVELOAD(qsJackAudioOutput, "jack/output");
-	SAVELOAD(bJackStartServer, "jack/startserver");
-	SAVELOAD(bJackAutoConnect, "jack/autoconnect");
+	SAVE(qsJackAudioOutput, "jack/output");
+	SAVE(bJackStartServer, "jack/startserver");
+	SAVE(bJackAutoConnect, "jack/autoconnect");
 
-	SAVELOAD(qsOSSInput, "oss/input");
-	SAVELOAD(qsOSSOutput, "oss/output");
+	SAVE(qsOSSInput, "oss/input");
+	SAVE(qsOSSOutput, "oss/output");
 
-	SAVELOAD(qsCoreAudioInput, "coreaudio/input");
-	SAVELOAD(qsCoreAudioOutput, "coreaudio/output");
+	SAVE(qsCoreAudioInput, "coreaudio/input");
+	SAVE(qsCoreAudioOutput, "coreaudio/output");
 
-	SAVELOAD(iPortAudioInput, "portaudio/input");
-	SAVELOAD(iPortAudioOutput, "portaudio/output");
+	SAVE(iPortAudioInput, "portaudio/input");
+	SAVE(iPortAudioOutput, "portaudio/output");
 
-	SAVELOAD(bTTS, "tts/enable");
-	SAVELOAD(iTTSVolume, "tts/volume");
-	SAVELOAD(iTTSThreshold, "tts/threshold");
-	SAVELOAD(bTTSMessageReadBack, "tts/readback");
-	SAVELOAD(bTTSNoScope, "tts/noscope");
-	SAVELOAD(bTTSNoAuthor, "tts/noauthor");
-	SAVELOAD(qsTTSLanguage, "tts/language");
+	SAVE(bTTS, "tts/enable");
+	SAVE(iTTSVolume, "tts/volume");
+	SAVE(iTTSThreshold, "tts/threshold");
+	SAVE(bTTSMessageReadBack, "tts/readback");
+	SAVE(bTTSNoScope, "tts/noscope");
+	SAVE(bTTSNoAuthor, "tts/noauthor");
+	SAVE(qsTTSLanguage, "tts/language");
 
 	// Network settings
-	SAVELOAD(bTCPCompat, "net/tcponly");
-	SAVELOAD(bQoS, "net/qos");
-	SAVELOAD(bReconnect, "net/reconnect");
-	SAVELOAD(bAutoConnect, "net/autoconnect");
-	SAVELOAD(ptProxyType, "net/proxytype");
-	SAVELOAD(qsProxyHost, "net/proxyhost");
-	SAVELOAD(usProxyPort, "net/proxyport");
-	SAVELOAD(qsProxyUsername, "net/proxyusername");
-	SAVELOAD(qsProxyPassword, "net/proxypassword");
+	SAVE(bTCPCompat, "net/tcponly");
+	SAVE(bQoS, "net/qos");
+	SAVE(bReconnect, "net/reconnect");
+	SAVE(bAutoConnect, "net/autoconnect");
+	SAVE(ptProxyType, "net/proxytype");
+	SAVE(qsProxyHost, "net/proxyhost");
+	SAVE(usProxyPort, "net/proxyport");
+	SAVE(qsProxyUsername, "net/proxyusername");
+	SAVE(qsProxyPassword, "net/proxypassword");
 	DEPRECATED("net/maximagesize");
-	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
-	SAVELOAD(iMaxImageHeight, "net/maximageheight");
-	SAVELOAD(qsServicePrefix, "net/serviceprefix");
-	SAVELOAD(iMaxInFlightTCPPings, "net/maxinflighttcppings");
-	SAVELOAD(iPingIntervalMsec, "net/pingintervalmsec");
-	SAVELOAD(iConnectionTimeoutDurationMsec, "net/connectiontimeoutdurationmsec");
-	SAVELOAD(bUdpForceTcpAddr, "net/udpforcetcpaddr");
+	SAVE(iMaxImageWidth, "net/maximagewidth");
+	SAVE(iMaxImageHeight, "net/maximageheight");
+	SAVE(qsServicePrefix, "net/serviceprefix");
+	SAVE(iMaxInFlightTCPPings, "net/maxinflighttcppings");
+	SAVE(iPingIntervalMsec, "net/pingintervalmsec");
+	SAVE(iConnectionTimeoutDurationMsec, "net/connectiontimeoutdurationmsec");
+	SAVE(bUdpForceTcpAddr, "net/udpforcetcpaddr");
 
 	// Network settings - SSL
-	SAVELOAD(qsSslCiphers, "net/sslciphers");
+	SAVE(qsSslCiphers, "net/sslciphers");
 
 	// Privacy settings
-	SAVELOAD(bHideOS, "privacy/hideos");
+	SAVE(bHideOS, "privacy/hideos");
 
-	SAVELOAD(qsLanguage, "ui/language");
-	SAVELOAD(themeName, "ui/theme");
-	SAVELOAD(themeStyleName, "ui/themestyle");
-	SAVELOAD(ceExpand, "ui/expand");
-	SAVELOAD(ceChannelDrag, "ui/drag");
-	SAVELOAD(ceUserDrag, "ui/userdrag");
-	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");
-	SAVELOAD(bAskOnQuit, "ui/askonquit");
-	SAVELOAD(bEnableDeveloperMenu, "ui/developermenu");
-	SAVELOAD(bLockLayout, "ui/locklayout");
-	SAVELOAD(bMinimalView, "ui/minimalview");
-	SAVELOAD(bHideFrame, "ui/hideframe");
-	SAVELOAD(bUserTop, "ui/usertop");
-	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
-	SAVELOAD(qbaMainWindowState, "ui/state");
-	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
-	SAVELOAD(qbaMinimalViewState, "ui/minimalviewstate");
-	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
-	SAVELOAD(wlWindowLayout, "ui/WindowLayout");
-	SAVELOAD(qbaSplitterState, "ui/splitter");
-	SAVELOAD(qbaHeaderState, "ui/header");
-	SAVELOAD(qsUsername, "ui/username");
-	SAVELOAD(qsLastServer, "ui/server");
-	SAVELOAD(ssFilter, "ui/serverfilter");
-	SAVELOAD(bUpdateCheck, "ui/updatecheck");
-	SAVELOAD(bPluginCheck, "ui/plugincheck");
-	SAVELOAD(bHideInTray, "ui/hidetray");
-	SAVELOAD(bStateInTray, "ui/stateintray");
-	SAVELOAD(bUsage, "ui/usage");
-	SAVELOAD(bShowUserCount, "ui/showusercount");
-	SAVELOAD(bShowVolumeAdjustments, "ui/showVolumeAdjustments");
-	SAVELOAD(bShowNicknamesOnly, "ui/showNicknamesOnly");
-	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
-	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
-	SAVELOAD(bFilterActive, "ui/filteractive");
-	SAVELOAD(qsImagePath, "ui/imagepath");
-	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
-	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
-	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
-	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
-	SAVELOAD(bHighContrast, "ui/HighContrast");
-	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
-	SAVELOAD(bLog24HourClock, "ui/24HourClock");
-	SAVELOAD(iChatMessageMargins, "ui/ChatMessageMargins");
-	SAVELOAD(bDisablePublicList, "ui/disablepubliclist");
+	SAVE(qsLanguage, "ui/language");
+	SAVE(themeName, "ui/theme");
+	SAVE(themeStyleName, "ui/themestyle");
+	SAVE(ceExpand, "ui/expand");
+	SAVE(ceChannelDrag, "ui/drag");
+	SAVE(ceUserDrag, "ui/userdrag");
+	SAVE(aotbAlwaysOnTop, "ui/alwaysontop");
+	SAVE(bAskOnQuit, "ui/askonquit");
+	SAVE(bEnableDeveloperMenu, "ui/developermenu");
+	SAVE(bLockLayout, "ui/locklayout");
+	SAVE(bMinimalView, "ui/minimalview");
+	SAVE(bHideFrame, "ui/hideframe");
+	SAVE(bUserTop, "ui/usertop");
+	SAVE(qbaMainWindowGeometry, "ui/geometry");
+	SAVE(qbaMainWindowState, "ui/state");
+	SAVE(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
+	SAVE(qbaMinimalViewState, "ui/minimalviewstate");
+	SAVE(qbaConfigGeometry, "ui/ConfigGeometry");
+	SAVE(wlWindowLayout, "ui/WindowLayout");
+	SAVE(qbaSplitterState, "ui/splitter");
+	SAVE(qbaHeaderState, "ui/header");
+	SAVE(qsUsername, "ui/username");
+	SAVE(qsLastServer, "ui/server");
+	SAVE(ssFilter, "ui/serverfilter");
+	SAVE(bUpdateCheck, "ui/updatecheck");
+	SAVE(bPluginCheck, "ui/plugincheck");
+	SAVE(bHideInTray, "ui/hidetray");
+	SAVE(bStateInTray, "ui/stateintray");
+	SAVE(bUsage, "ui/usage");
+	SAVE(bShowUserCount, "ui/showusercount");
+	SAVE(bShowVolumeAdjustments, "ui/showVolumeAdjustments");
+	SAVE(bShowNicknamesOnly, "ui/showNicknamesOnly");
+	SAVE(bChatBarUseSelection, "ui/chatbaruseselection");
+	SAVE(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
+	SAVE(bFilterActive, "ui/filteractive");
+	SAVE(qsImagePath, "ui/imagepath");
+	SAVE(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
+	SAVE(qbaConnectDialogGeometry, "ui/connect/geometry");
+	SAVE(qbaConnectDialogHeader, "ui/connect/header");
+	SAVE(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
+	SAVE(bHighContrast, "ui/HighContrast");
+	SAVE(iMaxLogBlocks, "ui/MaxLogBlocks");
+	SAVE(bLog24HourClock, "ui/24HourClock");
+	SAVE(iChatMessageMargins, "ui/ChatMessageMargins");
+	SAVE(bDisablePublicList, "ui/disablepubliclist");
 
 	// TalkingUI
-	SAVELOAD(qpTalkingUI_Position, "ui/talkingUIPosition");
-	SAVELOAD(bShowTalkingUI, "ui/showTalkingUI");
-	SAVELOAD(bTalkingUI_LocalUserStaysVisible, "ui/talkingUI_LocalUserStaysVisible");
-	SAVELOAD(bTalkingUI_AbbreviateChannelNames, "ui/talkingUI_AbbreviateChannelNames");
-	SAVELOAD(bTalkingUI_AbbreviateCurrentChannel, "ui/talkingUI_AbbreviateCurrentChannel");
-	SAVELOAD(bTalkingUI_ShowLocalListeners, "ui/talkingUI_ShowLocalListeners");
-	SAVELOAD(iTalkingUI_RelativeFontSize, "ui/talkingUI_RelativeFontSize");
-	SAVELOAD(iTalkingUI_SilentUserLifeTime, "ui/talkingUI_SilentUserLifeTime");
-	SAVELOAD(iTalkingUI_ChannelHierarchyDepth, "ui/talkingUI_ChannelHierarchieDepth");
-	SAVELOAD(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
-	SAVELOAD(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
-	SAVELOAD(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
-	SAVELOAD(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
-	SAVELOAD(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+	SAVE(qpTalkingUI_Position, "ui/talkingUIPosition");
+	SAVE(bShowTalkingUI, "ui/showTalkingUI");
+	SAVE(bTalkingUI_LocalUserStaysVisible, "ui/talkingUI_LocalUserStaysVisible");
+	SAVE(bTalkingUI_AbbreviateChannelNames, "ui/talkingUI_AbbreviateChannelNames");
+	SAVE(bTalkingUI_AbbreviateCurrentChannel, "ui/talkingUI_AbbreviateCurrentChannel");
+	SAVE(bTalkingUI_ShowLocalListeners, "ui/talkingUI_ShowLocalListeners");
+	SAVE(iTalkingUI_RelativeFontSize, "ui/talkingUI_RelativeFontSize");
+	SAVE(iTalkingUI_SilentUserLifeTime, "ui/talkingUI_SilentUserLifeTime");
+	SAVE(iTalkingUI_ChannelHierarchyDepth, "ui/talkingUI_ChannelHierarchieDepth");
+	SAVE(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
+	SAVE(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
+	SAVE(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
+	SAVE(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
+	SAVE(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
 
-	SAVELOAD(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
+	SAVE(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
 
 	// PTT Button window
-	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
-	SAVELOAD(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
+	SAVE(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
+	SAVE(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
 
 	// Recording
-	SAVELOAD(qsRecordingPath, "recording/path");
-	SAVELOAD(qsRecordingFile, "recording/file");
-	SAVELOAD(rmRecordingMode, "recording/mode");
-	SAVELOAD(iRecordingFormat, "recording/format");
+	SAVE(qsRecordingPath, "recording/path");
+	SAVE(qsRecordingFile, "recording/file");
+	SAVE(rmRecordingMode, "recording/mode");
+	SAVE(iRecordingFormat, "recording/format");
 
 	// Special configuration options not exposed to UI
-	SAVELOAD(bDisableCELT, "audio/disablecelt");
-	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
-	SAVELOAD(bPingServersDialogViewed, "consent/pingserversdialogviewed");
+	SAVE(bDisableCELT, "audio/disablecelt");
+	SAVE(disableConnectDialogEditing, "ui/disableconnectdialogediting");
+	SAVE(bPingServersDialogViewed, "consent/pingserversdialogviewed");
 
 	// OverlayPrivateWin
-	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
-	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
-	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
+	SAVE(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
+	SAVE(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
+	SAVE(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 
 	// LCD
-	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
-	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
+	SAVE(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
+	SAVE(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
 	QByteArray qba = CertWizard::exportCert(kpCertificate);
 	settings_ptr->setValue(QLatin1String("net/certificate"), qba);
 
-	SAVELOAD(bShortcutEnable, "shortcut/enable");
-	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
-	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
-	SAVELOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
-	SAVELOAD(bEnableGKey, "shortcut/gkey");
-	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
-	SAVELOAD(bEnableWinHooks, "winhooks");
-	SAVELOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
-	SAVELOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
+	SAVE(bShortcutEnable, "shortcut/enable");
+	SAVE(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
+	SAVE(bEnableEvdev, "shortcut/linux/evdev/enable");
+	SAVE(bEnableXInput2, "shortcut/x11/xinput2/enable");
+	SAVE(bEnableGKey, "shortcut/gkey");
+	SAVE(bEnableXboxInput, "shortcut/windows/xbox/enable");
+	SAVE(bEnableWinHooks, "winhooks");
+	SAVE(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
+	SAVE(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
@@ -1356,7 +1356,7 @@ void Settings::save() {
 	settings_ptr->beginWriteArray(QLatin1String("messages"));
 	for (QMap< int, quint32 >::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		settings_ptr->setArrayIndex(it.key());
-		SAVELOAD(qmMessages[it.key()], "log");
+		SAVE(qmMessages[it.key()], "log");
 	}
 	settings_ptr->endArray();
 
@@ -1364,7 +1364,7 @@ void Settings::save() {
 	for (QMap< int, QString >::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd();
 		 ++it) {
 		settings_ptr->setArrayIndex(it.key());
-		SAVELOAD(qmMessageSounds[it.key()], "logsound");
+		SAVE(qmMessageSounds[it.key()], "logsound");
 	}
 	settings_ptr->endArray();
 
