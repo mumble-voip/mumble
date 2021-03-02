@@ -1,9 +1,9 @@
-FROM ubuntu:disco
+FROM ubuntu:latest
 
 # needed to install tzdata in disco
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
 	build-essential \
 	pkg-config \
 	qt5-default \
@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
 	libgrpc++-dev \
 	libxi-dev \
 	libbz2-dev \
-	qtcreator
+	&& rm -rf /var/lib/apt/lists/*
 
 COPY . /root/mumble
 WORKDIR /root/mumble
@@ -33,21 +33,23 @@ RUN qmake -recursive main.pro CONFIG+="no-client grpc"
 RUN make release
 
 # Clean distribution stage
-FROM ubuntu:disco
+FROM ubuntu:latest
 
 RUN adduser murmur
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
 	libcap2 \
 	libzeroc-ice3.7 \
-	libprotobuf17 \
-	libgrpc6 \
+	'^libprotobuf[0-9]+$' \
+	'^libgrpc[0-9]+$' \
 	libgrpc++1 \
 	libavahi-compat-libdnssd1 \
 	libqt5core5a \
 	libqt5network5 \
 	libqt5sql5 \
+	libqt5sql5-sqlite \
 	libqt5xml5 \
 	libqt5dbus5 \
+	ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY --from=0 /root/mumble/release/murmurd /usr/bin/murmurd
