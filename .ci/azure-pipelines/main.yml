@@ -8,6 +8,7 @@ variables:
 
 jobs:
   - job: Windows_x64
+    timeoutInMinutes: 90
     pool:
       vmImage: 'windows-latest'
     variables:
@@ -19,6 +20,7 @@ jobs:
       parameters:
         arch: 'x64'
   - job: Windows_x86
+    timeoutInMinutes: 120
     pool:
       vmImage: 'windows-latest'
     variables:
