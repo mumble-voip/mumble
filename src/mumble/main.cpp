@@ -224,6 +224,7 @@ int main(int argc, char **argv) {
 	bool suppressIdentity     = false;
 	bool customJackClientName = false;
 	bool bRpcMode             = false;
+	bool printTranslationDirs = false;
 	QString rpcCommand;
 	QUrl url;
 	QStringList extraTranslationDirs;
@@ -281,6 +282,10 @@ int main(int argc, char **argv) {
 								   "                the bundled ones\n"
 								   "                Directories added this way have higher priority than\n"
 								   "                the default locations used otherwise\n"
+								   "  --print-translation-dirs\n"
+								   "                Print out the paths in which Mumble will search for\n"
+								   "                translation files that overwrite the bundled ones.\n"
+								   "                (Useful for translators testing their translations)\n"
 								   "\n");
 				QString rpcHelpBanner = MainWindow::tr("Remote controlling Mumble:\n"
 													   "\n");
@@ -369,6 +374,8 @@ int main(int argc, char **argv) {
 				Global::get().bDebugDumpInput = true;
 			} else if (args.at(i) == QLatin1String("--print-echocancel-queue")) {
 				Global::get().bDebugPrintQueue = true;
+			} else if (args.at(i) == "--print-translation-dirs") {
+				printTranslationDirs = true;
 			} else if (args.at(i) == "--translation-dir") {
 				if (i + 1 < args.count()) {
 					extraTranslationDirs.append(args.at(i + 1));
@@ -410,6 +417,24 @@ int main(int argc, char **argv) {
 	// Finally add a dir in the home directory
 	for (const QString &currentHomePath : QStandardPaths::standardLocations(QStandardPaths::HomeLocation)) {
 		extraTranslationDirs.append(QDir::cleanPath(currentHomePath + QDir::separator() + "MumbleTranslations"));
+	}
+
+	if (printTranslationDirs) {
+		QString infoString = QObject::tr("The directories in which Mumble searches for extra translation files are:\n");
+
+		int counter = 1;
+		for (const QString &currentTranslationDir : extraTranslationDirs) {
+			infoString += QString::fromLatin1("%1. ").arg(counter) + currentTranslationDir + "\n";
+			counter++;
+		}
+
+#if defined(Q_OS_WIN)
+				QMessageBox::information(nullptr, QObject::tr("Invocation"), infoString);
+#else
+				printf("%s", qUtf8Printable(infoString));
+#endif
+
+		return 0;
 	}
 
 #ifdef USE_DBUS
