@@ -428,15 +428,15 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Periytyneet ryhmän jäsenet</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuntemattomat ryhmän jäsenet</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Periytyneet kanavan jäsenet</translation>
     </message>
     <message>
         <source>Add members to group</source>
@@ -444,7 +444,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lista kulkuoikeuksista</translation>
     </message>
 </context>
 <context>
@@ -578,11 +578,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista mikrofoneista</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lista kuulokkeista</translation>
     </message>
 </context>
 <context>
@@ -960,11 +960,11 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Poissaolotila perutaan minkä tahansa näppäin- tai hiirikomennon seurauksesta</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Poista poissaolotila aktiivisuuden seurauksena</translation>
     </message>
     <message>
         <source>Audio input</source>
@@ -972,7 +972,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tämä on käytetty audion sisääntulo.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
@@ -980,7 +980,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos valittu, Mumble ottaa käyttöön matalaviiveisen tilan Opus-koodekista jos laatu on asetettu &lt;b&gt;64 kbit/s&lt;/b&gt; tai korkeammaksi. Matalaviiveinen tila pienentää viivettä &lt;b&gt;~15 millisekuntia&lt;/b&gt; edestakaisessa matkassa. Tämä tila saattaa vaatia korkeamman bittinopeuden säilyttääkseen saman laadun verrattuna musiikki- ja VOIP-tiloihin.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
@@ -1067,11 +1067,11 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaiunpoistotila</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähetystila</translation>
     </message>
     <message>
         <source>PTT lock threshold</source>
@@ -1083,19 +1083,19 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Silence below</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiljaisuuden raja-arvo</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation>Hetkellinen havaitun puheen todennäköisyys</translation>
     </message>
     <message>
         <source>Speech above</source>
-        <translation type="unfinished"></translation>
+        <translation>Puheen raja-arvo</translation>
     </message>
     <message>
         <source>Speech below</source>
-        <translation type="unfinished"></translation>
+        <translation>Puheen raja-arvo alle</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -1103,7 +1103,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">Pakkauksen laatu (kaistan huippu)</translation>
+        <translation>Pakkaamisen laatu (kaistanleveyden huippu)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
@@ -1111,23 +1111,23 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Suurin vahvistus</translation>
     </message>
     <message>
         <source>Transmission started sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähetyksen aloitusääni</translation>
     </message>
     <message>
         <source>Transmission stopped sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähetyksen lopetusääni</translation>
     </message>
     <message>
         <source>Initiate idle action after (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aloita epäakviivisuustoiminto (minuuteissa)</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished">Toimettomana</translation>
+        <translation type="unfinished">Epäaktiivisuustoiminto</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1135,22 +1135,22 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished">Mikrofonin käyttö estettiin. Tarkista että tietokoneesi käyttöjärjestelmän mikrofonin asetukset sallivat Mumblen käyttää mikrofonia.</translation>
+        <translation>Pääsy mikrofoniin evättiin. Tarkista käyttöjärjestelmäsi mikrofoniasetuksista sallitaanko Mumblen käyttää mikrofonia.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Ei käytössä</translation>
+        <translation>Pois käytöstä</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista kaiunesto käytöstä.</translation>
     </message>
 </context>
 <context>
     <name>AudioOutput</name>
     <message>
         <source>Interface</source>
-        <translation>Käyttöliittymä</translation>
+        <translation>Rajapinta</translation>
     </message>
     <message>
         <source>System</source>
@@ -1356,7 +1356,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
-        <translation>Rajoitettu tila, ei suositeltu. </translation>
+        <translation>Rajoitettu tila, ei suositeltu.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
@@ -1400,15 +1400,15 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tämä on käytetty audion ulostulo.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Vaimenna toisia käyttäjiä puhuessasi Etuoikeutettuna puhujana&lt;/b&gt;&lt;br /&gt;Mumble tukee toisten käyttäjien äänenvoimakkuuden hiljentämistä silloin kun puhut &lt;i&gt;Etuoikeutettuna puhujana&lt;/i&gt; ehkäistäkseen häiriintymistä.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaimenna toisia käyttäjiä puhuessasi Etuoikeutettuna puhujana</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -1416,7 +1416,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaimennus</translation>
     </message>
 </context>
 <context>
@@ -1451,7 +1451,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Ulostulojärjestelmä</translation>
     </message>
     <message>
         <source>Output device</source>
@@ -1459,7 +1459,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Default jitter buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Oletushuojuntapuskuri</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
@@ -1471,27 +1471,27 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished">Muiden sovellusten vaimentaminen puheen aikana</translation>
+        <translation>Toisten ohjelmien vaimennus puheen aikana</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Pienin etäisyys</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Suurin etäisyys</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Pienin äänenvoimakkuus</translation>
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished">Korostus</translation>
+        <translation>Korostus</translation>
     </message>
     <message>
         <source>Delay variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Viiveen varianssi</translation>
     </message>
     <message>
         <source>Packet loss</source>
@@ -1944,11 +1944,11 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     </message>
     <message>
         <source>Custom</source>
-        <translation>Kustomoitu</translation>
+        <translation>Mukautettu</translation>
     </message>
     <message>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation>Valitsit jo Mumblessa kustomoidun laatukonfiguraation. Valitse tämä säilyttääksesi valinnan.</translation>
+        <translation>Valitsit jo Mumblessa mukautetun laatukonfiguraation. Valitse tämä säilyttääksesi valinnan.</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
@@ -2014,23 +2014,23 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tämä on käytetty audion sisääntulo.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tämä on käytetty audion ulostulo.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tämä on audion asetustyökalu Mumblelle. Tämä auttaa sinua asettamaan sisääntuloherkkyydet äänikortille, sekä asettamaan oikeat äänen käsittelyn säätöarvot Mumbleen.&lt;/p&gt;&lt;p&gt;Niin kauan kun tämä työkalu on käytössä, ääni kierrätetään mikrofonistasi paikallisesti kuulokkeihisi kuunellaksesi sitä, eikä mitään ääntä lähetetä palvelimelle.&lt;/p&gt;&lt;p&gt;Voit sulkea tämän työkalun koska haluat, ilman että se vaikuttaa tämänhetkisiin asetuksiisi. Asetukset tallentuvat vasta kun olet suorittanut tämän asetustyökalun loppuun saakka.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble tukee sijainninmukaista audiota joillakin peleillä, mikä tarkoittaa että ääni kuuluu suhteessa pelaajien sijaintiin pelissä. Äänenvoimakkuutta kuulokkeiden välillä muokataan jotta voidaan simuloida pelissä olevia äänen tulosuuntia ja etäisyyksiä. Tämä riippuu oikeista äänen ulostuloasetuksistasi käyttöjärjestelmässäsi, joita voit kokeilla tässä.&lt;/p&gt;&lt;p&gt;Graafi alla näyttää &lt;span style=&quot; color:#56b4e9;&quot;&gt;sinun&lt;/span&gt; sijaintisi, &lt;span style=&quot; color:#d55e00;&quot;&gt;kaiuttimiesi&lt;/span&gt; ja &lt;span style=&quot; color:#009e73;&quot;&gt;liikkuvan äänilähteen&lt;/span&gt; ylhäältä päin katsottuna. Sinun pitäisi kuulla äänen vaihtelevan kanavien välillä.&lt;/p&gt;&lt;p&gt;Voit myös käyttää hiirtäsi asettaaksesi &lt;span style=&quot; color:#009e73;&quot;&gt;äänilähteen&lt;/span&gt; sijainnin manuaalisesti.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisääntulojärjestelmä</translation>
     </message>
     <message>
         <source>Input device</source>
@@ -2038,7 +2038,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Ulostulojärjestelmä</translation>
     </message>
     <message>
         <source>Output device</source>
@@ -2050,19 +2050,19 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Suurin vahvistus</translation>
     </message>
     <message>
         <source>VAD level</source>
-        <translation type="unfinished"></translation>
+        <translation>Äänentunnistuksen herkkyystaso</translation>
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Pikayhteys</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei näppäimiä yhdistetty</translation>
     </message>
 </context>
 <context>
@@ -2212,15 +2212,15 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maski</translation>
     </message>
     <message>
         <source>Start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Aloituspäivä ja -aika</translation>
     </message>
     <message>
         <source>End date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Lopetuspäivä ja -aika</translation>
     </message>
 </context>
 <context>
@@ -2262,7 +2262,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Sertifikaattiasi ja avaintasi ei saatu vietyä PKCS#12-formaattiin. Sertifikaatissasi saattaa olla virhe.</translation>
+        <translation>Varmennettasi ja avaintasi ei saatu vietyä PKCS#12-formaattiin. Varmenteessasi saattaa olla virhe.</translation>
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
@@ -2270,7 +2270,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation>Tiedoston käyttöoikeuksia ei voitu asettaa. Sertifikaattia eikä avainta ei ole luotu. Valitse toinen tiedosto.</translation>
+        <translation>Tiedoston käyttöoikeuksia ei voitu asettaa. Varmennetta eikä avainta ei ole luotu. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <source>The file could not be written successfully. Please use another file.</source>
@@ -2286,15 +2286,15 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Tiedosto ei sisällä kelvollista sertifikaattia ja avainta. Valitse toinen tiedosto.</translation>
+        <translation>Tiedosto ei sisällä kelvollista varmennetta ja avainta. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <source>Select file to export certificate to</source>
-        <translation>Valitse tiedosto, johon sertifikaatti viedään</translation>
+        <translation>Valitse tiedosto, johon varmenne viedään</translation>
     </message>
     <message>
         <source>Select file to import certificate from</source>
-        <translation>Valitse tiedosto, josta sertifikaatti tuodaan</translation>
+        <translation>Valitse tiedosto, josta varmenne tuodaan</translation>
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
@@ -2302,15 +2302,15 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Sertifikaatti vanhenee:&lt;/b&gt; Sertifikaattisi on vanhentumassa. Sinun tulee uusia sertifikaattisi tai et voi enää yhdistää palvelimiin, joihin olet rekisteröitynyt.</translation>
+        <translation>&lt;b&gt;Varmenne vanhenee:&lt;/b&gt; Varmenteesi on vanhentumassa. Sinun tulee uusia varmenteesi tai et voi enää yhdistää palvelimiin, joihin olet rekisteröitynyt.</translation>
     </message>
     <message>
         <source>Current certificate</source>
-        <translation>Nykyinen sertifikaatti</translation>
+        <translation>Nykyinen varmenne</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation>Tuotava sertifikaattitiedosto</translation>
+        <translation>Tuotava varmennetiedosto</translation>
     </message>
     <message>
         <source>Certificate password</source>
@@ -2318,15 +2318,15 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation>Tuotava sertifikaatti</translation>
+        <translation>Tuotava varmenne</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation>Uusi sertifikaatti</translation>
+        <translation>Uusi varmenne</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation>Tiedosto johon sertifikaatti viedään</translation>
+        <translation>Tiedosto johon varmenne viedään</translation>
     </message>
     <message>
         <source>Email address</source>
@@ -2341,7 +2341,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation>Sertifikaattien hallinta</translation>
+        <translation>Varmenteiden hallinta</translation>
     </message>
     <message>
         <source>Certificate Authentication</source>
@@ -2353,19 +2353,19 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Current certificate</source>
-        <translation>Nykyinen sertifikaatti</translation>
+        <translation>Nykyinen varmenne</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Sertifikaatti jota Mumble käyttää tällä hetkellä.</translation>
+        <translation>Varmenne jota Mumble käyttää tällä hetkellä.</translation>
     </message>
     <message>
         <source>Current Certificate</source>
-        <translation>Nykyinen sertifikaatti</translation>
+        <translation>Nykyinen varmenne</translation>
     </message>
     <message>
         <source>Create a new certificate</source>
-        <translation>Luo uusi sertifikaatti</translation>
+        <translation>Luo uusi varmenne</translation>
     </message>
     <message>
         <source>This will create a new certificate.</source>
@@ -2373,7 +2373,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation>Tuo sertifikaatti tiedostosta</translation>
+        <translation>Tuo varmenne tiedostosta</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
@@ -2381,11 +2381,11 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Import a certificate</source>
-        <translation>Tuo sertifikaatti</translation>
+        <translation>Tuo varmenne</translation>
     </message>
     <message>
         <source>Export Certificate</source>
-        <translation>Vie sertifikaatti</translation>
+        <translation>Vie varmenne</translation>
     </message>
     <message>
         <source>This will export a certificate to file.</source>
@@ -2393,11 +2393,11 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Export current certificate</source>
-        <translation>Vie nykyinen sertifikaatti</translation>
+        <translation>Vie nykyinen varmenne</translation>
     </message>
     <message>
         <source>Import Certificate</source>
-        <translation>Tuo sertifikaatti</translation>
+        <translation>Tuo varmenne</translation>
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
@@ -2414,7 +2414,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation>Tiedosto, josta sertifikaatti tuodaan</translation>
+        <translation>Tiedosto, josta varmenne tuodaan</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
@@ -2442,15 +2442,15 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation>Salasana PKCS#12-sertifikaattitiedostolle.</translation>
+        <translation>Salasana PKCS#12-varmennetiedostolle.</translation>
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation>Tuomisen sertifikaatti.</translation>
+        <translation>Tuotava varmenne</translation>
     </message>
     <message>
         <source>This is the certificate you are importing.</source>
-        <translation>Tämä on sertifikaatti jota olet tuomassa.</translation>
+        <translation>Tämä on varmenne jota olet tuomassa.</translation>
     </message>
     <message>
         <source>Certificate Details</source>
@@ -2458,11 +2458,11 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Replace Certificate</source>
-        <translation>Korvaa sertifikaatti</translation>
+        <translation>Korvaa varmenne</translation>
     </message>
     <message>
         <source>Replace existing certificate with new certificate?</source>
-        <translation>Korvaa nykyinen sertifikaatti uudella?</translation>
+        <translation>Korvaa nykyinen varmenne uudella?</translation>
     </message>
     <message>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
@@ -2474,35 +2474,35 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Sinulla on jo sertifikaatti tallennettuna Mumbleen, ja olet aikeissa korvata sen.&lt;/p&gt;
-&lt;p&gt;Jos olet päivittämässä luotettuun sertifikaattiin, ja sen sähköpostiosoite täsmää nykyisen sertifikaatin kanssa, on toimenpide turvallinen. Palvelimet joihin yhdistät automaattisesti tunnistavat vahvan sertifikaatin sähköpostiosoitteellasi.
+        <translation>&lt;p&gt;Sinulla on jo varmenne tallennettuna Mumbleen, ja olet aikeissa korvata sen.&lt;/p&gt;
+&lt;p&gt;Jos olet päivittämässä luotettuun varmenteeseen, ja sen sähköpostiosoite täsmää nykyisen varmenteen kanssa, on toimenpide turvallinen. Palvelimet joihin yhdistät automaattisesti tunnistavat vahvan varmenteen sähköpostiosoitteellasi.
 &lt;/p&gt;
 &lt;p&gt;Mikäli näin ei ole, palvelimet, joihin olet aikaisemmin tunnistautunut, eivät enää tunnista sinua. Jos et ole vielä rekisteröitynyt yhdellekkään palvelimelle, tämä ei vaikuta sinuun.
 &lt;/p&gt;
 &lt;p&gt;
-Haluatko varmasti korvata sertifikaatin?
+Haluatko varmasti korvata varmenteen?
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>Tämä on Mumblen nykyinen sertifikaatti, joka tullaan korvaamaan</translation>
+        <translation>Tämä on Mumblen nykyinen varmenne, joka tullaan korvaamaan.</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation>Uusi sertifikaatti</translation>
+        <translation>Uusi varmenne</translation>
     </message>
     <message>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation>Tämä on uusi sertifikaatti, jolla vanha korvataan.</translation>
+        <translation>Tämä on uusi varmenne, jolla vanha korvataan.</translation>
     </message>
     <message>
         <source>New Certificate</source>
-        <translation>Uusi sertifikaatti</translation>
+        <translation>Uusi varmenne</translation>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
-        <translation>Varmuuskopioi sertifikaattisi</translation>
+        <translation>Varmuuskopioi varmenteesi</translation>
     </message>
     <message>
         <source>Export to</source>
@@ -2522,15 +2522,15 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation>Tämä on Mumblen nykyinen sertifikaatti, joka tullaan viemään tiedostoon.</translation>
+        <translation>Tämä on Mumblen nykyinen varmenne, joka viedään tiedostoon.</translation>
     </message>
     <message>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Luo uusi sertifikaatti vahvalle tunnistautumiselle. </translation>
+        <translation>Luo uusi varmenne vahvalle tunnistautumiselle.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble generoi vahvan sertifikaatin palvelimelle tunnistautumiseen.&lt;/p&gt;&lt;p&gt;Halutessasi voit antaa sertifikaattiin sisään lisätietoja, jotka esitetään palvelimelle kun yhdistät sinne. Jos sisällytät kelvollisen sähköpostiosoitteen, voit myöhemmin päivittää CA:n myöntämään sähköpostisertifikaatin, joka tuottaa vahvan tunnistautumisen.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble luo vahvan varmenteen palvelimelle tunnistautumiseen.&lt;/p&gt;&lt;p&gt;Halutessasi voit antaa varmenteseen lisätietoja, jotka esitetään palvelimelle kun yhdistät sinne. Jos sisällytät kelvollisen sähköpostiosoitteen, voit myöhemmin päivittää CA:n myöntämään sähköpostivarmenteen, joka tuottaa vahvan tunnistautumisen.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2546,7 +2546,7 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Tämä on sähköpostiosoitteesi. On erittäin suositeltavaa käyttää kelvollista sähköpostiosoitetta, koska se sallii sinun päivittää vahvaan sertifikaattiin ilman tunnistautumisongelmia.</translation>
+        <translation>Tämä on sähköpostiosoitteesi. On erittäin suositeltavaa käyttää kelvollista sähköpostiosoitetta, koska se sallii sinun päivittää vahvaan varmenteeseen ilman tunnistautumisongelmia.</translation>
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
@@ -2575,12 +2575,12 @@ Haluatko varmasti korvata sertifikaatin?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mikäli menetät sertifikaattisi, joka tapahtuu laitteistovian yhteydessä tai kun asennat uudelleen käyttöjärjestelmän, et pysty enää autentikoimaan mihinkään palvelimeen johon olet rekisteröitynyt. Tämän takia on sinun &lt;b&gt;täytyy&lt;/b&gt; tehdä varmuuskopio sertifikaatistasi. Suosittelememme pitämään varmuuskopiota erillisellä laitteella, kuten USB-muistitikulla.&lt;/p&gt;
+        <translation>&lt;p&gt;Mikäli menetät varmenteesi, mikä tapahtuu laitteistovian yhteydessä tai kun asennat uudelleen käyttöjärjestelmän, et pysty enää todentamaan mihinkään palvelimeen johon olet rekisteröitynyt. Tämän takia on sinun &lt;b&gt;täytyy&lt;/b&gt; tehdä varmuuskopio varmenteestasi. Suosittelememme pitämään varmuuskopiota erillisellä laitteella, kuten USB-muistitikulla.&lt;/p&gt;
 &lt;p&gt;Ota huomioon että varmuuskopiotiedosto ei ole salattu ja mikäli joku pääsee siihen käsiksi, he pystyvät esiintymään sinuna, joten pidä varmuuskopiosta hyvää huolta.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble voi käyttää sertifikaatteja palvelimia kohtaan tunnistautumiseen. Sertifikaattia käyttämällä vältyt salasanan käyttämiseltä, mikä taas tarkoittaa ettei sinun tarvitse lähettää salasanaa etäsivustolle. Sertifikaatti myös mahdollistaa todella helpon käyttäjärekisteröinnin ja sovelluksessa olevan kaverilistan ilman riippuvuutta palvelimiin.&lt;/p&gt;&lt;p&gt;Vaikka Mumble toimii ilman sertifikaatteja, suurin osa palvelimista olettaa sinulla olevan sertifikaatin.&lt;/p&gt;&lt;p&gt;Uuden sertifikaatin luominen riittää useimmissa tapauksissa. Mumble tukee myös sertifikaatin luottosuhteen sidonnaisuuden määrittämistä sähköpostiosoitteeseen. Näitä sertifikaatteja myöntävät kolmannet osapuolet. Lisätietoja on saatavilla &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;käyttäjän sertifikaattidokumentaatiossa&lt;/a&gt;. &lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble voi käyttää varmenteita palvelimia kohtaan tunnistautumiseen. Varmennetta käyttämällä vältyt salasanan käyttämiseltä, mikä taas tarkoittaa ettei sinun tarvitse lähettää salasanaa etäsivustolle. Varmenne myös mahdollistaa todella helpon käyttäjärekisteröinnin ja sovelluksessa olevan kaverilistan ilman riippuvuutta palvelimiin.&lt;/p&gt;&lt;p&gt;Vaikka Mumble toimii ilman sertifikaatteja, suurin osa palvelimista olettaa sinulla olevan varmenteen.&lt;/p&gt;&lt;p&gt;Uuden varmenteen luominen riittää useimmissa tapauksissa. Mumble tukee myös varmenteen luottosuhteen sidonnaisuuden määrittämistä sähköpostiosoitteeseen. Näitä varmenteita myöntävät kolmannet osapuolet. Lisätietoja on saatavilla &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;käyttäjän varmennedokumentaatiossa&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2715,7 +2715,7 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>This represents the permission to use the listen-feature allowing to listen to a channel without being in it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä kuvaa oikeutta käyttää kuunteluominaisuutta, mikä mahdollistaa kanavan kuuntelun ilman että on kyseisessä kanavassa.</translation>
     </message>
     <message>
         <source>Listen</source>
@@ -2723,11 +2723,11 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä kuvaa oikeutta poistaa käyttäjän kommentti tai profiilikuva.</translation>
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista käyttäjän sisältö</translation>
     </message>
 </context>
 <context>
@@ -2751,7 +2751,7 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä palvelin ei salli kuvien lähettämistä.</translation>
     </message>
 </context>
 <context>
@@ -2798,7 +2798,7 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jätä huomiotta paikallisessa teksti-puheeksi toiminnossa</translation>
     </message>
 </context>
 <context>
@@ -2845,11 +2845,11 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mukautuskategoriat</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä nappula palauttaa oletusasetukset tälle sivulle. Tällä ei ole vaikutusta toisiin sivuihin.&lt;br /&gt;Palauttaaksesi kaikki asetukset oletusasetuksiin, paina &quot;Palauta kaikki oletusasetukset&quot; -nappia.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
@@ -2992,11 +2992,11 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hyväksy yksityisten tietojen lähettäminen</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Jotta julkisten palvelinten viive (ping) voidaan mitata ja niiden aktiivisten käyttäjien määrä selvittää, IP-osoitteesi täytyy lähettää jokaiselle julkiselle palvelimelle. &lt;/p&gt;&lt;p&gt;Hyväksytkö IP-osoitteesi lähettämisen? Jos vastaat ei, julkisten palvelinten lista otetaan pois käytöstä. Voit ottaa sen koska tahansa takaisin käyttöön verkkoasetuksissa.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
@@ -3122,7 +3122,9 @@ Käyttäjänimi jota tulet käyttämään palvelimella. Huomioi että palvelimet
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Olet tällä hetkellä yhdistynyt palvelimeen.
+Haluatko täyttää kentät tämän palvelimen yhteystiedoilla?
+Osoite: %1 Portti: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
@@ -3182,7 +3184,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Älä tee mitään</translation>
     </message>
 </context>
 <context>
@@ -3250,11 +3252,11 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tietokantatiedosto &apos;%1&apos; joka on asetettu asetustiedostoon ei ole olemassa. Haluatko luoda uuden tietokantatiedoston sinne?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble epäonnistui luomaan tietokantatiedoston kaikkiin mahdollisiin paikkoihin.</translation>
     </message>
 </context>
 <context>
@@ -3339,19 +3341,19 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Muita pikanäppäimiä&lt;/b&gt;&lt;br /&gt;Tämä kohta mahdollistaa muiden järjestelmänlaajuisten pikanäppäimien luonnin.</translation>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Muut pikanäppäimet</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Ota käyttöön Windows hooks&lt;/b&gt;.&lt;br /&gt;Tämä ottaa käyttöön Windows Hooks pikanäppäinmoottorin. Tämän moottorin käyttö mahdollistaa näppäinpainallusten ja hiirenklikkausten vaimennuksen Mumblessa.</translation>
     </message>
     <message>
         <source>Enable Windows hooks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ota käyttöön Windows Hooks</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
@@ -3373,38 +3375,39 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Ota käyttöön pikanäppäimet etuoikeutetuissa ohjelmissa&lt;/b&gt;.&lt;br /&gt;Tunnettu myös nimellä &quot;UIAccess&quot;. Tämä mahdollistaa Mumblen vastaanottaa järjestelmänlaajuisia pikanäppäintapahtumia myös ohjelmilta joita suoritetaan korkeammilla oikeuksilla, kuten Järjestelmävalvojan komentokehote tai vanhemmissa peleissä jotka suoritetaan järjestelmänvalvojan oikeuksilla. &lt;br /&gt;&lt;br /&gt;
+Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kyseisissä ohjelmissa. Tämä voi vaikuttaa epäjohdonmukaiselta: esimerkiksi painettaessa puhumisen pikanäppäintä normaalissa ohjelmassa, mutta päästettäessä irti ohjelmassa jota ajetaan korkeammalla oikeudella, ei Mumble havaitse näppäimen vapauttamista ja näin äänen lähetys jatkuu myös näppäimen vapauttamisen jälkeen.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ota käyttöön pikanäppäimet ohjelmissa joita ajetaan korkeammilla oikeuksilla</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Muokkaa pikanäppäintä</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>Aloita kaappaus</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aloita näppäimien kaappaus: kaikki näppäimet joita painat lisätään puuhun.&lt;/p&gt;&lt;p&gt;Kun kaikki näppäimet on vapautettu, kaappaus loppuu automaattisesti.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Lisää</translation>
+        <translation>Lisää</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista valitut kohteet</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Poista</translation>
+        <translation>Poista</translation>
     </message>
 </context>
 <context>
@@ -3439,18 +3442,18 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Tuntematon</translation>
+        <translation>Tuntematon</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiiri</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Näppäimistö</translation>
     </message>
 </context>
 <context>
@@ -3513,7 +3516,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Huuda/Kuiskaa:</translation>
     </message>
     <message>
         <source>Current selection</source>
@@ -3521,11 +3524,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kun huudat kanavalle:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Huuda linkattuihin kanaviin</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -3536,22 +3539,22 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiiri</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Näppäimistö</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Näppäimistö</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiiri</translation>
     </message>
 </context>
 <context>
@@ -3653,7 +3656,7 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <name>ListenerLocalVolumeDialog</name>
     <message>
         <source>Adjusting local volume for listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paikallisen äänenvoimakkuuden säätö kuunnellessa %1</translation>
     </message>
 </context>
 <context>
@@ -3814,11 +3817,11 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>User started listening to channel</source>
-        <translation>Käyttäjä alkoi kuuntelemaan kanavaa</translation>
+        <translation>Käyttäjä alkoi kuunnella kanavaa</translation>
     </message>
     <message>
         <source>User stopped listening to channel</source>
-        <translation>Käyttäjä lopetti kuuntelemasta kanavaa</translation>
+        <translation>Käyttäjä lopetti kanavan kuuntelun</translation>
     </message>
 </context>
 <context>
@@ -3829,7 +3832,7 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>Käytä pop-up-ilmoitusta tapahtumalle %1</translation>
+        <translation>Käytä ponnahdusilmoitusta tapahtumalle %1</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
@@ -3841,7 +3844,7 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda epäaktiivisen ikkunan korostusta tapahtumalle %1</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
@@ -3858,7 +3861,7 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paina tästä vaihtaaksesi ikkunan korostuksen joka %1 tapahtumalle.&lt;br /&gt;Jos valittu, Mumblen ikkuna korostetaan joka %1 tapahtuma, aina kun se ei ole aktiivinen.</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
@@ -3972,29 +3975,31 @@ Kenttä kuvaa LCD-laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Korosta</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos käytössä, teksti-puheeksi ei sanele viestin kohdetta.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"></translation>
+        <translation>Jätä viestin näkyvyysalue huomiotta</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos käytössä, teksti-puheeksi ei sanele viestin kirjoittajaa.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Jätä viestin kirjoittaja huomiotta</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos valittu, viestin alussa oleva aikaleima näytetään 24-tunnin muodossa.
+
+Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</translation>
     </message>
     <message>
         <source>Use 24-hour clock</source>
@@ -4002,23 +4007,23 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuinka suurella välillä viestit ovat erotettu toisistaan.</translation>
     </message>
     <message>
         <source>Message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Viestin reunus</translation>
     </message>
     <message>
         <source>Log messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokiviestit</translation>
     </message>
     <message>
         <source>TTS engine volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teksti-puheeksi äänenvoimakkuus</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Viestiketjun viestien reunus</translation>
     </message>
 </context>
 <context>
@@ -4275,7 +4280,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mukautetussa asetelmassa tämän valinta estää uudelleenasettelun.</translation>
     </message>
     <message>
         <source>Lock layout</source>
@@ -4283,31 +4288,31 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhujalista</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjä, joka on hiljaa annetun aikaa, poistetaan puhujalistasta.</translation>
     </message>
     <message>
         <source>Remove silent user after</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista hiljainen käyttäjä ajan jälkeen</translation>
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos valittu, paikallinen käyttäjä (sinä) näkyy aina puhujalistassa (riippumatta puhumisesta).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Pidä aina paikallinen käyttäjä näkyvissä</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuinka monta merkkiä näytetään lyhennetyn nimen alussa alkuperäisestä nimestä.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
-        <translation type="unfinished"></translation>
+        <translation>Merkkijono kanavan nimen erottamiseen yläkanavastaan.</translation>
     </message>
     <message>
         <source>Channel separator</source>
@@ -4315,27 +4320,27 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lyhennyksen alun merkkien määrä</translation>
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuinka monen yläkanavan nimi näytetään puhujalistassa kanavan nimessä?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuinka monta merkkiä näytetään lyhennetyn nimen lopussa alkuperäisestä nimestä.</translation>
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lyhennyksen lopun merkkien määrä</translation>
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
-        <translation type="unfinished"></translation>
+        <translation>Sallitaanko myös käyttäjän nykyisen kanavan nimen lyhentäminen (ainoastaan yläkanavien nimien sijaan).</translation>
     </message>
     <message>
         <source>Abbreviate current channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Lyhennä nykyisen kanavan nimi</translation>
     </message>
     <message>
         <source>Channel hierarchy depth</source>
@@ -4343,19 +4348,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviation replacement</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lyhennyksen korvaus</translation>
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sallitaanko kanavan (kanavahierarkian) nimen lyhentäminen, jos se ylittää annetun pituuden.</translation>
     </message>
     <message>
         <source>Abbreviate channel names</source>
-        <translation type="unfinished"></translation>
+        <translation>Lyhennä kanavien nimet</translation>
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
-        <translation type="unfinished"></translation>
+        <translation>Suositus kanavan (kanavahierarkian) nimen pituudelle puhujalistassa. Huomaa, että tämä ei ole lopullinen raja.</translation>
     </message>
     <message>
         <source>Max. channel name length</source>
@@ -4363,23 +4368,23 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhujalistassa käytettävä suhteellinen kirjasinkoko prosentteina.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Suhteellinen kirjasinkoko (%)</translation>
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Merkkijono, jolla korvataan pois leikattu kohta lyhennetystä nimestä.</translation>
     </message>
     <message>
         <source>Prefix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>Merkkien määrä alussa</translation>
     </message>
     <message>
         <source>Postfix character count</source>
-        <translation type="unfinished"></translation>
+        <translation>Merkkien määrä lopussa</translation>
     </message>
     <message>
         <source>Maximum name length</source>
@@ -4387,7 +4392,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Relative font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Suhteellinen kirjasinkoko</translation>
     </message>
     <message>
         <source>Always on top</source>
@@ -4395,35 +4400,35 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel dragging</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanavan raahaaminen</translation>
     </message>
     <message>
         <source>Automatically expand channels when</source>
-        <translation type="unfinished"></translation>
+        <translation>Laajenna kanavat automaattisesti kun</translation>
     </message>
     <message>
         <source>User dragging behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjän raahaamisen käytös</translation>
     </message>
     <message>
         <source>Silent user lifetime</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiljaisen käyttäjän elinaika</translation>
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Näytä paikallinen äänenvoimakkuuden säätö jokaiselle käyttäjälle</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä äänenvoimakkuuden hienosäätö</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation type="unfinished"></translation>
+        <translation>Näytetäänkö jokaisen paikallisen käyttäjän kuuntelija (korvat) puhujalistassa (ja sitä myöten myös kanavat joissa he ovat). </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä paikallisen käyttäjän kuuntelijat (korvat)</translation>
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
@@ -4698,7 +4703,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;li&gt;Expected certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation>Odotettava sertifikaatti digest (SHA-1):	%11</translation>
+        <translation>&lt;li&gt;Odotettu tiiviste varmenteesta (SHA-1):	%11&lt;/li&gt;</translation>
     </message>
     <message>
         <source>Server presented a certificate which failed verification.</source>
@@ -4706,7 +4711,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>%1 %2 Virheitä sertifikaatissa oli: %3 Haluatko hyväksyä sertifikaatin tästä huolimatta? (Sertifikaatti tullaan tallentamaan, jolloin sinulta ei kysytä tätä uudelleen).</translation>
+        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Virheitä varmenteessa on:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Haluatko hyväksyä varmenteen tästä huolimatta?&lt;br /&gt;(Varmenne tullaan tallentamaan, jolloin sinulta ei kysytä tätä uudelleen.)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>SSL Version mismatch</source>
@@ -4886,7 +4891,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation>&amp;Näytä sertifikaatti</translation>
+        <translation>&amp;Näytä varmenne</translation>
     </message>
     <message>
         <source>Enter reason</source>
@@ -4971,7 +4976,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;li&gt;Server certificate digest (SHA-1):	%1&lt;/li&gt;</source>
-        <translation>Palvelimen sertifikaatti digest (SHA-1):	%11</translation>
+        <translation>&lt;li&gt;Palvelimen varmenteen tiiviste (SHA-1):	%1&lt;/li&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
@@ -5007,15 +5012,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Wrong certificate or password</source>
-        <translation>Väärä sertifikaatti tai salasana</translation>
+        <translation>Väärä varmenne tai salasana</translation>
     </message>
     <message>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Väärä sertifikaatti tai salasana rekisteröityneelle käyttäjälle. Jos olet
+        <translation>Väärä varmenne tai salasana rekisteröityneelle käyttäjälle. Jos olet
 varma, että käyttäjä on suojattu salasanalla, ole hyvä ja kokeile uudestaan.
-Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translation>
+Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
     </message>
     <message>
         <source>Wrong password</source>
@@ -5354,7 +5359,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     </message>
     <message>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation>Aloittaa avustajan sertifikaattien luontiin, tuontiin ja vientiin. Sertifikaatteja käytetään tunnistautumiseen palvelimille.</translation>
+        <translation>Aloittaa avustajan varmenteiden luontiin, tuontiin ja vientiin. Varmenteita käytetään palvelimille tunnistautumiseen.</translation>
     </message>
     <message>
         <source>Register user on server</source>
@@ -5514,7 +5519,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     </message>
     <message>
         <source>%1 does not have a certificate.</source>
-        <translation>%1 ei omaa sertifikaattia.</translation>
+        <translation>%1 ei omista omaa varmennetta.</translation>
     </message>
     <message>
         <source>Invalid username: %1.</source>
@@ -6041,7 +6046,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
-        <translation>&amp;Sertifikaattiapuri...</translation>
+        <translation>&amp;Varmenneapuri...</translation>
     </message>
     <message>
         <source>&amp;Register...</source>
@@ -6105,7 +6110,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Locally adjust the volume for this virtual ear.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta paikallisesti äänenvoimakkuus tälle virtuaaliselle korvalle.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
@@ -6113,11 +6118,11 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>No action available...</source>
-        <translation type="unfinished"></translation>
+        <translation>Toimintoa ei saatavilla...</translation>
     </message>
     <message>
         <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ei voitu %2 - Lisäämällä oikea pääsypoletti (salasana) saattaa antaa sinulle oikeudet.</translation>
     </message>
     <message>
         <source>No more listeners allowed in this channel.</source>
@@ -6125,7 +6130,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>You are not allowed to listen to more channels than you currently are.</source>
-        <translation type="unfinished"></translation>
+        <translation>Et voi kuunella enää useampaa kanavaa kuin tällä hetkellä kuuntelet.</translation>
     </message>
     <message>
         <source>You started listening to %1</source>
@@ -6145,11 +6150,11 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhujalista</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaihtaa puhujalistan näkyvyyttä.</translation>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
@@ -6173,19 +6178,19 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista teksti-puheeksi -ominaisuus käytöstä</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista paikallisesti teksti-puheeksi -ominaisuus käytöstä tämän käyttäjän viesteihin.</translation>
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poistaa hiljaa teksti-puheeksi -ominaisuuden käytöstä kaikkiin tämän käyttäjän viesteihin.</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Puu</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6250,7 +6255,48 @@ Valid options are:
                 (useful for debugging purposes)
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttö: mumble [valinnat] [&lt;url&gt;]
+
+&lt;url&gt; määrittää URLn johon yhdistää käynnistymisen jälkeen sen sijaan että näytetään 
+liittymisikkuna. Osoite on muotoa:
+mumble://[&lt;käyttäjä&gt;[:&lt;salasana&gt;]@]&lt;osoite&gt;[:&lt;portti&gt;][/&lt;kanava&gt;[/&lt;alikanava&gt;...]][?versio=&lt;x.y.z&gt;]
+
+Versio-kyselyparametri täytyy asettaa jotta voidaan kutsua oikea versio asiakasohjelmasta. 
+Tällä hetkellä sen oletusarvo on 1.2.0.
+
+Päteviä valintoja ovat:
+  -h, --help    Näytä tämä aputeksti ja poistu.
+  -m, --multiple
+                Salli useamman esiintymän asiakasohjelmasta käynnistyä.
+  -c, --config
+                Määritä vaihtoehtoinen asetustiedosto. 
+                Jos käytät tätä ajaaksesi monia esiintymiä Mumblesta yhtä
+                aikaa, pidä huoli että määrittelet vaihtoehtoisen &apos;database&apos;
+                -arvon asetustiedostossa.
+  -n, --noidentity
+                Hiljennä identiteettitiedostojen (esim. varmenteiden) lataus
+  -jn, --jackname &lt;arg&gt;
+                Aseta mukautettu Jack-asiakasohjelman nimi.
+  --license
+                Näytä Mumblen lisenssi.
+  --authors
+                Näytä Mumblen tekijät.
+  --third-party-licenses
+                Näytä kolmannen osapuolen ohjelmistojen lisenssit, joita
+                Mumble käyttää.
+  --window-title-ext &lt;arg&gt;
+                Asettaa mukautetun ikkunaotsikon päätteen.
+  --dump-input-streams
+                Kirjoittaa talteen PCM-virrat vaihtelevissa paikoissa
+                sisääntuloketjua (hyödyllistä vianetsinnässä)
+                - suora mikrofonin sisääntulo
+                - kuulokkeulostulon takaisinluku kaiunpoistoa varten
+                - käsitelty mikrofonin sisääntulo
+  --print-echocancel-queue
+                Tulosta stdout:iin kaiunpoiston jonon tila 
+                (hyödyllistä vianetsinnässä)
+
+</translation>
     </message>
     <message>
         <source>Hide/show main window</source>
@@ -6294,7 +6340,48 @@ Valid actions are:
                 Stop talking
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttö: mumble [valinnat] [&lt;url&gt;]
+
+&lt;url&gt; määrittää URLn johon yhdistää käynnistymisen jälkeen sen sijaan että näytetään 
+liittymisikkuna. Osoite on muotoa:
+mumble://[&lt;käyttäjä&gt;[:&lt;salasana&gt;]@]&lt;osoite&gt;[:&lt;portti&gt;][/&lt;kanava&gt;[/&lt;alikanava&gt;...]][?versio=&lt;x.y.z&gt;]
+
+Versio-kyselyparametri täytyy asettaa jotta voidaan kutsua oikea versio asiakasohjelmasta. 
+Tällä hetkellä sen oletusarvo on 1.2.0.
+
+Päteviä valintoja ovat:
+  -h, --help    Näytä tämä aputeksti ja poistu.
+  -m, --multiple
+                Salli useamman esiintymän asiakasohjelmasta käynnistyä.
+  -c, --config
+                Määritä vaihtoehtoinen asetustiedosto. 
+                Jos käytät tätä ajaaksesi monia esiintymiä Mumblesta yhtä
+                aikaa, pidä huoli että määrittelet vaihtoehtoisen &apos;database&apos;
+                -arvon asetustiedostossa.
+  -n, --noidentity
+                Hiljennä identiteettitiedostojen (esim. sertifikaattien) lataus
+  -jn, --jackname &lt;arg&gt;
+                Aseta mukautettu Jack-asiakasohjelman nimi.
+  --license
+                Näytä Mumblen lisenssi.
+  --authors
+                Näytä Mumblen tekijät.
+  --third-party-licenses
+                Näytä kolmannen osapuolen ohjelmistojen lisenssit, joita
+                Mumble käyttää.
+  --window-title-ext &lt;arg&gt;
+                Asettaa mukautetun ikkunaotsikon päätteen.
+  --dump-input-streams
+                Kirjoittaa talteen PCM-virrat vaihtelevissa paikoissa
+                sisääntuloketjua (hyödyllistä vianetsinnässä)
+                - suora mikrofonin sisääntulo
+                - kuulokkeulostulon takaisinluku kaiunpoistoa varten
+                - käsitelty mikrofonin sisääntulo
+  --print-echocancel-queue
+                Tulosta stdout:iin kaiunpoiston jonon tila 
+                (hyödyllistä vianetsinnässä)
+
+</translation>
     </message>
 </context>
 <context>
@@ -6373,15 +6460,15 @@ Valid actions are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished">Näytä</translation>
+        <translation>Näyttö</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuinka pitkään hiljaisen käyttäjän tila pitäisi pysyä näkyvillä hänen lopetettuaan puhumisen (sekunneissa).</translation>
     </message>
     <message>
         <source>Silent user displaytime:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiljaisen käyttäjän näkymäaika:</translation>
     </message>
 </context>
 <context>
@@ -6465,7 +6552,7 @@ Valid actions are:
     </message>
     <message>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation>Älä lähetä sertifikaattia palvelimelle, tai tallenna salasanoja. (Ei tallenneta).</translation>
+        <translation>Älä lähetä varmennetta palvelimelle äläkä tallenna salasanoja. (Ei tallenneta).</translation>
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
@@ -6473,7 +6560,7 @@ Valid actions are:
     </message>
     <message>
         <source>Suppress certificate and password storage</source>
-        <translation>Piilota sertifikaatti ja salasanojen säilö</translation>
+        <translation>Piilota varmenne ja salasanatietue</translation>
     </message>
     <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
@@ -6578,7 +6665,8 @@ Valid actions are:
     <message>
         <source>&lt;b&gt;Don&apos;t send OS information to servers&lt;/b&gt;&lt;br/&gt;
 Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Älä lähetä käyttöjärjestelmätietoja palvelimille&lt;/b&gt;&lt;br/&gt;
+Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärjestelmää, lähettämisen Mumblen palvelimille.</translation>
     </message>
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
@@ -6586,7 +6674,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>When toggled this hides the public server list from the connect dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä vaihtaa julkisten palvelimien näkyvyyttä liittymisikkunassa</translation>
     </message>
     <message>
         <source>Hide public server list</source>
@@ -6701,7 +6789,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Launcher Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Käynnistysohjelman suodin</translation>
     </message>
     <message>
         <source>Overlay</source>
@@ -6977,7 +7065,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Skaalaustaso</translation>
     </message>
 </context>
 <context>
@@ -7203,27 +7291,28 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble on tällä hetkellä yhdistynyt palvelimeen</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>CodecInit: Ei voitu ladata Opusta, se ei ole saatavilla audion enkoodaamisessa/dekoodaamisessa.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhujalista</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaiunpoisto ei ole tuettu rajapintakombinaatiolle &quot;%1&quot; (sisään) ja &quot;%2&quot; (ulos).</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Jos käytät Linuxia, tämä johtuu todennäköisesti siitä, että käytössäsi on vanhempi versio Mumblesta jakeluversiosi pakettienhallinnasta, joilla on heidän oma päivitystahtinsa.&lt;/p&gt;&lt;p&gt;Jos haluat aina käyttää uusinta Mumble-versiota, sinun pitää harkita toista asennustapaa.
+Lisätietoa löydät &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mumble wikistä&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Local Mute</source>
@@ -7231,15 +7320,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished">Estä viestit</translation>
+        <translation>Älä huomioi viestejä</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista teksti-puheeksi -ominaisuus käytöstä</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; ei voitu tallentaa pysyvästi ja häviää uudelleenkäynnistyksessä koska %2 ei ole varmennetta.</translation>
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
@@ -7247,39 +7336,39 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Käytät Mumblesta versiota, josta on &lt;b&gt;poistettu käytöstä&lt;/b&gt; päivitysten tarkistus.&lt;/p&gt;&lt;p&gt;Tämä tarkoittaa, että päivitysilmoitus jonka saatat tämän asetuksen kautta saada, on &lt;b&gt;todennäköisesti merkityksetön&lt;/b&gt; sinulle.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Talking (muted)</source>
-        <translation type="unfinished"></translation>
+        <translation>Puhuu (mykistetty)</translation>
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaikki viestit</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota käyttöön / poista käytöstä kirjaus konsoliin kaikille tapahtumille</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota käyttöön / poista käytöstä ponnahdusilmoitukset kaikille tapahtumille</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda ikkunan korostus (jos ei aktiivisena) kaikille tapahtumille</translation>
     </message>
     <message>
         <source>Click here to toggle sound notifications for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Paina tästä vaihtaaksesi ilmoitusäänten tilaa kaikissa tapahtumissa</translation>
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota käyttöön / poista käytöstä teksti-puheeksi kaikissa tapahtumissa</translation>
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
-        <translation type="unfinished"></translation>
+        <translation>RNNoise ei ole saatavilla sopimattoman näytteistystaajuuden vuoksi.</translation>
     </message>
     <message>
         <source>Reset all settings?</source>
@@ -7295,63 +7384,63 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Estetty URL-rakenne &quot;%1&quot;&lt;/b&gt;</translation>
     </message>
     <message>
         <source>The URL uses a scheme that has been blocked for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>URLn rakenne on estetty turvallisuussyistä.</translation>
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Estetty URL: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished">Oletuslaite</translation>
+        <translation>Oletuslaite</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä vaihtoehto toimii parhaiten käytettäessa sisäänrakennettua mikrofonia ja kaiutinta.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pääsy mikrofoniin estettiin. Anna Mumblelle lupa käyttää mikrofonia muuttamalla asetuksia Järjestelmän asetukset -&gt; Turvallisuus ja yksityisyys -&gt; Yksityisyys -&gt; Mikrofoni.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pääsy mikrofoniin estettiin järjestelmän rajoitusten vuoksi. Et voi käyttää mikrofonia tässä istunnossa.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos käytössä, Mumble yrittää poistaa kaikua äänivirrasta.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Ei käytössä</translation>
+        <translation>Pois käytöstä</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaiunpoisto on pois käytöstä.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sekoitettu kaiunpoisto (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sekoitetulla ei ole suurta vaikutusta prosessointitehoon, mutta se toimii hyvin vain jos kaiuttimesi ovat yhtä kovalla ja yhtä etäällä mikrofonistasi.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Monikanavainen kaiunpoisto (speex)</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Monikanavainen kaiunpoisto tuo paljon paremman kaiunpoiston mutta se vaatii enemmän tehoa prosessorilta, minkä vuoksi kannattaa kokeilla sekoitettua kaiunpoistoa ensiksi.</translation>
     </message>
     <message>
         <source>Acoustic echo cancellation provided by Apple.</source>
-        <translation type="unfinished"></translation>
+        <translation>Akustinen kaiunpoisto (Apple).</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7513,11 +7602,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei näppäimiä yhdistetty</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Paina näyttääksesi näppäinyhdistelmän</translation>
     </message>
 </context>
 <context>
@@ -7732,7 +7821,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Certificate</source>
-        <translation>Sertifikaatti</translation>
+        <translation>Varmenne</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -8072,15 +8161,15 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä on kanavan kuuntelija. Vastaava käyttäjä kuulee kaiken mitä sanot tässä kanavassa.</translation>
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavalla on pääsyrajoituksia joiden vuoksi et voi liittyä sinne</translation>
     </message>
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanavalla on pääsyrajoituksia, mutta voit silti liittyä</translation>
     </message>
 </context>
 <context>
@@ -8119,11 +8208,11 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     <name>ViewCert</name>
     <message>
         <source>Certificate Chain Details</source>
-        <translation>Sertifikaattiketjun tiedot.</translation>
+        <translation>Varmenneketjun tiedot</translation>
     </message>
     <message>
         <source>Certificate chain</source>
-        <translation>Sertifikaattiketju</translation>
+        <translation>Varmenneketju</translation>
     </message>
     <message>
         <source>Certificate details</source>
