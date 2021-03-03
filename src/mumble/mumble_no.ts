@@ -412,39 +412,39 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Egenskaper</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalpassord</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimalt antall brukere</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalnavn</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedarvede gruppemedlemmer</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Fremmede gruppemedlemmer</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedarvede kanalmedlemmer</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg til medlemmer i gruppe</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste over ACL-oppføringer</translation>
     </message>
 </context>
 <context>
@@ -578,18 +578,18 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste over mikrofoner</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liste over høyttalere</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Du må velge minst én mikrofon og én høyttalerkilde for å bruke ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -624,15 +624,15 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisensavtale</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Utviklere</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Tredjepartsvilkår</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -967,15 +967,15 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydinngang</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Dette er inndatametoden brukt for lyd.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skru på Opus-lavforsinkelsesmodus når kvaliteten er satt til &lt;b&gt;64 kb/s&lt;/b&gt; eller høyere. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
@@ -983,35 +983,35 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillat lavforsinkelsesmodus</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ikke bruk støyundertrykking.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bruk støyundertrykkelsesalgoritmen tilbudt av Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bruk støyundertrykkelsesalgoritmen tilbudt av RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bruk en kombinasjon av Speex og RNNoise for støyundertrykking.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Begge</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette kontrollerer mengden støyundertrykking Speex anvender.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Speex-undertrykkingsstyrke</translation>
     </message>
 </context>
 <context>
@@ -1058,75 +1058,75 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydsystem</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydenhet</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekkokanselleringsmodus</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Overvøringsmodus</translation>
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>TFT-låseterskel</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>TFT-holdeterksel</translation>
     </message>
     <message>
         <source>Silence below</source>
-        <translation type="unfinished"></translation>
+        <translation>Stille under</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">Nåværende sjanse for stemmeoppdagelse</translation>
+        <translation>Nåværende taleoppdagelsessjanse</translation>
     </message>
     <message>
         <source>Speech above</source>
-        <translation type="unfinished"></translation>
+        <translation>Tale over</translation>
     </message>
     <message>
         <source>Speech below</source>
-        <translation type="unfinished"></translation>
+        <translation>Tale under</translation>
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished">Lyd per pakke</translation>
+        <translation>Lyd per pakke</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">Kvalitet på komprimering (toppnivå for båndbredde)</translation>
+        <translation type="unfinished">Kompresjonskvalitet (båndbreddespiss)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished">Støydempning</translation>
+        <translation>Lydundertrykking</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimal forsterkning</translation>
     </message>
     <message>
         <source>Transmission started sound</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lyd for overføringsstart</translation>
     </message>
     <message>
         <source>Transmission stopped sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Lyd for overføringsstopp</translation>
     </message>
     <message>
         <source>Initiate idle action after (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Start lediggangshandling etter (antall minutter)</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished">Lediggangshandling</translation>
+        <translation>Lediggangshandling</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1142,7 +1142,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skru av ekkokansellering.</translation>
     </message>
 </context>
 <context>
@@ -1397,11 +1397,11 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydutgang</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dette er utdatametoden brukt for lyd.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
@@ -1413,11 +1413,11 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Skru på</translation>
     </message>
     <message>
         <source>Attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Demping</translation>
     </message>
 </context>
 <context>
@@ -1452,11 +1452,11 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Utgangssystem</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Utgansenhet</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
@@ -1464,27 +1464,27 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished">Lydstyrke for innkommende tale</translation>
+        <translation>Lydstyrke for innkommende tale</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Utgangsforsinkelse</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished">Senkning av andre programmer under tale</translation>
+        <translation>Demping av andre programmer under tale</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimumsavstand</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimumsavstand</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimumslydstyrke</translation>
     </message>
     <message>
         <source>Bloom</source>
@@ -1496,7 +1496,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished">Pakketap</translation>
+        <translation>Pakketap</translation>
     </message>
     <message>
         <source>Loopback</source>
@@ -2028,11 +2028,11 @@ Ingen snakking. Krysset (Definitivt ikke tale)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Inngangsmetoden brukt for lyd.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Utgangsmetoden brukt for lyd.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -2044,27 +2044,27 @@ Ingen snakking. Krysset (Definitivt ikke tale)</translation>
     </message>
     <message>
         <source>Input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Inngangssystem</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Inngangsenhet</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Utgangsenhet</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Utgangsenhet</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Utgangsforsinkelse</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimal forsterkning</translation>
     </message>
     <message>
         <source>VAD level</source>
@@ -2218,23 +2218,23 @@ Ingen snakking. Krysset (Definitivt ikke tale)</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Søk</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished">IP-adresse</translation>
+        <translation>IP-adresse</translation>
     </message>
     <message>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maske</translation>
     </message>
     <message>
         <source>Start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Startdato/-tid</translation>
     </message>
     <message>
         <source>End date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluttdato/-tid</translation>
     </message>
 </context>
 <context>
@@ -2320,35 +2320,35 @@ Ingen snakking. Krysset (Definitivt ikke tale)</translation>
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished">Gjeldende sertifikat</translation>
+        <translation>Nåværende sertifikat</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifikat å importere</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifikatspassord</translation>
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished">Sertifikat som skal importeres</translation>
+        <translation>Sertifikat å importere</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished">Nytt sertifikat</translation>
+        <translation>Nytt sertifikat</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation>Fil å eksportere sertifikat til</translation>
     </message>
     <message>
         <source>Email address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">E-postadresse</translation>
     </message>
     <message>
         <source>Your name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ditt nav</translation>
     </message>
 </context>
 <context>
@@ -2733,7 +2733,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Listen</source>
-        <translation type="unfinished"></translation>
+        <translation>Lytt</translation>
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
@@ -2741,7 +2741,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Reset User Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilbakestill brukerinnhold</translation>
     </message>
 </context>
 <context>
@@ -2761,11 +2761,11 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kunne ikke sende «%1»-bildet siden det var for stort.</translation>
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjeneren tillater ikke bildeforsendelse.</translation>
     </message>
 </context>
 <context>
@@ -2859,7 +2859,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Configuration categories</source>
-        <translation type="unfinished"></translation>
+        <translation>Oppsettskategorier</translation>
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
@@ -2867,7 +2867,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjenopprett alle forvalg</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
@@ -2890,7 +2890,7 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukjent</translation>
     </message>
     <message>
         <source>Users</source>
@@ -2950,63 +2950,63 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjenerliste</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Søk</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Posisjon</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished">Filter</translation>
+        <translation>Filter</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis alle</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis anvendte</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis anvendbare</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrika</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation>Asia</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation>Europa</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation>Nord-Amerika</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation>Oseania</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation>Sør-Amerika</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"></translation>
+        <translation>Samtykk til overføring av privat data</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
@@ -3190,11 +3190,11 @@ Hva tjeneren er beskrevet som. Dette er hva tjeneren vil bli navngitt som i din 
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fyll ut</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignorer</translation>
     </message>
 </context>
 <context>
@@ -3396,7 +3396,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Rediger snarvei</translation>
     </message>
     <message>
         <source>Start capture process</source>
@@ -3408,7 +3408,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Legg til</translation>
+        <translation>Legg til</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3416,7 +3416,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Fjern</translation>
+        <translation>Fjern</translation>
     </message>
 </context>
 <context>
@@ -3444,25 +3444,25 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Oppsatte snarveier</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukjent</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mus</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastatur</translation>
     </message>
 </context>
 <context>
@@ -3525,60 +3525,60 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rop/hvisk til:</translation>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Nåværende utvalg</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ved roping til kanal:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Rop til lenkede kanaler</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished">Kanal</translation>
+        <translation>Kanal</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mus</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastatur</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastatur</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mus</translation>
     </message>
 </context>
 <context>
     <name>JackAudioSystem</name>
     <message>
         <source>Hardware Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksinvareporter</translation>
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Stereo</translation>
     </message>
 </context>
 <context>
@@ -3654,18 +3654,18 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source>Minimum column width</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimumskolonnebredde</translation>
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>Inndelerbredde</translation>
     </message>
 </context>
 <context>
     <name>ListenerLocalVolumeDialog</name>
     <message>
         <source>Adjusting local volume for listening to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Justerer lokal lydstyrke for lytting til %1</translation>
     </message>
 </context>
 <context>
@@ -3736,15 +3736,15 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker koblet til og tok del i kanalen</translation>
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker forlot kanal og koblet fra</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Privat tekstmelding</translation>
     </message>
     <message>
         <source>the server</source>
@@ -3770,7 +3770,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FTP-lenke til %1</translation>
     </message>
     <message>
         <source>player link</source>
@@ -3790,47 +3790,47 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjener koblet fra</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker trådte inn på tjeneren</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker forlot tjeneren</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker tok del i kanalen</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker forlot kanalen</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilgang nektet</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished">Tekstmeldinger</translation>
+        <translation>Tekstmelding</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Du tok del i kanalen</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"></translation>
+        <translation>Du tok del i kanal (flyttet)</translation>
     </message>
     <message>
         <source>User started listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker begynte å lytte til kanalen</translation>
     </message>
     <message>
         <source>User stopped listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruker stoppet å lytte til kanalen</translation>
     </message>
 </context>
 <context>
@@ -3944,7 +3944,7 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source> Characters</source>
-        <translation>Tegn</translation>
+        <translation> Tegn</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -3980,11 +3980,11 @@ Dette feltet beskriver størrelsen på en LCD-enhet. Enten gitt i piksler (for g
     </message>
     <message>
         <source> Lines</source>
-        <translation>Linjer</translation>
+        <translation> Linjer</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Framhev</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
@@ -4010,7 +4010,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruk 24-timersklokke</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
@@ -4022,15 +4022,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Log messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Loggfør meldinger</translation>
     </message>
     <message>
         <source>TTS engine volume</source>
-        <translation type="unfinished"></translation>
+        <translation>TFT-motorlydstyrke</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Sludremeldingsmarger</translation>
     </message>
 </context>
 <context>
@@ -4296,7 +4296,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Snakkingsgrensesnitt</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
@@ -4304,7 +4304,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Remove silent user after</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern stille bruker etter</translation>
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
@@ -4380,7 +4380,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Rel. font size (%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Rel. skriftstørrelse (%)</translation>
     </message>
     <message>
         <source>String that gets used instead of the cut-out part of an abbreviated name.</source>
@@ -4396,15 +4396,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Maximum name length</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimal navnelengde</translation>
     </message>
     <message>
         <source>Relative font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ skriftstørrelse</translation>
     </message>
     <message>
         <source>Always on top</source>
-        <translation type="unfinished"></translation>
+        <translation>Alltid på toppen</translation>
     </message>
     <message>
         <source>Channel dragging</source>
@@ -4444,7 +4444,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation type="unfinished"></translation>
+        <translation>Kun vis kallenavn</translation>
     </message>
 </context>
 <context>
@@ -4671,7 +4671,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;p&gt;Denne tilkoblingen gir ikke perfekt sikkerhetsvidreformidling&lt;/p&gt;&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Denne tilkoblingen gir ikke perfekt sikkerhetsvidereformidling&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
@@ -5651,7 +5651,7 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
     </message>
     <message>
         <source>You joined %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du tok del i %1.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -6095,11 +6095,11 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis</translation>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Viser hovedvinduet i Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6111,7 +6111,7 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Listen to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Lytt til kanal</translation>
     </message>
     <message>
         <source>Listen to this channel without joining it</source>
@@ -6123,7 +6123,7 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>&amp;Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lytter</translation>
     </message>
     <message>
         <source>No action available...</source>
@@ -6159,7 +6159,7 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Snakkingsgrensesnitt</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -6175,15 +6175,15 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaler og brukere</translation>
     </message>
     <message>
         <source>Activity log</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivitetslogg</translation>
     </message>
     <message>
         <source>Chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Sludremelding</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -6199,23 +6199,23 @@ kanalens kontekstmeny.</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Tre</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished">Kanal</translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>Privat</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"></translation>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
@@ -6268,19 +6268,19 @@ Valid options are:
     <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Skjul/vis hovedvindu</translation>
     </message>
     <message>
         <source>&amp;Set Nickname...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Sett kallenavn …</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett et lokalt kallenavn</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Setter et lokalt kallenavn for en annen bruker.</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -6382,7 +6382,7 @@ Valid actions are:
     </message>
     <message>
         <source>Activate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver</translation>
     </message>
     <message>
         <source>Display</source>
@@ -6991,7 +6991,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Forstørrelsesnivå</translation>
     </message>
 </context>
 <context>
@@ -7191,7 +7191,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Forvalgt enhet</translation>
     </message>
 </context>
 <context>
@@ -7228,7 +7228,7 @@ Trykk på knappen nedefor for å oppgradere.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Snakkingsgrensesnitt</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
@@ -7241,11 +7241,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished">Lokal stumhet</translation>
+        <translation>Lokal forstumming</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished">Ignorer meldinger</translation>
+        <translation>Ignorer meldinger</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7257,7 +7257,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished">Lokal lydstyrkejustering…</translation>
+        <translation>Lokal lydstyrkejustering …</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
@@ -7269,7 +7269,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle meldinger</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
@@ -7321,7 +7321,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished">Forvalgt enhet</translation>
+        <translation>Forvalgt enhet</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7458,7 +7458,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ServerHandler</name>
     <message>
         <source>Unable to resolve hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke utlede vertsnavn</translation>
     </message>
     <message>
         <source>Server is not responding to TCP pings</source>
@@ -7624,7 +7624,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished">Melding</translation>
+        <translation>Melding</translation>
     </message>
 </context>
 <context>
@@ -7670,7 +7670,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Symboler</translation>
     </message>
 </context>
 <context>
@@ -7720,11 +7720,11 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Søk</translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"></translation>
+        <translation>Brukerliste</translation>
     </message>
 </context>
 <context>
@@ -7905,14 +7905,14 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal-ID: %1</translation>
     </message>
 </context>
 <context>
     <name>UserLocalNicknameDialog</name>
     <message>
         <source>Local nickname for other users</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalt kallenavn for andre brukere</translation>
     </message>
     <message>
         <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
@@ -7943,7 +7943,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source> dB</source>
-        <translation>dB</translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7951,7 +7951,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>User volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Brukerlydstyrke</translation>
     </message>
 </context>
 <context>
@@ -8023,7 +8023,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>Muted (push-to-mute)</source>
-        <translation type="unfinished"></translation>
+        <translation>Forstummet (trykk-for-forstumming)</translation>
     </message>
     <message>
         <source>Deafened (by self)</source>
