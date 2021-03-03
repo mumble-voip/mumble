@@ -1142,7 +1142,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation>禁用回声消除</translation>
+        <translation>禁用回声消除。</translation>
     </message>
 </context>
 <context>
@@ -1217,7 +1217,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;/b&gt;调整传入的语音音量&lt;/b&gt;&lt;br /&gt;注意，如果您将这个值增大到超过 100%，音频将会失真。</translation>
+        <translation>&lt;b&gt;调整传入的语音音量&lt;/b&gt;&lt;br /&gt;注意，如果您将这个值增大到超过 100%，音频将会失真。</translation>
     </message>
     <message>
         <source>Output Delay</source>
@@ -1319,7 +1319,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation>减小其他应用音量</translation>
+        <translation>减小其他应用音量...</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
@@ -1799,7 +1799,8 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>&lt;p&gt;
 打开操作系统的声音控制面板，前往“录制”设置。确保“麦克风”是当前激活的输入，并且录制音量为最大，如果有“麦克风加强”选项，那么也请启用。
 &lt;/p&gt;
-&lt;p&gt;现在对着麦克风大声说话，并同时逐渐降低“麦克风”面板中的音量，直到下方的指示条在您说话时始终处于蓝色和绿色区域，而&lt;b&gt;不会&lt;/b&gt;到达红色区域。
+&lt;p&gt;
+现在对着麦克风大声说话，并同时逐渐降低“麦克风”面板中的音量，直到下方的指示条在您说话时始终处于蓝色和绿色区域，而&lt;b&gt;不会&lt;/b&gt;到达红色区域。
 &lt;/p&gt;
 </translation>
     </message>
@@ -1983,7 +1984,8 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>&lt;p&gt;
 打开操作系统的声音控制面板，前往“录制”设置。确保“麦克风”是当前激活的输入，并且录制音量为最大，如果有“麦克风加强”选项，那么也请启用。
 &lt;/p&gt;
-&lt;p&gt;现在对着麦克风大声说话，并同时逐渐降低“麦克风”面板中的音量，直到下方的指示条在您说话时始终处于条纹和空白区域，而&lt;b&gt;不会&lt;/b&gt;到达网格区域。
+&lt;p&gt;
+现在对着麦克风大声说话，并同时逐渐降低“麦克风”面板中的音量，直到下方的指示条在您说话时始终处于条纹和空白区域，而&lt;b&gt;不会&lt;/b&gt;到达网格区域。
 &lt;/p&gt;
 </translation>
     </message>
@@ -2655,7 +2657,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>允许链接频道。只要说话的用户拥有对应频道的说话权限，被链接的频道内的用户就可以听到彼此的说话。您需要同时拥有两个频道的链接权限才能创建频道链接，但是只要拥有其中一个频道的链接权限就能删除此链接。</translation>
+        <translation>允许链接频道。只要说话的用户拥有对应频道的&lt;i&gt;说话&lt;/i&gt;权限，被链接的频道内的用户就可以听到彼此的说话。您需要同时拥有两个频道的链接权限才能创建频道链接，但是只要拥有其中一个频道的链接权限就能删除此链接。</translation>
     </message>
     <message>
         <source>This represents the permission to write text messages to other users in this channel.</source>
@@ -4309,7 +4311,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
-        <translation>分隔当前频道与父频道名称的字符</translation>
+        <translation>分隔当前频道与父频道名称的字符。</translation>
     </message>
     <message>
         <source>Channel separator</source>
@@ -4421,7 +4423,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation>是否在对话界面显示本地用户的所有监听者（以及他们所在频道）。</translation>
+        <translation>是否在对话界面显示本地用户的所有监听者（以及他们所在频道）。 </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
@@ -5015,7 +5017,9 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>已注册用户的证书或者密码错误。如果您的确是被密码保护的用户，请重试。否则请退出并检查您的证书与用户名。</translation>
+        <translation>已注册用户的证书或者密码错误。如果您
+的确是被密码保护的用户，请重试。否则
+请退出并检查您的证书与用户名。</translation>
     </message>
     <message>
         <source>Wrong password</source>
@@ -5925,7 +5929,8 @@ You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
         <translation>对所选频道启用或禁用筛选。
 默认情况下，所有空频道会被隐藏。
-您可以通过频道的右键菜单将频道标记为筛选时隐藏。</translation>
+您可以通过频道的右键菜单将频道标记为
+筛选时隐藏。</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -5973,15 +5978,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Connect...</source>
-        <translation>连接(&amp;C)…</translation>
+        <translation>连接(&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;Ban list...</source>
-        <translation>封禁列表(&amp;B)…</translation>
+        <translation>封禁列表(&amp;B)...</translation>
     </message>
     <message>
         <source>&amp;Information...</source>
-        <translation>服务器信息(&amp;I)…</translation>
+        <translation>服务器信息(&amp;I)...</translation>
     </message>
     <message>
         <source>&amp;Kick...</source>
@@ -6017,7 +6022,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Settings...</source>
-        <translation>设置(&amp;S)…</translation>
+        <translation>设置(&amp;S)...</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
@@ -6157,7 +6162,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation>加入此用户所在的频道</translation>
+        <translation>加入此用户所在的频道。</translation>
     </message>
     <message>
         <source>Channels and users</source>
@@ -6296,7 +6301,7 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     </message>
     <message>
         <source>&amp;Set Nickname...</source>
-        <translation>设置昵称(&amp;S)</translation>
+        <translation>设置昵称(&amp;S)...</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
@@ -7308,7 +7313,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;您正在使用&lt;b&gt;显式禁用&lt;/b&gt;更新检查的 Mumble 版本。&lt;p&gt;这意味着您通过此选项收到的更新提醒对您来说&lt;b&gt;很可能是无意义的&lt;/b&gt;。&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;您正在使用&lt;b&gt;显式禁用&lt;/b&gt;更新检查的 Mumble 版本。&lt;/p&gt;&lt;p&gt;这意味着您通过此选项收到的更新提醒对您来说&lt;b&gt;很可能是无意义的&lt;/b&gt;。&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Talking (muted)</source>
@@ -8128,7 +8133,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation>正在说话，但您已对其静音。</translation>
+        <translation>正在说话，但您已对其静音</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
@@ -8136,11 +8141,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
-        <translation>频道具有访问限制，您无法进入。</translation>
+        <translation>频道具有访问限制，您无法进入</translation>
     </message>
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
-        <translation>频道具有访问限制，但您仍可以进入。</translation>
+        <translation>频道具有访问限制，但您仍可以进入</translation>
     </message>
 </context>
 <context>
