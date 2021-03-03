@@ -867,7 +867,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>T&amp;allózás</translation>
+        <translation>T&amp;allózás...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
@@ -2872,7 +2872,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Failed to fetch server list</source>
-        <translation>Szerverlista betöltése nem sikerült</translation>
+        <translation>Kiszolgálók listájának letöltése sikertelen</translation>
     </message>
     <message>
         <source>Mumble Server Connect</source>
@@ -2952,7 +2952,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Mind</translation>
+        <translation>Összes</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -2992,7 +2992,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation>Gép hozzáadása: %1</translation>
+        <translation>%1 kiszolgáló hozzáadása</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -3004,7 +3004,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Port</source>
-        <translation>Portszám</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Addresses</source>
