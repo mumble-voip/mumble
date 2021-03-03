@@ -1139,7 +1139,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Deaktiviert</translation>
+        <translation>Deaktiviert</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -2793,7 +2793,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server erlaubt nicht die Sendung von Bildern.</translation>
     </message>
 </context>
 <context>
@@ -3445,7 +3445,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3453,7 +3453,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Entfernen</translation>
+        <translation>Löschen</translation>
     </message>
 </context>
 <context>
@@ -3488,7 +3488,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Unbekannt</translation>
+        <translation>Unbekannt</translation>
     </message>
 </context>
 <context>
@@ -3499,7 +3499,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastatur</translation>
     </message>
 </context>
 <context>
@@ -3589,14 +3589,14 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastatur</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastatur</translation>
     </message>
     <message>
         <source>Mouse</source>
