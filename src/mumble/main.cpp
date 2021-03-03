@@ -226,6 +226,7 @@ int main(int argc, char **argv) {
 	bool bRpcMode             = false;
 	QString rpcCommand;
 	QUrl url;
+	QStringList extraTranslationDirs;
 
 	if (a.arguments().count() > 1) {
 		for (int i = 1; i < args.count(); ++i) {
@@ -274,6 +275,12 @@ int main(int argc, char **argv) {
 								   "  --print-echocancel-queue\n"
 								   "                Print on stdout the echo cancellation queue state\n"
 								   "                (useful for debugging purposes)\n"
+								   "  --translation-dir <dir>\n"
+								   "                Specifies an additional translation fir <dir> in which\n"
+								   "                Mumble will search for translation files that overwrite\n"
+								   "                the bundled ones\n"
+								   "                Directories added this way have higher priority than\n"
+								   "                the default locations used otherwise\n"
 								   "\n");
 				QString rpcHelpBanner = MainWindow::tr("Remote controlling Mumble:\n"
 													   "\n");
@@ -362,6 +369,14 @@ int main(int argc, char **argv) {
 				Global::get().bDebugDumpInput = true;
 			} else if (args.at(i) == QLatin1String("--print-echocancel-queue")) {
 				Global::get().bDebugPrintQueue = true;
+			} else if (args.at(i) == "--translation-dir") {
+				if (i + 1 < args.count()) {
+					extraTranslationDirs.append(args.at(i + 1));
+					i++;
+				} else {
+					qCritical("Missing argument for --translation-dir!");
+					return 1;
+				}
 			} else {
 				if (!bRpcMode) {
 					QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
@@ -376,6 +391,25 @@ int main(int argc, char **argv) {
 				}
 			}
 		}
+	}
+
+	// Populate extra translation dirs (directories in which Mumble shall look for
+	// translation files that can overwrite the bundled one if present). The order
+	// in which they are added to this list determines the priority (first match
+	// will win).
+	// Start with the directory the Mumble executable lives in.
+	extraTranslationDirs.append(a.applicationDirPath());
+	// Next add AppData directories
+	for (const QString &currentConfigPath : QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)) {
+		extraTranslationDirs.append(QDir::cleanPath(currentConfigPath));
+	}
+	// Next add directories in the config locations
+	for (const QString &currentConfigPath : QStandardPaths::standardLocations(QStandardPaths::ConfigLocation)) {
+		extraTranslationDirs.append(QDir::cleanPath(currentConfigPath + QDir::separator() + "MumbleTranslations"));
+	}
+	// Finally add a dir in the home directory
+	for (const QString &currentHomePath : QStandardPaths::standardLocations(QStandardPaths::HomeLocation)) {
+		extraTranslationDirs.append(QDir::cleanPath(currentHomePath + QDir::separator() + "MumbleTranslations"));
 	}
 
 #ifdef USE_DBUS
@@ -512,9 +546,19 @@ int main(int argc, char **argv) {
 	if (translator.load(QLatin1String(":mumble_") + locale))
 		a.installTranslator(&translator);
 
+	// Create a second translator that tries to load translation files from several directories on
+	// disk. If found, these translation files can overwrite strings from the bundled translations
 	QTranslator loctranslator;
-	if (loctranslator.load(QLatin1String("mumble_") + locale, a.applicationDirPath()))
-		a.installTranslator(&loctranslator); // Can overwrite strings from bundled mumble translation
+	QString translationFilename = QLatin1String("mumble_") + locale;
+	for (const QString &currentTranslationDir : extraTranslationDirs) {
+		if (loctranslator.load(translationFilename, currentTranslationDir)) {
+			a.installTranslator(&loctranslator);
+
+			// First match wins
+			qWarning("Using extra translation file from directory: \"%s\"", currentTranslationDir.toUtf8().data());
+			break;
+		}
+	}
 
 	// With modularization of Qt 5 some - but not all - of the qt_<locale>.ts files have become
 	// so-called meta catalogues which no longer contain actual translations but refer to other
