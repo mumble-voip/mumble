@@ -1003,7 +1003,7 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambos</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
@@ -1130,7 +1130,7 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">El acceso al micrófono fue denegado. Por favor, permita a Mumble usar el micrófono cambiando los ajustes en Preferencias del sistema -&gt; Seguridad y Privacidad -&gt; Privacidad -&gt; Micrófono</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -2750,7 +2750,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This server does not allow sending images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este servidor no permite enviar imágenes.</translation>
     </message>
 </context>
 <context>
@@ -3399,15 +3399,15 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Agregar</translation>
+        <translation>Añadir</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar los elementos seleccionados actualmente</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
 </context>
 <context>
@@ -3442,18 +3442,18 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Ratón</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Teclado</translation>
     </message>
 </context>
 <context>
@@ -3539,22 +3539,22 @@ Sin esta opción habilitada, los métodos abreviados globales de Mumble en aplic
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Ratón</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Teclado</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Teclado</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Ratón</translation>
     </message>
 </context>
 <context>
@@ -6266,32 +6266,32 @@ El parámetro de consulta de versión debe establecerse para invocar
 Versión correcta del cliente. Actualmente, el valor predeterminado es 1.2.0.
 
 Las opciones válidas son:
-&#xa0;&#xa0; -h, --help Muestra este texto de ayuda y sale.
- &#xa0; -m, --multiple
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Permite que se inicien varias instancias del cliente.
-&#xa0;-c, --config
+   -h, --help Muestra este texto de ayuda y sale.
+   -m, --multiple
+                 Permite que se inicien varias instancias del cliente.
+ -c, --config
 Especifica un archivo de configuración alternativo.
 Si usa esto para ejecutar múltiples instancias de Mumble al mismo tiempo,
 asegúrese de especificar un valor alternativo para &apos;database&apos; en la configuración.
- &#xa0; -n, --noidentity
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Suprime la carga de archivos con identidad (i.e., certificados).
-&#xa0;&#xa0; -jn, --jackname
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Establece el nombre del cliente Jack personalizado.
- &#xa0; --license
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Muestra la licencia de Mumble.
- &#xa0; --authors
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Muestra los autores de Mumble.
- &#xa0; --third-party-licenses
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Muestra las licencias de software de terceros utilizado por Mumble.
+   -n, --noidentity
+                 Suprime la carga de archivos con identidad (i.e., certificados).
+   -jn, --jackname
+                 Establece el nombre del cliente Jack personalizado.
+   --license
+                 Muestra la licencia de Mumble.
+   --authors
+                 Muestra los autores de Mumble.
+   --third-party-licenses
+                 Muestra las licencias de software de terceros utilizado por Mumble.
  --window-title-ext
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Fija una extensión de título específica.
+                Fija una extensión de título específica.
 --dump-input-streams
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Muestra los streams de PCM en diversos puntos de la cadena de entrada (útil para efectos de debugging)
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;- Entrada en bruto del micrófono
- &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;- Lectura del parlante para cancelación de eco
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;- Entrada procesada del micrófono
+                Muestra los streams de PCM en diversos puntos de la cadena de entrada (útil para efectos de debugging)
+                - Entrada en bruto del micrófono
+                - Lectura del parlante para cancelación de eco
+                - Entrada procesada del micrófono
 --print-echocancel-queue
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Imprime en stdout el estado de la cola de cancelación de eco (útil para efectos de debugging)
+                Imprime en stdout el estado de la cola de cancelación de eco (útil para efectos de debugging)
 </translation>
     </message>
     <message>
@@ -7246,7 +7246,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble está actualmente conectado a un servidor</translation>
     </message>
 </context>
 <context>
@@ -7299,7 +7299,7 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>All messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los mensajes</translation>
     </message>
     <message>
         <source>Toggle console for all events</source>
@@ -7327,7 +7327,7 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>Reset all settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Restablecer todos los ajustes?</translation>
     </message>
     <message>
         <source>Do you really want to reset all settings (not only the ones currently visible) to their default value?</source>
@@ -7557,11 +7557,11 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay botones asignados</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Presione para mostrar la combinación de botones</translation>
     </message>
 </context>
 <context>
