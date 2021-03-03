@@ -1918,15 +1918,20 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 	if (!uSource->csCrypt || !uSource->csCrypt->isValid()) return;
 
 	if (!msg.has_client_nonce()) {
-		log(uSource, "Requested crypt-nonce resync");
+		// A client will request a resync if key-iv combination is no longer safe,
+		// or simply too many packets were lost. Generate a new key-iv pair for it.
+		log(uSource, "Requested crypt-nonce resync, generating new key-nonce combination");
+		uSource->csCrypt->genKey();
+		msg.set_key(uSource->csCrypt->getRawKey());
 		msg.set_server_nonce(uSource->csCrypt->getEncryptIV());
-		sendMessage(uSource, msg);
+		msg.set_client_nonce(uSource->csCrypt->getDecryptIV());
 	} else {
 		const std::string &str = msg.client_nonce();
-		uSource->csCrypt->uiResync++;
 		if (!uSource->csCrypt->setDecryptIV(str)) {
 			log(uSource, "Cipher resync failed: Invalid nonce from the client!");
+			return;
 		}
+		uSource->csCrypt->uiResync++;
 	}
 }
 

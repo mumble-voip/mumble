@@ -223,8 +223,10 @@ void ServerHandler::udpReady() {
 		if (buflen < 5)
 			continue;
 
+		unsigned int plain_len;
+
 		if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted),
-										  reinterpret_cast< unsigned char * >(buffer), buflen)) {
+										  reinterpret_cast< unsigned char * >(buffer), buflen, plain_len)) {
 			if (connection->csCrypt->tLastGood.elapsed() > 5000000ULL) {
 				if (connection->csCrypt->tLastRequest.elapsed() > 5000000ULL) {
 					connection->csCrypt->tLastRequest.restart();
@@ -235,7 +237,7 @@ void ServerHandler::udpReady() {
 			continue;
 		}
 
-		PacketDataStream pds(buffer + 1, buflen - 5);
+		PacketDataStream pds(buffer + 1, plain_len - 1);
 
 		MessageHandler::UDPMessageType msgType = static_cast< MessageHandler::UDPMessageType >((buffer[0] >> 5) & 0x7);
 		unsigned int msgFlags                  = buffer[0] & 0x1f;
@@ -276,8 +278,6 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 }
 
 void ServerHandler::sendMessage(const char *data, int len, bool force) {
-	STACKVAR(unsigned char, crypto, len + 4);
-
 	QMutexLocker qml(&qmUdp);
 
 	if (!qusUdp)
@@ -286,6 +286,10 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 	ConnectionPtr connection(cConnection);
 	if (!connection)
 		return;
+
+	unsigned int encrypted_len = len + connection->csCrypt->headLength;
+	STACKVAR(unsigned char, encrypted, encrypted_len);
+
 
 	if (!force && (NetworkConfig::TcpModeEnabled() || !bUdp)) {
 		QByteArray qba;
@@ -298,11 +302,12 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 
 		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
 	} else {
-		if (!connection->csCrypt || !connection->csCrypt->isValid() ||
-			!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto, len)) {
+		if (!connection->csCrypt || !connection->csCrypt->isValid()
+			|| !connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), encrypted, len,
+											 encrypted_len)) {
 			return;
 		}
-		qusUdp->writeDatagram(reinterpret_cast< const char * >(crypto), len + 4, qhaRemote, usResolvedPort);
+		qusUdp->writeDatagram(reinterpret_cast< const char * >(encrypted), encrypted_len, qhaRemote, usResolvedPort);
 	}
 }
 

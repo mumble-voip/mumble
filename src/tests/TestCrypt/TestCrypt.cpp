@@ -67,27 +67,27 @@ void TestCrypt::reverserecovery() {
 	*/
 	// OOO recovery up to 30 packets, but NOT beyond
 
-	int i;
+	unsigned int i, len;
 
 	for (i = 0; i < 128; i++)
-		enc.encrypt(secret, crypted[i], 10);
+		enc.encrypt(secret, crypted[i], 10, len);
 
 	for (i = 0; i < 30; i++)
-		QVERIFY(dec.decrypt(crypted[127 - i], decr, 14));
+		QVERIFY(dec.decrypt(crypted[127 - i], decr, 14, len));
 	for (; i < 128; i++)
-		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14));
+		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14, len));
 	for (i = 0; i < 30; i++)
-		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14));
+		QVERIFY(!dec.decrypt(crypted[127 - i], decr, 14, len));
 
 
 	// Extensive replay attack test
 	for (i = 0; i < 512; i++)
-		enc.encrypt(secret, crypted[i], 10);
+		enc.encrypt(secret, crypted[i], 10, len);
 
 	for (i = 0; i < 512; i++)
-		QVERIFY(dec.decrypt(crypted[i], decr, 14));
+		QVERIFY(dec.decrypt(crypted[i], decr, 14, len));
 	for (i = 0; i < 512; i++)
-		QVERIFY(!dec.decrypt(crypted[i], decr, 14));
+		QVERIFY(!dec.decrypt(crypted[i], decr, 14, len));
 }
 
 void TestCrypt::ivrecovery() {
@@ -103,29 +103,30 @@ void TestCrypt::ivrecovery() {
 	unsigned char secret[10] = "abcdefghi";
 	unsigned char crypted[14];
 	unsigned char decr[10];
+	unsigned int len = 0;
 
-	enc.encrypt(secret, crypted, 10);
+	enc.encrypt(secret, crypted, 10, len);
 
 	// Can decrypt.
-	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(dec.decrypt(crypted, decr, 14, len));
 	// .. correctly.
 	QVERIFY(memcmp(secret, decr, 10) == 0);
 
 	// But will refuse to reuse same IV.
-	QVERIFY(!dec.decrypt(crypted, decr, 14));
+	QVERIFY(!dec.decrypt(crypted, decr, 14, len));
 
 	// Recover from lost packet.
 	for (int i = 0; i < 16; i++)
-		enc.encrypt(secret, crypted, 10);
+		enc.encrypt(secret, crypted, 10, len);
 
-	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(dec.decrypt(crypted, decr, 14, len));
 
 	// Wraparound.
 	for (int i = 0; i < 128; i++) {
 		dec.uiLost = 0;
 		for (int j = 0; j < 15; j++)
-			enc.encrypt(secret, crypted, 10);
-		QVERIFY(dec.decrypt(crypted, decr, 14));
+			enc.encrypt(secret, crypted, 10, len);
+		QVERIFY(dec.decrypt(crypted, decr, 14, len));
 		QCOMPARE(dec.uiLost, 14U);
 	}
 
@@ -133,15 +134,15 @@ void TestCrypt::ivrecovery() {
 
 	// Wrap too far
 	for (int i = 0; i < 257; i++)
-		enc.encrypt(secret, crypted, 10);
+		enc.encrypt(secret, crypted, 10, len);
 
-	QVERIFY(!dec.decrypt(crypted, decr, 14));
+	QVERIFY(!dec.decrypt(crypted, decr, 14, len));
 
 	// Sync it
 	dec.setDecryptIV(enc.getEncryptIV());
-	enc.encrypt(secret, crypted, 10);
+	enc.encrypt(secret, crypted, 10, len);
 
-	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(dec.decrypt(crypted, decr, 14, len));
 }
 
 void TestCrypt::testvectors() {
@@ -281,17 +282,18 @@ void TestCrypt::tamper() {
 
 	const unsigned char msg[] = "It was a funky funky town!";
 	int len                   = sizeof(msg);
+	unsigned int dlen                  = 0;
 
 	STACKVAR(unsigned char, encrypted, len + 4);
 	STACKVAR(unsigned char, decrypted, len);
-	cs.encrypt(msg, encrypted, len);
+	cs.encrypt(msg, encrypted, len, dlen);
 
 	for (int i = 0; i < len * 8; i++) {
 		encrypted[i / 8] ^= 1 << (i % 8);
-		QVERIFY(!cs.decrypt(encrypted, decrypted, len + 4));
+		QVERIFY(!cs.decrypt(encrypted, decrypted, len + 4, dlen));
 		encrypted[i / 8] ^= 1 << (i % 8);
 	}
-	QVERIFY(cs.decrypt(encrypted, decrypted, len + 4));
+	QVERIFY(cs.decrypt(encrypted, decrypted, len + 4, dlen));
 }
 
 QTEST_MAIN(TestCrypt)

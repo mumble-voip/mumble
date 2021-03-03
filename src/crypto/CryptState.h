@@ -13,6 +13,10 @@ class CryptState {
 private:
 	Q_DISABLE_COPY(CryptState)
 public:
+	static const unsigned int ivLength   = 0;
+	static const unsigned int keyLength  = 0;
+	static const unsigned int headLength = 0;
+
 	unsigned int uiGood   = 0;
 	unsigned int uiLate   = 0;
 	unsigned int uiLost   = 0;
@@ -39,8 +43,10 @@ public:
 	virtual std::string getEncryptIV()                                                           = 0;
 	virtual std::string getDecryptIV()                                                           = 0;
 
-	virtual bool decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length) = 0;
-	virtual bool encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length)   = 0;
+	virtual bool decrypt(const unsigned char *source, unsigned char *dst, unsigned int encrypted_length,
+						 unsigned int &plain_length)     = 0;
+	virtual bool encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length,
+						 unsigned int &encrypted_length) = 0;
 };
 
 

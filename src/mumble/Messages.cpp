@@ -87,8 +87,8 @@ void MainWindow::msgCapabilities(const MumbleProto::Capabilities &msg) {
 	}
 }
 
-/// The authenticate message is being used by the client to send the authentication credentials to the server. Therefore the
-/// server won't send this message type to the client which is why this implementation does nothing.
+/// The authenticate message is being used by the client to send the authentication credentials to the server. Therefore
+/// the server won't send this message type to the client which is why this implementation does nothing.
 void MainWindow::msgAuthenticate(const MumbleProto::Authenticate &) {
 }
 
@@ -1140,15 +1140,15 @@ void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
 		const std::string &server_nonce = msg.server_nonce();
 		if (!c->csCrypt->setKey(key, client_nonce, server_nonce)) {
 			qWarning("Messages: Cipher resync failed: Invalid key/nonce from the server!");
+			return;
 		}
 	} else if (msg.has_server_nonce()) {
 		const std::string &server_nonce = msg.server_nonce();
-		if (server_nonce.size() == AES_BLOCK_SIZE) {
-			c->csCrypt->uiResync++;
-			if (!c->csCrypt->setDecryptIV(server_nonce)) {
-				qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
-			}
+		if (!c->csCrypt->setDecryptIV(server_nonce)) {
+			qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
+			return;
 		}
+		c->csCrypt->uiResync++;
 	} else {
 		MumbleProto::CryptSetup mpcs;
 		mpcs.set_client_nonce(c->csCrypt->getEncryptIV());
