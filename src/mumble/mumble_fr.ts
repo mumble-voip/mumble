@@ -987,19 +987,19 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne pas utiliser la suppression du bruit.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser l&apos;algorithme de suppression du bruit fourni par Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser l&apos;algorithme de suppression du bruit fourni par RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser une combinaison de Speex et RNNoise pour la suppression du bruit.</translation>
     </message>
     <message>
         <source>Both</source>
