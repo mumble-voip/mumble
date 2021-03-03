@@ -15,6 +15,7 @@
 #include "Server.h"
 #include "ServerDB.h"
 #include "Version.h"
+#include <csignal>
 
 #ifdef Q_OS_WIN
 #	include "About.h"
@@ -170,6 +171,42 @@ void IceStop();
 void GRPCStart();
 void GRPCStop();
 #endif
+
+void cleanup(int signum) {
+	qWarning("Killing running servers");
+
+	meta->killAll();
+
+	qWarning("Shutting down");
+
+#ifdef USE_DBUS
+	delete MurmurDBus::qdbc;
+	MurmurDBus::qdbc = nullptr;
+#endif
+
+#ifdef USE_ICE
+	IceStop();
+#endif
+
+#ifdef USE_GRPC
+	GRPCStop();
+#endif
+
+	delete qfLog;
+	qfLog = nullptr;
+
+	delete meta;
+
+	qInstallMessageHandler(nullptr);
+
+#ifdef Q_OS_UNIX
+	if (!Meta::mp.qsPid.isEmpty()) {
+		QFile pid(Meta::mp.qsPid);
+		pid.remove();
+	}
+#endif
+	exit(signum);
+}
 
 int main(int argc, char **argv) {
 	// Check for SSE and MMX, but only in the windows binaries
@@ -620,39 +657,12 @@ int main(int argc, char **argv) {
 
 	meta->bootAll();
 
+	signal(SIGTERM, cleanup);
+	signal(SIGINT, cleanup);
+
 	res = a.exec();
 
-	qWarning("Killing running servers");
+	cleanup(0);
 
-	meta->killAll();
-
-	qWarning("Shutting down");
-
-#ifdef USE_DBUS
-	delete MurmurDBus::qdbc;
-	MurmurDBus::qdbc = nullptr;
-#endif
-
-#ifdef USE_ICE
-	IceStop();
-#endif
-
-#ifdef USE_GRPC
-	GRPCStop();
-#endif
-
-	delete qfLog;
-	qfLog = nullptr;
-
-	delete meta;
-
-	qInstallMessageHandler(nullptr);
-
-#ifdef Q_OS_UNIX
-	if (!Meta::mp.qsPid.isEmpty()) {
-		QFile pid(Meta::mp.qsPid);
-		pid.remove();
-	}
-#endif
 	return res;
 }
