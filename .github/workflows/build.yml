@@ -6,7 +6,7 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
   CMAKE_OPTIONS: |
-      -Dtests=ON -Donline-tests=ON -Dsymbols=ON -Dgrpc=ON -Ddisplay-install-paths=ON
+      -Dtests=ON -Dsymbols=ON -Dgrpc=ON -Ddisplay-install-paths=ON
   MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg/'
 
 
