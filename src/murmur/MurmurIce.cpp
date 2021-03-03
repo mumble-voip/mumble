@@ -1765,6 +1765,18 @@ static void impl_Server_getListeningUsers(const ::Murmur::AMD_Server_getListenin
 	cb->ice_response(userSessions);
 }
 
+static void impl_Server_sendWelcomeMessage(const ::Murmur::AMD_Server_sendWelcomeMessagePtr cb, int server_id, ::Murmur::IdList receiverUserIDs) {
+	NEED_SERVER;
+
+	for (unsigned int session : receiverUserIDs) {
+		NEED_PLAYER;
+
+		server->sendWelcomeMessageTo(user);
+	}
+
+	cb->ice_response();
+}
+
 static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroupPtr cb, int server_id,
 									   ::Ice::Int channelid, ::Ice::Int session, const ::std::string &group) {
 	NEED_SERVER;

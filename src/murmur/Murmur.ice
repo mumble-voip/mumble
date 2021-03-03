@@ -823,6 +823,11 @@ module Murmur
 		  * @returns An ID-list of users listening to the given channel
 		  */
 		 idempotent IntList getListeningUsers(int channelid);
+
+		 /**
+		  * @param receiverUserIDs list of IDs of the users the message shall be sent to
+		  */
+		 idempotent void sendWelcomeMessage(IdList receiverUserIDs);
 	};
 
 	/** Callback interface for Meta. You can supply an implementation of this to receive notifications

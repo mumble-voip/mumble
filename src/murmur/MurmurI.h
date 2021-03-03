@@ -155,6 +155,9 @@ public:
 	virtual void getListeningUsers_async(const ::Murmur::AMD_Server_getListeningUsersPtr &, ::Ice::Int,
 										 const Ice::Current &);
 
+	virtual void sendWelcomeMessage_async(const ::Murmur::AMD_Server_sendWelcomeMessagePtr &,
+										const ::Murmur::IdList &p1, const ::Ice::Current &current);
+
 	virtual void ice_ping(const Ice::Current &) const;
 };
 

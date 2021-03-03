@@ -353,6 +353,7 @@ public:
 	void clearTempGroups(User *user, Channel *cChannel = nullptr, bool recurse = true);
 	void startListeningToChannel(ServerUser *user, Channel *cChannel);
 	void stopListeningToChannel(ServerUser *user, Channel *cChannel);
+	void sendWelcomeMessageTo(ServerUser *user);
 signals:
 	void registerUserSig(int &, const QMap< int, QString > &);
 	void unregisterUserSig(int &, int);
