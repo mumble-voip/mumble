@@ -1133,7 +1133,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Выключено</translation>
+        <translation>Отключено</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -2036,7 +2036,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Кнопки не назначены</translation>
     </message>
 </context>
 <context>
