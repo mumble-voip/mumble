@@ -302,9 +302,12 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 
 		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
 	} else {
-		if (!connection->csCrypt || !connection->csCrypt->isValid()
-			|| !connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), encrypted, len,
-											 encrypted_len)) {
+		if (!connection->csCrypt || !connection->csCrypt->isValid()) return;
+
+		if(!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), encrypted, len, encrypted_len)) {
+			// encrypt fails means the current key-iv combination is no longer safe, request the server to regenerate
+			MumbleProto::CryptSetup mpcs;
+			sendMessage(mpcs);
 			return;
 		}
 		qusUdp->writeDatagram(reinterpret_cast< const char * >(encrypted), encrypted_len, qhaRemote, usResolvedPort);
@@ -781,6 +784,7 @@ void ServerHandler::serverConnectionConnected() {
 	connection->voiceProtocolType = VoiceProtocolType::UDP_AES_128_OCB2;
 	connection->initializeCipher();
 	MumbleProto::Capabilities mpc;
+	mpc.add_supported_protocols(VoiceProtocol(VoiceProtocolType::UDP_AES_256_GCM).toString());
 	mpc.add_supported_protocols(VoiceProtocol(VoiceProtocolType::UDP_AES_128_OCB2).toString());
 
 	sendMessage(mpc);

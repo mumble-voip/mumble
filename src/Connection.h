@@ -14,6 +14,7 @@
 
 #include "crypto/CryptState.h"
 #include "crypto/CryptStateOCB2.h"
+#include "crypto/CryptStateAES256GCM.h"
 #include "VoiceProtocolType.h"
 
 #include <QtCore/QElapsedTimer>

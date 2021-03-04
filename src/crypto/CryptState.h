@@ -13,9 +13,14 @@ class CryptState {
 private:
 	Q_DISABLE_COPY(CryptState)
 public:
-	static const unsigned int ivLength   = 0;
-	static const unsigned int keyLength  = 0;
-	static const unsigned int headLength = 0;
+	static constexpr unsigned int IV_LENGTH  = 0;
+	static constexpr unsigned int KEY_LENGTH = 0;
+
+	/// The plain input and encrypted output of the block cipher always preserve the same length.
+	/// However, in order to transmit the authenticate tag and the packet sequence number, an extra
+	/// "head" is needed to be attached to the packet.
+	/// This length varies from cipher to cipher and is stored in this `HEAD_LENGTH`.
+	static const unsigned int HEAD_LENGTH = 0;
 
 	unsigned int uiGood   = 0;
 	unsigned int uiLate   = 0;
@@ -43,8 +48,12 @@ public:
 	virtual std::string getEncryptIV()                                                           = 0;
 	virtual std::string getDecryptIV()                                                           = 0;
 
+	/// Decrypt one packet. Return true if decryption was successful.
 	virtual bool decrypt(const unsigned char *source, unsigned char *dst, unsigned int encrypted_length,
-						 unsigned int &plain_length)     = 0;
+						 unsigned int &plain_length) = 0;
+
+	/// Encrypt one packet. Return false if the current key-iv combination is not safe and a new set of key-
+	/// iv is necessary, or the encryption result is not cryptographically safe.
 	virtual bool encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length,
 						 unsigned int &encrypted_length) = 0;
 };

@@ -82,7 +82,8 @@ void MainWindow::msgCapabilities(const MumbleProto::Capabilities &msg) {
 
 	qInfo("Message: Voice protocol negotiation completed, use voice protocol %s", protocol.toString().c_str());
 
-	if (protocol.protocolType == VoiceProtocolType::UDP_AES_128_OCB2) {
+	if (protocol.protocolType == VoiceProtocolType::UDP_AES_128_OCB2
+	    || protocol.protocolType == VoiceProtocolType::UDP_AES_256_GCM) {
 		c->initializeCipher();
 	}
 }

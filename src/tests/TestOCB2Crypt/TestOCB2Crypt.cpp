@@ -12,7 +12,7 @@
 #include "crypto/CryptStateOCB2.h"
 #include <string>
 
-class TestCrypt : public QObject {
+class TestOCB2Crypt : public QObject {
 	Q_OBJECT
 private slots:
 	void initTestCase();
@@ -25,15 +25,15 @@ private slots:
 	void tamper();
 };
 
-void TestCrypt::initTestCase() {
+void TestOCB2Crypt::initTestCase() {
 	MumbleSSL::initialize();
 }
 
-void TestCrypt::cleanupTestCase() {
+void TestOCB2Crypt::cleanupTestCase() {
 	MumbleSSL::destroy();
 }
 
-void TestCrypt::reverserecovery() {
+void TestOCB2Crypt::reverserecovery() {
 	CryptStateOCB2 enc, dec;
 	enc.genKey();
 
@@ -90,7 +90,7 @@ void TestCrypt::reverserecovery() {
 		QVERIFY(!dec.decrypt(crypted[i], decr, 14, len));
 }
 
-void TestCrypt::ivrecovery() {
+void TestOCB2Crypt::ivrecovery() {
 	CryptStateOCB2 enc, dec;
 	enc.genKey();
 
@@ -145,7 +145,7 @@ void TestCrypt::ivrecovery() {
 	QVERIFY(dec.decrypt(crypted, decr, 14, len));
 }
 
-void TestCrypt::testvectors() {
+void TestOCB2Crypt::testvectors() {
 	// Test vectors are from draft-krovetz-ocb-00.txt
 	const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 												   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
@@ -181,7 +181,7 @@ void TestCrypt::testvectors() {
 		QCOMPARE(crypt[i], crypted[i]);
 }
 
-void TestCrypt::authcrypt() {
+void TestOCB2Crypt::authcrypt() {
 	for (int len = 0; len < 128; len++) {
 		const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 													   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
@@ -213,7 +213,7 @@ void TestCrypt::authcrypt() {
 }
 
 // Test prevention of the attack described in section 4.1 of https://eprint.iacr.org/2019/311
-void TestCrypt::xexstarAttack() {
+void TestOCB2Crypt::xexstarAttack() {
 	const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 												   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
 	const unsigned char nonce[AES_BLOCK_SIZE]  = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88,
@@ -270,7 +270,7 @@ void TestCrypt::xexstarAttack() {
 	QCOMPARE(decrypted[0], static_cast< unsigned char >(1));
 }
 
-void TestCrypt::tamper() {
+void TestOCB2Crypt::tamper() {
 	const unsigned char rawkey[AES_BLOCK_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 												   0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
 	const unsigned char nonce[AES_BLOCK_SIZE]  = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88,
@@ -282,7 +282,7 @@ void TestCrypt::tamper() {
 
 	const unsigned char msg[] = "It was a funky funky town!";
 	int len                   = sizeof(msg);
-	unsigned int dlen                  = 0;
+	unsigned int dlen         = 0;
 
 	STACKVAR(unsigned char, encrypted, len + 4);
 	STACKVAR(unsigned char, decrypted, len);
@@ -296,5 +296,5 @@ void TestCrypt::tamper() {
 	QVERIFY(cs.decrypt(encrypted, decrypted, len + 4, dlen));
 }
 
-QTEST_MAIN(TestCrypt)
-#include "TestCrypt.moc"
+QTEST_MAIN(TestOCB2Crypt)
+#include "TestOCB2Crypt.moc"

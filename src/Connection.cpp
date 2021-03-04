@@ -266,6 +266,9 @@ void Connection::initializeCipher() {
 		case VoiceProtocolType::UDP_AES_128_OCB2:
 			csCrypt = std::make_unique<CryptStateOCB2>();
 			break;
+		case VoiceProtocolType::UDP_AES_256_GCM:
+			csCrypt = std::make_unique<CryptStateAES256GCM>();
+			break;
 		case VoiceProtocolType::UNDEFINED:
 		case VoiceProtocolType::UNSUPPORTED:
 		default:

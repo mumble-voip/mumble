@@ -312,8 +312,9 @@ void MetaParams::read(QString fname) {
 		}
 	} else {
 		// Fall back to default protocol
+		allowedVoiceProtocolTypes.append(VoiceProtocolType::UDP_AES_256_GCM);
 		allowedVoiceProtocolTypes.append(VoiceProtocolType::UDP_AES_128_OCB2);
-		qInfo("Meta: No voice protocol preference set. Use UDP_AES_128_OCB2 as default voice protocol.");
+		qInfo("Meta: No voice protocol preference set. Use UDP_AES_256_GCM, UDP_AES_128_OCB2 as default voice protocol.");
 	}
 
 

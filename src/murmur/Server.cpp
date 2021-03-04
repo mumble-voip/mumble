@@ -984,7 +984,7 @@ void Server::run() {
 int Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
 	QMutexLocker l(&u->qmCrypt);
 
-	if (u->voiceProtocolType != VoiceProtocolType::UDP_AES_128_OCB2)
+	if (u->voiceProtocolType != VoiceProtocolType::UDP_AES_128_OCB2 && u->voiceProtocolType != VoiceProtocolType::UDP_AES_256_GCM)
 		return -1;
 
 	unsigned int plain_length = 0;
@@ -1030,6 +1030,9 @@ void Server::sendMessage(ServerUser *u, const char *data, unsigned int len, QByt
 			if (!u->csCrypt->encrypt(
 				reinterpret_cast< const unsigned char * >(data),
 				reinterpret_cast< unsigned char * >(buffer), len, encrypted_len)) {
+				// encryption failure means current key-iv combination is no longer safe
+				// and a new combination is needed.
+				emit reqSync(u->uiSession);
 				return;
 			}
 		}
@@ -1821,6 +1824,11 @@ void Server::doSync(unsigned int id) {
 	if (u) {
 		log(u, "Requesting crypt-nonce resync");
 		MumbleProto::CryptSetup mpcs;
+
+		mpcs.set_key(u->csCrypt->getRawKey());
+		mpcs.set_server_nonce(u->csCrypt->getEncryptIV());
+		mpcs.set_client_nonce(u->csCrypt->getDecryptIV());
+
 		sendMessage(u, mpcs);
 	}
 }

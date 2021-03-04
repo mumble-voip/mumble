@@ -208,7 +208,7 @@ void Server::msgCapabilities(ServerUser *uSource, MumbleProto::Capabilities &msg
 
 	sendMessage(uSource, mpc);
 
-	if (vpt == VoiceProtocolType::UDP_AES_128_OCB2) {
+	if (vpt == VoiceProtocolType::UDP_AES_128_OCB2 || vpt == VoiceProtocolType::UDP_AES_256_GCM) {
 		uSource->initializeCipher();
 		if (uSource->sState == ServerUser::Authenticated) {
 			MumbleProto::CryptSetup mpcrypt;
@@ -372,7 +372,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			uSource->initializeCipher();
 		}
 
-		if (uSource->voiceProtocolType == VoiceProtocolType::UDP_AES_128_OCB2) {
+		if (uSource->voiceProtocolType == VoiceProtocolType::UDP_AES_128_OCB2
+		    || uSource->voiceProtocolType == VoiceProtocolType::UDP_AES_256_GCM) {
 			QMutexLocker l(&uSource->qmCrypt);
 
 			uSource->csCrypt->genKey();
@@ -1925,6 +1926,7 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 		msg.set_key(uSource->csCrypt->getRawKey());
 		msg.set_server_nonce(uSource->csCrypt->getEncryptIV());
 		msg.set_client_nonce(uSource->csCrypt->getDecryptIV());
+		sendMessage(uSource, msg);
 	} else {
 		const std::string &str = msg.client_nonce();
 		if (!uSource->csCrypt->setDecryptIV(str)) {
