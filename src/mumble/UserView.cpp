@@ -11,15 +11,12 @@
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "UserModel.h"
+#include "Global.h"
 
 #include <QtGui/QDesktopServices>
 #include <QtGui/QHelpEvent>
 #include <QtGui/QPainter>
 #include <QtWidgets/QWhatsThis>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 const int UserDelegate::FLAG_ICON_DIMENSION = 16;
 const int UserDelegate::FLAG_ICON_PADDING   = 1;
@@ -139,7 +136,7 @@ bool UserView::event(QEvent *evt) {
 
 /**
  * This function is used to create custom behaviour when clicking
- * on user/channel flags (e.g. showing the comment)
+ * on user/channel flags (e.Global::get(). showing the comment)
  */
 void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 	QPoint clickPosition = evt->pos();
@@ -227,14 +224,14 @@ void UserView::nodeActivated(const QModelIndex &idx) {
 	UserModel *um = static_cast< UserModel * >(model());
 	ClientUser *p = um->getUser(idx);
 	if (p) {
-		g.mw->openTextMessageDialog(p);
+		Global::get().mw->openTextMessageDialog(p);
 		return;
 	}
 
 	Channel *c = um->getChannel(idx);
 	if (c) {
 		// if a channel is activated join it
-		g.sh->joinChannel(g.uiSession, c->iId);
+		Global::get().sh->joinChannel(Global::get().uiSession, c->iId);
 	}
 }
 
@@ -345,14 +342,14 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	}
 
 	if (c && idx.parent().isValid()) {
-		if (g.s.bFilterActive == false) {
+		if (Global::get().s.bFilterActive == false) {
 			setRowHidden(idx.row(), idx.parent(), false);
 		} else {
 			bool isChannelUserIsIn = false;
 
 			// Check whether user resides in this channel or a subchannel
-			if (g.uiSession != 0) {
-				const ClientUser *user = ClientUser::get(g.uiSession);
+			if (Global::get().uiSession != 0) {
+				const ClientUser *user = ClientUser::get(Global::get().uiSession);
 				if (user) {
 					Channel *chan = user->cChannel;
 					while (chan) {
@@ -368,7 +365,7 @@ void UserView::updateChannel(const QModelIndex &idx) {
 			if (channelFiltered(c) && !isChannelUserIsIn) {
 				setRowHidden(idx.row(), idx.parent(), true);
 			} else {
-				if (g.s.bFilterHidesEmptyChannels && !channelHasUsers(c)) {
+				if (Global::get().s.bFilterHidesEmptyChannels && !channelHasUsers(c)) {
 					setRowHidden(idx.row(), idx.parent(), true);
 				} else {
 					setRowHidden(idx.row(), idx.parent(), false);

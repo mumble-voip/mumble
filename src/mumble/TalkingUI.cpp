@@ -11,6 +11,7 @@
 #include "TalkingUIComponent.h"
 #include "UserModel.h"
 #include "widgets/MultiStyleWidgetWrapper.h"
+#include "Global.h"
 
 #include <QGroupBox>
 #include <QGuiApplication>
@@ -30,10 +31,6 @@
 #include <QtGui/QPixmap>
 
 #include <algorithm>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 TalkingUI::TalkingUI(QWidget *parent) : QWidget(parent), m_containers(), m_currentSelection(nullptr) {
 	setupUI();
@@ -233,12 +230,12 @@ void TalkingUI::setupUI() {
 	// properly and as the TalkingUI doesn't provide context help anyways, this is not a big loss.
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-	connect(g.mw->qtvUsers->selectionModel(), &QItemSelectionModel::currentChanged, this,
+	connect(Global::get().mw->qtvUsers->selectionModel(), &QItemSelectionModel::currentChanged, this,
 			&TalkingUI::on_mainWindowSelectionChanged);
 }
 
 void TalkingUI::setFontSize(MultiStyleWidgetWrapper &widgetWrapper) {
-	const double fontFactor = g.s.iTalkingUI_RelativeFontSize / 100.0;
+	const double fontFactor = Global::get().s.iTalkingUI_RelativeFontSize / 100.0;
 	const int origLineHeight = QFontMetrics(font()).height();
 
 	if (font().pixelSize() >= 0) {
@@ -333,10 +330,10 @@ void TalkingUI::addChannel(const Channel *channel) {
 	if (findContainer(channel->iId, ContainerType::CHANNEL) < 0) {
 		// Create a QGroupBox for this channel
 		const QString channelName =
-			createChannelName(channel, g.s.bTalkingUI_AbbreviateChannelNames, g.s.iTalkingUI_PrefixCharCount,
-							  g.s.iTalkingUI_PostfixCharCount, g.s.iTalkingUI_MaxChannelNameLength,
-							  g.s.iTalkingUI_ChannelHierarchyDepth, g.s.qsTalkingUI_ChannelSeparator,
-							  g.s.qsTalkingUI_AbbreviationReplacement, g.s.bTalkingUI_AbbreviateCurrentChannel);
+			createChannelName(channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
+							  Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
+							  Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+							  Global::get().s.qsTalkingUI_AbbreviationReplacement, Global::get().s.bTalkingUI_AbbreviateCurrentChannel);
 
 		std::unique_ptr< TalkingUIChannel > channelContainer =
 			std::make_unique< TalkingUIChannel >(channel->iId, channelName, *this);
@@ -380,7 +377,7 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 
 	if (!oldUserEntry || !nameMatches) {
 		// Create an entry for this user
-		bool isSelf = g.uiSession == user->uiSession;
+		bool isSelf = Global::get().uiSession == user->uiSession;
 
 		int channelIndex = findContainer(user->cChannel->iId, ContainerType::CHANNEL);
 		if (channelIndex) {
@@ -397,9 +394,9 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 		TalkingUIUser *newUserEntry = userEntry.get();
 
 		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
-		userEntry->setLifeTime(g.s.iTalkingUI_SilentUserLifeTime * 1000);
+		userEntry->setLifeTime(Global::get().s.iTalkingUI_SilentUserLifeTime * 1000);
 
-		userEntry->restrictLifetime(!isSelf || !g.s.bTalkingUI_LocalUserStaysVisible);
+		userEntry->restrictLifetime(!isSelf || !Global::get().s.bTalkingUI_LocalUserStaysVisible);
 
 		userEntry->setPriority(isSelf ? EntryPriority::HIGH : EntryPriority::DEFAULT);
 
@@ -407,7 +404,7 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 						 &TalkingUI::on_userLocalVolumeAdjustmentsChanged);
 
 		// If this user is currently selected, mark him/her as such
-		if (g.mw && g.mw->pmModel && g.mw->pmModel->getSelectedUser() == user) {
+		if (Global::get().mw && Global::get().mw->pmModel && Global::get().mw->pmModel->getSelectedUser() == user) {
 			setSelection(UserSelection(userEntry->getWidget(), userEntry->getAssociatedUserSession()));
 		}
 
@@ -546,7 +543,7 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	}
 
 	if (foundTarget) {
-		if (event->button() == Qt::RightButton && g.mw) {
+		if (event->button() == Qt::RightButton && Global::get().mw) {
 			// If an entry is selected and the right mouse button was clicked, we pretend as if the user had clicked on
 			// the client in the MainWindow. For this to work we map the global mouse position to the local coordinate
 			// system of the UserView in the MainWindow. The function will use some internal logic to determine the user
@@ -554,8 +551,8 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 			// currently selected item. This item we have updated to the correct one with the setSelection() call above
 			// resulting in the proper context menu being shown at the position of the mouse which in this case is in
 			// the TalkingUI.
-			QMetaObject::invokeMethod(g.mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
-									  Q_ARG(QPoint, g.mw->qtvUsers->mapFromGlobal(event->globalPos())), Q_ARG(bool, false));
+			QMetaObject::invokeMethod(Global::get().mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
+									  Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPos())), Q_ARG(bool, false));
 		}
 	} else {
 		// Clear selection
@@ -619,13 +616,13 @@ void TalkingUI::on_mainWindowSelectionChanged(const QModelIndex &current, const 
 	Q_UNUSED(previous);
 
 	// Sync the selection in the MainWindow to the TalkingUI
-	if (g.mw && g.mw->pmModel) {
+	if (Global::get().mw && Global::get().mw->pmModel) {
 		bool clearSelection = true;
 
-		const ClientUser *user = g.mw->pmModel->getUser(current);
-		const Channel *channel = g.mw->pmModel->getChannel(current);
+		const ClientUser *user = Global::get().mw->pmModel->getUser(current);
+		const Channel *channel = Global::get().mw->pmModel->getChannel(current);
 
-		if (g.mw->pmModel->isChannelListener(current)) {
+		if (Global::get().mw->pmModel->isChannelListener(current)) {
 			TalkingUIChannelListener *listenerEntry = findListener(user->uiSession, channel->iId);
 
 			if (listenerEntry) {
@@ -668,11 +665,11 @@ void TalkingUI::on_mainWindowSelectionChanged(const QModelIndex &current, const 
 }
 
 void TalkingUI::on_serverSynchronized() {
-	if (g.s.bTalkingUI_LocalUserStaysVisible) {
+	if (Global::get().s.bTalkingUI_LocalUserStaysVisible) {
 		// According to the settings the local user should always be visible and as we
 		// can't count on it to change its talking state right after it has connected to
 		// a server, we have to add it manually.
-		ClientUser *self = ClientUser::get(g.uiSession);
+		ClientUser *self = ClientUser::get(Global::get().uiSession);
 		findOrAddUser(self);
 	}
 }
@@ -729,10 +726,10 @@ void TalkingUI::on_settingsChanged() {
 		if (channel) {
 			// Update
 			channelContainer->setName(
-				createChannelName(channel, g.s.bTalkingUI_AbbreviateChannelNames, g.s.iTalkingUI_PrefixCharCount,
-								  g.s.iTalkingUI_PostfixCharCount, g.s.iTalkingUI_MaxChannelNameLength,
-								  g.s.iTalkingUI_ChannelHierarchyDepth, g.s.qsTalkingUI_ChannelSeparator,
-								  g.s.qsTalkingUI_AbbreviationReplacement, g.s.bTalkingUI_AbbreviateCurrentChannel));
+				createChannelName(channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
+								  Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
+								  Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+								  Global::get().s.qsTalkingUI_AbbreviationReplacement, Global::get().s.bTalkingUI_AbbreviateCurrentChannel));
 		} else {
 			qCritical("TalkingUI: Can't find channel for stored ID");
 		}
@@ -748,20 +745,20 @@ void TalkingUI::on_settingsChanged() {
 
 				// The time that a silent user may stick around might have changed as well
 				// * 1000 as the setting is in seconds whereas the timer expects milliseconds
-				userEntry->setLifeTime(g.s.iTalkingUI_SilentUserLifeTime * 1000);
+				userEntry->setLifeTime(Global::get().s.iTalkingUI_SilentUserLifeTime * 1000);
 			}
 		}
 	}
 
-	const ClientUser *self = ClientUser::get(g.uiSession);
+	const ClientUser *self = ClientUser::get(Global::get().uiSession);
 
 	// Whether or not the current user should always be displayed might also have changed,
 	// so we'll have to update that as well.
-	TalkingUIUser *localUserEntry = findUser(g.uiSession);
+	TalkingUIUser *localUserEntry = findUser(Global::get().uiSession);
 	if (localUserEntry) {
-		localUserEntry->restrictLifetime(!g.s.bTalkingUI_LocalUserStaysVisible);
+		localUserEntry->restrictLifetime(!Global::get().s.bTalkingUI_LocalUserStaysVisible);
 	} else {
-		if (self && g.s.bTalkingUI_LocalUserStaysVisible) {
+		if (self && Global::get().s.bTalkingUI_LocalUserStaysVisible) {
 			// Add the local user as it is requested to be displayed
 			findOrAddUser(self);
 		}
@@ -771,7 +768,7 @@ void TalkingUI::on_settingsChanged() {
 	// Furthermore whether or not to display the local user's listeners might have changed -> clear all
 	// listeners from the TalkingUI and add them again if appropriate
 	removeAllListeners();
-	if (g.s.bTalkingUI_ShowLocalListeners) {
+	if (Global::get().s.bTalkingUI_ShowLocalListeners) {
 		if (self) {
 			const QSet< int > channels = ChannelListener::getListenedChannelsForUser(self->uiSession);
 
@@ -811,7 +808,7 @@ void TalkingUI::on_userLocalVolumeAdjustmentsChanged(float, float) {
 }
 
 void TalkingUI::on_channelListenerAdded(const ClientUser *user, const Channel *channel) {
-	if (user->uiSession == g.uiSession && g.s.bTalkingUI_ShowLocalListeners) {
+	if (user->uiSession == Global::get().uiSession && Global::get().s.bTalkingUI_ShowLocalListeners) {
 		addListener(user, channel);
 	}
 }
@@ -821,10 +818,10 @@ void TalkingUI::on_channelListenerRemoved(const ClientUser *user, const Channel 
 }
 
 void TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged(int channelID, float, float) {
-	TalkingUIChannelListener *listenerEntry = findListener(g.uiSession, channelID);
+	TalkingUIChannelListener *listenerEntry = findListener(Global::get().uiSession, channelID);
 
 	const Channel *channel = Channel::get(channelID);
-	const ClientUser *self = ClientUser::get(g.uiSession);
+	const ClientUser *self = ClientUser::get(Global::get().uiSession);
 
 	if (listenerEntry && channel && self) {
 		listenerEntry->setDisplayString(UserModel::createDisplayString(*self, true, channel));

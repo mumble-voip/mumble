@@ -44,7 +44,7 @@ bool Database::findOrCreateDatabase() {
 	QSettings qs;
 	QStringList datapaths;
 
-	datapaths << g.qdBasePath.absolutePath();
+	datapaths << Global::get().qdBasePath.absolutePath();
 	datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
 	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
@@ -90,19 +90,19 @@ bool Database::findOrCreateDatabase() {
 
 Database::Database(const QString &dbname) {
 	db = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), dbname);
-	if (!g.s.qsDatabaseLocation.isEmpty()) {
-		QFile configuredLocation(g.s.qsDatabaseLocation);
+	if (!Global::get().s.qsDatabaseLocation.isEmpty()) {
+		QFile configuredLocation(Global::get().s.qsDatabaseLocation);
 		if (configuredLocation.exists()) {
-			db.setDatabaseName(g.s.qsDatabaseLocation);
+			db.setDatabaseName(Global::get().s.qsDatabaseLocation);
 			db.open();
 		} else {
 			int result = QMessageBox::critical(nullptr, QLatin1String("Mumble"),
 											   tr("The database file '%1' set in the configuration file does not "
 												  "exist. Do you want to create a new database file at this location?")
-												   .arg(g.s.qsDatabaseLocation),
+												   .arg(Global::get().s.qsDatabaseLocation),
 											   QMessageBox::Yes | QMessageBox::No);
 			if (result == QMessageBox::Yes) {
-				db.setDatabaseName(g.s.qsDatabaseLocation);
+				db.setDatabaseName(Global::get().s.qsDatabaseLocation);
 				db.open();
 			} else {
 				qFatal("Database: File not found");
@@ -111,7 +111,7 @@ Database::Database(const QString &dbname) {
 	}
 	if (!db.isOpen()) {
 		if (findOrCreateDatabase()) {
-			g.s.qsDatabaseLocation = db.databaseName();
+			Global::get().s.qsDatabaseLocation = db.databaseName();
 		} else {
 			QMessageBox::critical(nullptr, QLatin1String("Mumble"),
 								  tr("Mumble failed to initialize a database in any of the possible locations."),

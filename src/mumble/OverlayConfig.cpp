@@ -19,6 +19,7 @@
 #include "ServerHandler.h"
 #include "User.h"
 #include "GlobalShortcut.h"
+#include "Global.h"
 
 #ifdef Q_OS_WIN
 #	include "../../overlay/overlay_blacklist.h"
@@ -32,10 +33,6 @@
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QFontDialog>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 const QString OverlayConfig::name = QLatin1String("OverlayConfig");
 
@@ -533,18 +530,18 @@ void OverlayConfig::save() const {
 		}
 	}
 
-	g.qs->beginGroup(QLatin1String("overlay"));
+	Global::get().qs->beginGroup(QLatin1String("overlay"));
 	s.os.save();
-	g.qs->endGroup();
+	Global::get().qs->endGroup();
 #ifdef Q_OS_WIN
 	// On MS windows force sync so the registry is updated.
-	g.qs->sync();
+	Global::get().qs->sync();
 #endif
 }
 
 void OverlayConfig::accept() const {
-	g.o->forceSettings();
-	g.o->setActive(s.os.bEnable);
+	Global::get().o->forceSettings();
+	Global::get().o->setActive(s.os.bEnable);
 }
 
 bool OverlayConfig::eventFilter(QObject *obj, QEvent *evt) {

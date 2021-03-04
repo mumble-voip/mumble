@@ -12,8 +12,6 @@
 
 #include <QtWidgets/QPushButton>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #define DOQUOTE(arg) #arg
@@ -53,7 +51,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QWidget *about = new QWidget(qtwTab);
 
 	QLabel *icon = new QLabel(about);
-	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(128, 128))));
+	icon->setPixmap(Global::get().mw->qiIcon.pixmap(Global::get().mw->qiIcon.actualSize(QSize(128, 128))));
 
 	QLabel *text = new QLabel(about);
 	text->setTextInteractionFlags(Qt::TextBrowserInteraction);

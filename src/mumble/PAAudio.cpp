@@ -4,9 +4,6 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "PAAudio.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #ifdef Q_CC_GNU
@@ -65,7 +62,7 @@ AudioInput *PortAudioInputRegistrar::create() {
 }
 
 const QList< audioDevice > PortAudioInputRegistrar::getDeviceChoices() {
-	return pas->enumerateDevices(true, g.s.iPortAudioInput);
+	return pas->enumerateDevices(true, Global::get().s.iPortAudioInput);
 }
 
 void PortAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -84,7 +81,7 @@ AudioOutput *PortAudioOutputRegistrar::create() {
 }
 
 const QList< audioDevice > PortAudioOutputRegistrar::getDeviceChoices() {
-	return pas->enumerateDevices(false, g.s.iPortAudioOutput);
+	return pas->enumerateDevices(false, Global::get().s.iPortAudioOutput);
 }
 
 void PortAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -341,14 +338,14 @@ bool PortAudioSystem::stopStream(PaStream *stream) {
 int PortAudioSystem::streamCallback(const void *input, void *output, unsigned long frames,
 									const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *isInput) {
 	if (isInput) {
-		auto const pai = dynamic_cast< PortAudioInput * >(g.ai.get());
+		auto const pai = dynamic_cast< PortAudioInput * >(Global::get().ai.get());
 		if (!pai) {
 			return paAbort;
 		}
 
 		pai->process(frames, input);
 	} else {
-		auto const pao = dynamic_cast< PortAudioOutput * >(g.ao.get());
+		auto const pao = dynamic_cast< PortAudioOutput * >(Global::get().ao.get());
 		if (!pao) {
 			return paAbort;
 		}
@@ -360,7 +357,7 @@ int PortAudioSystem::streamCallback(const void *input, void *output, unsigned lo
 }
 
 PortAudioInput::PortAudioInput() : stream(nullptr) {
-	iMicChannels = pas->openStream(&stream, g.s.iPortAudioInput, iFrameSize, true);
+	iMicChannels = pas->openStream(&stream, Global::get().s.iPortAudioInput, iFrameSize, true);
 	if (!iMicChannels) {
 		qWarning("PortAudioInput: failed to open stream");
 		return;
@@ -411,7 +408,7 @@ void PortAudioInput::run() {
 }
 
 PortAudioOutput::PortAudioOutput() : stream(nullptr) {
-	iChannels = pas->openStream(&stream, g.s.iPortAudioOutput, iFrameSize, false);
+	iChannels = pas->openStream(&stream, Global::get().s.iPortAudioOutput, iFrameSize, false);
 	if (!iChannels) {
 		qWarning("PortAudioOutput: failed to open stream");
 		return;

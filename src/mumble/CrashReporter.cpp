@@ -32,7 +32,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 
 	QHBoxLayout *hbl = new QHBoxLayout();
 
-	qleEmail = new QLineEdit(g.qs->value(QLatin1String("crashemail")).toString());
+	qleEmail = new QLineEdit(Global::get().qs->value(QLatin1String("crashemail")).toString());
 	l        = new QLabel(tr("Email address (optional)"));
 	l->setBuddy(qleEmail);
 
@@ -66,7 +66,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 }
 
 CrashReporter::~CrashReporter() {
-	g.qs->setValue(QLatin1String("crashemail"), qleEmail->text());
+	Global::get().qs->setValue(QLatin1String("crashemail"), qleEmail->text());
 	delete qnrReply;
 }
 
@@ -98,7 +98,7 @@ void CrashReporter::uploadProgress(qint64 sent, qint64 total) {
 
 void CrashReporter::run() {
 	QByteArray qbaDumpContents;
-	QFile qfCrashDump(g.qdBasePath.filePath(QLatin1String("mumble.dmp")));
+	QFile qfCrashDump(Global::get().qdBasePath.filePath(QLatin1String("mumble.dmp")));
 	if (!qfCrashDump.exists())
 		return;
 
@@ -224,7 +224,7 @@ void CrashReporter::run() {
 					  QString::fromLatin1("multipart/form-data; boundary=%1").arg(boundary));
 		req.setHeader(QNetworkRequest::ContentLengthHeader, QString::number(post.size()));
 		Network::prepareRequest(req);
-		qnrReply = g.nam->post(req, post);
+		qnrReply = Global::get().nam->post(req, post);
 		connect(qnrReply, SIGNAL(finished()), this, SLOT(uploadFinished()));
 		connect(qnrReply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(uploadProgress(qint64, qint64)));
 

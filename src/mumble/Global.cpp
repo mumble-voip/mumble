@@ -17,6 +17,10 @@
 
 Global *Global::g_global_struct;
 
+Global &Global::get() {
+	return *g_global_struct;
+}
+
 #ifndef Q_OS_WIN
 static void migrateDataDir() {
 #	ifdef Q_OS_MAC

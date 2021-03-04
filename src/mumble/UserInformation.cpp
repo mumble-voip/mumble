@@ -10,12 +10,9 @@
 #include "HostAddress.h"
 #include "ServerHandler.h"
 #include "ViewCert.h"
+#include "Global.h"
 
 #include <QtCore/QUrl>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 static QString decode_utf8_qssl_string(const QString &input) {
 	QString i = input;
@@ -58,7 +55,7 @@ void UserInformation::tick() {
 
 	bRequested = true;
 
-	g.sh->requestUserStats(uiSession, true);
+	Global::get().sh->requestUserStats(uiSession, true);
 }
 
 void UserInformation::on_qpbCertificate_clicked() {
@@ -150,7 +147,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		QStringList qsl;
 		for (int i = 0; i < msg.celt_versions_size(); ++i) {
 			int v         = msg.celt_versions(i);
-			CELTCodec *cc = g.qmCodecs.value(v);
+			CELTCodec *cc = Global::get().qmCodecs.value(v);
 			if (cc)
 				qsl << cc->version();
 			else

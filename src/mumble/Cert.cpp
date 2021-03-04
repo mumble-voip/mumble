@@ -15,6 +15,7 @@
 
 #include "SelfSignedCertificate.h"
 #include "Utils.h"
+#include "Global.h"
 
 #include <QtCore/QUrl>
 #include <QtGui/QDesktopServices>
@@ -24,10 +25,6 @@
 #include <openssl/evp.h>
 #include <openssl/pkcs12.h>
 #include <openssl/x509.h>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
@@ -179,7 +176,7 @@ int CertWizard::nextId() const {
 
 void CertWizard::initializePage(int id) {
 	if (id == 0) {
-		kpCurrent = kpNew = g.s.kpCertificate;
+		kpCurrent = kpNew = Global::get().s.kpCertificate;
 
 		if (validateCert(kpCurrent)) {
 			qrbQuick->setEnabled(false);
@@ -278,7 +275,7 @@ bool CertWizard::validateCurrentPage() {
 		kpNew = imp;
 	}
 	if (currentPage() == qwpFinish) {
-		g.s.kpCertificate = kpNew;
+		Global::get().s.kpCertificate = kpNew;
 	}
 	return QWizard::validateCurrentPage();
 }

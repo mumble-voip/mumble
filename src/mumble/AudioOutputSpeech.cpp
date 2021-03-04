@@ -47,9 +47,9 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	// opus's "frame" means different from normal audio term "frame"
 	// normally, a frame means a bundle of only one sample from each channel,
-	// e.g. for a stereo stream, ...[LR]LRLRLR.... where the bracket indicates a frame
+	// e.Global::get(). for a stereo stream, ...[LR]LRLRLR.... where the bracket indicates a frame
 	// in opus term, a frame means samples that span a period of time, which can be either stereo or mono
-	// e.g. ...[LRLR....LRLR].... or ...[MMMM....MMMM].... for mono stream
+	// e.Global::get(). ...[LRLR....LRLR].... or ...[MMMM....MMMM].... for mono stream
 	// opus supports frames with: 2.5, 5, 10, 20, 40 or 60 ms of audio data.
 	// sample rate / 100 means 10ms mono audio data per frame.
 	iFrameSizePerChannel = iFrameSize = iSampleRate / 100; // for mono stream
@@ -59,7 +59,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 		// Always pretend Stereo mode is true by default. since opus will convert mono stream to stereo stream.
 		// https://tools.ietf.org/html/rfc6716#section-2.1.2
 		bStereo = true;
-		oCodec  = g.oCodec;
+		oCodec  = Global::get().oCodec;
 		if (oCodec) {
 			opusState = oCodec->opus_decoder_create(iSampleRate, bStereo ? 2 : 1, nullptr);
 			oCodec->opus_decoder_ctl(
@@ -123,7 +123,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	ucFlags = SpeechFlags::Invalid;
 
 	jbJitter   = jitter_buffer_init(iFrameSize);
-	int margin = g.s.iJitterBufferSize * iFrameSize;
+	int margin = Global::get().s.iJitterBufferSize * iFrameSize;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 
 	fFadeIn  = new float[iFrameSizePerChannel];
@@ -343,9 +343,9 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				QByteArray qba = qlFrames.takeFirst();
 
 				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
-					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? g.iCodecAlpha : g.iCodecBeta;
-					if ((p == &LoopUser::lpLoopy) && (!g.qmCodecs.isEmpty())) {
-						QMap< int, CELTCodec * >::const_iterator i = g.qmCodecs.constEnd();
+					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? Global::get().iCodecAlpha : Global::get().iCodecBeta;
+					if ((p == &LoopUser::lpLoopy) && (!Global::get().qmCodecs.isEmpty())) {
+						QMap< int, CELTCodec * >::const_iterator i = Global::get().qmCodecs.constEnd();
 						--i;
 						wantversion = i.key();
 					}
@@ -354,7 +354,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 						cdDecoder = nullptr;
 					}
 					if (!cCodec) {
-						cCodec = g.qmCodecs.value(wantversion);
+						cCodec = Global::get().qmCodecs.value(wantversion);
 						if (cCodec) {
 							cdDecoder = cCodec->decoderCreate();
 						}

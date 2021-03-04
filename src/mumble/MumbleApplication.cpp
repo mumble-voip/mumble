@@ -8,16 +8,13 @@
 #include "EnvUtils.h"
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
+#include "Global.h"
 
 #if defined(Q_OS_WIN)
 #	include "GlobalShortcut_win.h"
 #endif
 
 #include <QtGui/QFileOpenEvent>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 MumbleApplication *MumbleApplication::instance() {
 	return static_cast< MumbleApplication * >(QCoreApplication::instance());
@@ -38,9 +35,9 @@ QString MumbleApplication::applicationVersionRootPath() {
 
 void MumbleApplication::onCommitDataRequest(QSessionManager &) {
 	// Make sure the config is saved and supress the ask on quit message
-	if (g.mw) {
-		g.s.save();
-		g.mw->bSuppressAskOnQuit = true;
+	if (Global::get().mw) {
+		Global::get().s.save();
+		Global::get().mw->bSuppressAskOnQuit = true;
 		qWarning() << "Session likely ending. Suppressing ask on quit";
 	}
 }
@@ -48,10 +45,10 @@ void MumbleApplication::onCommitDataRequest(QSessionManager &) {
 bool MumbleApplication::event(QEvent *e) {
 	if (e->type() == QEvent::FileOpen) {
 		QFileOpenEvent *foe = static_cast< QFileOpenEvent * >(e);
-		if (!g.mw) {
+		if (!Global::get().mw) {
 			this->quLaunchURL = foe->url();
 		} else {
-			g.mw->openUrl(foe->url());
+			Global::get().mw->openUrl(foe->url());
 		}
 		return true;
 	}

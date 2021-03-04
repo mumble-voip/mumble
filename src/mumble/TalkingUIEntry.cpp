@@ -9,6 +9,7 @@
 #include "TalkingUI.h"
 #include "TalkingUIContainer.h"
 #include "UserModel.h"
+#include "Global.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -17,10 +18,6 @@
 #include <QPixmap>
 #include <QVariant>
 #include <QWidget>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 TalkingUIEntry::TalkingUIEntry(unsigned int associatedUserSession) : m_associatedUserSession(associatedUserSession) {
 }
@@ -136,7 +133,7 @@ TalkingUIUser::TalkingUIUser(const ClientUser &user)
 	QObject::connect(&m_timer, &QTimer::timeout, [this]() {
 		if (getContainer()) {
 			// We let the TalkingUI handle the removing in order for it to do the necessary
-			// housekeeping (e.g. making sure there is no active selection for this user).
+			// housekeeping (e.Global::get(). making sure there is no active selection for this user).
 			getContainer()->m_talkingUI.removeUser(getAssociatedUserSession());
 		}
 	});
@@ -257,7 +254,7 @@ void TalkingUIUser::setIconSize(int size) {
 }
 
 void TalkingUIUser::setDisplayString(const QString &displayString) {
-	if (g.uiSession == getAssociatedUserSession()) {
+	if (Global::get().uiSession == getAssociatedUserSession()) {
 		// Display own name in bold
 		m_nameLabel->setText(QString::fromLatin1("<b>%1</b>").arg(displayString));
 	} else {

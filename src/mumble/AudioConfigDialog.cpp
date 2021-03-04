@@ -112,9 +112,9 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 
-	on_qcbPushClick_clicked(g.s.bTxAudioCue);
+	on_qcbPushClick_clicked(Global::get().s.bTxAudioCue);
 	on_Tick_timeout();
-	on_qcbIdleAction_currentIndexChanged(g.s.iaeIdleAction);
+	on_qcbIdleAction_currentIndexChanged(Global::get().s.iaeIdleAction);
 
 	// Hide the slider by default
 	showSpeexNoiseSuppressionSlider(false);
@@ -374,7 +374,7 @@ void AudioInputDialog::updateBitrate() {
 	if (NetworkConfig::TcpModeEnabled())
 		overhead += 100 * 8 * 12;
 
-	if (g.s.bTransmitPosition)
+	if (Global::get().s.bTransmitPosition)
 		posrate = 12;
 	else
 		posrate = 0;
@@ -388,7 +388,7 @@ void AudioInputDialog::updateBitrate() {
 
 	QPalette pal;
 
-	if (g.uiSession && (total > g.iMaxBandwidth)) {
+	if (Global::get().uiSession && (total > Global::get().iMaxBandwidth)) {
 		pal.setColor(qlBitrate->foregroundRole(), Qt::red);
 	}
 
@@ -431,7 +431,7 @@ void AudioInputDialog::on_qpbPushClickBrowseOff_clicked() {
 }
 
 void AudioInputDialog::on_qpbPushClickPreview_clicked() {
-	AudioOutputPtr ao = g.ao;
+	AudioOutputPtr ao = Global::get().ao;
 	if (ao) {
 		AudioOutputSample *sample = ao->playSample(qlePushClickPathOn->text());
 		if (sample)
@@ -442,7 +442,7 @@ void AudioInputDialog::on_qpbPushClickPreview_clicked() {
 }
 
 void AudioInputDialog::continuePlayback() {
-	AudioOutputPtr ao = g.ao;
+	AudioOutputPtr ao = Global::get().ao;
 	if (ao) {
 		ao->playSample(qlePushClickPathOff->text());
 	}
@@ -548,7 +548,7 @@ void AudioInputDialog::showSpeexNoiseSuppressionSlider(bool show) {
 }
 
 void AudioInputDialog::on_Tick_timeout() {
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai = Global::get().ai;
 
 	if (!ai.get() || !ai->sppPreprocess)
 		return;

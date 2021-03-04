@@ -16,18 +16,15 @@
 #include "User.h"
 #include "Utils.h"
 #include "GlobalShortcut.h"
+#include "Global.h"
 
 #include <QtWidgets/QGraphicsProxyWidget>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
-
 OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *osptr)
-	: QDialog(p), qgiPromote(qgi), oes(g.s.os) {
+	: QDialog(p), qgiPromote(qgi), oes(Global::get().s.os) {
 	setupUi(this);
 	qsZoom->setAccessibleName(tr("Zoom level"));
-	os = osptr ? osptr : &g.s.os;
+	os = osptr ? osptr : &Global::get().s.os;
 
 	connect(qdbbBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(apply()));
 	connect(qdbbBox->button(QDialogButtonBox::Reset), SIGNAL(clicked()), this, SLOT(reset()));
@@ -35,11 +32,11 @@ OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *os
 	QGraphicsProxyWidget *qgpw = graphicsProxyWidget();
 	if (qgpw) {
 		qgpw->setFlag(QGraphicsItem::ItemIgnoresParentOpacity);
-		if (g.ocIntercept) {
-			qgpw->setPos(iroundf(static_cast< float >(g.ocIntercept->uiWidth) / 16.0f + 0.5f),
-						 iroundf(static_cast< float >(g.ocIntercept->uiHeight) / 16.0f + 0.5f));
-			qgpw->resize(iroundf(static_cast< float >(g.ocIntercept->uiWidth) * 14.0f / 16.0f + 0.5f),
-						 iroundf(static_cast< float >(g.ocIntercept->uiHeight) * 14.0f / 16.0f + 0.5f));
+		if (Global::get().ocIntercept) {
+			qgpw->setPos(iroundf(static_cast< float >(Global::get().ocIntercept->uiWidth) / 16.0f + 0.5f),
+						 iroundf(static_cast< float >(Global::get().ocIntercept->uiHeight) / 16.0f + 0.5f));
+			qgpw->resize(iroundf(static_cast< float >(Global::get().ocIntercept->uiWidth) * 14.0f / 16.0f + 0.5f),
+						 iroundf(static_cast< float >(Global::get().ocIntercept->uiHeight) * 14.0f / 16.0f + 0.5f));
 		}
 	}
 
@@ -49,7 +46,7 @@ OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *os
 }
 
 OverlayEditor::~OverlayEditor() {
-	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
+	QGraphicsProxyWidget *qgpw = Global::get().mw->graphicsProxyWidget();
 	if (qgpw)
 		qgpw->setOpacity(0.9f);
 	if (qgiPromote)
@@ -57,7 +54,7 @@ OverlayEditor::~OverlayEditor() {
 }
 
 void OverlayEditor::enterEvent(QEvent *e) {
-	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
+	QGraphicsProxyWidget *qgpw = Global::get().mw->graphicsProxyWidget();
 	if (qgpw)
 		qgpw->setOpacity(0.9f);
 
@@ -72,7 +69,7 @@ void OverlayEditor::enterEvent(QEvent *e) {
 }
 
 void OverlayEditor::leaveEvent(QEvent *e) {
-	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
+	QGraphicsProxyWidget *qgpw = Global::get().mw->graphicsProxyWidget();
 	if (qgpw)
 		qgpw->setOpacity(0.3f);
 

@@ -6,13 +6,10 @@
 #include "MainWindow.h"
 
 #include "WASAPINotificationClient.h"
+#include "Global.h"
 
 #include <QtCore/QMutexLocker>
 #include <boost/thread/once.hpp>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EDataFlow flow, ERole role,
 																		   LPCWSTR pwstrDefaultDevice) {
@@ -169,7 +166,7 @@ WASAPINotificationClient::WASAPINotificationClient() : QObject(), pEnumerator(0)
 		return;
 	}
 
-	g.mw->connect(this, SIGNAL(doResetAudio()), SLOT(onResetAudio()), Qt::QueuedConnection);
+	Global::get().mw->connect(this, SIGNAL(doResetAudio()), SLOT(onResetAudio()), Qt::QueuedConnection);
 
 	pEnumerator->RegisterEndpointNotificationCallback(this);
 }

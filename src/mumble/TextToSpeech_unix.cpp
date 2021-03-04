@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "TextToSpeech.h"
+#include "Global.h"
 
 #ifdef USE_SPEECHD
 #	ifdef USE_SPEECHD_PKGCONFIG
@@ -14,10 +15,6 @@
 #endif
 
 #include <QtCore/QLocale>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 class TextToSpeechPrivate {
 #ifdef USE_SPEECHD
@@ -60,10 +57,10 @@ void TextToSpeechPrivate::ensureInitialized() {
 		qWarning("TextToSpeech: Failed to contact speech dispatcher.");
 	} else {
 		QString lang;
-		if (!g.s.qsTTSLanguage.isEmpty()) {
-			lang = g.s.qsTTSLanguage;
-		} else if (!g.s.qsLanguage.isEmpty()) {
-			QLocale locale(g.s.qsLanguage);
+		if (!Global::get().s.qsTTSLanguage.isEmpty()) {
+			lang = Global::get().s.qsTTSLanguage;
+		} else if (!Global::get().s.qsLanguage.isEmpty()) {
+			QLocale locale(Global::get().s.qsLanguage);
 			lang = locale.bcp47Name();
 		} else {
 			QLocale systemLocale;

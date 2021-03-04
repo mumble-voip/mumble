@@ -10,17 +10,11 @@
 #ifdef MUMBLE
 #	include "ServerHandler.h"
 #	include "Database.h"
+#	include "Global.h"
 #endif
 
 #include <QtCore/QReadLocker>
 #include <QtCore/QWriteLocker>
-
-
-#ifdef MUMBLE
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#	include "Global.h"
-#endif
 
 // init static instance
 ChannelListener ChannelListener::s_instance;
@@ -255,7 +249,7 @@ void ChannelListener::setInitialServerSyncDone(bool done) {
 }
 
 void ChannelListener::saveToDB() {
-	if (!g.sh || g.sh->qbaDigest.isEmpty() || g.uiSession == 0) {
+	if (!Global::get().sh || Global::get().sh->qbaDigest.isEmpty() || Global::get().uiSession == 0) {
 		// Can't save as we don't have enough context
 		return;
 	}
@@ -268,9 +262,9 @@ void ChannelListener::saveToDB() {
 	}
 
 	// Save the currently listened channels
-	g.db->setChannelListeners(g.sh->qbaDigest, ChannelListener::getListenedChannelsForUser(g.uiSession));
+	Global::get().db->setChannelListeners(Global::get().sh->qbaDigest, ChannelListener::getListenedChannelsForUser(Global::get().uiSession));
 	// And also the currently set volume adjustments (if they're not set to 1.0)
-	g.db->setChannelListenerLocalVolumeAdjustments(g.sh->qbaDigest,
+	Global::get().db->setChannelListenerLocalVolumeAdjustments(Global::get().sh->qbaDigest,
 												   ChannelListener::getAllListenerLocalVolumeAdjustments(true));
 }
 #endif

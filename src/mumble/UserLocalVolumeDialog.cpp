@@ -38,15 +38,12 @@
 #include "ClientUser.h"
 #include "Database.h"
 #include "MainWindow.h"
+#include "Global.h"
 
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QPushButton>
 
 #include <cmath>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
 											 QMap< unsigned int, UserLocalVolumeDialog * > *qmUserVolTracker)
@@ -63,7 +60,7 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
 		m_originalVolumeAdjustmentDecibel = qsUserLocalVolume->value();
 	}
 
-	if (g.mw && g.mw->windowFlags() & Qt::WindowStaysOnTopHint) {
+	if (Global::get().mw && Global::get().mw->windowFlags() & Qt::WindowStaysOnTopHint) {
 		// If the main window is set to always be on top of other windows, we should make the
 		// volume dialog behave the same in order for it to not get hidden behind the main window.
 		setWindowFlags(Qt::WindowStaysOnTopHint);
@@ -107,9 +104,9 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 		ClientUser *user = ClientUser::get(m_clientSession);
 		if (user) {
 			if (!user->qsHash.isEmpty()) {
-				g.db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
+				Global::get().db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
 			} else {
-				g.mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
+				Global::get().mw->logChangeNotPermanent(QObject::tr("Local Volume Adjustment..."), user);
 			}
 		}
 		UserLocalVolumeDialog::close();

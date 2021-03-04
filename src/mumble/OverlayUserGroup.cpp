@@ -19,15 +19,12 @@
 #include "User.h"
 #include "Utils.h"
 #include "GlobalShortcut.h"
+#include "Global.h"
 
 #include <QtGui/QImageReader>
 #include <QtWidgets/QGraphicsSceneContextMenuEvent>
 #include <QtWidgets/QGraphicsSceneWheelEvent>
 #include <QtWidgets/QInputDialog>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 template< typename T > QRectF OverlayGroup::boundingRect() const {
 	QRectF qr;
@@ -67,14 +64,14 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 	e->accept();
 
 #ifdef Q_OS_MAC
-	bool embed = g.ocIntercept;
+	bool embed = Global::get().ocIntercept;
 	QMenu qm(embed ? nullptr : e->widget());
 	if (embed) {
-		QGraphicsScene *scene = g.ocIntercept->qgv.scene();
+		QGraphicsScene *scene = Global::get().ocIntercept->qgv.scene();
 		scene->addWidget(&qm);
 	}
 #else
-	QMenu qm(g.ocIntercept ? g.mw : e->widget());
+	QMenu qm(Global::get().ocIntercept ? Global::get().mw : e->widget());
 #endif
 
 	QMenu *qmShow = qm.addMenu(OverlayClient::tr("Filter"));
@@ -142,8 +139,8 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 		return;
 
 	if (act == qaEdit) {
-		if (g.ocIntercept) {
-			QMetaObject::invokeMethod(g.ocIntercept, "openEditor", Qt::QueuedConnection);
+		if (Global::get().ocIntercept) {
+			QMetaObject::invokeMethod(Global::get().ocIntercept, "openEditor", Qt::QueuedConnection);
 		} else {
 			OverlayEditor oe(qApp->activeModalWidget(), nullptr, os);
 			connect(&oe, SIGNAL(applySettings()), this, SLOT(updateLayout()));
@@ -286,10 +283,10 @@ void OverlayUserGroup::updateUsers() {
 		qgeiHandle = nullptr;
 	}
 
-	ClientUser *self = ClientUser::get(g.uiSession);
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
 	if (self) {
 		QList< ClientUser * > showusers;
-		Channel *home = ClientUser::get(g.uiSession)->cChannel;
+		Channel *home = ClientUser::get(Global::get().uiSession)->cChannel;
 
 		switch (os->osShow) {
 			case OverlaySettings::LinkedChannels:

@@ -9,6 +9,7 @@
 #include "Cert.h"
 #include "Log.h"
 #include "SSL.h"
+#include "Global.h"
 
 #include "../../overlay/overlay.h"
 
@@ -23,10 +24,6 @@
 #include <boost/typeof/typeof.hpp>
 
 #include <limits>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 
 
@@ -557,8 +554,8 @@ bool Settings::doEcho() const {
 	if (AudioInputRegistrar::qmNew) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qsAudioInput);
 		if (air) {
-			if ((g.s.echoOption != EchoCancelOptionID::DISABLED)
-			    && air->canEcho(g.s.echoOption, qsAudioOutput))
+			if ((Global::get().s.echoOption != EchoCancelOptionID::DISABLED)
+			    && air->canEcho(Global::get().s.echoOption, qsAudioOutput))
 				return true;
 		}
 	}
@@ -626,7 +623,7 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 #endif
 
 void OverlaySettings::load() {
-	load(g.qs);
+	load(Global::get().qs);
 }
 
 void OverlaySettings::load(QSettings *settings_ptr) {
@@ -699,7 +696,7 @@ void OverlaySettings::load(QSettings *settings_ptr) {
 }
 
 void Settings::load() {
-	load(g.qs);
+	load(Global::get().qs);
 }
 
 void Settings::load(QSettings *settings_ptr) {
@@ -1032,7 +1029,7 @@ void Settings::load(QSettings *settings_ptr) {
 #define DEPRECATED(name) settings_ptr->remove(QLatin1String(name))
 
 void OverlaySettings::save() {
-	save(g.qs);
+	save(Global::get().qs);
 }
 
 void OverlaySettings::save(QSettings *settings_ptr) {
@@ -1119,7 +1116,7 @@ void OverlaySettings::save(QSettings *settings_ptr) {
 }
 
 void Settings::save() {
-	QSettings *settings_ptr = g.qs;
+	QSettings *settings_ptr = Global::get().qs;
 	Settings def;
 
 	// Config updates

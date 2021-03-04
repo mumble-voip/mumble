@@ -12,6 +12,7 @@
 
 #include "Version.h"
 #include "win.h"
+#include "Global.h"
 
 #include <cfloat>
 #include <cmath>
@@ -28,10 +29,6 @@
 #include <share.h> // For share flags for _wfsopen
 #include <shlobj.h>
 #include <shobjidl.h>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 extern "C" {
 void __cpuid(int a[4], int b);
@@ -258,10 +255,10 @@ void os_init() {
 	// Make a copy of the global LogEmitter, such that
 	// os_win.cpp doesn't have to consider the deletion
 	// of the Global object and its LogEmitter object.
-	le = g.le;
+	le = Global::get().le;
 
 #ifdef QT_NO_DEBUG
-	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
+	QString console = Global::get().qdBasePath.filePath(QLatin1String("Console.txt"));
 	fConsole        = _wfsopen(console.toStdWString().c_str(), L"a+", _SH_DENYWR);
 
 	if (fConsole) {
@@ -290,7 +287,7 @@ void os_init() {
 	musComment.Buffer     = wcComment;
 	musComment.BufferSize = static_cast< ULONG >(wcslen(wcComment) * sizeof(wchar_t));
 
-	QString dump = g.qdBasePath.filePath(QLatin1String("mumble.dmp"));
+	QString dump = Global::get().qdBasePath.filePath(QLatin1String("mumble.dmp"));
 
 	QFileInfo fi(dump);
 	QDir::root().mkpath(fi.absolutePath());
@@ -300,7 +297,7 @@ void os_init() {
 
 #endif
 
-	g.qdBasePath.mkpath(QLatin1String("Snapshots"));
+	Global::get().qdBasePath.mkpath(QLatin1String("Snapshots"));
 	if (bIsWin7)
 		SetCurrentProcessExplicitAppUserModelID(L"net.sourceforge.mumble.Mumble");
 }

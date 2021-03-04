@@ -7,6 +7,7 @@
 
 #include "MainWindow.h"
 #include "Utils.h"
+#include "Global.h"
 
 // MinGW does not support std::future/std::promise
 // at present. Use Boost's implementation for now.
@@ -22,10 +23,6 @@
 
 // Used to detect screen readers
 #include <tlhelp32.h>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast< HRESULT >(Status) < 0)
@@ -122,7 +119,7 @@ GlobalShortcutWin::GlobalShortcutWin()
 {
 	// Hidden setting to disable hooking
 	// Also disable hooking if a screen reader is running
-	bHook = g.qs->value(QLatin1String("winhooks"), true).toBool() && !areScreenReadersActive();
+	bHook = Global::get().qs->value(QLatin1String("winhooks"), true).toBool() && !areScreenReadersActive();
 
 	moveToThread(this);
 	start(QThread::LowestPriority);
@@ -166,18 +163,18 @@ void GlobalShortcutWin::run() {
 
 	// Wait for MainWindow's constructor to finish before we enumerate DirectInput devices.
 	// We need to do this because adding a new device requires a Window handle. (SetCooperativeLevel())
-	while (!g.mw)
+	while (!Global::get().mw)
 		this->yieldCurrentThread();
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey) {
+	if (Global::get().s.bEnableGKey) {
 		gkey = new GKeyLibrary();
 		qWarning("GlobalShortcutWin: GKeys initialized, isValid: %d", gkey->isValid());
 	}
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput) {
+	if (Global::get().s.bEnableXboxInput) {
 		xboxinput = new XboxInput();
 		ZeroMemory(&xboxinputLastPacket, sizeof(xboxinputLastPacket));
 		qWarning("GlobalShortcutWin: XboxInput initialized, isValid: %d", xboxinput->isValid());
@@ -319,7 +316,7 @@ bool GlobalShortcutWin::handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool
 		keyid |= 0x8000U;
 	}
 
-	// NumLock and Pause need special handling.
+	// NumLock and Pause need special handlinGlobal::get().
 	// For those keys, the method above of setting
 	// bit 15 high when the LLKHF_EXTENDED flag is
 	// set on the low-level key event does not work.
@@ -447,7 +444,7 @@ BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINST
 	QString name                = QString::fromUtf16(reinterpret_cast< const ushort * >(lpddoi->tszName));
 	id->qhNames[lpddoi->dwType] = name;
 
-	if (g.s.bDirectInputVerboseLogging) {
+	if (Global::get().s.bDirectInputVerboseLogging) {
 		qWarning("GlobalShortcutWin: EnumObjects: device %s %s object 0x%.8lx %s",
 				 qPrintable(QUuid(id->guid).toString()), qPrintable(id->name),
 				 static_cast< unsigned long >(lpddoi->dwType), qPrintable(name));
@@ -605,8 +602,8 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 }
 
 void GlobalShortcutWin::timeTicked() {
-	if (g.mw->uiNewHardware != uiHardwareDevices) {
-		uiHardwareDevices = g.mw->uiNewHardware;
+	if (Global::get().mw->uiNewHardware != uiHardwareDevices) {
+		uiHardwareDevices = Global::get().mw->uiNewHardware;
 
 		XInputCheck_ClearDeviceCache();
 #ifdef USE_XBOXINPUT
@@ -653,7 +650,7 @@ void GlobalShortcutWin::timeTicked() {
 			// might have a misbehaving device.
 			if (timer.elapsed() > 1000) {
 				qWarning("GlobalShortcut_win: Poll() for device %s took %li msec. This is abnormal, the device is "
-						 "possibly misbehaving...",
+						 "possibly misbehavinGlobal::get()...",
 						 qPrintable(QUuid(id->guid).toString()), static_cast< long >(timer.elapsed()));
 			}
 		}
@@ -676,7 +673,7 @@ void GlobalShortcutWin::timeTicked() {
 	}
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey && gkey->isValid()) {
+	if (Global::get().s.bEnableGKey && gkey && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
 			QList< QVariant > ql;
 			ql << button;
@@ -697,7 +694,7 @@ void GlobalShortcutWin::timeTicked() {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput && xboxinput->isValid() && nxboxinput > 0) {
+	if (Global::get().s.bEnableXboxInput && xboxinput && xboxinput->isValid() && nxboxinput > 0) {
 		XboxInputState state;
 		for (uint32_t i = 0; i < XBOXINPUT_MAX_DEVICES; i++) {
 			if (xboxinput->GetState(i, &state) == 0) {
@@ -807,7 +804,7 @@ GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &v) {
 	info.device = guid.toString();
 
 #ifdef USE_GKEY
-	if (g.s.bEnableGKey && gkey && gkey->isValid()) {
+	if (Global::get().s.bEnableGKey && gkey && gkey->isValid()) {
 		bool isGKey = false;
 		if (guid == GKeyLibrary::quMouse) {
 			isGKey    = true;
@@ -828,7 +825,7 @@ GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &v) {
 #endif
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
+	if (Global::get().s.bEnableXboxInput && xboxinput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
 		uint32_t idx    = (type >> 24) & 0xff;
 		uint32_t button = (type & 0x00ffffff);
 

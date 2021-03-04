@@ -6,13 +6,10 @@
 #include "TalkingUISelection.h"
 #include "MainWindow.h"
 #include "UserModel.h"
+#include "Global.h"
 
 #include <QVariant>
 #include <QWidget>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 TalkingUISelection::TalkingUISelection(QWidget *widget) : m_widget(widget) {
 }
@@ -56,8 +53,8 @@ UserSelection::UserSelection(QWidget *widget, unsigned int userSession)
 }
 
 void UserSelection::syncToMainWindow() const {
-	if (g.mw && g.mw->pmModel) {
-		g.mw->pmModel->setSelectedUser(m_userSession);
+	if (Global::get().mw && Global::get().mw->pmModel) {
+		Global::get().mw->pmModel->setSelectedUser(m_userSession);
 	}
 }
 
@@ -72,8 +69,8 @@ ChannelSelection::ChannelSelection(QWidget *widget, int channelID)
 }
 
 void ChannelSelection::syncToMainWindow() const {
-	if (g.mw && g.mw->pmModel) {
-		g.mw->pmModel->setSelectedChannel(m_channelID);
+	if (Global::get().mw && Global::get().mw->pmModel) {
+		Global::get().mw->pmModel->setSelectedChannel(m_channelID);
 	}
 }
 
@@ -88,8 +85,8 @@ ListenerSelection::ListenerSelection(QWidget *widget, unsigned int userSession, 
 }
 
 void ListenerSelection::syncToMainWindow() const {
-	if (g.mw && g.mw->pmModel) {
-		g.mw->pmModel->setSelectedChannelListener(m_userSession, m_channelID);
+	if (Global::get().mw && Global::get().mw->pmModel) {
+		Global::get().mw->pmModel->setSelectedChannelListener(m_userSession, m_channelID);
 	}
 }
 

@@ -13,12 +13,10 @@
 #endif
 #include "Log.h"
 #include "PacketDataStream.h"
+#include "Global.h"
 
 #include <QtCore/QObject>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 class CodecInit : public DeferInit {
 public:
@@ -36,7 +34,7 @@ void CodecInit::initialize() {
 	OpusCodec *oCodec = new OpusCodec();
 	if (oCodec->isValid()) {
 		oCodec->report();
-		g.oCodec = oCodec;
+		Global::get().oCodec = oCodec;
 	} else {
 		Log::logOrDefer(
 			Log::CriticalError,
@@ -45,7 +43,7 @@ void CodecInit::initialize() {
 	}
 #endif
 
-	if (g.s.bDisableCELT) {
+	if (Global::get().s.bDisableCELT) {
 		// Kill switch for CELT activated. Do not initialize it.
 		return;
 	}
@@ -56,7 +54,7 @@ void CodecInit::initialize() {
 	codec = new CELTCodecSBCELT();
 	if (codec->isValid()) {
 		codec->report();
-		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+		Global::get().qmCodecs.insert(codec->bitstreamVersion(), codec);
 	} else {
 		delete codec;
 	}
@@ -64,13 +62,13 @@ void CodecInit::initialize() {
 	codec = new CELTCodec070(QLatin1String("0.7.0"));
 	if (codec->isValid()) {
 		codec->report();
-		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+		Global::get().qmCodecs.insert(codec->bitstreamVersion(), codec);
 	} else {
 		delete codec;
 		codec = new CELTCodec070(QLatin1String("0.0.0"));
 		if (codec->isValid()) {
 			codec->report();
-			g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+			Global::get().qmCodecs.insert(codec->bitstreamVersion(), codec);
 		} else {
 			delete codec;
 		}
@@ -80,12 +78,12 @@ void CodecInit::initialize() {
 
 void CodecInit::destroy() {
 #ifdef USE_OPUS
-	delete g.oCodec;
+	delete Global::get().oCodec;
 #endif
 
-	foreach (CELTCodec *codec, g.qmCodecs)
+	foreach (CELTCodec *codec, Global::get().qmCodecs)
 		delete codec;
-	g.qmCodecs.clear();
+	Global::get().qmCodecs.clear();
 }
 
 LoopUser::LoopUser() {
@@ -101,7 +99,7 @@ LoopUser::LoopUser() {
 }
 
 void LoopUser::addFrame(const QByteArray &packet) {
-	if (DOUBLE_RAND < g.s.dPacketLoss) {
+	if (DOUBLE_RAND < Global::get().s.dPacketLoss) {
 		qWarning("Drop");
 		return;
 	}
@@ -116,14 +114,14 @@ void LoopUser::addFrame(const QByteArray &packet) {
 		if (restart)
 			r = 0.0;
 		else
-			r = DOUBLE_RAND * g.s.dMaxPacketDelay;
+			r = DOUBLE_RAND * Global::get().s.dMaxPacketDelay;
 
 		qmPackets.insert(static_cast< float >(time + r), packet);
 	}
 
 	// Restart check
 	if (qetLastFetch.elapsed() > 100) {
-		AudioOutputPtr ao = g.ao;
+		AudioOutputPtr ao = Global::get().ao;
 		if (ao) {
 			MessageHandler::UDPMessageType msgType =
 				static_cast< MessageHandler::UDPMessageType >((packet.at(0) >> 5) & 0x7);
@@ -135,7 +133,7 @@ void LoopUser::addFrame(const QByteArray &packet) {
 void LoopUser::fetchFrames() {
 	QMutexLocker l(&qmLock);
 
-	AudioOutputPtr ao(g.ao);
+	AudioOutputPtr ao(Global::get().ao);
 	if (!ao || qmPackets.isEmpty()) {
 		return;
 	}
@@ -175,13 +173,13 @@ RecordUser::RecordUser() : LoopUser() {
 }
 
 RecordUser::~RecordUser() {
-	AudioOutputPtr ao = g.ao;
+	AudioOutputPtr ao = Global::get().ao;
 	if (ao)
 		ao->removeBuffer(this);
 }
 
 void RecordUser::addFrame(const QByteArray &packet) {
-	AudioOutputPtr ao(g.ao);
+	AudioOutputPtr ao(Global::get().ao);
 	if (!ao)
 		return;
 
@@ -203,18 +201,18 @@ void RecordUser::addFrame(const QByteArray &packet) {
 }
 
 void Audio::startOutput(const QString &output) {
-	g.ao = AudioOutputRegistrar::newFromChoice(output);
-	if (g.ao)
-		g.ao->start(QThread::HighPriority);
+	Global::get().ao = AudioOutputRegistrar::newFromChoice(output);
+	if (Global::get().ao)
+		Global::get().ao->start(QThread::HighPriority);
 }
 
 void Audio::stopOutput() {
 	// Take a copy of the global AudioOutput shared pointer
 	// to keep a reference around.
-	AudioOutputPtr ao = g.ao;
+	AudioOutputPtr ao = Global::get().ao;
 
 	// Reset the global AudioOutput shared pointer to the null pointer.
-	g.ao.reset();
+	Global::get().ao.reset();
 
 	// Wait until our copy of the AudioOutput shared pointer (ao)
 	// is the only one left.
@@ -230,24 +228,24 @@ void Audio::stopOutput() {
 	// One such example is PulseAudioInput, whose destructor
 	// takes the PulseAudio mainloop lock. If the destructor
 	// is called inside one of the PulseAudio callbacks that
-	// take copies of g.ai, the destructor will try to also
+	// take copies of Global::get().ai, the destructor will try to also
 	// take the mainloop lock, causing an abort().
 	ao.reset();
 }
 
 void Audio::startInput(const QString &input) {
-	g.ai = AudioInputRegistrar::newFromChoice(input);
-	if (g.ai)
-		g.ai->start(QThread::HighestPriority);
+	Global::get().ai = AudioInputRegistrar::newFromChoice(input);
+	if (Global::get().ai)
+		Global::get().ai->start(QThread::HighestPriority);
 }
 
 void Audio::stopInput() {
 	// Take a copy of the global AudioInput shared pointer
 	// to keep a reference around.
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai = Global::get().ai;
 
 	// Reset the global AudioInput shared pointer to the null pointer.
-	g.ai.reset();
+	Global::get().ai.reset();
 
 	// Wait until our copy of the AudioInput shared pointer (ai)
 	// is the only one left.
@@ -263,7 +261,7 @@ void Audio::stopInput() {
 	// One such example is PulseAudioInput, whose destructor
 	// takes the PulseAudio mainloop lock. If the destructor
 	// is called inside one of the PulseAudio callbacks that
-	// take copies of g.ai, the destructor will try to also
+	// take copies of Global::get().ai, the destructor will try to also
 	// take the mainloop lock, causing an abort().
 	ai.reset();
 }
@@ -277,13 +275,13 @@ void Audio::stop() {
 	// Take copies of the global AudioInput and AudioOutput
 	// shared pointers to keep a reference to each of them
 	// around.
-	AudioInputPtr ai  = g.ai;
-	AudioOutputPtr ao = g.ao;
+	AudioInputPtr ai  = Global::get().ai;
+	AudioOutputPtr ao = Global::get().ao;
 
 	// Reset the global AudioInput and AudioOutput shared pointers
 	// to the null pointer.
-	g.ao.reset();
-	g.ai.reset();
+	Global::get().ao.reset();
+	Global::get().ai.reset();
 
 	// Wait until our copies of the AudioInput and AudioOutput shared pointers
 	// (ai and ao) are the only ones left.
@@ -300,7 +298,7 @@ void Audio::stop() {
 	// One such example is PulseAudioInput, whose destructor
 	// takes the PulseAudio mainloop lock. If the destructor
 	// is called inside one of the PulseAudio callbacks that
-	// take copies of g.ai, the destructor will try to also
+	// take copies of Global::get().ai, the destructor will try to also
 	// take the mainloop lock, causing an abort().
 	ai.reset();
 	ao.reset();

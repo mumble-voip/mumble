@@ -9,6 +9,7 @@
 #include "Log.h"
 #include "MainWindow.h"
 #include "Utils.h"
+#include "Global.h"
 
 #include <QMimeData>
 #include <QtCore/QTimer>
@@ -17,10 +18,6 @@
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QKeyEvent>
 #include <QtWidgets/QScrollBar>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
 }
@@ -181,14 +178,14 @@ void ChatbarTextEdit::insertFromMimeData(const QMimeData *source) {
 
 bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 	if ((source->hasImage() || source->hasUrls())) {
-		if (g.bAllowHTML) {
+		if (Global::get().bAllowHTML) {
 			if (source->hasImage()) {
 				// Process the image pasted onto the chatbar.
 				QImage image = qvariant_cast<QImage>(source->imageData());
 				if (emitPastedImage(image)) {
 					return true;
 				} else {
-					g.l->log(Log::Information, tr("Unable to send image: too large."));
+					Global::get().l->log(Log::Information, tr("Unable to send image: too large."));
 					return false;
 				}
 
@@ -206,21 +203,21 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 					if (emitPastedImage(image)) {
 						++count;
 					} else {
-						g.l->log(Log::Information, tr("Unable to send image %1: too large.").arg(path));
+						Global::get().l->log(Log::Information, tr("Unable to send image %1: too large.").arg(path));
 					}
 				}
 
 				return (count > 0);
 			}
 		} else {
-			g.l->log(Log::Information, tr("This server does not allow sending images."));
+			Global::get().l->log(Log::Information, tr("This server does not allow sending images."));
 		}
 	}
 	return false;
 }
 
 bool ChatbarTextEdit::emitPastedImage(QImage image) {
-	QString processedImage = Log::imageToImg(image, g.uiImageLength);
+	QString processedImage = Log::imageToImg(image, Global::get().uiImageLength);
 	if (processedImage.length() > 0) {
 		QString imgHtml = QLatin1String("<br />") + processedImage;
 		emit pastedImage(imgHtml);

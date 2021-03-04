@@ -10,12 +10,9 @@
 #include "Message.h"
 #include "ServerHandler.h"
 #include "Utils.h"
+#include "Global.h"
 
 #include <QtGui/QPainter>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 const QString LCDConfig::name = QLatin1String("LCDConfig");
 
@@ -144,7 +141,7 @@ void LCDConfig::accept() const {
 		bool enabled = s.qmLCDDevices.value(d->name());
 		d->setEnabled(enabled);
 	}
-	g.lcd->updateUserView();
+	Global::get().lcd->updateUserView();
 }
 
 void LCDConfig::on_qsMinColWidth_valueChanged(int v) {
@@ -189,7 +186,7 @@ LCD::LCD() : QObject() {
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
 
 	foreach (LCDDevice *d, devmgr.qlDevices) {
-		bool enabled = g.s.qmLCDDevices.contains(d->name()) ? g.s.qmLCDDevices.value(d->name()) : true;
+		bool enabled = Global::get().s.qmLCDDevices.contains(d->name()) ? Global::get().s.qmLCDDevices.value(d->name()) : true;
 		d->setEnabled(enabled);
 	}
 	qiLogo = QIcon(QLatin1String("skin:mumble.svg")).pixmap(48, 48).toImage().convertToFormat(QImage::Format_MonoLSB);
@@ -246,7 +243,7 @@ void LCD::updateUserView() {
 		return;
 
 	QStringList qslTalking;
-	User *me      = g.uiSession ? ClientUser::get(g.uiSession) : nullptr;
+	User *me      = Global::get().uiSession ? ClientUser::get(Global::get().uiSession) : nullptr;
 	Channel *home = me ? me->cChannel : nullptr;
 	bool alert    = false;
 
@@ -356,7 +353,7 @@ void LCD::updateUserView() {
 		const int iWidth          = size.width();
 		const int iHeight         = size.height();
 		const int iUsersPerColumn = iHeight / iFontHeight;
-		const int iSplitterWidth  = g.s.iLCDUserViewSplitterWidth;
+		const int iSplitterWidth  = Global::get().s.iLCDUserViewSplitterWidth;
 		const int iUserColumns    = (entries.count() + iUsersPerColumn - 1) / iUsersPerColumn;
 
 		int iColumns     = iUserColumns;
@@ -364,7 +361,7 @@ void LCD::updateUserView() {
 
 		while (iColumns >= 1) {
 			iColumnWidth = (iWidth - (iColumns - 1) * iSplitterWidth) / iColumns;
-			if (iColumnWidth >= g.s.iLCDUserViewMinColWidth)
+			if (iColumnWidth >= Global::get().s.iLCDUserViewMinColWidth)
 				break;
 			--iColumns;
 		}

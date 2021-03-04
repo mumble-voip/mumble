@@ -9,11 +9,9 @@
 #	include "Overlay.h"
 #endif
 #include "Utils.h"
+#include "Global.h"
 
 #include <CoreFoundation/CoreFoundation.h>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 char *os_lang = nullptr;
 static FILE *fConsole = nullptr;
@@ -117,7 +115,7 @@ static void crashhandler_signals_restore() {
 }
 
 static void crashhandler_init() {
-	QString dump = g.qdBasePath.filePath(QLatin1String("mumble.dmp"));
+	QString dump = Global::get().qdBasePath.filePath(QLatin1String("mumble.dmp"));
 	if (strncpy(crashhandler_fn, dump.toUtf8().data(), PATH_MAX)) {
 		crashhandler_signals_setup();
 		/* todo: Change the behavior of the Apple crash dialog? Maybe? */
@@ -140,7 +138,7 @@ void os_init() {
 	// Make a copy of the global LogEmitter, such that
 	// os_macx.mm doesn't have to consider the deletion
 	// of the Global object and its LogEmitter object.
-	le = g.le;
+	le = Global::get().le;
 
 	if (home) {
 		size_t len = strlen(home) + strlen(logpath) + 1;

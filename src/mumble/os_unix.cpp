@@ -49,7 +49,7 @@ void os_init() {
 	// Make a copy of the global LogEmitter, such that
 	// os_unix.cpp doesn't have to consider the deletion
 	// of the Global object and its LogEmitter object.
-	le = g.le;
+	le = Global::get().le;
 
 	qInstallMessageHandler(mumbleMessageOutputWithContext);
 }

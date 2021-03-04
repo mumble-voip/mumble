@@ -6,9 +6,6 @@
 #include "Themes.h"
 #include "MainWindow.h"
 #include "MumbleApplication.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 boost::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
@@ -58,7 +55,7 @@ void Themes::applyFallback() {
 }
 
 bool Themes::applyConfigured() {
-	boost::optional< ThemeInfo::StyleInfo > style = Themes::getConfiguredStyle(g.s);
+	boost::optional< ThemeInfo::StyleInfo > style = Themes::getConfiguredStyle(Global::get().s);
 	if (!style) {
 		return false;
 	}
@@ -102,8 +99,8 @@ bool Themes::apply() {
 		applyFallback();
 	}
 
-	if (g.mw) {
-		g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+	if (Global::get().mw) {
+		Global::get().mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 	}
 	return result;
 }
@@ -113,7 +110,7 @@ ThemeMap Themes::getThemes() {
 }
 
 QDir Themes::getUserThemesDirectory() {
-	return QDir(g.qdBasePath.absolutePath() + QLatin1String("/Themes"));
+	return QDir(Global::get().qdBasePath.absolutePath() + QLatin1String("/Themes"));
 }
 
 QVector< QDir > Themes::getSearchDirectories() {
@@ -131,7 +128,7 @@ QVector< QDir > Themes::getSearchDirectories() {
 }
 
 QString Themes::userStylesheetPath() {
-	return g.qdBasePath.absolutePath() + QLatin1String("/user.qss");
+	return Global::get().qdBasePath.absolutePath() + QLatin1String("/user.qss");
 }
 
 bool Themes::readStylesheet(const QString &stylesheetFn, QString &stylesheetContent) {
