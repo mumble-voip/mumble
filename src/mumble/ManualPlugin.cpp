@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#define _USE_MATH_DEFINES
-
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #include <QtWidgets/QMessageBox>
@@ -14,6 +12,7 @@
 #include <QPointer>
 
 #include <float.h>
+#include <cmath>
 
 #include "../../plugins/mumble_plugin.h"
 #include "Global.h"
@@ -416,5 +415,3 @@ MumblePlugin *ManualPlugin_getMumblePlugin() {
 MumblePluginQt *ManualPlugin_getMumblePluginQt() {
 	return &manualqt;
 }
-
-#undef _USE_MATH_DEFINES

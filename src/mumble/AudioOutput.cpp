@@ -3,14 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-// <cmath> includes <math.h>, but only if it isn't already included.
-// We include <cmath> as first header to make sure that we include <math.h> with _USE_MATH_DEFINES.
-#ifdef _MSC_VER
-#	define _USE_MATH_DEFINES
-#endif
-
-#include <cmath>
-
 #include "AudioOutput.h"
 
 #include "AudioInput.h"
@@ -28,6 +20,8 @@
 #include "Utils.h"
 #include "VoiceRecorder.h"
 #include "Global.h"
+
+#include <cmath>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
