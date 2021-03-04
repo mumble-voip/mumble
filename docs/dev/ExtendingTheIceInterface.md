@@ -88,3 +88,71 @@ section marked by a comment). The implementation of this new function should the
 An example of when this is needed is for instance if you have to access the list of connected clients (e.g. because you want to send them a message).
 While in the current state of the code it would be possible to access this list from the outside (public visibility), you should prefer creating a
 public API function in the Mumble `Server` class that has the implementation in `RPC.cpp`.
+
+## Testing Ice interface changes
+
+So far, you've used `Murmur.ice` to modify and generate **server-side** code. The same file can be used to create Ice **clients**, which then interact with the server. A small amount of configuration is required, namely:
+
+| **Setting** | **Example** | **Description** |
+| --- | --- | --- |
+| `host` | `127.0.0.1` | The IP address (or domain) to which Murmur's Ice interface is bound. (Check [`murmur.ini`'s `ice` property  `-h` flag](../../scripts/murmur.ini#L65).) |
+| `port` | `6502` | The TCP port on which Ice's interface is listening. (Check [`murmur.ini`'s `ice` property  `-p` flag](../../scripts/murmur.ini#L65).) |
+| `secret` | `ice_pa55word` | A clear-text "password" used to authorize with the Ice server. (This will either be [`icesecretread`](../../scripts/murmur.ini#L79) or [`icesecretwrite`](../../scripts/murmur.ini#L80) from [`murmur.ini`](../../scripts/murmur.ini), with read-only or read-write privileges respectively.) |
+| `slicefile` | `Murmur.ice` | The [`Murmur.ice`](../../src/murmur/Murmur.ice) file, containing any changes you intend to test. (This can be dynamically fetched from the Murmur server, provided it's running, has Ice exposed, and was built with the updated `Murmur.ice` file.) |
+
+> :warning: Since Murmur's Ice interface is clear-text, there are security factors to consider. Use a strong-ish, unique secret, not used for any other case.
+
+An existing Python Ice client is [`mice.py`](https://github.com/mumble-voip/mumble-scripts/blob/master/Helpers/mice.py), which simply creates necessary Ice objects and then drops you into an interactive Python shell. (Refer to the [Wiki](https://wiki.mumble.info/wiki/Mice) and [Natenom](https://blog.natenom.com/2016/02/an-introduction-on-how-to-manage-your-mumble-server-murmur-through-ice-with-mice/) for longer guides.)
+
+```python
+# Make sure Murmur is running (in a separate terminal)
+# $ ./murmur.x86 ...
+
+# Grab mice.py
+$ wget --quiet https://raw.githubusercontent.com/mumble-voip/mumble-scripts/master/Helpers/mice.py
+
+# Either modify mice.py directly, or create mice_config.py with your proper settings
+$ cat << EOF > mice_config.py
+host = "127.0.0.1"
+port = 6502
+secret = "ice_pa55word"
+prxstr = "Meta:tcp -h {} -p {} -t 1000".format(host, port)
+slicefile = "Murmur.ice"
+EOF
+
+
+
+# Invoke Python and drop into interactive mode
+$ ipython -i mice.py    # IPython is very handy!
+...
+Import ice... Done
+Trying to retrieve slice dynamically from server... Success
+Import dynamically compiled murmur class... Done
+Establish ice connection... [protected]... Done
+Murmur object accessible via 'murmur' or 'm'
+1 booted servers in 'sl', 's' contains 's/1 -t -e 1.0:tcp -h 127.0.0.1 -p 6502 -t 60000'
+--- Reached interactive mode ---
+
+In [1]: m, s   # Represents "Meta" and (virtual) "Server" objects
+Out[1]: 
+(Meta -t -e 1.0:tcp -h 127.0.0.1 -p 6502 -t 1000,
+ s/1 -t -e 1.0:tcp -h 127.0.0.1 -p 6502 -t 60000)
+
+# Tab-complete to find interesting functions and play with Ice struct properties
+ In [2]: [(user.session, user.name) for user in s.getUsers().values()]
+Out[2]: [(8L, 'Alice'), (7L, 'Bob')]
+
+# IPython supports various inspection -- showing what it takes to kick a user
+In [3]: s.kickUser?
+Signature: s.kickUser(session, reason, context=None)
+Docstring: <no docstring>
+File:      /tmp/tmpB0n19F.ice
+Type:      instancemethod
+
+In [4]: s.kickUser(8, "Bye bye, Alice!")
+
+In [5]: [(user.session, user.name) for user in s.getUsers().values()]
+Out[5]: [(7L, 'Bob')]
+```
+
+> :information_source: Refer to [the Wiki for additional 3rd-party applications](https://wiki.mumble.info/wiki/3rd_Party_Applications) which leverage Murmur's Ice interface.
