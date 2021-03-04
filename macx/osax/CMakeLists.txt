@@ -11,6 +11,9 @@ add_library(MumbleOverlay MODULE
 	"MumbleOverlay.sdef"
 )
 
+# The overlay doesn't work well with unity builds
+set_target_properties(MumbleOverlay PROPERTIES UNITY_BUILD FALSE)
+
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/osax.plist.in" "${CMAKE_CURRENT_BINARY_DIR}/osax.plist")
 
 set_target_properties(MumbleOverlay

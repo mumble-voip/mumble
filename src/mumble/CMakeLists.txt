@@ -521,6 +521,9 @@ if(bundled-opus)
 	# Disable all warnings that the Opus code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus")
 
+	# Opus doesn't work in unity builds
+	set_target_properties(opus PROPERTIES UNITY_BUILD FALSE)
+
 	add_dependencies(mumble opus)
 
 	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/opus/include")
