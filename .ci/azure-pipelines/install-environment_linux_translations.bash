@@ -10,4 +10,4 @@ set -x
 
 sudo apt-get update
 
-sudo apt-get -y install qttools5-dev-tools qt5-qmake
+sudo apt-get -y install qttools5-dev-tools
