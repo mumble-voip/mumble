@@ -33,9 +33,7 @@
 # Always quit on encountered errors
 $ErrorActionPreference = 'Stop'
 
-# According to https://github.com/PowerShell/PowerShell/issues/2138 disabling the
-# progress bar can significantly increase the speed of Invoke-Web-Request.
-$ProgressPreference = 'SilentlyContinue'
+choco install aria2
 
 # We require a separate function that makes sure the run command's exit code
 # is properly checked, so we can mimmick Bash's -e flag.
@@ -69,7 +67,12 @@ function Download {
 
 			Write-Host "Attempt #$iterations"
 
-			Invoke-WebRequest -Uri "$source" -OutFile "$destination"
+			# Separate directory from filename (needed as we have to feed them separately
+			# into aria2c)
+			$destDir = Split-Path -Path "$destination" -Parent
+			$destName = Split-Path -Path "$destination" -Leaf
+
+			aria2c "$source" --dir="$destDir" --out="$destName"
 
 			Write-Host "Download succeeded"
 
