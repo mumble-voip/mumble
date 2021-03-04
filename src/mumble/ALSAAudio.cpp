@@ -565,3 +565,7 @@ void ALSAAudioOutput::run() {
 	}
 	snd_pcm_close(pcm_handle);
 }
+
+#undef NBLOCKS
+#undef ALSA_ERRBAIL
+#undef ALSA_ERRCHECK

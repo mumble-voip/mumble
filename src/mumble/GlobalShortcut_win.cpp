@@ -24,8 +24,7 @@
 // Used to detect screen readers
 #include <tlhelp32.h>
 
-#undef FAILED
-#define FAILED(Status) (static_cast< HRESULT >(Status) < 0)
+#define HAS_FAILED(Status) (static_cast< HRESULT >(Status) < 0)
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
@@ -131,7 +130,7 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 }
 
 void GlobalShortcutWin::run() {
-	if (FAILED(DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8,
+	if (HAS_FAILED(DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8,
 								  reinterpret_cast< void ** >(&pDI), nullptr))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
@@ -541,10 +540,10 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		}
 	}
 
-	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, nullptr)))
+	if (HAS_FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, nullptr)))
 		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
 
-	if (FAILED(hr = id->pDID->EnumObjects(EnumDeviceObjectsCallback, static_cast< void * >(id), DIDFT_BUTTON)))
+	if (HAS_FAILED(hr = id->pDID->EnumObjects(EnumDeviceObjectsCallback, static_cast< void * >(id), DIDFT_BUTTON)))
 		qFatal("GlobalShortcutWin: EnumObjects: %lx", hr);
 
 	if (id->qhNames.count() > 0) {
@@ -571,10 +570,10 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 			id->qhTypeToOfs[dwType] = dwOfs;
 		}
 
-		if (FAILED(hr = id->pDID->SetCooperativeLevel(mumble_mw_hwnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
+		if (HAS_FAILED(hr = id->pDID->SetCooperativeLevel(mumble_mw_hwnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
 			qFatal("GlobalShortcutWin: SetCooperativeLevel: %lx", hr);
 
-		if (FAILED(hr = id->pDID->SetDataFormat(&df)))
+		if (HAS_FAILED(hr = id->pDID->SetDataFormat(&df)))
 			qFatal("GlobalShortcutWin: SetDataFormat: %lx", hr);
 
 		DIPROPDWORD dipdw;
@@ -585,7 +584,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		dipdw.diph.dwHow        = DIPH_DEVICE;
 		dipdw.dwData            = DX_SAMPLE_BUFFER_SIZE;
 
-		if (FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
+		if (HAS_FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
 			qFatal("GlobalShortcutWin: SetProperty: %lx", hr);
 
 		qWarning("Adding device %s %s %s:%d type 0x%.8lx guid product %s", qPrintable(QUuid(id->guid).toString()),
@@ -656,7 +655,7 @@ void GlobalShortcutWin::timeTicked() {
 		}
 
 		hr = id->pDID->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0);
-		if (FAILED(hr))
+		if (HAS_FAILED(hr))
 			continue;
 
 		if (dwItems <= 0)
@@ -924,3 +923,7 @@ bool GlobalShortcutWin::areScreenReadersActive() {
 	}
 	return false;
 }
+
+#undef BOOST_THREAD_VERSION
+#undef HAS_FAILED
+#undef DX_SAMPLE_BUFFER_SIZE

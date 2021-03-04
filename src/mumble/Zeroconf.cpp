@@ -304,3 +304,5 @@ void WINAPI Zeroconf::callbackResolveComplete(const DWORD status, void *context,
 	zeroconf->DnsServiceFreeInstance(instance);
 }
 #endif
+
+#undef GET_SYMBOL

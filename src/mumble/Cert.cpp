@@ -545,3 +545,5 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 
 	return qba;
 }
+
+#undef SSL_STRING

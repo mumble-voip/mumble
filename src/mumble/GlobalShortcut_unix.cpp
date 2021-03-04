@@ -350,6 +350,8 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 #endif
 }
 
+#undef test_bit
+
 GlobalShortcutX::ButtonInfo GlobalShortcutX::buttonInfo(const QVariant &v) {
 	bool ok;
 	unsigned int key = v.toUInt(&ok);

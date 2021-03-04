@@ -1938,6 +1938,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 	}
 
 	return true;
+#undef NAMECMPCHANNEL
 }
 
 void UserModel::updateOverlay() const {

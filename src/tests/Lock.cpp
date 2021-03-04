@@ -111,3 +111,5 @@ int main(int argc, char **argv) {
 }
 
 // #include "Lock.moc"
+
+#undef ITER

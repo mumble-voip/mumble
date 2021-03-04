@@ -303,3 +303,5 @@ void Audio::stop() {
 	ai.reset();
 	ao.reset();
 }
+
+#undef DOUBLE_RAND

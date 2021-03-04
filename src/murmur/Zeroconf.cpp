@@ -157,3 +157,5 @@ void WINAPI Zeroconf::callbackRegisterComplete(const DWORD status, void *context
 	}
 }
 #endif
+
+#undef GET_SYMBOL

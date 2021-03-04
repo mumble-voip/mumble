@@ -131,3 +131,6 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
+
+#undef _USE_MATH_DEFINES
+#undef ITER

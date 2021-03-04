@@ -138,8 +138,6 @@ static inline const QColor mapEchoToColor(float echo) {
 		return QColor::fromRgbF(c, b, a);
 }
 
-#define WGT(x, y) st->W[(y) *N + 2 * (x) + 1]
-
 void AudioEchoWidget::paintEvent(QPaintEvent *) {
 	QPainter paint(this);
 

@@ -155,3 +155,5 @@ int CELTCodec070::encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *
 int CELTCodec070::decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) {
 	return celt_decode_float(st, data, len, pcm);
 }
+
+#undef RESOLVE

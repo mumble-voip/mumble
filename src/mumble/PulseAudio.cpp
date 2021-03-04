@@ -1076,3 +1076,6 @@ PulseAudio::PulseAudio() : m_ok(false) {
 
 	m_ok = true;
 }
+
+#undef RESOLVE
+#undef NBLOCKS

@@ -1126,3 +1126,5 @@ void JackAudioOutput::run() {
 		qsSleep.acquire(1);
 	} while (bReady);
 }
+
+#undef RESOLVE

@@ -120,3 +120,6 @@ int main(int argc, char **argv) {
 	}
 	qWarning("QListSet: %lldus insert, %lldus iterate: %d", usins, usiter, sum);
 }
+
+#undef SL
+#undef NE

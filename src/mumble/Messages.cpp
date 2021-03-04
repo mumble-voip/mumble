@@ -1302,3 +1302,7 @@ void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
 			Global::get().l->log(Log::Warning, tr("The server requests Push-to-Talk be disabled."));
 	}
 }
+
+#undef ACTOR_INIT
+#undef VICTIM_INIT
+#undef SELF_INIT

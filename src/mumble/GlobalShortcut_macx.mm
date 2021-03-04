@@ -480,3 +480,7 @@ bool GlobalShortcutMac::canSuppress() {
 bool GlobalShortcutMac::canDisable() {
 	return true;
 }
+
+#undef MOD_OFFSET
+#undef MOUSE_OFFSET
+#undef MOD_CHANGED

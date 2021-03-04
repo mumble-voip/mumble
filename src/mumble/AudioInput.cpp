@@ -420,6 +420,9 @@ IN_MIXER_SHORT(7)
 IN_MIXER_SHORT(8)
 IN_MIXER_SHORT(N)
 
+#undef IN_MIXER_FLOAT
+#undef IN_MIXER_SHORT
+
 AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 chanmask) {
 	inMixerFunc r = nullptr;
 

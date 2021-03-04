@@ -416,3 +416,5 @@ MumblePlugin *ManualPlugin_getMumblePlugin() {
 MumblePluginQt *ManualPlugin_getMumblePluginQt() {
 	return &manualqt;
 }
+
+#undef _USE_MATH_DEFINES

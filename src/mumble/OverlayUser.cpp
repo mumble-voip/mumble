@@ -286,3 +286,5 @@ QPointF OverlayUser::alignedPosition(const QRectF &box, const QRectF &item, Qt::
 
 	return QPointF(iroundf(xofs + 0.5f), iroundf(yofs + 0.5f));
 }
+
+#undef SCALESIZE

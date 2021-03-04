@@ -462,3 +462,5 @@ void PortAudioOutput::run() {
 	qwcSleep.wait(&qmWait);
 	qmWait.unlock();
 }
+
+#undef RESOLVE

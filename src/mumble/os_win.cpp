@@ -332,3 +332,7 @@ DWORD WinVerifySslCert(const QByteArray &cert) {
 
 	return errorStatus;
 }
+
+#undef DUMP_BUFFER_SIZE
+#undef HeapEnableTerminationOnCorruption
+#undef MMXSSE

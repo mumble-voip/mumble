@@ -1389,3 +1389,10 @@ void Settings::save() {
 	os.save(settings_ptr);
 	settings_ptr->endGroup();
 }
+
+#undef LOAD
+#undef LOADENUM
+#undef LOADFLAG
+#undef DEPRECATED
+#undef SAVE
+#undef SAVEFLAG

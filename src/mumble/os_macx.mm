@@ -41,9 +41,6 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 			c='X';
 	}
 
-#define LOG(f, msg) fprintf(f, "<%c>%s %s\n", c, \
-		qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), qPrintable(msg))
-
 	QString date = QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
 	QString fmsg = QString::fromLatin1("<%1>%2 %3").arg(c).arg(date).arg(msg);
 	fprintf(stderr, "%s\n", qPrintable(fmsg));
@@ -157,3 +154,6 @@ void os_init() {
 	 * by always using the system langauge, to get rid of all sorts of nasty langauge inconsistencies. */
 	query_language();
 }
+
+#undef PATH_MAX
+#undef NSIGS

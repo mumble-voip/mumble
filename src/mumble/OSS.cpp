@@ -327,3 +327,5 @@ void OSSOutput::run() {
 	ioctl(fd, SNDCTL_DSP_RESET, nullptr);
 	close(fd);
 }
+
+#undef NBLOCKS

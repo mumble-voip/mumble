@@ -86,3 +86,6 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	vblMain->addWidget(qtwTab);
 	vblMain->addWidget(okButton);
 }
+
+#undef DOQUOTE
+#undef QUOTE

@@ -866,3 +866,5 @@ Qt::WindowFrameSection OverlayEditorScene::rectSection(const QRectF &qrf, const 
 
 	return Qt::NoSection;
 }
+
+#undef SCALESIZE
