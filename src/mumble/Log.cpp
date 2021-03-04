@@ -34,7 +34,7 @@ static ConfigWidget *LogConfigDialogNew(Settings &st) {
 	return new LogConfig(st);
 }
 
-static ConfigRegistrar registrar(4000, LogConfigDialogNew);
+static ConfigRegistrar registrarLog(4000, LogConfigDialogNew);
 
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);

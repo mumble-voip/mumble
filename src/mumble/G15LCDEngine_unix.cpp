@@ -9,7 +9,7 @@ static LCDEngine *G15LCDEngineNew() {
 	return new G15LCDEngineUnix();
 }
 
-static LCDEngineRegistrar registrar(G15LCDEngineNew);
+static LCDEngineRegistrar registrarLCDEngine_unix(G15LCDEngineNew);
 
 G15LCDEngineUnix::G15LCDEngineUnix() {
 	sock = new_g15_screen(G15_PIXELBUF);

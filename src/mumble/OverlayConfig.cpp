@@ -45,7 +45,7 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
 
-static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
+static ConfigRegistrar registrarOverlayConfig(6000, OverlayConfigDialogNew);
 #endif
 
 void OverlayConfig::initDisplayFps() {

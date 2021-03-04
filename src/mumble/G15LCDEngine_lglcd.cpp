@@ -21,7 +21,7 @@ static LCDEngine *G15LCDEngineNew() {
 	return new G15LCDEngineLGLCD();
 }
 
-static LCDEngineRegistrar registrar(G15LCDEngineNew);
+static LCDEngineRegistrar registrarG15LCD_lglcd(G15LCDEngineNew);
 
 G15LCDEngineLGLCD::G15LCDEngineLGLCD() : LCDEngine() {
 	DWORD dwErr;

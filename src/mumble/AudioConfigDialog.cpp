@@ -55,8 +55,8 @@ static ConfigWidget *AudioOutputDialogNew(Settings &st) {
 	return new AudioOutputDialog(st);
 }
 
-static ConfigRegistrar iregistrar(1000, AudioInputDialogNew);
-static ConfigRegistrar oregistrar(1010, AudioOutputDialogNew);
+static ConfigRegistrar registrarAudioInputDialog(1000, AudioInputDialogNew);
+static ConfigRegistrar registrarAudioOutputDialog(1010, AudioOutputDialogNew);
 
 void AudioInputDialog::hideEvent(QHideEvent *) {
 	qtTick->stop();

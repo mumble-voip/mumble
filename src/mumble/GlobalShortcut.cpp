@@ -35,7 +35,7 @@ static ConfigWidget *GlobalShortcutConfigDialogNew(Settings &st) {
 	return new GlobalShortcutConfig(st);
 }
 
-static ConfigRegistrar registrar(1200, GlobalShortcutConfigDialogNew);
+static ConfigRegistrar registrarGlobalShortcut(1200, GlobalShortcutConfigDialogNew);
 
 static const QString UPARROW = QString::fromUtf8("\xE2\x86\x91 ");
 
