@@ -1,5 +1,13 @@
 # Build FAQ
 
+### How to speed up the compilation
+
+Mumble supports being compiled as a [unity build](https://en.wikipedia.org/wiki/Unity_build), if you are using cmake 3.16 or newer. To use this
+feature, use `-DCMAKE_UNITY_BUILD=ON` option when invoking cmake.
+
+Don't use this option when also using `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` though as the unity build will render the produced compilation database
+useless.
+
 ### How can I specify the build type
 
 In order to set the build type (Debug vs Release), you have to use the `CMAKE_BUILD_TYPE` variable when invoking cmake like so: `cmake
