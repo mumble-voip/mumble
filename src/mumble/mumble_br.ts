@@ -1026,7 +1026,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 me</translation>
     </message>
     <message>
         <source>Off</source>
@@ -1430,7 +1430,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 me</translation>
     </message>
     <message>
         <source>%1 %</source>
@@ -1901,7 +1901,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 me</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
@@ -6377,7 +6377,7 @@ Valid actions are:
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anv-hostiz</translation>
     </message>
     <message>
         <source>Hostname of the proxy</source>
@@ -6421,7 +6421,7 @@ Valid actions are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Porzh</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
@@ -7653,7 +7653,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stumm</translation>
     </message>
     <message>
         <source>OS</source>

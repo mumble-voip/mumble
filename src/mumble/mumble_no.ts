@@ -1496,7 +1496,7 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pakketap</translation>
     </message>
     <message>
         <source>Loopback</source>

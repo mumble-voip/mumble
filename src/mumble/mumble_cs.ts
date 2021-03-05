@@ -1494,7 +1494,7 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ztráta paketů</translation>
     </message>
     <message>
         <source>Loopback</source>

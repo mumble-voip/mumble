@@ -3001,7 +3001,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">頻寬</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>

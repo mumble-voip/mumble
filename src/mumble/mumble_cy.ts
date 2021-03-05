@@ -3006,11 +3006,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lled Band</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
@@ -6425,7 +6425,7 @@ Valid actions are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Porth</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>

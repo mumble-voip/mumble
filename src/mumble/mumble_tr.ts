@@ -1494,7 +1494,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paket kaybı</translation>
     </message>
     <message>
         <source>Loopback</source>

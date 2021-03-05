@@ -6422,7 +6422,7 @@ Valid actions are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Порт</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>

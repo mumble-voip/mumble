@@ -6376,7 +6376,7 @@ Valid actions are:
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نام میزبان</translation>
     </message>
     <message>
         <source>Hostname of the proxy</source>
@@ -6420,7 +6420,7 @@ Valid actions are:
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پورت</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
@@ -7781,12 +7781,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پهنای باند</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پهنای باند</translation>
     </message>
     <message>
         <source>Ping deviation</source>

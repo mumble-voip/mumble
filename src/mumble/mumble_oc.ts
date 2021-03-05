@@ -1487,7 +1487,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pèrda paquets</translation>
     </message>
     <message>
         <source>Loopback</source>
@@ -7779,17 +7779,17 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kbit/s</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Banda passenta</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Banda passenta</translation>
     </message>
     <message>
         <source>Ping deviation</source>

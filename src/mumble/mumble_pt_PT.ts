@@ -1493,7 +1493,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Perda de pacotes</translation>
     </message>
     <message>
         <source>Loopback</source>

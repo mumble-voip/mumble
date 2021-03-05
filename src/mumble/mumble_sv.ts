@@ -1494,7 +1494,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paketförluster</translation>
     </message>
     <message>
         <source>Loopback</source>

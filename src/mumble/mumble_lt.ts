@@ -1488,7 +1488,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paketų praradimas</translation>
     </message>
     <message>
         <source>Loopback</source>
