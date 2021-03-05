@@ -7,6 +7,9 @@
 #include <audioclient.h>
 #include <avrt.h>
 #include <functiondiscoverykeys.h>
+// initguid.h defines the macro INITGUID before including guiddef.h
+// which causes DEFINE_GUID to actually set the value of that GUID
+// (insted of only declaring its name as an extern variable).
 #include <initguid.h>
 #include <ksmedia.h>
 #include <mmdeviceapi.h>

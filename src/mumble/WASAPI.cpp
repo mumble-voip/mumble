@@ -21,6 +21,8 @@
 // Now that Win7 is published, which includes public versions of these
 // interfaces, we simply inherit from those but use the "old" IIDs.
 
+// Note that the DEFINE_GUID macro here only declares the existance of the respective variables
+// as extern variables. The actual initialization of these variables happens in WinGUIDs.cpp
 DEFINE_GUID(IID_IVistaAudioSessionControl2, 0x33969B1DL, 0xD06F, 0x4281, 0xB8, 0x37, 0x7E, 0xAA, 0xFD, 0x21, 0xA9,
 			0xC0);
 MIDL_INTERFACE("33969B1D-D06F-4281-B837-7EAAFD21A9C0")
