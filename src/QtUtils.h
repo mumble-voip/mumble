@@ -8,13 +8,19 @@
 
 class QObject;
 
-/**
- * A deleter function to be used for QObjects that must not be deleted using
- * delete directly but rather by calling deleteLater() on them (and thus letting
- * Qt perform the actual deletion).
- *
- * This function is intended to be used in smart-pointers holding QObjects.
- */
-void deleteQObject(QObject *object);
+namespace Mumble {
+namespace QtUtils {
+
+	/**
+	 * A deleter function to be used for QObjects that must not be deleted using
+	 * delete directly but rather by calling deleteLater() on them (and thus letting
+	 * Qt perform the actual deletion).
+	 *
+	 * This function is intended to be used in smart-pointers holding QObjects.
+	 */
+	void deleteQObject(QObject *object);
+
+}; // namespace QtUtils
+}; // namespace Mumble
 
 #endif // MUMBLE_QTUTILS_H_

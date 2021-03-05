@@ -20,7 +20,7 @@ class UserLocalNicknameDialog;
  * A typedef for a unique pointer (std::unique_ptr) using the deleter-function dedicated for QObjects
  * instead of using raw delete
  */
-typedef std::unique_ptr< UserLocalNicknameDialog, decltype(&deleteQObject) > NicknameDialogPtr;
+typedef std::unique_ptr< UserLocalNicknameDialog, decltype(&Mumble::QtUtils::deleteQObject) > NicknameDialogPtr;
 
 class UserLocalNicknameDialog : public QDialog, private Ui::UserLocalNicknameDialog {
 	Q_OBJECT

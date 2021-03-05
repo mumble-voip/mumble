@@ -53,7 +53,7 @@ void UserLocalNicknameDialog::present(
 	} else {
 		// Make sure to use the custom deleter for QObjects that calls deleteLater() on them instead of using
 		// delete directly as the latter can lead to segmentation faults.
-		NicknameDialogPtr userNickname(new UserLocalNicknameDialog(sessionId, qmUserNicknameTracker), deleteQObject);
+		NicknameDialogPtr userNickname(new UserLocalNicknameDialog(sessionId, qmUserNicknameTracker), Mumble::QtUtils::deleteQObject);
 		userNickname->show();
 		qmUserNicknameTracker.insert(std::make_pair(sessionId, std::move(userNickname)));
 	}

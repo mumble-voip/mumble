@@ -5,6 +5,9 @@
 
 #include <QObject>
 
-void deleteQObject(QObject *object) {
-	object->deleteLater();
-}
+namespace Mumble {
+namespace QtUtils {
+	void deleteQObject(QObject *object) { object->deleteLater(); }
+
+}; // namespace QtUtils
+}; // namespace Mumble
