@@ -47,8 +47,4 @@ cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$MUMBLE_ENVIRONMENT_TOOLCHAIN -DIce_HOME="
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 
 cmake --build .
-ctest --verbose
 
-$BUILD_SOURCESDIRECTORY/macx/scripts/osxdist.py --version=$RELEASE_ID --source-dir=$BUILD_SOURCESDIRECTORY --binary-dir=.
-
-mv *.dmg $BUILD_ARTIFACTSTAGINGDIRECTORY

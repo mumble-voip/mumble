@@ -82,23 +82,3 @@ if errorlevel 1 (
 	exit /b %errorlevel%
 )
 
-:: Set timeout for tests to 15min
-set QTEST_FUNCTION_TIMEOUT=900000
-ctest --verbose
-
-if errorlevel 1 (
-	exit /b %errorlevel%
-)
-
-cmake --install .
-
-if errorlevel 1 (
-	exit /b %errorlevel%
-)
-
-copy installer\client\mumble_client*.msi %BUILD_ARTIFACTSTAGINGDIRECTORY%
-
-copy installer\server\mumble_server*.msi %BUILD_ARTIFACTSTAGINGDIRECTORY%
-
-7z a PDBs.7z *.pdb plugins\*.pdb
-copy PDBs.7z %BUILD_ARTIFACTSTAGINGDIRECTORY%

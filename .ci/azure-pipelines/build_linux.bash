@@ -36,5 +36,4 @@ cmake -G Ninja -DCMAKE_INSTALL_PREFIX=appdir/usr -DCMAKE_UNITY_BUILD=ON \
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 
 cmake --build .
-ctest --verbose
-cmake --install .
+
