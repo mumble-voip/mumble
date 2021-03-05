@@ -111,6 +111,8 @@ add_compile_definitions(MUMBLE_BUILD_YEAR=${MUMBLE_BUILD_YEAR})
 # Make sure that math constants are always defined
 add_compile_definitions(_USE_MATH_DEFINES)
 
+set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
+
 add_subdirectory(src)
 
 if(g15 AND WIN32)
