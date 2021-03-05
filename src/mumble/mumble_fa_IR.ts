@@ -2965,7 +2965,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>نام میزبان</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -2973,15 +2973,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>پورت</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>ادرس ها</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>تارنما</translation>
     </message>
     <message>
         <source>Packet loss</source>
@@ -3001,7 +3001,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>پهنای باند</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>

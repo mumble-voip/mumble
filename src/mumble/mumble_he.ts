@@ -2997,59 +2997,59 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הת&amp;חבר</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>הוספת מארח %1</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">שם מארח</translation>
+        <translation>שם מארח</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>מזהה Bonjour</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">פורט</translation>
+        <translation>פורט</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>כתובות</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>אתר רשת</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>אובדן חבילה</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>פינג (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
+        <translation>%1 מ&quot;ש</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>פינג (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">רוחב פס</translation>
+        <translation>רוחב פס</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 קב&quot;ש</translation>
+        <translation>%1 קב&quot;ש</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">גירסא</translation>
+        <translation>גירסא</translation>
     </message>
 </context>
 <context>

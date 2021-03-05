@@ -2998,59 +2998,59 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Bağlan</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ekleniyor</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">Makine ismi</translation>
+        <translation>Bilgisayar ismi</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonjour ismi</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Port</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresler</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Ağ sitesi</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Paket kaybı</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping (%80)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping (%95)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">Bant genişliği</translation>
+        <translation>Bant genişliği</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Sürüm</translation>
+        <translation>Sürüm</translation>
     </message>
 </context>
 <context>

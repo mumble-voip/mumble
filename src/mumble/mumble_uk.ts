@@ -2975,7 +2975,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -2983,7 +2983,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Веб-сайт</translation>
     </message>
     <message>
         <source>Packet loss</source>

@@ -2975,43 +2975,43 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Pòrt</translation>
+        <translation>Pòrt</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>Adreças</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Site web</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Pèrda paquets</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Laténcia (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Laténcia (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Banda passenta</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Version</translation>
+        <translation>Version</translation>
     </message>
 </context>
 <context>

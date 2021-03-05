@@ -2993,59 +2993,59 @@ Tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Conectar</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>A adicionar servidor %1</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">Endereço do servidor</translation>
+        <translation>Nome do servidor</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome Bonjour</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Porta</translation>
+        <translation>Porta</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereços</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Página web</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Perda de pacotes</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Largura de banda</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Versão</translation>
+        <translation>Versão</translation>
     </message>
 </context>
 <context>

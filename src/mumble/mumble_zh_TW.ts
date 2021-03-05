@@ -2975,59 +2975,59 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">連線(&amp;C)</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>正在新增主機 %1</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">主機名</translation>
+        <translation>主機名稱</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonjour 名稱</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">埠號</translation>
+        <translation>埠號</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>網址</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>網站</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>封包遺失</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>反應時間(80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 毫秒</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>反應時間(95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">頻寬</translation>
+        <translation>頻寬</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">版本</translation>
+        <translation>版本</translation>
     </message>
 </context>
 <context>

@@ -2988,59 +2988,59 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kapcsolódás</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gép hozzáadása: %1</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">Kiszolgáló</translation>
+        <translation>Kiszolgáló</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonjour-név</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Portszám</translation>
+        <translation>Portszám</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-cím</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Honlap</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Csomagkiesés</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopogtatás (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopogtatás (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">Sávszélesség</translation>
+        <translation>Sávszélesség</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Kiszolgáló verziója</translation>
     </message>
 </context>
 <context>

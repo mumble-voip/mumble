@@ -2966,7 +2966,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Anv-hostiz</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -2974,7 +2974,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Porzh</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -2994,7 +2994,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 me</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -3010,7 +3010,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Stumm</translation>
     </message>
 </context>
 <context>

@@ -2978,15 +2978,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Porth</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>Cyfeiriad</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Gwefan</translation>
     </message>
     <message>
         <source>Packet loss</source>
@@ -2998,7 +2998,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 me</translation>
+        <translation>%1 me</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -3006,15 +3006,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">Lled Band</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Fersiwn</translation>
+        <translation>Fersiwn</translation>
     </message>
 </context>
 <context>

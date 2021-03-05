@@ -2957,7 +2957,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;連線</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -2965,7 +2965,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">主機名稱</translation>
+        <translation>主機名稱</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -2973,7 +2973,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">連接埠</translation>
+        <translation>連接埠</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -3001,15 +3001,15 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">頻寬</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">版本</translation>
+        <translation>版本</translation>
     </message>
 </context>
 <context>

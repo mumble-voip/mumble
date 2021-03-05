@@ -2993,35 +2993,35 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">接続(&amp;C)</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ホスト %1 を追加中</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">ホスト名</translation>
+        <translation>ホスト名</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonjour 名</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">ポート</translation>
+        <translation>ポート</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>アドレス</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>WEBサイト</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>パケット損失</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
@@ -3037,7 +3037,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">ネットワーク帯域</translation>
+        <translation>ネットワーク帯域</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
@@ -3045,7 +3045,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">バージョン</translation>
+        <translation>バージョン</translation>
     </message>
 </context>
 <context>

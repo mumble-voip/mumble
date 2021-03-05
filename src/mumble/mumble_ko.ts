@@ -2984,7 +2984,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">연결(&amp;C)</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -2992,7 +2992,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">호스트 이름</translation>
+        <translation>호스트이름</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -3000,43 +3000,43 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">포트</translation>
+        <translation>포트</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>주소록</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>웹사이트</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>패킷 손실</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>핑 (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>핑 (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">네트워크 대역</translation>
+        <translation>대역폭</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Version</translation>
+        <translation>버전</translation>
     </message>
 </context>
 <context>

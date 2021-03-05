@@ -3000,59 +3000,59 @@ Haluatko varmasti korvata sertifikaatin?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Yhdistä</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää isäntä %1</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">Isäntänimi</translation>
+        <translation>Isäntänimi</translation>
     </message>
     <message>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonjour-nimi</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Portti</translation>
+        <translation>Portti</translation>
     </message>
     <message>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation>Osoitteet</translation>
     </message>
     <message>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Nettisivu</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished">Pakettihävikki</translation>
+        <translation>Pakettihävikki</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping (80%)</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping (95%)</translation>
     </message>
     <message>
         <source>Bandwidth</source>
-        <translation type="unfinished">Kaistanleveys</translation>
+        <translation>Kaistanleveys</translation>
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Versio</translation>
+        <translation>Versio</translation>
     </message>
 </context>
 <context>
