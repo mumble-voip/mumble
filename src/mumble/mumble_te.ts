@@ -3099,13 +3099,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">సాంకేతిక పదం
-
-
-
-
-
-</translation>
+        <translation type="unfinished">సాంకేతిక పదం</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
