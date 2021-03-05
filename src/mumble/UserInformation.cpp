@@ -8,23 +8,11 @@
 #include "Audio.h"
 #include "CELTCodec.h"
 #include "HostAddress.h"
+#include "QtUtils.h"
 #include "ServerHandler.h"
 #include "ViewCert.h"
 #include "Global.h"
 
-#include <QtCore/QUrl>
-
-static QString decode_utf8_qssl_string(const QString &input) {
-	QString i = input;
-	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
-}
-
-static QString decode_utf8_qssl_string(const QStringList &list) {
-	if (list.count() > 0) {
-		return decode_utf8_qssl_string(list.at(0));
-	}
-	return QString();
-}
 
 UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -116,7 +104,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 			if (alts.contains(QSsl::EmailEntry))
 				qlCertificate->setText(QStringList(alts.values(QSsl::EmailEntry)).join(tr(", ")));
 			else
-				qlCertificate->setText(decode_utf8_qssl_string(cert.subjectInfo(QSslCertificate::CommonName)));
+				qlCertificate->setText(Mumble::QtUtils::decode_first_utf8_qssl_string(cert.subjectInfo(QSslCertificate::CommonName)));
 
 			if (msg.strong_certificate()) {
 				QFont f = qfCertificateFont;

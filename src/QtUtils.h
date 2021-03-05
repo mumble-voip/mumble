@@ -6,7 +6,10 @@
 #ifndef MUMBLE_QTUTILS_H_
 #define MUMBLE_QTUTILS_H_
 
+#include <QString>
+
 class QObject;
+class QStringList;
 
 namespace Mumble {
 namespace QtUtils {
@@ -19,6 +22,14 @@ namespace QtUtils {
 	 * This function is intended to be used in smart-pointers holding QObjects.
 	 */
 	void deleteQObject(QObject *object);
+
+	QString decode_utf8_qssl_string(const QString &input);
+
+	/**
+	 * Applies decode_utf8_qssl_string on the first element in the
+	 * given list. If the list is empty an empty String is returned.
+	 */
+	QString decode_first_utf8_qssl_string(const QStringList &list);
 
 }; // namespace QtUtils
 }; // namespace Mumble
