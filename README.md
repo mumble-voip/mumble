@@ -32,6 +32,12 @@ The documentation of the project can be found on the [wiki](https://wiki.mumble.
 
 We always welcome contributions to the project. If you have code that you would like to contribute, please go ahead and create a PR. While doing so, please try to make sure that you follow our [commit guidelines](COMMIT_GUIDELINES.md).
 
+### Translating
+
+Mumble supports various languages. We are always looking for qualified people to contribute translations.
+
+We are using Weblate as a translation platform. [Register on Weblate](https://hosted.weblate.org/accounts/register/), and join [our translation project](https://hosted.weblate.org/projects/mumble/).
+
 ## Building
 
 For information on how to build Mumble, checkout [the dedicated documentation](docs/dev/build-instructions/README.md).
