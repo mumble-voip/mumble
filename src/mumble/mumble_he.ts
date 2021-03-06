@@ -1495,7 +1495,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אובדן חבילה</translation>
     </message>
     <message>
         <source>Loopback</source>
@@ -2997,7 +2997,59 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הת&amp;חבר</translation>
+    </message>
+    <message>
+        <source>Adding host %1</source>
+        <translation>הוספת מארח %1</translation>
+    </message>
+    <message>
+        <source>Hostname</source>
+        <translation>שם מארח</translation>
+    </message>
+    <message>
+        <source>Bonjour name</source>
+        <translation>מזהה Bonjour</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>פורט</translation>
+    </message>
+    <message>
+        <source>Addresses</source>
+        <translation>כתובות</translation>
+    </message>
+    <message>
+        <source>Website</source>
+        <translation>אתר רשת</translation>
+    </message>
+    <message>
+        <source>Packet loss</source>
+        <translation>אובדן חבילה</translation>
+    </message>
+    <message>
+        <source>Ping (80%)</source>
+        <translation>פינג (80%)</translation>
+    </message>
+    <message>
+        <source>%1 ms</source>
+        <translation>%1 מ&quot;ש</translation>
+    </message>
+    <message>
+        <source>Ping (95%)</source>
+        <translation>פינג (95%)</translation>
+    </message>
+    <message>
+        <source>Bandwidth</source>
+        <translation>רוחב פס</translation>
+    </message>
+    <message>
+        <source>%1 kbit/s</source>
+        <translation>%1 קב&quot;ש</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>גירסא</translation>
     </message>
 </context>
 <context>
@@ -7290,70 +7342,6 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Acoustic echo cancellation provided by Apple.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter username</source>
-        <translation type="unfinished">הכנס שם משתמש</translation>
-    </message>
-    <message>
-        <source>Servername</source>
-        <translation type="unfinished">שם שרת</translation>
-    </message>
-    <message>
-        <source>Hostname</source>
-        <translation type="unfinished">שם מארח</translation>
-    </message>
-    <message>
-        <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="unfinished">פורט</translation>
-    </message>
-    <message>
-        <source>Addresses</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Website</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Packet loss</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
-    </message>
-    <message>
-        <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bandwidth</source>
-        <translation type="unfinished">רוחב פס</translation>
-    </message>
-    <message>
-        <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 קב&quot;ש</translation>
-    </message>
-    <message>
-        <source>Users</source>
-        <translation type="unfinished">משתמשים</translation>
-    </message>
-    <message>
-        <source>Version</source>
-        <translation type="unfinished">גירסא</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
