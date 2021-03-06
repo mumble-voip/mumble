@@ -585,7 +585,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az ASIO meghajtó használatához legalább egy kimeneti és egy bemeteni eszköz beállítása szükséges.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -612,7 +612,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation>&amp;Harmadik féltől származó licencek</translation>
+        <translation>&amp;Felhasznált szoftverek</translation>
     </message>
     <message>
         <source>OK</source>
@@ -620,7 +620,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Licencszerződés</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -847,7 +847,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kizárólagos mód</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
@@ -855,11 +855,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished">Kizárólagos</translation>
+        <translation>Kizárólagos</translation>
     </message>
     <message>
         <source>R&amp;eset</source>
-        <translation>V&amp;isszavonás</translation>
+        <translation>&amp;Visszavonás</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
@@ -867,7 +867,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>T&amp;allózás</translation>
+        <translation>T&amp;allózás...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
@@ -1054,7 +1054,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangrendszer</translation>
     </message>
     <message>
         <source>Input device</source>
@@ -2051,7 +2051,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nincs hozzárendelve billentyű</translation>
     </message>
 </context>
 <context>
@@ -2187,12 +2187,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
         <translation>
-            <numerusform>Tiltólista (%n Kitiltva)</numerusform>
+            <numerusform>Tiltólista - %n tiltás</numerusform>
         </translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keresés</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -2872,7 +2872,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Failed to fetch server list</source>
-        <translation>Szerverlista betöltése nem sikerült</translation>
+        <translation>Kiszolgálók listájának letöltése sikertelen</translation>
     </message>
     <message>
         <source>Mumble Server Connect</source>
@@ -2928,7 +2928,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keresés</translation>
     </message>
     <message>
         <source>Location</source>
@@ -2952,7 +2952,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Mind</translation>
+        <translation>Összes</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -2992,7 +2992,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation>Gép hozzáadása: %1</translation>
+        <translation>%1 kiszolgáló hozzáadása</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -3004,7 +3004,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Port</source>
-        <translation>Portszám</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Addresses</source>
@@ -3051,7 +3051,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Name of the server</source>
-        <translation>Szerver neve</translation>
+        <translation>Kiszolgáló neve</translation>
     </message>
     <message>
         <source>A&amp;ddress</source>
@@ -3060,7 +3060,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     <message>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation>A kiszolgáló internetes címe.</translation>
+        <translation>A kiszolgáló internetes címe</translation>
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
@@ -3072,17 +3072,17 @@ A szerver Internet címe. Ez lehet egy normál gépnév vagy IPV4/IPV6 cím vagy
     </message>
     <message>
         <source>&amp;Port</source>
-        <translation>&amp;Portszám</translation>
+        <translation>&amp;Port</translation>
     </message>
     <message>
         <source>Port on which the server is listening</source>
-        <translation>A portszám, amit a szerver figyel</translation>
+        <translation>A port, amin az adott kiszolgáló elérhető</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation>&lt;b&gt;Portszám&lt;/b&gt;&lt;br/&gt;
-A portszám, amit a szerver figyel. Ha a szervert egy Bonjour szolgáltatás azonosító azonosítja, akkor ez a mező figyelmen kívül lesz hagyva.</translation>
+        <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
+A port, amin az adott kiszolgáló elérhető. Ha a szervert egy Bonjour szolgáltatás azonosító azonosítja, akkor ez a mező figyelmen kívül lesz hagyva.</translation>
     </message>
     <message>
         <source>&amp;Username</source>
@@ -3110,17 +3110,21 @@ A szervernek küldött felhasználónév. Figyeljen arra, hogy a szerver megszab
         <source>You are currently connected to a server.
 Do you want to fill the dialog with the connection data of this server?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Jelenleg is kapcsolódik egy kiszolgálóhoz.
+Szeretné a jelen kiszolgálót hozzáadni a kedvencekhez?
+Kiszolgáló: %1 Port: %2</translation>
     </message>
     <message>
         <source>You have an URL in your clipboard.
 Do you want to fill the dialog with this data?
 Host: %1 Port: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Úgy tűnik egy kiszolgáló adatai szerepelnek a vágólapon.
+Szeretné hozzáadni a kedvencekhez?
+Kiszolgáló: %1 Port: %2</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Jelszó</translation>
+        <translation>Jelszó</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
@@ -3134,7 +3138,7 @@ A kapcsolódás során a kiszolgálónak elküldött jelszó. Erre a jelszóra s
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeleszó mutatása</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
@@ -3143,7 +3147,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Local server label</source>
-        <translation>A kiszolgáló elnevezése</translation>
+        <translation>A kiszolgáló megnevezése</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
@@ -3159,15 +3163,15 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Your password</source>
-        <translation type="unfinished"></translation>
+        <translation>Az ön jelszava</translation>
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kitöltés</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Elvetés</translation>
     </message>
 </context>
 <context>
@@ -3253,7 +3257,7 @@ Label of the server. This is what the server will be named like in your server l
     <name>DockTitleBar</name>
     <message>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation>Vontatás ide</translation>
     </message>
 </context>
 <context>
@@ -3371,7 +3375,7 @@ Ha ez a beállítás nincs bejelölve az adott játék nem fogja engedni, hogy a
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Gyorsbillentyű módosítása</translation>
     </message>
     <message>
         <source>Start capture process</source>
@@ -3383,7 +3387,7 @@ Ha ez a beállítás nincs bejelölve az adott játék nem fogja engedni, hogy a
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Hozzáadás</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3391,7 +3395,7 @@ Ha ez a beállítás nincs bejelölve az adott játék nem fogja engedni, hogy a
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Törlés</translation>
     </message>
 </context>
 <context>
@@ -3426,18 +3430,18 @@ Ha ez a beállítás nincs bejelölve az adott játék nem fogja engedni, hogy a
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Ismeretlen</translation>
+        <translation>Ismeretlen</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Egér</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Billentyűzet</translation>
     </message>
 </context>
 <context>
@@ -3523,33 +3527,33 @@ Ha ez a beállítás nincs bejelölve az adott játék nem fogja engedni, hogy a
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Egér</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Billentyűzet</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Billentyűzet</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Egér</translation>
     </message>
 </context>
 <context>
     <name>JackAudioSystem</name>
     <message>
         <source>Hardware Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Csatlakozók</translation>
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono</translation>
     </message>
     <message>
         <source>Stereo</source>
@@ -3769,15 +3773,15 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy felhasználó belépett</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy felhasználó kilépett</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy felhasználó belépett a csatornába</translation>
     </message>
     <message>
         <source>User left channel</source>
@@ -3785,7 +3789,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Hozzáférés megtagadva</translation>
     </message>
     <message>
         <source>Text message</source>
@@ -3919,7 +3923,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source> Characters</source>
-        <translation>.betű</translation>
+        <translation> betű</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -3955,7 +3959,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source> Lines</source>
-        <translation>sor</translation>
+        <translation> sor</translation>
     </message>
     <message>
         <source>Highlight</source>
@@ -3997,7 +4001,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Log messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Napló üzenetek</translation>
     </message>
     <message>
         <source>TTS engine volume</source>
@@ -4801,7 +4805,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Egyszerű nézet -- %1</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4934,11 +4938,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Deafened.</source>
-        <translation>Hangszóró kikapcsolva.</translation>
+        <translation>Süketítve.</translation>
     </message>
     <message>
         <source>Undeafened.</source>
-        <translation>Hangszóró bekapcsolva.</translation>
+        <translation>Süketítés visszavonva.</translation>
     </message>
     <message>
         <source>Restart Mumble?</source>
@@ -6068,7 +6072,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble főablakának mutatása.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6172,7 +6176,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished">Csatorna</translation>
+        <translation>Csatorna</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6180,11 +6184,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation type="unfinished"></translation>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
@@ -6287,7 +6291,7 @@ Valid actions are:
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished">Sorrend</translation>
+        <translation>Helyzet</translation>
     </message>
     <message>
         <source>X</source>
@@ -6303,7 +6307,7 @@ Valid actions are:
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>m</translation>
     </message>
     <message>
         <source>Heading</source>
@@ -6319,7 +6323,7 @@ Valid actions are:
     </message>
     <message>
         <source>°</source>
-        <translation type="unfinished"></translation>
+        <translation>°</translation>
     </message>
     <message>
         <source>Meta data</source>
@@ -6467,7 +6471,7 @@ Valid actions are:
     </message>
     <message>
         <source>Port</source>
-        <translation>Portszám</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
@@ -6591,7 +6595,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Shout</source>
-        <translation type="unfinished"></translation>
+        <translation>Suttogás csatornában</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6695,7 +6699,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Choose application</source>
-        <translation type="unfinished"></translation>
+        <translation>Futtatható alkalmazás kiválasztása</translation>
     </message>
     <message>
         <source>Choose path</source>
@@ -6744,11 +6748,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Képátfedés eltávolítása</translation>
     </message>
     <message>
         <source>Overlay Installation</source>
-        <translation type="unfinished"></translation>
+        <translation>Képátfedés telepítése</translation>
     </message>
     <message>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
@@ -6758,7 +6762,7 @@ Click the button below to install the overlay.</source>
     </message>
     <message>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble képátfedés telepítése</translation>
     </message>
     <message>
         <source>Overlay Upgrade</source>
@@ -6788,7 +6792,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load…</source>
-        <translation>Betöltés...</translation>
+        <translation>Betöltés…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6796,7 +6800,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save…</source>
-        <translation>Mentés...</translation>
+        <translation>Mentés…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -6903,7 +6907,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Zoom Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Méretezés mértéke</translation>
     </message>
     <message>
         <source>Enabled Elements</source>
@@ -6955,7 +6959,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nagyítás mértéke</translation>
     </message>
 </context>
 <context>
@@ -7132,7 +7136,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>Plugins</name>
     <message>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bővítmény frissítésének mellőzése hibakeresési módban.</translation>
     </message>
     <message>
         <source>Downloaded new or updated plugin to %1.</source>
@@ -7155,7 +7159,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett eszköz</translation>
     </message>
 </context>
 <context>
@@ -7181,7 +7185,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>A Mumble jelenleg kiszolgálóhoz csatlakozik</translation>
     </message>
 </context>
 <context>
@@ -7281,7 +7285,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiltott hivatkozás: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Default Device</source>
@@ -7446,7 +7450,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Connection timed out</source>
-        <translation>Időtúllépés.</translation>
+        <translation>Időtúllépés</translation>
     </message>
 </context>
 <context>
@@ -7491,7 +7495,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs hozzárendelve billentyű</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
@@ -7550,7 +7554,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Üres</translation>
     </message>
     <message>
         <source>Current selection</source>
@@ -7599,7 +7603,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Mumble - Access Tokens</source>
-        <translation>Mumble - kulcsok</translation>
+        <translation>Mumble - Kulcsok</translation>
     </message>
     <message>
         <source>List of access tokens on current server</source>
@@ -7682,11 +7686,11 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Keresés</translation>
     </message>
     <message>
         <source>User list</source>
-        <translation type="unfinished"></translation>
+        <translation>Felhasználók listája</translation>
     </message>
 </context>
 <context>
@@ -7851,7 +7855,7 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     </message>
     <message>
         <source>Inactive days</source>
-        <translation>Belépve (napja)</translation>
+        <translation>Belépve (x napja)</translation>
     </message>
     <message>
         <source>Last channel</source>
@@ -7867,7 +7871,7 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     </message>
     <message>
         <source>Channel ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Csatornaazonosító: %1</translation>
     </message>
 </context>
 <context>
@@ -8089,7 +8093,7 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     </message>
     <message>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation>Nem sikerült a Mumble új verziójának keresése.</translation>
+        <translation>Nem sikerült a Mumble új változatának keresése.</translation>
     </message>
 </context>
 <context>
