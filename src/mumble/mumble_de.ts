@@ -680,7 +680,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Dies legt fest, wann Sprache übertragen werden soll.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Kontinuierlich&lt;/i&gt; - Die ganze Zeit&lt;br /&gt;&lt;i&gt;Sprachaktivität&lt;/i&gt; - Sobald man deutlich spricht.&lt;/br&gt;&lt;i&gt;Push-To-Talk&lt;/i&gt; - Wenn die unter Tastenkürzel konfigurierte Taste gedrückt wird.</translation>
+        <translation>&lt;b&gt;Dies legt fest, wann Sprache übertragen werden soll.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Kontinuierlich&lt;/i&gt; - Die ganze Zeit&lt;br /&gt;&lt;i&gt;Sprachaktivität&lt;/i&gt; - Sobald man deutlich spricht.&lt;/br&gt;&lt;i&gt;Push-To-Talk&lt;/i&gt; - Wenn die unter &lt;i&gt;Tastenkürzel&lt;/i&gt; konfigurierte Taste gedrückt wird.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -992,15 +992,15 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation>Benutze den Rauschunterdrückungsalgorithmus von Speex.</translation>
+        <translation>Verwende den von Speex bereitgestellten Algorithmus zur Rauschunterdrückung.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation>Benutze den Rauschunterdrückungsalgorithmus von RNNoise.</translation>
+        <translation>Verwende den von RNNoise bereitgestellten Algorithmus zur Rauschunterdrückung.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation>Benutze eine Komination von Speex und RNNoise für die Rauschunterdrückung.</translation>
+        <translation>Verwende eine Kombination von Speex und RNNoise für die Rauschunterdrückung.</translation>
     </message>
     <message>
         <source>Both</source>
@@ -1008,11 +1008,11 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation>Dies stellt ein bis zu welchem Grad Speex Rauschen unterdrückt.</translation>
+        <translation>Dies steuert die Stärke mit der Speex Rauschen unterdrückt.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation>Speex Rauschunterdrückungsstärke</translation>
+        <translation>Speex Unterdrückungsstärke</translation>
     </message>
 </context>
 <context>
@@ -2895,11 +2895,11 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation>Alles auf Standard zurücksetzen</translation>
+        <translation>Alle Standardwerte wiederherstellen</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation>Dieser Knopf stellt alle Einstellungen auf ihre Standardwerte zurück.</translation>
+        <translation>Dieser Button stellt die Standardwerte für alle Einstellungen wieder her.</translation>
     </message>
 </context>
 <context>
@@ -3297,7 +3297,7 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datenbankdatei &apos;%1&apos; die in der Konfigurationsdatei angegeben ist existiert nicht. Möchten Sie eine neue Datenbankdatei unter diesem Pfad anlegen?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
@@ -3562,7 +3562,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rufen/Flüstern zu:</translation>
     </message>
     <message>
         <source>Current selection</source>
@@ -3570,7 +3570,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn an Kanal rufen:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>
@@ -4462,7 +4462,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige die lokale Lautstärkeanpassung für jeden Benutzer (falls gesetzt).</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
@@ -6435,7 +6435,7 @@ Valid actions are:
     </message>
     <message>
         <source>Silent user displaytime:</source>
-        <translation>Anzeigezeit stummer Benutzer</translation>
+        <translation>Anzeigezeit stummer Benutzer:</translation>
     </message>
 </context>
 <context>

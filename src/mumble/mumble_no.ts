@@ -971,7 +971,7 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;b&gt;Dette er inndatametoden brukt for lyd.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Dette er inndatametoden å bruke for lyd.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
