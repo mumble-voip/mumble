@@ -2061,7 +2061,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No hay botones asignados</translation>
     </message>
 </context>
 <context>
@@ -6266,32 +6266,32 @@ El parámetro de consulta de versión debe establecerse para invocar
 Versión correcta del cliente. Actualmente, el valor predeterminado es 1.2.0.
 
 Las opciones válidas son:
-   -h, --help Muestra este texto de ayuda y sale.
-   -m, --multiple
-                 Permite que se inicien varias instancias del cliente.
- -c, --config
+&#xa0;&#xa0; -h, --help Muestra este texto de ayuda y sale.
+ &#xa0; -m, --multiple
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Permite que se inicien varias instancias del cliente.
+&#xa0;-c, --config
 Especifica un archivo de configuración alternativo.
 Si usa esto para ejecutar múltiples instancias de Mumble al mismo tiempo,
 asegúrese de especificar un valor alternativo para &apos;database&apos; en la configuración.
-   -n, --noidentity
-                 Suprime la carga de archivos con identidad (i.e., certificados).
-   -jn, --jackname
-                 Establece el nombre del cliente Jack personalizado.
-   --license
-                 Muestra la licencia de Mumble.
-   --authors
-                 Muestra los autores de Mumble.
-   --third-party-licenses
-                 Muestra las licencias de software de terceros utilizado por Mumble.
+ &#xa0; -n, --noidentity
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Suprime la carga de archivos con identidad (i.e., certificados).
+&#xa0;&#xa0; -jn, --jackname
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Establece el nombre del cliente Jack personalizado.
+ &#xa0; --license
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Muestra la licencia de Mumble.
+ &#xa0; --authors
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Muestra los autores de Mumble.
+ &#xa0; --third-party-licenses
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Muestra las licencias de software de terceros utilizado por Mumble.
  --window-title-ext
-                Fija una extensión de título específica.
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; Fija una extensión de título específica.
 --dump-input-streams
-                Muestra los streams de PCM en diversos puntos de la cadena de entrada (útil para efectos de debugging)
-                - Entrada en bruto del micrófono
-                - Lectura del parlante para cancelación de eco
-                - Entrada procesada del micrófono
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Muestra los streams de PCM en diversos puntos de la cadena de entrada (útil para efectos de debugging)
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;- Entrada en bruto del micrófono
+ &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;- Lectura del parlante para cancelación de eco
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;- Entrada procesada del micrófono
 --print-echocancel-queue
-                Imprime en stdout el estado de la cola de cancelación de eco (útil para efectos de debugging)
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Imprime en stdout el estado de la cola de cancelación de eco (útil para efectos de debugging)
 </translation>
     </message>
     <message>
@@ -7359,7 +7359,7 @@ Vea &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;la
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">El acceso al micrófono fue denegado. Por favor, permita a Mumble usar el micrófono cambiando los ajustes en Preferencias del sistema -&gt; Seguridad y Privacidad -&gt; Privacidad -&gt; Micrófono</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>

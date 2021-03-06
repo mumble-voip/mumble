@@ -7590,7 +7590,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nåværende utvalg</translation>
     </message>
 </context>
 <context>

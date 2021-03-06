@@ -2051,7 +2051,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nincs hozzárendelve billentyű</translation>
     </message>
 </context>
 <context>
@@ -2192,7 +2192,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keresés</translation>
     </message>
     <message>
         <source>IP Address</source>
@@ -2928,7 +2928,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keresés</translation>
     </message>
     <message>
         <source>Location</source>

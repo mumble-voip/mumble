@@ -1131,7 +1131,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pääsy mikrofoniin estettiin. Anna Mumblelle lupa käyttää mikrofonia muuttamalla asetuksia Järjestelmän asetukset -&gt; Turvallisuus ja yksityisyys -&gt; Yksityisyys -&gt; Mikrofoni.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
