@@ -1394,7 +1394,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
+        <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2802,22 +2802,22 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, press the &quot;Defaults (All)&quot; button.</source>
+        <source>Resets all settings on the current page.&lt;br /&gt;Press the &quot;Defaults (All)&quot; to reset all settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Restore all defaults</source>
+        <source>Reset to defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This button will restore the defaults for all settings.</source>
+        <source>Resets all settings to their defaults.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ConnectDialog</name>
     <message>
-        <source>Connecting to %1</source>
+        <source>Connecting to %1…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2825,7 +2825,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Servername</source>
+        <source>Server name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2957,7 +2957,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adding host %1</source>
+        <source>Adding host %1…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3016,7 +3016,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name of the server</source>
+        <source>Server name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3030,7 +3030,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
-Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
+Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address, or a Bonjour service identifier prefixed with a &apos;@&apos;.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
         <translation type="unfinished"></translation>
@@ -3070,14 +3070,12 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are currently connected to a server.
-Do you want to fill the dialog with the connection data of this server?
+        <source>Do you to use the data of the server you are connected to?
 Host: %1 Port: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have an URL in your clipboard.
-Do you want to fill the dialog with this data?
+        <source>Do you want to use the URL in your clipboard?
 Host: %1 Port: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3091,7 +3089,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
-Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
+Password to be sent to the server when connecting. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3100,7 +3098,7 @@ Password to be sent to the server on connect. This password is needed when conne
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
-Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
+Label of the server. This is what the server will be named in your server list and can be chosen freely.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3249,7 +3247,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will add a new global shortcut</source>
+        <source>This will add a new shortcut that works everywhere</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3269,7 +3267,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;Turn on &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences for more adjustability. This also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for shortcuts that works everywhere.&lt;/p&gt;&lt;p&gt;Turn on &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences for more adjustability. This also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3317,9 +3315,9 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Turn on shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
+        <source>&lt;b&gt;Turn on shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive events for shortcuts that works everywhere from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
-Without this option on, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
+Without this option on, using Mumble&apos;s shortcuts that works everywhere in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3338,7 +3336,7 @@ Without this option on, using Mumble&apos;s global shortcuts in privileged appli
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: All buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3357,7 +3355,7 @@ Without this option on, using Mumble&apos;s global shortcuts in privileged appli
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;For more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for shortcuts that work everywhere.&lt;/p&gt;&lt;p&gt;For more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4213,7 +4211,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>When in custom layout mode, checking this disables rearranging.</source>
+        <source>Turns off rearranging in custom layout mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4357,7 +4355,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Whether to show all of the local user&apos;s listeners (ears) in the Talking UI (and thereby also the channels they are in). </source>
+        <source>Show all of the local user&apos;s listeners (ears) in the Talking UI (and thereby also the channels they are in). </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4365,7 +4363,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide the username for each user if they have a nickname.</source>
+        <source>Hide the username of nicknamed users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4381,62 +4379,62 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Reset Audio Processor</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unlink Plugin</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Push-to-Mute</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Join Channel</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Turn on or off Overlay</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Toggle state of in-game overlay.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Toggle Minimal</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Volume Up (+10%)</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Volume Down (-10%)</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4464,37 +4462,37 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble is currently connected to a server. Do you want to close or minimize it?</source>
+        <source>Do you want to close or minimize Mumble even if you are connected to a server?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mute Self</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set self-mute status.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This will set or change your muted status. If you turn this off, self-deafen will also be off.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Deafen Self</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set self-deafen status.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This will set or change your deafened status. If you turn this on, you will also enable self-mute.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4691,17 +4689,17 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Use in conjunction with &quot;Whisper to&quot;.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This will switch the states of the in-game overlay.</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Link Channel</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4711,32 +4709,32 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Set &quot;Transmit Mode&quot; to &quot;Push-To-Talk&quot;</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set &quot;Transmit Mode&quot; to &quot;Continuous&quot;</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set &quot;Transmit Mode&quot; to &quot;VAD&quot;</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Send Text Message</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Send Clipboard Text Message</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Send your clipboard content to the channel you are currently in.</source>
-        <comment>Global Shortcut</comment>
+        <source>Paste your clipboard content to the channel you are in.</source>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6186,7 +6184,7 @@ Valid options are:
     </message>
     <message>
         <source>Hide/show main window</source>
-        <comment>Global Shortcut</comment>
+        <comment>Shortcut that works everywhere</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
