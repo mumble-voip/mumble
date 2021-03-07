@@ -1423,21 +1423,33 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 	QSslCipher qsc = Global::get().sh->qscCipher;
 
-	QString qsVersion = tr("<h2>Version</h2><p>Protocol %1</p>").arg(MumbleVersion::toString(Global::get().sh->uiVersion));
-
-	if (Global::get().sh->qsRelease.isEmpty() || Global::get().sh->qsOS.isEmpty() || Global::get().sh->qsOSVersion.isEmpty()) {
-		qsVersion.append(tr("<p>No build information or OS version available</p>"));
-	} else {
-		qsVersion.append(
-			tr("<p>%1 (%2)<br />%3</p>")
-				.arg(Global::get().sh->qsRelease.toHtmlEscaped(), Global::get().sh->qsOS.toHtmlEscaped(), Global::get().sh->qsOSVersion.toHtmlEscaped()));
-	}
-
 	QString host, uname, pw;
 	unsigned short port;
 
 	Global::get().sh->getConnectionInfo(host, port, uname, pw);
 
+	QString qsInfo =
+		tr("<h2>Server Information</h2>"
+		   "<p>Host: %1<br />Port: %2</p>").arg(host.toHtmlEscaped(), QString::number(port));
+
+	if (Global::get().uiMaxUsers) {
+		qsInfo += tr("<p>Connected users: %1/%2</p>").arg(ModelItem::c_qhUsers.count()).arg(Global::get().uiMaxUsers);
+	}
+
+	qsInfo += tr("<p>Protocol: %1</p>").arg(MumbleVersion::toString(Global::get().sh->uiVersion));
+
+	if (Global::get().sh->qsRelease.isEmpty() || Global::get().sh->qsOS.isEmpty() || Global::get().sh->qsOSVersion.isEmpty()) {
+		qsInfo.append(tr("<p>No build information or OS version available</p>"));
+	} else {
+		qsInfo.append(
+			tr("<p>Server %1 running on %2<br />(%3)</p>")
+				.arg(Global::get().sh->qsRelease.toHtmlEscaped(), Global::get().sh->qsOS.toHtmlEscaped(), Global::get().sh->qsOSVersion.toHtmlEscaped()));
+	}
+
+	QString qsAudio = tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s<br />Codec: %3</p>")
+				  .arg(Global::get().iMaxBandwidth / 1000.0, 0, 'f', 1)
+				  .arg(Global::get().iAudioBandwidth / 1000.0, 0, 'f', 1)
+				  .arg(currentCodec());
 	const SSLCipherInfo *ci = SSLCipherInfoLookupByOpenSSLName(qsc.name().toLatin1().constData());
 
 	QString cipherDescription;
@@ -1473,31 +1485,27 @@ void MainWindow::on_qaServerInformation_triggered() {
 		}
 	}
 
-	QString qsControl =
-		tr("<h2>Control channel</h2>"
+	QString qsConnection =
+		tr("<h2>Connection details</h2>"
+		   "<h3>TCP (Control)</h3>"
 		   "<p>The connection uses %1</p>"
 		   "%2"
 		   "%3"
-		   "<p>%4 ms average latency (%5 deviation)</p>"
-		   "<p>Remote host %6 (port %7)</p>")
+		   "<p>%4 ms average latency (%5 deviation)</p>")
 			.arg(c->sessionProtocolString().toHtmlEscaped(), cipherDescription, cipherPFSInfo,
 				 QString::fromLatin1("%1").arg(boost::accumulators::mean(Global::get().sh->accTCP), 0, 'f', 2),
-				 QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(Global::get().sh->accTCP)), 0, 'f', 2),
-				 host.toHtmlEscaped(), QString::number(port));
-	if (Global::get().uiMaxUsers) {
-		qsControl += tr("<p>Connected users: %1/%2</p>").arg(ModelItem::c_qhUsers.count()).arg(Global::get().uiMaxUsers);
-	}
+				 QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(Global::get().sh->accTCP)), 0, 'f', 2));
 
-	QString qsVoice, qsCrypt, qsAudio;
+	QString qsVoice, qsCrypt;
 
 	if (NetworkConfig::TcpModeEnabled()) {
-		qsVoice = tr("Voice channel is sent over control channel");
+		qsConnection += tr("Voice channel is sent over control channel");
 	} else {
-		qsVoice = tr("<h2>Voice channel</h2><p>Encrypted with 128 bit OCB-AES128<br />%1 ms average latency (%4 "
+		qsConnection += tr("<h3>UDP (Voice)</h3><p>Encrypted with 128 bit OCB-AES128<br />%1 ms average latency (%4 "
 					 "deviation)</p>")
 					  .arg(boost::accumulators::mean(Global::get().sh->accUDP), 0, 'f', 2)
 					  .arg(sqrt(boost::accumulators::variance(Global::get().sh->accUDP)), 0, 'f', 2);
-		qsCrypt = QString::fromLatin1("<h2>%1</h2><table><tr><th></th><th>%2</th><th>%3</th></tr>"
+		qsConnection += QString::fromLatin1("<h4>%1</h4><table><tr><th></th><th>%2</th><th>%3</th></tr>"
 									  "<tr><th>%4</th><td>%8</td><td>%12</td></tr>"
 									  "<tr><th>%5</th><td>%9</td><td>%13</td></tr>"
 									  "<tr><th>%6</th><td>%10</td><td>%14</td></tr>"
@@ -1519,13 +1527,9 @@ void MainWindow::on_qaServerInformation_triggered() {
 					  .arg(c->csCrypt->uiLost)
 					  .arg(c->csCrypt->uiResync);
 	}
-	qsAudio = tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s<br />Codec: %3</p>")
-				  .arg(Global::get().iMaxBandwidth / 1000.0, 0, 'f', 1)
-				  .arg(Global::get().iAudioBandwidth / 1000.0, 0, 'f', 1)
-				  .arg(currentCodec());
 
 	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"),
-					qsVersion + qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
+					qsInfo + qsAudio + qsConnection, QMessageBox::Ok, this);
 	qmb.setDefaultButton(QMessageBox::Ok);
 	qmb.setEscapeButton(QMessageBox::Ok);
 
