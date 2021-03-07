@@ -339,7 +339,7 @@ These are all the groups currently defined for the channel. To create a new grou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
+        <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local info about the group will be cleared.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -351,7 +351,7 @@ These are all the groups currently defined for the channel. To create a new grou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
+        <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for info.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -742,7 +742,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
+        <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Stats window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -782,7 +782,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional info. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -802,7 +802,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
+        <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio stats hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -858,11 +858,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Browse...</source>
+        <source>&amp;Browse…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>B&amp;rowse...</source>
+        <source>B&amp;rowse…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -970,7 +970,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
+        <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOiP modes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1310,7 +1310,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Attenuate applications by...</source>
+        <source>Lower volume of applications by…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1516,7 +1516,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Audio Statistics</source>
+        <source>Audio Stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1801,7 +1801,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren&apos;t deprecated.
+Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous stats about your configuration to the developers. These stats are essential for future development, and also make sure the features you use aren&apos;t deprecated.
 &lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
@@ -1860,7 +1860,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Submit anonymous statistics to the Mumble project</source>
+        <source>Submit anonymous stats to the Mumble project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2143,7 +2143,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use this button if you want to update ban information.</source>
+        <source>Use this button if you want to update ban info.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2239,7 +2239,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The file could not be written successfully. Please use another file.</source>
+        <source>The file could not be written. Please use another file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2395,7 +2395,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open...</source>
+        <source>Open…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2475,7 +2475,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save As...</source>
+        <source>Save As…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2487,7 +2487,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
+        <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional info to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2536,7 +2536,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. More info in the &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2579,7 +2579,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
+        <source>This represents total access to the channel, including the ability to change group and ACL info. This privilege implies all other privileges.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2730,11 +2730,11 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Muted (server)</source>
+        <source>Muted (by server)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deafened (server)</source>
+        <source>Deafened (by server)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2746,11 +2746,11 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Muted (self)</source>
+        <source>Muted (by self)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deafened (self)</source>
+        <source>Deafened (by self)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2876,11 +2876,11 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Edit...</source>
+        <source>&amp;Edit…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Add New...</source>
+        <source>&amp;Add New…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2888,7 +2888,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open &amp;Webpage</source>
+        <source>Open &amp;Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3163,7 +3163,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Crash upload successful</source>
+        <source>Crash uploaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3171,15 +3171,15 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Crash upload failed</source>
+        <source>Could not upload crash report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
+        <source>The crash upload has failed with error %1 %2. Please inform a developer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
+        <source>There&apos;s a bug in the crash reporting code, so the report could not be uploaded. Please inform a developer about error %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3272,11 +3272,11 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can turn on &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
+        <source>Open Accessibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3284,7 +3284,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Global Shortcuts</source>
+        <source>Shortcuts that work anywhere</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3296,37 +3296,37 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
+        <source>&lt;b&gt;Turn on Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Windows hooks</source>
+        <source>Windows hooks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
+        <source>&lt;b&gt;Turn on GKey&lt;/b&gt;.&lt;br /&gt;This setting turns on support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable GKey</source>
+        <source>GKey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
+        <source>&lt;b&gt;Turn on XInput&lt;/b&gt;&lt;br /&gt;This setting turns on support for the XInput shortcut engine, for Xbox compatible controllers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable XInput</source>
+        <source>XInput</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
+        <source>&lt;b&gt;Turn on shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
-Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
+Without this option on, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable shortcuts in privileged applications</source>
+        <source>Shortcuts in privileged applications</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3368,8 +3368,8 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
-        <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
+        <source>&lt;b&gt;This is the the combination for the shortcut that works anywhere.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
+        <oldsource>&lt;b&gt;This is a shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3438,7 +3438,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do not send positional audio information when using this whisper shortcut.</source>
+        <source>Do not send positional audio info when using this whisper shortcut.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3548,7 +3548,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
 &lt;h3&gt;Size:&lt;/h3&gt;
 &lt;p&gt;
-This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
+This field describes the size of an LCD device. The size is given either in pixels (for graphic LCDs) or in characters (for character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
@@ -3558,7 +3558,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabled</source>
+        <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3614,7 +3614,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Information</source>
+        <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3626,7 +3626,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User kicked (you or by you)</source>
+        <source>User kicked (yourself or by you)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3638,7 +3638,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User muted (you)</source>
+        <source>User muted (by you)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3646,7 +3646,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User muted (other)</source>
+        <source>User muted (by someone else)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3766,23 +3766,23 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <source>Toggle console for %1 events</source>
+        <source>Turn on or off console for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle pop-up notifications for %1 events</source>
+        <source>Turn on or off  pop-up notifications for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle Text-To-Speech for %1 events</source>
+        <source>Turn on or off  Text-To-Speech for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to toggle sound notification for %1 events</source>
+        <source>Click here to turn on or off sound notification for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle window highlight (if not active) for %1 events</source>
+        <source>Turn on or off  window highlight (if not active) for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3790,30 +3790,30 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
+        <source>Click here to turn on or off console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
+        <source>Click here to turn on or offpop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
+        <source>Click here to turn on or off window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
+        <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are on, or this field will not have any effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
-        <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
+        <source>Click here to turn on or off Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
+        <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
-        <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
+        <source>Click here to turn on or off sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
+        <oldsource>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3917,7 +3917,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If enabled, TTS will not dictate the message scope.</source>
+        <source>Prevents TTS from dictating the message scope.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3925,7 +3925,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If enabled, TTS will not dictate the message author.</source>
+        <source>Prevents TTS from dictating the message author.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4035,7 +4035,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Language to use (requires restart)</source>
+        <source>Language to use (requires restarting Mumble)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4418,7 +4418,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle Overlay</source>
+        <source>Turn on or off Overlay</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -4467,7 +4467,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
+        <source>Mumble is currently connected to a server. Do you want to close or minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4481,7 +4481,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
+        <source>This will set or change your muted status. If you turn this off, self-deafen will also be off.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -4496,7 +4496,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
+        <source>This will set or change your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -4519,11 +4519,11 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>File does not exist</source>
+        <source>The file does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>File is not a configuration file.</source>
+        <source>the file is not a configuration file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4535,7 +4535,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
+        <source>This version of Mumble can&apos;t handle URLs from Mumble version %1.%2.%3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4547,11 +4547,11 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connecting to server %1.</source>
+        <source>Connecting to server %1…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reconnecting.</source>
+        <source>Reconnecting…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4579,7 +4579,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
+        <source>&lt;p&gt;No build info or OS version available&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4673,7 +4673,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to load image</source>
+        <source>Could not load image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4681,7 +4681,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Image format not recognized.</source>
+        <source>Unrecognized image format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4693,7 +4693,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use in conjunction with Whisper to.</source>
+        <source>Use in conjunction with &quot;Whisper to&quot;.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -4708,22 +4708,22 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cycle Transmit Mode</source>
+        <source>Transmit on/off</source>
+        <comment>Shortcut you can use anywhere</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set &quot;Transmit Mode&quot; to &quot;Push-To-Talk&quot;</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set Transmit Mode to Push-To-Talk</source>
+        <source>Set &quot;Transmit Mode&quot; to &quot;Continuous&quot;</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set Transmit Mode to Continuous</source>
-        <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set Transmit Mode to VAD</source>
+        <source>Set &quot;Transmit Mode&quot; to &quot;VAD&quot;</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -4738,7 +4738,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will send your Clipboard content to the channel you are currently in.</source>
+        <source>Send your clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -4763,7 +4763,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save Image As...</source>
+        <source>Save Image As…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4779,11 +4779,11 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Transmit Mode set to Voice Activity</source>
+        <source>&quot;Transmit Mode&quot; set to &quot;Voice Activity&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Transmit Mode set to Push-to-Talk</source>
+        <source>&quot;Transmit Mode&quot; set to &quot;Push-to-Talk&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4791,7 +4791,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UDP Statistics</source>
+        <source>UDP Stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4823,7 +4823,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble Server Information</source>
+        <source>Mumble Server Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4916,7 +4916,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
+        <source>&lt;b&gt;Warning:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4944,7 +4944,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>That username is already in use, please try another username.</source>
+        <source>That username is already in use, please try another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4982,7 +4982,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
+        <source>This shows all recent activity. Connecting to servers, errors and info messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5018,11 +5018,11 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show information about the server connection</source>
+        <source>Show info about the server connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will show extended information about the connection to the server.</source>
+        <source>This will show extended info about the connection to the server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5086,7 +5086,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
+        <source>Shows a dialog of registered servers, and also allows quick-connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5130,7 +5130,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
+        <source>Links your current channel to the selected one. If users in a channel have permission to speak in the other one, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
         <translation type="unfinished"></translation>
     </message>
@@ -5164,7 +5164,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
+        <source>Resets the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, you can use this to avoid having to wait for the pre-processor to readjust.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5204,11 +5204,11 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display audio statistics</source>
+        <source>Display audio stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pops up a small dialog with information about your current audio input.</source>
+        <source>Pops up a small dialog with info about your current audio input.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5248,31 +5248,31 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Information about Mumble</source>
+        <source>Info about Mumble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shows a small dialog with information and license for Mumble.</source>
+        <source>Shows a small dialog with info and the BSD-3 license for Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Information about Speex</source>
+        <source>Info about Speex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shows a small dialog with information about Speex.</source>
+        <source>Shows a small dialog with info about Speex.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Information about Qt</source>
+        <source>Info about Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shows a small dialog with information about Qt.</source>
+        <source>Shows a small dialog with info about Qt.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Check for &amp;Updates</source>
+        <source>Check for &amp;Upgrades</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5280,7 +5280,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
+        <source>Connects to the Mumble website to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5320,7 +5320,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Removes a user from your friends.</source>
+        <source>Removes a user from your friend list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5412,7 +5412,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your account information can not be verified currently. Please try again later</source>
+        <source>Your account info can not be verified. Please try again later.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5602,7 +5602,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
+        <source>Could not load Opus, it will not be available for audio encoding/decoding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5610,19 +5610,19 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The server requests positional audio be enabled.</source>
+        <source>The server wants you to turn on &quot;Positional audio&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The server requests positional audio be disabled.</source>
+        <source>The server wants you to turn off &quot;Positional audio&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The server requests Push-to-Talk be enabled.</source>
+        <source>The server wants you to turn on &quot;Push-to-Talk&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The server requests Push-to-Talk be disabled.</source>
+        <source>The server wants you to turn off &quot;Push-to-Talk&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5699,7 +5699,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 left channel and disconnected.</source>
+        <source>%1 left the channel and disconnected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5707,19 +5707,19 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have User Dragging set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
+        <source>You have &quot;User Dragging&quot; set to &quot;Do Nothing&quot; so the user wasn&apos;t moved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
+        <source>You have &quot;Channel Dragging&quot; set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
+        <source>Unknown channel drag mode in UserModel::dropMimeData.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Remote controlling Mumble:
+        <source>Controlling Mumble remotely:
 
 </source>
         <translation type="unfinished"></translation>
@@ -5773,7 +5773,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Query server for connection information for user</source>
+        <source>Query server for connection info for user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5857,10 +5857,10 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable or disable the filtering of select channels.
+        <source>Turn on or off filtering of select channels.
 By default all empty channels will be filtered.
-You can mark additional channels for filtering from
-the channel&apos;s context menu.</source>
+Mark additional channels for filtering from the
+channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5896,123 +5896,123 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
+        <source>Hides the main Mumble window. Restore by clicking the tray icon or restarting Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show the Developer Console</source>
+        <source>Show developer console</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
+        <source>Shows the Mumble developer console, where Mumble&apos;s log output can be inspected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Connect...</source>
+        <source>&amp;Connect…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Ban list...</source>
+        <source>&amp;Ban list…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Information...</source>
+        <source>&amp;Info…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Kick...</source>
+        <source>&amp;Kick…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Ban...</source>
+        <source>&amp;Ban…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Local Volume Adjustment...</source>
+        <source>Local Volume Adjustment…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Send &amp;Message...</source>
+        <source>Send &amp;Message…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Add...</source>
+        <source>&amp;Add…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Remove...</source>
+        <source>&amp;Remove…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Edit...</source>
+        <source>&amp;Edit…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Audio S&amp;tatistics...</source>
+        <source>Audio S&amp;tats…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Settings...</source>
+        <source>&amp;Settings…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Audio Wizard...</source>
+        <source>&amp;Audio Wizard…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Developer &amp;Console...</source>
+        <source>Developer &amp;Console…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;About...</source>
+        <source>&amp;About…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>About &amp;Speex...</source>
+        <source>About &amp;Speex…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>About &amp;Qt...</source>
+        <source>About &amp;Qt…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Certificate Wizard...</source>
+        <source>&amp;Certificate Wizard…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Register...</source>
+        <source>&amp;Register…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Registered &amp;Users...</source>
+        <source>Registered &amp;Users…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Change &amp;Avatar...</source>
+        <source>Change &amp;Avatar…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Access Tokens...</source>
+        <source>&amp;Access Tokens…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reset &amp;Comment...</source>
+        <source>Reset &amp;Comment…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reset &amp;Avatar...</source>
+        <source>Reset &amp;Avatar…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>View Comment...</source>
+        <source>View Comment…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Change Comment...</source>
+        <source>&amp;Change Comment…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>R&amp;egister...</source>
+        <source>R&amp;egister…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6040,7 +6040,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Locally adjust the volume for this virtual ear.</source>
+        <source>Adjust the volume for this virtual ear as it sounds to you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6048,7 +6048,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No action available...</source>
+        <source>No action available…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6108,15 +6108,15 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable Text-To-Speech</source>
+        <source>Disable text-to-speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
+        <source>Locally disable text-to-speech for this user&apos;s text chat messages.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Silently disables Text-To-Speech for all text messages from the user.</source>
+        <source>Silently disables text-to-speech for all text messages from the user.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6140,7 +6140,7 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configuration file %1 does not exist or is not writable.
+        <source>The configuration file %1 does not exist or is not writable.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6167,9 +6167,9 @@ Valid options are:
   -jn, --jackname &lt;arg&gt;
                 Set custom Jack client name.
   --license
-                Show the Mumble license.
+                Show the Mumble (BSD-3) license.
   --authors
-                Show the Mumble authors.
+                Show Mumble authors.
   --third-party-licenses
                 Show licenses for third-party software used by Mumble.
   --window-title-ext &lt;arg&gt;
@@ -6193,7 +6193,7 @@ Valid options are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Set Nickname...</source>
+        <source>&amp;Set Nickname…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6201,14 +6201,14 @@ Valid options are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sets a local nickname for another user.</source>
+        <source>Nickname for another user as shown to you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
 
-It is possible to remote control a running instance of Mumble by using
-the &apos;mumble rpc&apos; command.
+It is possible to control a running instance of Mumble remotely
+by using the &apos;mumble rpc&apos; command.
 
 Valid actions are:
   mute
@@ -6311,7 +6311,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
+        <source>How many seconds users should be marked after they stop talking.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6335,7 +6335,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
+        <source>&lt;b&gt;TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;Uses only TCP when communicating with the server. Increases overhead and causes lost packets to produce noticeable pauses in communication, so should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6343,11 +6343,11 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
+        <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;Attempts automatic reconnection after 10 seconds if your server connection fails.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reconnect automatically</source>
+        <source>Auto-reconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6391,7 +6391,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
+        <source>Attempt using quality of service to prioritize voice packets over other traffic.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6403,7 +6403,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <source>&lt;b&gt;Turns off sending identity.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6411,7 +6411,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
+        <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, sending all voice data via the control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6427,7 +6427,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
+        <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;Specifies the port number the proxy expects connections on.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6439,7 +6439,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
+        <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. Leave blank to connect anonymously, or if the proxy doesn't support it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6451,7 +6451,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
+        <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. Leave blank to connect anonymously, or if the proxy doesn't support it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6459,15 +6459,15 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Check for new releases of Mumble automatically.</source>
+        <source>Look for new releases of Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
+        <source>Looks for and notifies of new releases of Mumble every time you start the program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Check for application updates on startup</source>
+        <source>Look for new versions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6475,19 +6475,19 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
+        <source>Looks for and downloads new releases of plugins every time you start the program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
+        <source>&lt;b&gt;Submit anonymous stats.&lt;/b&gt;&lt;br /&gt;Helps the project focus its development.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Submit anonymous statistics to the Mumble project</source>
+        <source>Submit anonymous stats to the Mumble project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Submit anonymous statistics</source>
+        <source>Send anonymous stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6495,11 +6495,11 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reconnect to last server on startup</source>
+        <source>Reconnect to last used server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Download plugin and overlay updates on startup</source>
+        <source>Auto-download new plugin and overlay versions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6507,16 +6507,16 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Prevent OS information being sent to Mumble servers and web servers</source>
+        <source>Prevent sending OS info to web- and Mumble servers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Don&apos;t send OS information to servers&lt;/b&gt;&lt;br/&gt;
-Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</source>
+        <source>&lt;b&gt;Don&apos;t send OS info to servers&lt;/b&gt;&lt;br/&gt;
+Prevents the client from sending info about the operating system to the Mumble server and web servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do not send OS information to Mumble servers and web servers</source>
+        <source>Don&apos;t send OS info to web- and Mumble servers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6551,7 +6551,7 @@ Prevents the client from sending potentially identifying information about the o
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
+        <source>Could not create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6582,7 +6582,7 @@ Prevents the client from sending potentially identifying information about the o
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configure recently active time (%1 seconds)...</source>
+        <source>Configure recently active time (%1 seconds)…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6602,7 +6602,7 @@ Prevents the client from sending potentially identifying information about the o
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit...</source>
+        <source>Edit…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6621,16 +6621,16 @@ Prevents the client from sending potentially identifying information about the o
 <context>
     <name>OverlayConfig</name>
     <message>
-        <source>To move the users, drag the little red dot.</source>
+        <source>Drag the red dot to move users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>To resize the users, mouse wheel over a user.</source>
+        <source>Mouse wheel over users to resize them.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>For more options, right click a user.</source>
+        <source>Right-click users for more options.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
         <translation type="unfinished"></translation>
     </message>
@@ -6704,9 +6704,9 @@ Prevents the client from sending potentially identifying information about the o
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble has detected that you do not have the Mumble Overlay installed.
+        <source>You do not have the Mumble Overlay installed.
 
-Click the button below to install the overlay.</source>
+Click the button below to install it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6720,7 +6720,7 @@ Click the button below to install the overlay.</source>
     <message>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
-To upgrade these files to their latest versions, click the button below.</source>
+Click the button below to upgrade these files to their latest versions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6962,11 +6962,11 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color...</source>
+        <source>Color…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font...</source>
+        <source>Font…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7025,7 +7025,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable plugins and transmit positional information</source>
+        <source>Enable plugins and transmit positional info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7049,11 +7049,11 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Information about plugin</source>
+        <source>Info about plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows a small information message about the plugin.</source>
+        <source>This shows a small info message about the plugin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7125,11 +7125,11 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>QApplication</name>
     <message>
-        <source>Failed to restart mumble</source>
+        <source>Could not restart mumble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble failed to restart itself. Please restart it manually.</source>
+        <source>Mumble could not restart itself. Please restart it manually.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7140,7 +7140,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>QObject</name>
     <message>
-        <source>CodecInit: Failed to load Opus, it will not be available for encoding/decoding audio.</source>
+        <source>CodecInit: Could not load Opus, it will not be available for encoding/decoding audio.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7152,12 +7152,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
+        <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own upgrade cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;the Mumble wiki&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Local Mute</source>
+        <source>Mute for You</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7165,7 +7165,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable Text-To-Speech</source>
+        <source>No Text-To-Speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7173,7 +7173,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Local Volume Adjustment...</source>
+        <source>Volume you hear…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7189,23 +7189,23 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle console for all events</source>
+        <source>Turn on or off console for all events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle pop-up notifications for all events</source>
+        <source>Turn on or off pop-up notifications for all events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle window highlight (if not active) for all events</source>
+        <source>Turn on or off window highlight (if not active) for all events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to toggle sound notifications for all events</source>
+        <source>Click here to turn on or off sound notifications for all events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggle Text-to-Speech for all events</source>
+        <source>Turn on or off Text-to-Speech for all events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7221,7 +7221,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Local Nickname Adjustment...</source>
+        <source>Local Nickname…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7249,23 +7249,23 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
+        <source>Access to the microphone was denied due to system restrictions. You will not be able to use the microphone in this session.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If enabled this tries to cancel out echo from the audio stream.</source>
+        <source>Tries to cancel out echo from the audio stream.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disabled</source>
+        <source>Turned off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Echo cancellation is disabled.</source>
+        <source>Echo cancellation off.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mixed echo cancellation (speex)</source>
+        <source>Mixed echo cancellation (Speex)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7292,11 +7292,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
 <context>
     <name>RichTextEditor</name>
     <message>
-        <source>Failed to load image</source>
+        <source>Could not load image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
+        <source>Please use images smaller than %1 kB to embed it in the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7378,7 +7378,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server is not responding to TCP pings</source>
+        <source>The server is not responding to TCP pings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7473,7 +7473,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
 <context>
     <name>ShortcutTargetWidget</name>
     <message>
-        <source>...</source>
+        <source>…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7642,11 +7642,11 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserInformation</name>
     <message>
-        <source>User Information</source>
+        <source>User Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connection Information</source>
+        <source>Connection Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7670,11 +7670,11 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Details...</source>
+        <source>Details…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ping Statistics</source>
+        <source>Ping Stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7694,7 +7694,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UDP Network statistics</source>
+        <source>UDP Network Stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7827,7 +7827,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
+        <source>&lt;b&gt;Change the nickname of individual users as they appear to you&lt;/b&gt;&lt;br /&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7846,7 +7846,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
+        <source>&lt;b&gt;Volume of individual users as they sound to you;/b&gt;&lt;br /&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7869,7 +7869,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
+        <source>If this user talks an icon to to the left of it will be lit:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7898,15 +7898,15 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
+        <source>A channel linked with your channel, meaning you can talk to each other.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A channel on the server that you are not linked to.</source>
+        <source>A channel on the server you are not linked to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the flags the user has on the server, if any:</source>
+        <source>This shows any flags the user has on the server:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7918,11 +7918,11 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Muted (manually muted by self)</source>
+        <source>Muted (manually by self)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Muted (manually muted by admin)</source>
+        <source>Muted (manually by admin)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7930,7 +7930,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Muted (muted by you, only on your machine)</source>
+        <source>Muted (by you, only on your machine)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7946,11 +7946,11 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User has a new comment set (click to show)</source>
+        <source>The user has a new comment (Click to show.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
+        <source>The user has a comment you&apos;ve already seen. (Click to show.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7958,19 +7958,19 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the flags the channel has, if any:</source>
+        <source>This shows any flags the channel has:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Channel has a new comment set (click to show)</source>
+        <source>The channel has a new comment (Click to show.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
+        <source>The channel has a comment you&apos;ve already seen. (Click to show.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Channel will be hidden when filtering is enabled</source>
+        <source>The channel will be hidden when filtering is on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7982,11 +7982,11 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Are you sure you want to drag this user?</source>
+        <source>Drag this user over?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Are you sure you want to drag this channel?</source>
+        <source>Drag this channel over?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7994,7 +7994,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Talking while being muted on your end</source>
+        <source>You are talking, but have muted yourself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8002,11 +8002,11 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Channel has access restrictions so that you can&apos;t enter it</source>
+        <source>The channel has access restrictions, so you can&apos;t enter it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Channel has access restrictions but you can enter nonetheless</source>
+        <source>The channel has access restrictions but you can still enter it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8017,7 +8017,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
+        <source>Do you want to install the new downloaded version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8025,7 +8025,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Corrupt download of new version detected. Automatically removed.</source>
+        <source>The new downloaded version was automatically removed since it was damaged.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8033,12 +8033,12 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to write new version to disk.</source>
+        <source>Could not write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble failed to retrieve version information from the central server.</source>
+        <source>Mumble could not retrieve version info from the central server.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8132,11 +8132,11 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <source>Recorder failed to create directory &apos;%1&apos;</source>
+        <source>Recorder could not create the directory &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recorder failed to open file &apos;%1&apos;</source>
+        <source>Recorder could not open the file &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8203,7 +8203,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Browse...</source>
+        <source>&amp;Browse…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8240,7 +8240,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
-Please contact your server administrator for further information.</source>
+Please contact your server administrator for further info.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8267,7 +8267,7 @@ Please contact your server administrator for further information.</source>
 <context>
     <name>WASAPIInput</name>
     <message>
-        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <source>Please grant Mumble access to your microphone in the system settings first.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
