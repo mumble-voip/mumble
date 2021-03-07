@@ -35,18 +35,18 @@ def CheckForGitHasTsFileChanges(tsfiles: list) -> bool:
 def Commit(tsfiles: list) -> None:
     res = subprocess.run(["git", "reset", '--mixed'], capture_output=True)
     if res.returncode != 0:
-        logging.error('The git reset call returned an error status code ' + res.returncode)
-        logging.debug('stdout: ' + res.stdout)
+        logging.error('The git reset call returned an error status code %d', res.returncode)
+        logging.debug('stdout: %s', res.stdout)
         exit(1)
     res = subprocess.run(["git", "add"] + tsfiles, capture_output=True)
     if res.returncode != 0:
-        logging.error('The git add call returned an error status code ' + res.returncode)
-        logging.debug('stdout: ' + res.stdout)
+        logging.error('The git add call returned an error status code %d', res.returncode)
+        logging.debug('stdout: %s', res.stdout)
         exit(1)
     res = subprocess.run(["git", "commit", '-m', 'TRANSLATION: Update translation files'], capture_output=True)
     if res.returncode != 0:
-        logging.error('The git commit call returned an error status code ' + res.returncode)
-        logging.debug('stdout: ' + res.stdout)
+        logging.error('The git commit call returned an error status code %d', res.returncode)
+        logging.debug('stdout: %s', res.stdout)
         exit(1)
 
 def Update(lupdatebin, tsfile: str, debuglupdate: bool) -> (int, int, int):
