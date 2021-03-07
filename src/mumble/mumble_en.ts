@@ -970,7 +970,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOiP modes.</source>
+        <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VoIP modes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
