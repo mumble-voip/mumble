@@ -52,7 +52,6 @@ def Commit(tsfiles: list) -> None:
 def Update(lupdatebin, tsfile: str, debuglupdate: bool) -> (int, int, int):
     res = subprocess.run([
         lupdatebin
-        # Do not explain what is being done.
         , '-no-ui-lines'
         # {sametext|similartext|number}
         , '-disable-heuristic', 'similartext'
