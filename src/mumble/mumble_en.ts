@@ -171,7 +171,7 @@ This value enables you to change the way mumble arranges the channels in the tre
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
+        <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only entries marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -970,7 +970,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VoIP modes.</source>
+        <source>Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. It decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; for the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VoIP modes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1237,7 +1237,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>How much should sound volume increase for sources that are really close?</source>
+        <source>How much should sound volume increase for really close sources?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1314,7 +1314,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Attenuation of other applications during speech</source>
+        <source>Lower volume of other applications during speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1322,11 +1322,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked Mumble lowers the volume of other applications while other users talk</source>
+        <source>Lowers the volume of other applications while others talk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
+        <source>&lt;b&gt;Attenuate applications while others talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1334,7 +1334,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked Mumble lowers the volume of other applications while you talk</source>
+        <source>Lowers the volume of other applications while you talk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1358,23 +1358,23 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
+        <source>Lowers the volume of others while you talk if you are the &quot;Priority Speaker&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
+        <source>Lower the volume of applications using the same output source as Mumble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
+        <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;Applications using a different output than Mumble will not be attenuated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Only attenuate applications using the same output device</source>
+        <source>Only lower the volume of applications using the same output device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked, PulseAudio loopback modules will be attenuated</source>
+        <source>Lowers the volume of the PulseAudio loopback modules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1382,7 +1382,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Attenuate PulseAudio loopback modules</source>
+        <source>Lower the volume of PulseAudio loopback modules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1398,7 +1398,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Attenuate other users while talking as Priority Speaker</source>
+        <source>Lower the output volume of others while talking as Priority Speaker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3790,16 +3790,16 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to turn on or off console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
+        <source>Click here to turn on or off console output for %1 events.&lt;br /&gt;This option makes Mumble output all %1 events in its message log.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to turn on or offpop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
-        <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
+        <source>Click here to turn on or offpop-up notifications for %1 events.&lt;br /&gt;A notification pop-up will be created by Mumble for every %1 event.</source>
+        <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;A notification pop-up will be created by mumble for every %1 event.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to turn on or off window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
+        <source>Click here to turn on or off window highlight for %1 events.&lt;br /&gt;Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3807,12 +3807,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to turn on or off Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
-        <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</oldsource>
+        <source>Click here to turn on or off Text-To-Speech for %1 events.&lt;br /&gt;Uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
+        <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;Uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to turn on or off sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
+        <source>Click here to turn on or off sound notification for %1 events.&lt;br /&gt;Uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
         <translation type="unfinished"></translation>
     </message>
@@ -3881,7 +3881,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked you will only hear whispers from users you added to your friend list.</source>
+        <source>Will only let you hear whispers from users in your friend list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3889,7 +3889,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If enabled text messages you send will be read back to you with TTS</source>
+        <source>Reads text messages you send back to you using TTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3933,7 +3933,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
+        <source>Displays message timestamps in 24-hour format.
 
 The setting only applies for new messages, the already shown ones will retain the previous time format.</source>
         <translation type="unfinished"></translation>
@@ -4228,7 +4228,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
+        <source>Amount of seconds before silent users are removed from the Talking UI.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4236,7 +4236,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
+        <source>Keeps the local user (yourself) visible in the Talking UI at all times (regardless of talking state).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4260,7 +4260,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
+        <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the Talking UI?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4360,7 +4360,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
+        <source>Whether to show all of the local user&apos;s listeners (ears) in the Talking UI (and thereby also the channels they are in). </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6084,7 +6084,7 @@ channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Toggles the visibility of the TalkingUI.</source>
+        <source>Toggles the visibility of the Talking UI.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7532,11 +7532,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If checked the message is recursively sent to all subchannels</source>
+        <source>Sends the message (recursively) to all subchannels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Send recursively to subchannels</source>
+        <source>Send to subchannels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
