@@ -29,21 +29,21 @@ def FindLupdate(vcpkg_triplet: Optional[str] = None) -> Optional[str]:
     return None
 
 def CheckForGitHasTsFileChanges(tsfiles: list) -> bool:
-    res = subprocess.run(["git", "status", '--porcelain', '--'] + tsfiles, capture_output=True)
+    res = subprocess.run(['git', 'status', '--porcelain', '--'] + tsfiles, capture_output=True)
     return res.returncode == 0 and len(res.stdout) > 0
 
 def Commit(tsfiles: list) -> None:
-    res = subprocess.run(["git", "reset", '--mixed'], capture_output=True)
+    res = subprocess.run(['git', 'reset', '--mixed'], capture_output=True)
     if res.returncode != 0:
         logging.error('The git reset call returned an error status code %d', res.returncode)
         logging.debug('stdout: %s', res.stdout)
         exit(1)
-    res = subprocess.run(["git", "add"] + tsfiles, capture_output=True)
+    res = subprocess.run(['git', 'add'] + tsfiles, capture_output=True)
     if res.returncode != 0:
         logging.error('The git add call returned an error status code %d', res.returncode)
         logging.debug('stdout: %s', res.stdout)
         exit(1)
-    res = subprocess.run(["git", "commit", '-m', 'TRANSLATION: Update translation files'], capture_output=True)
+    res = subprocess.run(['git', 'commit', '-m', 'TRANSLATION: Update translation files'], capture_output=True)
     if res.returncode != 0:
         logging.error('The git commit call returned an error status code %d', res.returncode)
         logging.debug('stdout: %s', res.stdout)
@@ -72,7 +72,7 @@ def Update(lupdatebin, tsfile: str, debuglupdate: bool) -> (int, int, int):
         logging.debug('stdout: ' + res.stdout)
         exit(1)
     p = re.compile('Found (?P<nsrc>[0-9]+) source text\(s\) \((?P<nnew>[0-9]+) new and (?P<nsame>[0-9]+) already existing\)')
-    m = p.search(res.stdout.decode("ascii"))
+    m = p.search(res.stdout.decode('ascii'))
     logging.debug('Found %s texts where %s new and %s same', m.group('nsrc'), m.group('nnew'), m.group('nsame'))
     return (m.group('nsrc'), m.group('nnew'), m.group('nsame'))
 
@@ -93,7 +93,7 @@ if __name__ == '__main__':
         exit(1)
 
     # cd into repository root directory
-    os.chdir(os.path.dirname(os.path.abspath(__file__)) + "/..")
+    os.chdir(os.path.dirname(os.path.abspath(__file__)) + '/..')
     logging.info('Working in directory %s', os.getcwd())
 
     tsfiles = glob.glob(os.path.join('src', 'mumble', 'mumble_*.ts'))
