@@ -941,3 +941,8 @@ void MetaDBus::quit() {
 void MetaDBus::getVersion(int &major, int &minor, int &patch, QString &text) {
 	Meta::getVersion(major, minor, patch, text);
 }
+
+#undef PLAYER_SETUP_VAR
+#undef PLAYER_SETUP
+#undef CHANNEL_SETUP_VAR2
+#undef CHANNEL_SETUP_VAR

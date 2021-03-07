@@ -12,9 +12,6 @@
 
 #include "MainWindow.h"
 #include "User.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #define NBLOCKS 8
@@ -74,9 +71,9 @@ const QList< audioDevice > OSSInputRegistrar::getDeviceChoices() {
 	QStringList qlInputDevs = cards->qhInput.keys();
 	std::sort(qlInputDevs.begin(), qlInputDevs.end());
 
-	if (qlInputDevs.contains(g.s.qsOSSInput)) {
-		qlInputDevs.removeAll(g.s.qsOSSInput);
-		qlInputDevs.prepend(g.s.qsOSSInput);
+	if (qlInputDevs.contains(Global::get().s.qsOSSInput)) {
+		qlInputDevs.removeAll(Global::get().s.qsOSSInput);
+		qlInputDevs.prepend(Global::get().s.qsOSSInput);
 	}
 
 	foreach (const QString &dev, qlInputDevs) { qlReturn << audioDevice(cards->qhInput.value(dev), dev); }
@@ -105,9 +102,9 @@ const QList< audioDevice > OSSOutputRegistrar::getDeviceChoices() {
 	QStringList qlOutputDevs = cards->qhOutput.keys();
 	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
 
-	if (qlOutputDevs.contains(g.s.qsOSSOutput)) {
-		qlOutputDevs.removeAll(g.s.qsOSSOutput);
-		qlOutputDevs.prepend(g.s.qsOSSOutput);
+	if (qlOutputDevs.contains(Global::get().s.qsOSSOutput)) {
+		qlOutputDevs.removeAll(Global::get().s.qsOSSOutput);
+		qlOutputDevs.prepend(Global::get().s.qsOSSOutput);
 	}
 
 	foreach (const QString &dev, qlOutputDevs) { qlReturn << audioDevice(cards->qhOutput.value(dev), dev); }
@@ -175,7 +172,7 @@ OSSInput::~OSSInput() {
 }
 
 void OSSInput::run() {
-	QByteArray device = cards->qhDevices.value(g.s.qsOSSInput).toLatin1();
+	QByteArray device = cards->qhDevices.value(Global::get().s.qsOSSInput).toLatin1();
 	if (device.isEmpty()) {
 		qWarning("OSSInput: Stored device not found, falling back to default");
 		device = cards->qhDevices.value(QString()).toLatin1();
@@ -249,7 +246,7 @@ OSSOutput::~OSSOutput() {
 }
 
 void OSSOutput::run() {
-	QByteArray device = cards->qhDevices.value(g.s.qsOSSOutput).toLatin1();
+	QByteArray device = cards->qhDevices.value(Global::get().s.qsOSSOutput).toLatin1();
 	if (device.isEmpty()) {
 		qWarning("OSSOutput: Stored device not found, falling back to default");
 		device = cards->qhDevices.value(QString()).toLatin1();
@@ -263,7 +260,7 @@ void OSSOutput::run() {
 
 	int ival;
 
-	ival = (g.s.iOutputDelay + 1) << 16 | 11;
+	ival = (Global::get().s.iOutputDelay + 1) << 16 | 11;
 
 	if (ioctl(fd, SNDCTL_DSP_SETFRAGMENT, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set fragment");
@@ -330,3 +327,5 @@ void OSSOutput::run() {
 	ioctl(fd, SNDCTL_DSP_RESET, nullptr);
 	close(fd);
 }
+
+#undef NBLOCKS

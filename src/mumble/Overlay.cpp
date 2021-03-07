@@ -18,6 +18,7 @@
 #include "Utils.h"
 #include "WebFetch.h"
 #include "GlobalShortcut.h"
+#include "Global.h"
 
 #include <QtCore/QProcessEnvironment>
 #include <QtCore/QtEndian>
@@ -35,10 +36,6 @@
 #	include <ApplicationServices/ApplicationServices.h>
 #	include <CoreFoundation/CoreFoundation.h>
 #endif
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 #ifdef Q_OS_MAC
@@ -312,8 +309,8 @@ bool Overlay::isActive() const {
 }
 
 void Overlay::toggleShow() {
-	if (g.ocIntercept) {
-		g.ocIntercept->hideGui();
+	if (Global::get().ocIntercept) {
+		Global::get().ocIntercept->hideGui();
 	} else {
 		foreach (OverlayClient *oc, qlClients) {
 			if (oc->uiPid) {
@@ -348,11 +345,11 @@ void Overlay::forceSettings() {
 void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 	qsQueried.remove(cp->uiSession);
 
-	ClientUser *self = ClientUser::get(g.uiSession);
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
 	allowupdate      = allowupdate && self && self->cChannel->isLinked(cp->cChannel);
 
 	if (allowupdate && !cp->qbaTextureHash.isEmpty() && cp->qbaTexture.isEmpty())
-		cp->qbaTexture = g.db->blob(cp->qbaTextureHash);
+		cp->qbaTexture = Global::get().db->blob(cp->qbaTextureHash);
 
 	if (!cp->qbaTexture.isEmpty()) {
 		bool valid = true;
@@ -458,7 +455,7 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 typedef QPair< QString, quint32 > qpChanCol;
 
 void Overlay::updateOverlay() {
-	if (!g.uiSession)
+	if (!Global::get().uiSession)
 		qsQueried.clear();
 
 	if (qlClients.isEmpty())
@@ -481,13 +478,13 @@ void Overlay::updateOverlay() {
 			qsQueried.insert(session);
 			mprb.add_session_texture(session);
 		}
-		g.sh->sendMessage(mprb);
+		Global::get().sh->sendMessage(mprb);
 	}
 }
 
 void Overlay::requestTexture(ClientUser *cu) {
 	if (cu->qbaTexture.isEmpty() && !qsQueried.contains(cu->uiSession)) {
-		cu->qbaTexture = g.db->blob(cu->qbaTextureHash);
+		cu->qbaTexture = Global::get().db->blob(cu->qbaTextureHash);
 		if (cu->qbaTexture.isEmpty())
 			qsQuery.insert(cu->uiSession);
 		else

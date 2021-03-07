@@ -29,6 +29,7 @@
 #include "ServerResolverRecord.h"
 #include "User.h"
 #include "Utils.h"
+#include "Global.h"
 
 #include <QtCore/QtEndian>
 #include <QtGui/QImageReader>
@@ -55,10 +56,6 @@
 #	include <netinet/ip.h>
 #	include <sys/socket.h>
 #endif
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush)
 	: QEvent(static_cast< QEvent::Type >(SERVERSEND_EVENT)) {
@@ -126,11 +123,11 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 	MumbleSSL::addSystemCA();
 
 	{
-		QList< QSslCipher > ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(g.s.qsSslCiphers);
+		QList< QSslCipher > ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(Global::get().s.qsSslCiphers);
 		if (ciphers.isEmpty()) {
 			qFatal("Invalid 'net/sslciphers' config option. Either the cipher string is invalid or none of the ciphers "
 				   "are available:: \"%s\"",
-				   qPrintable(g.s.qsSslCiphers));
+				   qPrintable(Global::get().s.qsSslCiphers));
 		}
 
 		QSslConfiguration config = QSslConfiguration::defaultConfiguration();
@@ -253,8 +250,8 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 	unsigned int uiSession;
 	pds >> uiSession;
 	ClientUser *p     = ClientUser::get(uiSession);
-	AudioOutputPtr ao = g.ao;
-	if (ao && p && !(((msgFlags & 0x1f) == 2) && g.s.bWhisperFriends && p->qsFriendName.isEmpty())) {
+	AudioOutputPtr ao = Global::get().ao;
+	if (ao && p && !(((msgFlags & 0x1f) == 2) && Global::get().s.bWhisperFriends && p->qsFriendName.isEmpty())) {
 		unsigned int iSeq;
 		pds >> iSeq;
 		QByteArray qba;
@@ -374,12 +371,12 @@ void ServerHandler::run() {
 		qtsSock                 = new QSslSocket(this);
 		qtsSock->setPeerVerifyName(qsHostName);
 
-		if (!g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
-			qtsSock->setPrivateKey(g.s.kpCertificate.second);
-			qtsSock->setLocalCertificate(g.s.kpCertificate.first.at(0));
+		if (!Global::get().s.bSuppressIdentity && CertWizard::validateCert(Global::get().s.kpCertificate)) {
+			qtsSock->setPrivateKey(Global::get().s.kpCertificate.second);
+			qtsSock->setLocalCertificate(Global::get().s.kpCertificate.first.at(0));
 			QSslConfiguration config       = qtsSock->sslConfiguration();
 			QList< QSslCertificate > certs = config.caCertificates();
-			certs << g.s.kpCertificate.first;
+			certs << Global::get().s.kpCertificate.first;
 			config.setCaCertificates(certs);
 			qtsSock->setSslConfiguration(config);
 		}
@@ -426,9 +423,9 @@ void ServerHandler::run() {
 		// Setup ping timer;
 		QTimer *ticker = new QTimer(this);
 		connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
-		ticker->start(g.s.iPingIntervalMsec);
+		ticker->start(Global::get().s.iPingIntervalMsec);
 
-		g.mw->rtLast = MumbleProto::Reject_RejectType_None;
+		Global::get().mw->rtLast = MumbleProto::Reject_RejectType_None;
 
 		accUDP = accTCP = accClean;
 
@@ -545,7 +542,7 @@ void ServerHandler::sendPingInternal() {
 		return;
 	}
 
-	if (g.s.iMaxInFlightTCPPings > 0 && iInFlightTCPPings >= g.s.iMaxInFlightTCPPings) {
+	if (Global::get().s.iMaxInFlightTCPPings > 0 && iInFlightTCPPings >= Global::get().s.iMaxInFlightTCPPings) {
 		serverConnectionClosed(QAbstractSocket::UnknownSocketError, tr("Server is not responding to TCP pings"));
 		return;
 	}
@@ -629,19 +626,19 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 				bUdp = false;
 				if (!NetworkConfig::TcpModeEnabled()) {
 					if ((connection->csCrypt->uiRemoteGood == 0) && (connection->csCrypt->uiGood == 0))
-						g.mw->msgBox(
+						Global::get().mw->msgBox(
 							tr("UDP packets cannot be sent to or received from the server. Switching to TCP mode."));
 					else if (connection->csCrypt->uiRemoteGood == 0)
-						g.mw->msgBox(tr("UDP packets cannot be sent to the server. Switching to TCP mode."));
+						Global::get().mw->msgBox(tr("UDP packets cannot be sent to the server. Switching to TCP mode."));
 					else
-						g.mw->msgBox(tr("UDP packets cannot be received from the server. Switching to TCP mode."));
+						Global::get().mw->msgBox(tr("UDP packets cannot be received from the server. Switching to TCP mode."));
 
 					database->setUdp(qbaDigest, false);
 				}
 			} else if (!bUdp && (connection->csCrypt->uiRemoteGood > 3) && (connection->csCrypt->uiGood > 3)) {
 				bUdp = true;
 				if (!NetworkConfig::TcpModeEnabled()) {
-					g.mw->msgBox(
+					Global::get().mw->msgBox(
 						tr("UDP packets can be sent to and received from the server. Switching back to UDP mode."));
 
 					database->setUdp(qbaDigest, true);
@@ -650,7 +647,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		}
 	} else {
 		ServerHandlerMessageEvent *shme = new ServerHandlerMessageEvent(qbaMsg, msgType, false);
-		QApplication::postEvent(g.mw, shme);
+		QApplication::postEvent(Global::get().mw, shme);
 	}
 }
 
@@ -669,7 +666,7 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 		return;
 	c->bDisconnectedEmitted = true;
 
-	AudioOutputPtr ao = g.ao;
+	AudioOutputPtr ao = Global::get().ao;
 	if (ao)
 		ao->wipe();
 
@@ -705,7 +702,7 @@ void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState st
 		tConnectionTimeoutTimer = new QTimer();
 		connect(tConnectionTimeoutTimer, SIGNAL(timeout()), this, SLOT(serverConnectionTimeoutOnConnect()));
 		tConnectionTimeoutTimer->setSingleShot(true);
-		tConnectionTimeoutTimer->start(g.s.iConnectionTimeoutDurationMsec);
+		tConnectionTimeoutTimer->start(Global::get().s.iConnectionTimeoutDurationMsec);
 	} else if (state == QAbstractSocket::ConnectedState) {
 		// Start TLS handshake
 		qtsSock->startClientEncryption();
@@ -721,7 +718,7 @@ void ServerHandler::serverConnectionConnected() {
 
 	tConnectionTimeoutTimer->stop();
 
-	if (g.s.bQoS)
+	if (Global::get().s.bQoS)
 		connection->setToS();
 
 	qscCert   = connection->peerCertificateChain();
@@ -746,7 +743,7 @@ void ServerHandler::serverConnectionConnected() {
 		mpv.set_version(version);
 	}
 
-	if (!g.s.bHideOS) {
+	if (!Global::get().s.bHideOS) {
 		mpv.set_os(u8(OSInfo::getOS()));
 		mpv.set_os_version(u8(OSInfo::getOSDisplayableVersion()));
 	}
@@ -762,7 +759,7 @@ void ServerHandler::serverConnectionConnected() {
 		mpa.add_tokens(u8(qs));
 
 	QMap< int, CELTCodec * >::const_iterator i;
-	for (i = g.qmCodecs.constBegin(); i != g.qmCodecs.constEnd(); ++i)
+	for (i = Global::get().qmCodecs.constBegin(); i != Global::get().qmCodecs.constEnd(); ++i)
 		mpa.add_celt_versions(i.key());
 #ifdef USE_OPUS
 	mpa.set_opus(true);
@@ -785,7 +782,7 @@ void ServerHandler::serverConnectionConnected() {
 		if (!qusUdp) {
 			qFatal("ServerHandler: qusUdp is unexpectedly a null addr");
 		}
-		if (g.s.bUdpForceTcpAddr) {
+		if (Global::get().s.bUdpForceTcpAddr) {
 			qusUdp->bind(qhaLocal, 0);
 		} else {
 			if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol) {
@@ -797,7 +794,7 @@ void ServerHandler::serverConnectionConnected() {
 
 		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 
-		if (g.s.bQoS) {
+		if (Global::get().s.bQoS) {
 #if defined(Q_OS_UNIX)
 			int val = 0xe0;
 			if (setsockopt(static_cast< int >(qusUdp->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
@@ -892,7 +889,7 @@ void ServerHandler::startListeningToChannels(const QList< int > &channelIDs) {
 	}
 
 	MumbleProto::UserState mpus;
-	mpus.set_session(g.uiSession);
+	mpus.set_session(Global::get().uiSession);
 
 	foreach (int currentChannel, channelIDs) {
 		// The naming of the function is a bit unfortunate but what this does is to add
@@ -913,7 +910,7 @@ void ServerHandler::stopListeningToChannels(const QList< int > &channelIDs) {
 	}
 
 	MumbleProto::UserState mpus;
-	mpus.set_session(g.uiSession);
+	mpus.set_session(Global::get().uiSession);
 
 	foreach (int currentChannel, channelIDs) {
 		// The naming of the function is a bit unfortunate but what this does is to add
@@ -983,8 +980,8 @@ void ServerHandler::sendChannelTextMessage(unsigned int channel, const QString &
 	} else {
 		mptm.add_channel_id(channel);
 
-		if (message_ == QString::fromUtf8(g.ccHappyEaster + 10))
-			g.bHappyEaster = true;
+		if (message_ == QString::fromUtf8(Global::get().ccHappyEaster + 10))
+			Global::get().bHappyEaster = true;
 	}
 	mptm.set_message(u8(message_));
 	sendMessage(mptm);

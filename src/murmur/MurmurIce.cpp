@@ -1942,3 +1942,40 @@ static void impl_Meta_getUptime(const ::Murmur::AMD_Meta_getUptimePtr cb, const 
 }
 
 #include "MurmurIceWrapper.cpp"
+
+#undef FIND_SERVER
+#undef NEED_SERVER_EXISTS
+#undef NEED_SERVER
+#undef NEED_PLAYER
+#undef NEED_CHANNEL_VAR
+#undef NEED_CHANNEL
+#undef ACCESS_Server_isRunning_READ
+#undef ACCESS_Server_id_READ
+#undef ACCESS_Server_getConf_READ
+#undef ACCESS_Server_getAllConf_READ
+#undef ACCESS_Server_getLog_READ
+#undef ACCESS_Server_getLogLen_READ
+#undef ACCESS_Server_getUsers_READ
+#undef ACCESS_Server_getChannels_READ
+#undef ACCESS_Server_getTree_READ
+#undef ACCESS_Server_getCertificateList_READ
+#undef ACCESS_Server_getBans_READ
+#undef ACCESS_Server_hasPermission_READ
+#undef ACCESS_Server_effectivePermissions_READ
+#undef ACCESS_Server_getState_READ
+#undef ACCESS_Server_getChannelState_READ
+#undef ACCESS_Server_getACL_READ
+#undef ACCESS_Server_getUserNames_READ
+#undef ACCESS_Server_getUserIds_READ
+#undef ACCESS_Server_getRegistration_READ
+#undef ACCESS_Server_getRegisteredUsers_READ
+#undef ACCESS_Server_verifyPassword_READ
+#undef ACCESS_Server_getTexture_READ
+#undef ACCESS_Server_getUptime_READ
+#undef ACCESS_Meta_getSliceChecksums_ALL
+#undef ACCESS_Meta_getServer_READ
+#undef ACCESS_Meta_getAllServers_READ
+#undef ACCESS_Meta_getDefaultConf_READ
+#undef ACCESS_Meta_getBootedServers_READ
+#undef ACCESS_Meta_getVersion_ALL
+#undef ACCESS_Meta_getUptime_ALL

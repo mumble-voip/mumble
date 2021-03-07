@@ -7,10 +7,6 @@
 #	ifndef MUMBLE_MURMUR_MURMUR_PCH_H_
 #		define MUMBLE_MURMUR_MURMUR_PCH_H_
 
-#		ifdef _MSC_VER
-#			define _USE_MATH_DEFINES
-#		endif
-
 #		include <QtCore/QtGlobal>
 
 #		ifdef Q_OS_WIN

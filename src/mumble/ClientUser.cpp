@@ -97,7 +97,7 @@ void ClientUser::remove(unsigned int uiSession) {
 	}
 
 	if (p) {
-		AudioOutputPtr ao = g.ao;
+		AudioOutputPtr ao = Global::get().ao;
 		if (ao) {
 			// It is safe to call this function and to give the ClientUser pointer
 			// to it even though we don't hold the lock anymore as it will only take
@@ -253,7 +253,7 @@ void ClientUser::setLocalNickname(const QString &nickname) {
 }
 
 bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *second) {
-	if (g.s.os.osSort == OverlaySettings::LastStateChange) {
+	if (Global::get().s.os.osSort == OverlaySettings::LastStateChange) {
 		// Talkers above non-talkers
 		if (first->tsState != Settings::Passive && second->tsState == Settings::Passive)
 			return true;
@@ -287,7 +287,7 @@ bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *seco
 
 	// When sorting for the overlay always place the local users
 	// channel above the others
-	ClientUser *self = c_qmUsers.value(g.uiSession);
+	ClientUser *self = c_qmUsers.value(Global::get().uiSession);
 	if (self) {
 		if (self->cChannel == first->cChannel)
 			return true;
@@ -311,7 +311,7 @@ bool ClientUser::isActive() {
 	if (!tLastTalkStateChange.isStarted())
 		return false;
 
-	return tLastTalkStateChange.elapsed() < g.s.os.uiActiveTime * 1000000U;
+	return tLastTalkStateChange.elapsed() < Global::get().s.os.uiActiveTime * 1000000U;
 }
 
 /* From Channel.h

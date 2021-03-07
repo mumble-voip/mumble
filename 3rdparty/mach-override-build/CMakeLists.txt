@@ -10,6 +10,9 @@ endif()
 
 add_library(mach-override STATIC)
 
+# mach-override doesn't work in unity builds
+set_target_properties(mach-override PROPERTIES UNITY_BUILD FALSE)
+
 target_include_directories(mach-override PUBLIC SYSTEM ${SRC_DIR})
 
 target_sources(mach-override

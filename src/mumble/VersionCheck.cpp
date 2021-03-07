@@ -8,6 +8,7 @@
 #include "MainWindow.h"
 #include "Utils.h"
 #include "WebFetch.h"
+#include "Global.h"
 
 #ifdef Q_OS_WIN
 #	include "win.h"
@@ -23,10 +24,6 @@
 #	include <shellapi.h>
 #	include <softpub.h>
 #endif
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p), m_preparationWatcher() {
 	connect(&m_preparationWatcher, &QFutureWatcher< void >::finished, this, &VersionCheck::performRequest);
@@ -52,13 +49,13 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p),
 #else
 		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Unix"));
 #endif
-		if (!g.s.bUsage)
+		if (!Global::get().s.bUsage)
 			queryItems << qMakePair(QString::fromLatin1("nousage"), QString::fromLatin1("1"));
 		if (autocheck)
 			queryItems << qMakePair(QString::fromLatin1("auto"), QString::fromLatin1("1"));
 
 		queryItems << qMakePair(QString::fromLatin1("locale"),
-								g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage);
+								Global::get().s.qsLanguage.isEmpty() ? QLocale::system().name() : Global::get().s.qsLanguage);
 
 		QFile f(qApp->applicationFilePath());
 		if (!f.open(QIODevice::ReadOnly)) {
@@ -91,10 +88,10 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 		if (!a.isEmpty()) {
 #ifdef SNAPSHOT_BUILD
 			if (url.path() == QLatin1String("/v1/banner")) {
-				g.mw->msgBox(QString::fromUtf8(a));
+				Global::get().mw->msgBox(QString::fromUtf8(a));
 			} else if (url.path() == QLatin1String("/v1/version-check")) {
 #	ifndef Q_OS_WIN
-				g.mw->msgBox(QString::fromUtf8(a));
+				Global::get().mw->msgBox(QString::fromUtf8(a));
 #	else
 				QDomDocument qdd;
 				qdd.setContent(a);
@@ -106,10 +103,10 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 				fetch.setHost(QString());
 				fetch.setScheme(QString());
 				if (!fetch.isValid()) {
-					g.mw->msgBox(QString::fromUtf8(a));
+					Global::get().mw->msgBox(QString::fromUtf8(a));
 				} else {
 					QString filename =
-						g.qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(fetch.path()).fileName());
+						Global::get().qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(fetch.path()).fileName());
 
 					QFile qf(filename);
 					if (qf.exists()) {
@@ -136,7 +133,7 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 
 						if (ts == 0) {
 							if (QMessageBox::question(
-									g.mw, tr("Upgrade Mumble"),
+									Global::get().mw, tr("Upgrade Mumble"),
 									tr("A new version of Mumble has been detected and automatically downloaded. It is "
 									   "recommended that you either upgrade to this version, or downgrade to the "
 									   "latest stable release. Do you want to launch the installer now?"),
@@ -152,22 +149,22 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 								execinfo.nShow       = SW_NORMAL;
 
 								if (ShellExecuteExW(&execinfo)) {
-									g.mw->bSuppressAskOnQuit = true;
+									Global::get().mw->bSuppressAskOnQuit = true;
 									qApp->closeAllWindows();
 								} else {
-									g.mw->msgBox(tr("Failed to launch snapshot installer."));
+									Global::get().mw->msgBox(tr("Failed to launch snapshot installer."));
 								}
 							}
 
 						} else {
-							g.mw->msgBox(tr("Corrupt download of new version detected. Automatically removed."));
+							Global::get().mw->msgBox(tr("Corrupt download of new version detected. Automatically removed."));
 							qf.remove();
 						}
 
 						// Delete all but the N most recent snapshots
 						size_t numberOfSnapshotsToKeep = 1;
 
-						QDir snapdir(g.qdBasePath.absolutePath() + QLatin1String("/Snapshots/"), QString(), QDir::Name,
+						QDir snapdir(Global::get().qdBasePath.absolutePath() + QLatin1String("/Snapshots/"), QString(), QDir::Name,
 									 QDir::Files);
 
 						foreach (const QFileInfo fileInfo,
@@ -182,7 +179,7 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							file.remove();
 						}
 					} else {
-						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2")
+						Global::get().mw->msgBox(tr("Downloading new snapshot from %1 to %2")
 										 .arg(fetch.toString().toHtmlEscaped(), filename.toHtmlEscaped()));
 						WebFetch::fetch(QLatin1String("dl"), fetch, this, SLOT(fetched(QByteArray, QUrl)));
 						return;
@@ -190,25 +187,25 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 				}
 			} else {
 				QString filename =
-					g.qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(url.path()).fileName());
+					Global::get().qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(url.path()).fileName());
 
 				QFile qf(filename);
 				if (qf.open(QIODevice::WriteOnly)) {
 					qf.write(a);
 					qf.close();
-					new VersionCheck(true, g.mw);
+					new VersionCheck(true, Global::get().mw);
 				} else {
-					g.mw->msgBox(tr("Failed to write new version to disk."));
+					Global::get().mw->msgBox(tr("Failed to write new version to disk."));
 				}
 #	endif
 			}
 #else
 			Q_UNUSED(url);
-			g.mw->msgBox(QString::fromUtf8(a));
+			Global::get().mw->msgBox(QString::fromUtf8(a));
 #endif
 		}
 	} else {
-		g.mw->msgBox(tr("Mumble failed to retrieve version information from the central server."));
+		Global::get().mw->msgBox(tr("Mumble failed to retrieve version information from the central server."));
 	}
 
 	deleteLater();

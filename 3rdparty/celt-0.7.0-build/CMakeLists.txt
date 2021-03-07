@@ -11,6 +11,9 @@ endif()
 
 add_library(celt SHARED)
 
+# Celt doesn't work in unity builds
+set_target_properties(celt PROPERTIES UNITY_BUILD FALSE)
+
 set_target_properties(celt PROPERTIES VERSION "0.7.0")
 
 target_compile_definitions(celt PRIVATE "HAVE_CONFIG_H")

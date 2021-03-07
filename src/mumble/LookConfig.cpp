@@ -9,14 +9,11 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "MainWindow.h"
+#include "Global.h"
 
 #include <QtCore/QFileSystemWatcher>
 #include <QtCore/QStack>
 #include <QtCore/QTimer>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 const QString LookConfig::name = QLatin1String("LookConfig");
 
@@ -274,7 +271,7 @@ void LookConfig::save() const {
 }
 
 void LookConfig::accept() const {
-	g.mw->setShowDockTitleBars((g.s.wlWindowLayout == Settings::LayoutCustom) && !g.s.bLockLayout);
+	Global::get().mw->setShowDockTitleBars((Global::get().s.wlWindowLayout == Settings::LayoutCustom) && !Global::get().s.bLockLayout);
 }
 
 void LookConfig::themeDirectoryChanged() {

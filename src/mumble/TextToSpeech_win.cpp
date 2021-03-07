@@ -11,8 +11,7 @@
 #include <sapi.h>
 // clang-format on
 
-#undef FAILED
-#define FAILED(Status) (static_cast< HRESULT >(Status) < 0)
+#define HAS_FAILED(Status) (static_cast< HRESULT >(Status) < 0)
 
 class TextToSpeechPrivate {
 public:
@@ -27,7 +26,7 @@ TextToSpeechPrivate::TextToSpeechPrivate() {
 	pVoice = nullptr;
 
 	HRESULT hr = CoCreateInstance(CLSID_SpVoice, nullptr, CLSCTX_ALL, IID_ISpVoice, (void **) &pVoice);
-	if (FAILED(hr))
+	if (HAS_FAILED(hr))
 		qWarning("TextToSpeechPrivate: Failed to allocate TTS Voice");
 }
 
@@ -72,3 +71,5 @@ void TextToSpeech::setVolume(int volume) {
 bool TextToSpeech::isEnabled() const {
 	return enabled;
 }
+
+#undef HAS_FAILED

@@ -62,7 +62,7 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	int min   = iroundf(static_cast< float >(iMin) * scale + 0.5f);
 	int peak  = iroundf(static_cast< float >(iPeak) * scale + 0.5f);
 
-	if (g.s.bHighContrast) {
+	if (Global::get().s.bHighContrast) {
 		// Draw monochrome representation
 		QColor fg = QPalette().windowText().color();
 
@@ -138,15 +138,13 @@ static inline const QColor mapEchoToColor(float echo) {
 		return QColor::fromRgbF(c, b, a);
 }
 
-#define WGT(x, y) st->W[(y) *N + 2 * (x) + 1]
-
 void AudioEchoWidget::paintEvent(QPaintEvent *) {
 	QPainter paint(this);
 
 	paint.scale(width(), height());
 	paint.fillRect(rect(), Qt::black);
 
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai = Global::get().ai;
 	if (!ai || !ai->sesEcho)
 		return;
 
@@ -215,7 +213,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	paint.fillRect(rect(), pal.color(QPalette::Window));
 
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai = Global::get().ai;
 	if (!ai.get() || !ai->sppPreprocess)
 		return;
 
@@ -287,7 +285,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	anwNoise->setAccessibleName(tr("Power spectrum of input signal and noise estimate"));
 	aewEcho->setAccessibleName(tr("Weights of the echo canceller"));
 
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai = Global::get().ai;
 
 	if (ai && ai->sesEcho) {
 		qgbEcho->setVisible(true);
@@ -316,7 +314,7 @@ AudioStats::~AudioStats() {
 #	define FORMAT_TO_TXT(format, arg) txt.sprintf(format, arg)
 #endif
 void AudioStats::on_Tick_timeout() {
-	AudioInputPtr ai = g.ai;
+	AudioInputPtr ai = Global::get().ai;
 
 	if (!ai.get() || !ai->sppPreprocess)
 		return;
@@ -376,16 +374,16 @@ void AudioStats::on_Tick_timeout() {
 		qlSpeechProb->setFont(f);
 	}
 
-	if (g.uiDoublePush > 1000000)
+	if (Global::get().uiDoublePush > 1000000)
 		txt = tr(">1000 ms");
 	else
-		FORMAT_TO_TXT("%04llu ms", g.uiDoublePush / 1000);
+		FORMAT_TO_TXT("%04llu ms", Global::get().uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
-	abSpeech->iBelow = iroundf(g.s.fVADmin * 32767.0f + 0.5f);
-	abSpeech->iAbove = iroundf(g.s.fVADmax * 32767.0f + 0.5f);
+	abSpeech->iBelow = iroundf(Global::get().s.fVADmin * 32767.0f + 0.5f);
+	abSpeech->iAbove = iroundf(Global::get().s.fVADmax * 32767.0f + 0.5f);
 
-	if (g.s.vsVAD == Settings::Amplitude) {
+	if (Global::get().s.vsVAD == Settings::Amplitude) {
 		abSpeech->iValue = iroundf((32767.f / 96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 	} else {
 		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);

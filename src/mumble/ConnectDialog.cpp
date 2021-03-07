@@ -15,6 +15,7 @@
 #include "ServerResolver.h"
 #include "Utils.h"
 #include "WebFetch.h"
+#include "Global.h"
 
 #include <QtCore/QMimeData>
 #include <QtCore/QUrlQuery>
@@ -39,10 +40,6 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #	include <QRandomGenerator>
 #endif
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 QMap< QString, QIcon > ServerItem::qmIcons;
 QList< PublicInfo > ConnectDialog::qlPublicServers;
@@ -109,7 +106,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN         = nullptr;
 #endif
 
-	if (!g.s.bDisablePublicList) {
+	if (!Global::get().s.bDisablePublicList) {
 		siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
 		siPublic->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 		addTopLevelItem(siPublic);
@@ -407,19 +404,19 @@ ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
 	QUrlQuery query(url);
 
 	if (url.userName().isEmpty()) {
-		if (g.s.qsUsername.isEmpty()) {
+		if (Global::get().s.qsUsername.isEmpty()) {
 			bool ok;
 			QString defUserName =
 				QInputDialog::getText(p, ConnectDialog::tr("Adding host %1").arg(url.host()),
-									  ConnectDialog::tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok)
+									  ConnectDialog::tr("Enter username"), QLineEdit::Normal, Global::get().s.qsUsername, &ok)
 					.trimmed();
 			if (!ok)
 				return nullptr;
 			if (defUserName.isEmpty())
 				return nullptr;
-			g.s.qsUsername = defUserName;
+			Global::get().s.qsUsername = defUserName;
 		}
-		url.setUserName(g.s.qsUsername);
+		url.setUserName(Global::get().s.qsUsername);
 	}
 
 	ServerItem *si =
@@ -759,11 +756,11 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 
 	if (!updateFromClipboard()) {
 		// If connected to a server assume the user wants to add it
-		if (g.sh && g.sh->isRunning()) {
+		if (Global::get().sh && Global::get().sh->isRunning()) {
 			QString host, name, user, pw;
 			unsigned short port = DEFAULT_MUMBLE_PORT;
 
-			g.sh->getConnectionInfo(host, port, user, pw);
+			Global::get().sh->getConnectionInfo(host, port, user, pw);
 			Channel *c = Channel::get(0);
 			if (c && c->qsName != QLatin1String("Root")) {
 				name = c->qsName;
@@ -776,7 +773,7 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 			m_si = new ServerItem(name, host, port, user, pw);
 		}
 	}
-	qleUsername->setText(g.s.qsUsername);
+	qleUsername->setText(Global::get().s.qsUsername);
 }
 
 void ConnectDialogEdit::init() {
@@ -940,10 +937,10 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	siAutoConnect = nullptr;
 
-	bAllowPing       = g.s.ptProxyType == Settings::NoProxy;
-	bAllowHostLookup = g.s.ptProxyType == Settings::NoProxy;
-	bAllowZeroconf   = g.s.ptProxyType == Settings::NoProxy;
-	bAllowFilters    = g.s.ptProxyType == Settings::NoProxy;
+	bAllowPing       = Global::get().s.ptProxyType == Settings::NoProxy;
+	bAllowHostLookup = Global::get().s.ptProxyType == Settings::NoProxy;
+	bAllowZeroconf   = Global::get().s.ptProxyType == Settings::NoProxy;
+	bAllowFilters    = Global::get().s.ptProxyType == Settings::NoProxy;
 
 	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
 		qlPublicServers.clear();
@@ -966,12 +963,12 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	connect(qpbEdit, SIGNAL(clicked()), qaFavoriteEdit, SIGNAL(triggered()));
 	qdbbButtonBox->addButton(qpbEdit, QDialogButtonBox::ActionRole);
 
-	qpbAdd->setHidden(g.s.disableConnectDialogEditing);
-	qpbEdit->setHidden(g.s.disableConnectDialogEditing);
+	qpbAdd->setHidden(Global::get().s.disableConnectDialogEditing);
+	qpbEdit->setHidden(Global::get().s.disableConnectDialogEditing);
 
 	qtwServers->setItemDelegate(new ServerViewDelegate());
 
-	if (!g.s.bDisablePublicList) {
+	if (!Global::get().s.bDisablePublicList) {
 		const QIcon qiFlag = ServerItem::loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 		// Add continents and 'Unknown' to the location combobox
 		qcbSearchLocation->addItem(qiFlag, tr("All"), QLatin1String("all"));
@@ -1005,7 +1002,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 			SLOT(OnSortChanged(int, Qt::SortOrder)));
 
 	if (bAllowFilters) {
-		switch (g.s.ssFilter) {
+		switch (Global::get().s.ssFilter) {
 			case Settings::ShowPopulated:
 				qcbFilter->setCurrentText(tr("Show Populated"));
 				break;
@@ -1023,7 +1020,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	qmPopup = new QMenu(this);
 
 	QList< QTreeWidgetItem * > ql;
-	QList< FavoriteServer > favorites = g.db->getFavorites();
+	QList< FavoriteServer > favorites = Global::get().db->getFavorites();
 
 	foreach (const FavoriteServer &fs, favorites) {
 		ServerItem *si = new ServerItem(fs);
@@ -1032,13 +1029,13 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 		qtwServers->siFavorite->addServerItem(si);
 	}
 #ifdef USE_ZEROCONF
-	if (bAllowZeroconf && g.zeroconf && g.zeroconf->isOk()) {
-		connect(g.zeroconf, &Zeroconf::recordsChanged, this, &ConnectDialog::onUpdateLanList);
-		connect(g.zeroconf, &Zeroconf::recordResolved, this, &ConnectDialog::onResolved);
-		connect(g.zeroconf, &Zeroconf::resolveError, this, &ConnectDialog::onLanResolveError);
-		onUpdateLanList(g.zeroconf->currentRecords());
+	if (bAllowZeroconf && Global::get().zeroconf && Global::get().zeroconf->isOk()) {
+		connect(Global::get().zeroconf, &Zeroconf::recordsChanged, this, &ConnectDialog::onUpdateLanList);
+		connect(Global::get().zeroconf, &Zeroconf::recordResolved, this, &ConnectDialog::onResolved);
+		connect(Global::get().zeroconf, &Zeroconf::resolveError, this, &ConnectDialog::onLanResolveError);
+		onUpdateLanList(Global::get().zeroconf->currentRecords());
 
-		g.zeroconf->startBrowser(QLatin1String("_mumble._tcp"));
+		Global::get().zeroconf->startBrowser(QLatin1String("_mumble._tcp"));
 	}
 #endif
 	qtPingTick = new QTimer(this);
@@ -1065,19 +1062,19 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	qtwServers->setCurrentItem(nullptr);
 	bLastFound = false;
 
-	qmPingCache = g.db->getPingCache();
+	qmPingCache = Global::get().db->getPingCache();
 
-	if (!g.s.qbaConnectDialogGeometry.isEmpty())
-		restoreGeometry(g.s.qbaConnectDialogGeometry);
-	if (!g.s.qbaConnectDialogHeader.isEmpty())
-		qtwServers->header()->restoreState(g.s.qbaConnectDialogHeader);
+	if (!Global::get().s.qbaConnectDialogGeometry.isEmpty())
+		restoreGeometry(Global::get().s.qbaConnectDialogGeometry);
+	if (!Global::get().s.qbaConnectDialogHeader.isEmpty())
+		qtwServers->header()->restoreState(Global::get().s.qbaConnectDialogHeader);
 }
 
 ConnectDialog::~ConnectDialog() {
 #ifdef USE_ZEROCONF
-	if (bAllowZeroconf && g.zeroconf && g.zeroconf->isOk()) {
-		g.zeroconf->stopBrowser();
-		g.zeroconf->cleanupResolvers();
+	if (bAllowZeroconf && Global::get().zeroconf && Global::get().zeroconf->isOk()) {
+		Global::get().zeroconf->stopBrowser();
+		Global::get().zeroconf->cleanupResolvers();
 	}
 #endif
 	ServerItem::qmIcons.clear();
@@ -1093,11 +1090,11 @@ ConnectDialog::~ConnectDialog() {
 			continue;
 		ql << si->toFavoriteServer();
 	}
-	g.db->setFavorites(ql);
-	g.db->setPingCache(qmPingCache);
+	Global::get().db->setFavorites(ql);
+	Global::get().db->setPingCache(qmPingCache);
 
-	g.s.qbaConnectDialogHeader   = qtwServers->header()->saveState();
-	g.s.qbaConnectDialogGeometry = saveGeometry();
+	Global::get().s.qbaConnectDialogHeader   = qtwServers->header()->saveState();
+	Global::get().s.qbaConnectDialogGeometry = saveGeometry();
 }
 
 void ConnectDialog::accept() {
@@ -1114,16 +1111,16 @@ void ConnectDialog::accept() {
 	if (si->qsUsername.isEmpty()) {
 		bool ok;
 		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(si->qsName), tr("Enter username"),
-													QLineEdit::Normal, g.s.qsUsername, &ok)
+													QLineEdit::Normal, Global::get().s.qsUsername, &ok)
 								  .trimmed();
 		if (!ok)
 			return;
-		g.s.qsUsername = si->qsUsername = defUserName;
+		Global::get().s.qsUsername = si->qsUsername = defUserName;
 	}
 
 	qsUsername = si->qsUsername;
 
-	g.s.qsLastServer = si->qsName;
+	Global::get().s.qsLastServer = si->qsName;
 
 	QDialog::accept();
 }
@@ -1275,7 +1272,7 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos)
 	}
 
 	if (si) {
-		if (!g.s.disableConnectDialogEditing) {
+		if (!Global::get().s.disableConnectDialogEditing) {
 			if (si->itType == ServerItem::FavoriteType) {
 				qmPopup->addAction(qaFavoriteEdit);
 				qmPopup->addAction(qaFavoriteRemove);
@@ -1317,7 +1314,7 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 
 void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 	if (qtwServers->siPublic && item == qtwServers->siPublic) {
-		if (!g.s.bPingServersDialogViewed) {
+		if (!Global::get().s.bPingServersDialogViewed) {
 			// Ask the user for consent to ping the servers. If the user does
 			// not give consent, disable the public server list and return.
 			int result = QMessageBox::question(
@@ -1327,9 +1324,9 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 				   "<p>Do you consent to the transmission of your IP address? If you answer no, the public server "
 				   "list will be deactivated. However, you can reactivate it at any time in the network settings.</p>"),
 				QMessageBox::Yes | QMessageBox::No);
-			g.s.bPingServersDialogViewed = true;
+			Global::get().s.bPingServersDialogViewed = true;
 			if (result == QMessageBox::No) {
-				g.s.bDisablePublicList = true;
+				Global::get().s.bDisablePublicList = true;
 				item->setExpanded(false);
 				item->setHidden(true);
 				return;
@@ -1405,7 +1402,7 @@ void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 		if (!found) {
 			ServerItem *si = new ServerItem(record);
 			qlItems << si;
-			g.zeroconf->startResolver(record);
+			Global::get().zeroconf->startResolver(record);
 			startDns(si);
 			qtwServers->siLAN->addServerItem(si);
 		}
@@ -1466,13 +1463,13 @@ void ConnectDialog::fillList() {
 }
 
 void ConnectDialog::timeTick() {
-	if (!bLastFound && !g.s.qsLastServer.isEmpty()) {
+	if (!bLastFound && !Global::get().s.qsLastServer.isEmpty()) {
 		QList< QTreeWidgetItem * > items =
-			qtwServers->findItems(g.s.qsLastServer, Qt::MatchExactly | Qt::MatchRecursive);
+			qtwServers->findItems(Global::get().s.qsLastServer, Qt::MatchExactly | Qt::MatchRecursive);
 		if (!items.isEmpty()) {
 			bLastFound = true;
 			qtwServers->setCurrentItem(items.at(0));
-			if (g.s.bAutoConnect && bAutoConnect) {
+			if (Global::get().s.bAutoConnect && bAutoConnect) {
 				siAutoConnect = static_cast< ServerItem * >(items.at(0));
 				if (!siAutoConnect->qlAddresses.isEmpty()) {
 					accept();
@@ -1562,7 +1559,7 @@ void ConnectDialog::timeTick() {
 }
 
 void ConnectDialog::filterPublicServerList() const {
-	if (!g.s.bDisablePublicList) {
+	if (!Global::get().s.bDisablePublicList) {
 		foreach (ServerItem *const si, qtwServers->siPublic->qlChildren) { filterServer(si); }
 	}
 }
@@ -1578,10 +1575,10 @@ void ConnectDialog::filterServer(ServerItem *const si) const {
 			return;
 		}
 	}
-	if (g.s.ssFilter == Settings::ShowReachable && si->dPing == 0.0) {
+	if (Global::get().s.ssFilter == Settings::ShowReachable && si->dPing == 0.0) {
 		si->setHidden(true);
 		return;
-	} else if (g.s.ssFilter == Settings::ShowPopulated && si->uiUsers == 0) {
+	} else if (Global::get().s.ssFilter == Settings::ShowPopulated && si->uiUsers == 0) {
 		si->setHidden(true);
 		return;
 	}
@@ -1637,7 +1634,7 @@ void ConnectDialog::startDns(ServerItem *si) {
 #ifdef USE_ZEROCONF
 	if (bAllowZeroconf && si->qsHostname.isEmpty() && !si->zeroconfRecord.serviceName.isEmpty()) {
 		if (!qlBonjourActive.contains(si->zeroconfRecord)) {
-			g.zeroconf->startResolver(si->zeroconfRecord);
+			Global::get().zeroconf->startResolver(si->zeroconfRecord);
 			qlBonjourActive.append(si->zeroconfRecord);
 		}
 		return;
@@ -1853,11 +1850,11 @@ void ConnectDialog::on_qcbSearchLocation_currentIndexChanged(int searchLocationI
 void ConnectDialog::on_qcbFilter_currentIndexChanged(int filterIndex) {
 	const QString filter = qcbFilter->itemText(filterIndex);
 	if (filter == tr("Show All")) {
-		g.s.ssFilter = Settings::ShowAll;
+		Global::get().s.ssFilter = Settings::ShowAll;
 	} else if (filter == tr("Show Reachable")) {
-		g.s.ssFilter = Settings::ShowReachable;
+		Global::get().s.ssFilter = Settings::ShowReachable;
 	} else if (filter == tr("Show Populated")) {
-		g.s.ssFilter = Settings::ShowPopulated;
+		Global::get().s.ssFilter = Settings::ShowPopulated;
 	}
 
 	filterPublicServerList();

@@ -152,3 +152,5 @@ int main(int argc, char **argv) {
 #endif
 	}
 }
+
+#undef _CRT_SECURE_NO_WARNINGS

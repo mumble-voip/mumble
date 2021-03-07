@@ -11,7 +11,7 @@ static LCDEngine *G15LCDEngineNew() {
 	return new G15LCDEngineHelper();
 }
 
-static LCDEngineRegistrar registrar(G15LCDEngineNew);
+static LCDEngineRegistrar registrarLCDEngine(G15LCDEngineNew);
 
 G15LCDEngineHelper::G15LCDEngineHelper() : LCDEngine() {
 	bRunning     = false;

@@ -4,8 +4,8 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ViewCert.h"
+#include "QtUtils.h"
 
-#include <QtCore/QUrl>
 #include <QtNetwork/QSslKey>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGroupBox>
@@ -13,14 +13,9 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
 
-static QString decode_utf8_qssl_string(const QString &input) {
-	QString i = input;
-	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
-}
-
 static QStringList processQSslCertificateInfo(QStringList in) {
 	QStringList list;
-	foreach (QString str, in) { list << decode_utf8_qssl_string(str); }
+	foreach (QString str, in) { list << Mumble::QtUtils::decode_utf8_qssl_string(str); }
 	return list;
 }
 

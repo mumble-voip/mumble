@@ -150,3 +150,5 @@ QString GKeyLibrary::getMouseButtonString(int button) {
 QString GKeyLibrary::getKeyboardGkeyString(int key, int mode) {
 	return QString::fromWCharArray(LogiGkeyGetKeyboardGkeyString(key, mode));
 }
+
+#undef RESOLVE

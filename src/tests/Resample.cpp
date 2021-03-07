@@ -15,7 +15,6 @@
 
 #include <QtCore>
 
-#define _USE_MATH_DEFINES
 #include <cmath>
 
 #include <speex/speex_resampler.h>
@@ -131,3 +130,5 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
+
+#undef ITER

@@ -5,6 +5,12 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+pushd $BUILD_BINARIESDIRECTORY
+
+cmake --install .
+
+popd
+
 # Get the AppImage-tool - always use the latest available version
 wget -c https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep "appimagetool-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2)
 chmod +x appimagetool-*.AppImage

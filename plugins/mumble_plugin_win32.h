@@ -10,7 +10,6 @@
 #	error "Include mumble_plugin_main.h instead of mumble_plugin_win32.h"
 #endif
 
-#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
 // Define "NOMINMAX" only if it isn't already.

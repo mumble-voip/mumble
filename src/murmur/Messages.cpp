@@ -2164,3 +2164,12 @@ void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &) {
 
 void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &) {
 }
+
+#undef RATELIMIT
+#undef MSG_SETUP
+#undef MSG_SETUP_NO_UNIDLE
+#undef VICTIM_SETUP
+#undef PERM_DENIED
+#undef PERM_DENIED_TYPE
+#undef PERM_DENIED_FALLBACK
+#undef PERM_DENIED_HASH

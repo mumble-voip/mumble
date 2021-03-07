@@ -17,6 +17,7 @@
 #	include "TextToSpeech.h"
 #endif
 #include "Utils.h"
+#include "Global.h"
 
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
@@ -27,17 +28,13 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtWidgets/QDesktopWidget>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
-
 const QString LogConfig::name = QLatin1String("LogConfig");
 
 static ConfigWidget *LogConfigDialogNew(Settings &st) {
 	return new LogConfig(st);
 }
 
-static ConfigRegistrar registrar(4000, LogConfigDialogNew);
+static ConfigRegistrar registrarLog(4000, LogConfigDialogNew);
 
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
@@ -77,7 +74,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 		Log::MsgType t            = Log::msgOrder[i];
-		const QString messageName = g.l->msgName(t);
+		const QString messageName = Global::get().l->msgName(t);
 
 		twi = new QTreeWidgetItem(qtwMessages);
 		twi->setData(ColMessage, Qt::UserRole, static_cast< int >(t));
@@ -268,9 +265,9 @@ void LogConfig::save() const {
 
 void LogConfig::accept() const {
 #ifndef USE_NO_TTS
-	g.l->tts->setVolume(s.iTTSVolume);
+	Global::get().l->tts->setVolume(s.iTTSVolume);
 #endif
-	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
+	Global::get().mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
@@ -309,7 +306,7 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
 
 void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem *item, int column) {
 	if (item && item != allMessagesItem && column == ColStaticSoundPath) {
-		AudioOutputPtr ao = g.ao;
+		AudioOutputPtr ao = Global::get().ao;
 		if (ao) {
 			if (!ao->playSample(item->text(ColStaticSoundPath), false))
 				browseForAudioFile();
@@ -339,7 +336,7 @@ QVector< LogMessage > Log::qvDeferredLogs;
 Log::Log(QObject *p) : QObject(p) {
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
-	tts->setVolume(g.s.iTTSVolume);
+	tts->setVolume(Global::get().s.iTTSVolume);
 #endif
 	uiLastId = 0;
 	qdDate   = QDate::currentDate();
@@ -447,14 +444,14 @@ QString Log::formatChannel(::Channel *c) {
 	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>")
 		.arg(c->iId)
 		.arg(c->qsName.toHtmlEscaped())
-		.arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+		.arg(QString::fromLatin1(Global::get().sh->qbaDigest.toBase64()));
 }
 
 void Log::logOrDefer(Log::MsgType mt, const QString &console, const QString &terse, bool ownMessage,
 					 const QString &overrideTTS, bool ignoreTTS) {
-	if (g.l) {
+	if (Global::get().l) {
 		// log directly as it seems the log-UI has been set-up already
-		g.l->log(mt, console, terse, ownMessage, overrideTTS, ignoreTTS);
+		Global::get().l->log(mt, console, terse, ownMessage, overrideTTS, ignoreTTS);
 	} else {
 		// defer the log
 		QMutexLocker mLock(&Log::qmDeferredLogs);
@@ -478,7 +475,7 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &dis
 				.arg(className)
 				.arg(cu->uiSession)
 				.arg(name)
-				.arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+				.arg(QString::fromLatin1(Global::get().sh->qbaDigest.toBase64()));
 		} else {
 			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>")
 				.arg(className)
@@ -552,7 +549,7 @@ QString Log::imageToImg(QImage img, int maxSize) {
 QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	LogDocument qtd;
 
-	QRectF qr = Screen::screenFromWidget(*g.mw)->availableGeometry();
+	QRectF qr = Screen::screenFromWidget(*Global::get().mw)->availableGeometry();
 	qtd.setTextWidth(qr.width() / 2);
 	qtd.setDefaultStyleSheet(qApp->styleSheet());
 
@@ -633,23 +630,23 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	QString plain = QTextDocumentFragment::fromHtml(console).toPlainText();
 
-	quint32 flags = g.s.qmMessages.value(mt);
+	quint32 flags = Global::get().s.qmMessages.value(mt);
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		QTextCursor tc = g.mw->qteLog->textCursor();
+		QTextCursor tc = Global::get().mw->qteLog->textCursor();
 
 		// We copy the value from the settings in order to make sure that
 		// we use the same margin everywhere while in this method (even if
 		// the setting might change in that time).
-		const int msgMargin = g.s.iChatMessageMargins;
+		const int msgMargin = Global::get().s.iChatMessageMargins;
 
 		QTextBlockFormat format = tc.blockFormat();
 		format.setTopMargin(msgMargin);
 		format.setBottomMargin(msgMargin);
 		tc.setBlockFormat(format);
 
-		LogTextBrowser *tlog     = g.mw->qteLog;
+		LogTextBrowser *tlog     = Global::get().mw->qteLog;
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll        = (oldscrollvalue == tlog->getLogScrollMaximum());
 
@@ -685,12 +682,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tc.insertBlock();
 		}
 
-		const QString timeString = dt.time().toString(QLatin1String(g.s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
+		const QString timeString = dt.time().toString(QLatin1String(Global::get().s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timeString.toHtmlEscaped()), Log::Time));
 
 		validHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
-		g.mw->qteLog->setTextCursor(tc);
+		Global::get().mw->qteLog->setTextCursor(tc);
 
 		if (scroll || ownMessage)
 			tlog->scrollLogToBottom();
@@ -699,10 +696,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	}
 
 	if (!ownMessage) {
-		if (!(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible())) {
+		if (!(Global::get().mw->isActiveWindow() && Global::get().mw->qdwLog->isVisible())) {
 			// Message notification with window highlight
 			if (flags & Settings::LogHighlight) {
-				QApplication::alert(g.mw);
+				QApplication::alert(Global::get().mw);
 			}
 
 			// Message notification with balloon tooltips
@@ -712,25 +709,25 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		}
 
 		// Don't make any noise if we are self deafened (Unless it is the sound for activating self deaf)
-		if (g.s.bDeaf && mt != Log::SelfDeaf) {
+		if (Global::get().s.bDeaf && mt != Log::SelfDeaf) {
 			return;
 		}
 
 		// Message notification with static sounds
 		if ((flags & Settings::LogSoundfile)) {
-			QString sSound    = g.s.qmMessageSounds.value(mt);
-			AudioOutputPtr ao = g.ao;
+			QString sSound    = Global::get().s.qmMessageSounds.value(mt);
+			AudioOutputPtr ao = Global::get().ao;
 			if (!ao || !ao->playSample(sSound, false)) {
 				qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
 				flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS
 			}
 		}
-	} else if (!g.s.bTTSMessageReadBack) {
+	} else if (!Global::get().s.bTTSMessageReadBack) {
 		return;
 	}
 
 	// Message notification with Text-To-Speech
-	if (g.s.bDeaf || !g.s.bTTS || !(flags & Settings::LogTTS) || ignoreTTS) {
+	if (Global::get().s.bDeaf || !Global::get().s.bTTS || !(flags & Settings::LogTTS) || ignoreTTS) {
 		return;
 	}
 
@@ -772,9 +769,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 #ifndef USE_NO_TTS
 	// TTS threshold limiter.
-	if (plain.length() <= g.s.iTTSThreshold)
+	if (plain.length() <= Global::get().s.iTTSThreshold)
 		tts->say(plain);
-	else if ((!terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
+	else if ((!terse.isEmpty()) && (terse.length() <= Global::get().s.iTTSThreshold))
 		tts->say(terse);
 #else
 	// Mark as unused
@@ -794,7 +791,7 @@ void Log::processDeferredLogs() {
 
 // Post a notification using the MainWindow's QSystemTrayIcon.
 void Log::postQtNotification(MsgType mt, const QString &plain) {
-	if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
+	if (Global::get().mw->qstiIcon->isSystemTrayAvailable() && Global::get().mw->qstiIcon->supportsMessages()) {
 		QSystemTrayIcon::MessageIcon msgIcon;
 		switch (mt) {
 			case DebugInfo:
@@ -808,7 +805,7 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 				msgIcon = QSystemTrayIcon::Information;
 				break;
 		}
-		g.mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
+		Global::get().mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 	}
 }
 

@@ -8,14 +8,11 @@
 #include "AudioOutput.h"
 #include "ClientUser.h"
 #include "ServerHandler.h"
+#include "Global.h"
 
 #include "../Timer.h"
 
 #include <boost/make_shared.hpp>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 VoiceRecorder::RecordBuffer::RecordBuffer(int recordInfoIndex_, boost::shared_array< float > buffer_, int samples_,
 										  quint64 absoluteStartSample_)
@@ -97,10 +94,10 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 	QString time(m_recordingStartTime.time().toString(QLatin1String("hh-mm-ss")));
 
 	QString hostname(QLatin1String("Unknown"));
-	if (g.sh && g.uiSession != 0) {
+	if (Global::get().sh && Global::get().uiSession != 0) {
 		unsigned short port;
 		QString uname, pw;
-		g.sh->getConnectionInfo(hostname, port, uname, pw);
+		Global::get().sh->getConnectionInfo(hostname, port, uname, pw);
 	}
 
 	// Create hash which stores the names of the variables with the corresponding values.
@@ -167,7 +164,7 @@ SF_INFO VoiceRecorder::createSoundFileInfo() const {
 	Q_ASSERT(m_config.sampleRate != 0);
 
 	// When adding new formats make sure to properly configure needed additional
-	// behavior after opening the file handle (e.g. to enable clipping).
+	// behavior after opening the file handle (e.Global::get(). to enable clipping).
 
 	// Convert |fmFormat| to a SF_INFO structure for libsndfile.
 	SF_INFO sfinfo;
@@ -283,7 +280,7 @@ bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO &soundFileInfo, boost::shared_
 void VoiceRecorder::run() {
 	Q_ASSERT(!m_recording);
 
-	if (g.sh && g.sh->uiVersion < 0x010203)
+	if (Global::get().sh && Global::get().sh->uiVersion < 0x010203)
 		return;
 
 	SF_INFO soundFileInfo = createSoundFileInfo();
@@ -296,7 +293,7 @@ void VoiceRecorder::run() {
 		m_sleepLock.lock();
 		m_sleepCondition.wait(&m_sleepLock);
 
-		if (!m_recording || m_abort || (g.sh && g.sh->uiVersion < 0x010203)) {
+		if (!m_recording || m_abort || (Global::get().sh && Global::get().sh->uiVersion < 0x010203)) {
 			m_sleepLock.unlock();
 			break;
 		}

@@ -24,11 +24,6 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 			c = 'X';
 	}
 
-#define LOG(f, msg)                                                                                      \
-	fprintf(f, "<%c>%s %s\n", c,                                                                         \
-			qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), \
-			qPrintable(msg))
-
 	QString date = QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
 	QString fmsg = QString::fromLatin1("<%1>%2 %3").arg(c).arg(date).arg(msg);
 	fprintf(stderr, "%s\n", qPrintable(fmsg));
@@ -49,7 +44,7 @@ void os_init() {
 	// Make a copy of the global LogEmitter, such that
 	// os_unix.cpp doesn't have to consider the deletion
 	// of the Global object and its LogEmitter object.
-	le = g.le;
+	le = Global::get().le;
 
 	qInstallMessageHandler(mumbleMessageOutputWithContext);
 }

@@ -6,9 +6,6 @@
 #include "JackAudio.h"
 
 #include "Utils.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #ifdef Q_CC_GNU
@@ -148,9 +145,9 @@ const QList< audioDevice > JackAudioOutputRegistrar::getDeviceChoices() {
 	QStringList qlOutputDevs = jas->qhOutput.keys();
 	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
 
-	if (qlOutputDevs.contains(g.s.qsJackAudioOutput)) {
-		qlOutputDevs.removeAll(g.s.qsJackAudioOutput);
-		qlOutputDevs.prepend(g.s.qsJackAudioOutput);
+	if (qlOutputDevs.contains(Global::get().s.qsJackAudioOutput)) {
+		qlOutputDevs.removeAll(Global::get().s.qsJackAudioOutput);
+		qlOutputDevs.prepend(Global::get().s.qsJackAudioOutput);
 	}
 
 	foreach (const QString &dev, qlOutputDevs) { qlReturn << audioDevice(jas->qhOutput.value(dev), dev); }
@@ -269,8 +266,8 @@ bool JackAudioSystem::initialize() {
 	}
 
 	jack_status_t status;
-	client = jack_client_open(g.s.qsJackClientName.toStdString().c_str(),
-							  g.s.bJackStartServer ? JackNullOption : JackNoStartServer, &status);
+	client = jack_client_open(Global::get().s.qsJackClientName.toStdString().c_str(),
+							  Global::get().s.bJackStartServer ? JackNullOption : JackNoStartServer, &status);
 	if (!client) {
 		const auto errors = jackStatusToStringList(status);
 		qWarning("JackAudioSystem: unable to open client due to %i errors:", errors.count());
@@ -395,7 +392,7 @@ bool JackAudioSystem::isOk() {
 }
 
 uint8_t JackAudioSystem::outPorts() {
-	return static_cast< uint8_t >(qBound< unsigned >(1, g.s.qsJackAudioOutput.toUInt(), JACK_MAX_OUTPUT_PORTS));
+	return static_cast< uint8_t >(qBound< unsigned >(1, Global::get().s.qsJackAudioOutput.toUInt(), JACK_MAX_OUTPUT_PORTS));
 }
 
 jack_nframes_t JackAudioSystem::sampleRate() {
@@ -599,8 +596,8 @@ void JackAudioSystem::ringbufferWriteAdvance(jack_ringbuffer_t *buffer, const si
 }
 
 int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
-	auto const jai = dynamic_cast< JackAudioInput * >(g.ai.get());
-	auto const jao = dynamic_cast< JackAudioOutput * >(g.ao.get());
+	auto const jai = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const jao = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
 	const bool input  = (jai && jai->isReady());
 	const bool output = (jao && jao->isReady());
@@ -617,8 +614,8 @@ int JackAudioSystem::processCallback(jack_nframes_t frames, void *) {
 }
 
 int JackAudioSystem::sampleRateCallback(jack_nframes_t, void *) {
-	auto const jai = dynamic_cast< JackAudioInput * >(g.ai.get());
-	auto const jao = dynamic_cast< JackAudioOutput * >(g.ao.get());
+	auto const jai = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const jao = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
 	if (jai) {
 		jai->activate();
@@ -632,8 +629,8 @@ int JackAudioSystem::sampleRateCallback(jack_nframes_t, void *) {
 }
 
 int JackAudioSystem::bufferSizeCallback(jack_nframes_t frames, void *) {
-	auto const jai = dynamic_cast< JackAudioInput * >(g.ai.get());
-	auto const jao = dynamic_cast< JackAudioOutput * >(g.ao.get());
+	auto const jai = dynamic_cast< JackAudioInput * >(Global::get().ai.get());
+	auto const jao = dynamic_cast< JackAudioOutput * >(Global::get().ao.get());
 
 	if (jai && !jai->allocBuffer(frames)) {
 		return 1;
@@ -822,7 +819,7 @@ void JackAudioInput::run() {
 	}
 
 	// Initialization
-	if (g.s.bJackAutoConnect) {
+	if (Global::get().s.bJackAutoConnect) {
 		connectPorts();
 	}
 
@@ -1064,7 +1061,7 @@ void JackAudioOutput::run() {
 	}
 
 	// Initialization
-	if (g.s.bJackAutoConnect) {
+	if (Global::get().s.bJackAutoConnect) {
 		connectPorts();
 	}
 
@@ -1129,3 +1126,5 @@ void JackAudioOutput::run() {
 		qsSleep.acquire(1);
 	} while (bReady);
 }
+
+#undef RESOLVE

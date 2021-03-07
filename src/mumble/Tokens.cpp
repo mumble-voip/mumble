@@ -7,17 +7,14 @@
 
 #include "Database.h"
 #include "ServerHandler.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 Tokens::Tokens(QWidget *p) : QDialog(p) {
 	setupUi(this);
 	qlwTokens->setAccessibleName(tr("Tokens"));
 
-	qbaDigest          = g.sh->qbaDigest;
-	QStringList tokens = g.db->getTokens(qbaDigest);
+	qbaDigest          = Global::get().sh->qbaDigest;
+	QStringList tokens = Global::get().db->getTokens(qbaDigest);
 	tokens.sort();
 	foreach (const QString &qs, tokens) {
 		QListWidgetItem *qlwi = new QListWidgetItem(qs);
@@ -35,8 +32,8 @@ void Tokens::accept() {
 		if (!text.isEmpty())
 			qsl << text;
 	}
-	g.db->setTokens(qbaDigest, qsl);
-	g.sh->setTokens(qsl);
+	Global::get().db->setTokens(qbaDigest, qsl);
+	Global::get().sh->setTokens(qsl);
 	QDialog::accept();
 }
 

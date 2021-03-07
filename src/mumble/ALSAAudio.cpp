@@ -12,8 +12,6 @@
 #include <alsa/asoundlib.h>
 #include <sys/poll.h>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #define NBLOCKS 8
@@ -96,9 +94,9 @@ const QList< audioDevice > ALSAAudioInputRegistrar::getDeviceChoices() {
 	QStringList qlInputDevs = cards->qhInput.keys();
 	std::sort(qlInputDevs.begin(), qlInputDevs.end());
 
-	if (qlInputDevs.contains(g.s.qsALSAInput)) {
-		qlInputDevs.removeAll(g.s.qsALSAInput);
-		qlInputDevs.prepend(g.s.qsALSAInput);
+	if (qlInputDevs.contains(Global::get().s.qsALSAInput)) {
+		qlInputDevs.removeAll(Global::get().s.qsALSAInput);
+		qlInputDevs.prepend(Global::get().s.qsALSAInput);
 	}
 
 	foreach (const QString &dev, qlInputDevs) {
@@ -130,9 +128,9 @@ const QList< audioDevice > ALSAAudioOutputRegistrar::getDeviceChoices() {
 	QStringList qlOutputDevs = cards->qhOutput.keys();
 	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
 
-	if (qlOutputDevs.contains(g.s.qsALSAOutput)) {
-		qlOutputDevs.removeAll(g.s.qsALSAOutput);
-		qlOutputDevs.prepend(g.s.qsALSAOutput);
+	if (qlOutputDevs.contains(Global::get().s.qsALSAOutput)) {
+		qlOutputDevs.removeAll(Global::get().s.qsALSAOutput);
+		qlOutputDevs.prepend(Global::get().s.qsALSAOutput);
 	}
 
 	foreach (const QString &dev, qlOutputDevs) {
@@ -299,7 +297,7 @@ void ALSAAudioInput::run() {
 	QMutexLocker qml(&qmALSA);
 	snd_pcm_sframes_t readblapp;
 
-	QByteArray device_name         = g.s.qsALSAInput.toLatin1();
+	QByteArray device_name         = Global::get().s.qsALSAInput.toLatin1();
 	snd_pcm_hw_params_t *hw_params = nullptr;
 	snd_pcm_t *capture_handle      = nullptr;
 
@@ -351,7 +349,7 @@ void ALSAAudioInput::run() {
 			snd_pcm_close(capture_handle);
 			capture_handle = nullptr;
 		}
-		g.mw->msgBox(
+		Global::get().mw->msgBox(
 			tr("Opening chosen ALSA Input failed: %1").arg(QString::fromLatin1(snd_strerror(err)).toHtmlEscaped()));
 		return;
 	}
@@ -420,7 +418,7 @@ void ALSAAudioOutput::run() {
 
 	snd_pcm_hw_params_t *hw_params = nullptr;
 	snd_pcm_sw_params_t *sw_params = nullptr;
-	QByteArray device_name         = g.s.qsALSAOutput.toLatin1();
+	QByteArray device_name         = Global::get().s.qsALSAOutput.toLatin1();
 
 	snd_pcm_hw_params_alloca(&hw_params);
 	snd_pcm_sw_params_alloca(&sw_params);
@@ -444,7 +442,7 @@ void ALSAAudioOutput::run() {
 	unsigned int iOutputSize = (iFrameSize * rrate) / SAMPLE_RATE;
 
 	snd_pcm_uframes_t period_size = iOutputSize;
-	snd_pcm_uframes_t buffer_size = iOutputSize * (g.s.iOutputDelay + 1);
+	snd_pcm_uframes_t buffer_size = iOutputSize * (Global::get().s.iOutputDelay + 1);
 
 	int dir = 1;
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(pcm_handle, hw_params, &period_size, &dir));
@@ -487,7 +485,7 @@ void ALSAAudioOutput::run() {
 			snd_pcm_writei(pcm_handle, zerobuff, period_size);
 
 	if (!bOk) {
-		g.mw->msgBox(
+		Global::get().mw->msgBox(
 			tr("Opening chosen ALSA Output failed: %1").arg(QString::fromLatin1(snd_strerror(err)).toHtmlEscaped()));
 		if (pcm_handle) {
 			snd_pcm_close(pcm_handle);
@@ -567,3 +565,7 @@ void ALSAAudioOutput::run() {
 	}
 	snd_pcm_close(pcm_handle);
 }
+
+#undef NBLOCKS
+#undef ALSA_ERRBAIL
+#undef ALSA_ERRCHECK

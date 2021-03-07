@@ -375,3 +375,10 @@ bool CryptStateOCB2::ocb_decrypt(const unsigned char *encrypted, unsigned char *
 
 	return success;
 }
+
+#undef BLOCKSIZE
+#undef SHIFTBITS
+#undef SWAPPED
+#undef HIGHBIT
+#undef AES_encrypt
+#undef AES_decrypt

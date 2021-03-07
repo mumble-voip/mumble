@@ -1753,6 +1753,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 #endif
 
 	switch (uiType) { MUMBLE_MH_ALL }
+
+#undef MUMBLE_MH_MSG
 }
 
 void Server::checkTimeout() {
@@ -2288,3 +2290,8 @@ bool Server::canNest(Channel *newParent, Channel *channel) const {
 
 	return (parentLevel + channelDepth) < iChannelNestingLimit;
 }
+
+#undef MAX
+#undef UDP_PACKET_SIZE
+#undef SIO_UDP_CONNRESET
+#undef SENDTO

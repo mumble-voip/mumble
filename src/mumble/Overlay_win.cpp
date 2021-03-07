@@ -10,14 +10,11 @@
 #include "MumbleApplication.h"
 #include "OverlayConfig.h"
 #include "User.h"
+#include "Global.h"
 
 #include "Overlay_win.h"
 
 #include "../../overlay/overlay_exe/overlay_exe.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 // Used by the overlay to detect whether we injected into ourselves.
 //
@@ -90,7 +87,7 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p)
 	m_helper_restart_timer->setSingleShot(true);
 	connect(m_helper_restart_timer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
 
-	if (!g.s.bOverlayWinHelperX86Enable) {
+	if (!Global::get().s.bOverlayWinHelperX86Enable) {
 		qWarning("OverlayPrivateWin: mumble_ol_helper.exe (32-bit overlay helper) disabled via "
 				 "'overlay_win/enable_x86_helper' config option.");
 		m_helper_enabled = false;
@@ -117,7 +114,7 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p)
 		qWarning("OverlayPrivateWin: mumble_ol_helper_x64.exe (64-bit overlay helper) disabled because the host is not "
 				 "x64 capable.");
 		m_helper64_enabled = false;
-	} else if (!g.s.bOverlayWinHelperX64Enable) {
+	} else if (!Global::get().s.bOverlayWinHelperX64Enable) {
 		qWarning("OverlayPrivateWin: mumble_ol_helper_x64.exe (64-bit overlay helper) disabled via "
 				 "'overlay_win/enable_x64_helper' config option.");
 		m_helper64_enabled = false;
@@ -274,7 +271,7 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 		// We could be hitting a crash bug in the helper,
 		// and we don't want to do too much harm in that
 		// case by spawning thousands of processes.
-		qint64 cooldownMsec = (qint64) g.s.iOverlayWinHelperRestartCooldownMsec;
+		qint64 cooldownMsec = (qint64) Global::get().s.iOverlayWinHelperRestartCooldownMsec;
 		if (elapsedMsec < cooldownMsec) {
 			qint64 delayMsec = cooldownMsec - elapsedMsec;
 			qWarning("OverlayPrivateWin: waiting %llu seconds until restarting helper process '%s'. last restart was "

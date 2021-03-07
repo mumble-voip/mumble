@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "MainWindow.h"
 #include "XMLTools.h"
+#include "Global.h"
 
 #include <QtCore/QMimeData>
 #include <QtGui/QImageReader>
@@ -19,10 +20,6 @@
 #ifdef Q_OS_WIN
 #	include <shlobj.h>
 #endif
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 RichTextHtmlEdit::RichTextHtmlEdit(QWidget *p) : QTextEdit(p) {
 	m_document = new LogDocument(this);
@@ -231,17 +228,17 @@ void RichTextEditor::on_qaLink_triggered() {
 }
 
 void RichTextEditor::on_qaImage_triggered() {
-	QPair< QByteArray, QImage > choice = g.mw->openImageFile();
+	QPair< QByteArray, QImage > choice = Global::get().mw->openImageFile();
 
 	QByteArray &qba = choice.first;
 
 	if (qba.isEmpty())
 		return;
 
-	if ((g.uiImageLength > 0) && (static_cast< unsigned int >(qba.length()) > g.uiImageLength)) {
+	if ((Global::get().uiImageLength > 0) && (static_cast< unsigned int >(qba.length()) > Global::get().uiImageLength)) {
 		QMessageBox::warning(this, tr("Failed to load image"),
 							 tr("Image file too large to embed in document. Please use images smaller than %1 kB.")
-								 .arg(g.uiImageLength / 1024));
+								 .arg(Global::get().uiImageLength / 1024));
 		return;
 	}
 
@@ -276,7 +273,7 @@ void RichTextEditor::on_qteRichText_textChanged() {
 	bChanged  = true;
 	updateActions();
 
-	if (!g.uiMessageLength)
+	if (!Global::get().uiMessageLength)
 		return;
 
 	richToPlain();
@@ -288,9 +285,9 @@ void RichTextEditor::on_qteRichText_textChanged() {
 	unsigned int imagelength = plainText.length();
 
 
-	if (g.uiMessageLength && imagelength <= g.uiMessageLength) {
+	if (Global::get().uiMessageLength && imagelength <= Global::get().uiMessageLength) {
 		over = false;
-	} else if (g.uiImageLength && imagelength > g.uiImageLength) {
+	} else if (Global::get().uiImageLength && imagelength > Global::get().uiImageLength) {
 		over = true;
 	} else {
 		QString qsOut;
@@ -317,7 +314,7 @@ void RichTextEditor::on_qteRichText_textChanged() {
 					break;
 			}
 		}
-		over = (static_cast< unsigned int >(qsOut.length()) > g.uiMessageLength);
+		over = (static_cast< unsigned int >(qsOut.length()) > Global::get().uiMessageLength);
 	}
 
 
@@ -404,9 +401,9 @@ void RichTextEditor::richToPlain() {
 }
 
 void RichTextEditor::setText(const QString &txt, bool readonly) {
-	qtbToolBar->setEnabled(!readonly && g.bAllowHTML);
-	qtbToolBar->setVisible(!readonly && g.bAllowHTML);
-	qptePlainText->setReadOnly(readonly || !g.bAllowHTML);
+	qtbToolBar->setEnabled(!readonly && Global::get().bAllowHTML);
+	qtbToolBar->setVisible(!readonly && Global::get().bAllowHTML);
+	qptePlainText->setReadOnly(readonly || !Global::get().bAllowHTML);
 	qteRichText->setReadOnly(readonly);
 
 	qteRichText->setHtml(txt);

@@ -9,14 +9,11 @@
 #include "ClientUser.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
+#include "Global.h"
 
 #include <QtCore/QUrlQuery>
 #include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusMessage>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 MumbleDBus::MumbleDBus(QObject *mw) : QDBusAbstractAdaptor(mw) {
 }
@@ -29,12 +26,12 @@ void MumbleDBus::openUrl(const QString &url, const QDBusMessage &msg) {
 		QDBusConnection::sessionBus().send(
 			msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.url"), QLatin1String("Invalid URL")));
 	} else {
-		g.mw->openUrl(u);
+		Global::get().mw->openUrl(u);
 	}
 }
 
 void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
-	if (!g.sh || !g.sh->isRunning() || !g.uiSession) {
+	if (!Global::get().sh || !Global::get().sh->isRunning() || !Global::get().uiSession) {
 		QDBusConnection::sessionBus().send(msg.createErrorReply(
 			QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
 		return;
@@ -43,7 +40,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 	unsigned short port;
 	QUrl u;
 
-	g.sh->getConnectionInfo(host, port, user, pw);
+	Global::get().sh->getConnectionInfo(host, port, user, pw);
 	u.setScheme(QLatin1String("mumble"));
 	u.setHost(host);
 	u.setPort(port);
@@ -54,7 +51,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 	u.setQuery(query);
 
 	QStringList path;
-	Channel *c = ClientUser::get(g.uiSession)->cChannel;
+	Channel *c = ClientUser::get(Global::get().uiSession)->cChannel;
 	while (c->cParent) {
 		path.prepend(c->qsName);
 		c = c->cParent;
@@ -70,7 +67,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 }
 
 void MumbleDBus::getTalkingUsers(const QDBusMessage &msg) {
-	if (!g.sh || !g.sh->isRunning() || !g.uiSession) {
+	if (!Global::get().sh || !Global::get().sh->isRunning() || !Global::get().uiSession) {
 		QDBusConnection::sessionBus().send(msg.createErrorReply(
 			QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
 		return;
@@ -81,64 +78,64 @@ void MumbleDBus::getTalkingUsers(const QDBusMessage &msg) {
 }
 
 void MumbleDBus::focus() {
-	g.mw->show();
-	g.mw->raise();
-	g.mw->activateWindow();
+	Global::get().mw->show();
+	Global::get().mw->raise();
+	Global::get().mw->activateWindow();
 }
 
 void MumbleDBus::setTransmitMode(unsigned int mode, const QDBusMessage &msg) {
 	switch (mode) {
 		case 0:
-			g.s.atTransmit = Settings::Continuous;
+			Global::get().s.atTransmit = Settings::Continuous;
 			break;
 		case 1:
-			g.s.atTransmit = Settings::VAD;
+			Global::get().s.atTransmit = Settings::VAD;
 			break;
 		case 2:
-			g.s.atTransmit = Settings::PushToTalk;
+			Global::get().s.atTransmit = Settings::PushToTalk;
 			break;
 		default:
 			QDBusConnection::sessionBus().send(msg.createErrorReply(
 				QLatin1String("net.sourceforge.mumble.Error.transmitMode"), QLatin1String("Invalid transmit mode")));
 			return;
 	}
-	QMetaObject::invokeMethod(g.mw, "updateTransmitModeComboBox", Qt::QueuedConnection);
+	QMetaObject::invokeMethod(Global::get().mw, "updateTransmitModeComboBox", Qt::QueuedConnection);
 }
 
 unsigned int MumbleDBus::getTransmitMode() {
-	return g.s.atTransmit;
+	return Global::get().s.atTransmit;
 }
 
 void MumbleDBus::toggleSelfMuted() {
-	g.mw->qaAudioMute->trigger();
+	Global::get().mw->qaAudioMute->trigger();
 }
 
 void MumbleDBus::toggleSelfDeaf() {
-	g.mw->qaAudioDeaf->trigger();
+	Global::get().mw->qaAudioDeaf->trigger();
 }
 
 void MumbleDBus::setSelfMuted(bool mute) {
-	g.mw->qaAudioMute->setChecked(!mute);
-	g.mw->qaAudioMute->trigger();
+	Global::get().mw->qaAudioMute->setChecked(!mute);
+	Global::get().mw->qaAudioMute->trigger();
 }
 
 void MumbleDBus::setSelfDeaf(bool deafen) {
-	g.mw->qaAudioDeaf->setChecked(!deafen);
-	g.mw->qaAudioDeaf->trigger();
+	Global::get().mw->qaAudioDeaf->setChecked(!deafen);
+	Global::get().mw->qaAudioDeaf->trigger();
 }
 
 bool MumbleDBus::isSelfMuted() {
-	return g.s.bMute;
+	return Global::get().s.bMute;
 }
 
 bool MumbleDBus::isSelfDeaf() {
-	return g.s.bDeaf;
+	return Global::get().s.bDeaf;
 }
 
 void MumbleDBus::startTalking() {
-	g.mw->on_PushToTalk_triggered(true, QVariant());
+	Global::get().mw->on_PushToTalk_triggered(true, QVariant());
 }
 
 void MumbleDBus::stopTalking() {
-	g.mw->on_PushToTalk_triggered(false, QVariant());
+	Global::get().mw->on_PushToTalk_triggered(false, QVariant());
 }

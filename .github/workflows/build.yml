@@ -56,7 +56,7 @@ jobs:
     - name: Run CMake
       run: |
           cmake -G Ninja -S $GITHUB_WORKSPACE -B ${{runner.workspace}}/build -DCMAKE_BUILD_TYPE=$BUILD_TYPE $CMAKE_OPTIONS \
-            $ADDITIONAL_CMAKE_OPTIONS $VCPKG_CMAKE_OPTIONS
+          -DCMAKE_UNITY_BUILD=ON $ADDITIONAL_CMAKE_OPTIONS $VCPKG_CMAKE_OPTIONS
       shell: bash
 
     - name: Build

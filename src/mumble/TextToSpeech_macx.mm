@@ -38,7 +38,6 @@
 
 #import <AppKit/AppKit.h>
 
-#include "Global.h"
 #include "TextToSpeech.h"
 
 @interface MUSpeechSynthesizerPrivateHelper : NSObject {

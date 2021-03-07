@@ -40,6 +40,9 @@ remove_definitions("-DUNICODE")
 
 add_library(overlay SHARED)
 
+# The overlay doesn't work well with unity builds
+set_target_properties(overlay PROPERTIES UNITY_BUILD FALSE)
+
 find_program(FXC "fxc" DOC "Effect-Compiler tool")
 if(NOT FXC)
 	message(FATAL_ERROR "Effect-Compiler tool not found!")

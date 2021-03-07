@@ -402,6 +402,12 @@ if(WIN32)
 		"${CMAKE_SOURCE_DIR}/overlay/ods.cpp"
 	)
 
+	# WinGUIDs.cpp includes initguid.h which causes a macro definition in guiddef.h to be
+	# chaged in such a way that subsequent usages break (redefinition errors).
+	# Thus we must not package this source file in a unity build allowing other files
+	# to include plain guiddef.h without having to worry about side-effects.
+	set_source_files_properties("WinGUIDs.cpp" PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE)
+
 	find_pkg(Boost
 		COMPONENTS
 			system
@@ -520,6 +526,9 @@ if(bundled-opus)
 
 	# Disable all warnings that the Opus code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/opus")
+
+	# Opus doesn't work in unity builds
+	set_target_properties(opus PROPERTIES UNITY_BUILD FALSE)
 
 	add_dependencies(mumble opus)
 
@@ -979,4 +988,19 @@ if(wasapi)
 	if(MSVC)
 		set_property(TARGET mumble APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:avrt.dll")
 	endif()
+endif()
+
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0" AND APPLE)
+	# Prevent objective C files from being included in unity builds as that causes issues
+	set_source_files_properties(
+		"AppNap.mm"
+		"GlobalShortcut_macx.mm"
+		"Log_macx.mm"
+		"os_macx.mm"
+		"TextToSpeech_macx.mm"
+		"Overlay_macx.mm"
+		"CoreAudio.mm"
+		PROPERTIES
+			SKIP_UNITY_BUILD_INCLUSION TRUE
+	)
 endif()

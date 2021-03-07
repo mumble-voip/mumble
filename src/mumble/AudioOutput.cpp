@@ -3,14 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-// <cmath> includes <math.h>, but only if it isn't already included.
-// We include <cmath> as first header to make sure that we include <math.h> with _USE_MATH_DEFINES.
-#ifdef _MSC_VER
-#	define _USE_MATH_DEFINES
-#endif
-
-#include <cmath>
-
 #include "AudioOutput.h"
 
 #include "AudioInput.h"
@@ -27,10 +19,9 @@
 #include "User.h"
 #include "Utils.h"
 #include "VoiceRecorder.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
+
+#include <cmath>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -55,11 +46,11 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 		return AudioOutputPtr();
 
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
-		g.s.qsAudioOutput = choice;
+		Global::get().s.qsAudioOutput = choice;
 		current           = choice;
 		return AudioOutputPtr(qmNew->value(choice)->create());
 	}
-	choice = g.s.qsAudioOutput;
+	choice = Global::get().s.qsAudioOutput;
 	if (qmNew->contains(choice)) {
 		current = choice;
 		return AudioOutputPtr(qmNew->value(choice)->create());
@@ -109,23 +100,23 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 
 
 	// No distance attenuation
-	if (g.s.fAudioMaxDistVolume > 0.99f) {
-		att = qMin(1.0f, dotfactor + g.s.fAudioBloom);
-	} else if (distance < g.s.fAudioMinDistance) {
-		float bloomfac = g.s.fAudioBloom * (1.0f - distance / g.s.fAudioMinDistance);
+	if (Global::get().s.fAudioMaxDistVolume > 0.99f) {
+		att = qMin(1.0f, dotfactor + Global::get().s.fAudioBloom);
+	} else if (distance < Global::get().s.fAudioMinDistance) {
+		float bloomfac = Global::get().s.fAudioBloom * (1.0f - distance / Global::get().s.fAudioMinDistance);
 
 		att = qMin(1.0f, bloomfac + dotfactor);
 	} else {
 		float datt;
 
-		if (distance >= g.s.fAudioMaxDistance) {
-			datt = g.s.fAudioMaxDistVolume;
+		if (distance >= Global::get().s.fAudioMaxDistance) {
+			datt = Global::get().s.fAudioMaxDistVolume;
 		} else {
-			float mvol = g.s.fAudioMaxDistVolume;
+			float mvol = Global::get().s.fAudioMaxDistVolume;
 			if (mvol < 0.01f)
 				mvol = 0.01f;
 
-			float drel = (distance - g.s.fAudioMinDistance) / (g.s.fAudioMaxDistance - g.s.fAudioMinDistance);
+			float drel = (distance - Global::get().s.fAudioMinDistance) / (Global::get().s.fAudioMaxDistance - Global::get().s.fAudioMinDistance);
 			datt       = powf(10.0f, log10f(mvol) * drel);
 		}
 
@@ -329,7 +320,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 					qWarning("AudioOutput: Unknown speaker %d: %08x", i, chanmasks[i]);
 					break;
 			}
-			if (g.s.bPositionalHeadphone || forceheadphone) {
+			if (Global::get().s.bPositionalHeadphone || forceheadphone) {
 				s[1] = 0.0f;
 				s[2] = 0.0f;
 				if (s[0] == 0.0f)
@@ -366,17 +357,17 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	// A list of users that no longer have any audio to play and can thus be deleted
 	QList< AudioOutputUser * > qlDel;
 
-	if (g.s.fVolume < 0.01f) {
+	if (Global::get().s.fVolume < 0.01f) {
 		return false;
 	}
 
 	const float adjustFactor = std::pow(10.f, -18.f / 20);
-	const float mul          = g.s.fVolume;
+	const float mul          = Global::get().s.fVolume;
 	const unsigned int nchan = iChannels;
-	ServerHandlerPtr sh      = g.sh;
+	ServerHandlerPtr sh      = Global::get().sh;
 	VoiceRecorderPtr recorder;
 	if (sh) {
-		recorder = g.sh->recorder;
+		recorder = Global::get().sh->recorder;
 	}
 
 	qrwlOutputs.lockForRead();
@@ -400,7 +391,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 		++it;
 	}
 
-	if (g.prioritySpeakerActiveOverride) {
+	if (Global::get().prioritySpeakerActiveOverride) {
 		prioritySpeakerActive = true;
 	}
 
@@ -429,13 +420,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 		for (unsigned int i = 0; i < iChannels; ++i)
 			svol[i] = mul * fSpeakerVolume[i];
 
-		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()
-			&& (g.bPosTest || g.p->fCameraPosition[0] != 0 || g.p->fCameraPosition[1] != 0
-				|| g.p->fCameraPosition[2] != 0)) {
+		if (Global::get().s.bPositionalAudio && (iChannels > 1) && Global::get().p->fetch()
+			&& (Global::get().bPosTest || Global::get().p->fCameraPosition[0] != 0 || Global::get().p->fCameraPosition[1] != 0
+				|| Global::get().p->fCameraPosition[2] != 0)) {
 			// Calculate the positional audio effects if it is enabled
 
-			float front[3] = { g.p->fCameraFront[0], g.p->fCameraFront[1], g.p->fCameraFront[2] };
-			float top[3]   = { g.p->fCameraTop[0], g.p->fCameraTop[1], g.p->fCameraTop[2] };
+			float front[3] = { Global::get().p->fCameraFront[0], Global::get().p->fCameraFront[1], Global::get().p->fCameraFront[2] };
+			float top[3]   = { Global::get().p->fCameraTop[0], Global::get().p->fCameraTop[1], Global::get().p->fCameraTop[2] };
 
 			// Front vector is dominant; if it's zero we presume all is zero.
 
@@ -528,7 +519,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 				const ClientUser *user = speech->p;
 				volumeAdjustment *= user->getLocalVolumeAdjustments();
 
-				if (user->cChannel && ChannelListener::isListening(g.uiSession, user->cChannel->iId)
+				if (user->cChannel && ChannelListener::isListening(Global::get().uiSession, user->cChannel->iId)
 					&& (speech->ucFlags & SpeechFlags::Listen)) {
 					// We are receiving this audio packet only because we are listening to the channel
 					// the speaking user is in. Thus we receive the audio via our "listener proxy".
@@ -583,8 +574,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 #endif
 
 				// If positional audio is enabled, calculate the respective audio effect here
-				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1],
-								 aop->fPos[2] - g.p->fCameraPosition[2] };
+				float dir[3] = { aop->fPos[0] - Global::get().p->fCameraPosition[0], aop->fPos[1] - Global::get().p->fCameraPosition[1],
+								 aop->fPos[2] - Global::get().p->fCameraPosition[2] };
 				float len    = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
 				if (len > 0.0f) {
 					dir[0] /= len;

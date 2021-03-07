@@ -30,11 +30,10 @@ RELEASE_ID=$(python "scripts/mumble-version.py")
 
 cd $BUILD_BINARIESDIRECTORY
 
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=appdir/usr \
+cmake -G Ninja -DCMAKE_INSTALL_PREFIX=appdir/usr -DCMAKE_UNITY_BUILD=ON \
       -DCMAKE_BUILD_TYPE=Release -DRELEASE_ID=$RELEASE_ID -DBUILD_NUMBER=$BUILD_NUMBER \
       -Dtests=ON -Dsymbols=ON -Dgrpc=ON \
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 
 cmake --build .
-ctest --verbose
-cmake --install .
+

@@ -19,8 +19,6 @@
 #	include <QtGui/QMessageBox>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 ACLGroup::ACLGroup(const QString &name) : Group(nullptr, name) {
@@ -60,7 +58,7 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
-	if (g.sh->uiVersion >= 0x010300) {
+	if (Global::get().sh->uiVersion >= 0x010300) {
 		qsbChannelMaxUsers->setRange(0, INT_MAX);
 		qsbChannelMaxUsers->setValue(0);
 		qsbChannelMaxUsers->setSpecialValueText(tr("Default server value"));
@@ -85,7 +83,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	iChannel          = channelid;
 	Channel *pChannel = Channel::get(iChannel);
 	if (!pChannel) {
-		g.l->log(Log::Warning, tr("Failed: Invalid channel"));
+		Global::get().l->log(Log::Warning, tr("Failed: Invalid channel"));
 		QDialog::reject();
 		return;
 	}
@@ -126,7 +124,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	qsbChannelPosition->setRange(INT_MIN, INT_MAX);
 	qsbChannelPosition->setValue(pChannel->iPosition);
 
-	if (g.sh->uiVersion >= 0x010300) {
+	if (Global::get().sh->uiVersion >= 0x010300) {
 		qsbChannelMaxUsers->setRange(0, INT_MAX);
 		qsbChannelMaxUsers->setValue(pChannel->uiMaxUsers);
 		qsbChannelMaxUsers->setSpecialValueText(tr("Default server value"));
@@ -150,7 +148,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 		if (!name.isEmpty()) {
 			// If the server's version is less than 1.4.0 then it won't support the new permission to reset a
 			// comment/avatar. Skipping this iteration of the loop prevents checkboxes for it being added to the UI.
-			if ((g.sh->uiVersion < 0x010400) && (perm == ChanACL::ResetUserContent))
+			if ((Global::get().sh->uiVersion < 0x010400) && (perm == ChanACL::ResetUserContent))
 				continue;
 
 			QCheckBox *qcb;
@@ -285,7 +283,7 @@ void ACLEditor::accept() {
 	Channel *pChannel = Channel::get(iChannel);
 	if (!pChannel) {
 		// Channel gone while editing
-		g.l->log(Log::Warning, tr("Failed: Invalid channel"));
+		Global::get().l->log(Log::Warning, tr("Failed: Invalid channel"));
 		QDialog::reject();
 		return;
 	}
@@ -299,7 +297,7 @@ void ACLEditor::accept() {
 
 	// Update channel state
 	if (bAddChannelMode) {
-		g.sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(),
+		Global::get().sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(),
 							qsbChannelPosition->value(), qcbChannelTemporary->isChecked(), qsbChannelMaxUsers->value());
 	} else {
 		bool needs_update = false;
@@ -316,7 +314,7 @@ void ACLEditor::accept() {
 			const QString &descriptionText = rteChannelDescription->text();
 			mpcs.set_description(u8(descriptionText));
 			needs_update = true;
-			g.db->setBlob(sha1(descriptionText), descriptionText.toUtf8());
+			Global::get().db->setBlob(sha1(descriptionText), descriptionText.toUtf8());
 		}
 		if (pChannel->iPosition != qsbChannelPosition->value()) {
 			mpcs.set_position(qsbChannelPosition->value());
@@ -327,7 +325,7 @@ void ACLEditor::accept() {
 			needs_update = true;
 		}
 		if (needs_update)
-			g.sh->sendMessage(mpcs);
+			Global::get().sh->sendMessage(mpcs);
 
 		// Update ACL
 		msg.set_inherit_acls(bInheritACL);
@@ -363,7 +361,7 @@ void ACLEditor::accept() {
 				if (pid >= 0)
 					mpg->add_remove(pid);
 		}
-		g.sh->sendMessage(msg);
+		Global::get().sh->sendMessage(msg);
 	}
 	QDialog::accept();
 }
@@ -384,7 +382,7 @@ int ACLEditor::id(const QString &uname) {
 		if (!qhNameWait.contains(name)) {
 			MumbleProto::QueryUsers mpuq;
 			mpuq.add_names(u8(name));
-			g.sh->sendMessage(mpuq);
+			Global::get().sh->sendMessage(mpuq);
 
 			iUnknown--;
 			qhNameWait.insert(name, iUnknown);

@@ -100,3 +100,5 @@ bool OpusCodec::isValid() const {
 void OpusCodec::report() const {
 	qDebug("%s from %s", opus_get_version_string(), qPrintable(qlOpus.fileName()));
 }
+
+#undef RESOLVE

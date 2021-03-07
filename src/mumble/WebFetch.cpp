@@ -6,18 +6,15 @@
 #include "WebFetch.h"
 
 #include "NetworkConfig.h"
+#include "Global.h"
 
 #include <QtNetwork/QNetworkReply>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 WebFetch::WebFetch(QString service, QUrl url, QObject *obj, const char *slot)
 	: QObject(), qoObject(obj), cpSlot(slot), m_service(service) {
 	url.setScheme(QLatin1String("https"));
 
-	if (!g.s.qsServicePrefix.isEmpty()) {
+	if (!Global::get().s.qsServicePrefix.isEmpty()) {
 		url.setHost(prefixedServiceHost());
 	} else {
 		url.setHost(serviceHost());
@@ -29,10 +26,10 @@ WebFetch::WebFetch(QString service, QUrl url, QObject *obj, const char *slot)
 }
 
 QString WebFetch::prefixedServiceHost() const {
-	if (g.s.qsServicePrefix.isEmpty()) {
+	if (Global::get().s.qsServicePrefix.isEmpty()) {
 		return serviceHost();
 	}
-	return QString::fromLatin1("%1-%2.mumble.info").arg(g.s.qsServicePrefix, m_service);
+	return QString::fromLatin1("%1-%2.mumble.info").arg(Global::get().s.qsServicePrefix, m_service);
 }
 
 QString WebFetch::serviceHost() const {
@@ -70,7 +67,7 @@ void WebFetch::finished() {
 				if (name == QLatin1String("Use-Service-Prefix")) {
 					QRegExp servicePrefixRegExp(QLatin1String("^[a-zA-Z]+$"));
 					if (servicePrefixRegExp.exactMatch(value)) {
-						g.s.qsServicePrefix = value.toLower();
+						Global::get().s.qsServicePrefix = value.toLower();
 					}
 				}
 			}
@@ -79,7 +76,7 @@ void WebFetch::finished() {
 		emit fetched(a, url, headers);
 		deleteLater();
 	} else if (url.host() == prefixedServiceHost() && url.host() != serviceHost()) {
-		// We have tried to fetch from a local service domain (e.g. de-update.mumble.info)
+		// We have tried to fetch from a local service domain (e.Global::get(). de-update.mumble.info)
 		// which has failed, so naturally we want to try the non-local one (update.mumble.info)
 		// as well as maybe that one will work.
 		// This of course only makes sense, if prefixedServiceHost() and serviceHost() are in fact

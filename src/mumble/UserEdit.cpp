@@ -9,13 +9,10 @@
 #include "ServerHandler.h"
 #include "User.h"
 #include "UserListModel.h"
+#include "Global.h"
 
 #include <QtCore/QItemSelectionModel>
 #include <QtWidgets/QMenu>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 UserEdit::UserEdit(const MumbleProto::UserList &userList, QWidget *p)
 	: QDialog(p), m_model(new UserListModel(userList, this)), m_filter(new UserListFilterProxyModel(this)) {
@@ -58,7 +55,7 @@ UserEdit::UserEdit(const MumbleProto::UserList &userList, QWidget *p)
 void UserEdit::accept() {
 	if (m_model->isUserListDirty()) {
 		MumbleProto::UserList userList = m_model->getUserListUpdate();
-		g.sh->sendMessage(userList);
+		Global::get().sh->sendMessage(userList);
 	}
 
 	QDialog::accept();

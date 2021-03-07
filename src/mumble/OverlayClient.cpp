@@ -17,6 +17,7 @@
 #include "User.h"
 #include "Utils.h"
 #include "GlobalShortcut.h"
+#include "Global.h"
 
 #ifdef Q_OS_WIN
 #	include <QtGui/QBitmap>
@@ -29,12 +30,8 @@
 #	include <psapi.h>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
-
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
-	: QObject(p), framesPerSecond(0), ougUsers(&g.s.os), iMouseX(0), iMouseY(0) {
+	: QObject(p), framesPerSecond(0), ougUsers(&Global::get().s.os), iMouseX(0), iMouseY(0) {
 	qlsSocket = socket;
 	qlsSocket->setParent(nullptr);
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
@@ -63,15 +60,15 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	qgs.addItem(&ougUsers);
 	ougUsers.show();
 
-	qgpiFPS.reset(new OverlayPositionableItem(&g.s.os.qrfFps));
+	qgpiFPS.reset(new OverlayPositionableItem(&Global::get().s.os.qrfFps));
 	qgs.addItem(qgpiFPS.data());
-	qgpiFPS->setPos(g.s.os.qrfFps.x(), g.s.os.qrfFps.y());
+	qgpiFPS->setPos(Global::get().s.os.qrfFps.x(), Global::get().s.os.qrfFps.y());
 	qgpiFPS->show();
 
 	// Time
-	qgpiTime.reset(new OverlayPositionableItem(&g.s.os.qrfTime));
+	qgpiTime.reset(new OverlayPositionableItem(&Global::get().s.os.qrfTime));
 	qgs.addItem(qgpiTime.data());
-	qgpiTime->setPos(g.s.os.qrfTime.x(), g.s.os.qrfTime.y());
+	qgpiTime->setPos(Global::get().s.os.qrfTime.x(), Global::get().s.os.qrfTime.y());
 	qgpiTime->show();
 
 	iOffsetX = iOffsetY = 0;
@@ -100,10 +97,10 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 }
 
 void OverlayClient::updateFPS() {
-	if (g.s.os.bFps) {
+	if (Global::get().s.os.bFps) {
 		const BasepointPixmap &pm =
-			OverlayTextLine(QString(QLatin1String("%1")).arg(iroundf(framesPerSecond + 0.5f)), g.s.os.qfFps)
-				.createPixmap(g.s.os.qcFps);
+			OverlayTextLine(QString(QLatin1String("%1")).arg(iroundf(framesPerSecond + 0.5f)), Global::get().s.os.qfFps)
+				.createPixmap(Global::get().s.os.qcFps);
 		qgpiFPS->setVisible(true);
 		qgpiFPS->setPixmap(pm);
 		// offset to use basepoint
@@ -116,10 +113,10 @@ void OverlayClient::updateFPS() {
 }
 
 void OverlayClient::updateTime() {
-	if (g.s.os.bTime) {
+	if (Global::get().s.os.bTime) {
 		const BasepointPixmap &pm =
-			OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), g.s.os.qfFps)
-				.createPixmap(g.s.os.qcFps);
+			OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), Global::get().s.os.qfFps)
+				.createPixmap(Global::get().s.os.qcFps);
 		qgpiTime->setVisible(true);
 		qgpiTime->setPixmap(pm);
 		qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
@@ -195,7 +192,7 @@ void OverlayClient::showGui() {
 	{
 		QWidgetList widgets = qApp->topLevelWidgets();
 		foreach (QWidget *w, widgets) {
-			if (w->isHidden() && (w != g.mw))
+			if (w->isHidden() && (w != Global::get().mw))
 				continue;
 			count++;
 		}
@@ -204,34 +201,34 @@ void OverlayClient::showGui() {
 	if (count > 1)
 		return;
 
-	g.ocIntercept = this;
+	Global::get().ocIntercept = this;
 
-	bWasVisible = !g.mw->isHidden();
+	bWasVisible = !Global::get().mw->isHidden();
 
 	if (bWasVisible) {
-		if (g.s.bMinimalView) {
-			g.s.qbaMinimalViewGeometry = g.mw->saveGeometry();
-			g.s.qbaMinimalViewState    = g.mw->saveState();
+		if (Global::get().s.bMinimalView) {
+			Global::get().s.qbaMinimalViewGeometry = Global::get().mw->saveGeometry();
+			Global::get().s.qbaMinimalViewState    = Global::get().mw->saveState();
 		} else {
-			g.s.qbaMainWindowGeometry = g.mw->saveGeometry();
-			g.s.qbaMainWindowState    = g.mw->saveState();
-			g.s.qbaHeaderState        = g.mw->qtvUsers->header()->saveState();
+			Global::get().s.qbaMainWindowGeometry = Global::get().mw->saveGeometry();
+			Global::get().s.qbaMainWindowState    = Global::get().mw->saveState();
+			Global::get().s.qbaHeaderState        = Global::get().mw->qtvUsers->header()->saveState();
 		}
 	}
 
 	{
 	outer:
 		QWidgetList widgets = qApp->topLevelWidgets();
-		widgets.removeAll(g.mw);
-		widgets.prepend(g.mw);
+		widgets.removeAll(Global::get().mw);
+		widgets.prepend(Global::get().mw);
 
 		foreach (QWidget *w, widgets) {
 			if (!w->graphicsProxyWidget()) {
-				if ((w == g.mw) || (!w->isHidden())) {
+				if ((w == Global::get().mw) || (!w->isHidden())) {
 					QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(nullptr, Qt::Window);
 					qgpw->setOpacity(0.90f);
 					qgpw->setWidget(w);
-					if (w == g.mw) {
+					if (w == Global::get().mw) {
 						qgpw->setPos(uiWidth / 10, uiHeight / 10);
 						qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
 					}
@@ -256,9 +253,9 @@ void OverlayClient::showGui() {
 
 	qgs.setFocus();
 #ifndef Q_OS_MAC
-	g.mw->qteChat->activateWindow();
+	Global::get().mw->qteChat->activateWindow();
 #endif
-	g.mw->qteChat->setFocus();
+	Global::get().mw->qteChat->setFocus();
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
 	qApp->setActiveWindow(&qgv);
@@ -268,9 +265,9 @@ void OverlayClient::showGui() {
 
 #ifdef Q_OS_MAC
 	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar);
-	g.mw->setUnifiedTitleAndToolBarOnMac(false);
-	if (!g.s.os.qsStyle.isEmpty())
-		qApp->setStyle(g.s.os.qsStyle);
+	Global::get().mw->setUnifiedTitleAndToolBarOnMac(false);
+	if (!Global::get().s.os.qsStyle.isEmpty())
+		qApp->setStyle(Global::get().s.os.qsStyle);
 #endif
 
 	setupScene(true);
@@ -282,7 +279,7 @@ void OverlayClient::showGui() {
 	om.omin.state  = true;
 	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
 
-	g.o->updateOverlay();
+	Global::get().o->updateOverlay();
 }
 
 void OverlayClient::hideGui() {
@@ -309,8 +306,8 @@ void OverlayClient::hideGui() {
 		}
 	}
 
-	if (g.ocIntercept == this)
-		g.ocIntercept = nullptr;
+	if (Global::get().ocIntercept == this)
+		Global::get().ocIntercept = nullptr;
 
 	foreach (QWidget *w, widgetlist) {
 		if (bWasVisible)
@@ -318,18 +315,18 @@ void OverlayClient::hideGui() {
 	}
 
 	if (bWasVisible) {
-		if (g.s.bMinimalView && !g.s.qbaMinimalViewGeometry.isNull()) {
-			g.mw->restoreGeometry(g.s.qbaMinimalViewGeometry);
-			g.mw->restoreState(g.s.qbaMinimalViewState);
-		} else if (!g.s.bMinimalView && !g.s.qbaMainWindowGeometry.isNull()) {
-			g.mw->restoreGeometry(g.s.qbaMainWindowGeometry);
-			g.mw->restoreState(g.s.qbaMainWindowState);
+		if (Global::get().s.bMinimalView && !Global::get().s.qbaMinimalViewGeometry.isNull()) {
+			Global::get().mw->restoreGeometry(Global::get().s.qbaMinimalViewGeometry);
+			Global::get().mw->restoreState(Global::get().s.qbaMinimalViewState);
+		} else if (!Global::get().s.bMinimalView && !Global::get().s.qbaMainWindowGeometry.isNull()) {
+			Global::get().mw->restoreGeometry(Global::get().s.qbaMainWindowGeometry);
+			Global::get().mw->restoreState(Global::get().s.qbaMainWindowState);
 		}
 	}
 
 #ifdef Q_OS_MAC
 	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
-	g.mw->setUnifiedTitleAndToolBarOnMac(true);
+	Global::get().mw->setUnifiedTitleAndToolBarOnMac(true);
 	Themes::apply();
 #endif
 
@@ -344,7 +341,7 @@ void OverlayClient::hideGui() {
 	om.omin.state  = false;
 	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
 
-	g.o->updateOverlay();
+	Global::get().o->updateOverlay();
 
 	if (bDelete)
 		deleteLater();
@@ -474,7 +471,7 @@ void OverlayClient::reset() {
 
 	ougUsers.reset();
 
-	setupScene(g.ocIntercept == this);
+	setupScene(Global::get().ocIntercept == this);
 }
 
 void OverlayClient::setupScene(bool show) {
@@ -651,7 +648,7 @@ void OverlayClient::render() {
 }
 
 void OverlayClient::openEditor() {
-	OverlayEditor oe(g.mw, &ougUsers);
+	OverlayEditor oe(Global::get().mw, &ougUsers);
 	connect(&oe, SIGNAL(applySettings()), this, SLOT(updateLayout()));
 
 	oe.exec();

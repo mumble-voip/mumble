@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#define _USE_MATH_DEFINES
-
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #include <QtWidgets/QMessageBox>
@@ -14,11 +12,9 @@
 #include <QPointer>
 
 #include <float.h>
+#include <cmath>
 
 #include "../../plugins/mumble_plugin.h"
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 static QPointer< Manual > mDlg = nullptr;
@@ -85,7 +81,7 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	my.context  = defaultContext.toStdString();
 	my.identity = defaultIdentity.toStdWString();
 
-	qsbSilentUserDisplaytime->setValue(g.s.manualPlugin_silentUserDisplaytime);
+	qsbSilentUserDisplaytime->setValue(Global::get().s.manualPlugin_silentUserDisplaytime);
 
 	updateLoopRunning.store(false);
 }
@@ -210,7 +206,7 @@ void Manual::on_buttonBox_clicked(QAbstractButton *button) {
 }
 
 void Manual::on_qsbSilentUserDisplaytime_valueChanged(int value) {
-	g.s.manualPlugin_silentUserDisplaytime = value;
+	Global::get().s.manualPlugin_silentUserDisplaytime = value;
 }
 
 void Manual::on_speakerPositionUpdate(QHash< unsigned int, Position2D > positions) {
@@ -251,7 +247,7 @@ void Manual::on_speakerPositionUpdate(QHash< unsigned int, Position2D > position
 		} else {
 			// Remove the stale item
 			speakerIt.remove();
-			if (g.s.manualPlugin_silentUserDisplaytime == 0) {
+			if (Global::get().s.manualPlugin_silentUserDisplaytime == 0) {
 				// Delete it immediately
 				delete speakerItem;
 			} else {
@@ -296,14 +292,14 @@ void Manual::on_updateStaleSpeakers() {
 		double elapsedTime =
 			static_cast< std::chrono::duration< double > >(std::chrono::steady_clock::now() - entry.staleSince).count();
 
-		if (elapsedTime >= g.s.manualPlugin_silentUserDisplaytime) {
+		if (elapsedTime >= Global::get().s.manualPlugin_silentUserDisplaytime) {
 			// The item has been around long enough - remove it now
 			staleIt.remove();
 			delete entry.staleItem;
 		} else {
 			// Let the item fade out
-			double opacity = (g.s.manualPlugin_silentUserDisplaytime - elapsedTime)
-							 / static_cast< double >(g.s.manualPlugin_silentUserDisplaytime);
+			double opacity = (Global::get().s.manualPlugin_silentUserDisplaytime - elapsedTime)
+							 / static_cast< double >(Global::get().s.manualPlugin_silentUserDisplaytime);
 			entry.staleItem->setOpacity(opacity);
 		}
 	}

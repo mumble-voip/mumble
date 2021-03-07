@@ -11,6 +11,7 @@
 #include "Database.h"
 #include "MainWindow.h"
 #include "GlobalShortcutButtons.h"
+#include "Global.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QSortFilterProxyModel>
@@ -23,10 +24,6 @@
 #	include <QtCore/QOperatingSystemVersion>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
-
 const QString GlobalShortcutConfig::name = QLatin1String("GlobalShortcutConfig");
 
 /**
@@ -38,7 +35,7 @@ static ConfigWidget *GlobalShortcutConfigDialogNew(Settings &st) {
 	return new GlobalShortcutConfig(st);
 }
 
-static ConfigRegistrar registrar(1200, GlobalShortcutConfigDialogNew);
+static ConfigRegistrar registrarGlobalShortcut(1200, GlobalShortcutConfigDialogNew);
 
 static const QString UPARROW = QString::fromUtf8("\xE2\x86\x91 ");
 
@@ -140,7 +137,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	qcbShoutSubchans->setChecked(st.bChildren);
 
 	// Insert all known friends into the possible targets list
-	const QMap< QString, QString > &friends = g.db->getFriends();
+	const QMap< QString, QString > &friends = Global::get().db->getFriends();
 	if (!friends.isEmpty()) {
 		QMap< QString, QString >::const_iterator i;
 		for (i = friends.constBegin(); i != friends.constEnd(); ++i) {
@@ -151,13 +148,13 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	}
 
 	// If we are connected to a server also add all connected players with certificates to the list
-	if (g.uiSession) {
+	if (Global::get().uiSession) {
 		QMap< QString, QString > others;
 		QMap< QString, QString >::const_iterator i;
 
 		QReadLocker lock(&ClientUser::c_qrwlUsers);
 		foreach (ClientUser *p, ClientUser::c_qmUsers) {
-			if ((p->uiSession != g.uiSession) && p->qsFriendName.isEmpty() && !p->qsHash.isEmpty()) {
+			if ((p->uiSession != Global::get().uiSession) && p->qsFriendName.isEmpty() && !p->qsHash.isEmpty()) {
 				others.insert(p->qsName, p->qsHash);
 				qmHashNames.insert(p->qsHash, p->qsName);
 			}
@@ -217,7 +214,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	}
 
 	// And if we are connected add the channels on the current server
-	if (g.uiSession) {
+	if (Global::get().uiSession) {
 		Channel *c             = Channel::get(0);
 		QTreeWidgetItem *sroot = new QTreeWidgetItem(qtwChannels, QStringList(c->qsName));
 		qmTree.insert(0, sroot);
@@ -227,8 +224,8 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	qtwChannels->sortByColumn(0, Qt::AscendingOrder);
 
 	QTreeWidgetItem *qtwi;
-	if (g.uiSession) {
-		qtwi = qmTree.value(ClientUser::get(g.uiSession)->cChannel->iId);
+	if (Global::get().uiSession) {
+		qtwi = qmTree.value(ClientUser::get(Global::get().uiSession)->cChannel->iId);
 		if (qtwi)
 			qtwChannels->scrollToItem(qtwi);
 	}
@@ -355,7 +352,7 @@ QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
 				if (hashes.contains(hash)) {
 					name = hashes.value(hash);
 				} else {
-					name = g.db->getFriend(hash);
+					name = Global::get().db->getFriend(hash);
 					if (name.isEmpty())
 						name = QString::fromLatin1("#%1").arg(hash);
 				}
@@ -559,7 +556,7 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 bool GlobalShortcutConfig::eventFilter(QObject * /*object*/, QEvent *e) {
 #ifdef Q_OS_MAC
 	if (e->type() == QEvent::WindowActivate) {
-		if (!g.s.bSuppressMacEventTapWarning) {
+		if (!Global::get().s.bSuppressMacEventTapWarning) {
 			qwWarningContainer->setVisible(showWarning());
 		}
 	}
@@ -598,7 +595,7 @@ void GlobalShortcutConfig::on_qpbOpenAccessibilityPrefs_clicked() {
 void GlobalShortcutConfig::on_qpbSkipWarning_clicked() {
 	// Store to both global and local settings.  The 'Skip' is live, as in
 	// we don't expect the user to click Apply for their choice to work.
-	g.s.bSuppressMacEventTapWarning = s.bSuppressMacEventTapWarning = true;
+	Global::get().s.bSuppressMacEventTapWarning = s.bSuppressMacEventTapWarning = true;
 	qwWarningContainer->setVisible(false);
 }
 
@@ -683,8 +680,8 @@ void GlobalShortcutConfig::load(const Settings &r) {
 	//
 	// To make this work well, we set the setting on load. This is to make 'Reset' and 'Restore Defaults'
 	// work as expected.
-	g.s.bSuppressMacEventTapWarning = s.bSuppressMacEventTapWarning = r.bSuppressMacEventTapWarning;
-	if (!g.s.bSuppressMacEventTapWarning) {
+	Global::get().s.bSuppressMacEventTapWarning = s.bSuppressMacEventTapWarning = r.bSuppressMacEventTapWarning;
+	if (!Global::get().s.bSuppressMacEventTapWarning) {
 		qwWarningContainer->setVisible(showWarning());
 	}
 
@@ -763,7 +760,7 @@ void GlobalShortcutConfig::reload() {
 		qtwShortcuts->addTopLevelItem(item);
 	}
 #ifdef Q_OS_MAC
-	if (!g.s.bSuppressMacEventTapWarning) {
+	if (!Global::get().s.bSuppressMacEventTapWarning) {
 		qwWarningContainer->setVisible(showWarning());
 	} else {
 		qwWarningContainer->setVisible(false);
@@ -774,7 +771,7 @@ void GlobalShortcutConfig::reload() {
 void GlobalShortcutConfig::accept() const {
 	GlobalShortcutEngine::engine->bNeedRemap = true;
 	GlobalShortcutEngine::engine->needRemap();
-	GlobalShortcutEngine::engine->setEnabled(g.s.bShortcutEnable);
+	GlobalShortcutEngine::engine->setEnabled(Global::get().s.bShortcutEnable);
 }
 
 
@@ -818,7 +815,7 @@ void GlobalShortcutEngine::remap() {
 	qlShortcutList.clear();
 	qlDownButtons.clear();
 
-	foreach (const Shortcut &sc, g.s.qlShortcuts) {
+	foreach (const Shortcut &sc, Global::get().s.qlShortcuts) {
 		GlobalShortcut *gs = qmShortcuts.value(sc.iIndex);
 		if (gs && !sc.qlButtons.isEmpty()) {
 			ShortcutKey *sk = new ShortcutKey;
@@ -889,7 +886,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 	}
 
 	if (down) {
-		AudioInputPtr ai = g.ai;
+		AudioInputPtr ai = Global::get().ai;
 		if (ai.get()) {
 			// XXX: This is a data race: we write to ai->activityState
 			// (accessed by the AudioInput thread) from the main thread.
@@ -946,7 +943,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 void GlobalShortcutEngine::add(GlobalShortcut *gs) {
 	if (!GlobalShortcutEngine::engine) {
 		GlobalShortcutEngine::engine = GlobalShortcutEngine::platformInit();
-		GlobalShortcutEngine::engine->setEnabled(g.s.bShortcutEnable);
+		GlobalShortcutEngine::engine->setEnabled(Global::get().s.bShortcutEnable);
 	}
 
 	GlobalShortcutEngine::engine->qmShortcuts.insert(gs->idx, gs);

@@ -9,7 +9,6 @@
 
 #include <Foundation/Foundation.h>
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
@@ -54,7 +53,7 @@ static bool growl_available() {
 			QStringList qslAllEvents;
 			for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 				Log::MsgType t = static_cast<Log::MsgType>(i);
-				qslAllEvents << QString::fromLatin1("\"%1\"").arg(g.l->msgName(t));
+				qslAllEvents << QString::fromLatin1("\"%1\"").arg(Global::get().l->msgName(t));
 			}
 			QString qsScript = QString::fromLatin1(
 				"tell application \"GrowlHelperApp\"\n"

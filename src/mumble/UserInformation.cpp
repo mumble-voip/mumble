@@ -8,26 +8,11 @@
 #include "Audio.h"
 #include "CELTCodec.h"
 #include "HostAddress.h"
+#include "QtUtils.h"
 #include "ServerHandler.h"
 #include "ViewCert.h"
-
-#include <QtCore/QUrl>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
-static QString decode_utf8_qssl_string(const QString &input) {
-	QString i = input;
-	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
-}
-
-static QString decode_utf8_qssl_string(const QStringList &list) {
-	if (list.count() > 0) {
-		return decode_utf8_qssl_string(list.at(0));
-	}
-	return QString();
-}
 
 UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -58,7 +43,7 @@ void UserInformation::tick() {
 
 	bRequested = true;
 
-	g.sh->requestUserStats(uiSession, true);
+	Global::get().sh->requestUserStats(uiSession, true);
 }
 
 void UserInformation::on_qpbCertificate_clicked() {
@@ -119,7 +104,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 			if (alts.contains(QSsl::EmailEntry))
 				qlCertificate->setText(QStringList(alts.values(QSsl::EmailEntry)).join(tr(", ")));
 			else
-				qlCertificate->setText(decode_utf8_qssl_string(cert.subjectInfo(QSslCertificate::CommonName)));
+				qlCertificate->setText(Mumble::QtUtils::decode_first_utf8_qssl_string(cert.subjectInfo(QSslCertificate::CommonName)));
 
 			if (msg.strong_certificate()) {
 				QFont f = qfCertificateFont;
@@ -150,7 +135,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		QStringList qsl;
 		for (int i = 0; i < msg.celt_versions_size(); ++i) {
 			int v         = msg.celt_versions(i);
-			CELTCodec *cc = g.qmCodecs.value(v);
+			CELTCodec *cc = Global::get().qmCodecs.value(v);
 			if (cc)
 				qsl << cc->version();
 			else

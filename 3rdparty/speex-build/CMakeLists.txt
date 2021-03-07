@@ -25,6 +25,9 @@ else()
 	add_library(speex STATIC)
 endif()
 
+# Speex doesn't use include guards in its headers, so unity builds will fail
+set_target_properties(speex PROPERTIES UNITY_BUILD FALSE)
+
 target_compile_definitions(speex PRIVATE "HAVE_CONFIG_H")
 
 target_include_directories(speex PRIVATE SYSTEM "${SPEEX_DIR}/libspeex" "${SPEEXDSP_DIR}/libspeexdsp")

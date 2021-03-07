@@ -16,6 +16,7 @@
 #ifdef USE_MANUAL_PLUGIN
 #	include "ManualPlugin.h"
 #endif
+#include "Global.h"
 
 #include <QtCore/QLibrary>
 #include <QtCore/QUrlQuery>
@@ -32,17 +33,13 @@
 #	include <tlhelp32.h>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
-
 const QString PluginConfig::name = QLatin1String("PluginConfig");
 
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);
 }
 
-static ConfigRegistrar registrar(5000, PluginConfigDialogNew);
+static ConfigRegistrar registrarPlugins(5000, PluginConfigDialogNew);
 
 struct PluginInfo {
 	bool locked;
@@ -101,7 +98,7 @@ void PluginConfig::load(const Settings &r) {
 }
 
 void PluginConfig::save() const {
-	QReadLocker lock(&g.p->qrwlPlugins);
+	QReadLocker lock(&Global::get().p->qrwlPlugins);
 
 	s.bTransmitPosition = qcbTransmit->isChecked();
 	s.qmPositionalAudioPlugins.clear();
@@ -120,7 +117,7 @@ void PluginConfig::save() const {
 
 PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
 	if (i) {
-		foreach (PluginInfo *pi, g.p->qlPlugins) {
+		foreach (PluginInfo *pi, Global::get().p->qlPlugins) {
 			if (pi->filename == i->data(0, Qt::UserRole).toString())
 				return pi;
 		}
@@ -131,7 +128,7 @@ PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
 void PluginConfig::on_qpbConfig_clicked() {
 	PluginInfo *pi;
 	{
-		QReadLocker lock(&g.p->qrwlPlugins);
+		QReadLocker lock(&Global::get().p->qrwlPlugins);
 		pi = pluginForItem(qtwPlugins->currentItem());
 	}
 
@@ -151,7 +148,7 @@ void PluginConfig::on_qpbConfig_clicked() {
 void PluginConfig::on_qpbAbout_clicked() {
 	PluginInfo *pi;
 	{
-		QReadLocker lock(&g.p->qrwlPlugins);
+		QReadLocker lock(&Global::get().p->qrwlPlugins);
 		pi = pluginForItem(qtwPlugins->currentItem());
 	}
 
@@ -169,15 +166,15 @@ void PluginConfig::on_qpbAbout_clicked() {
 }
 
 void PluginConfig::on_qpbReload_clicked() {
-	g.p->rescanPlugins();
+	Global::get().p->rescanPlugins();
 	refillPluginList();
 }
 
 void PluginConfig::refillPluginList() {
-	QReadLocker lock(&g.p->qrwlPlugins);
+	QReadLocker lock(&Global::get().p->qrwlPlugins);
 	qtwPlugins->clear();
 
-	foreach (PluginInfo *pi, g.p->qlPlugins) {
+	foreach (PluginInfo *pi, Global::get().p->qlPlugins) {
 		QTreeWidgetItem *i = new QTreeWidgetItem(qtwPlugins);
 		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		i->setCheckState(1, pi->enabled ? Qt::Checked : Qt::Unchecked);
@@ -191,7 +188,7 @@ void PluginConfig::refillPluginList() {
 }
 
 void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *) {
-	QReadLocker lock(&g.p->qrwlPlugins);
+	QReadLocker lock(&Global::get().p->qrwlPlugins);
 
 	PluginInfo *pi = pluginForItem(current);
 	if (pi) {
@@ -240,7 +237,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	qsSystemPlugins = QLatin1String(MUMTEXT(MUMBLE_PLUGIN_PATH));
 #	endif
 
-	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");
+	qsUserPlugins = Global::get().qdBasePath.absolutePath() + QLatin1String("/Plugins");
 #else
 #	ifdef MUMBLE_PLUGIN_PATH
 	qsSystemPlugins = QLatin1String(MUMTEXT(MUMBLE_PLUGIN_PATH));
@@ -287,7 +284,7 @@ Plugins::~Plugins() {
 }
 
 void Plugins::clearPlugins() {
-	QWriteLocker lock(&g.p->qrwlPlugins);
+	QWriteLocker lock(&Global::get().p->qrwlPlugins);
 	foreach (PluginInfo *pi, qlPlugins) {
 		if (pi->locked)
 			pi->p->unlock();
@@ -300,7 +297,7 @@ void Plugins::clearPlugins() {
 void Plugins::rescanPlugins() {
 	clearPlugins();
 
-	QWriteLocker lock(&g.p->qrwlPlugins);
+	QWriteLocker lock(&Global::get().p->qrwlPlugins);
 	prevlocked = locked = nullptr;
 	bValid              = false;
 
@@ -329,7 +326,7 @@ void Plugins::rescanPlugins() {
 					if (pi->p && pi->p->magic == MUMBLE_PLUGIN_MAGIC && pi->p->shortname != L"Retracted") {
 						pi->description = QString::fromStdWString(pi->p->description);
 						pi->shortname   = QString::fromStdWString(pi->p->shortname);
-						pi->enabled     = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
+						pi->enabled     = Global::get().s.qmPositionalAudioPlugins.value(pi->filename, true);
 
 						mumblePlugin2Func mpf2 =
 							reinterpret_cast< mumblePlugin2Func >(pi->lib.resolve("getMumblePlugin2"));
@@ -371,14 +368,14 @@ void Plugins::rescanPlugins() {
 		pi->pqt         = ManualPlugin_getMumblePluginQt();
 		pi->description = QString::fromStdWString(pi->p->description);
 		pi->shortname   = QString::fromStdWString(pi->p->shortname);
-		pi->enabled     = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
+		pi->enabled     = Global::get().s.qmPositionalAudioPlugins.value(pi->filename, true);
 		qlPlugins << pi;
 #endif
 	}
 }
 
 bool Plugins::fetch() {
-	if (g.bPosTest) {
+	if (Global::get().bPosTest) {
 		fPosition[0] = fPosition[1] = fPosition[2] = 0.0f;
 		fFront[0]                                  = 0.0f;
 		fFront[1]                                  = 0.0f;
@@ -440,7 +437,7 @@ void Plugins::on_Timer_timeout() {
 	QReadLocker lock(&qrwlPlugins);
 
 	if (prevlocked) {
-		g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname.toHtmlEscaped()));
+		Global::get().l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname.toHtmlEscaped()));
 		prevlocked = nullptr;
 	}
 
@@ -457,12 +454,12 @@ void Plugins::on_Timer_timeout() {
 		if (locked)
 			context.assign(u8(QString::fromStdWString(locked->p->shortname)) + static_cast< char >(0) + ssContext);
 
-		if (!g.uiSession) {
+		if (!Global::get().uiSession) {
 			ssContextSent.clear();
 			swsIdentitySent.clear();
 		} else if ((context != ssContextSent) || (swsIdentity != swsIdentitySent)) {
 			MumbleProto::UserState mpus;
-			mpus.set_session(g.uiSession);
+			mpus.set_session(Global::get().uiSession);
 			if (context != ssContextSent) {
 				ssContextSent.assign(context);
 				mpus.set_plugin_context(context);
@@ -471,8 +468,8 @@ void Plugins::on_Timer_timeout() {
 				swsIdentitySent.assign(swsIdentity);
 				mpus.set_plugin_identity(u8(QString::fromStdWString(swsIdentitySent)));
 			}
-			if (g.sh)
-				g.sh->sendMessage(mpus);
+			if (Global::get().sh)
+				Global::get().sh->sendMessage(mpus);
 		}
 	}
 
@@ -480,7 +477,7 @@ void Plugins::on_Timer_timeout() {
 		return;
 	}
 
-	if (!g.s.bTransmitPosition)
+	if (!Global::get().s.bTransmitPosition)
 		return;
 
 	lock.unlock();
@@ -564,7 +561,7 @@ void Plugins::on_Timer_timeout() {
 	if (pi->enabled) {
 		if (pi->p2 ? pi->p2->trylock(pids) : pi->p->trylock()) {
 			pi->shortname = QString::fromStdWString(pi->p->shortname);
-			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname.toHtmlEscaped()));
+			Global::get().l->log(Log::Information, tr("%1 linked.").arg(pi->shortname.toHtmlEscaped()));
 			pi->locked = true;
 			bUnlink    = false;
 			locked     = pi;
@@ -604,7 +601,7 @@ void Plugins::checkUpdates() {
 
 	WebFetch::fetch(QLatin1String("update"), url, this, SLOT(fetchedUpdatePAPlugins(QByteArray, QUrl)));
 #else
-	g.mw->msgBox(tr("Skipping plugin update in debug mode."));
+	Global::get().mw->msgBox(tr("Skipping plugin update in debug mode."));
 #endif
 }
 
@@ -773,15 +770,15 @@ void Plugins::fetchedPAPluginDL(QByteArray data, QUrl url) {
 				if (f.open(QIODevice::WriteOnly)) {
 					f.write(data);
 					f.close();
-					g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName().toHtmlEscaped()));
+					Global::get().mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName().toHtmlEscaped()));
 				} else {
 					f.setFileName(qsUserPlugins + QLatin1String("/") + fname);
 					if (f.open(QIODevice::WriteOnly)) {
 						f.write(data);
 						f.close();
-						g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName().toHtmlEscaped()));
+						Global::get().mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName().toHtmlEscaped()));
 					} else {
-						g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(f.fileName().toHtmlEscaped()));
+						Global::get().mw->msgBox(tr("Failed to install new plugin to %1.").arg(f.fileName().toHtmlEscaped()));
 					}
 				}
 

@@ -278,3 +278,5 @@ bool SelfSignedCertificate::generateMumbleCertificate(QString name, QString emai
 bool SelfSignedCertificate::generateMurmurV2Certificate(QSslCertificate &qscCert, QSslKey &qskKey) {
 	return SelfSignedCertificate::generate(CertificateTypeServerCertificate, QString(), QString(), qscCert, qskKey);
 }
+
+#undef SSL_STRING

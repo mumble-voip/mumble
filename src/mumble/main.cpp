@@ -59,8 +59,6 @@
 #	include <shellapi.h>
 #endif
 
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
 #include "Global.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
@@ -95,14 +93,14 @@ bool positionIsOnScreen(QPoint point) {
 
 QPoint getTalkingUIPosition() {
 	QPoint talkingUIPos = QPoint(0, 0);
-	if (g.s.qpTalkingUI_Position != Settings::UNSPECIFIED_POSITION && positionIsOnScreen(g.s.qpTalkingUI_Position)) {
+	if (Global::get().s.qpTalkingUI_Position != Settings::UNSPECIFIED_POSITION && positionIsOnScreen(Global::get().s.qpTalkingUI_Position)) {
 		// Restore last position
-		talkingUIPos = g.s.qpTalkingUI_Position;
+		talkingUIPos = Global::get().s.qpTalkingUI_Position;
 	} else {
 		// Place the TalkingUI next to the MainWindow by default
-		const QPoint mainWindowPos = g.mw->pos();
+		const QPoint mainWindowPos = Global::get().mw->pos();
 		const int horizontalBuffer = 10;
-		const QPoint defaultPos = QPoint(mainWindowPos.x() + g.mw->size().width() + horizontalBuffer, mainWindowPos.y());
+		const QPoint defaultPos = QPoint(mainWindowPos.x() + Global::get().mw->size().width() + horizontalBuffer, mainWindowPos.y());
 
 		if (positionIsOnScreen(defaultPos)) {
 			talkingUIPos = defaultPos;
@@ -111,8 +109,8 @@ QPoint getTalkingUIPosition() {
 
 	// We have to ask the TalkingUI to adjust its size in order to get a proper
 	// size from it (instead of a random default one).
-	g.talkingUI->adjustSize();
-	const QSize talkingUISize = g.talkingUI->size();
+	Global::get().talkingUI->adjustSize();
+	const QSize talkingUISize = Global::get().talkingUI->size();
 
 	// The screen should always be found at this point as we have chosen to pos to be on a screen
 	const QScreen *screen = screenAt(talkingUIPos);
@@ -217,8 +215,8 @@ int main(int argc, char **argv) {
 	qsrand(QDateTime::currentDateTime().toTime_t());
 #endif
 
-	g.le = QSharedPointer< LogEmitter >(new LogEmitter());
-	g.c  = new DeveloperConsole();
+	Global::get().le = QSharedPointer< LogEmitter >(new LogEmitter());
+	Global::get().c  = new DeveloperConsole();
 
 	os_init();
 
@@ -319,10 +317,10 @@ int main(int argc, char **argv) {
 				bAllowMultiple = true;
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				suppressIdentity      = true;
-				g.s.bSuppressIdentity = true;
+				Global::get().s.bSuppressIdentity = true;
 			} else if (args.at(i) == QLatin1String("-jn") || args.at(i) == QLatin1String("--jackname")) {
 				if (i + 1 < args.count()) {
-					g.s.qsJackClientName = QString(args.at(i + 1));
+					Global::get().s.qsJackClientName = QString(args.at(i + 1));
 					customJackClientName = true;
 					++i;
 				} else {
@@ -331,7 +329,7 @@ int main(int argc, char **argv) {
 				}
 			} else if (args.at(i) == QLatin1String("--window-title-ext")) {
 				if (i + 1 < args.count()) {
-					g.windowTitlePostfix = QString(args.at(i + 1));
+					Global::get().windowTitlePostfix = QString(args.at(i + 1));
 					++i;
 				} else {
 					qCritical("Missing argument for --window-title-ext!");
@@ -361,9 +359,9 @@ int main(int argc, char **argv) {
 					return 1;
 				}
 			} else if (args.at(i) == QLatin1String("--dump-input-streams")) {
-				g.bDebugDumpInput = true;
+				Global::get().bDebugDumpInput = true;
 			} else if (args.at(i) == QLatin1String("--print-echocancel-queue")) {
-				g.bDebugPrintQueue = true;
+				Global::get().bDebugPrintQueue = true;
 			} else {
 				if (!bRpcMode) {
 					QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
@@ -466,7 +464,7 @@ int main(int argc, char **argv) {
 	// modes enabled. This gives us exclusive access to the file.
 	// If another Mumble instance attempts to open the file, it will fail,
 	// and that instance will know to terminate itself.
-	UserLockFile userLockFile(g.qdBasePath.filePath(QLatin1String("mumble.lock")));
+	UserLockFile userLockFile(Global::get().qdBasePath.filePath(QLatin1String("mumble.lock")));
 	if (!bAllowMultiple) {
 		if (!userLockFile.acquire()) {
 			qWarning("Another process has already acquired the lock file at '%s'. Terminating...",
@@ -477,7 +475,7 @@ int main(int argc, char **argv) {
 #endif
 
 	// Load preferences
-	g.s.load();
+	Global::get().s.load();
 
 	// Check whether we need to enable accessibility features
 #ifdef Q_OS_WIN
@@ -488,7 +486,7 @@ int main(int argc, char **argv) {
 		SystemParametersInfo(SPI_GETHIGHCONTRAST, sizeof(HIGHCONTRAST), &hc, 0);
 
 		if (hc.dwFlags & HCF_HIGHCONTRASTON)
-			g.s.bHighContrast = true;
+			Global::get().s.bHighContrast = true;
 	}
 #endif
 
@@ -507,7 +505,7 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	const QString locale = g.s.qsLanguage.isEmpty() ? qsSystemLocale : g.s.qsLanguage;
+	const QString locale = Global::get().s.qsLanguage.isEmpty() ? qsSystemLocale : Global::get().s.qsLanguage;
 	qWarning("Locale is \"%s\" (System: \"%s\")", qPrintable(locale), qPrintable(qsSystemLocale));
 
 	QTranslator translator;
@@ -550,7 +548,7 @@ int main(int argc, char **argv) {
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
 
-	g.nam = new QNetworkAccessManager();
+	Global::get().nam = new QNetworkAccessManager();
 
 #ifndef NO_CRASH_REPORT
 	CrashReporter *cr = new CrashReporter();
@@ -559,19 +557,19 @@ int main(int argc, char **argv) {
 #endif
 
 	// Initialize database
-	g.db = new Database(QLatin1String("main"));
+	Global::get().db = new Database(QLatin1String("main"));
 
 #ifdef USE_ZEROCONF
 	// Initialize zeroconf
-	g.zeroconf = new Zeroconf();
+	Global::get().zeroconf = new Zeroconf();
 #endif
 
 #ifdef USE_OVERLAY
-	g.o = new Overlay();
-	g.o->setActive(g.s.os.bEnable);
+	Global::get().o = new Overlay();
+	Global::get().o->setActive(Global::get().s.os.bEnable);
 #endif
 
-	g.lcd = new LCD();
+	Global::get().lcd = new LCD();
 
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,
@@ -579,31 +577,31 @@ int main(int argc, char **argv) {
 	a.processEvents();
 
 	// Main Window
-	g.mw = new MainWindow(nullptr);
-	g.mw->show();
+	Global::get().mw = new MainWindow(nullptr);
+	Global::get().mw->show();
 
-	g.talkingUI = new TalkingUI();
+	Global::get().talkingUI = new TalkingUI();
 
 	// Set TalkingUI's position
-	g.talkingUI->move(getTalkingUIPosition());
+	Global::get().talkingUI->move(getTalkingUIPosition());
 
 	// By setting the TalkingUI's position **before** making it visible tends to more reliably include the
 	// window's frame to be included in the positioning calculation on X11 (at least using KDE Plasma)
-	g.talkingUI->setVisible(g.s.bShowTalkingUI);
+	Global::get().talkingUI->setVisible(Global::get().s.bShowTalkingUI);
 
-	QObject::connect(g.mw, &MainWindow::userAddedChannelListener, g.talkingUI, &TalkingUI::on_channelListenerAdded);
-	QObject::connect(g.mw, &MainWindow::userRemovedChannelListener, g.talkingUI, &TalkingUI::on_channelListenerRemoved);
-	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, g.talkingUI,
+	QObject::connect(Global::get().mw, &MainWindow::userAddedChannelListener, Global::get().talkingUI, &TalkingUI::on_channelListenerAdded);
+	QObject::connect(Global::get().mw, &MainWindow::userRemovedChannelListener, Global::get().talkingUI, &TalkingUI::on_channelListenerRemoved);
+	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, Global::get().talkingUI,
 					 &TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged);
 
-	QObject::connect(g.mw, &MainWindow::serverSynchronized, g.talkingUI, &TalkingUI::on_serverSynchronized);
+	QObject::connect(Global::get().mw, &MainWindow::serverSynchronized, Global::get().talkingUI, &TalkingUI::on_serverSynchronized);
 
 	// Initialize logger
 	// Log::log() needs the MainWindow to already exist. Thus creating the Log instance
 	// before the MainWindow one, does not make sense. if you need logging before this
 	// point, use Log::logOrDefer()
-	g.l = new Log();
-	g.l->processDeferredLogs();
+	Global::get().l = new Log();
+	Global::get().l->processDeferredLogs();
 
 #ifdef Q_OS_WIN
 	// Set mumble_mw_hwnd in os_win.cpp.
@@ -612,18 +610,18 @@ int main(int argc, char **argv) {
 #endif
 
 #ifdef USE_DBUS
-	new MumbleDBus(g.mw);
-	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), g.mw);
+	new MumbleDBus(Global::get().mw);
+	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), Global::get().mw);
 	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble"));
 #endif
 
 	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
 
-	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
+	Global::get().l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
 	// Plugins
-	g.p = new Plugins(nullptr);
-	g.p->rescanPlugins();
+	Global::get().p = new Plugins(nullptr);
+	Global::get().p->rescanPlugins();
 
 	Audio::start();
 
@@ -631,98 +629,98 @@ int main(int argc, char **argv) {
 
 	// Configuration updates
 	bool runaudiowizard = false;
-	if (g.s.uiUpdateCounter == 0) {
+	if (Global::get().s.uiUpdateCounter == 0) {
 		// Previous version was an pre 1.2.3 release or this is the first run
 		runaudiowizard = true;
 
-	} else if (g.s.uiUpdateCounter == 1) {
+	} else if (Global::get().s.uiUpdateCounter == 1) {
 		// Previous versions used old idle action style, convert it
 
-		if (g.s.iIdleTime == 5 * 60) { // New default
-			g.s.iaeIdleAction = Settings::Nothing;
+		if (Global::get().s.iIdleTime == 5 * 60) { // New default
+			Global::get().s.iaeIdleAction = Settings::Nothing;
 		} else {
-			g.s.iIdleTime     = 60 * qRound(g.s.iIdleTime / 60.); // Round to minutes
-			g.s.iaeIdleAction = Settings::Deafen;                 // Old behavior
+			Global::get().s.iIdleTime     = 60 * qRound(Global::get().s.iIdleTime / 60.); // Round to minutes
+			Global::get().s.iaeIdleAction = Settings::Deafen;                 // Old behavior
 		}
 	}
 
 	if (runaudiowizard) {
-		AudioWizard *aw = new AudioWizard(g.mw);
+		AudioWizard *aw = new AudioWizard(Global::get().mw);
 		aw->exec();
 		delete aw;
 	}
 
-	g.s.uiUpdateCounter = 2;
+	Global::get().s.uiUpdateCounter = 2;
 
-	if (!CertWizard::validateCert(g.s.kpCertificate)) {
+	if (!CertWizard::validateCert(Global::get().s.kpCertificate)) {
 		QDir qd(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
 		QFile qf(qd.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));
 		if (qf.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
 			Settings::KeyPair kp = CertWizard::importCert(qf.readAll());
 			qf.close();
 			if (CertWizard::validateCert(kp))
-				g.s.kpCertificate = kp;
+				Global::get().s.kpCertificate = kp;
 		}
-		if (!CertWizard::validateCert(g.s.kpCertificate)) {
-			CertWizard *cw = new CertWizard(g.mw);
+		if (!CertWizard::validateCert(Global::get().s.kpCertificate)) {
+			CertWizard *cw = new CertWizard(Global::get().mw);
 			cw->exec();
 			delete cw;
 
-			if (!CertWizard::validateCert(g.s.kpCertificate)) {
-				g.s.kpCertificate = CertWizard::generateNewCert();
+			if (!CertWizard::validateCert(Global::get().s.kpCertificate)) {
+				Global::get().s.kpCertificate = CertWizard::generateNewCert();
 				if (qf.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Unbuffered)) {
-					qf.write(CertWizard::exportCert(g.s.kpCertificate));
+					qf.write(CertWizard::exportCert(Global::get().s.kpCertificate));
 					qf.close();
 				}
 			}
 		}
 	}
 
-	if (QDateTime::currentDateTime().daysTo(g.s.kpCertificate.first.first().expiryDate()) < 14)
-		g.l->log(Log::Warning,
+	if (QDateTime::currentDateTime().daysTo(Global::get().s.kpCertificate.first.first().expiryDate()) < 14)
+		Global::get().l->log(Log::Warning,
 				 CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, "
 								"or you will no longer be able to connect to servers you are registered on."));
 
 #ifdef QT_NO_DEBUG
 	// Only perform the version-check for non-debug builds
-	if (g.s.bUpdateCheck) {
+	if (Global::get().s.bUpdateCheck) {
 		// Use different settings for the version checks depending on whether this is a snapshot build
 		// or a normal release build
 #	ifndef SNAPSHOT_BUILD
 		// release build
-		new VersionCheck(true, g.mw);
+		new VersionCheck(true, Global::get().mw);
 #	else
 		// snapshot build
-		new VersionCheck(false, g.mw, true);
+		new VersionCheck(false, Global::get().mw, true);
 #	endif
 	}
 #else
-	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
+	Global::get().mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
-	if (g.s.bPluginCheck) {
-		g.p->checkUpdates();
+	if (Global::get().s.bPluginCheck) {
+		Global::get().p->checkUpdates();
 	}
 
 	if (url.isValid()) {
 		OpenURLEvent *oue = new OpenURLEvent(url);
-		qApp->postEvent(g.mw, oue);
+		qApp->postEvent(Global::get().mw, oue);
 #ifdef Q_OS_MAC
 	} else if (!a.quLaunchURL.isEmpty()) {
 		OpenURLEvent *oue = new OpenURLEvent(a.quLaunchURL);
-		qApp->postEvent(g.mw, oue);
+		qApp->postEvent(Global::get().mw, oue);
 #endif
 	} else {
-		g.mw->on_qaServerConnect_triggered(true);
+		Global::get().mw->on_qaServerConnect_triggered(true);
 	}
 
-	if (!g.bQuit)
+	if (!Global::get().bQuit)
 		res = a.exec();
 
-	g.s.save();
+	Global::get().s.save();
 
 	url.clear();
 
-	ServerHandlerPtr sh = g.sh;
+	ServerHandlerPtr sh = Global::get().sh;
 	if (sh) {
 		if (sh->isRunning()) {
 			url = sh->getServerURL();
@@ -745,31 +743,31 @@ int main(int argc, char **argv) {
 
 	delete srpc;
 
-	g.sh.reset();
+	Global::get().sh.reset();
 	while (sh && !sh.unique())
 		QThread::yieldCurrentThread();
 	sh.reset();
 
-	delete g.talkingUI;
-	delete g.mw;
+	delete Global::get().talkingUI;
+	delete Global::get().mw;
 
-	delete g.nam;
-	delete g.lcd;
+	delete Global::get().nam;
+	delete Global::get().lcd;
 
-	delete g.db;
-	delete g.p;
-	delete g.l;
+	delete Global::get().db;
+	delete Global::get().p;
+	delete Global::get().l;
 
 #ifdef USE_ZEROCONF
-	delete g.zeroconf;
+	delete Global::get().zeroconf;
 #endif
 
 #ifdef USE_OVERLAY
-	delete g.o;
+	delete Global::get().o;
 #endif
 
-	delete g.c;
-	g.le.clear();
+	delete Global::get().c;
+	Global::get().le.clear();
 
 	DeferInit::run_destroyers();
 
@@ -811,7 +809,7 @@ int main(int argc, char **argv) {
 		if (suppressIdentity)
 			arguments << QLatin1String("--noidentity");
 		if (customJackClientName)
-			arguments << QLatin1String("--jackname ") + g.s.qsJackClientName;
+			arguments << QLatin1String("--jackname ") + Global::get().s.qsJackClientName;
 		if (!url.isEmpty())
 			arguments << url.toString();
 

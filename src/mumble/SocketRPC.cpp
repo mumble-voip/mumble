@@ -9,15 +9,12 @@
 #include "ClientUser.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
+#include "Global.h"
 
 #include <QtCore/QProcessEnvironment>
 #include <QtCore/QUrlQuery>
 #include <QtNetwork/QLocalServer>
 #include <QtXml/QDomDocument>
-
-// We define a global macro called 'g'. This can lead to issues when included code uses 'g' as a type or parameter name
-// (like protobuf 3.7 does). As such, for now, we have to make this our last include.
-#include "Global.h"
 
 SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(nullptr) {
 	qlsSocket->setParent(this);
@@ -103,82 +100,82 @@ void SocketRPCClient::processXml() {
 			qmReply.insert(iter.key(), iter.value());
 
 		if (request.nodeName() == QLatin1String("focus")) {
-			g.mw->show();
-			g.mw->raise();
-			g.mw->activateWindow();
+			Global::get().mw->show();
+			Global::get().mw->raise();
+			Global::get().mw->activateWindow();
 
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("self")) {
 			iter = qmRequest.find(QLatin1String("mute"));
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
-				if (set != g.s.bMute) {
-					g.mw->qaAudioMute->setChecked(!set);
-					g.mw->qaAudioMute->trigger();
+				if (set != Global::get().s.bMute) {
+					Global::get().mw->qaAudioMute->setChecked(!set);
+					Global::get().mw->qaAudioMute->trigger();
 				}
 			}
 			iter = qmRequest.find(QLatin1String("unmute"));
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
-				if (set == g.s.bMute) {
-					g.mw->qaAudioMute->setChecked(set);
-					g.mw->qaAudioMute->trigger();
+				if (set == Global::get().s.bMute) {
+					Global::get().mw->qaAudioMute->setChecked(set);
+					Global::get().mw->qaAudioMute->trigger();
 				}
 			}
 			iter = qmRequest.find(QLatin1String("togglemute"));
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
-				if (set == g.s.bMute) {
-					g.mw->qaAudioMute->setChecked(set);
-					g.mw->qaAudioMute->trigger();
+				if (set == Global::get().s.bMute) {
+					Global::get().mw->qaAudioMute->setChecked(set);
+					Global::get().mw->qaAudioMute->trigger();
 				} else {
-					g.mw->qaAudioMute->setChecked(!set);
-					g.mw->qaAudioMute->trigger();
+					Global::get().mw->qaAudioMute->setChecked(!set);
+					Global::get().mw->qaAudioMute->trigger();
 				}
 			}
 			iter = qmRequest.find(QLatin1String("deaf"));
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
-				if (set != g.s.bDeaf) {
-					g.mw->qaAudioDeaf->setChecked(!set);
-					g.mw->qaAudioDeaf->trigger();
+				if (set != Global::get().s.bDeaf) {
+					Global::get().mw->qaAudioDeaf->setChecked(!set);
+					Global::get().mw->qaAudioDeaf->trigger();
 				}
 			}
 			iter = qmRequest.find(QLatin1String("undeaf"));
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
-				if (set == g.s.bDeaf) {
-					g.mw->qaAudioDeaf->setChecked(set);
-					g.mw->qaAudioDeaf->trigger();
+				if (set == Global::get().s.bDeaf) {
+					Global::get().mw->qaAudioDeaf->setChecked(set);
+					Global::get().mw->qaAudioDeaf->trigger();
 				}
 			}
 			iter = qmRequest.find(QLatin1String("toggledeaf"));
 			if (iter != qmRequest.constEnd()) {
 				bool set = iter.value().toBool();
-				if (set == g.s.bDeaf) {
-					g.mw->qaAudioDeaf->setChecked(set);
-					g.mw->qaAudioDeaf->trigger();
+				if (set == Global::get().s.bDeaf) {
+					Global::get().mw->qaAudioDeaf->setChecked(set);
+					Global::get().mw->qaAudioDeaf->trigger();
 				} else {
-					g.mw->qaAudioDeaf->setChecked(!set);
-					g.mw->qaAudioDeaf->trigger();
+					Global::get().mw->qaAudioDeaf->setChecked(!set);
+					Global::get().mw->qaAudioDeaf->trigger();
 				}
 			}
 			iter = qmRequest.find(QLatin1String("starttalking"));
 			if (iter != qmRequest.constEnd()) {
-				g.mw->on_PushToTalk_triggered(true, QVariant());
+				Global::get().mw->on_PushToTalk_triggered(true, QVariant());
 			}
 			iter = qmRequest.find(QLatin1String("stoptalking"));
 			if (iter != qmRequest.constEnd()) {
-				g.mw->on_PushToTalk_triggered(false, QVariant());
+				Global::get().mw->on_PushToTalk_triggered(false, QVariant());
 			}
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("url")) {
-			if (g.sh && g.sh->isRunning() && g.uiSession) {
+			if (Global::get().sh && Global::get().sh->isRunning() && Global::get().uiSession) {
 				QString host, user, pw;
 				unsigned short port;
 				QUrl u;
 
-				g.sh->getConnectionInfo(host, port, user, pw);
+				Global::get().sh->getConnectionInfo(host, port, user, pw);
 				u.setScheme(QLatin1String("mumble"));
 				u.setHost(host);
 				u.setPort(port);
@@ -189,7 +186,7 @@ void SocketRPCClient::processXml() {
 				u.setQuery(query);
 
 				QStringList path;
-				Channel *c = ClientUser::get(g.uiSession)->cChannel;
+				Channel *c = ClientUser::get(Global::get().uiSession)->cChannel;
 				while (c->cParent) {
 					path.prepend(c->qsName);
 					c = c->cParent;
@@ -203,7 +200,7 @@ void SocketRPCClient::processXml() {
 				QUrl u = iter.value().toUrl();
 				if (u.isValid() && u.scheme() == QLatin1String("mumble")) {
 					OpenURLEvent *oue = new OpenURLEvent(u);
-					qApp->postEvent(g.mw, oue);
+					qApp->postEvent(Global::get().mw, oue);
 					ack = true;
 				}
 			} else {
