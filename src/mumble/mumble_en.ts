@@ -3163,7 +3163,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Crash uploaded</source>
+        <source>Crash report uploaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
