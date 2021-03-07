@@ -20,7 +20,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble - Add channel</source>
+        <source>Mumble — Add channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -28,11 +28,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed: Invalid channel</source>
+        <source>Invalid channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble - Edit %1</source>
+        <source>Mumble — Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -183,7 +183,7 @@ This value enables you to change the way mumble arranges the channels in the tre
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
+        <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry. Duplicate the inherited entry if you really need that.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -446,7 +446,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Opening chosen ALSA Input failed: %1</source>
+        <source>Could not open the chosen ALSA input: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -457,7 +457,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Opening chosen ALSA Output failed: %1</source>
+        <source>Could not open the chosen ALSA output: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -477,7 +477,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to instantiate ASIO driver</source>
+        <source>Could not instantiate ASIO driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -537,7 +537,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
+        <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and loudspeaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Loudspeaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Loudspeaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -565,7 +565,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Speakers</source>
+        <source>Loudspeakers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -580,11 +580,11 @@ This value allows you to set the maximum number of users allowed in the channel.
 <context>
     <name>ASIOInput</name>
     <message>
-        <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
+        <source>Select at least one microphone and one loudspeaker source to use ASIO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Opening selected ASIO device failed. No input will be done.</source>
+        <source>Could not open the selected ASIO device. No input will be done.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -627,7 +627,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
+        <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An libre software, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -654,7 +654,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
+        <source>&lt;b&gt;This is the microphone input device to use for audio.&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -670,7 +670,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
+        <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push-To-Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -678,7 +678,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you press the PTT key twice in this time it will get locked.</source>
+        <source>Press the PTT key twice in the span of this timeframe locks it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -810,11 +810,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
+        <source>Enabling this will cancel the echo from your loudspeakers. Mixed has low CPU impact, but only works well if your loudspeakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disabled</source>
+        <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -874,11 +874,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Displays an always on top window with a push to talk button in it</source>
+        <source>Displays an always on top window with a push-to-talk button in it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display push to talk window</source>
+        <source>Display push-to-talk window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -890,7 +890,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <source>&lt;b&gt;Turns on transmission audio cues.&lt;/b&gt;&lt;br /&gt;Gives you a short audio beep when you start and stop transmitting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -898,11 +898,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Gets played when starting to transmit</source>
+        <source>Gets played when starting transmission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Gets played when stopping to transmit</source>
+        <source>Gets played when stopping transmission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -966,7 +966,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
+        <source>Turn on Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -978,7 +978,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Don&apos;t use noise suppression.</source>
+        <source>Don&apos;t noise suppression.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -990,7 +990,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
+        <source>Use a combination of Speex and RNNoise to supress noise.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -998,7 +998,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This controls the amount by which Speex will suppress noise.</source>
+        <source>Controls how aggressively Speex suppresses noise.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1017,7 +1017,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Push To Talk</source>
+        <source>Push-To-Talk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1057,7 +1057,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Echo cancellation mode</source>
+        <source>Echo-cancellation mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1121,19 +1121,19 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <source>Please grant Mumble access to the microphone by changing the settings in System Preferences → Security → Privacy → Privacy → Microphone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
+        <source>Ensure it is not the operating system&apos;s microphone settings that prevent Mumble from using the microphone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disabled</source>
+        <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable echo cancellation.</source>
+        <source>Turn off echo cancellation.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1196,7 +1196,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
+        <source>&lt;b&gt;This turns on one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback off&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is on, no other users will hear your voice. This setting is not saved on application exit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1208,7 +1208,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
+        <source>&lt;b&gt;Adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Beyond 100% audio will be distorted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1220,8 +1220,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The connected &quot;speakers&quot; are actually headphones</source>
-        <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
+        <source>The connected &quot;loudspeakers&quot; are actually headphones</source>
+        <oldsource>The connected &quot;loudspeakers&quot; are actually headphones.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1241,7 +1241,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
+        <source>Indicates you don&apos;t have loudspeakers connected, just headphones. Important to get the direction of sound right.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1285,8 +1285,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
-        <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
+        <source>&lt;b&gt;Sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. Allows setting that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
+        <oldsource>&lt;b&gt;Sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. Allows setting that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1298,7 +1298,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
+        <source>&lt;b&gt;Sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1318,7 +1318,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
+        <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. Also sets the attenuation of other applications.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1326,7 +1326,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Attenuate applications while others talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
+        <source>&lt;b&gt;Attenuate applications while others talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. Activate the feature while others talk to you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1350,7 +1350,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
+        <source>&lt;b&gt;Opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1390,7 +1390,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
+        <source>&lt;b&gt;The output method to use for audio.&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1532,7 +1532,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
+        <source>Shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1540,8 +1540,8 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
-        <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
+        <source>Shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
+        <oldsource>Shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1549,7 +1549,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
+        <source>Shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1565,7 +1565,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
+        <source>Shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1577,7 +1577,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
+        <source>The Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1589,7 +1589,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
+        <source>The probability of the last frame (20 ms) being speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1621,7 +1621,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
+        <source>&lt;b&gt;Shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;Change this settings from the Settings dialog or by using the Audio Wizard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1633,7 +1633,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
+        <source>Shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1645,11 +1645,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
+        <source>Shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
+        <source>The audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1684,7 +1684,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the device your microphone is connected to.</source>
+        <source>The device your microphone is connected to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1716,11 +1716,11 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
+        <source>Turns on echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the device your speakers or headphones are connected to.</source>
+        <source>The device your speakers or headphones are connected to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1753,7 +1753,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This allows Mumble to use positional audio to place voices.</source>
+        <source>Allows Mumble to use positional audio to place voices.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1761,7 +1761,7 @@ This value allows you to set the maximum number of users allowed in the channel.
 To keep latency to an absolute minimum, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.
 &lt;/p&gt;
 &lt;p&gt;
-You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
+You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is off during this test.
 &lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
@@ -1771,7 +1771,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
+        <source>Sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1798,10 +1798,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;p&gt;
-Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.
-&lt;/p&gt;
-&lt;p&gt;
-Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous stats about your configuration to the developers. These stats are essential for future development, and also make sure the features you use aren&apos;t deprecated.
+The hard working development team wants to focus on features benefitting the most users. You can send in anonymous stats to help, also ensuring the features you use aren&apos;t removed.
 &lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
@@ -1811,7 +1808,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
+        <source>Ignores the speaker configuration of the operating system and configures the positioning for headphones instead.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1835,7 +1832,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
+        <source>Helps Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1864,11 +1861,11 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Push To Talk:</source>
+        <source>Push-To-Talk:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Quality &amp; Notifications</source>
+        <source>Quality and Notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1924,7 +1921,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
+        <source>Enables attenuation of other applications while users talk to you. As soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1968,27 +1965,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
+        <source>In this configuration Mumble uses a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. Results in high latency and poor quality. Only use it if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
+        <source>The &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
+        <source>Configuration only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
+        <source>&lt;b&gt;The input method to use for audio.&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
+        <source>&lt;b&gt;The output method to use for audio.&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The audio tuning wizard for Mumble. Help you correctly set the input levels of your sound card and the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2035,7 +2032,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>BanEditor</name>
     <message>
-        <source>Mumble - Edit Bans</source>
+        <source>Mumble — Edit Bans</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2087,7 +2084,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
+        <source>Use this field to find bans with this username set in the username field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2135,7 +2132,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is a list with banned users.</source>
+        <source>List with banned users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2163,7 +2160,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <source>Ban List - %n Ban(s)</source>
+        <source>Ban List — %n Ban(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
@@ -2196,7 +2193,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Email</source>
+        <source>E-mail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2219,7 +2216,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>CertWizard</name>
     <message>
-        <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
+        <source>Unable to validate e-mail address.&lt;br /&gt;Enter a valid (or blank) e-mail address to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2295,7 +2292,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Email address</source>
+        <source>E-mail address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2432,7 +2429,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
-&lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the email addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognize the strong certificate for your email address.
+&lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the e-mail addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognize the strong certificate for your e-mail address.
 &lt;/p&gt;
 &lt;p&gt;If this is not the case, you will no longer be recognized by any server you previously have authenticated with. If you haven&apos;t been registered on any server yet, this is nothing to worry about.
 &lt;/p&gt;
@@ -2487,7 +2484,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional info to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
+        <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional info to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid e-mail address, you can upgrade to a CA issued e-mail certificate later on, which provides strong identification.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2495,15 +2492,15 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Email</source>
+        <source>E-mail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your email address (e.g. johndoe@mumble.info)</source>
+        <source>Your e-mail address (e.g. johndoe@mumble.info)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
+        <source>This is your e-mail address. It is strongly recommended to provide a valid e-mail address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2536,7 +2533,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. More info in the &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an e-mail address. These certificates are issued by third parties. More info in the &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2699,11 +2696,11 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
+        <source>Could not send image because it was too large.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image %1: too large.</source>
+        <source>Could not send the image &quot;%1&quot; because it was too large.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2805,7 +2802,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, press the &quot;Defaults (All)&quot; button.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2840,7 +2837,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to fetch server list</source>
+        <source>Could not fetch server list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2952,7 +2949,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
+        <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. Reactivate it at any time in the network settings.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3146,7 +3143,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Email address (optional)</source>
+        <source>E-mail address (optional)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3175,7 +3172,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The crash upload has failed with error %1 %2. Please inform a developer.</source>
+        <source>The crash uploader has failed with the error %1 %2. Please inform a developer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3203,7 +3200,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble failed to initialize a database in any of the possible locations.</source>
+        <source>Could not initialize a database in any of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3272,7 +3269,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can turn on &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;Turn on &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences for more adjustability. This also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3349,7 +3346,7 @@ Without this option on, using Mumble&apos;s global shortcuts in privileged appli
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Remove the currently selected items</source>
+        <source>Remove selected items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3360,7 +3357,7 @@ Without this option on, using Mumble&apos;s global shortcuts in privileged appli
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;For more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3549,7 +3546,7 @@ Without this option on, using Mumble&apos;s global shortcuts in privileged appli
 &lt;h3&gt;Size:&lt;/h3&gt;
 &lt;p&gt;
 This field describes the size of an LCD device. The size is given either in pixels (for graphic LCDs) or in characters (for character LCDs).&lt;/p&gt;
-&lt;h3&gt;Enabled:&lt;/h3&gt;
+&lt;h3&gt;On:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3571,7 +3568,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
-&lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
+&lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. Use it to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3686,7 +3683,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>[[ Text object too large to display ]]</source>
+        <source>[[ The text object is too large to display ]]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3813,7 +3810,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Click here to turn on or off sound notification for %1 events.&lt;br /&gt;Uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
-        <oldsource>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
+        <oldsource>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure sound notifications for these events are on, or this field will not have any effect.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4088,11 +4085,11 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ask whether to close or minimize when quitting Mumble.</source>
+        <source>Ask to close or minimize when quitting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ask on quit while connected</source>
+        <source>Ask upon quitting while connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4100,19 +4097,19 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
+        <source>&lt;b&gt;Hides the main window in the system tray when Mumble is minimized. Otherwise it is minimized as a window normally would.&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide in tray when minimized</source>
+        <source>Minimize to tray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide the main Mumble window in the tray when it is minimized.</source>
+        <source>Hide the main Mumble window in the system tray when minimized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This setting controls when the application will be always on top.</source>
+        <source>Controlss when the application will be always on top.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4136,19 +4133,19 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show talking status in tray icon</source>
+        <source>Talking status in tray icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
+        <source>Controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show context menu in menu bar</source>
+        <source>Context menu in menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <source>High contrast optimizations for vision impaired users</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4208,11 +4205,11 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
+        <source>&lt;b&gt;Developer menu&lt;/b&gt;&lt;br /&gt;Shows the &quot;Developer&quot;-menu containing developer-specific features (like the developer console) in Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Developer menu</source>
+        <source>Developer menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4300,7 +4297,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Max. channel name length</source>
+        <source>Max. channel-name length</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4643,7 +4640,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server presented a certificate which failed verification.</source>
+        <source>The server presented a certificate which failed verification.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4755,7 +4752,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble - Minimal View -- %1</source>
+        <source>Mumble — Minimal View — %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5200,7 +5197,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
+        <source>Enable or disable the text-to-speech engine. Only messages set up for TTS in the Configuration dialog will actually be spoken.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5312,7 +5309,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
+        <source>This will add the user as a friend, so you can recognize the person on this and other servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5737,7 +5734,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to Mumble.</source>
+        <source>Welcome.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6048,11 +6045,11 @@ channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No action available…</source>
+        <source>No available actions…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to %1 into %2 - Adding the respective access (password) token might grant you access.</source>
+        <source>Unable to %1 into %2 — Adding the respective access (password) token might grant you access.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6679,8 +6676,8 @@ Prevents the client from sending info about the operating system to the Mumble s
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
+        <source>This sets whether the overlay is on or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
+        <oldsource>This sets whether the overlay is on or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6732,7 +6729,7 @@ Click the button below to upgrade these files to their latest versions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show FPS counter</source>
+        <source>FPS counter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6780,7 +6777,7 @@ Click the button below to upgrade these files to their latest versions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show Clock</source>
+        <source>Clock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7029,7 +7026,7 @@ Click the button below to upgrade these files to their latest versions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
+        <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This lets others hear your voice in-game from the direction your character is in relation to their own.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7077,7 +7074,7 @@ Click the button below to upgrade these files to their latest versions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabled</source>
+        <source>On</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7092,7 +7089,7 @@ Click the button below to upgrade these files to their latest versions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to install new plugin to %1.</source>
+        <source>Could not install the new plugin to %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7177,7 +7174,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
+        <source>&lt;p&gt;You&apos;re using a Mumble version where update-checks is turned off.&lt;/p&gt;&lt;p&gt;The update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7551,7 +7548,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mumble - Access Tokens</source>
+        <source>Mumble — Access Tokens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8006,7 +8003,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The channel has access restrictions but you can still enter it.</source>
+        <source>The channel has access restrictions, but you can still enter it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8021,7 +8018,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to launch snapshot installer.</source>
+        <source>Could not launch snapshot installer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8033,8 +8030,8 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Could not write new version to disk.</source>
-        <oldsource>Failed to write new version to disc.</oldsource>
+        <source>Could not save the new version.</source>
+        <oldsource>Could not write new version to disc.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8113,7 +8110,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Email: %1</source>
+        <source>E-mail: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8140,19 +8137,19 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>.wav - Uncompressed</source>
+        <source>.wav — Uncompressed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>.ogg (Vorbis) - Compressed</source>
+        <source>.ogg (Vorbis) — Compressed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>.au - Uncompressed</source>
+        <source>.au — Uncompressed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>.flac - Lossless compressed</source>
+        <source>.flac — Lossless compressed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8285,7 +8282,7 @@ Please contact your server administrator for further info.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Push to talk</source>
+        <source>Push-to-talk</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
