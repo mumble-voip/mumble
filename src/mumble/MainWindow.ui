@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>671</width>
+    <width>735</width>
     <height>435</height>
    </rect>
   </property>
@@ -47,7 +47,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>671</width>
+     <width>735</width>
      <height>32</height>
     </rect>
    </property>
@@ -185,6 +185,8 @@
    <addaction name="qaConfigDialog"/>
    <addaction name="separator"/>
    <addaction name="qaFilterToggle"/>
+   <addaction name="separator"/>
+   <addaction name="qaSearch"/>
   </widget>
   <action name="qaQuit">
    <property name="text">
@@ -978,6 +980,21 @@ the channel's context menu.</string>
    </property>
    <property name="whatsThis">
     <string>Silently disables Text-To-Speech for all text messages from the user.</string>
+   </property>
+  </action>
+  <action name="qaSearch">
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:magnifier.svg</normaloff>skin:magnifier.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Search</string>
+   </property>
+   <property name="toolTip">
+    <string>Search for a user or channel (Ctrl+F)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

@@ -34,6 +34,7 @@
     <file alias="Lite.qss">Mumble/Lite.qss</file>
 	<file alias="lock_locked.svg">Mumble/lock_locked.svg</file>
 	<file alias="lock_unlocked.svg">Mumble/lock_unlocked.svg</file>
+	<file alias="magnifier.svg">Mumble/magnifier.svg</file>
     <file alias="mumble.ico">Mumble/mumble.ico</file>
     <file alias="mumble.osx.png">Mumble/mumble.osx.png</file>
     <file alias="mumble.png">Mumble/mumble.png</file>

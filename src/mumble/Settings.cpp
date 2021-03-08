@@ -293,6 +293,8 @@ Settings::Settings() {
 	qRegisterMetaType< QVariant >("QVariant");
 	qRegisterMetaType< PluginSetting >("PluginSetting");
 	qRegisterMetaTypeStreamOperators< PluginSetting >("PluginSetting");
+	qRegisterMetaType< Search::SearchDialog::UserAction >("SearchDialog::UserAction");
+	qRegisterMetaType< Search::SearchDialog::ChannelAction >("SearchDialog::ChannelAction");
 
 	atTransmit        = VAD;
 	bTransmitPosition = false;
@@ -553,6 +555,16 @@ Settings::Settings() {
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 	qmMessages[Log::UserRenamed]     = Settings::LogConsole;
 	qmMessages[Log::PluginMessage]   = Settings::LogConsole;
+
+	// Default search options
+	searchForUsers       = true;
+	searchForChannels    = true;
+	searchCaseSensitive  = false;
+	searchAsRegex        = false;
+	searchOptionsShown   = false;
+	searchUserAction     = Search::SearchDialog::UserAction::JOIN;
+	searchChannelAction  = Search::SearchDialog::ChannelAction::JOIN;
+	searchDialogPosition = Settings::UNSPECIFIED_POSITION;
 
 	// Default theme
 	themeName      = QLatin1String("Mumble");
@@ -979,6 +991,16 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	LOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
+	// Search options
+	LOAD(searchForUsers, "search/search_for_users");
+	LOAD(searchForChannels, "search/search_for_channels");
+	LOAD(searchCaseSensitive, "search/search_case_sensitive");
+	LOAD(searchAsRegex, "search/search_as_regex");
+	LOAD(searchOptionsShown, "search/search_options_shown");
+	LOADFLAG(searchUserAction, "search/search_user_action");
+	LOADFLAG(searchChannelAction, "search/search_channel_action");
+	LOAD(searchDialogPosition, "search/search_dialog_position");
+
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i = 0; i < nshorts; i++) {
 		settings_ptr->setArrayIndex(i);
@@ -1374,6 +1396,16 @@ void Settings::save() {
 	SAVE(bEnableGKey, "shortcut/gkey");
 	SAVE(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	SAVE(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
+
+	// Search options
+	SAVE(searchForUsers, "search/search_for_users");
+	SAVE(searchForChannels, "search/search_for_channels");
+	SAVE(searchCaseSensitive, "search/search_case_sensitive");
+	SAVE(searchAsRegex, "search/search_as_regex");
+	SAVE(searchOptionsShown, "search/search_options_shown");
+	SAVEFLAG(searchUserAction, "search/search_user_action");
+	SAVEFLAG(searchChannelAction, "search/search_channel_action");
+	SAVE(searchDialogPosition, "search/search_dialog_position");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

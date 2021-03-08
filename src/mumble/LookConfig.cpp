@@ -9,6 +9,7 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "MainWindow.h"
+#include "SearchDialog.h"
 #include "Global.h"
 
 #include <QtCore/QFileSystemWatcher>
@@ -98,6 +99,19 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		qlThemesDirectory->setText(tr("<a href=\"%1\">Browse</a>").arg(userThemeDirectoryUrl.toString()));
 		qlThemesDirectory->setOpenExternalLinks(true);
 	}
+
+#define ADD_SEARCH_USERACTION(name)                                                                      \
+	qcbSearchUserAction->addItem(Search::SearchDialog::toString(Search::SearchDialog::UserAction::name), \
+								 static_cast< int >(Search::SearchDialog::UserAction::name))
+	ADD_SEARCH_USERACTION(NONE);
+	ADD_SEARCH_USERACTION(JOIN);
+#undef ADD_SEARCH_USERACTION
+#define ADD_SEARCH_CHANNELACTION(name)                                                                         \
+	qcbSearchChannelAction->addItem(Search::SearchDialog::toString(Search::SearchDialog::ChannelAction::name), \
+									static_cast< int >(Search::SearchDialog::ChannelAction::name))
+	ADD_SEARCH_CHANNELACTION(NONE);
+	ADD_SEARCH_CHANNELACTION(JOIN);
+#undef ADD_SEARCH_CHANNELACTION
 }
 
 QString LookConfig::title() const {
@@ -202,6 +216,9 @@ void LookConfig::load(const Settings &r) {
 	qleAbbreviationReplacement->setText(r.qsTalkingUI_AbbreviationReplacement);
 
 	qleChannelSeparator->setText(r.qsHierarchyChannelSeparator);
+
+	loadComboBox(qcbSearchUserAction, static_cast< int >(r.searchUserAction));
+	loadComboBox(qcbSearchChannelAction, static_cast< int >(r.searchChannelAction));
 }
 
 void LookConfig::save() const {
@@ -270,6 +287,10 @@ void LookConfig::save() const {
 	s.qsTalkingUI_AbbreviationReplacement = qleAbbreviationReplacement->text();
 
 	s.qsHierarchyChannelSeparator = qleChannelSeparator->text();
+
+	s.searchUserAction = static_cast< Search::SearchDialog::UserAction >(qcbSearchUserAction->currentData().toInt());
+	s.searchChannelAction =
+		static_cast< Search::SearchDialog::ChannelAction >(qcbSearchChannelAction->currentData().toInt());
 }
 
 void LookConfig::accept() const {

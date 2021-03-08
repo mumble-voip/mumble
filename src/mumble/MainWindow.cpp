@@ -35,9 +35,11 @@
 #include "Markdown.h"
 #include "PTTButtonWidget.h"
 #include "PluginManager.h"
+#include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
 #include "SSLCipherInfo.h"
 #include "Screen.h"
+#include "SearchDialog.h"
 #include "ServerHandler.h"
 #include "ServerInformation.h"
 #include "Settings.h"
@@ -288,6 +290,11 @@ void MainWindow::createActions() {
 	gsToggleTalkingUI->setObjectName(QLatin1String("gsToggleTalkingUI"));
 	gsToggleTalkingUI->qsWhatsThis = tr("Toggles the visibility of the TalkingUI.", "Global Shortcut");
 
+	gsToggleSearch = new GlobalShortcut(this, idx++, tr("Toggle search dialog", "Global Shortcut"));
+	gsToggleSearch->setObjectName(QLatin1String("gsToggleSearch"));
+	gsToggleSearch->qsWhatsThis =
+		tr("This will open or close the search dialog depending on whether it is currently opened already");
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -526,6 +533,11 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		// Note that we explicitly don't save the whole geometry as the TalkingUI's size
 		// is a flexible thing that'll adjust automatically anyways.
 		Global::get().s.qpTalkingUI_Position = Global::get().talkingUI->pos();
+	}
+
+	if (m_searchDialog) {
+		// Save position of search dialog
+		Global::get().s.searchDialogPosition = { m_searchDialog->x(), m_searchDialog->y() };
 	}
 
 	if (qwPTTButtonWidget) {
@@ -911,6 +923,30 @@ void MainWindow::setTransmissionMode(Settings::AudioTransmit mode) {
 
 		emit transmissionModeChanged(mode);
 	}
+}
+
+void MainWindow::on_qaSearch_triggered() {
+	toggleSearchDialogVisibility();
+}
+
+void MainWindow::toggleSearchDialogVisibility() {
+	if (!m_searchDialog) {
+		m_searchDialog = new Search::SearchDialog(this);
+
+		QPoint position = Global::get().s.searchDialogPosition;
+
+		if (position == Settings::UNSPECIFIED_POSITION) {
+			// Get MainWindow's position on screen
+			position = mapToGlobal(QPoint(0, 0));
+		}
+
+		if (Mumble::QtUtils::positionIsOnScreen(position)) {
+			// Move the search dialog to the same origin as the MainWindow is
+			m_searchDialog->move(position);
+		}
+	}
+
+	m_searchDialog->setVisible(!m_searchDialog->isVisible());
 }
 
 static void recreateServerHandler() {
@@ -3064,6 +3100,14 @@ void MainWindow::on_gsToggleTalkingUI_triggered(bool down, QVariant) {
 	if (down) {
 		qaTalkingUIToggle->trigger();
 	}
+}
+
+void MainWindow::on_gsToggleSearch_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	toggleSearchDialogVisibility();
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {

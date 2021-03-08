@@ -873,11 +873,16 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 			Global::get().l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 		}
 	}
-	if (pDst != pSelf)
-		pmModel->removeUser(pDst);
 
 	QMetaObject::invokeMethod(Global::get().talkingUI, "on_clientDisconnected", Qt::QueuedConnection,
 							  Q_ARG(unsigned int, pDst->uiSession));
+	if (Global::get().mw->m_searchDialog) {
+		QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_clientDisconnected", Qt::QueuedConnection,
+								  Q_ARG(unsigned int, pDst->uiSession));
+	}
+
+	if (pDst != pSelf)
+		pmModel->removeUser(pDst);
 }
 
 /// This message is being received when the server informs the local client about channel properties (either during
@@ -998,6 +1003,12 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 				Global::get().db->setChannelFiltered(sh->qbaDigest, c->iId, false);
 			c->bFiltered = false;
 		}
+
+		if (Global::get().mw->m_searchDialog) {
+			QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_channelRemoved", Qt::QueuedConnection,
+									  Q_ARG(int, c->iId));
+		}
+
 		if (!pmModel->removeChannel(c, true)) {
 			Global::get().l->log(Log::CriticalError,
 								 tr("Protocol violation. Server sent remove for occupied channel."));

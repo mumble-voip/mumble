@@ -5,8 +5,11 @@
 
 #include "QtWidgetUtils.h"
 
+#include <QFontMetrics>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QTextCursor>
+#include <QTextDocument>
 
 namespace Mumble {
 namespace QtUtils {
@@ -26,6 +29,29 @@ namespace QtUtils {
 	}
 
 	bool positionIsOnScreen(QPoint point) { return screenAt(point) != nullptr; }
+
+	void elideText(QTextDocument &doc, uint32_t width) {
+		if (doc.size().width() > width) {
+			// Elide text
+			QTextCursor cursor(&doc);
+			cursor.movePosition(QTextCursor::End);
+
+			const QString elidedPostfix = "...";
+			QFontMetrics metric(doc.defaultFont());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+			uint32_t postfixWidth = metric.horizontalAdvance(elidedPostfix);
+#else
+			uint32_t postfixWidth = metric.width(elidedPostfix);
+#endif
+
+			while (doc.size().width() > std::max(width - postfixWidth, static_cast< uint32_t >(0))) {
+				cursor.deletePreviousChar();
+				doc.adjustSize();
+			}
+
+			cursor.insertText(elidedPostfix);
+		}
+	}
 
 }; // namespace QtUtils
 }; // namespace Mumble

@@ -193,6 +193,9 @@ set(MUMBLE_SOURCES
 	"RichTextEditor.ui"
 	"Screen.cpp"
 	"Screen.h"
+	"SearchDialog.cpp"
+	"SearchDialog.h"
+	"SearchDialog.ui"
 	"ServerHandler.cpp"
 	"ServerHandler.h"
 	"ServerInformation.cpp"
@@ -267,6 +270,12 @@ set(MUMBLE_SOURCES
 	"widgets/MUComboBox.h"
 	"widgets/MultiStyleWidgetWrapper.cpp"
 	"widgets/MultiStyleWidgetWrapper.h"
+	"widgets/RichTextItemDelegate.cpp"
+	"widgets/RichTextItemDelegate.h"
+	"widgets/SearchDialogItemDelegate.cpp"
+	"widgets/SearchDialogItemDelegate.h"
+	"widgets/SearchDialogTree.cpp"
+	"widgets/SearchDialogTree.h"
 
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"

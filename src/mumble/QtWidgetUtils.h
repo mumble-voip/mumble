@@ -9,6 +9,7 @@
 #include <QPoint>
 
 class QScreen;
+class QTextDocument;
 
 namespace Mumble {
 namespace QtUtils {
@@ -22,6 +23,8 @@ namespace QtUtils {
 	 * @returns Whether the given position is on any screen (as opposed to off-screen)
 	 */
 	bool positionIsOnScreen(QPoint position);
+
+	void elideText(QTextDocument &doc, uint32_t width);
 
 }; // namespace QtUtils
 }; // namespace Mumble
