@@ -18,7 +18,7 @@ steps:
     env:
       MUMBLE_BUILD_NUMBER_TOKEN: $(BUILD_NUMBER_TOKEN)
     displayName: 'Build'
-  - script: 'cd $BUILD_BINARIES_DIRECTORY; ctest --verbose'
+  - script: 'cd $BUILD_BINARIESDIRECTORY; ctest --verbose'
     displayName: 'Test'
   - script: .ci/azure-pipelines/release_macos.bash
     displayName: 'Release'
