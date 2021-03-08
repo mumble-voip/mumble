@@ -143,7 +143,7 @@ public:
 		};
 		stream.Write(response, callback(cb));
 		while (!processed) {
-			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+			QCoreApplication::sendPostedEvents();
 		}
 		return success;
 	}
@@ -157,7 +157,7 @@ public:
 		};
 		stream.Read(&request, callback(cb));
 		while (!processed) {
-			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+			QCoreApplication::sendPostedEvents();
 		}
 		return success;
 	}
