@@ -485,7 +485,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device selection</source>
+        <source>Pick your sound sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -638,7 +638,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>System</source>
+        <source>Sound server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1144,7 +1144,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>System</source>
+        <source>Sound server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1152,7 +1152,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device</source>
+        <source>Output device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1660,15 +1660,15 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Introduction</source>
+        <source>Make sure you sound great</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to the Mumble Audio Wizard</source>
+        <source>Adjust sound processing and sound card input levels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Finished</source>
+        <source>Setup completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1680,7 +1680,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Selecting the input and output device to use with Mumble.</source>
+        <source>Select what sends audio, and then what plays it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1696,7 +1696,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device</source>
+        <source>Input device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1712,7 +1712,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use echo cancellation</source>
+        <source>Echo cancellation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1736,7 +1736,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable positional audio</source>
+        <source>Positional audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1758,10 +1758,8 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;p&gt;
-To keep latency to an absolute minimum, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.
-&lt;/p&gt;
-&lt;p&gt;
-You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is off during this test.
+Some sound cards claim to require storing less audio in their buffer than they actually work with.
+Move the slider to the lowest without interruption in the voice you hear.
 &lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
@@ -1776,10 +1774,10 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     </message>
     <message>
         <source>&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
+Select your microhpone and set it to 100% recording volume sound control panel of your operating system. Turn on &quot;Microphone boost&quot; if it is available.
 &lt;/p&gt;
 &lt;p&gt;
-Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
+Ensure the level is as as high as possible by only entering the red zone when speaking louder than you ever would.
 &lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
@@ -1789,22 +1787,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adjusting attenuation of positional audio.</source>
+        <source>Adjust how others sound as they move around you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use headphones instead of speakers</source>
+        <source>Headphones instead of speakers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;p&gt;
-The hard working development team wants to focus on features benefitting the most users. You can send in anonymous stats to help, also ensuring the features you use aren&apos;t removed.
+The hard-working development team wants to focus on features benefitting the most users. You can help, and ensure features you use aren&apos;t removed.
 &lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use headphones</source>
+        <source>Headphones instead of speakers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1812,48 +1810,51 @@ The hard working development team wants to focus on features benefitting the mos
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Volume tuning</source>
+        <source>Adjust how loud and clear you sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tuning microphone hardware volume to optimal settings.</source>
+        <source>Fine-tune the best signal-to-noise ratio.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
+        <source>Ensure the blue cutoff area only covers being silent by shrinking it below speaking softly and quietly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Voice Activity Detection</source>
+        <source>Select when to send audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
+        <source>This decides when to send your voice to others.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Helps Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
+        <source>I want to talk:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Raw amplitude from input</source>
+        <source>Always</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Signal-To-Noise ratio</source>
+        <source>When detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
+        <source>Ensure your speech is divided into the following areas.&lt;br /&gt;
+The first thing you say. Grønt (Speech)&lt;br /&gt;
+Regular talking. Yellow (Could be speech)&lt;br /&gt;
+Silence. Red (Not talking)</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device tuning</source>
+        <source>Minimize playback latency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Changing hardware output delays to their minimum value.</source>
+        <source>Set how immediately sound can be played without issue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1865,15 +1866,15 @@ The hard working development team wants to focus on features benefitting the mos
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Quality and Notifications</source>
+        <source>Set the amount of data to use</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adjust quality and notification settings.</source>
+        <source>Pick a good tradeoff between quality and cost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Quality settings</source>
+        <source>Sound quality</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1885,15 +1886,15 @@ The hard working development team wants to focus on features benefitting the mos
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Notification settings</source>
+        <source>Notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use Text-To-Speech to read notifications and messages to you.</source>
+        <source>Read with Text-To-Speech.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable Text-To-Speech and use sounds instead.</source>
+        <source>Sounds instead of Text-To-Speech.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1905,7 +1906,7 @@ The hard working development team wants to focus on features benefitting the mos
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Attenuate applications while other users talk</source>
+        <source>Lower the volume of other applications while others talk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1929,7 +1930,7 @@ The hard working development team wants to focus on features benefitting the mos
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use high contrast graphics</source>
+        <source>High contrast bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1938,10 +1939,10 @@ The hard working development team wants to focus on features benefitting the mos
     </message>
     <message>
         <source>&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
+Select your microhpone and set it to 100% recording volume sound control panel of your operating system. Turn on &quot;Microphone boost&quot; if it is available.
 &lt;/p&gt;
 &lt;p&gt;
-Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the crisscrossed zone while you speak.
+Ensure the level is as as high as possible by only entering the red zone when speaking louder than you ever would.
 &lt;/p&gt;
 </source>
         <oldsource>&lt;p&gt;
@@ -1955,25 +1956,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
+        <source>Ensure the striped cutoff area only covers being silent by shrinking it below speaking softly and quietly.</source>
         <comment>For high contrast mode</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
-        <comment>For high contrast mode</comment>
+        <source>Ensure your speech is divided into the following areas.&lt;br /&gt;
+The first thing you say. Empty (Speech)&lt;br /&gt;
+Regular talking. Empty (Could be speech)&lt;br /&gt;
+Silence. Crisscrossed (Not talking)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In this configuration Mumble uses a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. Results in high latency and poor quality. Only use it if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
+        <source>Poor quality, worst latency, lowest data usage. For costly and bad connections. (16kbit/s, 60ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
+        <source>OK quality, OK latency, medium data usage. Safe for most connections. (40kbit/s, 20ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configuration only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
+        <source>Great quality, lowest latency, highest data use. For faster and unrestricted networks. (72kbit/s, 10ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1985,11 +1988,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The audio tuning wizard for Mumble. Help you correctly set the input levels of your sound card and the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Your audio input is played back to you so you can listen to yourself (while the wizard is open). Settings are only saved once the wizard finishes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is how others will sound when they move around you in virtual surroundings (like supported games). &lt;/p&gt;&lt;p&gt;Here you hear &lt;span style=&quot; color:#d55e00;&quot;&gt;ears&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; you can position, as you see &lt;span style=&quot; color:#56b4e9;&quot;&gt;yourself&lt;/span&gt; from above.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1997,7 +2000,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Input device</source>
+        <source>Recording 🎤</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2005,7 +2008,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Output device</source>
+        <source>Playback 🔊 🎧</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2668,7 +2671,7 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This represents the permission to use the listen-feature allowing to listen to a channel without being in it.</source>
+        <source>Allows listening to a channel without being in it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6478,7 +6481,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Submit anonymous stats to the Mumble project</source>
+        <source>Send anonymous stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
