@@ -990,17 +990,27 @@ if(wasapi)
 	endif()
 endif()
 
-if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0" AND APPLE)
-	# Prevent objective C files from being included in unity builds as that causes issues
-	set_source_files_properties(
-		"AppNap.mm"
-		"GlobalShortcut_macx.mm"
-		"Log_macx.mm"
-		"os_macx.mm"
-		"TextToSpeech_macx.mm"
-		"Overlay_macx.mm"
-		"CoreAudio.mm"
-		PROPERTIES
-			SKIP_UNITY_BUILD_INCLUSION TRUE
-	)
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0")
+	if (APPLE)
+		# Prevent objective C files from being included in unity builds as that causes issues
+		set_source_files_properties(
+			"AppNap.mm"
+			"GlobalShortcut_macx.mm"
+			"Log_macx.mm"
+			"os_macx.mm"
+			"TextToSpeech_macx.mm"
+			"Overlay_macx.mm"
+			"CoreAudio.mm"
+			PROPERTIES
+				SKIP_UNITY_BUILD_INCLUSION TRUE
+		)
+	elseif(UNIX)
+		# Exclude source files that include the X11 headers as these define
+		# an awful lot of macros that can conflict with other code
+		set_source_files_properties(
+			"GlobalShortcut_unix.cpp"
+			PROPERTIES
+				SKIP_UNITY_BUILD_INCLUSION TRUE
+		)
+	endif()
 endif()
