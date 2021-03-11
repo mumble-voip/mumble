@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Przydziela uprawnienie: &lt;i&gt;%1&lt;/i&gt;. Jeżeli uprawnienie jest jednocześnie dozwolone i zabronione, to jest zabronione.&lt;br /&gt;%2</translation>
+        <translation>Przydziela uprawnienie %1. Jeżeli uprawnienie jest jednocześnie dozwolone i zabronione, to jest zabronione.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Odbiera uprawnienie: &lt;i&gt;%1&lt;/i&gt;. Jeżeli uprawnienie jest jednocześnie dozwolone i zabronione, to jest zabronione.&lt;br /&gt;%2</translation>
+        <translation>Odbiera uprawnienie %1. Jeżeli uprawnienie jest jednocześnie dozwolone i zabronione, to jest zabronione.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -333,12 +333,14 @@ Dodaje nową grupę.</translation>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Tymczasowy&lt;/b&gt;&lt;br /&gt;Po włączeniu - kanał, który utworzysz będzie oznaczony, jako tymczasowy. Gdy ostatni użytkownik opuści ten kanał, zostanie on automatycznie usunięty przez serwer.</translation>
+        <translation>&lt;b&gt;Tymczasowy&lt;/b&gt;&lt;br /&gt;
+Po włączeniu - kanał, który utworzysz będzie oznaczony, jako tymczasowy. Gdy ostatni użytkownik opuści ten kanał, zostanie on automatycznie usunięty przez serwer.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;Grupa&lt;/b&gt;&lt;br /&gt;Znajdują się tutaj wszystkie grupy aktualnie zdefiniowane dla tego kanału. By utworzyć nową grupę, wpisz jej nazwę i naciśnij enter.</translation>
+        <translation>&lt;b&gt;Grupa&lt;/b&gt;&lt;br /&gt;
+Znajdują się tutaj wszystkie grupy aktualnie zdefiniowane dla tego kanału. By utworzyć nową grupę, wpisz jej nazwę i naciśnij enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
@@ -359,17 +361,20 @@ These are all the groups currently defined for the channel. To create a new grou
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Członkowie&lt;/b&gt;&lt;br /&gt;Ta lista zawiera wszystkich członków, którzy zostali dodani do grupy na tym kanale. Należy pamiętać, że dane te nie obejmują użytkowników dziedziczonych z kanałów nadrzędnych. Znajdują się oni na liście  &lt;i&gt;Odziedziczeni członkowie&lt;/i&gt;. By zapobiegać dziedziczeniu tej listy przez podkanały, odznacz &lt;i&gt;Dziedziczna&lt;/i&gt; lub manualnie dodaj członków do listy &lt;i&gt;Wykluczeni członkowie&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Członkowie&lt;/b&gt;&lt;br /&gt;
+Ta lista zawiera wszystkich członków, którzy zostali dodani do grupy na tym kanale. Należy pamiętać, że dane te nie obejmują użytkowników dziedziczonych z kanałów nadrzędnych. Znajdują się oni na liście &lt;i&gt;Odziedziczeni członkowie&lt;/i&gt;. By zapobiegać dziedziczeniu tej listy przez podkanały, odznacz &lt;i&gt;Dziedziczna&lt;/i&gt; lub manualnie dodaj członków do listy &lt;i&gt;Wykluczeni członkowie&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;Wykluczeni członkowie&lt;/b&gt;&lt;br /&gt;Zawiera listę członków, których członkowstwo w grupie nie będzie dziedziczone z kanałów nadrzędnych.</translation>
+        <translation>&lt;b&gt;Wykluczeni członkowie&lt;/b&gt;&lt;br /&gt;
+Zawiera listę członków, których członkowstwo w grupie nie będzie dziedziczone z kanałów nadrzędnych.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;Odziedziczeni członkowie&lt;/b&gt;&lt;br /&gt;Zawiera listę członków odziedziczonych z innych kanałów. Odznacz &lt;i&gt;Dziedzicz&lt;/i&gt;, by zapobiec dziedziczeniu z kanałów nadrzędnych.</translation>
+        <translation>&lt;b&gt;Odziedziczeni członkowie&lt;/b&gt;&lt;br /&gt;
+Zawiera listę członków odziedziczonych z innych kanałów. Odznacz &lt;i&gt;Dziedzicz&lt;/i&gt;, by zapobiec dziedziczeniu z kanałów nadrzędnych.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
@@ -399,8 +404,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
         <translation>&lt;b&gt;Maksymalna liczba użytkowników&lt;/b&gt;&lt;br /&gt;
-Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wartość jest wyższa niż 0, tylko tylu użytkowników będzie mogło dołączyć do kanału. Jeżeli wynosi 0, 
-maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</translation>
+Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wartość jest wyższa niż 0, tylko tylu użytkowników będzie mogło dołączyć do kanału. Jeżeli wynosi 0, maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
@@ -632,7 +636,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Czat głosowy dla graczy&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Otwartoźródłowe, o niskim opóźnieniu i wysokiej jakości, narzędzie do czatu głosowego&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -727,7 +731,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Określa sposób detekcji głosu na analizę Amplitudy.&lt;/b&gt; W tym trybie źródło dźwięku jest analizowane pod kątem siły sygnału, mocniejszy sygnał uaktywnia transmisję głosu.</translation>
+        <translation>&lt;b&gt;Określa sposób detekcji głosu na analizę Amplitudy..&lt;/b&gt;&lt;br /&gt;W tym trybie źródło dźwięku jest analizowane pod kątem siły sygnału, mocniejszy sygnał uaktywnia transmisję głosu.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -747,7 +751,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Określa próg aktywacji dla detekcji mowy.&lt;/b&gt;&lt;br /&gt;Użyj tego razem ze &lt;i&gt;Statystykami&lt;/i&gt;, aby manualnie wyregulować próg aktywacji głosowej. Wartości wejścia poniżej &quot;Cisza&quot; zawsze są traktowane jako cisza. Wartości powyżej &quot;Mowa&quot; zawsze są traktowane jako mowa. Wartości pomiędzy są traktowane jako mowa ale nie uaktywnią nowej detekcji.</translation>
+        <translation>&lt;b&gt;Określa próg aktywacji dla detekcji mowy.&lt;/b&gt;&lt;br /&gt;Użyj tego razem ze statystykami, aby manualnie wyregulować próg aktywacji głosowej. Wartości wejścia poniżej &quot;Cisza&quot; zawsze są traktowane jako cisza. Wartości powyżej &quot;Mowa&quot; zawsze są traktowane jako mowa. Wartości pomiędzy są traktowane jako mowa ale nie uaktywnią nowej detekcji.</translation>
     </message>
     <message>
         <source>Speech Above</source>
@@ -807,7 +811,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Maksymalne wzmocnienie wejścia.&lt;/b&gt;&lt;br /&gt;Mumble normalizuje poziom głośności przed kompresją, opcja ta określa dozwolony poziom wzmocnienia.&lt;br /&gt;Rzeczywisty poziom jest stale aktualizowany w oparciu o aktualną strukturę twojej wypowiedzi, ale nigdy nie przekracza poziomu określonego tutaj.&lt;br /&gt; Jeżeli poziom głośności mikrofonu w statystykach wynosi około 100%, to prawdopodobnie powinieneś ustawić wartość na 2.0, ale gdy nie będziesz w stanie osiągnąć 100%, tak jak większość użytkowników, ustaw wyższą wartość.&lt;br /&gt;Najlepszym ustawieniem będzie: &lt;i&gt;głośność mikrofonu * czynnik wzmocnienia &gt;= 100&lt;/i&gt; nawet, gdy mówisz bardzo miękko. Pamiętaj, ustawienie maksymalnej wartości niczemu nie zaszkodzi ale Mumble zacznie przechwytywać inne rozmowy jeżeli zostawisz wzmocnienie dźwięku do automatycznego dostrojenia, by osiągnąć ten poziom.</translation>
+        <translation>&lt;b&gt;Maksymalne wzmocnienie wejścia.&lt;/b&gt;&lt;br /&gt;Mumble normalizuje poziom głośności przed kompresją, opcja ta określa dozwolony poziom wzmocnienia.&lt;br /&gt;Rzeczywisty poziom jest stale aktualizowany w oparciu o aktualną strukturę twojej wypowiedzi, ale nigdy nie przekracza poziomu określonego tutaj.&lt;br /&gt; Jeżeli poziom &lt;i&gt;głośności mikrofonu&lt;/i&gt; w statystykach wynosi około 100%, to prawdopodobnie powinieneś ustawić wartość na 2.0, ale gdy nie będziesz w stanie osiągnąć 100%, tak jak większość użytkowników, ustaw wyższą wartość.&lt;br /&gt;Najlepszym ustawieniem będzie: &lt;i&gt;głośność mikrofonu * czynnik wzmocnienia &gt;= 100&lt;/i&gt; nawet, gdy mówisz bardzo miękko. &lt;br /&gt;&lt;br /&gt;Pamiętaj, ustawienie maksymalnej wartości niczemu nie zaszkodzi ale Mumble zacznie przechwytywać inne rozmowy jeżeli zostawisz wzmocnienie dźwięku do automatycznego dostrojenia, by osiągnąć ten poziom.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
@@ -827,7 +831,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Wyświetla aktualne ustawienia wykrywania mowy.&lt;/b&gt;&lt;br /&gt;Możesz zmienić te ustawienia w &lt;i&gt;Konfiguracji&lt;/i&gt; lub w &lt;i&gt;Kreatorze ustawień dźwięku&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Wyświetla aktualne ustawienia wykrywania mowy.&lt;/b&gt;&lt;br /&gt;Możesz zmienić te ustawienia w Konfiguracji lub w Kreatorze ustawień dźwięku.</translation>
     </message>
     <message>
         <source>Signal values below this count as silence</source>
@@ -1291,7 +1295,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     <message>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;Określa opóźnienie pakietów dla trybu testowego.&lt;/b&gt;&lt;bt /&gt;Większość ścieżek audio zawiera jakąś przybliżoną wartość opóźnienia. Umożliwia to ustawienie opóźnienia dla trybu testowego. Na przykład, jeżeli ustawisz 15ms, rozpocznie się emulacja sieci z opóźnieniami w granicach 20-35ms lub 80-95ms. Opóźnienie w większości domowych połączeń internetowych waha się w granicach 5ms.</translation>
+        <translation>&lt;b&gt;Określa opóźnienie pakietów dla trybu testowego&lt;/b&gt;&lt;br /&gt;Większość ścieżek audio zawiera jakąś przybliżoną wartość opóźnienia. Umożliwia to ustawienie opóźnienia dla trybu testowego. Na przykład, jeżeli ustawisz 15ms, rozpocznie się emulacja sieci z opóźnieniami w granicach 20-35ms lub 80-95ms. Opóźnienie w większości domowych połączeń internetowych waha się w granicach 5ms.</translation>
     </message>
     <message>
         <source>Packet Loss</source>
@@ -1582,7 +1586,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     </message>
     <message>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Stosunek sygnału do szumu (SNR) mikrofonu w ostatniej ramce (20 ms). Wyświetla, o ile czystszy jest głos w porównaniu do szumu.&lt;br /&gt;Jeżeli wartość wynosi mniej niż 1.0, oznacza to więcej szumu niż głosu w sygnale. Nie ma limitu tej wartości, ale nie spodziewaj się, że zobaczysz wartość większą niż 40-50 bez studia dźwiękowego.</translation>
+        <translation>Stosunek sygnału do szumu (SNR) mikrofonu w ostatniej ramce (20 ms). Wyświetla, o ile czystszy jest głos w porównaniu do szumu.&lt;br /&gt;Jeżeli wartość wynosi mniej niż 1.0, oznacza to więcej szumu niż głosu w sygnale.&lt;br /&gt;Nie ma limitu tej wartości, ale nie spodziewaj się, że zobaczysz wartość większą niż 40-50 bez studia dźwiękowego.</translation>
     </message>
     <message>
         <source>Speech Probability</source>
@@ -1626,7 +1630,7 @@ maksymalna liczba użytkowników wynosi tyle, co domyślny limit serwera.</trans
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Wyświetla obecny sposób detekcji głosu.&lt;/b&gt;&lt;br /&gt;Możesz zmienić sposób detekcji w &lt;i&gt;Konfiguracji&lt;/i&gt; lub korzystając z &lt;i&gt;Kreatora ustawień dźwięku&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Wyświetla obecny sposób detekcji głosu.&lt;/b&gt;&lt;br /&gt;Możesz zmienić sposób detekcji w Konfiguracji lub korzystając z Kreatora ustawień dźwięku.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
@@ -2571,7 +2575,8 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Jeżeli kiedykolwiek zgubisz swój certyfikat, twój sprzęt się spali, przeinstalujesz swój system lub z jakiegokolwiek innego powodu stracisz plik, to nie będziesz mógł wejść na serwery, na których byłeś zarejestrowany. Pamiętaj, że utworzenie kopii zapasowej to &lt;b&gt;konieczność&lt;/b&gt; - użyj do tego na przykład dysku przenośnego.&lt;/p&gt;&lt;p&gt;Pamiętaj również, że ten plik nie jest w żaden sposób szyfrowany i jeżeli osoba nieautoryzowana uzyska do niego dostęp, to będzie w stanie podszywać się pod ciebie. Prosimy, dbaj o swoje kopie zapasowe!&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Jeżeli kiedykolwiek zgubisz swój certyfikat, twój sprzęt się spali, przeinstalujesz swój system lub z jakiegokolwiek innego powodu stracisz plik, to nie będziesz mógł wejść na serwery, na których byłeś zarejestrowany. Pamiętaj, że utworzenie kopii zapasowej to &lt;b&gt;konieczność&lt;/b&gt; - użyj do tego na przykład dysku przenośnego.&lt;/p&gt;
+&lt;p&gt;Pamiętaj również, że ten plik nie jest w żaden sposób szyfrowany i jeżeli osoba nieautoryzowana uzyska do niego dostęp, to będzie w stanie podszywać się pod ciebie. Prosimy, dbaj o swoje kopie zapasowe!&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
@@ -2999,7 +3004,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Połącz</translation>
+        <translation>&amp;Połącz</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3078,7 +3083,8 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation>&lt;b&gt;Adres&lt;/b&gt;&lt;br/&gt;Adres internetowy serwera. To może być zwykła nazwa hosta, adres IPv4/IPv6 lub adres usługi Bonjour. Identyfikator usługi Bonjour musi być rozpoczęty znakiem @, aby był rozpoznawany przez Mumble.</translation>
+        <translation>&lt;b&gt;Adres&lt;/b&gt;&lt;br/&gt;
+Adres internetowy serwera. To może być zwykła nazwa hosta, adres IPv4/IPv6 lub adres usługi Bonjour. Identyfikator usługi Bonjour musi być rozpoczęty znakiem @, aby był rozpoznawany przez Mumble.</translation>
     </message>
     <message>
         <source>&amp;Port</source>
@@ -3091,7 +3097,8 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     <message>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;Port, na którym nasłuchuje serwer. Jeżeli serwer jest identyfikowany przez usługę Bonjour pole to będzie ignorowane.</translation>
+        <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
+Port, na którym nasłuchuje serwer. Jeżeli serwer jest identyfikowany przez usługę Bonjour pole to będzie ignorowane.</translation>
     </message>
     <message>
         <source>&amp;Username</source>
@@ -3104,7 +3111,8 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation>&lt;b&gt;Nazwa użytkownika&lt;/b&gt;&lt;br/&gt;Nazwa użytkownika na serwerze. Zwróć uwagę na to, że serwer może narzucać pewne restrykcje poszczególnych nazw. Twoja nazwa użytkownika może być też po prostu zajęta przez kogoś innego.</translation>
+        <translation>&lt;b&gt;Nazwa użytkownika&lt;/b&gt;&lt;br/&gt;
+Nazwa użytkownika na serwerze. Zwróć uwagę na to, że serwer może narzucać pewne restrykcje poszczególnych nazw. Twoja nazwa użytkownika może być też po prostu zajęta przez kogoś innego.</translation>
     </message>
     <message>
         <source>Label</source>
@@ -3141,7 +3149,8 @@ Host: %1 Port: %2</translation>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation>&lt;b&gt;Hasło&lt;/b&gt;&lt;br/&gt;Hasło, które zostanie wysłane na serwer podczas połączenia. Hasło jest wymagane, jeżeli łączysz się jako &lt;i&gt;SuperUser&lt;/i&gt; lub na serwer, który używa autoryzacji za pomocą haseł. Jeżeli nie zostanie wpisane - zostaniesz o nie poproszony podczas łączenia.</translation>
+        <translation>&lt;b&gt;Hasło&lt;/b&gt;&lt;br/&gt;
+Hasło, które zostanie wysłane na serwer podczas połączenia. Hasło jest wymagane, jeżeli łączysz się jako &lt;i&gt;SuperUser&lt;/i&gt; lub na serwer, który używa autoryzacji za pomocą haseł. Jeżeli nie zostanie wpisane - zostaniesz o nie poproszony podczas łączenia.</translation>
     </message>
     <message>
         <source>Show password</source>
@@ -3150,7 +3159,8 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation>&lt;b&gt;Etykieta&lt;/b&gt;&lt;br/&gt;Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany na liście serwerów. Etykieta może zostać wybrana dowolnie.</translation>
+        <translation>&lt;b&gt;Etykieta&lt;/b&gt;&lt;br/&gt;
+Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany na liście serwerów. Etykieta może zostać wybrana dowolnie.</translation>
     </message>
     <message>
         <source>Local server label</source>
@@ -3214,7 +3224,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>Dziękujemy za pomoc przy Mumble! Mumble stanie się lepszy dzięki tobie!</translation>
+        <translation>Dziękujemy za pomoc w ulepszaniu Mumble!</translation>
     </message>
     <message>
         <source>Crash upload failed</source>
@@ -3359,7 +3369,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
-        <translation>&lt;b&gt;Włącz XInput&lt;/b&gt;&lt;br /&gt;To ustawienie włącza obsługę mechanizmu skrótów XInput dla kontrolerów kompatybilnych z  Xboksem.</translation>
+        <translation>&lt;b&gt;Włącz XInput&lt;/b&gt;&lt;br /&gt;To ustawienie włącza obsługę mechanizmu skrótów XInput dla kontrolerów kompatybilnych z Xboksem.</translation>
     </message>
     <message>
         <source>Enable XInput</source>
@@ -3382,7 +3392,7 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation>Edytuj skrót </translation>
+        <translation>Edytuj skrót</translation>
     </message>
     <message>
         <source>Start capture process</source>
@@ -3409,8 +3419,7 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble obecnie może używać tylko przycisków myszy oraz modyfikatorów klawiszy klawiatury (Alt, Ctrl, Cmd, itd.) jako globalnych skrótów. 
-&lt;/p&gt;&lt;p&gt; Jeśli chcesz więcej elastyczności, możesz dodać Mumble do zaufanych programów w sekcji ustawień Zabezpieczenia i Prywatność Twojego systemu Mac. &lt;/p&gt;&lt;p&gt;W ustawieniach Zabezpieczenia i Prywatność należy wejść w zakładkę Prywatność. Później należy wybrać Dostępność (u dołu strony) z listy na lewo. Na końcu należy dodać Mumble do listy zaufanych programów.&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble obecnie może używać tylko przycisków myszy oraz modyfikatorów klawiszy klawiatury (Alt, Ctrl, Cmd, itd.) jako globalnych skrótów. &lt;/p&gt;&lt;p&gt; Jeśli chcesz więcej elastyczności, możesz dodać Mumble do zaufanych programów w sekcji ustawień Zabezpieczenia i Prywatność Twojego systemu Mac. &lt;/p&gt;&lt;p&gt;W ustawieniach Zabezpieczenia i Prywatność należy wejść w zakładkę Prywatność. Później należy wybrać Dostępność (u dołu strony) z listy na lewo. Na końcu należy dodać Mumble do listy zaufanych programów.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Shortcuts</source>
@@ -4132,7 +4141,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Zmienia zachowanie przeciągania kanałów -  może zostać użyte, by zapobiec przypadkowemu przeciąganiu. &lt;i&gt;Przenieś&lt;/i&gt; przenosi kanał bez powiadomienia. &lt;i&gt;Nic nie rób&lt;/i&gt; nic nie robi i wyświetla wiadomość z błędem. &lt;i&gt;Pytaj&lt;/i&gt; używa powiadomienia tekstowego, by upewnić się, czy na pewno chciałeś przenieść kanał.</translation>
+        <translation>Zmienia zachowanie przeciągania kanałów - może zostać użyte, by zapobiec przypadkowemu przeciąganiu. &lt;i&gt;Przenieś&lt;/i&gt; przenosi kanał bez powiadomienia. &lt;i&gt;Nic nie rób&lt;/i&gt; nic nie robi i wyświetla wiadomość z błędem. &lt;i&gt;Pytaj&lt;/i&gt; używa powiadomienia tekstowego, by upewnić się, czy na pewno chciałeś przenieść kanał.</translation>
     </message>
     <message>
         <source>Expand</source>
@@ -4557,7 +4566,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Przełącza stan ogłuszenia. Jeżeli włączasz, włączasz również wyciszenie.</translation>
+        <translation>Przełącza stan ogłuszenia. Jeżeli włączysz, zostanie również włączone wyciszenie.</translation>
     </message>
     <message>
         <source>Whisper/Shout</source>
@@ -4663,7 +4672,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Połączenie używa %1&lt;/p&gt;%2%3&lt;p&gt;Średnie opóźnienie %4 ms  (%5 odchylenie)&lt;/p&gt;&lt;p&gt;Zdalny host %6 (port %7)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Połączenie używa %1&lt;/p&gt;%2%3&lt;p&gt;Średnie opóźnienie %4 ms (%5 odchylenie)&lt;/p&gt;&lt;p&gt;Zdalny host %6 (port %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Voice channel is sent over control channel</source>
@@ -6721,8 +6730,7 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation>Liczba sekund, w ciągu których użytkownik jest 
-traktowany jako aktywny po wypowiedzi:</translation>
+        <translation>Liczba sekund, przez które użytkownicy pozostają aktywni po rozmowie:</translation>
     </message>
 </context>
 <context>
@@ -6852,7 +6860,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Load…</source>
-        <translation>Wczytaj...</translation>
+        <translation>Wczytaj…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6860,7 +6868,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Save…</source>
-        <translation>Zapisz...</translation>
+        <translation>Zapisz…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -7398,7 +7406,7 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Podany adres URL używa nieprawidłowego formatu wersji: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
@@ -8367,7 +8375,8 @@ Hasło dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo 
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation>Serwer, z którym jesteś aktualnie połączony, działa w wersji 1.2.2 lub starszej. Ze względu na zachowanie prywatności, nagrywanie nie jest możliwe na serwerach działających w wersjach starszych niż 1.2.3.&lt;br&gt;Skontaktuj się z administratorem serwera po dalsze informacje.</translation>
+        <translation>Serwer, z którym jesteś aktualnie połączony, działa w wersji 1.2.2 lub starszej. Ze względu na zachowanie prywatności, nagrywanie nie jest możliwe na serwerach działających w wersjach starszych niż 1.2.3.
+Skontaktuj się z administratorem serwera po dalsze informacje.</translation>
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>
