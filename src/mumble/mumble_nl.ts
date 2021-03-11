@@ -276,11 +276,11 @@ Voeg een nieuwe groep toe.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Vul de naam in van de gebruiker die je wil toevoegen aan de groep en klik op Toevoegen.</translation>
+        <translation>Vul de naam in van de gebruiker die je wil toevoegen aan de groep en klik op Voeg toe.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Vul de naam in van de gebruiker die je wil verwijderen uit de groep en klik op Toevoegen.</translation>
+        <translation>Vul de naam in van de gebruiker die je wil verwijderen uit de groep en klik op Voeg toe.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -344,7 +344,7 @@ Dit zijn alle groepen die gedefinieerd werden voor het kanaal. Om een nieuwe gro
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Verwijderen&lt;/b&gt;&lt;br /&gt;Verwijdert geselecteerde groep. Als de groep is geërfd, blijft deze in lijst, maar lokale alle groepsinformatie wordt wel uitgewist.</translation>
+        <translation>&lt;b&gt;Verwijder&lt;/b&gt;&lt;br /&gt;Dit verwijdert de geselecteerde groep. Indien de groep overgeërfd werd, blijft deze in lijst, maar wordt alle lokale informatie over de groep gewist.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
@@ -440,7 +440,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Add members to group</source>
-        <translation>Leden in groep toevoegen</translation>
+        <translation>Voeg leden toe aan groep</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
@@ -636,7 +636,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Spraak/chat-applicatie voor gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Een open source chat- en spraak-applicatie met weinig vertraging en een hoge kwaliteit&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -943,11 +943,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>deafen</source>
-        <translation>doven</translation>
+        <translation>doof maken</translation>
     </message>
     <message>
         <source>mute</source>
-        <translation>dempen</translation>
+        <translation>maak stom</translation>
     </message>
     <message>
         <source>after</source>
@@ -1138,7 +1138,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Afgeschakeld</translation>
+        <translation>Uitgeschakeld</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1498,7 +1498,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Loopback</source>
-        <translation>Terug-looping</translation>
+        <translation>Terugkoppeling</translation>
     </message>
 </context>
 <context>
@@ -1525,7 +1525,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Audio Statistics</source>
-        <translation>Audio Statistieken</translation>
+        <translation>Geluidsstatistieken</translation>
     </message>
     <message>
         <source>Input Levels</source>
@@ -1650,7 +1650,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Weights of the echo canceller</source>
-        <translation>Galmdempgewicht</translation>
+        <translation>Gewichten van echo-opheffing</translation>
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
@@ -1717,7 +1717,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Cancel echo from headset or speakers</source>
-        <translation>Echo van hoofdtelefoon of luidsprekers onderdrukken</translation>
+        <translation>Echo van hoofdtelefoon of luidsprekers opheffen</translation>
     </message>
     <message>
         <source>Use echo cancellation</source>
@@ -2100,7 +2100,7 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Toevoegen</translation>
+        <translation>&amp;Voeg toe</translation>
     </message>
     <message>
         <source>&amp;Update</source>
@@ -2108,11 +2108,11 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijderen</translation>
+        <translation>&amp;Verwijder</translation>
     </message>
     <message>
         <source>Ban List</source>
-        <translation>Banlijst</translation>
+        <translation>Lijst met verbanningen</translation>
     </message>
     <message>
         <source>Search field</source>
@@ -2168,11 +2168,11 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation>Lijst met verbannen gebruikers.</translation>
+        <translation>Dit is een lijst met gebruikers die verbannen werden.</translation>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
-        <translation>Deze knop gebruiken als je nieuwe ban wilt toevoegen.</translation>
+        <translation>Gebruik deze knop als je een nieuwe verbanning wil toevoegen.</translation>
     </message>
     <message>
         <source>Use this button if you want to update ban information.</source>
@@ -2188,7 +2188,7 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation>Deze knop maakt alle velden leeg. Gebruik dit als je een nieuwe ban wil toevoegen.</translation>
+        <translation>Deze knop maakt alle velden leeg. Gebruik dit als je een nieuwe verbanning wil toevoegen.</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -2197,8 +2197,8 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
         <translation>
-            <numerusform>Banlijst - %n Ban</numerusform>
-            <numerusform>Banlijst - %n Ban(s)</numerusform>
+            <numerusform>Lijst met verbanningen - %n verbanning</numerusform>
+            <numerusform>Lijst met verbanningen - %n verbanningen</numerusform>
         </translation>
     </message>
     <message>
@@ -2257,11 +2257,11 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Er was een fout bij het genereren van jouw certificaat.&lt;br /&gt;Graag opnieuw proberen.</translation>
+        <translation>Er deed zich een fout voor bij het genereren van je certificaat.&lt;br /&gt;Gelieve opnieuw te proberen.</translation>
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Jouw certificaat en sleutel zijn niet ëxporteerbaar naar een PKCS#12 bestand. Mogelijkerwijs een certificaatfout.</translation>
+        <translation>Je certificaat en sleutel konden niet geëxporteerd worden naar een PKCS#12-bestand. Mogelijk is er iets mis met je certificaat.</translation>
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
@@ -2285,15 +2285,15 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Bestand zonder goed certificaat/sleutel. Niet mogelijk...</translation>
+        <translation>Het bestand bevatte geen geldig certificaat en sleutel. Gelieve een ander bestand te kiezen.</translation>
     </message>
     <message>
         <source>Select file to export certificate to</source>
-        <translation>Selecteer bestand om certificaat naartoe te exporteren</translation>
+        <translation>Selecteer bestand om certificaat naar te exporteren</translation>
     </message>
     <message>
         <source>Select file to import certificate from</source>
-        <translation>Selecteer bestand om het certificaat vanuit te importen</translation>
+        <translation>Selecteer bestand om certificaat van te importen</translation>
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
@@ -2305,11 +2305,11 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>Current certificate</source>
-        <translation>Momentele certificaat</translation>
+        <translation>Huidig certificaat</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation>Te importeren certificaatbestand</translation>
+        <translation>Certificaatbestand om te importeren</translation>
     </message>
     <message>
         <source>Certificate password</source>
@@ -2317,15 +2317,15 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation>Certificaat te importeren</translation>
+        <translation>Certificaat om te importeren</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation>Nieuwe certificaat</translation>
+        <translation>Nieuw certificaat</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation>Bestand om certificaat naartoe te exporteren</translation>
+        <translation>Bestand om certificaat naar te exporteren</translation>
     </message>
     <message>
         <source>Email address</source>
@@ -2602,7 +2602,7 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Mute/Deafen</source>
-        <translation>Dempen/Doven</translation>
+        <translation>Maak stom/doof</translation>
     </message>
     <message>
         <source>Make channel</source>
@@ -2634,7 +2634,7 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Toestemming om in kanaal te spreken. Gebruikers zonder dit recht worden onderdrukt door server (zijnde gedempt); kunnen niet spreken totdat demping wordt opgeheven door bevoegde.</translation>
+        <translation>Toestemming om in kanaal te spreken. Gebruikers zonder dit recht worden onderdrukt door server (zijnde stom); kunnen niet spreken totdat het stom zijn wordt opgeheven door bevoegde.</translation>
     </message>
     <message>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
@@ -2642,7 +2642,7 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Toestemming om anderen te dempen/doven. Eenmaal gedempt, blijft gedempt tot ontdempt door bevoegde of totdat gebruikers opnieuw met server verbinden.</translation>
+        <translation>Toestemming om anderen stom en doof te maken. Eenmaal stom gemaakt, blijft een gebruiker zo tot hij door een andere, bevoegde gebruiker dit opheft of hij opnieuw met de server verbindt.</translation>
     </message>
     <message>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
@@ -2773,11 +2773,11 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Muted (server)</source>
-        <translation>Gedempt (server)</translation>
+        <translation>Stom (server)</translation>
     </message>
     <message>
         <source>Deafened (server)</source>
-        <translation>Gedoofd (server)</translation>
+        <translation>Doof gemaakt (server)</translation>
     </message>
     <message>
         <source>Local Ignore (Text messages)</source>
@@ -2785,15 +2785,15 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Local Mute</source>
-        <translation>Lokaal dempen</translation>
+        <translation>Maak lokaal stom</translation>
     </message>
     <message>
         <source>Muted (self)</source>
-        <translation>Gedempt (zelf)</translation>
+        <translation>Stom (zelf)</translation>
     </message>
     <message>
         <source>Deafened (self)</source>
-        <translation>Gedoofd (zelf)</translation>
+        <translation>Doof gemaakt (zelf)</translation>
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
@@ -2820,11 +2820,11 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Apply changes</source>
-        <translation>Wijzigingen toepassen</translation>
+        <translation>Pas wijzigingen toe</translation>
     </message>
     <message>
         <source>This button will immediately apply all changes.</source>
-        <translation>Knop past alle wijzigingen toe.</translation>
+        <translation>Deze knop zal alle wijzigingen onmiddellijk toepassen.</translation>
     </message>
     <message>
         <source>Undo changes for current page</source>
@@ -2848,15 +2848,15 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation>Deze knop zet de instellingen terug naar huidige paginas standaardwaarden. Andere paginas worden niet veranderd.&lt;br /&gt;Om alle instellingen &apos;terug&apos; naar standaard te zetten, zou je op de &quot;Standaard (Alles)&quot; knop kunnen indrukken.</translation>
+        <translation>Deze knop zet de instellingen terug naar huidige pagina&apos;s standaardwaarden. Andere pagina&apos;s worden niet veranderd.&lt;br /&gt;Om alle instellingen &apos;terug&apos; naar standaard te zetten, zou je op de &quot;Standaard (Alles)&quot; knop kunnen indrukken.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation>Herstel alle standaardwaarden</translation>
+        <translation>Herstel alles naar standaardwaarden</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation>Deze knop herstelt terug naar standaardwaarden doch voor alle instellingen.</translation>
+        <translation>Deze knop zal de standaardinstellingen voor alle instellingen terugzetten.</translation>
     </message>
     <message>
         <source>Defaults (All)</source>
@@ -2867,11 +2867,11 @@ Zeker dat je jouw certificaat wilt vervangen?
     <name>ConnectDialog</name>
     <message>
         <source>Connecting to %1</source>
-        <translation>Verbinden met %1</translation>
+        <translation>Bezig met verbinden met %1</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Typ gebruikersnaam</translation>
+        <translation>Geef gebruikersnaam in</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -2887,55 +2887,55 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Failed to fetch server list</source>
-        <translation>Serverlijst ophalen mislukt</translation>
+        <translation>Ophalen serverlijst mislukt</translation>
     </message>
     <message>
         <source>Mumble Server Connect</source>
-        <translation>Mumble Server verbinden</translation>
+        <translation>Verbind met een Mumble-server</translation>
     </message>
     <message>
         <source>Ping</source>
-        <translation>Ping</translation>
+        <translation>Latentie</translation>
     </message>
     <message>
         <source>Remove from Favorites</source>
-        <translation>Uit favorieten verwijderen</translation>
+        <translation>Verwijder uit favorieten</translation>
     </message>
     <message>
         <source>Add custom server</source>
-        <translation>Aangepaste server toevoegen</translation>
+        <translation>Voeg eigen server toe</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopiëren</translation>
+        <translation>&amp;Kopieer</translation>
     </message>
     <message>
         <source>Copy favorite link to clipboard</source>
-        <translation>Favoriete koppeling naar klembord kopiëren</translation>
+        <translation>Kopieer koppeling naar favoriet naar klembord</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Plakken</translation>
+        <translation>&amp;Plak</translation>
     </message>
     <message>
         <source>Paste favorite from clipboard</source>
-        <translation>Favoriete uit klembord plakken</translation>
+        <translation>Plak favoriet uit klembord</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;Bewerken...</translation>
+        <translation>&amp;Bewerk...</translation>
     </message>
     <message>
         <source>&amp;Add New...</source>
-        <translation>&amp;Voeg toe...</translation>
+        <translation>&amp;Voeg nieuwe toe...</translation>
     </message>
     <message>
         <source>Add to &amp;Favorites</source>
-        <translation>Aan &amp;favorieten toevoegen</translation>
+        <translation>Voeg toe aan &amp;favorieten</translation>
     </message>
     <message>
         <source>Open &amp;Webpage</source>
-        <translation>&amp;Webpagina openen</translation>
+        <translation>Open &amp;webpagina</translation>
     </message>
     <message>
         <source>Server list</source>
@@ -2943,7 +2943,7 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Search</source>
-        <translation>Opzoeken</translation>
+        <translation>Zoek</translation>
     </message>
     <message>
         <source>Location</source>
@@ -2951,19 +2951,19 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Filter</source>
-        <translation>Zeef</translation>
+        <translation>Filter</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation>Alles zichtbaar</translation>
+        <translation>Toon alle</translation>
     </message>
     <message>
         <source>Show Populated</source>
-        <translation>Ingenomen tonen</translation>
+        <translation>Toon bevolkte</translation>
     </message>
     <message>
         <source>Show Reachable</source>
-        <translation>Bereikbaren tonen</translation>
+        <translation>Toon bereikbare</translation>
     </message>
     <message>
         <source>All</source>
@@ -2971,27 +2971,27 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Africa</source>
-        <translation>Afrikaas</translation>
+        <translation>Afrika</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation>Aziën</translation>
+        <translation>Azië</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation>Europaige</translation>
+        <translation>Europa</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation>Noord-Amerikap</translation>
+        <translation>Noord-Amerika</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation>Australazië</translation>
+        <translation>Oceanië</translation>
     </message>
     <message>
         <source>South America</source>
-        <translation>Zut-Amerikans</translation>
+        <translation>Zuid-Amerika</translation>
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
@@ -2999,19 +2999,19 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Om de latentie (ping) van publieke servers en het aantal actieve gebruikers te bepalen, dient je IP adres verzonden te worden naar publieke servers.&lt;/p&gt;&lt;p&gt;Geef je toestemming om je IP adres door te versturen? Als het antwoord nee is, zal de publieke server lijst gedeactiveerd worden. Echter, je kan het elk moment reactiveren als netwerkinstelling.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Om de latentie (ping) van publieke servers en het aantal actieve gebruikers te bepalen, wordt je IP adres verzonden naar publieke servers.&lt;/p&gt;&lt;p&gt;Wil je hiervoor toestemming geven? Indien niet, zal de publieke server-lijst gedeactiveerd worden. Je kan deze echter op elk moment opnieuw activeren bij de netwerkinstellingen.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Verbinden</translation>
+        <translation>&amp;Verbind</translation>
     </message>
     <message>
         <source>Adding host %1</source>
-        <translation>Host %1 aan het toevoegen</translation>
+        <translation>Bezig met toevoegen host %1</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation>Hostnaam</translation>
+        <translation>Host-naam</translation>
     </message>
     <message>
         <source>Bonjour name</source>
@@ -3119,7 +3119,7 @@ Gebruikersnaam om naar server te verzenden. De server kan beperkingen opleggen o
     </message>
     <message>
         <source>Add Server</source>
-        <translation>Server toevoegen</translation>
+        <translation>Voeg server toe</translation>
     </message>
     <message>
         <source>You are currently connected to a server.
@@ -3304,7 +3304,7 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
     </message>
     <message>
         <source>Add new shortcut</source>
-        <translation>Nieuwe sneltoets toevoegen</translation>
+        <translation>Voeg nieuwe sneltoets toe</translation>
     </message>
     <message>
         <source>This will add a new global shortcut</source>
@@ -3312,11 +3312,11 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Toevoegen</translation>
+        <translation>&amp;Voeg toe</translation>
     </message>
     <message>
         <source>Remove selected shortcut</source>
-        <translation>Geselecteerde sneltoets verwijderen</translation>
+        <translation>Verwijder geselecteerde sneltoets</translation>
     </message>
     <message>
         <source>This will permanently remove a selected shortcut.</source>
@@ -3324,7 +3324,7 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijderen</translation>
+        <translation>&amp;Verwijder</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -3484,11 +3484,11 @@ Zonder deze optie ingeschakeld, werken Mumble&apos;s globale snelkoppelingen nie
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation>Voeg toe</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Verwijderen</translation>
+        <translation>Verwijder</translation>
     </message>
     <message>
         <source>Modifiers</source>
@@ -3683,7 +3683,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>Other self-muted/deafened</source>
-        <translation>Iemand anders dempte of verdoofde zichzelf</translation>
+        <translation>Iemand anders maakte zichzelf stom/doof</translation>
     </message>
     <message>
         <source>User recording state changed</source>
@@ -3699,31 +3699,31 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>You self-muted</source>
-        <translation>Je dempte jezelf</translation>
+        <translation>Je maakte jezelf stom</translation>
     </message>
     <message>
         <source>User muted (you)</source>
-        <translation>Gebruiker gedempt (jij)</translation>
+        <translation>Gebruiker stom gemaakt (jij)</translation>
     </message>
     <message>
         <source>User muted (by you)</source>
-        <translation>Gebruiker gedempt (door jou)</translation>
+        <translation>Gebruiker stom gemaakt (door jou)</translation>
     </message>
     <message>
         <source>User muted (other)</source>
-        <translation>Gebruiker gedempt (andere)</translation>
+        <translation>Gebruiker stom gemaakt (andere)</translation>
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation>Je hief het dempen van jezelf op</translation>
+        <translation>Je liet jezelf weer spreken</translation>
     </message>
     <message>
         <source>You self-deafened</source>
-        <translation>Je doofde jezelf</translation>
+        <translation>Je maakte jezelf doof</translation>
     </message>
     <message>
         <source>You self-undeafened</source>
-        <translation>Je ontdoofde jezelf</translation>
+        <translation>Je liet jezelf weer horen</translation>
     </message>
     <message>
         <source>User renamed</source>
@@ -4300,7 +4300,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Remove silent user after</source>
-        <translation>Stille gebruiker verwijderen na</translation>
+        <translation>Verwijder stille gebruiker na</translation>
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
@@ -4372,7 +4372,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation>Relatieve lettertypegrootte voor in Pratenden-gebruikersinterface in procent.</translation>
+        <translation>Relatieve lettertypegrootte voor in Sprekersweergave in procent.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
@@ -4477,7 +4477,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>Druk-om-te-Dempen</translation>
+        <translation>Druk-voor-Stomheid</translation>
     </message>
     <message>
         <source>Join Channel</source>
@@ -4487,7 +4487,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Overlay tonen</translation>
+        <translation>Toon overlay</translation>
     </message>
     <message>
         <source>Toggle state of in-game overlay.</source>
@@ -4535,37 +4535,37 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>Verbonden met een server - afsluiten of minimaliseren?</translation>
+        <translation>Mumble is momenteel verbonden met een server. Wil je afsluiten of minimaliseren?</translation>
     </message>
     <message>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Demp jezelf</translation>
+        <translation>Maak jezelf stom</translation>
     </message>
     <message>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Zelf-dempen status instellen.</translation>
+        <translation>Status zelf stom gemaakt instellen.</translation>
     </message>
     <message>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Schakelt of je gedempt bent of niet om. Als je dit uitzet, zal je ook het zelf doven uitschakelen.</translation>
+        <translation>Dit schakelt om of je stom bent of niet. Als je dit uitzet, zal je ook het zelf doof maken uitschakelen.</translation>
     </message>
     <message>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Demp jezelf</translation>
+        <translation>Maak jezelf doof</translation>
     </message>
     <message>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Zelf-doven status instellen.</translation>
+        <translation>Stel status zelf doof gemaakt in.</translation>
     </message>
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit schakelt of je gedoofd bent in of uit. Dit inschakelen zal ook het dempen van jezelf inschakelen...</translation>
+        <translation>Dit schakelt of je doof gemaakt bent in of uit. Dit inschakelen zal ook het stom maken van jezelf inschakelen.</translation>
     </message>
     <message>
         <source>Whisper/Shout</source>
@@ -4607,7 +4607,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation>Verbinden met %1</translation>
+        <translation>Bezig met verbinden met %1</translation>
     </message>
     <message>
         <source>Enter username</source>
@@ -4615,11 +4615,11 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Connecting to server %1.</source>
-        <translation>Verbinden met server %1.</translation>
+        <translation>Bezig met verbinden met server %1.</translation>
     </message>
     <message>
         <source>Reconnecting.</source>
-        <translation>Herverbindend.</translation>
+        <translation>Opnieuw verbinden.</translation>
     </message>
     <message>
         <source>Transmit Mode set to Continuous</source>
@@ -4728,12 +4728,12 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation>&lt;center&gt;Bericht naar kanaal &apos;%1&apos; (hier typen)&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Schrijf hier je bericht naar kanaal &apos;%1&apos;&lt;/center&gt;</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation>&lt;center&gt;Bericht naar gebruiker &apos;%1&apos; (hier typen)&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Schrijf hier je bericht naar gebruiker &apos;%1&apos;&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Choose image file</source>
@@ -4827,7 +4827,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Annuleer</translation>
     </message>
     <message>
         <source>Save Image As...</source>
@@ -4923,7 +4923,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>%1 en subkanalen verwijderen bevestigen?</translation>
+        <translation>Weet je zeker dat je %1 en alle bijhorende subkanalen wil verwijderen?</translation>
     </message>
     <message>
         <source>Sending message to channel %1</source>
@@ -4940,27 +4940,27 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Unmuted and undeafened.</source>
-        <translation>Ontdempt &amp; ontdoofd.</translation>
+        <translation>Stom- en doofheid opgeheven.</translation>
     </message>
     <message>
         <source>Unmuted.</source>
-        <translation>Ontdempt.</translation>
+        <translation>Stomheid opgeheven.</translation>
     </message>
     <message>
         <source>Muted.</source>
-        <translation>Gedempt.</translation>
+        <translation>Stom gemaakt.</translation>
     </message>
     <message>
         <source>Muted and deafened.</source>
-        <translation>Gedempt &amp; gedoofd.</translation>
+        <translation>Stom en doof gemaakt.</translation>
     </message>
     <message>
         <source>Deafened.</source>
-        <translation>Gedoofd.</translation>
+        <translation>Doof gemaakt.</translation>
     </message>
     <message>
         <source>Undeafened.</source>
-        <translation>Ontdoofd.</translation>
+        <translation>Doofheid opgeheven.</translation>
     </message>
     <message>
         <source>Restart Mumble?</source>
@@ -4968,7 +4968,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation>Sommige instellingen worden pas toegepast na Mumble te herstarten. Mumble nu herstarten?</translation>
+        <translation>Sommige instellingen worden pas toegepast als Mumble herstart wordt. Mumble nu herstarten?</translation>
     </message>
     <message>
         <source>About Qt</source>
@@ -5056,7 +5056,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation>Mumble &amp;afsluiten</translation>
+        <translation>&amp;Sluit Mumble af</translation>
     </message>
     <message>
         <source>Closes the program</source>
@@ -5096,15 +5096,15 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Mute</source>
-        <translation>&amp;Dempen</translation>
+        <translation>&amp;Maak stom</translation>
     </message>
     <message>
         <source>&amp;Deafen</source>
-        <translation>&amp;Doven</translation>
+        <translation>&amp;Doof maken</translation>
     </message>
     <message>
         <source>&amp;Local Mute</source>
-        <translation>&amp;Lokaal dempen</translation>
+        <translation>&amp;Maak lokaal stom</translation>
     </message>
     <message>
         <source>Send a Text Message</source>
@@ -5116,7 +5116,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Add new channel</source>
-        <translation>Nieuw kanaal toevoegen</translation>
+        <translation>Voeg nieuw kanaal toe</translation>
     </message>
     <message>
         <source>This adds a new sub-channel to the currently selected channel.</source>
@@ -5124,7 +5124,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Remove channel</source>
-        <translation>Kanaal verwijderen</translation>
+        <translation>Verwijder kanaal</translation>
     </message>
     <message>
         <source>This removes a channel and all sub-channels.</source>
@@ -5156,7 +5156,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation>Geregistreerde serversvenster; laat snel-verbinden toe.</translation>
+        <translation>Toont een dialoogvenster met geregistreerde servers, waarmee je ook kan snel-verbinden.</translation>
     </message>
     <message>
         <source>Kick user (with reason)</source>
@@ -5168,11 +5168,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Mute user</source>
-        <translation>Gebruiker dempen</translation>
+        <translation>Maak gebruiker stom</translation>
     </message>
     <message>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Gebruiker (ont)dempen (server); ontdempen → ontdooft.</translation>
+        <translation>Maak gebruiker stom of hef dit op op de server. Het stom zijn bij een dove gebruiker opheffen, zal ook doofheid opheffen.</translation>
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
@@ -5184,19 +5184,19 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Deafen user</source>
-        <translation>Gebruiker doven</translation>
+        <translation>Maak gebruiker doof</translation>
     </message>
     <message>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation>Gebruiker (ont)doven (server); doven → dempt ook.</translation>
+        <translation>Maak gebruiker doof of hef dit op op de server. Een gebruiker doof maken zal deze ook stom maken.</translation>
     </message>
     <message>
         <source>Mute user locally</source>
-        <translation>Gebruiker dempen (lokaal)</translation>
+        <translation>Maak gebruiker lokaal stom</translation>
     </message>
     <message>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Gebruiker (ont)dempen (lokaal). Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
+        <translation>Maak gebruiker lokaal stom of hef dit op. Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
     </message>
     <message>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
@@ -5238,27 +5238,27 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Mute Self</source>
-        <translation>Demp &amp;jezelf</translation>
+        <translation>&amp;Maak jezelf stom</translation>
     </message>
     <message>
         <source>Mute yourself</source>
-        <translation>Demp jezelf</translation>
+        <translation>Maak jezelf stom</translation>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Demp of ontdemp jezelf. Indien je gedempt bent, zal je geen data naar de server versturen. Ontdempen terwijl je gedoofd staat zal het doven ook opheffen.</translation>
+        <translation>Maak jezelf stom of hef dit op. Wanneer je stom bent, zal je geen data naar de server versturen. Het stom zijn opheffen terwijl je doof bent, zal je ook terug laten horen.</translation>
     </message>
     <message>
         <source>&amp;Deafen Self</source>
-        <translation>&amp;Doof jezelf</translation>
+        <translation>Maak jezelf &amp;doof</translation>
     </message>
     <message>
         <source>Deafen yourself</source>
-        <translation>Doof jezelf</translation>
+        <translation>Maak jezelf doof</translation>
     </message>
     <message>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Doof of ontdoof jezelf. Wanneer je gedoofd bent, kan je niets horen. Jezelf doven zal je ook dempen.</translation>
+        <translation>Maak jezelf doof of hef dit op. Wanneer je doof bent, kan je niets horen. Jezelf doof maken, zal je ook stom maken.</translation>
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
@@ -5342,7 +5342,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Check for &amp;Updates</source>
-        <translation>Op &amp;Updates controleren</translation>
+        <translation>Controleer op &amp;updates</translation>
     </message>
     <message>
         <source>Check for new version of Mumble</source>
@@ -5362,7 +5362,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation>Begint wizard voor certificaatcreatie, -importatie en -exportatie voor serverauthenticatie.</translation>
+        <translation>Dit start de wizard om certificaten om je mee aan te melden bij servers te creëren, importeren, en exporteren.</translation>
     </message>
     <message>
         <source>Register user on server</source>
@@ -5374,7 +5374,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Add &amp;Friend</source>
-        <translation>Vriend &amp;toevoegen</translation>
+        <translation>Voeg vriend &amp;toe</translation>
     </message>
     <message>
         <source>Adds a user as your friend.</source>
@@ -5386,7 +5386,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Remove Friend</source>
-        <translation>Vriend &amp;verwijderen</translation>
+        <translation>&amp;Verwijder vriend</translation>
     </message>
     <message>
         <source>Removes a user from your friends.</source>
@@ -5434,15 +5434,15 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
-        <translation>Je dempte &amp; doofde %1.</translation>
+        <translation>Je maakte %1 stom en doof.</translation>
     </message>
     <message>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Je ontdempte &amp; ontdoofde %1.</translation>
+        <translation>Je liet %1 weer spreken en horen.</translation>
     </message>
     <message>
         <source>You undeafened %1.</source>
-        <translation>Je ontdoofde %1.</translation>
+        <translation>Je liet %1 weer horen.</translation>
     </message>
     <message>
         <source>You suppressed %1.</source>
@@ -5450,15 +5450,15 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%1 gedempt &amp; gedoofd (door %2).</translation>
+        <translation>%1 werd door %1 stom en doof gemaakt.</translation>
     </message>
     <message>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%2 ont-dempt/doofd-e %1.</translation>
+        <translation>%2 liet %1 weer spreken en horen.</translation>
     </message>
     <message>
         <source>%1 undeafened by %2.</source>
-        <translation>%2 ontdoofde %1.</translation>
+        <translation>%2 liet %1 weer horen.</translation>
     </message>
     <message>
         <source>%1 suppressed by %2.</source>
@@ -5478,7 +5478,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 gedempt &amp; gedoofd.</translation>
+        <translation>%1 is nu stom en doof.</translation>
     </message>
     <message>
         <source>Your account information can not be verified currently. Please try again later</source>
@@ -5542,7 +5542,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Channel count limit reached. Need to delete channels before creating new ones.</source>
-        <translation>Kanalenlimiet bereikt. Eerst kanalen verwijderen alvorens nieuwe te creëren.</translation>
+        <translation>Kanalenlimiet bereikt. Verwijder eerst enkele kanalen alvorens je nieuwe probeert te creëren.</translation>
     </message>
     <message>
         <source>Permission denied.</source>
@@ -5558,11 +5558,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 is now muted.</source>
-        <translation>%1 gedempt.</translation>
+        <translation>%1 is nu stom.</translation>
     </message>
     <message>
         <source>%1 is now unmuted.</source>
-        <translation>%1 ontdempt.</translation>
+        <translation>%1 kan nu weer spreken.</translation>
     </message>
     <message>
         <source>Recording started</source>
@@ -5622,15 +5622,15 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation>Ontdempt &amp; ontdoofd (door %1).</translation>
+        <translation>%1 liet je weer spreken en horen.</translation>
     </message>
     <message>
         <source>You were muted by %1.</source>
-        <translation>Gedempt (door %1).</translation>
+        <translation>Je werd stom gemaakt door %1.</translation>
     </message>
     <message>
         <source>You were undeafened by %1.</source>
-        <translation>Ontdoofd (door %1).</translation>
+        <translation>%1 liet je weer horen.</translation>
     </message>
     <message>
         <source>You were suppressed.</source>
@@ -5696,11 +5696,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You were unmuted by %1.</source>
-        <translation>Ontdempt (door %1).</translation>
+        <translation>%1 liet je weer spreken.</translation>
     </message>
     <message>
         <source>You muted %1.</source>
-        <translation>Je dempte %1.</translation>
+        <translation>Je maakte %1 stom.</translation>
     </message>
     <message>
         <source>You unsuppressed %1.</source>
@@ -5708,11 +5708,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>You unmuted %1.</source>
-        <translation>Je ontdempte %1.</translation>
+        <translation>Je liet %1 weer spreken.</translation>
     </message>
     <message>
         <source>%1 muted by %2.</source>
-        <translation>%1 gedempt (door %2).</translation>
+        <translation>%2 maakte %1 stom.</translation>
     </message>
     <message>
         <source>%1 unsuppressed by %2.</source>
@@ -5720,7 +5720,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 unmuted by %2.</source>
-        <translation>%2 ontdempte %1.</translation>
+        <translation>%2 liet %1 weer spreken.</translation>
     </message>
     <message>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
@@ -5729,7 +5729,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     <message>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>Gedempt &amp; gedoofd (door %1).</translation>
+        <translation>Je werd stom en doof gemaakt door %1.</translation>
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
@@ -5885,7 +5885,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Recording</source>
-        <translation>Opnemend</translation>
+        <translation>Opname</translation>
     </message>
     <message>
         <source>Priority Speaker</source>
@@ -5913,11 +5913,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Edit ban list on server</source>
-        <translation>Banlijst veranderen</translation>
+        <translation>Bewerk lijst met verbanningen op server</translation>
     </message>
     <message>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation>Laat je de IP-banlijst bewerken.</translation>
+        <translation>Laat toe om de lijst met verbanningen op IP op de server te bewerken.</translation>
     </message>
     <message>
         <source>&amp;Filter on/off</source>
@@ -5987,7 +5987,7 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>&amp;Ban list...</source>
-        <translation>&amp;Ban lijst...</translation>
+        <translation>&amp;Lijst met verbanningen...</translation>
     </message>
     <message>
         <source>&amp;Information...</source>
@@ -6011,11 +6011,11 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation>&amp;Toevoegen...</translation>
+        <translation>&amp;Voeg toe...</translation>
     </message>
     <message>
         <source>&amp;Remove...</source>
-        <translation>&amp;Verwijderen...</translation>
+        <translation>&amp;Verwijder...</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -6051,7 +6051,7 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
-        <translation>&amp;Certificaat Wizard...</translation>
+        <translation>&amp;Certificaat-wizard...</translation>
     </message>
     <message>
         <source>&amp;Register...</source>
@@ -6155,7 +6155,7 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Pratenden-gebruikersinterface</translation>
+        <translation>Sprekersweergave</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -6211,7 +6211,7 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>(%1) %2</source>
-        <translation>(1%) %2</translation>
+        <translation>(%1) %2</translation>
     </message>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
@@ -6268,17 +6268,17 @@ het &apos;mumble rpc&apos; commando.
 
 Valide acties zijn:
   mute
-                Demp jezelf
+                Maak jezelf stom
   unmute
-                Stop met jezelf te dempen
+                Laat jezelf weer spreken
   togglemute
-                Schakel het dempen om (in of uit)
+                Schakel het stom zijn in of uit
   deaf
-                Doof jezelf
+                Maak jezelf doof
   undeaf
-                Stop met jezelf te doven
+                Laat jezelf weer horen
   toggledeaf
-                Schakel het doven om (in of uit)
+                Schakel het doof zijn in of uit
   starttalking
                 Start met praten
   stoptalking
@@ -6457,11 +6457,11 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Her-verbindt na falende verbinding&lt;/b&gt;.&lt;br /&gt; Laat Mumble automatisch opnieuw verbinden na 10 seconden als jouw verbinding met de server faalt.</translation>
+        <translation>&lt;b&gt;Verbind opnieuw bij verbroken verbinding&lt;/b&gt;.&lt;br /&gt;Hiermee probeert Mumble na 10 seconden automatisch opnieuw te verbinden met de server wanneer je verbinding verbroken wordt.</translation>
     </message>
     <message>
         <source>Reconnect automatically</source>
-        <translation>Automatisch opnieuw verbinden</translation>
+        <translation>Verbind automatisch opnieuw</translation>
     </message>
     <message>
         <source>Proxy</source>
@@ -6473,7 +6473,7 @@ Valid options are:
     </message>
     <message>
         <source>Type of proxy to connect through</source>
-        <translation>Soort proxy (om te verbinden)</translation>
+        <translation>Type proxy waarlangs te verbinden</translation>
     </message>
     <message>
         <source>Direct connection</source>
@@ -6553,7 +6553,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Gebruikersnaam voor proxy-authenticatie&lt;/b&gt;&lt;br /&gt;Dit specifiëert de gebruikersnaam die je gebruikt om te aan te melden bij de proxy. Heeft de proxy geen authenticatie nodig, of wil je anoniem ermee verbinden, laat dit veld dan leeg.</translation>
+        <translation>&lt;b&gt;Gebruikersnaam voor proxy-authenticatie&lt;/b&gt;&lt;br /&gt;Dit stelt de gebruikersnaam in die je gebruikt om je aan te melden bij de proxy. Heeft de proxy geen authenticatie nodig, of wil je anoniem ermee verbinden, laat dit veld dan leeg.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -6565,7 +6565,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Wachtwoord (proxy-authenticatie)&lt;/b&gt;&lt;br /&gt;Wachtwoord om te authenticeren. Indien je anoniem wilt verbinden; leeglaten.</translation>
+        <translation>&lt;b&gt;Wachtwoord voor proxy-authenticatie&lt;/b&gt;&lt;br /&gt;Dit bepaalt het wachtwoord dat je gebruikt om je aan te melden bij de proxy. Heeft de proxy geen authenticatie nodig, of wil je anoniem ermee verbinden, laat dit veld dan leeg.</translation>
     </message>
     <message>
         <source>Mumble services</source>
@@ -6581,7 +6581,7 @@ Valid options are:
     </message>
     <message>
         <source>Check for application updates on startup</source>
-        <translation>Bij opstarten op updates controleren</translation>
+        <translation>Controleer bij opstarten op updates</translation>
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
@@ -6609,7 +6609,7 @@ Valid options are:
     </message>
     <message>
         <source>Reconnect to last server on startup</source>
-        <translation>Met de laatste server verbinden bij het Mumble-opstarten</translation>
+        <translation>Verbind opnieuw met laatst bezochte server bij opstarten</translation>
     </message>
     <message>
         <source>Download plugin and overlay updates on startup</source>
@@ -6635,7 +6635,7 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>When toggled this hides the public server list from the connect dialog</source>
-        <translation>Wanneer ingeschakeld, zorgt dit ervoor dat de publieke serverlijst verborgen wordt in het venster waar je kan verbinden met een server</translation>
+        <translation>Wanneer ingeschakeld, zorgt dit ervoor dat de publieke server-lijst verborgen wordt in het venster waar je kan verbinden met een server</translation>
     </message>
     <message>
         <source>Hide public server list</source>
@@ -6736,21 +6736,21 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     <name>OverlayConfig</name>
     <message>
         <source>To move the users, drag the little red dot.</source>
-        <translation>Om gebruikers te verplaatsen sleep je rooie puntjes.</translation>
+        <translation>Om de gebruikers te verplaatsen, sleep je het rode puntje.</translation>
     </message>
     <message>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation>Om gebruikers te resizen... scrol over gebruikers.</translation>
+        <translation>Om de gebruikers van grootte te veranderen, scrol je over de gebruikers.</translation>
     </message>
     <message>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation>Voor meer opties rechtsklik op een gebruiker.</translation>
+        <translation>Voor meer opties, rechtsklik je op een gebruiker.</translation>
     </message>
     <message>
         <source>Launcher Filter</source>
-        <translation>Launcherfilter</translation>
+        <translation>Launcher-filter</translation>
     </message>
     <message>
         <source>Overlay</source>
@@ -6758,19 +6758,19 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Choose executable</source>
-        <translation>Uitvoerbaar bestand kiezen</translation>
+        <translation>Kies uitvoerbaar bestand</translation>
     </message>
     <message>
         <source>Choose application</source>
-        <translation>Applicatie kiezen</translation>
+        <translation>Kies applicatie</translation>
     </message>
     <message>
         <source>Choose path</source>
-        <translation>Pad kiezen</translation>
+        <translation>Kies pad</translation>
     </message>
     <message>
         <source>Load Overlay Presets</source>
-        <translation>Overlay-instellingen laden</translation>
+        <translation>Laad overlay-instellingen</translation>
     </message>
     <message>
         <source>Mumble overlay presets (*.mumblelay)</source>
@@ -6778,7 +6778,7 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Save Overlay Presets</source>
-        <translation>Overlay-instellingen opslaan</translation>
+        <translation>Sla overlay-instellingen op</translation>
     </message>
     <message>
         <source>Options</source>
@@ -6786,11 +6786,11 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Enable overlay.</source>
-        <translation>Overlay tonen.</translation>
+        <translation>Toon overlay.</translation>
     </message>
     <message>
         <source>Enable Overlay</source>
-        <translation>Overlay tonen</translation>
+        <translation>Schakel overlay in</translation>
     </message>
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
@@ -6883,7 +6883,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Verwijderen</translation>
+        <translation>Verwijder</translation>
     </message>
     <message>
         <source>Font</source>
@@ -6891,7 +6891,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>FPS and Clock Display</source>
-        <translation>Fps- &amp; klokscherm</translation>
+        <translation>FPS- en klokweergave</translation>
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
@@ -6899,7 +6899,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>Show Clock</source>
-        <translation>Klok tonen</translation>
+        <translation>Toon klok</translation>
     </message>
     <message>
         <source>Overlay Exceptions</source>
@@ -6915,7 +6915,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation>Voeg toe</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -7006,11 +7006,11 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>Muted or deafened</source>
-        <translation>Gedempt of gedoofd</translation>
+        <translation>Stom of doof</translation>
     </message>
     <message>
         <source>Mute state</source>
-        <translation>Dempen-status</translation>
+        <translation>Stomheid-status</translation>
     </message>
     <message>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
@@ -7152,7 +7152,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>Link to Game and Transmit Position</source>
-        <translation>Koppelen aan spel &amp; positie zenden</translation>
+        <translation>Koppel met spel en stuur positie door</translation>
     </message>
     <message>
         <source>Reloads all plugins</source>
@@ -7164,7 +7164,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>&amp;Reload plugins</source>
-        <translation>Plug-ins &amp;herladen</translation>
+        <translation>&amp;Herlaad plug-ins</translation>
     </message>
     <message>
         <source>Information about plugin</source>
@@ -7263,7 +7263,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Pratende-gebruikersinterface</translation>
+        <translation>Sprekersweergave</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
@@ -7277,7 +7277,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Local Mute</source>
-        <translation>Lokaal Dempen</translation>
+        <translation>Maak lokaal stom</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -7301,7 +7301,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Talking (muted)</source>
-        <translation>Pratend (gedempt)</translation>
+        <translation>Spreekt (stom)</translation>
     </message>
     <message>
         <source>All messages</source>
@@ -7373,7 +7373,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation>Indien aangeschakeld wordt de echo uit geluidsstreams getracht te stoppen.</translation>
+        <translation>Indien ingeschakeld, wordt er geprobeerd om echo in het geluid op te heffen.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -7397,7 +7397,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation>Meerkanaalse echo-opheffing voorziet in een stuk bij betere echo-opheffing, maar tegen hogere processorbelasting. Meerkanaals echo-opheffen verlangt meer processorkracht; dus je zou eerst de gemixte variant kunnen proberen.</translation>
+        <translation>Meer-kanaalse echo-opheffing werkt beter, maar belast je processor meer. Probeer eerst gemixte echo-opheffing om te zien of deze het gewenste resultaat bereikt.</translation>
     </message>
     <message>
         <source>Acoustic echo cancellation provided by Apple.</source>
@@ -7405,7 +7405,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>De ingegeven URL gebruikt een ongeldig versieformaat: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
@@ -7488,7 +7488,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     <name>RichTextEditorLink</name>
     <message>
         <source>Add Link</source>
-        <translation>Koppeling toevoegen</translation>
+        <translation>Voeg koppeling toe</translation>
     </message>
     <message>
         <source>URL</source>
@@ -7698,19 +7698,19 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Add a token</source>
-        <translation>Een sleutel toevoegen</translation>
+        <translation>Voeg een sleutel toe</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Toevoegen</translation>
+        <translation>&amp;Voeg toe</translation>
     </message>
     <message>
         <source>Remove a token</source>
-        <translation>Een sleutel verwijderen</translation>
+        <translation>Verwijder een sleutel</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijderen</translation>
+        <translation>&amp;Verwijder</translation>
     </message>
     <message>
         <source>Tokens</source>
@@ -7725,7 +7725,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Remove</source>
-        <translation>Verwijderen</translation>
+        <translation>Verwijder</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -8051,31 +8051,31 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Muted (manually muted by self)</source>
-        <translation>Gedempt (handmatig gedempt door jezelf)</translation>
+        <translation>Stom (door zichzelf handmatig stom gemaakt)</translation>
     </message>
     <message>
         <source>Muted (manually muted by admin)</source>
-        <translation>Gedempt (handmatig gedempt door beheerder)</translation>
+        <translation>Stom (door beheerder handmatig stom gemaakt)</translation>
     </message>
     <message>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>Gedempt (verboden om te spreken in het huidige kanaal)</translation>
+        <translation>Stom (mag niet spreken in het huidige kanaal)</translation>
     </message>
     <message>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Lokaal gedempt (dankzij jouw en slechts voor jouwzelf)</translation>
+        <translation>Stom (door jou stom gemaakt, enkel op jouw computer)</translation>
     </message>
     <message>
         <source>Muted (push-to-mute)</source>
-        <translation>Gedempt (Druk-om-te-Dempen)</translation>
+        <translation>Stom (Druk-voor-Stomheid)</translation>
     </message>
     <message>
         <source>Deafened (by self)</source>
-        <translation>Gedoofd (door jezelf)</translation>
+        <translation>Doof (gemaakt door jezelf)</translation>
     </message>
     <message>
         <source>Deafened (by admin)</source>
-        <translation>Gedoofd (door beheerder)</translation>
+        <translation>Doof (gemaakt door beheerder)</translation>
     </message>
     <message>
         <source>User has a new comment set (click to show)</source>
@@ -8127,7 +8127,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation>Je bent aan het spreken terwijl je aan jouw kant gedempt bent</translation>
+        <translation>Spreekt terwijl je stom bent aan jouw kant</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
