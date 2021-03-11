@@ -39,16 +39,15 @@
 #include "SSL.h"
 #include "SocketRPC.h"
 #include "TalkingUI.h"
+#include "Translations.h"
 #include "Themes.h"
 #include "UserLockFile.h"
 #include "VersionCheck.h"
 
-#include <QtCore/QLibraryInfo>
 #include <QtCore/QProcess>
-#include <QtCore/QStandardPaths>
-#include <QtCore/QTranslator>
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QMessageBox>
+#include <QLocale>
 #include <QScreen>
 
 #ifdef USE_DBUS
@@ -400,30 +399,11 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	// Populate extra translation dirs (directories in which Mumble shall look for
-	// translation files that can overwrite the bundled one if present). The order
-	// in which they are added to this list determines the priority (first match
-	// will win).
-	// Start with the directory the Mumble executable lives in.
-	extraTranslationDirs.append(a.applicationDirPath());
-	// Next add AppData directories
-	for (const QString &currentConfigPath : QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)) {
-		extraTranslationDirs.append(QDir::cleanPath(currentConfigPath));
-	}
-	// Next add directories in the config locations
-	for (const QString &currentConfigPath : QStandardPaths::standardLocations(QStandardPaths::ConfigLocation)) {
-		extraTranslationDirs.append(QDir::cleanPath(currentConfigPath + QDir::separator() + "MumbleTranslations"));
-	}
-	// Finally add a dir in the home directory
-	for (const QString &currentHomePath : QStandardPaths::standardLocations(QStandardPaths::HomeLocation)) {
-		extraTranslationDirs.append(QDir::cleanPath(currentHomePath + QDir::separator() + "MumbleTranslations"));
-	}
-
 	if (printTranslationDirs) {
 		QString infoString = QObject::tr("The directories in which Mumble searches for extra translation files are:\n");
 
 		int counter = 1;
-		for (const QString &currentTranslationDir : extraTranslationDirs) {
+		for (const QString &currentTranslationDir : Mumble::Translations::getTranslationDirectories(a, extraTranslationDirs)) {
 			infoString += QString::fromLatin1("%1. ").arg(counter) + currentTranslationDir + "\n";
 			counter++;
 		}
@@ -555,64 +535,27 @@ int main(int argc, char **argv) {
 
 	Themes::apply();
 
-	QString qsSystemLocale = QLocale::system().name();
+	QLocale systemLocale = QLocale::system();
 
 #ifdef Q_OS_MAC
 	if (os_lang) {
-		qWarning("Using Mac OS X system language as locale name");
-		qsSystemLocale = QLatin1String(os_lang);
+		const QLocale macOSLocale = QLocale(QString::fromLatin1(os_lang));
+
+		if (macOSLocale != QLocale::c()) {
+			qWarning("Using Mac OS X system language as locale name");
+			systemLocale = macOSLocale;
+		}
 	}
 #endif
 
-	const QString locale = Global::get().s.qsLanguage.isEmpty() ? qsSystemLocale : Global::get().s.qsLanguage;
-	qWarning("Locale is \"%s\" (System: \"%s\")", qPrintable(locale), qPrintable(qsSystemLocale));
-
-	QTranslator translator;
-	if (translator.load(QLatin1String(":mumble_") + locale))
-		a.installTranslator(&translator);
-
-	// Create a second translator that tries to load translation files from several directories on
-	// disk. If found, these translation files can overwrite strings from the bundled translations
-	QTranslator loctranslator;
-	QString translationFilename = QLatin1String("mumble_") + locale;
-	for (const QString &currentTranslationDir : extraTranslationDirs) {
-		if (loctranslator.load(translationFilename, currentTranslationDir)) {
-			a.installTranslator(&loctranslator);
-
-			// First match wins
-			qWarning("Using extra translation file from directory: \"%s\"", currentTranslationDir.toUtf8().data());
-			break;
-		}
+	QLocale settingsLocale = QLocale(Global::get().s.qsLanguage);
+	if (settingsLocale == QLocale::c()) {
+		settingsLocale = systemLocale;
 	}
 
-	// With modularization of Qt 5 some - but not all - of the qt_<locale>.ts files have become
-	// so-called meta catalogues which no longer contain actual translations but refer to other
-	// more specific ts files like qtbase_<locale>.ts . To successfully load a meta catalogue all
-	// of its referenced translations must be available. As we do not want to bundle them all
-	// we now try to load the old qt_<locale>.ts file first and then fall back to loading
-	// qtbase_<locale>.ts if that failed.
-	//
-	// See http://doc.qt.io/qt-5/linguist-programmers.html#deploying-translations for more information
-	QTranslator qttranslator;
-	// First we try and see if there is a translation packaged with Mumble that shall overwrite any potentially existing
-	// Qt translations. If not, we try to load the qt-translations installed on the host-machine and if that fails as
-	// well, we try to load translations bundled in Mumble. Note: Resource starting with :/ are bundled resources
-	// specified in a .qrc file
-	if (qttranslator.load(QLatin1String(":/mumble_overwrite_qt_") + locale)) {
-		a.installTranslator(&qttranslator);
-	} else if (qttranslator.load(QLatin1String(":/mumble_overwrite_qtbase_") + locale)) {
-		a.installTranslator(&qttranslator);
-	} else if (qttranslator.load(QLatin1String("qt_") + locale,
-								 QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-		a.installTranslator(&qttranslator);
-	} else if (qttranslator.load(QLatin1String("qtbase_") + locale,
-								 QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-		a.installTranslator(&qttranslator);
-	} else if (qttranslator.load(QLatin1String(":/qt_") + locale)) {
-		a.installTranslator(&qttranslator);
-	} else if (qttranslator.load(QLatin1String(":/qtbase_") + locale)) {
-		a.installTranslator(&qttranslator);
-	}
+	qWarning("Locale is \"%s\" (System: \"%s\")", qUtf8Printable(settingsLocale.name()), qUtf8Printable(systemLocale.name()));
+
+	Mumble::Translations::installTranslators(settingsLocale, a, extraTranslationDirs);
 
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
