@@ -6214,90 +6214,6 @@ no menu contextual do canal.</translation>
 </translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-
-</source>
-        <translation>Uso: mumble [opções] [&lt;url&gt;]
-
-&lt;url&gt; especifica uma URL a se conectar na inicialização ao invés
-de mostrar a janela de conexão, e tem a forma seguinte:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-O parâmetro version deve ser definido para invocar
-a versão correta do cliente. Por padrão a 1.2.0.
-
-Opções válidas são:
-  -h, --help    Exibe esse texto de ajuda e finaliza.
-  -m, --multiple
-                Permite iniciar múltiplas instâncias do cliente.
- -c, --config
-                Especifica configuração alternativa.
-                Se você usar isso para várias instâncias de Mumble
-                ao mesmo tempo, lembre de definir um 
-                &apos;banco de dados&apos; alternativo na configuração.
-  -n, --noidentity
-                Suprime o carregamento dos arquivos de identificação
-                (i.e., certificados).
-  -jn, --jackname
-                Define nome pessoal de cliente Jack.
-  --license
-                Exibe a licença do Mumble.
-  --authors
-                Exibe os autores do Mumble.
-  --third-party-licenses
-                Exibe licenças para software de terceiros no Mumble.
- --window-title-ext 
-                Define um título de janela personalizado.
---dump-input-streams
-                Exporta fluxos PCM em várias partes da cadeia de entrada
-                (útil para fins de depuração)
-                - entrada crua de microfone
-                - leitura de alto-falantes para cancelamento de eco
-                - entrada processada de microfone
---print-echocancel-queue
-                 Exibe no stdout o estado de fila do cancelamento de eco
-                 (útil para fins de depuração)
-
-</translation>
-    </message>
-    <message>
         <source>Hide/show main window</source>
         <comment>Global Shortcut</comment>
         <translation>Ocultar/exibir a janela principal</translation>
@@ -6338,6 +6254,64 @@ Valid actions are:
   stoptalking
                 Stop talking
 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -c, --config
+                Specify an alternative configuration file.
+                If you use this to run multiple instances of Mumble at once,
+                make sure to set an alternative &apos;database&apos; value in the config.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+  -jn, --jackname &lt;arg&gt;
+                Set custom Jack client name.
+  --license
+                Show the Mumble license.
+  --authors
+                Show the Mumble authors.
+  --third-party-licenses
+                Show licenses for third-party software used by Mumble.
+  --window-title-ext &lt;arg&gt;
+                Sets a custom window title extension.
+  --dump-input-streams
+                Dump PCM streams at various parts of the input chain
+                (useful for debugging purposes)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                Print on stdout the echo cancellation queue state
+                (useful for debugging purposes)
+  --translation-dir &lt;dir&gt;
+                Specifies an additional translation fir &lt;dir&gt; in which
+                Mumble will search for translation files that overwrite
+                the bundled ones
+                Directories added this way have higher priority than
+                the default locations used otherwise
+  --print-translation-dirs
+                Print out the paths in which Mumble will search for
+                translation files that overwrite the bundled ones.
+                (Useful for translators testing their translations)
+  --locale &lt;locale&gt;
+                Overwrite the locale in Mumble&apos;s settings with a
+                locale that corresponds to the given locale string.
+                If the format is invalid, Mumble will error.
+                Otherwise the locale will be permanently saved to
+                Mumble&apos;s settings.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7403,6 +7377,15 @@ Consulte a &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The directories in which Mumble searches for extra translation files are:
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invocation</source>
+        <translation type="unfinished">Invocação</translation>
     </message>
 </context>
 <context>
