@@ -227,6 +227,7 @@ int main(int argc, char **argv) {
 	QString rpcCommand;
 	QUrl url;
 	QStringList extraTranslationDirs;
+	QString localeOverwrite;
 
 	if (a.arguments().count() > 1) {
 		for (int i = 1; i < args.count(); ++i) {
@@ -285,6 +286,12 @@ int main(int argc, char **argv) {
 								   "                Print out the paths in which Mumble will search for\n"
 								   "                translation files that overwrite the bundled ones.\n"
 								   "                (Useful for translators testing their translations)\n"
+								   "  --locale <locale>\n"
+								   "                Overwrite the locale in Mumble's settings with a\n"
+								   "                locale that corresponds to the given locale string.\n"
+								   "                If the format is invalid, Mumble will error.\n"
+								   "                Otherwise the locale will be permanently saved to\n"
+								   "                Mumble's settings."
 								   "\n");
 				QString rpcHelpBanner = MainWindow::tr("Remote controlling Mumble:\n"
 													   "\n");
@@ -381,6 +388,14 @@ int main(int argc, char **argv) {
 					i++;
 				} else {
 					qCritical("Missing argument for --translation-dir!");
+					return 1;
+				}
+			} else if (args.at(i) == "--locale") {
+				if (i + 1 < args.count()) {
+					localeOverwrite = args.at(i + 1);
+					i++;
+				} else {
+					qCritical("Missing argument for --locale!");
 					return 1;
 				}
 			} else {
@@ -548,9 +563,24 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	QLocale settingsLocale = QLocale(Global::get().s.qsLanguage);
-	if (settingsLocale == QLocale::c()) {
-		settingsLocale = systemLocale;
+	QLocale settingsLocale;
+
+	if (localeOverwrite.isEmpty()) {
+		settingsLocale = QLocale(Global::get().s.qsLanguage);
+		if (settingsLocale == QLocale::c()) {
+			settingsLocale = systemLocale;
+		}
+	} else {
+		// Manually specified locale overwrite
+		settingsLocale = QLocale(localeOverwrite);
+
+		if (settingsLocale == QLocale::c()) {
+			qFatal("Invalid locale specification \"%s\"", qUtf8Printable(localeOverwrite));
+			return 1;
+		}
+
+		// The locale is valid -> save it to the settings
+		Global::get().s.qsLanguage = settingsLocale.nativeLanguageName();
 	}
 
 	qWarning("Locale is \"%s\" (System: \"%s\")", qUtf8Printable(settingsLocale.name()), qUtf8Printable(systemLocale.name()));
