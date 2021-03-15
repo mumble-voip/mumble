@@ -185,6 +185,8 @@ set(MUMBLE_SOURCES
 	"PTTButtonWidget.cpp"
 	"PTTButtonWidget.h"
 	"PTTButtonWidget.ui"
+	"QtWidgetUtils.cpp"
+	"QtWidgetUtils.h"
 	"RichTextEditor.cpp"
 	"RichTextEditor.h"
 	"RichTextEditorLink.ui"
