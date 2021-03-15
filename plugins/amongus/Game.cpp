@@ -18,11 +18,10 @@ Game::Game(const procid_t id, const std::string name) : m_ok(false), m_proc(id, 
 		return;
 	}
 
-	// 74 39             jz     short loc_????????
+	// 75 58             jnz    short loc_????????
 	// A1 ?? ?? ?? ??    mov    eax, AmongUsClient_c **
 	// 8B 40 5C          mov    eax, [eax+5Ch]
-	// 8B 00             mov    eax, [eax]
-	const std::vector< uint8_t > clientPattern = { 0x74, 0x39, 0xA1, '?', '?', '?', '?', 0x8B, 0x40, 0x5C, 0x8B, 0x00 };
+	const std::vector< uint8_t > clientPattern = { 0x75, 0x58, 0xA1, '?', '?', '?', '?', 0x8B, 0x40, 0x5C };
 	m_client                                   = m_proc.findPattern(clientPattern, iter->second);
 
 	if (!m_client) {
