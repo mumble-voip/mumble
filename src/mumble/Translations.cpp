@@ -14,6 +14,20 @@
 namespace Mumble {
 namespace Translations {
 
+	LifetimeGuard::LifetimeGuard(LifetimeGuard &&old) : m_bundledTranslator(old.m_bundledTranslator),
+	m_overwriteTranslator(old.m_overwriteTranslator), m_qtTranslator(old.m_qtTranslator) {
+		// Reset values of old
+		old.m_bundledTranslator = nullptr;
+		old.m_overwriteTranslator = nullptr;
+		old.m_qtTranslator = nullptr;
+	}
+
+	LifetimeGuard::~LifetimeGuard() {
+		delete m_bundledTranslator;
+		delete m_overwriteTranslator;
+		delete m_qtTranslator;
+	}
+
 	QStringList getDefaultTranslationDirectories() {
 		QStringList translationDirs;
 
@@ -50,30 +64,44 @@ namespace Translations {
 		return directories;
 	}
 
-	void installTranslators(const QLocale &locale, QApplication &app, const QStringList &extraDirectories) {
+	LifetimeGuard installTranslators(const QLocale &locale, QApplication &app, const QStringList &extraDirectories) {
+		LifetimeGuard guard;
+
 		// First install a translator that uses the bundled translations
-		QTranslator bundledTranslator;
-		if (bundledTranslator.load(locale, ":mumble_")) {
-			app.installTranslator(&bundledTranslator);
+		guard.m_bundledTranslator = new QTranslator();
+		if (guard.m_bundledTranslator->load(locale, ":mumble_")) {
+			app.installTranslator(guard.m_bundledTranslator);
 		} else {
 			qWarning("Unable to find bundled translations for locale \"%s\"", qUtf8Printable(locale.name()));
+
+			delete guard.m_bundledTranslator;
+			guard.m_bundledTranslator = nullptr;
 		}
 
 		// Now try to add another translator that can overwrite the bundled translations based
 		// on translations found in one of the translation directories.
 		// The first matching translation file that is found, will be used (first come, first served)
-		QTranslator overwriteTranslator;
+		guard.m_overwriteTranslator = new QTranslator();
 
 		const QString prefix = "";
 
+		bool overwriteTranslatorFound = false;
 		for (const QString &currentDir : getTranslationDirectories(app, extraDirectories)) {
-			if (overwriteTranslator.load(locale, "mumble_", prefix, currentDir)) {
-				app.installTranslator(&overwriteTranslator);
+			if (guard.m_overwriteTranslator->load(locale, "mumble_", prefix, currentDir)) {
+				app.installTranslator(guard.m_overwriteTranslator);
 
 				qWarning("Using extra translation file for locale \"%s\" from directory \"%s\"",
 						 qUtf8Printable(locale.name()), qUtf8Printable(currentDir));
+
+				overwriteTranslatorFound = true;
+
 				break;
 			}
+		}
+
+		if (!overwriteTranslatorFound) {
+			delete guard.m_overwriteTranslator;
+			guard.m_overwriteTranslator = nullptr;
 		}
 
 		// With modularization of Qt 5 some - but not all - of the qt_<locale>.ts files have become
@@ -84,24 +112,30 @@ namespace Translations {
 		// qtbase_<locale>.ts if that failed.
 		//
 		// See http://doc.qt.io/qt-5/linguist-programmers.html#deploying-translations for more information
-		QTranslator qttranslator;
+		guard.m_qtTranslator = new QTranslator();
 		// First we try and see if there is a translation packaged with Mumble that shall overwrite any potentially
 		// existing Qt translations. If not, we try to load the qt-translations installed on the host-machine and if
 		// that fails as well, we try to load translations bundled in Mumble. Note: Resource starting with :/ are
 		// bundled resources specified in a .qrc file
-		if (qttranslator.load(locale, ":/mumble_overwrite_qt_")) {
-			app.installTranslator(&qttranslator);
-		} else if (qttranslator.load(locale, ":/mumble_overwrite_qtbase_")) {
-			app.installTranslator(&qttranslator);
-		} else if (qttranslator.load(locale, "qt_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-			app.installTranslator(&qttranslator);
-		} else if (qttranslator.load(locale, "qtbase_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-			app.installTranslator(&qttranslator);
-		} else if (qttranslator.load(locale, ":/qt_")) {
-			app.installTranslator(&qttranslator);
-		} else if (qttranslator.load(locale, ":/qtbase_")) {
-			app.installTranslator(&qttranslator);
+		if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qt_")) {
+			app.installTranslator(guard.m_qtTranslator);
+		} else if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qtbase_")) {
+			app.installTranslator(guard.m_qtTranslator);
+		} else if (guard.m_qtTranslator->load(locale, "qt_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+			app.installTranslator(guard.m_qtTranslator);
+		} else if (guard.m_qtTranslator->load(locale, "qtbase_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+			app.installTranslator(guard.m_qtTranslator);
+		} else if (guard.m_qtTranslator->load(locale, ":/qt_")) {
+			app.installTranslator(guard.m_qtTranslator);
+		} else if (guard.m_qtTranslator->load(locale, ":/qtbase_")) {
+			app.installTranslator(guard.m_qtTranslator);
+		} else {
+			// Did not install Qt translator
+			delete guard.m_qtTranslator;
+			guard.m_qtTranslator = nullptr;
 		}
+
+		return guard;
 	}
 }; // namespace Translations
 }; // namespace Mumble
