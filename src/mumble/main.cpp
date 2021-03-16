@@ -585,7 +585,7 @@ int main(int argc, char **argv) {
 
 	qWarning("Locale is \"%s\" (System: \"%s\")", qUtf8Printable(settingsLocale.name()), qUtf8Printable(systemLocale.name()));
 
-	Mumble::Translations::installTranslators(settingsLocale, a, extraTranslationDirs);
+	Mumble::Translations::LifetimeGuard translationGuard = Mumble::Translations::installTranslators(settingsLocale, a, extraTranslationDirs);
 
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
