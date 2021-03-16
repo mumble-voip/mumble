@@ -75,7 +75,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 		   "To restore all settings to their defaults, you can press the \"Defaults (All)\" button."));
 
 	QPushButton *restoreAllButton =
-		pageButtonBox->addButton(QString::fromLatin1("Defaults (All)"), QDialogButtonBox::ResetRole);
+		pageButtonBox->addButton(tr("Defaults (All)"), QDialogButtonBox::ResetRole);
 	restoreAllButton->setToolTip(tr("Restore all defaults"));
 	restoreAllButton->setWhatsThis(tr("This button will restore the defaults for all settings."));
 
