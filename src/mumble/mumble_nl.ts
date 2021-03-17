@@ -2858,6 +2858,10 @@ Zeker dat je jouw certificaat wilt vervangen?
         <source>This button will restore the defaults for all settings.</source>
         <translation>Deze knop herstelt terug naar standaardwaarden doch voor alle instellingen.</translation>
     </message>
+    <message>
+        <source>Defaults (All)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConnectDialog</name>
