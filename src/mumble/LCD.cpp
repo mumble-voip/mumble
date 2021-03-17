@@ -155,15 +155,27 @@ void LCDConfig::on_qsSplitterWidth_valueChanged(int v) {
 /* --- */
 
 LCD::LCD() : QObject() {
+	int pointSize;
 #ifdef Q_OS_MAC
 	qfNormal.setStyleStrategy(QFont::NoAntialias);
 	qfNormal.setKerning(false);
-	qfNormal.setPointSize(10);
 	qfNormal.setFixedPitch(true);
 	qfNormal.setFamily(QString::fromLatin1("Andale Mono"));
+
+	pointSize = 10;
 #else
-	qfNormal = QFont(QString::fromLatin1("Arial"), 7);
+	qfNormal = QFont(QString::fromLatin1("Arial"));
+
+	pointSize = 7;
 #endif
+
+	// 1px = 3/4 pt and thus 1pt = 4/3px
+	int pixelSize = pointSize * 4 / 3;
+
+	// We set the pixel size explicitly as we don't want the fonts to scale with the
+	// main screen's DPI (or scaling factors set e.g. via Windows' control panel).
+	// See https://wiki.qt.io/Technical_FAQ#How_can_I_prevent_the_font_from_scaling_up_when_the_DPI_is_increased.3F
+	qfNormal.setPixelSize(pixelSize);
 
 	qfItalic = qfNormal;
 	qfItalic.setItalic(true);
@@ -176,7 +188,11 @@ LCD::LCD() : QObject() {
 
 	QFontMetrics qfm(qfNormal);
 
-	iFontHeight = 10;
+	// Commit 56ee577c820411ba4276bf551070c5bbdee32077 claims that font metrics were broken
+	// and therefore used a hard-coded value of 10 here. That commit is from 2008 though, so
+	// we assume that this issue has been fixed by now (2021), so we use the height returned
+	// by the font metric again.
+	iFontHeight = qfm.height();
 
 	initBuffers();
 
