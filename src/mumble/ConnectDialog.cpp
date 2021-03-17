@@ -761,7 +761,7 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 			unsigned short port = DEFAULT_MUMBLE_PORT;
 
 			Global::get().sh->getConnectionInfo(host, port, user, pw);
-			Channel *c = Channel::get(0);
+			Channel *c = Channel::get(Channel::ROOT_ID);
 			if (c && c->qsName != QLatin1String("Root")) {
 				name = c->qsName;
 			}

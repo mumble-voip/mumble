@@ -173,7 +173,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName.toHtmlEscaped()));
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Channel::ROOT_ID)->qsName.toHtmlEscaped()));
 
 	// Update QActions and menus
 	on_qmServer_aboutToShow();
@@ -369,7 +369,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		channel = Channel::get(msg.channel_id());
 		if (!channel) {
 			qWarning("msgUserState(): unknown channel.");
-			channel = Channel::get(0);
+			channel = Channel::get(Channel::ROOT_ID);
 		}
 	}
 
