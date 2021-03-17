@@ -2873,6 +2873,10 @@ Er du sikker på at du vil erstatte ditt sertifikat?
         <source>This button will restore the defaults for all settings.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Defaults (All)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConnectDialog</name>

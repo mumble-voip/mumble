@@ -2855,6 +2855,10 @@ Você tem certeza de que quer substituir o seu certificado?
         <source>This button will restore the defaults for all settings.</source>
         <translation>Este botão restaurará os padrões para todas as configurações.</translation>
     </message>
+    <message>
+        <source>Defaults (All)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConnectDialog</name>
