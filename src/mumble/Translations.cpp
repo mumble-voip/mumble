@@ -121,9 +121,9 @@ namespace Translations {
 			app.installTranslator(guard.m_qtTranslator);
 		} else if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qtbase_")) {
 			app.installTranslator(guard.m_qtTranslator);
-		} else if (guard.m_qtTranslator->load(locale, "qt_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+		} else if (guard.m_qtTranslator->load(locale, "qt_", prefix, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 			app.installTranslator(guard.m_qtTranslator);
-		} else if (guard.m_qtTranslator->load(locale, "qtbase_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+		} else if (guard.m_qtTranslator->load(locale, "qtbase_", prefix, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 			app.installTranslator(guard.m_qtTranslator);
 		} else if (guard.m_qtTranslator->load(locale, ":/qt_")) {
 			app.installTranslator(guard.m_qtTranslator);
