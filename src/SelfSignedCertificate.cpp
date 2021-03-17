@@ -141,7 +141,7 @@ bool SelfSignedCertificate::generate(CertificateType certificateType, QString cl
 		}
 	}
 
-	if (X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+	if (X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_UTF8,
 								   reinterpret_cast< unsigned char * >(commonName.toUtf8().data()), -1, -1, 0)
 		== 0) {
 		ok = false;
