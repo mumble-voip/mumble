@@ -7354,7 +7354,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Innvilg tilgang til mikrofon i → Sikkerhet og personvern → Personvern →Mikrofon.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
