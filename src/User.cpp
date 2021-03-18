@@ -18,5 +18,8 @@ User::User() {
 }
 
 bool User::lessThan(const User *first, const User *second) {
-	return (QString::localeAwareCompare(first->qsName, second->qsName) < 0);
+	// We explicitly don't use localeAwareCompare as this would result in a different
+	// ordering of users on clients with different locales. This is not what one would
+	// expect and thus we don't take the locale into account for comparing users.
+	return QString::compare(first->qsName, second->qsName) < 0;
 }
