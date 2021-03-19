@@ -636,7 +636,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Utility di chat vocale per videogiocatori&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Traduzione italiana a cura di Spaccaossi&lt;br /&gt;spaccaossi@users.sourceforge.net&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Utility Open Source di chat vocale a bassa latenza e elevata qualità audio&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1142,7 +1142,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Disabilita cancellazione dell&apos;eco.</translation>
     </message>
 </context>
 <context>
@@ -3003,7 +3003,7 @@ Sei sicuro di voler sostituire il tuo certificato?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Connetti</translation>
+        <translation>C&amp;onnetti</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -6262,7 +6262,30 @@ Valid actions are:
                 Stop talking
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Urili&lt;&lt;o: mumble rpc &lt;azione&gt; [opzioni]
+
+E&apos; possibile monitorare un&apos;istanza remota di Mumble usando 
+il comando &apos;mumble rpc&apos; .
+
+Azioni valide:
+  mute
+                Silenziamento
+  unmute
+                Annulla silenziamento
+  togglemute
+                Inverti stato silenziamento
+  deaf
+                Assordimento
+  undeaf
+                Annulla assordimento
+  toggledeaf
+                Inverti stato assordimento
+  starttalking
+                Avvia colloquio
+  stoptalking
+                Interrompi colloquio
+
+</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt;]
@@ -7339,19 +7362,19 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa opzione funziona al meglio se si usa un microfono e un altoparlante incorporati.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished">L&apos;accesso al microfono è stato negato. Per favore permetti a Mumble di utilizzare il microfono cambiando le impostazioni del sistema su Impostazioni -&gt;  Privacy -&gt; Microfono.</translation>
+        <translation>L&apos;accesso al microfono è stato negato. Per favore permetti a Mumble di utilizzare il microfono cambiando le impostazioni del sistema su Impostazioni -&gt; Privacy -&gt; Microfono.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;accesso al microfono è stato negato a causa di restrizioni di sistema. Non sarai in grado di usare il microfono per questa sessione.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se abilitato, cercherà di ridurre l&apos;eco dal flusso audio.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -7359,7 +7382,7 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>La cancellazione dell&apos;eco è disabilitata.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
@@ -7367,7 +7390,7 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>La cancellazione mista ha un piccolo impatto sulla CPU, ma funziona al meglio se i tuoi altoparlanti hanno lo stesso volume e sono equidistanti dal microfono.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
@@ -7375,15 +7398,15 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation type="unfinished"></translation>
+        <translation>La cancellazione dell&apos;eco multicanale fornisce una migliore cancellazione dell&apos;eco, ma ad un costo elaborativo superiore. La cancellazione multicanale richiede più CPU, perciò dovresti provare la mista prima.</translation>
     </message>
     <message>
         <source>Acoustic echo cancellation provided by Apple.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancellazione acustica dell&apos;eco fornita da Apple.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;URL fornito usa un formato invalido: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
