@@ -41,10 +41,11 @@ def main():
 
     commits = cmd(["git", "log" ,"--format=oneline",  "--date=short", "{}..{}".format(args.FROM_TAG, args.TO_TAG)]).split("\n")
 
-    serverChanges = []
-    clientChanges = []
-    sharedChanges = []
-    miscChanges   = []
+    serverChanges          = []
+    clientChanges          = []
+    sharedChanges          = []
+    positionalAudioChanges = []
+    miscChanges            = []
 
     skipTypes = set(["FORMAT", "DOCS", "TEST", "MAINT", "CI", "REFAC", "BUILD", "TRANSLATION"])
 
@@ -73,6 +74,16 @@ def main():
                 targetGroups.append(serverChanges)
             if "shared" in commit.m_scopes:
                 targetGroups.append(sharedChanges)
+            if "positional-audio" in commit.m_scopes:
+                targetGroups.append(positionalAudioChanges)
+            if "ice" in commit.m_scopes and not "server" in commit.m_scopes:
+                targetGroups.append(serverChanges)
+                commit.m_summary = "Ice: " + commit.m_summary
+            if "grpc" in commit.m_scopes and not "server" in commit.m_scopes:
+                targetGroups.append(serverChanges)
+                commit.m_summary = "gRPC: " + commit.m_summary
+            if "audio" in commit.m_scopes and not "client" in commit.m_scopes:
+                targetGroups.append(clientChanges)
             if len(targetGroups) == 0:
                 targetGroups.append(miscChanges)
 
@@ -109,6 +120,13 @@ def main():
         print("### Both")
         print()
         print("\n".join(sorted(sharedChanges)))
+        print()
+        print()
+
+    if len(positionalAudioChanges) > 0:
+        print("### Positional audio plugins")
+        print()
+        print("\n".join(sorted(positionalAudioChanges)))
         print()
         print()
 
