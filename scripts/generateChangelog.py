@@ -8,6 +8,7 @@
 import argparse
 import platform
 import subprocess
+import re
 
 from commitMessage.CommitMessage import CommitMessage, CommitFormatError
 
@@ -18,19 +19,6 @@ def cmd(args):
     if p.returncode != 0:
         raise Exception('cmd(): {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
     return stdout.decode('utf-8')
-
-def isRelevantCommit(commitLine):
-    if commitLine.strip() == "":
-        return False
-    
-    components = commitLine.split()
-
-    if len(components) < 2:
-        return False
-
-    # First component is commit hash
-    # We only consider merge commits to be relevant
-    return components[1].lower() == "merge"
 
 def formatChangeLine(line, prNumber, target):
     if target == "github":
@@ -49,32 +37,28 @@ def main():
             default="other")
     args = parser.parse_args()
 
-    commits = cmd(["git", "log" ,"--format=oneline",  "--date=short", "{}..{}".format(args.FROM_TAG, args.TO_TAG)]).split("\n")
-    commits = list(filter(isRelevantCommit, commits))
+    mergeCommitPattern = re.compile("^([0-9a-f]+)\s*[Mm]erge\s.+?#(\d+):?\s*(.+)$", re.MULTILINE)
 
-    serverChanges = []
-    clientChanges = []
-    sharedChanges = []
-    miscChanges   = []
+    commits = cmd(["git", "log" ,"--format=oneline",  "--date=short", "{}..{}".format(args.FROM_TAG, args.TO_TAG)]).split("\n")
+
+    serverChanges          = []
+    clientChanges          = []
+    sharedChanges          = []
+    positionalAudioChanges = []
+    miscChanges            = []
 
     skipTypes = set(["FORMAT", "DOCS", "TEST", "MAINT", "CI", "REFAC", "BUILD", "TRANSLATION"])
 
     for commitLine in commits:
-        parts = commitLine.split(maxsplit=1)
-        commitHash = parts[0]
-        commitTitle = parts[1]
+        match = re.match(mergeCommitPattern, commitLine)
 
-        assert ":" in commitTitle
-        assert "#" in commitTitle
+        if not match:
+            # Commit doesn't match the expected pattern and is thus ignored
+            continue
 
-        prTagStart = commitTitle.find("#")
-        prTagEnd = commitTitle.find(":")
-        assert prTagStart + 1 < prTagEnd
-
-        # Extract PR number
-        prNumber = commitTitle[prTagStart + 1 : prTagEnd]
-        # Cut out PR information from commit title
-        commitTitle = commitTitle[prTagEnd + 1 : ].strip()
+        commitHash = match.group(1)
+        prNumber = match.group(2)
+        commitTitle = match.group(3)
 
         try:
             commit = CommitMessage(commitTitle)
@@ -90,6 +74,16 @@ def main():
                 targetGroups.append(serverChanges)
             if "shared" in commit.m_scopes:
                 targetGroups.append(sharedChanges)
+            if "positional-audio" in commit.m_scopes:
+                targetGroups.append(positionalAudioChanges)
+            if "ice" in commit.m_scopes and not "server" in commit.m_scopes:
+                targetGroups.append(serverChanges)
+                commit.m_summary = "Ice: " + commit.m_summary
+            if "grpc" in commit.m_scopes and not "server" in commit.m_scopes:
+                targetGroups.append(serverChanges)
+                commit.m_summary = "gRPC: " + commit.m_summary
+            if "audio" in commit.m_scopes and not "client" in commit.m_scopes:
+                targetGroups.append(clientChanges)
             if len(targetGroups) == 0:
                 targetGroups.append(miscChanges)
 
@@ -126,6 +120,13 @@ def main():
         print("### Both")
         print()
         print("\n".join(sorted(sharedChanges)))
+        print()
+        print()
+
+    if len(positionalAudioChanges) > 0:
+        print("### Positional audio plugins")
+        print()
+        print("\n".join(sorted(positionalAudioChanges)))
         print()
         print()
 
