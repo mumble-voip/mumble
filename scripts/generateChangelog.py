@@ -8,6 +8,7 @@
 import argparse
 import platform
 import subprocess
+import re
 
 from commitMessage.CommitMessage import CommitMessage, CommitFormatError
 
@@ -18,19 +19,6 @@ def cmd(args):
     if p.returncode != 0:
         raise Exception('cmd(): {0} failed with status {1}: {2}'.format(args, p.returncode, stderr))
     return stdout.decode('utf-8')
-
-def isRelevantCommit(commitLine):
-    if commitLine.strip() == "":
-        return False
-    
-    components = commitLine.split()
-
-    if len(components) < 2:
-        return False
-
-    # First component is commit hash
-    # We only consider merge commits to be relevant
-    return components[1].lower() == "merge"
 
 def formatChangeLine(line, prNumber, target):
     if target == "github":
@@ -49,8 +37,9 @@ def main():
             default="other")
     args = parser.parse_args()
 
+    mergeCommitPattern = re.compile("^([0-9a-f]+)\s*[Mm]erge\s.+?#(\d+):?\s*(.+)$", re.MULTILINE)
+
     commits = cmd(["git", "log" ,"--format=oneline",  "--date=short", "{}..{}".format(args.FROM_TAG, args.TO_TAG)]).split("\n")
-    commits = list(filter(isRelevantCommit, commits))
 
     serverChanges = []
     clientChanges = []
@@ -60,21 +49,15 @@ def main():
     skipTypes = set(["FORMAT", "DOCS", "TEST", "MAINT", "CI", "REFAC", "BUILD", "TRANSLATION"])
 
     for commitLine in commits:
-        parts = commitLine.split(maxsplit=1)
-        commitHash = parts[0]
-        commitTitle = parts[1]
+        match = re.match(mergeCommitPattern, commitLine)
 
-        assert ":" in commitTitle
-        assert "#" in commitTitle
+        if not match:
+            # Commit doesn't match the expected pattern and is thus ignored
+            continue
 
-        prTagStart = commitTitle.find("#")
-        prTagEnd = commitTitle.find(":")
-        assert prTagStart + 1 < prTagEnd
-
-        # Extract PR number
-        prNumber = commitTitle[prTagStart + 1 : prTagEnd]
-        # Cut out PR information from commit title
-        commitTitle = commitTitle[prTagEnd + 1 : ].strip()
+        commitHash = match.group(1)
+        prNumber = match.group(2)
+        commitTitle = match.group(3)
 
         try:
             commit = CommitMessage(commitTitle)
