@@ -380,7 +380,7 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 		bool isSelf = Global::get().uiSession == user->uiSession;
 
 		int channelIndex = findContainer(user->cChannel->iId, ContainerType::CHANNEL);
-		if (channelIndex) {
+		if (channelIndex < 0) {
 			qCritical("TalkingUI::findOrAddUser User's channel does not exist!");
 			return nullptr;
 		}
