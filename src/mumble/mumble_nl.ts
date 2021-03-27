@@ -378,7 +378,7 @@ Bevat de lijst van leden die overgeërfd werden door het huidige kanaal. Vink &l
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Dit bepaalt op welke groep van gebruikers deze regel van toepassing is.&lt;br /&gt;Merk op dat de groep geëvalueerd wordt in de context van het kanaal waarin de regel gebruikt wordt. De standaard-ACL op het allerhoogste kanaal geeft bijvoorbeeld de &lt;i&gt;Schrijf&lt;/i&gt;-rechten aan ded groep &lt;i&gt;admin&lt;/i&gt;. Deze regel, indien hij overgeërfd wordt, zal een gebruiker schrijfrechten geven als hij behoort tot de groep &lt;i&gt;admin&lt;/i&gt; in dat kanaal, zelfs als hij niet zou behoren tot de groep &lt;i&gt;admin&lt;/i&gt; in het kanaal waar de ACL oorspronkelijk van kwam.&lt;br /&gt;Als de naam van een groep start met &apos;!&apos;, wordt de lidmaatschap ervan omgekeerd, en als deze start met &apos;~&apos;, wordt hij geëvalueerd in het kanaal waarin de ACL gedefinieerd werd i.p.v. in het kanaal waar de ACTL actief in is.&lt;br /&gt;Als de naam van een groep start met &apos;#&apos;, wordt deze als een toegangssleutel gezien. Gebruikers moeten datgene dat na &apos;#&quot; komt in hun lijst van toegangssleutels ingegeven hebben zodat dit overeen komt hiermee. Dit kan gebruikt worden als een eenvoudige manier om een wachtwoord te vereisen om toegang te krijgen tot een kanaal voor gebruikers die zich nog niet aangemeld hebben.&lt;br /&gt;Als de naam van een groep start met &apos;$&apos;, zal het enkel matchen met gebruikers waarbij de hash van hun certificaat overeenkomt met datgene dat achter de &apos;$&apos; komt.&lt;br /&gt;Enkele speciaal gedefinieerde groepen zijn:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Iedereen voldoet hieraan.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle aangemelde gebruikers voldoen hieraan.&lt;br /&gt;sub,a,b,c&lt;/b&gt; - Een gebruiker in een subkanaal met minimum &lt;i&gt;a&lt;/i&gt; gemeenschappelijke bovenliggende kanalen, en tussen &lt;i&gt;b&lt;/i&gt; en &lt;i&gt;c&lt;/i&gt; kanalen verderop in de hiërarchie. Zie de website voor uitgebreidere informatie hierover.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Gebruikers die zich in het kanaal bevinden (equivalent aan &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gebruikers die zich buiten het kanaal bevinden (equivalent aan &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;)&lt;br /&gt;Merk op dat een regel ofwel van toepassing is op een gebruiker , ofwel op een groep, maar niet op beide tegelijk.</translation>
+        <translation>Dit bepaalt op welke groep van gebruikers deze regel van toepassing is.&lt;br /&gt;Merk op dat de groep geëvalueerd wordt in de context van het kanaal waarin de regel gebruikt wordt. De standaard-ACL op het allerhoogste kanaal geeft bijvoorbeeld de &lt;i&gt;Schrijf&lt;/i&gt;-rechten aan ded groep &lt;i&gt;admin&lt;/i&gt;. Deze regel, indien hij overgeërfd wordt, zal een gebruiker schrijfrechten geven als hij behoort tot de groep &lt;i&gt;admin&lt;/i&gt; in dat kanaal, zelfs als hij niet zou behoren tot de groep &lt;i&gt;admin&lt;/i&gt; in het kanaal waar de ACL oorspronkelijk van kwam.&lt;br /&gt;Als de naam van een groep start met &apos;!&apos;, wordt de lidmaatschap ervan omgekeerd, en als deze start met &apos;~&apos;, wordt hij geëvalueerd in het kanaal waarin de ACL gedefinieerd werd i.p.v. in het kanaal waar de ACTL actief in is.&lt;br /&gt;Als de naam van een groep start met &apos;#&apos;, wordt deze als een toegangssleutel gezien. Gebruikers moeten datgene dat na &apos;#&quot; komt in hun lijst van toegangssleutels ingegeven hebben zodat dit overeen komt hiermee. Dit kan gebruikt worden als een eenvoudige manier om een wachtwoord te vereisen om toegang te krijgen tot een kanaal voor gebruikers die zich nog niet aangemeld hebben.&lt;br /&gt;Als de naam van een groep start met &apos;$&apos;, zal het enkel matchen met gebruikers waarbij de hash van hun certificaat overeenkomt met datgene dat achter de &apos;$&apos; komt.&lt;br /&gt;Enkele speciaal gedefinieerde groepen zijn:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Iedereen voldoet hieraan.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle aangemelde gebruikers voldoen hieraan.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Een gebruiker in een subkanaal met minimum &lt;i&gt;a&lt;/i&gt; gemeenschappelijke bovenliggende kanalen, en tussen &lt;i&gt;b&lt;/i&gt; en &lt;i&gt;c&lt;/i&gt; kanalen verderop in de hiërarchie. Zie de website voor uitgebreidere informatie hierover.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Gebruikers die zich in het kanaal bevinden (equivalent aan &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gebruikers die zich buiten het kanaal bevinden (equivalent aan &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;)&lt;br /&gt;Merk op dat een regel ofwel van toepassing is op een gebruiker , ofwel op een groep, maar niet op beide tegelijk.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -867,7 +867,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;Bladeren...</translation>
+        <translation>&amp;Blader...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
@@ -1654,7 +1654,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Echo-opheffingsgewicht; tijd ↑ (↓) &amp; frequentie ↑ (→).&lt;br /&gt;Idealistisch is dit zwart, wanneer geen galm bestaat. Je hebt normaliter één of ↑ blauwe horizontale strepen die galmvertragingsduur aanduidt. Real-time zijn beide gewichten bijgewerkt te zien.&lt;br /&gt;Zolang je geen galmveroorzaker hebt zie je geen nuttige gegevens. Speel muziek af want dat stabiliseert.&lt;br /&gt;Kies voor echte of ingebeelde delen v.h. frequentiegewichten-deel of berekende modulus en fase bekijken. Modulus, zijnde galmsterkte; toont je hoeveel uitgaand signaal wordt verwijderd. Andere weergave-modi zijn vooral bedoeld voor degenen de galm-algoritmen trachten af te stellen.&lt;br /&gt;Als het beeld erg fluctueert, terwijl in modulus-modus &amp; galmdemper faalt om verband te detecteren tussen twee invoerbronnen (microfoon en luidsprekers) dan is er sprake galmvertraging/foute invoerbron.</translation>
+        <translation>Dit toont de gewichten van de echo-opheffer, met een stijgende tijd in neerwaartse richting en een stijgende frequentie in zijwaartse richting (naar rechts).&lt;br /&gt;Idealiter is dit zwart, wat aangeeft dat er geen echo is. Je hebt normaliter één of ↑ blauwe horizontale strepen die galmvertragingsduur aanduidt. Real-time zijn beide gewichten bijgewerkt te zien.&lt;br /&gt;Zolang je geen galmveroorzaker hebt zie je geen nuttige gegevens. Speel muziek af want dat stabiliseert.&lt;br /&gt;Kies voor echte of ingebeelde delen v.h. frequentiegewichten-deel of berekende modulus en fase bekijken. Modulus, zijnde galmsterkte; toont je hoeveel uitgaand signaal wordt verwijderd. Andere weergave-modi zijn vooral bedoeld voor degenen de galm-algoritmen trachten af te stellen.&lt;br /&gt;Als het beeld erg fluctueert, terwijl in modulus-modus en echo-opheffer faalt om verband te detecteren tussen twee invoerbronnen (microfoon en luidsprekers) dan is er sprake galmvertraging/foute invoerbron.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -1825,10 +1825,10 @@ Mumble is under continuous development, and the development team wants to focus 
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Gefeliciteerd. Je bent klaar om te genieten van Mumble met een mooiere geluidservaring.
+Gefeliciteerd. Je bent hierbij klaar om te genieten van een betere geluidservaring met Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-Mumble wordt doorontwikkeld gericht op functionaliteit waar meeste gebruikers belang bij hebben. Daartoe ondersteunt Mumble delen van anonieme statistieken over je configuratie aan de ontwikkelaars. Statistieken zijn essentieel voor toekomstige ontwikkeling &amp; voortbestaan.
+Mumble geniet continu verdere ontwikkelingen, en het ontwikkelteam focust zich hierbij op toevoegingen waar de meeste gebruikers profijt van hebben. Om deze reden kan je anonieme statistieken over je opstelling delen met de ontwikkelaars. Deze statistieken zijn essentieel gedurende de ontwikkeling, en helpen er ook voor zorgen dat functionaliteiten die je veelvuldig gebruikt niet onbedoeld afgebouwd worden.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2473,13 +2473,13 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Je hebt al een certificaat in Mumble opgeslagen, en staat op het punt om het te vervangen.&lt;/p&gt;
-&lt;p&gt;Als jij upgradet naar door betrouwbare certificaatautoriteit afgegeven certificaat waarvan jouw e-mailadressen overeenkomen met jouw certificaat, is dat volkomen veilig &amp; servers waarmee je verbindt herkennen automatisch het sterke certificaat aan jouw e-mailadres.
+        <translation>&lt;p&gt;Je hebt al een certificaat in Mumble opgeslagen, en staat op het punt om deze te vervangen.&lt;/p&gt;
+&lt;p&gt;Indien je probeert te switchen naar een certificaat dat je kreeg van een vertrouwde certificaatautoriteit, en het e-mailadres komt overeen met je huidig certificaat, dan is dit volkomen veilig. De servers waarmee je verbindt zullen automatisch het sterke certificaat herkennen op basis van jouw e-mailadres.
 &lt;/p&gt;
-&lt;p&gt;Als dit niet het geval is, wordt je niet langer herkend door eerdere servers. Als je nergens geregistreerd was is er niets om je druk over te maken.
+&lt;p&gt;Is dit niet het geval, dan zal je niet meer herkend worden door servers die je voorheen bezocht had. Heb je je nog nergens geregistreerd, dan is er geen reden tot paniek.
 &lt;/p&gt;
 &lt;p&gt;
-Zeker dat je jouw certificaat wilt vervangen? 
+Weet je zeker dat je je certificaat wil vervangen?
 &lt;/p&gt;
 </translation>
     </message>
@@ -2781,7 +2781,7 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Local Ignore (Text messages)</source>
-        <translation>Lokaal negeren (Tekstberichten)</translation>
+        <translation>Negeer lokaal (Tekstberichten)</translation>
     </message>
     <message>
         <source>Local Mute</source>
@@ -2860,7 +2860,7 @@ Zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaardwaarden (Alles)</translation>
     </message>
 </context>
 <context>
@@ -3328,7 +3328,7 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan louter van muisknoppen &amp; speciale toetsenbord toetsen (Alt, Ctrl, Cmd, enz.) voor globale sneltoetsen gebruikmaken.&lt;/p&gt;&lt;p&gt;Voor meer flexibiliteit, kun je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; in Toegankelijkheidscentrum van systeem instellen. Wijzigingen laat schadelijke programma&apos;s lezen wat getypt wordt op uw toetsenbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan momenteel enkel muisknoppen en speciale toetsenbordtoetsen (Alt, Ctrl, Cmd, etc.) gebruiken als globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Wil je meer flexibiliteit, dan kan je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; onder de toegankelijkheidsinstellingen van je systeem instellen. Let hierbij op dat schadelijke software hiermee ook zal kunnen uitlezen wat je aan het typen bent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
@@ -3687,7 +3687,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>User recording state changed</source>
-        <translation>Gebruikers&apos; opnamestatus veranderde</translation>
+        <translation>Opnamestatus van gebruiker veranderde</translation>
     </message>
     <message>
         <source>User kicked (you or by you)</source>
@@ -4063,7 +4063,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation>&lt;a href=&quot;%1&quot;&gt;Bladeren&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Blader&lt;/a&gt;</translation>
     </message>
     <message>
         <source>User Interface</source>
@@ -4111,7 +4111,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Look and Feel</source>
-        <translation>Sfeer &amp; stijl</translation>
+        <translation>Sfeer en stijl</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -4292,7 +4292,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Praten-gebruikersinterface</translation>
+        <translation>Sprekersweergave</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
@@ -4912,7 +4912,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Disconnected from server.</source>
-        <translation>Serververbinding verbroken.</translation>
+        <translation>Verbinding met server verbroken.</translation>
     </message>
     <message>
         <source>Invalid username</source>
@@ -4992,15 +4992,15 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Disconnect</source>
-        <translation>Verbinding ver&amp;breken</translation>
+        <translation>Ver&amp;breek verbinding</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
-        <translation>Serververbinding verbroken</translation>
+        <translation>Verbreek verbinding met server</translation>
     </message>
     <message>
         <source>Disconnects you from the server.</source>
-        <translation>Verbreekt je serververbinding.</translation>
+        <translation>Verbreekt je verbinding met de server.</translation>
     </message>
     <message>
         <source>Show information about the server connection</source>
@@ -5190,7 +5190,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Display audio statistics</source>
-        <translation>Geluidsstatistieken tonen</translation>
+        <translation>Toon geluidsstatistieken</translation>
     </message>
     <message>
         <source>Pops up a small dialog with information about your current audio input.</source>
@@ -5206,7 +5206,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Configure Mumble</source>
-        <translation>Mumble configureren</translation>
+        <translation>Configureer Mumble</translation>
     </message>
     <message>
         <source>Allows you to change most settings for Mumble.</source>
@@ -5579,7 +5579,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 disconnected.</source>
-        <translation>%1 verbrak verbinding.</translation>
+        <translation>%1 verbrak zijn verbinding.</translation>
     </message>
     <message>
         <source>Server</source>
@@ -5685,7 +5685,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%1 left channel and disconnected.</source>
-        <translation>%1 verliet kanaal (verbinding verbroken).</translation>
+        <translation>%1 verliet het kanaal en verbrak zijn verbinding.</translation>
     </message>
     <message>
         <source>Message from %1</source>
@@ -5801,7 +5801,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Recording</source>
-        <translation>Opname</translation>
+        <translation>Geluidsopname</translation>
     </message>
     <message>
         <source>Priority Speaker</source>
@@ -5809,7 +5809,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>&amp;Copy URL</source>
-        <translation>URL &amp;kopiëren</translation>
+        <translation>&amp;Kopieer URL</translation>
     </message>
     <message>
         <source>Copies a link to this channel to the clipboard.</source>
@@ -5817,7 +5817,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation>Berichten negeren</translation>
+        <translation>Negeer berichten</translation>
     </message>
     <message>
         <source>Locally ignore user&apos;s text chat messages.</source>
@@ -5923,7 +5923,7 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>Send &amp;Message...</source>
-        <translation>Verstuur &amp;Bericht...</translation>
+        <translation>Verstuur &amp;bericht...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
@@ -5935,11 +5935,11 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;Bewerken...</translation>
+        <translation>&amp;Bewerk...</translation>
     </message>
     <message>
         <source>Audio S&amp;tatistics...</source>
-        <translation>Audio S&amp;tatistieken...</translation>
+        <translation>Geluidss&amp;tatistieken...</translation>
     </message>
     <message>
         <source>&amp;Settings...</source>
@@ -6146,7 +6146,7 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation>Bijnaam configureren (lokaal)</translation>
+        <translation>Stel een lokale bijnaam in</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
@@ -6258,7 +6258,60 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik: mumble [opties] [&lt;url&gt;]
+
+&lt;url&gt; specifieert een URL om mee te verbinden bij het opstarten i.p.v.
+het venster om te verbinden te tonen, en heeft het volgende formaat:
+mumble://[&lt;gebruikersnaam&gt;[:&lt;wachtwoord&gt;]@]&lt;serveradres&gt;[:&lt;poort&gt;][/&lt;kanaal&gt;[/&lt;subkanaal&gt;...]][?versie=&lt;x.y.z&gt;]
+
+De versie-parameter moet ingesteld worden om de correcte versie
+van Mumble te kiezen. Momenteel is dit standaard 1.2.0.
+
+Valide opties zijn:
+  -h, --help    Toont deze hulptekst en sluit vervolgens af.
+  -m, --multiple
+                Laat toe dat meerdere instanties van de applicatie tegelijk draaien.
+  -c, --config
+                Geef een alternatief configuratiebestand op.
+                Als je dit gebruikt om meerdere instanties van Mumble tegelijk te draaien,
+                vergeet dan niet in dit bestand een aparte waarde voor &apos;database&apos; op te geven.
+  -n, --noidentity
+                Voorkom het laden van identiteitsbestanden (bv. certificaten).
+  -jn, --jackname &lt;argument&gt;
+                Stel een zelfgekozen client-naam in voor Jack.
+  --license
+                Toon de licentie van Mumble.
+  --authors
+                Toon een overzicht van de auteurs van Mumble.
+  --third-party-licenses
+                Toon licenties van software van derde partijen die gebruikt wordt door Mumble.
+  --window-title-ext &lt;argument&gt;
+                Stelt een zelfgekozen achtervoegsel in voor de titel van het venster.
+  --dump-input-streams
+                Dump PCM streams op verschillende plaatsen gedurende de invoerverwerking
+                (nuttig bij het opsporen van bugs)
+                - Onverwerkte microfooninvoer
+                - Teruglezen van spraak bij echo-opheffing
+                - Verwerkte microfooninvoer
+  --print-echocancel-queue
+                Stuur de staat van de wachtrij die gebruikt wordt voor echo-opheffing naar stdout
+                (nuttig bij het opsporen van bugs)
+  --translation-dir &lt;map&gt;
+                Geeft een bijkomende vertalingsmap &lt;map&gt; op waarin Mumble moet zoeken op
+                vertalingsbestanden, die vervolgens voorrang krijgen op de ingebouwde.
+                Deze mappen krijgen een hogere prioriteit dan de standaardlocaties die anders
+                gebruikt worden.
+  --print-translation-dirs
+                Print de paden die Mumble doorzoekt voor vertalingsbestanden die voorrang
+                krijgen op de ingebouwde vertalingen af.
+                (Nuttig voor vertalers die hun vertalingen willen testen)
+  --locale &lt;taalgebied&gt;
+                Overschrijf het taalgebied uit de instellingen van Mumble met een taalgebied
+                dat overeenkomt met de opgegeven identificator.
+                Als het formaat ongeldig is, zal Mumble een fout geven.
+                Indien er geen fout is, zal dit taalgebied permanent opgeslagen worden in de
+                instellingen van Mumble.
+</translation>
     </message>
 </context>
 <context>
@@ -6365,15 +6418,15 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;TCP-compatibiliteitsmodus&lt;/b&gt;.&lt;br /&gt;Louter TCP gebruiken. Vergroot overhead &amp; pakketverlies (communicatieonderbrekingen). Als je de standaardinstelling (UDP (spraak) &amp; TCP (beheer)) niet kunt gebruiken.</translation>
+        <translation>&lt;b&gt;Schakel TCP-compatibiliteitsmodus in&lt;/b&gt;.&lt;br /&gt;Dit verplicht Mumble om enkel TCP te gebruiken bij het communiceren met de server. Dit verhoogt de communicatie-overhead, kan voor pakketverlies zorgen, en kan merkbare onderbrekingen veroorzaken, dus schakel dit enkel in als de standaardinstellingen (UDP voor spraak en TCP voor beheer) niet werken.</translation>
     </message>
     <message>
         <source>Reconnect when disconnected</source>
-        <translation>Verbind opnieuw wanneer verbinding met server wegvalt</translation>
+        <translation>Verbind opnieuw met de server wanneer de verbinding wegvalt</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Verbind opnieuw bij verbroken verbinding&lt;/b&gt;.&lt;br /&gt;Hiermee probeert Mumble na 10 seconden automatisch opnieuw te verbinden met de server wanneer je verbinding verbroken wordt.</translation>
+        <translation>&lt;b&gt;Verbind opnieuw bij een verbroken verbinding&lt;/b&gt;.&lt;br /&gt;Hiermee probeert Mumble na 10 seconden automatisch opnieuw te verbinden met de server wanneer je verbinding verbroken wordt.</translation>
     </message>
     <message>
         <source>Reconnect automatically</source>
@@ -6397,7 +6450,7 @@ Valid options are:
     </message>
     <message>
         <source>HTTP(S) proxy</source>
-        <translation>HTTP(S) proxy</translation>
+        <translation>HTTP(S)-proxy</translation>
     </message>
     <message>
         <source>SOCKS5 proxy</source>
@@ -6409,11 +6462,11 @@ Valid options are:
     </message>
     <message>
         <source>Hostname of the proxy</source>
-        <translation>Hostnaam (van proxy)</translation>
+        <translation>Hostnaam van proxy</translation>
     </message>
     <message>
         <source>Force TCP mode</source>
-        <translation>TCP-modus forceren</translation>
+        <translation>Forceer TCP-modus</translation>
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
@@ -6425,7 +6478,7 @@ Valid options are:
     </message>
     <message>
         <source>Use Quality of Service</source>
-        <translation>Quality of Service gebruiken</translation>
+        <translation>Gebruik Quality of Service</translation>
     </message>
     <message>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
@@ -6437,7 +6490,7 @@ Valid options are:
     </message>
     <message>
         <source>Suppress certificate and password storage</source>
-        <translation>Certificaat-/wachtwoordenopslag onderdrukken</translation>
+        <translation>Voorkom opslag certificaten en wachtwoorden</translation>
     </message>
     <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
@@ -6453,7 +6506,7 @@ Valid options are:
     </message>
     <message>
         <source>Port number of the proxy</source>
-        <translation>Proxy-poort</translation>
+        <translation>Poortnummer van de proxy</translation>
     </message>
     <message>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
@@ -6547,7 +6600,7 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Do not send OS information to Mumble servers and web servers</source>
-        <translation>Geen systeeminformatie delen met Mumble-servers of webservers</translation>
+        <translation>Deel geen informatie over het systeem met de Mumble-servers of webservers</translation>
     </message>
     <message>
         <source>When toggled this hides the public server list from the connect dialog</source>
@@ -6613,7 +6666,7 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation>Onlangs actieve tijd (%1 seconds) configureren...</translation>
+        <translation>Configureer onlangs actieve tijd (%1 seconden)...</translation>
     </message>
     <message>
         <source>Columns</source>
@@ -6633,7 +6686,7 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Edit...</source>
-        <translation>&amp;Bewerken...</translation>
+        <translation>&amp;Bewerk...</translation>
     </message>
     <message>
         <source>Reset Zoom</source>
@@ -6641,7 +6694,7 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Configure recently active time</source>
-        <translation>Onlangs actief tijd configureren</translation>
+        <translation>Configureer onlangs actieve tijd</translation>
     </message>
     <message>
         <source>Amount of seconds users remain active after talking:</source>
@@ -6753,9 +6806,9 @@ Klik onderstaande knop om overlay te installeren.</translation>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation>Mumble heeft een oude versie dan de ondersteunende bestanden voor de overlay ontdekt op je computer.
+        <translation>Mumble heeft een oude versie van de ondersteunende bestanden voor de overlay ontdekt op je computer.
 
-Om naar laatste versie te upgraden klik onderstaande knop.</translation>
+Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te werken.</translation>
     </message>
     <message>
         <source>Upgrade Mumble Overlay</source>
@@ -7104,7 +7157,7 @@ Om naar laatste versie te upgraden klik onderstaande knop.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation>&amp;Configureren</translation>
+        <translation>&amp;Configureer</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7197,7 +7250,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation>Berichten Negeren</translation>
+        <translation>Negeer berichten</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7326,11 +7379,12 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>De mappen waarin Mumble zoekt voor bijkomende vertalingsbestanden zijn:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished">Aanroeping</translation>
+        <translation>Oproep</translation>
     </message>
 </context>
 <context>
@@ -8205,7 +8259,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>Nieuwe Mumble-versie werd ontdekt &amp; binnengehaald. Upgrade naar deze versie aanbevolen (of downgraden naar laatste stabiele uitgave). Installatie nú opstarten?</translation>
+        <translation>Een nieuwe versie van Mumble werd gedetecteerd en automatisch gedownload. Het is aanbevolen dat je ofwel Mumble bijwerkt naar deze versie, of terug naar de laatste stabiele versie gaat. Wil je de installatie nu starten?</translation>
     </message>
     <message>
         <source>Failed to launch snapshot installer.</source>
@@ -8371,7 +8425,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Multichannel</source>
-        <translation>Meerder-kanaals</translation>
+        <translation>Meerkanaals</translation>
     </message>
     <message>
         <source>Output</source>
@@ -8379,7 +8433,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Output format</source>
-        <translation>Uitvoerindeling</translation>
+        <translation>Uitvoerformaat</translation>
     </message>
     <message>
         <source>Target directory</source>
@@ -8391,7 +8445,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;Bladeren...</translation>
+        <translation>&amp;Blader...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>
@@ -8423,7 +8477,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     </message>
     <message>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation>Geluidsopnamestarten mislukt (geen serververbinding).</translation>
+        <translation>Geluidsopname starten mislukt. Niet verbonden met een server.</translation>
     </message>
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
@@ -8437,7 +8491,7 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
     </message>
     <message>
         <source>Please select a recording format.</source>
-        <translation>Opname-indeling selecteren.</translation>
+        <translation>Gelieve een formaat voor de opname te selecteren.</translation>
     </message>
     <message>
         <source>Stopping</source>
