@@ -2827,7 +2827,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>По умолчанию (Все)</translation>
     </message>
 </context>
 <context>
@@ -7274,12 +7274,13 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>В указанном URL используется недопустимый формат версии: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Каталоги, в которых Mumble ищет дополнительные файлы переводов:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
