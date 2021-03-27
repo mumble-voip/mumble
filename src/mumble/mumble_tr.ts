@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Kanalın parolasını burada giriniz.</translation>
+        <translation>Kanalın parolasını buraya girin.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -412,39 +412,39 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Özellikler</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal parolası</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Azami kullanıcı sayısı</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal adı</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Devralınan grup üyeleri</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Yabancı grup üyeleri</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>Devralınan kanal üyeleri</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruba üye ekle</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>ACL girdilerinin listesi</translation>
     </message>
 </context>
 <context>
@@ -494,27 +494,27 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Cihaz seçimi</translation>
+        <translation>Aygıt seçimi</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation>Cihaz</translation>
+        <translation>Aygıt</translation>
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation>Mikrofon için kullanılacak cihaz</translation>
+        <translation>Mikrofon için kullanılacak aygıt</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Sorgulanacak cihazı seçer. Bundan sonra cihazı sorgulamanız ve kullanılacak kanalları seçmeniz gerekir.</translation>
+        <translation>Sorgulanacak aygıtı seçer. Bundan sonra aygıtı sorgulamanız ve kullanılacak kanalları seçmeniz gerekir.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation>Seçilen cihazı sorgula</translation>
+        <translation>Seçilen aygıtı sorgula</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Bu, seçilen cihazı yapılandırır. Birçok ASİO sürücüsünün oldukça hatalı olduğunu ve onları sorgulamanın uygulama ya da sisteminizi çökertebileceği dikkatinize sunulur.</translation>
+        <translation>Bu, kanallar için seçilen aygıtı sorgular. Pek çok ASIO sürücüsünün aşırı derecede hatalı olduğunu ve bunları sorgulamanın uygulamanın veya sistemin çökmesine neden olabileceğini unutmayın.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
@@ -522,11 +522,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation>Seçilen cihazı yapılandır</translation>
+        <translation>Seçilen aygıtı yapılandır</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Bu, seçilen cihazı yapılandırır. Birçok ASİO sürücüsünün oldukça hatalı olduğunu ve onları sorgulamanın uygulama ya da sisteminizi çökertebileceği dikkatinize sunulur.</translation>
+        <translation>Bu, seçilen aygıtı yapılandırır. Pek çok ASIO sürücüsünün aşırı derecede hatalı olduğunu ve bunları sorgulamanın uygulamanın veya sistemin çökmesine neden olabileceğini unutmayın.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
@@ -578,11 +578,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikrofonların listesi</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoparlörlerin listesi</translation>
     </message>
 </context>
 <context>
@@ -593,7 +593,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Seçilen ASİO cihazının açılması başarısız oldu. Hiçbir girdi alınmayacak.</translation>
+        <translation>Seçilen ASIO aygıtının açılması başarısız oldu. Hiçbir girdi alınmayacak.</translation>
     </message>
 </context>
 <context>
@@ -624,19 +624,19 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisans anlaşması</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Yazarlar</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Üçüncü taraf lisans anlaşmaları</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Oyuncular için sesle sohbet etme aracı&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Açık kaynaklı, düşük gecikmeli, yüksek kaliteli sesli sohbet aracı &lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -655,15 +655,15 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Device</source>
-        <translation>Cihaz</translation>
+        <translation>Aygıt</translation>
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation>Ses için girdi cihazı</translation>
+        <translation>Ses için girdi aygıtı</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Bu, ses için kullanılacak girdi cihazıdır.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Bu, ses için kullanılacak girdi aygıtıdır.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
@@ -779,7 +779,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation>Paket başı ses</translation>
+        <translation>Paket başına ses</translation>
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
@@ -799,11 +799,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation>Gürültü iptali</translation>
+        <translation>Gürültü bastırma</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Uygulanacak azami gürültü iptalini belirler.&lt;/b&gt;&lt;br /&gt;Bu değer ne kadar büyükse, sabit gürültü o kadar çok silinecektir.</translation>
+        <translation>&lt;b&gt;Bu, uygulanacak gürültü bastırma miktarını ayarlar.&lt;/b&gt;&lt;br /&gt;Bu değer ne kadar yüksek olursa, sabit gürültü o kadar çok bastırılacaktır.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
@@ -855,7 +855,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Cihazı ayrıcalıklı kipte açar.&lt;/b&gt;&lt;br /&gt;Başka hiçbir uygulama bu cihazı kullanamaz.</translation>
+        <translation>&lt;b&gt;Bu, aygıtı ayrıcalıklı kipte açar.&lt;/b&gt;&lt;br /&gt;Başka hiçbir uygulama bu aygıtı kullanamaz.</translation>
     </message>
     <message>
         <source>Exclusive</source>
@@ -931,7 +931,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Idle action</source>
-        <translation>Boşta faaliyet (Idle)</translation>
+        <translation>Boşta kalma eylemi</translation>
     </message>
     <message>
         <source>minutes do</source>
@@ -987,31 +987,31 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gürültü bastırmayı kullanma.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Speex tarafından sağlanan gürültü bastırma algoritmasını kullan.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>RNNoise tarafından sağlanan gürültü bastırma algoritmasını kullan.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gürültü bastırma yapmak için Speex ve RNNoise birleşimini kullan.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Her ikisi</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, Speex&apos;in gürültüyü ne kadar bastıracağını denetler.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Speex bastırma gücü</translation>
     </message>
 </context>
 <context>
@@ -1058,11 +1058,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses sistemi</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Girdi aygıtı</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
@@ -1098,15 +1098,15 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished">Paket başı ses</translation>
+        <translation>Paket başına ses</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">Sıkıştırma kalitesi (azami bant genişliği)</translation>
+        <translation>Sıkıştırma kalitesi (azami bant genişliği)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished">Gürültü iptali</translation>
+        <translation>Gürültü bastırma</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1126,7 +1126,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished">Boşta faaliyet (Idle)</translation>
+        <translation>Boşta kalma eylemi</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -1138,7 +1138,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Devre dışı</translation>
+        <translation>Devre dışı</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1161,15 +1161,15 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Device</source>
-        <translation>Cihaz</translation>
+        <translation>Aygıt</translation>
     </message>
     <message>
         <source>Output device for audio</source>
-        <translation>Ses için çıktı cihazı</translation>
+        <translation>Ses için çıktı aygıtı</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Bu, ses için kullanılacak çıktı cihazıdır.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Bu, ses için kullanılacak çıktı aygıtıdır.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Positional Audio</source>
@@ -1213,7 +1213,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation>Gelen konuşma için ses hacmi</translation>
+        <translation>Gelen konuşma için ses düzeyi</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
@@ -1359,7 +1359,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Cihazı ayrıcalıklı kipte açar.&lt;/b&gt;&lt;br /&gt;Başka hiçbir uygulama bu cihazı kullanamaz.</translation>
+        <translation>&lt;b&gt;Bu, aygıtı ayrıcalıklı kipte açar.&lt;/b&gt;&lt;br /&gt;Başka hiçbir uygulama bu aygıtı kullanamaz.</translation>
     </message>
     <message>
         <source>Exclusive</source>
@@ -1379,7 +1379,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
-        <translation>Sadece aynı çıktı cihazını kullanan uygulamaların sesini kıs</translation>
+        <translation>Sadece aynı çıktı aygıtını kullanan uygulamaların sesini kıs</translation>
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
@@ -1387,7 +1387,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation>&lt;b&gt;PulseAudio geri döngü öbeklerinin sesini kıs&lt;/b&gt;&lt;br /&gt;Eğer geri döngü öbekleri Mumble&apos;ın çıktı cihazına bağlı iseler, onların da sesi kısılacaktır.</translation>
+        <translation>&lt;b&gt;PulseAudio geri döngü öbeklerinin sesini kıs&lt;/b&gt;&lt;br /&gt;Eğer geri döngü öbekleri Mumble&apos;ın çıktı aygıtına bağlı iseler, onların da sesi kısılacaktır.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
@@ -1454,7 +1454,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Çıktı aygıtı</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
@@ -1462,7 +1462,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished">Gelen konuşma için ses hacmi</translation>
+        <translation>Gelen konuşma için ses düzeyi</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -1494,7 +1494,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished">Paket kaybı</translation>
+        <translation>Paket kaybı</translation>
     </message>
     <message>
         <source>Loopback</source>
@@ -1685,15 +1685,15 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Cihaz seçimi</translation>
+        <translation>Aygıt seçimi</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation>Mumble ile kullanılacak girdi ve çıktı cihazlarının seçimi.</translation>
+        <translation>Mumble ile kullanılacak girdi ve çıktı aygıtlarının seçimi.</translation>
     </message>
     <message>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Bu, mikrofonunuzun bağlı olduğu cihazdır.</translation>
+        <translation>Bu, mikrofonunuzun bağlı olduğu aygıttır.</translation>
     </message>
     <message>
         <source>System</source>
@@ -1705,11 +1705,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Device</source>
-        <translation>Cihaz</translation>
+        <translation>Aygıt</translation>
     </message>
     <message>
         <source>Input device to use</source>
-        <translation>Kullanılacak girdi cihazı</translation>
+        <translation>Kullanılacak girdi aygıtı</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
@@ -1729,7 +1729,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Bu, kulaklıklarınızın ya da hoparlörlerinizin bağlı olduğu cihazdır.</translation>
+        <translation>Bu, kulaklıklarınızın ya da hoparlörlerinizin bağlı olduğu aygıttır.</translation>
     </message>
     <message>
         <source>Output method for audio</source>
@@ -1737,7 +1737,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Output device to use</source>
-        <translation>Kullanılacak çıktı cihazı</translation>
+        <translation>Kullanılacak çıktı aygıtı</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
@@ -1754,11 +1754,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Input Device</source>
-        <translation>Girdi Cihazı</translation>
+        <translation>Girdi Aygıtı</translation>
     </message>
     <message>
         <source>Output Device</source>
-        <translation>Çıktı Cihazı</translation>
+        <translation>Çıktı Aygıtı</translation>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
@@ -1878,7 +1878,7 @@ Tebrikler. Artık Mumble ile daha zengin bir ses deneyimi yaşayabileceksiniz.
     </message>
     <message>
         <source>Device tuning</source>
-        <translation>Cihaz ayarı</translation>
+        <translation>Aygıt ayarı</translation>
     </message>
     <message>
         <source>Changing hardware output delays to their minimum value.</source>
@@ -2032,7 +2032,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Girdi aygıtı</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -2040,7 +2040,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Çıktı aygıtı</translation>
     </message>
     <message>
         <source>Output delay</source>
@@ -2196,7 +2196,8 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
         <translation>
-            <numerusform>Yasaklama listesi - %n yasaklama</numerusform>
+            <numerusform>Yasaklama Listesi - %n Yasaklama</numerusform>
+            <numerusform>Yasaklama Listesi - %n Yasaklama</numerusform>
         </translation>
     </message>
     <message>
@@ -2205,7 +2206,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished">İP Adresi</translation>
+        <translation>IP Adresi</translation>
     </message>
     <message>
         <source>Mask</source>
@@ -2303,7 +2304,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Current certificate</source>
-        <translation type="unfinished">Güncel sertifika</translation>
+        <translation>Geçerli sertifika</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2315,11 +2316,11 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation type="unfinished">İçe aktarılacak sertifika</translation>
+        <translation>İçe aktarılacak sertifika</translation>
     </message>
     <message>
         <source>New certificate</source>
-        <translation type="unfinished">Yeni sertifika</translation>
+        <translation>Yeni sertifika</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2350,7 +2351,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     </message>
     <message>
         <source>Current certificate</source>
-        <translation>Güncel sertifika</translation>
+        <translation>Geçerli sertifika</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
@@ -2950,7 +2951,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>Filter</source>
-        <translation type="unfinished">Filtre</translation>
+        <translation>Filtre</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -2966,7 +2967,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Hepsi</translation>
+        <translation>Hepsi</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3002,7 +3003,7 @@ Sertifikanızı değiştirmek istediğinize emin misiniz?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Bağlan</translation>
+        <translation>&amp;Bağlan</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3327,7 +3328,7 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble, genel kısayollar için şu anda sadece fare düğmelerini ve klavyenin birleştirici tuşlarını (Alt, Ctrl, Cmd vs.) kullanabilir.&lt;/p&gt;&lt;p&gt;Daha fazla esneklik istiyorsanız sisteminizin Yardımcı teknolojiler veya Erişilebilirlik tercihlerinde &lt;span style=&quot; font-style:italic;&quot;&gt;yardımcı cihazlar için erişimi&lt;/span&gt; etkinleştirebilirsiniz. Ancak bunun potansiyel olarak kötücül programların klavyenizde ne yazıldığını okumalarına imkân verebileceğini unutmayınız.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble, genel kısayollar için şu anda sadece fare düğmelerini ve klavyenin birleştirici tuşlarını (Alt, Ctrl, Cmd vs.) kullanabilir.&lt;/p&gt;&lt;p&gt;Daha fazla esneklik istiyorsanız sisteminizin Erişilebilirlik tercihlerinde &lt;span style=&quot; font-style:italic;&quot;&gt;yardımcı aygıtlar için erişimi&lt;/span&gt; etkinleştirebilirsiniz. Ancak bunun potansiyel olarak zararlı programların klavyenizde ne yazıldığını okumalarına imkân verebileceğini unutmayın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
@@ -3401,7 +3402,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Ekle</translation>
+        <translation>Ekle</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3409,7 +3410,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Kaldır</translation>
+        <translation>Kaldır</translation>
     </message>
 </context>
 <context>
@@ -3444,7 +3445,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Bilinmiyor</translation>
+        <translation>Bilinmiyor</translation>
     </message>
 </context>
 <context>
@@ -3585,7 +3586,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     <name>LCDConfig</name>
     <message>
         <source>Enable this device</source>
-        <translation>Bu cihazı etkinleştir</translation>
+        <translation>Bu aygıtı etkinleştir</translation>
     </message>
     <message>
         <source>LCD</source>
@@ -3593,7 +3594,7 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     </message>
     <message>
         <source>Devices</source>
-        <translation>Cihazlar</translation>
+        <translation>Aygıtlar</translation>
     </message>
     <message>
         <source>Name</source>
@@ -3606,12 +3607,12 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Bu, sisteminizde mevcut olan LCD cihazlarının listesidir.  Cihazları isimleriyle listeler ve ekranlarının boyutlarını da içerir. Mumble aynı zamanda birçok LCD cihaza çıktı göndermeyi destekler.&lt;/p&gt;
+        <translation>&lt;p&gt;Bu, sisteminizdeki kullanılabilir LCD aygıtlarının listesidir.  Aygıtları isimleriyle listeler ve ekranlarının boyutlarını da içerir. Mumble aynı zamanda birçok LCD aygıta çıktı göndermeyi destekler.&lt;/p&gt;
 &lt;h3&gt;Boyut:&lt;/h3&gt;
 &lt;p&gt;
-Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekranları için) ya da karakter olarak (karakter LCD ekranları için) belirtilir.&lt;/p&gt;
+Bu alan LCD aygıtın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekranları için) ya da karakter olarak (karakter LCD ekranları için) belirtilir.&lt;/p&gt;
 &lt;h3&gt;Etkin:&lt;/h3&gt;
-&lt;p&gt;Bu Mumble&apos;ın belli bir LCD cihazını kullanmasını ayarlar.&lt;/p&gt;</translation>
+&lt;p&gt;Bu Mumble&apos;ın belli bir LCD aygıtını kullanıp kullanmayacağını ayarlar.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Size</source>
@@ -5557,7 +5558,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <source>You were unsuppressed by %1.</source>
-        <translation>Askıya alınmanız  %1 tarafından kaldırıldı.</translation>
+        <translation>Askıya alınmanız %1 tarafından kaldırıldı.</translation>
     </message>
     <message>
         <source>You joined %1.</source>
@@ -5839,7 +5840,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation>Kanal filtresini değiştir  (Ctrl+F)</translation>
+        <translation>Kanal filtresini değiştir (Ctrl+F)</translation>
     </message>
     <message>
         <source>Enable or disable the filtering of select channels.
@@ -5847,10 +5848,9 @@ By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
         <translation>Seçtiğiniz kanalların filtrelenmesini etkinleştirin
-yada devre dışı bırakın.
-Varsayılan olarak boş kanallar filtrelenir.
-Kanalın içerik menüsünden filtrelenmesi için
-ilave kanallar ekleyebilirsiniz.</translation>
+yada devre dışı bırakın. Varsayılan olarak tüm boş
+kanallar filtrelenir. Kanalın içerik menüsünden
+filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -6114,7 +6114,7 @@ ilave kanallar ekleyebilirsiniz.</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished">Kanal</translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <source>Private</source>
@@ -6312,7 +6312,7 @@ Valid options are:
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished">Görüntü</translation>
+        <translation>Görüntüle</translation>
     </message>
     <message>
         <source>How long silent user&apos;s positions should stay marked after they have stopped talking (in seconds).</source>
@@ -6750,7 +6750,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Load…</source>
-        <translation>Yükle...</translation>
+        <translation>Yükle…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6758,7 +6758,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Save…</source>
-        <translation>Kaydet...</translation>
+        <translation>Kaydet…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -7117,7 +7117,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation>Varsayılan cihaz</translation>
+        <translation>Varsayılan aygıt</translation>
     </message>
 </context>
 <context>
@@ -7171,7 +7171,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Ignore Messages</source>
-        <translation type="unfinished">Mesajları Görmezden Gel</translation>
+        <translation>Mesajları Görmezden Gel</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
@@ -7183,7 +7183,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Local Volume Adjustment...</source>
-        <translation type="unfinished">Yerel Ses Ayarı...</translation>
+        <translation>Yerel Ses Ayarı...</translation>
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
@@ -7247,7 +7247,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished">Varsayılan cihaz</translation>
+        <translation>Varsayılan Aygıt</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7267,7 +7267,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Devre dışı</translation>
+        <translation>Devre dışı</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -7304,7 +7304,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished">Çağrı</translation>
+        <translation>Çağrı</translation>
     </message>
 </context>
 <context>
@@ -7323,7 +7323,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Display</source>
-        <translation>Görüntü</translation>
+        <translation>Görüntüle</translation>
     </message>
     <message>
         <source>Source Text</source>
@@ -7698,7 +7698,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished">Mesaj</translation>
+        <translation>Mesaj</translation>
     </message>
 </context>
 <context>
@@ -7787,7 +7787,8 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
         <translation>
-            <numerusform>Kayıtlı kullanıcı: %n hesap</numerusform>
+            <numerusform>Kayıtlı kullanıcılar: %n hesap</numerusform>
+            <numerusform>Kayıtlı kullanıcılar: %n hesap</numerusform>
         </translation>
     </message>
     <message>
@@ -8436,7 +8437,7 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
     <name>WASAPISystem</name>
     <message>
         <source>Default Device</source>
-        <translation>Varsayılan cihaz</translation>
+        <translation>Varsayılan Aygıt</translation>
     </message>
 </context>
 <context>
