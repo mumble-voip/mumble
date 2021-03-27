@@ -334,7 +334,7 @@ Dodaje nową grupę.</translation>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Tymczasowy&lt;/b&gt;&lt;br /&gt;
-Po włączeniu - kanał, który utworzysz będzie oznaczony, jako tymczasowy. Gdy ostatni użytkownik opuści ten kanał, zostanie on automatycznie usunięty przez serwer.</translation>
+Po włączeniu utworzony kanał zostanie oznaczony jako tymczasowy. Gdy ostatni użytkownik opuści ten kanał, zostanie on automatycznie usunięty przez serwer.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
@@ -378,7 +378,7 @@ Zawiera listę członków odziedziczonych z innych kanałów. Odznacz &lt;i&gt;D
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Kontroluje, której grupy użytkowników dotyczy dana reguła.&lt;br /&gt;Należy pamiętać, że grupa jest sprawdzana w kontekście reguł, jakie są w niej używane. Na przykład, na kanale Root domyślna reguła ACL nadaje uprawnienie &lt;i&gt;Edycji ACL&lt;/i&gt; grupie &lt;i&gt;admin&lt;/i&gt;. Jeżeli ta reguła zostanie odziedziczona przez kanał, nada ona uprawnienia zapisu ACL użytkownikowi, który należy do grupy &lt;i&gt;admin&lt;/i&gt; na tym kanale nawet, gdy użytkownik nie należy do grupy &lt;i&gt;admin&lt;/i&gt; na kanale, z którego reguły ACL pochodzą.&lt;br /&gt;Jeżeli nazwa grupy rozpoczyna się od !, członkostwo użytkownika jest negowane, a gdy rozpoczyna się od ~, reguła jest sprawdzana na kanale gdzie została zdefiniowana, zamiast na kanale, w którym reguła ACL jest aktywna. Kolejność jest ważna: &lt;i&gt;!~in&lt;/i&gt; jest ważny, ale &lt;i&gt;~!in&lt;/i&gt; nie jest.&lt;br /&gt;Jest kilka predefiniowanych grup:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - wszyscy użytkownicy będą pasować.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Wszyscy uwierzytelnieni użytkownicy będą pasować.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Użytkownicy znajdujący się w aktualnie w podkanele. Zobacz dokumentacje na stronie internetowej, aby dowiedzieć się więcej o tej funkcji.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Użytkownicy aktualnie znajdujący się na kanale (wygodniejsza metoda w porównaniu do &lt;i&gt;sub,0,0,0&lt;/i&gt;.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Użytkownicy nieznajdujący się na kanale będą pasować (wygodniejsza metoda w porównaniu do &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Pamiętaj, że wpis może dotyczyć zarówno użytkownika lub grupy, a nie obu jednocześnie.</translation>
+        <translation>Kontroluje, do której grupy użytkowników odnosi się ten wpis.&lt;br /&gt;Zauważ, że grupa jest oceniana w kontekście kanału, na którym jest używany wpis. Na przykład domyślna lista ACL na kanale głównym daje &lt;i&gt;Zapis &lt;/i&gt; uprawnienia do grupy &lt;i&gt;admin&lt;/i&gt;. Ten wpis, jeśli zostanie odziedziczony przez kanał, da użytkownikowi uprawnienia do zapisu, jeśli należy on do grupy&lt;i&gt;admin&lt;/i&gt;na tym kanale, nawet jeśli nie należy do grupy&lt;i&gt;admin&lt;/i&gt;na kanale, z którego pochodzi lista ACL.&lt;br /&gt;Jeśli nazwa grupy zaczyna się od „!”, jej członkostwo jest negowane, a jeśli zaczyna się od „~”, jest oceniane na kanale, w którym została zdefiniowana lista ACL, niż kanał, w którym jest aktywna lista ACL.&lt;br /&gt;Jeśli nazwa grupy zaczyna się od „#”, jest interpretowana jako token dostępu. Aby dopasować, użytkownicy muszą wpisać cokolwiek po znaku „#” na liście tokenów dostępu. Można to wykorzystać do bardzo prostego dostępu do kanałów za pomocą hasła dla nieuwierzytelnionych użytkowników.&lt;br /&gt;Jeśli nazwa grupy zaczyna się od „$”, będzie pasować tylko do użytkowników, których hash certyfikatu jest zgodny z tym, co następuje po „$”.&lt;br /&gt; Kilka specjalnych predefiniowanych grup to:&lt;br /&gt; &lt;b&gt;all&lt;/b&gt; - wszyscy będą pasować. &lt;br /&gt; &lt;b&gt;auth&lt;/b&gt; - wszyscy uwierzytelnieni użytkownicy będą pasować.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - użytkownicy na kanale podrzędnym z co najmniej wspólnymi kanałami nadrzędnymi &lt;i&gt;a&lt;/i&gt; i między kanałami &lt;i&gt;b&lt;/i&gt; a &lt;i&gt;c&lt;/i&gt; (między wspólnym kanałem nadrzędnym a bieżącym kanałem). Zajrzyj na stronę internetową, aby uzyskać obszerniejszą dokumentację na ten temat.&lt;br /&gt; &lt;b&gt;in&lt;/b&gt; - użytkownicy aktualnie na kanale zostaną dopasowani (skrót od &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - użytkownicy spoza kanału będą pasować (skrót od &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Pamiętaj, że wpis dotyczy albo użytkownika, albo grupy, a nie obu.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
@@ -546,7 +546,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Konfiguracja wejściowych kanałów dla ASIO. Upewnij się, że jako mikrofon i głośnik wybrałeś co najmniej jeden kanał. Kanał &lt;i&gt;Mikrofon&lt;/i&gt; powinien być ustawiony na kanał, pod którym masz podłączony mikrofon, a dla &lt;i&gt;Głośniki&lt;/i&gt; kanał, który przetwarza &quot;&lt;i&gt;to, co słyszysz&lt;/i&gt;&quot;. Na przykład dla Audigy 2 ZS dobrym wyborem dla Mikrofonu będzie &quot;&lt;i&gt;Mic L&lt;/i&gt;&quot; a dla Głośników &quot;&lt;i&gt;Mix L&lt;/i&gt;&quot; i &quot;&lt;i&gt;Mix R&lt;/i&gt;&quot;.</translation>
+        <translation>Konfiguracja wejściowych kanałów dla ASIO. Upewnij się, że jako mikrofon i głośnik wybrano co najmniej jeden kanał. Kanał &lt;i&gt;Mikrofon&lt;/i&gt; powinien być ustawiony na kanał, pod którym podłączono mikrofon, a dla &lt;i&gt;Głośniki&lt;/i&gt; kanał, który przetwarza &apos;&lt;i&gt;to, co słyszysz&lt;/i&gt;&apos;.&lt;br /&gt;Na przykład dla Audigy 2 ZS dobrym wyborem dla Mikrofonu będzie &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; a dla Głośników &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; i &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
@@ -2861,7 +2861,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślne (wszystkie)</translation>
     </message>
 </context>
 <context>
@@ -6259,7 +6259,61 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Użycie: mumble [opcje] [&lt;url&gt;]
+
+&lt;url&gt; określa adres URL, z którym należy się połączyć po uruchomieniu zamiast pokazywać
+okno połączenia, ma następującą postać:
+mumble://[&lt;nazwa użytkownika&gt;[:&lt;hasło&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanał&gt;[/&lt;podkanał&gt;...]][?wersja=&lt;x.y.z&gt;]
+
+Aby wywołać poprawną wersję klienta, należy ustawić parametr
+zapytania o wersję. Obecnie domyślnie jest to 1.2.0.
+
+Prawidłowe opcje to:
+  -h, --help Pokaż ten tekst pomocy i zakończ.
+  -m, --multiple
+                Zezwalaj na uruchamianie wielu instancji klienta.
+  -c, --config
+                Określ alternatywny plik konfiguracyjny.
+                Jeśli używasz tego do uruchamiania wielu wystąpień Mumble jednocześnie,
+                upewnij się, że ustawiono alternatywną wartość „bazy danych” w konfiguracji.
+  -n, --noidentity
+                Blokuj ładowanie plików tożsamości (tj. certyfikatów).
+  -jn, --jackname &lt;arg&gt;
+                Ustaw niestandardową nazwę klienta Jack.
+  --license
+                Pokaż licencję Mumble.
+  --authors
+                Pokaż autorów Mumble.
+  --third-party-licenses
+                Pokaż licencje na oprogramowanie innych firm używane przez Mumble.
+  --window-title-ext &lt;arg&gt;
+                Ustawia niestandardowe rozszerzenie tytułu okna.
+  --dump-input-stream
+                Zrzuca strumienie PCM w różnych częściach łańcucha wejściowego
+                (przydatne do debugowania)
+                - surowe wejście mikrofonowe
+                - odczyt głośnika w celu usunięcia echa
+                - przetworzone wejście mikrofonowe
+  --print-echocancel-queue
+                Wyświetl na stdout stan kolejki anulowania echa
+                (przydatne do debugowania)
+  --translation-dir &lt;dir&gt;
+                Określa dodatkowe tłumaczenie dla &lt;kat&gt;, w którym
+                Mumble wyszuka pliki tłumaczeń, które nadpiszą
+                dołączone
+                Katalogi dodane w ten sposób mają wyższy priorytet niż
+                domyślne lokalizacje używane w inny sposób
+  --print-translation-dirs
+                Wyświetl ścieżki, których będzie szukał Mumble
+                plików tłumaczeń, które zastępują dołączone pliki.
+                (Przydatne dla tłumaczy testujących swoje tłumaczenia)
+  --locale &lt;ust. reg,&gt;
+                Nadpisz ustawienia regionalne w ustawieniach Mumble za pomocą
+                ustawień reg., które odpowiada podanemu łańcuchowi ustawień reg.
+                Jeśli format jest nieprawidłowy, Mumble wyświetli błąd.
+                W przeciwnym razie ustawienia regionalne zostaną trwale zapisane w
+                ustawieniach Mumble.
+</translation>
     </message>
 </context>
 <context>
@@ -7327,11 +7381,12 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Katalogi, w których Mumble szuka dodatkowych plików tłumaczeń to:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished">Wywołanie</translation>
+        <translation>Wywołanie</translation>
     </message>
 </context>
 <context>
