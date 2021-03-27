@@ -419,6 +419,7 @@ const QStringList Log::allowedSchemes() {
 	qslAllowedSchemeNames << QLatin1String("mumble");
 	qslAllowedSchemeNames << QLatin1String("http");
 	qslAllowedSchemeNames << QLatin1String("https");
+	qslAllowedSchemeNames << QLatin1String("gemini");
 	qslAllowedSchemeNames << QLatin1String("ftp");
 	qslAllowedSchemeNames << QLatin1String("clientid");
 	qslAllowedSchemeNames << QLatin1String("channelid");
