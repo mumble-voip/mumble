@@ -77,7 +77,7 @@
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation>Bifează pentru a crea un canal temporar</translation>
+        <translation>Bifează pentru a crea un canal temporar.</translation>
     </message>
     <message>
         <source>Temporary</source>
