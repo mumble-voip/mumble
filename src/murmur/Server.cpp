@@ -1671,7 +1671,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		QCoreApplication::instance()->postEvent(this,
 												new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 
-	if (static_cast< int >(u->uiSession) < iMaxUsers * 2)
+	if (u->uiSession > 0 && static_cast< int >(u->uiSession) < iMaxUsers * 2)
 		qqIds.enqueue(u->uiSession); // Reinsert session id into pool
 
 	if (u->sState == ServerUser::Authenticated) {
