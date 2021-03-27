@@ -691,7 +691,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Tempo para DuploPressionar&lt;/b&gt;&lt;br /&gt;Se você pressionar a tecla para falar duas vezes durante o intervalo de tempo configurado ela ficará travada. O Mumble continuará transmitindo até que você  pressione-a uma vez mais para destravar o PPF de novo.</translation>
+        <translation>&lt;b&gt;Tempo para DuploPressionar&lt;/b&gt;&lt;br /&gt;Se você pressionar a tecla para falar duas vezes durante o intervalo de tempo configurado ela ficará travada. O Mumble continuará transmitindo até que você pressione-a uma vez mais para destravar o PPF de novo.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -791,7 +791,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Mostra o pico da banda de transmissão usada.&lt;/b&gt;&lt;br /&gt;Mostra o pico na quantia de banda enviada da sua máquina. A taxa de áudio é a taxa máxima (já que usamos VBR) para os dados de áudio sozinhos. Posição é a taxa usada para informação posicional. Sobrecarga são nossos quadros e cabeçalhos de pacotes IP (IP e UDP são 75% desta sobrecarga).</translation>
+        <translation>&lt;b&gt;Mostra o pico da banda de transmissão usada.&lt;/b&gt;&lt;br /&gt;Mostra o pico na quantia de banda enviada da sua máquina. A taxa de áudio é a taxa máxima (já que usamos VBR) para os dados de áudio exclusivamente. Posição é a taxa usada para informação posicional. Sobrecarga são nossos quadros e cabeçalhos de pacotes IP (IP e UDP são 75% desta sobrecarga).</translation>
     </message>
     <message>
         <source>Audio Processing</source>
@@ -883,7 +883,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Mostra uma janela sempre no topo com um botão de pressionar para falar, nela.</translation>
+        <translation>Mostra uma janela sempre no topo com um botão de pressionar para falar nela</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
@@ -891,7 +891,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Misc</source>
-        <translation>Misc</translation>
+        <translation>Diversos</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit</source>
@@ -975,7 +975,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation>Habilitar Opus de baixa latência quando a qualidade estiver configurada para64kb/s ou mais alta.</translation>
+        <translation>Habilitar Opus de baixa latência quando a qualidade estiver configurada para &lt;b&gt;64kb/s &lt;/b&gt; ou mais alta. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
@@ -983,7 +983,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation>Permitir modo de baixa latência.</translation>
+        <translation>Permitir modo de baixa latência</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
@@ -1130,7 +1130,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>O acesso ao microfone foi negado. Por favor permita que o Mumble use o microfone alterando as configurações em Preferências do Sistema -&gt; Privacidade e Segurança -&gt; Privacidade -&gt; Microfone.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -1142,7 +1142,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desativar cancelamento de eco.</translation>
     </message>
 </context>
 <context>
@@ -1399,7 +1399,7 @@ Este valor permite que você especifique o número máximo de usuárias permitid
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation>Este é o método de saída para uso do áudio.</translation>
+        <translation>&lt;b&gt;Este é o método de saída para uso do áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
@@ -1776,8 +1776,9 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 Para manter a latência em um mínimo absoluto, é importante que o buffer na placa de som tenha menor tamanho possível. No entanto, muitas placas de som anunciam precisar de um buffer muito menor do que elas realmente aceitam, então o único modo de configurar este valor é por tentativa e erro.
 &lt;/p&gt;
 &lt;p&gt;
-Você deve ouvir um exemplo de fala. Mude a barra deslizante abaixo para o menor valor que garanta &lt;b&gt;nenhuma&lt;/b&gt; interrpução ou irregularidade no som. Por favor note que o eco local é desativado durante este teste.
-&lt;/p&gt;</translation>
+Você deve ouvir um exemplo de fala. Mude a barra deslizante abaixo para o menor valor que garanta &lt;b&gt;nenhuma&lt;/b&gt; interrupção ou irregularidade no som. Por favor note que o eco local é desativado durante este teste.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
@@ -1800,7 +1801,8 @@ Abra seus painel de controle de som e vá para as configurações de gravação.
 &lt;/p&gt;
 &lt;p&gt;
 Fale alto, como quando você está incomodado ou animado. Diminua o volume no painel de controle até que a barra baixo fique o mais alto possível no azul e verde, mas &lt;b&gt;não&lt;/b&gt; na zona vermelha enquanto você fala.
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Positional Audio</source>
@@ -1989,7 +1991,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation>Agora fale suavemente, como você falaria tarde da noite, quando você não quer perturbar ninguém. Ajuste a barra de rolagem abaixo de modo que a barra se mova até a zona vazia quando você fala, mas, permaneça na listrada assim que você  ficar em silêncio.</translation>
+        <translation>Agora fale suavemente, como você falaria tarde da noite, quando você não quer perturbar ninguém. Ajuste a barra de rolagem abaixo de modo que a barra se mova até a zona vazia quando você fala, mas, permaneça na listrada assim que você ficar em silêncio.</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
@@ -2022,7 +2024,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;/p&gt;O Mumble suporta áudio posicional para alguns jogos, e vai posicionar a voz de outras usuárias relativa a posição delas no jogo. Dependendo da posição delas, o volume da voz será alterado nos alto-falantes para simular a direção e distância que a outra usuária está. Tal posicionamento depende da configuração do seu alto-falante estar correta no seu sistema operativo, então um teste é feito aqui. &lt;/p&gt;&lt;p&gt;O gráfico abaixo mostra a posição de &lt;span style=&quot; color:#56b4e9;&quot;&gt;você&lt;/span&gt;, os &lt;span style=&quot; color:#d55e00;&quot;&gt;alto-falantes&lt;/span&gt; e uma &lt;span style=&quot; color:#009e73;&quot;&gt;fonte móvel de áudio&lt;/span&gt; vista de cima. Você deve ouvir o áudio mover-se entre os canais.&lt;/p&gt;&lt;p&gt;Você também pode usar o mouse para posicionar a &lt;span style=&quot; color:#009e73;&quot;&gt;fonte sonora&lt;/span&gt; manualmente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O Mumble suporta áudio posicional para alguns jogos, e vai posicionar a voz de outras usuárias relativa a posição delas no jogo. Dependendo da posição delas, o volume da voz será alterado nos alto-falantes para simular a direção e distância que a outra usuária está. Tal posicionamento depende da configuração do seu alto-falante estar correta no seu sistema operativo, então um teste é feito aqui. &lt;/p&gt;&lt;p&gt;O gráfico abaixo mostra a posição de &lt;span style=&quot; color:#56b4e9;&quot;&gt;você&lt;/span&gt;, os &lt;span style=&quot; color:#d55e00;&quot;&gt;alto-falantes&lt;/span&gt; e uma &lt;span style=&quot; color:#009e73;&quot;&gt;fonte móvel de áudio&lt;/span&gt; vista de cima. Você deve ouvir o áudio mover-se entre os canais.&lt;/p&gt;&lt;p&gt;Você também pode usar o mouse para posicionar a &lt;span style=&quot; color:#009e73;&quot;&gt;fonte sonora&lt;/span&gt; manualmente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
@@ -2169,11 +2171,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
-        <translation>Use esse botão se você quer adicionar um novo banimento</translation>
+        <translation>Use esse botão se você quer adicionar um novo banimento.</translation>
     </message>
     <message>
         <source>Use this button if you want to update ban information.</source>
-        <translation>Use esse botão se você quer atualizar a informação de banimento</translation>
+        <translation>Use esse botão se você quer atualizar a informação de banimento.</translation>
     </message>
     <message>
         <source>Use this button if you want to remove user from the ban list.</source>
@@ -2185,7 +2187,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation>Esse botão limpa todos os campos. Use-o se quiser adicionar um novo banimento</translation>
+        <translation>Esse botão limpa todos os campos. Use-o se quiser adicionar um novo banimento.</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -2719,7 +2721,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This represents the permission to reset the comment or avatar of a user.</source>
-        <translation>Isso representa a permissão de resetar o comentário ou avatar de uma usuária</translation>
+        <translation>Isso representa a permissão de resetar o comentário ou avatar de um usuário.</translation>
     </message>
     <message>
         <source>Reset User Content</source>
@@ -2857,7 +2859,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Padrões (Todas)</translation>
     </message>
 </context>
 <context>
@@ -3802,7 +3804,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Permission denied</source>
-        <translation>Permissão negada.</translation>
+        <translation>Permissão negada</translation>
     </message>
     <message>
         <source>Text message</source>
@@ -3936,7 +3938,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source> Characters</source>
-        <translation>Caracteres</translation>
+        <translation> Caracteres</translation>
     </message>
     <message>
         <source>Whisper</source>
@@ -3984,7 +3986,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation>Omitir escopo da mensagem.</translation>
+        <translation>Omitir escopo da mensagem</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
@@ -4004,7 +4006,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation>Usar relógio no formato 24 horas.</translation>
+        <translation>Usar relógio no formato 24 horas</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
@@ -4137,7 +4139,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Configura o comportamento da moção de canais; pode ser usado para evitar moções acidentais. &lt;i&gt;Mover&lt;/i&gt; move o canal sem perguntar. &lt;i&gt;Não fazer nada&lt;/I&gt; não faz nada e mostra uma mensagem de erro. &lt;i&gt;Perguntar&lt;/i&gt; usa uma caixa de mensagem para confirmar se você realmente quer mover o canal.</translation>
+        <translation>Configura o comportamento da moção de canais; pode ser usado para evitar moções acidentais. &lt;i&gt;Mover&lt;/i&gt; move o canal sem perguntar. &lt;i&gt;Não fazer nada&lt;/i&gt; não faz nada e mostra uma mensagem de erro. &lt;i&gt;Perguntar&lt;/i&gt; usa uma caixa de mensagem para confirmar se você realmente quer mover o canal.</translation>
     </message>
     <message>
         <source>Expand</source>
@@ -4309,7 +4311,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation>Quantos caracteres do nome original exibir no começo da um nome abreviado</translation>
+        <translation>Quantos caracteres do nome original exibir no começo de um nome abreviado.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
@@ -4325,11 +4327,11 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation>Os nomes de quantos canais pais devem ser inclusos no nome de um canal ao exibi-lo na UI de Falantes</translation>
+        <translation>Os nomes de quantos canais pais devem ser incluídos no nome do canal ao exibi-lo na UI dos falantes?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
-        <translation>Quantos caracteres do nome original exibir no final de um nome abreviado</translation>
+        <translation>Quantos caracteres do nome original exibir no final de um nome abreviado.</translation>
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
@@ -4337,7 +4339,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
-        <translation>Se também deve-se permitir abreviar o canal atual de um usuário (ao invés de apenas seus canais pais)</translation>
+        <translation>Se também deve-se permitir abreviar o canal atual de um usuário (ao invés de apenas seus canais pais).</translation>
     </message>
     <message>
         <source>Abbreviate current channel name</source>
@@ -4353,7 +4355,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
-        <translation>Se o nome de canal (hierarquia) deve ser abreviado, se ele exceder o comprimento especificado</translation>
+        <translation>Se o nome de canal (hierarquia) deve ser abreviado, se ele exceder o comprimento especificado.</translation>
     </message>
     <message>
         <source>Abbreviate channel names</source>
@@ -4369,7 +4371,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation>Tamanho relativo de fonte em porcento a usar na UI de Falantes</translation>
+        <translation>Tamanho relativo de fonte em porcento a usar na UI de Falantes.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
@@ -4425,7 +4427,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
-        <translation>Se mostrar todos os ouvintes (orelhas) do usuário local na UI de Falantes (e portanto também os canais em que eles estão).</translation>
+        <translation>Se mostrar todos os ouvintes (orelhas) do usuário local na UI de Falantes (e portanto também os canais em que eles estão). </translation>
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
@@ -5512,11 +5514,11 @@ seu certificado e nome de usuário.</translation>
     </message>
     <message>
         <source>You revoked priority speaker status for %1.</source>
-        <translation>Você revogou status de falante prioritária de %1</translation>
+        <translation>Você revogou status de falante prioritária de %1.</translation>
     </message>
     <message>
         <source>You gave priority speaker status to %1.</source>
-        <translation>Você concedeu status de falante prioritária para %1</translation>
+        <translation>Você concedeu status de falante prioritária para %1.</translation>
     </message>
     <message>
         <source>%1 revoked own priority speaker status.</source>
@@ -5528,11 +5530,11 @@ seu certificado e nome de usuário.</translation>
     </message>
     <message>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation>%1 revogou status de falante prioritária de %2</translation>
+        <translation>%1 revogou status de falante prioritária de %2.</translation>
     </message>
     <message>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation>%1 concedeu status de falante prioritária para %2</translation>
+        <translation>%1 concedeu status de falante prioritária para %2.</translation>
     </message>
     <message>
         <source>You were unmuted and undeafened by %1.</source>
@@ -5565,7 +5567,7 @@ seu certificado e nome de usuário.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
-        <translation>Você moveu %1 para %2</translation>
+        <translation>Você moveu %1 para %2.</translation>
     </message>
     <message>
         <source>%1 is recording</source>
@@ -5831,7 +5833,7 @@ seu certificado e nome de usuário.</translation>
     </message>
     <message>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation>Permite que você edite a lista de banimentos de IP usada pelo servidor</translation>
+        <translation>Permite que você edite a lista de banimentos de IP usada pelo servidor.</translation>
     </message>
     <message>
         <source>&amp;Filter on/off</source>
@@ -5881,7 +5883,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Hides the main Mumble window.</source>
-        <translation>Esconde a janela principal do Mumble</translation>
+        <translation>Esconde a janela principal do Mumble.</translation>
     </message>
     <message>
         <source>Hides the main Mumble window. Restore by clicking on the tray icon or starting Mumble again.</source>
@@ -5941,7 +5943,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>&amp;Settings...</source>
-        <translation>&amp;Configurações</translation>
+        <translation>&amp;Configurações...</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
@@ -6009,7 +6011,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Shows the main Mumble window.</source>
-        <translation>Exibe a janela principal do Mumble</translation>
+        <translation>Exibe a janela principal do Mumble.</translation>
     </message>
     <message>
         <source>Server sync protocol violation. No user profile received.</source>
@@ -6073,7 +6075,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
-        <translation>Alterna a visibilidade da UI de Falantes</translation>
+        <translation>Alterna a visibilidade da UI de Falantes.</translation>
     </message>
     <message>
         <source>Join user&apos;s channel</source>
@@ -6081,7 +6083,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Joins the channel of this user.</source>
-        <translation>Se junta ao canal dessa usuária</translation>
+        <translation>Se junta ao canal desse usuário.</translation>
     </message>
     <message>
         <source>Channels and users</source>
@@ -6101,7 +6103,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
-        <translation>Desativar localmente Texto-Para-Fala para as mensagens de texto dessa usuária</translation>
+        <translation>Desativar localmente Texto-Para-Fala para as mensagens de texto desse usuário.</translation>
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
@@ -6750,7 +6752,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Load…</source>
-        <translation>Carregar...</translation>
+        <translation>Carregar…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -6758,7 +6760,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Save…</source>
-        <translation>Salvar...</translation>
+        <translation>Salvar…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -7143,7 +7145,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble está conectado a um servidor</translation>
     </message>
 </context>
 <context>
@@ -7240,15 +7242,15 @@ Consulte a &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot
     </message>
     <message>
         <source>The URL uses a scheme that has been blocked for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>O URL usa um esquema que foi bloqueado por motivos de segurança.</translation>
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>URL bloqueada: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished">Dispositivo padrão</translation>
+        <translation>Dispositivo padrão</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
@@ -7256,52 +7258,53 @@ Consulte a &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>O acesso ao microfone foi negado. Permita que o Mumble use o microfone alterando as configurações em Preferências do Sistema -&gt; Segurança e Privacidade -&gt; Privacidade -&gt; Microfone.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>O acesso ao microfone foi negado devido a restrições do sistema. Você não poderá usar o microfone nesta sessão.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ativado, tenta cancelar o eco do fluxo de áudio.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Desativado</translation>
+        <translation>Desativado</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelamento de eco está desativado.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelamento de eco misto (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Misto tem baixo impacto na CPU, mas só funciona bem se os alto-falantes forem igualmente altos e equidistantes do microfone.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelamento de eco multicanal (speex)</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation type="unfinished"></translation>
+        <translation>O cancelamento de eco multicanal fornece um cancelamento de eco muito melhor, mas com um custo de CPU mais alto. O cancelamento de eco multicanal requer mais CPU, então você deve tentar misto primeiro.</translation>
     </message>
     <message>
         <source>Acoustic echo cancellation provided by Apple.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelamento de eco acústico fornecido pela Apple.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>O URL fornecido usa um formato de versão inválido: &quot;% 1&quot;</translation>
     </message>
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Os diretórios nos quais o Mumble procura por arquivos de tradução extras são:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
@@ -8016,7 +8019,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source> dB</source>
-        <translation>dB</translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8156,11 +8159,11 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source>Talking while being muted on your end</source>
-        <translation type="unfinished"></translation>
+        <translation>Falando enquanto está mudo do seu lado</translation>
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este é um ouvinte de canal. O usuário correspondente ouve tudo o que você diz neste canal.</translation>
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
