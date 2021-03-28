@@ -39,6 +39,7 @@
 #include "SSLCipherInfo.h"
 #include "Screen.h"
 #include "ServerHandler.h"
+#include "ServerInformation.h"
 #include "Settings.h"
 #include "SvgIcon.h"
 #include "TalkingUI.h"
@@ -1403,138 +1404,9 @@ void MainWindow::on_qaServerUserList_triggered() {
 	}
 }
 
-static const QString currentCodec() {
-	if (Global::get().bOpus)
-		return QLatin1String("Opus");
-
-	int v         = Global::get().bPreferAlpha ? Global::get().iCodecAlpha : Global::get().iCodecBeta;
-	CELTCodec *cc = Global::get().qmCodecs.value(v);
-	if (cc)
-		return QString::fromLatin1("CELT %1").arg(cc->version());
-	else
-		return QString::fromLatin1("CELT %1").arg(QString::number(v, 16));
-}
-
 void MainWindow::on_qaServerInformation_triggered() {
-	ConnectionPtr c = Global::get().sh->cConnection;
-
-	if (!c)
-		return;
-
-	QSslCipher qsc = Global::get().sh->qscCipher;
-
-	QString qsVersion = tr("<h2>Version</h2><p>Protocol %1</p>").arg(MumbleVersion::toString(Global::get().sh->uiVersion));
-
-	if (Global::get().sh->qsRelease.isEmpty() || Global::get().sh->qsOS.isEmpty() || Global::get().sh->qsOSVersion.isEmpty()) {
-		qsVersion.append(tr("<p>No build information or OS version available</p>"));
-	} else {
-		qsVersion.append(
-			tr("<p>%1 (%2)<br />%3</p>")
-				.arg(Global::get().sh->qsRelease.toHtmlEscaped(), Global::get().sh->qsOS.toHtmlEscaped(), Global::get().sh->qsOSVersion.toHtmlEscaped()));
-	}
-
-	QString host, uname, pw;
-	unsigned short port;
-
-	Global::get().sh->getConnectionInfo(host, port, uname, pw);
-
-	const SSLCipherInfo *ci = SSLCipherInfoLookupByOpenSSLName(qsc.name().toLatin1().constData());
-
-	QString cipherDescription;
-	if (ci && ci->message_authentication && ci->encryption && ci->key_exchange_verbose && ci->rfc_name) {
-		if (QString::fromLatin1(ci->message_authentication) == QLatin1String("AEAD")) {
-			// Authenticated Encryption with Associated Data
-			// See https://en.wikipedia.org/wiki/Authenticated_encryption
-			cipherDescription =
-				tr("The connection is encrypted and authenticated "
-				   "using %1 and uses %2 as the key exchange mechanism (%3)")
-					.arg(QString::fromLatin1(ci->encryption), QString::fromLatin1(ci->key_exchange_verbose),
-						 QString::fromLatin1(ci->rfc_name));
-		} else {
-			cipherDescription =
-				tr("The connection is encrypted using %1, with %2 "
-				   "for message authentication and %3 as the key "
-				   "exchange mechanism (%4)")
-					.arg(QString::fromLatin1(ci->encryption), QString::fromLatin1(ci->message_authentication),
-						 QString::fromLatin1(ci->key_exchange_verbose), QString::fromLatin1(ci->rfc_name));
-		}
-	}
-	if (cipherDescription.isEmpty()) {
-		cipherDescription =
-			tr("The connection is secured by the cipher suite that OpenSSL identifies as %1").arg(qsc.name());
-	}
-
-	QString cipherPFSInfo;
-	if (ci) {
-		if (ci->forward_secret) {
-			cipherPFSInfo = tr("<p>The connection provides perfect forward secrecy</p>");
-		} else {
-			cipherPFSInfo = tr("<p>The connection does not provide perfect forward secrecy</p>");
-		}
-	}
-
-	QString qsControl =
-		tr("<h2>Control channel</h2>"
-		   "<p>The connection uses %1</p>"
-		   "%2"
-		   "%3"
-		   "<p>%4 ms average latency (%5 deviation)</p>"
-		   "<p>Remote host %6 (port %7)</p>")
-			.arg(c->sessionProtocolString().toHtmlEscaped(), cipherDescription, cipherPFSInfo,
-				 QString::fromLatin1("%1").arg(boost::accumulators::mean(Global::get().sh->accTCP), 0, 'f', 2),
-				 QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(Global::get().sh->accTCP)), 0, 'f', 2),
-				 host.toHtmlEscaped(), QString::number(port));
-	if (Global::get().uiMaxUsers) {
-		qsControl += tr("<p>Connected users: %1/%2</p>").arg(ModelItem::c_qhUsers.count()).arg(Global::get().uiMaxUsers);
-	}
-
-	QString qsVoice, qsCrypt, qsAudio;
-
-	if (NetworkConfig::TcpModeEnabled()) {
-		qsVoice = tr("Voice channel is sent over control channel");
-	} else {
-		qsVoice = tr("<h2>Voice channel</h2><p>Encrypted with 128 bit OCB-AES128<br />%1 ms average latency (%4 "
-					 "deviation)</p>")
-					  .arg(boost::accumulators::mean(Global::get().sh->accUDP), 0, 'f', 2)
-					  .arg(sqrt(boost::accumulators::variance(Global::get().sh->accUDP)), 0, 'f', 2);
-		qsCrypt = QString::fromLatin1("<h2>%1</h2><table><tr><th></th><th>%2</th><th>%3</th></tr>"
-									  "<tr><th>%4</th><td>%8</td><td>%12</td></tr>"
-									  "<tr><th>%5</th><td>%9</td><td>%13</td></tr>"
-									  "<tr><th>%6</th><td>%10</td><td>%14</td></tr>"
-									  "<tr><th>%7</th><td>%11</td><td>%15</td></tr>"
-									  "</table>")
-					  .arg(tr("UDP Statistics"))
-					  .arg(tr("To Server"))
-					  .arg(tr("From Server"))
-					  .arg(tr("Good"))
-					  .arg(tr("Late"))
-					  .arg(tr("Lost"))
-					  .arg(tr("Resync"))
-					  .arg(c->csCrypt->uiRemoteGood)
-					  .arg(c->csCrypt->uiRemoteLate)
-					  .arg(c->csCrypt->uiRemoteLost)
-					  .arg(c->csCrypt->uiRemoteResync)
-					  .arg(c->csCrypt->uiGood)
-					  .arg(c->csCrypt->uiLate)
-					  .arg(c->csCrypt->uiLost)
-					  .arg(c->csCrypt->uiResync);
-	}
-	qsAudio = tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s<br />Codec: %3</p>")
-				  .arg(Global::get().iMaxBandwidth / 1000.0, 0, 'f', 1)
-				  .arg(Global::get().iAudioBandwidth / 1000.0, 0, 'f', 1)
-				  .arg(currentCodec());
-
-	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"),
-					qsVersion + qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
-	qmb.setDefaultButton(QMessageBox::Ok);
-	qmb.setEscapeButton(QMessageBox::Ok);
-
-	QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
-	int res         = qmb.exec();
-	if ((res == 0) && (qmb.clickedButton() == qp)) {
-		ViewCert vc(Global::get().sh->qscCert, this);
-		vc.exec();
-	}
+	ServerInformation *infoDialog = new ServerInformation(this);
+	infoDialog->show();
 }
 
 void MainWindow::on_qaServerTexture_triggered() {
