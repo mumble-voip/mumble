@@ -113,21 +113,27 @@ if __name__ == '__main__':
         exit(1)
 
     logging.info('Updating ts files…')
+
     nsrc: Optional[int] = None
     nnew: Optional[int] = None
     nsame: Optional[int] = None
-    mismatch = False
-    for tsfile in tsfiles:
-        logging.debug('Updating ts file ' + tsfile + '…')
-        (resnsrc, resnnew, resnsame) = Update(lupdatebin, tsfile, args.debuglupdate, applyHeuristics = not args.ci_mode)
-        if nsrc is None:
-            nsrc = resnsrc
-            nnew = resnnew
-            nsame = resnsame
-        else:
-            if nsrc != resnsrc or nnew != resnnew or nsame != resnsame:
-                logging.warn('Mismatching counts of updating changes between ts files: %s %s %s vs %s %s %s', nsrc, nnew, nsame, resnsrc, resnnew, resnsame)
-                mismatch = True
+    hadChanges = True
+
+    # We have to loop until there are no more changes in order to make sure that e.g. sametext heuristics
+    # are applied as expected.
+    while hadChanges:
+        for tsfile in tsfiles:
+            logging.debug('Updating ts file ' + tsfile + '…')
+            (resnsrc, resnnew, resnsame) = Update(lupdatebin, tsfile, args.debuglupdate, applyHeuristics = not args.ci_mode)
+            if nsrc is None:
+                nsrc = resnsrc
+                nnew = resnnew
+                nsame = resnsame
+            else:
+                if nsrc < resnsrc or nnew < resnnew or nsame < resnsame:
+                    logging.warn('Mismatching counts of updating changes between ts files: %s %s %s vs %s %s %s', nsrc, nnew, nsame, resnsrc, resnnew, resnsame)
+
+        hadChanges = CheckForGitHasTsFileChanges(tsfiles)
 
     if nsrc is not None:
         logging.info('Found %s texts where %s new and %s same', nsrc, nnew, nsame)
