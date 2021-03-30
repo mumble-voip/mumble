@@ -2859,7 +2859,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>默认（所有）</translation>
     </message>
 </context>
 <context>
@@ -6256,7 +6256,54 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>用法：mumble [选项] [&lt;URL&gt;]
+
+&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，URL 的格式为：
+mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
+
+必须设置 version 请求参数以调用正确的客户端版本，当前的默认值为 1.2.0。
+
+可用的选项：
+  -h, --help    显示此帮助信息并退出。
+  -m, --multiple
+                允许启动多个客户端实例。
+  -c, --config
+                指定替代配置文件。
+                如果您使用此参数同时运行多个 Mumble 实例，
+                请确保在配置文件内设置替代 &apos;database&apos; 选项。
+  -n, --noidentity
+                禁止加载身份认证文件（即证书）。
+  -jn, --jackname &lt;参数&gt;
+                设置自定义 Jack 客户端名称。
+  --license
+                显示 Mumble 许可。
+  --authors
+                显示 Mumble 作者。
+  --third-party-licenses
+                显示 Mumble 使用的第三方软件的许可。
+  --window-title-ext &lt;参数&gt;
+                设置自定义窗口标题后缀名。
+  --dump-input-streams
+                转储输入链上各部分的 PCM 流。
+                （适用于调试目的）
+                - 原始麦克风输入
+                - 扬声器回声消除重读取
+                - 已处理麦克风输入
+  --print-echocancel-queue
+                向标准输出打印回声消除队列状态。
+                （适用于调试目的）
+  --translation-dir &lt;目录&gt;
+                指定一个额外的目录，Mumble 会在其中搜索翻译文件
+                来覆盖内置的翻译。通过此方式添加的目录比其它情况
+                下的默认位置具有更高的优先级。
+  --print-translation-dirs
+                输出 Mumble 会在哪些目录搜索翻译文件以覆盖内置翻译。
+                （适用于译者测试自己的翻译）
+  --locale &lt;区域语言代码&gt;
+                用指定字符串对应的语言覆盖 Mumble 的语言设置。
+                如果字符串格式无效，Mumble 会出错。
+                否则，指定的语言会永久保存到 Mumble 设置中。
+</translation>
     </message>
 </context>
 <context>
@@ -7324,11 +7371,12 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble 搜索额外翻译文件的文件夹：
+</translation>
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished">调用</translation>
+        <translation>调用</translation>
     </message>
 </context>
 <context>

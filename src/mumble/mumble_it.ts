@@ -589,7 +589,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation>Devi selezionare almeno un microfono e un altoparlante per utilizzare ASIO. </translation>
+        <translation>Devi selezionare almeno un microfono e un altoparlante per utilizzare ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -2860,7 +2860,7 @@ Sei sicuro di voler sostituire il tuo certificato?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Predefiniti (Tutti)</translation>
     </message>
 </context>
 <context>
@@ -6259,7 +6259,59 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizzo: mumble [opzioni] [&lt;url&gt;]
+
+&lt;url&gt; specifica un URL a cui connettersi dopo l&apos;avvio invece di visualizzare la finestra di connessione e ha la seguente forma:
+mumble: // [&lt;username&gt; [: &lt;password&gt;] @] &lt;host&gt; [: &lt;port&gt;] [/ &lt;channel&gt; [/ &lt;subchannel&gt; ...]] [? version = &lt;x.y.z&gt;]
+
+Il parametro di query della versione deve essere impostato per richiamare la versione client corretta. Attualmente il valore predefinito è 1.2.0.
+
+Le opzioni valide sono:
+  -h, --help Mostra questo testo di aiuto ed esce.
+  -m, --multiple
+                Consenti l&apos;avvio di più istanze del client.
+  -c, --config
+                Specificare un file di configurazione alternativo.
+                Se lo usi per eseguire più istanze di Mumble contemporaneamente,
+                assicurati di impostare un valore &quot;database&quot; alternativo nel file config.
+  -n, --noidentity
+                Sopprimi il caricamento dei file di identità (ad esempio, certificati).
+  -jn, --jackname &lt;arg&gt;
+                Imposta il nome del client Jack personalizzato.
+  --licenza
+                Mostra la licenza di Mumble.
+  --autori
+                Mostra gli autori di Mumble.
+  - licenze di terze parti
+                Mostra le licenze per il software di terze parti utilizzato da Mumble.
+  --window-title-ext &lt;arg&gt;
+                Imposta un&apos;estensione del titolo della finestra personalizzata.
+  --dump-input-stream
+                Esegui il dump dei flussi PCM in varie parti della catena di input
+                (utile per scopi di debug)
+                - ingresso microfono grezzo
+                - rilettura dell&apos;altoparlante per la cancellazione dell&apos;eco
+                - ingresso microfono elaborato
+  --print-echocancel-queue
+                Stampa su stdout lo stato della coda di cancellazione dell&apos;eco
+                (utile per scopi di debug)
+  --translation-dir &lt;dir&gt;
+                Specifica una traduzione aggiuntiva fir &lt;dir&gt; in cui
+                Mumble cercherà i file di traduzione che sovrascrivono
+                quelli in bundle
+                Le directory aggiunte in questo modo hanno una priorità maggiore delle
+                posizioni predefinite utilizzate altrimenti
+  --print-translation-dirs
+                Stampa i percorsi in cui Mumble cercherà
+                file di traduzione che sovrascrivono quelli in bundle.
+                (Utile per i traduttori che testano le loro traduzioni)
+  --locale &lt;locale&gt;
+                Sovrascrivi le impostazioni locali nelle impostazioni di Mumble con un file
+                locale che corrisponde alla stringa di locale specificata.
+                Se il formato non è valido, Mumble genererà un errore.
+                In caso contrario, la locale verrà salvata in modo permanente nelle
+                impostazioni di Mumble.
+</translation>
     </message>
 </context>
 <context>
@@ -7327,11 +7379,12 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Le cartelle in cui Mumble cerca i file di traduzione ulteriori sono:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished">Invocazione</translation>
+        <translation>Invocazione</translation>
     </message>
 </context>
 <context>

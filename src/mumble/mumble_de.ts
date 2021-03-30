@@ -637,7 +637,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Sprachchatprogramm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Open-Source-Sprachchatprogramm mit hoher Qualität und niedriger Latenz&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1131,11 +1131,11 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugriff zum Mikrofon wurde abgelehnt. Bitte erlaube Mumble die Nutzung des Mikrofons durch das Ändern der Einstellungen in &apos;System-Einstellungen&apos; -&gt; &apos;Sicherheit und Privatsphäre&apos; -&gt; &apos;Privatsphäre&apos; -&gt; &apos;Mikrofon&apos;.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished">Der Zugang zum Mikrofon wurde verweigert. Bitte überprüfen Sie, ob die Mikrofoneinstellungen Ihres Betriebssystems es Mumble ermöglichen, das Mikrofon zu verwenden.</translation>
+        <translation>Zugriff zum Mikrofon wurde abgelehnt. Bitte überprüfen, dass die Mikrofon-Einstellungen des Betriebsystems Mumble erlauben, das Mikrofon zu nutzen.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -1143,7 +1143,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Echo-Unterdrückung deaktivieren.</translation>
     </message>
 </context>
 <context>
@@ -2067,11 +2067,11 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Push-to-Talk-Tastenkürzel</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Tasten zugewiesen</translation>
     </message>
 </context>
 <context>
@@ -2891,7 +2891,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Button wird die Standardeinstellungen für diese Seite wiederherstellen. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Standardeinstellungen wiederherzustellen, können Sie den &quot;Standardeinstellungen (Alle)&quot;-Button drücken.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
@@ -2903,7 +2903,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardeinstellungen (Alle)</translation>
     </message>
 </context>
 <context>
@@ -3046,7 +3046,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Verbinden</translation>
+        <translation>&amp;Verbinden</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -3437,15 +3437,15 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkürzel ändern</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufzeichnung beginnen</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet den Aufzeichnungsprozess: Alle Tasten, die dann gedrückt werden, werden erkannt und hinzugefügt.&lt;/p&gt;&lt;p&gt;Sobald die Tasten alle wieder losgelassen wurden, endet der Aufzeichnungsprozess.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3453,7 +3453,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Elemente entfernen</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3499,7 +3499,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Maus</translation>
     </message>
     <message>
         <source>Keyboard</source>
@@ -3589,7 +3589,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Maus</translation>
     </message>
     <message>
         <source>Keyboard</source>
@@ -3604,7 +3604,7 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Maus</translation>
     </message>
 </context>
 <context>
@@ -4482,11 +4482,11 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzernamen für alle verstecken, die einen Spitznamen angegeben haben.</translation>
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige nur Spitznamen</translation>
     </message>
 </context>
 <context>
@@ -6190,15 +6190,15 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     </message>
     <message>
         <source>&amp;Set Nickname...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Spitzname einstellen...</translation>
     </message>
     <message>
         <source>Set a local nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalen Spitznamen einstellen</translation>
     </message>
     <message>
         <source>Sets a local nickname for another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalen Spitznamen für einen anderen User festlegen.</translation>
     </message>
     <message>
         <source>Usage: mumble rpc &lt;action&gt; [options]
@@ -7197,7 +7197,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble ist im Moment mit einem Server verbunden</translation>
     </message>
 </context>
 <context>
@@ -7242,7 +7242,7 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     </message>
     <message>
         <source>&lt;p&gt;You&apos;re using a Mumble version that &lt;b&gt;explicitly disabled&lt;/b&gt; update-checks.&lt;/p&gt;&lt;p&gt;This means that the update notification you might receive by using this option will &lt;b&gt;most likely be meaningless&lt;/b&gt; for you.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Sie verwenden eine Mumble-Version, in der das Prüfen nach Updates &lt;b&gt;explizit ausgeschaltet&lt;/b&gt; wurde.&lt;/p&gt;&lt;p&gt;Das bedeutet, dass die Update-Hinweise &lt;b&gt;wahrscheinlich irrelevant&lt;/b&gt; für Sie sind.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Talking (muted)</source>
@@ -7286,67 +7286,67 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     </message>
     <message>
         <source>Local Nickname Adjustment...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokale Spitznameneinstellung...</translation>
     </message>
     <message>
         <source>&lt;b&gt;Blocked URL scheme &quot;%1&quot;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Blockiertes URL-Schema &quot;%1&quot;&lt;/b&gt;</translation>
     </message>
     <message>
         <source>The URL uses a scheme that has been blocked for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Adresse nutzt ein URL-Schema, das aus Sicherheitsgründen gesperrt worden ist.</translation>
     </message>
     <message>
         <source>Blocked URL: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Blockierte URL: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Default Device</source>
-        <translation type="unfinished">Standardgerät</translation>
+        <translation>Standardgerät</translation>
     </message>
     <message>
         <source>This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Option ist sinnvoll, wenn mit dem eingebauten Mikrofon und den eingebauten Lautsprechern des Computers gearbeitet wird.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Zugriff zum Mikrofon wurde abgelehnt. Bitte erlauben Sie Mumble in den Systemeinstellungen unter Sicherheit &amp; Privatsphäre das Mikrofon zu benutzen.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Zugriff auf das Mikrofon wurde aufgrund der geltenden Systembeschränkungen abgelehnt. Es ist daher nicht möglich, das Mikrofon während dieser Sitzung zu verwenden.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sofern eingeschaltet wird versucht, störende Echo-Geräusche aus dem Audio-Stream zu entfernen.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Deaktiviert</translation>
+        <translation>Deaktiviert</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Echounterdrückung ist ausgeschaltet.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemischte Echounterdrückung (Speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemischte Echounterdrückung benötigt die geringste Prozessorleistung, funktioniert aber nur gut, wenn die Lautsprecher gleichlaut und gleichweit entfernt vom Mikrofon sind.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehrkanal-Echounterdrückung (Speex)</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehrkanal-Echounterdrückung ermöglicht eine deutlich bessere Echo-Unterdrückung, benötigt dafür aber auch mehr CPU-Ressourcen. Es empfiehlt sich daher, zunächst die gemischte Echounterdrückung auszuprobieren.</translation>
     </message>
     <message>
         <source>Acoustic echo cancellation provided by Apple.</source>
-        <translation type="unfinished"></translation>
+        <translation>Akustische Echounterdrückung von Apple.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -7355,7 +7355,8 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     <message>
         <source>The directories in which Mumble searches for extra translation files are:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnisse, in denen Mumble nach zusätzlichen Übersetzungsdateien sucht:
+</translation>
     </message>
     <message>
         <source>Invocation</source>
@@ -7656,11 +7657,11 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Tasten zugewiesen</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Drücken um die Tastenkombination anzuzeigen</translation>
     </message>
 </context>
 <context>
@@ -8039,19 +8040,19 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <name>UserLocalNicknameDialog</name>
     <message>
         <source>Local nickname for other users</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokale Spitznamen für andere Nutzer:innen</translation>
     </message>
     <message>
         <source>&lt;b&gt;Adjust the nickname of other users locally&lt;/b&gt;&lt;br /&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Lokale Spitznamen der anderen Nutzer:innen anpassen&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
         <source>User nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Spitzname</translation>
     </message>
     <message>
         <source>Adjusting local nickname for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalen Spitznamen für %1 anpassen</translation>
     </message>
 </context>
 <context>
@@ -8214,15 +8215,15 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <source>This is a channel listener. The corresponding user hears everything you say in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist ein Zuhörer. Der entsprechende Nutzer hört alles, was in diesem Kanal gesagt wird.</translation>
     </message>
     <message>
         <source>Channel has access restrictions so that you can&apos;t enter it</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Kanal ist zutrittsbeschränkt und kann nicht betreten werden</translation>
     </message>
     <message>
         <source>Channel has access restrictions but you can enter nonetheless</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Kanal ist zutrittsbeschränkt, Sie sind zum Beitritt jedoch befugt</translation>
     </message>
 </context>
 <context>
