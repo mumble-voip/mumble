@@ -2197,7 +2197,6 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
         <source>Ban List - %n Ban(s)</source>
         <translation>
             <numerusform>Yasaklama Listesi - %n Yasaklama</numerusform>
-            <numerusform>Yasaklama Listesi - %n Yasaklama</numerusform>
         </translation>
     </message>
     <message>
@@ -7787,7 +7786,6 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message numerus="yes">
         <source>Registered users: %n account(s)</source>
         <translation>
-            <numerusform>Kayıtlı kullanıcılar: %n hesap</numerusform>
             <numerusform>Kayıtlı kullanıcılar: %n hesap</numerusform>
         </translation>
     </message>
