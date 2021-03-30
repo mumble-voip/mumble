@@ -49,8 +49,8 @@ def Commit(tsfiles: list) -> None:
         logging.debug('stdout: %s', res.stdout)
         exit(1)
 
-def Update(lupdatebin, tsfile: str, debuglupdate: bool) -> (int, int, int):
-    res = subprocess.run([
+def Update(lupdatebin, tsfile: str, debuglupdate: bool, applyHeuristics = True) -> (int, int, int):
+    runArray = [
         lupdatebin
         , '-no-ui-lines'
         # {sametext|similartext|number}
@@ -64,7 +64,14 @@ def Update(lupdatebin, tsfile: str, debuglupdate: bool) -> (int, int, int):
         , './src', './src/mumble'
         # target
         , '-ts', tsfile
-        ], capture_output=True)
+    ]
+
+    if not applyHeuristics:
+        runArray.insert(2, '-disable-heuristic')
+        runArray.insert(3, 'sametext')
+
+    res = subprocess.run(runArray, capture_output=True)
+
     if debuglupdate:
         logging.debug(res.stdout)
     if res.returncode != 0:
@@ -80,7 +87,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--vcpkg-triplet', type=str, required=False, help='the vcpkg triplet to use the lupdate tool from, e.g. "x64-windows-static-md"')
     parser.add_argument('--debug', dest='debug', action='store_true')
-    parser.add_argument('--debug-lupdate', dest='debuglupdate', action='store_true')
+    parser.add_argument('--debug-lupdate', dest='debuglupdate', action='store_true', default=False)
+    parser.add_argument('--ci-mode', action='store_true')
     parser.set_defaults(debug=False, debuglupdate=False)
     args = parser.parse_args()
 
@@ -105,21 +113,27 @@ if __name__ == '__main__':
         exit(1)
 
     logging.info('Updating ts files…')
+
     nsrc: Optional[int] = None
     nnew: Optional[int] = None
     nsame: Optional[int] = None
-    mismatch = False
-    for tsfile in tsfiles:
-        logging.debug('Updating ts file ' + tsfile + '…')
-        (resnsrc, resnnew, resnsame) = Update(lupdatebin, tsfile, args.debuglupdate)
-        if nsrc is None:
-            nsrc = resnsrc
-            nnew = resnnew
-            nsame = resnsame
-        else:
-            if nsrc != resnsrc or nnew != resnnew or nsame != resnsame:
-                logging.warn('Mismatching counts of updating changes between ts files: %s %s %s vs %s %s %s', nsrc, nnew, nsame, resnsrc, resnnew, resnsame)
-                mismatch = True
+    hadChanges = True
+
+    # We have to loop until there are no more changes in order to make sure that e.g. sametext heuristics
+    # are applied as expected.
+    while hadChanges:
+        for tsfile in tsfiles:
+            logging.debug('Updating ts file ' + tsfile + '…')
+            (resnsrc, resnnew, resnsame) = Update(lupdatebin, tsfile, args.debuglupdate, applyHeuristics = not args.ci_mode)
+            if nsrc is None:
+                nsrc = resnsrc
+                nnew = resnnew
+                nsame = resnsame
+            else:
+                if nsrc < resnsrc or nnew < resnnew or nsame < resnsame:
+                    logging.warn('Mismatching counts of updating changes between ts files: %s %s %s vs %s %s %s', nsrc, nnew, nsame, resnsrc, resnnew, resnsame)
+
+        hadChanges = CheckForGitHasTsFileChanges(tsfiles)
 
     if nsrc is not None:
         logging.info('Found %s texts where %s new and %s same', nsrc, nnew, nsame)

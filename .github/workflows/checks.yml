@@ -1,4 +1,4 @@
-name: Commit style check
+name: Checks
 
 on: [pull_request]
 
@@ -21,6 +21,9 @@ jobs:
           # Don't create a merge commit
           ref: ${{ github.event.pull_request.head.sha }}
 
-    - name: Verify commits
+    - name: Check commit style
       run: $GITHUB_WORKSPACE/.github/workflows/check_commit_style.py
       shell: bash
+
+    - name: Check line endings
+      uses: erclu/check-crlf@v1
