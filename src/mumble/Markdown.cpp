@@ -351,7 +351,7 @@ QString markdownToHTML(const QString &markdownInput) {
 	// Replace linebreaks afterwards in order to not mess up the RegEx used by the
 	// different functions.
 	static const QRegularExpression s_lineBreakRegEx(QLatin1String("\r\n|\n|\r"));
-	htmlString.replace(s_lineBreakRegEx, QLatin1String("</br>"));
+	htmlString.replace(s_lineBreakRegEx, QLatin1String("<br/>"));
 
 	// Resore linebreaks in <pre> blocks
 	htmlString.replace(regularLineBreakPlaceholder, QLatin1String("\n"));
