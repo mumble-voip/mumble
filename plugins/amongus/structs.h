@@ -108,6 +108,7 @@ struct InnerNet_InnerNetClient_Fields : UnityEngine_Object_Fields {
 	int32_t networkPort;
 	ptr_t connection;
 	Mode mode;
+	GameMode gameMode;
 	int32_t gameId;
 	int32_t hostId;
 	int32_t clientId;
@@ -153,13 +154,11 @@ struct CustomNetworkTransform_o {
 };
 
 struct AmongUsClient_Fields : InnerNet_InnerNetClient_Fields {
-	GameMode gameMode;
 	ptr_t onlineScene;
 	ptr_t mainMenuScene;
 	ptr_t gameDataPrefab;
 	ptr_t playerPrefab;
 	ptr_t shipPrefabs;
-	ptr_t nonAddressableShipPrefabs;
 	int32_t tutorialMapId;
 	float spawnRadius;
 	DiscoverState discoverState;
@@ -242,7 +241,7 @@ struct GameData_PlayerInfo_Fields {
 	uint8_t playerId;
 	ptr_t playerName;
 	bool unknown;
-	uint8_t colorId;
+	int32_t colorId;
 	uint32_t hatId;
 	uint32_t petId;
 	uint32_t skinId;
