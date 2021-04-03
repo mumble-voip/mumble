@@ -1952,6 +1952,10 @@ void MainWindow::on_qaQuit_triggered() {
 
 void MainWindow::sendChatbarText(QString qsText) {
 	qsText = qsText.toHtmlEscaped();
+	// Markdown::markdownToHTML also takes care of replacing line breaks (\n) with the respective
+	// HTML code <br/>. Therefore if Markdown support is ever going to be removed from this
+	// function, this job has to be done explicitly as otherwise line breaks won't be shown on
+	// the receiving end of this text message.
 	qsText = Markdown::markdownToHTML(qsText);
 	sendChatbarMessage(qsText);
 
