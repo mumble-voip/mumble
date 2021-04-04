@@ -8413,6 +8413,13 @@ Kontakt venligst din serveradministrator for yderligere information.</translatio
     </message>
 </context>
 <context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Volume</source>
+        <translation type="unfinished">Lydstyrke</translation>
+    </message>
+</context>
+<context>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>

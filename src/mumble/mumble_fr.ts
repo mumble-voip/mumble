@@ -8429,6 +8429,13 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
     </message>
 </context>
 <context>
+    <name>VolumeSliderWidgetAction</name>
+    <message>
+        <source>Volume</source>
+        <translation type="unfinished">Volume</translation>
+    </message>
+</context>
+<context>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
