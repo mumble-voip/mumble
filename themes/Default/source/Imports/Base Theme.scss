@@ -223,6 +223,20 @@ QMenu::item
 	border-radius:$base-border-radius;
 }
 
+QMenu QLabel
+{
+	margin:0px;
+	padding:$base-padding + 1;
+	padding-right:$base-padding * 2;
+	padding-left:25px;
+}
+
+QMenu QSlider
+{
+	padding-top:$base-padding + 1;
+	padding-bottom:$base-padding + 1;
+}
+
 QMenu::icon
 {
 	left:$base-padding;

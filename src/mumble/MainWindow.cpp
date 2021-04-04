@@ -29,8 +29,9 @@
 #endif
 #include "../SignalCurry.h"
 #include "ChannelListenerManager.h"
-#include "ListenerLocalVolumeDialog.h"
+#include "ListenerLocalVolumeSlider.h"
 #include "Markdown.h"
+#include "MenuLabel.h"
 #include "PTTButtonWidget.h"
 #include "PluginManager.h"
 #include "PositionalAudioViewer.h"
@@ -50,7 +51,7 @@
 #include "UserEdit.h"
 #include "UserInformation.h"
 #include "UserLocalNicknameDialog.h"
-#include "UserLocalVolumeDialog.h"
+#include "UserLocalVolumeSlider.h"
 #include "UserModel.h"
 #include "Utils.h"
 #include "VersionCheck.h"
@@ -94,7 +95,10 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast< QEvent::Type >(OU_QEVEN
 	url = u;
 }
 
-MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
+MainWindow::MainWindow(QWidget *p)
+	: QMainWindow(p), m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
+	  m_userLocalVolumeSlider(make_qt_unique< UserLocalVolumeSlider >(this)),
+	  m_listenerLocalVolumeSlider(make_qt_unique< ListenerLocalVolumeSlider >(this)) {
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSelf, QLatin1String("skin:muted_self.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteServer, QLatin1String("skin:muted_server.svg"));
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSuppressed, QLatin1String("skin:muted_suppressed.svg"));
@@ -1615,7 +1619,15 @@ void MainWindow::qmUser_aboutToShow() {
 	qmUser->addAction(qaUserLocalIgnore);
 	if (Global::get().s.bTTS)
 		qmUser->addAction(qaUserLocalIgnoreTTS);
-	qmUser->addAction(qaUserLocalVolume);
+
+	if (p && !isSelf) {
+		qmUser->addSeparator();
+		qmUser->addAction(m_localVolumeLabel.get());
+		m_userLocalVolumeSlider->setUser(p->uiSession);
+		qmUser->addAction(m_userLocalVolumeSlider.get());
+		qmUser->addSeparator();
+	}
+
 	qmUser->addAction(qaUserLocalNickname);
 
 	if (isSelf)
@@ -1675,7 +1687,6 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserTextMessage->setEnabled(false);
 		qaUserLocalNickname->setEnabled(false);
 		qaUserLocalMute->setEnabled(false);
-		qaUserLocalVolume->setEnabled(false);
 		qaUserLocalIgnore->setEnabled(false);
 		qaUserLocalIgnoreTTS->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
@@ -1687,7 +1698,6 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalNickname->setEnabled(!isSelf);
 		qaUserLocalMute->setEnabled(!isSelf);
-		qaUserLocalVolume->setEnabled(!isSelf);
 		qaUserLocalIgnore->setEnabled(!isSelf);
 		qaUserLocalIgnoreTTS->setEnabled(!isSelf);
 		// If the server's version is less than 1.4.0 it won't support the new permission to reset a comment/avatar, so
@@ -1725,7 +1735,14 @@ void MainWindow::qmListener_aboutToShow() {
 	qmListener->clear();
 
 	if (self) {
-		qmListener->addAction(qaListenerLocalVolume);
+		qmListener->addAction(m_localVolumeLabel.get());
+		Channel *channel = getContextMenuChannel();
+		if (channel) {
+			m_listenerLocalVolumeSlider->setListenedChannel(*channel);
+			qmListener->addAction(m_listenerLocalVolumeSlider.get());
+			qmListener->addSeparator();
+		}
+
 		if (cContextChannel) {
 			qmListener->addAction(qaChannelListen);
 			qaChannelListen->setChecked(
@@ -1800,19 +1817,6 @@ void MainWindow::on_qaUserLocalIgnoreTTS_triggered() {
 	} else {
 		logChangeNotPermanent(QObject::tr("Disable Text-To-Speech"), p);
 	}
-}
-
-void MainWindow::on_qaUserLocalVolume_triggered() {
-	ClientUser *p = getContextMenuUser();
-	if (!p) {
-		return;
-	}
-	openUserLocalVolumeDialog(p);
-}
-
-void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
-	unsigned int session = p->uiSession;
-	UserLocalVolumeDialog::present(session, &qmUserVolTracker);
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
@@ -2427,18 +2431,6 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 
 	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel),
 										   QClipboard::Clipboard);
-}
-
-void MainWindow::on_qaListenerLocalVolume_triggered() {
-	Channel *channel = getContextMenuChannel();
-	ClientUser *user = getContextMenuUser();
-
-	if (!channel || !user) {
-		return;
-	}
-
-	ListenerLocalVolumeDialog dialog(user, channel);
-	dialog.exec();
 }
 
 /**
