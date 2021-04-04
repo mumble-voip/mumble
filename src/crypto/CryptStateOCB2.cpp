@@ -25,6 +25,7 @@
 
 #include "ByteSwap.h"
 #include "CryptStateOCB2.h"
+#include "CryptographicRandom.h"
 
 #include <cstring>
 #include <openssl/rand.h>
@@ -42,9 +43,9 @@ bool CryptStateOCB2::isValid() const {
 }
 
 void CryptStateOCB2::genKey() {
-	RAND_bytes(raw_key, AES_KEY_SIZE_BYTES);
-	RAND_bytes(encrypt_iv, AES_BLOCK_SIZE);
-	RAND_bytes(decrypt_iv, AES_BLOCK_SIZE);
+	CryptographicRandom::fillBuffer(raw_key, AES_KEY_SIZE_BYTES);
+	CryptographicRandom::fillBuffer(encrypt_iv, AES_BLOCK_SIZE);
+	CryptographicRandom::fillBuffer(decrypt_iv, AES_BLOCK_SIZE);
 	AES_set_encrypt_key(raw_key, AES_KEY_SIZE_BITS, &encrypt_key);
 	AES_set_decrypt_key(raw_key, AES_KEY_SIZE_BITS, &decrypt_key);
 	bInit = true;

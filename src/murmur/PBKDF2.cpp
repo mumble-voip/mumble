@@ -45,6 +45,7 @@
 #endif
 
 #include "PBKDF2.h"
+#include "crypto/CryptographicRandom.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QLatin1String>
@@ -109,10 +110,7 @@ QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int ite
 QString PBKDF2::getSalt() {
 	QByteArray salt(SALT_LENGTH, 0);
 
-	if (RAND_bytes(reinterpret_cast< unsigned char * >(salt.data()), salt.size()) != 1) {
-		qFatal("PBKDF2: RAND_bytes for salt failed: %s", ERR_error_string(ERR_get_error(), nullptr));
-		return QString();
-	}
+	CryptographicRandom::fillBuffer(salt.data(), salt.size());
 
 	return QString::fromLatin1(salt.toHex());
 }
