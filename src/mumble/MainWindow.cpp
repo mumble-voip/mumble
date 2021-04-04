@@ -56,6 +56,8 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
+#include "UserLocalVolumeSlider.h"
+#include "ListenerLocalVolumeSlider.h"
 #include "Global.h"
 
 #ifdef Q_OS_WIN
@@ -185,6 +187,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setOnTop(Global::get().s.aotbAlwaysOnTop == Settings::OnTopAlways
 			 || (Global::get().s.bMinimalView && Global::get().s.aotbAlwaysOnTop == Settings::OnTopInMinimal)
 			 || (!Global::get().s.bMinimalView && Global::get().s.aotbAlwaysOnTop == Settings::OnTopInNormal));
+
+	//Volume Slider Widget Actions for User/Listener Local
+	qaUserLocalVolumeSlider = new UserLocalVolumeSlider(this);
+	qaListenerLocalVolumeSlider = new ListenerLocalVolumeSlider(this);
 }
 
 void MainWindow::createActions() {
@@ -1483,7 +1489,16 @@ void MainWindow::qmUser_aboutToShow() {
 	qmUser->addAction(qaUserLocalIgnore);
 	if (Global::get().s.bTTS)
 		qmUser->addAction(qaUserLocalIgnoreTTS);
-	qmUser->addAction(qaUserLocalVolume);
+	
+
+	if (p && !isSelf) {
+		qmUser->addSeparator();
+		qmUser->addAction(qaUserLocalVolume);
+		qaUserLocalVolumeSlider->setUser(p->uiSession);
+		qmUser->addAction(qaUserLocalVolumeSlider);
+		qmUser->addSeparator();
+	}
+
 	qmUser->addAction(qaUserLocalNickname);
 
 	if (isSelf)
@@ -1608,6 +1623,13 @@ void MainWindow::qmListener_aboutToShow() {
 
 	if (self) {
 		qmListener->addAction(qaListenerLocalVolume);
+		Channel *channel = getContextMenuChannel();
+		if (channel) {
+			qaListenerLocalVolumeSlider->setListenedChannel(*channel);
+			qmListener->addAction(qaListenerLocalVolumeSlider);
+			qmListener->addSeparator();
+		}
+
 		if (cContextChannel) {
 			qmListener->addAction(qaChannelListen);
 			qaChannelListen->setChecked(ChannelListener::isListening(Global::get().uiSession, cContextChannel->iId));

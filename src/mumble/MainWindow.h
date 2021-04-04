@@ -20,6 +20,7 @@
 #include "UserLocalVolumeDialog.h"
 #include "UserLocalNicknameDialog.h"
 
+
 #include "ui_MainWindow.h"
 
 #define MB_QEVENT (QEvent::User + 939)
@@ -37,6 +38,8 @@ class Channel;
 class UserInformation;
 class VoiceRecorderDialog;
 class PTTButtonWidget;
+class ListenerLocalVolumeSlider;
+class UserLocalVolumeSlider;
 
 struct ShortcutTarget;
 
@@ -159,6 +162,9 @@ protected:
 	MUComboBox *qcbTransmitMode;
 	QAction *qaTransmitMode;
 	QAction *qaTransmitModeSeparator;
+
+	UserLocalVolumeSlider *qaUserLocalVolumeSlider;
+	ListenerLocalVolumeSlider *qaListenerLocalVolumeSlider;
 
 	void createActions();
 	void setupGui();
