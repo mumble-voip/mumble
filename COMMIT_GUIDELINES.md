@@ -51,6 +51,7 @@ The `TYPE` is one of the following:
 | REFAC    | Code refactoring | Rename variable `x` to `y` |
 | BUILD    | Changes related to the build process / buildsystem | Fix cmake script |
 | TRANSLATION | Translation updates and changes | Update translation files |
+| CHANGE   | Something was changed without falling into existing categories | Changed the default of a setting |
 
 The `TYPE` has to be in **all-uppercase** in order for it to stand out.
 
