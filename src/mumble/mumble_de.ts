@@ -7305,10 +7305,6 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
         <translation>Standardgerät</translation>
     </message>
     <message>
-        <source>This option works best when using built-in microphone and speaker.</source>
-        <translation>Diese Option ist sinnvoll, wenn mit dem eingebauten Mikrofon und den eingebauten Lautsprechern des Computers gearbeitet wird.</translation>
-    </message>
-    <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
         <translation>Der Zugriff zum Mikrofon wurde abgelehnt. Bitte erlauben Sie Mumble in den Systemeinstellungen unter Sicherheit &amp; Privatsphäre das Mikrofon zu benutzen.</translation>
     </message>
@@ -7345,10 +7341,6 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
         <translation>Mehrkanal-Echounterdrückung ermöglicht eine deutlich bessere Echo-Unterdrückung, benötigt dafür aber auch mehr CPU-Ressourcen. Es empfiehlt sich daher, zunächst die gemischte Echounterdrückung auszuprobieren.</translation>
     </message>
     <message>
-        <source>Acoustic echo cancellation provided by Apple.</source>
-        <translation>Akustische Echounterdrückung von Apple.</translation>
-    </message>
-    <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7361,6 +7353,14 @@ Infos hierzu finden Sie im &lt;a href=&quot;https://wiki.mumble.info/wiki/Instal
     <message>
         <source>Invocation</source>
         <translation type="unfinished">Aufruf</translation>
+    </message>
+    <message>
+        <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
