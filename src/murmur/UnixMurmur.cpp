@@ -27,6 +27,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <limits>
+
 QMutex *LimitTest::qm;
 QWaitCondition *LimitTest::qw;
 QWaitCondition *LimitTest::qstartw;
@@ -340,7 +342,12 @@ void UnixMurmur::finalcap() {
 	if (getrlimit(RLIMIT_RTPRIO, &r) != 0) {
 		qCritical("Failed to get priority limits.");
 	} else {
-		qWarning("Resource limits were %ld %ld", r.rlim_cur, r.rlim_max);
+		using ulong_t = unsigned long long int;
+		static_assert(std::numeric_limits< ulong_t >::max() >= std::numeric_limits< rlim_t >::max(), "rlim_t is unexpectedly large");
+		ulong_t current = r.rlim_cur;
+		ulong_t max     = r.rlim_max;
+		qWarning("Resource limits were %llu %llu", current, max);
+
 		r.rlim_cur = r.rlim_max = 1;
 		if (setrlimit(RLIMIT_RTPRIO, &r) != 0) {
 			qCritical("Failed to set priority limits.");
