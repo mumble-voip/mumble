@@ -2872,7 +2872,7 @@ Haluatko varmasti korvata varmenteen?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Oletukset (Kaikki)</translation>
     </message>
 </context>
 <context>
