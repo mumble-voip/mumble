@@ -698,15 +698,15 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Jeżeli naciśniesz przycisk PTT podwójnie w tym czasie, zostanie on zablokowany.</translation>
+        <translation>Jeżeli naciśniesz dwukrotnie przycisk Aktywacji przyciskiem w tym czasie, zostanie on zablokowany.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Czas podwójnego kliknięcia&lt;/b&gt;&lt;br/&gt;Jeżeli wciśniesz przycisk PTT (Naciśnij-i-Mów) dwukrotnie we wskazanym czasie, wówczas Mumble będzie stale transmitować twój głos dopóki ponownie nie wciśniesz przycisku PTT.</translation>
+        <translation>&lt;b&gt;Czas podwójnego kliknięcia&lt;/b&gt;&lt;br/&gt;Jeżeli naciśniesz dwukrotnie przycisk Aktywacji przyciskiem we wskazanym czasie, wówczas Mumble będzie stale transmitować twój głos dopóki ponownie nie wciśniesz przycisku Aktywacji przyciskiem.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation>Ustaw domyślny dźwięk PTT</translation>
+        <translation>Zresetuj dźwięk do wartości domyślnych</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
@@ -930,7 +930,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>Czas, w którym kontynuowana jest transmisja po puszczeniu przycisku aktywacji</translation>
+        <translation>Czas, w którym kontynuowana jest transmisja po puszczeniu przycisku Aktywacji przyciskiem</translation>
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
@@ -1085,11 +1085,11 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation>Próg blokady PTT</translation>
+        <translation>Próg blokady Aktywacji przyciskiem</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation>Próg wstrzymania PTT</translation>
+        <translation>Próg wstrzymania Aktywacji przyciskiem</translation>
     </message>
     <message>
         <source>Silence below</source>
@@ -1629,7 +1629,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Czas pomiędzy dwoma ostatnimi wciśnięciami PTT</translation>
+        <translation>Czas pomiędzy dwoma ostatnimi wciśnięciami Aktywacji przyciskiem</translation>
     </message>
     <message>
         <source>Speech Detection</source>
@@ -2068,7 +2068,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     </message>
     <message>
         <source>PTT shortcut</source>
-        <translation>Skrót PTT</translation>
+        <translation>Skrót Aktywacji przyciskiem</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
@@ -4474,7 +4474,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Wyświetla twój status PTT, w zależności jak długo będziesz trzymać przycisk, tak długo będziesz transmitować swój głos.</translation>
+        <translation>Wyświetla twój status Aktywacji przyciskiem, w zależności jak długo będziesz trzymać przycisk, tak długo będziesz transmitować swój głos.</translation>
     </message>
     <message>
         <source>Reset Audio Processor</source>
@@ -7517,139 +7517,139 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje o serwerze</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje o serwerze</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Host:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users&lt;/b&gt;:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Użytkownicy&lt;/b&gt;:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protokół:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wydanie:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;System:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Dozwolone:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bieżący:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kodek:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Szczegóły połączenia</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished">UDP (Głos)</translation>
+        <translation>UDP (głos)</translation>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Szyfrowanie:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Avg. latency:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Śr. opóźnienie:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statystyka</translation>
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished">Dobre</translation>
+        <translation>Dobre</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished">Opóźnione</translation>
+        <translation>Opóźnione</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished">Utracone</translation>
+        <translation>Utracone</translation>
     </message>
     <message>
         <source>Resync</source>
-        <translation type="unfinished">Zresynch.</translation>
+        <translation>Zresynch.</translation>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation>Wychodzące</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation>Przychodzące</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakiety głosowe są obecnie przesyłane przez TCP.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished">TCP (Kontrola)</translation>
+        <translation>TCP (kontrola)</translation>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Wersja TLS :&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Zestaw szyfrów:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;utajnianie z wyprzedzeniem&gt;</translation>
     </message>
     <message>
         <source>&amp;View certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wyświetl certyfikat</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Nieznany</translation>
+        <translation>Nieznany</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Połączenie zapewnia doskonałe utajnianie z wyprzedzeniem.</translation>
     </message>
     <message>
         <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation>Połączenie NIE zapewnia doskonałego utajniania z wyprzedzeniem.</translation>
     </message>
     <message>
         <source>No information about forward secrecy available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak dostępnych informacji o utajnianiu z wyprzedzeniem.</translation>
     </message>
 </context>
 <context>
@@ -7942,11 +7942,11 @@ Hasło dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo 
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation>TCP (Kontrola)</translation>
+        <translation>TCP (kontrola)</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation>UDP (Głos)</translation>
+        <translation>UDP (głos)</translation>
     </message>
     <message>
         <source>UDP Network statistics</source>
@@ -8538,7 +8538,7 @@ Skontaktuj się z administratorem serwera po dalsze informacje.</translation>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation>Mumble PTT</translation>
+        <translation>Aktywacja przyciskiem Mumble</translation>
     </message>
     <message>
         <source>Push to talk</source>
