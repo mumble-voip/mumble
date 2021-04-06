@@ -399,11 +399,10 @@ Settings::Settings() {
 	bJackAutoConnect  = true;
 
 #ifdef Q_OS_MACOS
-	// On macOS Speex can't be used, so we default to Apple's custom echo cancellation mode
-	// Note that this only seems to work with when using the built-in microphone and the built-in speakers. It
-	// doesn't make it worse for other combinations of input and output devices though. Thus it should be
-	// safe to enable this by default.
-	echoOption = EchoCancelOptionID::APPLE_AEC;
+	// The echo cancellation feature on macOS is experimental and known to be able to cause problems
+	// (e.g. muting the user instead of only cancelling echo - https://github.com/mumble-voip/mumble/issues/4912)
+	// Therefore we disable it by default until the issues are fixed.
+	echoOption = EchoCancelOptionID::DISABLED;
 #else
 	// Everywhere else Speex works and thus we default to using that
 	echoOption = EchoCancelOptionID::SPEEX_MIXED;

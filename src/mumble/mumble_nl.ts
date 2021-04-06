@@ -7329,10 +7329,6 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
         <translation>Standaardapparaat</translation>
     </message>
     <message>
-        <source>This option works best when using built-in microphone and speaker.</source>
-        <translation>Deze optie werkt het beste via gebruik ingebouwde microfoon &amp; luidspreker.</translation>
-    </message>
-    <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
         <translation>Toegang tot de microfoon werd geweigerd. Laat Mumble a.u.b. de microfoon gebruiken door de instellingen in Systeemvoorkeuren → Beveiligen &amp; Privacy → Privacy → Microfoon.</translation>
     </message>
@@ -7369,10 +7365,6 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
         <translation>Meer-kanaalse echo-opheffing werkt beter, maar belast je processor meer. Probeer eerst gemixte echo-opheffing om te zien of deze het gewenste resultaat bereikt.</translation>
     </message>
     <message>
-        <source>Acoustic echo cancellation provided by Apple.</source>
-        <translation>Akoestische echo-opheffing voorzien door Apple.</translation>
-    </message>
-    <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
         <translation>De ingegeven URL gebruikt een ongeldig versieformaat: &quot;%1&quot;</translation>
     </message>
@@ -7385,6 +7377,14 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     <message>
         <source>Invocation</source>
         <translation>Oproep</translation>
+    </message>
+    <message>
+        <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

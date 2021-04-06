@@ -7213,10 +7213,6 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished">기본 디바이스</translation>
     </message>
     <message>
-        <source>This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7253,10 +7249,6 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Acoustic echo cancellation provided by Apple.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7268,6 +7260,14 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Invocation</source>
         <translation type="unfinished">호출</translation>
+    </message>
+    <message>
+        <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

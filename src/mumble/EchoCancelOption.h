@@ -42,8 +42,8 @@ static const EchoCancelOption echoCancelOptions[] = {
 								 "you should try mixed first.") },
 	// Available only on Apple devices
 	{ EchoCancelOptionID::APPLE_AEC,
-	  QObject::tr("Acoustic echo cancellation provided by Apple."),
-	  QObject::tr("This option works best when using built-in microphone and speaker.") }
+	  QObject::tr("EXPERIMENTAL: Acoustic echo cancellation (Apple)."),
+	  QObject::tr("The support for this option is experimental only! This option works best when using built-in microphone and speaker.") }
 };
 
 #endif // MUMBLE_ECHOCANCELLATIONOPTION_H
