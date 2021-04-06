@@ -252,8 +252,10 @@ ALSAEnumerator::ALSAEnumerator() {
 			}
 			snd_pcm_info_free(info);
 			snd_ctl_close(ctl);
+			free(cname);
 		}
 		snd_card_next(&card);
+		free(name);
 	}
 #endif
 }
