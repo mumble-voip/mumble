@@ -13,6 +13,8 @@ variables:
 
 jobs:
   - job: Windows_x64
+    workspace:
+      clean: all
     timeoutInMinutes: 90
     pool:
       vmImage: 'windows-latest'
@@ -24,7 +26,10 @@ jobs:
     - template: steps_windows.yml
       parameters:
         arch: 'x64'
+
   - job: Windows_x86
+    workspace:
+      clean: all
     timeoutInMinutes: 120
     pool:
       vmImage: 'windows-latest'
@@ -36,12 +41,18 @@ jobs:
     - template: steps_windows.yml
       parameters:
         arch: 'x86'
+
   - job: Linux
+    workspace:
+      clean: all
     pool:
       vmImage: 'ubuntu-18.04'
     steps:
     - template: steps_linux.yml
+
   - job: macOS
+    workspace:
+      clean: all
     pool:
       name: "Default"
       demands:
