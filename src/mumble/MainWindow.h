@@ -80,7 +80,7 @@ public:
 #ifdef USE_OVERLAY
 	GlobalShortcut *gsToggleOverlay;
 #endif
-	GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
+	GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel, *gsListenChannel;
 	GlobalShortcut *gsCycleTransmitMode, *gsToggleMainWindowVisibility, *gsTransmitModePushToTalk, *gsTransmitModeContinuous, *gsTransmitModeVAD;
 	GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
@@ -271,6 +271,7 @@ public slots:
 	void on_gsWhisper_triggered(bool, QVariant);
 	void addTarget(ShortcutTarget *);
 	void removeTarget(ShortcutTarget *);
+	void on_gsListenChannel_triggered(bool, QVariant);
 	void on_gsCycleTransmitMode_triggered(bool, QVariant);
 	void on_gsToggleMainWindowVisibility_triggered(bool, QVariant);
 	void on_gsTransmitModePushToTalk_triggered(bool, QVariant);
