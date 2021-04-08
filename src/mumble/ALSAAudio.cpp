@@ -209,16 +209,24 @@ ALSAEnumerator::ALSAEnumerator() {
 	snd_card_next(&card);
 	while (card != -1) {
 		char *name;
+		int err;
 		snd_ctl_t *ctl = nullptr;
-		snd_card_get_longname(card, &name);
+		if ((err = snd_card_get_longname(card, &name)) != 0) {
+			Global::get().mw->msgBox(
+				tr("Getting name (longname) of the sound card failed: %1").arg(QString::fromUtf8(snd_strerror(err)).toHtmlEscaped()));
+			return;
+		}
 		QByteArray dev = QString::fromLatin1("hw:%1").arg(card).toUtf8();
 		if (snd_ctl_open(&ctl, dev.data(), SND_CTL_READONLY) >= 0) {
 			snd_pcm_info_t *info = nullptr;
 			snd_pcm_info_malloc(&info);
 
 			char *cname = nullptr;
-			snd_card_get_name(card, &cname);
-
+			if ((err = snd_card_get_name(card, &cname)) != 0) {
+				Global::get().mw->msgBox(
+					tr("Getting name of the sound card failed: %1").arg(QString::fromUtf8(snd_strerror(err)).toHtmlEscaped()));
+				return;
+			}
 			int device = -1;
 			snd_ctl_pcm_next_device(ctl, &device);
 
