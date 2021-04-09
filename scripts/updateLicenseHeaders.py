@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+# Copyright 2021 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+
 import argparse
 import os
 import platform
@@ -51,7 +57,7 @@ def generateHeaderForFile(filePath):
         raise InvalidFileError("Can't handle extension: \"" + extension + "\"")
 
     # Get file's creation date
-    creationDateStr = cmd(["git", "log", "--diff-filter=A", "--follow", "--format=%ci", "-1", "--", filePath]).strip()
+    creationDateStr = cmd(["git", "log", "--diff-filter=A", "--format=%ci", "-1", "--", filePath]).strip()
 
     if not creationDateStr:
         raise InvalidFileError("File not in git index: \"" + filePath + "\"")
