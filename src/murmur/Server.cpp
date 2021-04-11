@@ -2092,7 +2092,9 @@ QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 }
 
 bool Server::validateUserName(const QString &name) {
-	return (qrUserName.exactMatch(name) && (name.length() <= 512));
+	// We expect the name passed to this function to be fully trimmed already. This way we
+	// prevent "empty" names (at least with the default username restriction).
+	return (name.trimmed().length() == name.length() && qrUserName.exactMatch(name) && (name.length() <= 512));
 }
 
 bool Server::validateChannelName(const QString &name) {
