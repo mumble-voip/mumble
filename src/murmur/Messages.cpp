@@ -180,7 +180,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	Channel *root = qhChannels.value(0);
 	Channel *c;
 
-	uSource->qsName = u8(msg.username());
+	uSource->qsName = u8(msg.username()).trimmed();
 
 	bool ok     = false;
 	bool nameok = validateUserName(uSource->qsName);
@@ -1939,7 +1939,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				log(uSource, QString::fromLatin1("Unregistered user %1").arg(id));
 				unregisterUser(id);
 			} else {
-				const QString &name = u8(user.name());
+				const QString &name = u8(user.name()).trimmed();
 				if (validateUserName(name)) {
 					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
