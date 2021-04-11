@@ -772,26 +772,6 @@
       <string>Misc</string>
      </property>
      <layout class="QGridLayout" name="_2">
-      <item row="2" column="5">
-       <widget class="QPushButton" name="qpbPushClickBrowseOff">
-        <property name="toolTip">
-         <string>Browse for off audio file</string>
-        </property>
-        <property name="text">
-         <string>B&amp;rowse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QLabel" name="qlPushClickOff">
-        <property name="text">
-         <string>Off</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="3">
        <widget class="QLabel" name="qlPushClickOn">
         <property name="text">
@@ -799,6 +779,20 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLineEdit" name="qlePushClickPathOn">
+        <property name="toolTip">
+         <string>Gets played when starting to transmit</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QLabel" name="qliIdle">
+        <property name="text">
+         <string>Idle action</string>
         </property>
        </widget>
       </item>
@@ -815,36 +809,6 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="6">
-       <widget class="QPushButton" name="qpbPushClickReset">
-        <property name="toolTip">
-         <string>Reset audio cue to default</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
-        </property>
-        <property name="text">
-         <string>R&amp;eset</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="5">
-       <widget class="QPushButton" name="qpbPushClickBrowseOn">
-        <property name="toolTip">
-         <string>Browse for on audio file</string>
-        </property>
-        <property name="text">
-         <string>&amp;Browse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QLineEdit" name="qlePushClickPathOn">
-        <property name="toolTip">
-         <string>Gets played when starting to transmit</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="4">
        <widget class="QLineEdit" name="qlePushClickPathOff">
         <property name="toolTip">
@@ -852,37 +816,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="qcbPushClick">
-        <property name="toolTip">
-         <string>Audible audio cue when starting or stopping to transmit</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
-        </property>
-        <property name="text">
-         <string>Audio cue</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QLabel" name="qliIdle">
-        <property name="text">
-         <string>Idle action</string>
-        </property>
-       </widget>
-      </item>
       <item row="4" column="4">
-       <widget class="QCheckBox" name="qcbUndoIdleAction">
-        <property name="toolTip">
-         <string>The idle action will be reversed upon any key or mouse button input</string>
-        </property>
-        <property name="text">
-         <string>Undo Idle action upon activity</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="4">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QSpinBox" name="qsbIdle">
@@ -944,10 +878,100 @@
         </item>
        </layout>
       </item>
-      <item row="3" column="3">
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="qcbPushClick">
+        <property name="toolTip">
+         <string>Audible audio cue when starting or stopping to transmit</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</string>
+        </property>
+        <property name="text">
+         <string>Audio cue</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="4">
+       <widget class="QCheckBox" name="qcbUndoIdleAction">
+        <property name="toolTip">
+         <string>The idle action will be reversed upon any key or mouse button input</string>
+        </property>
+        <property name="text">
+         <string>Undo Idle action upon activity</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="qlPushClickOff">
+        <property name="text">
+         <string>Off</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QPushButton" name="qpbPushClickBrowseOff">
+        <property name="toolTip">
+         <string>Browse for off audio file</string>
+        </property>
+        <property name="text">
+         <string>B&amp;rowse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
        <widget class="QLabel" name="qlIdle2">
         <property name="text">
          <string>after</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
+       <widget class="QPushButton" name="qpbPushClickReset">
+        <property name="toolTip">
+         <string>Reset audio cue to default</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
+        </property>
+        <property name="text">
+         <string>R&amp;eset</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QPushButton" name="qpbPushClickBrowseOn">
+        <property name="toolTip">
+         <string>Browse for on audio file</string>
+        </property>
+        <property name="text">
+         <string>&amp;Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="qcbMuteCue">
+        <property name="text">
+         <string>Mute cue</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QLineEdit" name="qleMuteCuePath"/>
+      </item>
+      <item row="3" column="5">
+       <widget class="QPushButton" name="qpbMuteCueBrowse">
+        <property name="text">
+         <string>Br&amp;owse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="6">
+       <widget class="QPushButton" name="qpbMuteCuePreview">
+        <property name="text">
+         <string>Pre&amp;view</string>
         </property>
        </widget>
       </item>
