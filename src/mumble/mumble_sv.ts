@@ -3241,20 +3241,20 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
         <translation>Kraschuppladdning misslyckades</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Tyvärr, men det verkar som att kraschuppladdningen misslyckades med felet %1 %2. Du borde informera en utvecklare om detta.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Det finns tydligen en bugg i koden för att rapportera krascher, vi kunde heller inte ladda upp rapporten. Du borde informera en utvecklare om felet %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Laddar upp kraschrapportering</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Avbryt uppladdning</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

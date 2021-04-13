@@ -3240,20 +3240,20 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
         <translation>Rapor gönderimi başarısız oldu</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Çok üzgünüz ama rapor gönderimi %1 %2 hatası sebebiyle başarısızlığa uğradı. Lütfen bir geliştiriciyi bu konuda bilgilendirin.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Bu gerçekten hiç hoş değil ama öyle görünüyor ki çökme raporu gönderme kodunda bir hata var ve raporu gönderemedik. Geliştiricileri %1 hatası hakkında bilgilendirebilirsiniz</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Çökme raporu gönderiliyor</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Gönderimi iptal et</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

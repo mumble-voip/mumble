@@ -3255,20 +3255,20 @@ Hva tjeneren er beskrevet som. Dette er hva tjeneren vil bli navngitt som i din 
         <translation>Opplasting av kræsj mislyktes</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Det beklages på det mest innstendige at kræsjrapportering har mislyktes med feil %1 %2. Informer en utvikler om dette.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Dette er ikke gøy, men det later til at det er en feil i kræsjrapporteringskoden, og dermed kunne ikke rapporten lastes opp. Informer en utvikler om denne feilet %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Laster opp kræsjrapport</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Avbryt opplasting</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

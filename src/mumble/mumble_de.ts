@@ -3287,20 +3287,20 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
         <translation>Hochladen des Berichts fehlgeschlagen</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Das Hochladen des Berichts scheint mit der Fehlermeldung %1 %2 fehlgeschlagen zu sein. Bitte informieren Sie einen Entwickler.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Das ist wirklich nicht witzig, aber es scheint einen Bug im Absturz-Bericht-Melden-Code zu geben und das Hochladen des Berichts schlug fehl. Sie können einen Entwickler über den Fehler %1 informieren</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Absturzbericht wird hochladen</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Hochloaden abbrechen</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

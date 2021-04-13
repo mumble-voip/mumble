@@ -3236,20 +3236,20 @@ Etikette for serveren. Dette er, hvad serveren vil blive navngivet som i din ser
         <translation>Det mislykkedes at uploade nedbrudsrapporten</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Vi undeskylder mange gange, men det ser ud som om uploading af nedbrudsrapporten mislykkedes med fejlen %1 %2. Vær venlig at informér en udvikler.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Det her er ikke sjovt, for der er tilsyneladende en fejl i nedbrudsrapporterings-koden, og rapporten kunne derfor ikke uploades. Du må gerne informere en udvikler om fejlen %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Uploader nedbrudsrapport</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Afbryd upload</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

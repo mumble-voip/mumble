@@ -3241,20 +3241,20 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
         <translation>Erreur lors de l&apos;envoi du rapport</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Nous sommes navrés, mais l&apos;envoi du rapport d&apos;erreur a échoué avec l&apos;erreur %1 %2. Veuillez en informer un développeur.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Ce n&apos;est vraiment pas drôle, mais il semblerait qu&apos;il y ait un bogue dans le code du rapport d&apos;erreur, et donc, le rapport n&apos;a pu être envoyé. Vous devriez informer un développeur à propos de l&apos;erreur %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Envoi du rapport d&apos;erreur</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Annuler l&apos;envoi</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

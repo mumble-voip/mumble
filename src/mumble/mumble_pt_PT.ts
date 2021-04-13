@@ -3231,20 +3231,20 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
         <translation>Envio de relatório falhou</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Nós sentimos muito, mas parece que o relatório do erro falhou com o erro: %1 %2. Por favor informe um programador.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Isto realmente não é nada divertido, mas aparentemente há uma falha no código para reportar falhas, e nós não pudemos enviar o relatório. Pode informar um programador sobre o erro %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>A enviar relatório de erro</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Abortar envio</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
