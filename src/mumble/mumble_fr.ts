@@ -1024,6 +1024,18 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <source>Speex suppression strength</source>
         <translation>Puissance de suppression de Speex</translation>
     </message>
+    <message>
+        <source>Mute cue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Br&amp;owse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pre&amp;view</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>

@@ -1024,6 +1024,18 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <source>Speex suppression strength</source>
         <translation>Intensità riduzione rumore Speex</translation>
     </message>
+    <message>
+        <source>Mute cue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Br&amp;owse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pre&amp;view</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>

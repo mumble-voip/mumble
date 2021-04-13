@@ -1023,6 +1023,18 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
         <source>Speex suppression strength</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Mute cue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Br&amp;owse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pre&amp;view</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
