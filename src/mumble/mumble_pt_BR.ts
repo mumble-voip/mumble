@@ -1997,7 +1997,8 @@ Abra o seu painel de controle de som e bá para as configurações de gravação
 &lt;/p&gt;
 &lt;p&gt;
 Fale alto, como quando você está incomodado ou animado. Diminua o volume no painel de controle até que a barra abaixo fique o mais alto possível na listrada e vazia, mas &lt;b&gt;não&lt;/b&gt; na zona xadrez enquanto você fala.
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
@@ -7737,7 +7738,8 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Esta é uma lista editável de credenciais de acesso no servidor conectado.&lt;/b&gt;
 &lt;br /&gt;
-Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usada como uma senha para um gerenciamento de acesso simples nos canais. O Mumble lembrará das credenciais que você usar e irá reenviá-las para o servidor na próxima vez que você conectar, então você não precisa digitá-las sempre.</translation>
+Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usada como uma senha para um gerenciamento de acesso simples nos canais. O Mumble lembrará das credenciais que você usar e irá reenviá-las para o servidor na próxima vez que você conectar, então você não precisa digitá-las sempre.
+</translation>
     </message>
     <message>
         <source>Add a token</source>
