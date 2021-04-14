@@ -1,10 +1,23 @@
-// Copyright 2005-2021 The Mumble Developers. All rights reserved.
+// Copyright 2021 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MUMBLE_PLUGIN_H_
-#define MUMBLE_MUMBLE_PLUGIN_H_
+// This header describes the deprecated "plugin" API from the times in which "plugins" could only be used
+// alongside the positional audio feature of Mumble.
+// By default translation units including this file will not compile due to a preprocessor error. This is intended
+// behaviour as you shouldn't be using this API any longer. Use the API from MumblePlugin.h instead.
+//
+// If for some reason you absolutely have to include this header file, you have to define the macro MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
+// before including this header.
+#ifndef MUMBLE_LEGACY_PLUGIN_H_
+#define MUMBLE_LEGACY_PLUGIN_H_
+
+#ifndef MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
+	#error "You are trying to use a deprecated plugin API. Use the new API from MumblePlugin.h instead. If you think you really need this deprecated one, see the instructions at the top of this file."
+#else
+	#undef MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
+#endif
 
 #include <stdint.h>
 

@@ -15,6 +15,8 @@
 
 #include <QtCore/QProcessEnvironment>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QFileInfo>
+#include <QtCore/QRegularExpression>
 #include <QtGui/QImageReader>
 #include <QtWidgets/QSystemTrayIcon>
 #if QT_VERSION >= QT_VERSION_CHECK(5,9,0)
@@ -287,6 +289,8 @@ Settings::Settings() {
 	qRegisterMetaType< ShortcutTarget >("ShortcutTarget");
 	qRegisterMetaTypeStreamOperators< ShortcutTarget >("ShortcutTarget");
 	qRegisterMetaType< QVariant >("QVariant");
+	qRegisterMetaType< PluginSetting >("PluginSetting");
+	qRegisterMetaTypeStreamOperators< PluginSetting >("PluginSetting");
 
 	atTransmit        = VAD;
 	bTransmitPosition = false;
@@ -346,6 +350,7 @@ Settings::Settings() {
 	bUpdateCheck = true;
 	bPluginCheck = true;
 #endif
+	bPluginAutoUpdate = false;
 
 	qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 
@@ -543,7 +548,8 @@ Settings::Settings() {
 	qmMessages[Log::OtherSelfMute]   = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 	qmMessages[Log::UserRenamed]     = Settings::LogConsole;
-
+	qmMessages[Log::PluginMessage]   = Settings::LogConsole;
+	
 	// Default theme
 	themeName      = QLatin1String("Mumble");
 	themeStyleName = QLatin1String("Lite");
@@ -888,6 +894,7 @@ void Settings::load(QSettings *settings_ptr) {
 
 	LOAD(bUpdateCheck, "ui/updatecheck");
 	LOAD(bPluginCheck, "ui/plugincheck");
+	LOAD(bPluginAutoUpdate, "ui/pluginAutoUpdate");
 
 	LOAD(bHideInTray, "ui/hidetray");
 	LOAD(bStateInTray, "ui/stateintray");
@@ -1002,9 +1009,26 @@ void Settings::load(QSettings *settings_ptr) {
 	}
 	settings_ptr->endGroup();
 
-	settings_ptr->beginGroup(QLatin1String("audio/plugins"));
-	foreach (const QString &d, settings_ptr->childKeys()) {
-		qmPositionalAudioPlugins.insert(d, settings_ptr->value(d, true).toBool());
+	// Plugins
+	settings_ptr->beginGroup(QLatin1String("plugins"));
+	foreach(const QString &pluginKey, settings_ptr->childGroups()) {
+		QString pluginHash;
+
+		if (pluginKey.contains(QLatin1String("_"))) {
+			// The key contains the filename as well as the hash
+			int index = pluginKey.lastIndexOf(QLatin1String("_"));
+			pluginHash = pluginKey.right(pluginKey.size() - index - 1);
+		} else {
+			pluginHash = pluginKey;
+		}
+
+		PluginSetting pluginSettings;
+		pluginSettings.path = settings_ptr->value(pluginKey + QLatin1String("/path")).toString();
+		pluginSettings.allowKeyboardMonitoring = settings_ptr->value(pluginKey + QLatin1String("/allowKeyboardMonitoring")).toBool();
+		pluginSettings.enabled = settings_ptr->value(pluginKey + QLatin1String("/enabled")).toBool();
+		pluginSettings.positionalDataEnabled = settings_ptr->value(pluginKey + QLatin1String("/positionalDataEnabled")).toBool();
+
+		qhPluginSettings.insert(pluginHash, pluginSettings);
 	}
 	settings_ptr->endGroup();
 
@@ -1259,8 +1283,12 @@ void Settings::save() {
 	SAVE(qsUsername, "ui/username");
 	SAVE(qsLastServer, "ui/server");
 	SAVE(ssFilter, "ui/serverfilter");
+#ifndef NO_UPDATE_CHECK
+	// If this flag has been set, we don't load the following settings so we shouldn't overwrite them here either
 	SAVE(bUpdateCheck, "ui/updatecheck");
 	SAVE(bPluginCheck, "ui/plugincheck");
+	SAVE(bPluginAutoUpdate, "ui/pluginAutoUpdate");
+#endif
 	SAVE(bHideInTray, "ui/hidetray");
 	SAVE(bStateInTray, "ui/stateintray");
 	SAVE(bUsage, "ui/usage");
@@ -1373,20 +1401,54 @@ void Settings::save() {
 			settings_ptr->remove(d);
 	}
 	settings_ptr->endGroup();
+	
+	// Plugins
+	foreach(const QString &pluginHash, qhPluginSettings.keys()) {
+		QString savePath = QString::fromLatin1("plugins/");
+		const PluginSetting settings = qhPluginSettings.value(pluginHash);
+		const QFileInfo info(settings.path);
+		QString baseName = info.baseName(); // Get the filename without file extensions
+		const bool containsNonASCII = baseName.contains(QRegularExpression(QStringLiteral("[^\\x{0000}-\\x{007F}]")));
 
-	settings_ptr->beginGroup(QLatin1String("audio/plugins"));
-	foreach (const QString &d, qmPositionalAudioPlugins.keys()) {
-		bool v = qmPositionalAudioPlugins.value(d);
-		if (!v)
-			settings_ptr->setValue(d, v);
-		else
-			settings_ptr->remove(d);
+		if (containsNonASCII || baseName.isEmpty()) {
+			savePath += pluginHash;
+		} else {
+			// Make sure there are no spaces in the name
+			baseName.replace(QLatin1Char(' '), QLatin1Char('_'));
+
+			// Also include the plugin's filename in the savepath in order
+			// to allow for easier identification
+			savePath += baseName + QLatin1String("__") + pluginHash;
+		}
+
+		settings_ptr->beginGroup(savePath);
+		settings_ptr->setValue(QLatin1String("path"), settings.path);
+		settings_ptr->setValue(QLatin1String("enabled"), settings.enabled);
+		settings_ptr->setValue(QLatin1String("positionalDataEnabled"), settings.positionalDataEnabled);
+		settings_ptr->setValue(QLatin1String("allowKeyboardMonitoring"), settings.allowKeyboardMonitoring);
+		settings_ptr->endGroup();
 	}
-	settings_ptr->endGroup();
+	
 
 	settings_ptr->beginGroup(QLatin1String("overlay"));
 	os.save(settings_ptr);
 	settings_ptr->endGroup();
+}
+
+QDataStream& operator>>(QDataStream &arch, PluginSetting &setting) {
+	arch >> setting.enabled;
+	arch >> setting.positionalDataEnabled;
+	arch >> setting.allowKeyboardMonitoring;
+
+	return arch;
+}
+
+QDataStream& operator<<(QDataStream &arch, const PluginSetting &setting) {
+	arch << setting.enabled;
+	arch << setting.positionalDataEnabled;
+	arch << setting.allowKeyboardMonitoring;
+
+	return arch;
 }
 
 #undef LOAD

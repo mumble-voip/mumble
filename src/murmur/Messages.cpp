@@ -10,6 +10,7 @@
 #include "Group.h"
 #include "Message.h"
 #include "Meta.h"
+#include "MumbleConstants.h"
 #include "Server.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
@@ -2163,6 +2164,61 @@ void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &) {
 }
 
 void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &) {
+}
+
+void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDataTransmission &msg) {
+	// A client's plugin has sent us a message that we shall delegate to its receivers
+
+	if (sender->m_pluginMessageBucket.ratelimit(1)) {
+		qWarning("Dropping plugin message sent from \"%s\" (%d)", qUtf8Printable(sender->qsName), sender->uiSession);
+		return;
+	}
+
+	if (!msg.has_data() || !msg.has_dataid()) {
+		// Messages without data and/or without a data ID can't be used by the clients. Thus we don't even have to send them
+		return;
+	}
+
+	if (msg.data().size() > Mumble::Plugins::PluginMessage::MAX_DATA_LENGTH) {
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - data too large", qUtf8Printable(sender->qsName), sender->uiSession);
+		return;
+	}
+	if (msg.dataid().size() > Mumble::Plugins::PluginMessage::MAX_DATA_ID_LENGTH) {
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - data ID too long", qUtf8Printable(sender->qsName), sender->uiSession);
+		return;
+	}
+
+	// Always set the sender's session and don't rely on it being set correctly (would
+	// allow spoofing the sender's session)
+	msg.set_sendersession(sender->uiSession);
+
+	// Copy needed data from message in order to be able to remove info about receivers from the message as this doesn't
+	// matter for the client
+	size_t receiverAmount = msg.receiversessions_size();
+	const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > receiverSessions = msg.receiversessions();
+
+	msg.clear_receiversessions();
+
+	QSet<uint32_t> uniqueReceivers;
+	uniqueReceivers.reserve(receiverSessions.size());
+
+	for(int i = 0; static_cast<size_t>(i) < receiverAmount; i++) {
+		uint32_t userSession = receiverSessions.Get(i);
+
+		if (!uniqueReceivers.contains(userSession)) {
+			uniqueReceivers.insert(userSession);
+		} else {
+			// Duplicate entry -> ignore
+			continue;
+		}
+
+		ServerUser *receiver = qhUsers.value(receiverSessions.Get(i));
+
+		if (receiver) {
+			// We can simply redirect the message we have received to the clients
+			sendMessage(receiver, msg);
+		}
+	}
 }
 
 #undef RATELIMIT

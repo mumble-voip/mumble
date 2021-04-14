@@ -7,6 +7,7 @@
 
 #include "AudioOutput.h"
 #include "Channel.h"
+#include "PluginManager.h"
 #include "Global.h"
 
 QHash< unsigned int, ClientUser * > ClientUser::c_qmUsers;
@@ -61,6 +62,9 @@ ClientUser *ClientUser::add(unsigned int uiSession, QObject *po) {
 	ClientUser *p        = new ClientUser(po);
 	p->uiSession         = uiSession;
 	c_qmUsers[uiSession] = p;
+
+	QObject::connect(p, &ClientUser::talkingStateChanged, Global::get().pluginManager, &PluginManager::on_userTalkingStateChanged);
+
 	return p;
 }
 

@@ -584,3 +584,16 @@ message SuggestConfig {
 	// True if the administrator suggests push to talk to be used on this server.
 	optional bool push_to_talk = 3;
 }
+
+// Used to send plugin messages between clients
+message PluginDataTransmission {
+	// The session ID of the client this message was sent from
+	optional uint32 senderSession = 1;
+	// The session IDs of the clients that should receive this message
+	repeated uint32 receiverSessions = 2 [packed = true];
+	// The data that is sent
+	optional bytes data = 3;
+	// The ID of the sent data. This will be used by plugins to check whether they will
+	// process it or not
+	optional string dataID = 4;
+}

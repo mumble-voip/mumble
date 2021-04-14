@@ -29,4 +29,5 @@ sudo apt -y install \
 	zsync \
 	appstream \
 	libgrpc++-dev \
-	protobuf-compiler-grpc
+	protobuf-compiler-grpc \
+	libpoco-dev

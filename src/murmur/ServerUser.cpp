@@ -13,7 +13,8 @@
 #endif
 
 ServerUser::ServerUser(Server *p, QSslSocket *socket)
-	: Connection(p, socket), User(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst) {
+	: Connection(p, socket), User(), s(nullptr),
+	  leakyBucket(p->iMessageLimit, p->iMessageBurst), m_pluginMessageBucket(5, 20) {
 	sState     = ServerUser::Connected;
 	sUdpSocket = INVALID_SOCKET;
 

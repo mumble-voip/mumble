@@ -57,6 +57,10 @@
 #	include <sys/socket.h>
 #endif
 
+// Init ServerHandler::nextConnectionID
+int ServerHandler::nextConnectionID = -1;
+QMutex ServerHandler::nextConnectionIDMutex(QMutex::Recursive);
+
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush)
 	: QEvent(static_cast< QEvent::Type >(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -108,6 +112,13 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 	tConnectionTimeoutTimer = nullptr;
 	uiVersion               = 0;
 	iInFlightTCPPings       = 0;
+
+	// assign connection ID
+	{
+		QMutexLocker lock(&nextConnectionIDMutex);
+		nextConnectionID++;
+		connectionID = nextConnectionID;
+	}
 
 	// Historically, the qWarning line below initialized OpenSSL for us.
 	// It used to have this comment:
@@ -175,6 +186,10 @@ void ServerHandler::customEvent(QEvent *evt) {
 			exit(0);
 		}
 	}
+}
+
+int ServerHandler::getConnectionID() const {
+	return connectionID;
 }
 
 void ServerHandler::udpReady() {
@@ -683,6 +698,9 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 		}
 	}
 
+	// Having 2 signals here that basically fire at the same time is wanted behavior!
+	// See the documentation of "aboutToDisconnect" for an explanation.
+	emit aboutToDisconnect(err, reason);
 	emit disconnected(err, reason);
 
 	exit(0);

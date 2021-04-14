@@ -3,8 +3,11 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_main.h"  // Include standard plugin header.
-#include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
+#define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
+#include "../mumble_legacy_plugin.h"
+
+#include "../mumble_positional_audio_main.h" // Include standard positional audio header.
+#include "../mumble_positional_audio_utils.h" // Include positional audio header for special functions, like "escape".
 
 #include <cmath>
 

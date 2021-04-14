@@ -147,6 +147,7 @@ public:
 	QMap< QString, QString > qmWhisperRedirect;
 
 	LeakyBucket leakyBucket;
+	LeakyBucket m_pluginMessageBucket;
 
 	int iLastPermissionCheck;
 	QMap< int, unsigned int > qmPermissionSent;

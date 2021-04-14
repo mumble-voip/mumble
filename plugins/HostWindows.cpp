@@ -5,7 +5,7 @@
 
 #include "HostWindows.h"
 
-#include "mumble_plugin_utils.h"
+#include "mumble_positional_audio_utils.h"
 
 #include <windows.h>
 #include <tlhelp32.h>

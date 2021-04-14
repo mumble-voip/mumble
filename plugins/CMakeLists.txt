@@ -30,6 +30,11 @@ foreach(ITEM ${ITEMS})
 		# PLUGIN_RETRACTED variable in the parent scope so that we can access it here
 		add_subdirectory(${ITEM})
 
+		if(${ITEM} STREQUAL "testPlugin" AND NOT ${CMAKE_BUILD_TYPE} MATCHES Debug)
+			# The testPlugin is only included in Debug builds
+			continue()
+		endif()
+
 		if(PLUGIN_RETRACTED AND NOT retracted-plugins)
 			# The included subdir didn't actually add a target since the associated plugin is retracted
 			# and therefore it should not be built.

@@ -11,12 +11,13 @@
 #include "AudioWizard.h"
 #include "Cert.h"
 #include "Database.h"
+#include "Log.h"
+#include "LogEmitter.h"
 #include "DeveloperConsole.h"
 #include "LCD.h"
 #include "Log.h"
 #include "LogEmitter.h"
 #include "MainWindow.h"
-#include "Plugins.h"
 #include "ServerHandler.h"
 #ifdef USE_ZEROCONF
 #	include "Zeroconf.h"
@@ -43,6 +44,9 @@
 #include "Themes.h"
 #include "UserLockFile.h"
 #include "VersionCheck.h"
+#include "PluginInstaller.h"
+#include "PluginManager.h"
+#include "Global.h"
 
 #include <QtCore/QProcess>
 #include <QtGui/QDesktopServices>
@@ -58,7 +62,6 @@
 #	include <shellapi.h>
 #endif
 
-#include "Global.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -229,6 +232,7 @@ int main(int argc, char **argv) {
 	QStringList extraTranslationDirs;
 	QString localeOverwrite;
 
+	QStringList pluginsToBeInstalled;
 	if (a.arguments().count() > 1) {
 		for (int i = 1; i < args.count(); ++i) {
 			if (args.at(i) == QLatin1String("-h") || args.at(i) == QLatin1String("--help")
@@ -237,12 +241,14 @@ int main(int argc, char **argv) {
 #endif
 			) {
 				QString helpMessage =
-					MainWindow::tr("Usage: mumble [options] [<url>]\n"
+					MainWindow::tr("Usage: mumble [options] [<url> | <plugin_list>]\n"
 								   "\n"
 								   "<url> specifies a URL to connect to after startup instead of showing\n"
 								   "the connection window, and has the following form:\n"
 								   "mumble://[<username>[:<password>]@]<host>[:<port>][/<channel>[/"
 								   "<subchannel>...]][?version=<x.y.z>]\n"
+								   "\n"
+								   "<plugin_list> is a list of plugin files that shall be installed"
 								   "\n"
 								   "The version query parameter has to be set in order to invoke the\n"
 								   "correct client version. It currently defaults to 1.2.0.\n"
@@ -399,14 +405,18 @@ int main(int argc, char **argv) {
 					return 1;
 				}
 			} else {
-				if (!bRpcMode) {
-					QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
-					if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
-						url = u;
-					} else {
-						QFile f(args.at(i));
-						if (f.exists()) {
-							url = QUrl::fromLocalFile(f.fileName());
+				if (PluginInstaller::canBePluginFile(args.at(i))) {
+					pluginsToBeInstalled << args.at(i);
+				} else {
+					if (!bRpcMode) {
+						QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
+						if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
+							url = u;
+						} else {
+							QFile f(args.at(i));
+							if (f.exists()) {
+								url = QUrl::fromLocalFile(f.fileName());
+							}
 						}
 					}
 				}
@@ -583,6 +593,22 @@ int main(int argc, char **argv) {
 		Global::get().s.qsLanguage = settingsLocale.nativeLanguageName();
 	}
 
+	if (!pluginsToBeInstalled.isEmpty()) {
+
+		foreach(QString currentPlugin, pluginsToBeInstalled) {
+
+			try {
+				PluginInstaller installer(currentPlugin);
+				installer.exec();
+			} catch(const PluginInstallException& e) {
+				qCritical() << qUtf8Printable(e.getMessage());
+			}
+
+		}
+
+		return 0;
+	}
+
 	qWarning("Locale is \"%s\" (System: \"%s\")", qUtf8Printable(settingsLocale.name()), qUtf8Printable(systemLocale.name()));
 
 	Mumble::Translations::LifetimeGuard translationGuard = Mumble::Translations::installTranslators(settingsLocale, a, extraTranslationDirs);
@@ -605,6 +631,10 @@ int main(int argc, char **argv) {
 	// Initialize zeroconf
 	Global::get().zeroconf = new Zeroconf();
 #endif
+	
+	// PluginManager
+	Global::get().pluginManager = new PluginManager();
+	Global::get().pluginManager->rescanPlugins();
 
 #ifdef USE_OVERLAY
 	Global::get().o = new Overlay();
@@ -660,10 +690,6 @@ int main(int argc, char **argv) {
 	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
 
 	Global::get().l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
-
-	// Plugins
-	Global::get().p = new Plugins(nullptr);
-	Global::get().p->rescanPlugins();
 
 	Audio::start();
 
@@ -736,12 +762,13 @@ int main(int argc, char **argv) {
 		new VersionCheck(false, Global::get().mw, true);
 #	endif
 	}
-#else
-	Global::get().mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
-#endif
+
 	if (Global::get().s.bPluginCheck) {
-		Global::get().p->checkUpdates();
+		Global::get().pluginManager->checkForPluginUpdates();
 	}
+#else // QT_NO_DEBUG
+	Global::get().mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
+#endif // QT_NO_DEBUG
 
 	if (url.isValid()) {
 		OpenURLEvent *oue = new OpenURLEvent(url);
@@ -772,8 +799,20 @@ int main(int argc, char **argv) {
 		// Wait for the ServerHandler thread to exit before proceeding shutting down. This is so that
 		// all events that the ServerHandler might emit are enqueued into Qt's event loop before we
 		// ask it to pocess all of them below.
-		if (!sh->wait(2000)) {
-			qCritical("main: ServerHandler did not exit within specified time interval");
+
+		// We iteratively probe whether the ServerHandler thread has finished yet. If it did
+		// not, we execute pending events in the main loop. This is because the ServerHandler
+		// could be stuck waiting for a function to complete in the main loop (e.g. a plugin
+		// uses the API in the disconnect callback).
+		// We assume that this entire process is done in way under a second.
+		int iterations = 0;
+		while (!sh->wait(10)) {
+			QCoreApplication::processEvents();
+			iterations++;
+
+			if (iterations > 200) {
+				qFatal("ServerHandler does not exit as expected");
+			}
 		}
 	}
 
@@ -785,20 +824,26 @@ int main(int argc, char **argv) {
 
 	delete srpc;
 
+	delete Global::get().talkingUI;
+	// Delete the MainWindow before the ServerHandler gets reset in order to allow all callbacks
+	// trggered by this deletion to still access the ServerHandler (atm all these callbacks are in PluginManager.cpp)
+	delete Global::get().mw;
+	Global::get().mw = nullptr; // Make it clear to any destruction code, that MainWindow no longer exists
+
 	Global::get().sh.reset();
-	while (sh && !sh.unique())
+
+	while (sh && ! sh.unique())
 		QThread::yieldCurrentThread();
 	sh.reset();
-
-	delete Global::get().talkingUI;
-	delete Global::get().mw;
 
 	delete Global::get().nam;
 	delete Global::get().lcd;
 
 	delete Global::get().db;
-	delete Global::get().p;
 	delete Global::get().l;
+	Global::get().l = nullptr; // Make it clear to any destruction code that Log no longer exists
+
+	delete Global::get().pluginManager;
 
 #ifdef USE_ZEROCONF
 	delete Global::get().zeroconf;

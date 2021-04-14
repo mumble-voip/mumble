@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>235</height>
+    <width>570</width>
+    <height>289</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Plugins</string>
   </property>
-  <layout class="QVBoxLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="qgbOptions">
      <property name="title">
@@ -53,9 +53,6 @@
         <attribute name="headerStretchLastSection">
          <bool>false</bool>
         </attribute>
-        <attribute name="headerStretchLastSection">
-         <bool>false</bool>
-        </attribute>
         <column>
          <property name="text">
           <string>Name</string>
@@ -63,7 +60,17 @@
         </column>
         <column>
          <property name="text">
-          <string>Enabled</string>
+          <string>Enable</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>PA</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>KeyEvents</string>
          </property>
         </column>
        </widget>
@@ -80,6 +87,16 @@
           </property>
           <property name="text">
            <string>&amp;Reload plugins</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="qpbInstallPlugin">
+          <property name="toolTip">
+           <string>Install a plugin from a local file</string>
+          </property>
+          <property name="text">
+           <string>Install plugin...</string>
           </property>
          </widget>
         </item>
@@ -119,6 +136,16 @@
           </property>
           <property name="text">
            <string>&amp;Configure</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="qpbUnload">
+          <property name="toolTip">
+           <string>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</string>
+          </property>
+          <property name="text">
+           <string>Unload</string>
           </property>
          </widget>
         </item>

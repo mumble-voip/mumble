@@ -34,8 +34,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "../mumble_plugin_main.h"
-#include "../mumble_plugin_utils.h"
+#define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
+#include "../mumble_legacy_plugin.h"
+
+#include "../mumble_positional_audio_main.h"
+#include "../mumble_positional_audio_utils.h"
 
 procptr_t posptr;
 procptr_t frtptr;

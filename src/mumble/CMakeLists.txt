@@ -35,6 +35,9 @@ option(qtspeech "Use Qt's text-to-speech system (part of the Qt Speech module) i
 option(jackaudio "Build support for JackAudio." ON)
 option(portaudio "Build support for PortAudio" ON)
 
+option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
+option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
+
 if(WIN32)
 	option(asio "Build support for ASIO audio input." OFF)
 	option(wasapi "Build support for WASAPI." ON)
@@ -81,6 +84,8 @@ set(MUMBLE_SOURCES
 	"ACLEditor.cpp"
 	"ACLEditor.h"
 	"ACLEditor.ui"
+	"API_v_1_0_x.cpp"
+	"API.h"
 	"ApplicationPalette.h"
 	"AudioConfigDialog.cpp"
 	"AudioConfigDialog.h"
@@ -142,6 +147,8 @@ set(MUMBLE_SOURCES
 	"LCD.cpp"
 	"LCD.h"
 	"LCD.ui"
+	"LegacyPlugin.cpp"
+	"LegacyPlugin.h"
 	"ListenerLocalVolumeDialog.cpp"
 	"Log.cpp"
 	"Log.h"
@@ -162,9 +169,21 @@ set(MUMBLE_SOURCES
 	"NetworkConfig.ui"
 	"OpusCodec.cpp"
 	"OpusCodec.h"
-	"Plugins.cpp"
-	"Plugins.h"
-	"Plugins.ui"
+	"PluginConfig.cpp"
+	"PluginConfig.h"
+	"PluginConfig.ui"
+	"Plugin.cpp"
+	"Plugin.h"
+	"PluginInstaller.cpp"
+	"PluginInstaller.h"
+	"PluginInstaller.ui"
+	"PluginManager.cpp"
+	"PluginManager.h"
+	"PluginUpdater.cpp"
+	"PluginUpdater.h"
+	"PluginUpdater.ui"
+	"PositionalData.cpp"
+	"PositionalData.h"
 	"PTTButtonWidget.cpp"
 	"PTTButtonWidget.h"
 	"PTTButtonWidget.ui"
@@ -347,7 +366,71 @@ target_include_directories(mumble
 		"widgets"
 		${SHARED_SOURCE_DIR}
 		"${3RDPARTY_DIR}/smallft"
+		"${PLUGINS_DIR}"
 )
+
+find_pkg(Poco COMPONENTS Zip)
+
+if(TARGET Poco::Zip)
+	target_link_libraries(mumble
+		PRIVATE
+			Poco::Zip
+	)
+else()
+	message(STATUS "Regular Poco search failed - looking for Poco include dir manually...")
+
+	if(MINGW)
+		# These are the paths for our MXE environment
+		if(32_BIT)
+			set(POCO_INCLUDE_DIR_HINT "/usr/lib/mxe/usr/i686-w64-mingw32.static/include/")
+		else()
+			set(POCO_INCLUDE_DIR_HINT "/usr/lib/mxe/usr/x86_64-w64-mingw32.static/include/")
+		endif()
+	else()
+		set(POCO_INCLUDE_DIR_HINT "/usr/include")
+	endif()
+
+	find_path(POCO_INCLUDE_DIR "Poco/Poco.h" HINTS ${POCO_INCLUDE_DIR_HINT})
+
+	if(POCO_INCLUDE_DIR)
+		message(STATUS "Found Poco include dir at \"${POCO_INCLUDE_DIR}\"")
+	else()
+		message(FATAL_ERROR "Unable to locate Poco include directory")
+	endif()
+
+	find_library(POCO_LIB_FOUNDATION NAMES PocoFoundation PocoFoundationmd REQUIRED)
+	find_library(POCO_LIB_UTIL NAMES PocoUtil PocoUtilmd REQUIRED)
+	find_library(POCO_LIB_XML NAMES PocoXML PocoXMLmd REQUIRED)
+	find_library(POCO_LIB_ZIP NAMES PocoZip PocoZipmd REQUIRED)
+
+	if(POCO_LIB_ZIP)
+		message(STATUS "Found Poco Zip library at \"${POCO_LIB_ZIP}\"")
+	else()
+		message(FATAL_ERROR "Unable to find Poco Zip library")
+	endif()
+
+
+	# Now use the found include dir and libraries by linking it to the target
+	target_include_directories(mumble
+		PRIVATE
+			${POCO_INCLUDE_DIR}
+	)
+
+	target_link_libraries(mumble
+		PRIVATE
+			${POCO_LIB_ZIP}
+			${POCO_LIB_XML}
+			${POCO_LIB_UTIL}
+			${POCO_LIB_FOUNDATION}
+	)
+
+	if(static)
+		target_compile_definitions(mumble
+			PUBLIC
+				POCO_STATIC
+		)
+	endif()
+endif()
 
 find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)
 
@@ -1018,5 +1101,23 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0")
 			PROPERTIES
 				SKIP_UNITY_BUILD_INCLUSION TRUE
 		)
+	endif()
+endif()
+
+if(plugin-debug)
+	target_compile_definitions(mumble PRIVATE "MUMBLE_PLUGIN_DEBUG")
+endif()
+
+if(plugin-callback-debug)
+	target_compile_definitions(mumble PRIVATE "MUMBLE_PLUGIN_CALLBACK_DEBUG")
+endif()
+
+if(UNIX)
+	if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
+		# On FreeBSD we need the util library for src/ProcessResolver.cpp to work
+		target_link_libraries(mumble PRIVATE util)
+	elseif(${CMAKE_SYSTEM_NAME} MATCHES ".*BSD")
+		# On any other BSD we need the kvm library for src/ProcessResolver.cpp to work
+		target_link_libraries(mumble PRIVATE kvm)
 	endif()
 endif()

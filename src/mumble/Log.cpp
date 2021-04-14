@@ -334,6 +334,8 @@ QVector< LogMessage > Log::qvDeferredLogs;
 
 
 Log::Log(QObject *p) : QObject(p) {
+	qRegisterMetaType<Log::MsgType>();
+
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
 	tts->setVolume(Global::get().s.iTTSVolume);
@@ -374,7 +376,8 @@ const Log::MsgType Log::msgOrder[] = { DebugInfo,
 									   ChannelLeaveDisconnect,
 									   PermissionDenied,
 									   TextMessage,
-									   PrivateTextMessage };
+									   PrivateTextMessage,
+									   PluginMessage };
 
 const char *Log::msgNames[] = { QT_TRANSLATE_NOOP("Log", "Debug"),
 								QT_TRANSLATE_NOOP("Log", "Critical"),
@@ -406,7 +409,8 @@ const char *Log::msgNames[] = { QT_TRANSLATE_NOOP("Log", "Debug"),
 								QT_TRANSLATE_NOOP("Log", "User left channel and disconnected"),
 								QT_TRANSLATE_NOOP("Log", "Private text message"),
 								QT_TRANSLATE_NOOP("Log", "User started listening to channel"),
-								QT_TRANSLATE_NOOP("Log", "User stopped listening to channel") };
+								QT_TRANSLATE_NOOP("Log", "User stopped listening to channel"),
+								QT_TRANSLATE_NOOP("Log", "Plugin message") };
 
 QString Log::msgName(MsgType t) const {
 	return tr(msgNames[t]);

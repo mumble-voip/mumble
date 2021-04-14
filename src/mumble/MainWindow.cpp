@@ -33,8 +33,8 @@
 #include "ChannelListener.h"
 #include "ListenerLocalVolumeDialog.h"
 #include "Markdown.h"
+#include "PluginManager.h"
 #include "PTTButtonWidget.h"
-#include "Plugins.h"
 #include "RichTextEditor.h"
 #include "SSLCipherInfo.h"
 #include "Screen.h"
@@ -185,6 +185,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setOnTop(Global::get().s.aotbAlwaysOnTop == Settings::OnTopAlways
 			 || (Global::get().s.bMinimalView && Global::get().s.aotbAlwaysOnTop == Settings::OnTopInMinimal)
 			 || (!Global::get().s.bMinimalView && Global::get().s.aotbAlwaysOnTop == Settings::OnTopInNormal));
+
+	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager, &PluginManager::on_serverSynchronized);
 }
 
 void MainWindow::createActions() {
@@ -317,6 +319,13 @@ void MainWindow::setupGui() {
 		static_cast< void (UserModel::*)(const ClientUser *, const Channel *) >(&UserModel::removeChannelListener));
 	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, pmModel,
 			&UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
+
+	// connect slots to PluginManager
+	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
+	QObject::connect(pmModel, &UserModel::userRemoved, Global::get().pluginManager, &PluginManager::on_userRemoved);
+	QObject::connect(pmModel, &UserModel::channelAdded, Global::get().pluginManager, &PluginManager::on_channelAdded);
+	QObject::connect(pmModel, &UserModel::channelRemoved, Global::get().pluginManager, &PluginManager::on_channelRemoved);
+	QObject::connect(pmModel, &UserModel::channelRenamed, Global::get().pluginManager, &PluginManager::on_channelRenamed);
 
 	qaAudioMute->setChecked(Global::get().s.bMute);
 	qaAudioDeaf->setChecked(Global::get().s.bDeaf);
@@ -902,6 +911,16 @@ static void recreateServerHandler() {
 				  SLOT(resolverError(QAbstractSocket::SocketError, QString)));
 
 	QObject::connect(sh.get(), &ServerHandler::disconnected, Global::get().talkingUI, &TalkingUI::on_serverDisconnected);
+
+	// We have to use direct connections for these here as the PluginManager must be able to access the connection's ID
+	// and in order for that to be possible the (dis)connection process must not proceed in the background.
+	Global::get().pluginManager->connect(sh.get(), &ServerHandler::connected, Global::get().pluginManager,
+			&PluginManager::on_serverConnected, Qt::DirectConnection);
+	// We connect the plugin manager to "aboutToDisconnect" instead of "disconnect" in order for the slot to be
+	// guaranteed to be completed *before* the acutal disconnect logic (e.g. MainWindow::serverDisconnected) kicks in.
+	// In order for that to work it is ESSENTIAL to use a DIRECT CONNECTION!
+	Global::get().pluginManager->connect(sh.get(), &ServerHandler::aboutToDisconnect, Global::get().pluginManager,
+			&PluginManager::on_serverDisconnected, Qt::DirectConnection);
 }
 
 void MainWindow::openUrl(const QUrl &url) {
@@ -2491,6 +2510,12 @@ void MainWindow::on_qaAudioMute_triggered() {
 	updateTrayIcon();
 }
 
+void MainWindow::setAudioMute(bool mute) {
+	// Pretend the user pushed the button manually
+	qaAudioMute->setChecked(mute);
+	qaAudioMute->triggered(mute);
+}
+
 void MainWindow::on_qaAudioDeaf_triggered() {
 	if (Global::get().bInAudioWizard) {
 		qaAudioDeaf->setChecked(!qaAudioDeaf->isChecked());
@@ -2503,11 +2528,13 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		on_qaAudioMute_triggered();
 		return;
 	}
+
 	AudioInputPtr ai = Global::get().ai;
 	if (ai)
 		ai->tIdle.restart();
 
 	Global::get().s.bDeaf = qaAudioDeaf->isChecked();
+
 	if (Global::get().s.bDeaf && !Global::get().s.bMute) {
 		bAutoUnmute = true;
 		Global::get().s.bMute   = true;
@@ -2525,6 +2552,12 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	}
 
 	updateTrayIcon();
+}
+
+void MainWindow::setAudioDeaf(bool deaf) {
+	// Pretend the user pushed the button manually
+	qaAudioDeaf->setChecked(deaf);
+	qaAudioDeaf->triggered(deaf);
 }
 
 void MainWindow::on_qaRecording_triggered() {
@@ -2549,7 +2582,7 @@ void MainWindow::on_qaAudioStats_triggered() {
 }
 
 void MainWindow::on_qaAudioUnlink_triggered() {
-	Global::get().p->bUnlink = true;
+	Global::get().pluginManager->unlinkPositionalData();
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
