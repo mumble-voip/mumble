@@ -3838,6 +3838,10 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <source>User stopped listening to channel</source>
         <translation>Un utente ha smesso di ascoltare il tuo canale</translation>
     </message>
+    <message>
+        <source>Plugin message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>
@@ -6215,12 +6219,13 @@ Azioni valide:
 </translation>
     </message>
     <message>
-        <source>Usage: mumble [options] [&lt;url&gt;]
+        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
 the connection window, and has the following form:
 mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
 
+&lt;plugin_list&gt; is a list of plugin files that shall be installed
 The version query parameter has to be set in order to invoke the
 correct client version. It currently defaults to 1.2.0.
 
@@ -6270,59 +6275,7 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation>Utilizzo: mumble [opzioni] [&lt;url&gt;]
-
-&lt;url&gt; specifica un URL a cui connettersi dopo l&apos;avvio invece di visualizzare la finestra di connessione e ha la seguente forma:
-mumble: // [&lt;username&gt; [: &lt;password&gt;] @] &lt;host&gt; [: &lt;port&gt;] [/ &lt;channel&gt; [/ &lt;subchannel&gt; ...]] [? version = &lt;x.y.z&gt;]
-
-Il parametro di query della versione deve essere impostato per richiamare la versione client corretta. Attualmente il valore predefinito è 1.2.0.
-
-Le opzioni valide sono:
-  -h, --help Mostra questo testo di aiuto ed esce.
-  -m, --multiple
-                Consenti l&apos;avvio di più istanze del client.
-  -c, --config
-                Specificare un file di configurazione alternativo.
-                Se lo usi per eseguire più istanze di Mumble contemporaneamente,
-                assicurati di impostare un valore &quot;database&quot; alternativo nel file config.
-  -n, --noidentity
-                Sopprimi il caricamento dei file di identità (ad esempio, certificati).
-  -jn, --jackname &lt;arg&gt;
-                Imposta il nome del client Jack personalizzato.
-  --licenza
-                Mostra la licenza di Mumble.
-  --autori
-                Mostra gli autori di Mumble.
-  - licenze di terze parti
-                Mostra le licenze per il software di terze parti utilizzato da Mumble.
-  --window-title-ext &lt;arg&gt;
-                Imposta un&apos;estensione del titolo della finestra personalizzata.
-  --dump-input-stream
-                Esegui il dump dei flussi PCM in varie parti della catena di input
-                (utile per scopi di debug)
-                - ingresso microfono grezzo
-                - rilettura dell&apos;altoparlante per la cancellazione dell&apos;eco
-                - ingresso microfono elaborato
-  --print-echocancel-queue
-                Stampa su stdout lo stato della coda di cancellazione dell&apos;eco
-                (utile per scopi di debug)
-  --translation-dir &lt;dir&gt;
-                Specifica una traduzione aggiuntiva fir &lt;dir&gt; in cui
-                Mumble cercherà i file di traduzione che sovrascrivono
-                quelli in bundle
-                Le directory aggiunte in questo modo hanno una priorità maggiore delle
-                posizioni predefinite utilizzate altrimenti
-  --print-translation-dirs
-                Stampa i percorsi in cui Mumble cercherà
-                file di traduzione che sovrascrivono quelli in bundle.
-                (Utile per i traduttori che testano le loro traduzioni)
-  --locale &lt;locale&gt;
-                Sovrascrivi le impostazioni locali nelle impostazioni di Mumble con un file
-                locale che corrisponde alla stringa di locale specificata.
-                Se il formato non è valido, Mumble genererà un errore.
-                In caso contrario, la locale verrà salvata in modo permanente nelle
-                impostazioni di Mumble.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6592,10 +6545,6 @@ Le opzioni valide sono:
         <translation>All&apos;avvio connettiti all&apos;ultimo server visitato</translation>
     </message>
     <message>
-        <source>Download plugin and overlay updates on startup</source>
-        <translation>Aggiorna plugin e sovrapposizione all&apos;avvio</translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation>Privacy</translation>
     </message>
@@ -6620,6 +6569,14 @@ Previene l&apos;invio da parte del client di informazioni potenzialmente identif
     <message>
         <source>Hide public server list</source>
         <translation>Nascondi lista server pubblici</translation>
+    </message>
+    <message>
+        <source>Check for plugin updates on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically download and install plugin updates</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7175,31 +7132,189 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <translation>Nome</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>Abilitato</translation>
+        <source>Enable</source>
+        <translation type="unfinished">Abilita</translation>
+    </message>
+    <message>
+        <source>PA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KeyEvents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Install a plugin from a local file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Install plugin...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The plugin was installed successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to load plugin &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether the positional audio feature of this plugin should be enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This plugin does not provide support for positional audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether this plugin should be enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>Plugins</name>
+    <name>PluginInstaller</name>
     <message>
-        <source>Skipping plugin update in debug mode.</source>
-        <translation>I plugin non verranno aggiornati in modalità Debug.</translation>
+        <source>PluginInstaller</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Downloaded new or updated plugin to %1.</source>
-        <translation>Aggiunto o aggiornato il seguente plugin: %1.</translation>
+        <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to install new plugin to %1.</source>
-        <translation>Installazione del seguente plugin fallita: %1.</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 lost link.</source>
-        <translation>Collegamento perso con %1.</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 linked.</source>
-        <translation>collegato con %1.</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file &quot;%1&quot; is not a valid plugin file!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to delete old plugin at &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to move plugin library to &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PluginManager</name>
+    <message>
+        <source>%1 lost link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 linked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed at loading manual plugin: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PluginUpdater</name>
+    <message>
+        <source>PluginUpdater</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following plugins can be updated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download-URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to update the selected plugins?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Successfully updated plugin &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
