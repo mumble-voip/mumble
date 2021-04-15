@@ -505,8 +505,9 @@ Settings::Settings() {
 	iTalkingUI_MaxChannelNameLength     = 20;
 	iTalkingUI_PrefixCharCount          = 3;
 	iTalkingUI_PostfixCharCount         = 2;
-	qsTalkingUI_ChannelSeparator        = QLatin1String("/");
 	qsTalkingUI_AbbreviationReplacement = QLatin1String("...");
+
+	qsHierarchyChannelSeparator = QLatin1String("/");
 
 	manualPlugin_silentUserDisplaytime = 1;
 
@@ -934,8 +935,11 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
 	LOAD(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
 	LOAD(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
-	LOAD(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
 	LOAD(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+
+	// Load the old setting first in case it is set and then load the actual setting
+	LOAD(qsHierarchyChannelSeparator, "ui/talkingUI_ChannelSeparator");
+	LOAD(qsHierarchyChannelSeparator, "ui/hierarchy_channelSeparator");
 
 	LOAD(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
 
@@ -1329,8 +1333,10 @@ void Settings::save() {
 	SAVE(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
 	SAVE(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
 	SAVE(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
-	SAVE(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
 	SAVE(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+
+	DEPRECATED("ui/talkingUI_ChannelSeparator");
+	SAVE(qsHierarchyChannelSeparator, "ui/hierarchy_channelSeparator");
 
 	SAVE(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
 

@@ -315,8 +315,9 @@ struct Settings {
 	int iTalkingUI_MaxChannelNameLength;
 	int iTalkingUI_PrefixCharCount;
 	int iTalkingUI_PostfixCharCount;
-	QString qsTalkingUI_ChannelSeparator;
 	QString qsTalkingUI_AbbreviationReplacement;
+
+	QString qsHierarchyChannelSeparator;
 
 	int manualPlugin_silentUserDisplaytime;
 

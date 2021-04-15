@@ -199,8 +199,9 @@ void LookConfig::load(const Settings &r) {
 	qsbMaxNameLength->setValue(r.iTalkingUI_MaxChannelNameLength);
 	qsbPrefixCharCount->setValue(r.iTalkingUI_PrefixCharCount);
 	qsbPostfixCharCount->setValue(r.iTalkingUI_PostfixCharCount);
-	qleChannelSeparator->setText(r.qsTalkingUI_ChannelSeparator);
 	qleAbbreviationReplacement->setText(r.qsTalkingUI_AbbreviationReplacement);
+
+	qleChannelSeparator->setText(r.qsHierarchyChannelSeparator);
 }
 
 void LookConfig::save() const {
@@ -266,8 +267,9 @@ void LookConfig::save() const {
 	s.iTalkingUI_MaxChannelNameLength     = qsbMaxNameLength->value();
 	s.iTalkingUI_PrefixCharCount          = qsbPrefixCharCount->value();
 	s.iTalkingUI_PostfixCharCount         = qsbPostfixCharCount->value();
-	s.qsTalkingUI_ChannelSeparator        = qleChannelSeparator->text();
 	s.qsTalkingUI_AbbreviationReplacement = qleAbbreviationReplacement->text();
+
+	s.qsHierarchyChannelSeparator = qleChannelSeparator->text();
 }
 
 void LookConfig::accept() const {
@@ -294,6 +296,5 @@ void LookConfig::on_qcbAbbreviateChannelNames_stateChanged(int state) {
 	qsbMaxNameLength->setEnabled(abbreviateNames);
 	qsbPrefixCharCount->setEnabled(abbreviateNames);
 	qsbPostfixCharCount->setEnabled(abbreviateNames);
-	qleChannelSeparator->setEnabled(abbreviateNames);
 	qleAbbreviationReplacement->setEnabled(abbreviateNames);
 }
