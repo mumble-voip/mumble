@@ -59,6 +59,17 @@ QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
 QDataStream &operator>>(QDataStream &, ShortcutTarget &);
 Q_DECLARE_METATYPE(ShortcutTarget)
 
+struct PluginSetting {
+	QString path;
+	bool enabled;
+	bool positionalDataEnabled;
+	bool allowKeyboardMonitoring;
+};
+QDataStream& operator>>(QDataStream &arch, PluginSetting &setting);
+QDataStream& operator<<(QDataStream &arch, const PluginSetting &setting);
+Q_DECLARE_METATYPE(PluginSetting);
+
+
 struct OverlaySettings {
 	enum OverlayPresets { AvatarAndName, LargeSquareAvatar };
 
@@ -249,7 +260,9 @@ struct Settings {
 	bool bPositionalAudio;
 	bool bPositionalHeadphone;
 	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;
-	QMap< QString, bool > qmPositionalAudioPlugins;
+	/// Contains the settings for each individual plugin. The key in this map is the Hex-represented SHA-1
+	/// hash of the plugin's UTF-8 encoded absolute file-path on the hard-drive.
+	QHash< QString, PluginSetting > qhPluginSettings;
 
 	OverlaySettings os;
 
@@ -351,6 +364,7 @@ struct Settings {
 
 	bool bUpdateCheck;
 	bool bPluginCheck;
+	bool bPluginAutoUpdate;
 
 	// PTT Button window
 	bool bShowPTTButtonWindow;

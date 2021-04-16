@@ -418,6 +418,8 @@ void Server::readParams() {
 	qrChannelName          = Meta::mp.qrChannelName;
 	iMessageLimit          = Meta::mp.iMessageLimit;
 	iMessageBurst          = Meta::mp.iMessageBurst;
+	iPluginMessageLimit    = Meta::mp.iPluginMessageLimit;
+	iPluginMessageBurst    = Meta::mp.iPluginMessageBurst;
 	qvSuggestVersion       = Meta::mp.qvSuggestVersion;
 	qvSuggestPositional    = Meta::mp.qvSuggestPositional;
 	qvSuggestPushToTalk    = Meta::mp.qvSuggestPushToTalk;
@@ -525,6 +527,15 @@ void Server::readParams() {
 	iMessageBurst = getConf("messageburst", iMessageBurst).toUInt();
 	if (iMessageBurst < 1) { // Prevent disabling messages entirely
 		iMessageBurst = 1;
+	}
+
+	iPluginMessageLimit = getConf("mpluginessagelimit", iPluginMessageLimit).toUInt();
+	if (iPluginMessageLimit < 1) { // Prevent disabling messages entirely
+		iPluginMessageLimit = 1;
+	}
+	iPluginMessageBurst = getConf("pluginmessageburst", iPluginMessageBurst).toUInt();
+	if (iPluginMessageBurst < 1) { // Prevent disabling messages entirely
+		iPluginMessageBurst = 1;
 	}
 }
 

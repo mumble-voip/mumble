@@ -149,6 +149,16 @@ Build 32 bit overlay library, necessary for the overlay to work with 32 bit proc
 Build package.
 (Default: OFF)
 
+### plugin-callback-debug
+
+Build Mumble with debug output for plugin callbacks inside of Mumble.
+(Default: OFF)
+
+### plugin-debug
+
+Build Mumble with debug output for plugin developers.
+(Default: OFF)
+
 ### plugins
 
 Build plugins.

@@ -10,7 +10,8 @@
 #include <windows.h>
 #include <math.h>
 
-#include "../mumble_plugin.h"
+#define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
+#include "../mumble_legacy_plugin.h"
 
 static std::wstring wsPluginName;
 static std::wstring wsDescription;

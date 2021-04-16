@@ -9,13 +9,15 @@
 
 #include "ManualPlugin.h"
 #include "ui_ManualPlugin.h"
+#include "Global.h"
+
 #include <QPointer>
 
 #include <float.h>
 #include <cmath>
 
-#include "../../plugins/mumble_plugin.h"
-#include "Global.h"
+#define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
+#include "../../plugins/mumble_legacy_plugin.h"
 
 static QPointer< Manual > mDlg = nullptr;
 static bool bLinkable          = false;
@@ -43,7 +45,7 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 
 	qgvPosition->viewport()->installEventFilter(this);
 	qgvPosition->scale(1.0f, 1.0f);
-	qgsScene = new QGraphicsScene(QRectF(-5.0f, -5.0f, 10.0f, 10.0f), this);
+	m_qgsScene = new QGraphicsScene(QRectF(-5.0f, -5.0f, 10.0f, 10.0f), this);
 
 	const float indicatorDiameter = 4.0f;
 	QPainterPath indicator;
@@ -53,9 +55,9 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	indicator.moveTo(0, indicatorDiameter / 2);
 	indicator.lineTo(0, indicatorDiameter);
 
-	qgiPosition = qgsScene->addPath(indicator);
+	m_qgiPosition = m_qgsScene->addPath(indicator);
 
-	qgvPosition->setScene(qgsScene);
+	qgvPosition->setScene(m_qgsScene);
 	qgvPosition->fitInView(-5.0f, -5.0f, 10.0f, 10.0f, Qt::KeepAspectRatio);
 
 	qdsbX->setRange(-FLT_MAX, FLT_MAX);
@@ -101,7 +103,7 @@ bool Manual::eventFilter(QObject *obj, QEvent *evt) {
 				QPointF qpf = qgvPosition->mapToScene(qme->pos());
 				qdsbX->setValue(qpf.x());
 				qdsbZ->setValue(-qpf.y());
-				qgiPosition->setPos(qpf);
+				m_qgiPosition->setPos(qpf);
 			}
 		}
 	}
@@ -134,8 +136,8 @@ void Manual::on_qpbActivated_clicked(bool b) {
 }
 
 void Manual::on_qdsbX_valueChanged(double d) {
-	my.avatar_pos[0] = my.camera_pos[0] = static_cast< float >(d);
-	qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
+	my.avatar_pos[0] = my.camera_pos[0] = static_cast<float>(d);
+	m_qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
 void Manual::on_qdsbY_valueChanged(double d) {
@@ -143,8 +145,8 @@ void Manual::on_qdsbY_valueChanged(double d) {
 }
 
 void Manual::on_qdsbZ_valueChanged(double d) {
-	my.avatar_pos[2] = my.camera_pos[2] = static_cast< float >(d);
-	qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
+	my.avatar_pos[2] = my.camera_pos[2] = static_cast<float>(d);
+	m_qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
 void Manual::on_qsbAzimuth_valueChanged(int i) {
@@ -262,7 +264,7 @@ void Manual::on_speakerPositionUpdate(QHash< unsigned int, Position2D > position
 		remainingIt.next();
 
 		const float speakerRadius  = 1.2;
-		QGraphicsItem *speakerItem = qgsScene->addEllipse(-speakerRadius, -speakerRadius, 2 * speakerRadius,
+		QGraphicsItem *speakerItem = m_qgsScene->addEllipse(-speakerRadius, -speakerRadius, 2 * speakerRadius,
 														  2 * speakerRadius, QPen(), QBrush(Qt::red));
 
 		Position2D pos = remainingIt.value();
@@ -317,7 +319,7 @@ void Manual::updateTopAndFront(int azimuth, int elevation) {
 	iAzimuth   = azimuth;
 	iElevation = elevation;
 
-	qgiPosition->setRotation(azimuth);
+	m_qgiPosition->setRotation(azimuth);
 
 	double azim = azimuth * M_PI / 180.;
 	double elev = elevation * M_PI / 180.;
@@ -414,4 +416,17 @@ MumblePlugin *ManualPlugin_getMumblePlugin() {
 
 MumblePluginQt *ManualPlugin_getMumblePluginQt() {
 	return &manualqt;
+}
+
+
+/////////// Implementation of the ManualPlugin class //////////////
+ManualPlugin::ManualPlugin(QObject *p) : LegacyPlugin(QString::fromLatin1("manual.builtin"), true, p) {
+}
+
+ManualPlugin::~ManualPlugin() {
+}
+
+void ManualPlugin::resolveFunctionPointers() {
+	m_mumPlug = &manual;
+	m_mumPlugQt = &manualqt;
 }

@@ -30,6 +30,7 @@ project(Mumble
 )
 
 set(3RDPARTY_DIR "${CMAKE_SOURCE_DIR}/3rdparty")
+set(PLUGINS_DIR "${CMAKE_SOURCE_DIR}/plugins")
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)

@@ -62,6 +62,9 @@ private:
 
 	Database *database;
 
+	static QMutex nextConnectionIDMutex;
+	static int nextConnectionID;
+
 protected:
 	QString qsHostName;
 	QString qsUserName;
@@ -70,6 +73,7 @@ protected:
 	unsigned short usResolvedPort;
 	bool bUdp;
 	bool bStrong;
+	int connectionID;
 
 	/// Flag indicating whether the server we are currently connected to has
 	/// finished synchronizing already.
@@ -117,6 +121,7 @@ public:
 	void getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw) const;
 	bool isStrong() const;
 	void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
+	int getConnectionID() const;
 
 	void sendProtoMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
 	void sendMessage(const char *data, int len, bool force = false);
@@ -169,6 +174,11 @@ public:
 	void run() Q_DECL_OVERRIDE;
 signals:
 	void error(QAbstractSocket::SocketError, QString reason);
+	// This signal is basically the same as disconnected but it will be emitted
+	// *right before* disconnected is emitted. Thus this can be used by slots
+	// that need to block the disconnected signal from being emitted (using a
+	// direct connection) before they're done.
+	void aboutToDisconnect(QAbstractSocket::SocketError, QString reason);
 	void disconnected(QAbstractSocket::SocketError, QString reason);
 	void connected();
 	void pingRequested();

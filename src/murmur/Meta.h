@@ -104,6 +104,9 @@ public:
 	unsigned int iMessageLimit;
 	unsigned int iMessageBurst;
 
+	unsigned int iPluginMessageLimit;
+	unsigned int iPluginMessageBurst;
+
 	QSslCertificate qscCert;
 	QSslKey qskKey;
 

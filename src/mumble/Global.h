@@ -22,7 +22,7 @@ class AudioInput;
 class AudioOutput;
 class Database;
 class Log;
-class Plugins;
+class PluginManager;
 class QSettings;
 class Overlay;
 class LCD;
@@ -53,7 +53,8 @@ public:
 	 */
 	Database *db;
 	Log *l;
-	Plugins *p;
+	/// A pointer to the PluginManager that is used in this session
+	PluginManager *pluginManager;
 	QSettings *qs;
 #ifdef USE_OVERLAY
 	Overlay *o;

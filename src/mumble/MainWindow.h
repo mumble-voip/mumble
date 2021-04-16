@@ -311,6 +311,14 @@ public slots:
 	/// Updates the user's image directory to the given path (any included
 	/// filename is discarded).
 	void updateImagePath(QString filepath) const;
+	/// Sets the local user's mute state
+	///
+	/// @param mute Whether to mute the user
+	void setAudioMute(bool mute);
+	/// Sets the local user's deaf state
+	///
+	/// @param deaf Whether to deafen the user
+	void setAudioDeaf(bool deaf);
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).

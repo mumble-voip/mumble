@@ -1052,6 +1052,8 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 
 	updateOverlay();
 
+	emit userAdded(p->uiSession);
+
 	return p;
 }
 
@@ -1086,6 +1088,8 @@ void UserModel::removeUser(ClientUser *p) {
 		collapseEmpty(c);
 
 	updateOverlay();
+
+	emit userRemoved(p->uiSession);
 
 	delete p;
 	delete item;
@@ -1303,6 +1307,8 @@ void UserModel::renameChannel(Channel *c, const QString &name) {
 
 		moveItem(pi, pi, item);
 	}
+
+	emit channelRenamed(c->iId);
 }
 
 void UserModel::repositionChannel(Channel *c, const int position) {
@@ -1340,6 +1346,9 @@ Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 
 	if (Global::get().s.ceExpand == Settings::AllChannels)
 		Global::get().mw->qtvUsers->setExpanded(index(item), true);
+
+
+	emit channelAdded(c->iId);
 
 	return c;
 }
@@ -1500,6 +1509,8 @@ bool UserModel::removeChannel(Channel *c, const bool onlyIfUnoccupied) {
 	endRemoveRows();
 
 	Channel::remove(c);
+
+	emit channelRemoved(c->iId);
 
 	delete item;
 	delete c;

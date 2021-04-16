@@ -140,6 +140,9 @@ public:
 	unsigned int iMessageLimit;
 	unsigned int iMessageBurst;
 
+	unsigned int iPluginMessageLimit;
+	unsigned int iPluginMessageBurst;
+
 	QVariant qvSuggestVersion;
 	QVariant qvSuggestPositional;
 	QVariant qvSuggestPushToTalk;

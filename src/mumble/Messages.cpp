@@ -24,7 +24,6 @@
 #	include "Overlay.h"
 #endif
 #include "ChannelListener.h"
-#include "Plugins.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
 #include "User.h"
@@ -35,6 +34,7 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "crypto/CryptState.h"
+#include "PluginManager.h"
 #include "Global.h"
 
 #include <QTextDocumentFragment>
@@ -1300,6 +1300,25 @@ void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
 			Global::get().l->log(Log::Warning, tr("The server requests Push-to-Talk be enabled."));
 		else
 			Global::get().l->log(Log::Warning, tr("The server requests Push-to-Talk be disabled."));
+	}
+}
+
+void MainWindow::msgPluginDataTransmission(const MumbleProto::PluginDataTransmission &msg) {
+	// Another client's plugin has sent us some data. Verify the necessary parts are there and delegate it to the
+	// PluginManager
+	
+	if (!msg.has_sendersession() || !msg.has_data() || !msg.has_dataid()) {
+		// if the message contains no sender session, no data or no ID for the data, it is of no use to us and we discard it
+		return;
+	}
+
+	const ClientUser *sender = ClientUser::get(msg.sendersession());
+	const std::string &data = msg.data();
+
+	if (sender) {
+		static_assert(sizeof(unsigned char) == sizeof(uint8_t), "Unsigned char does not have expected 8bit size");
+		// As long as above assertion is true, we are only casting away the sign, which is fine
+		Global::get().pluginManager->on_receiveData(sender, reinterpret_cast< const uint8_t * >(data.c_str()), data.size(), msg.dataid().c_str());
 	}
 }
 

@@ -5,7 +5,7 @@
 
 #include "ProcessWindows.h"
 
-#include "mumble_plugin_win32_internals.h"
+#include "mumble_positional_audio_win32_internals.h"
 
 ProcessWindows::ProcessWindows(const procid_t id, const std::string &name) : Process(id, name) {
 	const auto mods = modules();

@@ -1,10 +1,10 @@
-// Copyright 2019-2021 The Mumble Developers. All rights reserved.
+// Copyright 2021 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_MUMBLE_PLUGIN_WIN32_INTERNALS_H_
-#define MUMBLE_MUMBLE_PLUGIN_WIN32_INTERNALS_H_
+#ifndef MUMBLE_MUMBLE_POSITIONAL_AUDIO_WIN32_INTERNALS_H_
+#define MUMBLE_MUMBLE_POSITIONAL_AUDIO_WIN32_INTERNALS_H_
 
 // These structures represent the header(s) of an NT image.
 //

@@ -213,6 +213,27 @@ public slots:
 	void recheckLinks();
 	void updateOverlay() const;
 	void toggleChannelFiltered(Channel *c);
+signals:
+	/// A signal emitted whenever a user is added to the model.
+	///
+	/// @param userSessionID The ID of that user's session
+	void userAdded(unsigned int userSessionID);
+	/// A signal emitted whenever a user is removed from the model.
+	///
+	/// @param userSessionID The ID of that user's session
+	void userRemoved(unsigned int userSessionID);
+	/// A signal that emitted whenever a channel is added to the model.
+	///
+	/// @param channelID The ID of the channel
+	void channelAdded(int channelID);
+	/// A signal that emitted whenever a channel is removed from the model.
+	///
+	/// @param channelID The ID of the channel
+	void channelRemoved(int channelID);
+	/// A signal that emitted whenever a channel is renamed.
+	///
+	/// @param channelID The ID of the channel
+	void channelRenamed(int channelID);
 };
 
 #endif

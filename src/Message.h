@@ -41,7 +41,8 @@
 	MUMBLE_MH_MSG(UserStats)           \
 	MUMBLE_MH_MSG(RequestBlob)         \
 	MUMBLE_MH_MSG(ServerConfig)        \
-	MUMBLE_MH_MSG(SuggestConfig)
+	MUMBLE_MH_MSG(SuggestConfig)       \
+	MUMBLE_MH_MSG(PluginDataTransmission)
 
 class MessageHandler {
 public:

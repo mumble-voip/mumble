@@ -5,7 +5,7 @@
 
 #include "Game.h"
 
-#include "mumble_plugin_utils.h"
+#include "../mumble_positional_audio_utils.h"
 
 Game::Game(const procid_t id, const std::string name) : m_ok(false), m_proc(id, name) {
 	if (!m_proc.isOk()) {

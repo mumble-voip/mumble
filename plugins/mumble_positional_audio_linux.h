@@ -1,16 +1,16 @@
-// Copyright 2016-2021 The Mumble Developers. All rights reserved.
+// Copyright 2021 The Mumble Developers. All rights reserved.
 // Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#ifndef MUMBLE_PLUGIN_LINUX_H_
-#define MUMBLE_PLUGIN_LINUX_H_
+#ifndef MUMBLE_POSITIONAL_AUDIO_LINUX_H_
+#define MUMBLE_POSITIONAL_AUDIO_LINUX_H_
 
-#ifndef MUMBLE_PLUGIN_MAIN_H_
-#	error "Include mumble_plugin_main.h instead of mumble_plugin_linux.h"
+#ifndef MUMBLE_POSITIONAL_AUDIO_MAIN_H_
+#	error "Include mumble_positional_audio_main.h instead of mumble_positional_audio_linux.h"
 #endif
 
-#include "mumble_plugin_utils.h"
+#include "mumble_positional_audio_utils.h"
 
 #include <cstring>
 #include <elf.h>

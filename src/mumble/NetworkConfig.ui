@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>576</width>
-    <height>572</height>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -315,7 +315,7 @@ Prevents the client from sending potentially identifying information about the o
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="qcbPluginUpdate">
+       <widget class="QCheckBox" name="qcbPluginUpdateCheck">
         <property name="toolTip">
          <string>Check for new releases of plugins automatically.</string>
         </property>
@@ -323,7 +323,14 @@ Prevents the client from sending potentially identifying information about the o
          <string>This will check for new releases of plugins every time you start the program, and download them automatically.</string>
         </property>
         <property name="text">
-         <string>Download plugin and overlay updates on startup</string>
+         <string>Check for plugin updates on startup</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbPluginAutoUpdate">
+        <property name="text">
+         <string>Automatically download and install plugin updates</string>
         </property>
        </widget>
       </item>

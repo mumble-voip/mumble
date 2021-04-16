@@ -11,6 +11,9 @@
 #include <QtCore/QStack>
 
 #ifdef MUMBLE
+#	include "PluginManager.h"
+#	include "Global.h"
+
 QHash< int, Channel * > Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
 #endif
@@ -66,6 +69,12 @@ Channel *Channel::add(int id, const QString &name) {
 
 	Channel *c = new Channel(id, name, nullptr);
 	c_qhChannels.insert(id, c);
+
+	// We have to use a direct connection here in order to make sure that the user object that gets passed to the callback
+	// does not get invalidated or deleted while the callback is running.
+	QObject::connect(c, &Channel::channelEntered, Global::get().pluginManager, &PluginManager::on_channelEntered, Qt::DirectConnection);
+	QObject::connect(c, &Channel::channelExited, Global::get().pluginManager, &PluginManager::on_channelExited, Qt::DirectConnection);
+
 	return c;
 }
 
@@ -159,14 +168,20 @@ void Channel::removeChannel(Channel *c) {
 }
 
 void Channel::addUser(User *p) {
-	if (p->cChannel)
-		p->cChannel->removeUser(p);
+	Channel *prevChannel = p->cChannel;
+
+	if (prevChannel)
+		prevChannel->removeUser(p);
 	p->cChannel = this;
 	qlUsers << p;
+
+	emit channelEntered(this, prevChannel, p);
 }
 
 void Channel::removeUser(User *p) {
 	qlUsers.removeAll(p);
+
+	emit channelExited(this, p);
 }
 
 Channel::operator QString() const {

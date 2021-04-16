@@ -11,14 +11,18 @@
 #	include "OpusCodec.h"
 #endif
 #include "MainWindow.h"
+#include "User.h"
+#include "PacketDataStream.h"
+#include "PluginManager.h"
 #include "Message.h"
 #include "NetworkConfig.h"
 #include "PacketDataStream.h"
-#include "Plugins.h"
 #include "ServerHandler.h"
 #include "User.h"
 #include "Utils.h"
 #include "VoiceRecorder.h"
+#include "API.h"
+
 #include "Global.h"
 
 #ifdef USE_RNNOISE
@@ -1058,7 +1062,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		iHoldFrames = 0;
 	}
 
-	if (Global::get().s.atTransmit == Settings::Continuous) {
+	if (Global::get().s.atTransmit == Settings::Continuous || API::PluginData::get().overwriteMicrophoneActivation.load()) {
 		// Continous transmission is enabled
 		bIsSpeech = true;
 	} else if (Global::get().s.atTransmit == Settings::PushToTalk) {
@@ -1143,6 +1147,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	EncodingOutputBuffer buffer;
 	Q_ASSERT(buffer.size() >= static_cast< size_t >(iAudioQuality / 100 * iAudioFrames / 8));
 
+	emit audioInputEncountered(psSource, iFrameSize, iMicChannels, SAMPLE_RATE, bIsSpeech);
+	
 	int len = 0;
 
 	bool encoded = true;
@@ -1274,10 +1280,13 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 		}
 	}
 
-	if (Global::get().s.bTransmitPosition && Global::get().p && !Global::get().bCenterPosition && Global::get().p->fetch()) {
-		pds << Global::get().p->fPosition[0];
-		pds << Global::get().p->fPosition[1];
-		pds << Global::get().p->fPosition[2];
+	if (Global::get().s.bTransmitPosition && Global::get().pluginManager && !Global::get().bCenterPosition
+			&& Global::get().pluginManager->fetchPositionalData()) {
+		Position3D currentPos = Global::get().pluginManager->getPositionalData().getPlayerPos();
+
+		pds << currentPos.x;
+		pds << currentPos.y;
+		pds << currentPos.z;
 	}
 
 	sendAudioFrame(data, pds);

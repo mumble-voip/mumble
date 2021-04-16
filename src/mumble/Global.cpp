@@ -73,7 +73,7 @@ static void migrateDataDir() {
 Global::Global(const QString &qsConfigPath) {
 	mw              = 0;
 	db              = 0;
-	p               = 0;
+	pluginManager   = 0;
 	nam             = 0;
 	c               = 0;
 	talkingUI       = 0;

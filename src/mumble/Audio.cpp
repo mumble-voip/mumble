@@ -13,6 +13,7 @@
 #endif
 #include "Log.h"
 #include "PacketDataStream.h"
+#include "PluginManager.h"
 #include "Global.h"
 
 #include <QtCore/QObject>
@@ -269,6 +270,15 @@ void Audio::stopInput() {
 void Audio::start(const QString &input, const QString &output) {
 	startInput(input);
 	startOutput(output);
+	
+	// Now that the audio input and output is created, we connect them to the PluginManager
+	// As these callbacks might want to change the audio before it gets further processed, all these connections have to be direct
+	QObject::connect(Global::get().ai.get(), &AudioInput::audioInputEncountered, Global::get().pluginManager,
+			&PluginManager::on_audioInput, Qt::DirectConnection);
+	QObject::connect(Global::get().ao.get(), &AudioOutput::audioSourceFetched, Global::get().pluginManager,
+			&PluginManager::on_audioSourceFetched, Qt::DirectConnection);
+	QObject::connect(Global::get().ao.get(), &AudioOutput::audioOutputAboutToPlay, Global::get().pluginManager,
+			&PluginManager::on_audioOutputAboutToPlay, Qt::DirectConnection);
 }
 
 void Audio::stop() {

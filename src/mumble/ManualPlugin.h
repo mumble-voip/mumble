@@ -12,8 +12,7 @@
 #include <QtWidgets/QGraphicsScene>
 
 #include "ui_ManualPlugin.h"
-
-#include "../../plugins/mumble_plugin.h"
+#include "LegacyPlugin.h"
 
 #include <atomic>
 #include <chrono>
@@ -67,8 +66,8 @@ public slots:
 	void on_updateStaleSpeakers();
 
 protected:
-	QGraphicsScene *qgsScene;
-	QGraphicsItem *qgiPosition;
+	QGraphicsScene *m_qgsScene;
+	QGraphicsItem *m_qgiPosition;
 
 	std::atomic< bool > updateLoopRunning;
 
@@ -82,5 +81,21 @@ protected:
 
 MumblePlugin *ManualPlugin_getMumblePlugin();
 MumblePluginQt *ManualPlugin_getMumblePluginQt();
+
+
+/// A built-in "plugin" for positional data gatherig allowing for manually placing the "players" in a UI
+class ManualPlugin : public LegacyPlugin {
+	friend class Plugin; // needed in order for Plugin::createNew to access LegacyPlugin::doInitialize()
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ManualPlugin)
+	
+	protected:
+		virtual void resolveFunctionPointers() Q_DECL_OVERRIDE;
+		ManualPlugin(QObject *p = nullptr);
+	
+	public:
+		virtual ~ManualPlugin() Q_DECL_OVERRIDE;
+};
 
 #endif
