@@ -3240,20 +3240,20 @@ Label of the server. This is what the server will be named like in your server l
         <translation>崩溃报告上传失败</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>非常抱歉，发送崩溃报告因错误 %1 %2 而失败。请通知开发者。</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>这并不有趣，显然崩溃报告代码中存在漏洞，所以无法成功发送报告。您可以将错误 %1 告知开发者</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>正在上传崩溃报告</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>取消上传</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

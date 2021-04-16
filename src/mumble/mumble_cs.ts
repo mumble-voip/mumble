@@ -3238,20 +3238,20 @@ Jmenovka serveru. Takto se bude server jmenovat ve Vašem seznamu serverů a mů
         <translation>Nahrávání hlášení selhalo</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Je nám velmi líto, ale zdá se že nahrávání hlášení selhalo s chybou %1 %2. Informujte, prosím, vývojáře.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Tohle opravdu není legrační, ale zdá se, že v kódu ohlášení pádu je chyba, a nepodařilo se nám hlášení nahrát. Můžete vývojáře o této chybě informovat %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Nahrávám hlášení o pádu</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Zrušit nahrávání</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

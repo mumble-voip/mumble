@@ -3241,20 +3241,20 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
         <translation>Crash uploaden mislukt</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Crashupload mislukt (fout %1 %2). Informeer een ontwikkelaar.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Nu echt niet om te lachen, maar blijkbaar zit er een bug in de code die fouten rapporteert, waardoor het foutrapport niet geüpload kon worden. Je kan een ontwikkelaar op de hoogte brengen van fout %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Crashrapport aan het uploaden</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Uploaden afbreken</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

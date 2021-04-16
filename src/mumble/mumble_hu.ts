@@ -3229,20 +3229,20 @@ Label of the server. This is what the server will be named like in your server l
         <translation>Összeomlás-jelentés feltöltése nem sikerült</translation>
     </message>
     <message>
-        <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Nagyon sajnáljuk, de úgy tűnik, hogy az összeomlás-jelentés feltöltése nem sikerült, hiba oka: %1 %2. Kérjük értesítse a fejlesztőket.</translation>
-    </message>
-    <message>
-        <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Ez nem túl mulatságos, de kétségtelenül az összeomlás-jelentő kódjában van egy hiba, és a jelentés feltöltése nem sikerült. Értesítheti a fejlesztőket a hibáról: %1</translation>
-    </message>
-    <message>
         <source>Uploading crash report</source>
         <translation>Összeomlás-jelentés feltöltése</translation>
     </message>
     <message>
         <source>Abort upload</source>
         <translation>Feltöltés megszakítása</translation>
+    </message>
+    <message>
+        <source>HTTP error %1: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -72,22 +72,32 @@ CrashReporter::~CrashReporter() {
 
 void CrashReporter::uploadFinished() {
 	qpdProgress->reset();
-	if (qnrReply->error() == QNetworkReply::NoError) {
-		if (qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)
+
+	QVariant varStatus = qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+	if (!varStatus.isValid()) {
+		qWarning() << "CrashReporter.cpp: Invalid HTTP code attribute";
+	}
+
+	int httpStatusCode = varStatus.toInt();
+
+	if (httpStatusCode != 0) {
+		// The 2xx HTTP status codes are considered success
+		if (httpStatusCode >= 200 && httpStatusCode < 300) {
 			QMessageBox::information(nullptr, tr("Crash upload successful"),
 									 tr("Thank you for helping make Mumble better!"));
-		else
+		} else {
 			QMessageBox::critical(nullptr, tr("Crash upload failed"),
-								  tr("We're really sorry, but it appears the crash upload has failed with error %1 %2. "
-									 "Please inform a developer.")
-									  .arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt())
+								  tr("HTTP error %1: \"%2\"")
+									  .arg(httpStatusCode)
 									  .arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
+		}
 	} else {
 		QMessageBox::critical(nullptr, tr("Crash upload failed"),
-							  tr("This really isn't funny, but apparently there's a bug in the crash reporting code, "
-								 "and we've failed to upload the report. You may inform a developer about error %1")
+							  tr("Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code."
+								  " Please inform a developer about error code %1")
 								  .arg(qnrReply->error()));
 	}
+
 	qelLoop->exit(0);
 }
 
