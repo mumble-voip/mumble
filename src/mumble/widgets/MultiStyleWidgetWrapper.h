@@ -16,37 +16,37 @@ class QWidget;
 /// set single properties within a widget's stylesheet without potentially overwriting other
 /// properties set through it.
 class MultiStyleWidgetWrapper {
-	public:
-		void setFontSize(uint32_t fontSize, bool isPixels = true);
-		void setFontSizeSelector(const QString &selector);
-		void setBackgroundColor(const QString &color);
-		void setBackgroundColorSelector(const QString &selector);
+public:
+	void setFontSize(uint32_t fontSize, bool isPixels = true);
+	void setFontSizeSelector(const QString &selector);
+	void setBackgroundColor(const QString &color);
+	void setBackgroundColorSelector(const QString &selector);
 
-		void clearFontSize();
-		void clearFontSizeSelector();
-		void clearBackgroundColor();
-		void clearBackgroundColorSelector();
+	void clearFontSize();
+	void clearFontSizeSelector();
+	void clearBackgroundColor();
+	void clearBackgroundColorSelector();
 
-		QWidget *operator->();
+	QWidget *operator->();
 
-		MultiStyleWidgetWrapper(QWidget *widget);
+	MultiStyleWidgetWrapper(QWidget *widget);
 
-	protected:
-		static const uint32_t UNSET_FONTSIZE;
-		static const QString UNSET_COLOR;
-		static const QString UNSET_SELECTOR;
-		/// The wrapped widget
-		QWidget *m_widget;
-		/// The current font size in pixels
-		uint32_t m_fontSize = UNSET_FONTSIZE;
-		/// The CSS selector to be applied to the font size
-		QString m_fontSizeSelector = UNSET_SELECTOR;
-		/// The current background color
-		QString m_backgroundColor = UNSET_COLOR;
-		/// The CSS selector to be applied to the background color
-		QString m_backgroundColorSelector = UNSET_SELECTOR;
+protected:
+	static const uint32_t UNSET_FONTSIZE;
+	static const QString UNSET_COLOR;
+	static const QString UNSET_SELECTOR;
+	/// The wrapped widget
+	QWidget *m_widget;
+	/// The current font size in pixels
+	uint32_t m_fontSize = UNSET_FONTSIZE;
+	/// The CSS selector to be applied to the font size
+	QString m_fontSizeSelector = UNSET_SELECTOR;
+	/// The current background color
+	QString m_backgroundColor = UNSET_COLOR;
+	/// The CSS selector to be applied to the background color
+	QString m_backgroundColorSelector = UNSET_SELECTOR;
 
-		void updateStyleSheet();
+	void updateStyleSheet();
 };
 
 #endif // MUMBLE_MUMBLE_WIDGETS_MULTISTYLEWIDGETWRAPPER_H_

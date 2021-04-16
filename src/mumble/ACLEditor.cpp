@@ -298,7 +298,8 @@ void ACLEditor::accept() {
 	// Update channel state
 	if (bAddChannelMode) {
 		Global::get().sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(),
-							qsbChannelPosition->value(), qcbChannelTemporary->isChecked(), qsbChannelMaxUsers->value());
+										qsbChannelPosition->value(), qcbChannelTemporary->isChecked(),
+										qsbChannelMaxUsers->value());
 	} else {
 		bool needs_update = false;
 

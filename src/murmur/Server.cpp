@@ -1280,8 +1280,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 										ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 
 										if (pDst && (!group || Group::isMember(tc, tc, qsg, pDst))) {
-											// Only send audio to listener if the user exists and it is in the group the speech is directed
-											// at (if any)
+											// Only send audio to listener if the user exists and it is in the group the
+											// speech is directed at (if any)
 											listener << pDst;
 										}
 									}

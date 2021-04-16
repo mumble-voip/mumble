@@ -16,8 +16,8 @@
 #include "Themes.h"
 #include "User.h"
 #include "Utils.h"
-#include "GlobalShortcut.h"
 #include "Global.h"
+#include "GlobalShortcut.h"
 
 #ifdef Q_OS_WIN
 #	include <QtGui/QBitmap>

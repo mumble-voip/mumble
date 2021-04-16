@@ -17,8 +17,8 @@
 #include "Message.h"
 #include "Mumble.pb.h"
 #include "Usage.h"
-#include "UserLocalVolumeDialog.h"
 #include "UserLocalNicknameDialog.h"
+#include "UserLocalVolumeDialog.h"
 
 #include "ui_MainWindow.h"
 
@@ -81,7 +81,8 @@ public:
 	GlobalShortcut *gsToggleOverlay;
 #endif
 	GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
-	GlobalShortcut *gsCycleTransmitMode, *gsToggleMainWindowVisibility, *gsTransmitModePushToTalk, *gsTransmitModeContinuous, *gsTransmitModeVAD;
+	GlobalShortcut *gsCycleTransmitMode, *gsToggleMainWindowVisibility, *gsTransmitModePushToTalk,
+		*gsTransmitModeContinuous, *gsTransmitModeVAD;
 	GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 

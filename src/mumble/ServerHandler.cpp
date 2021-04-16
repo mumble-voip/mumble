@@ -462,9 +462,9 @@ void ServerHandler::run() {
 #ifdef Q_OS_WIN
 			if (hQoS) {
 				if (!QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0)) {
-					qWarning(
-						"ServerHandler: Failed to remove UDP from QoS. QOSRemoveSocketFromFlow() failed with error %lu!",
-						GetLastError());
+					qWarning("ServerHandler: Failed to remove UDP from QoS. QOSRemoveSocketFromFlow() failed with "
+							 "error %lu!",
+							 GetLastError());
 				}
 
 				dwFlowUDP = 0;
@@ -644,9 +644,11 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 						Global::get().mw->msgBox(
 							tr("UDP packets cannot be sent to or received from the server. Switching to TCP mode."));
 					else if (connection->csCrypt->uiRemoteGood == 0)
-						Global::get().mw->msgBox(tr("UDP packets cannot be sent to the server. Switching to TCP mode."));
+						Global::get().mw->msgBox(
+							tr("UDP packets cannot be sent to the server. Switching to TCP mode."));
 					else
-						Global::get().mw->msgBox(tr("UDP packets cannot be received from the server. Switching to TCP mode."));
+						Global::get().mw->msgBox(
+							tr("UDP packets cannot be received from the server. Switching to TCP mode."));
 
 					database->setUdp(qbaDigest, false);
 				}

@@ -186,7 +186,8 @@ LCD::LCD() : QObject() {
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
 
 	foreach (LCDDevice *d, devmgr.qlDevices) {
-		bool enabled = Global::get().s.qmLCDDevices.contains(d->name()) ? Global::get().s.qmLCDDevices.value(d->name()) : true;
+		bool enabled =
+			Global::get().s.qmLCDDevices.contains(d->name()) ? Global::get().s.qmLCDDevices.value(d->name()) : true;
 		d->setEnabled(enabled);
 	}
 	qiLogo = QIcon(QLatin1String("skin:mumble.svg")).pixmap(48, 48).toImage().convertToFormat(QImage::Format_MonoLSB);

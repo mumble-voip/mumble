@@ -100,19 +100,19 @@ public:
 
 	operator QString() const;
 
-	signals:
-		/// Signal emitted whenever a user enters a channel.
-		///
-		/// @param newChannel A pointer to the Channel the user has just entered
-		/// @param prevChannel A pointer to the Channel the user is coming from or nullptr if
-		/// 	there is no such channel.
-		/// @param user A pointer to the User that has triggered this signal
-		void channelEntered(const Channel *newChannel, const Channel *prevChannel,  const User *user);
-		/// Signal emitted whenever a user leaves a channel.
-		///
-		/// @param channel A pointer to the Channel the user has left
-		/// @param user A pointer to the User that has triggered this signal
-		void channelExited(const Channel *channel, const User *user);
+signals:
+	/// Signal emitted whenever a user enters a channel.
+	///
+	/// @param newChannel A pointer to the Channel the user has just entered
+	/// @param prevChannel A pointer to the Channel the user is coming from or nullptr if
+	/// 	there is no such channel.
+	/// @param user A pointer to the User that has triggered this signal
+	void channelEntered(const Channel *newChannel, const Channel *prevChannel, const User *user);
+	/// Signal emitted whenever a user leaves a channel.
+	///
+	/// @param channel A pointer to the Channel the user has left
+	/// @param user A pointer to the User that has triggered this signal
+	void channelExited(const Channel *channel, const User *user);
 };
 
 #endif

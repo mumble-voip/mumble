@@ -53,7 +53,7 @@ public:
 
 	QString getUserLocalNickname(const QString &hash);
 	void setUserLocalNickname(const QString &hash, const QString &nickname);
-	
+
 	bool isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id);
 	void setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, bool hidden);
 

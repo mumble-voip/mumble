@@ -278,9 +278,8 @@ void os_init() {
 		}
 	}
 
-	QString comment =
-		QString::fromLatin1("%1\n%2\n%3")
-			.arg(QString::fromLatin1(MUMBLE_RELEASE), QString::fromLatin1(MUMTEXT(MUMBLE_VERSION)), hash);
+	QString comment = QString::fromLatin1("%1\n%2\n%3")
+						  .arg(QString::fromLatin1(MUMBLE_RELEASE), QString::fromLatin1(MUMTEXT(MUMBLE_VERSION)), hash);
 
 	wcscpy_s(wcComment, DUMP_BUFFER_SIZE, comment.toStdWString().c_str());
 	musComment.Type       = CommentStreamW;

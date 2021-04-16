@@ -4,8 +4,8 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include <QObject>
-#include <QUrl>
 #include <QStringList>
+#include <QUrl>
 
 namespace Mumble {
 namespace QtUtils {

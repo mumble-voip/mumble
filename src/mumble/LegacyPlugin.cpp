@@ -6,27 +6,24 @@
 #include "LegacyPlugin.h"
 #include "MumblePlugin_v_1_0_x.h"
 
+#include <codecvt>
 #include <cstdlib>
-#include <wchar.h>
+#include <locale>
 #include <map>
 #include <string.h>
-#include <codecvt>
-#include <locale>
+#include <wchar.h>
 
 #include <QRegularExpression>
 
 
 /// A regular expression used to extract the version from the legacy plugin's description
-static const QRegularExpression versionRegEx(QString::fromLatin1("(?:v)?(?:ersion)?[ \\t]*(\\d+)\\.(\\d+)(?:\\.(\\d+))?"), QRegularExpression::CaseInsensitiveOption);
+static const QRegularExpression
+	versionRegEx(QString::fromLatin1("(?:v)?(?:ersion)?[ \\t]*(\\d+)\\.(\\d+)(?:\\.(\\d+))?"),
+				 QRegularExpression::CaseInsensitiveOption);
 
 
 LegacyPlugin::LegacyPlugin(QString path, bool isBuiltIn, QObject *p)
-	: Plugin(path, isBuiltIn, p),
-	  m_name(),
-	  m_description(),
-	  m_version(VERSION_UNKNOWN),
-	  m_mumPlug(0),
-	  m_mumPlug2(0),
+	: Plugin(path, isBuiltIn, p), m_name(), m_description(), m_version(VERSION_UNKNOWN), m_mumPlug(0), m_mumPlug2(0),
 	  m_mumPlugQt(0) {
 }
 
@@ -37,19 +34,19 @@ bool LegacyPlugin::doInitialize() {
 	if (Plugin::doInitialize()) {
 		// initialization seems to have succeeded so far
 		// This means that mumPlug is initialized
-		
+
 		m_name = QString::fromStdWString(m_mumPlug->shortname);
 		// Although the MumblePlugin struct has a member called "description", the actual description seems to
-		// always only be returned by the longdesc function (The description member is actually just the name with some version
-		// info)
+		// always only be returned by the longdesc function (The description member is actually just the name with some
+		// version info)
 		m_description = QString::fromStdWString(m_mumPlug->longdesc());
 		// The version field in the MumblePlugin2 struct is the positional-audio-plugin-API version and not the version
 		// of the plugin itself. This information is not provided for legacy plugins.
-		// Most of them however provide information about the version of the game they support. Thus we will try to parse the
-		// description and extract this version using it for the plugin's version as well.
-		// Some plugins have the version in the actual description field of the old API (see above comment why these aren't the same)
-		// so we will use a combination of both to search for the version. If multiple version(-like) strings are found, the last one
-		// will be used.
+		// Most of them however provide information about the version of the game they support. Thus we will try to
+		// parse the description and extract this version using it for the plugin's version as well. Some plugins have
+		// the version in the actual description field of the old API (see above comment why these aren't the same) so
+		// we will use a combination of both to search for the version. If multiple version(-like) strings are found,
+		// the last one will be used.
 		QString matchContent = m_description + QChar::Null + QString::fromStdWString(m_mumPlug->description);
 		QRegularExpressionMatchIterator matchIt = versionRegEx.globalMatch(matchContent);
 
@@ -61,7 +58,7 @@ bool LegacyPlugin::doInitialize() {
 
 		if (match.hasMatch()) {
 			// Store version
-			m_version = { match.captured(1).toInt(), match.captured(2).toInt(), match.captured(3).toInt() };	
+			m_version = { match.captured(1).toInt(), match.captured(2).toInt(), match.captured(3).toInt() };
 		}
 
 		return true;
@@ -84,9 +81,9 @@ void LegacyPlugin::resolveFunctionPointers() {
 
 		QWriteLocker lock(&m_pluginLock);
 
-		mumblePluginFunc pluginFunc = reinterpret_cast<mumblePluginFunc>(m_lib.resolve("getMumblePlugin"));	
-		mumblePlugin2Func plugin2Func = reinterpret_cast<mumblePlugin2Func>(m_lib.resolve("getMumblePlugin2"));	
-		mumblePluginQtFunc pluginQtFunc = reinterpret_cast<mumblePluginQtFunc>(m_lib.resolve("getMumblePluginQt"));	
+		mumblePluginFunc pluginFunc     = reinterpret_cast< mumblePluginFunc >(m_lib.resolve("getMumblePlugin"));
+		mumblePlugin2Func plugin2Func   = reinterpret_cast< mumblePlugin2Func >(m_lib.resolve("getMumblePlugin2"));
+		mumblePluginQtFunc pluginQtFunc = reinterpret_cast< mumblePluginQtFunc >(m_lib.resolve("getMumblePluginQt"));
 
 		if (pluginFunc) {
 			m_mumPlug = pluginFunc();
@@ -102,15 +99,16 @@ void LegacyPlugin::resolveFunctionPointers() {
 		// and the plugin has been compiled by the same compiler as this client (determined by the plugin's
 		// "magic") and it isn't retracted
 		bool suitableMagic = m_mumPlug && m_mumPlug->magic == MUMBLE_PLUGIN_MAGIC;
-		bool retracted = m_mumPlug && m_mumPlug->shortname == L"Retracted";
-		m_pluginIsValid = pluginFunc && suitableMagic && !retracted;
+		bool retracted     = m_mumPlug && m_mumPlug->shortname == L"Retracted";
+		m_pluginIsValid    = pluginFunc && suitableMagic && !retracted;
 
 #ifdef MUMBLE_PLUGIN_DEBUG
 		if (!m_pluginIsValid) {
 			if (!pluginFunc) {
 				qDebug("Plugin \"%s\" is missing the getMumblePlugin() function", qPrintable(m_pluginPath));
 			} else if (!suitableMagic) {
-				qDebug("Plugin \"%s\" was compiled with a different compiler (magic differs)", qPrintable(m_pluginPath));
+				qDebug("Plugin \"%s\" was compiled with a different compiler (magic differs)",
+					   qPrintable(m_pluginPath));
 			} else {
 				qDebug("Plugin \"%s\" is retracted", qPrintable(m_pluginPath));
 			}
@@ -138,7 +136,7 @@ QString LegacyPlugin::getName() const {
 		return m_name;
 	} else {
 		return QString::fromLatin1("<Unknown Legacy Plugin>");
-	}	
+	}
 }
 
 QString LegacyPlugin::getDescription() const {
@@ -185,18 +183,20 @@ bool LegacyPlugin::showConfigDialog(QWidget *parent) const {
 	return false;
 }
 
-uint8_t LegacyPlugin::initPositionalData(const char *const*programNames, const uint64_t *programPIDs, size_t programCount) {
+uint8_t LegacyPlugin::initPositionalData(const char *const *programNames, const uint64_t *programPIDs,
+										 size_t programCount) {
 	int retCode;
 
 	if (m_mumPlug2) {
 		// Create and populate a multimap holding the names and PIDs to pass to the tryLock-function
-		std::multimap<std::wstring, unsigned long long int> pidMap;
+		std::multimap< std::wstring, unsigned long long int > pidMap;
 
-		for (size_t i=0; i<programCount; i++) {
+		for (size_t i = 0; i < programCount; i++) {
 			std::string currentName = programNames[i];
-			std::wstring currentNameWstr = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(currentName);
+			std::wstring currentNameWstr =
+				std::wstring_convert< std::codecvt_utf8< wchar_t > >().from_bytes(currentName);
 
-			pidMap.insert(std::pair<std::wstring, unsigned long long int>(currentNameWstr, programPIDs[i]));
+			pidMap.insert(std::pair< std::wstring, unsigned long long int >(currentNameWstr, programPIDs[i]));
 		}
 
 		retCode = m_mumPlug2->trylock(pidMap);
@@ -220,15 +220,18 @@ uint8_t LegacyPlugin::initPositionalData(const char *const*programNames, const u
 	}
 }
 
-bool LegacyPlugin::fetchPositionalData(Position3D& avatarPos, Vector3D& avatarDir, Vector3D& avatarAxis, Position3D& cameraPos, Vector3D& cameraDir,
-		Vector3D& cameraAxis, QString& context, QString& identity) const {
+bool LegacyPlugin::fetchPositionalData(Position3D &avatarPos, Vector3D &avatarDir, Vector3D &avatarAxis,
+									   Position3D &cameraPos, Vector3D &cameraDir, Vector3D &cameraAxis,
+									   QString &context, QString &identity) const {
 	std::wstring identityWstr;
 	std::string contextStr;
 
-	int retCode = m_mumPlug->fetch(static_cast<float*>(avatarPos), static_cast<float*>(avatarDir), static_cast<float*>(avatarAxis),
-			static_cast<float*>(cameraPos), static_cast<float*>(cameraDir), static_cast<float*>(cameraAxis), contextStr, identityWstr);
+	int retCode = m_mumPlug->fetch(static_cast< float * >(avatarPos), static_cast< float * >(avatarDir),
+								   static_cast< float * >(avatarAxis), static_cast< float * >(cameraPos),
+								   static_cast< float * >(cameraDir), static_cast< float * >(cameraAxis), contextStr,
+								   identityWstr);
 
-	context = QString::fromStdString(contextStr);
+	context  = QString::fromStdString(contextStr);
 	identity = QString::fromStdWString(identityWstr);
 
 	// The fetch-function should return if it is "still locked on" meaning that it can continue providing

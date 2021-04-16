@@ -63,7 +63,8 @@ ClientUser *ClientUser::add(unsigned int uiSession, QObject *po) {
 	p->uiSession         = uiSession;
 	c_qmUsers[uiSession] = p;
 
-	QObject::connect(p, &ClientUser::talkingStateChanged, Global::get().pluginManager, &PluginManager::on_userTalkingStateChanged);
+	QObject::connect(p, &ClientUser::talkingStateChanged, Global::get().pluginManager,
+					 &PluginManager::on_userTalkingStateChanged);
 
 	return p;
 }

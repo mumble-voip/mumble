@@ -18,8 +18,8 @@
 #include "Screen.h"
 #include "ServerHandler.h"
 #include "User.h"
-#include "GlobalShortcut.h"
 #include "Global.h"
+#include "GlobalShortcut.h"
 
 #ifdef Q_OS_WIN
 #	include "../../overlay/overlay_blacklist.h"

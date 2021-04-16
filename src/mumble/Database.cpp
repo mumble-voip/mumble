@@ -209,7 +209,8 @@ Database::Database(const QString &dbname) {
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `volume_hash` ON `volume`(`hash`)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `nicknames` (`id` INTEGER PRIMARY KEY "
 												"AUTOINCREMENT, `hash` TEXT, `nickname` TEXT)"));
-	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `nicknames_hash` ON `nicknames`(`hash`)"));
+	execQueryAndLogFailure(query,
+						   QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `nicknames_hash` ON `nicknames`(`hash`)"));
 
 	// Note: A previous snapshot version created a table called 'hidden'
 	execQueryAndLogFailure(

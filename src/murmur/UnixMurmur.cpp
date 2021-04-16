@@ -343,7 +343,8 @@ void UnixMurmur::finalcap() {
 		qCritical("Failed to get priority limits.");
 	} else {
 		using ulong_t = unsigned long long int;
-		static_assert(std::numeric_limits< ulong_t >::max() >= std::numeric_limits< rlim_t >::max(), "rlim_t is unexpectedly large");
+		static_assert(std::numeric_limits< ulong_t >::max() >= std::numeric_limits< rlim_t >::max(),
+					  "rlim_t is unexpectedly large");
 		ulong_t current = r.rlim_cur;
 		ulong_t max     = r.rlim_max;
 		qWarning("Resource limits were %llu %llu", current, max);

@@ -3,56 +3,47 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include  <limits>
+#include <limits>
 
-#include "PluginManager.h"
 #include "LegacyPlugin.h"
-#include <QReadLocker>
-#include <QWriteLocker>
-#include <QReadLocker>
-#include <QDir>
-#include <QFileInfoList>
-#include <QFileInfo>
-#include <QVector>
+#include "PluginManager.h"
 #include <QByteArray>
 #include <QChar>
-#include <QMutexLocker>
+#include <QDir>
+#include <QFileInfo>
+#include <QFileInfoList>
 #include <QHashIterator>
 #include <QKeyEvent>
+#include <QMutexLocker>
+#include <QReadLocker>
 #include <QTimer>
+#include <QVector>
+#include <QWriteLocker>
 
-#include "ManualPlugin.h"
+#include "API.h"
 #include "Log.h"
+#include "ManualPlugin.h"
 #include "PluginInstaller.h"
+#include "PluginUpdater.h"
 #include "ProcessResolver.h"
 #include "ServerHandler.h"
-#include "PluginUpdater.h"
-#include "API.h"
 #include "Global.h"
 
 #include <memory>
 
 #ifdef Q_OS_WIN
-	#include <tlhelp32.h>
-	#include <string>
+#	include <tlhelp32.h>
+#	include <string>
 #endif
 
 #ifdef Q_OS_LINUX
-	#include <QtCore/QStringList>
+#	include <QtCore/QStringList>
 #endif
 
-PluginManager::PluginManager(QSet<QString> *additionalSearchPaths, QObject *p)
-	: QObject(p),
-	  m_pluginCollectionLock(QReadWriteLock::NonRecursive),
-	  m_pluginHashMap(),
-	  m_positionalData(),
-	  m_positionalDataCheckTimer(),
-	  m_sentDataMutex(),
-	  m_sentData(),
-	  m_activePosDataPluginLock(QReadWriteLock::NonRecursive),
-	  m_activePositionalDataPlugin(),
-	  m_updater() {
-
+PluginManager::PluginManager(QSet< QString > *additionalSearchPaths, QObject *p)
+	: QObject(p), m_pluginCollectionLock(QReadWriteLock::NonRecursive), m_pluginHashMap(), m_positionalData(),
+	  m_positionalDataCheckTimer(), m_sentDataMutex(), m_sentData(),
+	  m_activePosDataPluginLock(QReadWriteLock::NonRecursive), m_activePositionalDataPlugin(), m_updater() {
 	// Setup search-paths
 	if (additionalSearchPaths) {
 		for (const auto &currentPath : *additionalSearchPaths) {
@@ -72,7 +63,8 @@ PluginManager::PluginManager(QSet<QString> *additionalSearchPaths, QObject *p)
 
 	// Path to "plugins" dir right next to the executable's location. This is the case for when Mumble
 	// is run after compilation without having installed it anywhere special
-	m_pluginSearchPaths.insert(QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath()));
+	m_pluginSearchPaths.insert(
+		QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath()));
 
 	// Path to where the plugin installer will write plugins
 	m_pluginSearchPaths.insert(PluginInstaller::getInstallDir());
@@ -91,7 +83,7 @@ PluginManager::PluginManager(QSet<QString> *additionalSearchPaths, QObject *p)
 
 	TOKEN_PRIVILEGES tp;
 	LUID luid;
-	m_cbPrevious=sizeof(TOKEN_PRIVILEGES);
+	m_cbPrevious = sizeof(TOKEN_PRIVILEGES);
 
 	LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &luid);
 
@@ -116,7 +108,8 @@ PluginManager::PluginManager(QSet<QString> *additionalSearchPaths, QObject *p)
 	// Set up the timer for regularly checking for available positional data plugins
 	m_positionalDataCheckTimer.setInterval(POSITIONAL_DATA_CHECK_INTERVAL);
 	m_positionalDataCheckTimer.start();
-	QObject::connect(&m_positionalDataCheckTimer, &QTimer::timeout, this, &PluginManager::checkForAvailablePositionalDataPlugin);
+	QObject::connect(&m_positionalDataCheckTimer, &QTimer::timeout, this,
+					 &PluginManager::checkForAvailablePositionalDataPlugin);
 
 	QObject::connect(&m_updater, &PluginUpdater::updatesAvailable, this, &PluginManager::on_updatesAvailable);
 	QObject::connect(this, &PluginManager::keyEvent, this, &PluginManager::on_keyEvent);
@@ -134,15 +127,15 @@ PluginManager::~PluginManager() {
 /// Emits a log about a plugin with the given name having lost link (positional audio)
 ///
 /// @param pluginName The name of the plugin that lost link
-void reportLostLink(const QString& pluginName) {
-		Global::get().l->log(Log::Information, PluginManager::tr("%1 lost link").arg(pluginName.toHtmlEscaped()));
+void reportLostLink(const QString &pluginName) {
+	Global::get().l->log(Log::Information, PluginManager::tr("%1 lost link").arg(pluginName.toHtmlEscaped()));
 }
 
 bool PluginManager::eventFilter(QObject *target, QEvent *event) {
 	if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
-		static QVector<QKeyEvent*> processedEvents;
+		static QVector< QKeyEvent * > processedEvents;
 
-		QKeyEvent *kEvent = static_cast<QKeyEvent *>(event);
+		QKeyEvent *kEvent = static_cast< QKeyEvent * >(event);
 
 		// We have to keep track of which events we have processed already as
 		// the same event might be sent to multiple targets and since this is
@@ -162,7 +155,6 @@ bool PluginManager::eventFilter(QObject *target, QEvent *event) {
 				QTimer::singleShot(0, []() { processedEvents.clear(); });
 			}
 		}
-
 	}
 
 	// standard event processing
@@ -200,8 +192,8 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 	QWriteLocker activePluginLock(&m_activePosDataPluginLock);
 
 	if (!Global::get().s.bTransmitPosition) {
-		// According to the settings the position shall not be transmitted meaning that we don't have to select any plugin
-		// for positional data
+		// According to the settings the position shall not be transmitted meaning that we don't have to select any
+		// plugin for positional data
 		m_activePositionalDataPlugin = nullptr;
 
 		return false;
@@ -217,26 +209,28 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 		plugin_ptr_t currentPlugin = it.value();
 
 		if (currentPlugin->isPositionalDataEnabled() && currentPlugin->isLoaded()) {
-			switch(currentPlugin->initPositionalData(procRes.getProcessNames().data(),
-						procRes.getProcessPIDs().data(), procRes.amountOfProcesses())) {
+			switch (currentPlugin->initPositionalData(procRes.getProcessNames().data(), procRes.getProcessPIDs().data(),
+													  procRes.amountOfProcesses())) {
 				case PDEC_OK:
 					// the plugin is ready to provide positional data
 					m_activePositionalDataPlugin = currentPlugin;
 
-					Global::get().l->log(Log::Information, tr("%1 linked").arg(currentPlugin->getName().toHtmlEscaped()));
+					Global::get().l->log(Log::Information,
+										 tr("%1 linked").arg(currentPlugin->getName().toHtmlEscaped()));
 
 					return true;
 
 				case PDEC_ERROR_PERM:
 					// the plugin encountered a permanent error -> disable it
-					Global::get().l->log(Log::Warning, tr(
-								"Plugin \"%1\" encountered a permanent error in positional data gathering").arg(currentPlugin->getName()));
+					Global::get().l->log(Log::Warning,
+										 tr("Plugin \"%1\" encountered a permanent error in positional data gathering")
+											 .arg(currentPlugin->getName()));
 
 					currentPlugin->enablePositionalData(false);
 					break;
 
 				case PDEC_ERROR_TEMP:
-					//The plugin encountered a temporary error -> skip it for now (that is: do nothing)
+					// The plugin encountered a temporary error -> skip it for now (that is: do nothing)
 					break;
 			}
 		}
@@ -249,7 +243,8 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 	return false;
 }
 
-#define LOG_FOUND(plugin, path, legacyStr) qDebug("Found %splugin '%s' at \"%s\"", legacyStr, qUtf8Printable(plugin->getName()), qUtf8Printable(path));\
+#define LOG_FOUND(plugin, path, legacyStr)                                                                       \
+	qDebug("Found %splugin '%s' at \"%s\"", legacyStr, qUtf8Printable(plugin->getName()), qUtf8Printable(path)); \
 	qDebug() << "Its description:" << qUtf8Printable(plugin->getDescription())
 #define LOG_FOUND_PLUGIN(plugin, path) LOG_FOUND(plugin, path, "")
 #define LOG_FOUND_LEGACY_PLUGIN(plugin, path) LOG_FOUND(plugin, path, "legacy ")
@@ -264,41 +259,43 @@ void PluginManager::rescanPlugins() {
 		for (const auto &currentPath : m_pluginSearchPaths) {
 			QFileInfoList currentList = QDir(currentPath).entryInfoList();
 
-			for (int k=0; k<currentList.size(); k++) {
+			for (int k = 0; k < currentList.size(); k++) {
 				QFileInfo currentInfo = currentList[k];
 
 				if (!QLibrary::isLibrary(currentInfo.absoluteFilePath())) {
 					// consider only files that actually could be libraries
 					continue;
 				}
-				
+
 				try {
-					plugin_ptr_t p(Plugin::createNew<Plugin>(currentInfo.absoluteFilePath()));
+					plugin_ptr_t p(Plugin::createNew< Plugin >(currentInfo.absoluteFilePath()));
 
 #ifdef MUMBLE_PLUGIN_DEBUG
 					LOG_FOUND_PLUGIN(p, currentInfo.absoluteFilePath());
 #endif
 
-					// if this code block is reached, the plugin was instantiated successfully so we can add it to the map
+					// if this code block is reached, the plugin was instantiated successfully so we can add it to the
+					// map
 					m_pluginHashMap.insert(p->getID(), p);
-				} catch(const PluginError& e) {
+				} catch (const PluginError &e) {
 					Q_UNUSED(e);
 					// If an exception is thrown, this library does not represent a proper plugin
 					// Check if it might be a legacy plugin instead
 					try {
-						legacy_plugin_ptr_t lp(Plugin::createNew<LegacyPlugin>(currentInfo.absoluteFilePath()));
-						
+						legacy_plugin_ptr_t lp(Plugin::createNew< LegacyPlugin >(currentInfo.absoluteFilePath()));
+
 #ifdef MUMBLE_PLUGIN_DEBUG
 						LOG_FOUND_LEGACY_PLUGIN(lp, currentInfo.absoluteFilePath());
 #endif
 						m_pluginHashMap.insert(lp->getID(), lp);
-					} catch(const PluginError& e) {
+					} catch (const PluginError &e) {
 						Q_UNUSED(e);
-						
-						// At the time this function is running the MainWindow is not necessarily created yet, so we can't use
-						// the normal Log::log function
-						Log::logOrDefer(Log::Warning,
-								tr("Non-plugin found in plugin directory: \"%1\"").arg(currentInfo.absoluteFilePath()));
+
+						// At the time this function is running the MainWindow is not necessarily created yet, so we
+						// can't use the normal Log::log function
+						Log::logOrDefer(
+							Log::Warning,
+							tr("Non-plugin found in plugin directory: \"%1\"").arg(currentInfo.absoluteFilePath()));
 					}
 				}
 			}
@@ -307,13 +304,13 @@ void PluginManager::rescanPlugins() {
 		// handle built-in plugins
 #ifdef USE_MANUAL_PLUGIN
 		try {
-			std::shared_ptr<ManualPlugin> mp(Plugin::createNew<ManualPlugin>());
+			std::shared_ptr< ManualPlugin > mp(Plugin::createNew< ManualPlugin >());
 
 			m_pluginHashMap.insert(mp->getID(), mp);
-#ifdef MUMBLE_PLUGIN_DEBUG
+#	ifdef MUMBLE_PLUGIN_DEBUG
 			LOG_FOUND_BUILTIN(mp);
-#endif
-		} catch(const PluginError& e) {
+#	endif
+		} catch (const PluginError &e) {
 			// At the time this function is running the MainWindow is not necessarily created yet, so we can't use
 			// the normal Log::log function
 			Log::logOrDefer(Log::Warning, tr("Failed at loading manual plugin: %1").arg(QString::fromUtf8(e.what())));
@@ -328,14 +325,15 @@ void PluginManager::rescanPlugins() {
 	auto it = Global::get().s.qhPluginSettings.constBegin();
 	while (it != Global::get().s.qhPluginSettings.constEnd()) {
 		// for this we need a way to get a plugin based on the filepath
-		const QString pluginKey = it.key();
+		const QString pluginKey     = it.key();
 		const PluginSetting setting = it.value();
 
 		// iterate over all loaded plugins to see if the current setting is applicable
 		auto pluginIt = m_pluginHashMap.begin();
 		while (pluginIt != m_pluginHashMap.end()) {
 			plugin_ptr_t plugin = pluginIt.value();
-			QString pluginHash = QLatin1String(QCryptographicHash::hash(plugin->getFilePath().toUtf8(), QCryptographicHash::Sha1).toHex());
+			QString pluginHash  = QLatin1String(
+                QCryptographicHash::hash(plugin->getFilePath().toUtf8(), QCryptographicHash::Sha1).toHex());
 			if (pluginKey == pluginHash) {
 				if (setting.enabled) {
 					loadPlugin(plugin->getID());
@@ -366,7 +364,7 @@ void PluginManager::rescanPlugins() {
 
 const_plugin_ptr_t PluginManager::getPlugin(plugin_id_t pluginID) const {
 	QReadLocker lock(&m_pluginCollectionLock);
-	
+
 	return m_pluginHashMap.value(pluginID);
 }
 
@@ -379,9 +377,9 @@ bool PluginManager::fetchPositionalData() {
 		// This is for testing-purposes only so the "fetched" position doesn't have any real meaning
 		m_positionalData.reset();
 
-		m_positionalData.m_playerDir.z = 1.0f;
+		m_positionalData.m_playerDir.z  = 1.0f;
 		m_positionalData.m_playerAxis.y = 1.0f;
-		m_positionalData.m_cameraDir.z = 1.0f;
+		m_positionalData.m_cameraDir.z  = 1.0f;
 		m_positionalData.m_cameraAxis.y = 1.0f;
 
 		return true;
@@ -399,9 +397,10 @@ bool PluginManager::fetchPositionalData() {
 
 	QWriteLocker posDataLock(&m_positionalData.m_lock);
 
-	bool retStatus = m_activePositionalDataPlugin->fetchPositionalData(m_positionalData.m_playerPos, m_positionalData.m_playerDir,
-		m_positionalData.m_playerAxis, m_positionalData.m_cameraPos, m_positionalData.m_cameraDir, m_positionalData.m_cameraAxis,
-			m_positionalData.m_context, m_positionalData.m_identity);
+	bool retStatus = m_activePositionalDataPlugin->fetchPositionalData(
+		m_positionalData.m_playerPos, m_positionalData.m_playerDir, m_positionalData.m_playerAxis,
+		m_positionalData.m_cameraPos, m_positionalData.m_cameraDir, m_positionalData.m_cameraAxis,
+		m_positionalData.m_context, m_positionalData.m_identity);
 
 	// Add the plugin's name to the context as well to prevent name-clashes between plugins
 	if (!m_positionalData.m_context.isEmpty()) {
@@ -420,15 +419,15 @@ bool PluginManager::fetchPositionalData() {
 		selectActivePositionalDataPlugin();
 	} else {
 		// If the return-status doesn't indicate an error, we can assume that positional data is available
-		// The remaining problematic case is, if the player is exactly at position (0,0,0) as this is used as an indicator for the
-		// absence of positional data in the mix() function in AudioOutput.cpp
-		// Thus we have to make sure that this position is never set if positional data is actually available.
-		// We solve this problem by shifting the player a minimal amount on the z-axis
+		// The remaining problematic case is, if the player is exactly at position (0,0,0) as this is used as an
+		// indicator for the absence of positional data in the mix() function in AudioOutput.cpp Thus we have to make
+		// sure that this position is never set if positional data is actually available. We solve this problem by
+		// shifting the player a minimal amount on the z-axis
 		if (m_positionalData.m_playerPos == Position3D(0.0f, 0.0f, 0.0f)) {
-			m_positionalData.m_playerPos = {0.0f, 0.0f, std::numeric_limits<float>::min()};
+			m_positionalData.m_playerPos = { 0.0f, 0.0f, std::numeric_limits< float >::min() };
 		}
 		if (m_positionalData.m_cameraPos == Position3D(0.0f, 0.0f, 0.0f)) {
-			m_positionalData.m_cameraPos = {0.0f, 0.0f, std::numeric_limits<float>::min()};
+			m_positionalData.m_cameraPos = { 0.0f, 0.0f, std::numeric_limits< float >::min() };
 		}
 	}
 
@@ -454,7 +453,7 @@ bool PluginManager::isPositionalDataAvailable() const {
 	return m_activePositionalDataPlugin != nullptr;
 }
 
-const PositionalData& PluginManager::getPositionalData() const {
+const PositionalData &PluginManager::getPositionalData() const {
 	return m_positionalData;
 }
 
@@ -468,24 +467,23 @@ void PluginManager::enablePositionalDataFor(plugin_id_t pluginID, bool enable) c
 	}
 }
 
-const QVector<const_plugin_ptr_t > PluginManager::getPlugins(bool sorted) const {
+const QVector< const_plugin_ptr_t > PluginManager::getPlugins(bool sorted) const {
 	QReadLocker lock(&m_pluginCollectionLock);
 
-	QVector<const_plugin_ptr_t> pluginList;
+	QVector< const_plugin_ptr_t > pluginList;
 
 	auto it = m_pluginHashMap.constBegin();
 	if (sorted) {
-		QList<plugin_id_t> ids = m_pluginHashMap.keys();
+		QList< plugin_id_t > ids = m_pluginHashMap.keys();
 
 		// sort keys so that the corresponding Plugins are in alphabetical order based on their name
 		std::sort(ids.begin(), ids.end(), [this](plugin_id_t first, plugin_id_t second) {
 			return QString::compare(m_pluginHashMap.value(first)->getName(), m_pluginHashMap.value(second)->getName(),
-				Qt::CaseInsensitive) <= 0;
+									Qt::CaseInsensitive)
+				   <= 0;
 		});
 
-		foreach(plugin_id_t currentID, ids) {
-			pluginList.append(m_pluginHashMap.value(currentID));
-		}
+		foreach (plugin_id_t currentID, ids) { pluginList.append(m_pluginHashMap.value(currentID)); }
 	} else {
 		while (it != m_pluginHashMap.constEnd()) {
 			pluginList.append(it.value());
@@ -509,7 +507,7 @@ bool PluginManager::loadPlugin(plugin_id_t pluginID) const {
 			// before hitting ok.
 			return true;
 		}
-		
+
 		return plugin->init() == STATUS_OK;
 	}
 
@@ -551,7 +549,7 @@ bool PluginManager::clearPlugin(plugin_id_t pluginID) {
 	return plugin != nullptr;
 }
 
-uint32_t  PluginManager::deactivateFeaturesFor(plugin_id_t pluginID, uint32_t features) const {
+uint32_t PluginManager::deactivateFeaturesFor(plugin_id_t pluginID, uint32_t features) const {
 	QReadLocker lock(&m_pluginCollectionLock);
 
 	plugin_ptr_t plugin = m_pluginHashMap.value(pluginID);
@@ -579,7 +577,7 @@ bool PluginManager::pluginExists(plugin_id_t pluginID) const {
 	return m_pluginHashMap.contains(pluginID);
 }
 
-void PluginManager::foreachPlugin(std::function<void(Plugin&)> pluginProcessor) const {
+void PluginManager::foreachPlugin(std::function< void(Plugin &) > pluginProcessor) const {
 	QReadLocker lock(&m_pluginCollectionLock);
 
 	auto it = m_pluginHashMap.constBegin();
@@ -598,7 +596,7 @@ void PluginManager::on_serverConnected() const {
 	qDebug("PluginManager: Connected to a server with connection ID %d", connectionID);
 #endif
 
-	foreachPlugin([connectionID](Plugin& plugin) {
+	foreachPlugin([connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onServerConnected(connectionID);
 		}
@@ -612,7 +610,7 @@ void PluginManager::on_serverDisconnected() const {
 	qDebug("PluginManager: Disconnected from a server with connection ID %d", connectionID);
 #endif
 
-	foreachPlugin([connectionID](Plugin& plugin) {
+	foreachPlugin([connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onServerDisconnected(connectionID);
 		}
@@ -621,7 +619,8 @@ void PluginManager::on_serverDisconnected() const {
 
 void PluginManager::on_channelEntered(const Channel *newChannel, const Channel *prevChannel, const User *user) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
-	qDebug() << "PluginManager: User" << user->qsName <<  "entered channel" << newChannel->qsName << "- ID:" << newChannel->iId;
+	qDebug() << "PluginManager: User" << user->qsName << "entered channel" << newChannel->qsName
+			 << "- ID:" << newChannel->iId;
 #endif
 
 	if (!Global::get().sh) {
@@ -631,21 +630,22 @@ void PluginManager::on_channelEntered(const Channel *newChannel, const Channel *
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([user, newChannel, prevChannel, connectionID](Plugin& plugin) {
+	foreachPlugin([user, newChannel, prevChannel, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			plugin.onChannelEntered(connectionID, user->uiSession, prevChannel ? prevChannel->iId : -1, newChannel->iId);
+			plugin.onChannelEntered(connectionID, user->uiSession, prevChannel ? prevChannel->iId : -1,
+									newChannel->iId);
 		}
 	});
 }
 
 void PluginManager::on_channelExited(const Channel *channel, const User *user) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
-	qDebug() << "PluginManager: User" << user->qsName <<  "left channel" << channel->qsName << "- ID:" << channel->iId;
+	qDebug() << "PluginManager: User" << user->qsName << "left channel" << channel->qsName << "- ID:" << channel->iId;
 #endif
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([user, channel, connectionID](Plugin& plugin) {
+	foreachPlugin([user, channel, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onChannelExited(connectionID, user->uiSession, channel->iId);
 		}
@@ -653,7 +653,7 @@ void PluginManager::on_channelExited(const Channel *channel, const User *user) c
 }
 
 QString getTalkingStateStr(Settings::TalkState ts) {
-	switch(ts) {
+	switch (ts) {
 		case Settings::TalkState::Passive:
 			return QString::fromLatin1("Passive");
 		case Settings::TalkState::Talking:
@@ -670,10 +670,11 @@ QString getTalkingStateStr(Settings::TalkState ts) {
 }
 
 void PluginManager::on_userTalkingStateChanged() const {
-	const ClientUser *user = qobject_cast<ClientUser*>(QObject::sender());
+	const ClientUser *user = qobject_cast< ClientUser * >(QObject::sender());
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
 	if (user) {
-		qDebug() << "PluginManager: User" << user->qsName << "changed talking state to" << getTalkingStateStr(user->tsState);
+		qDebug() << "PluginManager: User" << user->qsName << "changed talking state to"
+				 << getTalkingStateStr(user->tsState);
 	} else {
 		qCritical() << "PluginManager: Unable to identify ClientUser";
 	}
@@ -683,7 +684,7 @@ void PluginManager::on_userTalkingStateChanged() const {
 		// Convert Mumble's talking state to the TalkingState used in the API
 		mumble_talking_state_t ts = INVALID;
 
-		switch(user->tsState) {
+		switch (user->tsState) {
 			case Settings::TalkState::Passive:
 				ts = PASSIVE;
 				break;
@@ -709,7 +710,7 @@ void PluginManager::on_userTalkingStateChanged() const {
 
 		const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-		foreachPlugin([user, ts, connectionID](Plugin& plugin) {
+		foreachPlugin([user, ts, connectionID](Plugin &plugin) {
 			if (plugin.isLoaded()) {
 				plugin.onUserTalkingStateChanged(connectionID, user->uiSession, ts);
 			}
@@ -717,54 +718,63 @@ void PluginManager::on_userTalkingStateChanged() const {
 	}
 }
 
-void PluginManager::on_audioInput(short *inputPCM, unsigned int sampleCount, unsigned int channelCount, unsigned int sampleRate, bool isSpeech) const {
+void PluginManager::on_audioInput(short *inputPCM, unsigned int sampleCount, unsigned int channelCount,
+								  unsigned int sampleRate, bool isSpeech) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
-	qDebug() << "PluginManager: AudioInput with" << channelCount << "channels and" << sampleCount << "samples per channel. IsSpeech:" << isSpeech;
+	qDebug() << "PluginManager: AudioInput with" << channelCount << "channels and" << sampleCount
+			 << "samples per channel. IsSpeech:" << isSpeech;
 #endif
 
-	foreachPlugin([inputPCM, sampleCount, channelCount, sampleRate, isSpeech](Plugin& plugin) {
+	foreachPlugin([inputPCM, sampleCount, channelCount, sampleRate, isSpeech](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onAudioInput(inputPCM, sampleCount, channelCount, sampleRate, isSpeech);
 		}
 	});
 }
 
-void PluginManager::on_audioSourceFetched(float* outputPCM, unsigned int sampleCount, unsigned int channelCount, unsigned int sampleRate, bool isSpeech, const ClientUser* user) const {
+void PluginManager::on_audioSourceFetched(float *outputPCM, unsigned int sampleCount, unsigned int channelCount,
+										  unsigned int sampleRate, bool isSpeech, const ClientUser *user) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
-	qDebug() << "PluginManager: AudioSource with" << channelCount << "channels and" << sampleCount << "samples per channel fetched. IsSpeech:" << isSpeech;
+	qDebug() << "PluginManager: AudioSource with" << channelCount << "channels and" << sampleCount
+			 << "samples per channel fetched. IsSpeech:" << isSpeech;
 	if (user != nullptr) {
 		qDebug() << "Sender-ID:" << user->uiSession;
 	}
 #endif
 
-	foreachPlugin([outputPCM, sampleCount, channelCount, sampleRate, isSpeech, user](Plugin& plugin) {
+	foreachPlugin([outputPCM, sampleCount, channelCount, sampleRate, isSpeech, user](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			plugin.onAudioSourceFetched(outputPCM, sampleCount, channelCount, sampleRate, isSpeech, user ? user->uiSession : -1);
+			plugin.onAudioSourceFetched(outputPCM, sampleCount, channelCount, sampleRate, isSpeech,
+										user ? user->uiSession : -1);
 		}
 	});
 }
 
-void PluginManager::on_audioOutputAboutToPlay(float *outputPCM, unsigned int sampleCount, unsigned int channelCount, unsigned int sampleRate, bool *modifiedAudio) const {
+void PluginManager::on_audioOutputAboutToPlay(float *outputPCM, unsigned int sampleCount, unsigned int channelCount,
+											  unsigned int sampleRate, bool *modifiedAudio) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
-	qDebug() << "PluginManager: AudioOutput with" << channelCount << "channels and" << sampleCount << "samples per channel";
+	qDebug() << "PluginManager: AudioOutput with" << channelCount << "channels and" << sampleCount
+			 << "samples per channel";
 #endif
-	foreachPlugin([outputPCM, sampleCount, channelCount, sampleRate, modifiedAudio](Plugin& plugin) {
+	foreachPlugin([outputPCM, sampleCount, channelCount, sampleRate, modifiedAudio](Plugin &plugin) {
 		if (plugin.isLoaded()) {
-			if(plugin.onAudioOutputAboutToPlay(outputPCM, sampleCount, sampleRate, channelCount)) {
+			if (plugin.onAudioOutputAboutToPlay(outputPCM, sampleCount, sampleRate, channelCount)) {
 				*modifiedAudio = true;
 			}
 		}
 	});
 }
 
-void PluginManager::on_receiveData(const ClientUser *sender, const uint8_t *data, size_t dataLength, const char *dataID) const {
+void PluginManager::on_receiveData(const ClientUser *sender, const uint8_t *data, size_t dataLength,
+								   const char *dataID) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
-	qDebug() << "PluginManager: Data with ID" << dataID << "and length" << dataLength << "received. Sender-ID:" << sender->uiSession;
+	qDebug() << "PluginManager: Data with ID" << dataID << "and length" << dataLength
+			 << "received. Sender-ID:" << sender->uiSession;
 #endif
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([sender, data, dataLength, dataID, connectionID](Plugin& plugin) {
+	foreachPlugin([sender, data, dataLength, dataID, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onReceiveData(connectionID, sender->uiSession, data, dataLength, dataID);
 		}
@@ -778,7 +788,7 @@ void PluginManager::on_serverSynchronized() const {
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([connectionID](Plugin& plugin) {
+	foreachPlugin([connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onServerSynchronized(connectionID);
 		}
@@ -792,7 +802,7 @@ void PluginManager::on_userAdded(mumble_userid_t userID) const {
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([userID, connectionID](Plugin& plugin) {
+	foreachPlugin([userID, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onUserAdded(connectionID, userID);
 		};
@@ -806,7 +816,7 @@ void PluginManager::on_userRemoved(mumble_userid_t userID) const {
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([userID, connectionID](Plugin& plugin) {
+	foreachPlugin([userID, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onUserRemoved(connectionID, userID);
 		};
@@ -820,7 +830,7 @@ void PluginManager::on_channelAdded(mumble_channelid_t channelID) const {
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([channelID, connectionID](Plugin& plugin) {
+	foreachPlugin([channelID, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onChannelAdded(connectionID, channelID);
 		};
@@ -834,7 +844,7 @@ void PluginManager::on_channelRemoved(mumble_channelid_t channelID) const {
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([channelID, connectionID](Plugin& plugin) {
+	foreachPlugin([channelID, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onChannelRemoved(connectionID, channelID);
 		};
@@ -848,7 +858,7 @@ void PluginManager::on_channelRenamed(int channelID) const {
 
 	const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
 
-	foreachPlugin([channelID, connectionID](Plugin& plugin) {
+	foreachPlugin([channelID, connectionID](Plugin &plugin) {
 		if (plugin.isLoaded()) {
 			plugin.onChannelRenamed(connectionID, channelID);
 		};
@@ -857,8 +867,8 @@ void PluginManager::on_channelRenamed(int channelID) const {
 
 void PluginManager::on_keyEvent(unsigned int key, Qt::KeyboardModifiers modifiers, bool isPress) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
-	qDebug() << "PluginManager: Key event detected: keyCode =" << key << "modifiers:"
-		<< modifiers << "isPress =" << isPress;
+	qDebug() << "PluginManager: Key event detected: keyCode =" << key << "modifiers:" << modifiers
+			 << "isPress =" << isPress;
 #else
 	Q_UNUSED(modifiers);
 #endif
@@ -889,7 +899,8 @@ void PluginManager::on_syncPositionalData() {
 			QMutexLocker mLock(&m_sentDataMutex);
 			QReadLocker rLock(&m_positionalData.m_lock);
 
-			if (m_sentData.context != m_positionalData.m_context || m_sentData.identity != m_positionalData.m_identity ) {
+			if (m_sentData.context != m_positionalData.m_context
+				|| m_sentData.identity != m_positionalData.m_identity) {
 				MumbleProto::UserState mpus;
 				mpus.set_session(Global::get().uiSession);
 

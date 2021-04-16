@@ -1176,7 +1176,8 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 					QWhatsThis::showText(Global::get().mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
 										 data(index(cu, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
 				} else {
-					QToolTip::showText(QCursor::pos(), data(index(cu, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
+					QToolTip::showText(QCursor::pos(), data(index(cu, 0), Qt::ToolTipRole).toString(),
+									   Global::get().mw->qtvUsers);
 				}
 			} else if (cu->uiSession == ~uiSessionComment) {
 				uiSessionComment = 0;
@@ -1241,7 +1242,8 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 					QWhatsThis::showText(Global::get().mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
 										 data(index(c, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
 				} else {
-					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
+					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(),
+									   Global::get().mw->qtvUsers);
 				}
 			} else {
 				item->bCommentSeen = Global::get().db->seenComment(item->hash(), c->qbaDescHash);
@@ -1784,16 +1786,17 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		int ret;
 		switch (Global::get().s.ceUserDrag) {
 			case Settings::Ask:
-				ret =
-					QMessageBox::question(Global::get().mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this user?"),
-										  QMessageBox::Yes, QMessageBox::No);
+				ret = QMessageBox::question(Global::get().mw, QLatin1String("Mumble"),
+											tr("Are you sure you want to drag this user?"), QMessageBox::Yes,
+											QMessageBox::No);
 
 				if (ret == QMessageBox::No)
 					return false;
 				break;
 			case Settings::DoNothing:
-				Global::get().l->log(Log::Information,
-						 MainWindow::tr("You have User Dragging set to \"Do Nothing\" so the user wasn't moved."));
+				Global::get().l->log(
+					Log::Information,
+					MainWindow::tr("You have User Dragging set to \"Do Nothing\" so the user wasn't moved."));
 				return false;
 				break;
 			case Settings::Move:
@@ -1824,7 +1827,8 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 			case Settings::Move:
 				break;
 			default:
-				Global::get().l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in UserModel::dropMimeData."));
+				Global::get().l->log(Log::CriticalError,
+									 MainWindow::tr("Unknown Channel Drag mode in UserModel::dropMimeData."));
 				return false;
 				break;
 		}
@@ -2004,7 +2008,8 @@ QString UserModel::createDisplayString(const ClientUser &user, bool isChannelLis
 		displayString += " " + friendTag;
 	}
 
-	if (!Global::get().s.bShowNicknamesOnly && !nickname.isEmpty() && user.qsName.compare(nickname, Qt::CaseInsensitive) != 0) {
+	if (!Global::get().s.bShowNicknamesOnly && !nickname.isEmpty()
+		&& user.qsName.compare(nickname, Qt::CaseInsensitive) != 0) {
 		displayString += " " + QString::fromLatin1("[%1]").arg(nickname);
 	}
 

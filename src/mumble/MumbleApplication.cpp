@@ -7,8 +7,8 @@
 
 #include "EnvUtils.h"
 #include "MainWindow.h"
-#include "GlobalShortcut.h"
 #include "Global.h"
+#include "GlobalShortcut.h"
 
 #if defined(Q_OS_WIN)
 #	include "GlobalShortcut_win.h"

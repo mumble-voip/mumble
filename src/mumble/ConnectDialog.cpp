@@ -406,10 +406,10 @@ ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
 	if (url.userName().isEmpty()) {
 		if (Global::get().s.qsUsername.isEmpty()) {
 			bool ok;
-			QString defUserName =
-				QInputDialog::getText(p, ConnectDialog::tr("Adding host %1").arg(url.host()),
-									  ConnectDialog::tr("Enter username"), QLineEdit::Normal, Global::get().s.qsUsername, &ok)
-					.trimmed();
+			QString defUserName = QInputDialog::getText(p, ConnectDialog::tr("Adding host %1").arg(url.host()),
+														ConnectDialog::tr("Enter username"), QLineEdit::Normal,
+														Global::get().s.qsUsername, &ok)
+									  .trimmed();
 			if (!ok)
 				return nullptr;
 			if (defUserName.isEmpty())

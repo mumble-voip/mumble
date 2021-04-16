@@ -7,20 +7,20 @@
 
 #include "Log.h"
 #include "MainWindow.h"
-#include "Message.h"
-#include "ServerHandler.h"
-#include "WebFetch.h"
-#include "MumbleApplication.h"
 #include "ManualPlugin.h"
-#include "Utils.h"
+#include "Message.h"
+#include "MumbleApplication.h"
 #include "PluginInstaller.h"
 #include "PluginManager.h"
+#include "ServerHandler.h"
+#include "Utils.h"
+#include "WebFetch.h"
 
-#include <QtWidgets/QMessageBox>
-#include <QtCore/QUrl>
 #include <QtCore/QDir>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QUrl>
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
 #include "Global.h"
 
 const QString PluginConfig::name = QLatin1String("PluginConfig");
@@ -74,7 +74,8 @@ void PluginConfig::on_qpbInstallPlugin_clicked() {
 			// Reload plugins so the new one actually shows up
 			on_qpbReload_clicked();
 
-			QMessageBox::information(this, "Mumble", tr("The plugin was installed successfully"), QMessageBox::Ok, QMessageBox::NoButton);
+			QMessageBox::information(this, "Mumble", tr("The plugin was installed successfully"), QMessageBox::Ok,
+									 QMessageBox::NoButton);
 		}
 	} catch (const PluginInstallException &e) {
 		QMessageBox::critical(this, "Mumble", e.getMessage(), QMessageBox::Ok, QMessageBox::NoButton);
@@ -91,15 +92,14 @@ void PluginConfig::save() const {
 		Global::get().pluginManager->unlinkPositionalData();
 	}
 
-	constexpr int enableCol = 1;
-	constexpr int positionalDataCol = 2;
+	constexpr int enableCol          = 1;
+	constexpr int positionalDataCol  = 2;
 	constexpr int keyboardMonitorCol = 3;
 
-	QList<QTreeWidgetItem *> list = qtwPlugins->findItems(QString(), Qt::MatchContains);
-	for(QTreeWidgetItem *i : list) {
-
-		bool enable = (i->checkState(enableCol) == Qt::Checked);
-		bool positionalDataEnabled = (i->checkState(positionalDataCol) == Qt::Checked);
+	QList< QTreeWidgetItem * > list = qtwPlugins->findItems(QString(), Qt::MatchContains);
+	for (QTreeWidgetItem *i : list) {
+		bool enable                    = (i->checkState(enableCol) == Qt::Checked);
+		bool positionalDataEnabled     = (i->checkState(positionalDataCol) == Qt::Checked);
 		bool keyboardMonitoringEnabled = (i->checkState(keyboardMonitorCol) == Qt::Checked);
 
 		const_plugin_ptr_t plugin = pluginForItem(i);
@@ -122,10 +122,13 @@ void PluginConfig::save() const {
 					}
 
 					if (featuresToDeactivate != FEATURE_NONE) {
-						uint32_t remainingFeatures = Global::get().pluginManager->deactivateFeaturesFor(plugin->getID(), featuresToDeactivate);
+						uint32_t remainingFeatures =
+							Global::get().pluginManager->deactivateFeaturesFor(plugin->getID(), featuresToDeactivate);
 
 						if (remainingFeatures != FEATURE_NONE) {
-							Global::get().l->log(Log::Warning, tr("Unable to deactivate all requested features for plugin \"%1\"").arg(plugin->getName()));
+							Global::get().l->log(Log::Warning,
+												 tr("Unable to deactivate all requested features for plugin \"%1\"")
+													 .arg(plugin->getName()));
 						}
 					}
 				} else {
@@ -137,8 +140,10 @@ void PluginConfig::save() const {
 				Global::get().pluginManager->unloadPlugin(plugin->getID());
 			}
 
-			QString pluginKey = QLatin1String(QCryptographicHash::hash(plugin->getFilePath().toUtf8(), QCryptographicHash::Sha1).toHex());
-			s.qhPluginSettings.insert(pluginKey, { plugin->getFilePath(), enable, positionalDataEnabled, keyboardMonitoringEnabled });
+			QString pluginKey = QLatin1String(
+				QCryptographicHash::hash(plugin->getFilePath().toUtf8(), QCryptographicHash::Sha1).toHex());
+			s.qhPluginSettings.insert(
+				pluginKey, { plugin->getFilePath(), enable, positionalDataEnabled, keyboardMonitoringEnabled });
 		}
 	}
 }
@@ -157,7 +162,8 @@ void PluginConfig::on_qpbConfig_clicked() {
 	if (plugin) {
 		if (!plugin->showConfigDialog(this)) {
 			// if the plugin doesn't support showing such a dialog, we'll show a default one
-			QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no configure function."), QMessageBox::Ok, QMessageBox::NoButton);
+			QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no configure function."),
+									 QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
 }
@@ -168,7 +174,8 @@ void PluginConfig::on_qpbAbout_clicked() {
 	if (plugin) {
 		if (!plugin->showAboutDialog(this)) {
 			// if the plugin doesn't support showing such a dialog, we'll show a default one
-			QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no about function."), QMessageBox::Ok, QMessageBox::NoButton);
+			QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no about function."),
+									 QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
 }
@@ -203,13 +210,13 @@ void PluginConfig::refillPluginList() {
 	qtwPlugins->clear();
 
 	// get plugins already sorted according to their name
-	const QVector<const_plugin_ptr_t > plugins = Global::get().pluginManager->getPlugins(true);
+	const QVector< const_plugin_ptr_t > plugins = Global::get().pluginManager->getPlugins(true);
 
-	foreach(const_plugin_ptr_t currentPlugin, plugins) {
+	foreach (const_plugin_ptr_t currentPlugin, plugins) {
 		QTreeWidgetItem *i = new QTreeWidgetItem(qtwPlugins);
 		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		i->setCheckState(1, currentPlugin->isLoaded() ? Qt::Checked : Qt::Unchecked);
-		
+
 		if (currentPlugin->getFeatures() & FEATURE_POSITIONAL) {
 			i->setCheckState(2, currentPlugin->isPositionalDataEnabled() ? Qt::Checked : Qt::Unchecked);
 			i->setToolTip(2, tr("Whether the positional audio feature of this plugin should be enabled"));
@@ -218,7 +225,8 @@ void PluginConfig::refillPluginList() {
 		}
 
 		i->setCheckState(3, currentPlugin->isKeyboardMonitoringAllowed() ? Qt::Checked : Qt::Unchecked);
-		i->setToolTip(3, tr("Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus"));
+		i->setToolTip(3, tr("Whether this plugin has the permission to be listening to all keyboard events that occur "
+							"while Mumble has focus"));
 
 		i->setText(0, currentPlugin->getName());
 		i->setToolTip(0, currentPlugin->getDescription().toHtmlEscaped());

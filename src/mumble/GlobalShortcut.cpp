@@ -10,8 +10,8 @@
 #include "ClientUser.h"
 #include "Database.h"
 #include "MainWindow.h"
-#include "GlobalShortcutButtons.h"
 #include "Global.h"
+#include "GlobalShortcutButtons.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QSortFilterProxyModel>

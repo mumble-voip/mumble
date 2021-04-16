@@ -107,13 +107,13 @@ void TestXMLTools::testParseConvertStyleBold() {
 		QLatin1String("<b>one</b>"));
 	// These currently fail
 	//	QCOMPARE(doParse(QLatin1String("<html><head></head><body><span
-	//style=\"font-weight:700;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
+	// style=\"font-weight:700;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
 	//	QCOMPARE(doParse(QLatin1String("<html><head></head><body><span
-	//style=\"font-weight:800;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
+	// style=\"font-weight:800;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
 	//	QCOMPARE(doParse(QLatin1String("<html><head></head><body><span
-	//style=\"font-weight:900;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
+	// style=\"font-weight:900;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
 	//	QCOMPARE(doParse(QLatin1String("<html><head></head><body><span
-	//style=\"font-weight:bold;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
+	// style=\"font-weight:bold;\">one</span></body></html>")), QLatin1String("<b>one</b>"));
 }
 
 void TestXMLTools::testParseConvertStyleUnderline() {
@@ -150,7 +150,7 @@ void TestXMLTools::testParseDropEmptyFirstParagraphs() {
 			 QLatin1String("<div>one</div>"));
 	// <br> would be invalid XML. It is not dropped "correctly".
 	//	QCOMPARE(doParse(QLatin1String("<html><head></head><body><p><br></p><p>one</p></body></html>")),
-	//QLatin1String("<p>one</p>"));
+	// QLatin1String("<p>one</p>"));
 	// This is different from what is expected from a comment in the method being tested. It says
 	// contents of empty paragraph would be dropped as well, but the br/space persists.
 	QCOMPARE(doParse(QLatin1String("<html><head></head><body><p><br/></p><p>one</p></body></html>")),
@@ -275,7 +275,7 @@ void TestXMLTools::testUndupStandard() {
 // Will warn and fail.
 // void TestXMLTools::testUndupInvalidXml1() {
 //	QCOMPARE(doUnduplicate(QLatin1String("<unduplicate><b>bold with <i></b>italic</i></unduplicate>")),
-//QLatin1String("<b>bold with <i>italic</i></b>"));
+// QLatin1String("<b>bold with <i>italic</i></b>"));
 //}
 
 QTEST_MAIN(TestXMLTools)

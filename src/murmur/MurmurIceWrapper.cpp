@@ -18,7 +18,7 @@ void ::Murmur::ServerI::isRunning_async(const ::Murmur::AMD_Server_isRunningPtr 
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_isRunning_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_isRunning_READ
@@ -35,7 +35,8 @@ void ::Murmur::ServerI::isRunning_async(const ::Murmur::AMD_Server_isRunningPtr 
 	}
 #endif // ACCESS_Server_isRunning_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_isRunning, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_isRunning, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -50,7 +51,7 @@ void ::Murmur::ServerI::start_async(const ::Murmur::AMD_Server_startPtr &cb, con
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_start_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_start_READ
@@ -82,7 +83,7 @@ void ::Murmur::ServerI::stop_async(const ::Murmur::AMD_Server_stopPtr &cb, const
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_stop_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_stop_READ
@@ -114,7 +115,7 @@ void ::Murmur::ServerI::delete_async(const ::Murmur::AMD_Server_deletePtr &cb, c
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_delete_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_delete_READ
@@ -131,7 +132,8 @@ void ::Murmur::ServerI::delete_async(const ::Murmur::AMD_Server_deletePtr &cb, c
 	}
 #endif // ACCESS_Server_delete_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_delete, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_delete, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -146,7 +148,7 @@ void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::I
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_id_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_id_READ
@@ -167,7 +169,8 @@ void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::I
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallbackPtr &cb, const ServerCallbackPrx& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallbackPtr &cb, const ServerCallbackPrx &p1,
+										  const ::Ice::Current &current) {
 	// qWarning() << "addCallback" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_addCallback_ALL
 #	ifdef ACCESS_Server_addCallback_READ
@@ -178,7 +181,7 @@ void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallback
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_addCallback_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_addCallback_READ
@@ -195,11 +198,13 @@ void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallback
 	}
 #endif // ACCESS_Server_addCallback_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_addCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCallbackPtr &cb, const ServerCallbackPrx& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCallbackPtr &cb,
+											 const ServerCallbackPrx &p1, const ::Ice::Current &current) {
 	// qWarning() << "removeCallback" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_removeCallback_ALL
 #	ifdef ACCESS_Server_removeCallback_READ
@@ -210,7 +215,7 @@ void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCa
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_removeCallback_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_removeCallback_READ
@@ -227,11 +232,13 @@ void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCa
 	}
 #endif // ACCESS_Server_removeCallback_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_removeCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAuthenticatorPtr &cb, const ServerAuthenticatorPrx& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAuthenticatorPtr &cb,
+											   const ServerAuthenticatorPrx &p1, const ::Ice::Current &current) {
 	// qWarning() << "setAuthenticator" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setAuthenticator_ALL
 #	ifdef ACCESS_Server_setAuthenticator_READ
@@ -242,7 +249,7 @@ void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAut
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setAuthenticator_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setAuthenticator_READ
@@ -259,11 +266,13 @@ void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAut
 	}
 #endif // ACCESS_Server_setAuthenticator_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setAuthenticator, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_setAuthenticator, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb, const ::std::string& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb, const ::std::string &p1,
+									  const ::Ice::Current &current) {
 	// qWarning() << "getConf" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getConf_ALL
 #	ifdef ACCESS_Server_getConf_READ
@@ -274,7 +283,7 @@ void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getConf_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getConf_READ
@@ -291,7 +300,8 @@ void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,
 	}
 #endif // ACCESS_Server_getConf_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getConf, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getConf, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -306,7 +316,7 @@ void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPt
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getAllConf_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getAllConf_READ
@@ -323,11 +333,13 @@ void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPt
 	}
 #endif // ACCESS_Server_getAllConf_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getAllConf, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getAllConf, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb, const ::std::string& p1, const ::std::string& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb, const ::std::string &p1,
+									  const ::std::string &p2, const ::Ice::Current &current) {
 	// qWarning() << "setConf" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setConf_ALL
 #	ifdef ACCESS_Server_setConf_READ
@@ -338,7 +350,7 @@ void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setConf_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setConf_READ
@@ -355,11 +367,13 @@ void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,
 	}
 #endif // ACCESS_Server_setConf_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setConf, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_setConf, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_setSuperuserPasswordPtr &cb, const ::std::string& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_setSuperuserPasswordPtr &cb,
+												   const ::std::string &p1, const ::Ice::Current &current) {
 	// qWarning() << "setSuperuserPassword" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setSuperuserPassword_ALL
 #	ifdef ACCESS_Server_setSuperuserPassword_READ
@@ -370,7 +384,7 @@ void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_se
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setSuperuserPassword_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setSuperuserPassword_READ
@@ -387,11 +401,13 @@ void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_se
 	}
 #endif // ACCESS_Server_setSuperuserPassword_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setSuperuserPassword, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_setSuperuserPassword, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb, ::Ice::Int p1, ::Ice::Int p2,
+									 const ::Ice::Current &current) {
 	// qWarning() << "getLog" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getLog_ALL
 #	ifdef ACCESS_Server_getLog_READ
@@ -402,7 +418,7 @@ void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb, :
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getLog_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getLog_READ
@@ -419,7 +435,8 @@ void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb, :
 	}
 #endif // ACCESS_Server_getLog_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getLog, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getLog, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -434,7 +451,7 @@ void ::Murmur::ServerI::getLogLen_async(const ::Murmur::AMD_Server_getLogLenPtr 
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getLogLen_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getLogLen_READ
@@ -451,7 +468,8 @@ void ::Murmur::ServerI::getLogLen_async(const ::Murmur::AMD_Server_getLogLenPtr 
 	}
 #endif // ACCESS_Server_getLogLen_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getLogLen, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getLogLen, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -466,7 +484,7 @@ void ::Murmur::ServerI::getUsers_async(const ::Murmur::AMD_Server_getUsersPtr &c
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getUsers_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getUsers_READ
@@ -483,11 +501,13 @@ void ::Murmur::ServerI::getUsers_async(const ::Murmur::AMD_Server_getUsersPtr &c
 	}
 #endif // ACCESS_Server_getUsers_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUsers, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getUsers, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannelsPtr &cb, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannelsPtr &cb,
+										  const ::Ice::Current &current) {
 	// qWarning() << "getChannels" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getChannels_ALL
 #	ifdef ACCESS_Server_getChannels_READ
@@ -498,7 +518,7 @@ void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannels
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getChannels_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getChannels_READ
@@ -515,11 +535,13 @@ void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannels
 	}
 #endif // ACCESS_Server_getChannels_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getChannels, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getChannels, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getCertificateListPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getCertificateListPtr &cb, ::Ice::Int p1,
+												 const ::Ice::Current &current) {
 	// qWarning() << "getCertificateList" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getCertificateList_ALL
 #	ifdef ACCESS_Server_getCertificateList_READ
@@ -530,7 +552,7 @@ void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getC
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getCertificateList_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getCertificateList_READ
@@ -547,7 +569,8 @@ void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getC
 	}
 #endif // ACCESS_Server_getCertificateList_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getCertificateList, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_getCertificateList, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -562,7 +585,7 @@ void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getTree_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getTree_READ
@@ -579,7 +602,8 @@ void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb,
 	}
 #endif // ACCESS_Server_getTree_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getTree, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getTree, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -594,7 +618,7 @@ void ::Murmur::ServerI::getBans_async(const ::Murmur::AMD_Server_getBansPtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getBans_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getBans_READ
@@ -611,11 +635,13 @@ void ::Murmur::ServerI::getBans_async(const ::Murmur::AMD_Server_getBansPtr &cb,
 	}
 #endif // ACCESS_Server_getBans_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getBans, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getBans, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb, const BanList& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb, const BanList &p1,
+									  const ::Ice::Current &current) {
 	// qWarning() << "setBans" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setBans_ALL
 #	ifdef ACCESS_Server_setBans_READ
@@ -626,7 +652,7 @@ void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setBans_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setBans_READ
@@ -643,11 +669,13 @@ void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,
 	}
 #endif // ACCESS_Server_setBans_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setBans, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_setBans, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &cb, ::Ice::Int p1, const ::std::string& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &cb, ::Ice::Int p1,
+									   const ::std::string &p2, const ::Ice::Current &current) {
 	// qWarning() << "kickUser" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_kickUser_ALL
 #	ifdef ACCESS_Server_kickUser_READ
@@ -658,7 +686,7 @@ void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &c
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_kickUser_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_kickUser_READ
@@ -675,11 +703,13 @@ void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &c
 	}
 #endif // ACCESS_Server_kickUser_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_kickUser, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_kickUser, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &cb, ::Ice::Int p1,
+									   const ::Ice::Current &current) {
 	// qWarning() << "getState" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getState_ALL
 #	ifdef ACCESS_Server_getState_READ
@@ -690,7 +720,7 @@ void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &c
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getState_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getState_READ
@@ -707,11 +737,13 @@ void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &c
 	}
 #endif // ACCESS_Server_getState_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getState, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getState, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &cb, const User& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &cb, const User &p1,
+									   const ::Ice::Current &current) {
 	// qWarning() << "setState" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setState_ALL
 #	ifdef ACCESS_Server_setState_READ
@@ -722,7 +754,7 @@ void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &c
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setState_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setState_READ
@@ -739,11 +771,13 @@ void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &c
 	}
 #endif // ACCESS_Server_setState_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setState, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_setState, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessagePtr &cb, ::Ice::Int p1, const ::std::string& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessagePtr &cb, ::Ice::Int p1,
+										  const ::std::string &p2, const ::Ice::Current &current) {
 	// qWarning() << "sendMessage" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_sendMessage_ALL
 #	ifdef ACCESS_Server_sendMessage_READ
@@ -754,7 +788,7 @@ void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessage
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_sendMessage_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_sendMessage_READ
@@ -771,11 +805,13 @@ void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessage
 	}
 #endif // ACCESS_Server_sendMessage_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_sendMessage, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_sendMessage, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermissionPtr &cb, ::Ice::Int p1, ::Ice::Int p2, ::Ice::Int p3, const ::Ice::Current &current) {
+void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermissionPtr &cb, ::Ice::Int p1,
+											::Ice::Int p2, ::Ice::Int p3, const ::Ice::Current &current) {
 	// qWarning() << "hasPermission" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_hasPermission_ALL
 #	ifdef ACCESS_Server_hasPermission_READ
@@ -786,7 +822,7 @@ void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermis
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_hasPermission_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_hasPermission_READ
@@ -803,11 +839,13 @@ void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermis
 	}
 #endif // ACCESS_Server_hasPermission_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_hasPermission, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_hasPermission, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_effectivePermissionsPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_effectivePermissionsPtr &cb,
+												   ::Ice::Int p1, ::Ice::Int p2, const ::Ice::Current &current) {
 	// qWarning() << "effectivePermissions" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_effectivePermissions_ALL
 #	ifdef ACCESS_Server_effectivePermissions_READ
@@ -818,7 +856,7 @@ void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_ef
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_effectivePermissions_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_effectivePermissions_READ
@@ -835,11 +873,15 @@ void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_ef
 	}
 #endif // ACCESS_Server_effectivePermissions_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_effectivePermissions, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_effectivePermissions, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addContextCallbackPtr &cb, ::Ice::Int p1, const ::std::string& p2, const ::std::string& p3, const ServerContextCallbackPrx& p4, ::Ice::Int p5, const ::Ice::Current &current) {
+void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addContextCallbackPtr &cb, ::Ice::Int p1,
+												 const ::std::string &p2, const ::std::string &p3,
+												 const ServerContextCallbackPrx &p4, ::Ice::Int p5,
+												 const ::Ice::Current &current) {
 	// qWarning() << "addContextCallback" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_addContextCallback_ALL
 #	ifdef ACCESS_Server_addContextCallback_READ
@@ -850,7 +892,7 @@ void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addC
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_addContextCallback_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_addContextCallback_READ
@@ -867,11 +909,13 @@ void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addC
 	}
 #endif // ACCESS_Server_addContextCallback_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addContextCallback, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4, p5));
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addContextCallback, cb,
+											  QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4, p5));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_removeContextCallbackPtr &cb, const ServerContextCallbackPrx& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_removeContextCallbackPtr &cb,
+													const ServerContextCallbackPrx &p1, const ::Ice::Current &current) {
 	// qWarning() << "removeContextCallback" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_removeContextCallback_ALL
 #	ifdef ACCESS_Server_removeContextCallback_READ
@@ -882,7 +926,7 @@ void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_r
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_removeContextCallback_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_removeContextCallback_READ
@@ -899,11 +943,13 @@ void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_r
 	}
 #endif // ACCESS_Server_removeContextCallback_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeContextCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_removeContextCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChannelStatePtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChannelStatePtr &cb, ::Ice::Int p1,
+											  const ::Ice::Current &current) {
 	// qWarning() << "getChannelState" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getChannelState_ALL
 #	ifdef ACCESS_Server_getChannelState_READ
@@ -914,7 +960,7 @@ void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChan
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getChannelState_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getChannelState_READ
@@ -931,11 +977,13 @@ void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChan
 	}
 #endif // ACCESS_Server_getChannelState_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getChannelState, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_getChannelState, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChannelStatePtr &cb, const Channel& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChannelStatePtr &cb, const Channel &p1,
+											  const ::Ice::Current &current) {
 	// qWarning() << "setChannelState" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setChannelState_ALL
 #	ifdef ACCESS_Server_setChannelState_READ
@@ -946,7 +994,7 @@ void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChan
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setChannelState_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setChannelState_READ
@@ -963,11 +1011,13 @@ void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChan
 	}
 #endif // ACCESS_Server_setChannelState_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setChannelState, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_setChannelState, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeChannelPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeChannelPtr &cb, ::Ice::Int p1,
+											const ::Ice::Current &current) {
 	// qWarning() << "removeChannel" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_removeChannel_ALL
 #	ifdef ACCESS_Server_removeChannel_READ
@@ -978,7 +1028,7 @@ void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeCha
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_removeChannel_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_removeChannel_READ
@@ -995,11 +1045,13 @@ void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeCha
 	}
 #endif // ACCESS_Server_removeChannel_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeChannel, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_removeChannel, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPtr &cb, const ::std::string& p1, ::Ice::Int p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPtr &cb, const ::std::string &p1,
+										 ::Ice::Int p2, const ::Ice::Current &current) {
 	// qWarning() << "addChannel" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_addChannel_ALL
 #	ifdef ACCESS_Server_addChannel_READ
@@ -1010,7 +1062,7 @@ void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPt
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_addChannel_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_addChannel_READ
@@ -1027,11 +1079,13 @@ void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPt
 	}
 #endif // ACCESS_Server_addChannel_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addChannel, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_addChannel, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_sendMessageChannelPtr &cb, ::Ice::Int p1, bool p2, const ::std::string& p3, const ::Ice::Current &current) {
+void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_sendMessageChannelPtr &cb, ::Ice::Int p1,
+												 bool p2, const ::std::string &p3, const ::Ice::Current &current) {
 	// qWarning() << "sendMessageChannel" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_sendMessageChannel_ALL
 #	ifdef ACCESS_Server_sendMessageChannel_READ
@@ -1042,7 +1096,7 @@ void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_send
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_sendMessageChannel_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_sendMessageChannel_READ
@@ -1059,11 +1113,13 @@ void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_send
 	}
 #endif // ACCESS_Server_sendMessageChannel_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_sendMessageChannel, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_sendMessageChannel, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb, ::Ice::Int p1,
+									 const ::Ice::Current &current) {
 	// qWarning() << "getACL" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getACL_ALL
 #	ifdef ACCESS_Server_getACL_READ
@@ -1074,7 +1130,7 @@ void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb, :
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getACL_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getACL_READ
@@ -1091,11 +1147,13 @@ void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb, :
 	}
 #endif // ACCESS_Server_getACL_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getACL, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getACL, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb, ::Ice::Int p1, const ACLList& p2, const GroupList& p3, bool p4, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb, ::Ice::Int p1, const ACLList &p2,
+									 const GroupList &p3, bool p4, const ::Ice::Current &current) {
 	// qWarning() << "setACL" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setACL_ALL
 #	ifdef ACCESS_Server_setACL_READ
@@ -1106,7 +1164,7 @@ void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb, :
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setACL_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setACL_READ
@@ -1123,11 +1181,13 @@ void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb, :
 	}
 #endif // ACCESS_Server_setACL_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setACL, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_setACL, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserToGroupPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::std::string& p3, const ::Ice::Current &current) {
+void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserToGroupPtr &cb, ::Ice::Int p1,
+											 ::Ice::Int p2, const ::std::string &p3, const ::Ice::Current &current) {
 	// qWarning() << "addUserToGroup" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_addUserToGroup_ALL
 #	ifdef ACCESS_Server_addUserToGroup_READ
@@ -1138,7 +1198,7 @@ void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserT
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_addUserToGroup_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_addUserToGroup_READ
@@ -1155,11 +1215,14 @@ void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserT
 	}
 #endif // ACCESS_Server_addUserToGroup_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addUserToGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_addUserToGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_removeUserFromGroupPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::std::string& p3, const ::Ice::Current &current) {
+void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_removeUserFromGroupPtr &cb, ::Ice::Int p1,
+												  ::Ice::Int p2, const ::std::string &p3,
+												  const ::Ice::Current &current) {
 	// qWarning() << "removeUserFromGroup" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_removeUserFromGroup_ALL
 #	ifdef ACCESS_Server_removeUserFromGroup_READ
@@ -1170,7 +1233,7 @@ void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_rem
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_removeUserFromGroup_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_removeUserFromGroup_READ
@@ -1187,11 +1250,14 @@ void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_rem
 	}
 #endif // ACCESS_Server_removeUserFromGroup_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeUserFromGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_removeUserFromGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_redirectWhisperGroupPtr &cb, ::Ice::Int p1, const ::std::string& p2, const ::std::string& p3, const ::Ice::Current &current) {
+void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_redirectWhisperGroupPtr &cb,
+												   ::Ice::Int p1, const ::std::string &p2, const ::std::string &p3,
+												   const ::Ice::Current &current) {
 	// qWarning() << "redirectWhisperGroup" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_redirectWhisperGroup_ALL
 #	ifdef ACCESS_Server_redirectWhisperGroup_READ
@@ -1202,7 +1268,7 @@ void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_re
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_redirectWhisperGroup_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_redirectWhisperGroup_READ
@@ -1219,11 +1285,13 @@ void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_re
 	}
 #endif // ACCESS_Server_redirectWhisperGroup_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_redirectWhisperGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_redirectWhisperGroup, cb,
+											  QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNamesPtr &cb, const IdList& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNamesPtr &cb, const IdList &p1,
+										   const ::Ice::Current &current) {
 	// qWarning() << "getUserNames" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getUserNames_ALL
 #	ifdef ACCESS_Server_getUserNames_READ
@@ -1234,7 +1302,7 @@ void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNam
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getUserNames_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getUserNames_READ
@@ -1251,11 +1319,13 @@ void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNam
 	}
 #endif // ACCESS_Server_getUserNames_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUserNames, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getUserNames, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPtr &cb, const NameList& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPtr &cb, const NameList &p1,
+										 const ::Ice::Current &current) {
 	// qWarning() << "getUserIds" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getUserIds_ALL
 #	ifdef ACCESS_Server_getUserIds_READ
@@ -1266,7 +1336,7 @@ void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPt
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getUserIds_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getUserIds_READ
@@ -1283,11 +1353,13 @@ void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPt
 	}
 #endif // ACCESS_Server_getUserIds_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUserIds, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getUserIds, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUserPtr &cb, const UserInfoMap& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUserPtr &cb, const UserInfoMap &p1,
+										   const ::Ice::Current &current) {
 	// qWarning() << "registerUser" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_registerUser_ALL
 #	ifdef ACCESS_Server_registerUser_READ
@@ -1298,7 +1370,7 @@ void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUs
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_registerUser_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_registerUser_READ
@@ -1315,11 +1387,13 @@ void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUs
 	}
 #endif // ACCESS_Server_registerUser_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_registerUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_registerUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregisterUserPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregisterUserPtr &cb, ::Ice::Int p1,
+											 const ::Ice::Current &current) {
 	// qWarning() << "unregisterUser" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_unregisterUser_ALL
 #	ifdef ACCESS_Server_unregisterUser_READ
@@ -1330,7 +1404,7 @@ void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregist
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_unregisterUser_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_unregisterUser_READ
@@ -1347,11 +1421,13 @@ void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregist
 	}
 #endif // ACCESS_Server_unregisterUser_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_unregisterUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_unregisterUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr &cb, ::Ice::Int p1, const UserInfoMap& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr &cb, ::Ice::Int p1,
+												 const UserInfoMap &p2, const ::Ice::Current &current) {
 	// qWarning() << "updateRegistration" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_updateRegistration_ALL
 #	ifdef ACCESS_Server_updateRegistration_READ
@@ -1362,7 +1438,7 @@ void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_upda
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_updateRegistration_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_updateRegistration_READ
@@ -1379,11 +1455,13 @@ void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_upda
 	}
 #endif // ACCESS_Server_updateRegistration_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_updateRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_updateRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegistrationPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegistrationPtr &cb, ::Ice::Int p1,
+											  const ::Ice::Current &current) {
 	// qWarning() << "getRegistration" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getRegistration_ALL
 #	ifdef ACCESS_Server_getRegistration_READ
@@ -1394,7 +1472,7 @@ void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegi
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getRegistration_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getRegistration_READ
@@ -1411,11 +1489,13 @@ void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegi
 	}
 #endif // ACCESS_Server_getRegistration_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_getRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getRegisteredUsersPtr &cb, const ::std::string& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getRegisteredUsersPtr &cb,
+												 const ::std::string &p1, const ::Ice::Current &current) {
 	// qWarning() << "getRegisteredUsers" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getRegisteredUsers_ALL
 #	ifdef ACCESS_Server_getRegisteredUsers_READ
@@ -1426,7 +1506,7 @@ void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getR
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getRegisteredUsers_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getRegisteredUsers_READ
@@ -1443,11 +1523,13 @@ void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getR
 	}
 #endif // ACCESS_Server_getRegisteredUsers_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getRegisteredUsers, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_getRegisteredUsers, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPasswordPtr &cb, const ::std::string& p1, const ::std::string& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPasswordPtr &cb, const ::std::string &p1,
+											 const ::std::string &p2, const ::Ice::Current &current) {
 	// qWarning() << "verifyPassword" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_verifyPassword_ALL
 #	ifdef ACCESS_Server_verifyPassword_READ
@@ -1458,7 +1540,7 @@ void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPa
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_verifyPassword_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_verifyPassword_READ
@@ -1475,11 +1557,13 @@ void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPa
 	}
 #endif // ACCESS_Server_verifyPassword_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_verifyPassword, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_verifyPassword, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePtr &cb, ::Ice::Int p1,
+										 const ::Ice::Current &current) {
 	// qWarning() << "getTexture" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getTexture_ALL
 #	ifdef ACCESS_Server_getTexture_READ
@@ -1490,7 +1574,7 @@ void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePt
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getTexture_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getTexture_READ
@@ -1507,11 +1591,13 @@ void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePt
 	}
 #endif // ACCESS_Server_getTexture_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getTexture, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getTexture, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePtr &cb, ::Ice::Int p1, const Texture& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePtr &cb, ::Ice::Int p1, const Texture &p2,
+										 const ::Ice::Current &current) {
 	// qWarning() << "setTexture" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_setTexture_ALL
 #	ifdef ACCESS_Server_setTexture_READ
@@ -1522,7 +1608,7 @@ void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePt
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_setTexture_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_setTexture_READ
@@ -1539,7 +1625,8 @@ void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePt
 	}
 #endif // ACCESS_Server_setTexture_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setTexture, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_setTexture, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
@@ -1554,7 +1641,7 @@ void ::Murmur::ServerI::getUptime_async(const ::Murmur::AMD_Server_getUptimePtr 
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getUptime_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getUptime_READ
@@ -1571,11 +1658,14 @@ void ::Murmur::ServerI::getUptime_async(const ::Murmur::AMD_Server_getUptimePtr 
 	}
 #endif // ACCESS_Server_getUptime_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUptime, cb, QString::fromStdString(current.id.name).toInt()));
+	ExecEvent *ie =
+		new ExecEvent(boost::bind(&impl_Server_getUptime, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::updateCertificate_async(const ::Murmur::AMD_Server_updateCertificatePtr &cb, const ::std::string& p1, const ::std::string& p2, const ::std::string& p3, const ::Ice::Current &current) {
+void ::Murmur::ServerI::updateCertificate_async(const ::Murmur::AMD_Server_updateCertificatePtr &cb,
+												const ::std::string &p1, const ::std::string &p2,
+												const ::std::string &p3, const ::Ice::Current &current) {
 	// qWarning() << "updateCertificate" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_updateCertificate_ALL
 #	ifdef ACCESS_Server_updateCertificate_READ
@@ -1586,7 +1676,7 @@ void ::Murmur::ServerI::updateCertificate_async(const ::Murmur::AMD_Server_updat
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_updateCertificate_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_updateCertificate_READ
@@ -1603,11 +1693,13 @@ void ::Murmur::ServerI::updateCertificate_async(const ::Murmur::AMD_Server_updat
 	}
 #endif // ACCESS_Server_updateCertificate_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_updateCertificate, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_updateCertificate, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::startListening_async(const ::Murmur::AMD_Server_startListeningPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::startListening_async(const ::Murmur::AMD_Server_startListeningPtr &cb, ::Ice::Int p1,
+											 ::Ice::Int p2, const ::Ice::Current &current) {
 	// qWarning() << "startListening" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_startListening_ALL
 #	ifdef ACCESS_Server_startListening_READ
@@ -1618,7 +1710,7 @@ void ::Murmur::ServerI::startListening_async(const ::Murmur::AMD_Server_startLis
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_startListening_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_startListening_READ
@@ -1635,11 +1727,13 @@ void ::Murmur::ServerI::startListening_async(const ::Murmur::AMD_Server_startLis
 	}
 #endif // ACCESS_Server_startListening_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_startListening, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_startListening, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::stopListening_async(const ::Murmur::AMD_Server_stopListeningPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::stopListening_async(const ::Murmur::AMD_Server_stopListeningPtr &cb, ::Ice::Int p1,
+											::Ice::Int p2, const ::Ice::Current &current) {
 	// qWarning() << "stopListening" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_stopListening_ALL
 #	ifdef ACCESS_Server_stopListening_READ
@@ -1650,7 +1744,7 @@ void ::Murmur::ServerI::stopListening_async(const ::Murmur::AMD_Server_stopListe
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_stopListening_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_stopListening_READ
@@ -1667,11 +1761,13 @@ void ::Murmur::ServerI::stopListening_async(const ::Murmur::AMD_Server_stopListe
 	}
 #endif // ACCESS_Server_stopListening_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_stopListening, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_stopListening, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::isListening_async(const ::Murmur::AMD_Server_isListeningPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::isListening_async(const ::Murmur::AMD_Server_isListeningPtr &cb, ::Ice::Int p1, ::Ice::Int p2,
+										  const ::Ice::Current &current) {
 	// qWarning() << "isListening" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_isListening_ALL
 #	ifdef ACCESS_Server_isListening_READ
@@ -1682,7 +1778,7 @@ void ::Murmur::ServerI::isListening_async(const ::Murmur::AMD_Server_isListening
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_isListening_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_isListening_READ
@@ -1699,11 +1795,13 @@ void ::Murmur::ServerI::isListening_async(const ::Murmur::AMD_Server_isListening
 	}
 #endif // ACCESS_Server_isListening_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_isListening, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_isListening, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getListeningChannels_async(const ::Murmur::AMD_Server_getListeningChannelsPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getListeningChannels_async(const ::Murmur::AMD_Server_getListeningChannelsPtr &cb,
+												   ::Ice::Int p1, const ::Ice::Current &current) {
 	// qWarning() << "getListeningChannels" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getListeningChannels_ALL
 #	ifdef ACCESS_Server_getListeningChannels_READ
@@ -1714,7 +1812,7 @@ void ::Murmur::ServerI::getListeningChannels_async(const ::Murmur::AMD_Server_ge
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getListeningChannels_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getListeningChannels_READ
@@ -1731,11 +1829,13 @@ void ::Murmur::ServerI::getListeningChannels_async(const ::Murmur::AMD_Server_ge
 	}
 #endif // ACCESS_Server_getListeningChannels_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getListeningChannels, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_getListeningChannels, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::getListeningUsers_async(const ::Murmur::AMD_Server_getListeningUsersPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getListeningUsers_async(const ::Murmur::AMD_Server_getListeningUsersPtr &cb, ::Ice::Int p1,
+												const ::Ice::Current &current) {
 	// qWarning() << "getListeningUsers" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_getListeningUsers_ALL
 #	ifdef ACCESS_Server_getListeningUsers_READ
@@ -1746,7 +1846,7 @@ void ::Murmur::ServerI::getListeningUsers_async(const ::Murmur::AMD_Server_getLi
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_getListeningUsers_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_getListeningUsers_READ
@@ -1763,11 +1863,13 @@ void ::Murmur::ServerI::getListeningUsers_async(const ::Murmur::AMD_Server_getLi
 	}
 #endif // ACCESS_Server_getListeningUsers_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getListeningUsers, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_getListeningUsers, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::ServerI::sendWelcomeMessage_async(const ::Murmur::AMD_Server_sendWelcomeMessagePtr &cb, const IdList& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::sendWelcomeMessage_async(const ::Murmur::AMD_Server_sendWelcomeMessagePtr &cb, const IdList &p1,
+												 const ::Ice::Current &current) {
 	// qWarning() << "sendWelcomeMessage" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_sendWelcomeMessage_ALL
 #	ifdef ACCESS_Server_sendWelcomeMessage_READ
@@ -1778,7 +1880,7 @@ void ::Murmur::ServerI::sendWelcomeMessage_async(const ::Murmur::AMD_Server_send
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Server_sendWelcomeMessage_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Server_sendWelcomeMessage_READ
@@ -1795,11 +1897,13 @@ void ::Murmur::ServerI::sendWelcomeMessage_async(const ::Murmur::AMD_Server_send
 	}
 #endif // ACCESS_Server_sendWelcomeMessage_ALL
 
-	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_sendWelcomeMessage, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	ExecEvent *ie = new ExecEvent(
+		boost::bind(&impl_Server_sendWelcomeMessage, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb, ::Ice::Int p1, const ::Ice::Current &current) {
+void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb, ::Ice::Int p1,
+									  const ::Ice::Current &current) {
 	// qWarning() << "getServer" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Meta_getServer_ALL
 #	ifdef ACCESS_Meta_getServer_READ
@@ -1810,7 +1914,7 @@ void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_getServer_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_getServer_READ
@@ -1842,7 +1946,7 @@ void ::Murmur::MetaI::newServer_async(const ::Murmur::AMD_Meta_newServerPtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_newServer_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_newServer_READ
@@ -1863,7 +1967,8 @@ void ::Murmur::MetaI::newServer_async(const ::Murmur::AMD_Meta_newServerPtr &cb,
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedServersPtr &cb, const ::Ice::Current &current) {
+void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedServersPtr &cb,
+											 const ::Ice::Current &current) {
 	// qWarning() << "getBootedServers" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Meta_getBootedServers_ALL
 #	ifdef ACCESS_Meta_getBootedServers_READ
@@ -1874,7 +1979,7 @@ void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedS
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_getBootedServers_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_getBootedServers_READ
@@ -1895,7 +2000,8 @@ void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedS
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServersPtr &cb, const ::Ice::Current &current) {
+void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServersPtr &cb,
+										  const ::Ice::Current &current) {
 	// qWarning() << "getAllServers" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Meta_getAllServers_ALL
 #	ifdef ACCESS_Meta_getAllServers_READ
@@ -1906,7 +2012,7 @@ void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServers
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_getAllServers_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_getAllServers_READ
@@ -1927,7 +2033,8 @@ void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServers
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultConfPtr &cb, const ::Ice::Current &current) {
+void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultConfPtr &cb,
+										   const ::Ice::Current &current) {
 	// qWarning() << "getDefaultConf" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Meta_getDefaultConf_ALL
 #	ifdef ACCESS_Meta_getDefaultConf_READ
@@ -1938,7 +2045,7 @@ void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultCo
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_getDefaultConf_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_getDefaultConf_READ
@@ -1970,7 +2077,7 @@ void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &c
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_getVersion_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_getVersion_READ
@@ -1991,7 +2098,8 @@ void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &c
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr &cb, const MetaCallbackPrx& p1, const ::Ice::Current &current) {
+void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr &cb, const MetaCallbackPrx &p1,
+										const ::Ice::Current &current) {
 	// qWarning() << "addCallback" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Meta_addCallback_ALL
 #	ifdef ACCESS_Meta_addCallback_READ
@@ -2002,7 +2110,7 @@ void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr 
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_addCallback_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_addCallback_READ
@@ -2023,7 +2131,8 @@ void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr 
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallbackPtr &cb, const MetaCallbackPrx& p1, const ::Ice::Current &current) {
+void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallbackPtr &cb, const MetaCallbackPrx &p1,
+										   const ::Ice::Current &current) {
 	// qWarning() << "removeCallback" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Meta_removeCallback_ALL
 #	ifdef ACCESS_Meta_removeCallback_READ
@@ -2034,7 +2143,7 @@ void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallba
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_removeCallback_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_removeCallback_READ
@@ -2066,7 +2175,7 @@ void ::Murmur::MetaI::getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr &cb,
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_getUptime_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_getUptime_READ
@@ -2087,7 +2196,8 @@ void ::Murmur::MetaI::getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr &cb,
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceChecksumsPtr &cb, const ::Ice::Current &current) {
+void ::Murmur::MetaI::getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceChecksumsPtr &cb,
+											  const ::Ice::Current &current) {
 	// qWarning() << "getSliceChecksums" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Meta_getSliceChecksums_ALL
 #	ifdef ACCESS_Meta_getSliceChecksums_READ
@@ -2098,7 +2208,7 @@ void ::Murmur::MetaI::getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceC
 		bool ok = !meta->mp.qsIceSecretWrite.isEmpty();
 #	endif // ACCESS_Meta_getSliceChecksums_READ
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		ok = ok && (i != current.ctx.end());
+		ok                               = ok && (i != current.ctx.end());
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #	ifdef ACCESS_Meta_getSliceChecksums_READ
@@ -2119,6 +2229,127 @@ void ::Murmur::MetaI::getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceC
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
-void ::Murmur::MetaI::getSlice_async(const ::Murmur::AMD_Meta_getSlicePtr &cb, const Ice::Current&) {
-	cb->ice_response(std::string("\n\n\n\n#include <Ice/SliceChecksumDict.ice>\nmodule Murmur\n{\n\n[\"python:seq:tuple\"] sequence<byte> NetAddress;\n\nstruct User {\nint session;\nint userid;\nbool mute;\nbool deaf;\nbool suppress;\nbool prioritySpeaker;\nbool selfMute;\nbool selfDeaf;\nbool recording;\nint channel;\nstring name;\nint onlinesecs;\nint bytespersec;\nint version;\nstring release;\nstring os;\nstring osversion;\nstring identity;\nstring context;\nstring comment;\nNetAddress address;\nbool tcponly;\nint idlesecs;\nfloat udpPing;\nfloat tcpPing;\n};\nsequence<int> IntList;\n\nstruct TextMessage {\nIntList sessions;\nIntList channels;\nIntList trees;\nstring text;\n};\n\nstruct Channel {\nint id;\nstring name;\nint parent;\nIntList links;\nstring description;\nbool temporary;\nint position;\n};\n\nstruct Group {\nstring name;\nbool inherited;\nbool inherit;\nbool inheritable;\nIntList add;\nIntList remove;\nIntList members;\n};\n\nconst int PermissionWrite = 0x01;\nconst int PermissionTraverse = 0x02;\nconst int PermissionEnter = 0x04;\nconst int PermissionSpeak = 0x08;\nconst int PermissionWhisper = 0x100;\nconst int PermissionMuteDeafen = 0x10;\nconst int PermissionMove = 0x20;\nconst int PermissionMakeChannel = 0x40;\nconst int PermissionMakeTempChannel = 0x400;\nconst int PermissionLinkChannel = 0x80;\nconst int PermissionTextMessage = 0x200;\nconst int PermissionKick = 0x10000;\nconst int PermissionBan = 0x20000;\nconst int PermissionRegister = 0x40000;\nconst int PermissionRegisterSelf = 0x80000;\nconst int ResetUserContent = 0x100000;\n\nstruct ACL {\nbool applyHere;\nbool applySubs;\nbool inherited;\nint userid;\nstring group;\nint allow;\nint deny;\n};\n\nstruct Ban {\nNetAddress address;\nint bits;\nstring name;\nstring hash;\nstring reason;\nint start;\nint duration;\n};\n\nstruct LogEntry {\nint timestamp;\nstring txt;\n};\nclass Tree;\nsequence<Tree> TreeList;\nenum ChannelInfo { ChannelDescription, ChannelPosition };\nenum UserInfo { UserName, UserEmail, UserComment, UserHash, UserPassword, UserLastActive, UserKDFIterations };\ndictionary<int, User> UserMap;\ndictionary<int, Channel> ChannelMap;\nsequence<Channel> ChannelList;\nsequence<User> UserList;\nsequence<Group> GroupList;\nsequence<ACL> ACLList;\nsequence<LogEntry> LogList;\nsequence<Ban> BanList;\nsequence<int> IdList;\nsequence<string> NameList;\ndictionary<int, string> NameMap;\ndictionary<string, int> IdMap;\nsequence<byte> Texture;\ndictionary<string, string> ConfigMap;\nsequence<string> GroupNameList;\nsequence<byte> CertificateDer;\nsequence<CertificateDer> CertificateList;\n\ndictionary<UserInfo, string> UserInfoMap;\n\nclass Tree {\nChannel c;\nTreeList children;\nUserList users;\n};\nexception MurmurException {};\nexception InvalidSessionException extends MurmurException {};\nexception InvalidChannelException extends MurmurException {};\nexception InvalidServerException extends MurmurException {};\nexception ServerBootedException extends MurmurException {};\nexception ServerFailureException extends MurmurException {};\nexception InvalidUserException extends MurmurException {};\nexception InvalidTextureException extends MurmurException {};\nexception InvalidCallbackException extends MurmurException {};\nexception InvalidSecretException extends MurmurException {};\nexception NestingLimitException extends MurmurException {};\nexception WriteOnlyException extends MurmurException {};\nexception InvalidInputDataException extends MurmurException {};\n\ninterface ServerCallback {\nidempotent void userConnected(User state);\nidempotent void userDisconnected(User state);\nidempotent void userStateChanged(User state);\nidempotent void userTextMessage(User state, TextMessage message);\nidempotent void channelCreated(Channel state);\nidempotent void channelRemoved(Channel state);\nidempotent void channelStateChanged(Channel state);\n};\n\nconst int ContextServer = 0x01;\nconst int ContextChannel = 0x02;\nconst int ContextUser = 0x04;\n\ninterface ServerContextCallback {\nidempotent void contextAction(string action, User usr, int session, int channelid);\n};\n\ninterface ServerAuthenticator {\nidempotent int authenticate(string name, string pw, CertificateList certificates, string certhash, bool certstrong, out string newname, out GroupNameList groups);\n\nidempotent bool getInfo(int id, out UserInfoMap info);\n\nidempotent int nameToId(string name);\n\nidempotent string idToName(int id);\n\nidempotent Texture idToTexture(int id);\n};\n\ninterface ServerUpdatingAuthenticator extends ServerAuthenticator {\nint registerUser(UserInfoMap info);\n\nint unregisterUser(int id);\n\nidempotent NameMap getRegisteredUsers(string filter);\n\nidempotent int setInfo(int id, UserInfoMap info);\n\nidempotent int setTexture(int id, Texture tex);\n};\n\n[\"amd\"] interface Server {\nidempotent bool isRunning() throws InvalidSecretException;\n\nvoid start() throws ServerBootedException, ServerFailureException, InvalidSecretException;\n\nvoid stop() throws ServerBootedException, InvalidSecretException;\n\nvoid delete() throws ServerBootedException, InvalidSecretException;\n\nidempotent int id() throws InvalidSecretException;\n\nvoid addCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException, InvalidSecretException;\n\nvoid removeCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException, InvalidSecretException;\n\nvoid setAuthenticator(ServerAuthenticator *auth) throws ServerBootedException, InvalidCallbackException, InvalidSecretException;\n\nidempotent string getConf(string key) throws InvalidSecretException, WriteOnlyException;\n\nidempotent ConfigMap getAllConf() throws InvalidSecretException;\n\nidempotent void setConf(string key, string value) throws InvalidSecretException;\n\nidempotent void setSuperuserPassword(string pw) throws InvalidSecretException;\n\nidempotent LogList getLog(int first, int last) throws InvalidSecretException;\n\nidempotent int getLogLen() throws InvalidSecretException;\n\nidempotent UserMap getUsers() throws ServerBootedException, InvalidSecretException;\n\nidempotent ChannelMap getChannels() throws ServerBootedException, InvalidSecretException;\n\nidempotent CertificateList getCertificateList(int session) throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent Tree getTree() throws ServerBootedException, InvalidSecretException;\n\nidempotent BanList getBans() throws ServerBootedException, InvalidSecretException;\n\nidempotent void setBans(BanList bans) throws ServerBootedException, InvalidSecretException;\n\nvoid kickUser(int session, string reason) throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent User getState(int session) throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent void setState(User state) throws ServerBootedException, InvalidSessionException, InvalidChannelException, InvalidSecretException;\n\nvoid sendMessage(int session, string text) throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nbool hasPermission(int session, int channelid, int perm) throws ServerBootedException, InvalidSessionException, InvalidChannelException, InvalidSecretException;\n\nidempotent int effectivePermissions(int session, int channelid) throws ServerBootedException, InvalidSessionException, InvalidChannelException, InvalidSecretException;\n\nvoid addContextCallback(int session, string action, string text, ServerContextCallback *cb, int ctx) throws ServerBootedException, InvalidCallbackException, InvalidSecretException;\n\nvoid removeContextCallback(ServerContextCallback *cb) throws ServerBootedException, InvalidCallbackException, InvalidSecretException;\n\nidempotent Channel getChannelState(int channelid) throws ServerBootedException, InvalidChannelException, InvalidSecretException;\n\nidempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;\n\nvoid removeChannel(int channelid) throws ServerBootedException, InvalidChannelException, InvalidSecretException;\n\nint addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;\n\nvoid sendMessageChannel(int channelid, bool tree, string text) throws ServerBootedException, InvalidChannelException, InvalidSecretException;\n\nidempotent void getACL(int channelid, out ACLList acls, out GroupList groups, out bool inherit) throws ServerBootedException, InvalidChannelException, InvalidSecretException;\n\nidempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException, InvalidSecretException;\n\nidempotent void addUserToGroup(int channelid, int session, string group) throws ServerBootedException, InvalidChannelException, InvalidSessionException, InvalidSecretException;\n\nidempotent void removeUserFromGroup(int channelid, int session, string group) throws ServerBootedException, InvalidChannelException, InvalidSessionException, InvalidSecretException;\n\nidempotent void redirectWhisperGroup(int session, string source, string target) throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent NameMap getUserNames(IdList ids) throws ServerBootedException, InvalidSecretException;\n\nidempotent IdMap getUserIds(NameList names) throws ServerBootedException, InvalidSecretException;\n\nint registerUser(UserInfoMap info) throws ServerBootedException, InvalidUserException, InvalidSecretException;\n\nvoid unregisterUser(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException;\n\nidempotent void updateRegistration(int userid, UserInfoMap info) throws ServerBootedException, InvalidUserException, InvalidSecretException;\n\nidempotent UserInfoMap getRegistration(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException;\n\nidempotent NameMap getRegisteredUsers(string filter) throws ServerBootedException, InvalidSecretException;\n\nidempotent int verifyPassword(string name, string pw) throws ServerBootedException, InvalidSecretException;\n\nidempotent Texture getTexture(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException;\n\nidempotent void setTexture(int userid, Texture tex) throws ServerBootedException, InvalidUserException, InvalidTextureException, InvalidSecretException;\n\nidempotent int getUptime() throws ServerBootedException, InvalidSecretException;\n\n idempotent void updateCertificate(string certificate, string privateKey, string passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException;\n \n idempotent void startListening(int userid, int channelid);\n \n idempotent void stopListening(int userid, int channelid);\n \n idempotent bool isListening(int userid, int channelid);\n \n idempotent IntList getListeningChannels(int userid);\n \n idempotent IntList getListeningUsers(int channelid);\n \n idempotent void sendWelcomeMessage(IdList receiverUserIDs);\n};\n\ninterface MetaCallback {\nvoid started(Server *srv);\n\nvoid stopped(Server *srv);\n};\nsequence<Server *> ServerList;\n\n[\"amd\"] interface Meta {\nidempotent Server *getServer(int id) throws InvalidSecretException;\n\nServer *newServer() throws InvalidSecretException;\n\nidempotent ServerList getBootedServers() throws InvalidSecretException;\n\nidempotent ServerList getAllServers() throws InvalidSecretException;\n\nidempotent ConfigMap getDefaultConf() throws InvalidSecretException;\n\nidempotent void getVersion(out int major, out int minor, out int patch, out string text);\n\nvoid addCallback(MetaCallback *cb) throws InvalidCallbackException, InvalidSecretException;\n\nvoid removeCallback(MetaCallback *cb) throws InvalidCallbackException, InvalidSecretException;\n\nidempotent int getUptime();\n\nidempotent string getSlice();\n\nidempotent Ice::SliceChecksumDict getSliceChecksums();\n};\n};\n"));
+void ::Murmur::MetaI::getSlice_async(const ::Murmur::AMD_Meta_getSlicePtr &cb, const Ice::Current &) {
+	cb->ice_response(std::string(
+		"\n\n\n\n#include <Ice/SliceChecksumDict.ice>\nmodule Murmur\n{\n\n[\"python:seq:tuple\"] sequence<byte> "
+		"NetAddress;\n\nstruct User {\nint session;\nint userid;\nbool mute;\nbool deaf;\nbool suppress;\nbool "
+		"prioritySpeaker;\nbool selfMute;\nbool selfDeaf;\nbool recording;\nint channel;\nstring name;\nint "
+		"onlinesecs;\nint bytespersec;\nint version;\nstring release;\nstring os;\nstring osversion;\nstring "
+		"identity;\nstring context;\nstring comment;\nNetAddress address;\nbool tcponly;\nint idlesecs;\nfloat "
+		"udpPing;\nfloat tcpPing;\n};\nsequence<int> IntList;\n\nstruct TextMessage {\nIntList sessions;\nIntList "
+		"channels;\nIntList trees;\nstring text;\n};\n\nstruct Channel {\nint id;\nstring name;\nint parent;\nIntList "
+		"links;\nstring description;\nbool temporary;\nint position;\n};\n\nstruct Group {\nstring name;\nbool "
+		"inherited;\nbool inherit;\nbool inheritable;\nIntList add;\nIntList remove;\nIntList members;\n};\n\nconst "
+		"int PermissionWrite = 0x01;\nconst int PermissionTraverse = 0x02;\nconst int PermissionEnter = 0x04;\nconst "
+		"int PermissionSpeak = 0x08;\nconst int PermissionWhisper = 0x100;\nconst int PermissionMuteDeafen = "
+		"0x10;\nconst int PermissionMove = 0x20;\nconst int PermissionMakeChannel = 0x40;\nconst int "
+		"PermissionMakeTempChannel = 0x400;\nconst int PermissionLinkChannel = 0x80;\nconst int PermissionTextMessage "
+		"= 0x200;\nconst int PermissionKick = 0x10000;\nconst int PermissionBan = 0x20000;\nconst int "
+		"PermissionRegister = 0x40000;\nconst int PermissionRegisterSelf = 0x80000;\nconst int ResetUserContent = "
+		"0x100000;\n\nstruct ACL {\nbool applyHere;\nbool applySubs;\nbool inherited;\nint userid;\nstring group;\nint "
+		"allow;\nint deny;\n};\n\nstruct Ban {\nNetAddress address;\nint bits;\nstring name;\nstring hash;\nstring "
+		"reason;\nint start;\nint duration;\n};\n\nstruct LogEntry {\nint timestamp;\nstring txt;\n};\nclass "
+		"Tree;\nsequence<Tree> TreeList;\nenum ChannelInfo { ChannelDescription, ChannelPosition };\nenum UserInfo { "
+		"UserName, UserEmail, UserComment, UserHash, UserPassword, UserLastActive, UserKDFIterations "
+		"};\ndictionary<int, User> UserMap;\ndictionary<int, Channel> ChannelMap;\nsequence<Channel> "
+		"ChannelList;\nsequence<User> UserList;\nsequence<Group> GroupList;\nsequence<ACL> "
+		"ACLList;\nsequence<LogEntry> LogList;\nsequence<Ban> BanList;\nsequence<int> IdList;\nsequence<string> "
+		"NameList;\ndictionary<int, string> NameMap;\ndictionary<string, int> IdMap;\nsequence<byte> "
+		"Texture;\ndictionary<string, string> ConfigMap;\nsequence<string> GroupNameList;\nsequence<byte> "
+		"CertificateDer;\nsequence<CertificateDer> CertificateList;\n\ndictionary<UserInfo, string> "
+		"UserInfoMap;\n\nclass Tree {\nChannel c;\nTreeList children;\nUserList users;\n};\nexception MurmurException "
+		"{};\nexception InvalidSessionException extends MurmurException {};\nexception InvalidChannelException extends "
+		"MurmurException {};\nexception InvalidServerException extends MurmurException {};\nexception "
+		"ServerBootedException extends MurmurException {};\nexception ServerFailureException extends MurmurException "
+		"{};\nexception InvalidUserException extends MurmurException {};\nexception InvalidTextureException extends "
+		"MurmurException {};\nexception InvalidCallbackException extends MurmurException {};\nexception "
+		"InvalidSecretException extends MurmurException {};\nexception NestingLimitException extends MurmurException "
+		"{};\nexception WriteOnlyException extends MurmurException {};\nexception InvalidInputDataException extends "
+		"MurmurException {};\n\ninterface ServerCallback {\nidempotent void userConnected(User state);\nidempotent "
+		"void userDisconnected(User state);\nidempotent void userStateChanged(User state);\nidempotent void "
+		"userTextMessage(User state, TextMessage message);\nidempotent void channelCreated(Channel state);\nidempotent "
+		"void channelRemoved(Channel state);\nidempotent void channelStateChanged(Channel state);\n};\n\nconst int "
+		"ContextServer = 0x01;\nconst int ContextChannel = 0x02;\nconst int ContextUser = 0x04;\n\ninterface "
+		"ServerContextCallback {\nidempotent void contextAction(string action, User usr, int session, int "
+		"channelid);\n};\n\ninterface ServerAuthenticator {\nidempotent int authenticate(string name, string pw, "
+		"CertificateList certificates, string certhash, bool certstrong, out string newname, out GroupNameList "
+		"groups);\n\nidempotent bool getInfo(int id, out UserInfoMap info);\n\nidempotent int nameToId(string "
+		"name);\n\nidempotent string idToName(int id);\n\nidempotent Texture idToTexture(int id);\n};\n\ninterface "
+		"ServerUpdatingAuthenticator extends ServerAuthenticator {\nint registerUser(UserInfoMap info);\n\nint "
+		"unregisterUser(int id);\n\nidempotent NameMap getRegisteredUsers(string filter);\n\nidempotent int "
+		"setInfo(int id, UserInfoMap info);\n\nidempotent int setTexture(int id, Texture tex);\n};\n\n[\"amd\"] "
+		"interface Server {\nidempotent bool isRunning() throws InvalidSecretException;\n\nvoid start() throws "
+		"ServerBootedException, ServerFailureException, InvalidSecretException;\n\nvoid stop() throws "
+		"ServerBootedException, InvalidSecretException;\n\nvoid delete() throws ServerBootedException, "
+		"InvalidSecretException;\n\nidempotent int id() throws InvalidSecretException;\n\nvoid "
+		"addCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException, "
+		"InvalidSecretException;\n\nvoid removeCallback(ServerCallback *cb) throws ServerBootedException, "
+		"InvalidCallbackException, InvalidSecretException;\n\nvoid setAuthenticator(ServerAuthenticator *auth) throws "
+		"ServerBootedException, InvalidCallbackException, InvalidSecretException;\n\nidempotent string getConf(string "
+		"key) throws InvalidSecretException, WriteOnlyException;\n\nidempotent ConfigMap getAllConf() throws "
+		"InvalidSecretException;\n\nidempotent void setConf(string key, string value) throws "
+		"InvalidSecretException;\n\nidempotent void setSuperuserPassword(string pw) throws "
+		"InvalidSecretException;\n\nidempotent LogList getLog(int first, int last) throws "
+		"InvalidSecretException;\n\nidempotent int getLogLen() throws InvalidSecretException;\n\nidempotent UserMap "
+		"getUsers() throws ServerBootedException, InvalidSecretException;\n\nidempotent ChannelMap getChannels() "
+		"throws ServerBootedException, InvalidSecretException;\n\nidempotent CertificateList getCertificateList(int "
+		"session) throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent Tree "
+		"getTree() throws ServerBootedException, InvalidSecretException;\n\nidempotent BanList getBans() throws "
+		"ServerBootedException, InvalidSecretException;\n\nidempotent void setBans(BanList bans) throws "
+		"ServerBootedException, InvalidSecretException;\n\nvoid kickUser(int session, string reason) throws "
+		"ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent User getState(int "
+		"session) throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent void "
+		"setState(User state) throws ServerBootedException, InvalidSessionException, InvalidChannelException, "
+		"InvalidSecretException;\n\nvoid sendMessage(int session, string text) throws ServerBootedException, "
+		"InvalidSessionException, InvalidSecretException;\n\nbool hasPermission(int session, int channelid, int perm) "
+		"throws ServerBootedException, InvalidSessionException, InvalidChannelException, "
+		"InvalidSecretException;\n\nidempotent int effectivePermissions(int session, int channelid) throws "
+		"ServerBootedException, InvalidSessionException, InvalidChannelException, InvalidSecretException;\n\nvoid "
+		"addContextCallback(int session, string action, string text, ServerContextCallback *cb, int ctx) throws "
+		"ServerBootedException, InvalidCallbackException, InvalidSecretException;\n\nvoid "
+		"removeContextCallback(ServerContextCallback *cb) throws ServerBootedException, InvalidCallbackException, "
+		"InvalidSecretException;\n\nidempotent Channel getChannelState(int channelid) throws ServerBootedException, "
+		"InvalidChannelException, InvalidSecretException;\n\nidempotent void setChannelState(Channel state) throws "
+		"ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;\n\nvoid "
+		"removeChannel(int channelid) throws ServerBootedException, InvalidChannelException, "
+		"InvalidSecretException;\n\nint addChannel(string name, int parent) throws ServerBootedException, "
+		"InvalidChannelException, InvalidSecretException, NestingLimitException;\n\nvoid sendMessageChannel(int "
+		"channelid, bool tree, string text) throws ServerBootedException, InvalidChannelException, "
+		"InvalidSecretException;\n\nidempotent void getACL(int channelid, out ACLList acls, out GroupList groups, out "
+		"bool inherit) throws ServerBootedException, InvalidChannelException, InvalidSecretException;\n\nidempotent "
+		"void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, "
+		"InvalidChannelException, InvalidSecretException;\n\nidempotent void addUserToGroup(int channelid, int "
+		"session, string group) throws ServerBootedException, InvalidChannelException, InvalidSessionException, "
+		"InvalidSecretException;\n\nidempotent void removeUserFromGroup(int channelid, int session, string group) "
+		"throws ServerBootedException, InvalidChannelException, InvalidSessionException, "
+		"InvalidSecretException;\n\nidempotent void redirectWhisperGroup(int session, string source, string target) "
+		"throws ServerBootedException, InvalidSessionException, InvalidSecretException;\n\nidempotent NameMap "
+		"getUserNames(IdList ids) throws ServerBootedException, InvalidSecretException;\n\nidempotent IdMap "
+		"getUserIds(NameList names) throws ServerBootedException, InvalidSecretException;\n\nint "
+		"registerUser(UserInfoMap info) throws ServerBootedException, InvalidUserException, "
+		"InvalidSecretException;\n\nvoid unregisterUser(int userid) throws ServerBootedException, "
+		"InvalidUserException, InvalidSecretException;\n\nidempotent void updateRegistration(int userid, UserInfoMap "
+		"info) throws ServerBootedException, InvalidUserException, InvalidSecretException;\n\nidempotent UserInfoMap "
+		"getRegistration(int userid) throws ServerBootedException, InvalidUserException, "
+		"InvalidSecretException;\n\nidempotent NameMap getRegisteredUsers(string filter) throws ServerBootedException, "
+		"InvalidSecretException;\n\nidempotent int verifyPassword(string name, string pw) throws "
+		"ServerBootedException, InvalidSecretException;\n\nidempotent Texture getTexture(int userid) throws "
+		"ServerBootedException, InvalidUserException, InvalidSecretException;\n\nidempotent void setTexture(int "
+		"userid, Texture tex) throws ServerBootedException, InvalidUserException, InvalidTextureException, "
+		"InvalidSecretException;\n\nidempotent int getUptime() throws ServerBootedException, "
+		"InvalidSecretException;\n\n idempotent void updateCertificate(string certificate, string privateKey, string "
+		"passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException;\n \n idempotent "
+		"void startListening(int userid, int channelid);\n \n idempotent void stopListening(int userid, int "
+		"channelid);\n \n idempotent bool isListening(int userid, int channelid);\n \n idempotent IntList "
+		"getListeningChannels(int userid);\n \n idempotent IntList getListeningUsers(int channelid);\n \n idempotent "
+		"void sendWelcomeMessage(IdList receiverUserIDs);\n};\n\ninterface MetaCallback {\nvoid started(Server "
+		"*srv);\n\nvoid stopped(Server *srv);\n};\nsequence<Server *> ServerList;\n\n[\"amd\"] interface Meta "
+		"{\nidempotent Server *getServer(int id) throws InvalidSecretException;\n\nServer *newServer() throws "
+		"InvalidSecretException;\n\nidempotent ServerList getBootedServers() throws "
+		"InvalidSecretException;\n\nidempotent ServerList getAllServers() throws InvalidSecretException;\n\nidempotent "
+		"ConfigMap getDefaultConf() throws InvalidSecretException;\n\nidempotent void getVersion(out int major, out "
+		"int minor, out int patch, out string text);\n\nvoid addCallback(MetaCallback *cb) throws "
+		"InvalidCallbackException, InvalidSecretException;\n\nvoid removeCallback(MetaCallback *cb) throws "
+		"InvalidCallbackException, InvalidSecretException;\n\nidempotent int getUptime();\n\nidempotent string "
+		"getSlice();\n\nidempotent Ice::SliceChecksumDict getSliceChecksums();\n};\n};\n"));
 }

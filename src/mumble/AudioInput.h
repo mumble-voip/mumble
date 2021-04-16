@@ -261,7 +261,8 @@ signals:
 	/// @param channelCount The amount of channels in the input
 	/// @param sampleRate The used sample rate in Hz
 	/// @param isSpeech Whether Mumble considers the inpu to be speech
-	void audioInputEncountered(short *inputPCM, unsigned int sampleCount, unsigned int channelCount, unsigned int sampleRate, bool isSpeech);
+	void audioInputEncountered(short *inputPCM, unsigned int sampleCount, unsigned int channelCount,
+							   unsigned int sampleRate, bool isSpeech);
 
 public:
 	typedef enum { ActivityStateIdle, ActivityStateReturnedFromIdle, ActivityStateActive } ActivityState;

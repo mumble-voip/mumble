@@ -4,31 +4,26 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "PluginUpdater.h"
-#include "PluginManager.h"
 #include "Log.h"
 #include "PluginInstaller.h"
+#include "PluginManager.h"
 #include "Global.h"
 
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QLabel>
-#include <QtCore/QHashIterator>
-#include <QtCore/QSignalBlocker>
+#include <QNetworkRequest>
+#include <QtConcurrent>
 #include <QtCore/QByteArray>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
-#include <QtConcurrent>
-#include <QNetworkRequest>
+#include <QtCore/QHashIterator>
+#include <QtCore/QSignalBlocker>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QLabel>
 
 #include <algorithm>
 
 PluginUpdater::PluginUpdater(QWidget *parent)
-	: QDialog(parent),
-	  m_wasInterrupted(false),
-	  m_dataMutex(),
-	  m_pluginsToUpdate(),
-	  m_networkManager(),
+	: QDialog(parent), m_wasInterrupted(false), m_dataMutex(), m_pluginsToUpdate(), m_networkManager(),
 	  m_pluginUpdateWidgets() {
-	
 	QObject::connect(&m_networkManager, &QNetworkAccessManager::finished, this, &PluginUpdater::on_updateDownloaded);
 }
 
@@ -41,7 +36,7 @@ void PluginUpdater::checkForUpdates() {
 	QtConcurrent::run([this]() {
 		QMutexLocker lock(&m_dataMutex);
 
-		const QVector<const_plugin_ptr_t> plugins = Global::get().pluginManager->getPlugins();
+		const QVector< const_plugin_ptr_t > plugins = Global::get().pluginManager->getPlugins();
 
 		for (int i = 0; i < plugins.size(); i++) {
 			const_plugin_ptr_t plugin = plugins[i];
@@ -100,7 +95,7 @@ void PluginUpdater::populateUI() {
 	QMutexLocker l(&m_dataMutex);
 	for (int i = 0; i < m_pluginsToUpdate.size(); i++) {
 		UpdateEntry currentEntry = m_pluginsToUpdate[i];
-		plugin_id_t pluginID = currentEntry.pluginID;
+		plugin_id_t pluginID     = currentEntry.pluginID;
 
 		const_plugin_ptr_t plugin = Global::get().pluginManager->getPlugin(pluginID);
 
@@ -125,15 +120,16 @@ void PluginUpdater::populateUI() {
 	}
 
 	// sort the plugins alphabetically
-	std::sort(m_pluginUpdateWidgets.begin(), m_pluginUpdateWidgets.end(), [](const UpdateWidgetPair &first, const UpdateWidgetPair &second) {
-		return first.pluginCheckBox->text().compare(second.pluginCheckBox->text(), Qt::CaseInsensitive) < 0;
-	});
+	std::sort(m_pluginUpdateWidgets.begin(), m_pluginUpdateWidgets.end(),
+			  [](const UpdateWidgetPair &first, const UpdateWidgetPair &second) {
+				  return first.pluginCheckBox->text().compare(second.pluginCheckBox->text(), Qt::CaseInsensitive) < 0;
+			  });
 
 	// add the widgets to the layout
 	for (int i = 0; i < m_pluginUpdateWidgets.size(); i++) {
 		UpdateWidgetPair &currentPair = m_pluginUpdateWidgets[i];
 
-		static_cast<QFormLayout*>(qwContent->layout())->addRow(currentPair.pluginCheckBox, currentPair.urlLabel);
+		static_cast< QFormLayout * >(qwContent->layout())->addRow(currentPair.pluginCheckBox, currentPair.urlLabel);
 	}
 }
 
@@ -160,7 +156,7 @@ void PluginUpdater::on_selectAll(int checkState) {
 	for (int i = 0; i < m_pluginUpdateWidgets.size(); i++) {
 		UpdateWidgetPair &currentPair = m_pluginUpdateWidgets[i];
 
-		currentPair.pluginCheckBox->setCheckState(static_cast<Qt::CheckState>(checkState));
+		currentPair.pluginCheckBox->setCheckState(static_cast< Qt::CheckState >(checkState));
 	}
 }
 
@@ -210,9 +206,9 @@ void PluginUpdater::on_finished(int result) {
 			bool updateCurrent = false;
 			for (int k = 0; k < m_pluginUpdateWidgets.size(); k++) {
 				QCheckBox *checkBox = m_pluginUpdateWidgets[k].pluginCheckBox;
-				QVariant idVariant = checkBox->property("pluginID");
+				QVariant idVariant  = checkBox->property("pluginID");
 
-				if (idVariant.isValid() && static_cast<plugin_id_t>(idVariant.toInt()) == id) {
+				if (idVariant.isValid() && static_cast< plugin_id_t >(idVariant.toInt()) == id) {
 					updateCurrent = checkBox->isChecked();
 					break;
 				}
@@ -263,8 +259,8 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 
 		if (!foundID) {
 			// Can't match the URL to a pluginID
-			qWarning() << "PluginUpdater: Requested update for plugin from"
-				<< reply->url() << "but didn't find corresponding plugin again!";
+			qWarning() << "PluginUpdater: Requested update for plugin from" << reply->url()
+					   << "but didn't find corresponding plugin again!";
 			return;
 		}
 
@@ -273,8 +269,8 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 
 		if (!plugin) {
 			// Can't find plugin with given ID
-			qWarning() << "PluginUpdater: Got update for plugin with id"
-				<< entry.pluginID << "but it doesn't seem to exist anymore!";
+			qWarning() << "PluginUpdater: Got update for plugin with id" << entry.pluginID
+					   << "but it doesn't seem to exist anymore!";
 			return;
 		}
 
@@ -282,13 +278,11 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 		if (reply->error() != QNetworkReply::NoError) {
 			// There was an error during this request. Report it
 			Log::logOrDefer(Log::Warning,
-					tr("Unable to download plugin update for \"%1\" from \"%2\" (%3)").arg(
-						plugin->getName()).arg(reply->url().toString()).arg(
-							QString::fromLatin1(
-								QMetaEnum::fromType<QNetworkReply::NetworkError>().valueToKey(reply->error())
-							)
-						)
-					);
+							tr("Unable to download plugin update for \"%1\" from \"%2\" (%3)")
+								.arg(plugin->getName())
+								.arg(reply->url().toString())
+								.arg(QString::fromLatin1(
+									QMetaEnum::fromType< QNetworkReply::NetworkError >().valueToKey(reply->error()))));
 			return;
 		}
 
@@ -300,13 +294,14 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 			// We have been redirected
 			if (entry.redirects >= MAX_REDIRECTS - 1) {
 				// Maximum redirect count exceeded
-				Log::logOrDefer(Log::Warning, tr("Update for plugin \"%1\" failed due to too many redirects").arg(plugin->getName()));
+				Log::logOrDefer(Log::Warning,
+								tr("Update for plugin \"%1\" failed due to too many redirects").arg(plugin->getName()));
 
 				return;
 			}
 
 			QUrl redirectedUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
-			// Because the redirection url can be relative, 
+			// Because the redirection url can be relative,
 			// we have to use the previous one to resolve it
 			redirectedUrl = reply->url().resolved(redirectedUrl);
 
@@ -329,9 +324,10 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 		if (httpStatusCode < 200 || httpStatusCode >= 300) {
 			// HTTP request has failed
 			Log::logOrDefer(Log::Warning,
-					tr("Unable to download plugin update for \"%1\" from \"%2\" (HTTP status code %3)").arg(
-						plugin->getName()).arg(reply->url().toString()).arg(httpStatusCode)
-					);
+							tr("Unable to download plugin update for \"%1\" from \"%2\" (HTTP status code %3)")
+								.arg(plugin->getName())
+								.arg(reply->url().toString())
+								.arg(httpStatusCode));
 
 			return;
 		}
@@ -341,8 +337,8 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 
 		// Write the content to a file in the temp-dir
 		if (content.isEmpty()) {
-			qWarning() << "PluginUpdater: Update for" << plugin->getName() << "from"
-				<< reply->url().toString() << "resulted in no content!";
+			qWarning() << "PluginUpdater: Update for" << plugin->getName() << "from" << reply->url().toString()
+					   << "resulted in no content!";
 			return;
 		}
 

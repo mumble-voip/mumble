@@ -11,8 +11,8 @@
 #include <QtWidgets/QGraphicsItem>
 #include <QtWidgets/QGraphicsScene>
 
-#include "ui_ManualPlugin.h"
 #include "LegacyPlugin.h"
+#include "ui_ManualPlugin.h"
 
 #include <atomic>
 #include <chrono>
@@ -86,16 +86,16 @@ MumblePluginQt *ManualPlugin_getMumblePluginQt();
 /// A built-in "plugin" for positional data gatherig allowing for manually placing the "players" in a UI
 class ManualPlugin : public LegacyPlugin {
 	friend class Plugin; // needed in order for Plugin::createNew to access LegacyPlugin::doInitialize()
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ManualPlugin)
-	
-	protected:
-		virtual void resolveFunctionPointers() Q_DECL_OVERRIDE;
-		ManualPlugin(QObject *p = nullptr);
-	
-	public:
-		virtual ~ManualPlugin() Q_DECL_OVERRIDE;
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(ManualPlugin)
+
+protected:
+	virtual void resolveFunctionPointers() Q_DECL_OVERRIDE;
+	ManualPlugin(QObject *p = nullptr);
+
+public:
+	virtual ~ManualPlugin() Q_DECL_OVERRIDE;
 };
 
 #endif

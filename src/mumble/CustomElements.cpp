@@ -181,7 +181,7 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 		if (Global::get().bAllowHTML) {
 			if (source->hasImage()) {
 				// Process the image pasted onto the chatbar.
-				QImage image = qvariant_cast<QImage>(source->imageData());
+				QImage image = qvariant_cast< QImage >(source->imageData());
 				if (emitPastedImage(image)) {
 					return true;
 				} else {
@@ -191,7 +191,7 @@ bool ChatbarTextEdit::sendImagesFromMimeData(const QMimeData *source) {
 
 			} else if (source->hasUrls()) {
 				// Process the files dropped onto the chatbar. URLs here should be understood as the URIs of files.
-				QList<QUrl> urlList = source->urls();
+				QList< QUrl > urlList = source->urls();
 
 				int count = 0;
 				for (int i = 0; i < urlList.size(); ++i) {
@@ -256,7 +256,8 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 		} else if (kev->key() == Qt::Key_Down && kev->modifiers() == Qt::ControlModifier) {
 			historyDown();
 			return true;
-		} else if (kev->key() == Qt::Key_V && (kev->modifiers() & Qt::ControlModifier) && (kev->modifiers() & Qt::ShiftModifier)) {
+		} else if (kev->key() == Qt::Key_V && (kev->modifiers() & Qt::ControlModifier)
+				   && (kev->modifiers() & Qt::ShiftModifier)) {
 			pasteAndSend_triggered();
 			return true;
 		}

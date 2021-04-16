@@ -235,7 +235,7 @@ void TalkingUI::setupUI() {
 }
 
 void TalkingUI::setFontSize(MultiStyleWidgetWrapper &widgetWrapper) {
-	const double fontFactor = Global::get().s.iTalkingUI_RelativeFontSize / 100.0;
+	const double fontFactor  = Global::get().s.iTalkingUI_RelativeFontSize / 100.0;
 	const int origLineHeight = QFontMetrics(font()).height();
 
 	if (font().pixelSize() >= 0) {
@@ -244,7 +244,7 @@ void TalkingUI::setFontSize(MultiStyleWidgetWrapper &widgetWrapper) {
 		widgetWrapper.setFontSize(pixelSize, true);
 	} else {
 		// font specified in points
-		uint32_t pointSize =  static_cast< uint32_t >(std::max(fontFactor * font().pointSize(), 1.0));
+		uint32_t pointSize = static_cast< uint32_t >(std::max(fontFactor * font().pointSize(), 1.0));
 		widgetWrapper.setFontSize(pointSize, false);
 	}
 
@@ -329,11 +329,11 @@ QString createChannelName(const Channel *chan, bool abbreviateName, int minPrefi
 void TalkingUI::addChannel(const Channel *channel) {
 	if (findContainer(channel->iId, ContainerType::CHANNEL) < 0) {
 		// Create a QGroupBox for this channel
-		const QString channelName =
-			createChannelName(channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
-							  Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
-							  Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
-							  Global::get().s.qsTalkingUI_AbbreviationReplacement, Global::get().s.bTalkingUI_AbbreviateCurrentChannel);
+		const QString channelName = createChannelName(
+			channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
+			Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
+			Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+			Global::get().s.qsTalkingUI_AbbreviationReplacement, Global::get().s.bTalkingUI_AbbreviateCurrentChannel);
 
 		std::unique_ptr< TalkingUIChannel > channelContainer =
 			std::make_unique< TalkingUIChannel >(channel->iId, channelName, *this);
@@ -391,7 +391,7 @@ TalkingUIUser *TalkingUI::findOrAddUser(const ClientUser *user) {
 		}
 
 		std::unique_ptr< TalkingUIUser > userEntry = std::make_unique< TalkingUIUser >(*user);
-		TalkingUIUser *newUserEntry = userEntry.get();
+		TalkingUIUser *newUserEntry                = userEntry.get();
 
 		// * 1000 as the setting is in seconds whereas the timer expects milliseconds
 		userEntry->setLifeTime(Global::get().s.iTalkingUI_SilentUserLifeTime * 1000);
@@ -552,7 +552,8 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 			// resulting in the proper context menu being shown at the position of the mouse which in this case is in
 			// the TalkingUI.
 			QMetaObject::invokeMethod(Global::get().mw, "on_qtvUsers_customContextMenuRequested", Qt::QueuedConnection,
-									  Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPos())), Q_ARG(bool, false));
+									  Q_ARG(QPoint, Global::get().mw->qtvUsers->mapFromGlobal(event->globalPos())),
+									  Q_ARG(bool, false));
 		}
 	} else {
 		// Clear selection
@@ -725,11 +726,12 @@ void TalkingUI::on_settingsChanged() {
 
 		if (channel) {
 			// Update
-			channelContainer->setName(
-				createChannelName(channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
-								  Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
-								  Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
-								  Global::get().s.qsTalkingUI_AbbreviationReplacement, Global::get().s.bTalkingUI_AbbreviateCurrentChannel));
+			channelContainer->setName(createChannelName(
+				channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
+				Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
+				Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+				Global::get().s.qsTalkingUI_AbbreviationReplacement,
+				Global::get().s.bTalkingUI_AbbreviateCurrentChannel));
 		} else {
 			qCritical("TalkingUI: Can't find channel for stored ID");
 		}

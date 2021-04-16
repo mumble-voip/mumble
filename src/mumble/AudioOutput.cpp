@@ -47,7 +47,7 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		Global::get().s.qsAudioOutput = choice;
-		current           = choice;
+		current                       = choice;
 		return AudioOutputPtr(qmNew->value(choice)->create());
 	}
 	choice = Global::get().s.qsAudioOutput;
@@ -116,8 +116,9 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 			if (mvol < 0.01f)
 				mvol = 0.01f;
 
-			float drel = (distance - Global::get().s.fAudioMinDistance) / (Global::get().s.fAudioMaxDistance - Global::get().s.fAudioMinDistance);
-			datt       = powf(10.0f, log10f(mvol) * drel);
+			float drel = (distance - Global::get().s.fAudioMinDistance)
+						 / (Global::get().s.fAudioMaxDistance - Global::get().s.fAudioMinDistance);
+			datt = powf(10.0f, log10f(mvol) * drel);
 		}
 
 		att = datt * dotfactor;
@@ -395,13 +396,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 		prioritySpeakerActive = true;
 	}
 
-	// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output. Otherwise we'll have to
-	// use an intermediate buffer which we will convert to an array of shorts later
-	STACKVAR(float, fOutput, iChannels * frameCount);
-	float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
+	// If the audio backend uses a float-array we can sample and mix the audio sources directly into the output.
+	// Otherwise we'll have to use an intermediate buffer which we will convert to an array of shorts later
+	STACKVAR(float, fOutput, iChannels *frameCount);
+	float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast< float * >(outbuff) : fOutput;
 	memset(output, 0, sizeof(float) * frameCount * iChannels);
 
-	if (! qlMix.isEmpty()) {
+	if (!qlMix.isEmpty()) {
 		// There are audio sources available -> mix those sources together and feed them into the audio backend
 		STACKVAR(float, speaker, iChannels * 3);
 		STACKVAR(float, svol, iChannels);
@@ -497,7 +498,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			AudioOutputSpeech *speech = qobject_cast< AudioOutputSpeech * >(aop);
 			const ClientUser *user    = nullptr;
 			if (speech) {
-				user              = speech->p;
+				user = speech->p;
 				volumeAdjustment *= user->getLocalVolumeAdjustments();
 
 				if (user->cChannel && ChannelListener::isListening(Global::get().uiSession, user->cChannel->iId)
@@ -639,7 +640,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	bool pluginModifiedAudio = false;
 	emit audioOutputAboutToPlay(output, frameCount, nchan, SAMPLE_RATE, &pluginModifiedAudio);
 
-	if (pluginModifiedAudio || (! qlMix.isEmpty())) {
+	if (pluginModifiedAudio || (!qlMix.isEmpty())) {
 		// Clip the output audio
 		if (eSampleFormat == SampleFloat)
 			for (unsigned int i = 0; i < frameCount * iChannels; i++)
@@ -662,7 +663,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 #endif
 
 	// Return whether data has been written to the outbuff
-	return (pluginModifiedAudio || (! qlMix.isEmpty()));
+	return (pluginModifiedAudio || (!qlMix.isEmpty()));
 }
 
 bool AudioOutput::isAlive() const {

@@ -11,8 +11,6 @@
 #include "AudioWizard.h"
 #include "Cert.h"
 #include "Database.h"
-#include "Log.h"
-#include "LogEmitter.h"
 #include "DeveloperConsole.h"
 #include "LCD.h"
 #include "Log.h"
@@ -37,22 +35,22 @@
 #include "License.h"
 #include "MumbleApplication.h"
 #include "NetworkConfig.h"
+#include "PluginInstaller.h"
+#include "PluginManager.h"
 #include "SSL.h"
 #include "SocketRPC.h"
 #include "TalkingUI.h"
-#include "Translations.h"
 #include "Themes.h"
+#include "Translations.h"
 #include "UserLockFile.h"
 #include "VersionCheck.h"
-#include "PluginInstaller.h"
-#include "PluginManager.h"
 #include "Global.h"
 
+#include <QLocale>
+#include <QScreen>
 #include <QtCore/QProcess>
 #include <QtGui/QDesktopServices>
 #include <QtWidgets/QMessageBox>
-#include <QLocale>
-#include <QScreen>
 
 #ifdef USE_DBUS
 #	include <QtDBus/QDBusInterface>
@@ -75,7 +73,7 @@ extern void os_init();
 extern char *os_lang;
 
 QScreen *screenAt(QPoint point) {
-#if QT_VERSION >= QT_VERSION_CHECK(5,10,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 	// screenAt was only introduced in Qt 5.10
 	return QGuiApplication::screenAt(point);
 #else
@@ -95,14 +93,16 @@ bool positionIsOnScreen(QPoint point) {
 
 QPoint getTalkingUIPosition() {
 	QPoint talkingUIPos = QPoint(0, 0);
-	if (Global::get().s.qpTalkingUI_Position != Settings::UNSPECIFIED_POSITION && positionIsOnScreen(Global::get().s.qpTalkingUI_Position)) {
+	if (Global::get().s.qpTalkingUI_Position != Settings::UNSPECIFIED_POSITION
+		&& positionIsOnScreen(Global::get().s.qpTalkingUI_Position)) {
 		// Restore last position
 		talkingUIPos = Global::get().s.qpTalkingUI_Position;
 	} else {
 		// Place the TalkingUI next to the MainWindow by default
 		const QPoint mainWindowPos = Global::get().mw->pos();
 		const int horizontalBuffer = 10;
-		const QPoint defaultPos = QPoint(mainWindowPos.x() + Global::get().mw->size().width() + horizontalBuffer, mainWindowPos.y());
+		const QPoint defaultPos =
+			QPoint(mainWindowPos.x() + Global::get().mw->size().width() + horizontalBuffer, mainWindowPos.y());
 
 		if (positionIsOnScreen(defaultPos)) {
 			talkingUIPos = defaultPos;
@@ -115,8 +115,8 @@ QPoint getTalkingUIPosition() {
 	const QSize talkingUISize = Global::get().talkingUI->size();
 
 	// The screen should always be found at this point as we have chosen to pos to be on a screen
-	const QScreen *screen = screenAt(talkingUIPos);
-	const QRect screenGeom = screen ? screen->availableGeometry() : QRect(0,0,0,0);
+	const QScreen *screen  = screenAt(talkingUIPos);
+	const QRect screenGeom = screen ? screen->availableGeometry() : QRect(0, 0, 0, 0);
 
 	// Check whether the TalkingUI fits on the screen in x-direction
 	if (!positionIsOnScreen(talkingUIPos + QPoint(talkingUISize.width(), 0))) {
@@ -340,12 +340,12 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == QLatin1String("-m") || args.at(i) == QLatin1String("--multiple")) {
 				bAllowMultiple = true;
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
-				suppressIdentity      = true;
+				suppressIdentity                  = true;
 				Global::get().s.bSuppressIdentity = true;
 			} else if (args.at(i) == QLatin1String("-jn") || args.at(i) == QLatin1String("--jackname")) {
 				if (i + 1 < args.count()) {
 					Global::get().s.qsJackClientName = QString(args.at(i + 1));
-					customJackClientName = true;
+					customJackClientName             = true;
 					++i;
 				} else {
 					qCritical("Missing argument for --jackname!");
@@ -428,15 +428,16 @@ int main(int argc, char **argv) {
 		QString infoString = QObject::tr("The directories in which Mumble searches for extra translation files are:\n");
 
 		int counter = 1;
-		for (const QString &currentTranslationDir : Mumble::Translations::getTranslationDirectories(a, extraTranslationDirs)) {
+		for (const QString &currentTranslationDir :
+			 Mumble::Translations::getTranslationDirectories(a, extraTranslationDirs)) {
 			infoString += QString::fromLatin1("%1. ").arg(counter) + currentTranslationDir + "\n";
 			counter++;
 		}
 
 #if defined(Q_OS_WIN)
-				QMessageBox::information(nullptr, QObject::tr("Invocation"), infoString);
+		QMessageBox::information(nullptr, QObject::tr("Invocation"), infoString);
 #else
-				printf("%s", qUtf8Printable(infoString));
+		printf("%s", qUtf8Printable(infoString));
 #endif
 
 		return 0;
@@ -594,24 +595,23 @@ int main(int argc, char **argv) {
 	}
 
 	if (!pluginsToBeInstalled.isEmpty()) {
-
-		foreach(QString currentPlugin, pluginsToBeInstalled) {
-
+		foreach (QString currentPlugin, pluginsToBeInstalled) {
 			try {
 				PluginInstaller installer(currentPlugin);
 				installer.exec();
-			} catch(const PluginInstallException& e) {
+			} catch (const PluginInstallException &e) {
 				qCritical() << qUtf8Printable(e.getMessage());
 			}
-
 		}
 
 		return 0;
 	}
 
-	qWarning("Locale is \"%s\" (System: \"%s\")", qUtf8Printable(settingsLocale.name()), qUtf8Printable(systemLocale.name()));
+	qWarning("Locale is \"%s\" (System: \"%s\")", qUtf8Printable(settingsLocale.name()),
+			 qUtf8Printable(systemLocale.name()));
 
-	Mumble::Translations::LifetimeGuard translationGuard = Mumble::Translations::installTranslators(settingsLocale, a, extraTranslationDirs);
+	Mumble::Translations::LifetimeGuard translationGuard =
+		Mumble::Translations::installTranslators(settingsLocale, a, extraTranslationDirs);
 
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
@@ -631,7 +631,7 @@ int main(int argc, char **argv) {
 	// Initialize zeroconf
 	Global::get().zeroconf = new Zeroconf();
 #endif
-	
+
 	// PluginManager
 	Global::get().pluginManager = new PluginManager();
 	Global::get().pluginManager->rescanPlugins();
@@ -661,12 +661,15 @@ int main(int argc, char **argv) {
 	// window's frame to be included in the positioning calculation on X11 (at least using KDE Plasma)
 	Global::get().talkingUI->setVisible(Global::get().s.bShowTalkingUI);
 
-	QObject::connect(Global::get().mw, &MainWindow::userAddedChannelListener, Global::get().talkingUI, &TalkingUI::on_channelListenerAdded);
-	QObject::connect(Global::get().mw, &MainWindow::userRemovedChannelListener, Global::get().talkingUI, &TalkingUI::on_channelListenerRemoved);
+	QObject::connect(Global::get().mw, &MainWindow::userAddedChannelListener, Global::get().talkingUI,
+					 &TalkingUI::on_channelListenerAdded);
+	QObject::connect(Global::get().mw, &MainWindow::userRemovedChannelListener, Global::get().talkingUI,
+					 &TalkingUI::on_channelListenerRemoved);
 	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, Global::get().talkingUI,
 					 &TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged);
 
-	QObject::connect(Global::get().mw, &MainWindow::serverSynchronized, Global::get().talkingUI, &TalkingUI::on_serverSynchronized);
+	QObject::connect(Global::get().mw, &MainWindow::serverSynchronized, Global::get().talkingUI,
+					 &TalkingUI::on_serverSynchronized);
 
 	// Initialize logger
 	// Log::log() needs the MainWindow to already exist. Thus creating the Log instance
@@ -708,7 +711,7 @@ int main(int argc, char **argv) {
 			Global::get().s.iaeIdleAction = Settings::Nothing;
 		} else {
 			Global::get().s.iIdleTime     = 60 * qRound(Global::get().s.iIdleTime / 60.); // Round to minutes
-			Global::get().s.iaeIdleAction = Settings::Deafen;                 // Old behavior
+			Global::get().s.iaeIdleAction = Settings::Deafen;                             // Old behavior
 		}
 	}
 
@@ -745,9 +748,10 @@ int main(int argc, char **argv) {
 	}
 
 	if (QDateTime::currentDateTime().daysTo(Global::get().s.kpCertificate.first.first().expiryDate()) < 14)
-		Global::get().l->log(Log::Warning,
-				 CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, "
-								"or you will no longer be able to connect to servers you are registered on."));
+		Global::get().l->log(
+			Log::Warning,
+			CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, "
+						   "or you will no longer be able to connect to servers you are registered on."));
 
 #ifdef QT_NO_DEBUG
 	// Only perform the version-check for non-debug builds
@@ -766,7 +770,7 @@ int main(int argc, char **argv) {
 	if (Global::get().s.bPluginCheck) {
 		Global::get().pluginManager->checkForPluginUpdates();
 	}
-#else // QT_NO_DEBUG
+#else  // QT_NO_DEBUG
 	Global::get().mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif // QT_NO_DEBUG
 
@@ -832,7 +836,7 @@ int main(int argc, char **argv) {
 
 	Global::get().sh.reset();
 
-	while (sh && ! sh.unique())
+	while (sh && !sh.unique())
 		QThread::yieldCurrentThread();
 	sh.reset();
 

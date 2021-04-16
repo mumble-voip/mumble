@@ -60,7 +60,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QString copyrightText;
 #ifdef MUMBLE_BUILD_YEAR
 	copyrightText = "Copyright 2005-" QUOTE(MUMBLE_BUILD_YEAR) " The Mumble Developers";
-#else // MUMBLE_BUILD_YEAR
+#else  // MUMBLE_BUILD_YEAR
 	copyrightText = "Copyright 2005-now The Mumble Developers";
 #endif // MUMBLE_BUILD_YEAR
 

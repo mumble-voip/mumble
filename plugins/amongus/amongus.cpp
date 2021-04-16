@@ -82,7 +82,7 @@ static int tryLock(const std::multimap< std::wstring, unsigned long long int > &
 		return false;
 	}
 
-	game = std::make_unique<Game>(id, name);
+	game = std::make_unique< Game >(id, name);
 	if (!game->isOk()) {
 		game.reset();
 		return false;

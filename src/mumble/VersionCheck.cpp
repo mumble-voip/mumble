@@ -54,8 +54,9 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p),
 		if (autocheck)
 			queryItems << qMakePair(QString::fromLatin1("auto"), QString::fromLatin1("1"));
 
-		queryItems << qMakePair(QString::fromLatin1("locale"),
-								Global::get().s.qsLanguage.isEmpty() ? QLocale::system().name() : Global::get().s.qsLanguage);
+		queryItems << qMakePair(QString::fromLatin1("locale"), Global::get().s.qsLanguage.isEmpty()
+																   ? QLocale::system().name()
+																   : Global::get().s.qsLanguage);
 
 		QFile f(qApp->applicationFilePath());
 		if (!f.open(QIODevice::ReadOnly)) {
@@ -105,8 +106,8 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 				if (!fetch.isValid()) {
 					Global::get().mw->msgBox(QString::fromUtf8(a));
 				} else {
-					QString filename =
-						Global::get().qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(fetch.path()).fileName());
+					QString filename = Global::get().qdBasePath.absoluteFilePath(QLatin1String("Snapshots/")
+																				 + QFileInfo(fetch.path()).fileName());
 
 					QFile qf(filename);
 					if (qf.exists()) {
@@ -157,15 +158,16 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							}
 
 						} else {
-							Global::get().mw->msgBox(tr("Corrupt download of new version detected. Automatically removed."));
+							Global::get().mw->msgBox(
+								tr("Corrupt download of new version detected. Automatically removed."));
 							qf.remove();
 						}
 
 						// Delete all but the N most recent snapshots
 						size_t numberOfSnapshotsToKeep = 1;
 
-						QDir snapdir(Global::get().qdBasePath.absolutePath() + QLatin1String("/Snapshots/"), QString(), QDir::Name,
-									 QDir::Files);
+						QDir snapdir(Global::get().qdBasePath.absolutePath() + QLatin1String("/Snapshots/"), QString(),
+									 QDir::Name, QDir::Files);
 
 						foreach (const QFileInfo fileInfo,
 								 snapdir.entryInfoList(QStringList(), QDir::NoFilter, QDir::Time)) {
@@ -180,14 +182,14 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 						}
 					} else {
 						Global::get().mw->msgBox(tr("Downloading new snapshot from %1 to %2")
-										 .arg(fetch.toString().toHtmlEscaped(), filename.toHtmlEscaped()));
+													 .arg(fetch.toString().toHtmlEscaped(), filename.toHtmlEscaped()));
 						WebFetch::fetch(QLatin1String("dl"), fetch, this, SLOT(fetched(QByteArray, QUrl)));
 						return;
 					}
 				}
 			} else {
-				QString filename =
-					Global::get().qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(url.path()).fileName());
+				QString filename = Global::get().qdBasePath.absoluteFilePath(QLatin1String("Snapshots/")
+																			 + QFileInfo(url.path()).fileName());
 
 				QFile qf(filename);
 				if (qf.open(QIODevice::WriteOnly)) {
