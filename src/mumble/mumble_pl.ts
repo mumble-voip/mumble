@@ -3263,11 +3263,11 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd HTTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Napotkano błąd wewnętrzny w pliku CrashReporter.cpp: otrzymana odpowiedź sieciowa nie zawiera kodu stanu HTTP. Poinformuj programistę o kodzie błędu %1</translation>
     </message>
 </context>
 <context>
