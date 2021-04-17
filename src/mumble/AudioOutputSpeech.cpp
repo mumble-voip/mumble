@@ -335,7 +335,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				QByteArray qba = qlFrames.takeFirst();
 
 				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
-					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? Global::get().iCodecAlpha : Global::get().iCodecBeta;
+					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? Global::get().iCodecAlpha
+																					 : Global::get().iCodecBeta;
 					if ((p == &LoopUser::lpLoopy) && (!Global::get().qmCodecs.isEmpty())) {
 						QMap< int, CELTCodec * >::const_iterator i = Global::get().qmCodecs.constEnd();
 						--i;

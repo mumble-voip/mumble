@@ -1765,7 +1765,8 @@ static void impl_Server_getListeningUsers(const ::Murmur::AMD_Server_getListenin
 	cb->ice_response(userSessions);
 }
 
-static void impl_Server_sendWelcomeMessage(const ::Murmur::AMD_Server_sendWelcomeMessagePtr cb, int server_id, ::Murmur::IdList receiverUserIDs) {
+static void impl_Server_sendWelcomeMessage(const ::Murmur::AMD_Server_sendWelcomeMessagePtr cb, int server_id,
+										   ::Murmur::IdList receiverUserIDs) {
 	NEED_SERVER;
 
 	for (unsigned int session : receiverUserIDs) {

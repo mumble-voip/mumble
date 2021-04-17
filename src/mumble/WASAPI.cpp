@@ -208,8 +208,8 @@ void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) 
 }
 
 bool WASAPIInputRegistrar::canEcho(EchoCancelOptionID echoOptionIDs, const QString &outputSystem) const {
-	return (echoOptionIDs == EchoCancelOptionID::SPEEX_MIXED
-	        || echoOptionIDs == EchoCancelOptionID::SPEEX_MULTICHANNEL) && (outputSystem == name);
+	return (echoOptionIDs == EchoCancelOptionID::SPEEX_MIXED || echoOptionIDs == EchoCancelOptionID::SPEEX_MULTICHANNEL)
+		   && (outputSystem == name);
 }
 
 bool WASAPIInputRegistrar::canExclusive() const {
@@ -485,8 +485,9 @@ void WASAPIInput::run() {
 			qWarning("WASAPIInput: Mic Initialize failed: hr=0x%08lx", hr);
 			if (hr == E_ACCESSDENIED) {
 				WASAPIInputRegistrar::hasOSPermissionDenied = true;
-				Global::get().mw->msgBox(tr("Access to the microphone was denied. Please check that your operating system's "
-								"microphone settings allow Mumble to use the microphone."));
+				Global::get().mw->msgBox(
+					tr("Access to the microphone was denied. Please check that your operating system's "
+					   "microphone settings allow Mumble to use the microphone."));
 			}
 			goto cleanup;
 		}
@@ -885,10 +886,11 @@ void WASAPIOutput::run() {
 	int ns = 0;
 	unsigned int chanmasks[32];
 	QMap< DWORD, float > qmVolumes;
-	bool lastspoke                = false;
-	REFERENCE_TIME bufferDuration = (Global::get().s.iOutputDelay > 1) ? (Global::get().s.iOutputDelay + 1) * 100000 : 0;
-	bool exclusive                = false;
-	bool mixed                    = false;
+	bool lastspoke = false;
+	REFERENCE_TIME bufferDuration =
+		(Global::get().s.iOutputDelay > 1) ? (Global::get().s.iOutputDelay + 1) * 100000 : 0;
+	bool exclusive = false;
+	bool mixed     = false;
 
 	CoInitialize(nullptr);
 
@@ -1015,7 +1017,8 @@ void WASAPIOutput::run() {
 	iMixerFreq = pwfx->nSamplesPerSec;
 
 	qWarning("WASAPIOutput: Periods %lldus %lldus (latency %lldus)", def / 10LL, min / 10LL, latency / 10LL);
-	qWarning("WASAPIOutput: Buffer is %dus (%d)", (bufferFrameCount * 1000000) / iMixerFreq, Global::get().s.iOutputDelay);
+	qWarning("WASAPIOutput: Buffer is %dus (%d)", (bufferFrameCount * 1000000) / iMixerFreq,
+			 Global::get().s.iOutputDelay);
 
 	hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void **) &pRenderClient);
 	if (FAILED(hr)) {

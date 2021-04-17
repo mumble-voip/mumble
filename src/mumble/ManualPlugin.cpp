@@ -13,8 +13,8 @@
 
 #include <QPointer>
 
-#include <float.h>
 #include <cmath>
+#include <float.h>
 
 #define MUMBLE_ALLOW_DEPRECATED_LEGACY_PLUGIN_API
 #include "../../plugins/mumble_legacy_plugin.h"
@@ -136,7 +136,7 @@ void Manual::on_qpbActivated_clicked(bool b) {
 }
 
 void Manual::on_qdsbX_valueChanged(double d) {
-	my.avatar_pos[0] = my.camera_pos[0] = static_cast<float>(d);
+	my.avatar_pos[0] = my.camera_pos[0] = static_cast< float >(d);
 	m_qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
@@ -145,7 +145,7 @@ void Manual::on_qdsbY_valueChanged(double d) {
 }
 
 void Manual::on_qdsbZ_valueChanged(double d) {
-	my.avatar_pos[2] = my.camera_pos[2] = static_cast<float>(d);
+	my.avatar_pos[2] = my.camera_pos[2] = static_cast< float >(d);
 	m_qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
@@ -265,7 +265,7 @@ void Manual::on_speakerPositionUpdate(QHash< unsigned int, Position2D > position
 
 		const float speakerRadius  = 1.2;
 		QGraphicsItem *speakerItem = m_qgsScene->addEllipse(-speakerRadius, -speakerRadius, 2 * speakerRadius,
-														  2 * speakerRadius, QPen(), QBrush(Qt::red));
+															2 * speakerRadius, QPen(), QBrush(Qt::red));
 
 		Position2D pos = remainingIt.value();
 
@@ -427,6 +427,6 @@ ManualPlugin::~ManualPlugin() {
 }
 
 void ManualPlugin::resolveFunctionPointers() {
-	m_mumPlug = &manual;
+	m_mumPlug   = &manual;
 	m_mumPlugQt = &manualqt;
 }

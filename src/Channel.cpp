@@ -70,10 +70,12 @@ Channel *Channel::add(int id, const QString &name) {
 	Channel *c = new Channel(id, name, nullptr);
 	c_qhChannels.insert(id, c);
 
-	// We have to use a direct connection here in order to make sure that the user object that gets passed to the callback
-	// does not get invalidated or deleted while the callback is running.
-	QObject::connect(c, &Channel::channelEntered, Global::get().pluginManager, &PluginManager::on_channelEntered, Qt::DirectConnection);
-	QObject::connect(c, &Channel::channelExited, Global::get().pluginManager, &PluginManager::on_channelExited, Qt::DirectConnection);
+	// We have to use a direct connection here in order to make sure that the user object that gets passed to the
+	// callback does not get invalidated or deleted while the callback is running.
+	QObject::connect(c, &Channel::channelEntered, Global::get().pluginManager, &PluginManager::on_channelEntered,
+					 Qt::DirectConnection);
+	QObject::connect(c, &Channel::channelExited, Global::get().pluginManager, &PluginManager::on_channelExited,
+					 Qt::DirectConnection);
 
 	return c;
 }

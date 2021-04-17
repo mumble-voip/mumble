@@ -17,8 +17,8 @@
 #include "User.h"
 #include "Utils.h"
 #include "WebFetch.h"
-#include "GlobalShortcut.h"
 #include "Global.h"
+#include "GlobalShortcut.h"
 
 #include <QtCore/QProcessEnvironment>
 #include <QtCore/QtEndian>

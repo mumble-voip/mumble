@@ -33,8 +33,8 @@
 #include "ChannelListener.h"
 #include "ListenerLocalVolumeDialog.h"
 #include "Markdown.h"
-#include "PluginManager.h"
 #include "PTTButtonWidget.h"
+#include "PluginManager.h"
 #include "RichTextEditor.h"
 #include "SSLCipherInfo.h"
 #include "Screen.h"
@@ -186,7 +186,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 			 || (Global::get().s.bMinimalView && Global::get().s.aotbAlwaysOnTop == Settings::OnTopInMinimal)
 			 || (!Global::get().s.bMinimalView && Global::get().s.aotbAlwaysOnTop == Settings::OnTopInNormal));
 
-	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager, &PluginManager::on_serverSynchronized);
+	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager,
+					 &PluginManager::on_serverSynchronized);
 }
 
 void MainWindow::createActions() {
@@ -318,14 +319,16 @@ void MainWindow::setupGui() {
 		this, &MainWindow::userRemovedChannelListener, pmModel,
 		static_cast< void (UserModel::*)(const ClientUser *, const Channel *) >(&UserModel::removeChannelListener));
 	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, pmModel,
-			&UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
+					 &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
 	QObject::connect(pmModel, &UserModel::userRemoved, Global::get().pluginManager, &PluginManager::on_userRemoved);
 	QObject::connect(pmModel, &UserModel::channelAdded, Global::get().pluginManager, &PluginManager::on_channelAdded);
-	QObject::connect(pmModel, &UserModel::channelRemoved, Global::get().pluginManager, &PluginManager::on_channelRemoved);
-	QObject::connect(pmModel, &UserModel::channelRenamed, Global::get().pluginManager, &PluginManager::on_channelRenamed);
+	QObject::connect(pmModel, &UserModel::channelRemoved, Global::get().pluginManager,
+					 &PluginManager::on_channelRemoved);
+	QObject::connect(pmModel, &UserModel::channelRenamed, Global::get().pluginManager,
+					 &PluginManager::on_channelRenamed);
 
 	qaAudioMute->setChecked(Global::get().s.bMute);
 	qaAudioDeaf->setChecked(Global::get().s.bDeaf);
@@ -758,7 +761,7 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos, bool
 		qtvUsers->setCurrentIndex(idx);
 	}
 
-	ClientUser *p = pmModel->getUser(idx);
+	ClientUser *p    = pmModel->getUser(idx);
 	Channel *channel = pmModel->getChannel(idx);
 
 	qpContextPosition = mpos;
@@ -906,25 +909,27 @@ static void recreateServerHandler() {
 	Global::get().sh = sh;
 	Global::get().mw->connect(sh.get(), SIGNAL(connected()), Global::get().mw, SLOT(serverConnected()));
 	Global::get().mw->connect(sh.get(), SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), Global::get().mw,
-				  SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
+							  SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
 	Global::get().mw->connect(sh.get(), SIGNAL(error(QAbstractSocket::SocketError, QString)), Global::get().mw,
-				  SLOT(resolverError(QAbstractSocket::SocketError, QString)));
+							  SLOT(resolverError(QAbstractSocket::SocketError, QString)));
 
-	QObject::connect(sh.get(), &ServerHandler::disconnected, Global::get().talkingUI, &TalkingUI::on_serverDisconnected);
+	QObject::connect(sh.get(), &ServerHandler::disconnected, Global::get().talkingUI,
+					 &TalkingUI::on_serverDisconnected);
 
 	// We have to use direct connections for these here as the PluginManager must be able to access the connection's ID
 	// and in order for that to be possible the (dis)connection process must not proceed in the background.
 	Global::get().pluginManager->connect(sh.get(), &ServerHandler::connected, Global::get().pluginManager,
-			&PluginManager::on_serverConnected, Qt::DirectConnection);
+										 &PluginManager::on_serverConnected, Qt::DirectConnection);
 	// We connect the plugin manager to "aboutToDisconnect" instead of "disconnect" in order for the slot to be
 	// guaranteed to be completed *before* the acutal disconnect logic (e.g. MainWindow::serverDisconnected) kicks in.
 	// In order for that to work it is ESSENTIAL to use a DIRECT CONNECTION!
 	Global::get().pluginManager->connect(sh.get(), &ServerHandler::aboutToDisconnect, Global::get().pluginManager,
-			&PluginManager::on_serverDisconnected, Qt::DirectConnection);
+										 &PluginManager::on_serverDisconnected, Qt::DirectConnection);
 }
 
 void MainWindow::openUrl(const QUrl &url) {
-	Global::get().l->log(Log::Information, tr("Opening URL %1").arg(url.toString(QUrl::RemovePassword).toHtmlEscaped()));
+	Global::get().l->log(Log::Information,
+						 tr("Opening URL %1").arg(url.toString(QUrl::RemovePassword).toHtmlEscaped()));
 	if (url.scheme() == QLatin1String("file")) {
 		QFile f(url.toLocalFile());
 		if (!f.exists() || !f.open(QIODevice::ReadOnly)) {
@@ -966,26 +971,27 @@ void MainWindow::openUrl(const QUrl &url) {
 	if (version.size() > 0) {
 		if (!MumbleVersion::get(&major, &minor, &patch, version)) {
 			// The version format is invalid
-			Global::get().l->log(Log::Warning, QObject::tr("The provided URL uses an invalid version format: \"%1\"").arg(version));
+			Global::get().l->log(Log::Warning,
+								 QObject::tr("The provided URL uses an invalid version format: \"%1\"").arg(version));
 			return;
 		}
 	}
 
 	// We can't handle URLs for versions < 1.2.0
-	const int minMajor = 1;
-	const int minMinor = 2;
-	const int minPatch = 0;
+	const int minMajor   = 1;
+	const int minMinor   = 2;
+	const int minPatch   = 0;
 	const bool isPre_120 = major < minMajor || (major == minMajor && minor < minMinor)
-		|| (major == minMajor && minor == minMinor && patch < minPatch);
+						   || (major == minMajor && minor == minMinor && patch < minPatch);
 	// We also can't handle URLs for versions newer than the running Mumble instance
-	const bool isFuture  = major > thismajor || (major == thismajor && minor > thisminor)
-		|| (major == thismajor && minor == thisminor && patch > thispatch);
+	const bool isFuture = major > thismajor || (major == thismajor && minor > thisminor)
+						  || (major == thismajor && minor == thisminor && patch > thispatch);
 
 	if (isPre_120 || isFuture) {
 		Global::get().l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3")
-								   .arg(major)
-								   .arg(minor)
-								   .arg(patch));
+											   .arg(major)
+											   .arg(minor)
+											   .arg(patch));
 		return;
 	}
 
@@ -1029,10 +1035,11 @@ void MainWindow::openUrl(const QUrl &url) {
 	recreateServerHandler();
 
 	Global::get().s.qsLastServer = name;
-	rtLast           = MumbleProto::Reject_RejectType_None;
-	bRetryServer     = true;
+	rtLast                       = MumbleProto::Reject_RejectType_None;
+	bRetryServer                 = true;
 	qaServerDisconnect->setEnabled(true);
-	Global::get().l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(host.toHtmlEscaped(), Log::Server)));
+	Global::get().l->log(Log::Information,
+						 tr("Connecting to server %1.").arg(Log::msgColor(host.toHtmlEscaped(), Log::Server)));
 	Global::get().sh->setConnectionInfo(host, port, user, pw);
 	Global::get().sh->start(QThread::TimeCriticalPriority);
 }
@@ -1254,8 +1261,9 @@ void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
 		rtLast           = MumbleProto::Reject_RejectType_None;
 		bRetryServer     = true;
 		qaServerDisconnect->setEnabled(true);
-		Global::get().l->log(Log::Information,
-				 tr("Connecting to server %1.").arg(Log::msgColor(cd->qsServer.toHtmlEscaped(), Log::Server)));
+		Global::get().l->log(
+			Log::Information,
+			tr("Connecting to server %1.").arg(Log::msgColor(cd->qsServer.toHtmlEscaped(), Log::Server)));
 		Global::get().sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
 		Global::get().sh->start(QThread::TimeCriticalPriority);
 	}
@@ -1585,10 +1593,12 @@ void MainWindow::qmUser_aboutToShow() {
 			qaUserTextureReset->setEnabled(!p->qbaTextureHash.isEmpty()
 										   && (Global::get().pPermissions & (ChanACL::Move | ChanACL::Write)));
 		} else {
-			qaUserCommentReset->setEnabled(!p->qbaCommentHash.isEmpty()
-										   && (Global::get().pPermissions & (ChanACL::ResetUserContent | ChanACL::Write)));
-			qaUserTextureReset->setEnabled(!p->qbaTextureHash.isEmpty()
-										   && (Global::get().pPermissions & (ChanACL::ResetUserContent | ChanACL::Write)));
+			qaUserCommentReset->setEnabled(
+				!p->qbaCommentHash.isEmpty()
+				&& (Global::get().pPermissions & (ChanACL::ResetUserContent | ChanACL::Write)));
+			qaUserTextureReset->setEnabled(
+				!p->qbaTextureHash.isEmpty()
+				&& (Global::get().pPermissions & (ChanACL::ResetUserContent | ChanACL::Write)));
 		}
 		qaUserCommentView->setEnabled(!p->qbaCommentHash.isEmpty());
 
@@ -1868,8 +1878,9 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 
 		if (!msg.isEmpty()) {
 			Global::get().sh->sendUserTextMessage(p->uiSession, msg);
-			Global::get().l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()),
-					 tr("Message to %1").arg(p->qsName), true);
+			Global::get().l->log(Log::TextMessage,
+								 tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()),
+								 tr("Message to %1").arg(p->qsName), true);
 		}
 	}
 	delete texm;
@@ -1995,12 +2006,12 @@ void MainWindow::sendChatbarMessage(QString qsMessage) {
 
 		Global::get().sh->sendChannelTextMessage(c->iId, qsMessage, false);
 		Global::get().l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsMessage),
-				 tr("Message to channel %1").arg(c->qsName), true);
+							 tr("Message to channel %1").arg(c->qsName), true);
 	} else {
 		// User message
 		Global::get().sh->sendUserTextMessage(p->uiSession, qsMessage);
 		Global::get().l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsMessage),
-				 tr("Message to %1").arg(p->qsName), true);
+							 tr("Message to %1").arg(p->qsName), true);
 	}
 }
 
@@ -2305,10 +2316,10 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 
 		if (texm->bTreeMessage)
 			Global::get().l->log(Log::TextMessage, tr("To %1 (Tree): %2").arg(Log::formatChannel(c), texm->message()),
-					 tr("Message to tree %1").arg(c->qsName), true);
+								 tr("Message to tree %1").arg(c->qsName), true);
 		else
 			Global::get().l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), texm->message()),
-					 tr("Message to channel %1").arg(c->qsName), true);
+								 tr("Message to channel %1").arg(c->qsName), true);
 	}
 	delete texm;
 }
@@ -2458,7 +2469,8 @@ void MainWindow::userStateChanged() {
 		case Settings::Shouting:
 			Global::get().bAttenuateOthers = Global::get().s.bAttenuateOthersOnTalk;
 
-			Global::get().prioritySpeakerActiveOverride = Global::get().s.bAttenuateUsersOnPrioritySpeak && user->bPrioritySpeaker;
+			Global::get().prioritySpeakerActiveOverride =
+				Global::get().s.bAttenuateUsersOnPrioritySpeak && user->bPrioritySpeaker;
 
 			break;
 		case Settings::Passive:
@@ -2536,8 +2548,8 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	Global::get().s.bDeaf = qaAudioDeaf->isChecked();
 
 	if (Global::get().s.bDeaf && !Global::get().s.bMute) {
-		bAutoUnmute = true;
-		Global::get().s.bMute   = true;
+		bAutoUnmute           = true;
+		Global::get().s.bMute = true;
 		qaAudioMute->setChecked(true);
 		Global::get().l->log(Log::SelfDeaf, tr("Muted and deafened."));
 	} else if (Global::get().s.bDeaf) {
@@ -3028,7 +3040,7 @@ void MainWindow::on_gsSendTextMessage_triggered(bool down, QVariant scdata) {
 	Channel *c = ClientUser::get(Global::get().uiSession)->cChannel;
 	Global::get().sh->sendChannelTextMessage(c->iId, qsText, false);
 	Global::get().l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText),
-			 tr("Message to channel %1").arg(c->qsName), true);
+						 tr("Message to channel %1").arg(c->qsName), true);
 }
 
 void MainWindow::on_gsSendClipboardTextMessage_triggered(bool down, QVariant) {
@@ -3053,8 +3065,7 @@ void MainWindow::whisperReleased(QVariant scdata) {
 	updateTarget();
 }
 
-void MainWindow::onResetAudio()
-{
+void MainWindow::onResetAudio() {
 	qWarning("MainWindow: Start audio reset");
 	Audio::stop();
 	Audio::start();
@@ -3260,7 +3271,8 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 					vc.exec();
 					continue;
 				} else if (res == QMessageBox::Yes) {
-					Global::get().db->setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+					Global::get().db->setDigest(host, port,
+												QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
 					qaServerDisconnect->setEnabled(true);
 					on_Reconnect_timeout();
 				}
@@ -3277,7 +3289,8 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 
 		if (!reason.isEmpty()) {
-			Global::get().l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason.toHtmlEscaped()));
+			Global::get().l->log(Log::ServerDisconnected,
+								 tr("Server connection failed: %1.").arg(reason.toHtmlEscaped()));
 		} else {
 			Global::get().l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
@@ -3587,11 +3600,12 @@ QPair< QByteArray, QImage > MainWindow::openImageFile() {
 }
 
 void MainWindow::logChangeNotPermanent(const QString &actionName, ClientUser *const p) const {
-	Global::get().l->log(Log::Warning,
-			 QObject::tr(
-				 "\"%1\" could not be saved permanently and is lost on restart because %2 does not have a certificate.")
-				 .arg(actionName)
-				 .arg(Log::formatClientUser(p, Log::Target)));
+	Global::get().l->log(
+		Log::Warning,
+		QObject::tr(
+			"\"%1\" could not be saved permanently and is lost on restart because %2 does not have a certificate.")
+			.arg(actionName)
+			.arg(Log::formatClientUser(p, Log::Target)));
 }
 
 void MainWindow::destroyUserInformation() {

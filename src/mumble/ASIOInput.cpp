@@ -43,8 +43,7 @@ const QList< audioDevice > ASIOAudioInputRegistrar::getDeviceChoices() {
 }
 
 bool ASIOAudioInputRegistrar::canEcho(EchoCancelOptionID echoOption, const QString &) const {
-	return (echoOption == EchoCancelOptionID::SPEEX_MIXED
-	        || echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
+	return (echoOption == EchoCancelOptionID::SPEEX_MIXED || echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
 }
 
 void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {

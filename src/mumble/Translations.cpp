@@ -14,12 +14,13 @@
 namespace Mumble {
 namespace Translations {
 
-	LifetimeGuard::LifetimeGuard(LifetimeGuard &&old) : m_bundledTranslator(old.m_bundledTranslator),
-	m_overwriteTranslator(old.m_overwriteTranslator), m_qtTranslator(old.m_qtTranslator) {
+	LifetimeGuard::LifetimeGuard(LifetimeGuard &&old)
+		: m_bundledTranslator(old.m_bundledTranslator), m_overwriteTranslator(old.m_overwriteTranslator),
+		  m_qtTranslator(old.m_qtTranslator) {
 		// Reset values of old
-		old.m_bundledTranslator = nullptr;
+		old.m_bundledTranslator   = nullptr;
 		old.m_overwriteTranslator = nullptr;
-		old.m_qtTranslator = nullptr;
+		old.m_qtTranslator        = nullptr;
 	}
 
 	LifetimeGuard::~LifetimeGuard() {
@@ -121,9 +122,11 @@ namespace Translations {
 			app.installTranslator(guard.m_qtTranslator);
 		} else if (guard.m_qtTranslator->load(locale, ":/mumble_overwrite_qtbase_")) {
 			app.installTranslator(guard.m_qtTranslator);
-		} else if (guard.m_qtTranslator->load(locale, "qt_", prefix, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+		} else if (guard.m_qtTranslator->load(locale, "qt_", prefix,
+											  QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 			app.installTranslator(guard.m_qtTranslator);
-		} else if (guard.m_qtTranslator->load(locale, "qtbase_", prefix, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+		} else if (guard.m_qtTranslator->load(locale, "qtbase_", prefix,
+											  QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 			app.installTranslator(guard.m_qtTranslator);
 		} else if (guard.m_qtTranslator->load(locale, ":/qt_")) {
 			app.installTranslator(guard.m_qtTranslator);

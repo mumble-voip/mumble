@@ -381,7 +381,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
 		uSource->uiSession = qqIds.dequeue();
-		uSource->sState = ServerUser::Authenticated;
+		uSource->sState    = ServerUser::Authenticated;
 		qhUsers.insert(uSource->uiSession, uSource);
 		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
@@ -1417,9 +1417,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		}
 
 		// Users directly in that channel
-		foreach (User *p, c->qlUsers) {
-			users.insert(static_cast< ServerUser * >(p));
-		}
+		foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
 
 		// Users only listening in that channel
 		foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
@@ -1458,13 +1456,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	while (!q.isEmpty()) {
 		Channel *c = q.dequeue();
 		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
-			foreach (Channel *sub, c->qlChannels) {
-				q.enqueue(sub);
-			}
+			foreach (Channel *sub, c->qlChannels) { q.enqueue(sub); }
 			// Users directly in that channel
-			foreach (User *p, c->qlUsers) {
-				users.insert(static_cast< ServerUser * >(p));
-			}
+			foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
 			// Users only listening in that channel
 			foreach (unsigned int session, ChannelListener::getListenersForChannel(c)) {
 				ServerUser *currentUser = qhUsers.value(session);
@@ -1494,9 +1488,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	users.remove(uSource);
 
 	// Actually send the original message to the affected users
-	foreach (ServerUser *u, users) {
-		sendMessage(u, msg);
-	}
+	foreach (ServerUser *u, users) { sendMessage(u, msg); }
 
 	// Emit the signal for RPC consumers
 	emit userTextMessage(uSource, tm);
@@ -2175,16 +2167,19 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 	}
 
 	if (!msg.has_data() || !msg.has_dataid()) {
-		// Messages without data and/or without a data ID can't be used by the clients. Thus we don't even have to send them
+		// Messages without data and/or without a data ID can't be used by the clients. Thus we don't even have to send
+		// them
 		return;
 	}
 
 	if (msg.data().size() > Mumble::Plugins::PluginMessage::MAX_DATA_LENGTH) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d) - data too large", qUtf8Printable(sender->qsName), sender->uiSession);
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - data too large", qUtf8Printable(sender->qsName),
+				 sender->uiSession);
 		return;
 	}
 	if (msg.dataid().size() > Mumble::Plugins::PluginMessage::MAX_DATA_ID_LENGTH) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d) - data ID too long", qUtf8Printable(sender->qsName), sender->uiSession);
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - data ID too long", qUtf8Printable(sender->qsName),
+				 sender->uiSession);
 		return;
 	}
 
@@ -2194,15 +2189,15 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 
 	// Copy needed data from message in order to be able to remove info about receivers from the message as this doesn't
 	// matter for the client
-	size_t receiverAmount = msg.receiversessions_size();
-	const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > receiverSessions = msg.receiversessions();
+	size_t receiverAmount                                                                 = msg.receiversessions_size();
+	const ::google::protobuf::RepeatedField<::google::protobuf::uint32 > receiverSessions = msg.receiversessions();
 
 	msg.clear_receiversessions();
 
-	QSet<uint32_t> uniqueReceivers;
+	QSet< uint32_t > uniqueReceivers;
 	uniqueReceivers.reserve(receiverSessions.size());
 
-	for(int i = 0; static_cast<size_t>(i) < receiverAmount; i++) {
+	for (int i = 0; static_cast< size_t >(i) < receiverAmount; i++) {
 		uint32_t userSession = receiverSessions.Get(i);
 
 		if (!uniqueReceivers.contains(userSession)) {

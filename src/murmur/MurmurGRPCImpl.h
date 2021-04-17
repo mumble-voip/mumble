@@ -212,7 +212,8 @@ public:
 
 private:
 	void *writeCB() {
-		auto callback = ::boost::bind(&RPCSingleStreamCall< InType, OutType >::writeCallback, this, boost::placeholders::_1);
+		auto callback =
+			::boost::bind(&RPCSingleStreamCall< InType, OutType >::writeCallback, this, boost::placeholders::_1);
 		return new ::boost::function< void(bool) >(callback);
 	}
 

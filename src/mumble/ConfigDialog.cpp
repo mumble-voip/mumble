@@ -13,8 +13,8 @@
 #include <QtCore/QMutexLocker>
 #include <QtGui/QScreen>
 #include <QtWidgets/QDesktopWidget>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QPushButton>
 
 
 // init static member fields
@@ -74,8 +74,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 		   "changed.<br />"
 		   "To restore all settings to their defaults, you can press the \"Defaults (All)\" button."));
 
-	QPushButton *restoreAllButton =
-		pageButtonBox->addButton(tr("Defaults (All)"), QDialogButtonBox::ResetRole);
+	QPushButton *restoreAllButton = pageButtonBox->addButton(tr("Defaults (All)"), QDialogButtonBox::ResetRole);
 	restoreAllButton->setToolTip(tr("Restore all defaults"));
 	restoreAllButton->setWhatsThis(tr("This button will restore the defaults for all settings."));
 
@@ -162,15 +161,14 @@ void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 			QMessageBox msgBox;
 			msgBox.setIcon(QMessageBox::Question);
 			msgBox.setText(QObject::tr("Reset all settings?"));
-			msgBox.setInformativeText(QObject::tr("Do you really want to reset all settings (not only the ones currently visible) to their default value?"));
+			msgBox.setInformativeText(QObject::tr("Do you really want to reset all settings (not only the ones "
+												  "currently visible) to their default value?"));
 			msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 			msgBox.setDefaultButton(QMessageBox::No);
 
 			if (msgBox.exec() == QMessageBox::Yes) {
 				Settings defaultSetting;
-				foreach (ConfigWidget *cw, qmWidgets) {
-					cw->load(defaultSetting);
-				}
+				foreach (ConfigWidget *cw, qmWidgets) { cw->load(defaultSetting); }
 			}
 			break;
 		}

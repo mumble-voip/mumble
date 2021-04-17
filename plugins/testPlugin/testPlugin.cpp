@@ -5,25 +5,24 @@
 
 // Include the definitions of the plugin functions
 // Not that this will also include ../PluginComponents.h
-#include "../MumblePlugin_v_1_0_x.h"
 #include "../MumbleAPI_v_1_0_x.h"
+#include "../MumblePlugin_v_1_0_x.h"
 
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 // These are just some utility functions facilitating writing logs and the like
 // The actual implementation of the plugin is further down
-std::ostream& pLog() {
+std::ostream &pLog() {
 	std::cout << "TestPlugin: ";
 	return std::cout;
 }
 
-template<typename T>
-void pluginLog(T log) {
+template< typename T > void pluginLog(T log) {
 	pLog() << log << std::endl;
 }
 
-std::ostream& operator<<(std::ostream& stream, const mumble_version_t version) {
+std::ostream &operator<<(std::ostream &stream, const mumble_version_t version) {
 	stream << "v" << version.major << "." << version.minor << "." << version.patch;
 	return stream;
 }
@@ -99,9 +98,9 @@ void mumble_registerAPIFunctions(void *api) {
 	// to interact with Mumble. Thus you should store it somewhere safe for later usage.
 
 	// The pointer has to be cast to the respective API struct. You always have to cast to the same API version
-	// as this plugin itself is using. Thus if this plugin is compiled using the API version 1.0.x (where x is an arbitrary version)
-	// the pointer has to be cast to MumbleAPI_v_1_0_x (where x is a literal "x").
-	// Furthermore the struct HAS TO BE COPIED!!! Storing the pointer is not an option as it will become invalid quickly!
+	// as this plugin itself is using. Thus if this plugin is compiled using the API version 1.0.x (where x is an
+	// arbitrary version) the pointer has to be cast to MumbleAPI_v_1_0_x (where x is a literal "x"). Furthermore the
+	// struct HAS TO BE COPIED!!! Storing the pointer is not an option as it will become invalid quickly!
 
 	// **If** you are using the same API version that is specified in the included header file (as you should), you
 	// can simply use the MUMBLE_API_CAST to cast the pointer to the correct type and automatically dereferencing it.
@@ -134,11 +133,12 @@ void mumble_releaseResource(const void *pointer) {
 // The implementation of below functions is optional. If you don't need them, don't include them in your
 // plugin
 
-void mumble_setMumbleInfo(mumble_version_t mumbleVersion, mumble_version_t mumbleAPIVersion, mumble_version_t minimumExpectedAPIVersion) {
+void mumble_setMumbleInfo(mumble_version_t mumbleVersion, mumble_version_t mumbleAPIVersion,
+						  mumble_version_t minimumExpectedAPIVersion) {
 	// this function will always be the first one to be called. Even before init()
 	// In here you can get info about the Mumble version this plugin is about to run in.
-	pLog() << "Mumble version: " << mumbleVersion << "; Mumble API-Version: " << mumbleAPIVersion << "; Minimal expected API-Version: "
-		<< minimumExpectedAPIVersion << std::endl;
+	pLog() << "Mumble version: " << mumbleVersion << "; Mumble API-Version: " << mumbleAPIVersion
+		   << "; Minimal expected API-Version: " << minimumExpectedAPIVersion << std::endl;
 }
 
 mumble_version_t mumble_getVersion() {
@@ -160,8 +160,8 @@ MumbleStringWrapper mumble_getAuthor() {
 }
 
 MumbleStringWrapper mumble_getDescription() {
-	static const char *description =
-		"This plugin is merely a reference implementation without any real functionality. It shouldn't be included in the release build of Mumble.";
+	static const char *description = "This plugin is merely a reference implementation without any real functionality. "
+									 "It shouldn't be included in the release build of Mumble.";
 
 	MumbleStringWrapper wrapper;
 	wrapper.data = description;
@@ -186,8 +186,8 @@ uint32_t mumble_deactivateFeatures(uint32_t features) {
 	return features;
 }
 
-uint8_t mumble_initPositionalData(const char *const*programNames, const uint64_t *programPIDs, size_t programCount) {
-	std::ostream& stream = pLog() << "Got " << programCount << " programs to init positional data.";
+uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_t *programPIDs, size_t programCount) {
+	std::ostream &stream = pLog() << "Got " << programCount << " programs to init positional data.";
 
 	if (programCount > 0) {
 		stream << " The first name is " << programNames[0] << " and has PID " << programPIDs[0];
@@ -196,24 +196,28 @@ uint8_t mumble_initPositionalData(const char *const*programNames, const uint64_t
 	stream << std::endl;
 
 	// As this plugin doesn't provide PD, we return PDEC_ERROR_PERM to indicate that even in the future we won't do so
-	// If your plugin is indeed delivering positional data but is only temporarily unable to do so, return PDEC_ERROR_TEMP.
-	// and if you deliver PD and succeeded initializing return PDEC_OK.
+	// If your plugin is indeed delivering positional data but is only temporarily unable to do so, return
+	// PDEC_ERROR_TEMP. and if you deliver PD and succeeded initializing return PDEC_OK.
 	return PDEC_ERROR_PERM;
 }
 
-#define SET_TO_ZERO(name) name[0] = 0.0f; name[1] = 0.0f; name[2] = 0.0f
-bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avatarAxis, float *cameraPos, float *cameraDir,
-			float *cameraAxis, const char **context, const char **identity) {
+#define SET_TO_ZERO(name) \
+	name[0] = 0.0f;       \
+	name[1] = 0.0f;       \
+	name[2] = 0.0f
+bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avatarAxis, float *cameraPos,
+								float *cameraDir, float *cameraAxis, const char **context, const char **identity) {
 	pluginLog("Has been asked to deliver positional data");
 
-	// If unable to provide positional data, this function should return false and reset all given values to 0 / empty Strings
+	// If unable to provide positional data, this function should return false and reset all given values to 0 / empty
+	// Strings
 	SET_TO_ZERO(avatarPos);
 	SET_TO_ZERO(avatarDir);
 	SET_TO_ZERO(avatarAxis);
 	SET_TO_ZERO(cameraPos);
 	SET_TO_ZERO(cameraDir);
 	SET_TO_ZERO(cameraAxis);
-	*context = "";
+	*context  = "";
 	*identity = "";
 
 	// This function returns whether it can continue to deliver positional data
@@ -239,7 +243,8 @@ void mumble_onServerDisconnected(mumble_connection_t connection) {
 
 	const char *serverHash;
 	if (mumAPI.getServerHash(ownID, connection, &serverHash) == STATUS_OK) {
-		pLog() << "Disconnected from server-connection with ID " << connection << "(hash: " << serverHash << ")" << std::endl;
+		pLog() << "Disconnected from server-connection with ID " << connection << "(hash: " << serverHash << ")"
+			   << std::endl;
 
 		mumAPI.freeMemory(ownID, serverHash);
 	} else {
@@ -251,7 +256,8 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 	// The client has finished synchronizing with the server. Thus we can now obtain a list of all users on this server
 	const char *serverHash;
 	if (mumAPI.getServerHash(ownID, connection, &serverHash) == STATUS_OK) {
-		pLog() << "Server has finished synchronizing (ServerConnection: " << connection << "; hash: " << serverHash << ")" << std::endl ;
+		pLog() << "Server has finished synchronizing (ServerConnection: " << connection << "; hash: " << serverHash
+			   << ")" << std::endl;
 
 		mumAPI.freeMemory(ownID, serverHash);
 	} else {
@@ -274,7 +280,7 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 
 	pLog() << "There are " << userCount << " users on this server. Their names are:" << std::endl;
 
-	for(size_t i=0; i<userCount; i++) {
+	for (size_t i = 0; i < userCount; i++) {
 		const char *userName;
 		if (mumAPI.getUserName(ownID, connection, userIDs[i], &userName) != STATUS_OK) {
 			pLog() << "<Unable to fetch user name>" << std::endl;
@@ -285,7 +291,7 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 		if (mumAPI.getUserHash(ownID, connection, userIDs[i], &userHash) != STATUS_OK) {
 			pluginLog("<Unable to get user-hash>");
 		}
-		
+
 		pLog() << "\t" << userName << " (" << userHash << ")" << std::endl;
 
 		// Mute the user "MuteMe" if this is not the name of the local user (in which case it'd fail)
@@ -319,26 +325,32 @@ void mumble_onServerSynchronized(mumble_connection_t connection) {
 		return;
 	}
 
-	if (mumAPI.sendData(ownID, activeConnection, &localUser, 1, reinterpret_cast<const uint8_t *>("Just a test"), 12, "testMsg") == STATUS_OK) {
+	if (mumAPI.sendData(ownID, activeConnection, &localUser, 1, reinterpret_cast< const uint8_t * >("Just a test"), 12,
+						"testMsg")
+		== STATUS_OK) {
 		pluginLog("Successfully sent plugin message");
 
 		// Try break the rate-limiter for plugin messages
-		for (int i = 0; i < 40; i++) { 
+		for (int i = 0; i < 40; i++) {
 			std::string data = "Rate-limit message #" + std::to_string(i);
 
-			mumAPI.sendData(ownID, activeConnection, &localUser, 1, reinterpret_cast<const uint8_t * >(data.c_str()), data.size(), "testMsg");
+			mumAPI.sendData(ownID, activeConnection, &localUser, 1, reinterpret_cast< const uint8_t * >(data.c_str()),
+							data.size(), "testMsg");
 		}
 	} else {
 		pluginLog("Failed at sending message");
 	}
 
-	if (mumAPI.requestSetLocalUserComment(ownID, connection, "This user has the TestPlugin enabled - <b>hand over a cookie!</b>") != STATUS_OK) {
+	if (mumAPI.requestSetLocalUserComment(ownID, connection,
+										  "This user has the TestPlugin enabled - <b>hand over a cookie!</b>")
+		!= STATUS_OK) {
 		pluginLog("Failed at setting the local user's comment");
 	}
 }
 
-void mumble_onChannelEntered(mumble_connection_t connection, mumble_userid_t userID, mumble_channelid_t previousChannelID, mumble_channelid_t newChannelID) {
-	std::ostream& stream = pLog() << "User with ID " << userID << " entered channel with ID " << newChannelID << ".";
+void mumble_onChannelEntered(mumble_connection_t connection, mumble_userid_t userID,
+							 mumble_channelid_t previousChannelID, mumble_channelid_t newChannelID) {
+	std::ostream &stream = pLog() << "User with ID " << userID << " entered channel with ID " << newChannelID << ".";
 
 	// negative ID means that there was no previous channel (e.g. because the user just connected)
 	if (previousChannelID >= 0) {
@@ -349,14 +361,16 @@ void mumble_onChannelEntered(mumble_connection_t connection, mumble_userid_t use
 }
 
 void mumble_onChannelExited(mumble_connection_t connection, mumble_userid_t userID, mumble_channelid_t channelID) {
-	pLog() << "User with ID " << userID << " has left channel with ID " << channelID << ". (ServerConnection: " << connection << ")" << std::endl;
+	pLog() << "User with ID " << userID << " has left channel with ID " << channelID
+		   << ". (ServerConnection: " << connection << ")" << std::endl;
 }
 
-void mumble_onUserTalkingStateChanged(mumble_connection_t connection, mumble_userid_t userID, mumble_talking_state_t talkingState) {
-	std::ostream& stream = pLog() << "User with ID " << userID << " changed his talking state to ";
+void mumble_onUserTalkingStateChanged(mumble_connection_t connection, mumble_userid_t userID,
+									  mumble_talking_state_t talkingState) {
+	std::ostream &stream = pLog() << "User with ID " << userID << " changed his talking state to ";
 
 	// The possible values are contained in the TalkingState enum inside PluginComponent.h
-	switch(talkingState) {
+	switch (talkingState) {
 		case INVALID:
 			stream << "Invalid";
 			break;
@@ -379,8 +393,10 @@ void mumble_onUserTalkingStateChanged(mumble_connection_t connection, mumble_use
 	stream << ". (ServerConnection: " << connection << ")" << std::endl;
 }
 
-bool mumble_onAudioInput(short *inputPCM, uint32_t sampleCount, uint16_t channelCount, uint32_t sampleRate, bool isSpeech) {
-	// pLog() << "Audio input with " << channelCount << " channels and " << sampleCount << " samples per channel encountered. IsSpeech: "
+bool mumble_onAudioInput(short *inputPCM, uint32_t sampleCount, uint16_t channelCount, uint32_t sampleRate,
+						 bool isSpeech) {
+	// pLog() << "Audio input with " << channelCount << " channels and " << sampleCount << " samples per channel
+	// encountered. IsSpeech: "
 	//	<< isSpeech << " Sample rate is " << sampleRate << "Hz" << std::endl;
 
 	// mark variables as unused
@@ -394,9 +410,11 @@ bool mumble_onAudioInput(short *inputPCM, uint32_t sampleCount, uint16_t channel
 	return false;
 }
 
-bool mumble_onAudioSourceFetched(float *outputPCM, uint32_t sampleCount, uint16_t channelCount, uint32_t sampleRate, bool isSpeech, mumble_userid_t userID) {
-	std::ostream& stream = pLog() << "Audio output source with " << channelCount << " channels and " << sampleCount << " samples per channel "
-		<< "(" << sampleRate << " Hz) fetched.";
+bool mumble_onAudioSourceFetched(float *outputPCM, uint32_t sampleCount, uint16_t channelCount, uint32_t sampleRate,
+								 bool isSpeech, mumble_userid_t userID) {
+	std::ostream &stream = pLog() << "Audio output source with " << channelCount << " channels and " << sampleCount
+								  << " samples per channel "
+								  << "(" << sampleRate << " Hz) fetched.";
 
 	if (isSpeech) {
 		stream << " The output is speech from user with ID " << userID << ".";
@@ -411,9 +429,10 @@ bool mumble_onAudioSourceFetched(float *outputPCM, uint32_t sampleCount, uint16_
 	return false;
 }
 
-bool mumble_onAudioOutputAboutToPlay(float *outputPCM, uint32_t sampleCount, uint16_t channelCount, uint32_t sampleRate) {
-	// pLog() << "The resulting audio output has " << channelCount << " channels with " << sampleCount << " samples per channel ("
-	// sampleRate << " Hz)" << std::endl;
+bool mumble_onAudioOutputAboutToPlay(float *outputPCM, uint32_t sampleCount, uint16_t channelCount,
+									 uint32_t sampleRate) {
+	// pLog() << "The resulting audio output has " << channelCount << " channels with " << sampleCount << " samples per
+	// channel (" sampleRate << " Hz)" << std::endl;
 
 	// mark variables as unused
 	(void) outputPCM;
@@ -425,13 +444,14 @@ bool mumble_onAudioOutputAboutToPlay(float *outputPCM, uint32_t sampleCount, uin
 	return false;
 }
 
-bool mumble_onReceiveData(mumble_connection_t connection, mumble_userid_t sender, const uint8_t *data, size_t dataLength, const char *dataID) {
-	pLog() << "Received data with ID \"" << dataID << "\" from user with ID " << sender << ". Its length is " << dataLength
-		<< ". (ServerConnection:" << connection << ")" << std::endl;
+bool mumble_onReceiveData(mumble_connection_t connection, mumble_userid_t sender, const uint8_t *data,
+						  size_t dataLength, const char *dataID) {
+	pLog() << "Received data with ID \"" << dataID << "\" from user with ID " << sender << ". Its length is "
+		   << dataLength << ". (ServerConnection:" << connection << ")" << std::endl;
 
 	if (std::strcmp(dataID, "testMsg") == 0) {
 		// We know that data is only a normal C-encoded String, so the reinterpret_cast is safe
-		pLog() << "The received data: " << reinterpret_cast<const char *>(data) << std::endl;
+		pLog() << "The received data: " << reinterpret_cast< const char * >(data) << std::endl;
 	}
 
 	// This function returns whether it has processed the data (preventing further plugins from seeing it)

@@ -19,9 +19,9 @@ namespace Translations {
 	 * A lifetime guard for translators. Basically a smart-pointer for an ensemble of translators
 	 */
 	struct LifetimeGuard {
-		QTranslator *m_bundledTranslator = nullptr;
+		QTranslator *m_bundledTranslator   = nullptr;
 		QTranslator *m_overwriteTranslator = nullptr;
-		QTranslator *m_qtTranslator = nullptr;
+		QTranslator *m_qtTranslator        = nullptr;
 
 		LifetimeGuard() = default;
 		LifetimeGuard(LifetimeGuard &&old);

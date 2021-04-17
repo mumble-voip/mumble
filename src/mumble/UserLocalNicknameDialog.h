@@ -40,12 +40,10 @@ public slots:
 	void reject();
 
 public:
-	static void
-		present(unsigned int sessionId,
-				std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker);
-	UserLocalNicknameDialog(
-		unsigned int sessionId,
-		std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker);
+	static void present(unsigned int sessionId,
+						std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker);
+	UserLocalNicknameDialog(unsigned int sessionId,
+							std::unordered_map< unsigned int, NicknameDialogPtr > &qmUserNicknameTracker);
 };
 
 #endif

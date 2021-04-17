@@ -265,8 +265,8 @@ void TestCrypt::xexstarAttack() {
 	}
 
 	// Actual content should have been changed such that the critical block is no longer all 0.
-	QCOMPARE(src[0], static_cast<unsigned char>(0));
-	QCOMPARE(decrypted[0], static_cast<unsigned char>(1));
+	QCOMPARE(src[0], static_cast< unsigned char >(0));
+	QCOMPARE(decrypted[0], static_cast< unsigned char >(1));
 }
 
 void TestCrypt::tamper() {

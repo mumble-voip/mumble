@@ -262,10 +262,11 @@ void ChannelListener::saveToDB() {
 	}
 
 	// Save the currently listened channels
-	Global::get().db->setChannelListeners(Global::get().sh->qbaDigest, ChannelListener::getListenedChannelsForUser(Global::get().uiSession));
+	Global::get().db->setChannelListeners(Global::get().sh->qbaDigest,
+										  ChannelListener::getListenedChannelsForUser(Global::get().uiSession));
 	// And also the currently set volume adjustments (if they're not set to 1.0)
-	Global::get().db->setChannelListenerLocalVolumeAdjustments(Global::get().sh->qbaDigest,
-												   ChannelListener::getAllListenerLocalVolumeAdjustments(true));
+	Global::get().db->setChannelListenerLocalVolumeAdjustments(
+		Global::get().sh->qbaDigest, ChannelListener::getAllListenerLocalVolumeAdjustments(true));
 }
 #endif
 

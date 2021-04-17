@@ -15,8 +15,8 @@
 #include "ServerHandler.h"
 #include "User.h"
 #include "Utils.h"
-#include "GlobalShortcut.h"
 #include "Global.h"
+#include "GlobalShortcut.h"
 
 #include <QtGui/QImageReader>
 

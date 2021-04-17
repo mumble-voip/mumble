@@ -392,7 +392,8 @@ bool JackAudioSystem::isOk() {
 }
 
 uint8_t JackAudioSystem::outPorts() {
-	return static_cast< uint8_t >(qBound< unsigned >(1, Global::get().s.qsJackAudioOutput.toUInt(), JACK_MAX_OUTPUT_PORTS));
+	return static_cast< uint8_t >(
+		qBound< unsigned >(1, Global::get().s.qsJackAudioOutput.toUInt(), JACK_MAX_OUTPUT_PORTS));
 }
 
 jack_nframes_t JackAudioSystem::sampleRate() {

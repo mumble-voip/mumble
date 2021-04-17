@@ -212,8 +212,8 @@ ALSAEnumerator::ALSAEnumerator() {
 		int err;
 		snd_ctl_t *ctl = nullptr;
 		if ((err = snd_card_get_longname(card, &name)) != 0) {
-			Global::get().mw->msgBox(
-				tr("Getting name (longname) of the sound card failed: %1").arg(QString::fromUtf8(snd_strerror(err)).toHtmlEscaped()));
+			Global::get().mw->msgBox(tr("Getting name (longname) of the sound card failed: %1")
+										 .arg(QString::fromUtf8(snd_strerror(err)).toHtmlEscaped()));
 			return;
 		}
 		QByteArray dev = QString::fromLatin1("hw:%1").arg(card).toUtf8();
@@ -223,8 +223,8 @@ ALSAEnumerator::ALSAEnumerator() {
 
 			char *cname = nullptr;
 			if ((err = snd_card_get_name(card, &cname)) != 0) {
-				Global::get().mw->msgBox(
-					tr("Getting name of the sound card failed: %1").arg(QString::fromUtf8(snd_strerror(err)).toHtmlEscaped()));
+				Global::get().mw->msgBox(tr("Getting name of the sound card failed: %1")
+											 .arg(QString::fromUtf8(snd_strerror(err)).toHtmlEscaped()));
 				return;
 			}
 			int device = -1;

@@ -245,13 +245,14 @@ void AudioInputDialog::verifyMicrophonePermission() {
 		qcbDevice->setEnabled(false);
 		if (air->name == QLatin1String("CoreAudio")) {
 			qlInputHelp->setVisible(true);
-			qlInputHelp->setText(tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
-			                        "by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
-			                        "Microphone."));
+			qlInputHelp->setText(
+				tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
+				   "by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
+				   "Microphone."));
 		} else if (air->name == QLatin1String("WASAPI")) {
 			qlInputHelp->setVisible(true);
-			qlInputHelp->setText( tr("Access to the microphone was denied. Please check that your operating system's "
-			                         "microphone settings allow Mumble to use the microphone."));
+			qlInputHelp->setText(tr("Access to the microphone was denied. Please check that your operating system's "
+									"microphone settings allow Mumble to use the microphone."));
 		}
 	} else {
 		qcbDevice->setEnabled(true);
@@ -297,7 +298,7 @@ void AudioInputDialog::save() const {
 	s.qsTxAudioCueOff      = qlePushClickPathOff->text();
 
 	s.qsAudioInput    = qcbSystem->currentText();
-	s.echoOption    = static_cast<EchoCancelOptionID>(qcbEcho->currentData().toInt());
+	s.echoOption      = static_cast< EchoCancelOptionID >(qcbEcho->currentData().toInt());
 	s.bExclusiveInput = qcbExclusive->isChecked();
 
 	if (AudioInputRegistrar::qmNew) {
@@ -519,9 +520,9 @@ void AudioInputDialog::updateEchoEnableState() {
 	for (EchoCancelOptionID ecoid : air->echoOptions) {
 		if (air->canEcho(ecoid, outputInterface)) {
 			++i;
-			hasUsableEchoOption = true;
-			const EchoCancelOption &echoOption = echoCancelOptions[static_cast<int>(ecoid)];
-			qcbEcho->insertItem(i, echoOption.description, static_cast<int>(ecoid));
+			hasUsableEchoOption                = true;
+			const EchoCancelOption &echoOption = echoCancelOptions[static_cast< int >(ecoid)];
+			qcbEcho->insertItem(i, echoOption.description, static_cast< int >(ecoid));
 			qcbEcho->setItemData(i, echoOption.explanation, Qt::ToolTipRole);
 			if (s.echoOption == ecoid) {
 				qcbEcho->setCurrentIndex(i);
@@ -535,9 +536,9 @@ void AudioInputDialog::updateEchoEnableState() {
 		qcbEcho->setCurrentIndex(0);
 		qcbEcho->setEnabled(false);
 		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not supported for the interface "
-		                                "combination \"%1\" (in) and \"%2\" (out).")
-			                    .arg(air->name)
-			                    .arg(outputInterface));
+										"combination \"%1\" (in) and \"%2\" (out).")
+								.arg(air->name)
+								.arg(outputInterface));
 	}
 }
 

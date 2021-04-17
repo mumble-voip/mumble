@@ -137,7 +137,8 @@ signals:
 	/// @param sampleRate The used sample rate in Hz
 	/// @param isSpeech Whether the fetched output is considered to be speech
 	/// @param A pointer to the user that this speech belongs to or nullptr if this isn't speech
-	void audioSourceFetched(float *outputPCM, unsigned int sampleCount, unsigned int channelCount, unsigned int sampleRate, bool isSpeech, const ClientUser *user);
+	void audioSourceFetched(float *outputPCM, unsigned int sampleCount, unsigned int channelCount,
+							unsigned int sampleRate, bool isSpeech, const ClientUser *user);
 	/// Signal emitted whenever an audio is about to be played to the user
 	///
 	/// @param outputPCM The output PCM that is to be played
@@ -145,7 +146,8 @@ signals:
 	/// @param channelCount The amount of channels in the output
 	/// @param sampleRate The used sample rate in Hz
 	/// @param modifiedAudio Pointer to bool if audio has been modified or not and should be played
-	void audioOutputAboutToPlay(float *outputPCM, unsigned int sampleCount, unsigned int channelCount, unsigned int sampleRate, bool *modifiedAudio);
+	void audioOutputAboutToPlay(float *outputPCM, unsigned int sampleCount, unsigned int channelCount,
+								unsigned int sampleRate, bool *modifiedAudio);
 };
 
 #endif

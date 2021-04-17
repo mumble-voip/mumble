@@ -10,18 +10,16 @@
 #ifdef USE_OPUS
 #	include "OpusCodec.h"
 #endif
+#include "API.h"
 #include "MainWindow.h"
-#include "User.h"
-#include "PacketDataStream.h"
-#include "PluginManager.h"
 #include "Message.h"
 #include "NetworkConfig.h"
 #include "PacketDataStream.h"
+#include "PluginManager.h"
 #include "ServerHandler.h"
 #include "User.h"
 #include "Utils.h"
 #include "VoiceRecorder.h"
-#include "API.h"
 
 #include "Global.h"
 
@@ -177,7 +175,7 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		Global::get().s.qsAudioInput = choice;
-		current          = choice;
+		current                      = choice;
 		return AudioInputPtr(qmNew->value(current)->create());
 	}
 	choice = Global::get().s.qsAudioInput;
@@ -711,19 +709,20 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 
 	if (bitspersec != -1) {
 		if ((bitrate != Global::get().s.iQuality) || (frames != Global::get().s.iFramesPerPacket))
-			Global::get().mw->msgBox(tr("Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 "
-							"kbit/s (%3 ms)")
-							 .arg(bitspersec / 1000)
-							 .arg(bitrate / 1000)
-							 .arg(frames * 10));
+			Global::get().mw->msgBox(
+				tr("Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 "
+				   "kbit/s (%3 ms)")
+					.arg(bitspersec / 1000)
+					.arg(bitrate / 1000)
+					.arg(frames * 10));
 	}
 
 	AudioInputPtr ai = Global::get().ai;
 	if (ai) {
-		Global::get().iAudioBandwidth  = getNetworkBandwidth(bitrate, frames);
-		ai->iAudioQuality  = bitrate;
-		ai->iAudioFrames   = frames;
-		ai->bAllowLowDelay = allowLowDelay;
+		Global::get().iAudioBandwidth = getNetworkBandwidth(bitrate, frames);
+		ai->iAudioQuality             = bitrate;
+		ai->iAudioFrames              = frames;
+		ai->bAllowLowDelay            = allowLowDelay;
 		return;
 	}
 
@@ -734,8 +733,8 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 }
 
 int AudioInput::getNetworkBandwidth(int bitrate, int frames) {
-	int overhead =
-		20 + 8 + 4 + 1 + 2 + (Global::get().s.bTransmitPosition ? 12 : 0) + (NetworkConfig::TcpModeEnabled() ? 12 : 0) + frames;
+	int overhead = 20 + 8 + 4 + 1 + 2 + (Global::get().s.bTransmitPosition ? 12 : 0)
+				   + (NetworkConfig::TcpModeEnabled() ? 12 : 0) + frames;
 	overhead *= (800 / frames);
 	int bw = overhead + bitrate;
 
@@ -810,7 +809,8 @@ bool AudioInput::selectCodec() {
 
 	if (!useOpus) {
 		CELTCodec *switchto = nullptr;
-		if ((!Global::get().uiSession || (Global::get().s.lmLoopMode == Settings::Local)) && (!Global::get().qmCodecs.isEmpty())) {
+		if ((!Global::get().uiSession || (Global::get().s.lmLoopMode == Settings::Local))
+			&& (!Global::get().qmCodecs.isEmpty())) {
 			// Use latest for local loopback
 			QMap< int, CELTCodec * >::const_iterator i = Global::get().qmCodecs.constEnd();
 			--i;
@@ -824,9 +824,11 @@ bool AudioInput::selectCodec() {
 			}
 		}
 		if (!switchto) {
-			switchto = Global::get().qmCodecs.value(Global::get().bPreferAlpha ? Global::get().iCodecAlpha : Global::get().iCodecBeta);
+			switchto = Global::get().qmCodecs.value(Global::get().bPreferAlpha ? Global::get().iCodecAlpha
+																			   : Global::get().iCodecBeta);
 			if (!switchto)
-				switchto = Global::get().qmCodecs.value(Global::get().bPreferAlpha ? Global::get().iCodecBeta : Global::get().iCodecAlpha);
+				switchto = Global::get().qmCodecs.value(Global::get().bPreferAlpha ? Global::get().iCodecBeta
+																				   : Global::get().iCodecAlpha);
 		}
 		if (switchto != cCodec) {
 			if (cCodec && ceEncoder) {
@@ -1062,13 +1064,15 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		iHoldFrames = 0;
 	}
 
-	if (Global::get().s.atTransmit == Settings::Continuous || API::PluginData::get().overwriteMicrophoneActivation.load()) {
+	if (Global::get().s.atTransmit == Settings::Continuous
+		|| API::PluginData::get().overwriteMicrophoneActivation.load()) {
 		// Continous transmission is enabled
 		bIsSpeech = true;
 	} else if (Global::get().s.atTransmit == Settings::PushToTalk) {
 		// PTT is enabled, so check if it is currently active
-		bIsSpeech =
-			Global::get().s.uiDoublePush && ((Global::get().uiDoublePush < Global::get().s.uiDoublePush) || (Global::get().tDoublePush.elapsed() < Global::get().s.uiDoublePush));
+		bIsSpeech = Global::get().s.uiDoublePush
+					&& ((Global::get().uiDoublePush < Global::get().s.uiDoublePush)
+						|| (Global::get().tDoublePush.elapsed() < Global::get().s.uiDoublePush));
 	}
 
 	// If Global::get().iPushToTalk > 0 that means that we are currently in some sort of PTT action. For
@@ -1076,8 +1080,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	bIsSpeech = bIsSpeech || (Global::get().iPushToTalk > 0);
 
 	ClientUser *p = ClientUser::get(Global::get().uiSession);
-	if (Global::get().s.bMute || ((Global::get().s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress)) || Global::get().bPushToMute
-		|| (voiceTargetID < 0)) {
+	if (Global::get().s.bMute || ((Global::get().s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress))
+		|| Global::get().bPushToMute || (voiceTargetID < 0)) {
 		bIsSpeech = false;
 	}
 
@@ -1148,7 +1152,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	Q_ASSERT(buffer.size() >= static_cast< size_t >(iAudioQuality / 100 * iAudioFrames / 8));
 
 	emit audioInputEncountered(psSource, iFrameSize, iMicChannels, SAMPLE_RATE, bIsSpeech);
-	
+
 	int len = 0;
 
 	bool encoded = true;
@@ -1281,7 +1285,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, int voiceT
 	}
 
 	if (Global::get().s.bTransmitPosition && Global::get().pluginManager && !Global::get().bCenterPosition
-			&& Global::get().pluginManager->fetchPositionalData()) {
+		&& Global::get().pluginManager->fetchPositionalData()) {
 		Position3D currentPos = Global::get().pluginManager->getPositionalData().getPlayerPos();
 
 		pds << currentPos.x;

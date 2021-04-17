@@ -131,7 +131,7 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 
 void GlobalShortcutWin::run() {
 	if (HAS_FAILED(DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8,
-								  reinterpret_cast< void ** >(&pDI), nullptr))) {
+									  reinterpret_cast< void ** >(&pDI), nullptr))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
 	}

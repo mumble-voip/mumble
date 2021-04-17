@@ -10,9 +10,9 @@
 #include "Log.h"
 #include "MainWindow.h"
 #include "Utils.h"
+#include "Global.h"
 #include "GlobalShortcut.h"
 #include "GlobalShortcutButtons.h"
-#include "Global.h"
 
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QGraphicsEllipseItem>
@@ -20,8 +20,8 @@
 #include <cmath>
 
 AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
-	bInit            = true;
-	bLastActive      = false;
+	bInit                        = true;
+	bLastActive                  = false;
 	Global::get().bInAudioWizard = true;
 
 	ticker = new QTimer(this);
@@ -170,7 +170,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	resize(700, 500);
 
 	updateTriggerWidgets(qrPTT->isChecked());
-	sOldSettings        = Global::get().s;
+	sOldSettings                    = Global::get().s;
 	Global::get().s.lmLoopMode      = Settings::Local;
 	Global::get().s.dPacketLoss     = 0.0;
 	Global::get().s.dMaxPacketDelay = 0.0;
@@ -318,7 +318,7 @@ void AudioWizard::showPage(int pageid) {
 		Global::get().s.bMute = true;
 		playChord();
 	} else if (cp == qwpPositional) {
-		fX = fY    = 0.0f;
+		fX = fY                = 0.0f;
 		Global::get().s.bMute  = true;
 		Global::get().bPosTest = true;
 		if (qgsScene) {
@@ -390,7 +390,7 @@ void AudioWizard::reject() {
 	AudioOutputPtr ao = Global::get().ao;
 	if (ao)
 		ao->wipe();
-	aosSource        = nullptr;
+	aosSource                    = nullptr;
 	Global::get().bInAudioWizard = false;
 
 	QWizard::reject();
@@ -646,15 +646,15 @@ void AudioWizard::on_qpbPTT_clicked() {
 		shortcuts << shortcut;
 	}
 
-	Global::get().s.qlShortcuts                          = shortcuts;
+	Global::get().s.qlShortcuts              = shortcuts;
 	GlobalShortcutEngine::engine->bNeedRemap = true;
 	GlobalShortcutEngine::engine->needRemap();
 }
 
 void AudioWizard::on_qcbEcho_clicked(bool on) {
 	if (on) {
-		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
-		Global::get().s.echoOption           = firstUsableEchoCancellation(air, qcbOutput->currentText());
+		AudioInputRegistrar *air   = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
+		Global::get().s.echoOption = firstUsableEchoCancellation(air, qcbOutput->currentText());
 	} else {
 		Global::get().s.echoOption = EchoCancelOptionID::DISABLED;
 	}

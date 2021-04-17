@@ -320,7 +320,6 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qsInputCache = idev;
 
 			m_pulseAudio.stream_connect_record(pasInput, qPrintable(idev), &buff, PA_STREAM_ADJUST_LATENCY);
-
 		}
 	}
 
@@ -920,8 +919,8 @@ void PulseAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 }
 
 bool PulseAudioInputRegistrar::canEcho(EchoCancelOptionID echoOption, const QString &osys) const {
-	return (echoOption == EchoCancelOptionID::SPEEX_MIXED
-	        || echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL) && (osys == name);
+	return (echoOption == EchoCancelOptionID::SPEEX_MIXED || echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL)
+		   && (osys == name);
 }
 
 PulseAudioOutputRegistrar::PulseAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PulseAudio"), 10) {

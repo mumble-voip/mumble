@@ -5,13 +5,13 @@
 
 #include "MultiStyleWidgetWrapper.h"
 
-#include <QWidget>
 #include <QFont>
 #include <QFontMetrics>
+#include <QWidget>
 
 const uint32_t MultiStyleWidgetWrapper::UNSET_FONTSIZE = 0;
-const QString MultiStyleWidgetWrapper::UNSET_COLOR = "";
-const QString MultiStyleWidgetWrapper::UNSET_SELECTOR = "*";
+const QString MultiStyleWidgetWrapper::UNSET_COLOR     = "";
+const QString MultiStyleWidgetWrapper::UNSET_SELECTOR  = "*";
 
 MultiStyleWidgetWrapper::MultiStyleWidgetWrapper(QWidget *widget) : m_widget(widget) {
 }

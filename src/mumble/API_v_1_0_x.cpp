@@ -10,12 +10,12 @@
 #include "Database.h"
 #include "Log.h"
 #include "MainWindow.h"
+#include "MumbleConstants.h"
 #include "PluginComponents_v_1_0_x.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
 #include "Settings.h"
 #include "UserModel.h"
-#include "MumbleConstants.h"
 #include "Global.h"
 
 #include <QVariant>
@@ -35,22 +35,22 @@
 	}                             \
 	return;
 
-#define VERIFY_PLUGIN_ID(id)                  \
+#define VERIFY_PLUGIN_ID(id)                              \
 	if (!Global::get().pluginManager->pluginExists(id)) { \
-		EXIT_WITH(EC_INVALID_PLUGIN_ID);      \
+		EXIT_WITH(EC_INVALID_PLUGIN_ID);                  \
 	}
 
 // Right now there can only be one connection managed by the current ServerHandler
-#define VERIFY_CONNECTION(connection)                     \
+#define VERIFY_CONNECTION(connection)                                             \
 	if (!Global::get().sh || Global::get().sh->getConnectionID() != connection) { \
-		EXIT_WITH(EC_CONNECTION_NOT_FOUND);               \
+		EXIT_WITH(EC_CONNECTION_NOT_FOUND);                                       \
 	}
 
-// Right now whether or not a connection has finished synchronizing is indicated by Global::get().uiSession. If it is zero,
-// synchronization is not done yet (or there is no connection to begin with). The connection parameter in the macro is
-// only present in case it will be needed in the future
+// Right now whether or not a connection has finished synchronizing is indicated by Global::get().uiSession. If it is
+// zero, synchronization is not done yet (or there is no connection to begin with). The connection parameter in the
+// macro is only present in case it will be needed in the future
 #define ENSURE_CONNECTION_SYNCHRONIZED(connection) \
-	if (Global::get().uiSession == 0) {                        \
+	if (Global::get().uiSession == 0) {            \
 		EXIT_WITH(EC_CONNECTION_UNSYNCHRONIZED);   \
 	}
 
@@ -67,7 +67,8 @@ MumbleAPICurator::~MumbleAPICurator() {
 		entry.m_deleter(current.first);
 
 		// Print an error about the leaked resource
-		printf("[ERROR]: Plugin with ID %d leaked memory from a call to API function \"%s\"\n", entry.m_pluginID, entry.m_sourceFunctionName);
+		printf("[ERROR]: Plugin with ID %d leaked memory from a call to API function \"%s\"\n", entry.m_pluginID,
+			   entry.m_sourceFunctionName);
 	}
 }
 // Some common delete-functions
@@ -86,12 +87,12 @@ void defaultDeleter(const void *ptr) {
 
 // This macro registers type, type * and type ** to Qt's metatype system
 // and also their const variants (except const value as that doesn't make sense)
-#define REGISTER_METATYPE(type)                              \
-	qRegisterMetaType< type >(#type);                        \
-	qRegisterMetaType< type * >(#type " *");                 \
-	qRegisterMetaType< type ** >(#type " **");               \
-	qRegisterMetaType< const type * >("const " #type " *");   \
-	qRegisterMetaType< const type ** >("const " #type " **"); \
+#define REGISTER_METATYPE(type)                             \
+	qRegisterMetaType< type >(#type);                       \
+	qRegisterMetaType< type * >(#type " *");                \
+	qRegisterMetaType< type ** >(#type " **");              \
+	qRegisterMetaType< const type * >("const " #type " *"); \
+	qRegisterMetaType< const type ** >("const " #type " **");
 
 MumbleAPI::MumbleAPI() {
 	// Move this object to the main thread
@@ -194,8 +195,8 @@ void MumbleAPI::isConnectionSynchronized_v_1_0_x(mumble_plugin_id_t callerID, mu
 	VERIFY_PLUGIN_ID(callerID);
 	VERIFY_CONNECTION(connection);
 
-	// Right now there can only be one connection and if Global::get().uiSession is zero, then the synchronization has not finished
-	// yet (or there is no connection to begin with)
+	// Right now there can only be one connection and if Global::get().uiSession is zero, then the synchronization has
+	// not finished yet (or there is no connection to begin with)
 	*synchronized = Global::get().uiSession != 0;
 
 	EXIT_WITH(STATUS_OK);

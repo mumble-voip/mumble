@@ -96,7 +96,7 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 	else
 		Global::get().s.rmRecordingMode = Settings::RecordingMultichannel;
 
-	int i                = qcbFormat->currentIndex();
+	int i                            = qcbFormat->currentIndex();
 	Global::get().s.iRecordingFormat = (i == -1) ? 0 : i;
 
 	reset();

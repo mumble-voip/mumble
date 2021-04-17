@@ -93,8 +93,9 @@ void CrashReporter::uploadFinished() {
 		}
 	} else {
 		QMessageBox::critical(nullptr, tr("Crash upload failed"),
-							  tr("Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code."
-								  " Please inform a developer about error code %1")
+							  tr("Internal error encountered in CrashReporter.cpp: Received network reply does not "
+								 "contain an HTTP status code."
+								 " Please inform a developer about error code %1")
 								  .arg(qnrReply->error()));
 	}
 
