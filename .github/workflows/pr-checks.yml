@@ -1,9 +1,9 @@
-name: Checks
+name: PR-Checks
 
 on: [pull_request]
 
 jobs:
-  commit-check:
+  pr-checks:
     runs-on: ubuntu-20.04
 
     steps:
