@@ -92,7 +92,7 @@ def main():
                 prefix = "Added: "
             elif "FIX" in commit.m_types:
                 prefix = "Fixed: "
-            elif "CHANGED" in commit.m_types:
+            elif "CHANGE" in commit.m_types:
                 prefix = "Changed: "
             else:
                 prefix = "Unknown: "
