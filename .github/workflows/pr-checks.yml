@@ -17,7 +17,7 @@ jobs:
           # Assume that there are not >200 new commits that need checking
           fetch-depth: 200
           # Don't checkout submodules
-          submodules: 'false'
+          submodules: 'recursive'
           # Don't create a merge commit
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -27,3 +27,5 @@ jobs:
 
     - name: Check line endings
       uses: erclu/check-crlf@v1
+      with:
+          exclude: '3rdparty/'

@@ -25,7 +25,7 @@ def main():
         cmd(["git", "remote", "add", remoteName, "https://github.com/mumble-voip/mumble.git"])
 
         # Fetch remote
-        cmd(["git", "fetch", remoteName])
+        cmd(["git", "fetch", "--no-recurse-submodules", remoteName])
 
         # get new commits
         commitHashes = [x for x in cmd(["git", "rev-list", "{}/master..HEAD".format(remoteName)]).split("\n") if x]
