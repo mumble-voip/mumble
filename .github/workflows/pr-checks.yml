@@ -29,3 +29,20 @@ jobs:
       uses: erclu/check-crlf@v1
       with:
           exclude: '3rdparty/'
+
+    - uses: ./.github/actions/install-dependencies
+      with:
+          type: shared
+          os: ubuntu-20.04
+          arch: 64bit
+
+    - name: Generate compile-command DB
+      run: mkdir build; cd build; cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..; cd ..; ln -s build/compile_commands.json .
+      shell: bash
+
+    - name: Check code formatting
+      uses: jidicula/clang-format-action@v3.3.0
+      with:
+          clang-format-version: '10'
+          check-path: '.'
+          exclude-regex: '(3rdparty/*|build/*)'
