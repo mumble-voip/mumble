@@ -1,0 +1,48 @@
+name: PR-Checks
+
+on: [pull_request]
+
+jobs:
+  pr-checks:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+    - name: Install Python
+      run: sudo apt install python3
+      shell: bash
+
+    - uses: actions/checkout@v2
+      with:
+          # Assume that there are not >200 new commits that need checking
+          fetch-depth: 200
+          # Don't checkout submodules
+          submodules: 'recursive'
+          # Don't create a merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Check commit style
+      run: $GITHUB_WORKSPACE/.github/workflows/check_commit_style.py
+      shell: bash
+
+    - name: Check line endings
+      uses: erclu/check-crlf@v1
+      with:
+          exclude: '3rdparty/'
+
+    - uses: ./.github/actions/install-dependencies
+      with:
+          type: shared
+          os: ubuntu-20.04
+          arch: 64bit
+
+    - name: Generate compile-command DB
+      run: mkdir build; cd build; cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..; cd ..; ln -s build/compile_commands.json .
+      shell: bash
+
+    - name: Check code formatting
+      uses: jidicula/clang-format-action@v3.3.0
+      with:
+          clang-format-version: '10'
+          check-path: '.'
+          exclude-regex: '(3rdparty/*|build/*)'
