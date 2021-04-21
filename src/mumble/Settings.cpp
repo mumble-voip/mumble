@@ -162,6 +162,8 @@ QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 const QString Settings::cqsDefaultPushClickOn  = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
+const QString Settings::cqsDefaultMuteCue = QLatin1String(":/off.ogg");
+
 OverlaySettings::OverlaySettings() {
 	bEnable = false;
 
@@ -335,6 +337,9 @@ Settings::Settings() {
 	bTxAudioCue     = false;
 	qsTxAudioCueOn  = cqsDefaultPushClickOn;
 	qsTxAudioCueOff = cqsDefaultPushClickOff;
+
+	bTxMuteCue  = true;
+	qsTxMuteCue = cqsDefaultMuteCue;
 
 	bUserTop = true;
 
@@ -718,6 +723,8 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(bTxAudioCue, "audio/pushclick");
 	LOAD(qsTxAudioCueOn, "audio/pushclickon");
 	LOAD(qsTxAudioCueOff, "audio/pushclickoff");
+	LOAD(bTxMuteCue, "audio/mutecue");
+	LOAD(qsTxMuteCue, "audio/mutecuepath");
 	LOAD(iQuality, "audio/quality");
 	LOAD(iMinLoudness, "audio/loudness");
 	LOAD(fVolume, "audio/volume");
@@ -1157,6 +1164,8 @@ void Settings::save() {
 	SAVE(bTxAudioCue, "audio/pushclick");
 	SAVE(qsTxAudioCueOn, "audio/pushclickon");
 	SAVE(qsTxAudioCueOff, "audio/pushclickoff");
+	SAVE(bTxMuteCue, "audio/mutecue");
+	SAVE(qsTxMuteCue, "audio/mutecuepath");
 	SAVE(iQuality, "audio/quality");
 	SAVE(iMinLoudness, "audio/loudness");
 	SAVE(fVolume, "audio/volume");

@@ -176,6 +176,10 @@ struct Settings {
 	QString qsTxAudioCueOn;
 	QString qsTxAudioCueOff;
 
+	bool bTxMuteCue;
+	static const QString cqsDefaultMuteCue;
+	QString qsTxMuteCue;
+
 	bool bTransmitPosition;
 	bool bMute, bDeaf;
 	bool bTTS;

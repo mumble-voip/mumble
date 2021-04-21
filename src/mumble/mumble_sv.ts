@@ -1024,6 +1024,18 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <source>Speex suppression strength</source>
         <translation>Speex reduceringsstyrka</translation>
     </message>
+    <message>
+        <source>Mute cue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Br&amp;owse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pre&amp;view</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>

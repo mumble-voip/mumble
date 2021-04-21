@@ -1079,10 +1079,12 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	// instance this could mean we're currently whispering
 	bIsSpeech = bIsSpeech || (Global::get().iPushToTalk > 0);
 
-	ClientUser *p = ClientUser::get(Global::get().uiSession);
+	ClientUser *p          = ClientUser::get(Global::get().uiSession);
+	bool bTalkingWhenMuted = false;
 	if (Global::get().s.bMute || ((Global::get().s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress))
 		|| Global::get().bPushToMute || (voiceTargetID < 0)) {
-		bIsSpeech = false;
+		bTalkingWhenMuted = bIsSpeech;
+		bIsSpeech         = false;
 	}
 
 	if (bIsSpeech) {
@@ -1102,12 +1104,25 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			p->setTalking(Settings::Shouting);
 	}
 
-	if (Global::get().s.bTxAudioCue && Global::get().uiSession != 0) {
+	if (Global::get().uiSession != 0 && (Global::get().s.bTxAudioCue || Global::get().s.bTxMuteCue)) {
 		AudioOutputPtr ao = Global::get().ao;
-		if (bIsSpeech && !bPreviousVoice && ao)
-			ao->playSample(Global::get().s.qsTxAudioCueOn);
-		else if (ao && !bIsSpeech && bPreviousVoice)
-			ao->playSample(Global::get().s.qsTxAudioCueOff);
+
+		if (ao) {
+			if (Global::get().s.bTxAudioCue) {
+				if (bIsSpeech && !bPreviousVoice) {
+					ao->playSample(Global::get().s.qsTxAudioCueOn);
+				} else if (!bIsSpeech && bPreviousVoice) {
+					ao->playSample(Global::get().s.qsTxAudioCueOff);
+				}
+			}
+
+			if (Global::get().s.bTxMuteCue && !Global::get().s.bDeaf && bTalkingWhenMuted) {
+				if (!qetLastMuteCue.isValid() || qetLastMuteCue.elapsed() > iMuteCueDelay) {
+					qetLastMuteCue.start();
+					ao->playSample(Global::get().s.qsTxMuteCue);
+				}
+			}
+		}
 	}
 
 	if (!bIsSpeech && !bPreviousVoice) {

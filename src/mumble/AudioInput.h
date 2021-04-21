@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_AUDIOINPUT_H_
 #define MUMBLE_MUMBLE_AUDIOINPUT_H_
 
+#include <QElapsedTimer>
 #include <QtCore/QObject>
 #include <QtCore/QThread>
 #include <boost/array.hpp>
@@ -193,6 +194,8 @@ private:
 	int encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer);
 	int encodeCELTFrame(short *pSource, EncodingOutputBuffer &buffer);
 
+	QElapsedTimer qetLastMuteCue;
+
 protected:
 	MessageHandler::UDPMessageType umtType;
 	SampleFormat eMicFormat, eEchoFormat;
@@ -226,6 +229,9 @@ protected:
 	bool bAllowLowDelay;
 	/// Number of 10ms audio "frames" per packet (!= frames in packet)
 	int iAudioFrames;
+
+	/// The minimum time in ms that has to pass between the playback of two consecutive mute cues.
+	static constexpr unsigned int iMuteCueDelay = 5000;
 
 	float *pfMicInput;
 	float *pfEchoInput;

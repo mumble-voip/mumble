@@ -113,6 +113,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 
 	on_qcbPushClick_clicked(Global::get().s.bTxAudioCue);
+	on_qcbMuteCue_clicked(Global::get().s.bTxMuteCue);
 	on_Tick_timeout();
 	on_qcbIdleAction_currentIndexChanged(Global::get().s.iaeIdleAction);
 
@@ -156,6 +157,7 @@ void AudioInputDialog::load(const Settings &r) {
 
 	qlePushClickPathOn->setText(r.qsTxAudioCueOn);
 	qlePushClickPathOff->setText(r.qsTxAudioCueOff);
+	qleMuteCuePath->setText(r.qsTxMuteCue);
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
@@ -172,6 +174,7 @@ void AudioInputDialog::load(const Settings &r) {
 
 	loadCheckBox(qcbPushWindow, r.bShowPTTButtonWindow);
 	loadCheckBox(qcbPushClick, r.bTxAudioCue);
+	loadCheckBox(qcbMuteCue, r.bTxMuteCue);
 	loadSlider(qsQuality, r.iQuality);
 	loadCheckBox(qcbAllowLowDelay, r.bAllowLowDelay);
 	if (r.iSpeexNoiseCancelStrength != 0) {
@@ -296,6 +299,9 @@ void AudioInputDialog::save() const {
 	s.bTxAudioCue          = qcbPushClick->isChecked();
 	s.qsTxAudioCueOn       = qlePushClickPathOn->text();
 	s.qsTxAudioCueOff      = qlePushClickPathOff->text();
+
+	s.bTxMuteCue  = qcbMuteCue->isChecked();
+	s.qsTxMuteCue = qleMuteCuePath->text();
 
 	s.qsAudioInput    = qcbSystem->currentText();
 	s.echoOption      = static_cast< EchoCancelOptionID >(qcbEcho->currentData().toInt());
@@ -440,6 +446,26 @@ void AudioInputDialog::on_qpbPushClickPreview_clicked() {
 		else // If we fail to playback the first play on play at least off
 			ao->playSample(qlePushClickPathOff->text());
 	}
+}
+
+void AudioInputDialog::on_qcbMuteCue_clicked(bool b) {
+	qleMuteCuePath->setEnabled(b);
+	qpbMuteCueBrowse->setEnabled(b);
+	qpbMuteCuePreview->setEnabled(b);
+}
+
+void AudioInputDialog::on_qpbMuteCueBrowse_clicked() {
+	QString defaultpath(qleMuteCuePath->text());
+	QString qsnew = AudioOutputSample::browseForSndfile(defaultpath);
+	if (!qsnew.isEmpty())
+		qleMuteCuePath->setText(qsnew);
+}
+
+
+void AudioInputDialog::on_qpbMuteCuePreview_clicked() {
+	AudioOutputPtr ao = Global::get().ao;
+	if (ao)
+		ao->playSample(qleMuteCuePath->text());
 }
 
 void AudioInputDialog::continuePlayback() {

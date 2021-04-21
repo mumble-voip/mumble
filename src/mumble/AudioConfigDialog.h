@@ -44,6 +44,10 @@ public slots:
 	void on_qpbPushClickPreview_clicked();
 	void on_qpbPushClickReset_clicked();
 
+	void on_qcbMuteCue_clicked(bool);
+	void on_qpbMuteCueBrowse_clicked();
+	void on_qpbMuteCuePreview_clicked();
+
 	void on_qsTransmitHold_valueChanged(int v);
 	void on_qsFrames_valueChanged(int v);
 	void on_qsQuality_valueChanged(int v);
