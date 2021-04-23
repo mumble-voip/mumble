@@ -16,7 +16,6 @@ jobs:
       with:
           # Assume that there are not >200 new commits that need checking
           fetch-depth: 200
-          # Don't checkout submodules
           submodules: 'recursive'
           # Don't create a merge commit
           ref: ${{ github.event.pull_request.head.sha }}
