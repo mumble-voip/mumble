@@ -3,6 +3,8 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+include(FindPythonInterpreter)
+
 function(include_qt_plugin TARGET SCOPE PLUGIN)
 	set(PATH "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}_plugin_import.cpp")
 	if(NOT EXISTS ${PATH})
@@ -44,10 +46,8 @@ function(compile_translations OUT_VAR OUT_DIR TS_FILES)
 
 	# Compile the given .ts files into .qm files into the output directory
 	foreach(CURRENT_TS IN LISTS TS_FILES)
-		get_filename_component(FILENAME "${CURRENT_TS}" NAME)
-		string(REPLACE ".ts" ".qm" FILENAME "${FILENAME}")
-		set(QM_PATH "${OUT_DIR}/${FILENAME}")
-		qt5_add_translation(COMPILED_FILES "${CURRENT_TS}" OPTIONS "-qm" "${QM_PATH}")
+		set_source_files_properties("${CURRENT_TS}" PROPERTIES OUTPUT_LOCATION "${OUT_DIR}")
+		qt5_add_translation(COMPILED_FILES "${CURRENT_TS}")
 	endforeach()
 
 	# return the list of compiled .qm files
@@ -88,4 +88,48 @@ function(query_qmake OUT_VAR PROP)
 	string(STRIP "${QUERY_RESULT}" QUERY_RESULT)
 
 	set("${OUT_VAR}" "${QUERY_RESULT}" PARENT_SCOPE)
+endfunction()
+
+function(bundle_qt_translations TARGET)
+	query_qmake(QT_TRANSLATIONS_DIRECTORY "QT_INSTALL_TRANSLATIONS")
+	string(STRIP "${QT_TRANSLATIONS_DIRECTORY}" QT_TRANSLATIONS_DIRECTORY)
+
+	message(STATUS "Bundling Qt translations from \"${QT_TRANSLATIONS_DIRECTORY}\"")
+
+	# Compile our version of Qt translations
+	set(QT_TRANSLATION_OVERWRITE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/mumble/qttranslations")
+	set(QT_TRANSLATION_OVERWRITE_DIR "${CMAKE_CURRENT_BINARY_DIR}/qttranslations")
+	file(GLOB TS_FILES "${QT_TRANSLATION_OVERWRITE_SOURCE_DIR}/*.ts")
+	compile_translations(QM_FILES "${QT_TRANSLATION_OVERWRITE_DIR}" "${TS_FILES}")
+
+	set(PYTHON_HINTS
+		"C:/Python39-x64" # Path on the AppVeyor CI server
+	)
+
+	find_python_interpreter(
+		VERSION 3
+		INTERPRETER_OUT_VAR PYTHON_INTERPRETER
+		HINTS ${PYTHON_HINTS}
+		REQUIRED
+	)
+
+	set(GENERATED_QRC_FILE "${CMAKE_CURRENT_BINARY_DIR}/mumble_qt_translations.qrc")
+
+	# Copy conf file to build dir for the Python script to find it
+	file(COPY "${QT_TRANSLATION_OVERWRITE_SOURCE_DIR}/translations.conf"
+		DESTINATION "${QT_TRANSLATION_OVERWRITE_DIR}")
+
+	# Generate the QRC file that contains the Qt translations and potentially our overwrites of them
+	execute_process(
+		COMMAND "${PYTHON_INTERPRETER}" "${CMAKE_SOURCE_DIR}/scripts/generate-mumble_qt-qrc.py"
+			"${GENERATED_QRC_FILE}" "${QT_TRANSLATIONS_DIRECTORY}" "${QT_TRANSLATION_OVERWRITE_DIR}"
+		RESULT_VARIABLE GENERATOR_EXIT_CODE
+	)
+
+	if(NOT GENERATOR_EXIT_CODE EQUAL 0)
+		message(FATAL_ERROR "generate-mumble_qt-qrc.py returned exit code ${GENERATOR_EXIT_CODE}")
+	endif()
+
+	# Add the generated QRC file to the given target
+	target_sources(${TARGET} PRIVATE "${GENERATED_QRC_FILE}")
 endfunction()

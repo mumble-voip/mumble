@@ -20,6 +20,7 @@ include(install-library)
 option(update "Check for updates by default." ON)
 
 option(translations "Include languages other than English." ON)
+option(bundle-qt-translations "Bundle Qt's translations as well" ${static}) 
 
 option(bundled-opus "Build the included version of Opus instead of looking for one on the system." ON)
 option(bundled-celt "Build the included version of CELT instead of looking for one on the system." ON)
@@ -807,6 +808,12 @@ if(translations)
 
 	include_translations(QRC_FILE ${CMAKE_CURRENT_BINARY_DIR} "${TS_FILES}")
 	target_sources(mumble PRIVATE "${QRC_FILE}")
+
+	if(bundle-qt-translations)
+		bundle_qt_translations(mumble)
+	endif()
+elseif(bundle-qt-translations)
+	message(WARNING "Can't bundle Qt translations if translations are disabled!")
 endif()
 
 if(overlay)
