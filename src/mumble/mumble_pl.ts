@@ -1026,15 +1026,15 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Wskazówka wyciszenia</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Prze&amp;glądaj...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>Po&amp;dgląd</translation>
     </message>
 </context>
 <context>
@@ -3853,7 +3853,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiadomość wtyczki</translation>
     </message>
 </context>
 <context>
@@ -6287,7 +6287,62 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Użycie: mumble [opcje] [&lt;url&gt; | &lt;lista_wtyczek&gt;]
+
+&lt;url&gt; określa adres URL, z którym należy się połączyć po uruchomieniu, zamiast pokazywać
+okno połączenia, ma następującą postać:
+mumble://[&lt;nazwa użytkownika&gt;[:&lt;hasło&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanał&gt;[/&lt;podkanał&gt;...]][?wersja=&lt;x.y.z&gt;]
+
+&lt;lista_wtyczek&gt; to lista plików wtyczek, które mają zostać zainstalowane
+Aby wywołać poprawną wersję klienta, należy ustawić parametr
+zapytania o wersję. Obecnie domyślnie jest to 1.2.0.
+
+Prawidłowe opcje to:
+  -h, --help Pokaż ten tekst pomocy i zakończ.
+  -m, --multiple
+                Zezwalaj na uruchamianie wielu instancji klienta.
+  -c, --config
+                Określ alternatywny plik konfiguracyjny.
+                Jeśli używasz tego do uruchamiania wielu wystąpień Mumble jednocześnie,
+                upewnij się, że ustawiono alternatywną wartość „bazy danych” w konfiguracji.
+  -n, --noidentity
+                Blokuj ładowanie plików tożsamości (tj. certyfikatów).
+  -jn, --jackname &lt;arg&gt;
+                Ustaw niestandardową nazwę klienta Jack.
+  --license
+                Pokaż licencję Mumble.
+  --authors
+                Pokaż autorów Mumble.
+  --third-party-licenses
+                Pokaż licencje na oprogramowanie innych firm używane przez Mumble.
+  --window-title-ext &lt;arg&gt;
+                Ustaw niestandardowe rozszerzenie tytułu okna.
+  --dump-input-stream
+                Zrzuć strumienie PCM w różnych częściach łańcucha wejściowego
+                (przydatne do debugowania)
+                - surowe wejście mikrofonowe
+                - odczyt głośnika w celu usunięcia echa
+                - przetworzone wejście mikrofonowe
+  --print-echocancel-queue
+                Wyświetl na stdout stan kolejki anulowania echa
+                (przydatne do debugowania)
+  --translation-dir &lt;kat&gt;
+                Określ dodatkowe tłumaczenie w &lt;kat&gt;, w którym
+                Mumble wyszuka pliki tłumaczeń, które nadpiszą te
+                dołączone
+                Katalogi dodane w ten sposób mają wyższy priorytet niż
+                domyślne lokalizacje używane w inny sposób
+  --print-translation-dirs
+                Wyświetl ścieżki, w których Mumble będzie szukał
+                plików tłumaczeń, które zastąpią dołączone pliki.
+                (Przydatne dla tłumaczy testujących swoje tłumaczenia)
+  --locale &lt;ust. reg,&gt;
+                Nadpisz ustawienia regionalne w ustawieniach Mumble za pomocą
+                ustawień reg., które odpowiada podanemu łańcuchowi ustawień reg.
+                Jeśli format jest nieprawidłowy, Mumble wyświetli błąd.
+                W przeciwnym razie ustawienia regionalne zostaną trwale zapisane w
+                ustawieniach Mumble.
+</translation>
     </message>
 </context>
 <context>
@@ -6584,11 +6639,11 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdź aktualizacje wtyczek podczas uruchamiania</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatycznie pobieraj i instaluj aktualizacje wtyczek</translation>
     </message>
 </context>
 <context>
@@ -7145,188 +7200,188 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Włącz</translation>
+        <translation>Włącz</translation>
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished"></translation>
+        <translation>PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdarzenia klawiatury</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zainstaluj wtyczkę z pliku lokalnego</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zainstaluj wtyczkę...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyładuj aktualnie wybraną wtyczkę. Spowoduje to usunięcie jej z listy wtyczek bieżącej sesji.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyładuj</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Wtyczka została pomyślnie zainstalowana</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można dezaktywować wszystkich żądanych funkcji wtyczki &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować wtyczki &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy należy włączyć funkcję dźwięku pozycyjnego tej wtyczki</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta wtyczka nie obsługuje dźwięku pozycyjnego</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy ta wtyczka ma uprawnienia do nasłuchiwania wszystkich zdarzeń klawiatury, które występują po aktywowaniu Mumble</translation>
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy ta wtyczka powinna być włączona</translation>
     </message>
 </context>
 <context>
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalator wtyczek</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamierzasz zainstalować wtyczkę wymienioną poniżej. Czy chcesz kontynuować?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Nazwa:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wersja:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Autor(zy):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Opis:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nie</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tak</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik &quot;%1&quot; nie jest prawidłowym plikiem wtyczki!</translation>
     </message>
     <message>
         <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation type="unfinished"></translation>
+        <translation>Znaleziono więcej niż jedną bibliotekę wtyczek bieżącego systemu operacyjnego w &quot;%1&quot; (&quot;%2&quot; oraz &quot;%3&quot;)!</translation>
     </message>
     <message>
         <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć wtyczki bieżącego systemu operacyjnego w &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować wtyczki &quot;%1&quot; - sprawdź interfejs wtyczki!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można usunąć starej wtyczki w &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można skopiować biblioteki wtyczek z &quot;%1&quot; do &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można przenieść biblioteki wtyczek do &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 utracone łącze</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 połączono</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished"></translation>
+        <translation>Wtyczka &quot;%1&quot; napotkała trwały błąd podczas gromadzenia danych pozycjonowania</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie znaleziono wtyczki w katalogu wtyczek: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się ręcznie załadować wtyczki: %1</translation>
     </message>
 </context>
 <context>
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizator wtyczek</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Następujące wtyczki można zaktualizować.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz wszystkie</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Wtyczka</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Adres URL pobierania</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy chcesz zaktualizować wybrane wtyczki?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można pobrać aktualizacji wtyczki &quot;%1&quot; z &quot;%2&quot; (%3)</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacja wtyczki &quot;%1&quot;” nie powiodła się z powodu zbyt wielu przekierowań</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można pobrać aktualizacji wtyczki &quot;%1&quot; z &quot;%2&quot; (kod odpowiedzi HTTP %3)</translation>
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomyślnie zaktualizowano wtyczkę &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
