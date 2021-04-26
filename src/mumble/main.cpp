@@ -229,6 +229,7 @@ int main(int argc, char **argv) {
 	bool printTranslationDirs = false;
 	QString rpcCommand;
 	QUrl url;
+	QDir qdCert(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
 	QStringList extraTranslationDirs;
 	QString localeOverwrite;
 
@@ -261,6 +262,10 @@ int main(int argc, char **argv) {
 								   "                Specify an alternative configuration file.\n"
 								   "                If you use this to run multiple instances of Mumble at once,\n"
 								   "                make sure to set an alternative 'database' value in the config.\n"
+								   "  --default-certificate-dir <dir>\n"
+								   "                Specify an alternative default certificate path.\n"
+								   "                This path is only used if there is no certificate loaded\n"
+								   "                from the settings.\n"
 								   "  -n, --noidentity\n"
 								   "                Suppress loading of identity files (i.e., certificates.)\n"
 								   "  -jn, --jackname <arg>\n"
@@ -389,6 +394,22 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == QLatin1String("-c") || args.at(i) == QLatin1String("--config")) {
 				//	We already parsed these arguments above, so just skip over them here
 				++i;
+			} else if (args.at(i) == QLatin1String("--default-certificate-dir")) {
+				if (i + 1 < args.count()) {
+					qdCert = QDir(args.at(i + 1));
+					// I suppose we should really be checking whether the directory is writable here too,
+					// but there are some subtleties with doing that:
+					// (doc.qt.io/qt-5/qfile.html#platform-specific-issues)
+					// so we can just let things fail down below when this directory is used.
+					if (!qdCert.exists()) {
+						printf("%s", qPrintable(MainWindow::tr("Directory %1 does not exist.\n").arg(args.at(i + 1))));
+						return 1;
+					}
+					++i;
+				} else {
+					qCritical("Missing argument for --default-certificate-dir!");
+					return 1;
+				}
 			} else if (args.at(i) == "--print-translation-dirs") {
 				printTranslationDirs = true;
 			} else if (args.at(i) == "--translation-dir") {
@@ -727,8 +748,7 @@ int main(int argc, char **argv) {
 	Global::get().s.uiUpdateCounter = 2;
 
 	if (!CertWizard::validateCert(Global::get().s.kpCertificate)) {
-		QDir qd(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
-		QFile qf(qd.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));
+		QFile qf(qdCert.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));
 		if (qf.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
 			Settings::KeyPair kp = CertWizard::importCert(qf.readAll());
 			qf.close();
