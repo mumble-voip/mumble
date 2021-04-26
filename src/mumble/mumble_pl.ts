@@ -473,11 +473,11 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzyskanie nazwy (długiej nazwy) karty dźwiękowej nie powiodło się: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzyskanie nazwy karty dźwiękowej nie powiodło się: %1</translation>
     </message>
 </context>
 <context>
@@ -3263,11 +3263,11 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd HTTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Napotkano błąd wewnętrzny w pliku CrashReporter.cpp: otrzymana odpowiedź sieciowa nie zawiera kodu stanu HTTP. Poinformuj programistę o kodzie błędu %1</translation>
     </message>
 </context>
 <context>
@@ -7518,11 +7518,11 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>EKSPERYMENTALNE: Akustyczne usuwanie echa (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsługa tej opcji jest tylko eksperymentalna! Ta opcja działa najlepiej w przypadku korzystania z wbudowanego mikrofonu i głośnika.</translation>
     </message>
 </context>
 <context>

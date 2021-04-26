@@ -473,11 +473,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ophalen van (lange) naam van de geluidskaart is mislukt: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ophalen van naam van de geluidskaart is mislukt: %1</translation>
     </message>
 </context>
 <context>
@@ -682,7 +682,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>&amp;Transmit</source>
-        <translation>&amp;Overbrengen</translation>
+        <translation>&amp;Verzending</translation>
     </message>
     <message>
         <source>When to transmit your speech</source>
@@ -882,7 +882,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>B&amp;laderen...</translation>
+        <translation>B&amp;lader...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
@@ -898,7 +898,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Display push to talk window</source>
-        <translation>Druk-om-te-praten-venster tonen</translation>
+        <translation>Druk-om-te-Praten-venster tonen</translation>
     </message>
     <message>
         <source>Misc</source>
@@ -954,7 +954,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>deafen</source>
-        <translation>doof maken</translation>
+        <translation>maak doof</translation>
     </message>
     <message>
         <source>mute</source>
@@ -974,7 +974,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation>Inactiviteitsactie ongedaan maken bij activiteit</translation>
+        <translation>Maak inactiviteitsactie ongedaan bij activiteit</translation>
     </message>
     <message>
         <source>Audio input</source>
@@ -1041,7 +1041,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation>Continue</translation>
+        <translation>Continu</translation>
     </message>
     <message>
         <source>Voice Activity</source>
@@ -1049,7 +1049,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Druk om te Praten</translation>
+        <translation>Druk-om-te-Praten</translation>
     </message>
     <message>
         <source>Audio Input</source>
@@ -1097,11 +1097,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation>Druk-om-te-Praten sluitingsdrempel</translation>
+        <translation>Sluitingsdrempel Druk-om-te-Praten</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation>Druk-om-te-Praten uitsluitdrempel</translation>
+        <translation>Uitsluitingsdrempel Druk-om-te-Praten</translation>
     </message>
     <message>
         <source>Silence below</source>
@@ -1204,7 +1204,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Standaard &amp;Jitter Buffer</translation>
+        <translation>Standaard &amp;jitter-buffer</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
@@ -1342,39 +1342,39 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation>Applicaties afzwakken met...</translation>
+        <translation>Attenueer applicaties met...</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation>Afzwakking van andere applicaties tijdens spraak</translation>
+        <translation>Attenueren van andere applicaties tijdens het spreken</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;Ander applicatievolume tijdens spreken afzwakken&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumevermindering van andere applicaties gedurende inkomende en/of uitgaande spraak. Dit stelt de afzwakking van andere applicaties mits het aanstaat.</translation>
+        <translation>&lt;b&gt;Volume van andere applicaties tijdens het spreken verlagen&lt;/b&gt;&lt;br /&gt;Mumble kan het volume van andere applicaties verlagen bij inkomende en/of uitgaande spraak. Dit stelt de sterkte van de afzwakking van andere applicaties hierbij in.</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation>Indien aangevinkt, verlaagt Mumble het volume van andere applicaties terwijl andere gebruikers praten</translation>
+        <translation>Indien aangevinkt, verlaagt Mumble het volume van andere applicaties zolang andere gebruikers spreken</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Applicaties afzwakken terwijl anderen praten&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt applicatievolumevermindering gedurende inkomende en/of uitgaande spraak. Zorgt ervoor dat Mumble dat doet activeert, als andere gebruikers tegen je praten.</translation>
+        <translation>&lt;b&gt;Verlaag het volume van andere applicaties zolang anderen spreken&lt;/b&gt;&lt;br /&gt;Mumble kan het volume van andere applicaties verlagen bij inkomende en/of uitgaande spraak. Dit zorgt ervoor dat Mumble dat doet terwijl andere gebruikers tegen je spreken.</translation>
     </message>
     <message>
         <source>while other users talk</source>
-        <translation>terwijl andere gebruikers praten</translation>
+        <translation>terwijl andere gebruikers spreken</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>Aangevinkt, verlaagt mumble ander applicatievolume terwijl je praat</translation>
+        <translation>Indien aangevinkt, verlaagt Mumble het volume van andere applicaties zolang je spreekt</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;b&gt;Applicaties afzwakken terwijl je praat&lt;/b&gt;&lt;br/&gt;Mumble ondersteunt applicatievolumevermindering gedurende inkomende en/of uitgaande spraak. Zorgt ervoor dat Mumble dat doet terwijl jij praat.</translation>
+        <translation>&lt;b&gt;Applicaties attenueren terwijl je spreekt&lt;/b&gt;&lt;br /&gt;Mumble kan het volume van andere applicaties verlagen bij inkomende en/of uitgaande spraak. Dit schakelt deze mogelijkheid in.</translation>
     </message>
     <message>
         <source>while you talk</source>
-        <translation>terwijl je praat</translation>
+        <translation>terwijl je spreekt</translation>
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
@@ -1410,11 +1410,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation>&lt;b&gt;PulseAudio loopback modules afzwakken&lt;/b&gt;&lt;br /&gt;Aan Mumble&apos;s uitvoerapparaat gekoppelde loopback-modules worden uiteindelijk afgezwakt.</translation>
+        <translation>&lt;b&gt;Attenueer loopback-modules van PulseAudio&lt;/b&gt;&lt;br /&gt;Loopback-modules die aan Mumble&apos;s uitvoerapparaat (of &quot;sink&quot;) gekoppeld zijn, zullen hiermee ook geattenueerd worden.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation>PulseAudio loopback modules afzwakken</translation>
+        <translation>Attenueer loopback-modules PulseAudio</translation>
     </message>
     <message>
         <source>Audio output</source>
@@ -1426,15 +1426,15 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Andere gebruikers afzwakken terwijl je met Prioriteit Spreekt&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumevermindering van anderen terwijl je praat als &lt;i&gt;Prioriteitsspreker&lt;/i&gt; om storen te voorkomen. Dit aanvinken zet het aan.</translation>
+        <translation>&lt;b&gt;Andere gebruikers attenueren zolang je als Prioriteits-spreker spreekt&lt;/b&gt;&lt;br /&gt;Mumble kan het volume van andere gebruikers verlagen zolang je spreekt als &lt;i&gt;Prioriteitsspreker&lt;/i&gt; om te vermijden dat je gestoord wordt. Dit vinkje aanzetten schakelt dit in.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation>Andere gebruikers afzwakken terwijl je met Prioriteit Spreekt</translation>
+        <translation>Attenueer andere gebruikers zolang je als Prioriteits-spreker spreekt</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation>Activeren</translation>
+        <translation>Activeer</translation>
     </message>
     <message>
         <source>Attenuation</source>
@@ -1481,7 +1481,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Default jitter buffer</source>
-        <translation>Jitter-bufferingsstandaard</translation>
+        <translation>Standaard Jitter-buffer</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
@@ -1641,7 +1641,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Tijd tussen (2 laatste) Druk-om-te-Praten in-drukkingen</translation>
+        <translation>Tijd tussen twee laatste activaties van Druk-om-te-Praten</translation>
     </message>
     <message>
         <source>Speech Detection</source>
@@ -1914,7 +1914,7 @@ Mumble geniet continu verdere ontwikkelingen, en het ontwikkelteam focust zich h
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation>Druk om te Praten:</translation>
+        <translation>Druk-om-te-Praten:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
@@ -1942,11 +1942,11 @@ Mumble geniet continu verdere ontwikkelingen, en het ontwikkelteam focust zich h
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation>Tekst-naar-Spraak melding-&amp;berichten laten voorlezen.</translation>
+        <translation>Gebruik Tekst-naar-Spraak om meldingen en berichten voor te lezen.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation>Gebruik geluiden in plaats van Tekst-naar-Spraak.</translation>
+        <translation>Vervang Tekst-naar-Spraak met geluiden.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1982,11 +1982,11 @@ Mumble geniet continu verdere ontwikkelingen, en het ontwikkelteam focust zich h
     </message>
     <message>
         <source>Use high contrast graphics</source>
-        <translation>Grafisch hoogcontrast gebruiken</translation>
+        <translation>Gebruik grafische elementen met hoog contrast</translation>
     </message>
     <message>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation>Aangepaste Tekst-naar-Spraak-instellingen behouden.</translation>
+        <translation>Behoud eigen instellingen voor Tekst-naar-Spraak.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2540,7 +2540,7 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>Save As...</source>
-        <translation>Opslaan als...</translation>
+        <translation>Sla op als...</translation>
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
@@ -2820,7 +2820,7 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
-        <translation>Lokaal Negeren (Tekst-naar-Spraak)</translation>
+        <translation>Negeer Lokaal (Tekst-naar-Spraak)</translation>
     </message>
 </context>
 <context>
@@ -3262,11 +3262,11 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP-fout %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Er trad een interne fout op in CrashReporter.cpp: Het via het netwerk ontvangen antwoord bevat geen HTTP-statuscode. Gelieve een ontwikkelaar over foutcode %1 op de hoogte te brengen</translation>
     </message>
 </context>
 <context>
@@ -3610,7 +3610,7 @@ Zonder deze optie ingeschakeld, werken Mumble&apos;s globale snelkoppelingen nie
     <name>LCDConfig</name>
     <message>
         <source>Enable this device</source>
-        <translation>Apparaat activeren</translation>
+        <translation>Activeer dit apparaat</translation>
     </message>
     <message>
         <source>LCD</source>
@@ -3714,11 +3714,11 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation>Gebruiker geschopt (jij of door jou)</translation>
+        <translation>Gebruiker buitengeschopt (jij of door jou)</translation>
     </message>
     <message>
         <source>User kicked</source>
-        <translation>Gebruiker geschopt</translation>
+        <translation>Gebruiker buitengeschopt</translation>
     </message>
     <message>
         <source>You self-muted</source>
@@ -3828,7 +3828,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>Permission denied</source>
-        <translation>Toegangverbod</translation>
+        <translation>Toegangsverbod</translation>
     </message>
     <message>
         <source>Text message</source>
@@ -3859,54 +3859,54 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <name>LogConfig</name>
     <message>
         <source>Toggle console for %1 events</source>
-        <translation>Log bij %1-gebeurtenissen tonen</translation>
+        <translation>Toon log bij &quot;%1&quot;-gebeurtenissen</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>Meldingen bij %1-gebeurtenissen tonen</translation>
+        <translation>Toon meldingen bij &quot;%1&quot;-gebeurtenissen</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation>Tekst-naar-Spraak bij %1-gebeurtenissen tonen</translation>
+        <translation>Gebruik Tekst-naar-Spraak bij &quot;%1&quot;-gebeurtenissen</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation>Geluidsmeldingen geven voor %1 gebeurtenissen</translation>
+        <translation>Speel een hoorbare melding af bij &quot;%1&quot;-gebeurtenissen</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation>Venstermarkering wisselen (vermits inactief) bij %1 gebeurtenissen</translation>
+        <translation>Wissel venstermarkering (indien inactief) bij &quot;%1&quot;-gebeurtenissen</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation>Pad naar geluidsmeldingen-bestand in geval van %1 gebeurtenissen&lt;br /&gt;Enkele klik → afspelen&lt;br /&gt;Dubbelklik → veranderen</translation>
+        <translation>Pad naar geluidsbestand om af te spelen bij &quot;%1&quot;-gebeurtenissen&lt;br /&gt;Enkele klik om af te spelen&lt;br /&gt;Dubbelklik om te veranderen</translation>
     </message>
     <message>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>Klik hier voor console-uitvoer bij %1 gebeurtenissen.&lt;br /&gt;Aangevinkt spuugt Mumble alle %1 gebeurtenissen uit in bijbehorend log.</translation>
+        <translation>Klik hier om console-uitvoer bij &quot;%1&quot;-gebeurtenissen in- of uit te schakelen.&lt;br /&gt;Indien aangevinkt, stuurt Mumble alle &quot;%1&quot;-gebeurtenissen naar zijn berichtenlogboek.</translation>
     </message>
     <message>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation>Klik hier om venstermeldingen voor %1 gebeurtenissen te tonen.&lt;br /&gt;Aangevinkt wordt een meldingsvenster voor alle %1-gebeurtenissen door Mumble getoond.</translation>
+        <translation>Klik hier om notificaties bij &quot;%1&quot;-gebeurtenissen in- of uit te schakelen.&lt;br /&gt;Indien aangevinkt, zal Mumble een notificatie sturen voor elke &quot;%1&quot;-gebeurtenis.</translation>
     </message>
     <message>
         <source>Click here to toggle window highlight for %1 events.&lt;br /&gt;If checked, Mumble&apos;s window will be highlighted for every %1 event, if not active.</source>
-        <translation>Klik hier om venstermarkering te wisselen bij %1 gebeurtenissen.&lt;br /&gt;Indien aangevinkt, wordt het venster van Mumble gemarkeerd bij elke %1 gebeurtenis, vermits het niet actief is.</translation>
+        <translation>Klik hier om de venstermarkering om te wisselen bij &quot;%1&quot;-gebeurtenissen.&lt;br /&gt;Indien aangevinkt, wordt het venster van Mumble gemarkeerd bij elke %1 gebeurtenis, vermits het niet actief is.</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Pad naar geluidsmelding-geluidsbestand in geval van %1 gebeurtenissen.&lt;br /&gt;Enkele klik → afspelen&lt;br /&gt;Dubbelklik → veranderen&lt;br /&gt;Bevestig dat gebeurtenis-geluidsmelden aanstaat anders heeft dit geen effect.</translation>
+        <translation>Pad naar geluidsbestand om af te spelen bij &quot;%1&quot;-gebeurtenissen.&lt;br /&gt;Enkele klik om af te spelen&lt;br /&gt;Dubbelklik om te veranderen&lt;br /&gt;Vergeet geluidsmeldingen niet in te schakelen voor deze gebeurtenis, anders heeft dit geen effect.</translation>
     </message>
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Klik hier voor Tekst-naar-Spraak bij %1 gebeurtenissen.&lt;br /&gt;Aangevinkt gebruikt Mumble Tekst-naar-Spraak om %1 gebeurtenissen voor te lezen. Tekst-naar-Spraak kan ook gebeurtenisinhoud lezen, i.t.t. geluidsbestanden. T-n-S / geluidsbestanden kunnen niet tegelijkertijd gebruikt worden.</translation>
+        <translation>Klik hier voor Tekst-naar-Spraak bij &quot;%1&quot;-gebeurtenissen.&lt;br /&gt;Indien aangevinkt, gebruikt Mumble Tekst-naar-Spraak om &quot;%1&quot;-gebeurtenissen voor te lezen. Tekst-naar-Spraak kan ook de inhoud van de gebeurtenis lezen, in tegenstelling tot geluidsbestanden. Tekst-naar-Spraak en geluidsbestanden kunnen niet tegelijkertijd gebruikt worden.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Klik hier om geluidsmeldingen voor %1 gebeurtenissen te tonen.&lt;br /&gt;Aangevinkt gebruikt Mumble het door u aangeven geluidsbestand voor %1-gebeurtenissen. Geluidsbestanden / T-n-S kunnen niet tegelijk gebruikt.</translation>
+        <translation>Klik hier om geluidsmeldingen voor &quot;%1&quot;-gebeurtenissen af te spelen.&lt;br /&gt;Indien aangevinkt, speelt Mumble het aangeven geluidsbestand af bij &quot;%1&quot;-gebeurtenissen. Geluidsbestanden en Tekst-naar-Spraak kunnen niet tegelijk gebruikt worden.</translation>
     </message>
     <message>
         <source>Messages</source>
@@ -3938,7 +3938,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation>Tekst naar Spraak</translation>
+        <translation>Tekst-naar-Spraak</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -3958,11 +3958,11 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Drempel voor Tekst-naar-Spraak</translation>
+        <translation>Maximumlengte berichten bij Tekst-naar-Spraak</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation>&lt;b&gt;Drempellengte voor Tekst-naar-Spraak.&lt;/b&gt;&lt;br /&gt;Berichten voorbij limiet worden niet voluit voorgelezen.</translation>
+        <translation>&lt;b&gt;Drempellengte voor Tekst-naar-Spraak.&lt;/b&gt;&lt;br /&gt;Berichten langer dan deze limiet worden niet voluit voorgelezen.</translation>
     </message>
     <message>
         <source> Characters</source>
@@ -4010,19 +4010,19 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation>Geactiveerd dicteert Tekst-naar-Spraak niet de berichtsscoop.</translation>
+        <translation>Indien geactiveerd, zal Tekst-naar-Spraak de scope van berichten niet dicteren.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation>Berichtsscoop weglaten</translation>
+        <translation>Laat scope berichten weg</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation>Geactiveerd dicteert Tekst-naar-Spraak niet de berichtsauteur.</translation>
+        <translation>Indien geactiveerd, zal Tekst-naar-Spraak de auteur van berichten niet dicteren.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation>Berichtsauteur weglaten</translation>
+        <translation>Laat auteur berichten weg</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
@@ -4034,7 +4034,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation>24-uurskloksoort</translation>
+        <translation>Gebruik 24-uursklok</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
@@ -4239,15 +4239,15 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Show context menu in menu bar</source>
-        <translation>Contextmenu in menubalk tonen</translation>
+        <translation>Toon contextmenu in menubalk</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation>Pas enkele optimalisaties toe voor een hoger contrast voor gebruikers met visuele beperkingen</translation>
+        <translation>Pas enkele optimalisaties voor een hoger contrast toe voor gebruikers met visuele beperkingen</translation>
     </message>
     <message>
         <source>Optimize for high contrast</source>
-        <translation>Voor hoogcontrast optimaliseren</translation>
+        <translation>Optimaliseer voor hoog contrast</translation>
     </message>
     <message>
         <source>Application</source>
@@ -4275,7 +4275,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation>Zendmodus drop-down in werkbalk tonen</translation>
+        <translation>Toon selectie voor verzendmodus in werkbalk</translation>
     </message>
     <message>
         <source>Theme</source>
@@ -4291,31 +4291,31 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>User Dragging</source>
-        <translation>Gebruiker Slepen</translation>
+        <translation>Gebruikers Slepen</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
-        <translation>Verandert kanaalverplaatsingsgedrag.</translation>
+        <translation>Dit verandert wat het verplaatsen van gebruikers doet.</translation>
     </message>
     <message>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation>Dit zet het gedrag van gebruikerssleping; het kan gebruikt worden om per ongeluk slepen te voorkomen. &lt;i&gt;Verplaatsen&lt;/i&gt;verplaatst de gebruiker zonder waarschuwing. &lt;i&gt;Doe Niets&lt;/i&gt;doet niks en geeft een foutmelding weer. &lt;i&gt;Vragen&lt;/i&gt;gebruikt een berichtvenster om te bevestigen of je de gebruiker echt wilt verplaatsen.</translation>
+        <translation>Dit bepaalt wat er gebeurt bij het slepen van gebruikers en kan gebruikt worden om per ongeluk slepen te voorkomen. &lt;i&gt;Verplaatsen&lt;/i&gt; verplaatst de gebruiker zonder meer. &lt;i&gt;Doe Niets&lt;/i&gt; doet niets en geeft een foutmelding weer. &lt;i&gt;Vragen&lt;/i&gt; vraagt om te bevestigen of je de gebruiker echt wil verplaatsen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
-        <translation>&lt;b&gt;Ontwikkelaarsmenu inschakelen&lt;/b&gt;&lt;br /&gt;Dit schakelt het &quot;Ontwikkelaars&quot;-menu in Mumble in. Dit menu wordt gebruikt voor ontwikkelingsspecifieke functies, zoals console voor ontwikkelaars.</translation>
+        <translation>&lt;b&gt;Ontwikkelaarsmenu inschakelen&lt;/b&gt;&lt;br /&gt;Dit schakelt het &quot;Ontwikkelaars&quot;-menu in Mumble in. Dit menu wordt gebruikt voor ontwikkelingsspecifieke functies, zoals de console voor ontwikkelaars.</translation>
     </message>
     <message>
         <source>Enable Developer menu</source>
-        <translation>Ontwikkelaarsmenu inschakelen</translation>
+        <translation>Schakel ontwikkelaarsmenu in</translation>
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
-        <translation>Wanneer in aangepaste lay-out-modus, schakelt inschakeling het herordenen uit.</translation>
+        <translation>Schakelt het herordenen uit als je je in de aangepaste lay-out-modus bevindt.</translation>
     </message>
     <message>
         <source>Lock layout</source>
-        <translation>Lay-out blokkeren</translation>
+        <translation>Vergrendel lay-out</translation>
     </message>
     <message>
         <source>Talking UI</source>
@@ -4371,23 +4371,23 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Abbreviate current channel name</source>
-        <translation>Momentele kanaal naam afkorten</translation>
+        <translation>Kort naam huidig kanaal af</translation>
     </message>
     <message>
         <source>Channel hierarchy depth</source>
-        <translation>Diepte van kanaal hierarchie</translation>
+        <translation>Diepte kanaalhiërarchie</translation>
     </message>
     <message>
         <source>Abbreviation replacement</source>
-        <translation>Vervangende afkorting</translation>
+        <translation>Vervangende tekst bij afkorting</translation>
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
-        <translation>Of kanaal (hierarchie) naam afgekort moet - als maximum lengte overschrijdt.</translation>
+        <translation>Of de naam van het kanaal (of de kanaalhiërarchie) afgekort moet worden wanneer deze de maximale lengte overschrijdt.</translation>
     </message>
     <message>
         <source>Abbreviate channel names</source>
-        <translation>Kanaalnamen afkorten</translation>
+        <translation>Kort kanaalnamen af</translation>
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
@@ -4451,7 +4451,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation>Volumeaanpassingen tonen</translation>
+        <translation>Toon volumeaanpassingen</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
@@ -4459,7 +4459,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Show local user&apos;s listeners (ears)</source>
-        <translation>Toon eigen luisteraars (descartheldjes)</translation>
+        <translation>Toon eigen luisteraars (oren)</translation>
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
@@ -4467,7 +4467,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation>Louter bijnamen tonen</translation>
+        <translation>Toon enkel bijnamen</translation>
     </message>
 </context>
 <context>
@@ -4489,7 +4489,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Druk-om-te-Praten-knop - ingedrukt; verzend je spraak.</translation>
+        <translation>Dit stelt de Druk-om-te-Praten-knop in. Zolang deze knop ingedrukt blijft, zal er spraak verstuurd worden.</translation>
     </message>
     <message>
         <source>Reset Audio Processor</source>
@@ -4670,7 +4670,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Kicking user %1</source>
-        <translation>Gebruiker %1 wordt geschopt</translation>
+        <translation>Gebruiker %1 buitenschoppen</translation>
     </message>
     <message>
         <source>Banning user %1</source>
@@ -4765,7 +4765,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Verzendmodus naar Druk-om-te-Praten instellen</translation>
+        <translation>Stel verzendmodus voor Druk-om-te-Praten in</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
@@ -4814,11 +4814,11 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Save Image As...</source>
-        <translation>Afbeelding opslaan als...</translation>
+        <translation>Sla afbeelding op als...</translation>
     </message>
     <message>
         <source>Save Image File</source>
-        <translation>Afbeeldingsbestand opslaan</translation>
+        <translation>Sla afbeeldingsbestand op</translation>
     </message>
     <message>
         <source>Could not save image: %1</source>
@@ -4834,7 +4834,7 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation>Zendmodus op Druk-om-te-Praten ingesteld</translation>
+        <translation>Zendmodus ingesteld op Druk-om-te-Praten</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -5213,7 +5213,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Tekst-naar-Spraak aan-/uitzetten (T-n-S-geselecteerde berichten (configuratievenster) worden gesproken).</translation>
+        <translation>Zet tekst-naar-Spraak aan of uit. Enkel berichten die Tekst-naar-Spraak aan hebben staan in het configuratievenster zullen voorgelezen worden.</translation>
     </message>
     <message>
         <source>Display audio statistics</source>
@@ -5615,7 +5615,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>Failed to load Opus, it will not be available for audio encoding/decoding.</source>
-        <translation>Kortsluiting bij Opus laden; het is onbeschikbaar voor geluidsen-/decodering.</translation>
+        <translation>Laden van Opus mislukt; het zal niet beschikbaar zijn bij het encoderen en decoderen van geluid.</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -5631,11 +5631,11 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation>Server verzoekt Druk-om-te-Praten in te schakelen...</translation>
+        <translation>De server vraagt dat je Druk-om-te-Praten inschakelt.</translation>
     </message>
     <message>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation>Server verzoekt Druk-om-te-Praten uit te schakelen...</translation>
+        <translation>De server vraagt dat je Druk-om-te-Praten uitschakelt.</translation>
     </message>
     <message>
         <source>You were unmuted by %1.</source>
@@ -5680,7 +5680,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%3 geschopt door %1: %2.</translation>
+        <translation>%3 werd uit de server geschopt door %1: %2.</translation>
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
@@ -5688,7 +5688,7 @@ Indien niet, gelieve te annuleren en beide opnieuw te controleren.</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%1 weggeschopt %3: %2.</translation>
+        <translation>%3 werd uit de server geschopt en verbannen door %1: %2.</translation>
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
@@ -6126,15 +6126,15 @@ context-menu van het kanaal.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation>Tekst-naar-Spraak niet langer inzetten</translation>
+        <translation>Schakel Tekst-naar-Spraak uit</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
-        <translation>Text-naar-Spraak voor tekst-berichten bij deze gebruiker lokaal uitschakelen.</translation>
+        <translation>Schakel Text-naar-Spraak lokaal uit voor berichten van deze gebruiker.</translation>
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
-        <translation>Zet Tekst-naar-Spraak met deze gebruiker stilletjes bij alle tekstberichtjes uit.</translation>
+        <translation>Schakel Tekst-naar-Spraak voor alle tekstberichten van deze gebruiker stilletjes uit.</translation>
     </message>
     <message>
         <source>Tree</source>
@@ -6541,11 +6541,11 @@ Valid options are:
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Statistieken met het Mumble-project delen (anoniem)</translation>
+        <translation>Deel anonieme statistieken met het Mumble-project</translation>
     </message>
     <message>
         <source>Submit anonymous statistics</source>
-        <translation>Statistieken delen (anoniem)</translation>
+        <translation>Deel anonieme statistieken</translation>
     </message>
     <message>
         <source>Reconnect to last used server when starting Mumble</source>
@@ -6799,7 +6799,7 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>Show FPS counter</source>
-        <translation>FPS-teller tonen</translation>
+        <translation>Toon FPS-teller</translation>
     </message>
     <message>
         <source>Load an overlay preset from file</source>
@@ -6807,15 +6807,15 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>Load…</source>
-        <translation>Laden…</translation>
+        <translation>Laad…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
-        <translation>Overlayinstellingen in bestand opslaan</translation>
+        <translation>Sla overlay-instellingen in bestand op</translation>
     </message>
     <message>
         <source>Save…</source>
-        <translation>Opslaan…</translation>
+        <translation>Sla op…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -6851,11 +6851,11 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>Overlay Exceptions</source>
-        <translation>Overlay uitzonderingen</translation>
+        <translation>Uitzonderingen overlay</translation>
     </message>
     <message>
         <source>Overlay Exception Mode</source>
-        <translation>Overlay uitzonder-modus</translation>
+        <translation>Uitzonderingsmodus overlay</translation>
     </message>
     <message>
         <source>Allowed launchers</source>
@@ -7391,7 +7391,7 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation>Tekst-naar-Spraak niet meer gebruiken</translation>
+        <translation>Schakel Tekst-naar-Spraak uit</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
@@ -7517,11 +7517,11 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>EXPERIMENTEEL: Akoestische echo-opheffing (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze optie is louter experimenteel! Deze optie werkt het best als je de ingebouwde microfoon en luidsprekers gebruikt.</translation>
     </message>
 </context>
 <context>
@@ -8665,7 +8665,7 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Druk om te praten</translation>
+        <translation>Druk-om-te-Praten</translation>
     </message>
 </context>
 </TS>

@@ -473,11 +473,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>获取声卡完整名称失败：%1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>获取声卡名称失败：%1</translation>
     </message>
 </context>
 <context>
@@ -7515,11 +7515,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>实验性：声学回声消除（Apple）。</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>此选项的支持是实验性的！使用内置麦克风和扬声器时，此选项效果最佳。</translation>
     </message>
 </context>
 <context>

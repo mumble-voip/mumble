@@ -473,11 +473,11 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Att få namn (långnamn) på ljudkortet misslyckades: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Att få namnet på ljudkortet misslyckades: %1</translation>
     </message>
 </context>
 <context>
@@ -7517,11 +7517,11 @@ Se &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;Mum
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>EXPERIMENTAL: Akustisk eko annullering (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stödet för detta alternativ är endast experimentellt! Det här alternativet fungerar bäst när du använder inbyggd mikrofon och högtalare.</translation>
     </message>
 </context>
 <context>

@@ -468,11 +468,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось получить имя (полное имя) звуковой карты: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось получить имя звуковой карты: %1</translation>
     </message>
 </context>
 <context>
@@ -1879,7 +1879,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>Затем Вы должны откорректировать бегунок ниже. С начала произнесения речи индикатор НЕ должен выходить на зеленую зону (Ваша речь). Когда Вы продолжаете говорить, индикатор должен остаться в желтой зоне (могла бы быть Ваша речь) и когда Вы молчите, индикатор должен оставаться в красной зоне (не речь).</translation>
+        <translation>Затем Вы должны откорректировать бегунок ниже. После первых произнесённых слов индикатор должен доходить до зеленой зоны (определённо речь). Когда Вы продолжаете говорить, индикатор должен остаться в желтой зоне (возможно речь) и когда Вы молчите, индикатор должен оставаться в красной зоне (точно не речь).</translation>
     </message>
     <message>
         <source>Device tuning</source>
@@ -1995,7 +1995,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Затем Вы должны откорректировать бегунок ниже. С начала произнесения речи индикатор НЕ должен выходить в пустую зону (Ваша речь). Когда Вы продолжаете говорить, индикатор должен остаться в полосатой зоне (могла бы быть Ваша речь) и когда Вы молчите, индикатор должен оставаться в сетчатой зоне (не речь).</translation>
+        <translation>Затем Вы должны откорректировать бегунок ниже. После первых произнесённых слов индикатор должен доходить до пустой зоны (определённо речь). Когда Вы продолжаете говорить, индикатор должен остаться в полосатой зоне (возможно речь) и когда Вы молчите, индикатор должен оставаться в сетчатой зоне (точно не речь).</translation>
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
@@ -7470,11 +7470,11 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>ЭКСПЕРИМЕНТАЛЬНО: Подавление акустического эха (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Поддержка этой опции только экспериментальная! Этот вариант лучше всего работает при использовании встроенного микрофона и динамика.</translation>
     </message>
 </context>
 <context>
@@ -7594,55 +7594,55 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>ServerInformation</name>
     <message>
         <source>Server information</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация о сервере</translation>
     </message>
     <message>
         <source>Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация о сервере</translation>
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Хост:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Порт:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Users&lt;/b&gt;:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Пользователи&lt;/b&gt;:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Протокол:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Релиз:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ОС:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудио</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Разрешено:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Текущий:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Кодек:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Подробности подключения</translation>
     </message>
     <message>
         <source>UDP (Voice)</source>
@@ -7650,15 +7650,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Шифрование:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Avg. latency:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Средняя задержка:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Статистика</translation>
     </message>
     <message>
         <source>Good</source>
@@ -7678,15 +7678,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Исходящий</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Входящий</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
-        <translation type="unfinished"></translation>
+        <translation>Голосовые пакеты в настоящее время отправляются по TCP.</translation>
     </message>
     <message>
         <source>TCP (Control)</source>
@@ -7694,39 +7694,39 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Версия TLS:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Набор шифров:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;прямая секретность&gt;</translation>
     </message>
     <message>
         <source>&amp;View certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Посмотреть сертификат</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;ОК</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестно</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соединение обеспечивает идеальную прямую секретность.</translation>
     </message>
     <message>
         <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соединение НЕ обеспечивает идеальной прямой секретности.</translation>
     </message>
     <message>
         <source>No information about forward secrecy available.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нет информации о прямой секретности.</translation>
     </message>
 </context>
 <context>
