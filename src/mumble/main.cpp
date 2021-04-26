@@ -386,6 +386,9 @@ int main(int argc, char **argv) {
 				Global::get().bDebugDumpInput = true;
 			} else if (args.at(i) == QLatin1String("--print-echocancel-queue")) {
 				Global::get().bDebugPrintQueue = true;
+			} else if (args.at(i) == QLatin1String("-c") || args.at(i) == QLatin1String("--config")) {
+				//	We already parsed these arguments above, so just skip over them here
+				++i;
 			} else if (args.at(i) == "--print-translation-dirs") {
 				printTranslationDirs = true;
 			} else if (args.at(i) == "--translation-dir") {
