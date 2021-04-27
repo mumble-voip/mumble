@@ -516,8 +516,6 @@ Settings::Settings() {
 	bEnableXInput2              = true;
 	bEnableGKey                 = false;
 	bEnableXboxInput            = true;
-	bEnableWinHooks             = true;
-	bDirectInputVerboseLogging  = false;
 	bEnableUIAccess             = true;
 
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
@@ -975,8 +973,6 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
 	LOAD(bEnableGKey, "shortcut/gkey");
 	LOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
-	LOAD(bEnableWinHooks, "winhooks");
-	LOAD(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
 	LOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
@@ -1371,8 +1367,6 @@ void Settings::save() {
 	SAVE(bEnableXInput2, "shortcut/x11/xinput2/enable");
 	SAVE(bEnableGKey, "shortcut/gkey");
 	SAVE(bEnableXboxInput, "shortcut/windows/xbox/enable");
-	SAVE(bEnableWinHooks, "winhooks");
-	SAVE(bDirectInputVerboseLogging, "shortcut/windows/directinput/verboselogging");
 	SAVE(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));

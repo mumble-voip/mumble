@@ -6,135 +6,79 @@
 #ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_WIN_H_
 #define MUMBLE_MUMBLE_GLOBALSHORTCUT_WIN_H_
 
-#include "Timer.h"
 #include "GlobalShortcut.h"
-
-#ifdef USE_GKEY
-#	include "GKey.h"
-#endif
 
 #ifdef USE_XBOXINPUT
 #	include "XboxInput.h"
 #endif
 
-#define DIRECTINPUT_VERSION 0x0800
-#include <dinput.h>
+#include <memory>
+#include <unordered_map>
 
-typedef QPair< GUID, DWORD > qpButton;
-
-struct InputDevice {
-	LPDIRECTINPUTDEVICE8 pDID;
-
-	QString name;
-
-	GUID guid;
-	QVariant vguid;
-
-	GUID guidproduct;
-	QVariant vguidproduct;
-
-	uint16_t vendor_id;
-	uint16_t product_id;
-
-	// dwType to name
-	QHash< DWORD, QString > qhNames;
-
-	// Map dwType to dwOfs in our structure
-	QHash< DWORD, DWORD > qhTypeToOfs;
-
-	// Map dwOfs in our structure to dwType
-	QHash< DWORD, DWORD > qhOfsToType;
-
-	// Buttons active since last reset
-	QSet< DWORD > activeMap;
-};
+#ifdef USE_GKEY
+class GKeyLibrary;
+#endif
 
 class GlobalShortcutWin : public GlobalShortcutEngine {
-private:
 	Q_OBJECT
 	Q_DISABLE_COPY(GlobalShortcutWin)
-public:
-	LPDIRECTINPUT8 pDI;
-	QHash< GUID, InputDevice * > qhInputDevices;
-	HHOOK hhMouse, hhKeyboard;
-	unsigned int uiHardwareDevices;
-	Timer tDoubleClick;
-	bool bHook;
-#ifdef USE_GKEY
-	GKeyLibrary *gkey;
-#endif
-#ifdef USE_XBOXINPUT
-	/// xboxinputLastPacket holds the last packet number
-	/// that was processed. Any new data queried for a
-	/// device is only valid if the packet number is
-	/// different than last time we queried it.
-	uint32_t xboxinputLastPacket[XBOXINPUT_MAX_DEVICES];
-	XboxInput *xboxinput;
-	/// nxboxinput holds the number of XInput devices
-	/// available on the system. It is filled out by
-	/// our EnumDevices callback.
-	int nxboxinput;
-#endif
-
-	static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
-	static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
-	static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
-	static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
-	static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
-
-	/// Handle an incoming Windows keyboard message.
-	///
-	/// Returns true if the GlobalShortcut engine signals that the
-	/// button should be suppressed. Returns false otherwise.
-	static bool handleKeyboardMessage(DWORD scancode, DWORD vkcode, bool extended, bool down);
-
-	/// Handle an incoming Windows mouse message.
-	///
-	/// Returns true if the GlobalShortcut engine signals that the
-	/// button should be suppressed. Returns false otherwise.
-	static bool handleMouseMessage(unsigned int btn, bool down);
-
-	virtual bool canSuppress() Q_DECL_OVERRIDE;
-	void run() Q_DECL_OVERRIDE;
-	bool event(QEvent *e) Q_DECL_OVERRIDE;
-public slots:
-	void timeTicked();
 
 public:
-	GlobalShortcutWin();
-	~GlobalShortcutWin() Q_DECL_OVERRIDE;
-	void unacquire();
-	ButtonInfo buttonInfo(const QVariant &) Q_DECL_OVERRIDE;
-
-	/// Inject a native Windows keyboard message into GlobalShortcutWin's
-	/// event stream. This method is meant to be called from the main thread
+	/// Inject a native Windows raw input message into GlobalShortcutWin's
+	/// thread. This method is meant to be called from the main thread
 	/// to pass native Windows keyboard messages to GlobalShortcutWin.
 	///
-	/// @param  msg  The keyboard message to inject into GlobalShortcutWin.
-	///              Must be WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN or WM_SYSKEYUP.
-	///              Otherwise the message will be ignored.
-	///
-	/// @return      Returns true if the GlobalShortcut engine signalled that
-	///              the button should be suppressed. Returns false otherwise.
-	bool injectKeyboardMessage(MSG *msg);
+	/// @param msg The raw input handle to inject into GlobalShortcutWin.
+	void injectRawInputMessage(HRAWINPUT handle);
 
-	/// Inject a native Windows mouse message into GlobalShortcutWin's
-	/// event stream. This method is meant to be called from the main thread
-	/// to pass native Windows mouse messages to GlobalShortcutWin.
-	///
-	/// @param  msg  The keyboard message to inject into GlobalShortcutWin.
-	///              Must be WM_LBUTTONDOWN, WM_LBUTTONUP, WM_RBUTTONDOWN,
-	///              WM_RBUTTONUP, WM_MBUTTONDOWN, WM_MBUTTONUP, WM_XBUTTONDOWN
-	///              or WM_XBUTTONUP. Otherwise the message will be ignored.
-	///
-	/// @return      Returns true if the GlobalShortcut engine signalled that
-	///              the button should be suppressed. Returns false otherwise.
-	bool injectMouseMessage(MSG *msg);
+	ButtonInfo buttonInfo(const QVariant &button) override;
+	void run() override;
 
-private:
-	bool areScreenReadersActive();
+	GlobalShortcutWin();
+	~GlobalShortcutWin() override;
+public slots:
+	void deviceRemoved(const HANDLE deviceHandle);
+	void timeTicked();
+
+	void on_hidMessage(const HANDLE deviceHandle, std::vector< char > reports, const uint32_t reportSize);
+	void on_keyboardMessage(const uint16_t flags, uint16_t scanCode, const uint16_t virtualKey);
+	void on_mouseMessage(const uint16_t flags, const uint16_t data);
+signals:
+	void hidMessage(const HANDLE deviceHandle, std::vector< char > reports, const uint32_t reportSize);
+	void keyboardMessage(const uint16_t flags, uint16_t scanCode, const uint16_t virtualKey);
+	void mouseMessage(const uint16_t flags, const uint16_t data);
+
+protected:
+	struct Device {
+		std::string name;
+		std::string prefix;
+		std::vector< uint8_t > data;
+		std::vector< bool > buttons;
+		std::pair< uint16_t, uint16_t > usageRange;
+#ifdef USE_XBOXINPUT
+		bool xinput;
+		Device() : xinput(false){};
+#endif
+	};
+
+	typedef std::unordered_map< HANDLE, Device > DeviceMap;
+	DeviceMap m_devices;
+#ifdef USE_XBOXINPUT
+	std::unique_ptr< XboxInput > m_xinput;
+	/// Holds the number of XInput devices available on the system.
+	/// It is filled out by addDevice().
+	uint8_t m_xinputDevices;
+	/// Holds the last packet number that was processed.
+	/// Any new data queried for a device is only valid
+	/// if the packet number is different than last time we queried it.
+	uint32_t m_xinputLastPacket[XBOXINPUT_MAX_DEVICES];
+
+	static bool xinputIsPressed(const uint8_t bit, const XboxInputState &state);
+#endif
+#ifdef USE_GKEY
+	std::unique_ptr< GKeyLibrary > m_gkey;
+#endif
+	DeviceMap::iterator addDevice(const HANDLE deviceHandle);
 };
-
-uint qHash(const GUID &);
 
 #endif

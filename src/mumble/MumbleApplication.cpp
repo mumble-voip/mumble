@@ -56,43 +56,25 @@ bool MumbleApplication::event(QEvent *e) {
 }
 
 #ifdef Q_OS_WIN
-/// gswForward forwards a native Windows keyboard/mouse message
-/// into GlobalShortcutWin's event stream.
-///
-/// @return  Returns true if the forwarded event was suppressed
-///          by GlobalShortcutWin. Otherwise, returns false.
-static bool gswForward(MSG *msg) {
-	GlobalShortcutWin *gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
+bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
+	auto gsw = static_cast< GlobalShortcutWin * >(GlobalShortcutEngine::engine);
 	if (!gsw) {
 		return false;
 	}
-	switch (msg->message) {
-		case WM_LBUTTONDOWN:
-		case WM_LBUTTONUP:
-		case WM_RBUTTONDOWN:
-		case WM_RBUTTONUP:
-		case WM_MBUTTONDOWN:
-		case WM_MBUTTONUP:
-		case WM_XBUTTONDOWN:
-		case WM_XBUTTONUP:
-			return gsw->injectMouseMessage(msg);
-		case WM_KEYDOWN:
-		case WM_KEYUP:
-		case WM_SYSKEYDOWN:
-		case WM_SYSKEYUP:
-			return gsw->injectKeyboardMessage(msg);
-	}
-	return false;
-}
 
-bool MumbleApplication::nativeEventFilter(const QByteArray &, void *message, long *) {
-	MSG *msg = reinterpret_cast< MSG * >(message);
-	if (QThread::currentThread() == thread()) {
-		bool suppress = gswForward(msg);
-		if (suppress) {
-			return true;
-		}
+	auto msg = reinterpret_cast< const MSG * >(message);
+	switch (msg->message) {
+		case WM_INPUT:
+			gsw->injectRawInputMessage(reinterpret_cast< HRAWINPUT >(msg->lParam));
+			break;
+		case WM_INPUT_DEVICE_CHANGE:
+			// We don't care about GIDC_ARRIVAL because we add a device only when we receive input from it.
+			if (msg->wParam == GIDC_REMOVAL) {
+				// The device is not available anymore, free resources allocated for it.
+				gsw->deviceRemoved(reinterpret_cast< const HANDLE >(msg->lParam));
+			}
 	}
+
 	return false;
 }
 #endif

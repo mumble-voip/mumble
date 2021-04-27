@@ -533,8 +533,8 @@ if(WIN32)
 	target_link_libraries(mumble
 		PRIVATE
 			dbghelp.lib
-			dinput8.lib
 			dxguid.lib
+			hid.lib
 			wintrust.lib
 	)
 else()
