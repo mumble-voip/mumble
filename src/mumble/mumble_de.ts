@@ -3420,14 +3420,6 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
         <translation>Zusätzliche Verknüpfungen</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Windows Hooks Verknüpfungen aktivieren&lt;/b&gt;.&lt;br /&gt;Dies aktiviert den Windows-hooks Verknüpfungen. Mit dieser Aktion unterdrückt Mumble zu Tastendrücke und Mausklicks.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Windows hooks aktivieren</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;GKey aktivieren&lt;/b&gt;.&lt;br /&gt;Diese Einstellung ermöglicht die Unterstützung für GKey Verknüpfungen, die mit Logitech-Tastaturen bereitgestellt werden.</translation>
     </message>

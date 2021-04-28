@@ -3373,14 +3373,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>Επιπλέον Μηχανές Συντομεύσεων</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Ενεργοποίηση των Windows hooks&lt;/b&gt;.&lt;br /&gt;Αυτό ενεργοποιεί τα hooks στο μηχανισμό συντομεύσεων των Windows. Χρησιμοποιώντας αυτόν τον μηχανισμό, επιτρέπται στο Mumble να καταστέλλει πατήματα πλήκτρων και κλικ του ποντικιού.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Ενεργοποίηση των hooks των Windows</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Ενεργοποίηση του GKey&lt;/b&gt;.&lt;br /&gt;Αυτή η ρύθμιση παρέχει υποστήριξη για τη μηχανή συντομεύσεων GKey, για πλήκτρα &quot;G&quot; που βρίσκονται στα πληκτρολόγια Logitech.</translation>
     </message>

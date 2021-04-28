@@ -3336,14 +3336,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>Дополнительные программы горячих клавиш</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Включить обработчики Windows&lt;/b&gt;.&lt;br /&gt; Эта функция включает механизм обработчиков Windows. Использование этого режима позволяет Mumble подавлять нажатия клавиш и клики мыши.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Включить обработчики Windows.</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Включить GKey&lt;/b&gt;.&lt;br /&gt; Эта настройка включает поддержку &quot;G&quot;-клавиш, располагаемых на клавиатурах Logitech.</translation>
     </message>

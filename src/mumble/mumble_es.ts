@@ -3374,14 +3374,6 @@ Etiqueta de este servidor. Así es como se llamará el servidor en su lista del 
         <translation>Motor de métodos abreviados adicionales</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Habilitar los hooks de Windows&lt;/b&gt;. &lt;br /&gt;Esto habilita el motor de métodos abreviados de los hooks de Windows. Este motor permite a Mumble suprimir las pulsaciones de teclas y los clicks del ratón.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Habilitar Windows hooks</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Habilitar GKey&lt;/b&gt;. &lt;br /&gt;Esta configuración habilita la compatibilidad con el motor de métodos abreviados GKey, para las teclas &quot;Gamer&quot; que se encuentran en los teclados Logitech.</translation>
     </message>

@@ -3374,14 +3374,6 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
         <translation>Extra snelkoppelingsverwerkers</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Installeer Windows-hooks&lt;/b&gt;.&lt;br /&gt;Dit schakelt de Windows-hooks snelkoppelingsverwerking in. Dit laat Mumble toe om het indrukken van toetsen of het klikken met de muis te onderdrukken.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Windows-hooks inschakelen</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;GKey inschakelen&lt;/b&gt;.&lt;br /&gt;Deze instelling schakelt de ondersteuning voor de GKey-snelkoppelingsverwerking in, voor &quot;G&quot;-knoppen die zich op Logitech-toetsenborden bevinden.</translation>
     </message>

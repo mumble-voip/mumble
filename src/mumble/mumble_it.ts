@@ -3374,14 +3374,6 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
         <translation>Motori di Scorciatoie Aggiuntivi</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Abilita Hook di Windows&lt;/b&gt;.&lt;br /&gt;Abilita il motore di scorciatoie Windows hook. Utilizzare questo motore permette a Mumble di sopprimere gli input di mouse e tastiera.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Abilita Hook di Windows</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Abilita GKey&lt;/b&gt;.&lt;br /&gt;Abilita il motore di scorciatoie Gkey, per i tasti &quot;G&quot; che si trovano nelle tastiere Logitech.</translation>
     </message>

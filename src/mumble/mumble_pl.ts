@@ -3375,14 +3375,6 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
         <translation>Dodatkowe mechanizmy skrótów</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Włącz zaczepy Windows&lt;/b&gt;.&lt;br /&gt;Włącza to mechanizm skrótów zaczepów Windows. Używanie tego mechanizmu pozwala Mumble na tłumienie wciskanych klawiszy i kliknięć myszą.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Włącz zaczepy Windows</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Włącz GKey&lt;/b&gt;.&lt;br /&gt;To ustawienie włącza obsługę mechanizmu skrótów GKey dla klawiszy &quot;G&quot; dostępnych w klawiaturach Logitech.</translation>
     </message>

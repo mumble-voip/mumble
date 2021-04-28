@@ -3374,14 +3374,6 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
         <translation>Moteurs de raccourcis additionnels</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Activer les événements Windows&lt;/b&gt;. &lt;br /&gt;Ceci active le système de surveillance d&apos;événements Windows. Utiliser ce système permet à Mumble d&apos;étouffer les bruits de touches de claviers et de clics de souris.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Activer les événements Windows</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Activer G-Key&lt;/b&gt;.&lt;br /&gt;Cela active le support du système de raccourcis G-Key, pour les touches &quot;G&quot; trouvées sur les claviers Logitech.</translation>
     </message>
