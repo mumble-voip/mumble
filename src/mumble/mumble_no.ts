@@ -3388,14 +3388,6 @@ Hva tjeneren er beskrevet som. Dette er hva tjeneren vil bli navngitt som i din 
         <translation>Ytterligere snarveismotorer</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Skru på Windows-kroker&lt;/b&gt;.&lt;br /&gt;Dette skrur på snarveismotoren for Windows-kroker. Bruk av denne motoren lar Mumble undertrykke tastetrykk og museklikk.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Skru på Windows-kroker</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Skru på GKey&lt;/b&gt;.&lt;br /&gt;Denne innstillinger skrur på støtte for GKey-snarveismotorer for &quot;G&quot;-taster på Logitech-tastatur.</translation>
     </message>

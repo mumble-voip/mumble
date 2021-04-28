@@ -3373,14 +3373,6 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
         <translation>Ek Kısayol Motorları</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;Windows kancalarını etkinleştir&lt;/b&gt;.&lt;br /&gt;Bu, Windows kancları (hooks) kısayol motorunu etkinleştirir. Bu motoru kullanmak, Mumble&apos;ın tuş basımlarını ve fare tıklamalarını bastırmasına imkân sağlar.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>Windows kancalarını etkinleştir</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;GKey&apos;i etkinleştir&lt;/b&gt;.&lt;br /&gt;Bu ayar, Gkey kısayol motoru için desteği etkinleştirir, ki bu Logitech klavyelerinde bulunan &quot;G&quot; tuşları içindir.</translation>
     </message>

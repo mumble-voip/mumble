@@ -284,11 +284,8 @@ struct Settings {
 	bool bEnableXInput2;
 	bool bEnableGKey;
 	bool bEnableXboxInput;
-	bool bEnableWinHooks;
-	/// Enable verbose logging in GlobalShortcutWin's DirectInput backend.
-	bool bDirectInputVerboseLogging;
-	/// Enable use of UIAccess (Windows's UI automation feature). This allows
-	/// Mumble greater access to global shortcuts.
+	/// Enable use of UIAccess (Windows's UI automation feature). This allows Mumble to receive WM_INPUT messages when
+	/// an application with elevated privileges is in foreground.
 	bool bEnableUIAccess;
 	QList< Shortcut > qlShortcuts;
 

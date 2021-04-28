@@ -686,7 +686,6 @@ void GlobalShortcutConfig::load(const Settings &r) {
 	}
 
 	qcbEnableUIAccess->setChecked(r.bEnableUIAccess);
-	qcbEnableWinHooks->setChecked(r.bEnableWinHooks);
 	qcbEnableGKey->setChecked(r.bEnableGKey);
 	qcbEnableXboxInput->setChecked(r.bEnableXboxInput);
 
@@ -702,17 +701,13 @@ void GlobalShortcutConfig::save() const {
 	bool oldUIAccess  = s.bEnableUIAccess;
 	s.bEnableUIAccess = qcbEnableUIAccess->checkState() == Qt::Checked;
 
-	bool oldWinHooks  = s.bEnableWinHooks;
-	s.bEnableWinHooks = qcbEnableWinHooks->checkState() == Qt::Checked;
-
 	bool oldGKey  = s.bEnableGKey;
 	s.bEnableGKey = qcbEnableGKey->checkState() == Qt::Checked;
 
 	bool oldXboxInput  = s.bEnableXboxInput;
 	s.bEnableXboxInput = qcbEnableXboxInput->checkState() == Qt::Checked;
 
-	if (s.bEnableUIAccess != oldUIAccess || s.bEnableWinHooks != oldWinHooks || s.bEnableGKey != oldGKey
-		|| s.bEnableXboxInput != oldXboxInput) {
+	if (s.bEnableUIAccess != oldUIAccess || s.bEnableGKey != oldGKey || s.bEnableXboxInput != oldXboxInput) {
 		s.requireRestartToApply = true;
 	}
 }

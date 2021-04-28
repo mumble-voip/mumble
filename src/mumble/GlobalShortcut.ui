@@ -127,11 +127,11 @@
           <property name="uniformRowHeights">
            <bool>true</bool>
           </property>
-          <attribute name="headerDefaultSectionSize">
-           <number>100</number>
-          </attribute>
           <attribute name="headerMinimumSectionSize">
            <number>50</number>
+          </attribute>
+          <attribute name="headerDefaultSectionSize">
+           <number>100</number>
           </attribute>
           <attribute name="headerStretchLastSection">
            <bool>false</bool>
@@ -224,16 +224,6 @@ Without this option enabled, using Mumble's global shortcuts in privileged appli
            </property>
            <property name="text">
             <string>Enable shortcuts in privileged applications</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="qcbEnableWinHooks">
-           <property name="whatsThis">
-            <string>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</string>
-           </property>
-           <property name="text">
-            <string>Enable Windows hooks</string>
            </property>
           </widget>
          </item>

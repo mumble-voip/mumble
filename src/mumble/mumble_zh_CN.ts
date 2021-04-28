@@ -3373,14 +3373,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>其他快捷键引擎</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation>&lt;b&gt;启用 Windows 钩子&lt;/b&gt;。&lt;br /&gt;这将启用 Windows 钩子快捷键引擎。 启用此引擎可使 Mumble 屏蔽按键和鼠标点击。</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation>启用 Windows 钩子</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;启用 GKey&lt;/b&gt;。&lt;br /&gt;此设置启用对 GKey 快捷键引擎的支持，用于 Logitech 键盘上的 G 键。</translation>
     </message>

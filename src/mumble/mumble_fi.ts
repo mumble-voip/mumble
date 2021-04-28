@@ -3374,14 +3374,6 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <translation type="unfinished">Muut pikanäppäimet</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Enable Windows hooks&lt;/b&gt;.&lt;br /&gt;This enables the Windows hooks shortcut engine. Using this engine allows Mumble to suppress keypresses and mouse clicks.</source>
-        <translation type="unfinished">&lt;b&gt;Ota käyttöön Windows hooks&lt;/b&gt;.&lt;br /&gt;Tämä ottaa käyttöön Windows Hooks pikanäppäinmoottorin. Tämän moottorin käyttö mahdollistaa näppäinpainallusten ja hiirenklikkausten vaimennuksen Mumblessa.</translation>
-    </message>
-    <message>
-        <source>Enable Windows hooks</source>
-        <translation type="unfinished">Ota käyttöön Windows Hooks</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
         <translation>&lt;b&gt;Käytä GKeyta&lt;/b&gt;.&lt;br /&gt;Tämä asetus ottaa käyttöön tuen GKey pikanäppäimille voidaksesi käyttää &quot;G&quot;-näppäimiä Logitechin näppäimistöillä.</translation>
     </message>
