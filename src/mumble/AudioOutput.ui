@@ -551,7 +551,7 @@
       <item row="4" column="2">
        <widget class="QSlider" name="qsMaxDistVolume">
         <property name="toolTip">
-         <string>Factor for sound volume decrease</string>
+         <string>The minimum volume a player's audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</string>
         </property>
         <property name="whatsThis">
          <string>What should the volume be at the maximum distance?</string>
