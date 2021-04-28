@@ -6238,6 +6238,10 @@ Valid options are:
                 Specify an alternative configuration file.
                 If you use this to run multiple instances of Mumble at once,
                 make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
   -jn, --jackname &lt;arg&gt;
@@ -6325,6 +6329,11 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
                 如果字符串格式无效，Mumble 会出错。
                 否则，指定的语言会永久保存到 Mumble 设置中。
 </translation>
+    </message>
+    <message>
+        <source>Directory %1 does not exist.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

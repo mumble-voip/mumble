@@ -6148,6 +6148,10 @@ Valid options are:
                 Specify an alternative configuration file.
                 If you use this to run multiple instances of Mumble at once,
                 make sure to set an alternative &apos;database&apos; value in the config.
+  --default-certificate-dir &lt;dir&gt;
+                Specify an alternative default certificate path.
+                This path is only used if there is no certificate loaded
+                from the settings.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
   -jn, --jackname &lt;arg&gt;
@@ -6185,6 +6189,11 @@ Valid options are:
                 If the format is invalid, Mumble will error.
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory %1 does not exist.
 </source>
         <translation type="unfinished"></translation>
     </message>
