@@ -642,7 +642,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Голосовая связь для игроков&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Голосового чат с открытым исходным кодом, низкой задержкой и высоким качеством&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1025,11 +1025,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Обзор…</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Предпросмотр</translation>
     </message>
 </context>
 <context>
@@ -3224,11 +3224,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка HTTP %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>В CrashReporter.cpp обнаружена внутренняя ошибка: полученный сетевой ответ не содержит кода состояния HTTP. Сообщите разработчику о коде ошибки %1</translation>
     </message>
 </context>
 <context>
@@ -3798,7 +3798,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Сообщение плагина</translation>
     </message>
 </context>
 <context>
@@ -6537,11 +6537,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверять обновления плагинов при запуске</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически загружать и устанавливать обновления плагинов</translation>
     </message>
 </context>
 <context>
@@ -7102,7 +7102,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
@@ -7110,176 +7110,176 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить плагин из локального файла</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Установка плагина…</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выгрузите текущий выбранный плагин. Это удалит его из списка плагинов для текущего сеанса.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>Выгрузить</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагин успешно установлен</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно деактивировать все запрошенные функции для плагина &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось загрузить плагин &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Должна ли быть включена функция позиционирования звука этого плагина</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот плагин не поддерживает позиционирование звука</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Имеет ли этот плагин разрешение на прослушивание всех событий клавиатуры, которые происходят, пока Mumble находится в фокусе</translation>
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Должен ли этот плагин быть включен</translation>
     </message>
 </context>
 <context>
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Установка плагина</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы собираетесь установить плагин, указанный ниже. Вы хотите продолжить?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Имя:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Версия:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Автор(ы):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Описание:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Нет</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Да</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &quot;%1&quot; не является действительным плагином!</translation>
     </message>
     <message>
         <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation type="unfinished"></translation>
+        <translation>Найдено более одной библиотеки плагина для текущей ОС в &quot;%1&quot; (&quot;%2&quot; и &quot;%3&quot;)!</translation>
     </message>
     <message>
         <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось найти плагин для текущей операционной системы в &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось загрузить плагин &quot;%1&quot; - проверьте интерфейс плагина!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось удалить старый плагин &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось скопировать библиотеку плагина с &quot;%1&quot; на &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ну удалось переместить библиотеку плагина на &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 связь потеряна</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 связан</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагин &quot;%1&quot; обнаружил постоянную ошибку при сборе позиционных данных</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не-плагин найден в каталоге плагинов: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при загрузке плагина вручную: %1</translation>
     </message>
 </context>
 <context>
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обновление плагина</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Следующие плагины могут быть обновлены.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать все</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагин</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL-адрес загрузки</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите обновить выбранные плагины?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось загрузить обновление плагина для &quot;%1&quot; из &quot;%2&quot; (%3)</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновление для плагина &quot;%1&quot; не удалось из-за слишком большого количества переадресаций</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось загрузить обновление плагина для &quot;%1&quot; из &quot;%2&quot; (код статуса HTTP %3)</translation>
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагин &quot;%1&quot; успешно обновлён</translation>
     </message>
 </context>
 <context>

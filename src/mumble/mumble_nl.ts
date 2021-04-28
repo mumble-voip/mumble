@@ -1026,15 +1026,15 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Stomheidssignaal</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Blader...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Voorbeeld</translation>
     </message>
 </context>
 <context>
@@ -3844,7 +3844,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     </message>
     <message>
         <source>Plugin message</source>
-        <translation type="unfinished"></translation>
+        <translation>Plug-in-bericht</translation>
     </message>
 </context>
 <context>
@@ -6584,11 +6584,11 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer op updates voor plug-ins bij het opstarten</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Download en installeer automatisch updates voor plug-ins</translation>
     </message>
 </context>
 <context>
@@ -7145,188 +7145,188 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Activeren</translation>
+        <translation>Activeer</translation>
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished"></translation>
+        <translation>PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation type="unfinished"></translation>
+        <translation>Toets-gebeurtenissen</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Installeer een plug-in uit een lokaal bestand</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Installeer plug-in...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontkoppel de geselecteerde plug-in. Dit zal de plug-in voor deze sessie uit de lijst verwijderen.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontkoppel</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>De plug-in werd met succes geïnstalleerd</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon niet alle gevraagde functies deactiveren voor plug-in &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon plug-in &quot;%1&quot; niet laden</translation>
     </message>
     <message>
         <source>Whether the positional audio feature of this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Of de functie voor positioneel geluid van deze plug-in ingeschakeld moet worden</translation>
     </message>
     <message>
         <source>This plugin does not provide support for positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze plug-in ondersteunt geen positioneel geluid</translation>
     </message>
     <message>
         <source>Whether this plugin has the permission to be listening to all keyboard events that occur while Mumble has focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Of deze plug-in toestemming heeft om alle toetsaanslagen op te vragen die plaatsvinden wanneer het Mumble-venster focus heeft</translation>
     </message>
     <message>
         <source>Whether this plugin should be enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Of deze plug-in ingeschakeld moet worden</translation>
     </message>
 </context>
 <context>
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished"></translation>
+        <translation>Plug-in-installateur</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Je staat op het punt de onderstaande plug-in te installeren. Weet je dit zeker?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Naam:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Versie:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Author(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Auteur(s):&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Beschrijving:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nee</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ja</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
-        <translation type="unfinished"></translation>
+        <translation>Het bestand &quot;%1&quot; is geen geldig plug-in-bestand!</translation>
     </message>
     <message>
         <source>Found more than one plugin library for the current OS in &quot;%1&quot; (&quot;%2&quot; and &quot;%3&quot;)!</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; bevat meer dan één plug-in-softwarebibliotheek voor het huidige besturingssysteem (&quot;%2&quot; en &quot;%3&quot;)!</translation>
     </message>
     <message>
         <source>Unable to find a plugin for the current OS in &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon geen plug-in voor het huidige besturingssysteem vinden in &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unable to load plugin &quot;%1&quot; - check the plugin interface!</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon plug-in &quot;%1&quot; niet laden - controleer de interface van de plug-in!</translation>
     </message>
     <message>
         <source>Unable to delete old plugin at &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon oude plug-in op &quot;%1&quot; niet verwijderen</translation>
     </message>
     <message>
         <source>Unable to copy plugin library from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon plug-in-softwarebibliotheek niet kopiëren van &quot;%1&quot; naar &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Unable to move plugin library to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon plug-in-softwarebibliotheek niet verplaatsen naar &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 verloren link</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 gelinkt</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
-        <translation type="unfinished"></translation>
+        <translation>In plug-in &quot;%1&quot; trad een permanente fout op bij het ophalen van positionele data</translation>
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand gevonden dat geen plug-in is in de map met plug-ins: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden van manuele plug-in mislukt: %1</translation>
     </message>
 </context>
 <context>
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished"></translation>
+        <translation>Plug-in-updater</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>De volgende plug-ins kunnen bijgewerkt worden.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer alles</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Plug-in</translation>
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Download-URL</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wil je de geselecteerde plug-ins bijwerken?</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon de update voor plug-in &quot;%1&quot; niet downloaden van &quot;%2&quot; (%3)</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed due to too many redirects</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijwerken van plug-in &quot;%1&quot; is mislukt vanwege te veel doorverwijzingen</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon de update voor plug-in &quot;%1&quot; niet downloaden van &quot;%2&quot; (HTTP-statuscode %3)</translation>
     </message>
     <message>
         <source>Successfully updated plugin &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Plug-in &quot;%1&quot; werd met succes bijgewerkt</translation>
     </message>
 </context>
 <context>
