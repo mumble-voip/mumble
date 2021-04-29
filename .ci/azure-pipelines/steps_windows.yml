@@ -6,9 +6,9 @@
 steps:
   - script: git submodule --quiet update --init --recursive
     displayName: 'Fetch submodules'
-  - powershell: .ci/azure-pipelines/install-environment_windows.ps1
+  - powershell: .ci/install-environment_windows.ps1
     displayName: 'Install build environment'
-  - script: .ci/azure-pipelines/build_windows.bat
+  - script: .ci/build_windows.bat
     env:
       MUMBLE_BUILD_NUMBER_TOKEN: $(BUILD_NUMBER_TOKEN)
     displayName: 'Build'

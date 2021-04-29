@@ -1,4 +1,4 @@
-:: Copyright 2020-2021 The Mumble Developers. All rights reserved.
+:: Copyright 2021 The Mumble Developers. All rights reserved.
 :: Use of this source code is governed by a BSD-style license
 :: that can be found in the LICENSE file at the root of the
 :: Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -10,27 +10,14 @@
 ::
 :: Below is a list of configuration variables used from environment.
 ::
-:: Predefined variables:
-::
-::  BUILD_BINARIESDIRECTORY      - The local path on the agent that can be used
-::                                 as an output folder for compiled binaries.
-::  BUILD_SOURCESDIRECTORY       - The local path on the agent where the
-::                                 repository is downloaded.
-::  AGENT_TOOLSDIRECTORY         - The directory used by tasks such as
-::                                 Node Tool Installer and Use Python Version
-::                                 to switch between multiple versions of a tool.
-::                                 We store Wix# there, in "WixSharp".
-::
-:: Defined in .azure-pipelines.yml:
-::
+::  MUMBLE_BUILD_DIRECTORY       - Output directory.
+::  MUMBLE_BUILD_NUMBER_TOKEN    - Access token for the build number page on our server.
 ::  MUMBLE_ENVIRONMENT_PATH      - Path to the environment's root directory.
 ::  MUMBLE_ENVIRONMENT_TOOLCHAIN - Path to the vcpkg CMake toolchain, used for CMake.
 ::  MUMBLE_ENVIRONMENT_TRIPLET   - vcpkg triplet.
+::  MUMBLE_SOURCE_COMMIT         - Hash of the Git commit that is being built.
+::  MUMBLE_SOURCE_REPOSITORY     - Path to the cloned repository.
 ::  VCVARS_PATH                  - Path to the Visual Studio environment initialization script.
-::
-:: Defined on Azure Pipelines:
-::
-::  MUMBLE_BUILD_NUMBER_TOKEN           - Access token for the build number page on our server.
 ::
 
 @echo on
@@ -43,7 +30,7 @@ for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py" --format 
 :: in that case the variable substitution of that variable in the expression below fails (is replaced with empty string)
 :: Also we can't anything else inside the if body as this will cause the curl command to always be executed.
 if defined MUMBLE_BUILD_NUMBER_TOKEN (
-	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?commit=%BUILD_SOURCEVERSION%&version=%VERSION%&token=%MUMBLE_BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
+	for /f "tokens=* USEBACKQ" %%g in (`curl "https://mumble.info/get-build-number?commit=%MUMBLE_SOURCE_COMMIT%&version=%VERSION%&token=%MUMBLE_BUILD_NUMBER_TOKEN%"`) do (set "BUILD_NUMBER=%%g")
 ) else (
 	echo Build number token not set - defaulting to 0
 	set BUILD_NUMBER=0
@@ -51,26 +38,21 @@ if defined MUMBLE_BUILD_NUMBER_TOKEN (
 
 for /f "tokens=* USEBACKQ" %%g in (`python "scripts\mumble-version.py"`) do (set "RELEASE_ID=%%g")
 
-cd /d %BUILD_BINARIESDIRECTORY%
+:: Create build directory if it doesn't exist.
+if not exist "%MUMBLE_BUILD_DIRECTORY%" mkdir "%MUMBLE_BUILD_DIRECTORY%
+
+cd "%MUMBLE_BUILD_DIRECTORY%"
 
 call "%VCVARS_PATH%"
 
-set PATH=%PATH%;%AGENT_TOOLSDIRECTORY%\WixSharp
-
-:: Delete MinGW, otherwise CMake picks it over MSVC.
-:: We don't delete the (Chocolatey) packages because it takes ~10 minutes...
-del C:\ProgramData\chocolatey\bin\gcc.exe
-del C:\ProgramData\chocolatey\bin\g++.exe
-del C:\ProgramData\chocolatey\bin\c++.exe
-del C:\Strawberry\c\bin\gcc.exe
-del C:\Strawberry\c\bin\g++.exe
-del C:\Strawberry\c\bin\c++.exe
+set PATH=%PATH%;C:\WixSharp
 
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=%MUMBLE_ENVIRONMENT_TRIPLET% ^
       -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" ^
+      -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe ^
       -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DRELEASE_ID=%RELEASE_ID% -DBUILD_NUMBER=%BUILD_NUMBER% ^
       -Dpackaging=ON -Dtests=ON -Dstatic=ON -Dsymbols=ON -Dgrpc=ON -Dasio=ON -Dg15=ON ^
-      -Ddisplay-install-paths=ON "%BUILD_SOURCESDIRECTORY%"
+      -Ddisplay-install-paths=ON %MUMBLE_SOURCE_REPOSITORY%
 
 if errorlevel 1 (
 	exit /b %errorlevel%
@@ -81,4 +63,3 @@ cmake --build .
 if errorlevel 1 (
 	exit /b %errorlevel%
 )
-

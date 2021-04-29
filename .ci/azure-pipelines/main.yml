@@ -8,6 +8,9 @@ variables:
   MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
   MUMBLE_ENVIRONMENT_PATH: '$(MUMBLE_ENVIRONMENT_STORE)/$(MUMBLE_ENVIRONMENT_VERSION)'
   MUMBLE_ENVIRONMENT_TOOLCHAIN: '$(MUMBLE_ENVIRONMENT_PATH)/scripts/buildsystems/vcpkg.cmake'
+  MUMBLE_SOURCE_COMMIT: '$(Build.SourceVersion)'
+  MUMBLE_SOURCE_REPOSITORY: '$(Build.SourcesDirectory)'
+  MUMBLE_BUILD_DIRECTORY: '$(Build.BinariesDirectory)'
   # On Azure we have a secret variable called BUILD_NUMBER_TOKEN that will be referenced in the following
   # YAML files. As it is set there though, we don't have to specify it here.
 
