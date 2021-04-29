@@ -1,33 +1,22 @@
-# Copyright 2020-2021 The Mumble Developers. All rights reserved.
+# Copyright 2021 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 #
-# Ensures we have downloaded and extracted a build environment
-# into our Azure Pipelines VM before we attempt to build. If the
-# environment archive is already present, this script will just extract it.
+# Ensures we have downloaded and extracted a build environment into our AppVeyor
+# VM before we attempt to build. If the environment archive is already present,
+# this script will just extract it.
 #
 # Below is a list of configuration variables used from environment.
 #
-# Predefined variables:
-#
-#  AGENT_TEMPDIRECTORY        - A temporary folder that is cleaned after each pipeline job.
-#                               This directory is used by tasks such as .NET Core CLI task
-#                               to hold temporary items like test results before they are published.
-#  AGENT_TOOLSDIRECTORY       - The directory used by tasks such as
-#                               Node Tool Installer and Use Python Version
-#                               to switch between multiple versions of a tool.
-#                               We store Wix# there, in "WixSharp".
-#
-# Defined in .azure-pipelines.yml:
-#
-#  MUMBLE_ENVIRONMENT_STORE   - Path to the folder the build environment is stored in.
-#                               (e.g. c:\hostedtoolcache\windows\MumbleBuild).
+#  MUMBLE_ENVIRONMENT_STORE   - Path to the folder the build environment is stored in
+#                               (e.g. C:/MumbleBuild).
 #  MUMBLE_ENVIRONMENT_SOURCE  - Build environment web source folder URL
-#                               (e.g. https://somehost/folder).
+#                               (e.g. https://dl.mumble.info/build/vcpkg/windows-static-1.4.x~2021-04-26~7da4529f.x64.7z).
 #  MUMBLE_ENVIRONMENT_VERSION - Full build environment version
-#                               (e.g. win64-static-1.4.x-2020-05-27-ecb3c64-1151).
+#                               (e.g. windows-static-1.4.x~2021-04-26~7da4529f.x64).
 #                               Must match .7z and extracted folder name.
+#  MUMBLE_SOURCE_REPOSITORY   - Path to the cloned repository.
 #
 
 # Always quit on encountered errors
@@ -92,9 +81,10 @@ function Download {
 
 }
 
-Set-Location -Path $env:AGENT_TEMPDIRECTORY
+$TEMP_DIR = [System.IO.Path]::GetTempPath()
+Set-Location -Path $TEMP_DIR
 
-$SOURCE_DIR = $env:BUILD_SOURCESDIRECTORY
+$SOURCE_DIR = $env:MUMBLE_SOURCE_REPOSITORY
 
 $MUMBLE_ENVIRONMENT_STORE = $env:MUMBLE_ENVIRONMENT_STORE
 $MUMBLE_ENVIRONMENT_VERSION = $env:MUMBLE_ENVIRONMENT_VERSION
@@ -131,9 +121,9 @@ Move-Item -Path "G15SDK/LCDSDK" -Destination "$SOURCE_DIR/3rdparty/g15"
 
 Write-Host "Downloading WixSharp..."
 
-Download -source "https://github.com/oleg-shilo/wixsharp/releases/download/v1.15.0.0/WixSharp.1.15.0.0.7z" -destination "WixSharp.1.15.0.0.7z"
-Write-Host "Exracting WixSharp to $env:AGENT_TOOLSDIRECTORY/WixSharp..."
-Invoke-Command 7z x "WixSharp.1.15.0.0.7z" "-o$env:AGENT_TOOLSDIRECTORY/WixSharp"
+Download -source "https://github.com/oleg-shilo/wixsharp/releases/download/v1.16.2.0/WixSharp.1.16.2.0.7z" -destination "WixSharp.7z"
+Write-Host "Exracting WixSharp to C:/WixSharp..."
+Invoke-Command 7z x "WixSharp.7z" "-oC:/WixSharp"
 
 
 Write-Host "Build environment successfully installed"

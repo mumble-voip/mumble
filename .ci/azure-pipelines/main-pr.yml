@@ -8,6 +8,9 @@ variables:
   MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
   MUMBLE_ENVIRONMENT_PATH: '$(MUMBLE_ENVIRONMENT_STORE)/$(MUMBLE_ENVIRONMENT_VERSION)'
   MUMBLE_ENVIRONMENT_TOOLCHAIN: '$(MUMBLE_ENVIRONMENT_PATH)/scripts/buildsystems/vcpkg.cmake'
+  MUMBLE_SOURCE_COMMIT: '$(Build.SourceVersion)'
+  MUMBLE_SOURCE_REPOSITORY: '$(Build.SourcesDirectory)'
+  MUMBLE_BUILD_DIRECTORY: '$(Build.BinariesDirectory)'
   # We set this to an empty String explicitly as the variable is not set for PR builds but it is required
   # to be an empty String in that case. That's why we have to set it here. For Nightly builds the
   # variable is set on Azure itself.
