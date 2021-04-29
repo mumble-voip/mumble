@@ -1,0 +1,56 @@
+# Copyright 2021 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+image: Visual Studio 2019
+
+clone_depth: 1
+skip_branch_with_pr: true
+
+environment:
+  global:
+    MUMBLE_BUILD_NUMBER_TOKEN:
+      secure: xkSwlLVB3ib8fH92hK2tCUxU+XZ5uiyzmiMzZut62yGIT+bY7TSxqa9EaPDu+CW93b3ioToregKY3XIpABxiLSP8PctbXkeP+ZeHx4kgj/0=
+    MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
+    MUMBLE_ENVIRONMENT_STORE: 'C:/MumbleBuild'
+    MUMBLE_ENVIRONMENT_PATH: '%MUMBLE_ENVIRONMENT_STORE%/%MUMBLE_ENVIRONMENT_VERSION%'
+    MUMBLE_ENVIRONMENT_TOOLCHAIN: '%MUMBLE_ENVIRONMENT_PATH%/scripts/buildsystems/vcpkg.cmake'
+    MUMBLE_SOURCE_COMMIT: '%APPVEYOR_REPO_COMMIT%'
+    MUMBLE_SOURCE_REPOSITORY: '%APPVEYOR_BUILD_FOLDER%'
+    MUMBLE_BUILD_DIRECTORY: '%MUMBLE_SOURCE_REPOSITORY%/build'
+
+  matrix:
+    - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md'
+      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.4.x~2021-04-26~7da4529f.x64'
+      VCVARS_PATH: 'C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat'
+    - MUMBLE_ENVIRONMENT_TRIPLET: 'x86-windows-static-md'
+      MUMBLE_ENVIRONMENT_VERSION: 'windows-static-1.4.x~2021-04-26~7da4529f.x86'
+      VCVARS_PATH: 'C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvarsamd64_x86.bat'
+
+install:
+  - ps: .ci/install-environment_windows.ps1
+
+before_build:
+  - cmd: cd %APPVEYOR_BUILD_FOLDER% && git submodule update --init --recursive
+
+build_script:
+  - cmd: .ci/build_windows.bat
+
+artifacts:
+  - path: 'build/*.pdb'
+    name: 'Debug symbols'
+  - path: 'build/plugins/*.pdb'
+    name: 'Debug symbols'
+  - path: 'build/installer/client/*client*.msi'
+    name: 'Installer'
+  - path: 'build/installer/server/*server*.msi'
+    name: 'Installer'
+
+deploy:
+  - provider: Webhook
+    url: https://app.signpath.io/API/v1/79916aba-7a9f-448d-91c6-fb83593b59d3/Integrations/AppVeyor?ProjectSlug=mumble&SigningPolicySlug=test-signing
+    authorization:
+      secure: WKbGSfFSHTtODf6eHRSHPAobctJli48O/VoMpCYTuIlITl2piOpCH6igCRDX4EuJTzgDX45H34tVfPuNzSMdLA==
+    on:
+      branch: master
