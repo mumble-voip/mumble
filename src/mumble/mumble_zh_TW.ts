@@ -1251,10 +1251,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>使用耳機</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>音量減弱因子</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>音量增強</translation>
     </message>
@@ -1433,6 +1429,10 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Attenuation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

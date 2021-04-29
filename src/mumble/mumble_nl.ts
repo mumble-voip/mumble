@@ -1256,10 +1256,6 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
         <translation>De aangesloten &quot;luidsprekers&quot; zijn eigenlijk een hoofdtelefoon</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Geluidsvolumeverlagingsfactor</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Bloeien</translation>
     </message>
@@ -1439,6 +1435,10 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     <message>
         <source>Attenuation</source>
         <translation>Verafzwakking</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

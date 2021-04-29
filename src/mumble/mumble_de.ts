@@ -1257,10 +1257,6 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
         <translation>Die angeschlossenen Audioausgabe-Geräte sind Kopfhörer</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Faktor zur Lautstärkensenkung</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Bloom</translation>
     </message>
@@ -1443,6 +1439,10 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <source>Attenuation</source>
         <translation>Dämpfung</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

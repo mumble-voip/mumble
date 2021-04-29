@@ -1258,10 +1258,6 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
         <translation>De tilkoblede &quot;høyttalerne&quot; er faktisk hodetelefoner</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Faktor for lydstyrkesenkning</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Glød</translation>
     </message>
@@ -1441,6 +1437,10 @@ Når du er lenger unna enn dette vil andres stemme ikke bli dempet ytterligere.<
     <message>
         <source>Attenuation</source>
         <translation>Demping</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1256,10 +1256,6 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <translation>Yhdistetyt &quot;kaiuttimet&quot; ovat kuulokkeet</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Prosentti jolla ääntä vähennetään</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Korostus</translation>
     </message>
@@ -1439,6 +1435,10 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <message>
         <source>Attenuation</source>
         <translation>Vaimennus</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
