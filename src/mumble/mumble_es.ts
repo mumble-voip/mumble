@@ -6266,6 +6266,16 @@ Valid options are:
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Toggle TalkingUI</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles the visibility of the TalkingUI.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished">Activa/desactiva la visibilidad de la interfaz de uso del habla</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
