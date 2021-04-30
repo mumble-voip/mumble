@@ -284,6 +284,10 @@ void MainWindow::createActions() {
 	gsSendClipboardTextMessage->qsWhatsThis =
 		tr("This will send your Clipboard content to the channel you are currently in.", "Global Shortcut");
 
+	gsToggleTalkingUI = new GlobalShortcut(this, idx++, tr("Toggle TalkingUI", "Global shortcut"));
+	gsToggleTalkingUI->setObjectName(QLatin1String("gsToggleTalkingUI"));
+	gsToggleTalkingUI->qsWhatsThis = tr("Toggles the visibility of the TalkingUI.", "Global Shortcut");
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -3054,6 +3058,12 @@ void MainWindow::on_gsSendClipboardTextMessage_triggered(bool down, QVariant) {
 	// call sendChatbarMessage() instead of on_gsSendTextMessage_triggered() to handle
 	// formatting of the content in the clipboard, i.e., href.
 	sendChatbarMessage(QApplication::clipboard()->text());
+}
+
+void MainWindow::on_gsToggleTalkingUI_triggered(bool down, QVariant) {
+	if (down) {
+		qaTalkingUIToggle->trigger();
+	}
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {

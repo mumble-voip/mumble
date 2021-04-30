@@ -84,6 +84,7 @@ public:
 	GlobalShortcut *gsCycleTransmitMode, *gsToggleMainWindowVisibility, *gsTransmitModePushToTalk,
 		*gsTransmitModeContinuous, *gsTransmitModeVAD;
 	GlobalShortcut *gsSendTextMessage, *gsSendClipboardTextMessage;
+	GlobalShortcut *gsToggleTalkingUI;
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 	ACLEditor *aclEdit;
@@ -279,6 +280,7 @@ public slots:
 	void on_gsTransmitModeVAD_triggered(bool, QVariant);
 	void on_gsSendTextMessage_triggered(bool, QVariant);
 	void on_gsSendClipboardTextMessage_triggered(bool, QVariant);
+	void on_gsToggleTalkingUI_triggered(bool, QVariant);
 	void on_Reconnect_timeout();
 	void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 	void on_qaTalkingUIToggle_triggered();
