@@ -11,7 +11,7 @@ skip_branch_with_pr: true
 environment:
   global:
     MUMBLE_BUILD_NUMBER_TOKEN:
-      secure: xkSwlLVB3ib8fH92hK2tCUxU+XZ5uiyzmiMzZut62yGIT+bY7TSxqa9EaPDu+CW93b3ioToregKY3XIpABxiLSP8PctbXkeP+ZeHx4kgj/0=
+      secure: PbzXN7ToXOY4tCdLi8S8qkQ6AsbUfxvQJUW8DLbbVj6jpf4n3h6owM0BeqLaR3e8lqkmlZHwNi0nwdWTwzFOj3ZRb/ozMC39Np6eaQ3g4dk=
     MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg'
     MUMBLE_ENVIRONMENT_STORE: 'C:/MumbleBuild'
     MUMBLE_ENVIRONMENT_PATH: '%MUMBLE_ENVIRONMENT_STORE%/%MUMBLE_ENVIRONMENT_VERSION%'
