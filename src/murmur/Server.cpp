@@ -390,42 +390,49 @@ static QVariant normalizeSuggestVersion(QVariant suggestVersion) {
 }
 
 void Server::readParams() {
-	qsPassword             = Meta::mp.qsPassword;
-	usPort                 = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
-	iTimeout               = Meta::mp.iTimeout;
-	iMaxBandwidth          = Meta::mp.iMaxBandwidth;
-	iMaxUsers              = Meta::mp.iMaxUsers;
-	iMaxUsersPerChannel    = Meta::mp.iMaxUsersPerChannel;
-	iMaxTextMessageLength  = Meta::mp.iMaxTextMessageLength;
-	iMaxImageMessageLength = Meta::mp.iMaxImageMessageLength;
-	bAllowHTML             = Meta::mp.bAllowHTML;
-	iDefaultChan           = Meta::mp.iDefaultChan;
-	bRememberChan          = Meta::mp.bRememberChan;
-	iRememberChanDuration  = Meta::mp.iRememberChanDuration;
-	qsWelcomeText          = Meta::mp.qsWelcomeText;
-	qsWelcomeTextFile      = Meta::mp.qsWelcomeTextFile;
-	qlBind                 = Meta::mp.qlBind;
-	qsRegName              = Meta::mp.qsRegName;
-	qsRegPassword          = Meta::mp.qsRegPassword;
-	qsRegHost              = Meta::mp.qsRegHost;
-	qsRegLocation          = Meta::mp.qsRegLocation;
-	qurlRegWeb             = Meta::mp.qurlRegWeb;
-	bBonjour               = Meta::mp.bBonjour;
-	bAllowPing             = Meta::mp.bAllowPing;
-	bCertRequired          = Meta::mp.bCertRequired;
-	bForceExternalAuth     = Meta::mp.bForceExternalAuth;
-	qrUserName             = Meta::mp.qrUserName;
-	qrChannelName          = Meta::mp.qrChannelName;
-	iMessageLimit          = Meta::mp.iMessageLimit;
-	iMessageBurst          = Meta::mp.iMessageBurst;
-	iPluginMessageLimit    = Meta::mp.iPluginMessageLimit;
-	iPluginMessageBurst    = Meta::mp.iPluginMessageBurst;
-	qvSuggestVersion       = Meta::mp.qvSuggestVersion;
-	qvSuggestPositional    = Meta::mp.qvSuggestPositional;
-	qvSuggestPushToTalk    = Meta::mp.qvSuggestPushToTalk;
-	iOpusThreshold         = Meta::mp.iOpusThreshold;
-	iChannelNestingLimit   = Meta::mp.iChannelNestingLimit;
-	iChannelCountLimit     = Meta::mp.iChannelCountLimit;
+	qlAllowedSslClientErrors          = Meta::mp.qlAllowedSslClientErrors;
+	bMctsIncludeHostCAs               = Meta::mp.bMctsIncludeHostCAs;
+	bMctsIncludeOwnCAs                = Meta::mp.bMctsIncludeOwnCAs;
+	bMctsIncludeOwnCert               = Meta::mp.bMctsIncludeOwnCert;
+	qlMcts                            = Meta::mp.qlMcts;
+	bForceUsernameCertSubjectEquality = Meta::mp.bForceUsernameCertSubjectEquality;
+	bBlindTrust                       = Meta::mp.bBlindTrust;
+	qsPassword                        = Meta::mp.qsPassword;
+	usPort                            = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
+	iTimeout                          = Meta::mp.iTimeout;
+	iMaxBandwidth                     = Meta::mp.iMaxBandwidth;
+	iMaxUsers                         = Meta::mp.iMaxUsers;
+	iMaxUsersPerChannel               = Meta::mp.iMaxUsersPerChannel;
+	iMaxTextMessageLength             = Meta::mp.iMaxTextMessageLength;
+	iMaxImageMessageLength            = Meta::mp.iMaxImageMessageLength;
+	bAllowHTML                        = Meta::mp.bAllowHTML;
+	iDefaultChan                      = Meta::mp.iDefaultChan;
+	bRememberChan                     = Meta::mp.bRememberChan;
+	iRememberChanDuration             = Meta::mp.iRememberChanDuration;
+	qsWelcomeText                     = Meta::mp.qsWelcomeText;
+	qsWelcomeTextFile                 = Meta::mp.qsWelcomeTextFile;
+	qlBind                            = Meta::mp.qlBind;
+	qsRegName                         = Meta::mp.qsRegName;
+	qsRegPassword                     = Meta::mp.qsRegPassword;
+	qsRegHost                         = Meta::mp.qsRegHost;
+	qsRegLocation                     = Meta::mp.qsRegLocation;
+	qurlRegWeb                        = Meta::mp.qurlRegWeb;
+	bBonjour                          = Meta::mp.bBonjour;
+	bAllowPing                        = Meta::mp.bAllowPing;
+	bCertRequired                     = Meta::mp.bCertRequired;
+	bForceExternalAuth                = Meta::mp.bForceExternalAuth;
+	qrUserName                        = Meta::mp.qrUserName;
+	qrChannelName                     = Meta::mp.qrChannelName;
+	iMessageLimit                     = Meta::mp.iMessageLimit;
+	iMessageBurst                     = Meta::mp.iMessageBurst;
+	iPluginMessageLimit               = Meta::mp.iPluginMessageLimit;
+	iPluginMessageBurst               = Meta::mp.iPluginMessageBurst;
+	qvSuggestVersion                  = Meta::mp.qvSuggestVersion;
+	qvSuggestPositional               = Meta::mp.qvSuggestPositional;
+	qvSuggestPushToTalk               = Meta::mp.qvSuggestPushToTalk;
+	iOpusThreshold                    = Meta::mp.iOpusThreshold;
+	iChannelNestingLimit              = Meta::mp.iChannelNestingLimit;
+	iChannelCountLimit                = Meta::mp.iChannelCountLimit;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
@@ -460,6 +467,51 @@ void Server::readParams() {
 			qlBind = Meta::mp.qlBind;
 	}
 
+
+	// We should distinguish three cases here:
+	// 1. The key is not present in the config, stick to the defaults
+	// 2. The key is present BUT is empty, so we want the list to be empty, too
+	// 3. The key is present and not empty, so use the data and not the defaults
+	// Problem: How can we tell the difference between case 1. and 2.?
+	QByteArray mctsBytes = getConf("mcts", QString("Not Present")).toByteArray();
+	if (QString::fromUtf8(mctsBytes) == QLatin1String("Not Present")) {
+		// case 1, stick to defaults
+	} else if (mctsBytes.isEmpty()) {
+		// case 2, don't use any
+		qlMcts.clear();
+	} else {
+		// case 3, construct from data
+		qlMcts = QSslCertificate::fromData(mctsBytes);
+	}
+
+	QString qsAllowedSslClientErrors = getConf("allowedClientSslErrors", QString("not present")).toString().toLower();
+	if (qsAllowedSslClientErrors != QLatin1String("not present")) {
+		qlAllowedSslClientErrors.clear();
+		if (qsAllowedSslClientErrors != QLatin1String("none")) {
+			QStringList qslAllowedSslClientErrors =
+				qsAllowedSslClientErrors.split(",", QString::SplitBehavior::SkipEmptyParts);
+			if (!qslAllowedSslClientErrors.isEmpty()) {
+				QMap< QString, QSslError::SslError > nameErrorMap = Meta::getSslNameErrorMap();
+				foreach (const QString &allowedError, qslAllowedSslClientErrors) {
+					QString key = allowedError.trimmed(); // We dont neet toLower() here, it was already called above
+					if (nameErrorMap.contains(key)) {
+						qlAllowedSslClientErrors << nameErrorMap[key];
+					} else {
+						log(QString("Unrecognized SSL relaxation \"%1\", skipping.").arg(allowedError.trimmed()));
+					}
+				}
+			}
+		}
+	} else {
+		// Key not present, continue using the defaults from Meta
+	}
+
+	bMctsIncludeHostCAs = getConf("mctsHostsCAs", bMctsIncludeHostCAs).toBool();
+	bMctsIncludeOwnCAs  = getConf("mctsAddOwnCAs", bMctsIncludeOwnCAs).toBool();
+	bMctsIncludeOwnCert = getConf("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert).toBool();
+	bForceUsernameCertSubjectEquality =
+		getConf("forceUsernameCertSubjectEquality", bForceUsernameCertSubjectEquality).toBool();
+	bBlindTrust            = getConf("blindTrust", bBlindTrust).toBool();
 	qsPassword             = getConf("password", qsPassword).toString();
 	usPort                 = static_cast< unsigned short >(getConf("port", usPort).toUInt());
 	iTimeout               = getConf("timeout", iTimeout).toInt();
@@ -1405,44 +1457,37 @@ void Server::newClient() {
 		EnvUtils::setenv("QT_SSL_USE_TEMPORARY_KEYCHAIN", "1");
 #endif
 		sock->setPrivateKey(qskKey);
-		sock->setLocalCertificate(qscCert);
+		sock->setLocalCertificateChain(qlCertificateChain);
 
+		// Set the client certificates we want to trust
 		QSslConfiguration config;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 		config = sock->sslConfiguration();
 		// Qt 5.15 introduced QSslConfiguration::addCaCertificate(s) that should be preferred over the functions in
 		// QSslSocket
-
-		// Treat the leaf certificate as a root.
-		// This shouldn't strictly be necessary,
-		// and is a left-over from early on.
-		// Perhaps it is necessary for self-signed
-		// certs?
-		config.addCaCertificate(qscCert);
-
-		// Add CA certificates specified via
-		// murmur.ini's sslCA option.
-		config.addCaCertificates(Meta::mp.qlCA);
-
-		// Add intermediate CAs found in the PEM
-		// bundle used for this server's certificate.
-		config.addCaCertificates(qlIntermediates);
+		if (bMctsIncludeHostCAs) {
+			config.addCaCertificate(qlMcts);
+		} else {
+			config.setCaCertificate(qlMcts);
+		}
+		if (bMctsIncludeOwnCert) {
+			config.addCaCertificate(qlCertificateChain[0]);
+		}
+		if (bMctsIncludeOwnCAs && qlCertificateChain.size() > 1) {
+			config.addCaCertificates(qlCertificateChain.mid(1));
+		}
 #else
-		// Treat the leaf certificate as a root.
-		// This shouldn't strictly be necessary,
-		// and is a left-over from early on.
-		// Perhaps it is necessary for self-signed
-		// certs?
-		sock->addCaCertificate(qscCert);
-
-		// Add CA certificates specified via
-		// murmur.ini's sslCA option.
-		sock->addCaCertificates(Meta::mp.qlCA);
-
-		// Add intermediate CAs found in the PEM
-		// bundle used for this server's certificate.
-		sock->addCaCertificates(qlIntermediates);
-
+		if (bMctsIncludeHostCAs) {
+			sock->addCaCertificates(qlMcts);
+		} else {
+			sock->setCaCertificates(qlMcts);
+		}
+		if (bMctsIncludeOwnCert) {
+			sock->addCaCertificate(qlCertificateChain[0]);
+		}
+		if (bMctsIncludeOwnCAs && qlCertificateChain.size() > 1) {
+			sock->addCaCertificates(qlCertificateChain.mid(1));
+		}
 		// Must not get config from socket before setting CA certificates
 		config = sock->sslConfiguration();
 #endif
@@ -1509,7 +1554,7 @@ void Server::encrypted() {
 
 	QList< QSslCertificate > certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
-		const QSslCertificate &cert = certs.last();
+		const QSslCertificate &cert = certs.first();
 		uSource->qslEmail           = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
 		uSource->qsHash             = QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex());
 		if (!uSource->qslEmail.isEmpty() && uSource->bVerified) {
@@ -1550,22 +1595,16 @@ void Server::sslError(const QList< QSslError > &errors) {
 	bool ok = true;
 	foreach (QSslError e, errors) {
 		switch (e.error()) {
-			case QSslError::InvalidPurpose:
+			case QSslError::SslError::InvalidPurpose:
 				// Allow email certificates.
 				break;
-			case QSslError::NoPeerCertificate:
-			case QSslError::SelfSignedCertificate:
-			case QSslError::SelfSignedCertificateInChain:
-			case QSslError::UnableToGetLocalIssuerCertificate:
-			case QSslError::UnableToVerifyFirstCertificate:
-			case QSslError::HostNameMismatch:
-			case QSslError::CertificateNotYetValid:
-			case QSslError::CertificateExpired:
-				u->bVerified = false;
-				break;
 			default:
-				log(u, QString("SSL Error: %1").arg(e.errorString()));
-				ok = false;
+				if (qlAllowedSslClientErrors.contains(e.error())) {
+					u->bVerified = false;
+				} else {
+					log(u, QString("SSL Error (%2): %1").arg(e.errorString()).arg((int) e.error()));
+					ok = false;
+				}
 		}
 	}
 
@@ -1668,9 +1707,9 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		qhUsers.remove(u->uiSession);
 		qhHostUsers[u->haAddress].remove(u);
 
-		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6)
-						   ? (reinterpret_cast< sockaddr_in6 * >(&u->saiUdpAddress)->sin6_port)
-						   : (reinterpret_cast< sockaddr_in * >(&u->saiUdpAddress)->sin_port);
+		quint16 port                             = (u->saiUdpAddress.ss_family == AF_INET6)
+													   ? (reinterpret_cast< sockaddr_in6 * >(&u->saiUdpAddress)->sin6_port)
+													   : (reinterpret_cast< sockaddr_in * >(&u->saiUdpAddress)->sin_port);
 		const QPair< HostAddress, quint16 > &key = QPair< HostAddress, quint16 >(u->haAddress, port);
 		qhPeerUsers.remove(key);
 

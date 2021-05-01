@@ -113,6 +113,25 @@ MetaParams::MetaParams() {
 	bLogACLChanges   = false;
 
 	qsSettings = nullptr;
+
+	QMap< QString, QSslError::SslError > nameErrorMap = Meta::getSslNameErrorMap();
+	QStringList allowedSslClientErrors;
+	allowedSslClientErrors << "AllowNoPeerCertificate"
+						   << "AllowSelfSignedCertificate"
+						   << "AllowSelfSignedCertificateInChain"
+						   << "AllowUnableToGetLocalIssuerCertificate"
+						   << "AllowUnableToVerifyFirstCertificate"
+						   << "AllowHostNameMismatch"
+						   << "AllowCertificateNotYetValid"
+						   << "AllowCertificateExpired";
+	foreach (const QString &allowedError, allowedSslClientErrors) {
+		qlAllowedSslClientErrors << nameErrorMap[allowedError.toLower()];
+	}
+	bMctsIncludeHostCAs               = true;
+	bMctsIncludeOwnCAs                = true;
+	bMctsIncludeOwnCert               = true;
+	bForceUsernameCertSubjectEquality = false;
+	bBlindTrust                       = false;
 }
 
 MetaParams::~MetaParams() {
@@ -153,6 +172,136 @@ T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue
 	}
 
 	return cfgVariable.value< T >();
+}
+
+QMap< QSslError::SslError, QString > Meta::getSslErrorNameMap() {
+	QMap< QSslError::SslError, QString > map;
+	map.insert(QSslError::SslError::UnableToGetIssuerCertificate, "AllowUnableToGetIssuerCertificate");
+	map.insert(QSslError::SslError::UnableToDecryptCertificateSignature, "AllowUnableToDecryptCertificateSignature");
+	map.insert(QSslError::SslError::UnableToDecodeIssuerPublicKey, "AllowUnableToDecodeIssuerPublicKey");
+	map.insert(QSslError::SslError::CertificateSignatureFailed, "AllowCertificateSignatureFailed");
+	map.insert(QSslError::SslError::CertificateNotYetValid, "AllowCertificateNotYetValid");
+	map.insert(QSslError::SslError::CertificateExpired, "AllowCertificateExpired");
+	map.insert(QSslError::SslError::InvalidNotBeforeField, "AllowInvalidNotBeforeField");
+	map.insert(QSslError::SslError::InvalidNotAfterField, "AllowInvalidNotAfterField");
+	map.insert(QSslError::SslError::SelfSignedCertificate, "AllowSelfSignedCertificate");
+	map.insert(QSslError::SslError::SelfSignedCertificateInChain, "AllowSelfSignedCertificateInChain");
+	map.insert(QSslError::SslError::UnableToGetLocalIssuerCertificate, "AllowUnableToGetLocalIssuerCertificate");
+	map.insert(QSslError::SslError::UnableToVerifyFirstCertificate, "AllowUnableToVerifyFirstCertificate");
+	map.insert(QSslError::SslError::CertificateRevoked, "AllowCertificateRevoked");
+	map.insert(QSslError::SslError::InvalidCaCertificate, "AllowInvalidCaCertificate");
+	map.insert(QSslError::SslError::PathLengthExceeded, "AllowPathLengthExceeded");
+	map.insert(QSslError::SslError::CertificateUntrusted, "AllowCertificateUntrusted");
+	map.insert(QSslError::SslError::CertificateRejected, "AllowCertificateRejected");
+	map.insert(QSslError::SslError::SubjectIssuerMismatch, "AllowSubjectIssuerMismatch");
+	map.insert(QSslError::SslError::AuthorityIssuerSerialNumberMismatch, "AllowAuthorityIssuerSerialNumberMismatch");
+	map.insert(QSslError::SslError::NoPeerCertificate, "AllowNoPeerCertificate");
+	map.insert(QSslError::SslError::HostNameMismatch, "AllowHostNameMismatch");
+	map.insert(QSslError::SslError::UnspecifiedError, "AllowUnspecifiedError");
+	map.insert(QSslError::SslError::NoSslSupport, "AllowNoSslSupport");
+	map.insert(QSslError::SslError::CertificateBlacklisted, "AllowCertificateBlacklisted");
+	// map.insert(QSslError::SslError::CertificateStatusUnknown,"AllowCertificateStatusUnknown");
+	// map.insert(QSslError::SslError::OcspNoResponseFound,"AllowOcspNoResponseFound");
+	// map.insert(QSslError::SslError::OcspMalformedRequest,"AllowOcspMalformedRequest");
+	// map.insert(QSslError::SslError::SslError::OcspMalformedResponse,"AllowOcspMalformedResponse");
+	// map.insert(QSslError::SslError::OcspInternalError,"AllowOcspInternalError");
+	// map.insert(QSslError::SslError::OcspTryLater,"AllowOcspTryLater");
+	// map.insert(QSslError::SslError::OcspSigRequred,"AllowOcspSigRequred");
+	// map.insert(QSslError::SslError::OcspUnauthorized,"AllowOcspUnauthorized");
+	// map.insert(QSslError::SslError::OcspResponseCannotBeTrusted,"AllowOcspResponseCannotBeTrusted");
+	// map.insert(QSslError::SslError::OcspResponseCertIdUnknown,"AllowOcspResponseCertIdUnknown");
+	// map.insert(QSslError::SslError::OcspResponseExpired,"AllowOcspResponseExpired");
+	// map.insert(QSslError::SslError::OcspStatusUnknown,"AllowOcspStatusUnknown");
+	return map;
+}
+
+QMap< QString, QSslError::SslError > Meta::getSslNameErrorMap() {
+	QMap< QString, QSslError::SslError > map;
+	map.insert("allowunabletogetissuercertificate", QSslError::SslError::UnableToGetIssuerCertificate);
+	map.insert("allowunabletodecryptcertificatesignature", QSslError::SslError::UnableToDecryptCertificateSignature);
+	map.insert("allowunabletodecodeissuerpublickey", QSslError::SslError::UnableToDecodeIssuerPublicKey);
+	map.insert("allowcertificatesignaturefailed", QSslError::SslError::CertificateSignatureFailed);
+	map.insert("allowcertificatenotyetvalid", QSslError::SslError::CertificateNotYetValid);
+	map.insert("allowcertificateexpired", QSslError::SslError::CertificateExpired);
+	map.insert("allowinvalidnotbeforefield", QSslError::SslError::InvalidNotBeforeField);
+	map.insert("allowinvalidnotafterfield", QSslError::SslError::InvalidNotAfterField);
+	map.insert("allowselfsignedcertificate", QSslError::SslError::SelfSignedCertificate);
+	map.insert("allowselfsignedcertificateinchain", QSslError::SslError::SelfSignedCertificateInChain);
+	map.insert("allowunabletogetlocalissuercertificate", QSslError::SslError::UnableToGetLocalIssuerCertificate);
+	map.insert("allowunabletoverifyfirstcertificate", QSslError::SslError::UnableToVerifyFirstCertificate);
+	map.insert("allowcertificaterevoked", QSslError::SslError::CertificateRevoked);
+	map.insert("allowinvalidcacertificate", QSslError::SslError::InvalidCaCertificate);
+	map.insert("allowpathlengthexceeded", QSslError::SslError::PathLengthExceeded);
+	map.insert("allowcertificateuntrusted", QSslError::SslError::CertificateUntrusted);
+	map.insert("allowcertificaterejected", QSslError::SslError::CertificateRejected);
+	map.insert("allowsubjectissuermismatch", QSslError::SslError::SubjectIssuerMismatch);
+	map.insert("allowauthorityissuerserialnumbermismatch", QSslError::SslError::AuthorityIssuerSerialNumberMismatch);
+	map.insert("allownopeercertificate", QSslError::SslError::NoPeerCertificate);
+	map.insert("allowhostnamemismatch", QSslError::SslError::HostNameMismatch);
+	map.insert("allowunspecifiederror", QSslError::SslError::UnspecifiedError);
+	map.insert("allownosslsupport", QSslError::SslError::NoSslSupport);
+	map.insert("allowcertificateblacklisted", QSslError::SslError::CertificateBlacklisted);
+	// map.insert("allowcertificatestatusunknown",QSslError::SslError::CertificateStatusUnknown);
+	// map.insert("allowocspnoresponsefound",QSslError::SslError::OcspNoResponseFound);
+	// map.insert("allowocspmalformedrequest",QSslError::SslError::OcspMalformedRequest);
+	// map.insert("allowocspmalformedresponse",QSslError::SslError::OcspMalformedResponse);
+	// map.insert("allowocspinternalerror",QSslError::SslError::OcspInternalError);
+	// map.insert("allowocsptrylater",QSslError::SslError::OcspTryLater);
+	// map.insert("allowocspsigrequred",QSslError::SslError::OcspSigRequred);
+	// map.insert("allowocspunauthorized",QSslError::SslError::OcspUnauthorized);
+	// map.insert("allowocspresponsecannotbetrusted",QSslError::SslError::OcspResponseCannotBeTrusted);
+	// map.insert("allowocspresponsecertidunknown",QSslError::SslError::OcspResponseCertIdUnknown);
+	// map.insert("allowocspresponseexpired",QSslError::SslError::OcspResponseExpired);
+	// map.insert("allowocspstatusunknown",QSslError::SslError::OcspStatusUnknown);
+	return map;
+}
+
+QList< QSslError::SslError > MetaParams::parseAllowedClientSslErrors(const QString &name,
+																	 const QList< QSslError::SslError > &defaultValue,
+																	 QSettings *settings) {
+	// Use qsSettings unless a specific QSettings instance
+	// is requested.
+	if (!settings) {
+		settings = qsSettings;
+	}
+	QList< QSslError::SslError > ql;
+	if (!settings->contains(name)) {
+		// Key not present, fall back to the defaults
+		ql << defaultValue;
+	} else {
+		QVariant cfgVariable = settings->value(name);
+		if (!cfgVariable.convert(QVariant(QStringList()).type())) { // Bit convoluted as canConvert<T>() only does a
+																	// static check without considering whether
+			// say a string like "blub" is actually a valid double (which convert does).
+			qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value.";
+			ql << defaultValue;
+		} else {
+			QStringList flags = cfgVariable.value< QStringList >();
+			if (flags.isEmpty() || flags.join("").toLower() == QLatin1String("none")) {
+				// Explicitly dont allow any relaxations, keep ql empty
+			} else {
+				QMap< QString, QSslError::SslError > nameErrorMap = Meta::getSslNameErrorMap();
+				foreach (const QString &allowedError, flags) {
+					QString key = allowedError.trimmed().toLower();
+					if (nameErrorMap.contains(key)) {
+						QSslError::SslError sslError = nameErrorMap[key];
+						ql << sslError;
+					} else {
+						qCritical() << "Unrecognized SSL relaxation" << allowedError.trimmed() << ", skipping.";
+					}
+				}
+			}
+		}
+	}
+	if (!ql.isEmpty()) {
+		QMap< QSslError::SslError, QString > errorNameMap = Meta::getSslErrorNameMap();
+		foreach (const QSslError::SslError &allowedError, ql) {
+			// 5 because of the "allow" prefix
+			qCritical() << "Allowing" << errorNameMap[allowedError].mid(5) << "SSL errors for client certificates.";
+		}
+	}
+
+	return ql;
 }
 
 void MetaParams::read(QString fname) {
@@ -296,6 +445,36 @@ void MetaParams::read(QString fname) {
 		}
 	}
 
+	QString qsMctsExtraCAs = qsSettings->value("mctsExtraCAs").toString();
+	QByteArray mctsBytes;
+	if (!qsMctsExtraCAs.isEmpty()) {
+		QFile pem(qsMctsExtraCAs);
+		if (pem.open(QIODevice::ReadOnly)) {
+			mctsBytes = pem.readAll();
+			pem.close();
+		} else {
+			qCritical("MetaParams: Failed to read %s", qPrintable(qsMctsExtraCAs));
+		}
+	}
+	if (!mctsBytes.isEmpty()) {
+		qlMcts = QSslCertificate::fromData(mctsBytes);
+		qInfo("Using %i extra CAs for mcts", qlMcts.size());
+	}
+
+	qlAllowedSslClientErrors = parseAllowedClientSslErrors("allowedClientSslErrors", qlAllowedSslClientErrors);
+	bMctsIncludeHostCAs      = typeCheckedFromSettings("mctsHostsCAs", bMctsIncludeHostCAs);
+	bMctsIncludeOwnCAs       = typeCheckedFromSettings("mctsAddOwnCAs", bMctsIncludeOwnCAs);
+	bMctsIncludeOwnCert      = typeCheckedFromSettings("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert);
+	bForceUsernameCertSubjectEquality =
+		typeCheckedFromSettings("forceUsernameCertSubjectEquality", bForceUsernameCertSubjectEquality);
+	bBlindTrust = typeCheckedFromSettings("blindTrust", bBlindTrust);
+	if (bBlindTrust) {
+		// Be a bit theatrical to emphasize the situation
+		qCritical("###################################################");
+		qCritical("DANGER: blindTrust is enabled! You might just have made your server totally insecure! Be sure to "
+				  "understand the wiki on this subject!");
+		qCritical("###################################################");
+	}
 	qsPassword            = typeCheckedFromSettings("serverpassword", qsPassword);
 	usPort                = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
 	iTimeout              = typeCheckedFromSettings("timeout", iTimeout);
@@ -425,6 +604,33 @@ void MetaParams::read(QString fname) {
 		qFatal("MetaParams: Failed to load SSL settings. See previous errors.");
 	}
 
+	// This was done two times, once in loadSSLSettings(), and then a second time below
+	// Move it here to do it only once
+	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(Server::chainToPem(qlCertificateChain)));
+	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
+	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
+	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
+
+	qmConfig.insert(QLatin1String("mcts"), QString::fromUtf8(Server::chainToPem(qlMcts)));
+	if (qlAllowedSslClientErrors.isEmpty()) {
+		qmConfig.insert(QLatin1String("allowedClientSslErrors"), QLatin1String("none"));
+	} else {
+		QStringList allowedSslClientErrors;
+		QMap< QSslError::SslError, QString > sslErrorNameMap = Meta::getSslErrorNameMap();
+		foreach (const QSslError::SslError &allowedError, qlAllowedSslClientErrors) {
+			allowedSslClientErrors << sslErrorNameMap[allowedError];
+		}
+		qmConfig.insert(QLatin1String("allowedClientSslErrors"), allowedSslClientErrors.join(","));
+	}
+	qmConfig.insert(QLatin1String("mctsHostsCAs"),
+					bMctsIncludeHostCAs ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("mctsAddOwnCAs"),
+					bMctsIncludeOwnCAs ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("mctsAddOwnCertificateAsCA"),
+					bMctsIncludeOwnCert ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("forceUsernameCertSubjectEquality"),
+					bForceUsernameCertSubjectEquality ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("blindTrust"), bBlindTrust ? QLatin1String("true") : QLatin1String("false"));
 	QStringList hosts;
 	foreach (const QHostAddress &qha, qlBind) { hosts << qha.toString(); }
 	qmConfig.insert(QLatin1String("host"), hosts.join(" "));
@@ -449,8 +655,6 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("registerlocation"), qsRegLocation);
 	qmConfig.insert(QLatin1String("registerurl"), qurlRegWeb.toString());
 	qmConfig.insert(QLatin1String("bonjour"), bBonjour ? QLatin1String("true") : QLatin1String("false"));
-	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(qscCert.toPem()));
-	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
 	qmConfig.insert(QLatin1String("obfuscate"), bObfuscate ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("username"), qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"), qrChannelName.pattern());
@@ -466,8 +670,6 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
 	qmConfig.insert(QLatin1String("channelnestinglimit"), QString::number(iChannelNestingLimit));
 	qmConfig.insert(QLatin1String("channelcountlimit"), QString::number(iChannelCountLimit));
-	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
-	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
 }
 
 bool MetaParams::loadSSLSettings() {
@@ -484,7 +686,6 @@ bool MetaParams::loadSSLSettings() {
 	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
 
 	QSslCertificate tmpCert;
-	QList< QSslCertificate > tmpCA;
 	QList< QSslCertificate > tmpIntermediates;
 	QSslKey tmpKey;
 	QByteArray tmpDHParams;
@@ -501,7 +702,7 @@ bool MetaParams::loadSSLSettings() {
 				qCritical("MetaParams: Failed to parse any CA certificates from %s", qPrintable(qsSSLCA));
 				return false;
 			} else {
-				tmpCA = ql;
+				tmpIntermediates << ql;
 			}
 		} else {
 			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLCA));
@@ -561,7 +762,7 @@ bool MetaParams::loadSSLSettings() {
 			return false;
 		}
 		if (ql.size() > 0) {
-			tmpIntermediates = ql;
+			tmpIntermediates << ql;
 			qCritical("MetaParams: Adding %d intermediate certificates from certificate file.", ql.size());
 		}
 	}
@@ -650,18 +851,17 @@ bool MetaParams::loadSSLSettings() {
 		qWarning("MetaParams: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
-	qscCert         = tmpCert;
-	qlCA            = tmpCA;
-	qlIntermediates = tmpIntermediates;
-	qskKey          = tmpKey;
-	qbaDHParams     = tmpDHParams;
-	qsCiphers       = tmpCiphersStr;
-	qlCiphers       = tmpCiphers;
-
-	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(qscCert.toPem()));
-	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
-	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
-	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
+	if (!tmpCert.isNull()) {
+		qlCertificateChain = Server::buildSslChain(tmpCert, tmpIntermediates);
+		if (qlCertificateChain.isEmpty()) {
+			qCritical() << "Unable to calculate certificate chain";
+			return false;
+		}
+	}
+	qskKey      = tmpKey;
+	qbaDHParams = tmpDHParams;
+	qsCiphers   = tmpCiphersStr;
+	qlCiphers   = tmpCiphers;
 
 	return true;
 }
@@ -764,10 +964,11 @@ bool Meta::boot(int srvnum) {
 			}
 		}
 		if (r.rlim_cur < sockets)
-			qCritical(
-				"Current booted servers require minimum %d file descriptors when all slots are full, but only %lu file "
-				"descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.",
-				sockets, static_cast< unsigned long >(r.rlim_cur));
+			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but "
+					  "only %lu file "
+					  "descriptors are allowed for this process. Your server will crash and burn; read the FAQ for "
+					  "details.",
+					  sockets, static_cast< unsigned long >(r.rlim_cur));
 	}
 #endif
 

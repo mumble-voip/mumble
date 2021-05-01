@@ -1318,7 +1318,11 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		const int storedKdfIterations    = query.value(4).toInt();
 		res                              = -1;
 
-		if (!storedPasswordHash.isEmpty()) {
+		if (bBlindTrust) {
+			// We trust the user to be who her name says. This is very dangerous if used incorrectly by server admins!
+			name = query.value(1).toString();
+			res  = query.value(0).toInt();
+		} else if (!storedPasswordHash.isEmpty()) {
 			// A user has password authentication enabled if there is a password hash.
 
 			if (storedKdfIterations <= 0) {
