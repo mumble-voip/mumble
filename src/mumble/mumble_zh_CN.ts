@@ -6333,7 +6333,8 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>文件夹 %1 不存在。
+</translation>
     </message>
 </context>
 <context>
