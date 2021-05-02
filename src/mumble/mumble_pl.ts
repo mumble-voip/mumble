@@ -6301,6 +6301,10 @@ Prawidłowe opcje to:
                 Określ alternatywny plik konfiguracyjny.
                 Jeśli używasz tego do uruchamiania wielu wystąpień Mumble jednocześnie,
                 upewnij się, że ustawiono alternatywną wartość „bazy danych” w konfiguracji.
+  --default-certificate-dir &lt;kat.&gt;
+                Określ alternatywną domyślną ścieżkę certyfikatu.
+                Ta ścieżka jest używana tylko wtedy, gdy nie jest
+                załadowany żaden certyfikat z ustawień.
   -n, --noidentity
                 Blokuj ładowanie plików tożsamości (tj. certyfikatów).
   -jn, --jackname &lt;arg&gt;
@@ -6322,8 +6326,8 @@ Prawidłowe opcje to:
   --print-echocancel-queue
                 Wyświetl na stdout stan kolejki anulowania echa
                 (przydatne do debugowania)
-  --translation-dir &lt;kat&gt;
-                Określ dodatkowe tłumaczenie w &lt;kat&gt;, w którym
+  --translation-dir &lt;kat.&gt;
+                Określ dodatkowe tłumaczenie w &lt;kat.&gt;, w którym
                 Mumble wyszuka pliki tłumaczeń, które nadpiszą te
                 dołączone
                 Katalogi dodane w ten sposób mają wyższy priorytet niż
@@ -6343,7 +6347,8 @@ Prawidłowe opcje to:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Katalog %1 nie istnieje.
+</translation>
     </message>
 </context>
 <context>
