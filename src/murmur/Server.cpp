@@ -1511,7 +1511,7 @@ void Server::encrypted() {
 
 	QList< QSslCertificate > certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
-		const QSslCertificate &cert = certs.last();
+		const QSslCertificate &cert = certs.first();
 		uSource->qslEmail           = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
 		uSource->qsHash             = QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex());
 		if (!uSource->qslEmail.isEmpty() && uSource->bVerified) {
