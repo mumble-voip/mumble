@@ -127,6 +127,9 @@ MetaParams::MetaParams() {
 	foreach (const QString &allowedError, allowedSslClientErrors) {
 		qlAllowedSslClientErrors << nameErrorMap[allowedError.toLower()];
 	}
+	bMctsIncludeHostCAs = true;
+	bMctsIncludeOwnCAs  = true;
+	bMctsIncludeOwnCert = true;
 }
 
 MetaParams::~MetaParams() {
@@ -440,7 +443,26 @@ void MetaParams::read(QString fname) {
 		}
 	}
 
+	QString qsMctsExtraCAs = qsSettings->value("mctsExtraCAs").toString();
+	QByteArray mctsBytes;
+	if (!qsMctsExtraCAs.isEmpty()) {
+		QFile pem(qsMctsExtraCAs);
+		if (pem.open(QIODevice::ReadOnly)) {
+			mctsBytes = pem.readAll();
+			pem.close();
+		} else {
+			qCritical("MetaParams: Failed to read %s", qPrintable(qsMctsExtraCAs));
+		}
+	}
+	if (!mctsBytes.isEmpty()) {
+		qlMcts = QSslCertificate::fromData(mctsBytes);
+		qInfo("Using %i extra CAs for mcts", qlMcts.size());
+	}
+
 	qlAllowedSslClientErrors = parseAllowedClientSslErrors("allowedClientSslErrors", qlAllowedSslClientErrors);
+	bMctsIncludeHostCAs      = typeCheckedFromSettings("mctsHostsCAs", bMctsIncludeHostCAs);
+	bMctsIncludeOwnCAs       = typeCheckedFromSettings("mctsAddOwnCAs", bMctsIncludeOwnCAs);
+	bMctsIncludeOwnCert      = typeCheckedFromSettings("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert);
 	qsPassword               = typeCheckedFromSettings("serverpassword", qsPassword);
 	usPort                = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
 	iTimeout              = typeCheckedFromSettings("timeout", iTimeout);
@@ -577,6 +599,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
 	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
 
+	qmConfig.insert(QLatin1String("mcts"), QString::fromUtf8(Server::chainToPem(qlMcts)));
 	if (qlAllowedSslClientErrors.isEmpty()) {
 		qmConfig.insert(QLatin1String("allowedClientSslErrors"), QLatin1String("none"));
 	} else {
@@ -587,6 +610,12 @@ void MetaParams::read(QString fname) {
 		}
 		qmConfig.insert(QLatin1String("allowedClientSslErrors"), allowedSslClientErrors.join(","));
 	}
+	qmConfig.insert(QLatin1String("mctsHostsCAs"),
+					bMctsIncludeHostCAs ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("mctsAddOwnCAs"),
+					bMctsIncludeOwnCAs ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("mctsAddOwnCertificateAsCA"),
+					bMctsIncludeOwnCert ? QLatin1String("true") : QLatin1String("false"));
 	QStringList hosts;
 	foreach (const QHostAddress &qha, qlBind) { hosts << qha.toString(); }
 	qmConfig.insert(QLatin1String("host"), hosts.join(" "));

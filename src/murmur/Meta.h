@@ -30,6 +30,10 @@ public:
 	QDir qdBasePath;
 
 	QList< QSslError::SslError > qlAllowedSslClientErrors;
+	bool bMctsIncludeHostCAs;
+	bool bMctsIncludeOwnCAs;
+	bool bMctsIncludeOwnCert;
+	QList< QSslCertificate > qlMcts;
 
 	QList< QHostAddress > qlBind;
 	unsigned short usPort;
