@@ -390,6 +390,10 @@ static QVariant normalizeSuggestVersion(QVariant suggestVersion) {
 
 void Server::readParams() {
 	qlAllowedSslClientErrors = Meta::mp.qlAllowedSslClientErrors;
+	bMctsIncludeHostCAs      = Meta::mp.bMctsIncludeHostCAs;
+	bMctsIncludeOwnCAs       = Meta::mp.bMctsIncludeOwnCAs;
+	bMctsIncludeOwnCert      = Meta::mp.bMctsIncludeOwnCert;
+	qlMcts                   = Meta::mp.qlMcts;
 	qsPassword               = Meta::mp.qsPassword;
 	usPort                   = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
 	iTimeout                 = Meta::mp.iTimeout;
@@ -460,6 +464,23 @@ void Server::readParams() {
 			qlBind = Meta::mp.qlBind;
 	}
 
+
+	// We should distinguish three cases here:
+	// 1. The key is not present in the config, stick to the defaults
+	// 2. The key is present BUT is empty, so we want the list to be empty, too
+	// 3. The key is present and not empty, so use the data and not the defaults
+	// Problem: How can we tell the difference between case 1. and 2.?
+	QByteArray mctsBytes = getConf("mcts", QString("Not Present")).toByteArray();
+	if (QString::fromUtf8(mctsBytes) == QLatin1String("Not Present")) {
+		// case 1, stick to defaults
+	} else if (mctsBytes.isEmpty()) {
+		// case 2, don't use any
+		qlMcts.clear();
+	} else {
+		// case 3, construct from data
+		qlMcts = QSslCertificate::fromData(mctsBytes);
+	}
+
 	QString qsAllowedSslClientErrors = getConf("allowedClientSslErrors", QString("not present")).toString().toLower();
 	if (qsAllowedSslClientErrors != QLatin1String("not present")) {
 		qlAllowedSslClientErrors.clear();
@@ -482,6 +503,9 @@ void Server::readParams() {
 		// Key not present, continue using the defaults from Meta
 	}
 
+	bMctsIncludeHostCAs    = getConf("mctsHostsCAs", bMctsIncludeHostCAs).toBool();
+	bMctsIncludeOwnCAs     = getConf("mctsAddOwnCAs", bMctsIncludeOwnCAs).toBool();
+	bMctsIncludeOwnCert    = getConf("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert).toBool();
 	qsPassword             = getConf("password", qsPassword).toString();
 	usPort                 = static_cast< unsigned short >(getConf("port", usPort).toUInt());
 	iTimeout               = getConf("timeout", iTimeout).toInt();
@@ -1432,7 +1456,38 @@ void Server::newClient() {
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificateChain(qlCertificateChain);
 
-		QSslConfiguration config = sock->sslConfiguration();
+		// Set the client certificates we want to trust
+		QSslConfiguration config;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+		config = sock->sslConfiguration();
+		// Qt 5.15 introduced QSslConfiguration::addCaCertificate(s) that should be preferred over the functions in
+		// QSslSocket
+		if (bMctsIncludeHostCAs) {
+			config.addCaCertificate(qlMcts);
+		} else {
+			config.setCaCertificate(qlMcts);
+		}
+		if (bMctsIncludeOwnCert) {
+			config.addCaCertificate(qlCertificateChain[0]);
+		}
+		if (bMctsIncludeOwnCAs && qlCertificateChain.size() > 1) {
+			config.addCaCertificates(qlCertificateChain.mid(1));
+		}
+#else
+		if (bMctsIncludeHostCAs) {
+			sock->addCaCertificates(qlMcts);
+		} else {
+			sock->setCaCertificates(qlMcts);
+		}
+		if (bMctsIncludeOwnCert) {
+			sock->addCaCertificate(qlCertificateChain[0]);
+		}
+		if (bMctsIncludeOwnCAs && qlCertificateChain.size() > 1) {
+			sock->addCaCertificates(qlCertificateChain.mid(1));
+		}
+		// Must not get config from socket before setting CA certificates
+		config = sock->sslConfiguration();
+#endif
 
 		config.setCiphers(Meta::mp.qlCiphers);
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
