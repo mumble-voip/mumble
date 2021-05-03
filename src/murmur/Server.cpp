@@ -389,47 +389,48 @@ static QVariant normalizeSuggestVersion(QVariant suggestVersion) {
 }
 
 void Server::readParams() {
-	qlAllowedSslClientErrors = Meta::mp.qlAllowedSslClientErrors;
-	bMctsIncludeHostCAs      = Meta::mp.bMctsIncludeHostCAs;
-	bMctsIncludeOwnCAs       = Meta::mp.bMctsIncludeOwnCAs;
-	bMctsIncludeOwnCert      = Meta::mp.bMctsIncludeOwnCert;
-	qlMcts                   = Meta::mp.qlMcts;
-	qsPassword               = Meta::mp.qsPassword;
-	usPort                   = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
-	iTimeout                 = Meta::mp.iTimeout;
-	iMaxBandwidth            = Meta::mp.iMaxBandwidth;
-	iMaxUsers                = Meta::mp.iMaxUsers;
-	iMaxUsersPerChannel      = Meta::mp.iMaxUsersPerChannel;
-	iMaxTextMessageLength    = Meta::mp.iMaxTextMessageLength;
-	iMaxImageMessageLength   = Meta::mp.iMaxImageMessageLength;
-	bAllowHTML               = Meta::mp.bAllowHTML;
-	iDefaultChan             = Meta::mp.iDefaultChan;
-	bRememberChan            = Meta::mp.bRememberChan;
-	iRememberChanDuration    = Meta::mp.iRememberChanDuration;
-	qsWelcomeText            = Meta::mp.qsWelcomeText;
-	qsWelcomeTextFile        = Meta::mp.qsWelcomeTextFile;
-	qlBind                   = Meta::mp.qlBind;
-	qsRegName                = Meta::mp.qsRegName;
-	qsRegPassword            = Meta::mp.qsRegPassword;
-	qsRegHost                = Meta::mp.qsRegHost;
-	qsRegLocation            = Meta::mp.qsRegLocation;
-	qurlRegWeb               = Meta::mp.qurlRegWeb;
-	bBonjour                 = Meta::mp.bBonjour;
-	bAllowPing               = Meta::mp.bAllowPing;
-	bCertRequired            = Meta::mp.bCertRequired;
-	bForceExternalAuth       = Meta::mp.bForceExternalAuth;
-	qrUserName               = Meta::mp.qrUserName;
-	qrChannelName            = Meta::mp.qrChannelName;
-	iMessageLimit            = Meta::mp.iMessageLimit;
-	iMessageBurst            = Meta::mp.iMessageBurst;
-	iPluginMessageLimit      = Meta::mp.iPluginMessageLimit;
-	iPluginMessageBurst      = Meta::mp.iPluginMessageBurst;
-	qvSuggestVersion         = Meta::mp.qvSuggestVersion;
-	qvSuggestPositional      = Meta::mp.qvSuggestPositional;
-	qvSuggestPushToTalk      = Meta::mp.qvSuggestPushToTalk;
-	iOpusThreshold           = Meta::mp.iOpusThreshold;
-	iChannelNestingLimit     = Meta::mp.iChannelNestingLimit;
-	iChannelCountLimit       = Meta::mp.iChannelCountLimit;
+	qlAllowedSslClientErrors          = Meta::mp.qlAllowedSslClientErrors;
+	bMctsIncludeHostCAs               = Meta::mp.bMctsIncludeHostCAs;
+	bMctsIncludeOwnCAs                = Meta::mp.bMctsIncludeOwnCAs;
+	bMctsIncludeOwnCert               = Meta::mp.bMctsIncludeOwnCert;
+	qlMcts                            = Meta::mp.qlMcts;
+	bForceUsernameCertSubjectEquality = Meta::mp.bForceUsernameCertSubjectEquality;
+	qsPassword                        = Meta::mp.qsPassword;
+	usPort                            = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
+	iTimeout                          = Meta::mp.iTimeout;
+	iMaxBandwidth                     = Meta::mp.iMaxBandwidth;
+	iMaxUsers                         = Meta::mp.iMaxUsers;
+	iMaxUsersPerChannel               = Meta::mp.iMaxUsersPerChannel;
+	iMaxTextMessageLength             = Meta::mp.iMaxTextMessageLength;
+	iMaxImageMessageLength            = Meta::mp.iMaxImageMessageLength;
+	bAllowHTML                        = Meta::mp.bAllowHTML;
+	iDefaultChan                      = Meta::mp.iDefaultChan;
+	bRememberChan                     = Meta::mp.bRememberChan;
+	iRememberChanDuration             = Meta::mp.iRememberChanDuration;
+	qsWelcomeText                     = Meta::mp.qsWelcomeText;
+	qsWelcomeTextFile                 = Meta::mp.qsWelcomeTextFile;
+	qlBind                            = Meta::mp.qlBind;
+	qsRegName                         = Meta::mp.qsRegName;
+	qsRegPassword                     = Meta::mp.qsRegPassword;
+	qsRegHost                         = Meta::mp.qsRegHost;
+	qsRegLocation                     = Meta::mp.qsRegLocation;
+	qurlRegWeb                        = Meta::mp.qurlRegWeb;
+	bBonjour                          = Meta::mp.bBonjour;
+	bAllowPing                        = Meta::mp.bAllowPing;
+	bCertRequired                     = Meta::mp.bCertRequired;
+	bForceExternalAuth                = Meta::mp.bForceExternalAuth;
+	qrUserName                        = Meta::mp.qrUserName;
+	qrChannelName                     = Meta::mp.qrChannelName;
+	iMessageLimit                     = Meta::mp.iMessageLimit;
+	iMessageBurst                     = Meta::mp.iMessageBurst;
+	iPluginMessageLimit               = Meta::mp.iPluginMessageLimit;
+	iPluginMessageBurst               = Meta::mp.iPluginMessageBurst;
+	qvSuggestVersion                  = Meta::mp.qvSuggestVersion;
+	qvSuggestPositional               = Meta::mp.qvSuggestPositional;
+	qvSuggestPushToTalk               = Meta::mp.qvSuggestPushToTalk;
+	iOpusThreshold                    = Meta::mp.iOpusThreshold;
+	iChannelNestingLimit              = Meta::mp.iChannelNestingLimit;
+	iChannelCountLimit                = Meta::mp.iChannelCountLimit;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
@@ -503,9 +504,11 @@ void Server::readParams() {
 		// Key not present, continue using the defaults from Meta
 	}
 
-	bMctsIncludeHostCAs    = getConf("mctsHostsCAs", bMctsIncludeHostCAs).toBool();
-	bMctsIncludeOwnCAs     = getConf("mctsAddOwnCAs", bMctsIncludeOwnCAs).toBool();
-	bMctsIncludeOwnCert    = getConf("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert).toBool();
+	bMctsIncludeHostCAs = getConf("mctsHostsCAs", bMctsIncludeHostCAs).toBool();
+	bMctsIncludeOwnCAs  = getConf("mctsAddOwnCAs", bMctsIncludeOwnCAs).toBool();
+	bMctsIncludeOwnCert = getConf("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert).toBool();
+	bForceUsernameCertSubjectEquality =
+		getConf("forceUsernameCertSubjectEquality", bForceUsernameCertSubjectEquality).toBool();
 	qsPassword             = getConf("password", qsPassword).toString();
 	usPort                 = static_cast< unsigned short >(getConf("port", usPort).toUInt());
 	iTimeout               = getConf("timeout", iTimeout).toInt();
