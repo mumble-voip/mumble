@@ -389,42 +389,43 @@ static QVariant normalizeSuggestVersion(QVariant suggestVersion) {
 }
 
 void Server::readParams() {
-	qsPassword             = Meta::mp.qsPassword;
-	usPort                 = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
-	iTimeout               = Meta::mp.iTimeout;
-	iMaxBandwidth          = Meta::mp.iMaxBandwidth;
-	iMaxUsers              = Meta::mp.iMaxUsers;
-	iMaxUsersPerChannel    = Meta::mp.iMaxUsersPerChannel;
-	iMaxTextMessageLength  = Meta::mp.iMaxTextMessageLength;
-	iMaxImageMessageLength = Meta::mp.iMaxImageMessageLength;
-	bAllowHTML             = Meta::mp.bAllowHTML;
-	iDefaultChan           = Meta::mp.iDefaultChan;
-	bRememberChan          = Meta::mp.bRememberChan;
-	iRememberChanDuration  = Meta::mp.iRememberChanDuration;
-	qsWelcomeText          = Meta::mp.qsWelcomeText;
-	qsWelcomeTextFile      = Meta::mp.qsWelcomeTextFile;
-	qlBind                 = Meta::mp.qlBind;
-	qsRegName              = Meta::mp.qsRegName;
-	qsRegPassword          = Meta::mp.qsRegPassword;
-	qsRegHost              = Meta::mp.qsRegHost;
-	qsRegLocation          = Meta::mp.qsRegLocation;
-	qurlRegWeb             = Meta::mp.qurlRegWeb;
-	bBonjour               = Meta::mp.bBonjour;
-	bAllowPing             = Meta::mp.bAllowPing;
-	bCertRequired          = Meta::mp.bCertRequired;
-	bForceExternalAuth     = Meta::mp.bForceExternalAuth;
-	qrUserName             = Meta::mp.qrUserName;
-	qrChannelName          = Meta::mp.qrChannelName;
-	iMessageLimit          = Meta::mp.iMessageLimit;
-	iMessageBurst          = Meta::mp.iMessageBurst;
-	iPluginMessageLimit    = Meta::mp.iPluginMessageLimit;
-	iPluginMessageBurst    = Meta::mp.iPluginMessageBurst;
-	qvSuggestVersion       = Meta::mp.qvSuggestVersion;
-	qvSuggestPositional    = Meta::mp.qvSuggestPositional;
-	qvSuggestPushToTalk    = Meta::mp.qvSuggestPushToTalk;
-	iOpusThreshold         = Meta::mp.iOpusThreshold;
-	iChannelNestingLimit   = Meta::mp.iChannelNestingLimit;
-	iChannelCountLimit     = Meta::mp.iChannelCountLimit;
+	qlAllowedSslClientErrors = Meta::mp.qlAllowedSslClientErrors;
+	qsPassword               = Meta::mp.qsPassword;
+	usPort                   = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
+	iTimeout                 = Meta::mp.iTimeout;
+	iMaxBandwidth            = Meta::mp.iMaxBandwidth;
+	iMaxUsers                = Meta::mp.iMaxUsers;
+	iMaxUsersPerChannel      = Meta::mp.iMaxUsersPerChannel;
+	iMaxTextMessageLength    = Meta::mp.iMaxTextMessageLength;
+	iMaxImageMessageLength   = Meta::mp.iMaxImageMessageLength;
+	bAllowHTML               = Meta::mp.bAllowHTML;
+	iDefaultChan             = Meta::mp.iDefaultChan;
+	bRememberChan            = Meta::mp.bRememberChan;
+	iRememberChanDuration    = Meta::mp.iRememberChanDuration;
+	qsWelcomeText            = Meta::mp.qsWelcomeText;
+	qsWelcomeTextFile        = Meta::mp.qsWelcomeTextFile;
+	qlBind                   = Meta::mp.qlBind;
+	qsRegName                = Meta::mp.qsRegName;
+	qsRegPassword            = Meta::mp.qsRegPassword;
+	qsRegHost                = Meta::mp.qsRegHost;
+	qsRegLocation            = Meta::mp.qsRegLocation;
+	qurlRegWeb               = Meta::mp.qurlRegWeb;
+	bBonjour                 = Meta::mp.bBonjour;
+	bAllowPing               = Meta::mp.bAllowPing;
+	bCertRequired            = Meta::mp.bCertRequired;
+	bForceExternalAuth       = Meta::mp.bForceExternalAuth;
+	qrUserName               = Meta::mp.qrUserName;
+	qrChannelName            = Meta::mp.qrChannelName;
+	iMessageLimit            = Meta::mp.iMessageLimit;
+	iMessageBurst            = Meta::mp.iMessageBurst;
+	iPluginMessageLimit      = Meta::mp.iPluginMessageLimit;
+	iPluginMessageBurst      = Meta::mp.iPluginMessageBurst;
+	qvSuggestVersion         = Meta::mp.qvSuggestVersion;
+	qvSuggestPositional      = Meta::mp.qvSuggestPositional;
+	qvSuggestPushToTalk      = Meta::mp.qvSuggestPushToTalk;
+	iOpusThreshold           = Meta::mp.iOpusThreshold;
+	iChannelNestingLimit     = Meta::mp.iChannelNestingLimit;
+	iChannelCountLimit       = Meta::mp.iChannelCountLimit;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
@@ -457,6 +458,28 @@ void Server::readParams() {
 			log(QString("Binding to address %1").arg(qha.toString()));
 		if (qlBind.isEmpty())
 			qlBind = Meta::mp.qlBind;
+	}
+
+	QString qsAllowedSslClientErrors = getConf("allowedClientSslErrors", QString("not present")).toString().toLower();
+	if (qsAllowedSslClientErrors != QLatin1String("not present")) {
+		qlAllowedSslClientErrors.clear();
+		if (qsAllowedSslClientErrors != QLatin1String("none")) {
+			QStringList qslAllowedSslClientErrors =
+				qsAllowedSslClientErrors.split(",", QString::SplitBehavior::SkipEmptyParts);
+			if (!qslAllowedSslClientErrors.isEmpty()) {
+				QMap< QString, QSslError::SslError > nameErrorMap = Meta::getSslNameErrorMap();
+				foreach (const QString &allowedError, qslAllowedSslClientErrors) {
+					QString key = allowedError.trimmed(); // We dont neet toLower() here, it was already called above
+					if (nameErrorMap.contains(key)) {
+						qlAllowedSslClientErrors << nameErrorMap[key];
+					} else {
+						log(QString("Unrecognized SSL relaxation \"%1\", skipping.").arg(allowedError.trimmed()));
+					}
+				}
+			}
+		}
+	} else {
+		// Key not present, continue using the defaults from Meta
 	}
 
 	qsPassword             = getConf("password", qsPassword).toString();
@@ -1514,22 +1537,16 @@ void Server::sslError(const QList< QSslError > &errors) {
 	bool ok = true;
 	foreach (QSslError e, errors) {
 		switch (e.error()) {
-			case QSslError::InvalidPurpose:
+			case QSslError::SslError::InvalidPurpose:
 				// Allow email certificates.
 				break;
-			case QSslError::NoPeerCertificate:
-			case QSslError::SelfSignedCertificate:
-			case QSslError::SelfSignedCertificateInChain:
-			case QSslError::UnableToGetLocalIssuerCertificate:
-			case QSslError::UnableToVerifyFirstCertificate:
-			case QSslError::HostNameMismatch:
-			case QSslError::CertificateNotYetValid:
-			case QSslError::CertificateExpired:
-				u->bVerified = false;
-				break;
 			default:
-				log(u, QString("SSL Error: %1").arg(e.errorString()));
-				ok = false;
+				if (qlAllowedSslClientErrors.contains(e.error())) {
+					u->bVerified = false;
+				} else {
+					log(u, QString("SSL Error (%2): %1").arg(e.errorString()).arg((int) e.error()));
+					ok = false;
+				}
 		}
 	}
 

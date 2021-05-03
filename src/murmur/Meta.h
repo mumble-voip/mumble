@@ -19,6 +19,7 @@
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslCipher>
+#include <QtNetwork/QSslError>
 #include <QtNetwork/QSslKey>
 
 class Server;
@@ -27,6 +28,8 @@ class QSettings;
 class MetaParams {
 public:
 	QDir qdBasePath;
+
+	QList< QSslError::SslError > qlAllowedSslClientErrors;
 
 	QList< QHostAddress > qlBind;
 	unsigned short usPort;
@@ -153,6 +156,9 @@ public:
 private:
 	template< class T >
 	T typeCheckedFromSettings(const QString &name, const T &variable, QSettings *settings = nullptr);
+	QList< QSslError::SslError > parseAllowedClientSslErrors(const QString &name,
+															 const QList< QSslError::SslError > &defaultValue,
+															 QSettings *settings = nullptr);
 };
 
 class Meta : public QObject {
@@ -193,6 +199,8 @@ public:
 	void getOSInfo();
 	void connectListener(QObject *);
 	static void getVersion(int &major, int &minor, int &patch, QString &string);
+	static QMap< QString, QSslError::SslError > getSslNameErrorMap();
+	static QMap< QSslError::SslError, QString > getSslErrorNameMap();
 signals:
 	void started(Server *);
 	void stopped(Server *);
