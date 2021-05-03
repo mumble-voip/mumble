@@ -127,9 +127,10 @@ MetaParams::MetaParams() {
 	foreach (const QString &allowedError, allowedSslClientErrors) {
 		qlAllowedSslClientErrors << nameErrorMap[allowedError.toLower()];
 	}
-	bMctsIncludeHostCAs = true;
-	bMctsIncludeOwnCAs  = true;
-	bMctsIncludeOwnCert = true;
+	bMctsIncludeHostCAs               = true;
+	bMctsIncludeOwnCAs                = true;
+	bMctsIncludeOwnCert               = true;
+	bForceUsernameCertSubjectEquality = false;
 }
 
 MetaParams::~MetaParams() {
@@ -463,7 +464,9 @@ void MetaParams::read(QString fname) {
 	bMctsIncludeHostCAs      = typeCheckedFromSettings("mctsHostsCAs", bMctsIncludeHostCAs);
 	bMctsIncludeOwnCAs       = typeCheckedFromSettings("mctsAddOwnCAs", bMctsIncludeOwnCAs);
 	bMctsIncludeOwnCert      = typeCheckedFromSettings("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert);
-	qsPassword               = typeCheckedFromSettings("serverpassword", qsPassword);
+	bForceUsernameCertSubjectEquality =
+		typeCheckedFromSettings("forceUsernameCertSubjectEquality", bForceUsernameCertSubjectEquality);
+	qsPassword            = typeCheckedFromSettings("serverpassword", qsPassword);
 	usPort                = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
 	iTimeout              = typeCheckedFromSettings("timeout", iTimeout);
 	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
@@ -616,6 +619,8 @@ void MetaParams::read(QString fname) {
 					bMctsIncludeOwnCAs ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("mctsAddOwnCertificateAsCA"),
 					bMctsIncludeOwnCert ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("forceUsernameCertSubjectEquality"),
+					bForceUsernameCertSubjectEquality ? QLatin1String("true") : QLatin1String("false"));
 	QStringList hosts;
 	foreach (const QHostAddress &qha, qlBind) { hosts << qha.toString(); }
 	qmConfig.insert(QLatin1String("host"), hosts.join(" "));
