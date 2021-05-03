@@ -157,6 +157,7 @@ public:
 	bool bMctsIncludeOwnCert;
 	QList< QSslCertificate > qlMcts;
 	bool bForceUsernameCertSubjectEquality;
+	bool bBlindTrust;
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 	QSslDiffieHellmanParameters qsdhpDHParams;

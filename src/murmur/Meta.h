@@ -35,6 +35,7 @@ public:
 	bool bMctsIncludeOwnCert;
 	QList< QSslCertificate > qlMcts;
 	bool bForceUsernameCertSubjectEquality;
+	bool bBlindTrust;
 
 	QList< QHostAddress > qlBind;
 	unsigned short usPort;

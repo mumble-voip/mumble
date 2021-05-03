@@ -131,6 +131,7 @@ MetaParams::MetaParams() {
 	bMctsIncludeOwnCAs                = true;
 	bMctsIncludeOwnCert               = true;
 	bForceUsernameCertSubjectEquality = false;
+	bBlindTrust                       = false;
 }
 
 MetaParams::~MetaParams() {
@@ -466,6 +467,14 @@ void MetaParams::read(QString fname) {
 	bMctsIncludeOwnCert      = typeCheckedFromSettings("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert);
 	bForceUsernameCertSubjectEquality =
 		typeCheckedFromSettings("forceUsernameCertSubjectEquality", bForceUsernameCertSubjectEquality);
+	bBlindTrust = typeCheckedFromSettings("blindTrust", bBlindTrust);
+	if (bBlindTrust) {
+		// Be a bit theatrical to emphasize the situation
+		qCritical("###################################################");
+		qCritical("DANGER: blindTrust is enabled! You might just have made your server totally insecure! Be sure to "
+				  "understand the wiki on this subject!");
+		qCritical("###################################################");
+	}
 	qsPassword            = typeCheckedFromSettings("serverpassword", qsPassword);
 	usPort                = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
 	iTimeout              = typeCheckedFromSettings("timeout", iTimeout);
@@ -621,6 +630,7 @@ void MetaParams::read(QString fname) {
 					bMctsIncludeOwnCert ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("forceUsernameCertSubjectEquality"),
 					bForceUsernameCertSubjectEquality ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("blindTrust"), bBlindTrust ? QLatin1String("true") : QLatin1String("false"));
 	QStringList hosts;
 	foreach (const QHostAddress &qha, qlBind) { hosts << qha.toString(); }
 	qmConfig.insert(QLatin1String("host"), hosts.join(" "));

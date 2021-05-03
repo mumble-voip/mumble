@@ -396,6 +396,7 @@ void Server::readParams() {
 	bMctsIncludeOwnCert               = Meta::mp.bMctsIncludeOwnCert;
 	qlMcts                            = Meta::mp.qlMcts;
 	bForceUsernameCertSubjectEquality = Meta::mp.bForceUsernameCertSubjectEquality;
+	bBlindTrust                       = Meta::mp.bBlindTrust;
 	qsPassword                        = Meta::mp.qsPassword;
 	usPort                            = static_cast< unsigned short >(Meta::mp.usPort + iServerNum - 1);
 	iTimeout                          = Meta::mp.iTimeout;
@@ -510,6 +511,7 @@ void Server::readParams() {
 	bMctsIncludeOwnCert = getConf("mctsAddOwnCertificateAsCA", bMctsIncludeOwnCert).toBool();
 	bForceUsernameCertSubjectEquality =
 		getConf("forceUsernameCertSubjectEquality", bForceUsernameCertSubjectEquality).toBool();
+	bBlindTrust            = getConf("blindTrust", bBlindTrust).toBool();
 	qsPassword             = getConf("password", qsPassword).toString();
 	usPort                 = static_cast< unsigned short >(getConf("port", usPort).toUInt());
 	iTimeout               = getConf("timeout", iTimeout).toInt();
