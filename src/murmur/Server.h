@@ -151,6 +151,8 @@ public:
 	QList< QSslCertificate > qlCertificateChain;
 	QSslKey qskKey;
 
+	QList< QSslError::SslError > qlAllowedSslClientErrors;
+
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 	QSslDiffieHellmanParameters qsdhpDHParams;
 #endif
