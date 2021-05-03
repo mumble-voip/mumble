@@ -1369,47 +1369,9 @@ void Server::newClient() {
 		EnvUtils::setenv("QT_SSL_USE_TEMPORARY_KEYCHAIN", "1");
 #endif
 		sock->setPrivateKey(qskKey);
-		sock->setLocalCertificate(qscCert);
+		sock->setLocalCertificateChain(qlCertificateChain);
 
-		QSslConfiguration config;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-		config = sock->sslConfiguration();
-		// Qt 5.15 introduced QSslConfiguration::addCaCertificate(s) that should be preferred over the functions in
-		// QSslSocket
-
-		// Treat the leaf certificate as a root.
-		// This shouldn't strictly be necessary,
-		// and is a left-over from early on.
-		// Perhaps it is necessary for self-signed
-		// certs?
-		config.addCaCertificate(qscCert);
-
-		// Add CA certificates specified via
-		// murmur.ini's sslCA option.
-		config.addCaCertificates(Meta::mp.qlCA);
-
-		// Add intermediate CAs found in the PEM
-		// bundle used for this server's certificate.
-		config.addCaCertificates(qlIntermediates);
-#else
-		// Treat the leaf certificate as a root.
-		// This shouldn't strictly be necessary,
-		// and is a left-over from early on.
-		// Perhaps it is necessary for self-signed
-		// certs?
-		sock->addCaCertificate(qscCert);
-
-		// Add CA certificates specified via
-		// murmur.ini's sslCA option.
-		sock->addCaCertificates(Meta::mp.qlCA);
-
-		// Add intermediate CAs found in the PEM
-		// bundle used for this server's certificate.
-		sock->addCaCertificates(qlIntermediates);
-
-		// Must not get config from socket before setting CA certificates
-		config = sock->sslConfiguration();
-#endif
+		QSslConfiguration config = sock->sslConfiguration();
 
 		config.setCiphers(Meta::mp.qlCiphers);
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)

@@ -111,15 +111,12 @@ void Server::update() {
 	qnr.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("text/xml"));
 
 	QSslConfiguration ssl = qnr.sslConfiguration();
-	ssl.setLocalCertificate(qscCert);
+	ssl.setLocalCertificateChain(qlCertificateChain);
 	ssl.setPrivateKey(qskKey);
 
 	/* Work around bug in QSslConfiguration */
 	QList< QSslCertificate > calist = ssl.caCertificates();
 	calist << QSslConfiguration::defaultConfiguration().caCertificates();
-	calist << Meta::mp.qlCA;
-	calist << Meta::mp.qlIntermediates;
-	calist << qscCert;
 	ssl.setCaCertificates(calist);
 
 	ssl.setCiphers(Meta::mp.qlCiphers);

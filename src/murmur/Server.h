@@ -146,18 +146,9 @@ public:
 	QVariant qvSuggestPushToTalk;
 
 	bool bUsingMetaCert;
-	QSslCertificate qscCert;
+	QList< QSslCertificate > qlCertificateChain;
 	QSslKey qskKey;
 
-	/// qlIntermediates contains the certificates
-	/// from this virtual server's certificate PEM
-	// bundle that do not match the virtual server's
-	// private key.
-	///
-	/// Simply put: it contains any certificates
-	/// that aren't the main certificate, or "leaf"
-	/// certificate.
-	QList< QSslCertificate > qlIntermediates;
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 	QSslDiffieHellmanParameters qsdhpDHParams;
 #endif
@@ -201,6 +192,8 @@ public:
 	/// If a valid RSA, DSA or EC key is found, it is returned.
 	/// If no valid private key is found, a null QSslKey is returned.
 	static QSslKey privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass = QByteArray());
+	static QList< QSslCertificate > buildSslChain(const QSslCertificate &leaf, const QList< QSslCertificate > &pool);
+	static QByteArray chainToPem(const QList< QSslCertificate > &chain);
 	void initializeCert();
 	const QString getDigest() const;
 

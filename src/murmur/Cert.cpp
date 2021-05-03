@@ -15,11 +15,110 @@
 
 #include <openssl/err.h>
 #include <openssl/evp.h>
+#include <openssl/ssl.h>
 #include <openssl/x509.h>
 
 #ifdef Q_OS_WIN
 #	include <winsock2.h>
 #endif
+
+QList< QSslCertificate > Server::buildSslChain(const QSslCertificate &leaf, const QList< QSslCertificate > &pool) {
+	QList< QSslCertificate > chain;
+	if (leaf.isNull()) {
+		return chain;
+	}
+	chain << leaf;
+	if (pool.isEmpty()) {
+		return chain;
+	}
+
+	// Convert the leaf to DER format and create an OpenSSL X509 object from it.
+	QByteArray qbaLeaf = leaf.toDer();
+	int maxDerSize     = qbaLeaf.size();
+	BIO *mem           = BIO_new_mem_buf(qbaLeaf.data(), maxDerSize);
+	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
+	X509 *leaf_x509 = d2i_X509_bio(mem, nullptr);
+	BIO_free(mem);
+
+	// Prepare an SSL context; the method should not matter, so just go with TLS_method().
+	SSL_CTX *ctx = SSL_CTX_new(TLS_method());
+
+	// Add the leaf
+	SSL_CTX_use_certificate(ctx, leaf_x509);
+
+	// Construct an OpenSSL X509 object for the pool and add each to the context.
+	for (const QSslCertificate &cert : pool) {
+		QByteArray qbaCert = cert.toDer();
+		int s              = qbaCert.size();
+		maxDerSize         = maxDerSize < s ? s : maxDerSize;
+		BIO *mem           = BIO_new_mem_buf(qbaCert.data(), s);
+		Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
+		X509 *x509 = d2i_X509_bio(mem, nullptr);
+		BIO_free(mem);
+		SSL_CTX_add0_chain_cert(ctx, x509);
+	}
+
+	// Do the actual chain building
+	int flags = SSL_BUILD_CHAIN_FLAG_CHECK | SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR; // Think of the correct flags
+	int ret   = SSL_CTX_build_cert_chain(ctx, flags);
+
+	// Check if the operation is successful.
+	// Since we use the SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR flag, a return value of 2 is acceptable.
+	if (ret == 1 || ret == 2) {
+		// Retrieve the chain
+		STACK_OF(X509) *stack = nullptr;
+		SSL_CTX_get0_chain_certs(ctx, &stack);
+
+		// Copy the chain back to Qt.
+		// Instead of allocating a new buffer every time i2d_X509() is called, we allocate a shared buffer of
+		// "maxDerSize" size.
+		unsigned char *buffer = (unsigned char *) malloc(maxDerSize);
+		while (sk_X509_num(stack) > 0) {
+			X509 *next     = sk_X509_shift(stack);
+			int actualSize = i2d_X509(next, &buffer);
+			X509_free(next);
+			if (actualSize == -1) {
+				// Failed to encode certificate in DER format.
+				chain.clear();
+				break;
+			}
+			// i2d_X509() altered our buffer pointer, we need to set it back manually.
+			buffer -= actualSize;
+			QByteArray array            = QByteArray::fromRawData((char *) buffer, actualSize);
+			QList< QSslCertificate > ql = QSslCertificate::fromData(array, QSsl::EncodingFormat::Der);
+			// Data from OpenSSL must correspond to a single certificate!
+			if (ql.size() == 1) {
+				chain << ql;
+			} else {
+				chain.clear();
+				break;
+			}
+		}
+
+		// Clean up
+		free(buffer);
+	} else {
+		chain.clear();
+	}
+	// Pool certificates were added with the "add0" function (as opposed to "add1"),
+	// meaning that they are freed when ctx is.
+	// Same for the stack, which was obtained with "get0".
+	SSL_CTX_free(ctx);
+	X509_free(leaf_x509);
+
+	// Drain OpenSSL's per-thread error queue, see below!
+	ERR_clear_error();
+
+	return chain;
+}
+
+QByteArray Server::chainToPem(const QList< QSslCertificate > &chain) {
+	QByteArrayList bytes;
+	for (const QSslCertificate &cert : chain) {
+		bytes << cert.toPem();
+	}
+	return bytes.join();
+}
 
 bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	if (key.isNull() || cert.isNull() || (key.type() != QSsl::PrivateKey))
@@ -73,8 +172,7 @@ void Server::initializeCert() {
 
 	// Clear all existing SSL settings
 	// for this server.
-	qscCert.clear();
-	qlIntermediates.clear();
+	qlCertificateChain.clear();
 	qskKey.clear();
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 	qsdhpDHParams = QSslDiffieHellmanParameters();
@@ -85,7 +183,7 @@ void Server::initializeCert() {
 	pass     = getConf("passphrase", QByteArray()).toByteArray();
 	dhparams = getConf("sslDHParams", Meta::mp.qbaDHParams).toByteArray();
 
-	QList< QSslCertificate > ql;
+
 
 	// Attempt to load the private key.
 	if (!key.isEmpty()) {
@@ -101,16 +199,20 @@ void Server::initializeCert() {
 	// remove any certs for our key from the list, what's left is part of
 	// the CA certificate chain.
 	if (!qskKey.isNull()) {
+		QList< QSslCertificate > ql;
 		ql << QSslCertificate::fromData(crt);
 		ql << QSslCertificate::fromData(key);
+		QSslCertificate tmpCrt;
 		for (int i = 0; i < ql.size(); ++i) {
 			const QSslCertificate &c = ql.at(i);
 			if (isKeyForCert(qskKey, c)) {
-				qscCert = c;
+				tmpCrt = c;
 				ql.removeAt(i);
 			}
 		}
-		qlIntermediates = ql;
+		if (!tmpCrt.isNull()) {
+			qlCertificateChain = buildSslChain(tmpCrt, ql);
+		}
 	}
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
@@ -132,57 +234,62 @@ void Server::initializeCert() {
 
 	QString issuer;
 
-	QStringList issuerNames = qscCert.issuerInfo(QSslCertificate::CommonName);
-	if (!issuerNames.isEmpty()) {
-		issuer = issuerNames.first();
+	if (!qlCertificateChain.isEmpty()) {
+		QStringList issuerNames = qlCertificateChain[0].issuerInfo(QSslCertificate::CommonName);
+		if (!issuerNames.isEmpty()) {
+			issuer = issuerNames.first();
+		}
 	}
 
 	// Really old certs/keys are no good, throw them away so we can
 	// generate a new one below.
 	if (issuer == QString::fromUtf8("Murmur Autogenerated Certificate")) {
 		log("Old autogenerated certificate is unusable for registration, invalidating it");
-		qscCert = QSslCertificate();
-		qskKey  = QSslKey();
+		qlCertificateChain.clear();
+		qlCertificateChain << QSslCertificate();
+		qskKey = QSslKey();
 	}
 
 	// If we have a cert, and it's a self-signed one, but we're binding to
 	// all the same addresses as the Meta server is, use it's cert instead.
 	// This allows a self-signed certificate generated by Murmur to be
 	// replaced by a CA-signed certificate in the .ini file.
-	if (!qscCert.isNull() && issuer.startsWith(QString::fromUtf8("Murmur Autogenerated Certificate"))
-		&& !Meta::mp.qscCert.isNull() && !Meta::mp.qskKey.isNull() && (Meta::mp.qlBind == qlBind)) {
-		qscCert         = Meta::mp.qscCert;
-		qskKey          = Meta::mp.qskKey;
-		qlIntermediates = Meta::mp.qlIntermediates;
-
-		if (!qscCert.isNull() && !qskKey.isNull()) {
+	if (!qlCertificateChain.isEmpty() && !qlCertificateChain[0].isNull()
+		&& issuer.startsWith(QString::fromUtf8("Murmur Autogenerated Certificate"))
+		&& !Meta::mp.qlCertificateChain.isEmpty() && !Meta::mp.qskKey.isNull() && (Meta::mp.qlBind == qlBind)) {
+		qlCertificateChain.clear();
+		qlCertificateChain = Meta::mp.qlCertificateChain;
+		qskKey             = Meta::mp.qskKey;
+		if (!qlCertificateChain.isEmpty() && !qlCertificateChain[0].isNull() && !qskKey.isNull()) {
 			bUsingMetaCert = true;
 		}
 	}
 
 	// If we still don't have a certificate by now, try to load the one from Meta
-	if (qscCert.isNull() || qskKey.isNull()) {
+	if (qlCertificateChain.isEmpty() || qlCertificateChain[0].isNull() || qskKey.isNull()) {
 		if (!key.isEmpty() || !crt.isEmpty()) {
 			log("Certificate specified, but failed to load.");
 		}
 
-		qskKey          = Meta::mp.qskKey;
-		qscCert         = Meta::mp.qscCert;
-		qlIntermediates = Meta::mp.qlIntermediates;
+		qlCertificateChain.clear();
+		qlCertificateChain = Meta::mp.qlCertificateChain;
+		qskKey             = Meta::mp.qskKey;
 
-		if (!qscCert.isNull() && !qskKey.isNull()) {
+		if (!qlCertificateChain.isEmpty() && !qlCertificateChain[0].isNull() && !qskKey.isNull()) {
 			bUsingMetaCert = true;
 		}
 
 		// If loading from Meta doesn't work, build+sign a new one
-		if (qscCert.isNull() || qskKey.isNull()) {
+		if (qlCertificateChain.isEmpty() || qlCertificateChain[0].isNull() || qskKey.isNull()) {
 			log("Generating new server certificate.");
-
-			if (!SelfSignedCertificate::generateMurmurV2Certificate(qscCert, qskKey)) {
+			if (qlCertificateChain.isEmpty()) {
+				qlCertificateChain << QSslCertificate();
+			}
+			if (!SelfSignedCertificate::generateMurmurV2Certificate(qlCertificateChain[0], qskKey)) {
 				log("Certificate or key generation failed");
 			}
 
-			setConf("certificate", qscCert.toPem());
+			setConf("certificate", chainToPem(qlCertificateChain));
 			setConf("key", qskKey.toPem());
 		}
 	}
@@ -216,5 +323,7 @@ void Server::initializeCert() {
 }
 
 const QString Server::getDigest() const {
-	return QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex());
+	return qlCertificateChain.isEmpty()
+			   ? QString()
+			   : QString::fromLatin1(qlCertificateChain[0].digest(QCryptographicHash::Sha1).toHex());
 }
