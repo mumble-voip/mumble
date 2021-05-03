@@ -425,6 +425,13 @@ void MetaParams::read(QString fname) {
 		qFatal("MetaParams: Failed to load SSL settings. See previous errors.");
 	}
 
+	// This was done two times, once in loadSSLSettings(), and then a second time below
+	// Move it here to do it only once
+	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(Server::chainToPem(qlCertificateChain)));
+	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
+	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
+	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
+
 	QStringList hosts;
 	foreach (const QHostAddress &qha, qlBind) { hosts << qha.toString(); }
 	qmConfig.insert(QLatin1String("host"), hosts.join(" "));
@@ -449,8 +456,6 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("registerlocation"), qsRegLocation);
 	qmConfig.insert(QLatin1String("registerurl"), qurlRegWeb.toString());
 	qmConfig.insert(QLatin1String("bonjour"), bBonjour ? QLatin1String("true") : QLatin1String("false"));
-	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(qscCert.toPem()));
-	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
 	qmConfig.insert(QLatin1String("obfuscate"), bObfuscate ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("username"), qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"), qrChannelName.pattern());
@@ -466,8 +471,6 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
 	qmConfig.insert(QLatin1String("channelnestinglimit"), QString::number(iChannelNestingLimit));
 	qmConfig.insert(QLatin1String("channelcountlimit"), QString::number(iChannelCountLimit));
-	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
-	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
 }
 
 bool MetaParams::loadSSLSettings() {
@@ -484,7 +487,6 @@ bool MetaParams::loadSSLSettings() {
 	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
 
 	QSslCertificate tmpCert;
-	QList< QSslCertificate > tmpCA;
 	QList< QSslCertificate > tmpIntermediates;
 	QSslKey tmpKey;
 	QByteArray tmpDHParams;
@@ -501,7 +503,7 @@ bool MetaParams::loadSSLSettings() {
 				qCritical("MetaParams: Failed to parse any CA certificates from %s", qPrintable(qsSSLCA));
 				return false;
 			} else {
-				tmpCA = ql;
+				tmpIntermediates << ql;
 			}
 		} else {
 			qCritical("MetaParams: Failed to read %s", qPrintable(qsSSLCA));
@@ -561,7 +563,7 @@ bool MetaParams::loadSSLSettings() {
 			return false;
 		}
 		if (ql.size() > 0) {
-			tmpIntermediates = ql;
+			tmpIntermediates << ql;
 			qCritical("MetaParams: Adding %d intermediate certificates from certificate file.", ql.size());
 		}
 	}
@@ -650,18 +652,17 @@ bool MetaParams::loadSSLSettings() {
 		qWarning("MetaParams: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
-	qscCert         = tmpCert;
-	qlCA            = tmpCA;
-	qlIntermediates = tmpIntermediates;
-	qskKey          = tmpKey;
-	qbaDHParams     = tmpDHParams;
-	qsCiphers       = tmpCiphersStr;
-	qlCiphers       = tmpCiphers;
-
-	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(qscCert.toPem()));
-	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
-	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
-	qmConfig.insert(QLatin1String("sslDHParams"), QString::fromLatin1(qbaDHParams.constData()));
+	if (!tmpCert.isNull()) {
+		qlCertificateChain = Server::buildSslChain(tmpCert, tmpIntermediates);
+		if (qlCertificateChain.isEmpty()) {
+			qCritical() << "Unable to calculate certificate chain";
+			return false;
+		}
+	}
+	qskKey      = tmpKey;
+	qbaDHParams = tmpDHParams;
+	qsCiphers   = tmpCiphersStr;
+	qlCiphers   = tmpCiphers;
 
 	return true;
 }
@@ -764,10 +765,11 @@ bool Meta::boot(int srvnum) {
 			}
 		}
 		if (r.rlim_cur < sockets)
-			qCritical(
-				"Current booted servers require minimum %d file descriptors when all slots are full, but only %lu file "
-				"descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.",
-				sockets, static_cast< unsigned long >(r.rlim_cur));
+			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but "
+					  "only %lu file "
+					  "descriptors are allowed for this process. Your server will crash and burn; read the FAQ for "
+					  "details.",
+					  sockets, static_cast< unsigned long >(r.rlim_cur));
 	}
 #endif
 

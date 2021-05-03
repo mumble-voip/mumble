@@ -107,23 +107,8 @@ public:
 	unsigned int iPluginMessageLimit;
 	unsigned int iPluginMessageBurst;
 
-	QSslCertificate qscCert;
 	QSslKey qskKey;
-
-	/// qlIntermediates contains the certificates
-	/// from PEM bundle pointed to by murmur.ini's
-	/// sslCert option that do not match the key
-	/// pointed to by murmur.ini's sslKey option.
-	///
-	/// Simply put: it contains any certificates
-	/// that aren't the main certificate, or "leaf"
-	/// certificate.
-	QList< QSslCertificate > qlIntermediates;
-
-	/// qlCA contains all certificates read from
-	/// the PEM bundle pointed to by murmur.ini's
-	/// sslCA option.
-	QList< QSslCertificate > qlCA;
+	QList< QSslCertificate > qlCertificateChain;
 
 	/// qlCiphers contains the list of supported
 	/// cipher suites.
