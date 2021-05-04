@@ -41,6 +41,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->setAccessibleName(tr("Log messages"));
 	qsVolume->setAccessibleName(tr("TTS engine volume"));
 	qsbThreshold->setAccessibleName(tr("Length threshold"));
+	qsbMessageLimitUsers->setAccessibleName(tr("User limit for message limiting"));
 	qsbMaxBlocks->setAccessibleName(tr("Maximum chat length"));
 	qsbChatMessageMargins->setAccessibleName(tr("Chat message margins"));
 
@@ -53,6 +54,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->header()->setSectionResizeMode(ColNotification, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColHighlight, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColTTS, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setSectionResizeMode(ColMessageLimit, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
 
 	// Add a "All messages" entry
@@ -64,6 +66,9 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	allMessagesItem->setToolTip(ColNotification, QObject::tr("Toggle pop-up notifications for all events"));
 	allMessagesItem->setCheckState(ColHighlight, Qt::Unchecked);
 	allMessagesItem->setToolTip(ColHighlight, QObject::tr("Toggle window highlight (if not active) for all events"));
+	allMessagesItem->setCheckState(ColMessageLimit, Qt::Unchecked);
+	allMessagesItem->setToolTip(ColMessageLimit, tr("Click here to toggle message limiting for all events - If using "
+													"this option be sure to change the user limit below."));
 	allMessagesItem->setCheckState(ColStaticSound, Qt::Unchecked);
 	allMessagesItem->setToolTip(ColStaticSound, QObject::tr("Click here to toggle sound notifications for all events"));
 #ifndef USE_NO_TTS
@@ -82,11 +87,13 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setCheckState(ColConsole, Qt::Unchecked);
 		twi->setCheckState(ColNotification, Qt::Unchecked);
 		twi->setCheckState(ColHighlight, Qt::Unchecked);
+		twi->setCheckState(ColMessageLimit, Qt::Unchecked);
 		twi->setCheckState(ColStaticSound, Qt::Unchecked);
 
 		twi->setToolTip(ColConsole, tr("Toggle console for %1 events").arg(messageName));
 		twi->setToolTip(ColNotification, tr("Toggle pop-up notifications for %1 events").arg(messageName));
 		twi->setToolTip(ColHighlight, tr("Toggle window highlight (if not active) for %1 events").arg(messageName));
+		twi->setToolTip(ColMessageLimit, tr("Toggle message limiting behavior for %1 events ").arg(messageName));
 		twi->setToolTip(ColStaticSound, tr("Click here to toggle sound notification for %1 events").arg(messageName));
 		twi->setToolTip(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 "
 											   "events<br />Single click to play<br />Double-click to change")
@@ -102,6 +109,11 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setWhatsThis(ColHighlight, tr("Click here to toggle window highlight for %1 events.<br />If checked, "
 										   "Mumble's window will be highlighted for every %1 event, if not active.")
 											.arg(messageName));
+		twi->setWhatsThis(
+			ColMessageLimit,
+			tr("Click here to toggle limiting for %1 events. <br /> If checked, notifications for this event type"
+			   "will not be played when the user count on the server exceeds the set threshold.")
+				.arg(messageName));
 		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, "
 											 "Mumble uses a sound file predefined by you to indicate %1 events. Sound "
 											 "files and Text-To-Speech cannot be used at the same time.")
@@ -133,6 +145,7 @@ void LogConfig::updateSelectAllButtons() {
 	bool allTTSChecked = true;
 #endif
 	bool allSoundChecked = true;
+	bool allLimitChecked = true;
 	foreach (QTreeWidgetItem *i, qlItems) {
 		if (i == allMessagesItem) {
 			continue;
@@ -152,6 +165,9 @@ void LogConfig::updateSelectAllButtons() {
 			allTTSChecked = false;
 		}
 #endif
+		if (i->checkState(ColMessageLimit) != Qt::Checked) {
+			allLimitChecked = false;
+		}
 		if (i->checkState(ColStaticSound) != Qt::Checked) {
 			allSoundChecked = false;
 		}
@@ -173,6 +189,7 @@ void LogConfig::updateSelectAllButtons() {
 #ifndef USE_NO_TTS
 	allMessagesItem->setCheckState(ColTTS, allTTSChecked ? Qt::Checked : Qt::Unchecked);
 #endif
+	allMessagesItem->setCheckState(ColMessageLimit, allLimitChecked ? Qt::Checked : Qt::Unchecked);
 	allMessagesItem->setCheckState(ColStaticSound, allSoundChecked ? Qt::Checked : Qt::Unchecked);
 }
 
@@ -204,6 +221,7 @@ void LogConfig::load(const Settings &r) {
 #ifndef USE_NO_TTS
 		i->setCheckState(ColTTS, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
 #endif
+		i->setCheckState(ColMessageLimit, (ml & Settings::LogMessageLimit) ? Qt::Checked : Qt::Unchecked);
 		i->setCheckState(ColStaticSound, (ml & Settings::LogSoundfile) ? Qt::Checked : Qt::Unchecked);
 		i->setText(ColStaticSoundPath, r.qmMessageSounds.value(mt));
 	}
@@ -223,6 +241,7 @@ void LogConfig::load(const Settings &r) {
 
 #endif
 	qcbWhisperFriends->setChecked(r.bWhisperFriends);
+	qsbMessageLimitUsers->setValue(r.iMessageLimitUserThreshold);
 }
 
 void LogConfig::save() const {
@@ -244,6 +263,9 @@ void LogConfig::save() const {
 		if (i->checkState(ColTTS) == Qt::Checked)
 			v |= Settings::LogTTS;
 #endif
+		if (i->checkState(ColMessageLimit) == Qt::Checked) {
+			v |= Settings::LogMessageLimit;
+		}
 		if (i->checkState(ColStaticSound) == Qt::Checked)
 			v |= Settings::LogSoundfile;
 		s.qmMessages[mt]      = v;
@@ -260,7 +282,8 @@ void LogConfig::save() const {
 	s.bTTSNoScope         = qcbNoScope->isChecked();
 	s.bTTSNoAuthor        = qcbNoAuthor->isChecked();
 #endif
-	s.bWhisperFriends = qcbWhisperFriends->isChecked();
+	s.bWhisperFriends            = qcbWhisperFriends->isChecked();
+	s.iMessageLimitUserThreshold = qsbMessageLimitUsers->value();
 }
 
 void LogConfig::accept() const {
@@ -723,7 +746,13 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		}
 
 		// Message notification with static sounds
-		if ((flags & Settings::LogSoundfile)) {
+		int connectedUsers = 0;
+		{
+			QReadLocker lock(&ClientUser::c_qrwlUsers);
+			connectedUsers = ClientUser::c_qmUsers.size();
+		}
+		if ((flags & Settings::LogSoundfile)
+			&& !(flags & Settings::LogMessageLimit && connectedUsers > Global::get().s.iMessageLimitUserThreshold)) {
 			QString sSound    = Global::get().s.qmMessageSounds.value(mt);
 			AudioOutputPtr ao = Global::get().ao;
 			if (!ao || !ao->playSample(sSound, false)) {
