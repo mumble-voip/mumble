@@ -230,7 +230,7 @@ get a lot of debug information regarding the search for the needed dependencies.
 
 This can happen if you're using a system that doesn't support TLS 1.3 (which https://repo.msys2.org requires) such as Windows 7. In this case the only
 possible workaround is either to download the respective files manually using a brower that does support TLS 1.3 (e.g. Firefox) or to replace all
-occurences of `https://repo.msys2.org` in the vcpkg dir with `http://repo.msys2.org` and thereby forxing vcpkg to use the HTTP mirror instead. Note
+occurrences of `https://repo.msys2.org` in the vcpkg dir with `http://repo.msys2.org` and thereby forxing vcpkg to use the HTTP mirror instead. Note
 though that this is inherently unsafer than using HTTPS.
 
 A common error message for this scenario could be
