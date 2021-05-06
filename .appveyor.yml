@@ -37,15 +37,12 @@ before_build:
 build_script:
   - cmd: .ci/build_windows.bat
 
+after_build:
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a binaries.zip *.exe *.dll *.pdb plugins/*.dll plugins/*.pdb installer/client/*client*.msi installer/server/*server*.msi
+
 artifacts:
-  - path: 'build/*.pdb'
-    name: 'Debug symbols'
-  - path: 'build/plugins/*.pdb'
-    name: 'Debug symbols'
-  - path: 'build/installer/client/*client*.msi'
-    name: 'Installer'
-  - path: 'build/installer/server/*server*.msi'
-    name: 'Installer'
+  - path: 'build/binaries.zip'
+    name: 'Binaries'
 
 deploy:
   - provider: Webhook
