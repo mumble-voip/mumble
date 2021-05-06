@@ -52,5 +52,3 @@ deploy:
     url: https://app.signpath.io/API/v1/79916aba-7a9f-448d-91c6-fb83593b59d3/Integrations/AppVeyor?ProjectSlug=mumble&SigningPolicySlug=test-signing
     authorization:
       secure: WKbGSfFSHTtODf6eHRSHPAobctJli48O/VoMpCYTuIlITl2piOpCH6igCRDX4EuJTzgDX45H34tVfPuNzSMdLA==
-    on:
-      branch: master
