@@ -1256,10 +1256,6 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>Připojené &quot;reproduktory&quot; jsou vlastně sluchátka</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Faktor pro snížení hlasitosti zvuku</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Bloom</translation>
     </message>
@@ -1438,6 +1434,10 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Attenuation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

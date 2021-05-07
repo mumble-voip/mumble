@@ -1256,10 +1256,6 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
         <translation>Los &quot;altavoces&quot; conectados son en realidad auriculares</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Factor para la disminución del volumen del sonido</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Bloom</translation>
     </message>
@@ -1439,6 +1435,10 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     <message>
         <source>Attenuation</source>
         <translation>Atenuación</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

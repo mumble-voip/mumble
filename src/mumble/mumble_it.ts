@@ -1256,10 +1256,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Gli altoparlanti attualmente connessi sono delle cuffie</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Fattore di decremento del volume</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Volume massimo</translation>
     </message>
@@ -1439,6 +1435,10 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>Attenuation</source>
         <translation>Attenuazione</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

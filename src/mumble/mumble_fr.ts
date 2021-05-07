@@ -1256,10 +1256,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Les « haut-parleurs » actuellement connectés sont un casque</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Facteur de diminution du volume sonore</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Boost sonore</translation>
     </message>
@@ -1439,6 +1435,10 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <source>Attenuation</source>
         <translation>Atténuation</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

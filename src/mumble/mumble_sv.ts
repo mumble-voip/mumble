@@ -1256,10 +1256,6 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
         <translation>De anslutna &quot;högtalarna&quot; är faktiskt hörlurar</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Faktisk sänkning av volym</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Bloom</translation>
     </message>
@@ -1439,6 +1435,10 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <message>
         <source>Attenuation</source>
         <translation>Dämpning</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1256,10 +1256,6 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
         <translation>Podłączone &quot;głośniki&quot; to w rzeczywistości słuchawki</translation>
     </message>
     <message>
-        <source>Factor for sound volume decrease</source>
-        <translation>Jak szybko odbierany dźwięk ma zanikać</translation>
-    </message>
-    <message>
         <source>Bloom</source>
         <translation>Zmienna głośność</translation>
     </message>
@@ -1439,6 +1435,10 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     <message>
         <source>Attenuation</source>
         <translation>Tłumienie</translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
