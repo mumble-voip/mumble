@@ -60,7 +60,7 @@
     <file alias="actions/format-text-underline.svg">Mumble/actions/format-text-underline.svg</file>
     <file alias="actions/media-record.svg">Mumble/actions/media-record.svg</file>
     <file alias="categories/applications-internet.svg">Mumble/categories/applications-internet.svg</file>
-    <file alias="places/network-workgroup.svg">Classic/tango/places/network-workgroup.svg</file>
+    <file alias="places/network-workgroup.svg">Mumble/network-workgroup.svg</file>
     <file alias="controls/arrow_down.svg">Mumble/controls/arrow_down.svg</file>
     <file alias="controls/arrow_down_disabled.svg">Mumble/controls/arrow_down_disabled.svg</file>
     <file alias="controls/arrow_up.svg">Mumble/controls/arrow_up.svg</file>

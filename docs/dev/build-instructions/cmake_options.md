@@ -39,11 +39,6 @@ Build the included version of Opus instead of looking for one on the system.
 Build the included version of Speex instead of looking for one on the system.
 (Default: ON)
 
-### classic-theme
-
-Include the classic theme.
-(Default: ON)
-
 ### client
 
 Build the client (Mumble)
