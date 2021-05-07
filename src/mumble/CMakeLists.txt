@@ -21,8 +21,6 @@ option(update "Check for updates by default." ON)
 
 option(translations "Include languages other than English." ON)
 
-option(classic-theme "Include the classic theme." ON)
-
 option(bundled-opus "Build the included version of Opus instead of looking for one on the system." ON)
 option(bundled-celt "Build the included version of CELT instead of looking for one on the system." ON)
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
@@ -838,10 +836,6 @@ if(translations)
 
 	create_translations_qrc(${CMAKE_CURRENT_SOURCE_DIR} "${ts_files}" "translations.qrc")
 	target_sources(mumble PRIVATE "translations.qrc")
-endif()
-
-if(classic-theme)
-	target_sources(mumble PRIVATE "${CMAKE_SOURCE_DIR}/themes/ClassicTheme.qrc")
 endif()
 
 if(overlay)

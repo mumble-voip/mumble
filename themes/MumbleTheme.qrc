@@ -55,12 +55,16 @@
     <file alias="theme.ini">Mumble/theme.ini</file>
     <file alias="actions/audio-input-microphone-muted.svg">Mumble/actions/audio-input-microphone-muted.svg</file>
     <file alias="actions/audio-input-microphone.svg">Mumble/actions/audio-input-microphone.svg</file>
+    <file alias="actions/bookmark-new.svg">Mumble/bookmark-new.svg</file>
+    <file alias="actions/document-new.svg">Mumble/document-new.svg</file>
+    <file alias="actions/document-open.svg">Mumble/document-open.svg</file>
+    <file alias="actions/document-save-as.svg">Mumble/document-save-as.svg</file>
     <file alias="actions/format-text-bold.svg">Mumble/actions/format-text-bold.svg</file>
     <file alias="actions/format-text-italic.svg">Mumble/actions/format-text-italic.svg</file>
     <file alias="actions/format-text-underline.svg">Mumble/actions/format-text-underline.svg</file>
     <file alias="actions/media-record.svg">Mumble/actions/media-record.svg</file>
     <file alias="categories/applications-internet.svg">Mumble/categories/applications-internet.svg</file>
-    <file alias="places/network-workgroup.svg">Classic/tango/places/network-workgroup.svg</file>
+    <file alias="places/network-workgroup.svg">Mumble/network-workgroup.svg</file>
     <file alias="controls/arrow_down.svg">Mumble/controls/arrow_down.svg</file>
     <file alias="controls/arrow_down_disabled.svg">Mumble/controls/arrow_down_disabled.svg</file>
     <file alias="controls/arrow_up.svg">Mumble/controls/arrow_up.svg</file>
