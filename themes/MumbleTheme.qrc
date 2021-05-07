@@ -55,6 +55,10 @@
     <file alias="theme.ini">Mumble/theme.ini</file>
     <file alias="actions/audio-input-microphone-muted.svg">Mumble/actions/audio-input-microphone-muted.svg</file>
     <file alias="actions/audio-input-microphone.svg">Mumble/actions/audio-input-microphone.svg</file>
+    <file alias="actions/bookmark-new.svg">Mumble/bookmark-new.svg</file>
+    <file alias="actions/document-new.svg">Mumble/document-new.svg</file>
+    <file alias="actions/document-open.svg">Mumble/document-open.svg</file>
+    <file alias="actions/document-save-as.svg">Mumble/document-save-as.svg</file>
     <file alias="actions/format-text-bold.svg">Mumble/actions/format-text-bold.svg</file>
     <file alias="actions/format-text-italic.svg">Mumble/actions/format-text-italic.svg</file>
     <file alias="actions/format-text-underline.svg">Mumble/actions/format-text-underline.svg</file>
