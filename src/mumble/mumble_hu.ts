@@ -982,7 +982,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"></translation>
+        <translation>Engedélyezi a késleltetés csökkentését. Ehhez legalább &lt;b&gt;64 kb/s&lt;/b&gt; bitsűrűség beállítása szükséges. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
@@ -990,7 +990,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Alacsony késleltetés</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
@@ -1026,11 +1026,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tallózás...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Előnézet</translation>
     </message>
 </context>
 <context>
@@ -1449,7 +1449,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Server</source>
-        <translation>Szerver</translation>
+        <translation>Kiszolgáló</translation>
     </message>
     <message>
         <source>Audio Output</source>
@@ -2129,11 +2129,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>Keresőmező</translation>
     </message>
     <message>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez a keresőmező. Itt keresheti meg a tiltott felhasználókat név alapján.</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>
@@ -2153,7 +2153,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Reason for the ban</source>
-        <translation type="unfinished"></translation>
+        <translation>A tiltás oka</translation>
     </message>
     <message>
         <source>No reason</source>
@@ -2177,7 +2177,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiltott felhasználók</translation>
     </message>
     <message>
         <source>This is a list with banned users.</source>
@@ -2197,7 +2197,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Clear all fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Összes mező kiürítése</translation>
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
@@ -2205,7 +2205,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Clear</source>
-        <translation>Napló törlése</translation>
+        <translation>Feltételek törlése</translation>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
@@ -2360,7 +2360,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Hitelesítés a szerveren jelszó nélkül</translation>
+        <translation>Hitelesítés a kiszolgálókon jelszó használata nélkül</translation>
     </message>
     <message>
         <source>Current certificate</source>
@@ -2404,7 +2404,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Export current certificate</source>
-        <translation>Aktuális tanúsítvány exportálása</translation>
+        <translation>Jelen tanúsítvány mentése</translation>
     </message>
     <message>
         <source>Import Certificate</source>
@@ -2860,19 +2860,19 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez a gomb visszavonja a jelen lapon lévő módosításokat. Ez nem érinti a többi lap beállításait.&lt;br /&gt;Az összes módosítás törlése az „Alapértelmezett beállítás” gombbal lehetséges.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Visszaállítja a Mumble eredeti beállításait</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez a gomb töröl minden egyéni beállítást.</translation>
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett beállítás</translation>
     </message>
 </context>
 <context>
@@ -2951,7 +2951,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <source>Server list</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiszolgálók listája</translation>
     </message>
     <message>
         <source>Search</source>
@@ -3095,7 +3095,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
         <translation>&lt;b&gt;Cím&lt;/b&gt;&lt;br/&gt;
-A szerver Internet címe. Ez lehet egy normál gépnév vagy IPV4/IPV6 cím vagy egy Bonjour szolgáltatás azonosító. A Bonjour szolgáltatás azonosítók elé egy @ jelet kell tenni, hogy a Mumble felismerje őket.</translation>
+A kiszolgáló internetes címe. Ez lehet egy normál gépnév vagy IPV4/IPV6 cím vagy egy Bonjour szolgáltatás azonosító. A Bonjour szolgáltatás azonosítók elé egy @ jelet kell tenni, hogy a Mumble felismerje őket.</translation>
     </message>
     <message>
         <source>&amp;Port</source>
@@ -4540,7 +4540,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>A Mumble egy szerverrel van kapcsolatban. A programot be szeretné zárni vagy csak minimalizálni?</translation>
+        <translation>A Mumble jelenleg kiszolgálóhoz csatlakozik. Szeretne kilépni vagy csak kis méretre szeretne váltani?</translation>
     </message>
     <message>
         <source>Mute Self</source>
@@ -5369,15 +5369,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%1 mikrofonját és hangszóróit kikapcsolta %2.</translation>
+        <translation>%2 némította és süketítette %1 felhasználót.</translation>
     </message>
     <message>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%1 mikrofonját és hangszóróit bekapcsolta %2.</translation>
+        <translation>%2 visszavonta %1 felhasználó némítását és süketítését.</translation>
     </message>
     <message>
         <source>%1 undeafened by %2.</source>
-        <translation>%1 hangszóróit bekapcsolta %2.</translation>
+        <translation>%2 visszavonta %1 süketítését.</translation>
     </message>
     <message>
         <source>%1 suppressed by %2.</source>
@@ -5385,15 +5385,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>%1 moved to %2.</source>
-        <translation>%1 felhasználó át lett helyezve a %2 csatornára.</translation>
+        <translation>%1 felhasználó át lett helyezve a(z) %2 csatornába.</translation>
     </message>
     <message>
         <source>%1 moved to %2 by %3.</source>
-        <translation>%1 felhasználót %3 áthelyezte a %2 csatornára.</translation>
+        <translation>%3 áthelyezte %1 felhasználót a(z) %2 csatornába.</translation>
     </message>
     <message>
         <source>%1 moved in from %2 by %3.</source>
-        <translation>%1 felhasználót %3 ide helyezte a %2 csatornáról.</translation>
+        <translation>%3 áthelyezte %1 felhasználót a(z) %2 csatornából.</translation>
     </message>
     <message>
         <source>%1 is now muted and deafened.</source>
@@ -5453,7 +5453,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Channel is full.</source>
-        <translation>Csatorna tele van.</translation>
+        <translation>Csatorna megtelt.</translation>
     </message>
     <message>
         <source>Channel nesting limit reached.</source>
@@ -5832,7 +5832,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Edit ban list on server</source>
-        <translation>Szerver tiltólistájának szerkesztése</translation>
+        <translation>Kiszolgáló tiltólistájának szerkesztése</translation>
     </message>
     <message>
         <source>This lets you edit the server-side IP ban list.</source>
@@ -7619,31 +7619,31 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;b&gt;Users&lt;/b&gt;:</source>
-        <translation>&lt;b&gt;Felhasználók létszáma&lt;/b&gt;:</translation>
+        <translation>&lt;b&gt;Létszám:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protocol:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Protokoll:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Release:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Verzió:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OS:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Rendszer:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation>Hang</translation>
+        <translation>Hangminőség</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Legfeljebb:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Jelenleg:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
@@ -7703,15 +7703,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;TLS verziója:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Titkosítás:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;forward secrecy&gt;</translation>
     </message>
     <message>
         <source>&amp;View certificate</source>
@@ -7731,7 +7731,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation>The connection does NOT provide perfect forward secrecy.</translation>
+        <translation>A kapcsolat nem titkosított vagy a titkosítás nem megfelelő.</translation>
     </message>
     <message>
         <source>No information about forward secrecy available.</source>
@@ -8120,7 +8120,7 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     <message>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation>Sávszélesség</translation>
+        <translation>Kapcsolat</translation>
     </message>
     <message>
         <source>Bandwidth</source>
