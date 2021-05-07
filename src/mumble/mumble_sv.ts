@@ -6289,6 +6289,16 @@ Valid options are:
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Toggle TalkingUI</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles the visibility of the TalkingUI.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished">Växlar synligheten för Talargränssnittet.</translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
