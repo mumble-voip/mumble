@@ -1438,7 +1438,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalna głośność, przy której dźwięk odtwarzania będzie wyciszany wraz ze wzrostem odległości. Ustaw na 0%, aby przejść do całkowitej ciszy i uzyskać realistyczną maksymalną odległość słyszenia.</translation>
     </message>
 </context>
 <context>
@@ -6353,12 +6353,12 @@ Prawidłowe opcje to:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Przełącz Mówiący interfejs</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Przełącza widoczność Mówiącego interfejsu.</translation>
+        <translation>Przełącza widoczność Mówiącego interfejsu.</translation>
     </message>
 </context>
 <context>
