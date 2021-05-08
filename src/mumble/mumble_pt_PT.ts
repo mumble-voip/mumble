@@ -3461,18 +3461,18 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desconhecido</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mouse</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teclado</translation>
     </message>
 </context>
 <context>
@@ -6275,7 +6275,7 @@ Valid options are:
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alterna a visibilidade da UI de Falantes.</translation>
     </message>
 </context>
 <context>
@@ -7133,7 +7133,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ativar</translation>
     </message>
     <message>
         <source>PA</source>
@@ -7750,7 +7750,7 @@ Consulte a &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desconhecido</translation>
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
