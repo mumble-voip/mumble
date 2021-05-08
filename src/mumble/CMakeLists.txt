@@ -824,6 +824,7 @@ if(translations)
 		"mumble_ro.ts"
 		"mumble_ru.ts"
 		"mumble_si.ts"
+		"mumble_sq.ts"
 		"mumble_sv.ts"
 		"mumble_te.ts"
 		"mumble_th.ts"
