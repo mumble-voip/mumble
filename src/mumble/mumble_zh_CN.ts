@@ -1438,7 +1438,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>玩家距离增大时，其音频减弱不会超过此最低音量。设置为 0% 时，超出最大可听见距离的玩家将会被完全静音。</translation>
     </message>
 </context>
 <context>
@@ -6296,6 +6296,9 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
                 指定替代配置文件。
                 如果您使用此参数同时运行多个 Mumble 实例，
                 请确保在配置文件内设置替代“database”选项。
+  --default-certificate-dir &lt;目录&gt;
+                指定替代的默认证书目录。
+                此路径仅在无法从设置中加载证书时生效。
   -n, --noidentity
                 禁止加载身份认证文件（即证书）。
   -jn, --jackname &lt;参数&gt;
@@ -6339,12 +6342,12 @@ mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;]
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>开关对话界面</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">切换对话界面的可见性。</translation>
+        <translation>切换对话界面的可见性。</translation>
     </message>
 </context>
 <context>

@@ -395,74 +395,75 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーの最大数</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルで許容できるユーザー数の最大数</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ユーザーの最大数&lt;/b&gt;&lt;br /&gt;
+チャンネルに許容できるユーザーの数の最大値を設定できます．もし値が0の場合，チャンネルに入ったユーザーを収容できます．0ではない場合は，チャンネルの最大ユーザー数は，サーバーの初期制限値を与えられたものになります．</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>これは，チャンネル順に並べ替えます．</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>プロパティ</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルのパスワード</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーの最大数</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネル名</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>引き継がれるグループメンバー</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>外部のグループメンバー</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>引き継がれるチャンネルのメンバー</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>グループにメンバーを追加</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>アクセスコントロールのリスト</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>デフォルトALSAカード</translation>
+        <translation>デフォルトのALSAサウンドカード</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>選択されたALSA入力のオープンに失敗しました: %1</translation>
+        <translation>選択されたALSA入力デバイスのオープンに失敗しました: %1</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioOutput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>デフォルトALSAカード</translation>
+        <translation>デフォルトのALSAサウンドカード</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
@@ -473,11 +474,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>サウンドカードの名前（長い表記）の取得に失敗しました: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>サウンドカードの名前の取得に失敗しました: %1</translation>
     </message>
 </context>
 <context>
@@ -505,7 +506,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation>デバイス選択</translation>
+        <translation>デバイスの選択</translation>
     </message>
     <message>
         <source>Device</source>
