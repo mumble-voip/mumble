@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-﻿$profiledir = $Env:USERPROFILE 
+$profiledir = $Env:USERPROFILE 
 $vcpkgdir = $profiledir + "\vcpkg"
 
 $mumble_deps = "qt5-base",
