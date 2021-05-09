@@ -18,7 +18,9 @@ ProcessResolver::~ProcessResolver() {
 
 void ProcessResolver::freeAndClearData() {
 	// delete all names
-	foreach (const char *currentName, m_processNames) { delete currentName; }
+	for (const char *currentName : m_processNames) {
+		delete[] currentName;
+	}
 
 	m_processNames.clear();
 	m_processPIDs.clear();
