@@ -59,7 +59,7 @@
 
 // Init ServerHandler::nextConnectionID
 int ServerHandler::nextConnectionID = -1;
-QMutex ServerHandler::nextConnectionIDMutex(QMutex::Recursive);
+QMutex ServerHandler::nextConnectionIDMutex;
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush)
 	: QEvent(static_cast< QEvent::Type >(SERVERSEND_EVENT)) {

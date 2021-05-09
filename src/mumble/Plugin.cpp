@@ -15,7 +15,7 @@
 
 // initialize the static ID counter
 plugin_id_t Plugin::s_nextID = 1;
-QMutex Plugin::s_idLock(QMutex::NonRecursive);
+QMutex Plugin::s_idLock;
 
 void assertPluginLoaded(const Plugin *plugin) {
 	// don't throw and exception in release build
