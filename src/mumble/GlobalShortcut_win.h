@@ -24,6 +24,8 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 	Q_DISABLE_COPY(GlobalShortcutWin)
 
 public:
+	static void registerMetaTypes();
+
 	/// Inject a native Windows raw input message into GlobalShortcutWin's
 	/// thread. This method is meant to be called from the main thread
 	/// to pass native Windows keyboard messages to GlobalShortcutWin.

@@ -34,12 +34,54 @@ struct InputHid {
 	uint32_t button;
 	std::string deviceName;
 	std::string devicePrefix;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputHid &output) {
+		stream << static_cast< quint32 >(output.button);
+		stream << QString::fromStdString(output.deviceName);
+		stream << QString::fromStdString(output.devicePrefix);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputHid &input) {
+		quint32 button;
+		QString deviceName;
+		QString devicePrefix;
+
+		stream >> button;
+		stream >> deviceName;
+		stream >> devicePrefix;
+
+		input.button       = static_cast< uint32_t >(button);
+		input.deviceName   = deviceName.toStdString();
+		input.devicePrefix = devicePrefix.toStdString();
+
+		return stream;
+	}
 };
 Q_DECLARE_METATYPE(InputHid)
 
 struct InputKeyboard {
 	bool e0;
 	uint16_t code;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputKeyboard &output) {
+		stream << output.e0;
+		stream << static_cast< quint16 >(output.code);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputKeyboard &input) {
+		quint16 code;
+
+		stream >> input.e0;
+		stream >> code;
+
+		input.code = static_cast< uint16_t >(code);
+
+		return stream;
+	}
 };
 Q_DECLARE_METATYPE(InputKeyboard)
 
@@ -50,6 +92,26 @@ Q_DECLARE_METATYPE(InputMouse)
 struct InputXinput {
 	uint8_t device;
 	uint8_t code;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputXinput &output) {
+		stream << static_cast< qint8 >(output.device);
+		stream << static_cast< qint8 >(output.code);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputXinput &input) {
+		quint8 device;
+		quint8 code;
+
+		stream >> device;
+		stream >> code;
+
+		input.device = static_cast< uint8_t >(device);
+		input.code   = static_cast< uint8_t >(code);
+
+		return stream;
+	}
 };
 Q_DECLARE_METATYPE(InputXinput)
 #endif
@@ -58,6 +120,28 @@ struct InputGkey {
 	bool keyboard;
 	uint8_t button;
 	uint8_t mode;
+
+	friend QDataStream &operator<<(QDataStream &stream, const InputGkey &output) {
+		stream << output.keyboard;
+		stream << static_cast< qint8 >(output.button);
+		stream << static_cast< qint8 >(output.mode);
+
+		return stream;
+	}
+
+	friend QDataStream &operator>>(QDataStream &stream, InputGkey &input) {
+		quint8 button;
+		quint8 mode;
+
+		stream >> input.keyboard;
+		stream >> button;
+		stream >> mode;
+
+		input.button = static_cast< uint8_t >(button);
+		input.mode   = static_cast< uint8_t >(mode);
+
+		return stream;
+	}
 };
 Q_DECLARE_METATYPE(InputGkey)
 #endif
@@ -66,20 +150,40 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
 
+void GlobalShortcutWin::registerMetaTypes() {
+	static bool registered = false;
+
+	// Only register the MetaTypes once.
+	if (!registered) {
+		registered = true;
+
+		qRegisterMetaType< InputHid >();
+		qRegisterMetaTypeStreamOperators< InputHid >();
+
+		qRegisterMetaType< InputKeyboard >();
+		qRegisterMetaTypeStreamOperators< InputKeyboard >();
+
+		qRegisterMetaType< InputMouse >();
+		qRegisterMetaTypeStreamOperators< InputMouse >();
+#ifdef USE_XBOXINPUT
+		qRegisterMetaType< InputXinput >();
+		qRegisterMetaTypeStreamOperators< InputXinput >();
+#endif
+#ifdef USE_GKEY
+		qRegisterMetaType< InputGkey >();
+		qRegisterMetaTypeStreamOperators< InputGkey >();
+#endif
+	}
+}
+
 GlobalShortcutWin::GlobalShortcutWin()
 #ifdef USE_XBOXINPUT
 	: m_xinputDevices(0), m_xinputLastPacket()
 #endif
 {
-	qRegisterMetaType< InputHid >();
-	qRegisterMetaType< InputKeyboard >();
-	qRegisterMetaType< InputMouse >();
-#ifdef USE_XBOXINPUT
-	qRegisterMetaType< InputXinput >();
-#endif
-#ifdef USE_GKEY
-	qRegisterMetaType< InputGkey >();
-#endif
+	// Register the MetaTypes if they have not already been registered (e.g in Settings)
+	registerMetaTypes();
+
 	connect(this, &GlobalShortcutWin::hidMessage, this, &GlobalShortcutWin::on_hidMessage);
 	connect(this, &GlobalShortcutWin::keyboardMessage, this, &GlobalShortcutWin::on_keyboardMessage);
 	connect(this, &GlobalShortcutWin::mouseMessage, this, &GlobalShortcutWin::on_mouseMessage);
