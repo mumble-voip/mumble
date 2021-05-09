@@ -31,7 +31,7 @@ extern "C" {
 extern HWND mumble_mw_hwnd;
 
 struct InputHid {
-	uint32_t button;
+	uint32_t button = 0;
 	std::string deviceName;
 	std::string devicePrefix;
 
@@ -228,8 +228,8 @@ void GlobalShortcutWin::run() {
 		yieldCurrentThread();
 	}
 
-	constexpr uint8_t nRid = 5;
-	RAWINPUTDEVICE rid[nRid];
+	constexpr uint8_t nRid   = 5;
+	RAWINPUTDEVICE rid[nRid] = {};
 
 	rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC;
 	rid[0].usUsage     = HID_USAGE_GENERIC_MOUSE;
@@ -268,7 +268,7 @@ void GlobalShortcutWin::run() {
 }
 
 void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
-	UINT size;
+	UINT size = 0;
 	if (GetRawInputData(handle, RID_INPUT, nullptr, &size, sizeof(RAWINPUTHEADER)) != 0) {
 		return;
 	}
@@ -367,9 +367,9 @@ void GlobalShortcutWin::on_keyboardMessage(const uint16_t flags, uint16_t scanCo
 		scanCode = virtualKey != VK_PAUSE ? MapVirtualKey(virtualKey, MAPVK_VK_TO_VSC) : 0x45;
 	}
 
-	InputKeyboard input;
-	input.code = scanCode;
-	input.e0   = flags & RI_KEY_E0;
+	InputKeyboard input = {};
+	input.code          = scanCode;
+	input.e0            = flags & RI_KEY_E0;
 
 	handleButton(QVariant::fromValue(input), !(flags & RI_KEY_BREAK));
 }
@@ -427,8 +427,8 @@ void GlobalShortcutWin::on_mouseMessage(const uint16_t flags, const uint16_t dat
 }
 
 GlobalShortcutWin::DeviceMap::iterator GlobalShortcutWin::addDevice(const HANDLE deviceHandle) {
-	RID_DEVICE_INFO deviceInfo;
-	UINT size = sizeof(deviceInfo);
+	RID_DEVICE_INFO deviceInfo = {};
+	UINT size                  = sizeof(deviceInfo);
 	if (GetRawInputDeviceInfo(deviceHandle, RIDI_DEVICEINFO, &deviceInfo, &size) <= 0) {
 		return m_devices.end();
 	}
@@ -582,8 +582,8 @@ void GlobalShortcutWin::timeTicked() {
 				continue;
 			}
 
-			InputXinput input;
-			input.device = i;
+			InputXinput input = {};
+			input.device      = i;
 
 			for (uint8_t j = 0; j < 18; ++j) {
 				input.code = j;
@@ -596,8 +596,8 @@ void GlobalShortcutWin::timeTicked() {
 #endif
 #ifdef USE_GKEY
 	if (m_gkey) {
-		InputGkey input;
-		input.keyboard = false;
+		InputGkey input = {};
+		input.keyboard  = false;
 
 		for (uint8_t button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; ++button) {
 			input.button = button;
