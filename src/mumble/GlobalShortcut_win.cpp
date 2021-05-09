@@ -635,6 +635,11 @@ GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &butt
 		wchar_t buffer[MAX_PATH];
 		if (GetKeyNameText((input.code << 16) | (input.e0 << 24), buffer, MAX_PATH)) {
 			info.name = QString::fromWCharArray(buffer);
+		} else {
+			// If GetKeyNameText() cannot find the name. Show a K prefix and the scan code instead of Unknown.
+			// For keys like F13 - F24
+			info.devicePrefix = QStringLiteral("K");
+			info.name         = QString::number(static_cast< uint >(input.code));
 		}
 	} else if (button.userType() == qMetaTypeId< InputMouse >()) {
 		info.device       = tr("Mouse");
