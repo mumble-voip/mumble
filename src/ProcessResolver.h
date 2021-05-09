@@ -7,7 +7,8 @@
 #define MUMBLE_PROCESS_RESOLVER_H_
 
 #include <QtCore/QVector>
-#include <stdint.h>
+
+#include <cstdint>
 
 /// This ProcessResolver can be used to get a QVector of running process names and associated PIDs on multiple
 /// platforms. This object is by no means thread-safe!
