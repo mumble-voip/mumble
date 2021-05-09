@@ -480,7 +480,7 @@ const QVector< const_plugin_ptr_t > PluginManager::getPlugins(bool sorted) const
 		std::sort(ids.begin(), ids.end(), [this](plugin_id_t first, plugin_id_t second) {
 			return QString::compare(m_pluginHashMap.value(first)->getName(), m_pluginHashMap.value(second)->getName(),
 									Qt::CaseInsensitive)
-				   <= 0;
+				   < 0;
 		});
 
 		foreach (plugin_id_t currentID, ids) { pluginList.append(m_pluginHashMap.value(currentID)); }
