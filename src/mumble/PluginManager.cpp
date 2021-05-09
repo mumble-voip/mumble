@@ -29,7 +29,9 @@
 #include "ServerHandler.h"
 #include "Global.h"
 
+#include <cstdint>
 #include <memory>
+#include <vector>
 
 #ifdef Q_OS_WIN
 #	include <tlhelp32.h>
@@ -199,7 +201,18 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 		return false;
 	}
 
-	ProcessResolver procRes(true);
+	const ProcessResolver procRes(true);
+	const ProcessResolver::ProcessMap &map = procRes.getProcessMap();
+
+	// We require 2 separate arrays holding the names and the PIDs -> create them from the given map
+	std::vector< uint64_t > pids;
+	std::vector< const char * > names;
+	pids.reserve(procRes.amountOfProcesses());
+	names.reserve(procRes.amountOfProcesses());
+	for (const std::pair< const uint64_t, std::unique_ptr< char[] > > &currentEntry : map) {
+		pids.push_back(currentEntry.first);
+		names.push_back(currentEntry.second.get());
+	}
 
 	auto it = m_pluginHashMap.begin();
 
@@ -209,8 +222,7 @@ bool PluginManager::selectActivePositionalDataPlugin() {
 		plugin_ptr_t currentPlugin = it.value();
 
 		if (currentPlugin->isPositionalDataEnabled() && currentPlugin->isLoaded()) {
-			switch (currentPlugin->initPositionalData(procRes.getProcessNames().data(), procRes.getProcessPIDs().data(),
-													  procRes.amountOfProcesses())) {
+			switch (currentPlugin->initPositionalData(names.data(), pids.data(), procRes.amountOfProcesses())) {
 				case PDEC_OK:
 					// the plugin is ready to provide positional data
 					m_activePositionalDataPlugin = currentPlugin;

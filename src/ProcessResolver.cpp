@@ -6,59 +6,45 @@
 #include "ProcessResolver.h"
 #include <cstring>
 
-ProcessResolver::ProcessResolver(bool resolveImmediately) : m_processNames(), m_processPIDs() {
+ProcessResolver::ProcessResolver(bool resolveImmediately) : m_processMap() {
 	if (resolveImmediately) {
 		resolve();
 	}
 }
 
 ProcessResolver::~ProcessResolver() {
-	freeAndClearData();
+	m_processMap.clear();
 }
 
-void ProcessResolver::freeAndClearData() {
-	// delete all names
-	for (const char *currentName : m_processNames) {
-		delete[] currentName;
-	}
-
-	m_processNames.clear();
-	m_processPIDs.clear();
-}
-
-const QVector< const char * > &ProcessResolver::getProcessNames() const {
-	return m_processNames;
-}
-
-const QVector< uint64_t > &ProcessResolver::getProcessPIDs() const {
-	return m_processPIDs;
+const ProcessResolver::ProcessMap &ProcessResolver::getProcessMap() const {
+	return m_processMap;
 }
 
 void ProcessResolver::resolve() {
 	// first clear the current lists
-	freeAndClearData();
+	m_processMap.clear();
 
 	doResolve();
 }
 
 size_t ProcessResolver::amountOfProcesses() const {
-	return m_processPIDs.size();
+	return m_processMap.size();
 }
 
 
-/// Helper function to add a name stored as a stack-variable to the given vector
+/// Helper function for adding an entry to the given process map
 ///
-/// @param stackName The pointer to the stack-variable
-/// @param destVec The destination vector to add the pointer to
-void addName(const char *stackName, QVector< const char * > &destVec) {
-	// We can't store the pointer of a stack-variable (will be invalid as soon as we exit scope)
-	// so we'll have to allocate memory on the heap and copy the name there.
-	size_t nameLength = std::strlen(stackName) + 1; // +1 for terminating NULL-byte
-	char *name        = new char[nameLength];
+/// @param pid The process's PID
+/// @param processName The name of the process
+/// @param map The map to add the entry to
+void addEntry(uint64_t pid, const char *processName, ProcessResolver::ProcessMap &map) {
+	// 	In order to make sure the name pointer stays valid until we need it, we have ot copy it
+	const size_t nameLength            = std::strlen(processName) + 1; // +1 for terminating NULL-byte
+	std::unique_ptr< char[] > nameCopy = std::make_unique< char[] >(nameLength);
 
-	std::strcpy(name, stackName);
+	std::strcpy(nameCopy.get(), processName);
 
-	destVec.append(name);
+	map.insert(std::make_pair(pid, std::move(nameCopy)));
 }
 
 // The implementation of the doResolve-function is platfrom-dependent
@@ -113,11 +99,7 @@ void ProcessResolver::doResolve() {
 
 	while (ok) {
 		if (utf16ToUtf8(pe.szExeFile, sizeof(name), name)) {
-			// Store name
-			addName(name, m_processNames);
-
-			// Store corresponding PID
-			m_processPIDs.append(pe.th32ProcessID);
+			addEntry(pe.th32ProcessID, name, m_processMap);
 		}
 #	ifndef QT_NO_DEBUG
 		else {
@@ -188,11 +170,7 @@ void ProcessResolver::doResolve() {
 		}
 
 		if (!baseName.isEmpty()) {
-			// add name
-			addName(baseName.toUtf8().data(), m_processNames);
-
-			// add corresponding PID
-			m_processPIDs.append(pid);
+			addEntry(pid, baseName.toUtf8().constData(), m_processMap);
 		}
 	}
 }
@@ -209,11 +187,7 @@ void ProcessResolver::doResolve() {
 		struct proc_bsdinfo proc;
 		int st = proc_pidinfo(pids[i], PROC_PIDTBSDINFO, 0, &proc, PROC_PIDTBSDINFO_SIZE);
 		if (st == PROC_PIDTBSDINFO_SIZE) {
-			// add name
-			addName(proc.pbi_name, m_processNames);
-
-			// add corresponding PID
-			m_processPIDs.append(pids[i]);
+			addEntry(pids[i], proc.pbi_name, m_processMap);
 		}
 	}
 }
@@ -234,11 +208,7 @@ void ProcessResolver::doResolve() {
 	}
 
 	for (int i = 0; i < n_procs; ++i) {
-		// Add name
-		addName(procs_info[i].ki_comm, m_processNames);
-
-		// Add corresponding PID
-		m_processPIDs.append(procs_info[i].ki_pid);
+		addEntry(procs_info[i].ki_pid, procs_info[i].ki_comm, m_processMap);
 	}
 
 	free(procs_info);
@@ -291,11 +261,7 @@ void ProcessResolver::doResolve() {
 	}
 
 	for (int i = 0; i < n_procs; ++i) {
-		// Add name
-		addName(procs_info[i].ki_comm, m_processNames);
-
-		// Add corresponding PIDs
-		m_processPIDs.append(procs_info[i].ki_pid);
+		addEntry(procs_info[i].ki_pid, procs_info[i].ki_comm, m_processMap);
 	}
 
 	kvm_cleanup(kd);
