@@ -51,7 +51,7 @@ protected:
 	const PaDeviceInfo *(*Pa_GetDeviceInfo)(PaDeviceIndex device);
 
 public:
-	const QList< audioDevice > enumerateDevices(const bool input, const PaDeviceIndex current);
+	const QList< audioDevice > enumerateDevices(const bool input);
 
 	bool isStreamRunning(PaStream *stream);
 

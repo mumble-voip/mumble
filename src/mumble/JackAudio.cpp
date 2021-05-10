@@ -77,6 +77,7 @@ static QStringList jackStatusToStringList(const jack_status_t &status) {
 class JackAudioInputRegistrar : public AudioInputRegistrar {
 private:
 	AudioInput *create() Q_DECL_OVERRIDE;
+	const QVariant getDeviceChoice() Q_DECL_OVERRIDE;
 	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
 	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
 	bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const Q_DECL_OVERRIDE;
@@ -89,6 +90,7 @@ public:
 class JackAudioOutputRegistrar : public AudioOutputRegistrar {
 private:
 	AudioOutput *create() Q_DECL_OVERRIDE;
+	const QVariant getDeviceChoice() Q_DECL_OVERRIDE;
 	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
 	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
 	bool usesOutputDelay() const Q_DECL_OVERRIDE;
@@ -112,17 +114,21 @@ AudioInput *JackAudioInputRegistrar::create() {
 	return new JackAudioInput();
 }
 
+const QVariant JackAudioInputRegistrar::getDeviceChoice() {
+	return {};
+}
+
 const QList< audioDevice > JackAudioInputRegistrar::getDeviceChoices() {
-	QList< audioDevice > qlReturn;
+	QList< audioDevice > choices;
 
-	auto qlInputDevs = jas->qhInput.keys();
-	std::sort(qlInputDevs.begin(), qlInputDevs.end());
+	QStringList keys = jas->qhInput.keys();
+	std::sort(keys.begin(), keys.end());
 
-	for (const auto &dev : qlInputDevs) {
-		qlReturn << audioDevice(jas->qhInput.value(dev), dev);
+	for (const auto &key : keys) {
+		choices << audioDevice(jas->qhInput.value(key), key);
 	}
 
-	return qlReturn;
+	return choices;
 }
 
 void JackAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {
@@ -139,20 +145,21 @@ AudioOutput *JackAudioOutputRegistrar::create() {
 	return new JackAudioOutput();
 }
 
+const QVariant JackAudioOutputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsJackAudioOutput;
+}
+
 const QList< audioDevice > JackAudioOutputRegistrar::getDeviceChoices() {
-	QList< audioDevice > qlReturn;
+	QList< audioDevice > choices;
 
-	QStringList qlOutputDevs = jas->qhOutput.keys();
-	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
+	QStringList keys = jas->qhOutput.keys();
+	std::sort(keys.begin(), keys.end());
 
-	if (qlOutputDevs.contains(Global::get().s.qsJackAudioOutput)) {
-		qlOutputDevs.removeAll(Global::get().s.qsJackAudioOutput);
-		qlOutputDevs.prepend(Global::get().s.qsJackAudioOutput);
+	for (const auto &key : keys) {
+		choices << audioDevice(jas->qhOutput.value(key), key);
 	}
 
-	foreach (const QString &dev, qlOutputDevs) { qlReturn << audioDevice(jas->qhOutput.value(dev), dev); }
-
-	return qlReturn;
+	return choices;
 }
 
 void JackAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {

@@ -40,6 +40,7 @@ class OSSInputRegistrar : public AudioInputRegistrar {
 public:
 	OSSInputRegistrar();
 	virtual AudioInput *create();
+	virtual const QVariant getDeviceChoice();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
@@ -51,6 +52,7 @@ class OSSOutputRegistrar : public AudioOutputRegistrar {
 public:
 	OSSOutputRegistrar();
 	virtual AudioOutput *create();
+	virtual const QVariant getDeviceChoice();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 };
@@ -65,20 +67,21 @@ AudioInput *OSSInputRegistrar::create() {
 	return new OSSInput();
 }
 
+const QVariant OSSInputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsOSSInput;
+}
+
 const QList< audioDevice > OSSInputRegistrar::getDeviceChoices() {
-	QList< audioDevice > qlReturn;
+	QList< audioDevice > choices;
 
-	QStringList qlInputDevs = cards->qhInput.keys();
-	std::sort(qlInputDevs.begin(), qlInputDevs.end());
+	QStringList keys = cards->qhInput.keys();
+	std::sort(keys.begin(), keys.end());
 
-	if (qlInputDevs.contains(Global::get().s.qsOSSInput)) {
-		qlInputDevs.removeAll(Global::get().s.qsOSSInput);
-		qlInputDevs.prepend(Global::get().s.qsOSSInput);
+	for (const auto &key : keys) {
+		choices << audioDevice(cards->qhInput.value(key), key);
 	}
 
-	foreach (const QString &dev, qlInputDevs) { qlReturn << audioDevice(cards->qhInput.value(dev), dev); }
-
-	return qlReturn;
+	return choices;
 }
 
 void OSSInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -96,20 +99,21 @@ AudioOutput *OSSOutputRegistrar::create() {
 	return new OSSOutput();
 }
 
+const QVariant OSSOutputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsOSSOutput;
+}
+
 const QList< audioDevice > OSSOutputRegistrar::getDeviceChoices() {
-	QList< audioDevice > qlReturn;
+	QList< audioDevice > choices;
 
-	QStringList qlOutputDevs = cards->qhOutput.keys();
-	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
+	QStringList keys = cards->qhOutput.keys();
+	std::sort(keys.begin(), keys.end());
 
-	if (qlOutputDevs.contains(Global::get().s.qsOSSOutput)) {
-		qlOutputDevs.removeAll(Global::get().s.qsOSSOutput);
-		qlOutputDevs.prepend(Global::get().s.qsOSSOutput);
+	for (const auto &key : keys) {
+		choices << audioDevice(cards->qhOutput.value(key), key);
 	}
 
-	foreach (const QString &dev, qlOutputDevs) { qlReturn << audioDevice(cards->qhOutput.value(dev), dev); }
-
-	return qlReturn;
+	return choices;
 }
 
 void OSSOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {

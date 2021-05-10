@@ -23,6 +23,7 @@ class ASIOAudioInputRegistrar : public AudioInputRegistrar {
 public:
 	ASIOAudioInputRegistrar();
 	virtual AudioInput *create();
+	virtual const QVariant getDeviceChoice();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
@@ -37,16 +38,20 @@ ASIOAudioInputRegistrar::ASIOAudioInputRegistrar() : AudioInputRegistrar(QLatin1
 AudioInput *ASIOAudioInputRegistrar::create() {
 	return new ASIOInput();
 }
+
+const QVariant ASIOAudioInputRegistrar::getDeviceChoice() {
+	return {};
+}
+
 const QList< audioDevice > ASIOAudioInputRegistrar::getDeviceChoices() {
-	QList< audioDevice > qlReturn;
-	return qlReturn;
+	return {};
+}
+
+void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {
 }
 
 bool ASIOAudioInputRegistrar::canEcho(EchoCancelOptionID echoOption, const QString &) const {
 	return (echoOption == EchoCancelOptionID::SPEEX_MIXED || echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
-}
-
-void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {
 }
 
 static ConfigWidget *ASIOConfigDialogNew(Settings &st) {
