@@ -27,6 +27,7 @@ static std::unique_ptr< PortAudioSystem > pas;
 class PortAudioInputRegistrar : public AudioInputRegistrar {
 private:
 	AudioInput *create() Q_DECL_OVERRIDE;
+	const QVariant getDeviceChoice() Q_DECL_OVERRIDE;
 	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
 	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
 	bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const Q_DECL_OVERRIDE;
@@ -39,6 +40,7 @@ public:
 class PortAudioOutputRegistrar : public AudioOutputRegistrar {
 private:
 	AudioOutput *create() Q_DECL_OVERRIDE;
+	const QVariant getDeviceChoice() Q_DECL_OVERRIDE;
 	const QList< audioDevice > getDeviceChoices() Q_DECL_OVERRIDE;
 	void setDeviceChoice(const QVariant &, Settings &) Q_DECL_OVERRIDE;
 
@@ -61,8 +63,12 @@ AudioInput *PortAudioInputRegistrar::create() {
 	return new PortAudioInput();
 }
 
+const QVariant PortAudioInputRegistrar::getDeviceChoice() {
+	return Global::get().s.iPortAudioInput;
+}
+
 const QList< audioDevice > PortAudioInputRegistrar::getDeviceChoices() {
-	return pas->enumerateDevices(true, Global::get().s.iPortAudioInput);
+	return pas->enumerateDevices(true);
 }
 
 void PortAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -80,8 +86,12 @@ AudioOutput *PortAudioOutputRegistrar::create() {
 	return new PortAudioOutput();
 }
 
+const QVariant PortAudioOutputRegistrar::getDeviceChoice() {
+	return Global::get().s.iPortAudioOutput;
+}
+
 const QList< audioDevice > PortAudioOutputRegistrar::getDeviceChoices() {
-	return pas->enumerateDevices(false, Global::get().s.iPortAudioOutput);
+	return pas->enumerateDevices(false);
 }
 
 void PortAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -172,7 +182,7 @@ PortAudioSystem::~PortAudioSystem() {
 	}
 }
 
-const QList< audioDevice > PortAudioSystem::enumerateDevices(const bool input, const PaDeviceIndex current) {
+const QList< audioDevice > PortAudioSystem::enumerateDevices(const bool input) {
 	QList< audioDevice > audioDevices;
 
 	if (!bOk) {
@@ -198,15 +208,6 @@ const QList< audioDevice > PortAudioSystem::enumerateDevices(const bool input, c
 				audioDevices << audioDevice(
 					QLatin1String(apiInfo->name) + QLatin1String(": ") + QLatin1String(deviceInfo->name), deviceIndex);
 			}
-		}
-	}
-
-	for (auto i = 0; i < audioDevices.count(); ++i) {
-		if (audioDevices.at(i).second == current) {
-			// We want the current device to appear at the top of the list
-			audioDevice audioDevice = audioDevices.takeAt(i);
-			audioDevices.prepend(audioDevice);
-			break;
 		}
 	}
 

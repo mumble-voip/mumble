@@ -497,18 +497,21 @@ void AudioInputDialog::on_qcbTransmit_currentIndexChanged(int v) {
 void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 	qcbDevice->clear();
 
-	QList< audioDevice > ql;
+	QList< audioDevice > choices;
 
 	if (AudioInputRegistrar::qmNew) {
-		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
-		ql                       = air->getDeviceChoices();
+		auto air         = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
+		QVariant current = air->getDeviceChoice();
+		choices          = air->getDeviceChoices();
 
-		int idx = 0;
+		for (int i = 0; i < choices.size(); ++i) {
+			auto &choice = choices.at(i);
+			qcbDevice->addItem(choice.first, choice.second);
+			qcbDevice->setItemData(i, choice.first.toHtmlEscaped(), Qt::ToolTipRole);
 
-		foreach (audioDevice d, ql) {
-			qcbDevice->addItem(d.first, d.second);
-			qcbDevice->setItemData(idx, d.first.toHtmlEscaped(), Qt::ToolTipRole);
-			++idx;
+			if (choice.second == current) {
+				qcbDevice->setCurrentIndex(i);
+			}
 		}
 
 		updateEchoEnableState();
@@ -516,7 +519,7 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 		qcbExclusive->setEnabled(air->canExclusive());
 	}
 
-	qcbDevice->setEnabled(ql.count() > 1);
+	qcbDevice->setEnabled(!choices.isEmpty());
 	verifyMicrophonePermission();
 }
 
@@ -750,19 +753,23 @@ void AudioOutputDialog::save() const {
 void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 	qcbDevice->clear();
 
-	QList< audioDevice > ql;
+	QList< audioDevice > choices;
 
 	if (AudioOutputRegistrar::qmNew) {
-		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
-		ql                        = aor->getDeviceChoices();
+		auto aor         = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
+		QVariant current = aor->getDeviceChoice();
+		choices          = aor->getDeviceChoices();
 
-		int idx = 0;
+		for (int i = 0; i < choices.size(); ++i) {
+			auto &choice = choices.at(i);
+			qcbDevice->addItem(choice.first, choice.second);
+			qcbDevice->setItemData(i, choice.first.toHtmlEscaped(), Qt::ToolTipRole);
 
-		foreach (audioDevice d, ql) {
-			qcbDevice->addItem(d.first, d.second);
-			qcbDevice->setItemData(idx, d.first.toHtmlEscaped(), Qt::ToolTipRole);
-			++idx;
+			if (choice.second == current) {
+				qcbDevice->setCurrentIndex(i);
+			}
 		}
+
 		bool canmute = aor->canMuteOthers();
 		qsOtherVolume->setEnabled(canmute);
 		qcbAttenuateOthersOnTalk->setEnabled(canmute);
@@ -779,7 +786,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		qcbExclusive->setEnabled(aor->canExclusive());
 	}
 
-	qcbDevice->setEnabled(ql.count() > 1);
+	qcbDevice->setEnabled(!choices.isEmpty());
 }
 
 void AudioOutputDialog::on_qsJitter_valueChanged(int v) {

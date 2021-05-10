@@ -37,6 +37,7 @@ class PulseAudioInputRegistrar : public AudioInputRegistrar {
 public:
 	PulseAudioInputRegistrar();
 	virtual AudioInput *create();
+	virtual const QVariant getDeviceChoice();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	virtual bool canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const;
@@ -48,6 +49,7 @@ class PulseAudioOutputRegistrar : public AudioOutputRegistrar {
 public:
 	PulseAudioOutputRegistrar();
 	virtual AudioOutput *create();
+	virtual const QVariant getDeviceChoice();
 	virtual const QList< audioDevice > getDeviceChoices();
 	virtual void setDeviceChoice(const QVariant &, Settings &);
 	bool canMuteOthers() const;
@@ -898,20 +900,21 @@ AudioInput *PulseAudioInputRegistrar::create() {
 	return new PulseAudioInput();
 }
 
+const QVariant PulseAudioInputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsPulseAudioInput;
+}
+
 const QList< audioDevice > PulseAudioInputRegistrar::getDeviceChoices() {
-	QList< audioDevice > qlReturn;
+	QList< audioDevice > choices;
 
-	QStringList qlInputDevs = pasys->qhInput.keys();
-	std::sort(qlInputDevs.begin(), qlInputDevs.end());
+	QStringList keys = pasys->qhInput.keys();
+	std::sort(keys.begin(), keys.end());
 
-	if (qlInputDevs.contains(Global::get().s.qsPulseAudioInput)) {
-		qlInputDevs.removeAll(Global::get().s.qsPulseAudioInput);
-		qlInputDevs.prepend(Global::get().s.qsPulseAudioInput);
+	for (const auto &key : keys) {
+		choices << audioDevice(pasys->qhInput.value(key), key);
 	}
 
-	foreach (const QString &dev, qlInputDevs) { qlReturn << audioDevice(pasys->qhInput.value(dev), dev); }
-
-	return qlReturn;
+	return choices;
 }
 
 void PulseAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
@@ -930,20 +933,21 @@ AudioOutput *PulseAudioOutputRegistrar::create() {
 	return new PulseAudioOutput();
 }
 
+const QVariant PulseAudioOutputRegistrar::getDeviceChoice() {
+	return Global::get().s.qsPulseAudioOutput;
+}
+
 const QList< audioDevice > PulseAudioOutputRegistrar::getDeviceChoices() {
-	QList< audioDevice > qlReturn;
+	QList< audioDevice > choices;
 
-	QStringList qlOutputDevs = pasys->qhOutput.keys();
-	std::sort(qlOutputDevs.begin(), qlOutputDevs.end());
+	QStringList keys = pasys->qhOutput.keys();
+	std::sort(keys.begin(), keys.end());
 
-	if (qlOutputDevs.contains(Global::get().s.qsPulseAudioOutput)) {
-		qlOutputDevs.removeAll(Global::get().s.qsPulseAudioOutput);
-		qlOutputDevs.prepend(Global::get().s.qsPulseAudioOutput);
+	for (const auto &key : keys) {
+		choices << audioDevice(pasys->qhOutput.value(key), key);
 	}
 
-	foreach (const QString &dev, qlOutputDevs) { qlReturn << audioDevice(pasys->qhOutput.value(dev), dev); }
-
-	return qlReturn;
+	return choices;
 }
 
 void PulseAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
