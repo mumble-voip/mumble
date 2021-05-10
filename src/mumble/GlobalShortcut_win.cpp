@@ -58,6 +58,15 @@ struct InputHid {
 
 		return stream;
 	}
+
+	bool operator==(const InputHid &rhs) const {
+		return this->button == rhs.button && this->deviceName == rhs.deviceName
+			   && this->devicePrefix == rhs.devicePrefix;
+	}
+
+	bool operator<(const InputHid &rhs) const {
+		return this->button < rhs.button && this->deviceName < rhs.deviceName && this->devicePrefix < rhs.devicePrefix;
+	}
 };
 Q_DECLARE_METATYPE(InputHid)
 
@@ -82,6 +91,10 @@ struct InputKeyboard {
 
 		return stream;
 	}
+
+	bool operator==(const InputKeyboard &rhs) const { return this->e0 == rhs.e0 && this->code == rhs.code; }
+
+	bool operator<(const InputKeyboard &rhs) const { return this->e0 < rhs.e0 && this->code < rhs.code; }
 };
 Q_DECLARE_METATYPE(InputKeyboard)
 
@@ -112,6 +125,10 @@ struct InputXinput {
 
 		return stream;
 	}
+
+	bool operator==(const InputXinput &rhs) const { return this->device == rhs.device && this->code == rhs.code; }
+
+	bool operator<(const InputXinput &rhs) const { return this->device < rhs.device && this->code < rhs.code; }
 };
 Q_DECLARE_METATYPE(InputXinput)
 #endif
@@ -142,6 +159,14 @@ struct InputGkey {
 
 		return stream;
 	}
+
+	bool operator==(const InputGkey &rhs) const {
+		return this->keyboard == rhs.keyboard && this->button == rhs.button && this->mode == rhs.mode;
+	}
+
+	bool operator<(const InputGkey &rhs) const {
+		return this->keyboard < rhs.keyboard && this->button < rhs.button && this->mode < rhs.mode;
+	}
 };
 Q_DECLARE_METATYPE(InputGkey)
 #endif
@@ -159,19 +184,24 @@ void GlobalShortcutWin::registerMetaTypes() {
 
 		qRegisterMetaType< InputHid >();
 		qRegisterMetaTypeStreamOperators< InputHid >();
+		QMetaType::registerComparators< InputHid >();
 
 		qRegisterMetaType< InputKeyboard >();
 		qRegisterMetaTypeStreamOperators< InputKeyboard >();
+		QMetaType::registerComparators< InputKeyboard >();
 
 		qRegisterMetaType< InputMouse >();
 		qRegisterMetaTypeStreamOperators< InputMouse >();
+		QMetaType::registerComparators< InputMouse >();
 #ifdef USE_XBOXINPUT
 		qRegisterMetaType< InputXinput >();
 		qRegisterMetaTypeStreamOperators< InputXinput >();
+		QMetaType::registerComparators< InputXinput >();
 #endif
 #ifdef USE_GKEY
 		qRegisterMetaType< InputGkey >();
 		qRegisterMetaTypeStreamOperators< InputGkey >();
+		QMetaType::registerComparators< InputGkey >();
 #endif
 	}
 }
