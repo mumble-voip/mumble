@@ -7777,17 +7777,15 @@ Zobacz &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt
         <translation>Wyrażenie &amp;regularne</translation>
     </message>
     <message>
-        <source>&amp;Channels</source>
-        <translation>&amp;Kanały</translation>
-        <source>Whether to search for clients</source>
-        <translation>Określa, czy szukać klientów</translation>
-    </message>
-    <message>
         <source>Search for:</source>
         <translation>Szukaj:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Channels</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
