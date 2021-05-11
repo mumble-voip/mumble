@@ -126,7 +126,7 @@
       <item row="1" column="2">
        <widget class="QCheckBox" name="channelOption">
         <property name="toolTip">
-         <string>Whether to search for clients</string>
+         <string>Whether to search for channels</string>
         </property>
         <property name="text">
          <string>&amp;Channels</string>

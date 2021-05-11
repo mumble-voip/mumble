@@ -7776,15 +7776,15 @@ Controlla &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Whether to search for clients</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Search for:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to search for channels</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
