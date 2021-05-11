@@ -34,18 +34,31 @@ function(include_qt_plugin TARGET SCOPE PLUGIN)
 	endif()
 endfunction()
 
-function(create_translations_qrc TS_DIR TS_FILES QRC_FILENAME)
+function(compile_translations OUT_VAR OUT_DIR TS_FILES)
 	find_pkg(Qt5 COMPONENTS LinguistTools REQUIRED)
 
-	# Workaround for Qt bug: CMake deletes .ts files upon clean.
-	# @ref https://bugreports.qt.io/browse/QTBUG-41736
-	# @ref https://stackoverflow.com/a/24245615/1917249
-	set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM TRUE)
+	# Create output directory
+	file(MAKE_DIRECTORY "${OUT_DIR}")
 
-	# Update the translation files (e.g. add new strings) and compile them.
-	qt5_create_translation(QM_FILES ${TS_DIR} ${TS_FILES})
+	set(COMPILED_FILES "")
 
-	set(QRC_PATH "${CMAKE_CURRENT_BINARY_DIR}/${QRC_FILENAME}")
+	# Compile the given .ts files into .qm files into the output directory
+	foreach(CURRENT_TS IN LISTS TS_FILES)
+		get_filename_component(FILENAME "${CURRENT_TS}" NAME)
+		string(REPLACE ".ts" ".qm" FILENAME "${FILENAME}")
+		set(QM_PATH "${OUT_DIR}/${FILENAME}")
+		qt5_add_translation(COMPILED_FILES "${CURRENT_TS}" OPTIONS "-qm" "${QM_PATH}")
+	endforeach()
+
+	# return the list of compiled .qm files
+	set("${OUT_VAR}" "${COMPILED_FILES}" PARENT_SCOPE)
+endfunction()
+
+
+function(include_translations OUT_VAR OUT_DIR TS_FILES)
+	compile_translations(QM_FILES "${OUT_DIR}" "${TS_FILES}")
+
+	set(QRC_PATH "${OUT_DIR}/mumble_translations.qrc")
 
 	# Create a resource file (.qrc) containing the name of the compiled translation files (.qm).
 	# This is required in order to embed those files into the built executable.
@@ -58,4 +71,21 @@ function(create_translations_qrc TS_DIR TS_FILES QRC_FILENAME)
 	endforeach()
 
 	file(APPEND ${QRC_PATH} "</qresource>\n</RCC>\n")
+
+	set("${OUT_VAR}" "${QRC_PATH}" PARENT_SCOPE)
+endfunction()
+
+function(query_qmake OUT_VAR PROP)
+	# Get the path to the qmake executable
+	get_target_property(QT_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+
+	# Query qmake for the location of the installed Qt translations
+	execute_process(
+		COMMAND ${QT_QMAKE_EXECUTABLE} -query "${PROP}"
+		OUTPUT_VARIABLE QUERY_RESULT
+	)
+
+	string(STRIP "${QUERY_RESULT}" QUERY_RESULT)
+
+	set("${OUT_VAR}" "${QUERY_RESULT}" PARENT_SCOPE)
 endfunction()
