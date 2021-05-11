@@ -4462,27 +4462,27 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal Hiyerarşi Dizgesi</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Ara</translation>
+        <translation>Ara</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arama iletişim kutusunda bir kullanıcı etkinleştirildiğinde (çift tıklama veya giriş yoluyla) gerçekleştirilecek eylem.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Eylem (Kullanıcı):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arama iletişim kutusunda bir kanal etkinleştirildiğinde (çift tıklama veya giriş ile) gerçekleştirilecek eylem.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Eylem (Kanal):</translation>
     </message>
 </context>
 <context>
@@ -6380,28 +6380,28 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal filtresini aç/kapat (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Ara</translation>
+        <translation>Ara</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir kullanıcı veya kanal ara (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Arama iletişim kutusunu aç/kapat</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, o anda açık olup olmamasına bağlı olarak arama iletişim kutusunu açacak veya kapatacaktır</translation>
     </message>
 </context>
 <context>
@@ -7725,62 +7725,62 @@ Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumb
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiçbiri</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Katıl</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Ara</translation>
+        <translation>Ara</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Arama dizgesini gir...</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Seçenekler</translation>
+        <translation>Seçenekler</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcıların aranıp aranmayacağı</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kullanıcılar</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Aramanın büyük/küçük harf duyarlı olarak gerçekleştirilip gerçekleştirilmeyeceği</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Büyük/küçük &amp;harf duyarlı</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçenekler:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Arama dizgesinin bir düzenli ifade olarak yorumlanıp yorumlanmayacağı</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Düzenli İfade</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kanallar</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Şunu ara:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
