@@ -10,8 +10,10 @@ from __future__ import (unicode_literals, print_function, division)
 import os
 import platform
 import sys
+from pathlib import Path
 
-allowed_prefixes = ('qt', 'qtbase')
+allowed_components = ('qt', 'qtbase')
+local_qt_translations = []
 override_qt = []
 
 def parseTranslationsConfig(configFile):
@@ -39,6 +41,8 @@ def parseTranslationsConfig(configFile):
 
         # Replace the trailing .ts with .qm as this is what lrelease will turn it into
         translationFileName = translationFileName[:-3] + ".qm"
+        
+        local_qt_translations.append(translationFileName)
 
         if operator == "fallback":
             # fallback files are the default, so no special action has to be taken
@@ -48,45 +52,66 @@ def parseTranslationsConfig(configFile):
             override_qt.append(translationFileName)
 
 
-def dirToQrc(of, dirName, alreadyProcessedLangs, localTranslationDir = False):
-    processedLangs = []
-    absDirName = os.path.abspath(dirName)
-    fns = os.listdir(dirName)
-    for fn in fns:
+def getComponentName(fileName):
+    # Remove file extension
+    fileName = os.path.splitext(fileName)[0]
+
+    lastUnderscoreIdx = fileName.rfind('_')
+    if lastUnderscoreIdx == -1:
+        return ""
+
+    component = fileName[:lastUnderscoreIdx]
+    lang = fileName[lastUnderscoreIdx+1:]
+    # Handle en_US-style locale names
+    if lang.upper() == lang:
+        lastUnderscoreIdx = component.rfind('_')
+        component = fileName[:lastUnderscoreIdx]
+        lang = fileName[lastUnderscoreIdx+1:]
+    
+    return component
+
+
+def dirToQrc(outFile, directoryPath, processedComponents, localTranslationDir = False):
+    absPath = os.path.abspath(directoryPath)
+
+    fileNames = os.listdir(absPath)
+
+    return filesToQrc(outFile, processedComponents, fileNames, absPath, localTranslationDir)
+
+
+def filesToQrc(outFile, processedComponents, fileNames, directoryPath, localTranslationDir = False):
+    for currentFileName in fileNames:
         isOverride = False
-        if fn in override_qt and localTranslationDir:
+
+        if currentFileName in override_qt and localTranslationDir:
             # This translation should be used to overwrite an existing Qt-translation.
             isOverride = True
 
-        fnRoot, fnExt = os.path.splitext(fn)
-        if fnExt.lower() != '.qm':
+        name, extension = os.path.splitext(currentFileName)
+        if not extension == ".qm":
             continue
-        lastUnderscoreIdx = fnRoot.rfind('_')
-        if lastUnderscoreIdx == -1:
+
+        component = getComponentName(currentFileName)
+
+        if not component in allowed_components:
             continue
-        prefix = fnRoot[:lastUnderscoreIdx]
-        lang = fnRoot[lastUnderscoreIdx+1:]
-        # Handle en_US-style locale names
-        if lang.upper() == lang:
-            nextToLastUnderscoreIdx = prefix.rfind('_')
-            prefix = fnRoot[:nextToLastUnderscoreIdx]
-            lang = fnRoot[nextToLastUnderscoreIdx+1:]
-        if lang in alreadyProcessedLangs and not isOverride:
-            continue
-        if not prefix in allowed_prefixes:
-            continue
-        absFn = os.path.join(absDirName, fn)
-        if platform.system() == 'Windows':
-            absFn = absFn.replace('\\', '/')
         
+        if name in processedComponents and not isOverride:
+            continue
+
+        currentFilePath = os.path.join(directoryPath, currentFileName)
         if not isOverride:
-            of.write(' <file alias="{0}">{1}</file>\n'.format(fn, absFn))
-            processedLangs.append(lang)
+            print("   > Bundling Qt translation \"{0}\"".format(currentFilePath))
+            outFile.write(' <file alias="{0}">{1}</file>\n'.format(currentFileName, currentFilePath))
+            processedComponents.append(name)
         else:
             # In order to recognize translation-overrides, we have to prefix them
-            of.write(' <file alias="{0}">{1}</file>\n'.format("mumble_overwrite_" + fn, absFn))
+            print("   > Bundling Qt overwrite translation \"{0}\"".format(currentFilePath))
+            outFile.write(' <file alias="{0}">{1}</file>\n'.format("mumble_overwrite_" + currentFileName, currentFilePath))
 
-    return processedLangs
+    return processedComponents
+
+
 
 def main():
     # python generate-mumble_qt-qrc.py <output-fn> [inputs...] localDir
@@ -105,12 +130,11 @@ def main():
     of = open(output, 'w')
     of.write('<!DOCTYPE RCC><RCC version="1.0">\n')
     of.write('<qresource>\n')
-    processedLangs = []
+    processedComponents = []
     for dirName in inputs:
-        newlyProcssedLangs = dirToQrc(of, dirName, processedLangs)
-        processedLangs.extend(newlyProcssedLangs)
+        processedComponents.extend(dirToQrc(of, dirName, processedComponents))
     # Process translations provided by Mumble itself (aka local translations)
-    dirToQrc(of, localDir, processedLangs, True)
+    filesToQrc(of, processedComponents, local_qt_translations, localDir, True)
     of.write('</qresource>\n')
     of.write('</RCC>\n')
     of.close()
