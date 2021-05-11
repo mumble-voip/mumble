@@ -5377,15 +5377,15 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>You muted and deafened %1.</source>
-        <translation>Ön kikapcsolta %1 mikrofonját és hangszóróit.</translation>
+        <translation>Ön süketítette és némította %1 felhasználót.</translation>
     </message>
     <message>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Ön bekapcsolta %1 mikrofonját és hangszóróit.</translation>
+        <translation>Ön visszavonta %1 felhasználó süketítését és némítását.</translation>
     </message>
     <message>
         <source>You undeafened %1.</source>
-        <translation>Ön bekapcsolta %1 hangszóróit.</translation>
+        <translation>Ön visszavonta %1 felhasználó süketítését.</translation>
     </message>
     <message>
         <source>You suppressed %1.</source>
