@@ -4474,6 +4474,30 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <source>Show nicknames only</source>
         <translation>Kun vis kallenavn</translation>
     </message>
+    <message>
+        <source>Channel Hierarchy String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Søk</translation>
+    </message>
+    <message>
+        <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action (User):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action (Channel):</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -5872,10 +5896,6 @@ Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
         <translation>&amp;Filter på/av</translation>
     </message>
     <message>
-        <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation>Veksle kanalfiteret (Ctrl+F)</translation>
-    </message>
-    <message>
         <source>Enable or disable the filtering of select channels.
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
@@ -6288,6 +6308,31 @@ Valid options are:
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">Skrur av eller på snakkingsgrensesnittet.</translation>
+    </message>
+    <message>
+        <source>Toggle the channel filter (Alt+F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Søk</translation>
+    </message>
+    <message>
+        <source>Search for a user or channel (Ctrl+F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle search dialog</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open or close the search dialog depending on whether it is currently opened already</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7603,6 +7648,72 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <message>
         <source>Text</source>
         <translation>Tekst</translation>
+    </message>
+</context>
+<context>
+    <name>Search::SearchDialog</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchDialog</name>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Søk</translation>
+    </message>
+    <message>
+        <source>Enter search String...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Valg</translation>
+    </message>
+    <message>
+        <source>Whether to search for users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether the search should be performed case-sensitively</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Case-&amp;sensitive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether the search string should be interpreted as a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;RegEx</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to search for clients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search for:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
