@@ -173,7 +173,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName.toHtmlEscaped()));
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(Channel::ROOT_ID)->qsName.toHtmlEscaped()));
 
 	// Update QActions and menus
 	on_qmServer_aboutToShow();
@@ -369,7 +369,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		channel = Channel::get(msg.channel_id());
 		if (!channel) {
 			qWarning("msgUserState(): unknown channel.");
-			channel = Channel::get(0);
+			channel = Channel::get(Channel::ROOT_ID);
 		}
 	}
 
@@ -873,11 +873,16 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 			Global::get().l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 		}
 	}
-	if (pDst != pSelf)
-		pmModel->removeUser(pDst);
 
 	QMetaObject::invokeMethod(Global::get().talkingUI, "on_clientDisconnected", Qt::QueuedConnection,
 							  Q_ARG(unsigned int, pDst->uiSession));
+	if (Global::get().mw->m_searchDialog) {
+		QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_clientDisconnected", Qt::QueuedConnection,
+								  Q_ARG(unsigned int, pDst->uiSession));
+	}
+
+	if (pDst != pSelf)
+		pmModel->removeUser(pDst);
 }
 
 /// This message is being received when the server informs the local client about channel properties (either during
@@ -998,6 +1003,12 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 				Global::get().db->setChannelFiltered(sh->qbaDigest, c->iId, false);
 			c->bFiltered = false;
 		}
+
+		if (Global::get().mw->m_searchDialog) {
+			QMetaObject::invokeMethod(Global::get().mw->m_searchDialog, "on_channelRemoved", Qt::QueuedConnection,
+									  Q_ARG(int, c->iId));
+		}
+
 		if (!pmModel->removeChannel(c, true)) {
 			Global::get().l->log(Log::CriticalError,
 								 tr("Protocol violation. Server sent remove for occupied channel."));

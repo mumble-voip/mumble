@@ -332,7 +332,7 @@ void TalkingUI::addChannel(const Channel *channel) {
 		const QString channelName = createChannelName(
 			channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
 			Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
-			Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+			Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsHierarchyChannelSeparator,
 			Global::get().s.qsTalkingUI_AbbreviationReplacement, Global::get().s.bTalkingUI_AbbreviateCurrentChannel);
 
 		std::unique_ptr< TalkingUIChannel > channelContainer =
@@ -729,7 +729,7 @@ void TalkingUI::on_settingsChanged() {
 			channelContainer->setName(createChannelName(
 				channel, Global::get().s.bTalkingUI_AbbreviateChannelNames, Global::get().s.iTalkingUI_PrefixCharCount,
 				Global::get().s.iTalkingUI_PostfixCharCount, Global::get().s.iTalkingUI_MaxChannelNameLength,
-				Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsTalkingUI_ChannelSeparator,
+				Global::get().s.iTalkingUI_ChannelHierarchyDepth, Global::get().s.qsHierarchyChannelSeparator,
 				Global::get().s.qsTalkingUI_AbbreviationReplacement,
 				Global::get().s.bTalkingUI_AbbreviateCurrentChannel));
 		} else {

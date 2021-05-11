@@ -300,6 +300,8 @@ Settings::Settings() {
 	qRegisterMetaType< QVariant >("QVariant");
 	qRegisterMetaType< PluginSetting >("PluginSetting");
 	qRegisterMetaTypeStreamOperators< PluginSetting >("PluginSetting");
+	qRegisterMetaType< Search::SearchDialog::UserAction >("SearchDialog::UserAction");
+	qRegisterMetaType< Search::SearchDialog::ChannelAction >("SearchDialog::ChannelAction");
 
 	atTransmit        = VAD;
 	bTransmitPosition = false;
@@ -512,8 +514,9 @@ Settings::Settings() {
 	iTalkingUI_MaxChannelNameLength     = 20;
 	iTalkingUI_PrefixCharCount          = 3;
 	iTalkingUI_PostfixCharCount         = 2;
-	qsTalkingUI_ChannelSeparator        = QLatin1String("/");
 	qsTalkingUI_AbbreviationReplacement = QLatin1String("...");
+
+	qsHierarchyChannelSeparator = QLatin1String("/");
 
 	manualPlugin_silentUserDisplaytime = 1;
 
@@ -559,6 +562,16 @@ Settings::Settings() {
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 	qmMessages[Log::UserRenamed]     = Settings::LogConsole;
 	qmMessages[Log::PluginMessage]   = Settings::LogConsole;
+
+	// Default search options
+	searchForUsers       = true;
+	searchForChannels    = true;
+	searchCaseSensitive  = false;
+	searchAsRegex        = false;
+	searchOptionsShown   = false;
+	searchUserAction     = Search::SearchDialog::UserAction::JOIN;
+	searchChannelAction  = Search::SearchDialog::ChannelAction::JOIN;
+	searchDialogPosition = Settings::UNSPECIFIED_POSITION;
 
 	// Default theme
 	themeName      = QLatin1String("Mumble");
@@ -941,8 +954,11 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
 	LOAD(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
 	LOAD(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
-	LOAD(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
 	LOAD(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+
+	// Load the old setting first in case it is set and then load the actual setting
+	LOAD(qsHierarchyChannelSeparator, "ui/talkingUI_ChannelSeparator");
+	LOAD(qsHierarchyChannelSeparator, "ui/hierarchy_channelSeparator");
 
 	LOAD(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
 
@@ -981,6 +997,16 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(bEnableGKey, "shortcut/gkey");
 	LOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	LOAD(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
+
+	// Search options
+	LOAD(searchForUsers, "search/search_for_users");
+	LOAD(searchForChannels, "search/search_for_channels");
+	LOAD(searchCaseSensitive, "search/search_case_sensitive");
+	LOAD(searchAsRegex, "search/search_as_regex");
+	LOAD(searchOptionsShown, "search/search_options_shown");
+	LOADFLAG(searchUserAction, "search/search_user_action");
+	LOADFLAG(searchChannelAction, "search/search_channel_action");
+	LOAD(searchDialogPosition, "search/search_dialog_position");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i = 0; i < nshorts; i++) {
@@ -1336,8 +1362,10 @@ void Settings::save() {
 	SAVE(iTalkingUI_MaxChannelNameLength, "ui/talkingUI_MaxChannelNameLength");
 	SAVE(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
 	SAVE(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
-	SAVE(qsTalkingUI_ChannelSeparator, "ui/talkingUI_ChannelSeparator");
 	SAVE(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+
+	DEPRECATED("ui/talkingUI_ChannelSeparator");
+	SAVE(qsHierarchyChannelSeparator, "ui/hierarchy_channelSeparator");
 
 	SAVE(manualPlugin_silentUserDisplaytime, "ui/manualPlugin_silentUserDisplaytime");
 
@@ -1375,6 +1403,16 @@ void Settings::save() {
 	SAVE(bEnableGKey, "shortcut/gkey");
 	SAVE(bEnableXboxInput, "shortcut/windows/xbox/enable");
 	SAVE(bEnableUIAccess, "shortcut/windows/uiaccess/enable");
+
+	// Search options
+	SAVE(searchForUsers, "search/search_for_users");
+	SAVE(searchForChannels, "search/search_for_channels");
+	SAVE(searchCaseSensitive, "search/search_case_sensitive");
+	SAVE(searchAsRegex, "search/search_as_regex");
+	SAVE(searchOptionsShown, "search/search_options_shown");
+	SAVEFLAG(searchUserAction, "search/search_user_action");
+	SAVEFLAG(searchChannelAction, "search/search_channel_action");
+	SAVE(searchDialogPosition, "search/search_dialog_position");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

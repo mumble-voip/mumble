@@ -35,9 +35,11 @@
 #include "Markdown.h"
 #include "PTTButtonWidget.h"
 #include "PluginManager.h"
+#include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
 #include "SSLCipherInfo.h"
 #include "Screen.h"
+#include "SearchDialog.h"
 #include "ServerHandler.h"
 #include "ServerInformation.h"
 #include "Settings.h"
@@ -130,7 +132,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	restartOnQuit      = false;
 	bAutoUnmute        = false;
 
-	Channel::add(0, tr("Root"));
+	Channel::add(Channel::ROOT_ID, tr("Root"));
 
 	aclEdit   = nullptr;
 	banEdit   = nullptr;
@@ -287,6 +289,11 @@ void MainWindow::createActions() {
 	gsToggleTalkingUI = new GlobalShortcut(this, idx++, tr("Toggle TalkingUI", "Global shortcut"));
 	gsToggleTalkingUI->setObjectName(QLatin1String("gsToggleTalkingUI"));
 	gsToggleTalkingUI->qsWhatsThis = tr("Toggles the visibility of the TalkingUI.", "Global Shortcut");
+
+	gsToggleSearch = new GlobalShortcut(this, idx++, tr("Toggle search dialog", "Global Shortcut"));
+	gsToggleSearch->setObjectName(QLatin1String("gsToggleSearch"));
+	gsToggleSearch->qsWhatsThis =
+		tr("This will open or close the search dialog depending on whether it is currently opened already");
 
 #ifndef Q_OS_MAC
 	qstiIcon->show();
@@ -469,7 +476,7 @@ MainWindow::~MainWindow() {
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvUsers;
-	delete Channel::get(0);
+	delete Channel::get(Channel::ROOT_ID);
 }
 
 void MainWindow::msgBox(QString msg) {
@@ -526,6 +533,11 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		// Note that we explicitly don't save the whole geometry as the TalkingUI's size
 		// is a flexible thing that'll adjust automatically anyways.
 		Global::get().s.qpTalkingUI_Position = Global::get().talkingUI->pos();
+	}
+
+	if (m_searchDialog) {
+		// Save position of search dialog
+		Global::get().s.searchDialogPosition = { m_searchDialog->x(), m_searchDialog->y() };
 	}
 
 	if (qwPTTButtonWidget) {
@@ -913,6 +925,30 @@ void MainWindow::setTransmissionMode(Settings::AudioTransmit mode) {
 	}
 }
 
+void MainWindow::on_qaSearch_triggered() {
+	toggleSearchDialogVisibility();
+}
+
+void MainWindow::toggleSearchDialogVisibility() {
+	if (!m_searchDialog) {
+		m_searchDialog = new Search::SearchDialog(this);
+
+		QPoint position = Global::get().s.searchDialogPosition;
+
+		if (position == Settings::UNSPECIFIED_POSITION) {
+			// Get MainWindow's position on screen
+			position = mapToGlobal(QPoint(0, 0));
+		}
+
+		if (Mumble::QtUtils::positionIsOnScreen(position)) {
+			// Move the search dialog to the same origin as the MainWindow is
+			m_searchDialog->move(position);
+		}
+	}
+
+	m_searchDialog->setVisible(!m_searchDialog->isVisible());
+}
+
 static void recreateServerHandler() {
 	// New server connection, so the sync has not happened yet
 	ChannelListener::setInitialServerSyncDone(false);
@@ -1078,7 +1114,7 @@ void MainWindow::openUrl(const QUrl &url) {
 void MainWindow::findDesiredChannel() {
 	bool found          = false;
 	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
-	Channel *chan       = Channel::get(0);
+	Channel *chan       = Channel::get(Channel::ROOT_ID);
 	QString str         = QString();
 	while (chan && qlChans.count() > 0) {
 		QString elem = qlChans.takeFirst().toLower();
@@ -2164,7 +2200,7 @@ void MainWindow::qmChannel_aboutToShow() {
 			remove = true;
 		}
 		if (!c)
-			c = Channel::get(0);
+			c = Channel::get(Channel::ROOT_ID);
 		unlinkall = (home->qhLinks.count() > 0);
 		if (home != c) {
 			if (c->allLinks().contains(home))
@@ -2270,7 +2306,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 void MainWindow::on_qaChannelACL_triggered() {
 	Channel *c = getContextMenuChannel();
 	if (!c)
-		c = Channel::get(0);
+		c = Channel::get(Channel::ROOT_ID);
 	int id = c->iId;
 
 	if (!c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
@@ -2295,7 +2331,7 @@ void MainWindow::on_qaChannelLink_triggered() {
 	Channel *c = ClientUser::get(Global::get().uiSession)->cChannel;
 	Channel *l = getContextMenuChannel();
 	if (!l)
-		l = Channel::get(0);
+		l = Channel::get(Channel::ROOT_ID);
 
 	Global::get().sh->addChannelLink(c->iId, l->iId);
 }
@@ -2304,7 +2340,7 @@ void MainWindow::on_qaChannelUnlink_triggered() {
 	Channel *c = ClientUser::get(Global::get().uiSession)->cChannel;
 	Channel *l = getContextMenuChannel();
 	if (!l)
-		l = Channel::get(0);
+		l = Channel::get(Channel::ROOT_ID);
 
 	Global::get().sh->removeChannelLink(c->iId, l->iId);
 }
@@ -2758,7 +2794,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 	if (idx < 0) {
 		switch (idx) {
 			case SHORTCUT_TARGET_ROOT:
-				c = Channel::get(0);
+				c = Channel::get(Channel::ROOT_ID);
 				break;
 			case SHORTCUT_TARGET_PARENT:
 			case SHORTCUT_TARGET_CURRENT:
@@ -3066,6 +3102,14 @@ void MainWindow::on_gsToggleTalkingUI_triggered(bool down, QVariant) {
 	}
 }
 
+void MainWindow::on_gsToggleSearch_triggered(bool down, QVariant) {
+	if (!down) {
+		return;
+	}
+
+	toggleSearchDialogVisibility();
+}
+
 void MainWindow::whisperReleased(QVariant scdata) {
 	if (Global::get().iPushToTalk <= 0)
 		return;
@@ -3122,7 +3166,7 @@ void MainWindow::serverConnected() {
 	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
 
-	Channel *root = Channel::get(0);
+	Channel *root = Channel::get(Channel::ROOT_ID);
 	pmModel->renameChannel(root, tr("Root"));
 	pmModel->setCommentHash(root, QByteArray());
 	root->uiPermissions = 0;

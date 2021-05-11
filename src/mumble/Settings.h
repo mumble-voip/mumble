@@ -18,6 +18,7 @@
 #include <QtNetwork/QSslKey>
 
 #include "EchoCancelOption.h"
+#include "SearchDialog.h"
 
 // Global helper classes to spread variables around across threads
 // especially helpful to initialize things like the stored
@@ -315,8 +316,9 @@ struct Settings {
 	int iTalkingUI_MaxChannelNameLength;
 	int iTalkingUI_PrefixCharCount;
 	int iTalkingUI_PostfixCharCount;
-	QString qsTalkingUI_ChannelSeparator;
 	QString qsTalkingUI_AbbreviationReplacement;
+
+	QString qsHierarchyChannelSeparator;
 
 	int manualPlugin_silentUserDisplaytime;
 
@@ -356,6 +358,16 @@ struct Settings {
 	bool bFilterActive;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
+
+	// Search settings
+	bool searchForUsers;
+	bool searchForChannels;
+	bool searchCaseSensitive;
+	bool searchAsRegex;
+	bool searchOptionsShown;
+	Search::SearchDialog::UserAction searchUserAction;
+	Search::SearchDialog::ChannelAction searchChannelAction;
+	QPoint searchDialogPosition;
 
 	QString qsUsername;
 	QString qsLastServer;

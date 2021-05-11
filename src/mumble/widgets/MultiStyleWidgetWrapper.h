@@ -29,7 +29,7 @@ public:
 
 	QWidget *operator->();
 
-	MultiStyleWidgetWrapper(QWidget *widget);
+	MultiStyleWidgetWrapper(QWidget *widget = nullptr);
 
 protected:
 	static const uint32_t UNSET_FONTSIZE;
