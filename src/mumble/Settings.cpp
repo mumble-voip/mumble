@@ -11,6 +11,10 @@
 #include "SSL.h"
 #include "Global.h"
 
+#if defined(Q_OS_WIN)
+#	include "GlobalShortcut_win.h"
+#endif
+
 #include "../../overlay/overlay.h"
 
 #include <QtCore/QFileInfo>
@@ -288,6 +292,9 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 }
 
 Settings::Settings() {
+#if defined(Q_OS_WIN)
+	GlobalShortcutWin::registerMetaTypes();
+#endif
 	qRegisterMetaType< ShortcutTarget >("ShortcutTarget");
 	qRegisterMetaTypeStreamOperators< ShortcutTarget >("ShortcutTarget");
 	qRegisterMetaType< QVariant >("QVariant");
