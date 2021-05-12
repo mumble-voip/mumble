@@ -3742,7 +3742,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Privát üzenet</translation>
     </message>
     <message>
         <source>the server</source>
@@ -3962,11 +3962,11 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>Az ön által küldött üzenetek felolvasása</translation>
     </message>
     <message>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Saját üzenet felolvasása</translation>
     </message>
     <message>
         <source>Chat Log</source>
@@ -4245,7 +4245,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Kijelölt csatorna/felhasználó fókuszba helyezése</translation>
     </message>
     <message>
         <source>Filter automatically hides empty channels</source>
@@ -4253,7 +4253,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Adásmód mutatása az eszköztáron</translation>
     </message>
     <message>
         <source>Theme</source>
@@ -4425,11 +4425,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Show the local volume adjustment for each user (if any).</source>
-        <translation type="unfinished"></translation>
+        <translation>Felhasználók hangerejének módosítása egyénileg</translation>
     </message>
     <message>
         <source>Show volume adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangerőmódosítás engedélyezése</translation>
     </message>
     <message>
         <source>Whether to show all of the local user&apos;s listeners (ears) in the TalkingUI (and thereby also the channels they are in). </source>
@@ -4441,11 +4441,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Becenevek megjelenítése felhasználónevek helyett, amennyiben van.</translation>
     </message>
     <message>
         <source>Show nicknames only</source>
-        <translation type="unfinished"></translation>
+        <translation>Csak becenév mutatása</translation>
     </message>
     <message>
         <source>Channel Hierarchy String</source>
@@ -4453,7 +4453,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Keresés</translation>
+        <translation>Keresés</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -6286,7 +6286,7 @@ Valid options are:
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Keresés</translation>
+        <translation>Keresés</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
@@ -6458,7 +6458,7 @@ Valid options are:
     </message>
     <message>
         <source>Enable QoS to prioritize packets</source>
-        <translation>Engedélyezi a csomagok, QoS által, sürgősség szerinti besorolását</translation>
+        <translation>A Mumble kommunikációjának előnyben részesítése</translation>
     </message>
     <message>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
@@ -6466,7 +6466,7 @@ Valid options are:
     </message>
     <message>
         <source>Use Quality of Service</source>
-        <translation>Használja a Szolgáltatás minőségét (QoS)</translation>
+        <translation>Szolgáltatásminőség (QoS) engedélyezése</translation>
     </message>
     <message>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
@@ -6596,11 +6596,11 @@ Ez a beállítás meggátolja, hogy a Mumble érzékeny adatokat továbbítson a
     </message>
     <message>
         <source>Check for plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Bővítmények frissítéseinek keresése indításkor</translation>
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Bővítmények frissítéseinek automatikus telepítése</translation>
     </message>
 </context>
 <context>
@@ -7165,11 +7165,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Install a plugin from a local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Letöltött bővítmény telepítése</translation>
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bővítmény telepítése...</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
@@ -7181,7 +7181,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>The plugin was installed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>A bővítmény telepítése befejeződött</translation>
     </message>
     <message>
         <source>Unable to deactivate all requested features for plugin &quot;%1&quot;</source>
@@ -7628,7 +7628,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Keresés</translation>
+        <translation>Keresés</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -7636,7 +7636,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Beállítások</translation>
+        <translation>Beállítások</translation>
     </message>
     <message>
         <source>Whether to search for users</source>

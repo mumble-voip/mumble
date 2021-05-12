@@ -7784,7 +7784,7 @@ Ne tür alternatifler olduğunu görmek için &lt;a href=&quot;https://wiki.mumb
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal aranıp aranmayacağı</translation>
     </message>
 </context>
 <context>
