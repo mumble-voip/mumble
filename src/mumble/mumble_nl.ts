@@ -1438,7 +1438,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het laagste volume waarop het geluid van een speler gezet mag worden als een fade-out plaatsvindt naargelang zijn afstand verhoogt. Zet dit op 0% om ervoor te zorgen dat je spelers helemaal niet meer hoort als ze te ver weg zijn, net zoals in de werkelijkheid.</translation>
     </message>
 </context>
 <context>
@@ -1799,7 +1799,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 Om latentie tot het minimum te beperken, is het belangrijk om zo min mogelijk geluid tijdelijk achter te houden (&quot;bufferen&quot;) op de geluidskaart. Merk echter op dat geluidskaarten vaak rapporteren dat ze met een vrij kleine buffer kunnen werken en toch een grotere buffer nodig hebben om correct werken; de enige manier om dit dus correct in te stellen is door het uit te proberen en van laag naar hoog te gaan.
 &lt;/p&gt;
 &lt;p&gt;
-Normaal gezien hoor je een sprekende stem. Stel de balk in op de laagste waarde waarbij je &lt;b&gt;geen&lt;/b&gt; onderbrekingen of onregelmatigheden (&quot;jitter&quot;) in het geluid hoort. Merk op dat het terug afspelen van het invoergeluid tijdelijk uitgeschakeld is gedurende deze test.
+Normaal gezien hoor je iemand spreken. Stel de balk in op de laagste waarde waarbij je &lt;b&gt;geen&lt;/b&gt; onderbrekingen of onregelmatigheden (&quot;jitter&quot;) in het geluid hoort. Merk op dat het terug afspelen van het invoergeluid tijdelijk uitgeschakeld is gedurende deze test.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2024,51 +2024,51 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>In deze configuratie gebruikt Mumble een &lt;b&gt;lage bandbreedtehoeveelheid &lt;/b&gt; resulteert in hoge latentie/slechte kwaliteit. Als je verbinding geen andere instellingen aankan; kies dit. (16kbit/s, 60ms per pakketje)</translation>
+        <translation>Met deze instelling gebruikt Mumble een &lt;b&gt;lage hoeveelheid bandbreedte&lt;/b&gt;. Dit zorgt onvermijdelijk voor een hogere latentie en een lagere gesprekskwaliteit. Kies deze optie enkel als je verbinding de andere instellingen niet aankan. (16 kbit/s, 60 ms per pakket)</translation>
     </message>
     <message>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation>Dit is de &lt;b&gt;aanbevolen standaard&lt;/b&gt;-configuratie. Het voorziet een goede balans tussen kwaliteit, latentie, en bandbreedtegebruik. (40kbit/s, 20ms per pakket)</translation>
+        <translation>Dit is de &lt;b&gt;aanbevolen standaard&lt;/b&gt;-configuratie, die zorgt voor een goede balans tussen kwaliteit, latentie, en bandbreedtegebruik. (40 kbit/s, 20 ms per pakket)</translation>
     </message>
     <message>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>Deze configuratie wordt aanbevolen als bandbreedte geen probleem is, zoals in een lokaal netwerk. Het biedt een door Mumble ondersteunde lage latentie i.c.m. een &lt;b&gt;hoge kwaliteit&lt;/b&gt;. (72kbit/s, 10ms per pakketje)</translation>
+        <translation>Deze configuratie wordt enkel aanbevolen als bandbreedtegebruik geen rol speelt, zoals in een lokaal netwerk. Het biedt de laagst mogelijke latentie die door Mumble aankan alsook een &lt;b&gt;hoge kwaliteit&lt;/b&gt;. (72 kbit/s, 10 ms per pakket)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dit is de geluidsinvoermethode.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Dit is de invoermethode om te gebruiken voor het geluid.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dit is de gehorigheidsuitvoermethode.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Dit is de uitvoermethode om te gebruiken voor het geluid.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dit is de geluidswizard van Mumble, die je zal helpen om je geluidsapparaten en volumes juist in te stellen.&lt;/p&gt;&lt;p&gt;Let erop dat, zolang deze wizard actief is, al het inkomend geluid (bv. van je microfoon) terug afgespeeld wordt opdat je deze zelf kan evalueren en eventueel aanpassen - deze zal echter niet naar een server verstuurd worden.&lt;/p&gt;&lt;p&gt;Merk verder op dat je deze wizard elk moment kan annuleren zonder gevolgen; de gekozen instellingen worden pas bewaard zodra de wizard volledig afgerond is. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dit is de geluidswizard van Mumble, die je helpt om je geluidsinstellingen juist te zetten.&lt;/p&gt;&lt;p&gt;Let erop dat, zolang deze wizard actief is, al het inkomend geluid (bv. van je microfoon) terug afgespeeld wordt opdat je deze zelf kan evalueren en eventueel aanpassen - deze zal echter niet naar een server verstuurd worden.&lt;/p&gt;&lt;p&gt;Merk verder op dat je deze wizard elk moment kan annuleren zonder gevolgen; de gekozen instellingen worden pas bewaard zodra de wizard volledig afgerond is. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble ondersteund posititoneel geluid voor enkele spellen, het zal het geluid van andere gebruikers relatief met hun positie in het spel positioneren. Afhankelijk van positie, worden volumes van geluiden veranderd tussen sprekers om de richting en afstand van andere gebruikers te simuleren. Zulkere repositioneringen hangt af van je luidsprekerconfiguratie of die adequaat in je besturingssysteem staat. Er wordt dus een test gedaan hier. &lt;/p&gt;&lt;p&gt;Onderstaande grafiek spiegeldt posities van &lt;span style=&quot; color:#56b4e9;&quot;&gt;jou&lt;/span&gt;, de &lt;span style=&quot; color:#d55e00;&quot;&gt;sprekers&lt;/span&gt; en een &lt;span style=&quot; color:#009e73;&quot;&gt;bewegende geluidsbron&lt;/span&gt;zo als van boven. Je hoort het geluid verplaatsen tussen de kanalen. &lt;/p&gt;&lt;p&gt;Het helpt om de muis te gebruiken om &lt;span style=&quot; color:#009e73;&quot;&gt;geluidsbronnen&lt;/span&gt; te positoneren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan bij sommige spellen het positioneel geluid inzetten, waardoor de stem van anderen ruimtelijk geplaatst wordt op basis van hun positie (relatief tot jezelf) in het spel. Hun stemvolume zal aangepast worden per luidspreker om plaats en afstand in het spel te simuleren. Gezien deze positionering afhankelijk is van een correcte luidsprekerconfiguratie via de instellingen van je besturingssysteem, wordt er hier een test uitgevoerd. &lt;/p&gt;&lt;p&gt;De onderstaande grafiek toont &lt;span style=&quot; color:#56b4e9;&quot;&gt;jouw&lt;/span&gt; positie, de &lt;span style=&quot; color:#d55e00;&quot;&gt;luidsprekers&lt;/span&gt;, en een &lt;span style=&quot; color:#009e73;&quot;&gt;bewegende geluidsbron&lt;/span&gt; van boven gezien. Je zou het geluid moeten horen verplaatsen tussen de kanalen. &lt;/p&gt;&lt;p&gt;Je kan ook je muis gebruiken om de &lt;span style=&quot; color:#009e73;&quot;&gt;geluidsbron&lt;/span&gt; manueel te positioneren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Input system</source>
-        <translation>Systeem voor invoer</translation>
+        <translation>Invoersysteem</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation>Aggregaat van invoer</translation>
+        <translation>Invoerapparaat</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation>Systeem van uitvoer</translation>
+        <translation>Uitvoersysteem</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation>Aggregaat van uitvoer</translation>
+        <translation>Uitvoerapparaat</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation>Vertraging voor uitvoer</translation>
+        <translation>Uitvoervertraging</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -2091,7 +2091,7 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - Bans bewerken</translation>
+        <translation>Mumble - Bewerk verbanningen</translation>
     </message>
     <message>
         <source>&amp;Address</source>
@@ -2111,7 +2111,7 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
     <message>
         <source>End</source>
-        <translation>Eind</translation>
+        <translation>Einde</translation>
     </message>
     <message>
         <source>User</source>
@@ -2119,7 +2119,7 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
     <message>
         <source>Hash</source>
-        <translation>Kenmerk</translation>
+        <translation>Hash</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -2580,7 +2580,7 @@ Weet je zeker dat je je certificaat wil vervangen?
     </message>
     <message>
         <source>Finish</source>
-        <translation>Voltooien</translation>
+        <translation>Voltooi</translation>
     </message>
     <message>
         <source>Certificate-based authentication is ready for use</source>
@@ -4463,27 +4463,27 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaalhiërarchietekst</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoek</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>De actie om te ondernemen bij het activeren van een gebruiker (door te dubbelklikken of op enter te drukken) in het zoekvenster.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Actie (Gebruiker):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>De actie om te ondernemen bij het activeren van een kanaal (door te dubbelklikken of op enter te drukken) in het zoekvenster.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Actie (Kanaal):</translation>
     </message>
 </context>
 <context>
@@ -6313,37 +6313,37 @@ Valid options are:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zet Sprekersweergave aan of uit</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Schakelt de zichtbaarheid van de Sprekersweergave om.</translation>
+        <translation>Maakt de Sprekersweergave zichtbaar of onzichtbaar.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet de kanaalfilter aan of uit (Alt+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoek</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoek naar een gebruiker of kanaal (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Toon of verberg zoekvenster</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit zal het zoekvenster openen of verbergen, afhankelijk van of het reeds geopend is</translation>
     </message>
 </context>
 <context>
@@ -7667,66 +7667,66 @@ Zie &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;de
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Treed toe</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoek</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst om te zoeken...</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Opties</translation>
+        <translation>Opties</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Of er naar gebruikers gezocht moet worden</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gebruikers</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
-        <translation type="unfinished"></translation>
+        <translation>Of het zoeken hoofdlettergevoelig moet zijn</translation>
     </message>
     <message>
         <source>Case-&amp;sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hoofdlettergevoelig</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opties:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Of de zoektekst gezien moet worden als een reguliere expressie</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RegEx</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kanalen</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoek naar:</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Of er gezocht moet worden naar kanalen</translation>
     </message>
 </context>
 <context>
