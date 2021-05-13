@@ -32,6 +32,8 @@ if(WIN32)
 	add_definitions(
 		"-DUNICODE"
 		"-DWIN32_LEAN_AND_MEAN"
+		# Prevent Windows headers from defining the macros "min" and "max" that mess up e.g. std::min usage
+		"-DNOMINMAX"
 	)
 else()
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
