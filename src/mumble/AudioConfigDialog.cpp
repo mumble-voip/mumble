@@ -550,7 +550,7 @@ void AudioInputDialog::updateEchoEnableState() {
 		if (air->canEcho(ecoid, outputInterface)) {
 			++i;
 			hasUsableEchoOption                = true;
-			const EchoCancelOption &echoOption = echoCancelOptions[static_cast< int >(ecoid)];
+			const EchoCancelOption &echoOption = EchoCancelOption::getOptions()[static_cast< int >(ecoid)];
 			qcbEcho->insertItem(i, echoOption.description, static_cast< int >(ecoid));
 			qcbEcho->setItemData(i, echoOption.explanation, Qt::ToolTipRole);
 			if (s.echoOption == ecoid) {
