@@ -7,6 +7,9 @@ cmake_minimum_required(VERSION 3.15)
 
 cmake_policy(SET CMP0079 NEW)
 cmake_policy(SET CMP0091 NEW)
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20.0")
+	cmake_policy(SET CMP0118 NEW)
+endif()
 
 set(BUILD_NUMBER CACHE STRING "The build number of the current build. Will be used in Mumble's version to make sure newer builds upgrade older installations properly.")
 set(RELEASE_ID CACHE STRING "The ID of the current release (used for representation in the UI and the updater)")
@@ -38,6 +41,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
 list(APPEND CMAKE_MODULE_PATH
 	"${CMAKE_SOURCE_DIR}/cmake"
 	"${CMAKE_SOURCE_DIR}/cmake/FindModules"
+	"${3RDPARTY_DIR}/FindPythonInterpreter"
 )
 
 

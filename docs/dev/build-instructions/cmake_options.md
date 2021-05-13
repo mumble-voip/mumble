@@ -24,6 +24,11 @@ Build support for ASIO audio input.
 Build an x86 overlay
 (Default: OFF)
 
+### bundle-qt-translations
+
+Bundle Qt's translations as well
+(Default: ${static})
+
 ### bundled-celt
 
 Build the included version of CELT instead of looking for one on the system.

@@ -20,6 +20,7 @@ include(install-library)
 option(update "Check for updates by default." ON)
 
 option(translations "Include languages other than English." ON)
+option(bundle-qt-translations "Bundle Qt's translations as well" ${static}) 
 
 option(bundled-opus "Build the included version of Opus instead of looking for one on the system." ON)
 option(bundled-celt "Build the included version of CELT instead of looking for one on the system." ON)
@@ -802,52 +803,17 @@ if(dbus AND NOT WIN32 AND NOT APPLE)
 endif()
 
 if(translations)
-	set(ts_files
-		"mumble_ar.ts"
-		"mumble_bg.ts"
-		"mumble_br.ts"
-		"mumble_ca.ts"
-		"mumble_cs.ts"
-		"mumble_cy.ts"
-		"mumble_da.ts"
-		"mumble_de.ts"
-		"mumble_el.ts"
-		"mumble_en_GB.ts"
-		"mumble_en.ts"
-		"mumble_eo.ts"
-		"mumble_es.ts"
-		"mumble_eu.ts"
-		"mumble_fa_IR.ts"
-		"mumble_fi.ts"
-		"mumble_fr.ts"
-		"mumble_gl.ts"
-		"mumble_he.ts"
-		"mumble_hu.ts"
-		"mumble_it.ts"
-		"mumble_ja.ts"
-		"mumble_ko.ts"
-		"mumble_lt.ts"
-		"mumble_nl.ts"
-		"mumble_no.ts"
-		"mumble_pl.ts"
-		"mumble_pt_BR.ts"
-		"mumble_pt_PT.ts"
-		"mumble_ro.ts"
-		"mumble_ru.ts"
-		"mumble_si.ts"
-		"mumble_sq.ts"
-		"mumble_sv.ts"
-		"mumble_te.ts"
-		"mumble_th.ts"
-		"mumble_tr.ts"
-		"mumble_uk.ts"
-		"mumble_zh_CN.ts"
-		"mumble_zh_HK.ts"
-		"mumble_zh_TW.ts"
-	)
+	# Glob for all translation files in the source dir
+	file(GLOB TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.ts")
 
-	create_translations_qrc(${CMAKE_CURRENT_SOURCE_DIR} "${ts_files}" "translations.qrc")
-	target_sources(mumble PRIVATE "translations.qrc")
+	include_translations(QRC_FILE ${CMAKE_CURRENT_BINARY_DIR} "${TS_FILES}")
+	target_sources(mumble PRIVATE "${QRC_FILE}")
+
+	if(bundle-qt-translations)
+		bundle_qt_translations(mumble)
+	endif()
+elseif(bundle-qt-translations)
+	message(WARNING "Can't bundle Qt translations if translations are disabled!")
 endif()
 
 if(overlay)
