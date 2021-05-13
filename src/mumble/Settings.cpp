@@ -842,6 +842,9 @@ void Settings::load(QSettings *settings_ptr) {
 	LOAD(qsALSAInput, "alsa/input");
 	LOAD(qsALSAOutput, "alsa/output");
 
+	LOAD(pipeWireInput, "pipewire/input");
+	LOAD(pipeWireOutput, "pipewire/output");
+
 	LOAD(qsPulseAudioInput, "pulseaudio/input");
 	LOAD(qsPulseAudioOutput, "pulseaudio/output");
 
@@ -1249,6 +1252,9 @@ void Settings::save() {
 
 	SAVE(qsALSAInput, "alsa/input");
 	SAVE(qsALSAOutput, "alsa/output");
+
+	SAVE(pipeWireInput, "pipewire/input");
+	SAVE(pipeWireOutput, "pipewire/output");
 
 	SAVE(qsPulseAudioInput, "pulseaudio/input");
 	SAVE(qsPulseAudioOutput, "pulseaudio/output");
