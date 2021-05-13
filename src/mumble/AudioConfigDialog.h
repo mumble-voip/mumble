@@ -90,9 +90,13 @@ public slots:
 	void on_qsPacketLoss_valueChanged(int v);
 	void on_qcbLoopback_currentIndexChanged(int v);
 	void on_qsMinDistance_valueChanged(int v);
+	void on_qsbMinimumDistance_valueChanged(double v);
 	void on_qsMaxDistance_valueChanged(int v);
+	void on_qsbMaximumDistance_valueChanged(double v);
 	void on_qsBloom_valueChanged(int v);
-	void on_qsMaxDistVolume_valueChanged(int v);
+	void on_qsbBloom_valueChanged(int v);
+	void on_qsMinimumVolume_valueChanged(int v);
+	void on_qsbMinimumVolume_valueChanged(int v);
 	void on_qcbSystem_currentIndexChanged(int);
 	void on_qcbAttenuateOthersOnTalk_clicked(bool checked);
 	void on_qcbAttenuateOthers_clicked(bool checked);
