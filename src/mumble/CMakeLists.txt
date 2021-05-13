@@ -49,6 +49,7 @@ elseif(UNIX)
 		option(oss "Build support for OSS." ON)
 	elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 		option(alsa "Build support for ALSA." ON)
+		option(pipewire "Build support for PipeWire." ON)
 		option(pulseaudio "Build support for PulseAudio." ON)
 		option(speechd "Build support for Speech Dispatcher." ON)
 		option(xinput2 "Build support for XI2" ON)
@@ -1007,6 +1008,17 @@ if(oss)
 
 	target_compile_definitions(mumble PRIVATE "USE_OSS")
 	target_include_directories(mumble PRIVATE SYSTEM "/usr/lib/oss/include")
+endif()
+
+if(pipewire)
+	target_sources(mumble
+		PRIVATE
+			"PipeWire.cpp"
+			"PipeWire.h"
+	)
+
+	target_compile_definitions(mumble PRIVATE "USE_PIPEWIRE")
+	target_include_directories(mumble PRIVATE SYSTEM "${3RDPARTY_DIR}/pipewire")
 endif()
 
 if(portaudio)

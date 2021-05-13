@@ -149,6 +149,11 @@ Build 32 bit overlay library, necessary for the overlay to work with 32 bit proc
 Build package.
 (Default: OFF)
 
+### pipewire
+
+Build support for PipeWire.
+(Default: ON)
+
 ### plugin-callback-debug
 
 Build Mumble with debug output for plugin callbacks inside of Mumble.

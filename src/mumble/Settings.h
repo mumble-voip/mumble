@@ -224,6 +224,7 @@ struct Settings {
 	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;
+	uint8_t pipeWireInput, pipeWireOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;
 	QString qsJackClientName, qsJackAudioOutput;
 	bool bJackStartServer, bJackAutoConnect;
