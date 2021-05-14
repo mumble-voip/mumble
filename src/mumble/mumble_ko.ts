@@ -5,35 +5,35 @@
     <name>ACLEditor</name>
     <message>
         <source>Deny</source>
-        <translation>금지</translation>
+        <translation>거부</translation>
     </message>
     <message>
         <source>Allow</source>
-        <translation>허가</translation>
+        <translation>허용</translation>
     </message>
     <message>
         <source>Allow %1</source>
-        <translation>%1를 허가합니다.</translation>
+        <translation>%1 허용</translation>
     </message>
     <message>
         <source>Deny %1</source>
-        <translation>%1을 금지합니다.</translation>
+        <translation>%1 거부</translation>
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - 채널을 추가</translation>
+        <translation>Mumble - 채널 추가</translation>
     </message>
     <message>
         <source>Default server value</source>
-        <translation>기본 서버 수</translation>
+        <translation>기본 서버 값</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>실패: 무효한 채널</translation>
+        <translation>실패: 잘못된 채널</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - %1을 편집</translation>
+        <translation>Mumble - %1 편집</translation>
     </message>
     <message>
         <source>ID: %1</source>
@@ -41,15 +41,15 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>%1에 특권을 부여합니다. 특권 허가와 금지가 모두 설정되어 있는 경우, 금지됩니다.&lt;br/&gt;%2</translation>
+        <translation>%1 권한이 부여됩니다. 만약 권한이 허용 및 거부라면 거부가 됩니다.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation>반드시 채널에 이름을 넣어주세요.</translation>
+        <translation>채널에 이름이 있어야 합니다.</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>%1에 특권을 박탈합니다. 특권 허가와 금지가 모두 설정되어 있는 경우, 금지됩니다.&lt;br/&gt;%2</translation>
+        <translation>%1 권한이 취소됩니다. 만약 권한이 허용 및 거부라면 거부가 됩니다.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>여기에 채널 이름을 넣으세요.</translation>
+        <translation>여기에 채널 이름을 입력하세요.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,30 +73,31 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>여기에 채널 비밀번호를 넣으세요.</translation>
+        <translation>여기에 채널 비밀번호를 입력하세요.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation>일시적으로 채널을 만드는 경우에 체크하세요.</translation>
+        <translation>임시 채널을 만들려면 선택하세요.</translation>
     </message>
     <message>
         <source>Temporary</source>
-        <translation>일시적 채널</translation>
+        <translation>임시</translation>
     </message>
     <message>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;포지션&lt;/b&gt;&lt;br/&gt; 이 값을 설정함으로써 이 채널 트리의 순서를 변경할 수 있습니다. 더 높은&lt;i&gt;포지션&lt;/i&gt;값을 가진 채널은 지속적으로 더 낮은 값을 가진 채널보다 아래에 표시됩니다. 또한 2개 채널의&lt;i&gt;포지션&lt;/i&gt; 값이 동일하다면 그 채널 이름들의 사전 순으로 정렬됩니다.</translation>
+        <translation>&lt;b&gt;위치&lt;/b&gt;&lt;br/&gt;
+이 값을 사용하면 Mumble이 채널 목록을 정렬하는 방식을 변경할 수 있습니다. &lt;i&gt;위치&lt;/i&gt; 값이 더 높은 채널은 항상 값이 낮은 채널 아래에 배치됩니다. 두 채널의 &lt;i&gt;위치&lt;/i&gt; 값이 같으면 이름을 기준으로 알파벳순으로 정렬됩니다.</translation>
     </message>
     <message>
         <source>Position</source>
-        <translation>포지션</translation>
+        <translation>위치</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation>그룹(&amp;G)</translation>
+        <translation>&amp;그룹</translation>
     </message>
     <message>
         <source>Group</source>
@@ -108,7 +109,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation>선택한 그룹 삭제</translation>
+        <translation>선택된 그룹 삭제</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -116,31 +117,31 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation>원본 그룹으로 부터 그룹 멤버를 계승한다.</translation>
+        <translation>상위에서 그룹 멤버들 상속</translation>
     </message>
     <message>
         <source>Inherit</source>
-        <translation>원본</translation>
+        <translation>상속</translation>
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation>서브 채널에 대해 그룹 계승을 가능하게 한다.</translation>
+        <translation>하위 채널로 그룹 상속 가능</translation>
     </message>
     <message>
         <source>Inheritable</source>
-        <translation>계승 가능</translation>
+        <translation>상속 가능</translation>
     </message>
     <message>
         <source>Group was inherited from parent channel</source>
-        <translation>원본 채널에서 계승한 그룹</translation>
+        <translation>상위 채널에서 그룹 상속</translation>
     </message>
     <message>
         <source>Inherited</source>
-        <translation>계승 후</translation>
+        <translation>상속됨</translation>
     </message>
     <message>
         <source>Members</source>
-        <translation>멤버</translation>
+        <translation>멤버들</translation>
     </message>
     <message>
         <source>Add</source>
@@ -148,11 +149,11 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Add member to group</source>
-        <translation>그룹에 멤버를 추가한다.</translation>
+        <translation>그룹에 멤버 추가</translation>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation>그룹에서 멤버를 삭제한다.</translation>
+        <translation>그룹에서 멤버를 삭제</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -160,23 +161,23 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Active ACLs</source>
-        <translation>ACLs을 활성화</translation>
+        <translation>ACLs 활성</translation>
     </message>
     <message>
         <source>List of entries</source>
-        <translation>항목 리스트</translation>
+        <translation>항목 목록</translation>
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation>원본 채널 ACL을 계승합니까?</translation>
+        <translation>상위 ACL을 상속하시겠습니까?</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>이는 원본 채널의 체인에 대한 ACL을 적용할지 여부에 관계 없이 설정이 됩니다. 원본 채널에서 &quot;서브 채널에 적용한다 &quot;에 체크된 항목만 계승됩니다</translation>
+        <translation type="unfinished">상위 채널 체인의 ACL을 이 개체에 적용할지 여부를 설정합니다. 상위 항목에 &quot;하위 채널에 적용&quot;으로 표시된 항목만 상속됩니다.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation>ACLs를 계승한다.</translation>
+        <translation>ACLs 상속</translation>
     </message>
     <message>
         <source>Move entry up</source>
@@ -184,7 +185,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>목록 내의 항목을 위로 움직입니다. 항목이 적절히 평가되면 사용자에 영향이 미치는 권한이 변경될 수 있습니다. 계승된 항목 위로는 움직일 수 없습니다. 절대 필요시에는 계승된 항목을 복제할 필요가 있습니다.</translation>
+        <translation>목록에서 항목을 위로 이동합니다. 항목이 순서대로 평가되므로 유저의 유효 권한이 변경 될 수 있습니다. 상속된 항목은 위로 이동할 수 없습니다. 필요한 경우 상속된 항목을 복제해야 합니다.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -196,23 +197,23 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>목록 내의 항목을 아래로 움직입니다. 항목이 적절히 평가되면 사용자에 영향이 미치는 권한이 변경될 수 있습니다.</translation>
+        <translation>목록에서 항목을 아래로 이동합니다. 항목이 순서대로 평가되므로 유저의 유효 권한이 변경 될 수 있습니다.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
-        <translation>아래로(&amp;D)</translation>
+        <translation>&amp;아래로</translation>
     </message>
     <message>
         <source>Add new entry</source>
-        <translation>항목을 새로 추가한다.</translation>
+        <translation>새 항목 추가</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>새 항목을 작성합니다. 초기 상태는 퍼미션 없이 모두 적용됩니다.</translation>
+        <translation type="unfinished">권한이 없는 새 항목을 추가합니다.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>추가(&amp;A)</translation>
+        <translation>&amp;추가</translation>
     </message>
     <message>
         <source>Remove entry</source>
@@ -220,11 +221,11 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation>선택되어 있는 항목을 삭제합니다.</translation>
+        <translation>선택된 항목을 삭제합니다.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>삭제(&amp;R)</translation>
+        <translation>&amp;삭제</translation>
     </message>
     <message>
         <source>Context</source>
@@ -233,7 +234,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>입력한 항목은 이 채널에 적용됩니다.</translation>
+        <translation>항목은 이 채널에 적용되어야 합니다.</translation>
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
@@ -241,45 +242,45 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>Applies to this channel</source>
-        <translation>이 채널에 적용한다.</translation>
+        <translation>이 채널에 적용</translation>
     </message>
     <message>
         <source>Entry should apply to sub-channels.</source>
-        <translation>입력된 항목은 서브 채널에 적용됩니다.</translation>
+        <translation>항목은 하위 채널에 적용되어야 합니다.</translation>
     </message>
     <message>
         <source>Add new group</source>
-        <translation>새로운 그룹을 추가한다.</translation>
+        <translation>새 그룹 추가</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
         <translation>&lt;b&gt;추가&lt;/b&gt;&lt;br/&gt;
-새로운 그룹을 추가한다.</translation>
+새 그룹을 추가합니다.</translation>
     </message>
     <message>
         <source>Inherited members</source>
-        <translation>계승 후 멤버</translation>
+        <translation>상속된 멤버들</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>이 채널의 그룹에 추가된 멤버 목록 입니다.</translation>
+        <translation>이 채널의 그룹에 추가된 멤버들의 목록입니다.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>원본 채널에서 계승되지 않는 그룹의 멤버 목록 입니다.</translation>
+        <translation>상위 채널에서 상속되지 않는 그룹의 멤버들 목록입니다.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>다른 채널에서 계승된 멤버 목록입니다.</translation>
+        <translation>다른 채널에서 상속된 멤버들 목록입니다.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>그룹에 추가하고자 하는 사용자 이름을 입력하고 추가를 클릭하세요.</translation>
+        <translation>그룹에 추가할 유저 이름을 입력하고 추가를 클릭합니다.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>그룹에서 삭제하고자 하는 사용자 이름을 입력하고 추가를 클릭하세요.</translation>
+        <translation>그룹에서 삭제할 유저 이름을 입력하고 추가를 클릭합니다.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -287,19 +288,19 @@ Add a new group.</source>
     </message>
     <message>
         <source>Excluded members</source>
-        <translation>제외된 멤버</translation>
+        <translation>제외된 멤버들</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>항목을 이 채널의 서브 채널에 적용합니다.</translation>
+        <translation>항목을 이 채널의 하위 채널에 적용합니다.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation>서브 채널에 적용합니다.</translation>
+        <translation>하위 채널에 적용</translation>
     </message>
     <message>
         <source>Permissions</source>
-        <translation>퍼미션</translation>
+        <translation>권한</translation>
     </message>
     <message>
         <source>User/Group</source>
@@ -307,7 +308,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>Group this entry applies to</source>
-        <translation>이 항목을 적용하는 그룹입니다.</translation>
+        <translation>이 항목이 적용되는 그룹</translation>
     </message>
     <message>
         <source>User ID</source>
@@ -315,135 +316,135 @@ Add a new group.</source>
     </message>
     <message>
         <source>User this entry applies to</source>
-        <translation>이 항목을 적용하는 사용자</translation>
+        <translation>이 항목이 적용되는 유저</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>이 항목이 어느 유저에 적용되는지를 설정 합니다. 검색하려면 사용자 명을 입력하여 Enter키를 누르세요.</translation>
+        <translation>이 항목이 적용되는 유저를 설정합니다. 유저 이름을 입력하고 Enter키를 눌러 서버에 조회합니다.</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>속성</translation>
+        <translation>&amp;속성</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;채널 이름&lt;/b&gt;&lt;br/&gt;이 필드에 경로 이름을 입력해 주세요. 채널 이름은 접속해 있는 서버에 따를 필요가 있습니다.</translation>
+        <translation>&lt;b&gt;이름&lt;/b&gt;&lt;br /&gt;이 필드에 채널 이름을 입력해야 합니다. 이름은 연결된 서버에서 지정한 제한을 준수해야 합니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;일시적 채널&lt;/b&gt;&lt;br/&gt;
-체크하여 채널을 만들면 일시로 개설 됩니다. 마지막으로 남아 있던 사용자가 채널을 벗어나면 서버에 의해 자동적으로 그 채널이 삭제됩니다.</translation>
+        <translation>&lt;b&gt;임시&lt;/b&gt;&lt;br /&gt;
+선택하면 임시 채널을 생성합니다. 마지막 유저가 나가면 서버에서 채널을 자동으로 삭제합니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;그룹&lt;/b&gt;&lt;br/&gt;
-이 채널에서 현재 정의되는 모든 그룹입니다. 새로운 그룹을 만들려면 그룹 이름을 입력하여 Enter키를 누르세요.</translation>
+        <translation>&lt;b&gt;그룹&lt;/b&gt;&lt;br /&gt;
+현재 채널에서 정의된 모든 그룹입니다. 새 그룹을 만들려면 이름을 입력하고 Enter키를 누르세요.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;삭제&lt;/b&gt;&lt;br/&gt;현재 선택되어 있는 그룹을 삭제합니다. 만약 그룹이 계승되어 있으면 명단에서 삭제되지 않습니다. 하지만 그룹에 대한 부분적 모든 정보는 제거됩니다.</translation>
+        <translation>&lt;b&gt;삭제&lt;/b&gt;&lt;br /&gt;현재 선택된 그룹을 삭제합니다. 만약 상속된 그룹이라면 목록에서 삭제되지 않지만 그룹에 대한 모든 로컬 정보는 지워집니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;계승&lt;/b&gt;&lt;br/&gt;그룹이 원본 채널에서&lt;i&gt;계승 가능&lt;/i&gt;으로 설정되어 있다면 해당 그룹의 모든 멤버는 계승됩니다.</translation>
+        <translation>&lt;b&gt;상속&lt;/b&gt;&lt;br /&gt;그룹이 상위 채널에서 &lt;i&gt;상속 가능&lt;/i&gt;으로 표시된 경우, 그룹의 모든 멤버들을 상위 채널에서 상속합니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;계승 가능&lt;/b&gt;&lt;br/&gt;이 그룹이 서브 채널에 계승이 가능함을 의미합니다. 그룹이 계승이 불가능 하다면, 서브 채널은 같은 이름의 새 그룹을 자유롭게 만들 수 있습니다.</translation>
+        <translation>&lt;b&gt;상속 가능&lt;/b&gt;&lt;br /&gt;이 그룹을 하위 채널로 상속할 수 있습니다. 그룹이 상속 불가능한 경우에도 하위 채널은 동일한 이름으로 새 그룹을 만들 수 있습니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;계승 후&lt;/b&gt;그룹이 원본 경로로 계승되었음을 의미합니다. 이 플래그는 단지 정보이므로 편집할 수 없습니다.</translation>
+        <translation>&lt;b&gt;상속됨&lt;/b&gt;&lt;br /&gt;그룹이 상위 채널에서 상속되었음을 나타냅니다. 이 플래그는 편집 할 수 없으며 정보를 위한 것입니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;멤버&lt;/b&gt;&lt;br/&gt;
-이 명단은 현재 채널의 그룹에 추가된 모든 멤버를 포함합니다. 보다 높은 경로에서 계승된 멤버는 포함시키지 않기 때문에 주의하세요. 구성원은&lt;i&gt;계승 후 멤버&lt;/i&gt;의 목록에서 확인할 수 있습니다. 이 보다 낮은 계층의 채널에서 이 리스트를 계승시키고 싶지 않은 경우는&lt;i&gt;계승 가능&lt;/i&gt;의 체크를 해제하거나 수동으로&lt;i&gt;제외 멤버&lt;/i&gt;명단에 멤버를 추가해 주세요.</translation>
+        <translation>&lt;b&gt;멤버들&lt;/b&gt;&lt;br /&gt;
+이 목록에는 현재 채널에서 그룹에 추가한 모든 멤버들이 포함됩니다. 여기에는 상위 수준의 채널 목록에 상속된 멤버들이 포함되지 않으며 &lt;i&gt;상속된 멤버들&lt;/i&gt; 목록에서 찾을 수 있습니다. 하위 수준 채널에서 이 목록을 상속하지 않으려면 &lt;i&gt;상속 가능&lt;/i&gt;을 선택 취소하거나 &lt;i&gt;제외된 멤버들&lt;/i&gt; 목록에 멤버들을 수동으로 추가하세요.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;제외 멤버&lt;/b&gt;&lt;br/&gt;
-원본 채널에 계승되지 않는 그룹의 멤버 리스트를 포함.</translation>
+        <translation>&lt;b&gt;제외 멤버들&lt;/b&gt;&lt;br /&gt;
+상위 채널에서 그룹 멤버 자격이 상속되지 않는 멤버들 목록을 포함합니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;계승 후 멤버&lt;/b&gt;&lt;br/&gt;
-현재 채널로 계승된 멤버 목록입니다. 보다 높은 계층의 채널에서 계승을 원하지 않는다면&lt;i&gt;계승&lt;/i&gt;을 체크 해제하세요.</translation>
+        <translation>&lt;b&gt;상속된 멤버들&lt;/b&gt;&lt;br /&gt;
+현재 채널에서 상속된 멤버들 목록을 포함합니다. 상위 수준 채널에서 상속을 금지하려면 &lt;i&gt;상속&lt;/i&gt;을 선택 취소합니다.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>이 항목이 어느 사용자 그룹에 적용 되는지 설정 합니다. 그룹은 항목이 사용 되는 채널의 컨텍스트와 같이 평가됩니다. 예를 들면 Root경로상의 기본 ACL은&lt;i&gt;쓰기&lt;/i&gt;권한을&lt;i&gt;관리자&lt;/i&gt;그룹에 부여 되어 있습니다. 이 항목이 만약에 채널로 계승 되고 없다면 비록 그 ACL에 원본이 되는 채널&lt;i&gt;관리자&lt;/i&gt;그룹에 속해 있지 않아도&lt;i&gt;관리자&lt;/i&gt;그룹에 그 채널에 소속한다면 사용자의 권한을 주게 됩니다. 그룹 이름이 !에서 시작되고 있으면 그 구성원은 거부 됩니다. 그리고 ~부터 시작이 된다면 그 채널 에서 유효한 ACL보다 채널의 ACL의 정의가 된 곳이 우선시 됩니다. 그룹 이름이 #로 시작 되는 경우에는 액세스 토큰으로 인식 합니다. 사용자는 액세스 토큰 목록 속에 #후에 이어지는 문자열을 가지고 있어야 합니다. 이것은 비인증 사용자에 대해 단순한 패스워드 방법으로 이용할 수 있습니다. 그룹 이름이 $로 시작될 경우  $에 이어 문자열이 사용자 증명서의 해시와 같은 경우입니다. 특별히 부여된 그룹은 다음과 같습니다.&lt;br/&gt;&lt;b&gt;All&lt;/b&gt;-모두 매치 시킨다&lt;br/&gt;&lt;b&gt;Auth&lt;/b&gt;-인증된 모든 사용자에게 매치 시킨다&lt;br/&gt;&lt;b&gt;sub, a, b, c&lt;/b&gt;-서브 채널&lt;i&gt;a&lt;/i&gt;&lt;i&gt;b&lt;/i&gt;&lt;i&gt;c&lt;/i&gt;최소&lt;i&gt;a&lt;/i&gt;개의 공통의 원본 채널을 두고 체인 아래쪽 &lt;i&gt;b&lt;/i&gt;개 에서 &lt;i&gt;c개&lt;/i&gt;사이의 서브 채널 유저에게 매치합니다. 이 항목에 대해서 보다 많은 문서를 보기 원한다면 공식 사이트를 확인 해 주세요.&lt;b&gt;in&lt;/b&gt;-현재 채널에 있는 모든 사용자에게 매치(이는&lt;i&gt;sub, 0,0,0&lt;/i&gt;의 간이적인 표기입니다.)&lt;b&gt;out&lt;/b&gt;-현재 채널 밖에 있는 모든 사용자에게 매치 합니다 (이는&lt;i&gt;. sub, 0,0,0&lt;/i&gt;의 간이적인 표기입니다.)
-항목은 사용자나 그룹 중 둘중 하나에 적용 되어 양쪽에는 적용되지 않습니다.</translation>
+        <translation>이 항목이 적용되는 유저 그룹을 제어합니다.&lt;br /&gt;그룹은 항목이 사용되는 채널의 컨텍스트에서 평가됩니다. 예를 들어 Root 채널의 기본 ACL은 &lt;i&gt;관리자&lt;/i&gt; 그룹에 &lt;i&gt;쓰기&lt;/i&gt; 권한을 부여합니다. 이 항목이 채널에 상속된 경우 ACL이 시작된 채널의 &lt;i&gt;관리자&lt;/i&gt; 그룹에 속하지 않더라도 해당 채널의 &lt;i&gt;관리자&lt;/i&gt; 그룹에 속한 유저에게 쓰기 권한을 부여합니다. &lt;br /&gt;그룹 이름이 &apos;!&apos;로 시작하면 멤버 자격이 무효화되고, &apos;~&apos;로 시작하면 ACL이 활성화된 채널이 아닌 ACL이 정의된 채널에서 평가됩니다.&lt;br /&gt;그룹 이름이 &apos;#&apos;으로 시작하면 접근 토큰으로 해석됩니다. 유저는 일치하는 접근 토큰 목록에서 &apos;#&apos; 뒤에 오는 모든 항목을 입력해야 합니다. 이것은 인증되지 않은 유저에 대해 채널에 대한 매우 간단한 비밀번호를 사용할 수 있습니다.&lt;br /&gt;그룹 이름이 &apos;$&apos;로 시작하면 유저 인증서 해시가 &apos;$&apos; 뒤에 오는 것과 일치해야 합니다.&lt;br /&gt;미리 정의 된 몇 가지 특수 그룹:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - 모두입니다.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - 인증된 모든 유저입니다.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - 현재 하위 채널 최소 &lt;i&gt;a&lt;/i&gt; 공통 부모에 속하며 체인 하단의 &lt;i&gt;b&lt;/i&gt; 채널과 &lt;i&gt;c&lt;/i&gt; 채널 사이에 있는 유저입니다. 자세한 내용은 웹 사이트를 참조하세요.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - 현재 채널에 있는 유저입니다.(convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - 채널 외부의 유저입니다. (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;항목은 유저 또는 그룹 중 하나에 적용되지만 둘 다에 적용되지 않습니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;비밀 번호&lt;/b&gt;&lt;br&gt;이 필드에서 쉽게 채널 패스워드를 설정·변경할 수 있습니다. 기본으로 Mumble의 액세스 토큰 기능을 사용하고 있습니다. 강력한 암호를 사용하려면 ACL과 그룹을 사용하세요.</translation>
+        <translation>&lt;b&gt;비밀번호&lt;/b&gt;&lt;br /&gt;이 필드를 사용하여 채널의 비밀번호를 쉽게 설정하고 변경할 수 있습니다. 백그라운드에서 Mumble의 접근 토큰 기능을 사용합니다. 세분화되고 강력한 접근 제어가 필요한 경우 ACL 및 그룹을 사용하세요.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>이 채널에서 유효한 항목을 모두 표시합니다. 원본 채널에서 계승된 항목은 이탤릭(기울림)체로 표시됩니다.&lt;br/&gt;ACL은 위에서 차례 대로 평가됩니다. 즉, 이름순의 순위를 낮추어 우선도가 오르는 것을 의미합니다.</translation>
+        <translation>이 채널에서 활성화된 모든 항목이 표시됩니다. 상위 채널에서 상속된 항목은 기울임꼴로 표시됩니다.&lt;br /&gt;ACL은 위에서 아래로 평가되므로, 목록을 아래로 이동할수록 우선순위가 증가합니다.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation>채널의 ID</translation>
+        <translation>채널의 ID입니다.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation>최대 유저수</translation>
+        <translation>최대 유저</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
-        <translation>채널의 최대 사용자 수</translation>
+        <translation>채널에서 허용되는 최대 유저 수</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;최대 유저&lt;/b&gt;&lt;br /&gt;
+이 값을 사용하면 채널에서 허용되는 최대 사용자 수를 설정할 수 있습니다. 값이 0보다 크면 해당 유저 수만 채널에 입력할 수 있습니다. 값이 0인 경우 채널의 최대 유저 수는 서버의 기본 제한으로 지정됩니다.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>채널의 정렬 순서입니다.</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>속성</translation>
     </message>
     <message>
         <source>Channel password</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 비밀번호</translation>
     </message>
     <message>
         <source>Maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>최대 유저</translation>
     </message>
     <message>
         <source>Channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>채널 이름</translation>
     </message>
     <message>
         <source>Inherited group members</source>
-        <translation type="unfinished"></translation>
+        <translation>상속된 그룹 멤버들</translation>
     </message>
     <message>
         <source>Foreign group members</source>
-        <translation type="unfinished"></translation>
+        <translation>외국인 그룹 멤버들</translation>
     </message>
     <message>
         <source>Inherited channel members</source>
-        <translation type="unfinished"></translation>
+        <translation>상속된 채널 멤버들</translation>
     </message>
     <message>
         <source>Add members to group</source>
-        <translation type="unfinished"></translation>
+        <translation>그룹에 멤버들 추가</translation>
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation type="unfinished"></translation>
+        <translation>ACL 항목 목록</translation>
     </message>
 </context>
 <context>
@@ -454,7 +455,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>선택된 ALSA 입력 열기에 실패했습니다:%1</translation>
+        <translation>선택된 ALSA 입력 열기 실패: %1</translation>
     </message>
 </context>
 <context>
@@ -465,18 +466,18 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>선택된 ALSA출력 열기에 실패했습니다:%1</translation>
+        <translation>선택된 ALSA 출력 열기 실패: %1</translation>
     </message>
 </context>
 <context>
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>사운드 카드 이름 (긴 이름) 가져 오기 실패: %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>사운드 카드 이름 가져 오기 실패: %1</translation>
     </message>
 </context>
 <context>
@@ -492,11 +493,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>ASIO Initialization failed: %1</source>
-        <translation>ASIO의 초기화에 실패 했습니다:%1</translation>
+        <translation>ASIO 초기화 실패: %1</translation>
     </message>
     <message>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>ASIO드라이버의 인스턴스화에 실패 했습니다.</translation>
+        <translation>ASIO 드라이버를 인스턴스화 실패</translation>
     </message>
     <message>
         <source>ASIO</source>
@@ -504,43 +505,43 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device selection</source>
-        <translation>디바이스 선택</translation>
+        <translation>장치 선택</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation>디바이스</translation>
+        <translation>장치</translation>
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation>마이크에 사용하는 디바이스</translation>
+        <translation>마이크에 사용할 장치</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>문의 장치를 선택합니다. 당신은 장치를 실제로 확인하여 사용 채널을 선택할 필요가 있습니다.</translation>
+        <translation>조회할 장치를 선택합니다. 장치를 조회하고 사용할 채널을 선택해야 합니다.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation>선택된 장치를 조회합니다</translation>
+        <translation>선택된 장치 조회</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>채널에서 선택된 디바이스를 문의합니다. 많은 ASIO드라이버가 비정상적으로 불안정하게 되므로 주의해 주세요. </translation>
+        <translation>선택된 장치에 채널을 조회합니다. 대부분의 ASIO 드라이버는 버그가 매우 심하며 이러한 드라이버를 조회하면 응용 프로그램 또는 시스템이 충돌할 수 있습니다.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
-        <translation>문의(&amp;Q)</translation>
+        <translation>&amp;조회</translation>
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation>선택된 디바이스를 설정합니다.</translation>
+        <translation>선택된 장치 설정</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>선택된 장치 설정을 합니다. 많은 ASIO드라이버가 불안정하므로 주의해 주세요. </translation>
+        <translation>선택된 장치가 설정됩니다. 대부분의 ASIO 드라이버는 버그가 매우 심하며 이러한 드라이버를 조회하면 응용 프로그램 또는 시스템이 충돌할 수 있습니다.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation>설정</translation>
+        <translation>&amp;설정</translation>
     </message>
     <message>
         <source>Capabilities</source>
@@ -552,15 +553,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Buffer size</source>
-        <translation>버퍼 사이즈</translation>
+        <translation>버퍼 크기</translation>
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>ASIO 입력 채널을 설정합니다. 최소 1개 채널을 마이크 또는 스피커로 고르세요.&lt;i&gt;마이크&lt;/i&gt;는 당신 마이크가 연결된 곳에서 &lt;i&gt;스피커&lt;/i&gt;는 &quot; 듣는 것&quot;을 시험해 보고 싶을때 입력하는 채널입니다. Sound Blaster Audigy 2 ZS의 예를 하나 들자면 스피커가 &quot;Mix L&quot;and&quot;Mix R&quot;때 마이크를 &quot;Mic L&quot;로 하는 것이 좋은 선택 입니다.</translation>
+        <translation>ASIO 입력 채널을 설정합니다. 마이크와 스피커는 하나 이상의 채널을 선택해야 합니다. &lt;i&gt;마이크&lt;/i&gt;는 마이크가 연결된 위치에 있어야 하며, &lt;i&gt;스피커&lt;/i&gt;는 &apos;&lt;i&gt;듣는 소리&lt;/i&gt;&apos;를 샘플링하는 채널입니다.&lt;br /&gt;예를 들어 Audigy 2 ZS에서 마이크는 &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos;로, 스피커는 &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; 및 &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos; 입니다.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
-        <translation>입력채널 설정</translation>
+        <translation>입력 채널 설정</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -588,18 +589,18 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 목록</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>스피커 목록</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>ASIO를 사용하려면 하나 이상의 마이크와 하나 이상의 스피커를 선택해야 합니다.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -610,23 +611,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AboutDialog</name>
     <message>
         <source>About Mumble</source>
-        <translation>멈블에 대해서</translation>
+        <translation>Mumble 정보</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
-        <translation>Mumble에 대해서(&amp;A)</translation>
+        <translation>&amp;Mumble 정보</translation>
     </message>
     <message>
         <source>&amp;License</source>
-        <translation>&amp;License</translation>
+        <translation>&amp;라이선스</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;저자</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;타사 라이선스</translation>
     </message>
     <message>
         <source>OK</source>
@@ -634,19 +635,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>라이선스 계약</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>저자</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>타사 라이선스 계약</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;오픈 소스, 짧은 지연 시간, 고품질 음성 채팅 유틸리티&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -661,63 +662,63 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation>음성 입력 방법</translation>
+        <translation>오디오 입력 방법</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation>디바이스</translation>
+        <translation>장치</translation>
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation>음성 입력 방법</translation>
+        <translation>오디오 입력 장치</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;음성을 위한 입력 디바이스입니다.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;오디오에 사용할 입력 장치입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
-        <translation>트랜스미션</translation>
+        <translation>전송</translation>
     </message>
     <message>
         <source>&amp;Transmit</source>
-        <translation>송신(&amp;T)</translation>
+        <translation>&amp;전송방법</translation>
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation>발언을 송신하는 타이밍</translation>
+        <translation>음성을 전송할 때</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;목소리를 송신할 타이밍을 설정합니다.&lt;/b&gt;&lt;br/&gt;&lt;i&gt;항상 활성화&lt;/i&gt;-항상 음성 입력을 활성화 합니다&lt;br/&gt;&lt;i&gt;소리로 활성&lt;/i&gt;-발언을 했을때 활성화가 됩니다.&lt;br/&gt;&lt;i&gt;누르며 말하기&lt;/i&gt;-&lt;i&gt;단축키&lt;/i&gt;로 설정한 키를 누르고 있는 동안에 음성 입력을 활성화 합니다.</translation>
+        <translation>&lt;b&gt;음성을 전송하는 시기를 설정합니다.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;오픈 마이크&lt;/i&gt; - 항상&lt;br /&gt;&lt;i&gt;음성 감지&lt;/i&gt; - 음성이 들릴 때&lt;br /&gt;&lt;i&gt;눌러서 말하기&lt;/i&gt; - &lt;i&gt;단축키&lt;/i&gt;를 누르고 있을 때</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
-        <translation>더블푸쉬 타임</translation>
+        <translation>두번 누르기 시간</translation>
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>누르며 말하기 단축키를 2번 누르면 잠깁니다.</translation>
+        <translation>눌러서 말하기 키를 두 번 누르면 잠깁니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;더블푸쉬 타임&lt;/b&gt;&lt;br/&gt;만약 당신이 누르며 말하기에 설정된 키를 2회 연속, 이 시간을 설정한뒤 그 시간 사이 동안에 누르면 키는 고정 됩니다. </translation>
+        <translation>&lt;b&gt;두번 누르기 시간&lt;/b&gt;&lt;br /&gt;설정된 시간 간격 동안 눌러서 말하기 키를 두 번 누르면 잠깁니다. 잠금을 해제하기 위해 눌러서 말하기 키를 한 번 더 누를 때까지 Mumble은 계속 전송합니다.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation>오디오 큐를 기본으로 리셋</translation>
+        <translation>오디오 신호를 기본값으로 재설정</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;리셋&lt;/b&gt;&lt;br/&gt;기본 파일 경로를 초기화합니다.</translation>
+        <translation>&lt;b&gt;재설정&lt;/b&gt;&lt;br/&gt;파일의 경로를 기본값으로 재설정합니다.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation>오디오 파일을 킬때 참조</translation>
+        <translation>켜기 오디오 파일 찾아보기</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation>오디오 파일을 끌때 참조</translation>
+        <translation>끄기 오디오 파일 찾아보기</translation>
     </message>
     <message>
         <source>Off</source>
@@ -725,23 +726,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>On</source>
-        <translation>On</translation>
+        <translation>켜기</translation>
     </message>
     <message>
         <source>Preview the audio cues</source>
-        <translation>오디오 큐를 미리 보기</translation>
+        <translation>오디오 신호 미리보기</translation>
     </message>
     <message>
         <source>Use SNR based speech detection</source>
-        <translation>SNR 음성 감지를 기본으로 사용</translation>
+        <translation>SNR 기반 음성 감지 사용</translation>
     </message>
     <message>
         <source>Signal to Noise</source>
-        <translation>Signal to Noise</translation>
+        <translation>신호 대 잡음비</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;발언 신호의 세기를 사용할 것인지 설정합니다.&lt;/b&gt;이 모드를 사용하면, 입력 신호 자체의 출력이 발언 감지에 사용됩니다.</translation>
+        <translation>&lt;b&gt;진폭을 사용하도록 음성 감지를 설정합니다.&lt;/b&gt;&lt;br /&gt;이 모드에서는 입력 신호의 원시 강도가 음성을 감지하는 데 사용됩니다.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -749,43 +750,43 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Voice &amp;Hold</source>
-        <translation>목소리 고정(&amp;H)</translation>
+        <translation>&amp;음성 고정</translation>
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
-        <translation>음성이 사라진 뒤 일정 시간 동안 송신을 보내는지</translation>
+        <translation>무음 후 계속 전송하는 시간</translation>
     </message>
     <message>
         <source>Silence Below</source>
-        <translation>Silence Below</translation>
+        <translation>무음 감도</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;소리를 감지하기 위한 기준치를 설정합니다.&lt;/b&gt;수동으로 조절하려면 음성 통계 창을 함께 이용하세요.&quot;Speech Above&quot;이하의 값은 항상 말하지 않은 상태로 간주 되어 &quot;Silence Below&quot;보다 위의 값은 발언으로 간주됩니다. 이 사이의 값은 이미 대화 중이면 발언으로 판단되지만, 새 발언이라고 판단하는 것은 안 됩니다.</translation>
+        <translation>&lt;b&gt;음성 감지를 위한 값을 설정합니다. &lt;/b&gt;&lt;br /&gt;오디오 통계 창과 함께 사용하여 음성 감지 위한 값을 수동으로 조정합니다. &quot;무음 감도&quot;의 아래의 입력 값은 인식되지 않습니다. &quot;음성 감도&quot;의 위의 값은 항상 음성으로 인식됩니다. 이미 말하고 있는 경우 사이의 값은 음성으로 감지되며 새로운 감지를 하지 않습니다.</translation>
     </message>
     <message>
         <source>Speech Above</source>
-        <translation>Speech Above</translation>
+        <translation>음성 감도</translation>
     </message>
     <message>
         <source>Signal values above this count as voice</source>
-        <translation>음성으로 판정하는 신호 값</translation>
+        <translation>이 이상의 신호 값은 음성으로 인식</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation>압축방식</translation>
+        <translation>압축</translation>
     </message>
     <message>
         <source>&amp;Quality</source>
-        <translation>품질</translation>
+        <translation>&amp;품질</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>압축 품질(피크 대역 폭)</translation>
+        <translation>압축 품질 (최대 대역폭)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;압축 품질을 설정합니다.&lt;/b&gt;&lt;br/&gt;송출되는 음성에 대해 어느 정도의 대역 폭 사용이 가능한지를 설정 합니다.</translation>
+        <translation>&lt;b&gt;압축 품질을 설정합니다.&lt;/b&gt;&lt;br /&gt;Mumble이 오디오 송신에 사용할 수 있는 대역폭의 양을 설정합니다.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -793,15 +794,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
-        <translation>전송된 패킷 당 음성 프레임의 길이</translation>
+        <translation>패킷 당 전송할 오디오 프레임 수</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;하나의 송신 패킷에 포함하기 위한 음성 프레임의 길이를 선택합니다.&lt;/b&gt;&lt;br/&gt;이 값을 높일수록 당신의 음성은 지연되지만, 그만큼 필요한 네트워크 대역 폭은 감소됩니다.</translation>
+        <translation>&lt;b&gt;하나의 패킷에 넣어야 하는 오디오 프레임 수를 선택합니다.&lt;/b&gt;&lt;br /&gt;이 값을 늘리면 음성 지연 시간이 늘어나지만 대역폭은 감소됩니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;음성의 송신에 사용되는 대역 폭의 최대치를 나타냅니다.&lt;/b&gt;&lt;br/&gt;이것은 당신의 PC에서 송출되는 대역의 가장 큰 값을 표시합니다. 오디오 비트레이트는 하나의 음성 데이터의 최대 비트 레이트(VBR사용 시)를 뜻합니다. Position은 위치 정보를 위해 사용되는 비트율 표시하고 Overhead는 개별적인 프레이밍과 IP 패킷 헤더(IP와 UDP는 이 Overhead의 75%)을 나타내고 있습니다.</translation>
+        <translation>&lt;b&gt;사용 된 최대 송신 대역폭을 보여줍니다.&lt;/b&gt;&lt;br /&gt;컴퓨터에서 보낸 최대 대역폭 양을 보여줍니다. 오디오 비트 레이트는 오디오 데이터 전용의 최대 비트 레이트(VBR 사용 시)입니다. 위치는 위치 정보에 사용되는 비트 레이트입니다. 오버헤드는 프레임 및 IP 패킷 헤더입니다 (IP 및 UDP는이 오버헤드의 75%).</translation>
     </message>
     <message>
         <source>Audio Processing</source>
@@ -813,115 +814,115 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;이 설정은 잡음를 억제합니다.&lt;/b&gt;&lt;br/&gt;이 보다 큰 값을 설정하면 많은 잡음이 억제됩니다.</translation>
+        <translation>&lt;b&gt;잡음 억제의 양을 설정합니다.&lt;/b&gt;&lt;br /&gt;이 값이 클수록 많은 잡음이 억제됩니다.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation>음성 입력의 최대 증폭량</translation>
+        <translation>입력 사운드의 최대 증폭</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;음성 입력의 최대 증폭 양입니다&lt;/b&gt;&lt;br/&gt;Mumble은 압축을 하기 전에 입력량을 정상화합니다. 이 설정은 소리를 얼마나 증폭시킬지를 결정합니다.&lt;br/&gt;실제의 음량은 발언 패턴에 따라 변화하지만 이곳에서 지정된 음량을 넘을 수는 없습니다.&lt;br/&gt;음성 통계에서&lt;i&gt;마이크의 음량&lt;/i&gt;수준이 항상 100% 가까이에 이르고 있다면 이 값을 2.0정도로 설정하는게 좋을지도 모릅니다. 그러나 100%에 미치지 않는다면 이 값을 더 높여 주세요.&lt;br/당신이 매우 온화하게 말할 때&lt;i&gt;마이크 음량*증폭 값&gt;=100&lt;/i&gt;가 되는 것이 이상적입니다.&lt;br/&gt;&lt;br/&gt;이 값을 최대로 할 경우 딱히 문제는 없지만, 그렇다고 적당히 최대치에 맞춰 버리면 원하는 않는 대화까지 흘러나갈 우려가 있습니다.</translation>
+        <translation>&lt;b&gt;입력의 최대 증폭입니다.&lt;/b&gt;&lt;br /&gt;Mumble은 압축하기 전에 입력 볼륨을 정규화하고 증폭 할 수 있는 정도를 설정합니다&lt;br /&gt;실제 수준은 현재 음성 패턴에 따라 지속해서 업데이트되지만, 여기서 지정한 수준 이상은 되지 않습니다.&lt;br /&gt;오디오 통계에서 &lt;i&gt;마이크 음량&lt;/i&gt; 수준이 100%를 맴돌면 2.0 정도로 설정하는 것이 좋지만 100%에 도달할 수 없는 경우 이 값을 훨씬 더 높게 설정하세요.&lt;br /&gt; 부드럽게 말하는 경우에는 &lt;i&gt;마이크 음량 * 증폭 량 &gt;= 100&lt;/i&gt;으로 설정하는 이상적입니다.&lt;br /&gt;&lt;br /&gt;이 값을 최대로 설정해도 문제가 없지만, 다른 대화가 들어갈 수 있습니다.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation>현재 발언의 감지 가능성</translation>
+        <translation>현재 음성 감지 가능성</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>당신의 스피커에서 에코를 제거할 수 있습니다. 믹스는 CPU 부하가 낮지만 스피커에서 일정한 크기의 소리를 내고 있고 마이크에서 일정 거리를 두고 있을 경우에만 잘 작동합니다.멀티 채널 에코 제거는 좀 더 효과가 좋지만 CPU 부하가 믹스보다 높습니다.</translation>
+        <translation>스피커에서 에코를 제거할 수 있습니다. 혼합은 CPU 부하가 낮지만 스피커에서 일정한 크기의 소리를 내고 있고 마이크에서 일정 거리를 두고 있을 경우에만 잘 작동합니다. 다중채널 에코 제거는 좀 더 효과가 좋지만 CPU 부하가 혼합보다 높습니다.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>비활성</translation>
+        <translation>비활성화</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Signal to Noise 비율을 사용하여 발언 인식을 설정합니다.&lt;/b&gt;&lt;br/&gt;이 모드에서 입력은 명확한 신호와 같은걸로 분석되어 해당 신호의 명료성은 음성 검출을 위해 사용됩니다.</translation>
+        <translation>&lt;b&gt;신호 대 잡음비를 사용하도록 음성 감지를 설정합니다.&lt;/b&gt;&lt;br /&gt;이 모드에서 입력은 명확한 신호와 유사한 것으로 분석되며, 해당 신호의 선명도는 음성 감지에 사용됩니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;현재 음성 탐지 설정을 표시합니다.&lt;/b&gt;&lt;br /&gt;설정 대화 상자 또는 오디오 마법사에서 설정을 변경할 수 있습니다.</translation>
     </message>
     <message>
         <source>Signal values below this count as silence</source>
-        <translation type="unfinished"></translation>
+        <translation>신호 값이 이것보다 작으면 무음</translation>
     </message>
     <message>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation type="unfinished"></translation>
+        <translation>오디오 전송에 사용되는 최대 대역폭</translation>
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>진폭 기반 음성 감지 사용</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;음성 전송 중지가 감지된 후 얼마 동안 지속되어야 하는지 선택합니다.&lt;/b&gt;&lt;br /&gt;말할 때 음성이 끊어질 경우 이 값을 높게 설정합니다 (이름 옆에 빠르게 깜박이는 음성 아이콘으로 표시됨).</translation>
     </message>
     <message>
         <source>Exclusive mode</source>
-        <translation>전용 모드</translation>
+        <translation>단독 모드</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;디바이스를 전용 모드로 활성합니다.&lt;/b&gt;&lt;br/&gt; 다른 애플리케이션이 이 장치를 사용할 수 없습니다.</translation>
+        <translation>&lt;b&gt;장치가 단독 모드로 열립니다.&lt;/b&gt;&lt;br /&gt;다른 응용 프로그램은 장치를 사용할 수 없습니다.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation>전용</translation>
+        <translation>단독</translation>
     </message>
     <message>
         <source>R&amp;eset</source>
-        <translation>리셋(&amp;R)</translation>
+        <translation>&amp;재설정</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>참조(&amp;B)</translation>
+        <translation>&amp;찾아보기...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>참조(&amp;R)</translation>
+        <translation>&amp;찾아보기...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>미리보기(&amp;P)</translation>
+        <translation>&amp;미리보기</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;프리뷰/b&gt;&lt;br/&gt;현재 플레이 중인 &lt;i&gt;on&lt;/i&gt; 사운드를 재생후 &lt;i&gt;off&lt;/i&gt; 사운드로 재생합니다.</translation>
+        <translation>&lt;b&gt;미리보기&lt;/b&gt;&lt;br/&gt;현재 &lt;i&gt;켜기&lt;/i&gt; 사운드와 현재 &lt;i&gt;끄기&lt;/i&gt; 사운드를 차례로 재생합니다.</translation>
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>누르며 말하기 버튼을 표시하여 창을 항상 위에 표시합니다</translation>
+        <translation>눌러서 말하기 버튼을 항상 위에 상태로 표시</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
-        <translation>누르며 말하기를 윈도우에 표시한다.</translation>
+        <translation>눌러서 말하기 창 표시</translation>
     </message>
     <message>
         <source>Misc</source>
-        <translation>Misc</translation>
+        <translation>기타</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>오디오를 송신 할 시 또는 중단 할 때 들리는 음성의 큐</translation>
+        <translation>전송 시작 또는 중지 시 오디오 신호음</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>이 기능은 전송 시 음성 큐를 설정합니다.&lt;/b&gt;&lt;br/&gt;이를 설정하면 전송의 시작 때와, 종료시에 짧은 오디오 비프음이 들리게 됩니다.</translation>
+        <translation>&lt;b&gt;오디오 신호를 전송할 수 있습니다.&lt;/b&gt;&lt;br /&gt;이 설정을 사용하면 전송을 시작하거나 중지할 때 짧은 오디오 신호음이 들립니다.</translation>
     </message>
     <message>
         <source>Audio cue</source>
-        <translation>오디오 큐</translation>
+        <translation>오디오 신호</translation>
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>전송을 시작할 때 재생</translation>
     </message>
     <message>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>전송을 중지할 때 재생</translation>
     </message>
     <message>
         <source>Hold Time</source>
@@ -929,23 +930,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>PTT키를 누른 뒤에 마이크가 꺼지는 시간</translation>
+        <translation>눌러서 말하기 키를 놓은 후 마이크가 켜져 있는 시간</translation>
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>서버의 최대 네트워크 대역은%1kbit/s밖에 안됩니다. 음성 품질은 자동적으로%2kbit/s(%3 ms)로 조절 됩니다</translation>
+        <translation>서버 최대 네트워크 대역폭은 %1 kbit/s에 불과합니다. 오디오 품질이 %2 kbit/s (%3 ms)로 자동 조정됨</translation>
     </message>
     <message>
         <source>Max. Amplification</source>
-        <translation>최대 증폭량</translation>
+        <translation>최대 증폭</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation>Idle시의 동작</translation>
+        <translation>유휴 동작</translation>
     </message>
     <message>
         <source>minutes do</source>
-        <translation>이후에</translation>
+        <translation>분 후</translation>
     </message>
     <message>
         <source>nothing</source>
@@ -953,102 +954,102 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>deafen</source>
-        <translation>청취 금지</translation>
+        <translation>오디오 음소거</translation>
     </message>
     <message>
         <source>mute</source>
-        <translation>음소거</translation>
+        <translation>마이크 음소거</translation>
     </message>
     <message>
         <source>after</source>
-        <translation>after</translation>
+        <translation>후</translation>
     </message>
     <message>
         <source>Echo Cancellation</source>
-        <translation>반향 소거</translation>
+        <translation>에코 제거</translation>
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"></translation>
+        <translation>유휴 동작은 키 또는 마우스 버튼 입력 시 취소</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished"></translation>
+        <translation>활동 시 유휴 동작 실행 취소</translation>
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>오디오 입력</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;오디오에 사용할 입력 방법입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation type="unfinished"></translation>
+        <translation>품질이 &lt;b&gt;64 kb/s&lt;/b&gt;이상으로 설정된 경우 Opus&apos;의 저지연 모드를 활성화합니다. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"></translation>
+        <translation>품질이 &lt;b&gt;64 kbit/s&lt;/b&gt;이상으로 설정 될 때 Mumble이 Opus&apos;의 저 지연 모드를 활성화합니다. 저지연 모드는 왕복에서 지연 시간을 &lt;b&gt;~15 밀리초&lt;/b&gt;까지 줄입니다. 이 모드는 음악 및 VOIP 모드와 비교하여 동일한 품질을 유지하려면 더 높은 비트 전송률이 필요할 수 있습니다.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>낮은 지연 모드 허용</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>잡음 억제를 사용하지 마세요.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Speex에서 제공하는 잡음 억제 알고리즘을 사용합니다.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>RNNoise에서 제공하는 잡음 억제 알고리즘을 사용합니다.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Speex와 RNNoise의 조합을 사용하여 잡음을 억제합니다.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>둘 다</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Spex가 잡음를 억제하는 양을 제어합니다.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Speex 억제 강도</translation>
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크 음소거 신호</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;찾아보기...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;미리보기</translation>
     </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation>항상 활성</translation>
+        <translation>오픈 마이크</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>음성 활성</translation>
+        <translation>음성 감지</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>누르며 말하기</translation>
+        <translation>눌러서 말하기</translation>
     </message>
     <message>
         <source>Audio Input</source>
@@ -1076,95 +1077,95 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation>%1 kbit/s (오디오 %2, 포지션 %4, 오버헤드 %3)</translation>
+        <translation>%1 kbit/s (오디오 %2, 위치 %4, 오버헤드 %3)</translation>
     </message>
     <message>
         <source>Audio system</source>
-        <translation type="unfinished"></translation>
+        <translation>오디오 시스템</translation>
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>입력 장치</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished"></translation>
+        <translation>에코 제거 모드</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished"></translation>
+        <translation>전송 모드</translation>
     </message>
     <message>
         <source>PTT lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>눌러서 말하기 잠금 임계 값</translation>
     </message>
     <message>
         <source>PTT hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>눌러서 말하기 유지 임계 값</translation>
     </message>
     <message>
         <source>Silence below</source>
-        <translation type="unfinished"></translation>
+        <translation>무음 감도</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">현재 발언의 감지 가능성</translation>
+        <translation>현재 음성 감지 가능성</translation>
     </message>
     <message>
         <source>Speech above</source>
-        <translation type="unfinished"></translation>
+        <translation>음성 감도</translation>
     </message>
     <message>
         <source>Speech below</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">작은 음성 감도</translation>
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation type="unfinished">패킷 당 오디오</translation>
+        <translation>패킷 당 오디오</translation>
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">압축 품질(피크 대역 폭)</translation>
+        <translation>압축 품질 (최대 대역폭)</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation type="unfinished">잡음 억제</translation>
+        <translation>잡음 억제</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>최대 증폭</translation>
     </message>
     <message>
         <source>Transmission started sound</source>
-        <translation type="unfinished"></translation>
+        <translation>전송 시작 소리</translation>
     </message>
     <message>
         <source>Transmission stopped sound</source>
-        <translation type="unfinished"></translation>
+        <translation>전송 정지 소리</translation>
     </message>
     <message>
         <source>Initiate idle action after (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>후 유휴 동작 시작 (분)</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation type="unfinished">Idle시의 동작</translation>
+        <translation>유휴 동작</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크에 대한 접근이 거부되었습니다. 시스템 환경 설정 -&gt; 보안 및 개인 정보 -&gt; 개인 정보 -&gt; 마이크에서 설정을 변경하여 Mumble이 마이크를 사용하도록 허용하세요.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>마이크에 대한 접근이 거부되었습니다. 운영 체제의 마이크 설정에서 Mumble이 마이크를 사용할 수 있는지 확인하세요.</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">비활성</translation>
+        <translation>비활성화</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation type="unfinished"></translation>
+        <translation>에코 제거를 비활성화합니다.</translation>
     </message>
 </context>
 <context>
@@ -1179,23 +1180,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation>음성 출력 방법</translation>
+        <translation>오디오 출력 방법</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation>디바이스</translation>
+        <translation>장치</translation>
     </message>
     <message>
         <source>Output device for audio</source>
-        <translation>음성 출력 방법</translation>
+        <translation>오디오 출력 장치</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;음성을 위한 출력 디바이스입니다.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;오디오에 사용할 출력 장치입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>음향 위치</translation>
+        <translation>위치 오디오</translation>
     </message>
     <message>
         <source>Audio Output</source>
@@ -1203,7 +1204,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>기본 지터 버퍼(&amp;J)</translation>
+        <translation>기본 &amp;지터 버퍼</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
@@ -1211,23 +1212,23 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;지터 버퍼의 최소 안전 범위를 설정합니다.&lt;/b&gt;&lt;br /&gt;들어오는 모든 오디오는 버퍼링 되고, 지터 버퍼는 네트워크에서 지속 가능한 최소 수준으로 버퍼를 지속해서 넣으려고 시도하므로 지연 시간을 최대한 낮출 수 있습니다. 사용할 최소 버퍼 크기를 설정합니다. 만약 시작이 매우 불안하다면 이 값을 증가시키세요.</translation>
     </message>
     <message>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation>소리가 감소 되기 전의 유저에 대한 최소 거리</translation>
+        <translation>사운드 볼륨이 감소하기 전에 유저까지의 최소 거리</translation>
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>사운드 연산에 필요한 최소 거리를 설정합니다. 적어도 이 정도 거리로 설정 하고 있으면 다른 플레이어의 음성은 감소하지 않습니다.</translation>
+        <translation>사운드 계산을 위한 최소 거리를 설정합니다. 이보다 멀리 떨어져 있을 때까지 다른 유저의 음성 볼륨이 감소하지 않습니다.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"></translation>
+        <translation>사운드 계산을 위한 최대 거리를 설정합니다. 이보다 멀어지면 다른 유저의 음성 볼륨이 더 이상 감소하지 않습니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;루프 백 테스트 모드 하나가 유효하게 됩니다.&lt;/b&gt;&lt;br/&gt;&lt;i&gt;없음&lt;/i&gt;-루프백 비활성화&lt;br/&gt;&lt;i&gt;로컬&lt;/i&gt;-로컬 서버를 에뮬레이터 합니다.&lt;br/&gt;&lt;i&gt;서버&lt;/i&gt;서버에 루프 백을 요구합니다.&lt;br/&gt;루프 백이 활성화 되는 동안 다른 플레이어는 당신의 목소리를 듣지 못하므로 주의해 주세요. 이 설정은 애플리케이션 종료시에 저장 되지 않습니다.</translation>
+        <translation>&lt;b&gt;루프백 테스트 모드 중 하나가 활성화됩니다.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;없음&lt;/i&gt; - 루프백 비활성화&lt;br /&gt;&lt;i&gt;로컬&lt;/i&gt; - 로컬 서버에서 확인합니다.&lt;br /&gt;&lt;i&gt;서버&lt;/i&gt; - 서버에 루프백을 요청합니다.&lt;br /&gt;루프백이 활성화되면 다른 유저가 당신의 음성을 듣지 못합니다. 이 설정은 응용 프로그램 종료 시 저장되지 않습니다.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1235,28 +1236,28 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation>수신 음성의 볼륨</translation>
+        <translation>수신 음성 볼륨</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;수신 음성의 볼륨을 조정합니다.&lt;/b&gt;&lt;br /&gt;이 값을 100% 이상으로 늘리면 오디오가 왜곡됩니다.</translation>
     </message>
     <message>
         <source>Output Delay</source>
-        <translation>출력 딜레이</translation>
+        <translation>출력 지연</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation>버퍼 데이터량</translation>
+        <translation>버퍼할 데이터 양</translation>
     </message>
     <message>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>연결된 &quot;스피커&quot;는 실제 헤드폰</translation>
     </message>
     <message>
         <source>Bloom</source>
-        <translation>블룸</translation>
+        <translation type="unfinished">블룸</translation>
     </message>
     <message>
         <source>Factor for sound volume increase</source>
@@ -1264,15 +1265,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"></translation>
+        <translation>가까운 소스의 사운드 볼륨은 얼마나 증가해야 합니까?</translation>
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"></translation>
+        <translation>이것은 스피커가 연결되어 있지 않고 헤드폰만 연결되어 있다는 것을 나타냅니다. 스피커는 일반적으로 사용자 앞에 있고 헤드폰은 왼쪽/오른쪽에 있기 때문에 중요합니다.</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>출력 버퍼의 프리 버퍼의 양을 설정합니다. 여러가지 값으로 해보세요, 갑작스럽게 불안정 해지지 않는 가장 작은 값으로 설정하세요.</translation>
+        <translation>출력 버퍼에서 미리 버퍼링할 데이터양을 설정합니다. 다른 값으로 실험해보고 사운드가 갑자기 불안정하지 않은 가장 낮은 값으로 설정하세요.</translation>
     </message>
     <message>
         <source>Headphones</source>
@@ -1288,7 +1289,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>음성 볼륨이 줄어들지 않는 최대 거리</translation>
+        <translation>음성 볼륨이 감소하지 않는 최대 거리</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1296,7 +1297,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"></translation>
+        <translation>볼륨의 최대 거리에 얼마입니까?</translation>
     </message>
     <message>
         <source>Loopback Test</source>
@@ -1304,16 +1305,16 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Delay Variance</source>
-        <translation type="unfinished"></translation>
+        <translation>지연 분산</translation>
     </message>
     <message>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"></translation>
+        <translation>패킷 지연 시간 차이</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;루프 백 테스트를 위한 패킷 레이텐시의 값을 조정합니다.&lt;/b&gt;&lt;br/&gt;음성 네트워크 경로는 대부분의 경우 약간의 레이텐시 값을 포함합니다. 이 설정은 루프 백 모드 테스트 시 레이텐시의 값을 변경하게 합니다. 말하자면 이 값을 15ms로 하면, 20-35ms의 레이텐시 값과 80ms-95ms의 레이텐시 값을 가진 네트워크를 에뮬레이터 할 것입니다. 북미 인터넷 접속에서는 약 5ms정도의 레이텐시가 있습니다.</translation>
+        <translation>&lt;b&gt;루프백 테스트를 위한 패킷 지연 시간 차이를 설정합니다.&lt;/b&gt;&lt;br /&gt;대부분의 오디오 경로에는 일부 가변 대기 시간이 포함되어 있습니다. 이를 통해 루프백 모드 테스트에 대한 분산을 설정할 수 있습니다. 예를 들어 이 값을 15ms로 설정하면 ping 지연 시간이 20-35ms인 네트워크나 80-95ms인 네트워크를 확인할 수 있습니다. 대부분의 국내 네트워크 연결의 편차는 대략 5ms입니다.</translation>
     </message>
     <message>
         <source>Packet Loss</source>
@@ -1321,130 +1322,130 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Packet loss for loopback mode</source>
-        <translation>루프 백 모드에서의 패킷 손실</translation>
+        <translation>루프백 모드의 패킷 손실</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;루프 백 모드에서의 패킷 손실을 설정합니다.&lt;/b&gt;&lt;br/&gt;패킷 손실의 비율입니다. 송신 방향 대역 폭의 최대치에 이르거나 네트워크 접속에 문제가 없는 한은 0%가 될 것입니다</translation>
+        <translation>&lt;b&gt;루프백 모드의 패킷 손실을 설정합니다.&lt;/b&gt;&lt;br /&gt;이것은 손실 된 패킷의 비율입니다. 송신 대역폭이 최대치가 되거나 네트워크 연결에 문제가 없는 경우 이 값은 0%가 됩니다</translation>
     </message>
     <message>
         <source>&amp;Loopback</source>
-        <translation>루프백</translation>
+        <translation>&amp;루프백</translation>
     </message>
     <message>
         <source>Desired loopback mode</source>
-        <translation>사용하고 싶은 루프 백 모드</translation>
+        <translation>사용할 루프백 모드</translation>
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation>다른 어플리케이션의 음량을 감쇠...</translation>
+        <translation>응용 프로그램 볼륨 감소...</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation>대화 중의 다른 애플리케이션의 음량 감소율</translation>
+        <translation>대화 중 다른 응용 프로그램 볼륨 감소</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;대화 중 다른 애플리케이션의 음량의 감쇠시킵니다&lt;/b&gt;&lt;br/&gt;Mumble은 상대가 발언하고 있을 때나 발언을 상대에게 하고 있는 동안 다른 애플리케이션의 음량 감쇠를 지원합니다. 이 기능이 활성화 되고 있다면, 어플리케이션이 감쇠됩니다.</translation>
+        <translation>&lt;b&gt;대화 중 다른 응용 프로그램 볼륨 감소&lt;/b&gt;&lt;br /&gt;Mumble은 음성 수신 및 음성 송신 중 다른 응용 프로그램의 볼륨을 감소하는 것을 지원합니다. 이 기능이 활성화된 경우 다른 응용 프로그램의 볼륨 감소합니다.</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>다른 유저가 말하는 동안 Mumble이 다른 응용 프로그램의 볼륨 감소</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;다른 유저가 말하는 동안 응용 프로그램의 볼륨 감소&lt;/b&gt;&lt;br /&gt;Mumble은 음성 수신 및 음성 송신 중 다른 응용 프로그램의 볼륨을 감소하는 것을 지원합니다. 다른 유저가 당신에게 말하는 동안 기능이 활성화됩니다.</translation>
     </message>
     <message>
         <source>while other users talk</source>
-        <translation>다른 유저가 발언을 하는 도중</translation>
+        <translation>다른 유저가 말하는 동안</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>체크시 당신이 발언하고 있을 때, Mumble은 다른 애플리케이션의 음량을 낮춥니다</translation>
+        <translation>당신이 말하는 동안 다른 응용 프로그램의 볼륨 감소</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;당신이 말하는 동안 응용 프로그램 볼륨 감소&lt;/b&gt;&lt;br /&gt;Mumble은 음성 수신 및 음성 송신 중 다른 응용 프로그램의 볼륨을 감소하는 것을 지원합니다. 당신이 말하는 동안 기능이 활성화됩니다.</translation>
     </message>
     <message>
         <source>while you talk</source>
-        <translation>당신이 발언을 하는 도중</translation>
+        <translation>당신이 말하는 동안</translation>
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
-        <translation>전용 모드 입니다. 추천하지 않습니다.</translation>
+        <translation>단독 모드, 권장하지 않습니다.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;디바이스를 전용 모드로 활성합니다.&lt;/b&gt;&lt;br/&gt; 다른 애플리케이션이 이 장치를 사용할 수 없습니다.</translation>
+        <translation>&lt;b&gt;장치가 단독 모드로 열립니다.&lt;/b&gt;&lt;br /&gt;다른 응용 프로그램은 장치를 사용할 수 없습니다.</translation>
     </message>
     <message>
         <source>Exclusive</source>
-        <translation>전용</translation>
+        <translation>단독</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>체크 시, 당신이 말하고 있는 동안 다른 사용자의 볼륨을 낮출 경우 &quot;스피커 우선순위&quot;상태가 됩니다.</translation>
+        <translation>&quot;우선 발언자&quot; 상태가 되면 당신이 말하는 동안 다른 유저의 볼륨이 감소합니다.</translation>
     </message>
     <message>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble과 동일한 출력 소스를 사용하는 응용 프로그램만 볼륨 감소</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Mumble과 동일한 출력을 사용하는 응용 프로그램만 볼륨 감소&lt;/b&gt;&lt;br /&gt; Mumble과 다른 출력을 사용하는 응용 프로그램은 감소하지 않습니다.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"></translation>
+        <translation>동일한 출력 장치를 사용하여 응용 프로그램만 볼륨 감소</translation>
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"></translation>
+        <translation>펄스오디오 루프백 모듈 볼륨 감소</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;펄스오디오 루프백 모듈 볼륨 감소&lt;/b&gt;&lt;br /&gt;루프백 모듈이 Mumble의 출력 장치/싱크에 연결되어있는 경우에도 볼륨을 감소합니다.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"></translation>
+        <translation>펄스오디오 루프백 모듈 볼륨 감소</translation>
     </message>
     <message>
         <source>Audio output</source>
-        <translation type="unfinished"></translation>
+        <translation>오디오 출력</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;오디오에 사용할 출력 방법입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;우선 발언자로 말하는 동안 다른 유저 볼륨 감소&lt;/b&gt;&lt;br /&gt;Mumble은 방해받지 않기 위해 당신이 &lt;i&gt;우선 발언자&lt;/i&gt;로 말하는 동안 다른 유저의 볼륨을 감소하는 것을 지원합니다. 이 확인란을 선택하면 기능이 활성화됩니다.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>우선 발언자로 말하는 동안 다른 유저 볼륨 감소</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>활성화</translation>
     </message>
     <message>
         <source>Attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>볼륨 감소</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>플레이어의 오디오가 거리가 멀어짐에 따라 감소하는 최소 볼륨입니다. 사실적인 음성 거리를 위해 완전한 무음으로 감소하려면 0%로 설정하세요.</translation>
     </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
         <source>None</source>
-        <translation>빈칸</translation>
+        <translation>없음</translation>
     </message>
     <message>
         <source>Local</source>
@@ -1472,55 +1473,55 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation>출력 시스템</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>출력 장치</translation>
     </message>
     <message>
         <source>Default jitter buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>기본 지터 버퍼</translation>
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished">수신 음성의 볼륨</translation>
+        <translation>수신 음성 볼륨</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation>출력 지연</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished">대화 중의 다른 애플리케이션의 음량 감소율</translation>
+        <translation>대화 중 다른 응용 프로그램 볼륨 감소</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>최소 거리</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished"></translation>
+        <translation>최대 거리</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>최소 볼륨</translation>
     </message>
     <message>
         <source>Bloom</source>
-        <translation type="unfinished">블룸</translation>
+        <translation type="unfinished">Bloom</translation>
     </message>
     <message>
         <source>Delay variance</source>
-        <translation type="unfinished"></translation>
+        <translation>지연 분산</translation>
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished">패킷 손실</translation>
+        <translation>패킷 손실</translation>
     </message>
     <message>
         <source>Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>루프백</translation>
     </message>
 </context>
 <context>
@@ -1531,11 +1532,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Invalid sound file</source>
-        <translation>사운드 파일을 찾을수 없음</translation>
+        <translation>잘못된 사운드 파일</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>파일 &apos;%1&apos;은 Mumble에서 사용할 수 없습니다. 지원하는 포맷으로 인코딩 파일을 선택하세요.</translation>
+        <translation>&apos;%1&apos; 파일은 Mumble에서 사용할 수 없습니다. 호환되는 포맷 및 인코딩 파일을 선택하세요.</translation>
     </message>
 </context>
 <context>
@@ -1555,32 +1556,32 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Peak microphone level</source>
-        <translation>최대 마이크 레벨</translation>
+        <translation>최고 마이크 레벨</translation>
     </message>
     <message>
         <source>Peak power in last frame</source>
-        <translation>마지막 프레임에서 최대 출력</translation>
+        <translation>마지막 프레임 최고 위력</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>마지막 프레임(20 ms)최대 출력을 표시합니다. 평소의 &quot;입력 파워&quot;로 표시 되어 있는 측정 값과 같은 것입니다. 이건 무시하고&lt;b&gt;마이크 파워&lt;/b&gt;를 보시면 이쪽이 더 안정되고 외부 특이 영향을 무시합니다</translation>
+        <translation>마지막 프레임 (20 ms)의 최고 위력을 보여주며, 일반적으로 &quot;입력 위력&quot;으로 표시되는 것과 동일한 측정치입니다. 이것을 무시하고 &lt;b&gt;마이크 위력&lt;/b&gt;을 보면 훨씬 더 안정적이고 특이치를 무시합니다.</translation>
     </message>
     <message>
         <source>Peak speaker level</source>
-        <translation>최대 스피커 수준</translation>
+        <translation>최고 스피커 레벨</translation>
     </message>
     <message>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation>마지막 프레임(20 ms)에 스피커 최대 음량을 표시합니다. 스피커 설정을 변경해 다중 채널 샘플링(예를 들면 ASIO)를 사용하지 않는 한, 표시는 0이 됩니다. 설정으로 이런 구성을 하고 있을때 만약 다른 프로그램이 음성을 재생하는 동안에도 0을 표시 하고 있다면 설정이 잘못 된 것입니다.</translation>
+        <translation>마지막 프레임(20ms)에서 스피커의 최고 위력을 보여줍니다. 스피커 채널이 구성된 다중 채널 샘플링 방법(예: ASIO)을 사용하지 않는 한 0이 됩니다. 이러한 설정을 구성한 경우 다른 프로그램에서 오디오를 재생하는 동안에도 0이 표시되면 설정이 작동하지 않는 것입니다.</translation>
     </message>
     <message>
         <source>Peak clean level</source>
-        <translation>최대 클린 수준</translation>
+        <translation>최고 클린 레벨</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>마지막 프레임(20 ms)에서 모든 처리 이후 최대 음량을 표시합니다. 당신이 말하지 않을 때 -96 dB인 것이 이상적 입니다. 그러나 실제 음악 스튜디오에서도 -60 dB 입니다만 보통 유저들의 환경에서는-20 dB정도 나오면 좋은 편입니다. 당신이 말할 때는-5에서-10 dB정도까지 오릅니다.&lt;br/&gt;만약 당신이 에코 억제를 사용하여 말하지 않았는데도 -15 dB까지 오르게 되면 설정이 잘못 된 것입니다.</translation>
+        <translation>모든 처리 후 마지막 프레임(20ms)의 최고 위력을 나타냅니다. 말을 하지 않을 때는 -96 dB가 이상적입니다. 실제로 사운드 스튜디오에서는 -60 dB를 볼 수 있고 당신은 -20 dB 정도가 나오는 것을 기대해야 합니다. 당신이 말할 때 -5 dB에서 -10 dB 사이까지 상승할 것입니다.&lt;br /&gt;에코 제거를 사용하고 있고 말을 하지 않을 때 -15 dB 이상으로 증가하면 설정이 작동하지 않고 다른 유저에게 에코로 짜증 나게 할 것입니다.</translation>
     </message>
     <message>
         <source>Signal Analysis</source>
@@ -1588,11 +1589,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Microphone power</source>
-        <translation>마이크 세기</translation>
+        <translation>마이크 위력</translation>
     </message>
     <message>
         <source>How close the current input level is to ideal</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 입력 수준이 이상적인 레벨에 얼마나 가까운지</translation>
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
@@ -2483,7 +2484,7 @@ Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;당신은 이미 Mumble에 저장된 인증서가 있으며 이를 대체 합니다.&lt;/p&gt;
-&lt;p&gt;신뢰된 인증 의해 발행된 인증서로 업그레이드 하려고 합니다. 새로운 인증서의 Email 주소가 현재 당신의 인증서와  같은 것이라면 문제는 없습니다만 지금까지 유저 등록을 한 서버는 당신의 Email 주소를 바탕으로 보다 나은 인증서를 자동적으로 판별할 것입니다. 
+&lt;p&gt;신뢰된 인증 의해 발행된 인증서로 업그레이드 하려고 합니다. 새로운 인증서의 Email 주소가 현재 당신의 인증서와 같은 것이라면 문제는 없습니다만 지금까지 유저 등록을 한 서버는 당신의 Email 주소를 바탕으로 보다 나은 인증서를 자동적으로 판별할 것입니다. 
 &lt;/p&gt;
 &lt;p&gt; 만약에 그렇지 않다면 어느 서버에서 받은 인증이 없어집니다. 아직 어느 서버에도 유저 등록 되어 있지 않다면 이 걱정은 따로 할 필요가 없습니다. 
 &lt;/p&gt;
@@ -2773,7 +2774,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>우선 발언자</translation>
     </message>
     <message>
         <source>Recording</source>
@@ -3003,7 +3004,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Consent to the transmission of private data</source>
-        <translation type="unfinished"></translation>
+        <translation>개인 데이터 전송 동의</translation>
     </message>
     <message>
         <source>&lt;p&gt;To measure the latency (ping) of public servers and determine the number of active users, your IP address must be transmitted to each public server.&lt;/p&gt;&lt;p&gt;Do you consent to the transmission of your IP address? If you answer no, the public server list will be deactivated. However, you can reactivate it at any time in the network settings.&lt;/p&gt;</source>
@@ -4051,7 +4052,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;%1&quot;&gt;찾아보기&lt;/a&gt;</translation>
     </message>
     <message>
         <source>User Interface</source>
@@ -4888,7 +4889,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Undeafened.</source>
-        <translation> 청취 금지를 해제했습니다.</translation>
+        <translation>청취 금지를 해제했습니다.</translation>
     </message>
     <message>
         <source>Restart Mumble?</source>
@@ -6331,7 +6332,7 @@ Valid options are:
     </message>
     <message>
         <source>Context</source>
-        <translation type="unfinished">컨텍스트</translation>
+        <translation>컨텍스트</translation>
     </message>
     <message>
         <source>Identity</source>
@@ -6683,7 +6684,7 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation>아바타의 사이즈를 바꾸려면  사용자 위에서 마우스 휠을 움직여 주세요.</translation>
+        <translation>아바타의 사이즈를 바꾸려면 사용자 위에서 마우스 휠을 움직여 주세요.</translation>
     </message>
     <message>
         <source>For more options, right click a user.</source>
@@ -7969,7 +7970,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Send recursively to subchannels</source>
-        <translation> 서브 채널에 재귀적으로 보낸다</translation>
+        <translation>서브 채널에 재귀적으로 보낸다</translation>
     </message>
     <message>
         <source>Message</source>
@@ -8557,7 +8558,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Issued by:</source>
-        <translation>발행의: </translation>
+        <translation>발행의:</translation>
     </message>
     <message>
         <source>Unit Name</source>
@@ -8639,7 +8640,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>참조(&amp;B)</translation>
+        <translation>&amp;찾아보기...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>
