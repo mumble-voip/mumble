@@ -1021,15 +1021,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключить реплику</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation type="unfinished">&amp;Обзор…</translation>
+        <translation>&amp;Обзор…</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation type="unfinished">&amp;Предпросмотр</translation>
+        <translation>&amp;Предпросмотр</translation>
     </message>
 </context>
 <context>
@@ -1433,7 +1433,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Минимальная громкость звука игрока затухающая с увеличением расстояния. Установите значение 0%, чтобы он плавно переходил в полную тишину для максимально реалистичного звука.</translation>
     </message>
 </context>
 <context>
@@ -2993,7 +2993,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>C&amp;onnect</source>
-        <translation type="unfinished">&amp;Подключиться</translation>
+        <translation>&amp;Подключиться</translation>
     </message>
     <message>
         <source>Adding host %1</source>
@@ -4417,27 +4417,27 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation type="unfinished"></translation>
+        <translation>Строка иерархии канала</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Поиск</translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Действие, выполняемое при активации пользователя (двойным щелчком или вводом) в диалоговом окне поиска.</translation>
     </message>
     <message>
         <source>Action (User):</source>
-        <translation type="unfinished"></translation>
+        <translation>Действие (Пользователь):</translation>
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Действие, выполняемое при активации канала (двойным щелчком или вводом) в диалоговом окне поиска.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
-        <translation type="unfinished"></translation>
+        <translation>Действие (Канал):</translation>
     </message>
 </context>
 <context>
@@ -6261,42 +6261,43 @@ Valid options are:
     <message>
         <source>Directory %1 does not exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог %1 не существует.
+</translation>
     </message>
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Переключатель интерфейса диалога.</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Включить/Выключить интерфейс диалога.</translation>
+        <translation>Включить/Выключить интерфейс диалога.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вкл/Выкл фильтр каналов (Ctrl+F)</translation>
     </message>
     <message>
         <source>Alt+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Поиск</translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>Search for a user or channel (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск пользователя или канала (Ctrl+F)</translation>
     </message>
     <message>
         <source>Toggle search dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Включить/выключить диалог поиска</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет или закроет диалог поиска в зависимости от того, открыт ли он в данный момент</translation>
     </message>
 </context>
 <context>
@@ -7153,11 +7154,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Включить</translation>
+        <translation>Включить</translation>
     </message>
     <message>
         <source>PA</source>
-        <translation type="unfinished">PA</translation>
+        <translation>PA</translation>
     </message>
     <message>
         <source>KeyEvents</source>
@@ -7212,7 +7213,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginInstaller</name>
     <message>
         <source>PluginInstaller</source>
-        <translation type="unfinished">Установка плагина</translation>
+        <translation>Установка плагина</translation>
     </message>
     <message>
         <source>You are about to install the plugin listed below. Do you wish to proceed?</source>
@@ -7275,11 +7276,11 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginManager</name>
     <message>
         <source>%1 lost link</source>
-        <translation type="unfinished">%1 связь потеряна</translation>
+        <translation>%1 связь потеряна</translation>
     </message>
     <message>
         <source>%1 linked</source>
-        <translation type="unfinished">%1 связан</translation>
+        <translation>%1 связан</translation>
     </message>
     <message>
         <source>Plugin &quot;%1&quot; encountered a permanent error in positional data gathering</source>
@@ -7287,7 +7288,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot;</source>
-        <translation type="unfinished">Не-плагин найден в каталоге плагинов: &quot;%1&quot;</translation>
+        <translation>Не найден плагин в директории плагинов: &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Failed at loading manual plugin: %1</source>
@@ -7298,7 +7299,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginUpdater</name>
     <message>
         <source>PluginUpdater</source>
-        <translation type="unfinished">Обновление плагина</translation>
+        <translation>PluginUpdater</translation>
     </message>
     <message>
         <source>The following plugins can be updated.</source>
@@ -7522,7 +7523,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Invocation</source>
-        <translation type="unfinished">Вызов</translation>
+        <translation>Вызов</translation>
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
@@ -7619,34 +7620,34 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Нет</translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Присоединиться</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Поиск</translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>Enter search String...</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите запрос поиска...</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Настройки</translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <source>Whether to search for users</source>
-        <translation type="unfinished"></translation>
+        <translation>Нужно ли искать пользователей</translation>
     </message>
     <message>
         <source>&amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Пользователи</translation>
     </message>
     <message>
         <source>Whether the search should be performed case-sensitively</source>
@@ -7658,27 +7659,27 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры:</translation>
     </message>
     <message>
         <source>Whether the search string should be interpreted as a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Следует ли интерпретировать строку поиска как регулярное выражение</translation>
     </message>
     <message>
         <source>&amp;RegEx</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RegEx</translation>
     </message>
     <message>
         <source>&amp;Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Каналы</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Искать :</translation>
     </message>
     <message>
         <source>Whether to search for channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Нужно ли искать каналы</translation>
     </message>
 </context>
 <context>
@@ -7752,7 +7753,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Allowed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Разрешено:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Разрешено:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
@@ -7768,7 +7769,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>UDP (Voice)</source>
-        <translation type="unfinished">UDP (Голос)</translation>
+        <translation>UDP (Голос)</translation>
     </message>
     <message>
         <source>&lt;b&gt;Encryption:&lt;/b&gt;</source>
@@ -7784,27 +7785,27 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished">Хорошие</translation>
+        <translation>Хорошее</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished">С запозданием</translation>
+        <translation>С запозданием</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished">Потерянные</translation>
+        <translation>Потерянные</translation>
     </message>
     <message>
         <source>Resync</source>
-        <translation type="unfinished">Реcинхронизированные</translation>
+        <translation>Реcинхронизированные</translation>
     </message>
     <message>
         <source>Outgoing</source>
-        <translation type="unfinished">Исходящий</translation>
+        <translation>Исходящие</translation>
     </message>
     <message>
         <source>Incoming</source>
-        <translation type="unfinished">Входящий</translation>
+        <translation>Входящие</translation>
     </message>
     <message>
         <source>Voice packets is currently sent over TCP.</source>
@@ -7812,7 +7813,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>TCP (Control)</source>
-        <translation type="unfinished">TCP (Управление)</translation>
+        <translation>TCP (Управление)</translation>
     </message>
     <message>
         <source>&lt;b&gt;TLS version:&lt;/b&gt;</source>
@@ -7820,19 +7821,19 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;b&gt;Набор шифров:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Набор шифров:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished">&lt;прямая секретность&gt;</translation>
+        <translation>&lt;прямая секретность&gt;</translation>
     </message>
     <message>
         <source>&amp;View certificate</source>
-        <translation type="unfinished">&amp;Посмотреть сертификат</translation>
+        <translation>&amp;Посмотреть сертификат</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -7840,15 +7841,15 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>The connection provides perfect forward secrecy.</source>
-        <translation type="unfinished">Соединение обеспечивает идеальную прямую секретность.</translation>
+        <translation>Соединение обеспечивает идеальную прямую секретность.</translation>
     </message>
     <message>
         <source>The connection does NOT provide perfect forward secrecy.</source>
-        <translation type="unfinished">Соединение НЕ обеспечивает идеальной прямой секретности.</translation>
+        <translation>Соединение НЕ обеспечивает идеальной прямой секретности.</translation>
     </message>
     <message>
         <source>No information about forward secrecy available.</source>
-        <translation type="unfinished">Нет информации о прямой секретности.</translation>
+        <translation>Нет информации о прямой секретности.</translation>
     </message>
 </context>
 <context>
