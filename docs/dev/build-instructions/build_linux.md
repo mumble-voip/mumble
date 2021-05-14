@@ -31,6 +31,7 @@ sudo apt install \
   libspeechd-dev \
   libavahi-compat-libdnssd-dev \
   libzeroc-ice-dev \
+  libpoco-dev \
   g++-multilib
 ```
 
@@ -70,6 +71,7 @@ libICE-devel \
 libogg-devel \
 boost-devel \
 libcap-devel \
+poco-devel \
 gcc-toolset-9-gcc-c++ 
 ```
 
