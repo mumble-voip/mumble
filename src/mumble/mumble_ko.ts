@@ -1215,10 +1215,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;지터 버퍼의 최소 안전 범위를 설정합니다.&lt;/b&gt;&lt;br /&gt;들어오는 모든 오디오는 버퍼링 되고, 지터 버퍼는 네트워크에서 지속 가능한 최소 수준으로 버퍼를 지속해서 넣으려고 시도하므로 지연 시간을 최대한 낮출 수 있습니다. 사용할 최소 버퍼 크기를 설정합니다. 만약 시작이 매우 불안하다면 이 값을 증가시키세요.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>사운드 볼륨이 감소하기 전에 유저까지의 최소 거리</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>사운드 계산을 위한 최소 거리를 설정합니다. 이보다 멀리 떨어져 있을 때까지 다른 유저의 음성 볼륨이 감소하지 않습니다.</translation>
     </message>
@@ -1286,10 +1282,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Maximum Distance</source>
         <translation>최대 거리</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>음성 볼륨이 감소하지 않는 최대 거리</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,8 +1429,12 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>볼륨 감소</translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation>플레이어의 오디오가 거리가 멀어짐에 따라 감소하는 최소 볼륨입니다. 사실적인 음성 거리를 위해 완전한 무음으로 감소하려면 0%로 설정하세요.</translation>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1462,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Loopback</source>
         <translation>루프백</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished">플레이어의 오디오가 거리가 멀어짐에 따라 감소하는 최소 볼륨입니다. 사실적인 음성 거리를 위해 완전한 무음으로 감소하려면 0%로 설정하세요.</translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1653,7 +1661,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;현재 음성 탐지 설정을 표시합니다.&lt;/b&gt;&lt;br /&gt;설정 대화 상자 또는 오디오 마법사에서 설정을 변경할 수 있습니다.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
@@ -2024,7 +2032,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;오디오에 사용할 입력 방법입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
@@ -2044,23 +2052,23 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">입력 장치</translation>
     </message>
     <message>
         <source>Output system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">출력 시스템</translation>
     </message>
     <message>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">출력 장치</translation>
     </message>
     <message>
         <source>Output delay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">출력 지연</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">최대 증폭</translation>
     </message>
     <message>
         <source>VAD level</source>
@@ -7139,7 +7147,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">활성화</translation>
     </message>
     <message>
         <source>PA</source>
@@ -7461,7 +7469,7 @@ See &lt;a href=&quot;https://wiki.mumble.info/wiki/Installing_Mumble&quot;&gt;th
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">마이크에 대한 접근이 거부되었습니다. 시스템 환경 설정 -&gt; 보안 및 개인 정보 -&gt; 개인 정보 -&gt; 마이크에서 설정을 변경하여 Mumble이 마이크를 사용하도록 허용하세요.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied due to system restrictions. You will not be ableto use the microphone in this session.</source>
@@ -8705,7 +8713,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">마이크에 대한 접근이 거부되었습니다. 운영 체제의 마이크 설정에서 Mumble이 마이크를 사용할 수 있는지 확인하세요.</translation>
     </message>
 </context>
 <context>

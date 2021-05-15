@@ -1215,10 +1215,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>&lt;b&gt;设置抖动缓冲区的最小安全边际。&lt;/b&gt;&lt;br /&gt;所有传入的音频都被缓冲，抖动缓冲区不断尝试将缓冲区推进到您的网络最低的可持续限度，以尽可能降低延迟。这将设置要使用的最小缓冲区大小。如果您听到的句子开头抖动较大，请增大这个值。</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>语音音量开始减小的最小用户距离</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>设置声音计算的最小距离。在其他用户与您的距离超出这个值之前，他们的语音音量不会被减小。</translation>
     </message>
@@ -1286,10 +1282,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Maximum Distance</source>
         <translation>最大距离</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>语音音量不再减小的最大用户距离</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,8 +1429,12 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>衰减</translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation>玩家距离增大时，其音频减弱不会超过此最低音量。设置为 0% 时，超出最大可听见距离的玩家将会被完全静音。</translation>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished"> 米</translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1462,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 米</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1522,6 +1514,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Loopback</source>
         <translation>回放</translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished">玩家距离增大时，其音频减弱不会超过此最低音量。设置为 0% 时，超出最大可听见距离的玩家将会被完全静音。</translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

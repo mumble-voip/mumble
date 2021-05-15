@@ -1215,10 +1215,6 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>&lt;b&gt;Toto nastaví minimální bezpečnostní hranici pro vyrovnávací paměť chvění.&lt;/b&gt;&lt;br /&gt;Veškerý příchozí zvuk je uložen, a vyrovnávací paměť chvění se neustále snaží vyrovnávací paměť dotlačit na minimum udržitelné Vaší sítí, aby bylo zpoždění co nejmenší. Toto nastaví minimální velikost vyrovnávací paměti, kterou použít. Pokud je začátek vět, které slyšíte velmi roztřesený, tuto hodnotu zvyšte.</translation>
     </message>
     <message>
-        <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minimální vzdálenost od uživatele před snížením hlasitosti zvuku</translation>
-    </message>
-    <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>Toto nastaví minimální vzdálenost pro kalkulace zvuku. Hlasitost řeči ostatních uživatelů se nesníží, dokud nebudou mít alespoň tuto vzdálenost.</translation>
     </message>
@@ -1286,10 +1282,6 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     <message>
         <source>Maximum Distance</source>
         <translation>Maximální Vzdálenost</translation>
-    </message>
-    <message>
-        <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Maximální vzdálenost, za níž se hlasitost řeči nebude zvyšovat</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
@@ -1437,7 +1429,11 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1466,10 +1462,6 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
-    </message>
-    <message>
-        <source>%1 m</source>
-        <translation>%1 m</translation>
     </message>
     <message>
         <source>Output system</source>
@@ -1521,6 +1513,22 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>Loopback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which audio volume from another player starts decreasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
