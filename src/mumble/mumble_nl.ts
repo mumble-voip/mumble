@@ -2032,7 +2032,7 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
     <message>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>Deze configuratie wordt enkel aanbevolen als bandbreedtegebruik geen rol speelt, zoals in een lokaal netwerk. Het biedt de laagst mogelijke latentie die door Mumble aankan alsook een &lt;b&gt;hoge kwaliteit&lt;/b&gt;. (72 kbit/s, 10 ms per pakket)</translation>
+        <translation>Deze configuratie wordt enkel aanbevolen als bandbreedtegebruik geen rol speelt, zoals in een lokaal netwerk. Het biedt de laagst mogelijke latentie die Mumble aankan en een &lt;b&gt;hoge kwaliteit&lt;/b&gt;. (72 kbit/s, 10 ms per pakket)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
@@ -6302,7 +6302,66 @@ Valid options are:
                 Otherwise the locale will be permanently saved to
                 Mumble&apos;s settings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik: mumble [opties] [&lt;url&gt; | &lt;plugin_lijst&gt;]
+
+&lt;url&gt; specificeert een URL om verbinding mee te maken na het opstarten in plaats van
+het verbindingsvenster en heeft de volgende vorm:
+mumble://[&lt;gebruikersnaam&gt;[:&lt;wachtwoord&gt;]@]&lt;host&gt;[:&lt;poort&gt;][/&lt;kanaal&gt;[/&lt;subkanaal&gt;...]][?versie=&lt;x.y.z&gt;]
+
+&lt;plugin_lijst&gt; is een lijst van plugin-bestanden die moeten worden geïnstalleerd
+De versie-queryparameter moet worden ingesteld om de
+juiste client versie op te roepen. Momenteel staat deze standaard op 1.2.0.
+
+Geldige opties zijn:
+  -h, --help Toon deze helptekst en sluit af.
+  -m, --multiple
+                Sta toe dat meerdere instanties van de client worden gestart.
+  -c, --config
+                Geef een alternatief configuratiebestand op.
+                Als je dit gebruikt om meerdere instanties van Mumble tegelijk te draaien,
+                zorg er dan voor dat je een alternatieve &apos;database&apos; waarde in de configuratie zet.
+  --default-certificate-dir &lt;dir&gt;
+                Geef een alternatief standaard certificaatpad aan.
+                Dit pad wordt alleen gebruikt als er geen certificaat is geladen
+                van de instellingen.
+  -n, --noidentity
+                Onderdruk het laden van identiteitsbestanden (d.w.z. certificaten).
+  -jn, --jackname &lt;arg&gt;
+                Stel een aangepaste Jack-clientnaam in.
+  --licentie
+                Toont de Mumble licentie.
+  --auteurs
+                Toon de Mumble auteurs.
+  --licenties van derde partijen
+                Toont de licenties voor software van derde partijen die door Mumble gebruikt wordt.
+  --venster-title-ext &lt;arg&gt;
+                Stelt een aangepaste venstertitel extensie in.
+  --dump-input-streams
+                Dump PCM streams op verschillende plaatsen in de input keten
+                (nuttig voor debugging-doeleinden)
+                - ruwe microfoon-input
+                - luidspreker teruglezen voor echo-onderdrukking
+                - verwerkte microfoon-input
+  --print-echocancel-queue
+                afdrukken op stdout van de status van de echo-annulering wachtrij
+                (nuttig voor debugging-doeleinden)
+  --vertaal-dir &lt;dir&gt;
+                Specificeert een extra vertalingsdir &lt;dir&gt; waarin
+                Mumble zal zoeken naar vertaalbestanden die
+                de gebundelde overschrijven.
+                Mappen die op deze manier worden toegevoegd hebben een hogere prioriteit dan
+                de standaard locaties die anders worden gebruikt
+  --print-translation-dirs
+                Druk de paden af waarin Mumble zal zoeken naar
+                vertaalbestanden die de gebundelde overschrijven.
+                (Nuttig voor vertalers die hun vertalingen testen)
+  --locale &lt;locale&gt;
+                Overschrijf de locale in Mumble&apos;s instellingen met een
+                locale die overeenkomt met de gegeven locale string.
+                Als het formaat ongeldig is, zal Mumble een fout geven.
+                Anders zal de locale permanent worden opgeslagen in
+                Mumble&apos;s instellingen.
+</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
