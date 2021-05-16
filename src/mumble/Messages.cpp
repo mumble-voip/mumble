@@ -23,7 +23,7 @@
 #ifdef USE_OVERLAY
 #	include "Overlay.h"
 #endif
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
@@ -188,11 +188,11 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	QList< int > localListeners = Global::get().db->getChannelListeners(Global::get().sh->qbaDigest);
 
 	if (!localListeners.isEmpty()) {
-		ChannelListener::setInitialServerSyncDone(false);
+		Global::get().channelListenerManager->setInitialServerSyncDone(false);
 		Global::get().sh->startListeningToChannels(localListeners);
 	} else {
 		// If there are no listeners, then no synchronization is needed in the first place
-		ChannelListener::setInitialServerSyncDone(true);
+		Global::get().channelListenerManager->setInitialServerSyncDone(true);
 	}
 
 	{
@@ -201,14 +201,14 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		// officially exist. Therefore some code that would receive the change-event would try to get the respective
 		// listener and fail due to it not existing yet. Therefore we block all signals while setting the volume
 		// adjustments.
-		const QSignalBlocker blocker(ChannelListener::get());
+		const QSignalBlocker blocker(Global::get().channelListenerManager.get());
 
 		QHash< int, float > volumeMap =
 			Global::get().db->getChannelListenerLocalVolumeAdjustments(Global::get().sh->qbaDigest);
 		QHashIterator< int, float > it(volumeMap);
 		while (it.hasNext()) {
 			it.next();
-			ChannelListener::setListenerLocalVolumeAdjustment(it.key(), it.value());
+			Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(it.key(), it.value());
 		}
 	}
 
@@ -487,7 +487,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		ChannelListener::addListener(pDst, c);
+		Global::get().channelListenerManager->addListener(pDst->uiSession, c->iId);
 		emit userAddedChannelListener(pDst, c);
 
 		QString logMsg;
@@ -499,7 +499,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			// succecssfully told the server that we are listening to the respective channels. Even if this message
 			// here has nothing to do with the actual initial synchronization, this means that we have been connected
 			// to the server long enough for the synchronization to be done.
-			ChannelListener::setInitialServerSyncDone(true);
+			Global::get().channelListenerManager->setInitialServerSyncDone(true);
 		} else if (pSelf && pSelf->cChannel == c) {
 			logMsg = tr("%1 started listening to your channel").arg(Log::formatClientUser(pDst, Log::Target));
 		}
@@ -516,7 +516,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			continue;
 		}
 
-		ChannelListener::removeListener(pDst, c);
+		Global::get().channelListenerManager->removeListener(pDst->uiSession, c->iId);
 		emit userRemovedChannelListener(pDst, c);
 
 		QString logMsg;

@@ -9,7 +9,7 @@
 #include "AudioOutputSample.h"
 #include "AudioOutputSpeech.h"
 #include "Channel.h"
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "Message.h"
 #include "PacketDataStream.h"
 #include "PluginManager.h"
@@ -504,12 +504,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 				user = speech->p;
 				volumeAdjustment *= user->getLocalVolumeAdjustments();
 
-				if (user->cChannel && ChannelListener::isListening(Global::get().uiSession, user->cChannel->iId)
+				if (user->cChannel && Global::get().channelListenerManager->isListening(Global::get().uiSession, user->cChannel->iId)
 					&& (speech->ucFlags & SpeechFlags::Listen)) {
 					// We are receiving this audio packet only because we are listening to the channel
 					// the speaking user is in. Thus we receive the audio via our "listener proxy".
 					// Thus we'll apply the volume adjustment for our listener proxy as well
-					volumeAdjustment *= ChannelListener::getListenerLocalVolumeAdjustment(user->cChannel);
+					volumeAdjustment *= Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(user->cChannel->iId);
 				}
 
 				if (prioritySpeakerActive) {

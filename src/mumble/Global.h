@@ -13,6 +13,9 @@
 #include "Settings.h"
 #include "Timer.h"
 #include "Version.h"
+#include "ChannelListenerManager.h"
+
+#include <memory>
 
 // Global helper class to spread variables around across threads.
 
@@ -107,6 +110,7 @@ public:
 	QString windowTitlePostfix;
 	bool bDebugDumpInput;
 	bool bDebugPrintQueue;
+	std::unique_ptr<ChannelListenerManager> channelListenerManager;
 
 	bool bHappyEaster;
 	static const char ccHappyEaster[];

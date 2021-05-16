@@ -5,8 +5,9 @@
 
 #include "ListenerLocalVolumeDialog.h"
 #include "Channel.h"
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "ClientUser.h"
+#include "Global.h"
 
 #include <QtWidgets/QPushButton>
 
@@ -16,7 +17,7 @@ ListenerLocalVolumeDialog::ListenerLocalVolumeDialog(ClientUser *user, Channel *
 	: QDialog(parent), m_user(user), m_channel(channel) {
 	setupUi(this);
 
-	m_initialAdjustemt = ChannelListener::getListenerLocalVolumeAdjustment(m_channel);
+	m_initialAdjustemt = Global::get().channelListenerManager->getListenerLocalVolumeAdjustment(m_channel->iId);
 
 	// Decibel formula: +6db = *2
 	// Calculate the db-shift from the set volume-faactor
@@ -35,7 +36,7 @@ void ListenerLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int value) {
 
 	// Decibel formula: +6db = *2
 	// Calculate the volume-factor for the set db-shift
-	ChannelListener::setListenerLocalVolumeAdjustment(m_channel,
+	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(m_channel->iId,
 													  static_cast< float >(pow(2.0, qsUserLocalVolume->value() / 6.0)));
 }
 
@@ -53,7 +54,7 @@ void ListenerLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *b
 
 void ListenerLocalVolumeDialog::reject() {
 	// Restore to what has been set before the dialog
-	ChannelListener::setListenerLocalVolumeAdjustment(m_channel, m_initialAdjustemt);
+	Global::get().channelListenerManager->setListenerLocalVolumeAdjustment(m_channel->iId, m_initialAdjustemt);
 
 	QDialog::reject();
 }

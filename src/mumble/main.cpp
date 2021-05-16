@@ -28,7 +28,7 @@
 #endif
 #include "ApplicationPalette.h"
 #include "Channel.h"
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "ClientUser.h"
 #include "CrashReporter.h"
 #include "EnvUtils.h"
@@ -671,7 +671,7 @@ int main(int argc, char **argv) {
 					 &TalkingUI::on_channelListenerAdded);
 	QObject::connect(Global::get().mw, &MainWindow::userRemovedChannelListener, Global::get().talkingUI,
 					 &TalkingUI::on_channelListenerRemoved);
-	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, Global::get().talkingUI,
+	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged, Global::get().talkingUI,
 					 &TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged);
 
 	QObject::connect(Global::get().mw, &MainWindow::serverSynchronized, Global::get().talkingUI,

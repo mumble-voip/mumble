@@ -30,7 +30,7 @@
 #	include "OverlayClient.h"
 #endif
 #include "../SignalCurry.h"
-#include "ChannelListener.h"
+#include "ChannelListenerManager.h"
 #include "ListenerLocalVolumeDialog.h"
 #include "Markdown.h"
 #include "PTTButtonWidget.h"
@@ -331,7 +331,7 @@ void MainWindow::setupGui() {
 	QObject::connect(
 		this, &MainWindow::userRemovedChannelListener, pmModel,
 		static_cast< void (UserModel::*)(const ClientUser *, const Channel *) >(&UserModel::removeChannelListener));
-	QObject::connect(&ChannelListener::get(), &ChannelListener::localVolumeAdjustmentsChanged, pmModel,
+	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged, pmModel,
 					 &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 
 	// connect slots to PluginManager
@@ -951,7 +951,7 @@ void MainWindow::toggleSearchDialogVisibility() {
 
 static void recreateServerHandler() {
 	// New server connection, so the sync has not happened yet
-	ChannelListener::setInitialServerSyncDone(false);
+	Global::get().channelListenerManager->setInitialServerSyncDone(false);
 
 	ServerHandlerPtr sh = Global::get().sh;
 	if (sh && sh->isRunning()) {
@@ -1696,7 +1696,7 @@ void MainWindow::qmListener_aboutToShow() {
 		qmListener->addAction(qaListenerLocalVolume);
 		if (cContextChannel) {
 			qmListener->addAction(qaChannelListen);
-			qaChannelListen->setChecked(ChannelListener::isListening(Global::get().uiSession, cContextChannel->iId));
+			qaChannelListen->setChecked(Global::get().channelListenerManager->isListening(Global::get().uiSession, cContextChannel->iId));
 		}
 	} else {
 		qmListener->addAction(qaEmpty);
@@ -2148,7 +2148,7 @@ void MainWindow::qmChannel_aboutToShow() {
 		// If the server's version is less than 1.4, the listening feature is not supported yet
 		// and thus it doesn't make sense to show the action for it
 		qmChannel->addAction(qaChannelListen);
-		qaChannelListen->setChecked(ChannelListener::isListening(Global::get().uiSession, c->iId));
+		qaChannelListen->setChecked(Global::get().channelListenerManager->isListening(Global::get().uiSession, c->iId));
 	}
 
 	qmChannel->addSeparator();
@@ -3198,11 +3198,11 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	if (Global::get().sh->hasSynchronized()) {
 		// Note that the saving of the ChannelListeners has to be done, before resetting Global::get().uiSession
 		// Save ChannelListeners
-		ChannelListener::saveToDB();
+		Global::get().channelListenerManager->saveToDB();
 	}
 
 	// clear ChannelListener
-	ChannelListener::clear();
+	Global::get().channelListenerManager->clear();
 
 	Global::get().uiSession        = 0;
 	Global::get().pPermissions     = ChanACL::None;

@@ -10,7 +10,6 @@
 #endif
 
 #include "Channel.h"
-#include "ChannelListener.h"
 #include "Group.h"
 #include "Meta.h"
 #include "Server.h"
@@ -539,12 +538,12 @@ void Server::disconnectListener(QObject *obj) {
 }
 
 void Server::startListeningToChannel(ServerUser *user, Channel *cChannel) {
-	if (ChannelListener::isListening(user, cChannel)) {
+	if (m_channelListenerManager.isListening(user->uiSession, cChannel->iId)) {
 		// The user is already listening to this channel
 		return;
 	}
 
-	ChannelListener::addListener(user, cChannel);
+	m_channelListenerManager.addListener(user->uiSession, cChannel->iId);
 
 	MumbleProto::UserState mpus;
 	mpus.set_session(user->uiSession);
@@ -555,12 +554,12 @@ void Server::startListeningToChannel(ServerUser *user, Channel *cChannel) {
 }
 
 void Server::stopListeningToChannel(ServerUser *user, Channel *cChannel) {
-	if (!ChannelListener::isListening(user, cChannel)) {
+	if (!m_channelListenerManager.isListening(user->uiSession, cChannel->iId)) {
 		// The user is not listening to this channel
 		return;
 	}
 
-	ChannelListener::removeListener(user, cChannel);
+	m_channelListenerManager.removeListener(user->uiSession, cChannel->iId);
 
 	MumbleProto::UserState mpus;
 	mpus.set_session(user->uiSession);
