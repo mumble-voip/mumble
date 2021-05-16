@@ -1430,11 +1430,11 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished">m</translation>
+        <translation>m</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Afstand waarop het geluidsvolume van een andere speler begint met verlagen</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Afstand waarop het geluidsvolume van een andere speler zijn minimumwaarde bereikt heeft</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished">Het laagste volume waarop het geluid van een speler gezet mag worden als een fade-out plaatsvindt naargelang zijn afstand verhoogt. Zet dit op 0% om ervoor te zorgen dat je spelers helemaal niet meer hoort als ze te ver weg zijn, net zoals in de werkelijkheid.</translation>
+        <translation>Het laagste volume waarop het geluid van een speler gezet mag worden als een fade-out plaatsvindt naargelang zijn afstand verhoogt. Zet dit op 0% om ervoor te zorgen dat je spelers helemaal niet meer hoort als ze te ver weg zijn, net zoals in de werkelijkheid.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Als een geluidsbron dichtbij genoeg is, zal blooming ervoor zorgen dat het geluid op alle luidsprekers afgespeeld wordt, ongeacht hun positie (zij het met een lager volume)</translation>
     </message>
 </context>
 <context>

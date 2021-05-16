@@ -1093,7 +1093,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation>İletim modu</translation>
+        <translation>Aktarım modu</translation>
     </message>
     <message>
         <source>PTT lock threshold</source>
@@ -1430,11 +1430,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished">m</translation>
+        <translation>m</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Başka bir oyuncunun ses seviyesinin azalmaya başladığı mesafe</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir oyuncunun ses seviyesinin asgari değerine ulaştığı mesafe</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished">Bir oyuncunun sesinin mesafe arttıkça azalacağı asgari ses seviyesi. Gerçekçi bir azami işitme mesafesi için tam sessizliğe geçmesi için %0 olarak ayarlayın.</translation>
+        <translation>Bir oyuncunun sesinin mesafe arttıkça azalacağı asgari ses seviyesi. Gerçekçi bir azami işitme mesafesi için tam sessizliğe geçmesi için %0 olarak ayarlayın.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>Genişletme; bir ses kaynağı yeterince yakınsa, sesin tüm hoparlörlerde konumlarından bağımsız olarak (daha düşük ses seviyesinde de olsa) aşağı yukarı aynı çalınmasına neden olacaktır</translation>
     </message>
 </context>
 <context>

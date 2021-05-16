@@ -1430,11 +1430,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished"> 米</translation>
+        <translation>米</translation>
     </message>
 </context>
 <context>
@@ -1517,19 +1517,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation type="unfinished"></translation>
+        <translation>其他玩家音频音量开始减小的距离</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>其他玩家音频音量达到最小值的距离</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation type="unfinished">玩家距离增大时，其音频减弱不会超过此最低音量。设置为 0% 时，超出最大可听见距离的玩家将会被完全静音。</translation>
+        <translation>玩家距离增大时，其音频减弱不会超过此最低音量。设置为 0% 时，超出最大可听见距离的玩家将会被完全静音。</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation type="unfinished"></translation>
+        <translation>如果音源足够接近，音频会或多或少地在所有扬声器中播放，无论它们的位置如何（尽管音量较低）</translation>
     </message>
 </context>
 <context>
